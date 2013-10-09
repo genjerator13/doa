@@ -1,0 +1,4 @@
+ens_doa_admin:
+    resource: "@EnsDOAAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
