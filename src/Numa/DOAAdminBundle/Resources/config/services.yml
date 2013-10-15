@@ -1,0 +1,7 @@
+parameters:
+#    numa_doa_admin.example.class: Numa\DOAAdminBundle\Example
+
+services:
+#    numa_doa_admin.example:
+#        class: %numa_doa_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,0 +1,28 @@
+Numa\DOAAdminBundle\Entity\Catalogrecords:
+    type: entity
+    table: catalog_records
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            unique: true
+        url:
+            type: string
+            length: 255
+            unique: true
+        category_id:
+            type: integer
+    manyToOne:
+        CatalogCategory:
+            targetEntity: CatalogCategory
+            inversedBy: CatalogRecords
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

@@ -1,0 +1,6 @@
+numa_doa_admin_homepage:
+    pattern:  /admin
+    defaults: { _controller: NumaDOAAdminBundle:Default:index }
+NumaDOAAdminBundle_catalogs:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/catalogrecords.yml"
+        prefix:   /catalogs

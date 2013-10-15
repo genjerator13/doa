@@ -1,4 +1,5 @@
-ens_doa_admin:
-    resource: "@EnsDOAAdminBundle/Resources/config/routing.yml"
-    prefix:   /
+numa_doa_admin:
+    resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
 

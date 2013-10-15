@@ -1,6 +1,6 @@
 <?php
 
-namespace Ens\DOAAdminBundle\Tests\Controller;
+namespace Numa\DOAAdminBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

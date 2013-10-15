@@ -1,7 +1,0 @@
-parameters:
-#    ens_doa_admin.example.class: Ens\DOAAdminBundle\Example
-
-services:
-#    ens_doa_admin.example:
-#        class: %ens_doa_admin.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]

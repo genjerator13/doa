@@ -1,0 +1,30 @@
+catalogs:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:index" }
+
+catalogs_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:show" }
+
+catalogs_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:new" }
+
+catalogs_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:create" }
+    requirements: { _method: post }
+
+catalogs_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit" }
+
+catalogs_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:update" }
+    requirements: { _method: post|put }
+
+catalogs_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:delete" }
+    requirements: { _method: post|delete }
