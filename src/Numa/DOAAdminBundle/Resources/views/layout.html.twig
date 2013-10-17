@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- default:main:default.tpl -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title>iAuto Admin Panel </title>
+
+
+<link rel="stylesheet" href="{{ asset('bundles/NumaDOAAdmin/css/design.css') }}" type="text/css" media="all" />
+
+</head>
+<body class=" default ">
+
+	<div class="colmask leftmenu">
+		<div class="colright">
+			<div class="leftSectionWrap">
+				<div class="mainContent">
+
+
+<div class="dashboard">
+	<h1>Dashboard</h1>
+
+	
+               <div class="content">
+                   {% block content %}
+                   {% endblock %}
+               </div>
+	
+
+	
+</div>
+
+<!-- /default:miscellaneous:dashboard.tpl -->
+				</div>
+			</div>
+			<div class="leftSection">
+				<!-- default:main:left_block.tpl -->
+<div class="leftBlock">
+	<div class="logo">
+		<a href="http://www.cjvr.dealersonair.com/admin"><img src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/iAuto.png" alt="iAuto" border="0" /></a>
+	</div>
+	<div class="adminInfo">
+		<h1>Admin Panel</h1>
+
+		<!-- default:miscellaneous:lang_selector.tpl -->
+<form action="">
+    <div class="languageSelector">
+    <input type="hidden" value="/admin/" name="back" />
+    <select name="lang" onchange="this.form.submit()">
+                                <option value="en" selected="selected">English</option>
+            </select>
+    </div>
+</form>
+
+<!-- /default:miscellaneous:lang_selector.tpl -->
+		<div class="userManualAndLogoutWrapper">
+			<a target="_blank" href="#">User Manual</a>
+			<br />
+			<a href="#">Logout</a>
+		</div>
+	</div>
+	
+	<!-- default:menu:admin_left_menu.tpl -->
+<div class="leftMenu">
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionFeaturedImport">Featured Import</div>
+			<ul>
+															<li class="">
+							<a href="#" class="">Feeds</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Mapping</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Fetch</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionListingManagement">Listing Management</div>
+			<ul>
+															<li class="">
+							<a href="#" class="">Categories</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Add Listing</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Manage Listings</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Import Listings</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Export Listings</a>
+						</li>
+																				<li class="">
+							<a href="#" class="">Manage Comments</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionUserManagement">User Management</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/membership_plans/" class="">Membership Plans</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/user_groups/" class="">User Groups</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/users/" class="">Manage Users</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/users/import_users/" class="">Import Users</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/users/export_users/" class="">Export Users</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionSiteLayout">Site Layout</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/site_pages/" class="">Site Pages</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/edit_page_templates/" class="">Page Templates</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/edit_templates/" class="">Function Templates</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/edit_themes/" class="">Themes</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionPaymentManagement">Payment Management</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/payment/gateways/" class="">Payment Gateways</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/payment/payments/" class="">Payments</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/credits/credit_transactions/" class="">Credit Transactions</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/credits/credit_packages/" class="">Credit Packages</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionSystemConfiguration">System Configuration</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/adminpswd/" class="">Admin Password</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/settings/" class="">System Settings</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/geographic_data/" class="">Geographic Locations</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/miscellaneous/custom_settings/" class="">Custom Settings</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/ip_blocklist/blocklist/" class="">IP Blocklist Manager</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionContentManagement">Content Management</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/business/" class="">Business Catalog</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/polls/" class="">Online Polls</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/publications/" class="">Publications</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/stat_pages/" class="">Static Content</a>
+						</li>
+																					</ul>
+		</div>
+			<div class="section">
+			<div class="caption" id="MenuSectionCaptionLanguageManagement">Language Management</div>
+			<ul>
+															<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/manage_languages/" class="">Manage Languages</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/manage_phrases/" class="">Manage Phrases</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/import_language/" class="">Import Language</a>
+						</li>
+																				<li class="">
+							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/export_language/" class="">Export Language</a>
+						</li>
+																					</ul>
+		</div>
+	</div>
+
+
+<!-- /default:menu:admin_left_menu.tpl -->
+	
+	<div class="copyright">
+		&copy; 2013&ndash;2014&nbsp;Genjrator
+	</div>
+</div>
+
+<!-- /default:main:left_block.tpl -->
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+<!-- /default:main:default.tpl -->
+

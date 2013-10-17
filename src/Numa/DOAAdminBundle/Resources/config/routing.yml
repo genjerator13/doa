@@ -1,5 +1,5 @@
 numa_doa_admin_homepage:
-    pattern:  /admin
+    pattern:  /dashboard
     defaults: { _controller: NumaDOAAdminBundle:Default:index }
 NumaDOAAdminBundle_catalogs:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/catalogrecords.yml"
