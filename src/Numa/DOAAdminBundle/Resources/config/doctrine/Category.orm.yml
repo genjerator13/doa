@@ -1,0 +1,53 @@
+Numa\DOAAdminBundle\Entity\Category:
+    type: entity
+    table: category
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+       sid:
+            type: string
+            length: 255
+            nullable: true
+       parent:
+            type: integer
+       categoryorder:
+            type: integer
+            nullable: true
+       name:
+            type: string
+            length: 255
+            nullable: true
+       input_template:
+            type: string
+            length: 255
+            nullable: true
+       search_template:
+            type: string
+            length: 255
+            nullable: true
+       search_result_template:
+            type: string
+            length: 255
+            nullable: true
+       view_template:
+            type: string
+            length: 255
+            nullable: true
+       browsing_settings:
+            type: text
+            nullable: true
+       listing_caption_template_content:
+            type: text
+            nullable: true
+       last_modified:
+            type: datetime
+       listing_url_seo_data:
+            type: string
+            length: 255
+            nullable: true
+    oneToMany:
+        CatalogRecords:
+            targetEntity: Importfeed
+            mappedBy: categories

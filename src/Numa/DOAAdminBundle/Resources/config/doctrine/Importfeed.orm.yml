@@ -1,0 +1,129 @@
+Numa\DOAAdminBundle\Entity\Importfeed:
+    type: entity
+    table: import_feed
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        sid:                                     
+          type: string
+          length: 255
+          unique: true
+        description:                              
+           type: text
+        import_format:                            
+           type: string
+           length: 255
+           nullable: true
+        delimiter:                                                            
+           type: string
+           length: 255
+           nullable: true
+        import_method:                                                        
+           type: string
+           length: 255
+           nullable: true
+        import_source:                                                        
+           type: string
+           length: 255
+           nullable: true
+        root_node:                                                            
+           type: string
+           length: 255
+           nullable: true
+        listing_type:
+           type: integer
+           nullable: true
+        default_user:                                                         
+           type: string
+           length: 255
+           nullable: true
+        notify_on_user_registration:              
+           type: boolean
+           default: 0
+           nullable: true
+        options_key:                                                                                     
+           type: string
+           length: 255
+           nullable: true
+        options_separator:                                                                               
+           type: string
+           length: 255
+           nullable: true
+        default_package:                                                                                 
+           type: string
+           length: 255
+           nullable: true
+        pictures_key:                                                                                    
+           type: string
+           length: 255
+           nullable: true
+        pictures_separator:                                                                              
+           type: string
+           length: 255
+           nullable: true
+        activate_listing:                                       
+           type: boolean
+           default: 0
+           nullable: true
+        make_featured:                                          
+           type: boolean
+           default: 0
+           nullable: true
+        make_highlighted:                                       
+           type: boolean
+           default: 0
+           nullable: true
+        make_slideshow:                                         
+           type: boolean
+           default: 0
+           nullable: true
+        make_youtubevideo:                                      
+           type: boolean
+           default: 0
+           nullable: true
+        add_options:                                            
+           type: boolean
+           default: 0
+           nullable: true
+        add_list_values:                                        
+           type: boolean
+           default: 0
+           nullable: true
+        add_tree_values:                                        
+           type: boolean
+           default: 0
+           nullable: true
+        unique_field:                                                                                                           
+           type: string
+           length: 255
+           nullable: true
+        update_on_match:                                        
+           type: boolean
+           default: 0
+           nullable: true
+        expiration_after:                                                                                                       
+           type: integer
+           nullable: true
+        updated_on:
+          type: datetime
+          nullable: true
+        user_type:                                                                                                              
+           type: string
+           length: 255
+           nullable: true
+        user_unique_field:                                                                                                      
+           type: string
+           length: 255
+           nullable: true
+    manyToOne:
+        Category:
+            targetEntity: Category
+            inversedBy: Importfeed
+            joinColumn:
+                name: listing_type
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

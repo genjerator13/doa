@@ -1,0 +1,53 @@
+Numa\DOAAdminBundle\Entity\Listingfield:
+    type: entity
+    table: listing_field
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+      sid:                                     
+            type: string
+            length: 255
+            unique: true
+      category_sid:
+            type: integer
+      order:
+            type: integer
+      caption:                                     
+            type: string
+            length: 255
+            nullable: true
+      type:                                     
+            type: string
+            length: 255
+            nullable: true
+      is_required:                                     
+            type: boolean
+      minimum:                                     
+            type: string
+            length: 255
+            nullable: true
+      maximum:                                     
+            type: string
+            length: 255
+            nullable: true
+      signs_num:
+            type: integer
+            nullable: true
+      maxlength:                                     
+            type: string
+            length: 255
+            nullable: true
+      max_file_size:                                     
+            type: string
+            length: 255
+            nullable: true
+      levels_ids:                                     
+            type: string
+            length: 255
+            nullable: true
+      levels_captions:                                     
+            type: string
+            length: 255
+            nullable: true

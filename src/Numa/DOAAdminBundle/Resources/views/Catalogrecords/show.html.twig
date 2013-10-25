@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ 
+{% block content %}
     <h1>Catalogrecords</h1>
 
     <table class="record_properties">
@@ -26,12 +26,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('catalogs') }}">
+        <a href="{{ path('catalogs') }}" class="btn">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn">
             Edit
         </a>
     </li>

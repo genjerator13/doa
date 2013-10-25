@@ -5,37 +5,37 @@ namespace Numa\DOAAdminBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOAAdminBundle\Entity\Catalogrecords;
-use Numa\DOAAdminBundle\Form\CatalogrecordsType;
+use Numa\DOAAdminBundle\Entity\Importfeed;
+use Numa\DOAAdminBundle\Form\ImportfeedType;
 
 /**
- * Catalogrecords controller.
+ * Importfeed controller.
  *
  */
-class CatalogrecordsController extends Controller
+class ImportfeedController extends Controller
 {
 
     /**
-     * Lists all Catalogrecords entities.
+     * Lists all Importfeed entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
+        $entities = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findAll();
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:index.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Catalogrecords entity.
+     * Creates a new Importfeed entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Catalogrecords();
+        $entity = new Importfeed();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,88 +44,88 @@ class CatalogrecordsController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('catalogs_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('importfeed_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:new.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Catalogrecords entity.
+    * Creates a form to create a Importfeed entity.
     *
-    * @param Catalogrecords $entity The entity
+    * @param Importfeed $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Catalogrecords $entity)
+    private function createCreateForm(Importfeed $entity)
     {
-        $form = $this->createForm(new CatalogrecordsType(), $entity, array(
-            'action' => $this->generateUrl('catalogs_create'),
+        $form = $this->createForm(new ImportfeedType(), $entity, array(
+            'action' => $this->generateUrl('importfeed_create'),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create','attr' => array('class' => 'btn',)));
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
 
     /**
-     * Displays a form to create a new Catalogrecords entity.
+     * Displays a form to create a new Importfeed entity.
      *
      */
     public function newAction()
     {
-        $entity = new Catalogrecords();
+        $entity = new Importfeed();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:new.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Catalogrecords entity.
+     * Finds and displays a Importfeed entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
+            throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:show.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Catalogrecords entity.
+     * Displays a form to edit an existing Importfeed entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
+            throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class CatalogrecordsController extends Controller
     }
 
     /**
-    * Creates a form to edit a Catalogrecords entity.
+    * Creates a form to edit a Importfeed entity.
     *
-    * @param Catalogrecords $entity The entity
+    * @param Importfeed $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Catalogrecords $entity)
+    private function createEditForm(Importfeed $entity)
     {
-        $form = $this->createForm(new CatalogrecordsType(), $entity, array(
-            'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ImportfeedType(), $entity, array(
+            'action' => $this->generateUrl('importfeed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class CatalogrecordsController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Catalogrecords entity.
+     * Edits an existing Importfeed entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
+            throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class CatalogrecordsController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('importfeed_edit', array('id' => $id)));
         }
 
-        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Catalogrecords entity.
+     * Deletes a Importfeed entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class CatalogrecordsController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+            $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
+                throw $this->createNotFoundException('Unable to find Importfeed entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('catalogs'));
+        return $this->redirect($this->generateUrl('importfeed'));
     }
 
     /**
-     * Creates a form to delete a Catalogrecords entity by id.
+     * Creates a form to delete a Importfeed entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,9 +214,9 @@ class CatalogrecordsController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('catalogs_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('importfeed_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete','attr' => array('class' => 'btn btn-danger left',)))
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

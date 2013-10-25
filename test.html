@@ -7,13 +7,9 @@
 <meta name="description" content="" />
 <title>iAuto Admin Panel </title>
 
- <!-- Bootstrap -->
-<link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
 
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{{ asset('js/jquery.js') }}"><\/script>')</script>
-<script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('bundles/NumaDOAAdmin/css/design.css') }}" type="text/css" media="all" />
+<link rel="StyleSheet" type="text/css" href="design.css" />
+
 </head>
 <body class=" default ">
 
@@ -27,10 +23,7 @@
 	<h1>Dashboard</h1>
 
 	
-               <div class="content">
-                   {% block content %}
-                   {% endblock %}
-               </div>
+
 	
 
 	
@@ -72,10 +65,10 @@
 			<div class="caption" id="MenuSectionCaptionFeaturedImport">Featured Import</div>
 			<ul>
 															<li class="">
-							<a href="{{ path('importfeed') }}">Feeds</a>
+							<a href="#" class="">Feeds</a>
 						</li>
 																				<li class="">
-							<a href="{{ path('mapping') }}" class="">Mapping</a>
+							<a href="#" class="">Mapping</a>
 						</li>
 																				<li class="">
 							<a href="#" class="">Fetch</a>
@@ -216,10 +209,65 @@
 	</div>
 
 
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		function getOpened()
+		{
+			if ($.cookie('menuOpenedSectionsCaptions') == null)
+			{
+				return new Array();
+			}
+			return $.cookie('menuOpenedSectionsCaptions').split(",");
+		}
+		function setOpened(opened)
+		{
+			$.cookie('menuOpenedSectionsCaptions', unique(opened).join(","), {path: "/"});
+		}
+		function addToOpened(item)
+		{
+			var opened = getOpened();
+			opened.push(item);
+			setOpened(opened);
+		}
+		function removeFromOpened(item)
+		{
+			var opened = getOpened();
+			if ($.inArray(item, opened) != -1) opened[$.inArray(item, opened)] = null;
+			setOpened(opened);
+		}
+		function unique(baseArray)
+		{
+			var res = new Array();
+			for (var i in baseArray)
+			{
+				if ($.inArray(baseArray[i], res) == -1) res.push(baseArray[i]);
+			}
+			return res;
+		}
+		$(".leftMenu .section .caption").click(function(){
+			$(this).toggleClass('active');
+			$(this).next().toggle();
+			if($(this).hasClass('active'))
+				addToOpened($(this).attr('id'));
+			else
+				removeFromOpened($(this).attr('id'));
+			return false;
+		}).next().hide();
+		$(".leftMenu .section .caption.active").removeClass("active").click();
+		var opened = getOpened();
+		for (i in opened)
+			if (opened[i] != '' && !$("#" + opened[i]).hasClass('active'))
+				$("#" + opened[i]).click();
+	});
+	
+</script>
+
 <!-- /default:menu:admin_left_menu.tpl -->
 	
 	<div class="copyright">
-		&copy; 2013&ndash;2014&nbsp;Genjrator
+		&copy; 2006&ndash;2011&nbsp;Dealers On Air
 	</div>
 </div>
 
@@ -231,4 +279,3 @@
 </html>
 
 <!-- /default:main:default.tpl -->
-

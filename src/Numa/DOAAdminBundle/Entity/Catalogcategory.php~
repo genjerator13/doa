@@ -125,4 +125,10 @@ class Catalogcategory
     {
         return $this->CatalogRecords;
     }
+    
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
 }

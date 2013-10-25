@@ -1,13 +1,13 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ 
+{% block content %}
     <h1>Catalogrecords edit</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('catalogs') }}">
+        <a href="{{ path('catalogs') }}" class="btn">
             Back to the list
         </a>
     </li>

@@ -1,0 +1,33 @@
+importfeed:
+    pattern:  /feed
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:index" }
+mapping:
+    pattern:  /mapping
+    defaults: { _controller: "NumaDOAAdminBundle:Mapping:index" }
+
+importfeed_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:show" }
+
+importfeed_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:new" }
+
+importfeed_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:create" }
+    requirements: { _method: post }
+
+importfeed_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:edit" }
+
+importfeed_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:update" }
+    requirements: { _method: post|put }
+
+importfeed_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:delete" }
+    requirements: { _method: post|delete }

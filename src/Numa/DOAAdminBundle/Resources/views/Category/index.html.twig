@@ -1,32 +1,30 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
  
 {% block content %}
-    <h1>Catalogrecords list</h1>
+    <h1>Category list</h1>
 
-    <table class="records_list table">
+    <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Sid</th>
                 <th>Name</th>
-                <th>Url</th>
-                <th>Category_id</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('categories_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.sid }}</td>
                 <td>{{ entity.name }}</td>
-                <td>{{ entity.url }}</td>
-                <td>{{ entity.categoryid }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('catalogs_show', { 'id': entity.id }) }}" class="btn">show</a>
+                        <a href="{{ path('categories_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn">edit</a>
+                        <a href="{{ path('categories_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -37,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('catalogs_new') }}">
+            <a href="{{ path('categories_new') }}">
                 Create a new entry
             </a>
         </li>

@@ -1,0 +1,41 @@
+Numa\DOAAdminBundle\Entity\Importmapping:
+    type: entity
+    table: import_mapping
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+      sid:                                     
+          type: string
+          length: 255
+          unique: true
+      feed_sid:
+        type: integer
+      property:
+        type: text
+        nullable: true
+      description:
+        type: text
+        nullable: true
+      field_sid:
+        type: text
+        nullable: true
+      true_value:
+          type: string
+          length: 255
+          nullable: true
+      false_value:
+          type: string
+          length: 255
+          nullable: true
+      tree_level:
+          type: integer
+          nullable: true
+      object_type:
+          type: string
+          length: 255
+          nullable: true
+      value_map_values:
+        type: text
+        nullable: true

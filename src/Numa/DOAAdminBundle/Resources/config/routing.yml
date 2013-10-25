@@ -4,3 +4,12 @@ numa_doa_admin_homepage:
 NumaDOAAdminBundle_catalogs:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/catalogrecords.yml"
         prefix:   /catalogs
+NumaDOAAdminBundle_importfeed:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/importfeed.yml"
+        prefix:   /featured_import/feed
+NumaDOAAdminBundle_importfeed:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/importfeed.yml"
+        prefix:   /featured_import/mapping
+NumaDOAAdminBundle_categories:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/category.yml"
+        prefix:   /categories
