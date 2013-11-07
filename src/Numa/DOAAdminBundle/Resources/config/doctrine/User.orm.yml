@@ -1,0 +1,140 @@
+Numa\DOAAdminBundle\Entity\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        username:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255            
+        email:
+            type: string
+            length: 255
+            unique: true
+        user_group_id:
+            type: integer
+            nullable: true        
+        registration_date:
+            type: datetime
+            nullable: true 
+        active:
+            type: boolean
+            default: 0
+            nullable: true 
+        contract_id:
+            type: integer
+            nullable: true 
+        activation_key:
+            type: string
+            length: 255
+            nullable: true
+        verification_key:
+            type: string
+            length: 255
+            nullable: true
+        trusted_user:
+            type: boolean
+            default: 0
+            nullable: true 
+        FirstName:
+            type: string
+            length: 255
+            nullable: true
+        LastName:
+            type: string
+            length: 255
+            nullable: true
+        DealershipName:
+            type: string
+            length: 255
+            nullable: true
+        Address:
+            type: string
+            length: 255
+            nullable: true
+        City:
+            type: string
+            length: 255
+            nullable: true
+        PostalCode:
+            type: string
+            length: 32
+            nullable: true
+        PhoneNumber:
+            type: string
+            length: 32
+            nullable: true
+        DealershipWebsite:
+            type: string
+            length: 255
+            nullable: true
+        DisplayEmail:
+            type: boolean
+            default: 0
+            nullable: true 
+        State:
+            type: string
+            length: 255
+            nullable: true
+        DealershipLogo:
+            type: string
+            length: 255
+            nullable: true            
+        third_party_id:
+            type: integer
+            nullable: true
+        ServiceProviderContact:
+            type: string
+            length: 255
+            nullable: true
+        ServiceProviderAddress:
+            type: string
+            length: 255
+            nullable: true
+        ServiceProviderCity:
+            type: string
+            length: 255
+            nullable: true
+        ServiceProviderPostal:
+            type: string
+            length: 32
+            nullable: true
+        ServiceProviderWebsite:
+            type: string
+            length: 255
+            nullable: true
+        ServiceProviderProv:
+            type: string
+            length: 255
+            nullable: true
+        ServiceProviderFax:
+            type: string
+            length: 255
+            nullable: true
+              
+        date_created:
+            type: datetime
+            nullable: true
+            
+        date_updated:
+            type: datetime
+            nullable: true
+            
+    oneToMany:
+        Item:
+            targetEntity: Item
+            mappedBy: Users
+            
+    manyToOne:
+        UserGroup:
+            targetEntity: UserGroup
+            inversedBy: User
+            joinColumn:
+                name: user_group_id
+                referencedColumnName: id

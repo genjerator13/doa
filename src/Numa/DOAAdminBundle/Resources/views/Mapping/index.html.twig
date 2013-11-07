@@ -1,5 +1,24 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+
 {% block content %}
+
+<h3>Mapping {{entity.sid}}</h3>
+
+<table class="table" >
+    <tr ><td>Property</td><td>Listing field</td></tr>
+    {% for prop in XMLproperties %}
+    <tr><td></span>{{prop}}</td>
+        <td>
+            <select>
+
+                <option>Select mappin field</option>
+    {% for prop in dbProperties %}
+                <option>{{prop.sid}}</option>
+    {% endfor %}
+                </select>
+            </td></tr>
+    {% endfor %}
+    </table>
+
 
 {% endblock %}

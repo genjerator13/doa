@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Importmapping list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sid</th>
+                <th>Feed_sid</th>
+                <th>Property</th>
+                <th>Description</th>
+                <th>Field_sid</th>
+                <th>True_value</th>
+                <th>False_value</th>
+                <th>Tree_level</th>
+                <th>Object_type</th>
+                <th>Value_map_values</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('import_mapping_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.sid }}</td>
+                <td>{{ entity.feedsid }}</td>
+                <td>{{ entity.property }}</td>
+                <td>{{ entity.description }}</td>
+                <td>{{ entity.fieldsid }}</td>
+                <td>{{ entity.truevalue }}</td>
+                <td>{{ entity.falsevalue }}</td>
+                <td>{{ entity.treelevel }}</td>
+                <td>{{ entity.objecttype }}</td>
+                <td>{{ entity.valuemapvalues }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('import_mapping_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('import_mapping_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('import_mapping_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

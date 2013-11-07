@@ -19,13 +19,11 @@
                 <td>{{ entity.sid }}</td>
                 <td>{{ entity.name }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('categories_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('categories_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
+
+                        <a href="{{ path('categories_show', { 'id': entity.id }) }}" class="btn btn-primary">show</a>
+
+                        <a href="{{ path('categories_edit', { 'id': entity.id }) }}"  class="btn btn-primary">edit</a>
+
                 </ul>
                 </td>
             </tr>

@@ -79,7 +79,19 @@ class Listingfield
      */
     private $levels_captions;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ImportMapping;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ImportMapping = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -387,5 +399,38 @@ class Listingfield
     public function getLevelsCaptions()
     {
         return $this->levels_captions;
+    }
+
+    /**
+     * Add ImportMapping
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ImportMapping $importMapping
+     * @return Listingfield
+     */
+    public function addImportMapping(\Numa\DOAAdminBundle\Entity\ImportMapping $importMapping)
+    {
+        $this->ImportMapping[] = $importMapping;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ImportMapping
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ImportMapping $importMapping
+     */
+    public function removeImportMapping(\Numa\DOAAdminBundle\Entity\ImportMapping $importMapping)
+    {
+        $this->ImportMapping->removeElement($importMapping);
+    }
+
+    /**
+     * Get ImportMapping
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImportMapping()
+    {
+        return $this->ImportMapping;
     }
 }

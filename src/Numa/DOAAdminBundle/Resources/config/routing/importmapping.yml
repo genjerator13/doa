@@ -1,0 +1,39 @@
+import_mapping:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:index" }
+
+import_mapping_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:show" }
+
+import_mapping_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:new" }
+
+import_mapping_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:create" }
+    requirements: { _method: post }
+
+import_mapping_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:edit" }
+
+import_mapping_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:update" }
+    requirements: { _method: post|put }
+
+import_mapping_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:delete" }
+    requirements: { _method: post|delete }
+    
+import_mapping_feed:
+    pattern:  /{id}/feed
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:feed" }
+
+import_mapping_fetch:
+    pattern:  /{id}/fetch
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:fetch" }
+

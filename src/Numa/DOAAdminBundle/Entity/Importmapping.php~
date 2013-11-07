@@ -35,7 +35,7 @@ class Importmapping
     private $description;
 
     /**
-     * @var string
+     * @var integer
      */
     private $field_sid;
 
@@ -63,6 +63,11 @@ class Importmapping
      * @var string
      */
     private $value_map_values;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Listingfield
+     */
+    private $ListingFields;
 
 
     /**
@@ -170,7 +175,7 @@ class Importmapping
     /**
      * Set field_sid
      *
-     * @param string $fieldSid
+     * @param integer $fieldSid
      * @return Importmapping
      */
     public function setFieldSid($fieldSid)
@@ -183,7 +188,7 @@ class Importmapping
     /**
      * Get field_sid
      *
-     * @return string 
+     * @return integer 
      */
     public function getFieldSid()
     {
@@ -303,5 +308,28 @@ class Importmapping
     public function getValueMapValues()
     {
         return $this->value_map_values;
+    }
+
+    /**
+     * Set ListingFields
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingFields
+     * @return Importmapping
+     */
+    public function setListingFields(\Numa\DOAAdminBundle\Entity\Listingfield $listingFields = null)
+    {
+        $this->ListingFields = $listingFields;
+    
+        return $this;
+    }
+
+    /**
+     * Get ListingFields
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
+     */
+    public function getListingFields()
+    {
+        return $this->ListingFields;
     }
 }

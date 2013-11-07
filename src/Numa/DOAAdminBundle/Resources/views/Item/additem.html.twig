@@ -1,0 +1,12 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ 
+{% block content %}
+    <h1>Add Listing</h1>
+    <div class="hint">You can add new listings via the admin panel. Such listings will belong to the Administrator. When you created a listing you need to activate it. Please select the appropriate category to post a listing.</div>
+    <ul class="">
+        {% for entity in entities %}
+                <li><a href="{{ path('items_new', { 'cat_id': entity.id }) }}" >{{ entity.name }}</a></li>
+                        
+        {% endfor %}
+    </ul>
+    {% endblock %}

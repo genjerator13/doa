@@ -15,19 +15,63 @@ class ImportfeedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sid')
-            ->add('description')
-            ->add('import_format')
-            ->add('delimiter')
-            ->add('import_method')
-            ->add('import_source')
-            ->add('root_node')
-            ->add('Category')
-            ->add('default_user')
-            ->add('notify_on_user_registration')
-            ->add('options_key')
-            ->add('options_separator')
-            ->add('default_package')
+            ->add('sid', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('description', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('import_format', 'choice', array('choices' => $this->getImportFormatList(), 'expanded' => false,'attr'=>array('class'=>'form-control')))
+            ->add('delimiter', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('import_method', 'choice', array('choices' => $this->getImportMethod(), 'expanded' => false, 'attr'=>array('class'=>'form-control')))
+            ->add('import_source', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('root_node', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('Category', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('default_user', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('notify_on_user_registration', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('options_key', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('options_separator', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
+            ->add('default_package', null , array(
+                               'attr'=> 
+                                       array(
+                                         'class'=>'form-control')
+                    ))
             ->add('pictures_key')
             ->add('pictures_separator')
             ->add('activate_listing')
@@ -64,5 +108,17 @@ class ImportfeedType extends AbstractType
     public function getName()
     {
         return 'numa_doaadminbundle_importfeed';
+    }
+    
+        /**
+     * Get import format array list
+     * @return array
+     */
+    function getImportFormatList(){
+        return array('0'=>'Select format from the list','XML'=>'XML','CSV'=>'CSV','Iron Search XML'=>'Iron Search XML');
+    }
+    
+    function getImportMethod(){
+        return array('0'=>'Select fimport method','local-file'=>'Local File','upload-file'=>'Upload File','Link-URL'=>'Link (URL)');
     }
 }

@@ -21,17 +21,15 @@
 
                 
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('importfeed_show', { 'id': entity.id }) }}" class="btn">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" class="btn">edit</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('mapping', { 'id': entity.id }) }}" class="btn">Mapping</a>
-                    </li>
-                </ul>
+
+                        <a href="{{ path('importfeed_show', { 'id': entity.id }) }}" type="button" class="btn btn-default">show</a>
+
+                        <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-default">edit</a>
+
+                        <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-default">Mapping</a>
+
+                        <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-default">fetch</a>
+
                 </td>
             </tr>
         {% endfor %}

@@ -6,10 +6,19 @@ NumaDOAAdminBundle_catalogs:
         prefix:   /catalogs
 NumaDOAAdminBundle_importfeed:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/importfeed.yml"
-        prefix:   /featured_import/feed
-NumaDOAAdminBundle_importfeed:
-        resource: "@NumaDOAAdminBundle/Resources/config/routing/importfeed.yml"
-        prefix:   /featured_import/mapping
+        prefix:   /featuredimport
 NumaDOAAdminBundle_categories:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/category.yml"
         prefix:   /categories
+NumaDOAAdminBundle_import_mapping:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/importmapping.yml"
+        prefix:   /import_mapping
+NumaDOAAdminBundle_items:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/item.yml"
+        prefix:   /items
+NumaDOAAdminBundle_user:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+NumaDOAAdminBundle_user_group:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/usergroup.yml"
+        prefix:   /user_group

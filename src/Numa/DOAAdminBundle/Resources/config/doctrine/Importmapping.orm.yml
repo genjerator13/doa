@@ -9,7 +9,6 @@ Numa\DOAAdminBundle\Entity\Importmapping:
       sid:                                     
           type: string
           length: 255
-          unique: true
       feed_sid:
         type: integer
       property:
@@ -19,7 +18,7 @@ Numa\DOAAdminBundle\Entity\Importmapping:
         type: text
         nullable: true
       field_sid:
-        type: text
+        type: integer
         nullable: true
       true_value:
           type: string
@@ -39,3 +38,10 @@ Numa\DOAAdminBundle\Entity\Importmapping:
       value_map_values:
         type: text
         nullable: true
+    manyToOne:
+        ListingFields:
+            targetEntity: Listingfield
+            inversedBy: ImportMapping
+            joinColumn:
+                name: field_sid
+                referencedColumnName: id

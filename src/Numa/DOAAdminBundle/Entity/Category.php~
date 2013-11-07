@@ -433,4 +433,9 @@ class Category
     {
         return $this->CatalogRecords;
     }
+    
+        public function __toString()
+    {
+        return $this->getName();
+    }
 }

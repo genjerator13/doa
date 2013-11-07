@@ -51,3 +51,7 @@ Numa\DOAAdminBundle\Entity\Listingfield:
             type: string
             length: 255
             nullable: true
+    oneToMany:
+        ImportMapping:
+            targetEntity: ImportMapping
+            mappedBy: ListingFields

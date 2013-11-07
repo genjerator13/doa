@@ -6,14 +6,23 @@
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <title>iAuto Admin Panel </title>
-
+<link rel="stylesheet" href="{{ asset('bundles/NumaDOAAdmin/css/design.css') }}" type="text/css" media="all" />
  <!-- Bootstrap -->
 <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
+<link rel="stylesheet" href="{{ asset('jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}">
 
- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="{{ asset('js/jquery.js') }}"><\/script>')</script>
+ 
+<script>window.jQuery || document.write('<script src="{{ asset('bundles/NumaDOAAdmin/js/jquery-1.9.1.js') }}"><\/script>')</script>
 <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('bundles/NumaDOAAdmin/css/design.css') }}" type="text/css" media="all" />
+<script src="{{ asset('jqueryUI/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
+<script src="{{ asset('jqueryUI/js/jquery.ui.swappable.js') }}"></script>
+ <script>
+$(function() {
+$( ".sortable" ).sortable();
+$('.date').datepicker({ dateFormat: 'yy-MM-dd' })
+$( ".sortable" ).disableSelection();
+});
+</script>
 </head>
 <body class=" default ">
 
@@ -24,7 +33,7 @@
 
 
 <div class="dashboard">
-	<h1>Dashboard</h1>
+	
 
 	
                <div class="content">
@@ -43,7 +52,7 @@
 				<!-- default:main:left_block.tpl -->
 <div class="leftBlock">
 	<div class="logo">
-		<a href="http://www.cjvr.dealersonair.com/admin"><img src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/iAuto.png" alt="iAuto" border="0" /></a>
+		<a href="#"><img src="" alt="iAuto" border="0" /></a>
 	</div>
 	<div class="adminInfo">
 		<h1>Admin Panel</h1>
@@ -62,7 +71,7 @@
 		<div class="userManualAndLogoutWrapper">
 			<a target="_blank" href="#">User Manual</a>
 			<br />
-			<a href="#">Logout</a>
+			<a href="{{ path('logout') }}">Logout</a>
 		</div>
 	</div>
 	
@@ -86,10 +95,10 @@
 			<div class="caption" id="MenuSectionCaptionListingManagement">Listing Management</div>
 			<ul>
 															<li class="">
-							<a href="#" class="">Categories</a>
+							<a href="{{ path('categories') }}" class="">Categories</a>
 						</li>
 																				<li class="">
-							<a href="#" class="">Add Listing</a>
+							<a href="{{ path('additem') }}" class="">Add Listing</a>
 						</li>
 																				<li class="">
 							<a href="#" class="">Manage Listings</a>
@@ -109,19 +118,19 @@
 			<div class="caption" id="MenuSectionCaptionUserManagement">User Management</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/membership_plans/" class="">Membership Plans</a>
+							<a href="#" class="">Membership Plans</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/user_groups/" class="">User Groups</a>
+							<a href="{{ path('user_group') }}" class="">User Groups</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/users/" class="">Manage Users</a>
+							<a href="{{ path('user') }}" class="">Manage Users</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/users/import_users/" class="">Import Users</a>
+							<a href="#" class="">Import Users</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/users/export_users/" class="">Export Users</a>
+							<a href="#" class="">Export Users</a>
 						</li>
 																					</ul>
 		</div>
@@ -129,16 +138,16 @@
 			<div class="caption" id="MenuSectionCaptionSiteLayout">Site Layout</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/site_pages/" class="">Site Pages</a>
+							<a href="#" class="">Site Pages</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/edit_page_templates/" class="">Page Templates</a>
+							<a href="#" class="">Page Templates</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/edit_templates/" class="">Function Templates</a>
+							<a href="#" class="">Function Templates</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/edit_themes/" class="">Themes</a>
+							<a href="#" class="">Themes</a>
 						</li>
 																					</ul>
 		</div>
@@ -146,16 +155,16 @@
 			<div class="caption" id="MenuSectionCaptionPaymentManagement">Payment Management</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/payment/gateways/" class="">Payment Gateways</a>
+							<a href="#" class="">Payment Gateways</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/payment/payments/" class="">Payments</a>
+							<a href="#" class="">Payments</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/credits/credit_transactions/" class="">Credit Transactions</a>
+							<a href="#" class="">Credit Transactions</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/credits/credit_packages/" class="">Credit Packages</a>
+							<a href="#" class="">Credit Packages</a>
 						</li>
 																					</ul>
 		</div>
@@ -163,19 +172,19 @@
 			<div class="caption" id="MenuSectionCaptionSystemConfiguration">System Configuration</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/adminpswd/" class="">Admin Password</a>
+							<a href="#" class="">Admin Password</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/settings/" class="">System Settings</a>
+							<a href="#" class="">System Settings</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/geographic_data/" class="">Geographic Locations</a>
+							<a href="#" class="">Geographic Locations</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/miscellaneous/custom_settings/" class="">Custom Settings</a>
+							<a href="#" class="">Custom Settings</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/ip_blocklist/blocklist/" class="">IP Blocklist Manager</a>
+							<a href="#" class="">IP Blocklist Manager</a>
 						</li>
 																					</ul>
 		</div>
@@ -183,16 +192,16 @@
 			<div class="caption" id="MenuSectionCaptionContentManagement">Content Management</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/business/" class="">Business Catalog</a>
+							<a href="#" class="">Business Catalog</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/polls/" class="">Online Polls</a>
+							<a href="#" class="">Online Polls</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/publications/" class="">Publications</a>
+							<a href="#" class="">Publications</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/stat_pages/" class="">Static Content</a>
+							<a href="#" class="">Static Content</a>
 						</li>
 																					</ul>
 		</div>
@@ -200,16 +209,16 @@
 			<div class="caption" id="MenuSectionCaptionLanguageManagement">Language Management</div>
 			<ul>
 															<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/manage_languages/" class="">Manage Languages</a>
+							<a href="#" class="">Manage Languages</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/manage_phrases/" class="">Manage Phrases</a>
+							<a href="#" class="">Manage Phrases</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/import_language/" class="">Import Language</a>
+							<a href="#" class="">Import Language</a>
 						</li>
 																				<li class="">
-							<a href="http://www.cjvr.dealersonair.com/admin/system/I18N/export_language/" class="">Export Language</a>
+							<a href="#" class="">Export Language</a>
 						</li>
 																					</ul>
 		</div>

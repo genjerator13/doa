@@ -50,7 +50,7 @@ class Importfeed
     private $root_node;
 
     /**
-     * @var string
+     * @var integer
      */
     private $listing_type;
 
@@ -145,7 +145,7 @@ class Importfeed
     private $expiration_after;
 
     /**
-     * @var string
+     * @var \DateTime
      */
     private $updated_on;
 
@@ -158,6 +158,11 @@ class Importfeed
      * @var string
      */
     private $user_unique_field;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Category
+     */
+    private $Category;
 
 
     /**
@@ -334,7 +339,7 @@ class Importfeed
     /**
      * Set listing_type
      *
-     * @param string $listingType
+     * @param integer $listingType
      * @return Importfeed
      */
     public function setListingType($listingType)
@@ -347,7 +352,7 @@ class Importfeed
     /**
      * Get listing_type
      *
-     * @return string 
+     * @return integer 
      */
     public function getListingType()
     {
@@ -771,7 +776,7 @@ class Importfeed
     /**
      * Set updated_on
      *
-     * @param string $updatedOn
+     * @param \DateTime $updatedOn
      * @return Importfeed
      */
     public function setUpdatedOn($updatedOn)
@@ -784,7 +789,7 @@ class Importfeed
     /**
      * Get updated_on
      *
-     * @return string 
+     * @return \DateTime 
      */
     public function getUpdatedOn()
     {
@@ -836,26 +841,6 @@ class Importfeed
     {
         return $this->user_unique_field;
     }
-    /**
-     * @ORM\PrePersist
-     */
-    public function setCreatedAtValue()
-    {
-        // Add your code here
-    }
-
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAtValue()
-    {
-        // Add your code here
-    }
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\Category
-     */
-    private $Category;
-
 
     /**
      * Set Category
@@ -878,5 +863,23 @@ class Importfeed
     public function getCategory()
     {
         return $this->Category;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        // Add your code here
+    }
+    public function __toString() {
+        return $this->getSid();
     }
 }

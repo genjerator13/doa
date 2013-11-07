@@ -1,0 +1,40 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ 
+{% block content %}
+    <h1>Item list</h1>
+
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sid</th>
+                <th>Feed_id</th>
+                <th>Category_id</th>
+                <th>User_id</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('items_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.sid }}</td>
+                <td>{{ entity.feedid }}</td>
+                <td>{{ entity.categoryid }}</td>
+
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('items_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('items_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    {% endblock %}

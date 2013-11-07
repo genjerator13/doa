@@ -1,0 +1,16 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>UserGroup edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('user_group') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

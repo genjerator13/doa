@@ -1,0 +1,28 @@
+All:
+  Year:
+    type: integer
+  Vin:
+    type: integer
+Marine:
+    BoatMake:
+      type: integer
+    BoatFuelType:
+      type: list
+      values: 
+         - gas
+         - diesel
+         - gasoline
+    BoatSteeringType:
+      type: list
+      values:
+        - aaa
+        - bbb
+RVs:
+    RVLength:
+       type: string
+    RVWeight:
+       type: string
+    RVExteriorColour:
+       type: string
+Car:
+    

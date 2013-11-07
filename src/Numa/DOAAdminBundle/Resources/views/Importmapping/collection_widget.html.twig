@@ -1,0 +1,59 @@
+{% block collection_widget %}
+{% spaceless %}
+<div class="collection">
+
+        <div {{ block('widget_container_attributes') }}>
+{{ form_errors(form) }}
+                {% if prototype is defined %}
+{% set attr = attr|merge({'data-prototype': block('collection_item_widget') }) %}
+{% endif %}
+                <table class='table' {{ block('widget_container_attributes') }}>
+                                            <tr>
+                        {{ block('collection_header_widget') }}
+                        </tr>
+{% for prototype in form %}
+
+                        <tr>
+                        {{ block('collection_item_widget') }}
+                        </tr>
+{% endfor %}
+                    </table>
+<input type="submit" class="btn btn-primary" value="Submit..."/>                
+{{ form_rest(form) }}
+                </div>
+            </div>
+            <div class="clear"></div>
+{% endspaceless %}
+{% endblock collection_widget %}
+{% block    collection_header_widget %}
+{% spaceless %}      
+  {% set fieldNum = 1 %}
+{% for row in prototype %}
+            <th>
+                {{ form_label(row) }}
+{% set fieldNum = fieldNum + 1 %}
+            </th>
+{% endfor %}   
+{% endspaceless %}
+{% endblock collection_header_widget %}
+            
+{% block collection_item_widget %}
+{% spaceless %}
+
+{% set fieldNum = 1 %}
+{% for row in prototype %}
+            <td>
+                <div class="field{{ fieldNum }}">
+
+{{ form_widget(row, { 'attr': { 'class': 'test' }}) }}
+                </div>
+{% set fieldNum = fieldNum + 1 %}
+            </td>
+{% endfor %}
+            <td>
+                <a class="remove" title="Remove" href="#">
+                    <span>Delete</span>
+                </a>
+            </td>
+{% endspaceless %}
+{% endblock collection_item_widget %}

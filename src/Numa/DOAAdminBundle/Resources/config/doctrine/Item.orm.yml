@@ -1,0 +1,105 @@
+Numa\DOAAdminBundle\Entity\Item:
+    type: entity
+    table: item
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        sid:                                     
+              type: string
+              length: 255
+              nullable: true
+        feed_id:                                     
+              type: integer
+              nullable: true
+        category_id:                                     
+              type: integer
+              nullable: true
+        user_id:                                     
+              type: integer
+              nullable: true
+        active:                                     
+              type: boolean
+              default: 0
+              nullable: true
+        moderation_status:                                     
+              type: string
+              length: 255
+              nullable: true
+        keywords:
+              type: string
+              length: 255
+              nullable: true
+        featured:                                     
+              type: boolean
+              default: 0
+              nullable: true
+        views:                                     
+              type: integer
+              nullable: true
+        pictures:                                     
+              type: integer
+              nullable: true
+        activation_date:
+              type: datetime
+              nullable: true
+        expiration_date:
+              type: datetime
+              nullable: true
+        featured_last_showed:
+              type: datetime
+              nullable: true
+        date_created:
+              type: datetime
+              nullable: true
+
+        date_updated:
+              type: datetime
+              nullable: true
+        auto_extend:
+              type: boolean
+              nullable: true        
+        feature_highlighted:
+              type: boolean
+              default: 0    
+              nullable: true       
+        feature_slideshow:
+              type: boolean
+              default: 0           
+              nullable: true       
+        feature_youtube:
+              type: boolean
+              default: 0    
+              nullable: true       
+        last_user_ip:
+              type: string
+              length: 32
+              nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        Category:
+            targetEntity: Category
+            inversedBy: Item
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+        Importfeed:
+            targetEntity: Importfeed
+            inversedBy: Item
+            joinColumn:
+                name: feed_id
+                referencedColumnName: id
+        User:
+            targetEntity: User
+            inversedBy: Item
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+    oneToMany:
+        ItemField:
+            targetEntity: ItemField
+            mappedBy: Items
+            cascade:      [persist]

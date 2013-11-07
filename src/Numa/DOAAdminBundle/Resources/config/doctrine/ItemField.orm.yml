@@ -1,0 +1,36 @@
+Numa\DOAAdminBundle\Entity\ItemField:
+    type: entity
+    table: item_field
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        item_id:
+            type: integer
+        field_name:
+            type: string
+            length: 255
+        field_type:
+            type: string
+            length: 32
+            nullable: true
+        field_string_value:
+            type: text
+            nullable: true
+        field_boolean_value:
+            type: boolean
+            nullable: true
+        field_integer_value:
+            type: integer
+            nullable: true
+        field_datetime_value:
+            type: datetime
+            nullable: true
+    manyToOne:
+        Item:
+            targetEntity: Item
+            inversedBy: ItemField
+            joinColumn:
+                name: item_id
+                referencedColumnName: id            

@@ -1,0 +1,34 @@
+items:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Item:index" }
+
+items_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Item:show" }
+
+items_new:
+    pattern:  /{cat_id}/new
+    defaults: { _controller: "NumaDOAAdminBundle:Item:new" }
+
+additem:
+    pattern:  /additem
+    defaults: { _controller: "NumaDOAAdminBundle:Item:additem" }
+
+items_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Item:create" }
+    requirements: { _method: post }
+
+items_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Item:edit" }
+
+items_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Item:update" }
+    requirements: { _method: post|put }
+
+items_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Item:delete" }
+    requirements: { _method: post|delete }

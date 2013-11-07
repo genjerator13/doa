@@ -1,0 +1,152 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>User</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ entity.password }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>User_group_id</th>
+                <td>{{ entity.usergroupid }}</td>
+            </tr>
+            <tr>
+                <th>Registration_date</th>
+                <td>{{ entity.registrationdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ entity.active }}</td>
+            </tr>
+            <tr>
+                <th>Contract_id</th>
+                <td>{{ entity.contractid }}</td>
+            </tr>
+            <tr>
+                <th>Activation_key</th>
+                <td>{{ entity.activationkey }}</td>
+            </tr>
+            <tr>
+                <th>Verification_key</th>
+                <td>{{ entity.verificationkey }}</td>
+            </tr>
+            <tr>
+                <th>Trusted_user</th>
+                <td>{{ entity.trusteduser }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ entity.FirstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ entity.LastName }}</td>
+            </tr>
+            <tr>
+                <th>Dealershipname</th>
+                <td>{{ entity.DealershipName }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.Address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ entity.City }}</td>
+            </tr>
+            <tr>
+                <th>Postalcode</th>
+                <td>{{ entity.PostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ entity.PhoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Dealershipwebsite</th>
+                <td>{{ entity.DealershipWebsite }}</td>
+            </tr>
+            <tr>
+                <th>Displayemail</th>
+                <td>{{ entity.DisplayEmail }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ entity.State }}</td>
+            </tr>
+            <tr>
+                <th>Dealershiplogo</th>
+                <td>{{ entity.DealershipLogo }}</td>
+            </tr>
+            <tr>
+                <th>Third_party_id</th>
+                <td>{{ entity.thirdpartyid }}</td>
+            </tr>
+            <tr>
+                <th>Serviceprovidercontact</th>
+                <td>{{ entity.ServiceProviderContact }}</td>
+            </tr>
+            <tr>
+                <th>Serviceprovideraddress</th>
+                <td>{{ entity.ServiceProviderAddress }}</td>
+            </tr>
+            <tr>
+                <th>Serviceprovidercity</th>
+                <td>{{ entity.ServiceProviderCity }}</td>
+            </tr>
+            <tr>
+                <th>Serviceproviderpostal</th>
+                <td>{{ entity.ServiceProviderPostal }}</td>
+            </tr>
+            <tr>
+                <th>Serviceproviderwebsite</th>
+                <td>{{ entity.ServiceProviderWebsite }}</td>
+            </tr>
+            <tr>
+                <th>Serviceproviderprov</th>
+                <td>{{ entity.ServiceProviderProv }}</td>
+            </tr>
+            <tr>
+                <th>Serviceproviderfax</th>
+                <td>{{ entity.ServiceProviderFax }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('user') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('user_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

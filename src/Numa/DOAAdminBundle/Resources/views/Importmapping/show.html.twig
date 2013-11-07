@@ -1,0 +1,68 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Importmapping</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Sid</th>
+                <td>{{ entity.sid }}</td>
+            </tr>
+            <tr>
+                <th>Feed_sid</th>
+                <td>{{ entity.feedsid }}</td>
+            </tr>
+            <tr>
+                <th>Property</th>
+                <td>{{ entity.property }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
+            </tr>
+            <tr>
+                <th>Field_sid</th>
+                <td>{{ entity.fieldsid }}</td>
+            </tr>
+            <tr>
+                <th>True_value</th>
+                <td>{{ entity.truevalue }}</td>
+            </tr>
+            <tr>
+                <th>False_value</th>
+                <td>{{ entity.falsevalue }}</td>
+            </tr>
+            <tr>
+                <th>Tree_level</th>
+                <td>{{ entity.treelevel }}</td>
+            </tr>
+            <tr>
+                <th>Object_type</th>
+                <td>{{ entity.objecttype }}</td>
+            </tr>
+            <tr>
+                <th>Value_map_values</th>
+                <td>{{ entity.valuemapvalues }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('import_mapping') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('import_mapping_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

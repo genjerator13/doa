@@ -4,6 +4,9 @@ importfeed:
 mapping:
     pattern:  /mapping
     defaults: { _controller: "NumaDOAAdminBundle:Mapping:index" }
+mapping_feed:
+    pattern:  /mapping/{id}
+    defaults: { _controller: "NumaDOAAdminBundle:Mapping:mapping" }
 
 importfeed_show:
     pattern:  /{id}/show

@@ -1,0 +1,36 @@
+Numa\DOAAdminBundle\Entity\UserGroup:
+    type: entity
+    table: user_group
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+            name:
+                type: string
+                length: 255
+                unique: true
+            reg_form_template:
+                type: string
+                length: 255
+                nullable: true
+            description:
+                type: text
+                nullable: true
+            immediate_activation:
+                type: boolean
+                default: 0
+            user_menu_template:
+                type: string
+                length: 255
+                nullable: true
+            initial_balance:
+                type: integer
+                nullable: true
+            make_user_trusted:
+                type: boolean
+                defaullt: 0
+    oneToMany:
+        User:
+            targetEntity: User
+            mappedBy: UserGroups
