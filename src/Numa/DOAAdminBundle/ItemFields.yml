@@ -3,6 +3,8 @@ All:
     type: integer
   Vin:
     type: integer
+  AirConditioning:
+    type: boolean
 Marine:
     BoatMake:
       type: integer

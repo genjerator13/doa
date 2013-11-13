@@ -24,12 +24,14 @@ class ItemType extends AbstractType
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',
 	            'format' => 'yyyy-MM-dd',
-	            'attr' => array('class' => 'date')
+	            'attr' => array('class' => 'date'),
+                    'required'=>false
 	        ))
             ->add('expiration_date','date',array(
 	            'widget' => 'single_text',
 	            'format' => 'yyyy-MM-dd',
-	            'attr' => array('class' => 'date')
+	            'attr' => array('class' => 'date'),
+                    'required'=>false
 	        ))
             ->add('auto_extend')
             ->add('feature_highlighted')
@@ -37,6 +39,8 @@ class ItemType extends AbstractType
             ->add('feature_youtube')
             ->add('Importfeed')
             ->add('User')
+            ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType(),
+        'by_reference' => false,))
             ->add('Submit','submit')
             
         ;

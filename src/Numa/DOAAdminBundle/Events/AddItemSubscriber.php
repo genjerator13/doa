@@ -23,19 +23,25 @@ class AddItemSubscriber implements EventSubscriberInterface {
         if ($data->getFieldType()=='list') {
             $values = $data->getFieldStringValue();
 
-            $form->add('field_string_value', 'choice',array('choices'=>$values));
+            $form->add('field_string_value', 'choice',array('choices'=>$values,'required'=>false));
         }else if ($data->getFieldType()=='string') {
             $values = $data->getFieldStringValue();
-            $form->add('field_string_value', 'text');
+            $form->add('field_string_value','text', array('required'=>false));
         }
         else if ($data->getFieldType()=='integer') {
-            $values = $data->getFieldStringValue();
-            $form->add('field_integer_value', 'number');
+            $data->setFieldStringValue($data->getFieldIntegerValue());
+            $form->add('field_integer_value', 'number',array('required'=>false));
             $form->remove('field_string_value');
         }
         else if ($data->getFieldType()=='date') {
             $values = $data->getFieldStringValue();
-            $form->add('field_string_value', 'datetime');
+            $form->add('field_date_value', 'datetime',array('required'=>false));
+            $form->remove('field_string_value');
+        }
+        else if ($data->getFieldType()=='boolean') {
+            $data->setFieldStringValue($data->getFieldBooleanValue());
+            $values = $data->getFieldStringValue();
+            $form->add('field_boolean_value', 'checkbox',array('required'=>false));
             $form->remove('field_string_value');
         }
     }

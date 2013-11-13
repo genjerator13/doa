@@ -14,20 +14,23 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
     public static function getSubscribedEvents() {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData');
+        return array(FormEvents::POST_SET_DATA => 'preSetData');
+    }
+
+    function __construct($feed_sid)
+    {
+        $this->feed_sid = $feed_sid;
     }
 
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
 
-        // check if the product object is "new"
-        // If you didn't pass any data to the form, the data is "null".
-        // This should be considered a new "Product"
-        
+
         if (!$data || !$data->getId()) {
-            $feed = new XMLfeed(3);
-            $props = $feed->getXMLproperties(3);
+            $feed = new XMLfeed($this->feed_sid);
+
+            $props = $feed->getXMLproperties();
 
             $form->add('sid', 'choice', array('choices' => $props,'empty_value' => 'Choose an option','required'=>true));
         }

@@ -14,7 +14,7 @@ security:
             form_login:
                 login_path:  /login
                 check_path:  /login_check
-                default_target_path: ibw_jobeet_homepage
+                default_target_path: /admin/dashboard
             logout:
                 path:   /logout
                 target: /

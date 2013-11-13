@@ -8,6 +8,7 @@ use Numa\DOAAdminBundle\Entity\Importmapping;
 use Numa\DOAAdminBundle\Entity\Importmappings;
 use Numa\DOAAdminBundle\Form\ImportmappingType;
 use Numa\DOAAdminBundle\Form\ImportmappingRowType;
+use Numa\DOAAdminBundle\Lib\XMLfeed;
 
 /**
  * Importmapping controller.
@@ -223,10 +224,12 @@ class ImportmappingController extends Controller {
         $importmappingCollection = new Importmappings();
 
         foreach ($entities as $entity) {
+            $entity->setFeedSid($id);
             $importmappingCollection->addImportmappingRow($entity);
         }
 
-        $collection = $this->createForm(new ImportmappingRowType(), $importmappingCollection);
+        $collection = $this->createForm(new ImportmappingRowType($id), $importmappingCollection);
+
         $collection->add('feed_sid', 'hidden', array(
             'data' => $id));
         $collection->handleRequest($request);
@@ -249,8 +252,12 @@ class ImportmappingController extends Controller {
     }
     
     public function fetchAction(Request $request = null, $id) {
-        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array(
+        $em = $this->getDoctrine()->getManager();
 
+        $XMLfeed = new XMLfeed($id);
+        $items = $XMLfeed->getXMLItems();
+        print_r($items);
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array(
         ));
     }
 

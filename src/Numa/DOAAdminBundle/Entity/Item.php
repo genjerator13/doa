@@ -620,9 +620,8 @@ class Item
      */
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
     {
-        
+        $this->ItemField->add($itemField);
         $itemField->setItem($this);
-        $this->ItemField[] = $itemField;
         return $this;
     }
 

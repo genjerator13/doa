@@ -1,9 +1,9 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+
 {% block content %}
-    <h1>Add {{entity.category}}</h1>
-{{ form_start(form) }}
-{{ form_errors(form) }}
+    <h1>Add {{ entity.category }}</h1>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
     {{ form_row (form._token) }}
     {{ form_row(form.moderation_status) }}
     {{ form_row(form.keywords) }}
@@ -20,27 +20,36 @@
     {{ form_row(form.User) }}
     <ul>
         {% for field in form.Itemfield %}
-        <li>
+            <li>
             <span>
                 {{ form_row(field.field_name) }}
                 {{ field.vars.value.getFieldName }}
-            </span>
-            {{ form_row(field.field_type) }}
-            <span>
-                {{ form_row(field.field_string_value) }}
-            </span>
-        </li>
+                </span>
+                {{ form_row(field.field_type) }}
+                <span>
+                {% if field.field_string_value is defined %}
+                    {{ form_widget(field.field_string_value) }}
+                {% endif %}
+                    {% if field.field_integer_value is defined %}
+                        {{ form_widget(field.field_integer_value) }}
+                    {% endif %}
+                    {% if field.field_boolean_value is defined %}
+                        {{ form_widget(field.field_boolean_value) }}
+                    {% endif %}
+                    </span>
+            </li>
+
+        {% endfor %}
     </ul>
-    {% endfor %}
     {{ form_row(form.Submit) }}
 
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('items') }}">
-            Back to the list
-        </a>
-    </li>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('items') }}">
+                Back to the list
+            </a>
+        </li>
 
-</ul>
+    </ul>
 {% endblock %}

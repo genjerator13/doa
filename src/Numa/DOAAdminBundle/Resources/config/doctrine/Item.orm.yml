@@ -101,5 +101,4 @@ Numa\DOAAdminBundle\Entity\Item:
     oneToMany:
         ItemField:
             targetEntity: ItemField
-            mappedBy: Items
-            cascade:      [persist]
+            mappedBy: Item
