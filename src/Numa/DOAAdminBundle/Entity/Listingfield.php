@@ -435,6 +435,45 @@ class Listingfield
     }
     
     public function __toString() {
-        return $this->getSid();
+        return $this->getCaption();
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ItemField;
+
+
+    /**
+     * Add ItemField
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
+     * @return Listingfield
+     */
+    public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
+    {
+        $this->ItemField[] = $itemField;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ItemField
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
+     */
+    public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
+    {
+        $this->ItemField->removeElement($itemField);
+    }
+
+    /**
+     * Get ItemField
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItemField()
+    {
+        return $this->ItemField;
+    }
+
 }

@@ -50,14 +50,9 @@ class ItemField
     private $field_datetime_value;
 
     /**
-     * @var integer
+     * @var \Numa\DOAAdminBundle\Entity\Item
      */
-    private $field_id;
-
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\Listingfield
-     */
-    private $Listingfield;
+    private $Item;
 
 
     /**
@@ -232,12 +227,45 @@ class ItemField
     }
 
     /**
-     * Set field_id
+     * Set Item
      *
-     * @param integer $fieldId
+     * @param \Numa\DOAAdminBundle\Entity\Item $item
      * @return ItemField
      */
-    public function setFieldId($fieldId)
+    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
+    {
+        $this->Item = $item;
+    
+        return $this;
+    }
+
+    /**
+     * Get Item
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Item 
+     */
+    public function getItem()
+    {
+        return $this->Item;
+    }
+    /**
+     * @var integer;
+     */
+    private $field_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Listingfield
+     */
+    private $Listingfield;
+
+
+    /**
+     * Set field_id
+     *
+     * @param \integer; $fieldId
+     * @return ItemField
+     */
+    public function setFieldId(\integer; $fieldId)
     {
         $this->field_id = $fieldId;
     
@@ -247,7 +275,7 @@ class ItemField
     /**
      * Get field_id
      *
-     * @return integer 
+     * @return \integer; 
      */
     public function getFieldId()
     {
@@ -275,37 +303,5 @@ class ItemField
     public function getListingfield()
     {
         return $this->Listingfield;
-    }
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\Item
-     */
-    private $Item;
-
-
-    /**
-     * Set Item
-     *
-     * @param \Numa\DOAAdminBundle\Entity\Item $item
-     * @return ItemField
-     */
-    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
-    {
-        $this->Item = $item;
-    
-        return $this;
-    }
-
-    /**
-     * Get Item
-     *
-     * @return \Numa\DOAAdminBundle\Entity\Item 
-     */
-    public function getItem()
-    {
-        return $this->Item;
-    }
-
-    public function __toString(){
-        return $this->getFieldName();
     }
 }

@@ -27,10 +27,21 @@ Numa\DOAAdminBundle\Entity\ItemField:
         field_datetime_value:
             type: datetime
             nullable: true
+        field_id:
+            type: integer
+            nullable: true
     manyToOne:
         Item:
             targetEntity: Item
             inversedBy: ItemField
             joinColumn:
                 name: item_id
-                referencedColumnName: id            
+                referencedColumnName: id
+                onDelete: cascade
+        Listingfield:
+            targetEntity: Listingfield
+            inversedBy: ItemField
+            joinColumn:
+                name: field_id
+                referencedColumnName: id
+                onDelete: cascade

@@ -1,5 +1,6 @@
 Numa\DOAAdminBundle\Entity\Listingfield:
     type: entity
+    repositoryClass: Numa\DOAAdminBundle\Entity\ListingfieldRepository
     table: listing_field
     id:
         id:
@@ -54,4 +55,8 @@ Numa\DOAAdminBundle\Entity\Listingfield:
     oneToMany:
         ImportMapping:
             targetEntity: ImportMapping
+            mappedBy: ListingFields
+
+        ItemField:
+            targetEntity: ItemField
             mappedBy: ListingFields

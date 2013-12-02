@@ -34,7 +34,9 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "braincrafted/bootstrap-bundle": "dev-master",
         "twbs/bootstrap": "v3.0.0",
-        "jquery/jquery": "1.9.*"
+        "jquery/jquery": "1.9.*",
+        "doctrine/mongodb-odm": "1.0.*@dev",
+        "doctrine/mongodb-odm-bundle": "3.0.*@dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -55,7 +57,7 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",

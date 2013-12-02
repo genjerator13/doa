@@ -102,3 +102,8 @@ Numa\DOAAdminBundle\Entity\Item:
         ItemField:
             targetEntity: ItemField
             mappedBy: Item
+            cascade: ["persist","remove"]
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+                onDelete: cascade

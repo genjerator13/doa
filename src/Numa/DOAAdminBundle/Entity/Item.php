@@ -636,6 +636,18 @@ class Item
     }
 
     /**
+     * Remove ItemField
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
+     */
+    public function removeAllItemField()
+    {
+
+        $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
+    /**
      * Get ItemField
      *
      * @return \Doctrine\Common\Collections\Collection 

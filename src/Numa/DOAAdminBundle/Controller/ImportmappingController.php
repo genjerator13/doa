@@ -2,6 +2,9 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOAAdminBundle\Entity\ItemField;
+use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importmapping;
@@ -9,6 +12,7 @@ use Numa\DOAAdminBundle\Entity\Importmappings;
 use Numa\DOAAdminBundle\Form\ImportmappingType;
 use Numa\DOAAdminBundle\Form\ImportmappingRowType;
 use Numa\DOAAdminBundle\Lib\XMLfeed;
+
 
 /**
  * Importmapping controller.
@@ -22,11 +26,9 @@ class ImportmappingController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findAll();
-
         return $this->render('NumaDOAAdminBundle:Importmapping:index.html.twig', array(
-                    'entities' => $entities,
+            'entities' => $entities,
         ));
     }
 
@@ -219,16 +221,47 @@ class ImportmappingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
+
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
+        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0,$feed->getListingType())),
+                                                                                array('category_sid'=>'ASC','caption'=>'ASC'));
+        $listingfields = array();
+        foreach ($fields as $field){
+            $listingfields['listing'][$field->getId()] = $field->getCaption();
+        }
+        $listingfields['preferredChoices'] = array('596');
 
         $importmappingCollection = new Importmappings();
+        if(!empty($entities))
+        {
+            foreach ($entities as $entity) {
+                $entity->setFeedSid($id);
+                $importmappingCollection->addImportmappingRow($entity);
+            }
+        }else{
+            $XMLfeed = new XMLfeed($id);
+            $props = $XMLfeed->getXMLproperties();
+            //print_r($props);
 
-        foreach ($entities as $entity) {
-            $entity->setFeedSid($id);
-            $importmappingCollection->addImportmappingRow($entity);
+            foreach($props as $prop)
+            {
+
+                $im = new Importmapping();
+                $im->setDescription($prop);
+                $im->setSid($prop);
+                $im->setProperty($prop);
+                $lf  = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneById(600);
+                $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop);
+                //print_r(($test->getCaption()));
+                $im->setListingFields($test);
+
+                $importmappingCollection->addImportmappingRow($im);
+
+            }
+            //$form->add('sid', 'choice', array('choices' => $props,'empty_value' => 'Choose an option','required'=>true));
         }
 
-        $collection = $this->createForm(new ImportmappingRowType($id), $importmappingCollection);
+        $collection = $this->createForm(new ImportmappingRowType($id,$listingfields,$em), $importmappingCollection);
 
         $collection->add('feed_sid', 'hidden', array(
             'data' => $id));
@@ -237,8 +270,8 @@ class ImportmappingController extends Controller {
         if ($collection->isValid()) {
 
             foreach ($collection->getData()->getImportmappingRow() as $entity) {
-                $entity->setFeedSid($id);
-                $em->persist($entity);
+                    $entity->setFeedSid($id);
+                    $em->persist($entity);
             }
             $em->flush();
 
@@ -246,17 +279,68 @@ class ImportmappingController extends Controller {
         }
 
         return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
-                    'form' => $collection->createView(),
-                    'feed' => $feed,
+            'form' => $collection->createView(),
+            'feed' => $feed,
         ));
     }
     
     public function fetchAction(Request $request = null, $id) {
+        $time = time();
         $em = $this->getDoctrine()->getManager();
 
         $XMLfeed = new XMLfeed($id);
         $items = $XMLfeed->getXMLItems();
-        print_r($items);
+
+        $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
+        $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
+        $itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $id));
+
+
+
+        foreach ($itemsOld as $old){
+            $old->removeAllItemField();
+            $em->remove($old);
+
+        }
+        $em->flush();
+
+        foreach($items as $XMLitem){
+            $item = new Item();
+            $item->setCategoryId($feed->getCategory());
+            $item->setImportfeed($feed);
+            $item->removeAllItemField();
+            foreach ($mapping as $maprow){
+
+                $itemField = new ItemField();
+                $itemField->setListingfield($maprow->getListingFields());
+                $itemField->setFieldName($maprow->getListingFields()->getCaption());
+                $itemField->setFieldType($maprow->getListingFields()->getType());
+
+
+
+                $property = $maprow->getSid();
+                //print_r($property);echo ":";
+                $stringValue = (string)$XMLitem->{$property};
+                $integerValue = intval((string)$XMLitem->{$property});
+                $booleanValue = !empty($stringValue);
+                //print_r($value);
+                //print_r($maprow->getListingFields()->getCaption());echo ":<br>";
+                $itemField->setFieldStringValue($stringValue);
+                $itemField->setFieldIntegerValue($integerValue);
+                $itemField->setFieldBooleanValue($booleanValue);
+                //$itemField->setFieldDatetimeValue($stringValue);
+                //$em->persist($itemField);
+                $item->addItemField($itemField);
+            }
+            //print_r($XMLitem);
+
+            $em->persist($item);
+            $em->flush();
+
+
+        }
+        $time = time()-$time;
+        echo $time.":::".count($items);
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array(
         ));
     }

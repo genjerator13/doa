@@ -17,22 +17,26 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
         return array(FormEvents::POST_SET_DATA => 'preSetData');
     }
 
-    function __construct($feed_sid)
+    function __construct($feed_sid,$properties)
     {
+
         $this->feed_sid = $feed_sid;
+        $this->properties = $properties;
     }
 
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
 
+        //print_r($data->getProperty());die("aaa");
 
-        if (!$data || !$data->getId()) {
-            $feed = new XMLfeed($this->feed_sid);
+        if (!$data || !$data->getId() || !$data->getProperty()) {
 
-            $props = $feed->getXMLproperties();
-
-            $form->add('sid', 'choice', array('choices' => $props,'empty_value' => 'Choose an option','required'=>true));
+            //$feed = new XMLfeed($this->feed_sid)
+            //$props = $feed->getXMLproperties();
+            //$form->add('sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>true));
+            //$entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')
+            //$form->add('field_sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>false));
         }
     }
 

@@ -19,11 +19,17 @@ class AddItemSubscriber implements EventSubscriberInterface {
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-        
+        $values = $data->getFieldStringValue();
+        //if($data->getFieldName()=="Make"){
+            //echo $values.":::".$data->getFieldName().":::".$data->();
+            \Doctrine\Common\Util\Debug::dump($data);
+        //}
+        $form->add('field_string_value','text', array('required'=>false));
+        /*
         if ($data->getFieldType()=='list') {
             $values = $data->getFieldStringValue();
 
-            $form->add('field_string_value', 'choice',array('choices'=>$values,'required'=>false));
+            //$form->add('field_string_value', 'choice',array('choices'=>$values,'required'=>false));
         }else if ($data->getFieldType()=='string') {
             $values = $data->getFieldStringValue();
             $form->add('field_string_value','text', array('required'=>false));
@@ -44,6 +50,7 @@ class AddItemSubscriber implements EventSubscriberInterface {
             $form->add('field_boolean_value', 'checkbox',array('required'=>false));
             $form->remove('field_string_value');
         }
+        */
     }
 
 }

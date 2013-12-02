@@ -1,8 +1,10 @@
 <?php
 namespace Numa\DOAAdminBundle\Lib;
+
 use Doctrine\ORM\EntityManager;
 use Symfony\Bridge\Propel1\Tests\Fixtures\Item;
 use Symfony\Component\DependencyInjection\ContainerAware;
+
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -13,7 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author genjerator
  */
-class XMLfeed extends ContainerAware{
+class XMLfeed extends ContainerAware
+{
     const URL = "Link-URL";
     const XML = "XML";
     var $XMLproperties = array();
@@ -21,37 +24,52 @@ class XMLfeed extends ContainerAware{
     var $entity;
     var $source;
     var $category;
-    public function __construct($id) {
+
+    public function __construct($id)
+    {
         $this->feedid = $id;
         $this->getFeed();
     }
-    public function getFeed() {
+
+    public function getFeed()
+    {
         $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getEntityManager('default');
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);;
         $this->source = $this->entity->getImportSource();
         $this->category = $this->entity->getCategory();
     }
-    
     public function getXMLproperties()
     {
-        if (self::URL == $this->entity->getImportMethod()) {
-            if (self::XML == $this->entity->getImportFormat()) {
-                //$source = 'c:\work\DOA\feeds.asp.xml';
-                //$f = fopen($source, 'r');
+        if (empty($this->XMLproperties)) {
+            $this->fetchXMLproperties();
+        }
+        return $this->XMLproperties;
+    }
+    public function fetchXMLproperties()
+    {
 
-                $xml_obj = simplexml_load_file($this->source);
-                foreach ($xml_obj->children() as $child) {
-                    if(empty($this->XMLproperties)){
-                        foreach((array)$child->children() as $property){
-                            $this->XMLproperties[$property->getName()] =$property->getName();
+        if (empty($this->XMLproperties)) {
+            if (self::URL == $this->entity->getImportMethod()) {
+                if (self::XML == $this->entity->getImportFormat()) {
+
+                    $xml_obj = simplexml_load_file($this->source);
+
+                    foreach ($xml_obj->children() as $child) {
+
+
+                        foreach ($child->children() as $property) {
+
+                            $this->XMLproperties[$property->getName()] = $property->getName();
+
                         }
+
                         break;
+
                     }
+
                 }
             }
         }
-
-        return $this->XMLproperties;
     }
 
     public function getXMLItems()
@@ -60,7 +78,7 @@ class XMLfeed extends ContainerAware{
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
                 $this->items = self::xml2array($xml_obj->children());
-                $this->items= $this->items['item'];
+                $this->items = $this->items['item'];
                 return $this->items;
             }
         }
@@ -68,18 +86,32 @@ class XMLfeed extends ContainerAware{
 
     public function createItems()
     {
-        foreach($this->items as $item)
-        {
+        foreach ($this->items as $item) {
             $item = new Item();
 
         }
     }
 
-    static function xml2array ( $xmlObject, $out = array () )
+    static function xml2array($xmlObject, $out = array())
     {
-        foreach ( (array) $xmlObject as $index => $node )
-            $out[$index] = ( is_object ( $node ) ) ? self::xml2array ( $node ) : $node;
+        foreach ((array)$xmlObject as $index => $node)
+            $out[$index] = (is_object($node)) ? self::xml2array($node) : $node;
 
         return $out;
+    }
+
+    public static function getValue($XMLvalue, $type = "string")
+    {
+        switch ($type) {
+            case "string":
+                return (string)$XMLvalue;
+                break;
+            case "integer":
+                return intval((string)$XMLvalue);
+                break;
+            case "hhh":
+                echo "i equals 2";
+                break;
+        }
     }
 }
