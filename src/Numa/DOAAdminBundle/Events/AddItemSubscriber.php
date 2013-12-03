@@ -17,14 +17,14 @@ class AddItemSubscriber implements EventSubscriberInterface {
     }
 
     public function preSetData(FormEvent $event) {
-        $data = $event->getData();
-        $form = $event->getForm();
-        $values = $data->getFieldStringValue();
+        //$data = $event->getData();
+        //$form = $event->getForm();
+        //$values = $data->getFieldStringValue();
         //if($data->getFieldName()=="Make"){
             //echo $values.":::".$data->getFieldName().":::".$data->();
-            \Doctrine\Common\Util\Debug::dump($data);
+            //\Doctrine\Common\Util\Debug::dump($data);
         //}
-        $form->add('field_string_value','text', array('required'=>false));
+        //$form->add('field_string_value','text', array('required'=>false));
         /*
         if ($data->getFieldType()=='list') {
             $values = $data->getFieldStringValue();

@@ -265,4 +265,13 @@ class UserGroup
     {
         return $this->User;
     }
+    /**
+     * Get User
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
 }

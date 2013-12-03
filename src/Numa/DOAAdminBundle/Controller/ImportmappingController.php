@@ -252,7 +252,7 @@ class ImportmappingController extends Controller {
                 $im->setProperty($prop);
                 $lf  = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneById(600);
                 $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop);
-                //print_r(($test->getCaption()));
+
                 $im->setListingFields($test);
 
                 $importmappingCollection->addImportmappingRow($im);
@@ -306,16 +306,17 @@ class ImportmappingController extends Controller {
 
         foreach($items as $XMLitem){
             $item = new Item();
-            $item->setCategoryId($feed->getCategory());
+            $item->setCategoryId($feed->getListingType());
             $item->setImportfeed($feed);
             $item->removeAllItemField();
             foreach ($mapping as $maprow){
-
-                $itemField = new ItemField();
-                $itemField->setListingfield($maprow->getListingFields());
-                $itemField->setFieldName($maprow->getListingFields()->getCaption());
-                $itemField->setFieldType($maprow->getListingFields()->getType());
-
+                if(!empty($maprow->getListingFields()))
+                {
+                    $itemField = new ItemField();
+                    $itemField->setListingfield($maprow->getListingFields());
+                    $itemField->setFieldName($maprow->getListingFields()->getCaption());
+                    $itemField->setFieldType($maprow->getListingFields()->getType());
+                }
 
 
                 $property = $maprow->getSid();

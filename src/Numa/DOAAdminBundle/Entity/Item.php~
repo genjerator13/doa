@@ -620,8 +620,8 @@ class Item
      */
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
     {
-        $this->ItemField[] = $itemField;
-    
+        $this->ItemField->add($itemField);
+        $itemField->setItem($this);
         return $this;
     }
 
@@ -633,6 +633,18 @@ class Item
     public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
     {
         $this->ItemField->removeElement($itemField);
+    }
+
+    /**
+     * Remove ItemField
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
+     */
+    public function removeAllItemField()
+    {
+
+        $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
 
     /**
@@ -727,5 +739,12 @@ class Item
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+    /**
+     * @ORM\PreUpdate
+     */
+    public function __toString()
+    {
+        return "test";
     }
 }

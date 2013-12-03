@@ -1,13 +1,14 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -965,4 +966,34 @@ class User
     {
         return $this->UserGroup;
     }
+    
+        /**
+     * Get User
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function __toString()
+    {
+        return $this->getUsername();
+    }
+    
+        public function getRoles()
+    {
+        return array('ROLE_ADMIN');
+    }
+ 
+    public function getSalt()
+    {
+        return null;
+    }
+ 
+    public function eraseCredentials()
+    {
+ 
+    }
+ 
+    public function equals(User $user)
+    {
+        return $user->getUsername() == $this->getUsername();
+    }  
 }

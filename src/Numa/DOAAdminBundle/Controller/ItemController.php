@@ -104,12 +104,8 @@ class ItemController extends Controller
         //get edited item
         if ($item_id != null) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item'); //->findOneById(1347);
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($item_id);
         }
-
-        //$yaml = new Parser();
-        //$value = $yaml->parse(file_get_contents($this->get('kernel')->locateResource('@NumaDOAAdminBundle/ItemFields.yml')));
-        //$fieldsAll = $value['All'];
-        //$fields = $fieldsAll + $value[$category->getName()];
 
         //get all listing fields for the category + default listing fields
         $fields = $em->getRepository('NumaDOAAdminBundle:ListingField')->findBy(array('category_sid' => array(0, $cat_id)));
@@ -127,20 +123,21 @@ class ItemController extends Controller
                         ->setParameter('iid', $item_id)
                         ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
-                    print_r(array(
-                        'sql'        => $query->getSQL(),
-                        'parameters' => $query->getParameters(),
-                    ));
-                    print_r($field->getId());
+                    //print_r(array(
+                    //    'sql'        => $query->getSQL(),
+                    //    'parameters' => $query->getParameters(),
+                    //));
+                    //print_r($field->getId());
 
                     $products = $qb->getQuery()->setMaxResults(1)->getResult();
 
 
                     if (!empty($products[0])) {
-                        print_r($products[0]);echo $cat_id.":::".$field->getId();
+                        //print_r($products[0]);echo $cat_id.":::".$field->getId();
                         $itemField->setFieldStringValue($products[0]['field_string_value']);
                     }
                 }
+
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
                 $entity->addItemField($itemField);

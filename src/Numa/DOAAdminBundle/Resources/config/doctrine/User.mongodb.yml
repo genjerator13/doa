@@ -1,0 +1,94 @@
+Numa\DOAAdminBundle\Document\User:
+    fields:
+        id:
+            id: true
+        username:
+            type: string
+        password:
+            type: string
+        email:
+            type: string
+        user_group_id:
+            type: int
+        registration_date:
+            type: timestamp
+
+        active:
+            type: boolean
+
+        contract_id:
+            type: int
+
+        activation_key:
+            type: string
+
+        verification_key:
+            type: string
+
+        trusted_user:
+            type: boolean
+
+        FirstName:
+            type: string
+
+        LastName:
+            type: string
+
+        DealershipName:
+            type: string
+
+        Address:
+            type: string
+
+        City:
+            type: string
+
+        PostalCode:
+            type: string
+
+        PhoneNumber:
+            type: string
+
+        DealershipWebsite:
+            type: string
+
+        DisplayEmail:
+            type: boolean
+
+        State:
+            type: string
+
+        DealershipLogo:
+            type: string
+
+        third_party_id:
+            type: int
+
+        ServiceProviderContact:
+            type: string
+
+        ServiceProviderAddress:
+            type: string
+
+        ServiceProviderCity:
+            type: string
+
+        ServiceProviderPostal:
+            type: string
+
+        ServiceProviderWebsite:
+            type: string
+
+        ServiceProviderProv:
+            type: string
+
+        ServiceProviderFax:
+            type: string
+
+
+        date_created:
+            type: timestamp
+
+
+        date_updated:
+            type: timestamp

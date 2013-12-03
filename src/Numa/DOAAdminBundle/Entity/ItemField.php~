@@ -50,9 +50,14 @@ class ItemField
     private $field_datetime_value;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\Item
+     * @var integer
      */
-    private $Item;
+    private $field_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Listingfield
+     */
+    private $Listingfield;
 
 
     /**
@@ -227,6 +232,57 @@ class ItemField
     }
 
     /**
+     * Set field_id
+     *
+     * @param integer $fieldId
+     * @return ItemField
+     */
+    public function setFieldId($fieldId)
+    {
+        $this->field_id = $fieldId;
+    
+        return $this;
+    }
+
+    /**
+     * Get field_id
+     *
+     * @return integer 
+     */
+    public function getFieldId()
+    {
+        return $this->field_id;
+    }
+
+    /**
+     * Set Listingfield
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingfield
+     * @return ItemField
+     */
+    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
+    {
+        $this->Listingfield = $listingfield;
+    
+        return $this;
+    }
+
+    /**
+     * Get Listingfield
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
+     */
+    public function getListingfield()
+    {
+        return $this->Listingfield;
+    }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Item
+     */
+    private $Item;
+
+
+    /**
      * Set Item
      *
      * @param \Numa\DOAAdminBundle\Entity\Item $item
@@ -247,5 +303,9 @@ class ItemField
     public function getItem()
     {
         return $this->Item;
+    }
+
+    public function __toString(){
+        return $this->getFieldName();
     }
 }
