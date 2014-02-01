@@ -55,6 +55,9 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        dql:
+            string_functions:
+                GroupConcat: DoctrineExtensions\Query\Mysql\GroupConcat
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -64,12 +67,3 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options: {}
-    default_database: test_database
-    document_managers:
-        default:
-            auto_mapping: true

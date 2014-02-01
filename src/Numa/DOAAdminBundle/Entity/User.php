@@ -996,4 +996,70 @@ class User implements UserInterface
     {
         return $user->getUsername() == $this->getUsername();
     }  
+    /**
+     * @var integer
+     */
+    private $balance;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Importfeed;
+
+
+    /**
+     * Set balance
+     *
+     * @param integer $balance
+     * @return User
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+    
+        return $this;
+    }
+
+    /**
+     * Get balance
+     *
+     * @return integer 
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * Add Importfeed
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
+     * @return User
+     */
+    public function addImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed)
+    {
+        $this->Importfeed[] = $importfeed;
+    
+        return $this;
+    }
+
+    /**
+     * Remove Importfeed
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
+     */
+    public function removeImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed)
+    {
+        $this->Importfeed->removeElement($importfeed);
+    }
+
+    /**
+     * Get Importfeed
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImportfeed()
+    {
+        return $this->Importfeed;
+    }
 }

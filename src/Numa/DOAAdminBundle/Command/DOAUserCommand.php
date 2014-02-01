@@ -12,6 +12,7 @@ class DOAUserCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
+        //php app/console numa:DOA:users admin admin
         $this
             ->setName('numa:DOA:users')
             ->setDescription('Add DOA user')

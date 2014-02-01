@@ -308,4 +308,11 @@ class ItemField
     public function __toString(){
         return $this->getFieldName();
     }
+    
+    
+    function setAllValues($value) {
+        $this->field_string_value = (string) $value;
+        $this->field_integer_value = intval((string) $value);
+        $this->field_boolean_value = !empty($stringValue);
+    }
 }

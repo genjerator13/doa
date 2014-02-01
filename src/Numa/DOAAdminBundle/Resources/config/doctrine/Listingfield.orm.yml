@@ -55,8 +55,10 @@ Numa\DOAAdminBundle\Entity\Listingfield:
     oneToMany:
         ImportMapping:
             targetEntity: ImportMapping
-            mappedBy: ListingFields
-
+            mappedBy: Listingfield
         ItemField:
             targetEntity: ItemField
-            mappedBy: ListingFields
+            mappedBy: Listingfield
+        ListingFieldLists:
+            targetEntity: ListingFieldLists
+            mappedBy: Listingfield

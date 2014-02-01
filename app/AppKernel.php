@@ -18,7 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Numa\DOAAdminBundle\NumaDOAAdminBundle(),
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
-            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
+            new APY\DataGridBundle\APYDataGridBundle(),
+            new Numa\DOASiteBundle\NumaDOASiteBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

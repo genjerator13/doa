@@ -1,0 +1,24 @@
+Numa\DOAAdminBundle\Entity\ListingFieldLists:
+    type: entity
+    repositoryClass: Numa\DOAAdminBundle\Repository\ListingFieldListsRepository
+    table: listing_field_list
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+      listing_field_id:                                     
+            type: integer
+      order:
+            type: integer
+      value:                                     
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        Listingfield:
+            targetEntity: Listingfield
+            inversedBy: ListingFieldLists
+            joinColumn:
+                name: listing_field_id
+                referencedColumnName: id

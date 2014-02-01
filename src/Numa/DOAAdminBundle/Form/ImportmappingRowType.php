@@ -10,9 +10,9 @@ use Numa\DOAAdminBundle\Events\AddFeedSourceSubscriber;
 
 class ImportmappingRowType extends AbstractType
 {
-    public function __construct ($feed_sid = null,$properties=null,$em)
+    public function __construct ($feed_cid = null,$properties=null,$em)
     {
-        $this->feed_sid = $feed_sid ;
+        $this->feed_cid = $feed_cid ;
         $this->properties = $properties ;
         $this->em = $em;
     }
@@ -24,8 +24,8 @@ class ImportmappingRowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('ImportmappingRow', 'collection',
-            array('type' => new ImportmappingType($this->feed_sid,$this->properties,$this->em),'attr'=>array('class'=>'form-inline'),'allow_add' => true,  'allow_delete' => true,))
-                ->add('feed_sid','hidden',array('data'=>$this->feed_sid));
+            array('type' => new ImportmappingType($this->feed_cid,$this->properties,$this->em),'attr'=>array('class'=>'form-inline'),'allow_add' => true,  'allow_delete' => true,))
+                ->add('feed_sid','hidden',array('data'=>$this->feed_cid));
 
     }
 

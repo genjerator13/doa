@@ -3,14 +3,16 @@
 namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
- * Item
+ * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date" ,groupBy="id")
  */
 class Item
 {
     /**
      * @var integer
+     * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
      */
     private $id;
 
@@ -36,11 +38,15 @@ class Item
 
     /**
      * @var boolean
+     * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"Active","inactive"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+
      */
     private $active;
 
     /**
      * @var string
+     * @GRID\Column(type="text", field="moderation_status", title="moderation_status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+ 
      */
     private $moderation_status;
 
@@ -66,11 +72,13 @@ class Item
 
     /**
      * @var \DateTime
+     * @GRID\Column(type="date", field="activation_date", title="activation_date", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
      */
     private $activation_date;
 
     /**
      * @var \DateTime
+     * @GRID\Column(type="date", field="expiration_date", title="expiration_date", filterable=true, operatorsVisible=false, defaultOperator="btw")
      */
     private $expiration_date;
 
@@ -115,12 +123,14 @@ class Item
     private $last_user_ip;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * 
      */
+
     private $ItemField;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
+     * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true)
      */
     private $Category;
 
@@ -131,6 +141,8 @@ class Item
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\User
+     * @GRID\Column(type="text", field="User.UserGroup.name", title="Group", operatorsVisible=false,filter="select")
+     * @GRID\Column(type="text", field="User.username", title="Username", operatorsVisible=false)
      */
     private $User;
 

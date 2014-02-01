@@ -6,15 +6,17 @@ use Doctrine\ORM\EntityRepository;
 
 class ListingfieldRepository extends EntityRepository
 {
-    public function findOneByProperty($propertyName)
+    public function findOneByProperty($propertyName,$category_id)
     {
-
+            
+        $q='SELECT l FROM NumaDOAAdminBundle:Listingfield l WHERE 
+                    (l.caption like \''.$propertyName.'\'  OR 
+                     l.caption like \'%'.$propertyName.'%\'     ) AND l.category_sid IN (0,'.$category_id.')';
         $query =  $this->getEntityManager()
-            ->createQuery(
-                'SELECT l FROM NumaDOAAdminBundle:Listingfield l WHERE l.caption like \'%'.$propertyName.'%\' AND l.category_sid IN (0,2)'
-            )->setMaxResults(1) ;
+            ->createQuery($q)->setMaxResults(1) ;
+        $res =$query->getResult();//getOneOrNullResult();
 
-         return $query->getOneOrNullResult();
+         return $res;
     }
 
     public function findAllOrderedByName()

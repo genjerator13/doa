@@ -1,3 +1,7 @@
+numa_doa_site:
+    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 numa_doa_admin:
     resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
     prefix:   /admin

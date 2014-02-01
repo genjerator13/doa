@@ -11,9 +11,9 @@ use Numa\DOAAdminBundle\Events\AddFeedSourceSubscriber;
 
 class ImportmappingType extends AbstractType
 {
-    public function __construct($feed_sid = null, $properties = null,$em)
+    public function __construct($feed_cid = null, $properties = null,$em)
     {
-        $this->feed_sid = $feed_sid;
+        $this->feed_cid = $feed_cid;
         $this->properties = $properties;
         $this->em = $em;
     }
@@ -37,17 +37,16 @@ class ImportmappingType extends AbstractType
                     {
                                // echo get_class($lr);
                         return $lr->createQueryBuilder('lf')
-                            ->where("lf.category_sid IN (0,2)")
+                            ->where("lf.category_sid IN (0,".$this->feed_cid.")")
                             ->orderBy('lf.caption', 'ASC');
                     },
                     'empty_value' => 'Choose an option',
                     'required' => false
-                    //'data' => $this->em->getReference("NumaDOAAdminBundle:Listingfield",598)
                 )
             );
         ;//->add('feed_sid','hidden');
         ;
-        $builder->addEventSubscriber(new AddFeedSourceSubscriber($this->feed_sid, $this->properties));
+        //$builder->addEventSubscriber(new AddFeedSourceSubscriber($this->feed_sid, $this->properties));
 
     }
 

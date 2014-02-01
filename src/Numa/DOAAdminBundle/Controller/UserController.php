@@ -7,6 +7,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOAAdminBundle\Form\UserType;
+use APY\DataGridBundle\Grid\Source\Entity;
+use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use APY\DataGridBundle\Grid\Action\MassAction;
+use APY\DataGridBundle\Grid\Action\DeleteMassAction;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\ArrayColumn;
+use APY\DataGridBundle\Grid\Column\TextColumn;
+use APY\DataGridBundle\Grid\Column\BlankColumn;
 
 /**
  * User controller.
@@ -22,9 +30,13 @@ class UserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+                $source = new Entity('NumaDOAAdminBundle:User');
 
+        $grid = $this->get('grid');
+        //$tableAlias = $source->getTableAlias();
+        $grid->setSource($source);
         $entities = $em->getRepository('NumaDOAAdminBundle:User')->findAll();
-
+        return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
         return $this->render('NumaDOAAdminBundle:User:index.html.twig', array(
             'entities' => $entities,
         ));

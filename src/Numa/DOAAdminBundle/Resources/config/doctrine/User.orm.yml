@@ -42,6 +42,9 @@ Numa\DOAAdminBundle\Entity\User:
             type: boolean
             default: 0
             nullable: true 
+        balance:
+            type: integer
+            nullable: true 
         FirstName:
             type: string
             length: 255
@@ -130,7 +133,9 @@ Numa\DOAAdminBundle\Entity\User:
         Item:
             targetEntity: Item
             mappedBy: Users
-            
+        Importfeed:
+            targetEntity: Importfeed
+            mappedBy: Users   
     manyToOne:
         UserGroup:
             targetEntity: UserGroup

@@ -36,7 +36,7 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            type: integer
            nullable: true
         default_user:                                                         
-           type: string
+           type: integer
            length: 255
            nullable: true
         notify_on_user_registration:              
@@ -53,7 +53,6 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            nullable: true
         default_package:                                                                                 
            type: string
-           length: 255
            nullable: true
         pictures_key:                                                                                    
            type: string
@@ -123,6 +122,12 @@ Numa\DOAAdminBundle\Entity\Importfeed:
             inversedBy: Importfeed
             joinColumn:
                 name: listing_type
+                referencedColumnName: id
+        User:
+            targetEntity: User
+            inversedBy: Importfeed
+            joinColumn:
+                name: default_user
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

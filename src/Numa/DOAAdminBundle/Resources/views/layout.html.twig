@@ -1,215 +1,188 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 {% include 'NumaDOAAdminBundle::header.html.twig' %}
-<body class=" default ">
+        <body class=" default ">
 
-	<div class="colmask leftmenu">
-		<div class="colright">
-			<div class="leftSectionWrap">
-				<div class="mainContent">
+            <div class="colmask leftmenu">
+                <div class="colright">
+                    <div class="leftSectionWrap">
+                        <div class="mainContent">
 
 
-<div class="dashboard">
-	
+                            <div class="dashboard">
 
-	
-               <div class="content">
+
+
+                                <div class="content">
                    {% block content %}
                    {% endblock %}
-               </div>
-	
+                                    </div>
 
-	
+
+
+                                </div>
+
+                                <!-- /default:miscellaneous:dashboard.tpl -->
+                            </div>
+                        </div>
+                        <div class="leftSection">
+                            <!-- default:main:left_block.tpl -->
+                            <div class="leftBlock">
+                                <div class="logo">
+                                    <a href="#"><img src="" alt="iAuto" border="0" /></a>
+                                </div>
+                                <div class="adminInfo">
+                                    <h1>Admin Panel</h1>
+
+                                    <!-- default:miscellaneous:lang_selector.tpl -->
+                                    <form action="">
+                                        <div class="languageSelector">
+                                            <input type="hidden" value="/admin/" name="back" />
+                                            <select name="lang" onchange="this.form.submit()">
+                                                <option value="en" selected="selected">English</option>
+                                            </select>
+                                        </div>
+                                    </form>
+
+                                    <!-- /default:miscellaneous:lang_selector.tpl -->
+                                    <div class="userManualAndLogoutWrapper">
+                                        <a target="_blank" href="#">User Manual</a>
+                                        <br />
+                                        <a href="{{ path('logout') }}">Logout</a>
+                                    </div>
+                                </div>
+
+                                <!-- default:menu:admin_left_menu.tpl -->
+                                <div class="leftMenu">
+                                    <div class="section">
+                                        <ul class="nav nav-list bs-docs-sidenav">
+                                            <li class="nav-header">Featured Import</li>  
+                                            <li class="">
+                                                <a href="{{ path('importfeed') }}"><i class="icon-chevron-right"></i>Feeds</a>
+                                            </li>
+                                            <li class="nav-header">Listing Management</li>  
+                                            <li class="">
+                                                <a href="{{ path('categories') }}" class=""><i class="icon-chevron-right"></i>Categories</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="{{ path('additem') }}" class=""><i class="icon-chevron-right"></i>Add Listing</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="{{ path('items') }}" class=""><i class="icon-chevron-right"></i>Manage Listings</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Import Listings</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Export Listings</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Manage Comments</a>
+                                            </li>
+                                            <li class="nav-header">User Management</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Membership Plans</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="{{ path('user_group') }}" class=""><i class="icon-chevron-right"></i>User Groups</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="{{ path('user') }}" class=""><i class="icon-chevron-right"></i>Manage Users</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Import Users</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Export Users</a>
+                                            </li>
+                                            <li class="nav-header">Site Layout</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Site Pages</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Page Templates</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Function Templates</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Themes</a>
+                                            </li>
+                                            <li class="nav-header">Payment Management</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Payment Gateways</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Payments</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Credit Transactions</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Credit Packages</a>
+                                            </li>
+                                            <li class="nav-header">System configuration</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Admin Password</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>System Settings</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Geographic Locations</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Custom Settings</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>IP Blocklist Manager</a>
+                                            </li>
+                                            <li class="nav-header">Content Management</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Business Catalog</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Online Polls</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Publications</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Static Content</a>
+                                            </li>
+                                            <li class="nav-header">Language Management</li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Manage Languages</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Manage Phrases</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Import Language</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" class=""><i class="icon-chevron-right"></i>Export Language</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+
+                                <!-- /default:menu:admin_left_menu.tpl -->
 </div>
+                                <div class="copyright">
+                                    &copy; 2013&ndash;2014&nbsp;Genjrator
+                                </div>
+                            </div>
 
-<!-- /default:miscellaneous:dashboard.tpl -->
-				</div>
-			</div>
-			<div class="leftSection">
-				<!-- default:main:left_block.tpl -->
-<div class="leftBlock">
-	<div class="logo">
-		<a href="#"><img src="" alt="iAuto" border="0" /></a>
-	</div>
-	<div class="adminInfo">
-		<h1>Admin Panel</h1>
+                            <!-- /default:main:left_block.tpl -->
+                        
+                    </div>
+                </div>
+            </body>
+        </html>
 
-		<!-- default:miscellaneous:lang_selector.tpl -->
-<form action="">
-    <div class="languageSelector">
-    <input type="hidden" value="/admin/" name="back" />
-    <select name="lang" onchange="this.form.submit()">
-                                <option value="en" selected="selected">English</option>
-            </select>
-    </div>
-</form>
-
-<!-- /default:miscellaneous:lang_selector.tpl -->
-		<div class="userManualAndLogoutWrapper">
-			<a target="_blank" href="#">User Manual</a>
-			<br />
-			<a href="{{ path('logout') }}">Logout</a>
-		</div>
-	</div>
-	
-	<!-- default:menu:admin_left_menu.tpl -->
-<div class="leftMenu">
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionFeaturedImport">Featured Import</div>
-			<ul>
-															<li class="">
-							<a href="{{ path('importfeed') }}">Feeds</a>
-						</li>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionListingManagement">Listing Management</div>
-			<ul>
-															<li class="">
-							<a href="{{ path('categories') }}" class="">Categories</a>
-						</li>
-																				<li class="">
-							<a href="{{ path('additem') }}" class="">Add Listing</a>
-						</li>
-																				<li class="">
-							<a href="{{ path('items') }}" class="">Manage Listings</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Import Listings</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Export Listings</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Manage Comments</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionUserManagement">User Management</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Membership Plans</a>
-						</li>
-																				<li class="">
-							<a href="{{ path('user_group') }}" class="">User Groups</a>
-						</li>
-																				<li class="">
-							<a href="{{ path('user') }}" class="">Manage Users</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Import Users</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Export Users</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionSiteLayout">Site Layout</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Site Pages</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Page Templates</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Function Templates</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Themes</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionPaymentManagement">Payment Management</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Payment Gateways</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Payments</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Credit Transactions</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Credit Packages</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionSystemConfiguration">System Configuration</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Admin Password</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">System Settings</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Geographic Locations</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Custom Settings</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">IP Blocklist Manager</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionContentManagement">Content Management</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Business Catalog</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Online Polls</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Publications</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Static Content</a>
-						</li>
-																					</ul>
-		</div>
-			<div class="section">
-			<div class="caption" id="MenuSectionCaptionLanguageManagement">Language Management</div>
-			<ul>
-															<li class="">
-							<a href="#" class="">Manage Languages</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Manage Phrases</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Import Language</a>
-						</li>
-																				<li class="">
-							<a href="#" class="">Export Language</a>
-						</li>
-																					</ul>
-		</div>
-	</div>
-
-
-<!-- /default:menu:admin_left_menu.tpl -->
-	
-	<div class="copyright">
-		&copy; 2013&ndash;2014&nbsp;Genjrator
-	</div>
-</div>
-
-<!-- /default:main:left_block.tpl -->
-			</div>
-		</div>
-	</div>
-</body>
-</html>
-
-<!-- /default:main:default.tpl -->
+        <!-- /default:main:default.tpl -->
 

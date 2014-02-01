@@ -882,4 +882,32 @@ class Importfeed
     public function __toString() {
         return $this->getSid();
     }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\User
+     */
+    private $User;
+
+
+    /**
+     * Set User
+     *
+     * @param \Numa\DOAAdminBundle\Entity\User $user
+     * @return Importfeed
+     */
+    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
+    {
+        $this->User = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get User
+     *
+     * @return \Numa\DOAAdminBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->User;
+    }
 }

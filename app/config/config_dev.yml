@@ -26,6 +26,12 @@ monolog:
 
 assetic:
     use_controller: true
-
+doctrine:
+    orm:
+        entity_managers:
+            default:
+                dql:
+                    string_functions:
+                         GROUP_CONCAT: Numa\DOAAdminBundle\Query\GroupConcat
 #swiftmailer:
 #    delivery_address: me@example.com

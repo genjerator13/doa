@@ -47,7 +47,7 @@ class ImportfeedType extends AbstractType
                                        array(
                                          'class'=>'form-control')
                     ))
-            ->add('default_user', null , array(
+            ->add('User', null , array(
                                'attr'=> 
                                        array(
                                          'class'=>'form-control')
@@ -85,9 +85,7 @@ class ImportfeedType extends AbstractType
             ->add('unique_field')
             ->add('update_on_match')
             ->add('expiration_after')
-            ->add('updated_on')
-            ->add('user_type')
-            ->add('user_unique_field')
+
 
         ;
     }

@@ -1,40 +1,134 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+{% block grid %}
+<div class="grid">
+    {{ grid_search(grid) }}
+    <form id="{{ grid.hash }}" action="{{ grid.routeUrl }}" method="get">
+                            {% if grid.isTitleSectionVisible %}
+                            {{ grid_titles(grid) }}
+                        {% endif %}
+                        {% if grid.isFilterSectionVisible %}
+                            {#{ grid_filters(grid) }#}
+                        {% endif %}
+        
+{% if grid.totalCount > 0 or grid.isFiltered or grid.noDataMessage is sameas(false) %}
+                       {% if grid.isPagerSectionVisible %}
+            {{ grid_pager(grid) }}
+        {% endif %}     
+        
+
+            <div class="grid_header" style="float:left;clear:both;">
+        {% if grid.massActions|length > 0 %}
+            {{ grid_actions(grid) }}
+        {% endif %}
+                </div>
+                <div class="grid_body" style="float:left;clear:both;">
+                    <div class="searchResults">
+
+                            <div class="searchResultItem">
+                        {{ grid_rows(grid) }}
+                                </div>
+                    </div>
+                 </div>
+                 <div class="grid_footer" style="float:left;clear:both;">
+        {% if grid.isPagerSectionVisible %}
+            {{ grid_pager(grid) }}
+        {% endif %}
+        {% if grid.exports|length > 0 %}
+            {{ grid_exports(grid) }}
+        {% endif %}
+        {% if grid.tweaks|length > 0 %}
+            {{ grid_tweaks(grid) }}
+        {% endif %}
+                            </div>
+        {% if withjs %}
+            {{ grid_scripts(grid) }}
+        {% endif %}
+                        </form>
+{% else %}
+    {{ grid_no_data(grid) }}
+{% endif %}
+                    </div>
+{% endblock grid %}
+
+
+
+ {% block grid_rows %}
+
+     {% for row in grid.rows %}
+         {% set last_row = loop.last %}
+         {% spaceless %}
+                    <ul{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
+             {% for column in grid.columns %}
+                 {% if column.visible(grid.isReadyForExport) %}
+                            <li class="grid-column-{{ column.renderBlockId }}{% if column.class %} {{ column.class }}{% endif %}{% if column.align != 'left'%} align-{{ column.align }}{% endif %}{% if loop.last %} last-column{% endif %}{% if last_row %} last-row{% endif %}">{{ grid_cell(column, row, grid)|raw }}</li>
+                 {% endif %}
+             {% endfor %}
+         {% endspaceless %}
+                            </ul>
+     {% else %}
+         {{ grid_no_result(grid) }}
+     {% endfor %}
+ {% endblock grid_rows %}
+
+
+{% block grid_titles %}
+    <div class="grid-row-titles">
+    {% for column in grid.columns %}
+        {% if column.visible(grid.isReadyForExport) %}
+            <div class="{% if column.align != 'left'%}align-{{ column.align }}{% endif %}{% if column.class %} {{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"{% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>
+            {%- spaceless %}
+            {% if column.type == 'massaction' %}
+                <input type="checkbox" class="grid-mass-selector" onclick="{{ grid.hash }}_markVisible(this.checked);"/>
+            
+            {% endif %}
+            {% endspaceless -%}
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock grid_titles %}
+
+
+
 {% block content %}
-    <h1>Item list</h1>
+                            <h1>Item list</h1>
+    {{ grid(grid,_self) }}
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Sid</th>
-                <th>Feed_id</th>
-                <th>Category_id</th>
-                <th>User_id</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('items_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.sid }}</td>
-                <td>{{ entity.feedid }}</td>
-                <td>{{ entity.categoryid }}</td>
-
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('items_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('items_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
 
     {% endblock %}
+
+{# -------------------------------------------------- grid_filters -------------------------------------------------- #}
+{% block grid_filters %}
+    <tr class="grid-row-filters">
+    {% for column in grid.columns %}
+        {% if column.visible(grid.isReadyForExport) %}
+        <th class="{% if column.class %}{{ column.class }}{% endif %}{% if loop.last %} last-column{% endif %}"{% if(column.size > -1) %} style="width:{{ column.size }}px;"{% endif %}>{% if column.filterable %}{{ grid_filter(column, grid)|raw }}{% endif %}</th>
+        {% endif %}
+    {% endfor %}
+    </tr>
+{% endblock grid_filters %}
+{% block grid_column_filter_type_input2 %}
+
+{# Operator #}
+{% set btwOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTW') %}
+{% set btweOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_BTWE') %}
+{% set isNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNULL') %}
+{% set isNotNullOperator = constant('APY\\DataGridBundle\\Grid\\Column\\Column::OPERATOR_ISNOTNULL') %}
+{% set op = column.data.operator is defined ? column.data.operator : column.defaultOperator %}
+
+{# Query #}
+{% set from = column.data.from is defined ? column.data.from : null %}
+{% set to = column.data.to is defined ? column.data.to : null %}
+
+{# Display #}
+<label>{{column.title}}</label>                            
+<span class="grid-filter-input">
+    {{ block('grid_column_operator')}}
+    <span class="grid-filter-input-query">
+        <input type="{{ column.inputType }}" value="{{ from }}" class="grid-filter-input-query-from" name="{{ grid.hash }}[{{ column.id }}][from]" id="{{ grid.hash }}__{{ column.id }}__query__from" />
+        <input type="{{ column.inputType }}" value="{{ to }}" class="grid-filter-input-query-to" name="{{ grid.hash }}[{{ column.id }}][to]" id="{{ grid.hash }}__{{ column.id }}__query__to"  />
+    </span>
+</span>
+
+{% endblock grid_column_filter_type_input2 %}
