@@ -3,37 +3,53 @@
 <!-- Nav tabs -->
 <h2>Search by body style</h2>
 <ul class="nav nav-tabs" id="myTab">
-    {% for key,cat in categories %}
-        <li><a href="#home_{{cat.name|replace(" ","_")}}" data-toggle="tab">{{cat.name}}</a></li>
+    {% for key,tab in tabs %}
+        <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
                 {%endfor%}
         </ul>
 
         <!-- Tab panes -->
         <div class="tab-content">
-                            {% for key,cat in categories %}
+                            {% for key,tab in tabs %}
 
-                <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{cat.name|replace(" ","_")}}">
-                    {{cat.name}}
-                    </div>
+                <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
+                    
+                    {% for key2,item in tab %}
+                                    
+                        <div class="col-md-4">
+                            <a href="#" class="imageLink">
+                                <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
+                            </a>
+                            <br>
+                            <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
+                        </div>
+                    {%endfor%}
+                </div>
                 {%endfor%}
-                    <div class="tab-pane" id="profile">asdasd</div>
-                    <div class="tab-pane" id="messages">xcvxvc</div>
-                    <div class="tab-pane" id="settings">xcvxcv.</div>
-                </div>
-                <h2>Search by category</h2>
-                <ul class="nav nav-tabs" id="myTab">
-                    <li><a href="#home" data-toggle="tab">Home</a></li>
-                    <li><a href="#profile" data-toggle="tab">Profile</a></li>
-                    <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                    <li><a href="#settings" data-toggle="tab">Settings</a></li>
-                </ul>
+            </div>
+            <h2>Search by category</h2>
+    Vehicle
+    Marine
+    Motorsport
+    RV's
+    Ag
 
-                <!-- Tab panes -->
-                <div class="tab-content">
-                    <div class="tab-pane active" id="home">qweqwe</div>
-                    <div class="tab-pane" id="profile">asdasd</div>
-                    <div class="tab-pane" id="messages">xcvxvc</div>
-                    <div class="tab-pane" id="settings">xcvxcv.</div>
-                </div>
+            <ul class="nav nav-tabs" id="myTab">                
+                <li><a href="#vehicle" data-toggle="tab">Vehicle</a></li>
+                <li><a href="#marine" data-toggle="tab">Marine</a></li>
+                <li><a href="#motorsport" data-toggle="tab">Motorsport</a></li>
+                <li><a href="#rvs" data-toggle="tab">RV's</a></li>
+                <li><a href="#ag" data-toggle="tab">Ag</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="vehicle">
+                aaaa</div>
+                <div class="tab-pane" id="marine">asdasd</div>
+                <div class="tab-pane" id="motorsport">xcvxvc</div>
+                <div class="tab-pane" id="rvs">xcvxcv.</div>
+                <div class="tab-pane" id="ag">xcvxcv.</div>
+            </div>
 {% endblock %}
 

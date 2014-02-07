@@ -1,0 +1,330 @@
+body
+{
+	background: #fff;
+}
+a,
+a:visited
+{
+	color: #666;
+}
+a:visited
+{
+    color: #551A8B;
+}
+a.emptyLink,
+a.emptyLink:visited
+{
+	color: #999;
+}
+a.emptyLink:hover
+{
+	color: #666;
+}
+
+#SiteFrame,
+#PageFooter
+{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#PageHeader
+{
+	height: 190px;
+	background: url('header_1.png') bottom no-repeat;
+}
+.leftmenu .mainContent
+{
+	margin: 0 0 0 215px;
+}
+.colmask
+{
+	margin-top: 10px;
+}
+.pageHeaderLogo
+{
+	position: absolute;
+	bottom: 30px;
+	left: 0;
+}
+.slogan
+{
+	bottom: 10px;
+	top: auto;
+	left: 22px;
+	font-weight: bold;
+	font-size: 110%;
+	color: #666;
+}
+.languageSelector
+{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+.topMenu
+{
+	width: 100%;
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #000 url('topmenu_background.png') repeat-x top;
+}
+.topMenu ul li
+{
+	padding: 0 34px;
+	float: left;
+	background: url('topmenu_separator.gif') no-repeat left center;
+}
+.topMenu ul li:first-child
+{
+	background: none;
+}
+.topMenu,
+.topMenu a,
+.topMenu a:visited
+{
+	color: #fff;
+	text-decoration: none;
+    font-size: 105%;
+}
+.topMenu a:hover
+{
+    text-decoration: underline;
+}
+
+input[type=submit],
+input[type=button]
+{
+    background:#f71 url(button_background.png) repeat-x;
+    border:1px outset #f71;
+    color:#FFFFFF;
+}
+
+.browseByMakeModel h1,
+.browseByState h1,
+.browseByBodyStyle h1
+{
+	margin: 10px 0 5px 0;
+	padding: 0;
+	line-height: 36px;
+}
+.menu li
+{
+	padding: 4px 0 4px 15px;
+	background:url("leftmenu_bullet.gif") left center no-repeat;
+}
+.menu,
+.menu a,
+.menu a:visited
+{
+	color: #333;
+	text-decoration: none;
+    font-size: 105%;
+}
+.menu a:hover
+{
+    text-decoration: underline;
+}
+
+.authorizationControls,
+.welcomeMessage
+{
+    padding: 4px 0;
+}
+
+.languageSelector
+{
+	color: #fff;
+	right: 2px;
+	bottom: 3px;
+}
+.viewListingPage .pictures
+{
+    margin-right: 15px;
+}
+.viewListingPage .fieldCaption
+{
+	font-weight:bold;
+	color: #333;
+    padding: 3px 0;
+}
+.viewListingPage .fieldCaptionActivationDate
+{
+	font-weight: normal;
+	color: inherit;
+}
+.viewListingPage .overview .fieldCaption
+{
+	display: inline-block;
+	width: 115px;
+}
+.viewListingPage .overview .fieldValueSellerComments
+{
+    margin:0 170px 0 0;
+}
+.viewListingPage .listingControlsAndOwnerInfoAndAdditionalInfoWrapper
+{
+	width: 145px;
+	margin: 0 0 0 10px;
+}
+.viewListingPage .listingFeatures .fieldCaption
+{
+    display: block;
+	padding: 20px 0px 5px 0;
+}
+
+
+.fieldValuePrice,
+.fieldValuePrice a,
+.fieldValuePrice a:visited {
+    color:#FF6600;
+}
+.shareBox
+{
+	width: 150px;
+}
+
+.searchResultItem h1 a,
+.searchResultItem h1 a:visited
+{
+	color: #000;
+}
+
+#PageFooter,
+#PageFooter a,
+#PageFooter a:visited
+{
+	color: #666;
+}
+#PageFooter
+{
+	padding: 10px 0 0;
+	height: 40px;
+	margin-top: -51px;
+	border-top: 1px solid #FF7711;
+}
+.colmask
+{
+	padding-bottom: 51px;
+}
+.headerImage
+{
+	position:absolute;
+	top:40px;
+	left:400px;
+}
+
+.browseByMakeModel > ul,
+.browseByBodyStyle > ul
+{
+	float: left;
+	background: url('horizontal_separator.png') bottom no-repeat;
+	padding: 0 0 35px 0;
+	width: 100%;
+	margin-top: 15px;
+}
+
+.sortDirectionArrow
+{
+    color: #ff9933;
+}
+
+/* Custom changes*/
+
+.featuredListings .details {
+	text-align:center;
+}
+.featuredListings {
+	background: #f2f3f4;
+}
+.featuredListings ul li{
+	background: #f2f3f4;
+}
+.featuredListings h1 {
+	text-align: center;
+}
+.browsingTabs li, .browsingTabsCategory li {
+	float:left;
+	margin-right: 10px;
+	margin-left:40px;
+}
+.browsingTabs,.browsingTabsCategory {
+	background: none repeat scroll 0 0 #000000;
+    color: #FFFFFF;    
+    height: 24px;
+    line-height: 24px;
+}
+.browseByBodyStyle ul li ul li {
+	margin-left:20px;
+}
+.browsingTabs .btUl li a, .browsingTabsCategory .btUl li a {
+	color:#fff;
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: bold;
+}
+.browsingTabs .browseByBodyStyle a, .browsingTabsCategory.browseByBodyStyle a {
+	color:#666;
+}
+.centerBlockWrapper .searchForm {
+	float:left;
+}
+
+.searchForm {
+	color:#666;
+}
+.searchForm .form tr, .searchForm form table tr {
+	line-height: 12px;
+}
+.searchForm span {
+	height:12px;
+}
+.Features tr{
+	line-height: 22px;
+}
+.quickSearchForm .form {
+    color:#666;
+}
+.quickSearchForm .form tr{
+    line-height:30px;
+}
+.quickSearchForm {
+    float:left;
+}
+.Features td{width:160px;}
+.browsingTabs .btUl li .selected, .browsingTabsCategory .btUl li .selected {color:#7d7d7d;}
+
+.homepageMainContent .featuredListingsWrapper {
+    margin-right:10px;
+}
+.RVInputFormTable td {
+	width:160px;
+}
+.RVInputFormTable {
+	width:525px;
+}
+.listingFeatures ul li {
+    display:list-item;
+    float:left;
+    margin-left: 15px;
+    width:30%;
+}
+.featuredListings ul li div.item a img {
+	width: 100px;
+}
+.pictures .ad-gallery .ad-thumbs li a img {
+	width: 100px;
+}
+
+div.sortingFieldFirstSelector{
+position: static;
+}
+
+
+.searchResultItem .pictures span a img {
+	width: 100px;
+}

@@ -1,0 +1,54 @@
+Numa\DOAAdminBundle\Entity\HomeTab:
+    type: entity
+    table: home_tab
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        category_id:
+            type: integer
+            nullable: true
+        category_name:
+            type: string
+            length: 255
+            nullable: true
+        listing_field_list_id:
+            type: integer
+            nullable: true
+        listing_field_list_value:
+            type: string
+            length: 255
+            nullable: true
+        position:
+            type: integer
+            nullable: true
+        count:
+            type: integer
+            nullable: true
+        is_public:
+            type: boolean
+            nullable: true
+        created_at:
+            type: datetime
+            nullable: true
+        updated_at:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        Category:
+            targetEntity: Category
+            inversedBy: HomeTab
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    manyToOne:
+        ListingFieldLists:
+            targetEntity: ListingFieldLists
+            inversedBy: HomeTab
+            joinColumn:
+                name: listing_field_list_id
+                referencedColumnName: id

@@ -172,7 +172,15 @@ class ItemController extends Controller {
 
         //get all listing fields for the category + default listing fields
         $fields = $em->getRepository('NumaDOAAdminBundle:ListingField')->findBy(array('category_sid' => array(0, $cat_id)));
-        if (!empty($fields)) {
+        if (!empty($fields) && empty($item_id)) {
+            //TO DO remove all existing item fields
+            /*
+            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id'=>$item_id));
+            foreach($oldItemFields as $oldone){
+                $em->remove($oldone);
+            }
+             * 
+             */
             foreach ($fields as $key => $field) {
                 $itemField = new ItemField();
                 //check if item field has value for the listing_field
@@ -186,11 +194,6 @@ class ItemController extends Controller {
                             ->setParameter('iid', $item_id)
                             ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
-                    //print_r(array(
-                    //    'sql'        => $query->getSQL(),
-                    //    'parameters' => $query->getParameters(),
-                    //));
-                    //print_r($field->getId());
 
                     $products = $qb->getQuery()->setMaxResults(1)->getResult();
 
@@ -208,12 +211,12 @@ class ItemController extends Controller {
         }
 
         $entity->setCategory($category);
-        $form = $this->createForm(new ItemType(), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager()), $entity, array(
             'method' => 'POST',
         ));
 
         $form->add('category_id', 'hidden', array('data' => $cat_id))
-                ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType()))
+                ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->getDoctrine()->getEntityManager())))
                 ->add('Submit', 'submit');
         $form->handleRequest($request);
 
@@ -226,9 +229,7 @@ class ItemController extends Controller {
             $em->flush();
 
             return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
-        } else {
-            
-        }
+        } 
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),

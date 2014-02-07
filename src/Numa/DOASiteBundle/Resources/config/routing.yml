@@ -1,3 +1,18 @@
-numa_doa_site_homepage:
+homepage:
     path:  /
     defaults: { _controller: NumaDOASiteBundle:Default:index }
+search_by_body_style:
+    path:  /browse_by_body_style_{category}/{model}
+    defaults: { _controller: NumaDOASiteBundle:Default:search }
+#user registration
+buyer_register:
+    path:     /user/register
+    defaults: { _controller: NumaDOASiteBundle:User:register }
+
+buyer_create:
+    path:     /user/create
+    defaults: { _controller: NumaDOASiteBundle:User:create }
+
+buyer_login:
+    path:     /user/login
+    defaults: { _controller: NumaDOASiteBundle:User:login }        

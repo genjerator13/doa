@@ -229,8 +229,8 @@ class ImportmappingController extends Controller {
             $listingfields['listing'][$field->getId()] = $field->getCaption();
         }
         $listingfields['preferredChoices'] = array('596');
-        \Doctrine\Common\Util\Debug::dump($feed->getListingType());
-        \Doctrine\Common\Util\Debug::dump($listingfields);
+        //\Doctrine\Common\Util\Debug::dump($feed->getListingType());
+        //\Doctrine\Common\Util\Debug::dump($listingfields);
         $importmappingCollection = new Importmappings();
         if (!empty($entities)) {
             foreach ($entities as $entity) {
@@ -249,8 +249,9 @@ class ImportmappingController extends Controller {
                 $im->setSid($prop);
                 $im->setProperty($prop);
                 $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop, $feed->getListingType());
-
-                $im->setListingFields($test);
+                if(!empty($test)){
+                    $im->setListingFields($test);
+                }
 
                 $importmappingCollection->addImportmappingRow($im);
             }

@@ -18,10 +18,10 @@
                     </div>
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
+                            <li class="active"><a href="{{path('homepage')}}">Home</a></li>
                             <li><a href="#about">Dealer login</a></li>
                             <li><a href="#contact">Advanced Search</a></li>
-                            <li><a href="#contact">Buyer Registration</a></li>
+                            <li><a href="{{ path('buyer_register') }}">Buyer Registration</a></li>
 
                         </ul>
                         <form class="form-inline search" role="form">
@@ -49,7 +49,7 @@
                     <div class="col-md-2">
                         <p class="lead">Shop Name</p>
                         <div class="list-group">
-                            <a class="list-group-item" href="#"> Sign In | Register </a>
+                            <a class="list-group-item" href="{{path('buyer_login')}}"> Sign In | Register </a>
                             <a class="list-group-item" href="#">Business Directory</a>
                             <a class="list-group-item" href="#">Search Sellers</a>
                             <a class="list-group-item" href="#">Saved Listings</a>

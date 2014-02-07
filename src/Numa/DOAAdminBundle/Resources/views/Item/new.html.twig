@@ -27,6 +27,7 @@
                 </span>
                 {{ form_row(field.field_type) }}
                 <span>
+
                 {% if field.field_string_value is defined %}
                     {{ form_widget(field.field_string_value) }}
                 {% endif %}

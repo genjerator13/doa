@@ -476,4 +476,42 @@ class Listingfield
         return $this->ItemField;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ListingFieldLists;
+
+
+    /**
+     * Add ListingFieldLists
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists
+     * @return Listingfield
+     */
+    public function addListingFieldList(\Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists)
+    {
+        $this->ListingFieldLists[] = $listingFieldLists;
+    
+        return $this;
+    }
+
+    /**
+     * Remove ListingFieldLists
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists
+     */
+    public function removeListingFieldList(\Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists)
+    {
+        $this->ListingFieldLists->removeElement($listingFieldLists);
+    }
+
+    /**
+     * Get ListingFieldLists
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getListingFieldLists()
+    {
+        return $this->ListingFieldLists;
+    }
 }

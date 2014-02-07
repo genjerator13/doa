@@ -9,6 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ItemType extends AbstractType
 {
+    protected $em;
+    public function __construct($em=null) {
+        $this->em = $em;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -39,12 +43,11 @@ class ItemType extends AbstractType
             ->add('feature_youtube')
             ->add('Importfeed')
             ->add('User')
-            ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType(),
+            ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))
             ->add('Submit','submit')
             
         ;
-        
 
     }
     

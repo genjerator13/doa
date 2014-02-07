@@ -14,7 +14,7 @@ class ListingfieldRepository extends EntityRepository
                      l.caption like \'%'.$propertyName.'%\'     ) AND l.category_sid IN (0,'.$category_id.')';
         $query =  $this->getEntityManager()
             ->createQuery($q)->setMaxResults(1) ;
-        $res =$query->getResult();//getOneOrNullResult();
+        $res =$query->getOneOrNullResult();//getOneOrNullResult();
 
          return $res;
     }
