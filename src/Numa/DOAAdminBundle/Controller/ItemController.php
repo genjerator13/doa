@@ -80,7 +80,7 @@ class ItemController extends Controller {
         );
 
         //actions in row and mass actions
-        $grid->addRowAction(new RowAction('Show', 'items'));
+        //$grid->addRowAction(new RowAction('Show', 'items'));
         $yourMassAction = new MassAction('Action 1', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
         $grid->addMassAction($yourMassAction);
         $grid->isTitleSectionVisible = false;

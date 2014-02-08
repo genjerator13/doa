@@ -1,3 +1,4 @@
+
 <div class="picture_detail">
     <span class="fieldValue fieldValuePictures">
         <a href="#">
@@ -11,16 +12,19 @@
     </div>
     <div class="middle_details"
          <ul>
-            <li>{{details.Year}} {{details.Make}}</li>
+            <li class="itemdetailtitle">{{details.Year}} {{details.Make}}</li>
             <li>Listing ID # {{details.id}} in the category "{{details.category}} "</li>
             <li>Posted by {{details.username}} </li>
             <li class="actionSelector">
                 <a href="#" class="caption">Actions</a>
-                <ul class="actionList" style="display: none;">
-                    <li><a href="#">test1</a></li>
-                    <li><a href="#">test2</a></li>
-                    <li><a href="#">test3</a></li>
+                <ul class="actionList" style="">
+                    <li><a href="#">Add a comment</a></li>
+                    <li><a href="#">Deactivate</a></li>
+                    <li><a href="#">Reject</a></li>
+                    <li><a href="#">Edit</a></li>
+                    <li><a href="#">Delete</a></li>
                 </ul>
+                <div class="clear"></div>
         </ul>
     </div>
     <div class="right_details">
@@ -34,3 +38,4 @@
             <li>Activated on {{details.activation_date}}</li>
         </ul>
     </div>
+<div class="clear"></div>

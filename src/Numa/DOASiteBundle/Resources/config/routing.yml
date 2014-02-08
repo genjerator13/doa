@@ -4,6 +4,15 @@ homepage:
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{model}
     defaults: { _controller: NumaDOASiteBundle:Default:search }
+homepage_categories:
+    path:  /categories
+    defaults: { _controller: NumaDOASiteBundle:Default:categories }
+homepage_category:
+    path:  /category/{idcategory}/{category_name}
+    defaults: { _controller: NumaDOASiteBundle:Default:category }
+homepage_catalog:
+    path:  /catalog/{idcatalog}/{catalog_name}
+    defaults: { _controller: NumaDOASiteBundle:Default:catalog }
 #user registration
 buyer_register:
     path:     /user/register

@@ -36,7 +36,8 @@
         "twbs/bootstrap": "v3.0.0",
         "jquery/jquery": "1.9.*",
         "apy/datagrid-bundle": "dev-master",
-        "beberlei/DoctrineExtensions" : "dev-master"
+        "beberlei/DoctrineExtensions" : "dev-master",
+        "genemu/form-bundle": "2.2.*"
     },
     "scripts": {
         "post-install-cmd": [

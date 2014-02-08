@@ -67,3 +67,6 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+genemu_form:
+    tinymce: 
+        theme:   advanced

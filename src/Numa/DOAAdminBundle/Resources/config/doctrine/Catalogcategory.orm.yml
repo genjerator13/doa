@@ -9,11 +9,9 @@ Numa\DOAAdminBundle\Entity\Catalogcategory:
         name:
             type: string
             length: 255
-            unique: true
         slug:
             type: string
             length: 255
-            unique: true
     oneToMany:
         CatalogRecords:
             targetEntity: CatalogRecords
