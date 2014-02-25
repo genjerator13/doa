@@ -1,0 +1,18 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block javascripts %}
+{{parent()}} 
+
+{% endblock %}
+            
+{% block content %}
+<p>{{pagerfanta|length}} listinf found</p>
+<p>Number of listings per page:</p>
+<p>Sort by:</p>
+{% for item in pagerfanta %}
+
+<a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+{% endfor%}
+    {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+   
+
+{% endblock %}

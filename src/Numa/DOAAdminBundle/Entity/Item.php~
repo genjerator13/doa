@@ -8,8 +8,8 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 /**
  * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date" ,groupBy="id")
  */
-class Item
-{
+class Item {
+
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -46,7 +46,7 @@ class Item
     /**
      * @var string
      * @GRID\Column(type="text", field="moderation_status", title="moderation_status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
- 
+
      */
     private $moderation_status;
 
@@ -125,12 +125,11 @@ class Item
     /**
      * 
      */
-
     private $ItemField;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
-     * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true)
+     * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      */
     private $Category;
 
@@ -149,18 +148,16 @@ class Item
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -170,10 +167,9 @@ class Item
      * @param string $sid
      * @return Item
      */
-    public function setSid($sid)
-    {
+    public function setSid($sid) {
         $this->sid = $sid;
-    
+
         return $this;
     }
 
@@ -182,8 +178,7 @@ class Item
      *
      * @return string 
      */
-    public function getSid()
-    {
+    public function getSid() {
         return $this->sid;
     }
 
@@ -193,10 +188,9 @@ class Item
      * @param integer $feedId
      * @return Item
      */
-    public function setFeedId($feedId)
-    {
+    public function setFeedId($feedId) {
         $this->feed_id = $feedId;
-    
+
         return $this;
     }
 
@@ -205,8 +199,7 @@ class Item
      *
      * @return integer 
      */
-    public function getFeedId()
-    {
+    public function getFeedId() {
         return $this->feed_id;
     }
 
@@ -216,10 +209,9 @@ class Item
      * @param integer $categoryId
      * @return Item
      */
-    public function setCategoryId($categoryId)
-    {
+    public function setCategoryId($categoryId) {
         $this->category_id = $categoryId;
-    
+
         return $this;
     }
 
@@ -228,8 +220,7 @@ class Item
      *
      * @return integer 
      */
-    public function getCategoryId()
-    {
+    public function getCategoryId() {
         return $this->category_id;
     }
 
@@ -239,10 +230,9 @@ class Item
      * @param integer $userId
      * @return Item
      */
-    public function setUserId($userId)
-    {
+    public function setUserId($userId) {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
@@ -251,8 +241,7 @@ class Item
      *
      * @return integer 
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->user_id;
     }
 
@@ -262,10 +251,9 @@ class Item
      * @param boolean $active
      * @return Item
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -274,8 +262,7 @@ class Item
      *
      * @return boolean 
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
@@ -285,10 +272,9 @@ class Item
      * @param string $moderationStatus
      * @return Item
      */
-    public function setModerationStatus($moderationStatus)
-    {
+    public function setModerationStatus($moderationStatus) {
         $this->moderation_status = $moderationStatus;
-    
+
         return $this;
     }
 
@@ -297,8 +283,7 @@ class Item
      *
      * @return string 
      */
-    public function getModerationStatus()
-    {
+    public function getModerationStatus() {
         return $this->moderation_status;
     }
 
@@ -308,10 +293,9 @@ class Item
      * @param string $keywords
      * @return Item
      */
-    public function setKeywords($keywords)
-    {
+    public function setKeywords($keywords) {
         $this->keywords = $keywords;
-    
+
         return $this;
     }
 
@@ -320,8 +304,7 @@ class Item
      *
      * @return string 
      */
-    public function getKeywords()
-    {
+    public function getKeywords() {
         return $this->keywords;
     }
 
@@ -331,10 +314,9 @@ class Item
      * @param boolean $featured
      * @return Item
      */
-    public function setFeatured($featured)
-    {
+    public function setFeatured($featured) {
         $this->featured = $featured;
-    
+
         return $this;
     }
 
@@ -343,8 +325,7 @@ class Item
      *
      * @return boolean 
      */
-    public function getFeatured()
-    {
+    public function getFeatured() {
         return $this->featured;
     }
 
@@ -354,10 +335,9 @@ class Item
      * @param integer $views
      * @return Item
      */
-    public function setViews($views)
-    {
+    public function setViews($views) {
         $this->views = $views;
-    
+
         return $this;
     }
 
@@ -366,8 +346,7 @@ class Item
      *
      * @return integer 
      */
-    public function getViews()
-    {
+    public function getViews() {
         return $this->views;
     }
 
@@ -377,10 +356,9 @@ class Item
      * @param integer $pictures
      * @return Item
      */
-    public function setPictures($pictures)
-    {
+    public function setPictures($pictures) {
         $this->pictures = $pictures;
-    
+
         return $this;
     }
 
@@ -389,8 +367,7 @@ class Item
      *
      * @return integer 
      */
-    public function getPictures()
-    {
+    public function getPictures() {
         return $this->pictures;
     }
 
@@ -400,10 +377,9 @@ class Item
      * @param \DateTime $activationDate
      * @return Item
      */
-    public function setActivationDate($activationDate)
-    {
+    public function setActivationDate($activationDate) {
         $this->activation_date = $activationDate;
-    
+
         return $this;
     }
 
@@ -412,8 +388,7 @@ class Item
      *
      * @return \DateTime 
      */
-    public function getActivationDate()
-    {
+    public function getActivationDate() {
         return $this->activation_date;
     }
 
@@ -423,10 +398,9 @@ class Item
      * @param \DateTime $expirationDate
      * @return Item
      */
-    public function setExpirationDate($expirationDate)
-    {
+    public function setExpirationDate($expirationDate) {
         $this->expiration_date = $expirationDate;
-    
+
         return $this;
     }
 
@@ -435,8 +409,7 @@ class Item
      *
      * @return \DateTime 
      */
-    public function getExpirationDate()
-    {
+    public function getExpirationDate() {
         return $this->expiration_date;
     }
 
@@ -446,10 +419,9 @@ class Item
      * @param \DateTime $featuredLastShowed
      * @return Item
      */
-    public function setFeaturedLastShowed($featuredLastShowed)
-    {
+    public function setFeaturedLastShowed($featuredLastShowed) {
         $this->featured_last_showed = $featuredLastShowed;
-    
+
         return $this;
     }
 
@@ -458,8 +430,7 @@ class Item
      *
      * @return \DateTime 
      */
-    public function getFeaturedLastShowed()
-    {
+    public function getFeaturedLastShowed() {
         return $this->featured_last_showed;
     }
 
@@ -469,10 +440,9 @@ class Item
      * @param \DateTime $dateCreated
      * @return Item
      */
-    public function setDateCreated($dateCreated)
-    {
+    public function setDateCreated($dateCreated) {
         $this->date_created = $dateCreated;
-    
+
         return $this;
     }
 
@@ -481,8 +451,7 @@ class Item
      *
      * @return \DateTime 
      */
-    public function getDateCreated()
-    {
+    public function getDateCreated() {
         return $this->date_created;
     }
 
@@ -492,10 +461,9 @@ class Item
      * @param \DateTime $dateUpdated
      * @return Item
      */
-    public function setDateUpdated($dateUpdated)
-    {
+    public function setDateUpdated($dateUpdated) {
         $this->date_updated = $dateUpdated;
-    
+
         return $this;
     }
 
@@ -504,8 +472,7 @@ class Item
      *
      * @return \DateTime 
      */
-    public function getDateUpdated()
-    {
+    public function getDateUpdated() {
         return $this->date_updated;
     }
 
@@ -515,10 +482,9 @@ class Item
      * @param integer $autoExtend
      * @return Item
      */
-    public function setAutoExtend($autoExtend)
-    {
+    public function setAutoExtend($autoExtend) {
         $this->auto_extend = $autoExtend;
-    
+
         return $this;
     }
 
@@ -527,8 +493,7 @@ class Item
      *
      * @return integer 
      */
-    public function getAutoExtend()
-    {
+    public function getAutoExtend() {
         return $this->auto_extend;
     }
 
@@ -538,10 +503,9 @@ class Item
      * @param boolean $featureHighlighted
      * @return Item
      */
-    public function setFeatureHighlighted($featureHighlighted)
-    {
+    public function setFeatureHighlighted($featureHighlighted) {
         $this->feature_highlighted = $featureHighlighted;
-    
+
         return $this;
     }
 
@@ -550,8 +514,7 @@ class Item
      *
      * @return boolean 
      */
-    public function getFeatureHighlighted()
-    {
+    public function getFeatureHighlighted() {
         return $this->feature_highlighted;
     }
 
@@ -561,10 +524,9 @@ class Item
      * @param boolean $featureSlideshow
      * @return Item
      */
-    public function setFeatureSlideshow($featureSlideshow)
-    {
+    public function setFeatureSlideshow($featureSlideshow) {
         $this->feature_slideshow = $featureSlideshow;
-    
+
         return $this;
     }
 
@@ -573,8 +535,7 @@ class Item
      *
      * @return boolean 
      */
-    public function getFeatureSlideshow()
-    {
+    public function getFeatureSlideshow() {
         return $this->feature_slideshow;
     }
 
@@ -584,10 +545,9 @@ class Item
      * @param boolean $featureYoutube
      * @return Item
      */
-    public function setFeatureYoutube($featureYoutube)
-    {
+    public function setFeatureYoutube($featureYoutube) {
         $this->feature_youtube = $featureYoutube;
-    
+
         return $this;
     }
 
@@ -596,8 +556,7 @@ class Item
      *
      * @return boolean 
      */
-    public function getFeatureYoutube()
-    {
+    public function getFeatureYoutube() {
         return $this->feature_youtube;
     }
 
@@ -607,10 +566,9 @@ class Item
      * @param string $lastUserIp
      * @return Item
      */
-    public function setLastUserIp($lastUserIp)
-    {
+    public function setLastUserIp($lastUserIp) {
         $this->last_user_ip = $lastUserIp;
-    
+
         return $this;
     }
 
@@ -619,8 +577,7 @@ class Item
      *
      * @return string 
      */
-    public function getLastUserIp()
-    {
+    public function getLastUserIp() {
         return $this->last_user_ip;
     }
 
@@ -630,8 +587,7 @@ class Item
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      * @return Item
      */
-    public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
-    {
+    public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
         $this->ItemField->add($itemField);
         $itemField->setItem($this);
         return $this;
@@ -642,8 +598,7 @@ class Item
      *
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
-    public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
-    {
+    public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
         $this->ItemField->removeElement($itemField);
     }
 
@@ -652,11 +607,9 @@ class Item
      *
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
-    public function removeAllItemField()
-    {
+    public function removeAllItemField() {
 
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
 
     /**
@@ -664,9 +617,22 @@ class Item
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getItemField()
-    {
+    public function getItemField() {
         return $this->ItemField;
+    }
+
+    /**
+     * Get ItemFields
+     *
+     * @return array
+     */
+    public function getArrayItemFields() {
+        $return = array();
+        foreach ($this->ItemField as $itemField) {
+            $index = strtolower($itemField->getFieldName());
+            $return[$index][] = $itemField;
+        }
+        return $return;
     }
 
     /**
@@ -675,10 +641,9 @@ class Item
      * @param \Numa\DOAAdminBundle\Entity\Category $category
      * @return Item
      */
-    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null)
-    {
+    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null) {
         $this->Category = $category;
-    
+
         return $this;
     }
 
@@ -687,8 +652,7 @@ class Item
      *
      * @return \Numa\DOAAdminBundle\Entity\Category 
      */
-    public function getCategory()
-    {
+    public function getCategory() {
         return $this->Category;
     }
 
@@ -698,10 +662,26 @@ class Item
      * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
      * @return Item
      */
-    public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
-    {
+    public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
         $this->Importfeed = $importfeed;
-    
+        if (!empty($importfeed->getMakeFeatured())) {
+            $this->setFeatured(true);
+        }
+
+        if (!empty($importfeed->getActivateListing())) {
+            $this->setActive(true);
+        }
+
+        if (!empty($importfeed->getMakeHighlighted())) {
+            $this->setFeatureHighlighted(true);
+        }
+
+        if (!empty($importfeed->getExpirationAfter())) {
+            $days = $importfeed->getExpirationAfter();
+            $date_created = $this->date_created();
+            $expirationDate = $date_created->add(new DateInterval('P'.$days.'D'));
+            $this->setExpirationDate($expirationDate);
+        }
         return $this;
     }
 
@@ -710,8 +690,7 @@ class Item
      *
      * @return \Numa\DOAAdminBundle\Entity\Importfeed 
      */
-    public function getImportfeed()
-    {
+    public function getImportfeed() {
         return $this->Importfeed;
     }
 
@@ -721,10 +700,9 @@ class Item
      * @param \Numa\DOAAdminBundle\Entity\User $user
      * @return Item
      */
-    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
-    {
+    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null) {
         $this->User = $user;
-    
+
         return $this;
     }
 
@@ -733,30 +711,29 @@ class Item
      *
      * @return \Numa\DOAAdminBundle\Entity\User 
      */
-    public function getUser()
-    {
+    public function getUser() {
         return $this->User;
     }
+
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue()
-    {
+    public function setCreatedAtValue() {
         // Add your code here
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue()
-    {
+    public function setUpdatedAtValue() {
         // Add your code here
     }
+
     /**
      * @ORM\PreUpdate
      */
-    public function __toString()
-    {
+    public function __toString() {
         return "test";
     }
+
 }

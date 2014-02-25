@@ -1,0 +1,11 @@
+
+{% block content %}
+<div id="searchtags"></div>
+<div id="searchresults">
+    <ul>
+                    {% for item in items %}
+            <li><a href="#">{{item.id}}</a></li>
+                    {% endfor %}
+            </ul>
+        </div>
+{% endblock %}

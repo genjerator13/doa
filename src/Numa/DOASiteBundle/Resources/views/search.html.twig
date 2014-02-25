@@ -1,0 +1,10 @@
+{% form_theme form 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+
+
+<div class="row">
+    {{ form_start(form, {'attr': {'class': 'form-inline search','role':'search'}}) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.text,{ 'attr': {'class': 'form-control'} }) }}
+    <button class="btn btn-default" type="submit">Search</button>
+{{ form_end(form) }}
+</div>

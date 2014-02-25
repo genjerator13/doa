@@ -11,7 +11,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
-            new Symfony\Bundle\MonologBundle\MonologBundle(),
+            //new Symfony\Bundle\MonologBundle\MonologBundle(),
             new Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle(),
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
@@ -19,8 +19,10 @@ class AppKernel extends Kernel
             new Bc\Bundle\BootstrapBundle\BcBootstrapBundle(),
             new APY\DataGridBundle\APYDataGridBundle(),
             new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Numa\DOASiteBundle\NumaDOASiteBundle(),
             new Numa\DOAAdminBundle\NumaDOAAdminBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -70,3 +70,10 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
+        
+liip_imagine:
+    filter_sets:
+        item_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [120, 90], mode: outbound }

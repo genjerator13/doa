@@ -319,4 +319,36 @@ class Catalogrecords
     {
         return $this->full;
     }
+    /**
+     * @var string
+     */
+    private $fax;
+
+
+    /**
+     * Set fax
+     *
+     * @param string $fax
+     * @return Catalogrecords
+     */
+    public function setFax($fax)
+    {
+        $this->fax = $fax;
+    
+        return $this;
+    }
+
+    /**
+     * Get fax
+     *
+     * @return string 
+     */
+    public function getFax()
+    {
+        return $this->fax;
+    }
+    
+    public function __toString() {
+        return $this->getName();
+    }
 }

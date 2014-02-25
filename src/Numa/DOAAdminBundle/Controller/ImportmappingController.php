@@ -318,13 +318,11 @@ class ImportmappingController extends Controller {
 
                         $listValues = $maprow->getListingFields()->getListingFieldLists();
                         if (!$listValues->isEmpty()) {
-                            //\Doctrine\Common\Util\Debug::dump($listValues);
                             //get listingFieldlist by ID and stringValue
                             $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue,$maprow->getListingFields()->getId());
                             if (!empty($listingList)) {
                                 //\Doctrine\Common\Util\Debug::dump($listingList->getId());
                                 $itemField->setFieldIntegerValue($listingList->getId());
-
                             }
                         }
                     }

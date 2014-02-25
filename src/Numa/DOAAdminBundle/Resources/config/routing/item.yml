@@ -32,3 +32,15 @@ items_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:delete" }
     requirements: { _method: post|delete }
+items_activate:
+    pattern:  /{id}/activate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:activate" }
+items_deactivate:
+    pattern:  /{id}/deactivate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:deactivate" }
+items_reject:
+    pattern:  /{id}/approve
+    defaults: { _controller: "NumaDOAAdminBundle:Item:reject" }
+items_approve:
+    pattern:  /{id}/reject
+    defaults: { _controller: "NumaDOAAdminBundle:Item:approve" }

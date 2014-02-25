@@ -1,7 +1,5 @@
-parameters:
-#    numa_doa_site.example.class: Numa\DOASiteBundle\Example
-
 services:
-#    numa_doa_site.example:
-#        class: %numa_doa_site.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    Numa.Twig.numa_extension:
+        class: Numa\Twig\NumaExtension
+        tags:
+           - { name: twig.extension } 

@@ -57,6 +57,7 @@ class ItemController extends Controller {
                     $res['moderation_status'] = $row->getField('moderation_status');
                     $res['views'] = $row->getField('views');
                     $res['activation_date'] = $row->getField('activation_date');
+                    
                     foreach ($fields as $field) {
                         if ($field->getFieldType() == 'array') {
                             $res[$field->getFieldName()][] = $field->getFieldStringValue();
@@ -74,6 +75,12 @@ class ItemController extends Controller {
                     if (empty($res['Make'])) {
                         $res['Make'] = "";
                     }
+                    
+                    if (empty($res['activation_date'])) {
+                        $res['activation_date'] = " ";
+                    }else{
+                        $res['activation_date'] = $res['activation_date']->format('Y-m-d');
+                    }
 
                     echo $controller->renderView("NumaDOAAdminBundle:Item:itemDetailsGrid.html.twig", array("details" => $res));
                 }
@@ -81,21 +88,36 @@ class ItemController extends Controller {
 
         //actions in row and mass actions
         //$grid->addRowAction(new RowAction('Show', 'items'));
-        $yourMassAction = new MassAction('Action 1', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
+        $yourMassAction = new MassAction('Activate', 'Numa\DOAAdminBundle\Controller\ItemController::test');
         $grid->addMassAction($yourMassAction);
-        $grid->isTitleSectionVisible = false;
+        $yourMassAction = new MassAction('Deactivate', 'Numa\DOAAdminBundle\Controller\ItemController::deactivateAction');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Approve', 'Numa\DOAAdminBundle\Controller\ItemController::approveAction');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Reject', 'Numa\DOAAdminBundle\Controller\ItemController::rejectAction');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
+        $grid->addMassAction($yourMassAction);
+        
+        //$grid->isTitleSectionVisible = false;
 
 
         //hide certain columns
-        $grid->hideColumns('id');
-        $grid->hideColumns('Category.name');
-        $grid->hideColumns('User.UserGroup.name');
-        $grid->hideColumns('User.username');
-        $grid->hideColumns('active');
-        $grid->hideColumns('moderation_status');
-        $grid->hideColumns('views');
+        //$grid->hideColumns('id');
+        //$grid->hideColumns('Category.name');
+        //$grid->hideColumns('User.UserGroup.name');
+        //$grid->hideColumns('User.username');
+        //$grid->hideColumns('active');
+        //$grid->hideColumns('moderation_status');
+        //$grid->hideColumns('views');
+        //$grid->hideColumns('activation_date');
 
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
+    }
+    
+    static function test ($primaryKeys, $allPrimaryKeys, $session, $parameters){
+        print_r($primaryKeys);
+        die();
     }
 
     /**
@@ -360,6 +382,83 @@ class ItemController extends Controller {
         }
 
         return $this->redirect($this->generateUrl('items'));
+    }
+    
+    /**
+     * Activate a Item entity.
+     *
+     */
+    public function activateAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $activation = $request->get('active');
+        $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+
+        $entity->setActive(1);
+        $entity->setActivationDate(new \DateTime());
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('items', array('id' => $id)));
+    }
+    
+    /**
+     * deactivate a Item entity.
+     *
+     */
+    public function deactivateAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+
+        $entity->setActive(0);
+        
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('items', array('id' => $id)));
+    }
+    
+    /**
+     * reject a Item entity.
+     *
+     */
+    public function rejectAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+
+        $entity->setModerationStatus(0);
+        
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('items', array('id' => $id)));
+    }
+    
+    /**
+     * approve a Item entity.
+     *
+     */
+    public function approveAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
+        }
+
+        $entity->setModerationStatus(1);
+        
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('items', array('id' => $id)));
     }
 
     /**

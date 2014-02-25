@@ -24,4 +24,22 @@ buyer_create:
 
 buyer_login:
     path:     /user/login
-    defaults: { _controller: NumaDOASiteBundle:User:login }        
+    defaults: { _controller: NumaDOASiteBundle:User:login }    
+item_details:
+    path:     /details/{itemId}/{description}
+    defaults: { _controller: NumaDOASiteBundle:Item:details }     
+search_sellers:
+    path:     /seller/search
+    defaults: { _controller: NumaDOASiteBundle:Seller:search } 
+
+search_dispatch:
+    pattern:  /search
+    defaults: { _controller: NumaDOASiteBundle:Search:searchDispatcher, _locale: en }   
+
+search:
+    pattern:  /search-result/{text}
+    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en } 
+
+search_advanced:
+    pattern:  /search-advanced
+    defaults: { _controller: NumaDOASiteBundle:Search:searchAdvanced, _locale: en } 

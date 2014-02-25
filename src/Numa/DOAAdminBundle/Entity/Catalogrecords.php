@@ -347,4 +347,8 @@ class Catalogrecords
     {
         return $this->fax;
     }
+    
+    public function __toString() {
+        return $this->getName();
+    }
 }

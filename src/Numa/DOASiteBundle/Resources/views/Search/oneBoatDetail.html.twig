@@ -1,0 +1,20 @@
+{% block content %}
+<div class="search_result">
+    <h2><a class="boat-link" href="{{ path('rentabo_boat_overview', {'slug': item.slug})}}">{{item.generalDataBoatModel}} - <span class="skipper">{{item.charterDataSkipper}}</span></a></h2>
+
+    <div style="clear: both;"></div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('RentaboSiteBundle:Search:BoatImage.html.twig') }} 
+        </div>
+        <div class="col-md-4">
+            {{ include('RentaboSiteBundle:Search:BoatDetails.html.twig') }} 
+        </div>
+        <div class="col-md-4">
+            {{ include('RentaboSiteBundle:Search:BoatLocation.html.twig') }}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

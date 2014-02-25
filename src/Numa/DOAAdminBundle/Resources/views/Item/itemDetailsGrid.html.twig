@@ -19,10 +19,18 @@
                 <a href="#" class="caption">Actions</a>
                 <ul class="actionList" style="">
                     <li><a href="#">Add a comment</a></li>
-                    <li><a href="#">Deactivate</a></li>
-                    <li><a href="#">Reject</a></li>
-                    <li><a href="#">Edit</a></li>
-                    <li><a href="#">Delete</a></li>
+                    {% if details.active==1   %}
+                    <li><a href="{{path('items_deactivate', {'id': details.id}) }}">Deactivate</a></li>
+                    {%else%}
+                    <li><a href="{{path('items_activate', {'id': details.id}) }}">Activate</a></li>
+                    {%endif%}
+                                        {% if details.moderation_status==1   %}
+                    <li><a href="{{path('items_reject', {'id': details.id}) }}">Reject</a></li>
+                    {%else%}
+                    <li><a href="{{path('items_approve', {'id': details.id}) }}">Approve</a></li>
+                    {%endif%}
+                    <li><a href="{{path('items_edit', {'id': details.id}) }}">Edit</a></li>
+                    <li><a href="{{path('items_delete', {'id': details.id}) }}">Delete</a></li>
                 </ul>
                 <div class="clear"></div>
         </ul>
@@ -30,12 +38,12 @@
     <div class="right_details">
         <ul>
             <li>
-                <span class="fieldValue fieldValueActive active">{% if details.active==1   %}Active {%else%}Inactive{%endif%}</span> 
-                and <span class="fieldValue fieldValueModerationStatus approved">{{details.moderation_status}}</span>							</li>
+                <span class="fieldValue fieldValueActive active">{% if details.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
+                and <span class="fieldValue fieldValueModerationStatus approved">{% if details.moderation_status==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
             <li>0 pictures</li>
             <li>0 comments</li>
             <li>{{details.views}} views</li>
-            <li>Activated on {{details.activation_date}}</li>
+            <li>Activated on {% if details.activation_date is defined   %}{{details.activation_date}}{%endif%}</li>
         </ul>
     </div>
 <div class="clear"></div>

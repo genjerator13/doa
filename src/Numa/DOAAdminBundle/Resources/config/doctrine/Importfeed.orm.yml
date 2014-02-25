@@ -124,7 +124,7 @@ Numa\DOAAdminBundle\Entity\Importfeed:
                 name: listing_type
                 referencedColumnName: id
         User:
-            targetEntity: User
+            targetEntity: Catalogrecords
             inversedBy: Importfeed
             joinColumn:
                 name: default_user

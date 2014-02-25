@@ -1,7 +1,7 @@
-{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+
 {% block content %}
 
-<h2>{{category.name}}</h2>
+{#<h2>{{category.name}}</h2>#}
 <div class="list-group id="myTab">
     {% for key,item in catalogs %}
         <a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="list-group-item">{{item.name}}</a>

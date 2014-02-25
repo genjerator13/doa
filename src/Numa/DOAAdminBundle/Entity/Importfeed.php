@@ -882,8 +882,9 @@ class Importfeed
     public function __toString() {
         return $this->getSid();
     }
+
     /**
-     * @var \Numa\DOAAdminBundle\Entity\User
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     private $User;
 
@@ -891,10 +892,10 @@ class Importfeed
     /**
      * Set User
      *
-     * @param \Numa\DOAAdminBundle\Entity\User $user
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $user
      * @return Importfeed
      */
-    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
+    public function setUser(\Numa\DOAAdminBundle\Entity\Catalogrecords $user = null)
     {
         $this->User = $user;
     
@@ -904,7 +905,7 @@ class Importfeed
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\User 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
      */
     public function getUser()
     {
