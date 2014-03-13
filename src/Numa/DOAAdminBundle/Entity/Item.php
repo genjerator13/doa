@@ -673,7 +673,7 @@ class Item {
             $this->setActive(true);
         }
         $isHighlighted = $importfeed->getMakeHighlighted();
-        if (!empty($importfeed->getMakeHighlighted())) {
+        if (!empty($isHighlighted)) {
             $this->setFeatureHighlighted(true);
         }
         $isExpired = $importfeed->getExpirationAfter();
