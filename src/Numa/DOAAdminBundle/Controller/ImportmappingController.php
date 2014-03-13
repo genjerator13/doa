@@ -314,7 +314,7 @@ class ImportmappingController extends Controller {
                     $itemField->setFieldName($maprow->getListingFields()->getCaption());
                     $itemField->setFieldType($maprow->getListingFields()->getType());
                     $$listingFieldsType = $listingFields->getType();
-                    if (!empty($$listingFieldsType) && $$listingFieldsType == 'list') {
+                    if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
 
                         $listValues = $maprow->getListingFields()->getListingFieldLists();
                         if (!$listValues->isEmpty()) {
