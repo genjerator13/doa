@@ -679,7 +679,8 @@ class Item {
         $isExpired = $importfeed->getExpirationAfter();
         if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
-            if(empty($this->getDateCreated())){
+            $isDateCreated =  $this->getDateCreated();
+            if(empty($isDateCreated)){
                 $this->setCreatedAtValue();
             }
             $date_created = $this->getDateCreated();

@@ -304,8 +304,8 @@ class ImportmappingController extends Controller {
             foreach ($mapping as $maprow) {
                 $property = $maprow->getSid();
 
-
-                if (!empty($maprow->getListingFields())) {
+                $listingFields = $maprow->getListingFields();
+                if (!empty($listingFields)) {
                     $property = $maprow->getSid();
                     $stringValue = (string) $XMLitem->{$property};
                     $itemField = new ItemField();
@@ -313,8 +313,8 @@ class ImportmappingController extends Controller {
                     $itemField->setListingfield($maprow->getListingFields());
                     $itemField->setFieldName($maprow->getListingFields()->getCaption());
                     $itemField->setFieldType($maprow->getListingFields()->getType());
-
-                    if (!empty($maprow->getListingFields()->getType()) && $maprow->getListingFields()->getType() == 'list') {
+                    $$listingFieldsType = $listingFields->getType();
+                    if (!empty($$listingFieldsType) && $$listingFieldsType == 'list') {
 
                         $listValues = $maprow->getListingFields()->getListingFieldLists();
                         if (!$listValues->isEmpty()) {
