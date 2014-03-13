@@ -54,7 +54,7 @@ Numa\DOAAdminBundle\Entity\Listingfield:
             nullable: true
     oneToMany:
         ImportMapping:
-            targetEntity: ImportMapping
+            targetEntity: Importmapping
             mappedBy: Listingfield
         ItemField:
             targetEntity: ItemField

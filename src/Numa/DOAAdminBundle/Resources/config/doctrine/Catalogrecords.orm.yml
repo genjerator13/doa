@@ -40,7 +40,7 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         
     manyToOne:
         CatalogCategory:
-            targetEntity: CatalogCategory
+            targetEntity: Catalogcategory
             inversedBy: CatalogRecords
             joinColumn:
                 name: category_id
