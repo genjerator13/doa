@@ -664,19 +664,20 @@ class Item {
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
         $this->Importfeed = $importfeed;
-        if (!empty($importfeed->getMakeFeatured())) {
+        $isFeatured = $importfeed->getMakeFeatured();
+        if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
-
-        if (!empty($importfeed->getActivateListing())) {
+        $isActivated = $importfeed->getActivateListing();
+        if (!empty($isActivated)) {
             $this->setActive(true);
         }
-
+        $isHighlighted = $importfeed->getMakeHighlighted();
         if (!empty($importfeed->getMakeHighlighted())) {
             $this->setFeatureHighlighted(true);
         }
-
-        if (!empty($importfeed->getExpirationAfter())) {
+        $isExpired = $importfeed->getExpirationAfter();
+        if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
             if(empty($this->getDateCreated())){
                 $this->setCreatedAtValue();
