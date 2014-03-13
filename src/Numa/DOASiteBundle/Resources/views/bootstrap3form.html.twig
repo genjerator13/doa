@@ -1,8 +1,10 @@
 {% block form_row %}
 {% spaceless %}
     <div class="form-group {{ groupclass is defined ?  groupclass: '' }} {{ errors|length > 0 ? 'error' : '' }}">
-        {{ form_label(form)}}
-            <div class="{{class}}">
+        
+        <div class="{{class is defined?class:""}}">
+                <span class="input-group-addon">
+        {{ label}}</span>
         {{ form_widget(form) }}
                     </div> 
         {{ form_errors(form) }}

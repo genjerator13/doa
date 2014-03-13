@@ -2,6 +2,34 @@
 {% block content %}
 <!-- Nav tabs -->
 <h2>Register</h2>
-{{ form(form) }}
+  {% form_theme form 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+                                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(form) }}
+<div class="row">
+                                    {{ form_row(form.username,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+    </div>
+    <div class="row">
+                                    {{ form_row(form.password.first,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.password.second,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+   
+        </div>
+        <div class="row">
+                                    {{ form_row(form.email,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            </div> 
+        <div class="row">
+                                    {{ form_row(form.FirstName,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            </div> 
+                                        <div class="row">
+                                    {{ form_row(form.LastName,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            </div> 
+                                        <div class="row">
+                                    {{ form_row(form.PhoneNumber,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            </div> 
+                                                    <div class="row">
+                                    {{ form_row(form.DisplayEmail,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            </div> 
+                                <button class="btn btn-primary" type="submit">Submit</button>
 {% endblock %}
 

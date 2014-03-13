@@ -15,7 +15,8 @@ class SearchController extends Controller {
 
     public function searchAction(Request $request) {
         $text = $request->get('text');
-        $page = empty($request->get('page')) ? 1 : $request->get('page');
+        $page = $request->get('page');
+        $page = empty($page) ? 1 : $request->get('page');
 
         $query = $this->getDoctrine()->getManager()
                         ->createQuery(

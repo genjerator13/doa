@@ -7,8 +7,8 @@ form.search {
 }
 
 #searchform form .choice {
-    padding: 0px;
-    padding-right: 30px;
+    /*padding: 0px;
+    padding-right: 30px;*/
 }
 
 #searchform form .checkbox {
@@ -18,5 +18,9 @@ form.search {
 
 .clear {
     clear: both;
+}
+
+.tab-content {
+    padding: 20px;
 }
 
