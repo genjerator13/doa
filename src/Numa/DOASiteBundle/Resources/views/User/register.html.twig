@@ -30,6 +30,7 @@
                                                     <div class="row">
                                     {{ form_row(form.DisplayEmail,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
             </div> 
+                                {{ form_row(form._token) }}
                                 <button class="btn btn-primary" type="submit">Submit</button>
 {% endblock %}
 

@@ -14,5 +14,5 @@ Numa\DOAAdminBundle\Entity\Catalogcategory:
             length: 255
     oneToMany:
         CatalogRecords:
-            targetEntity: CatalogRecords
+            targetEntity: Catalogrecords
             mappedBy: catalogcategories

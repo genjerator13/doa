@@ -17,7 +17,9 @@ homepage_catalog:
 buyer_register:
     path:     /user/register
     defaults: { _controller: NumaDOASiteBundle:User:register }
-
+register_success:
+    path:     /user/register-success
+    defaults: { _controller: NumaDOASiteBundle:User:registerSuccess }
 buyer_create:
     path:     /user/create
     defaults: { _controller: NumaDOASiteBundle:User:create }

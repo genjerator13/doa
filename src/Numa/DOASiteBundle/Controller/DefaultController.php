@@ -111,7 +111,7 @@ class DefaultController extends Controller {
         $cat_name = $request->get('category_name');
         $category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
-        return $this->render('NumaDOASiteBundle:Default:category.html.twig', array('category' => $category, 'catalogs' => $catalogs));
+        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs));
     }
 
     public function searchAction(Request $request) {

@@ -23,7 +23,7 @@ class Importmappings {
     /**
      * Add CatalogRecords
      *
-     * @param \Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
      * @return Catalogcategory
      */
     public function addImportmappingRow(\Numa\DOAAdminBundle\Entity\Importmapping $if)
@@ -36,7 +36,7 @@ class Importmappings {
     /**
      * Remove CatalogRecords
      *
-     * @param \Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
      */
     public function removeImportmappingRow(\Numa\DOAAdminBundle\Entity\Importmapping $if)
     {

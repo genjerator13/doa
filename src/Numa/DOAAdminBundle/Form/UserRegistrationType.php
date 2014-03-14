@@ -14,8 +14,8 @@ class UserRegistrationType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('username')
-                ->add('password')
+                ->add('username','text',array('label'=>'Username'))
+                ->add('password','password',array('label'=>'Password'))
                 ->add('password', 'repeated', array(
                     'type' => 'password',
                     'invalid_message' => 'The password fields must match.',
@@ -24,11 +24,11 @@ class UserRegistrationType extends AbstractType {
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat Password'),
                 ))
-                ->add('email')
-                ->add('FirstName')
-                ->add('LastName')
-                ->add('PhoneNumber')
-                ->add('DisplayEmail')
+                ->add('email','email',array('label'=>'Email'))
+                ->add('FirstName','text',array('label'=>'First name'))
+                ->add('LastName','text',array('label'=>'Last name'))
+                ->add('PhoneNumber','text',array('label'=>'Phone number'))
+                ->add('DisplayEmail','checkbox',array('label'=>'Display email','required'=>false))
                 ->add('Submit', 'button')
         ;
     }
@@ -38,7 +38,8 @@ class UserRegistrationType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Numa\DOAAdminBundle\Entity\User'
+            'data_class' => 'Numa\DOAAdminBundle\Entity\User',
+            'cascade_validation' => true,
         ));
     }
 
