@@ -43,7 +43,7 @@ class ItemController extends Controller {
                     $res = array();
 
                     $id = $row->getField('id');
-                    $em = $this->getDoctrine()->getManager();
+                    $em = $controller->getDoctrine()->getManager();
 
                     $fields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $id));
 

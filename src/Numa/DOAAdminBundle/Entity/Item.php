@@ -126,6 +126,7 @@ class Item {
      * 
      */
     private $ItemField;
+    public $ItemFieldArray;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
@@ -150,6 +151,7 @@ class Item {
      */
     public function __construct() {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ItemFieldArray =array();
     }
 
     /**
@@ -618,6 +620,7 @@ class Item {
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getItemField() {
+        $this->getItemFieldsArray();
         return $this->ItemField;
     }
 
@@ -626,13 +629,29 @@ class Item {
      *
      * @return array
      */
-    public function getArrayItemFields() {
-        $return = array();
-        foreach ($this->ItemField as $itemField) {
-            $index = strtolower($itemField->getFieldName());
-            $return[$index][] = $itemField;
+    public function getItemFieldsArray() {
+        
+        if (empty($this->ItemFieldArray)) {
+            foreach ($this->ItemField as $itemField) {
+                $index = strtolower($itemField->getFieldName());
+                $this->ItemFieldArray[$index][] = $itemField;
+                $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
+                $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
+                $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
+            }
         }
-        return $return;
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);echo "aaaaaaaaaaaa";
+        return $this->ItemFieldArray;
+    }
+    
+    public function getItemFieldByName($name) {
+        $this->getItemFieldsArray();
+        $name = strtolower($name);
+        
+        if(!empty($this->ItemFieldArray[$name])){
+            return $this->ItemFieldArray[$name]['stringvalue'];
+        };
+        return "";
     }
 
     /**
@@ -679,8 +698,8 @@ class Item {
         $isExpired = $importfeed->getExpirationAfter();
         if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
-            $isDateCreated =  $this->getDateCreated();
-            if(empty($isDateCreated)){
+            $isDateCreated = $this->getDateCreated();
+            if (empty($isDateCreated)) {
                 $this->setCreatedAtValue();
             }
             $date_created = $this->getDateCreated();

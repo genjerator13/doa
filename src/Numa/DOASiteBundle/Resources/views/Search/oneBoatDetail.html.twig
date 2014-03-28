@@ -1,20 +1,53 @@
 {% block content %}
-<div class="search_result">
-    <h2><a class="boat-link" href="{{ path('rentabo_boat_overview', {'slug': item.slug})}}">{{item.generalDataBoatModel}} - <span class="skipper">{{item.charterDataSkipper}}</span></a></h2>
 
-    <div style="clear: both;"></div>
-    <div class="row">
-        <div class="col-md-4">
-            {{ include('RentaboSiteBundle:Search:BoatImage.html.twig') }} 
-        </div>
-        <div class="col-md-4">
-            {{ include('RentaboSiteBundle:Search:BoatDetails.html.twig') }} 
-        </div>
-        <div class="col-md-4">
-            {{ include('RentaboSiteBundle:Search:BoatLocation.html.twig') }}
-        </div>
-
+<div class="picture_detail">
+    <span class="fieldValue fieldValuePictures">
+        <a href="#">
+            
+{#                {% if details['Image List'] is empty  %}
+                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
+                {% else %} 
+                <img alt="{{details.Year}} {{details.Make}}" src="{{details['Image List'][0]}}" width="100" height="100">
+                {%endif%}#}
+                
+            </a>
+        </span>
     </div>
-</div>
-
+    <div class="middle_details"
+         <ul>
+            <li class="itemdetailtitle">{{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}</li>
+            <li>Listing ID # {{item.id}} in the category "{{item.category}} "</li>
+            <li>Posted by {{item.getItemFieldByName('username')}} </li>
+            <li class="actionSelector">
+                <a href="#" class="caption">Actions</a>
+                <ul class="actionList" style="">
+                    <li><a href="#">Add a comment</a></li>
+                    {% if item.active==1   %}
+                    <li><a href="{{path('items_deactivate', {'id': item.id}) }}">Deactivate</a></li>
+                    {%else%}
+                    <li><a href="{{path('items_activate', {'id': item.id}) }}">Activate</a></li>
+                    {%endif%}
+                                        {%if item.moderationStatus==1   %}
+                    <li><a href="{{path('items_reject', {'id': item.id}) }}">Reject</a></li>
+                    {%else%}
+                    <li><a href="{{path('items_approve', {'id': item.id}) }}">Approve</a></li>
+                    {%endif%}
+                    <li><a href="{{path('items_edit', {'id': item.id}) }}">Edit</a></li>
+                    <li><a href="{{path('items_delete', {'id': item.id}) }}">Delete</a></li>
+                </ul>
+                <div class="clear"></div>
+        </ul>
+    </div>
+    <div class="right_details">
+        <ul>
+            <li>
+                <span class="fieldValue fieldValueActive active">{% if item.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
+                and <span class="fieldValue fieldValueModerationStatus approved">{% if item.moderationStatus==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
+            <li>0 pictures</li>
+            <li>0 comments</li>
+            <li>{{item.views}} views</li>
+            <li>Activated on {% if item.activationDate is defined   %}{{item.activationDate}}{%endif%}</li>
+        </ul>
+    </div>
+<div class="clear"></div>
 {% endblock %}
