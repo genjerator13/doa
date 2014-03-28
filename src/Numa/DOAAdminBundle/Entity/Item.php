@@ -708,6 +708,21 @@ class Item {
             $test = $test->setDate($this->getDateCreated()->format("Y"), $this->getDateCreated()->format('m'), $this->getDateCreated()->format('d'));
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
+        
+        $dealer = $importfeed->getDefaultUser();
+
+        if (!empty($dealer)) {
+            $itemField = new ItemField();
+            $itemField->setFieldBooleanValue(true);
+            $itemField->setFieldIntegerValue($dealer);
+            
+            $itemField->setFieldStringValue($dealer);
+            $itemField->setFieldName('dealer');
+            
+            $this->addItemField($itemField);
+
+        }
+        
         return $this;
     }
 

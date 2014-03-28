@@ -25,6 +25,7 @@ class ImportmappingType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $feedCid = $this->feed_cid;
         $builder
             ->add('sid')
             ->add('description', 'text', array('required' => false))
@@ -33,11 +34,11 @@ class ImportmappingType extends AbstractType
                 array(
                     'class' => 'NumaDOAAdminBundle:Listingfield',
                     'property' => 'caption',
-                    'query_builder' => function ($lr)
+                    'query_builder' => function ($lr) use ($feedCid)
                     {
                                // echo get_class($lr);
                         return $lr->createQueryBuilder('lf')
-                            ->where("lf.category_sid IN (0,".$this->feed_cid.")")
+                            ->where("lf.category_sid IN (0,".$feedCid.")")
                             ->orderBy('lf.caption', 'ASC');
                     },
                     'empty_value' => 'Choose an option',

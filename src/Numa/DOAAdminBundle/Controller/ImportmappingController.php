@@ -249,7 +249,7 @@ class ImportmappingController extends Controller {
                 $im->setSid($prop);
                 $im->setProperty($prop);
                 $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop, $feed->getListingType());
-                if(!empty($test)){
+                if (!empty($test)) {
                     $im->setListingFields($test);
                 }
 
@@ -313,13 +313,13 @@ class ImportmappingController extends Controller {
                     $itemField->setListingfield($maprow->getListingFields());
                     $itemField->setFieldName($maprow->getListingFields()->getCaption());
                     $itemField->setFieldType($maprow->getListingFields()->getType());
-                    $$listingFieldsType = $listingFields->getType();
+                    $listingFieldsType = $listingFields->getType();
                     if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
 
                         $listValues = $maprow->getListingFields()->getListingFieldLists();
                         if (!$listValues->isEmpty()) {
                             //get listingFieldlist by ID and stringValue
-                            $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue,$maprow->getListingFields()->getId());
+                            $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
                             if (!empty($listingList)) {
                                 //\Doctrine\Common\Util\Debug::dump($listingList->getId());
                                 $itemField->setFieldIntegerValue($listingList->getId());
@@ -327,7 +327,19 @@ class ImportmappingController extends Controller {
                         }
                     }
                 }
+                //dealer
+                $dealer = $feed->getDefaultUser();
 
+                if (!empty($dealer)) {
+                    $itemField = new ItemField();
+                    $itemField->setFieldBooleanValue(true);
+                    $itemField->setFieldIntegerValue($dealer);
+
+                    $itemField->setFieldStringValue($dealer);
+                    $itemField->setFieldName('dealer');
+
+                    $item->addItemField($itemField);
+                }
 
 
 
