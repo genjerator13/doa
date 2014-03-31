@@ -26,7 +26,6 @@ class SearchController extends Controller {
                         )->setParameter('text', '%' . $text . '%');
 
         $items = $query->getResult();
-        
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $pagerfanta->setMaxPerPage(10);

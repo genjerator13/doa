@@ -331,14 +331,14 @@ class ImportmappingController extends Controller {
                 $dealer = $feed->getDefaultUser();
 
                 if (!empty($dealer)) {
-                    $itemField = new ItemField();
-                    $itemField->setFieldBooleanValue(true);
-                    $itemField->setFieldIntegerValue($dealer);
+                    $dealerField = new ItemField();
+                    $dealerField->setFieldBooleanValue(true);
+                    $dealerField->setFieldIntegerValue($dealer);
 
-                    $itemField->setFieldStringValue($dealer);
-                    $itemField->setFieldName('dealer');
+                    $dealerField->setFieldStringValue($dealer);
+                    $dealerField->setFieldName('dealer');
 
-                    $item->addItemField($itemField);
+                    $item->addItemField($dealerField);
                 }
 
 
