@@ -24,3 +24,33 @@ form.search {
     padding: 20px;
 }
 
+
+/* spoonbou says ... */
+
+.searchResults{
+    font-size: 12px;
+}
+.searchResults p{
+    display: inline;
+}
+.middle_details{
+    background: #CFDBC5;
+    margin-left: 21px;
+}
+.middle_details h4{
+    float: left;
+    margin: 21px;
+    color: grey;
+}
+.middle_details ul{
+    list-style: none;
+    clear: both;
+}
+.middle_details ul a{
+    color: olive;
+}
+.itemdetailtitle{
+    
+}
+
+
