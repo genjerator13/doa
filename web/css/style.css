@@ -32,6 +32,13 @@ form.search {
 }
 .searchResults p{
     display: inline;
+    margin-left: 73px;
+}
+ul.tmp{
+    margin-left: 222px;
+}
+.listingsNumber{
+    max-width: 73px;
 }
 .middle_details{
     background: #CFDBC5;
@@ -53,4 +60,15 @@ form.search {
     
 }
 
+.shortDetails{
+    margin-left: 42px;
+}
 
+.right_details ul{
+    list-style: none;
+}
+
+.right_details ul li{
+    display: inline;
+    margin-left: 42px;
+}
