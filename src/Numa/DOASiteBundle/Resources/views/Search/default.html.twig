@@ -5,6 +5,7 @@
 {% endblock %}
 
 {% block content %}
+<div class="searchResults">
     <p>{{pagerfanta|length}} listinf found</p>
     <p>Number of listings per page:</p>
     <p>Sort by:</p>
@@ -19,4 +20,5 @@
         {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
     {% endfor%}
     {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
+</div>
 {% endblock %}
