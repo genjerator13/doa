@@ -96,10 +96,10 @@ class Catalogcategory
     /**
      * Add CatalogRecords
      *
-     * @param \Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
      * @return Catalogcategory
      */
-    public function addCatalogRecord(\Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords)
+    public function addCatalogRecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords)
     {
         $this->CatalogRecords[] = $catalogRecords;
     
@@ -109,9 +109,9 @@ class Catalogcategory
     /**
      * Remove CatalogRecords
      *
-     * @param \Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
      */
-    public function removeCatalogRecord(\Numa\DOAAdminBundle\Entity\CatalogRecords $catalogRecords)
+    public function removeCatalogRecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords)
     {
         $this->CatalogRecords->removeElement($catalogRecords);
     }

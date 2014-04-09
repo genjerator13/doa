@@ -1,5 +1,8 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
-
+{% block javascripts %}
+    {{parent()}}   
+    
+{% endblock %}
 {% block content %}
 <div id="searchtags"></div>
 <div id="searchform">

@@ -327,24 +327,21 @@ class ImportmappingController extends Controller {
                         }
                     }
                 }
-                //dealer
-                $dealer = $feed->getDefaultUser();
-
-                if (!empty($dealer)) {
-                    $dealerField = new ItemField();
-                    $dealerField->setFieldBooleanValue(true);
-                    $dealerField->setFieldIntegerValue($dealer);
-
-                    $dealerField->setFieldStringValue($dealer);
-                    $dealerField->setFieldName('dealer');
-
-                    $item->addItemField($dealerField);
-                }
-
-
-
 
                 $item->addItemField($itemField);
+            }
+            //dealer
+            $dealer = $feed->getDefaultUser();
+
+            if (!empty($dealer)) {
+                $dealerField = new ItemField();
+                $dealerField->setFieldBooleanValue(true);
+                $dealerField->setFieldIntegerValue($dealer);
+
+                $dealerField->setFieldStringValue($dealer);
+                $dealerField->setFieldName('dealer');
+
+                $item->addItemField($dealerField);
             }
             $em->persist($item);
             $em->flush();

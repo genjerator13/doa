@@ -136,4 +136,8 @@ class ListingFieldLists
     {
         return $this->Listingfield;
     }
+    
+    public function __toString() {
+        return $this->getValue();
+    }
 }

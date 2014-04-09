@@ -11,8 +11,12 @@ class itemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $itemId = $request->get('itemId');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
-        //\Doctrine\Common\Util\Debug::dump($item->getArrayItemFields());
-        $itemfields = $item->getArrayItemFields();
+        //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
+        //\Doctrine\Common\Util\Debug::dump($test);die();
+        if(empty($item)){
+             throw $this->createNotFoundException('message');
+        }
+        $itemfields = $item->getItemFieldsArray();
         switch ($item->getCategoryId()) {
             case 1:
                 //car

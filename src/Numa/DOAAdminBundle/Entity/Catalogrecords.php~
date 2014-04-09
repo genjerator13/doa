@@ -30,7 +30,7 @@ class Catalogrecords
     private $category_id;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\CatalogCategory
+     * @var \Numa\DOAAdminBundle\Entity\Catalogcategory
      */
     private $CatalogCategory;
 
@@ -117,10 +117,10 @@ class Catalogrecords
     /**
      * Set CatalogCategory
      *
-     * @param \Numa\DOAAdminBundle\Entity\CatalogCategory $catalogCategory
+     * @param \Numa\DOAAdminBundle\Entity\Catalogcategory $catalogCategory
      * @return Catalogrecords
      */
-    public function setCatalogCategory(\Numa\DOAAdminBundle\Entity\CatalogCategory $catalogCategory = null)
+    public function setCatalogCategory(\Numa\DOAAdminBundle\Entity\Catalogcategory $catalogCategory = null)
     {
         $this->CatalogCategory = $catalogCategory;
     
@@ -130,7 +130,7 @@ class Catalogrecords
     /**
      * Get CatalogCategory
      *
-     * @return \Numa\DOAAdminBundle\Entity\CatalogCategory 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogcategory 
      */
     public function getCatalogCategory()
     {

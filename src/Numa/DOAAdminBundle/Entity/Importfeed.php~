@@ -883,4 +883,32 @@ class Importfeed
         return $this->getSid();
     }
 
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $User;
+
+
+    /**
+     * Set User
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $user
+     * @return Importfeed
+     */
+    public function setUser(\Numa\DOAAdminBundle\Entity\Catalogrecords $user = null)
+    {
+        $this->User = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get User
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     */
+    public function getUser()
+    {
+        return $this->User;
+    }
 }

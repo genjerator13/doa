@@ -1,0 +1,58 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+
+{% block content %}
+    <div id="searchtags"></div>
+    <div id="searchform">
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal','role':'form','name':'advancedsearchcar'}}) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            {{ form_row(form.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>  
+        <div class="row">
+            {{ form_row(form.distance,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6 choice','class':'input-group  input-group-sm' }) }}       
+            {{ form_row(form.zip,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>    
+        <div class="row">
+            {{ form_row(form.body_style,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">    
+            {{ form_row(form.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.text,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.milleageFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.milleageTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <button class="btn btn-default  col-sm-4 " type="submit">Search</button>
+        </div>
+    </div>
+    <script>
+        var treeData = '{"291": {"292": "2.2CL"}}';//, '293': '2.3CL', '294': '2.5TL', '295': '3.0CL', '296': '3.2CL', '297': '3.2TL', '298': '3.5 RL', '1560': 'CSX', '299': 'Integra', '300': 'Legend', '301': 'MDX', '302': 'NSX', '303': 'RDX', '304': 'RL', '305': 'RSX', '306': 'SLX', '307': 'TL', '308': 'TSX', '309': 'Vigor'}}";
+        
+treeX = function(treeData) {
+    $(make).change(function() {
+        console.log($(make).val());
+        jsonTree = JSON.parse(treeData);
+        console.log(jsonTree[$(make).val()]);
+    });
+}
+
+$(document).ready(function() {
+    treeX(treeData);
+});
+    </script>
+{% endblock %}

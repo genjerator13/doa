@@ -231,8 +231,11 @@ class ItemController extends Controller {
                 $entity->addItemField($itemField);
             }
         }
-
-        $entity->setCategory($category);
+        
+        if(!empty($category)){
+            $entity->setCategory($category);
+        }
+        
         $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager()), $entity, array(
             'method' => 'POST',
         ));

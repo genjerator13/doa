@@ -126,6 +126,7 @@ class Item {
      * 
      */
     private $ItemField;
+    public $ItemFieldArray;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
@@ -150,6 +151,7 @@ class Item {
      */
     public function __construct() {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->ItemFieldArray =array();
     }
 
     /**
@@ -618,6 +620,7 @@ class Item {
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function getItemField() {
+        $this->getItemFieldsArray();
         return $this->ItemField;
     }
 
@@ -626,13 +629,29 @@ class Item {
      *
      * @return array
      */
-    public function getArrayItemFields() {
-        $return = array();
-        foreach ($this->ItemField as $itemField) {
-            $index = strtolower($itemField->getFieldName());
-            $return[$index][] = $itemField;
+    public function getItemFieldsArray() {
+        
+        if (empty($this->ItemFieldArray)) {
+            foreach ($this->ItemField as $itemField) {
+                $index = strtolower($itemField->getFieldName());
+                $this->ItemFieldArray[$index][] = $itemField;
+                $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
+                $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
+                $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
+            }
         }
-        return $return;
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);echo "aaaaaaaaaaaa";
+        return $this->ItemFieldArray;
+    }
+    
+    public function getItemFieldByName($name) {
+        $this->getItemFieldsArray();
+        $name = strtolower($name);
+        
+        if(!empty($this->ItemFieldArray[$name])){
+            return $this->ItemFieldArray[$name]['stringvalue'];
+        };
+        return "";
     }
 
     /**
@@ -664,24 +683,46 @@ class Item {
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
         $this->Importfeed = $importfeed;
-        if (!empty($importfeed->getMakeFeatured())) {
+        $isFeatured = $importfeed->getMakeFeatured();
+        if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
-
-        if (!empty($importfeed->getActivateListing())) {
+        $isActivated = $importfeed->getActivateListing();
+        if (!empty($isActivated)) {
             $this->setActive(true);
         }
-
-        if (!empty($importfeed->getMakeHighlighted())) {
+        $isHighlighted = $importfeed->getMakeHighlighted();
+        if (!empty($isHighlighted)) {
             $this->setFeatureHighlighted(true);
         }
-
-        if (!empty($importfeed->getExpirationAfter())) {
+        $isExpired = $importfeed->getExpirationAfter();
+        if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
-            $date_created = $this->date_created();
-            $expirationDate = $date_created->add(new DateInterval('P'.$days.'D'));
-            $this->setExpirationDate($expirationDate);
+            $isDateCreated = $this->getDateCreated();
+            if (empty($isDateCreated)) {
+                $this->setCreatedAtValue();
+            }
+            $date_created = $this->getDateCreated();
+
+            $test = new \DateTime();
+            $test = $test->setDate($this->getDateCreated()->format("Y"), $this->getDateCreated()->format('m'), $this->getDateCreated()->format('d'));
+            $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
+        
+        $dealer = $importfeed->getDefaultUser();
+
+        if (!empty($dealer)) {
+            $itemField = new ItemField();
+            $itemField->setFieldBooleanValue(true);
+            $itemField->setFieldIntegerValue($dealer);
+            
+            $itemField->setFieldStringValue($dealer);
+            $itemField->setFieldName('dealer');
+            
+            $this->addItemField($itemField);
+
+        }
+        
         return $this;
     }
 
@@ -719,14 +760,16 @@ class Item {
      * @ORM\PrePersist
      */
     public function setCreatedAtValue() {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+        }
     }
 
     /**
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-        // Add your code here
+        $this->date_updated = new \DateTime();
     }
 
     /**

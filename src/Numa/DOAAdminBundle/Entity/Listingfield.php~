@@ -404,10 +404,10 @@ class Listingfield
     /**
      * Add ImportMapping
      *
-     * @param \Numa\DOAAdminBundle\Entity\ImportMapping $importMapping
+     * @param \Numa\DOAAdminBundle\Entity\Importmapping $importMapping
      * @return Listingfield
      */
-    public function addImportMapping(\Numa\DOAAdminBundle\Entity\ImportMapping $importMapping)
+    public function addImportMapping(\Numa\DOAAdminBundle\Entity\Importmapping $importMapping)
     {
         $this->ImportMapping[] = $importMapping;
     
@@ -417,9 +417,9 @@ class Listingfield
     /**
      * Remove ImportMapping
      *
-     * @param \Numa\DOAAdminBundle\Entity\ImportMapping $importMapping
+     * @param \Numa\DOAAdminBundle\Entity\Importmapping $importmapping
      */
-    public function removeImportMapping(\Numa\DOAAdminBundle\Entity\ImportMapping $importMapping)
+    public function removeImportMapping(\Numa\DOAAdminBundle\Entity\Importmapping $importMapping)
     {
         $this->ImportMapping->removeElement($importMapping);
     }

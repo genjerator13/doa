@@ -3,7 +3,7 @@ homepage:
     defaults: { _controller: NumaDOASiteBundle:Default:index }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{model}
-    defaults: { _controller: NumaDOASiteBundle:Default:search }
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
 homepage_categories:
     path:  /categories
     defaults: { _controller: NumaDOASiteBundle:Default:categories }
@@ -45,3 +45,6 @@ search:
 search_advanced:
     pattern:  /search-advanced
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvanced, _locale: en } 
+search_advanced_category:
+    pattern:  /search-advanced-{category}
+    defaults: { _controller: NumaDOASiteBundle:Search:searchAdvancedCategory, _locale: en } 
