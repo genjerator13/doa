@@ -12,23 +12,43 @@ use Doctrine\ORM\EntityRepository;
  */
 class ListingFieldTreeRepository extends EntityRepository {
 
-    public function getJsonTree($root = 1, $deep = 2) {
+    public function getJsonTreeModels($root = 1, $deep = 2) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $query = $qb->select('tp')
-                ->from('NumaDOAAdminBundle:ListingfieldTree', 'tp')
-                ->where('tp.id=:field_id')
-                ->setParameter('field_id', 291)
-
+                ->from('NumaDOAAdminBundle:ListingFieldTree', 'tp')
+                ->where('tp.listing_field_id=:field_id')
+                ->setParameter('field_id', 614)
                 ->getQuery();
         ;
 
-        $res = $query->getOneOrNullResult();
-        ;
-        //\Doctrine\Common\Util\Debug::dump(count($res->getChildren()));
-        ;
+        $results = $query->getResult();
+        $jsonArray = array();
+        foreach($results as $res){
+            foreach($res->getChildren() as $children){
+                $jsonArray[$res->getId()][] = array($children->getId()=>$children->getName());
+            }
+        }
+
         
-        return $res;
+        return json_encode($jsonArray);
+    }
+    
+        public function findAllBy($property) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('t')
+                ->from('NumaDOAAdminBundle:ListingfieldTree', 't')
+                //->join('NumaDOAAdminBundle:Listingfield', 'l')
+                ->where('t.listing_field_id=614')
+                ->andWhere('t.parent=0')
+                //->andWhere('t.caption like :property')
+                //->setParameter('property', "%" . $property . "%");
+        ;
+
+        //$res = $query; //->getResult();
+        ;
+        return $qb;
     }
 
 }

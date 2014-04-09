@@ -23,12 +23,13 @@ class ListingFieldListsRepository extends EntityRepository {
     public function findAllBy($property) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
-        $qb->select('lfl')
-                ->from('NumaDOAAdminBundle:ListingfieldLists', 'lfl')
-                ->join('NumaDOAAdminBundle:Listingfield', 'l')
-                ->where('lfl.listing_field_id=l.id')
-                ->andWhere('l.caption like :property')
-                ->setParameter('property', "%" . $property . "%");
+        $qb->select('t')
+                ->from('NumaDOAAdminBundle:ListingfieldTree', 't')
+                //->join('NumaDOAAdminBundle:Listingfield', 'l')
+                ->where('t.listing_field_id=614')
+                ->where('t.parent=0')
+                //->andWhere('t.caption like :property')
+                //->setParameter('property', "%" . $property . "%");
         ;
 
         //$res = $query; //->getResult();

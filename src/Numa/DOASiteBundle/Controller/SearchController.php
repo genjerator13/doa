@@ -172,6 +172,7 @@ class SearchController extends Controller {
 //                ->setParameter('name', '%$category%')
 //                ->getQuery();
 //        $category = $query->getSingleResult();
+
         if (empty($category)) {
             //404 TO DO
         }
@@ -181,6 +182,9 @@ class SearchController extends Controller {
     }
 
     public function searchAdvancedCar(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        //\Doctrine\Common\Util\Debug::dump($test);die();
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -188,7 +192,7 @@ class SearchController extends Controller {
                 ->setMethod('POST')
                 ->setAction($this->get('router')->generate('search_advanced'))
                 ->add('make', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('make');
             },
@@ -276,7 +280,7 @@ class SearchController extends Controller {
             // perform some action, such as saving the task to the database
             die("success");
         }
-        return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView()));
+        return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(),'json'=>$json));
     }
 
 }

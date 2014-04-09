@@ -12,7 +12,7 @@ class ListingFieldTree
     /**
      * @var integer
      */
-    private $id;
+    public $id;
 
     /**
      * @var integer
@@ -40,16 +40,23 @@ class ListingFieldTree
     private $name;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\Listingfield
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $Listingfield;
+    private $children;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\ListingFieldTree
      */
-    private $tree;
+    private $parent;
 
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -176,92 +183,6 @@ class ListingFieldTree
     }
 
     /**
-     * Set Listingfield
-     *
-     * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingfield
-     * @return ListingFieldTree
-     */
-    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
-    {
-        $this->Listingfield = $listingfield;
-    
-        return $this;
-    }
-
-    /**
-     * Get Listingfield
-     *
-     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
-     */
-    public function getListingfield()
-    {
-        return $this->Listingfield;
-    }
-
-    /**
-     * Set tree
-     *
-     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $tree
-     * @return ListingFieldTree
-     */
-    public function setTree(\Numa\DOAAdminBundle\Entity\ListingFieldTree $tree = null)
-    {
-        $this->tree = $tree;
-    
-        return $this;
-    }
-
-    /**
-     * Get tree
-     *
-     * @return \Numa\DOAAdminBundle\Entity\ListingFieldTree 
-     */
-    public function getTree()
-    {
-        return $this->tree;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->tree = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-    
-    /**
-     * Add tree
-     *
-     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $tree
-     * @return ListingFieldTree
-     */
-    public function addTree(\Numa\DOAAdminBundle\Entity\ListingFieldTree $tree)
-    {
-        $this->tree[] = $tree;
-    
-        return $this;
-    }
-
-    /**
-     * Remove tree
-     *
-     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $tree
-     */
-    public function removeTree(\Numa\DOAAdminBundle\Entity\ListingFieldTree $tree)
-    {
-        $this->tree->removeElement($tree);
-    }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $children;
-
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\ListingFieldTree
-     */
-    private $parent;
-
-
-    /**
      * Add children
      *
      * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $children
@@ -315,5 +236,9 @@ class ListingFieldTree
     public function getParent()
     {
         return $this->parent;
+    }
+    
+    public function __toString() {
+        return $this->getName();
     }
 }

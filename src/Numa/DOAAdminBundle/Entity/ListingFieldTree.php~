@@ -250,4 +250,70 @@ class ListingFieldTree
     {
         $this->tree->removeElement($tree);
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $children;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\ListingFieldTree
+     */
+    private $parent;
+
+
+    /**
+     * Add children
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $children
+     * @return ListingFieldTree
+     */
+    public function addChildren(\Numa\DOAAdminBundle\Entity\ListingFieldTree $children)
+    {
+        $this->children[] = $children;
+    
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $children
+     */
+    public function removeChildren(\Numa\DOAAdminBundle\Entity\ListingFieldTree $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $parent
+     * @return ListingFieldTree
+     */
+    public function setParent(\Numa\DOAAdminBundle\Entity\ListingFieldTree $parent = null)
+    {
+        $this->parent = $parent;
+    
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Numa\DOAAdminBundle\Entity\ListingFieldTree 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
 }

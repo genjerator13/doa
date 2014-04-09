@@ -41,18 +41,26 @@
         </div>
     </div>
     <script>
-        var treeData = '{"291": {"292": "2.2CL"}}';//, '293': '2.3CL', '294': '2.5TL', '295': '3.0CL', '296': '3.2CL', '297': '3.2TL', '298': '3.5 RL', '1560': 'CSX', '299': 'Integra', '300': 'Legend', '301': 'MDX', '302': 'NSX', '303': 'RDX', '304': 'RL', '305': 'RSX', '306': 'SLX', '307': 'TL', '308': 'TSX', '309': 'Vigor'}}";
-        
-treeX = function(treeData) {
-    $(make).change(function() {
-        console.log($(make).val());
-        jsonTree = JSON.parse(treeData);
-        console.log(jsonTree[$(make).val()]);
-    });
-}
+        var treeData = '{{json|raw }}';//'{"291": {"292": "2.2CL"}}';//, '293': '2.3CL', '294': '2.5TL', '295': '3.0CL', '296': '3.2CL', '297': '3.2TL', '298': '3.5 RL', '1560': 'CSX', '299': 'Integra', '300': 'Legend', '301': 'MDX', '302': 'NSX', '303': 'RDX', '304': 'RL', '305': 'RSX', '306': 'SLX', '307': 'TL', '308': 'TSX', '309': 'Vigor'}}";
 
-$(document).ready(function() {
-    treeX(treeData);
-});
+        treeX = function(treeData) {
+            $(make).change(function() {
+                console.log($(make).val());
+                jsonTree = JSON.parse(treeData);
+                var model = jsonTree[$(make).val()];
+                $.each(model, function(i) {
+                    var test = model[i];
+                    console.log(model[i]);
+                    for (var key in model[i]) {
+                        console.log("Key: " + key);
+                        console.log("Value: " + test[key]);
+                    }
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            treeX(treeData);
+        });
     </script>
 {% endblock %}
