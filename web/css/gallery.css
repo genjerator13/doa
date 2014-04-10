@@ -52,9 +52,11 @@ a{
 }
 .image-gallery .prev{
     position:absolute; left:0; top:278px;
+    margin-top: 33px;
 }
 .image-gallery .next{
     position:absolute; right:0; top:278px;
+    margin-top: 33px;
 }
 
 /***move thumbs on click on buttons***/
@@ -72,6 +74,7 @@ a{
   overflow:hidden; 
   white-space:nowrap; 
   margin: 45px;
+  margin-bottom: 11px;
 }
 .image-gallery .thumbs ul{
   float:left; 
