@@ -1,17 +1,40 @@
+
+            
+            
+//$(function(){
+//  //bnd to all images with te changer class for click
+//  $('img.changer').click(function(){
+//    //grab the image just clicked as a jquery object.
+//    var img = $(this);
+//    img .data('originalsrc', img.attr('src')) //stow the original src
+//        .attr('src', img.data('altsrc')       //update the src
+//        .data('mode','alt')                   //tag that the img isin alt mode.
+//        ; //done with img
+//  });
+//});
+    
+    
+    
+    
+
+            $('.thumbs ul li a img').click(function() {
+                $('.image-gallery .big-image img#default').attr('src', this.src);
+            });
+     
+     
+     
+     
+     
 //gallery = function() {
 //    return{
 //        init: function() {
-//            $('.pictureThumbs img').hover(function() {
-//                $('img#picture').attr('src', this.src);
+//            $('.thumbs ul li a img').hover(function() {
+//                $('img#default').attr('src', this.src);
 //            });
 //        }
 //    };
 //}();
 
-            $('.pictureThumbs img').hover(function() {
-                $('img#picture').attr('src', this.src);
-            });
-            
 
 function initialize() {
     var mapProp = {
@@ -25,3 +48,5 @@ function initialize() {
 //    $(document).ready(function() {
 //        alert('Hello, World!');
 //    });
+
+
