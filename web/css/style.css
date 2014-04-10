@@ -1,3 +1,7 @@
+@import 'gallery.css';
+
+
+
 form.search {
     float: right;
 }
@@ -70,6 +74,10 @@ ul.tmp{
 }
 
 
+.clearFloat{
+    clear: both;
+}
+
 /* Show Details */
 
 .detailsContent{
@@ -78,42 +86,14 @@ ul.tmp{
     float: left;
 }
 
-.galleryBox {
-    margin-left: 21px;
-    margin-bottom: 50px;
+.showAllPictures, .viewSlideShow{
+    margin-left: 66px;
+    margin-top: 11px;
     float: left;
 }
-.galleryBox a{
-    margin-top: 21px;
-    margin-left: 42px;
-}
-#picture{
-    margin-bottom: 7px;
-    width: 348px;
-    height: 227px;
-    box-shadow: none;
- }
-.pictureThumbs img{
-    margin-right: 10px;
-    float: left;
-    width: 80px;
-    height: 54px;
-    -webkit-transition: all 0.5s ease-in-out;
-    -moz-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    opacity: 0.4;
-    /* For IE8 and earlier */
-    filter: alpha(opacity=40);
- }
-.pictureThumbs img:hover{
-    opacity: 1.0;
-    /* For IE8 and earlier */
-    filter: alpha(opacity=100);
-}
-
 .techData{
     max-width: 222px;
+    margin-left: 42px;
     float: left;
     list-style: none;
     font-size: 13px;
