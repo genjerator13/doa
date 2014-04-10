@@ -273,6 +273,25 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Engine',
                     'label' => "Engine", "required" => false
                 ))
+                ->add('exterior_color', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Exterior Color');
+            },
+                    'empty_value' => 'Any Exterior Color',
+                    'label' => "Exterior Color", "required" => false
+                ))    
+                    
+                ->add('interior_color', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Interior Color');
+            },
+                    'empty_value' => 'Any Interior Color',
+                    'label' => "Interior Color", "required" => false
+                ))     
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))    
+                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))                
                 ->getForm();
         $form->handleRequest($request);
 

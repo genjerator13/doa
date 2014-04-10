@@ -33,7 +33,33 @@
             {{ form_row(form.milleageFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
             {{ form_row(form.milleageTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
-
+        <div class="row">
+            {{ form_row(form.transmission,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.engine,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.fueltype,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.exterior_color,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.interior_color,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.transmission,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.transmission,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.withPicture,{ 'attr': {'class': ''},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div> 
+        <div class="row">
+            {{ form_row(form.isSold,{ 'attr': {'class': ''},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div> 
 
         <div class="form-group">
             <div class="col-sm-4"></div>
@@ -41,26 +67,28 @@
         </div>
     </div>
     <script>
-        var treeData = '{{json|raw }}';//'{"291": {"292": "2.2CL"}}';//, '293': '2.3CL', '294': '2.5TL', '295': '3.0CL', '296': '3.2CL', '297': '3.2TL', '298': '3.5 RL', '1560': 'CSX', '299': 'Integra', '300': 'Legend', '301': 'MDX', '302': 'NSX', '303': 'RDX', '304': 'RL', '305': 'RSX', '306': 'SLX', '307': 'TL', '308': 'TSX', '309': 'Vigor'}}";
+        var treeData = '{{json|raw }}';
 
-        treeX = function(treeData) {
+        treeX = function(make, model, treeData) {
             $(make).change(function() {
-                console.log($(make).val());
                 jsonTree = JSON.parse(treeData);
-                var model = jsonTree[$(make).val()];
-                $.each(model, function(i) {
-                    var test = model[i];
-                    console.log(model[i]);
-                    for (var key in model[i]) {
-                        console.log("Key: " + key);
-                        console.log("Value: " + test[key]);
+                var modelJson = jsonTree[$(make).val()];
+                $(model).html($("<option />").val(0).text("Any Model"));
+                $.each(modelJson, function(i) {
+                    var test = modelJson[i];
+                    var key = "";
+                    var value = "";
+                    for (var keyx in modelJson[i]) {
+                        key = keyx;
+                        value = test[keyx];
                     }
+                    $(model).append($("<option />").val(key).text(value))
                 });
             });
         }
 
         $(document).ready(function() {
-            treeX(treeData);
+            treeX('#make', '#model', treeData);
         });
     </script>
 {% endblock %}
