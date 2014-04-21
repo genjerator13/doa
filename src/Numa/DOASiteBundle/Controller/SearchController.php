@@ -27,7 +27,7 @@ class SearchController extends Controller {
                         )->setParameter('text', '%' . $text . '%');
 
         $items = $query->getResult();
-        
+
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $pagerfanta->setMaxPerPage(10);
         try {
@@ -54,6 +54,9 @@ class SearchController extends Controller {
         $category = $request->get('category');
         $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
+        if (strstr($model, 'fishing')) {
+            $model = 'fishing';
+        }
 //        $repository = $this->getDoctrine()->getRepository('NumaDOAAdmin:Category');
 //
 //        $query = $repository->createQueryBuilder('c')
@@ -166,18 +169,15 @@ class SearchController extends Controller {
 
     public function searchAdvancedCategoryAction(Request $request) {
         $categoryName = $request->get('category');
-//        $repository = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Category');
-//        $query = $repository->createQueryBuilder('c')
-//                ->where('c.name like :name')
-//                ->setParameter('name', '%$category%')
-//                ->getQuery();
-//        $category = $query->getSingleResult();
-
         if (empty($category)) {
             //404 TO DO
         }
-        if ($categoryName == 'car') {
+        if (strtolower($categoryName) == 'car') {
             return $this->searchAdvancedCar($request);
+        }
+
+        if (strtolower($categoryName) == 'marine') {
+            return $this->searchAdvancedMarine($request);
         }
     }
 
@@ -190,7 +190,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search_advanced'))
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
@@ -199,16 +199,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('model', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('model');
-            },
-                    'empty_value' => 'Any Model',
-                    //'block_name'=>'MakeModel[tree][1]',
-                    'label' => "Model", "required" => false
-                ))
-                ->add('distance', 'choice', array('label' => "Search Within", "required" => false))
+                ->add('model', 'hidden', array('label' => "Model", "required" => false))
+                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
                 ->add('body_style', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -280,8 +272,7 @@ class SearchController extends Controller {
             },
                     'empty_value' => 'Any Exterior Color',
                     'label' => "Exterior Color", "required" => false
-                ))    
-                    
+                ))
                 ->add('interior_color', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -289,17 +280,147 @@ class SearchController extends Controller {
             },
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
-                ))     
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))    
-                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))                
+                ))
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
                 ->getForm();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             // perform some action, such as saving the task to the database
-            die("success");
+            $data = $form->getData();
+            $query = $this->getDoctrine()->getManager()
+                    ->createQuery(
+                            'SELECT i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 WHERE ifield.field_integer_value = :model
+                                 AND i.category_id=2
+                                ')
+                    ->setParameter('model', 197);
+            \Doctrine\Common\Util\Debug::dump($query->getResult());
         }
-        return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(),'json'=>$json));
+        return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(), 'json' => $json));
+    }
+
+    public function searchAdvancedMarine(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        //\Doctrine\Common\Util\Debug::dump($test);die();
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                    'csrf_protection' => false,
+                ))
+                //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
+                ->setMethod('POST')
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
+                ->add('make', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('make');
+            },
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('model', 'hidden', array('label' => "Model", "required" => false))
+                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                ->add('body_style', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Body style');
+            },
+                    'empty_value' => 'Any Body Style',
+                    'label' => "Body Style", "required" => false
+                ))
+                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
+                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('text', 'text', array(
+                    'label' => 'Search',
+                    "required" => false
+                ))
+                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
+                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
+                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('transmission', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Transmission');
+            },
+                    'empty_value' => 'All Transmissions',
+                    'label' => "transmission", "required" => false
+                ))
+                ->add('engine', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('engine');
+            },
+                    'empty_value' => 'Any engine',
+                    'label' => "Engine", "required" => false
+                ))
+                ->add('fueltype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Fuel Type');
+            },
+                    'empty_value' => 'All Fuel Types',
+                    'label' => "Fuel Types", "required" => false
+                ))
+                //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
+                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('transmission', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Transmission');
+            },
+                    'empty_value' => 'Any Transmissions',
+                    'label' => "Transmission", "required" => false
+                ))
+                ->add('engine', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Engine');
+            },
+                    'empty_value' => 'Any Engine',
+                    'label' => "Engine", "required" => false
+                ))
+                ->add('exterior_color', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Exterior Color');
+            },
+                    'empty_value' => 'Any Exterior Color',
+                    'label' => "Exterior Color", "required" => false
+                ))
+                ->add('interior_color', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Interior Color');
+            },
+                    'empty_value' => 'Any Interior Color',
+                    'label' => "Interior Color", "required" => false
+                ))
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $data = $form->getData();
+            $query = $this->getDoctrine()->getManager()
+                    ->createQuery(
+                            'SELECT i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 WHERE ifield.field_integer_value = :model
+                                 AND i.category_id=2
+                                ')
+                    ->setParameter('model', 197);
+            \Doctrine\Common\Util\Debug::dump($query->getResult());
+        }
+        return $this->render('NumaDOASiteBundle:Search:advancedMarine.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
 
 }

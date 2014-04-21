@@ -4,7 +4,8 @@
 <div class="detailsContent">
     <h3>2014</h3>
     <div class="image-gallery">  
-        <div class="big-image">           
+        <div class="big-image">  
+            {% set images = item.getImages()%}
 {#          <img id="image1" src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-ash3/t31/131358_10151844912596933_1989911666_o.jpg" />
           <img id="image2" src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-ash3/1555340_10151833079796933_514060703_n.jpg" />
           <img id="image3" src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash3/t1/1609599_10151831839976933_658574256_n.jpg" />
@@ -22,7 +23,7 @@
           <img id="image15" src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/t1/1460274_10151749868211933_461565122_n.jpg" />
           <img id="image16" src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-prn2/1291311_10151567305376933_826273627_o.jpg" />    
 #}
-          <img id="default" src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-ash3/t31/131358_10151844912596933_1989911666_o.jpg" />
+          <img id="default" src="{{(images|first).stringvalue}}" />
         </div>  
 
 
@@ -33,54 +34,12 @@
 
 
         <div class="thumbs">  
-            <ul>    
+            <ul>   
+                {% for key,image in images %}
               <li>
-                <a href="#image1"><img  src="https://scontent-a-lhr.xx.fbcdn.net/hphotos-ash3/t31/131358_10151844912596933_1989911666_o.jpg" /></a></li>
+                <a href="#image{{key}}"><img  src="{{image.stringvalue}}" alt="image{{key}}" /></a></li>
               <li>
-                <a href="#image2"><img  src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-ash3/1555340_10151833079796933_514060703_n.jpg" /></a>
-              </li>
-              <li>
-                 <a href="#image3"><img  src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash3/t1/1609599_10151831839976933_658574256_n.jpg" /></a>
-              </li>
-              <li>
-                 <a href="#image4"><img  src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-ash3/t1/994649_10151755587611933_1087155071_n.jpg" /></a>
-              </li>
-              <li>
-                 <a href="#image5"><img  src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-frc3/1465393_10151748409251933_1334965435_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image6"><img  src="https://fbcdn-sphotos-a-a.akamaihd.net/hphotos-ak-ash3/t31/1275506_10151567309241933_1488282073_o.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image7"><img  src="https://fbcdn-sphotos-g-a.akamaihd.net/hphotos-ak-frc3/t31/1266700_10151567307011933_1129954676_o.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image8"><img  src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/t31/1262789_10151567305786933_905681282_o.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image9"><img  src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-prn2/1232978_10151567304551933_1620341923_o.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image10"><img  src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-ash3/t31/1268956_10151567298081933_950767294_o.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image11"><img  src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-frc3/1546119_10151833076886933_491995071_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image12"><img  src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-frc3/1546119_10151833076886933_491995071_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image13"><img  src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn1/t1/1522259_10151820209156933_150422153_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image14"><img  src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-ash3/t1/374530_10151749868451933_1691020813_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image15"><img  src="https://fbcdn-sphotos-e-a.akamaihd.net/hphotos-ak-prn2/t1/1460274_10151749868211933_461565122_n.jpg" /></a>
-              </li>
-                  <li>
-                 <a href="#image16"><img  src="https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-prn2/1291311_10151567305376933_826273627_o.jpg" /></a>
-              </li>
+               {% endfor %}
             </ul>
         </div>
 

@@ -21,7 +21,7 @@
                 $('.image-gallery .big-image img#default').attr('src', this.src);
             });
      
-     
+
      
      
      
@@ -34,7 +34,13 @@
 //        }
 //    };
 //}();
+$( document ).ready(function() {
+console.log( "ready!" );
+     $("#searchform #category").change(function(){
 
+         window.location.replace(window.location.pathname+"-"+$(this).find("option:selected").text().toLowerCase());
+     });
+});
 
 function initialize() {
     var mapProp = {

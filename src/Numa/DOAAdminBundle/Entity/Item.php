@@ -151,7 +151,7 @@ class Item {
      */
     public function __construct() {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->ItemFieldArray =array();
+        $this->ItemFieldArray = array();
     }
 
     /**
@@ -630,25 +630,44 @@ class Item {
      * @return array
      */
     public function getItemFieldsArray() {
-        
+
         if (empty($this->ItemFieldArray)) {
             foreach ($this->ItemField as $itemField) {
+                $type = $itemField->getFieldType();
                 $index = strtolower($itemField->getFieldName());
-                $this->ItemFieldArray[$index][] = $itemField;
-                $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
-                $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
-                $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
+                if (strtolower($type) != "array") {
+
+                    $this->ItemFieldArray[$index]['object'] = $itemField;
+                    $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
+                    $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
+                    $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
+                } else {
+
+                    $this->ItemFieldArray[$index][$itemField->getId()]['object'] = $itemField;
+                    $this->ItemFieldArray[$index][$itemField->getId()]['type'] = $itemField->getFieldType();
+                    $this->ItemFieldArray[$index][$itemField->getId()]['fieldname'] = $itemField->getFieldName();
+                    $this->ItemFieldArray[$index][$itemField->getId()]['stringvalue'] = $itemField->getFieldStringValue();
+                }
             }
         }
-        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);echo "aaaaaaaaaaaa";
+        \Doctrine\Common\Util\Debug::dump($this->ItemFieldArray['image list']);
+        //echo "aaaaaaaaaaaa";
         return $this->ItemFieldArray;
     }
     
+    public function getImages(){
+        $this->getItemFieldsArray();
+        if (!empty($this->ItemFieldArray['image list'])) {
+            return $this->ItemFieldArray['image list'];
+        }
+        return array();
+    }
+
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
         $name = strtolower($name);
-        
-        if(!empty($this->ItemFieldArray[$name])){
+
+        if (!empty($this->ItemFieldArray[$name])) {
             return $this->ItemFieldArray[$name]['stringvalue'];
         };
         return "";
@@ -708,21 +727,20 @@ class Item {
             $test = $test->setDate($this->getDateCreated()->format("Y"), $this->getDateCreated()->format('m'), $this->getDateCreated()->format('d'));
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
-        
+
         $dealer = $importfeed->getDefaultUser();
 
         if (!empty($dealer)) {
             $itemField = new ItemField();
             $itemField->setFieldBooleanValue(true);
             $itemField->setFieldIntegerValue($dealer);
-            
+
             $itemField->setFieldStringValue($dealer);
             $itemField->setFieldName('dealer');
-            
-            $this->addItemField($itemField);
 
+            $this->addItemField($itemField);
         }
-        
+
         return $this;
     }
 
