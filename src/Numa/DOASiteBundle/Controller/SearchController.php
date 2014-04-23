@@ -179,6 +179,10 @@ class SearchController extends Controller {
         if (strtolower($categoryName) == 'marine') {
             return $this->searchAdvancedMarine($request);
         }
+        
+        if (strtolower($categoryName) == 'motosport') {
+            return $this->searchAdvancedMotosport($request);
+        }
     }
 
     public function searchAdvancedCar(Request $request) {
@@ -472,5 +476,134 @@ class SearchController extends Controller {
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMarine.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
+    
+    
+        public function searchAdvancedMotosport(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        //\Doctrine\Common\Util\Debug::dump($test);die();
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                    'csrf_protection' => false,
+                ))
+                //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
+                ->setMethod('POST')
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
+                ->add('make', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('make');
+                    },
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('model', 'hidden', array('label' => "Model", "required" => false))
+                ->add('type', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Type');
+                    },
+                    'empty_value' => 'Any type',
+                    'label' => "Type", "required" => false
+                ))
+                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                
+                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
+                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('text', 'text', array(
+                    'label' => 'Search',
+                    "required" => false
+                ))
+                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
+                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
+                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('keywords', 'hidden', array('label' => "Keyword", "required" => false))
+                ->add('engine', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Engine');
+                    },
+                    'empty_value' => 'Any Engine',
+                    'label' => "Engine", "required" => false
+                ))
+                ->add('enginetype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Engine Type');
+                    },
+                    'empty_value' => 'Any engine type',
+                    'label' => "Engine Type", "required" => false
+                ))
+                ->add('displacement', 'hidden', array('label' => "Displacement", "required" => false))
+                ->add('ofhours', 'hidden', array('label' => "Of Hours", "required" => false))
+                ->add('fuelsystem', 'hidden', array('label' => "Fuel System", "required" => false))
+                ->add('fuelcapacity', 'hidden', array('label' => "Fuel Capacity", "required" => false))
+                ->add('hull', 'hidden', array('label' => "Hull Design", "required" => false))
+                ->add('steeringtype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Steering Type');
+                    },
+                    'empty_value' => 'Any steering type',
+                    'label' => "Steering Type", "required" => false
+                ))                
+                ->add('ignition', 'hidden', array('label' => "Ignition", "required" => false))
+                ->add('drivetype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Drive Type');
+                    },
+                    'empty_value' => 'Any drive type',
+                    'label' => "Drive Type", "required" => false
+                ))
+                ->add('gears', 'hidden', array('label' => "Gears", "required" => false))
+                ->add('passengers', 'hidden', array('label' => "Passengers", "required" => false))
+                ->add('exterior_color', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Exterior Color');
+                    },
+                    'empty_value' => 'Any Exterior Color',
+                    'label' => "Exterior Color", "required" => false
+                ))
+                ->add('cooling_system', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Cooling System');
+                    },
+                    'empty_value' => 'Any Cooling System',
+                    'label' => "Colling System", "required" => false
+                ))
+                ->add('length', 'hidden', array('label' => "Length", "required" => false))
+                ->add('width', 'hidden', array('label' => "Width", "required" => false))
+                ->add('trailer', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Trailer');
+                    },
+                    'empty_value' => 'Any Trailer',
+                    'label' => "Trailer", "required" => false
+                ))
+                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->getForm();
+        $form->handleRequest($request);
 
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $data = $form->getData();
+            $query = $this->getDoctrine()->getManager()
+                    ->createQuery(
+                            'SELECT i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 WHERE ifield.field_integer_value = :model
+                                 AND i.category_id=2
+                                ')
+                    ->setParameter('model', 197);
+            \Doctrine\Common\Util\Debug::dump($query->getResult());
+        }
+        return $this->render('NumaDOASiteBundle:Search:advancedMotosport.html.twig', array('form' => $form->createView(), 'json' => $json));
+    }
+    
 }
