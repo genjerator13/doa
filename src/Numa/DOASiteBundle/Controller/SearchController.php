@@ -315,22 +315,23 @@ class SearchController extends Controller {
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('make');
-            },
+                        return $er->findAllBy('make');
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
                 ->add('model', 'hidden', array('label' => "Model", "required" => false))
-                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
-                ->add('body_style', 'entity', array(
+                ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Body style');
-            },
-                    'empty_value' => 'Any Body Style',
-                    'label' => "Body Style", "required" => false
+                        return $er->findAllBy('Type');
+                    },
+                    'empty_value' => 'Any type',
+                    'label' => "Type", "required" => false
                 ))
+                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
                 ->add('text', 'text', array(
@@ -339,8 +340,37 @@ class SearchController extends Controller {
                 ))
                 ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
                 ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
-                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+//                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
+//                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('keywords', 'hidden', array('label' => "Keyword", "required" => false))
+                ->add('length', 'hidden', array('label' => "Length", "required" => false))
+                ->add('boatWeight', 'hidden', array('label' => "Boat Weight", "required" => false))
+                ->add('beam', 'hidden', array('label' => "Beam", "required" => false))
+                ->add('hull', 'hidden', array('label' => "Hull Design", "required" => false))
+                ->add('steeringtype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Steering Type');
+                    },
+                    'empty_value' => 'Any steering type',
+                    'label' => "Steering Type", "required" => false
+                ))
+               ->add('drivetype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Drive Type');
+                    },
+                    'empty_value' => 'Any drive type',
+                    'label' => "Drive Type", "required" => false
+                ))
+               ->add('enginetype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Engine Type');
+                    },
+                    'empty_value' => 'Any engine type',
+                    'label' => "Engine Type", "required" => false
+                ))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -349,14 +379,15 @@ class SearchController extends Controller {
                     'empty_value' => 'All Transmissions',
                     'label' => "transmission", "required" => false
                 ))
-                ->add('engine', 'entity', array(
+                ->add('enginetype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('engine');
+                return $er->findAllBy('Engine Type');
             },
                     'empty_value' => 'Any engine',
                     'label' => "Engine", "required" => false
                 ))
+                ->add('horsepower', 'hidden', array('label' => "Horsepower", "required" => false))
                 ->add('fueltype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -365,45 +396,64 @@ class SearchController extends Controller {
                     'empty_value' => 'All Fuel Types',
                     'label' => "Fuel Types", "required" => false
                 ))
+                ->add('fuelcapacity', 'hidden', array('label' => "Fuel Capacity", "required" => false))
+                ->add('ofhours', 'hidden', array('label' => "Of Hours", "required" => false))
                 //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
-                ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+//                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
+//                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+//                ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
+//                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+//                ->add('engine', 'entity', array(
+//                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+//                    'query_builder' => function(EntityRepository $er) {
+//                return $er->findAllBy('Engine');
+//            },
+//                    'empty_value' => 'Any Engine',
+//                    'label' => "Engine", "required" => false
+//                ))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Transmission');
-            },
+                       return $er->findAllBy('Transmission');
+                    },
                     'empty_value' => 'Any Transmissions',
                     'label' => "Transmission", "required" => false
-                ))
-                ->add('engine', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Engine');
-            },
-                    'empty_value' => 'Any Engine',
-                    'label' => "Engine", "required" => false
                 ))
                 ->add('exterior_color', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Exterior Color');
-            },
+                        return $er->findAllBy('Exterior Color');
+                    },
                     'empty_value' => 'Any Exterior Color',
                     'label' => "Exterior Color", "required" => false
                 ))
                 ->add('interior_color', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Interior Color');
-            },
+                        return $er->findAllBy('Interior Color');
+                    },
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
                 ))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('passengers', 'hidden', array('label' => "Passengers", "required" => false))
+                ->add('trailer', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Trailer');
+                    },
+                    'empty_value' => 'Any Trailer',
+                    'label' => "Trailer", "required" => false
+                ))
+                ->add('battery', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Battery');
+                    },
+                    'empty_value' => 'Any Battery',
+                    'label' => "Battery", "required" => false
+                ))
                 ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
                 ->getForm();
         $form->handleRequest($request);
 
