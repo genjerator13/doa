@@ -183,6 +183,9 @@ class SearchController extends Controller {
         if (strtolower($categoryName) == 'motosport') {
             return $this->searchAdvancedMotosport($request);
         }
+        if (strtolower($categoryName) == 'rvs') {
+            return $this->searchAdvancedRVs($request);
+        }
     }
 
     public function searchAdvancedCar(Request $request) {
@@ -315,7 +318,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'marine')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
@@ -324,7 +327,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('model', 'hidden', array('label' => "Model", "required" => false))
+                ->add('model', 'text', array('label' => "Model", "required" => false))
                 ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -338,19 +341,19 @@ class SearchController extends Controller {
                 
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
-                ->add('text', 'text', array(
-                    'label' => 'Search',
-                    "required" => false
-                ))
+//                ->add('text', 'text', array(
+//                    'label' => 'Search',
+//                    "required" => false
+//                ))
                 ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
                 ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
 //                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
 //                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
-                ->add('keywords', 'hidden', array('label' => "Keyword", "required" => false))
-                ->add('length', 'hidden', array('label' => "Length", "required" => false))
-                ->add('boatWeight', 'hidden', array('label' => "Boat Weight", "required" => false))
-                ->add('beam', 'hidden', array('label' => "Beam", "required" => false))
-                ->add('hull', 'hidden', array('label' => "Hull Design", "required" => false))
+                ->add('keywords', 'text', array('label' => "Keyword", "required" => false))
+                ->add('length', 'text', array('label' => "Length", "required" => false))
+                ->add('boatWeight', 'text', array('label' => "Boat Weight", "required" => false))
+                ->add('beam', 'text', array('label' => "Beam", "required" => false))
+                ->add('hull', 'text', array('label' => "Hull Design", "required" => false))
                 ->add('steeringtype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -389,9 +392,9 @@ class SearchController extends Controller {
                 return $er->findAllBy('Engine Type');
             },
                     'empty_value' => 'Any engine',
-                    'label' => "Engine", "required" => false
+                    'label' => "Engine Type", "required" => false
                 ))
-                ->add('horsepower', 'hidden', array('label' => "Horsepower", "required" => false))
+                ->add('horsepower', 'text', array('label' => "Horsepower", "required" => false))
                 ->add('fueltype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -400,8 +403,8 @@ class SearchController extends Controller {
                     'empty_value' => 'All Fuel Types',
                     'label' => "Fuel Types", "required" => false
                 ))
-                ->add('fuelcapacity', 'hidden', array('label' => "Fuel Capacity", "required" => false))
-                ->add('ofhours', 'hidden', array('label' => "Of Hours", "required" => false))
+                ->add('fuelcapacity', 'text', array('label' => "Fuel Capacity", "required" => false))
+                ->add('ofhours', 'text', array('label' => "# of Hours", "required" => false))
                 //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
 //                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
 //                ->add('yearTo', 'text', array('label' => "to", "required" => false))
@@ -439,7 +442,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
                 ))
-                ->add('passengers', 'hidden', array('label' => "Passengers", "required" => false))
+                ->add('passengers', 'text', array('label' => "# of Passengers", "required" => false))
                 ->add('trailer', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -487,7 +490,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'motosport')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
@@ -496,7 +499,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('model', 'hidden', array('label' => "Model", "required" => false))
+                ->add('model', 'text', array('label' => "Model", "required" => false))
                 ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -510,15 +513,15 @@ class SearchController extends Controller {
                 
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
-                ->add('text', 'text', array(
-                    'label' => 'Search',
-                    "required" => false
-                ))
+//                ->add('text', 'text', array(
+//                    'label' => 'Search',
+//                    "required" => false
+//                ))
                 ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
                 ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
+                ->add('milleageFrom', 'text', array('label' => "Milleage from", "required" => false))
                 ->add('milleageTo', 'text', array('label' => "to", "required" => false))
-                ->add('keywords', 'hidden', array('label' => "Keyword", "required" => false))
+                ->add('keywords', 'text', array('label' => "Keyword", "required" => false))
                 ->add('engine', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -535,10 +538,10 @@ class SearchController extends Controller {
                     'empty_value' => 'Any engine type',
                     'label' => "Engine Type", "required" => false
                 ))
-                ->add('displacement', 'hidden', array('label' => "Displacement", "required" => false))
-                ->add('ofhours', 'hidden', array('label' => "Of Hours", "required" => false))
-                ->add('fuelsystem', 'hidden', array('label' => "Fuel System", "required" => false))
-                ->add('fuelcapacity', 'hidden', array('label' => "Fuel Capacity", "required" => false))
+                ->add('displacement', 'text', array('label' => "Displacement", "required" => false))
+                ->add('ofhours', 'text', array('label' => "# of Hours", "required" => false))
+                ->add('fuelsystem', 'text', array('label' => "Fuel System", "required" => false))
+                ->add('fuelcapacity', 'text', array('label' => "Fuel Capacity", "required" => false))
                 ->add('hull', 'hidden', array('label' => "Hull Design", "required" => false))
                 ->add('steeringtype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -548,7 +551,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any steering type',
                     'label' => "Steering Type", "required" => false
                 ))                
-                ->add('ignition', 'hidden', array('label' => "Ignition", "required" => false))
+                ->add('ignition', 'text', array('label' => "Ignition", "required" => false))
                 ->add('drivetype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -557,8 +560,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any drive type',
                     'label' => "Drive Type", "required" => false
                 ))
-                ->add('gears', 'hidden', array('label' => "Gears", "required" => false))
-                ->add('passengers', 'hidden', array('label' => "Passengers", "required" => false))
+                ->add('gears', 'text', array('label' => "Gears", "required" => false))
+                ->add('passengers', 'text', array('label' => "# Passengers", "required" => false))
                 ->add('exterior_color', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -575,8 +578,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Cooling System',
                     'label' => "Colling System", "required" => false
                 ))
-                ->add('length', 'hidden', array('label' => "Length", "required" => false))
-                ->add('width', 'hidden', array('label' => "Width", "required" => false))
+                ->add('length', 'text', array('label' => "Length", "required" => false))
+                ->add('width', 'text', array('label' => "Width", "required" => false))
                 ->add('trailer', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -605,5 +608,238 @@ class SearchController extends Controller {
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMotosport.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
+    
+    
+    
+    public function searchAdvancedRVs(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        //\Doctrine\Common\Util\Debug::dump($test);die();
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                    'csrf_protection' => false,
+                ))
+                //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
+                ->setMethod('POST')
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'rvs')))
+                ->add('make', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('make');
+            },
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('classs', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('classs');
+                    },
+                    'empty_value' => 'Any Class',
+                    'label' => "Class", "required" => false
+                ))  
+                 ->add('model', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('model');
+                    },
+                    'empty_value' => 'Any Model',
+                    'label' => "Model", "required" => false
+                ))
+                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                ->add('type', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('type');
+                    },
+                    'empty_value' => 'Any Type',
+                    'label' => "Type", "required" => false
+                ))
+                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
+                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))                
+                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
+                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('keyword', 'hidden', array('label' => "Keyword", "required" => false))          
+                ->add('chassistype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('chassistype');
+                    },
+                    'empty_value' => 'Any Chassis Type',
+                    'label' => "Chassis Type", "required" => false
+                ))
+                 ->add('engine', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('engine');
+                    },
+                    'empty_value' => 'Any engine',
+                    'label' => "Engine", "required" => false
+                        ))
+                ->add('fueltype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('Fuel Type');
+                    },
+                    'empty_value' => 'All Fuel Types',
+                    'label' => "Fuel Types", "required" => false
+                ))
+                 ->add('transmission', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy('Transmission');
+            },
+                    'empty_value' => 'Any Transmission',
+                    'label' => "Transmission", "required" => false
+                ))
+//                ->add('text', 'text', array(
+//                    'label' => 'Search',
+//                    "required" => false
+//                ))
+                ->add('drivetype', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('drivetype');
+                    },
+                    'empty_value' => 'Any Drive Type',
+                    'label' => "Drive Type", "required" => false
+                ))
+                ->add('sleeps', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('sleeps');
+                    },
+                    'empty_value' => 'Any Sleeps',
+                    'label' => "Sleeps", "required" => false
+                ))
+                ->add('slideouts', 'text', array('label' => "Slide Outs", "required" => false))
+                ->add('length', 'text', array('label' => "Length (ft)", "required" => false))
+                ->add('weight', 'text', array('label' => "Weight (lbs)", "required" => false))
+                ->add('exteriorcolor', 'text', array('label' => "Exterior Color", "required" => false))
+                ->add('interiorcolor', 'text', array('label' => "Interior Color", "required" => false))
+                ->add('flooring', 'text', array('label' => "Flooring", "required" => false))
+                            
+                //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
+                
+//                ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
+//                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+//                ->add('transmission', 'entity', array(
+//                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+//                    'query_builder' => function(EntityRepository $er) {
+//                return $er->findAllBy('Transmission');
+//            },
+//                    'empty_value' => 'Any Transmissions',
+//                    'label' => "Transmission", "required" => false
+//                ))
+//                
+//                ->add('exterior_color', 'entity', array(
+//                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+//                    'query_builder' => function(EntityRepository $er) {
+//                return $er->findAllBy('Exterior Color');
+//            },
+//                    'empty_value' => 'Any Exterior Color',
+//                    'label' => "Exterior Color", "required" => false
+//                ))
+//                ->add('interior_color', 'entity', array(
+//                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+//                    'query_builder' => function(EntityRepository $er) {
+//                return $er->findAllBy('Interior Color');
+//            },
+//                    'empty_value' => 'Any Interior Color',
+//                    'label' => "Interior Color", "required" => false
+//                ))
+                
+                
+                ->add('addonscreenroom', 'checkbox', array('label' => "Add-On Screen Room", "required" => false))
+                ->add('cablehookup', 'checkbox', array('label' => "Cable Hookup", "required" => false))
+                ->add('ceilingfansvents', 'checkbox', array('label' => "Ceiling Fans/Vents", "required" => false))
+                            
+                ->add('dcconverter', 'checkbox', array('label' => "DC Converter", "required" => false))
+                ->add('electricaljacks', 'checkbox', array('label' => "Electrical Jacks", "required" => false))
+                ->add('stabilizerjacks', 'checkbox', array('label' => "Stabilizer Jacks", "required" => false))
+                            
+                ->add('furnace', 'checkbox', array('label' => "Furnace", "required" => false))
+                ->add('airconditionerroof', 'checkbox', array('label' => "Air Conditioner (Roof)", "required" => false))    
+                ->add('airconditionercentral', 'checkbox', array('label' => "Air Conditioner (Central-Ducted)", "required" => false))    
+                
+                ->add('dieselgenerator', 'checkbox', array('label' => "Diesel Generator", "required" => false))    
+                ->add('gasgenerator', 'checkbox', array('label' => "Gas Generator", "required" => false))
+                ->add('propanetank', 'checkbox', array('label' => "Propane Tank", "required" => false))    
+                            
+                ->add('propanegenerator', 'checkbox', array('label' => "Propane Generator", "required" => false))
+                ->add('electricalhookup', 'checkbox', array('label' => "Electrical Hookup", "required" => false))    
+                ->add('stereo', 'checkbox', array('label' => "Stereo", "required" => false))
+                            
+                ->add('dvdplayer', 'checkbox', array('label' => "DVD Player", "required" => false))
+                ->add('cd', 'checkbox', array('label' => "CD", "required" => false))
+                ->add('satellitedish', 'checkbox', array('label' => "Satellite Dish", "required" => false))
+                            
+                ->add('centralvac', 'checkbox', array('label' => "Central Vac", "required" => false))
+                ->add('insulatedplumbing', 'checkbox', array('label' => "Insulated Plumbing", "required" => false))
+                ->add('portableskylight', 'checkbox', array('label' => "Portable Skylight", "required" => false))
+                            
+                ->add('shower', 'checkbox', array('label' => "Shower", "required" => false))
+                ->add('exteriorshower', 'checkbox', array('label' => "Exterior Shower", "required" => false))
+                ->add('tub', 'checkbox', array('label' => "Tub", "required" => false))    
+                            
+                ->add('toilet', 'checkbox', array('label' => "Toilet", "required" => false))    
+                ->add('waterheater', 'checkbox', array('label' => "Water Heater", "required" => false))    
+                ->add('dsiwaterheater', 'checkbox', array('label' => "DSI Water Heater", "required" => false))    
+                            
+                ->add('doublebed', 'checkbox', array('label' => "Double Bed", "required" => false))    
+                ->add('bunkbeds', 'checkbox', array('label' => "Bunk Beds", "required" => false))    
+                ->add('frontoverheadbunk', 'checkbox', array('label' => "Front Overhead Bunk", "required" => false))
+                            
+                ->add('jackjillbunks', 'checkbox', array('label' => "Jack/Jill Bunks", "required" => false))    
+                ->add('queenbed', 'checkbox', array('label' => "Queen Bed", "required" => false))    
+                ->add('rearbed', 'checkbox', array('label' => "Rear Bed", "required" => false))    
+                
+                ->add('twinbed', 'checkbox', array('label' => "Twin Bed", "required" => false))    
+                ->add('sofabeddaveno', 'checkbox', array('label' => "Sofa Bed/Daveno", "required" => false))    
+                ->add('lpgco2detectors', 'checkbox', array('label' => "LPG/CO2 Detectors", "required" => false))    
+                
+                ->add('tvantenna', 'checkbox', array('label' => "TV Antenna", "required" => false))    
+                ->add('tv', 'checkbox', array('label' => "TV", "required" => false))    
+                ->add('vcr', 'checkbox', array('label' => "VCR", "required" => false))    
+                            
+                ->add('stove', 'checkbox', array('label' => "Stove", "required" => false))    
+                ->add('oven', 'checkbox', array('label' => "Oven", "required" => false))    
+                ->add('rangehood', 'checkbox', array('label' => "Range Hood", "required" => false))    
+                            
+                ->add('microwave', 'checkbox', array('label' => "Microwave", "required" => false))    
+                ->add('convectionoven', 'checkbox', array('label' => "Convection Oven", "required" => false))    
+                ->add('roofrack', 'checkbox', array('label' => "Roof Rack", "required" => false))    
+                            
+                ->add('awning', 'checkbox', array('label' => "Awning", "required" => false))    
+                ->add('ladder', 'checkbox', array('label' => "Ladder", "required" => false))    
+                ->add('trailerhitch', 'checkbox', array('label' => "Trailer", "required" => false))    
+                
+                ->add('sparetire', 'checkbox', array('label' => "Spare Tire", "required" => false))
+                ->add('backupcamera', 'checkbox', array('label' => "Backup Camera", "required" => false))
+                            
+                ->add('issold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('withpictures', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->getForm();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            // perform some action, such as saving the task to the database
+            $data = $form->getData();
+            $query = $this->getDoctrine()->getManager()
+                    ->createQuery(
+                            'SELECT i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 WHERE ifield.field_integer_value = :model
+                                 AND i.category_id=2
+                                ')
+                    ->setParameter('model', 197);
+            \Doctrine\Common\Util\Debug::dump($query->getResult());
+        }
+        return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
+    }
+    
+    
     
 }
