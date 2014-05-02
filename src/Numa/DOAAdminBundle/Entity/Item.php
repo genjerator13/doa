@@ -657,6 +657,7 @@ class Item {
     
     public function getImages(){
         $this->getItemFieldsArray();
+       
         if (!empty($this->ItemFieldArray['image list'])) {
             return $this->ItemFieldArray['image list'];
         }

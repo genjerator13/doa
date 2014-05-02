@@ -73,7 +73,16 @@ genemu_form:
         
 liip_imagine:
     filter_sets:
-        item_image:
+        search_image:
             quality: 100
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
+        item_detail_image:
+            quality: 100
+            filters:
+                thumbnail: { size: [500, 260], mode: outbound }                
+parameters:
+    upload_url: /upload/itemsimages/
+    upload_path: %kernel.root_dir%/../upload/itemsimages/
+                
+                

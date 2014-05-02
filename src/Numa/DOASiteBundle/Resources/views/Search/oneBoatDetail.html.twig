@@ -4,11 +4,6 @@
     <span class="fieldValue fieldValuePictures">
         <a href="#">
             
-{#                {% if details['Image List'] is empty  %}
-                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
-                {% else %} 
-                <img alt="{{details.Year}} {{details.Make}}" src="{{details['Image List'][0]}}" width="100" height="100">
-                {%endif%}#}
                 
             </a>
         </span>
@@ -21,6 +16,15 @@
                 Panel content
             </div>
         </div>#}
+{% set images = item.getImages()%}
+
+
+                {% if images is empty  %}
+                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
+                {% else %} 
+                    {% set image = item.getImages()|first["stringvalue"]%}
+                <img alt="{{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}" src="{{image|imagine_filter('search_image')}}">
+                {%endif%}
         <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}"><h4><b>
                     {{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}
                 </b></h4></a>

@@ -305,7 +305,7 @@ class ImportmappingController extends Controller {
                 $property = $maprow->getSid();
 
                 $listingFields = $maprow->getListingFields();
-                if (!empty($listingFields)) {
+                if (!empty($listingFields) && !empty($XMLitem->{$property})) {
                     $property = $maprow->getSid();
                     $stringValue = (string) $XMLitem->{$property};
                     $itemField = new ItemField();
@@ -324,6 +324,26 @@ class ImportmappingController extends Controller {
                                 //\Doctrine\Common\Util\Debug::dump($listingList->getId());
                                 $itemField->setFieldIntegerValue($listingList->getId());
                             }
+                        }
+                    }if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
+                        $url = $stringValue;
+                        //get etension//
+
+                        $filename = pathinfo($url, PATHINFO_BASENAME);
+
+                        if (!empty($url)) {
+                            $upload_url = $this->container->getParameter('upload_url');
+                            $upload_path = $this->container->getParameter('upload_path');
+
+                            $img = $upload_path . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
+                            $img_url = $upload_url . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
+                            $img = str_replace(" ", "-", $img);
+                            $img_url = str_replace(" ", "-", $img_url);
+                            if(!file_exists($img)){
+                                print_r($upload_url . $upload_path . ":::");                            
+                                file_put_contents($img, file_get_contents($url));                                
+                            }
+                            $itemField->setAllValues($img_url);
                         }
                     }
                 }
