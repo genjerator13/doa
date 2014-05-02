@@ -5,7 +5,12 @@ namespace Numa\DOAAdminBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 class ListingFieldListsRepository extends EntityRepository {
-
+    /**
+     * 
+     * @param type $propertyName
+     * @param type $listing_field_id
+     * @return type
+     */
     public function findOneByValue($propertyName, $listing_field_id) {
 
         $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
@@ -19,7 +24,11 @@ class ListingFieldListsRepository extends EntityRepository {
     }
 
 
-
+    /**
+     * 
+     * @param type $property
+     * @return type
+     */
     public function findAllBy($property) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
@@ -34,6 +43,17 @@ class ListingFieldListsRepository extends EntityRepository {
         //$res = $query; //->getResult();
         ;
         return $qb;
+    }
+    
+    public function getListingValueById($id){
+        if(empty($id)){
+            return NULL;
+        }
+        $list = $this->find($id);
+        if(!empty($list)){
+            return $list->getValue();
+        }
+        return NULL;
     }
 
 }

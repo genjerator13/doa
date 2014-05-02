@@ -175,7 +175,7 @@ class SearchController extends Controller {
         if (strtolower($categoryName) == 'car') {
             return $this->searchAdvancedCar($request);
         }
-
+        
         if (strtolower($categoryName) == 'marine') {
             return $this->searchAdvancedMarine($request);
         }
@@ -304,7 +304,7 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            \Doctrine\Common\Util\Debug::dump($query->getResult());
+            //\Doctrine\Common\Util\Debug::dump($query->getResult());
         }
         return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
@@ -475,7 +475,7 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            \Doctrine\Common\Util\Debug::dump($query->getResult());
+            //\Doctrine\Common\Util\Debug::dump($query->getResult());
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMarine.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
@@ -604,7 +604,7 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            \Doctrine\Common\Util\Debug::dump($query->getResult());
+            //\Doctrine\Common\Util\Debug::dump($query->getResult());
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMotosport.html.twig', array('form' => $form->createView(), 'json' => $json));
     }

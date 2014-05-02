@@ -14,7 +14,7 @@ class DefaultController extends Controller {
         foreach ($hometabs as $tab) {
             $tabs[$tab->getCategoryName()][] = $tab;
         }
-        \Doctrine\Common\Util\Debug::dump($tabs);
+        //\Doctrine\Common\Util\Debug::dump($tabs);
         //print_r($tabs);
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,

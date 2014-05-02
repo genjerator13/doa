@@ -153,7 +153,6 @@ body.fullSize
 .leftMenu li
 {
 	margin: 0 -22px 0 4px;
-	height: 25px;
 	line-height: 25px;
 }
 .leftMenu .caption
@@ -243,4 +242,13 @@ div.searchResults div.right_details {
 
 div.searchResults div.searchResultItem {
     border-bottom: 1px solid #DEF9FA;
+}
+div.content form ul{
+    margin-left: 0px;
+}
+div.content form ul li{
+    list-style-type: none;
+}
+ul.record_actions li{
+    float: left;
 }

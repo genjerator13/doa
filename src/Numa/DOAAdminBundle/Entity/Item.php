@@ -650,7 +650,7 @@ class Item {
                 }
             }
         }
-        \Doctrine\Common\Util\Debug::dump($this->ItemFieldArray['image list']);
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray['image list']);
         //echo "aaaaaaaaaaaa";
         return $this->ItemFieldArray;
     }

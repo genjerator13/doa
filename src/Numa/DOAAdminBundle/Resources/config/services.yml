@@ -2,6 +2,9 @@ parameters:
 #    numa_doa_admin.example.class: Numa\DOAAdminBundle\Example
 
 services:
-#    numa_doa_admin.example:
-#        class: %numa_doa_admin.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    user.listener:
+        class: Numa\DOAAdminBundle\Listeners\EntityListener
+        arguments: [@service_container]
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }

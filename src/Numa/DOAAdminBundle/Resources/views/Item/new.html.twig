@@ -16,8 +16,8 @@
     {{ form_row(form.feature_highlighted) }}
     {{ form_row(form.feature_slideshow) }}
     {{ form_row(form.feature_youtube) }}
-    {{ form_row(form.Importfeed) }}
-    {{ form_row(form.User) }}
+
+
     <ul>
         {% for field in form.Itemfield %}
             <li>
@@ -42,12 +42,17 @@
 
         {% endfor %}
     </ul>
-    {{ form_row(form.Submit) }}
+
 
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('items') }}">
+            <button class="btn btn-primary">
+                Submit
+            </button>
+        </li>
+        <li>
+            <a href="{{ path('items') }}" class="btn btn-primary">
                 Back to the list
             </a>
         </li>

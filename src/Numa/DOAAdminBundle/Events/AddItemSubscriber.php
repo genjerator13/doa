@@ -11,6 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class AddItemSubscriber implements EventSubscriberInterface {
 
     protected $em;
+
     public function __construct($em) {
         $this->em = $em;
     }
@@ -18,46 +19,69 @@ class AddItemSubscriber implements EventSubscriberInterface {
     public static function getSubscribedEvents() {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT=>'preSubmitData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData');
     }
+
     public function preSubmitData(FormEvent $event) {
         //$data = $event->getData();
-/*
-        if($data ['field_type']  == 'list'){
-                    //print_r($data);die();
-            $id = $data->getFieldIntegerValue();
-            if (!empty($id)) {
-                $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
-                if(!empty($selected)){
-                    //$data->setFieldStringValue($selected->getValue());
-                }
-            }
-        }
- * 
- */
+        /*
+          if($data ['field_type']  == 'list'){
+          //print_r($data);die();
+          $id = $data->getFieldIntegerValue();
+          if (!empty($id)) {
+          $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
+          if(!empty($selected)){
+          //$data->setFieldStringValue($selected->getValue());
+          }
+          }
+          }
+         * 
+         */
     }
+
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
+
+        //\Doctrine\Common\Util\Debug::dump($data);
         if ($data->getFieldType() == 'list') {
+
             $id = $data->getFieldIntegerValue();
             $stringVal = $data->getFieldStringValue();
+            $selected = 0;
             if (!empty($id)) {
                 $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
-                $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id'=>$data->getFieldId()));                
-                $values = array();
-                foreach ($listingList as $key => $value) {
-                    //print_r($value);
-                    $values[$value->getId()] = $value->getValue();
-                }
-
-                $form->remove('field_string_value');
-                $form->add('field_integer_value', 'choice', array('choices' => $values,'data' => $selected->getId(), 'required' => false));
-            }elseif(!empty($stringVal)){
+                $selected = $selected->getId();
                 
             }
+
+            $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $data->getListingfield()->getId()));
+            $values = array();
+            
+            foreach ($listingList as $key => $value) {
+                $values[$value->getId()] = $value->getValue();
+            }
+
+            
+            $form->add('field_string_value', 'hidden');
+            $form->add('field_integer_value', 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+            $form->add('field_id', 'hidden');
+        }else if($data->getFieldType() == 'boolean'){
+            $form->add('field_string_value', 'hidden');
+            $form->add('field_boolean_value', 'checkbox',array('required'=>false,'data'=>$data->getFieldBooleanValue()));
+        }else if($data->getFieldType() == 'string'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'geo'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'integer'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'decimal'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'video'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'rating'){
+            $form->add('field_string_value', 'text',array('required'=>false));            
         }
-       
     }
 
 }

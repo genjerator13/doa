@@ -45,7 +45,7 @@ class ItemType extends AbstractType
             ->add('User')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))
-            ->add('Submit','submit')
+
             
         ;
 

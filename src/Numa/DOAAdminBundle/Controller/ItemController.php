@@ -193,22 +193,18 @@ class ItemController extends Controller {
         }
 
         //get all listing fields for the category + default listing fields
-        $fields = $em->getRepository('NumaDOAAdminBundle:ListingField')->findBy(array('category_sid' => array(0, $cat_id)));
-        if (!empty($fields) && empty($item_id)) {
-            //TO DO remove all existing item fields
-            /*
-            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id'=>$item_id));
-            foreach($oldItemFields as $oldone){
-                $em->remove($oldone);
-            }
-             * 
-             */
+        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $cat_id)));
+        if (!empty($fields)) {
+            
+
+            //
+            
             foreach ($fields as $key => $field) {
                 $itemField = new ItemField();
-                //check if item field has value for the listing_field
+                //check if item field has value for the listing_field if edit (exists)
                 if ($item_id != null) {
                     $qb = $item->createQueryBuilder('i')
-                            ->select('if.field_string_value,if.field_name')
+                            ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
                             ->where('i.id = :iid')
                             ->join('i.ItemField', 'if')
                             ->join('if.Listingfield', 'ls')
@@ -217,44 +213,43 @@ class ItemController extends Controller {
                             ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
-                    $products = $qb->getQuery()->setMaxResults(1)->getResult();
+                    $listingField = $qb->getQuery()->getOneOrNullResult();
 
 
-                    if (!empty($products[0])) {
-                        //print_r($products[0]);echo $cat_id.":::".$field->getId();
-                        $itemField->setFieldStringValue($products[0]['field_string_value']);
+                    if (!empty($listingField)) {                      
+                        $itemField->setFieldStringValue($listingField['field_string_value']);
+                        $itemField->setFieldIntegerValue($listingField['field_integer_value']);
+                        $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
                     }
                 }
-
+                $itemField->setListingfield($field);
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
+               
+
                 $entity->addItemField($itemField);
+                
             }
+                        //remove all existing item fields TO DO add this to ItemField repository            
+            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id'=>$item_id));
+            foreach($oldItemFields as $oldone){
+                $em->remove($oldone);
+            }
+            $em->flush();
+            
         }
-        
-        if(!empty($category)){
-            $entity->setCategory($category);
-        }
-        
+        $entity->setCategory($category);
         $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager()), $entity, array(
             'method' => 'POST',
         ));
 
-        $form->add('category_id', 'hidden', array('data' => $cat_id))
-                ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->getDoctrine()->getEntityManager())))
-                ->add('Submit', 'submit');
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //foreach ($entity as $itemField) {
-            //$em->persist($itemField);
-            //$em->flush();
-            //}
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
         } 
+        
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -294,7 +289,12 @@ class ItemController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
-        return $this->newAction($request, $entity->getImportFeed()->getListingType(), $id);
+        $feed = $entity->getImportFeed();
+        if(!empty($feed)){
+            return $this->newAction($request, $entity->getImportFeed()->getListingType(), $id);
+        }
+        
+        return $this->newAction($request, $entity->getCategoryId(), $id);
 
         /*
           $originalItemFields = array();
