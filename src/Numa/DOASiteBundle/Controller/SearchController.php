@@ -180,8 +180,8 @@ class SearchController extends Controller {
             return $this->searchAdvancedMarine($request);
         }
         
-        if (strtolower($categoryName) == 'motosport') {
-            return $this->searchAdvancedMotosport($request);
+        if (strtolower($categoryName) == 'motorsport') {
+            return $this->searchAdvancedMotorsport($request);
         }
         if (strtolower($categoryName) == 'rvs') {
             return $this->searchAdvancedRVs($request);
@@ -481,7 +481,7 @@ class SearchController extends Controller {
     }
     
     
-        public function searchAdvancedMotosport(Request $request) {
+        public function searchAdvancedMotorsport(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
         //\Doctrine\Common\Util\Debug::dump($test);die();
@@ -490,7 +490,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'motosport')))
+                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'motorsport')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
@@ -606,7 +606,7 @@ class SearchController extends Controller {
                     ->setParameter('model', 197);
             //\Doctrine\Common\Util\Debug::dump($query->getResult());
         }
-        return $this->render('NumaDOASiteBundle:Search:advancedMotosport.html.twig', array('form' => $form->createView(), 'json' => $json));
+        return $this->render('NumaDOASiteBundle:Search:advancedMotorsport.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
     
     
