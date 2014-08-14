@@ -30,14 +30,23 @@ twig:
 assetic:
     debug: %kernel.debug%
     use_controller: false
-    bundles: [ ]
+    bundles: ['NumaDOASiteBundle' ]
     filters:
         less:
            node: /usr/local/bin/node
            node_paths: [/usr/local/lib/node_modules]
            apply_to: "\.less$"
         cssrewrite: ~
-
+    assets:
+        bootstrap:
+            inputs:
+               - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.css'        
+        jqueryui:
+            inputs:
+               - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css' 
+        style:
+            inputs:
+               - '%kernel.root_dir%/../web/css/style.css'               
 # Doctrine Configuration
 doctrine:
     dbal:

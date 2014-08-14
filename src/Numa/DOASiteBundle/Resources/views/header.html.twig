@@ -2,9 +2,10 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title>iAuto Admin Panel </title>
-    <link rel="stylesheet" href="{{ asset('bootstrap3/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" media="all" />
+    
+    {% stylesheets '@bootstrap'  '@jqueryui'  '@style' filter="cssrewrite" %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
     <!-- Bootstrap -->
     {% block javascripts %}
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
