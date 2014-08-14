@@ -22,7 +22,7 @@
     </select>
     <p>Sort by:</p>
     {% for item in pagerfanta %}
-
+{#
         {%if item.getCategory().getName()=='Marine'%}
             <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
         {%endif%}
@@ -34,7 +34,7 @@
         {% endif %}
         {% if item.getCategory().getName()=='RVs' %}
             <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-        {% endif %}
+        {% endif %}#}
         {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
     {% endfor%}
     {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   

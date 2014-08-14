@@ -1,8 +1,6 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
 {% block content %}
     <h1>Importfeed list</h1>
-
     <table class="table">
         <thead>
             <tr>
@@ -13,34 +11,25 @@
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('importfeed_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.sid }}</td>
-                <td>{{ entity.description }}</td>
-
-                
-                <td>
-
-                        <a href="{{ path('importfeed_show', { 'id': entity.id }) }}" type="button" class="btn btn-default">show</a>
-
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('importfeed_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.sid }}</td>
+                    <td>{{ entity.description }}</td>
+                    <td>
                         <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-default">edit</a>
-
                         <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-default">Mapping</a>
-
                         <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-default">fetch</a>
-
-                </td>
-            </tr>
-        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
-
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('importfeed_new') }}" class="btn">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

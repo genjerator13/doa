@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\Item:
     type: entity
     table: item
+    repositoryClass: Numa\DOAAdminBundle\Repository\ItemRepository
     id:
         id:
             type: integer

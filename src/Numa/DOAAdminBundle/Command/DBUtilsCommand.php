@@ -53,7 +53,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
      * Creates array for tabs on homepage
      */
     function makeHomeTabs() {
-        print_r("Making home tabs");
+        print_r("Making home tabs\n");
         $aCategories = array(1, 2, 3, 4);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
@@ -88,7 +88,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     }
                     $em->flush();
                 }
-            }else if ($cat->getId() == 4) {
+            }else if ($cat->getId() == 4 || $cat->getId() == 3) {
                 //RV
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption'=>'Type','category_sid'=>$cat->getId()));
                 if (!empty($subCat)) {
@@ -97,7 +97,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     foreach ($list as $key => $value) {
                         $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
                         $count = count($items);
-                        //print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
                         //$count = $items->count();
                         $hometab = new HomeTab();
                         $hometab->setCategoryId($cat->getId());

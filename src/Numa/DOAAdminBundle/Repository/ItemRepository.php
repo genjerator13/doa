@@ -17,4 +17,15 @@ class ItemRepository extends EntityRepository
         $res =$query->getOneOrNullResult();//getOneOrNullResult();
          return $res;
     }
+    
+    public function findFeatured($max=5)
+    {
+        if(empty($max)){
+           $max = 5; 
+        }
+        $q='SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
+        $query =  $this->getEntityManager()->createQuery($q)->setMaxResults($max) ;
+        $res =$query->getResult();//getOneOrNullResult();
+         return $res;
+    }
 }

@@ -28,7 +28,10 @@ form.search {
     padding: 20px;
 }
 
-
+.container {
+    width: 1000px;
+    padding: 0;
+}
 /* spoonbou says ... */
 
 .searchResults{
@@ -44,13 +47,16 @@ ul.tmp{
 .listingsNumber{
     max-width: 73px;
 }
-.middle_details{
+.item-row {
     background: #CFDBC5;
-    margin-left: 21px;
+    margin-bottom: 20px;
+}
+.middle_details{
+
 }
 .middle_details h4{
     float: left;
-    margin: 21px;
+
     color: grey;
 }
 .middle_details ul{
@@ -59,6 +65,12 @@ ul.tmp{
 }
 .middle_details ul a{
     color: olive;
+}
+
+.middle_details img {
+    float: left;
+    border: red solid 1px;
+    display: block;
 }
 .shortDetails{
     margin-left: 42px;
@@ -112,7 +124,7 @@ ul.tmp{
 }
 .comments {
     font-size: 12px;
-    
+
 }
 .comments p{
     display: inline;
@@ -120,4 +132,25 @@ ul.tmp{
 .comments a{
     display: inline;
     text-decoration: underline;
+}
+
+.header-image {
+    background: url('/images/header_1.png') 100% no-repeat #ffffff;
+    width: 1000px;
+    height: 190px;
+    padding: 0;
+    margin-left: 15px;
+}
+
+.header-image .logo{
+    background: url('/images/logo.png') no-repeat;
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.navbar{
+    margin-bottom: 0;
 }

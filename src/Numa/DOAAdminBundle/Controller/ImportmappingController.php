@@ -340,7 +340,7 @@ class ImportmappingController extends Controller {
                             $img = str_replace(" ", "-", $img);
                             $img_url = str_replace(" ", "-", $img_url);
                             if(!file_exists($img)){
-                                print_r($upload_url . $upload_path . ":::");                            
+                                                       
                                 file_put_contents($img, file_get_contents($url));                                
                             }
                             $itemField->setAllValues($img_url);
@@ -367,9 +367,8 @@ class ImportmappingController extends Controller {
             $em->flush();
         }
         $time = time() - $time;
-        echo $time . ":::" . count($items);
-        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array(
-        ));
+//        echo $time . ":::" . count($items);
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items'=>$items));
     }
 
 }

@@ -213,7 +213,7 @@ class ItemController extends Controller {
                             ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
-                    $listingField = $qb->getQuery()->getOneOrNullResult();
+                    $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
 
 
                     if (!empty($listingField)) {                      

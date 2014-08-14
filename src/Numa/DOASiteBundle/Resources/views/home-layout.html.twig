@@ -19,7 +19,7 @@
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active"><a href="{{path('homepage')}}">Home</a></li>
-                            <li><a href="#about">Dealer login</a></li>
+                            <li><a href="{{path('buyer_login')}}">Dealer login</a></li>
                             <li><a href="{{ path('search_advanced') }}">Advanced Search</a></li>
                             <li><a href="{{ path('buyer_register') }}">Buyer Registration</a></li>
 
@@ -35,14 +35,14 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        header
+                    <div class="col-md-12 header-image" >
+                        <div class="logo"></div>
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="col-md-2">
-                        <p class="lead">Shop Name</p>
+
                         <div class="list-group">
                             <a class="list-group-item" href="{{path('buyer_login')}}"> Sign In | Register </a>
                             <a class="list-group-item" href="{{path('homepage_categories')}}">Business Directory</a>
@@ -51,16 +51,9 @@
                             <a class="list-group-item" href="#">Saved Searches</a>
                         </div>
                         
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Featured Ads</h3>
-                            </div>
-                            <div class="panel-body">
-                                <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link1</a>
-                                <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link2</a>
-                                <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link3</a>
-                            </div>
-                        </div>
+
+                            {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }} 
+
                         
                     </div>
                     
@@ -72,16 +65,9 @@
                         {% endblock %}
                         </div>
                         <div class="col-md-2">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Featured Ads</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link1</a>
-                                    <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link2</a>
-                                    <a href=""><img src="" class="img-rounded" alt="missing image"/></br>Link3</a>
-                                </div>
-                            </div>
+
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }}       
+                            
                         </div>
                     </div>
                     <div class="row">

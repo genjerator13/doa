@@ -81,6 +81,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
             $form->add('field_string_value', 'text',array('required'=>false));            
         }else if($data->getFieldType() == 'rating'){
             $form->add('field_string_value', 'text',array('required'=>false));            
+        }else if($data->getFieldType() == 'array'){
+            $form->add('field_string_value', 'text',array('required'=>false));                       
         }
     }
 

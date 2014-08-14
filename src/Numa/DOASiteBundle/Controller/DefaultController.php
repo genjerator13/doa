@@ -127,5 +127,12 @@ class DefaultController extends Controller {
 
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView()));
     }
+    
+    public function featuredAddAction($max){
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
+
+        return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+    }
 
 }

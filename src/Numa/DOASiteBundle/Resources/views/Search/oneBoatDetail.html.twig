@@ -1,64 +1,55 @@
 {% block content %}
-
-<div class="picture_detail">
-    <span class="fieldValue fieldValuePictures">
-        <a href="#">
-            
-                
-            </a>
-        </span>
- </div>
-    <div class="middle_details">
-        
-{#        <div class="panel panel-default">
-            <div class="panel-heading">Panel heading without title</div>
-            <div class="panel-body">
-                Panel content
+    {% set images = item.getImages()%}
+        <div id="item_{{item.id}}" class="row item-row">    
+            <div class="picture_detail col-md-2">
+                <span class="fieldValue fieldValuePictures">
+                    <a href="#">
+                        {% if images is empty  %}
+                            <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
+                        {% else %} 
+                            {% set image = item.getImages()|first["stringvalue"]%}
+                                <img alt="{{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}" src="{{image|imagine_filter('search_image')}}" />
+                        {%endif%}
+                    </a>
+                </span>
             </div>
-        </div>#}
-{% set images = item.getImages()%}
+                        <div class="middle_details col-md-8">
 
-
-                {% if images is empty  %}
-                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
-                {% else %} 
-                    {% set image = item.getImages()|first["stringvalue"]%}
-                <img alt="{{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}" src="{{image|imagine_filter('search_image')}}">
-                {%endif%}
-        <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}"><h4><b>
-                    {{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}
-                </b></h4></a>
-         <ul>
-            <li>Listing ID # {{item.id}} in the category "{{item.category}} "</li>
-            <li>Posted by {{item.getUser('username')}} </li>
-            <div class="clear"></div>
-        </ul>
-        <div class="shortDetails">
-            <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
-            <br>
-            <a href="#">View Details</a>
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"> Save Ad
-                </label>
-            </div>
-            <div class="checkbox-inline">
-                <label>
-                    <input type="checkbox"> Compare Ad
-                </label>
-            </div>
-        </div>
-    </div>
-    <div class="right_details">
-        <ul>
-            <li>
-                <span class="fieldValue fieldValueActive active">{% if item.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
-                and <span class="fieldValue fieldValueModerationStatus approved">{% if item.moderationStatus==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
-            <li>0 pictures</li>
-            <li>0 comments</li>
-            <li>{{item.views}} views</li>
-            <li>Activated on {% if item.activationDate is defined   %}{{item.activationDate}}{%endif%}</li>
-        </ul>
-    </div>
-<div class="clear"></div>
+                            <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}"><h4><b>
+                                        {{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}
+                                    </b></h4></a>
+                            <ul>
+                                <li>Listing ID # {{item.id}} in the category "{{item.category}} "</li>
+                                <li>Posted by {{item.getUser('username')}} </li>
+                                <div class="clear"></div>
+                            </ul>
+                            <div class="shortDetails">
+                                <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
+                                <br>
+                                <a href="#">View Details</a>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox"> Save Ad
+                                    </label>
+                                </div>
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox"> Compare Ad
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="right_details col-md-2">
+                            <ul>
+                                <li>
+                                    <span class="fieldValue fieldValueActive active">{% if item.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
+                                    and <span class="fieldValue fieldValueModerationStatus approved">{% if item.moderationStatus==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
+                                <li>0 pictures</li>
+                                <li>0 comments</li>
+                                <li>{{item.views}} views</li>
+                                <li>Activated on {% if item.activationDate is defined   %}{{item.activationDate}}{%endif%}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
 {% endblock %}

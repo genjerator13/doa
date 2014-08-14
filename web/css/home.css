@@ -4,3 +4,7 @@
     text-align: center;
     display: block;
 }
+
+.panel-body img {
+    width: 100px;    
+}

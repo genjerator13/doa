@@ -663,6 +663,25 @@ class Item {
         }
         return array();
     }
+    
+    public function getModel(){
+        $this->getItemFieldsArray();
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
+
+        if($this->Category->getName()=="Marine"){
+            return $this->ItemFieldArray['model']['stringvalue'];
+        }
+        return "";
+    }
+    
+    public function getMake(){
+        $this->getItemFieldsArray();
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
+        if($this->Category->getName()=="Marine"){
+            return $this->ItemFieldArray['boat make']['stringvalue'];
+        }
+        return "";
+    }
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
