@@ -654,30 +654,30 @@ class Item {
         //echo "aaaaaaaaaaaa";
         return $this->ItemFieldArray;
     }
-    
-    public function getImages(){
+
+    public function getImages() {
         $this->getItemFieldsArray();
-       
+
         if (!empty($this->ItemFieldArray['image list'])) {
             return $this->ItemFieldArray['image list'];
         }
         return array();
     }
-    
-    public function getModel(){
+
+    public function getModel() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
 
-        if($this->Category->getName()=="Marine"){
+        if ($this->Category->getName() == "Marine") {
             return $this->ItemFieldArray['model']['stringvalue'];
         }
         return "";
     }
-    
-    public function getMake(){
+
+    public function getMake() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-        if($this->Category->getName()=="Marine"){
+        if ($this->Category->getName() == "Marine") {
             return $this->ItemFieldArray['boat make']['stringvalue'];
         }
         return "";
@@ -815,6 +815,21 @@ class Item {
      */
     public function __toString() {
         return "test";
+    }
+    public $dealer;
+    public function getDealer($id) {
+        if (empty($this->dealer)) {
+            global $kernel;
+
+            if ('AppCache' == get_class($kernel)) {
+                $kernel = $kernel->getKernel();
+            }
+
+                $em = $kernel->getContainer()->get( 'doctrine.orm.entity_manager' );
+                $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($id);
+                $this->dealer = $dealer;
+        }
+        return $this->dealer;
     }
 
 }

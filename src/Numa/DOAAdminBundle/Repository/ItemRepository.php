@@ -5,16 +5,13 @@ use Doctrine\ORM\EntityRepository;
       
 class ItemRepository extends EntityRepository
 {
-    public function removeAllItemFields($item_it)
+    public function getItemFields($item_id)
     {
             
-        $q='SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
-                    ( l.listing_field_id = '.$listing_field_id.' AND
-                    (l.value like \''.$propertyName.'\'  OR 
-                     l.value like \'%'.$propertyName.'%\'     )) ';
+        $q='SELECT i FROM ItemField WHERE i.item_id='.$item_id;
         $query =  $this->getEntityManager()
-            ->createQuery($q)->setMaxResults(1) ;
-        $res =$query->getOneOrNullResult();//getOneOrNullResult();
+            ->createQuery($q);
+        $res =$query->getResult();
          return $res;
     }
     

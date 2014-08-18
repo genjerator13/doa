@@ -114,6 +114,15 @@ class DefaultController extends Controller {
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
         return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs));
     }
+    
+    public function catalogAction(request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $idCat = $request->get('idcatalog');
+        $cat_name = $request->get('catalog_name');
+
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($idCat);
+        return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array( 'dealer' => $dealer));
+    }
 
     public function searchAction(Request $request) {
         $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(

@@ -1,5 +1,6 @@
 {% block content %}
     {% set images = item.getImages()%}
+    {% set desc = item.getMake()~item.getModel()%}
         <div id="item_{{item.id}}" class="row item-row">    
             <div class="picture_detail col-md-2">
                 <span class="fieldValue fieldValuePictures">
@@ -8,16 +9,17 @@
                             <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
                         {% else %} 
                             {% set image = item.getImages()|first["stringvalue"]%}
-                                <img alt="{{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}" src="{{image|imagine_filter('search_image')}}" />
+                                <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
                         {%endif%}
                     </a>
                 </span>
             </div>
-                        <div class="middle_details col-md-8">
-
-                            <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}"><h4><b>
-                                        {{item.getItemFieldByName('year')}} {{item.getItemFieldByName('boat make')}}
-                                    </b></h4></a>
+                        <div class="middle_details col-md-7">
+                            <h4>
+                                <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}">
+                                            {{item.getItemFieldByName('year')}} {{desc}}
+                                </a>                                    
+                            </h4>
                             <ul>
                                 <li>Listing ID # {{item.id}} in the category "{{item.category}} "</li>
                                 <li>Posted by {{item.getUser('username')}} </li>
@@ -39,8 +41,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="right_details col-md-2">
-                            <ul>
+                        <div class="right_details col-md-3">
+                            <ul class="list-unstyled">
                                 <li>
                                     <span class="fieldValue fieldValueActive active">{% if item.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
                                     and <span class="fieldValue fieldValueModerationStatus approved">{% if item.moderationStatus==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>

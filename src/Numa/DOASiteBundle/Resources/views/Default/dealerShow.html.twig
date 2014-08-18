@@ -1,0 +1,27 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block content %}
+
+    {#<h2>{{category.name}}</h2>#}
+    <div class="list-group id="myTab">
+
+         <a href="" class="list-group-item">{{dealer.name}}</a>
+        {% if (dealer.logo is empty) %}
+            <img alt="logo" src="{{dealer.logoUrl}}" />
+        {% endif %}
+        <div>{{dealer.description| raw}}
+            <dl class="captions businessCatalogCaptions">
+                <dt>E-mail:</dt>
+                <dd>{{dealer.email}}</dd>
+                <dt>Website:</dt>
+                <dd>{{dealer.url}}</dd>
+                <dt>Phone:</dt>
+                <dd>{{dealer.phone}}</dd>
+                <dt>Fax:</dt>
+                <dd>{{dealer.fax}}</dd>
+            </dl>
+        </div>
+
+    </div>
+
+{% endblock %}
+

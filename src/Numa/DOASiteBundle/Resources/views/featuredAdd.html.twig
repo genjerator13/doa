@@ -5,12 +5,13 @@
     <div class="panel-body">
         {% for item in items %}
             {% set images = item.getImages()%}
-                <a href="">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
+            {% set desc = item.getMake()~item.getModel()%}
+                <a href="{{path('item_details', {'itemId': item.id, 'description': desc}) }}">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
                 {% if images is empty  %}
                     <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
                 {% else %} 
                     {% set image = item.getImages()|first["stringvalue"]%}
-                        <img alt="{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}" src="{{image|imagine_filter('search_image')}}">
+                        <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}">
                 {%endif%}
                 </a>
         {% endfor %}

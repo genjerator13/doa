@@ -81,8 +81,8 @@ ul.tmp{
 }
 
 .right_details ul li{
-    display: inline;
-    margin-left: 42px;
+/*    display: inline;
+    margin-left: 42px;*/
 }
 
 
@@ -153,4 +153,11 @@ ul.tmp{
 
 .navbar{
     margin-bottom: 0;
+}
+
+.techData .fieldCaption {
+    width: 100px;
+}
+.techData .fieldValue {
+    font-weight: bold;
 }

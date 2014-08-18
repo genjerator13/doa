@@ -29,7 +29,7 @@ class ListingFieldListsRepository extends EntityRepository {
      * @param type $property
      * @return type
      */
-    public function findAllBy($property) {
+    public function findAllBy($property, $cat=0) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
@@ -37,9 +37,13 @@ class ListingFieldListsRepository extends EntityRepository {
                 ->join('NumaDOAAdminBundle:Listingfield', 'l')
                 ->where('lfl.listing_field_id=l.id')
                 ->andWhere('l.caption like :property')
+                ->andWhere('l.category_sid like :property')
                 ->setParameter('property', "%" . $property . "%");
         ;
-
+        if($cat>0){
+            $qb->andWhere('l.category_sid=:csid')
+               ->setParameter('csid', $cat);
+        }
         //$res = $query; //->getResult();
         ;
         return $qb;

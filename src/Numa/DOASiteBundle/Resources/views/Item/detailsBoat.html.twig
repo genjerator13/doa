@@ -1,203 +1,81 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
 
 {% block content %}
-<div class="detailsContent">
-    <h3>2014</h3>
-    <div class="image-gallery">  
-        <div class="big-image">  
-            {% set images = item.getImages()%}
-          <img id="default" src="{{(images|first).stringvalue|imagine_filter('item_detail_image')}}" />
-        </div>  
+    {% set images = item.getImages()%}
+        {% set desc = item.getMake()~item.getModel()%}
+            <div class="detailsContent">
+                <h3>{{item.getItemFieldByName('year')}} {{desc}}</h3>
+                <div class="image-gallery">  
+                    <div class="big-image">  
+
+                        <img id="default" src="{{(images|first).stringvalue|imagine_filter('item_detail_image')}}" />
+                    </div>  
 
 
-        <a class="button prev"><</a>
-        <a class="button next">></a>  
-    {#    <a href=""><span class=" glyphicon glyphicon-chevron-left"></span></a>
-        <a href="" class=" glyphicon glyphicon-chevron-right"></a>#}
+                    <a class="button prev"><</a>
+                    <a class="button next">></a>  
+                    {#    <a href=""><span class=" glyphicon glyphicon-chevron-left"></span></a>
+                        <a href="" class=" glyphicon glyphicon-chevron-right"></a>#}
 
 
-        <div class="thumbs">  
-            <ul>   
-                {% for key,image in images %}
-              <li>
-                <a href="#image{{key}}"><img  src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" /></a></li>
-              <li>
-               {% endfor %}
-            </ul>
-        </div>
-
-        <a href="" class="showAllPictures">show all pictures</a>
-        <a href="" class="viewSlideShow">view slideshow</a>
-
-    </div>
-    
-        <ul class="techData">
-            <li>
-                <span class="fieldCaption fieldCaptionId">Listing #</span>
-                <span class="fieldValue fieldValueId">{{item.id}}</span>
-            </li>
-            <li>
-                <span class="fieldCaption fieldStockNumber">Stock Number: </span>
-                <span class="fieldValue fieldValueStockNumber"></span><br>
-            </li>				
-            <li>
-                <span class="fieldCaption fieldCaptionStatus">Status: </span>
-                <span class="fieldValue fieldValueStatus">{{showItemField(itemfields,'status')}}</span><br>
-            </li>				
-            <li>
-                <span class="fieldCaption fieldCaptionBoatType">Boat Type: </span>
-                <span class="fieldValue fieldValueBoatType">{{showItemField(itemfields,'boat type')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatLength">Length(ft): </span>
-                <span class="fieldValue fieldValueBoatLength">{{showItemField(itemfields,'length(ft)')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatBeam">Beam: </span>
-                <span class="fieldValue fieldValueBoatBeam">{{showItemField(itemfields,'beam')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatWeight">Weight: </span>
-                <span class="fieldValue fieldValueBoatWeight">{{showItemField(itemfields,'boat weight')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoathull">Hull Design: </span>
-                <span class="fieldValue fieldValueBoathull">{{showItemField(itemfields,'beam')}}</span>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatSteeringType">Steering Type: </span>
-                <span class="fieldValue fieldValueBoatSteeringType">{{showItemField(itemfields,'stering type')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatDriveType">Drive Type: </span>
-                <span class="fieldValue fieldValueBoatDriveType">{{showItemField(itemfields,'drive type')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatEngineType">Engine Type: </span>
-                <span class="fieldValue fieldValueBoatEngineType">{{showItemField(itemfields,'engine type')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatEngine">Horsepower: </span>
-                <span class="fieldValue fieldValueBoatEngine">{{showItemField(itemfields,'hoursepower')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatFuelType">Fuel Type: </span>
-                <span class="fieldValue fieldValueBoatFuelType">{{showItemField(itemfields,'beam')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatFuelCapacity">Fuel Capacity: </span>
-                <span class="fieldValue fieldValueBoatFuelCapacity">{{showItemField(itemfields,'fuel type')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionEngineHours"># of Hours: </span>
-                <span class="fieldValue fieldValueEngineHours">{{showItemField(itemfields,'# of hours')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionTransmission">Transmission: </span>
-                <span class="fieldValue fieldValueBoatTransmission">{{showItemField(itemfields,'transmission')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatExteriorColor">Exterior Color: </span>
-                <span class="fieldValue fieldValueBoatExteriorColor">{{showItemField(itemfields,'exterior color')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatBoatInteriorColor">Interior Color: </span>
-                <span class="fieldValue fieldValueBoatInteriorColor">{{showItemField(itemfields,'Interior Color')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatPass"># Passengers: </span>
-                <span class="fieldValue fieldValueBoatPass">{{showItemField(itemfields,'# Passengers')}}</span><br>
-            </li>
-            <li>
-                <span class="fieldCaption fieldCaptionBoatTrailer">Trailer: </span>
-                <span class="fieldValue fieldValueBoatTrailer">{{showItemField(itemfields,'Trailer')}}</span><br>
-            </li>
-                <!--<li>
-                        <span class="fieldCaption fieldCaptionVin">State: </span>
-                        <span class="fieldValue fieldValueVin">Saskatchewan</span><br />
-                </li>
-                <li>
-                        <span class="fieldCaption fieldCaptionVin">City: </span>
-                        <span class="fieldValue fieldValueVin">Saskatoon</span><br />
-                </li>
-                <li>
-                        <span class="fieldCaption fieldCaptionVin">Address: </span>
-                        <span class="fieldValue fieldValueVin">3533B Idylwyld Drive North</span><br />
-                </li>
-                <li>
-                        <span class="fieldCaption fieldCaptionVin">ZipCode: </span>
-                        <span class="fieldValue fieldValueVin">S7L 6B5</span><br />
-                </li>-->
-{#            <li>
-                <span class="fieldCaption fieldCaptionOptionsList">Options List: </span>
-                <span class="fieldValue fieldValueOptionsList">
-                    <div style="margin-left:40px;width:350px;float:left;">	
-                        <h4>		Options</h4>	
-                        <ul>
-                            <li>			Wetsounds Rev 10 Tower of Power</li>		
-                            <li>			Convex VX</li>		
-                            <li>			1600lb Surf Ballast</li>		
-                            <li>			Bimini Top</li>		
-                            <li>			Blue LED Speaker Lights</li>		
-                            <li>			Travel Tarp</li>		
-                            <li>			3 outlet Heater</li>		
-                            <li>			Dual Batteries</li>		
-                            <li>			Freshwater Strainer</li>		
-                            <li>			Swivel Board Racks</li>		
-                            <li>			Alpha Z Tower</li>		
-                            <li>			Transom Display Remote</li>		
-                            <li>			Tandem Axle Trailer</li>		
-                            <li>			Retractable Transom Straps</li>	
+                    <div class="thumbs">  
+                        <ul>   
+                            {% for key,image in images %}
+                                <li>
+                                    <a href="#image{{key}}"><img  src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" /></a></li>
+                                <li>
+                                {% endfor %}
                         </ul>
                     </div>
-                </span>
-                <br>
-            </li>	#}		
-            <li>
-                <span class="fieldCaption fieldCaptionSellerComments">Description:</span>
-                <div class="fieldValue fieldValueSellerComments"><h3>
-            </li>
-        </ul>
-            
-        <h4>Standard Features</h4>
-        <ul class="standardFeatures">
-            <li>12 volt power outlet</li>
-            <li>2 bow deluxe captain chairs with movable arms & slider</li>
-            <li>27 gallon fuel tank built into motor well</li>
-            <li>28 oz. cocoa marine grade carpet</li>
-            <li>36 quart cooler</li>
-            <li>8 1/2' X 10' bimini top</li>
-            <li>Bow & stern SST mooring bolts</li>
-            <li>Chrome Euro light housing with navigation & docking lighting</li>
-            <li>Courtesy lights (console) & top frame</li>
-            <li>Reclining captain's chair with movable arms & slider</li>
-            <li>Deluxe gauge package (tach, volt, speedo and fuel)</li>
-            <li>Rockford Fosgate premium radio</li>
-            <li>MP3/USB port</li>
-            <li>One piece fiberglass console with windshield</li>
-            <li>Oval table</li>
-            <li>Rear boarding ladder with four steps</li>
-            <li>Rotationally molded seat frames with water management system</li>
-            <li>Spacious dressing room with bench</li>
-            <li>Two speakers in instrument panel</li>
-            <li>Stainless steel fasteners</li>
-            <li>Standard wheelchair accessible bow gate</li>
-            <li>Storage (versa tube) in console</li>
-            <li>Chaise lounges</li>
-            <li>Tilt steering wheel</li>
-            <li>Two portable cup holders</li>
-            <li>Two portable cup holders</li>
-        </ul>
-            
-           
-        <div id="map"> </div> 
-        <script type="text/javascript">initialize();</script>
-            
-        <div class="comments">
-            <h5><b>Comments</b></h5>
-            <p>There are no comments yet.</p>
-            <a href="">Add your comment</a>
-        </div>
-</div>
-{% endblock %}
 
+                    <a href="#" class="showAllPictures">show all pictures</a>
+                    <a href="#" class="viewSlideShow">view slideshow</a>
+
+                </div>
+
+                <ul class="techData">
+
+                    <li>
+                        <span class="fieldCaption fieldCaptionId">Listing #</span>
+                        <span class="fieldValue fieldValueId">{{item.id}}</span>
+                    </li>
+                    {% set ignore_fields = ['Image List','dealer'] %}
+                        {% for field in item.ItemField %}
+                            {% if field.fieldName not in ignore_fields %}
+                                <li>
+                                    <span class="fieldCaption field{{field.fieldStringValue}}">{{field.fieldName}} </span>
+                                    <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+
+
+
+                        <div id="map"> </div> 
+                        <script type="text/javascript">initialize();</script>
+
+                        <div class="comments">
+                            <h5><b>Comments</b></h5>
+                            <p>There are no comments yet.</p>
+                            <a href="# ">Add your comment</a>
+                        </div>
+                </div>
+                {% endblock %}
+
+                    {% block rightsidebar %}
+                        {% if (dealer is not empty) %}
+                            <h3>Dealer Info</h3>
+                            {% if (dealer.logo is empty) %}
+                                <img alt="logo" src="{{dealer.logoUrl}}" />
+                                {% endif %}
+                                <p><strong>{{dealer.name}}<strong/></p>
+                            <p>{{dealer.address}}</p>
+                            <p>{{dealer.phone}}</p>
+                            <p>{{dealer.location}}</p>
+                            <p>{{dealer.url}}</p>
+                            <p>Send <a href="mailto:{{dealer.email}}" >email</a>
+                            <p><a style="" href="{{ path('search_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
+
+                        {% endif %}
+                    {% endblock %}

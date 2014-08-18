@@ -54,8 +54,9 @@ class SearchController extends Controller {
         $category = $request->get('category');
         $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
-        if (strstr($model, 'fishing')) {
-            $model = 'fishing';
+        $model = str_replace(" boat", "", $model);
+        if (strstr($model, 'watercraft')) {
+            $model = 'watercraft';
         }
 //        $repository = $this->getDoctrine()->getRepository('NumaDOAAdmin:Category');
 //
@@ -75,7 +76,36 @@ class SearchController extends Controller {
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
                 ->setParameter('category', "%" . $category . "%");
-        echo $query->getSql();
+
+        $items = $query->getResult();
+
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
+        $pagerfanta->setMaxPerPage(10);
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));
+    }
+    
+        public function searchByDealerAction(Request $request) {
+        $dealerid = $request->get('dealerid');
+
+        $page = $request->get('page');
+        $page = empty($page) ? 1 : $page;
+
+        $query = $this->getDoctrine()->getManager()
+                ->createQuery(
+                        'SELECT i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 JOIN i.Category c
+                                 WHERE ifield.field_name LIKE \'dealer\'
+                                 AND ifield.field_string_value=:dealerid
+                                 ')
+                ->setParameter('dealerid', $dealerid );
+                
+
         $items = $query->getResult();
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
@@ -160,13 +190,57 @@ class SearchController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            // perform some action, such as saving the task to the database
-            print_r($form->getData());
-            die("success");
+            return $this->proccessAdvancedSearch($form->getData());
+            //print_r($form->getData());
+            //die("success");
         }
         return $this->render('NumaDOASiteBundle:Search:advanced.html.twig', array('form' => $form->createView()));
     }
+    private function proccessAdvancedSearch($post,$category=0){
+        if ($category==0){
+            return $this->proccessGeneralSearch($post);
+        }
+    }
+    
+    private function proccessGeneralSearch($post=array()){
+        // [text] => [category] => 
+        // [withPicture] => [distance] =>
+        //  [zip] => [id] => [postedFrom] => 
+        //  [postedTo] => [feedFrom] => [feedTo] => 
+        //  [status] => [city] => [stock] => [optionList] => 
+        //  [priceFrom] => [priceTo] => [milleageFrom] => [milleageTo]
+        //   => [VIN] => [transmission] => [fueltype] => 
+        //   [yearFrom] => [yearTo] => [IW_NO] => [isSold] =>
+        //$page = $request->get('page');
+        $qb = $this->getDoctrine()->getManager()->createQueryBuilder();
+        $qb->select('i')
+                ->from('NumaDOAAdminBundle:Item', 'i')
+                ->join('i.ItemField', 'ifield');
 
+        ;
+        
+
+        if(!empty($post['text'])){
+             $qb->andWhere('ifield.field_string_value LIKE :text')
+                ->setParameter('text', "%" . $post['text'] . "%");
+        }
+        
+        return $this->showSearchResults($qb);
+    }
+    
+    public function showSearchResults($qbuilder,$page=1){
+        $items = $qbuilder->getQuery()->getResult();
+
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($qbuilder));
+        $pagerfanta->setMaxPerPage(10);
+        try {
+            $pagerfanta->setCurrentPage($page);
+        } catch (NotValidCurrentPageException $e) {
+            throw new NotFoundHttpException();
+        }
+        
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));           
+    }
     public function searchAdvancedCategoryAction(Request $request) {
         $categoryName = $request->get('category');
         if (empty($category)) {
@@ -311,7 +385,8 @@ class SearchController extends Controller {
 
     public function searchAdvancedMarine(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
+        $json ="";
         //\Doctrine\Common\Util\Debug::dump($test);die();
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -320,9 +395,9 @@ class SearchController extends Controller {
                 ->setMethod('POST')
                 ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'marine')))
                 ->add('make', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllBy('make');
+                        return $er->findAllBy('Boat Make');
                     },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
@@ -331,7 +406,7 @@ class SearchController extends Controller {
                 ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllBy('Type');
+                        return $er->findAllBy('Boat Type');
                     },
                     'empty_value' => 'Any type',
                     'label' => "Type", "required" => false
@@ -446,7 +521,7 @@ class SearchController extends Controller {
                 ->add('trailer', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllBy('Trailer');
+                        return $er->findAllBy('Trailer',2);
                     },
                     'empty_value' => 'Any Trailer',
                     'label' => "Trailer", "required" => false

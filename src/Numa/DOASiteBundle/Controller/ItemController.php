@@ -16,15 +16,19 @@ class itemController extends Controller {
         if(empty($item)){
              throw $this->createNotFoundException('message');
         }
-        $itemfields = $item->getItemFieldsArray();
+        //$itemfields = $item->getItemFieldsArray();
+        //get dealer
+        $dealerid = $item->getItemFieldByName('dealer');
+        
+        $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         switch ($item->getCategoryId()) {
             case 1:
                 //car
-                return $this->render('NumaDOASiteBundle:Item:detailsCar.html.twig', array('item' => $item, 'itemfields' => $itemfields));
+                return $this->render('NumaDOASiteBundle:Item:detailsCar.html.twig', array('item' => $item, 'dealer'=>$dealer));
                 break;
             case 2:
                 //marine
-                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'itemfields' => $itemfields));
+                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer'=>$dealer));
                 break;
             case 3:
                 //motorsport

@@ -50,5 +50,11 @@ class EntityListener {
          * *
          */
     }
+    
+    public function postLoad(LifecycleEventArgs $args) {
+                $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        die("aaaaa");
+    }
 
 }

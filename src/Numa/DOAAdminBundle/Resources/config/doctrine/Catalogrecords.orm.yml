@@ -9,34 +9,50 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         name:
             type: string
             length: 255
+            nullable: true
         category_id:
             type: integer
+            nullable: true
         description:
             type: text
+            nullable: true
         url:
             type: string
             length: 255
+            nullable: true
         address:
             type: string
             length: 255
+            nullable: true
 
         phone:
             type: string
             length: 255
+            nullable: true
 
         location:
             type: string
             length: 255
-
+            nullable: true
         email:
             type: string
             length: 255
+            nullable: true
         fax:
             type: string
             length: 255
+            nullable: true
         full:
             type: text
-        
+            nullable: true
+        logo:
+            type: string
+            length: 255
+            nullable: true
+        logo_url:    
+            type: string
+            length: 255
+            nullable: true
         
     manyToOne:
         CatalogCategory:
