@@ -2,16 +2,15 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title>Dealers on Air</title>
-    
-    {% stylesheets '@bootstrap'  '@jqueryui'  '@style' filter="cssrewrite" %}
+
+    {% stylesheets '@bootstrap'  '@jqueryui'  '@style' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
-    <!-- Bootstrap -->
     {% block javascripts %}
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="{{ asset('bootstrap3/js/bootstrap.js') }}"></script>
-        <script src="{{ asset('jqueryUI/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
-        <script src="{{ asset('jqueryUI/js/jquery.ui.swappable.js') }}"></script>
-        <script src="{{ asset('js/common.js') }}"></script>
+        {% javascripts '@bootstrapx_js' '@jquery_ui' '@common_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+
     {% endblock %}
 </head>

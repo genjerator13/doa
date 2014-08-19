@@ -32,11 +32,12 @@ assetic:
     use_controller: false
     bundles: ['NumaDOASiteBundle' ]
     filters:
+        cssrewrite: ~
         less:
            node: /usr/local/bin/node
            node_paths: [/usr/local/lib/node_modules]
            apply_to: "\.less$"
-        cssrewrite: ~
+        
     assets:
         bootstrap:
             inputs:
@@ -46,7 +47,18 @@ assetic:
                - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css' 
         style:
             inputs:
-               - '%kernel.root_dir%/../web/css/style.css'               
+               - '%kernel.root_dir%/../web/css/style.css'  
+        #javascript
+        bootstrapx_js:
+            inputs:
+                - '%kernel.root_dir%/../web/bootstrap3/js/bootstrap.min.js'
+        jquery_ui:
+            inputs:
+                - '%kernel.root_dir%/../web/jqueryUI/js/jquery-ui-1.10.3.custom.min.js'
+                - '%kernel.root_dir%/../web/jqueryUI/js/jquery.ui.swappable.js'
+        common_js:
+            inputs:
+                - '%kernel.root_dir%/../web/js/common.js'
 # Doctrine Configuration
 doctrine:
     dbal:
