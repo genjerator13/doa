@@ -42,9 +42,6 @@ assetic:
         bootstrap:
             inputs:
                - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.css'        
-        jqueryui:
-            inputs:
-               - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css' 
         style:
             inputs:
                - '%kernel.root_dir%/../web/css/style.css'  
