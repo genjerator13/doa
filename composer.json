@@ -32,7 +32,6 @@
         "sensio/generator-bundle": "2.3.*",
         "incenteev/composer-parameter-handler": "~2.0",
         "braincrafted/bootstrap-bundle": "dev-master",
-        "twbs/bootstrap": "v3.0.0",
         "jquery/jquery": "1.9.*",
         "apy/datagrid-bundle": "dev-master",
         "beberlei/DoctrineExtensions" : "dev-master",

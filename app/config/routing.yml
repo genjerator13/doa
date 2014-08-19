@@ -12,8 +12,8 @@ login_check:
     pattern:   /login_check
 logout:
     pattern:   /logout
-_imagine:
-    resource: .
-    type:     imagine    
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
 

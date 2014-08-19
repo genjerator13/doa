@@ -30,7 +30,7 @@ twig:
 assetic:
     debug: %kernel.debug%
     use_controller: false
-    bundles: ['NumaDOASiteBundle' ]
+    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle' ]
     filters:
         cssrewrite: ~
         less:
@@ -48,17 +48,26 @@ assetic:
         style:
             inputs:
                - '%kernel.root_dir%/../web/css/style.css'  
+        admin:
+            inputs:
+               - '%kernel.root_dir%/../web/css/admin.css'
+        jquery_ui_css:
+            inputs:
+               - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css'
         #javascript
         bootstrapx_js:
             inputs:
                 - '%kernel.root_dir%/../web/bootstrap3/js/bootstrap.min.js'
-        jquery_ui:
+        jquery_ui_js:
             inputs:
                 - '%kernel.root_dir%/../web/jqueryUI/js/jquery-ui-1.10.3.custom.min.js'
                 - '%kernel.root_dir%/../web/jqueryUI/js/jquery.ui.swappable.js'
         common_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/common.js'
+        tinymce_js:
+            inputs:
+                - '%kernel.root_dir%/../web/tinymce/js/tinymce/tinymce.min.js'
 # Doctrine Configuration
 doctrine:
     dbal:

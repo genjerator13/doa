@@ -2,17 +2,17 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <title>iAuto Admin Panel </title>
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" type="text/css" media="all" />
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ asset('jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css') }}">
+        {% stylesheets '@admin' '@bootstrap'  '@jquery_ui_css'   '@jquery_ui_css'  filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    {% endstylesheets %}
+    {% block javascripts %}
+        {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@tinymce_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 
 
-    <script>window.jQuery || document.write('<script src="{{ asset('jqueryUI/js//jquery-1.9.1.js') }}"><\/script>')</script>
-    <script src="{{ asset('bootstrap/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('jqueryUI/js/jquery-ui-1.10.3.custom.min.js') }}"></script>
-    <script src="{{ asset('jqueryUI/js/jquery.ui.swappable.js') }}"></script>
-    <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    {% endblock %}
+    
     <script>
         $(function() {
             $(".sortable").sortable();
