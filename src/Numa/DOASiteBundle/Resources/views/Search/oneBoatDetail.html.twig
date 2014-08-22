@@ -2,19 +2,19 @@
     {% set images = item.getImages()%}
     {% set desc = item.getMake()~item.getModel()%}
         <div id="item_{{item.id}}" class="row item-row">    
-            <div class="picture_detail col-md-2">
-                <span class="fieldValue fieldValuePictures">
+            <div class="picture_detail col-md-3">
+                
                     <a href="#">
                         {% if images is empty  %}
                             <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
                         {% else %} 
                             {% set image = item.getImages()|first["stringvalue"]%}
-                                <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                                <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120px" />
                         {%endif%}
                     </a>
-                </span>
+
             </div>
-                        <div class="middle_details col-md-7">
+                        <div class="middle_details col-md-6">
                             <h4>
                                 <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}">
                                             {{item.getItemFieldByName('year')}} {{desc}}

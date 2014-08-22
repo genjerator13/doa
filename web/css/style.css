@@ -161,3 +161,9 @@ ul.tmp{
 .techData .fieldValue {
     font-weight: bold;
 }
+
+div.searchResults div.picture_detail {
+
+    padding: 10px;
+
+}

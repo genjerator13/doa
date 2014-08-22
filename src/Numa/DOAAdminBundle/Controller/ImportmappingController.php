@@ -337,8 +337,8 @@ class ImportmappingController extends Controller {
 
                             $img = $upload_path . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
                             $img_url = $upload_url . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
-                            $img = str_replace(" ", "-", $img);
-                            $img_url = str_replace(" ", "-", $img_url);
+                            $img = str_replace(array(" ",'%'), "-", $img);
+                            $img_url = str_replace(array(" ",'%'), "-", $img_url);
                             if(!file_exists($img)){
                                                        
                                 file_put_contents($img, file_get_contents($url));                                
