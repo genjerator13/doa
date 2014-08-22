@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Numa\DOASiteBundle\NumaDOASiteBundle(),
             new Numa\DOAAdminBundle\NumaDOAAdminBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new Gregwar\ImageBundle\GregwarImageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

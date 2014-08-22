@@ -29,7 +29,7 @@ twig:
 # Assetic Configuration
 assetic:
     debug: %kernel.debug%
-    use_controller: false
+    use_controller: true
     bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle' ]
     filters:
         cssrewrite: ~
@@ -111,5 +111,5 @@ liip_imagine:
 parameters:
     upload_url: /upload/itemsimages/
     upload_path: %kernel.root_dir%/../upload/itemsimages/
-                
+gregwar_image: ~                
                 
