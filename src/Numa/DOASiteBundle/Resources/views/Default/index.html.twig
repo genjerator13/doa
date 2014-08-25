@@ -18,10 +18,11 @@
 
                     <div class="col-md-4">
                         <a href="#" class="imageLink">
+                            {% set words = item.ListingFieldListValue|split(' ', 2) %}
                             <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
                         </a>
                         <br>
-                        <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
+                        <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': attribute(words, 0)|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                     </div>
                 {%endfor%}
             </div>

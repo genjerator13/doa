@@ -1,54 +1,56 @@
 {% block form_row %}
-{% spaceless %}
-    <div class="form-group {{ groupclass is defined ?  groupclass: '' }} {{ errors|length > 0 ? 'error' : '' }}">
-        
-        <div class="{{class is defined?class:""}}">
-                <span class="input-group-addon">
-        {{ label}}</span>
-        {{ form_widget(form) }}
-                    </div> 
-        {{ form_errors(form) }}
+    {% spaceless %}
+        <div class="form-group {{ groupclass is defined ?  groupclass: '' }} {{ errors|length > 0 ? 'error' : '' }}">
 
-    </div>
-{% endspaceless %}
+            <div class="{{class is defined?class:""}}">
+                {% if(label is not empty) %}
+                <span class="input-group-addon">
+                    {{ label}}</span>
+                    {% endif %}
+                    {{ form_widget(form) }}
+            </div> 
+            {{ form_errors(form) }}
+
+        </div>
+    {% endspaceless %}
 {% endblock form_row %}
 
 {% block form_errors %}
-{% spaceless %}
-    {% if errors|length > 0 %}
-    <span class="help-inline">
-        {% for error in errors %}
-            {{
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <span class="help-inline">
+                {% for error in errors %}
+                    {{
                 error.messagePluralization is null
                     ? error.messageTemplate|trans(error.messageParameters, 'validators')
                     : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
-            }}
-        {% endfor %}
-    </span>
-    {% endif %}
-{% endspaceless %}
+                    }}
+                {% endfor %}
+            </span>
+        {% endif %}
+    {% endspaceless %}
 {% endblock form_errors %}
 
 {% block form_widget_simple %}
-{% spaceless %}
-    {% set type = type|default('text') %}
-    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
-{% endspaceless %}
-{% endblock form_widget_simple %}
-    
-{% block checkbox_row %}
-<div class="form-group {{ groupclass is defined ?  groupclass: '' }} {{ errors|length > 0 ? 'error' : '' }}">    
-{% spaceless %}
-    {#
-    In order to make the click area bigger, the checkbox is
-    placed inside the label. See checkbox_label block.
-    #}
-    {% if form_type is defined and form_type == 'horizontal' %}
-        {{ block('horizontal_checkbox_row') }}
-    {% else %}
-        {{ form_label(form) }}
-        {{ form_errors(form) }}
-    {% endif %}
-{% endspaceless %}
-</div>        
-{% endblock checkbox_row %}
+    {% spaceless %}
+        {% set type = type|default('text') %}
+            <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+            {% endspaceless %}
+                {% endblock form_widget_simple %}
+
+                    {% block checkbox_row %}
+                        <div class="form-group {{ groupclass is defined ?  groupclass: '' }} {{ errors|length > 0 ? 'error' : '' }}">    
+                            {% spaceless %}
+                                {#
+                                In order to make the click area bigger, the checkbox is
+                                placed inside the label. See checkbox_label block.
+                                #}
+                                {% if form_type is defined and form_type == 'horizontal' %}
+                                    {{ block('horizontal_checkbox_row') }}
+                                {% else %}
+                                    {{ form_label(form) }}
+                                    {{ form_errors(form) }}
+                                {% endif %}
+                            {% endspaceless %}
+                        </div>        
+                    {% endblock checkbox_row %}

@@ -668,10 +668,10 @@ class Item {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
 
-        if ($this->Category->getName() == "Marine") {
+        //if ($this->Category->getName() == "Marine") {
             return $this->ItemFieldArray['model']['stringvalue'];
-        }
-        return "";
+        //}
+        //return "";
     }
 
     public function getMake() {

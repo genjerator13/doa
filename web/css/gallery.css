@@ -7,7 +7,7 @@ a{
 .image-gallery{
   float: left;
   position:relative;  
-  margin: 21px;
+  margin: 20px 0 0 0;
   width:500px;
   border-radius:20px;  
 }

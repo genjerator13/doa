@@ -32,11 +32,11 @@ class itemController extends Controller {
                 break;
             case 3:
                 //motorsport
-                return $this->render('NumaDOASiteBundle:Item:detailsMotorsport.html.twig', array('item' => $item, 'itemfields' => $itemfields));
+                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer'=>$dealer));
                 break;
             case 4:
                 //rvs
-                return $this->render('NumaDOASiteBundle:Item:detailsRVs.html.twig', array('item' => $item, 'itemfields' => $itemfields));
+                return $this->render('NumaDOASiteBundle:Item:detailsRVs.html.twig', array('item' => $item));
                 break;
             default:
                 break;

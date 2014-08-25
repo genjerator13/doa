@@ -93,8 +93,6 @@ ul.tmp{
 /* Show Details */
 
 .detailsContent{
-    margin-left: 42px;
-    margin-bottom: 73px;
     float: left;
 }
 
@@ -166,4 +164,8 @@ div.searchResults div.picture_detail {
 
     padding: 10px;
 
+}
+
+.price {
+    color: #e38d13;
 }

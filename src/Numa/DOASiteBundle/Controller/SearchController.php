@@ -71,7 +71,8 @@ class SearchController extends Controller {
                         'SELECT i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'Boat type\'
+                                 WHERE ifield.field_name LIKE \'%type%\'
+                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
