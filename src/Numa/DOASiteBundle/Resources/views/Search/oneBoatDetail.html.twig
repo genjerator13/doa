@@ -1,57 +1,54 @@
 {% block content %}
     {% set images = item.getImages()%}
-    {% set desc = item.getMake()~item.getModel()%}
-        <div id="item_{{item.id}}" class="row item-row">    
-            <div class="picture_detail col-md-3">
-                
-                    <a href="#">
-                        {% if images is empty  %}
-                            <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
-                        {% else %} 
-                            {% set image = item.getImages()|first["stringvalue"]%}
-                                <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
-                        {%endif%}
-                    </a>
+        {% set desc = item.getMake()~item.getModel()%}
+            <div id="item_{{item.id}}" class="row item-row">    
+                <div class="col-md-12">
+                    <div class="picture-detail">
+                        <a href="#">
+                            {% if images is empty  %}
+                                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
+                            {% else %} 
+                                {% set image = item.getImages()|first["stringvalue"]%}
+                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                                    {%endif%}
+                                    </a>
 
-            </div>
-                        <div class="middle_details col-md-6">
-                            <h4>
-                                <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}">
+                                </div>
+                                <div class="shortDetails">
+                                    <h4>
+                                        <a href="{{path('item_details', {'itemId': item.id, 'description': 'jakis text'}) }}">
                                             {{item.getItemFieldByName('year')}} {{desc}}
-                                </a>                                    
-                            </h4>
-                            <ul>
-                                <li>Listing ID # {{item.id}} in the category "{{item.category}} "</li>
-                                <li>Posted by {{item.getUser('username')}} </li>
-                                <div class="clear"></div>
-                            </ul>
-                            <div class="shortDetails">
-                                <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
-                                <br>
-                                <a href="#">View Details</a>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox"> Save Ad
-                                    </label>
+                                        </a>                                    
+                                    </h4>
+
+                                    <div>Listing ID # {{item.id}} in the category "{{item.category}} "</div>
+                                    <div>Posted by {{item.getUser('username')}} </div>
+
+
+                                    <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
+                                    <br>
+                                    <a href="#">View Details</a>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input type="checkbox"> Save Ad
+                                        </label>
+                                    </div>
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input type="checkbox"> Compare Ad
+                                        </label>
+                                    </div>
                                 </div>
-                                <div class="checkbox-inline">
-                                    <label>
-                                        <input type="checkbox"> Compare Ad
-                                    </label>
+                                <div class="main-details">
+                                    <ul class="list-inline">
+                                        <li>{{item.getItemFieldByName('mileage')|number_format(0, '.',',')}}
+                                            
+                                        <li>{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</li>
+                                        <li>{{item.DateCreated|date('Y-m-d')}}</li>                                        
+                                    </ul>
                                 </div>
+
                             </div>
                         </div>
-                        <div class="right_details col-md-3">
-                            <ul class="list-unstyled">
-                                <li>
-                                    <span class="fieldValue fieldValueActive active">{% if item.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
-                                    and <span class="fieldValue fieldValueModerationStatus approved">{% if item.moderationStatus==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
-                                <li>0 pictures</li>
-                                <li>0 comments</li>
-                                <li>{{item.views}} views</li>
-                                <li>Activated on {% if item.activationDate is defined   %}{{item.activationDate}}{%endif%}</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-{% endblock %}
+                        <div class="clear"></div>
+                        {% endblock %}

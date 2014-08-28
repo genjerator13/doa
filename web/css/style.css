@@ -52,11 +52,10 @@ ul.tmp{
     margin-bottom: 20px;
 }
 .middle_details{
-
+    float:left;
 }
 .middle_details h4{
-    float: left;
-
+    display: block;
     color: grey;
 }
 .middle_details ul{
@@ -73,7 +72,18 @@ ul.tmp{
     display: block;
 }
 .shortDetails{
-    margin-left: 42px;
+    width: 300px;
+    float: left;
+}
+
+.main-details {
+    float: left;
+}
+.titles-details {
+    float: right;
+}
+.main-details ul li, .titles-details  ul li{
+    width: 70px;
 }
 
 .right_details ul{
@@ -160,9 +170,10 @@ ul.tmp{
     font-weight: bold;
 }
 
-div.searchResults div.picture_detail {
-
+div.searchResults div.picture-detail {
+    float: left;
     padding: 10px;
+    height: 130px;
 
 }
 
