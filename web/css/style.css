@@ -1,7 +1,9 @@
 @import 'gallery.css';
 @import 'home.css';
 
-
+.left {
+    float: left;
+}
 form.search {
     float: right;
 }
@@ -37,15 +39,12 @@ form.search {
 .searchResults{
     font-size: 12px;
 }
-.searchResults p{
-    display: inline;
-    margin-left: 73px;
-}
+
 ul.tmp{
     margin-left: 222px;
 }
 .listingsNumber{
-    max-width: 73px;
+    float: left;
 }
 .item-row {
     background: #CFDBC5;
@@ -77,7 +76,7 @@ ul.tmp{
 }
 
 .main-details {
-    float: left;
+    float: right;
 }
 .titles-details {
     float: right;
@@ -179,4 +178,14 @@ div.searchResults div.picture-detail {
 
 .price {
     color: #e38d13;
+}
+.sort{
+    margin-left: 20px;
+}
+.sort a{
+    padding: 10px;
+}
+
+select#numberoflisting {
+    margin-left: 10px;
 }

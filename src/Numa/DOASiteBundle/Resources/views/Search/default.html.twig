@@ -1,4 +1,4 @@
-{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% extends 'NumaDOASiteBundle::search-layout.html.twig' %}
 {% block javascripts %}
     {{parent()}} 
 
@@ -7,48 +7,62 @@
 {% block content %}
     <div class="searchResults">
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
-        <p>{{pagerfanta|length}} listinf found</p>
-        {#  
-          <p>Number of listings per page:</p>
-          
-          
-          
-          <select class="listingsNumber">
-              <option>10</option>
-              <option>20</option>
-              <option>30</option>
-              <option>40</option>
-              <option>50</option>
-          </select>
-          <p>Sort by:</p>#}
-        <div class="row">
-            <div class="col-md-12">
-                <div class="titles-details">
-                    <ul class="list-inline">
-                        <li>Mileage
+        <p>{{pagerfanta|length}} listings found</p>
 
-                        <li>Price</li>
-                        <li>Date</li>                                        
-                    </ul>
-                </div>
+
+        <p><span class="left">Number of listings per page:</span>
+
+
+        <form action="" method="GET">
+            <select class="listingsNumber" id="numberoflisting" name="listings_per_page">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+        </form>
+        <span class="sort">Sort by:<a href="#">Photos</a><a href="#">Year</a><a href="#">Make / Model</a></span>
+        <div class="titles-details">
+                <ul class="list-inline">
+                    <li><a href="#">Mileage</a>
+
+                    <li><a href="#">Price</a></li>
+                    <li><a href="#">Date</a></li>                                        
+                </ul>
             </div>
+    </p>
+    <div class="row">
+        <div class="col-md-12">
+            
         </div>
-        {% for item in pagerfanta %}
-            {#
-                    {%if item.getCategory().getName()=='Marine'%}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {%endif%}
-                    {% if item.getCategory().getName()=='Car' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}
-                    {% if item.getCategory().getName()=='Motosport' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}
-                    {% if item.getCategory().getName()=='RVs' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}#}
-            {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
-        {% endfor%}
-        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
     </div>
+    {% for item in pagerfanta %}
+        {#
+                {%if item.getCategory().getName()=='Marine'%}
+                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                {%endif%}
+                {% if item.getCategory().getName()=='Car' %}
+                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                {% endif %}
+                {% if item.getCategory().getName()=='Motosport' %}
+                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                {% endif %}
+                {% if item.getCategory().getName()=='RVs' %}
+                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                {% endif %}#}
+        {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+    {% endfor%}
+    {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
+</div>
+<script type="text/javascript">
+    num=10;
+    {%if listing_per_page is defined %}
+    num = parseInt({{listing_per_page}});
+    {% endif %}
+$('select#numberoflisting option[value='+num+']').prop('selected', true)   
+$('select#numberoflisting').change(
+    function(){
+         $(this).closest('form').submit();
+
+    });
+</script> 
 {% endblock %}
