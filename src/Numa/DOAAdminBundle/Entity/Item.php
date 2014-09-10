@@ -636,13 +636,11 @@ class Item {
                 $type = $itemField->getFieldType();
                 $index = strtolower($itemField->getFieldName());
                 if (strtolower($type) != "array") {
-
                     $this->ItemFieldArray[$index]['object'] = $itemField;
                     $this->ItemFieldArray[$index]['type'] = $itemField->getFieldType();
                     $this->ItemFieldArray[$index]['fieldname'] = $itemField->getFieldName();
                     $this->ItemFieldArray[$index]['stringvalue'] = $itemField->getFieldStringValue();
                 } else {
-
                     $this->ItemFieldArray[$index][$itemField->getId()]['object'] = $itemField;
                     $this->ItemFieldArray[$index][$itemField->getId()]['type'] = $itemField->getFieldType();
                     $this->ItemFieldArray[$index][$itemField->getId()]['fieldname'] = $itemField->getFieldName();
@@ -653,7 +651,14 @@ class Item {
 
         return $this->ItemFieldArray;
     }
-
+    public function dumpItemFields(){
+        $this->getItemFieldsArray();
+        foreach ($this->ItemFieldArray as $key => $value) {
+            if(!empty($value['stringvalue'])){
+                echo "<br>".$key.":::".$value['stringvalue'];
+            }
+        }
+    }
     public function getImages() {
         $this->getItemFieldsArray();
 
