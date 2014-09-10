@@ -19,14 +19,17 @@ class EntityListener {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         
-        //before save
+        //before save Item
         if ($entity instanceof Item) {
             $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setUser($user);
+        //before save Item Field
         } elseif ($entity instanceof ItemField) {
             if($entity->getFieldType()=='list'){                
                 $value = $entityManager->getRepository('NumaDOAAdminBundle:ListingfieldLists')->getListingValueById($entity->getFieldIntegerValue());
-                $entity->setFieldStringValue($value);
+                if(!empty($value)){
+                   $entity->setFieldStringValue($value);                
+                }
             }
         } elseif ($entity instanceof User) {
 //            $factory = $this->container->get('security.encoder_factory');

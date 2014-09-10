@@ -17,7 +17,8 @@ class NumaExtension extends \Twig_Extension {
     public function getFunctions() {
         return array(
             'showItemField' => new \Twig_Function_Method($this, 'showItemField'),
-            'dumpFields' => new \Twig_Function_Method($this, 'dumpFields')
+            'dumpFields' => new \Twig_Function_Method($this, 'dumpFields'),
+            'price' => new \Twig_Function_Method($this, 'price')
         );
     }
 
@@ -45,6 +46,17 @@ class NumaExtension extends \Twig_Extension {
 
     public function getName() {
         return 'numa_extension';
+    }
+    
+    public function price($price){
+        $price = intval($price);
+        if(empty($price)){
+            $price = "No price";
+        }else{
+            $price = money_format('%(#10n', $price);
+        }
+        $return = '<span class="price">'.$price.'</span>';
+        return $return;
     }
 
 }

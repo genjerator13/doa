@@ -13,6 +13,7 @@ use Numa\DOAAdminBundle\Form\ImportmappingType;
 use Numa\DOAAdminBundle\Form\ImportmappingRowType;
 use Numa\DOAAdminBundle\Lib\XMLfeed;
 use Numa\DOAAdminBundle\Entity\Repository;
+use Doctrine\Common\Util\Debug as Debug;
 
 /**
  * Importmapping controller.
@@ -287,15 +288,21 @@ class ImportmappingController extends Controller {
 
         $XMLfeed = new XMLfeed($id);
         $items = $XMLfeed->getXMLItems();
+        //get import feed by id
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
+        //get mapping by feed id
         $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
+        //get mold items by feed id
         $itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $id));
-
+        //remove old items
+        $createdItems = array();
         foreach ($itemsOld as $old) {
             $old->removeAllItemField();
             $em->remove($old);
         }
         $em->flush();
+        
+        //walk trough XML feed
         foreach ($items as $XMLitem) {
             $item = new Item();
             $item->setCategory($feed->getCategory());
@@ -309,8 +316,10 @@ class ImportmappingController extends Controller {
                     $property = $maprow->getSid();
                     $stringValue = (string) $XMLitem->{$property};
                     $itemField = new ItemField();
+                    
                     $itemField->setAllValues($XMLitem->{$property});
                     $itemField->setListingfield($maprow->getListingFields());
+                    
                     $itemField->setFieldName($maprow->getListingFields()->getCaption());
                     $itemField->setFieldType($maprow->getListingFields()->getType());
                     $listingFieldsType = $listingFields->getType();
@@ -346,10 +355,14 @@ class ImportmappingController extends Controller {
                             $itemField->setAllValues($img_url);
                         }
                     }
+                    //echo $itemField->getFieldStringValue()."<br>";
                 }
-
+                
                 $item->addItemField($itemField);
-            }
+                
+                    
+            }//end mapping foreach
+
             //dealer
             $dealer = $feed->getDefaultUser();
 
@@ -363,12 +376,13 @@ class ImportmappingController extends Controller {
 
                 $item->addItemField($dealerField);
             }
+            $createdItems[]=$item;
             $em->persist($item);
             $em->flush();
         }
         $time = time() - $time;
 //        echo $time . ":::" . count($items);
-        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items'=>$items));
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items'=>$createdItems));
     }
 
 }

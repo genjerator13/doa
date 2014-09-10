@@ -37,7 +37,7 @@ class ListingFieldListsRepository extends EntityRepository {
                 ->join('NumaDOAAdminBundle:Listingfield', 'l')
                 ->where('lfl.listing_field_id=l.id')
                 ->andWhere('l.caption like :property')
-                ->andWhere('l.category_sid like :property')
+                //->andWhere('l.category_sid like :property')
                 ->setParameter('property', "%" . $property . "%");
         ;
         if($cat>0){
@@ -48,6 +48,8 @@ class ListingFieldListsRepository extends EntityRepository {
         ;
         return $qb;
     }
+    
+    
     
     public function getListingValueById($id){
         if(empty($id)){

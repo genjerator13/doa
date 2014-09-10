@@ -39,12 +39,14 @@ search_sellers:
 
 search_dispatch:
     pattern:  /search
-    defaults: { _controller: NumaDOASiteBundle:Search:searchDispatcher, _locale: en }   
+    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }   
 
 search:
     pattern:  /search-result/{text}
     defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en } 
-
+search:
+    pattern:  /search-result/
+    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
 search_advanced:
     pattern:  /search-advanced
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvanced, _locale: en } 

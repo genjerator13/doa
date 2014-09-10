@@ -3,4 +3,13 @@
 {% block content %}
     <p>{{items|length}} Items fetched</p>
     <a href="{{path("importfeed")}}">Back to the feed list</a>
+    {% for key,item in items %}
+        </br>
+        </br>
+        <div><strong>{{key+1}}:{{item.id}}</strong></div>
+        </br>
+        {% for key,field in item.getItemFieldsArray() %}
+            <div>{{key}}: {%if field['stringvalue'] is defined %}{{field['stringvalue']}}{% endif %}</div>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}

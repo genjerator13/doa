@@ -19,186 +19,214 @@
                     <div class="col-md-4">
                         <a href="#" class="imageLink">
                             {% set words = item.ListingFieldListValue|split(' ', 2) %}
-                            <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
-                        </a>
-                        <br>
-                        <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': attribute(words, 0)|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
-                    </div>
-                {%endfor%}
-            </div>
-        {%endfor%}
-    </div>
-    <h2>Search by category</h2>
-    <ul class="nav nav-tabs" id="categoryTab">                
-        <li><a href="#vehicle" data-toggle="tab">Vehicle</a></li>
-        <li><a href="#marine" data-toggle="tab">Marine</a></li>
-        <li><a href="#motorsport" data-toggle="tab">Motorsport</a></li>
-        <li><a href="#rvs" data-toggle="tab">RV's</a></li>
-        <li><a href="#ag" data-toggle="tab">Ag</a></li>
-    </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div class="tab-pane active" id="vehicle">
-            {% form_theme vehicleForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+                                <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
+                            </a>
+                            <br>
+                            <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': attribute(words, 0)|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
+                        </div>
+                        {%endfor%}
+                        </div>
+                        {%endfor%}
+                        </div>
+                        <h2>Search by category</h2>
+                        <ul class="nav nav-tabs" id="categoryTab">                
+                            <li><a href="#vehicle" data-toggle="tab">Vehicle</a></li>
+                            <li><a href="#marine" data-toggle="tab">Marine</a></li>
+                            <li><a href="#motorsport" data-toggle="tab">Motorsport</a></li>
+                            <li><a href="#rvs" data-toggle="tab">RV's</a></li>
+                            <li><a href="#ag" data-toggle="tab">Ag</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="vehicle">
+                                {% form_theme vehicleForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
 
 
-            {{ form_start(vehicleForm, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(vehicleForm) }}
-            <div class="row">
-                {{ form_row(vehicleForm.BodyStyle,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(vehicleForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(vehicleForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(vehicleForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(vehicleForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-            <div class="row">
-                {{ form_row(vehicleForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(vehicleForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
+                                {{ form_start(vehicleForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(vehicleForm) }}
+                                <div class="row">
+                                    {{ form_row(vehicleForm.bodyStyle,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(vehicleForm.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(vehicleForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(vehicleForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(vehicleForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+                                <div class="row">
+                                    {{ form_row(vehicleForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(vehicleForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
 
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Find</button>
-                <a href="#" class="btn btn-default">Advanced search</a>
-            </span>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                    <a href="#" class="btn btn-default">Advanced search</a>
+                                </span>
 
-            {{ form_end(vehicleForm) }}
+                                {{ form_end(vehicleForm) }}
 
-        </div>
-        <div class="tab-pane" id="marine">
-            {% form_theme marineForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
-            {{ form_start(marineForm, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(marineForm) }}
-            <div class="row">
-                {{ form_row(marineForm.BoatType,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(marineForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(marineForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(marineForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(marineForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-            <div class="row">
-                {{ form_row(marineForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(marineForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Find</button>
-                <a href="#" class="btn btn-default">Advanced search</a>
-            </span>
-
-            {{ form_end(marineForm) }}
-        </div>
-        <div class="tab-pane" id="motorsport">
-            {% form_theme motorsportForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+                            </div>
+                            <div class="tab-pane" id="marine">
+                                {% form_theme marineForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
 
 
-            {{ form_start(motorsportForm, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(motorsportForm) }}
-            <div class="row">
-                {{ form_row(motorsportForm.Type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(motorsportForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-            <div class="row">
-                {{ form_row(motorsportForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(motorsportForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
+                                {{ form_start(marineForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(marineForm) }}
+                                <div class="row">
+                                    {{ form_row(marineForm.boatType,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(marineForm.boatModel,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(marineForm.boatMake,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(marineForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(marineForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+                                <div class="row">
+                                    {{ form_row(marineForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(marineForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
 
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Find</button>
-                <a href="#" class="btn btn-default">Advanced search</a>
-            </span>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                    <a href="#" class="btn btn-default">Advanced search</a>
+                                </span>
 
-            {{ form_end(motorsportForm) }}                                    
-        </div>
-        <div class="tab-pane" id="rvs">
-            {% form_theme rvsForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
-            {{ form_start(rvsForm, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(rvsForm) }}
-
-            <div class="row">
-                {{ form_row(rvsForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(rvsForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(rvsForm.FlorPane,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(rvsForm.Class,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(rvsForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(rvsForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-            <div class="row">
-                {{ form_row(rvsForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(rvsForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Find</button>
-                <a href="#" class="btn btn-default">Advanced search</a>
-            </span>
-
-            {{ form_end(rvsForm) }}    
-        </div>
-        <div class="tab-pane" id="ag">
-            {% form_theme agForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+                                {{ form_end(marineForm) }}
+                            </div>
+                            <div class="tab-pane" id="motorsport">
+                                {% form_theme motorsportForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
 
 
-            {{ form_start(agForm, {'attr': {'class': 'form-horizontal'}}) }}
-            {{ form_errors(agForm) }}
-            <div class="row">
-                {{ form_row(agForm.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-            </div>
-            <div class="row">
-                {{ form_row(agForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(agForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            </div>
-            <div class="row">
-                {{ form_row(agForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(agForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
-            <div class="row">
-                {{ form_row(agForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                {{ form_row(agForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            </div> 
+                                {{ form_start(motorsportForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(motorsportForm) }}
+                                <div class="row">
+                                    {{ form_row(motorsportForm.Type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
 
-            <span class="input-group-btn">
-                <button type="submit" class="btn btn-primary">Find</button>
-                <a href="#" class="btn btn-default">Advanced search</a>
-            </span>
+                                <div class="row">
+                                    {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+                                <div class="row">
+                                    {{ form_row(motorsportForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(motorsportForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
 
-            {{ form_end(agForm) }}                                    
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                    <a href="#" class="btn btn-default">Advanced search</a>
+                                </span>
 
-        </div>
-    </div>
-{% endblock %}
+                                {{ form_end(motorsportForm) }}                                    
+                            </div>
+                            <div class="tab-pane" id="rvs">
+                                {% form_theme rvsForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+
+
+                                {{ form_start(rvsForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(rvsForm) }}
+
+                                <div class="row">
+                                    {{ form_row(rvsForm.modelRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(rvsForm.makeRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(rvsForm.florPane,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(rvsForm.class,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(rvsForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(rvsForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+                                <div class="row">
+                                    {{ form_row(rvsForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(rvsForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                    <a href="#" class="btn btn-default">Advanced search</a>
+                                </span>
+
+                                {{ form_end(rvsForm) }}    
+                            </div>
+                            <div class="tab-pane" id="ag">
+                                {% form_theme agForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+
+
+                                {{ form_start(agForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                {{ form_errors(agForm) }}
+                                <div class="row">
+                                    {{ form_row(agForm.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                </div>
+                                <div class="row">
+                                    {{ form_row(agForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(agForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                </div>
+                                <div class="row">
+                                    {{ form_row(agForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(agForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+                                <div class="row">
+                                    {{ form_row(agForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                    {{ form_row(agForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                </div> 
+
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary">Find</button>
+                                    <a href="#" class="btn btn-default">Advanced search</a>
+                                </span>
+
+                                {{ form_end(agForm) }}                                    
+
+                            </div>
+                        </div>
+                        <script>
+                            var treeDataCar = '{{jsonCar|raw }}';
+                            var treeDataRvs = '{{jsonRvs|raw }}';
+
+                            treeX = function(make, model, treeData) {
+                                $(make).change(function() {
+                                    jsonTree = JSON.parse(treeData);
+                                    var modelJson = jsonTree[$(make).val()];
+                                    $(model).html($("<option />").val(0).text("Any Model"));
+                                    $.each(modelJson, function(i) {
+                                        var test = modelJson[i];
+                                        var key = "";
+                                        var value = "";
+                                        for (var keyx in modelJson[i]) {
+                                            key = keyx;
+                                            value = test[keyx];
+                                        }
+                                        $(model).append($("<option />").val(key).text(value))
+                                    });
+                                });
+                            }
+
+                            $(document).ready(function() {
+                                treeX('#make', '#model', treeDataCar);
+                                treeX('#makeRvs', '#modelRvs', treeDataRvs);
+                            });
+                        </script>            
+                        {% endblock %}
 

@@ -13,6 +13,7 @@
                     {% set image = item.getImages()|first["stringvalue"]%}
                         <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}">
                 {%endif%}
+                    {{price(item.getItemFieldByName('price'))|raw}}
                 </a>
         {% endfor %}
     </div>
