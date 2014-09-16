@@ -19,7 +19,13 @@
                     <div class="col-md-4">
                         <a href="#" class="imageLink">
                             {% set words = item.ListingFieldListValue|split(' ', 2) %}
-                                <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
+                            {% set imagefile = asset('images/'~ item.ListingFieldListValue ~'.jpg') %}
+                                
+                                {% if file_existsx(imagefile) %}
+                                    <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
+                                {% else %}
+                                    <img style="" alt="" src="{{ asset('images/no_image_available_small.png') }}">
+                                {% endif %}
                             </a>
                             <br>
                             <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': attribute(words, 0)|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>

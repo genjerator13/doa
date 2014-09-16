@@ -1,19 +1,19 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
-use Symfony\Component\Security\Core\User\UserInterface;
 
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * User
  */
-class User implements UserInterface
-{
+class User implements UserInterface {
+
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -178,23 +178,21 @@ class User implements UserInterface
     /**
      * @var \Numa\DOAAdminBundle\Entity\UserGroup
      */
-    private $UserGroup;
+    protected $UserGroup;
 
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->Item = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -204,10 +202,9 @@ class User implements UserInterface
      * @param string $username
      * @return User
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
-    
+
         return $this;
     }
 
@@ -216,8 +213,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
@@ -227,10 +223,9 @@ class User implements UserInterface
      * @param string $password
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
-    
+
         return $this;
     }
 
@@ -239,8 +234,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
@@ -250,10 +244,9 @@ class User implements UserInterface
      * @param string $email
      * @return User
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -262,8 +255,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -273,10 +265,9 @@ class User implements UserInterface
      * @param integer $userGroupId
      * @return User
      */
-    public function setUserGroupId($userGroupId)
-    {
+    public function setUserGroupId($userGroupId) {
         $this->user_group_id = $userGroupId;
-    
+
         return $this;
     }
 
@@ -285,8 +276,7 @@ class User implements UserInterface
      *
      * @return integer 
      */
-    public function getUserGroupId()
-    {
+    public function getUserGroupId() {
         return $this->user_group_id;
     }
 
@@ -296,10 +286,9 @@ class User implements UserInterface
      * @param \DateTime $registrationDate
      * @return User
      */
-    public function setRegistrationDate($registrationDate)
-    {
+    public function setRegistrationDate($registrationDate) {
         $this->registration_date = $registrationDate;
-    
+
         return $this;
     }
 
@@ -308,8 +297,7 @@ class User implements UserInterface
      *
      * @return \DateTime 
      */
-    public function getRegistrationDate()
-    {
+    public function getRegistrationDate() {
         return $this->registration_date;
     }
 
@@ -319,10 +307,9 @@ class User implements UserInterface
      * @param boolean $active
      * @return User
      */
-    public function setActive($active)
-    {
+    public function setActive($active) {
         $this->active = $active;
-    
+
         return $this;
     }
 
@@ -331,8 +318,7 @@ class User implements UserInterface
      *
      * @return boolean 
      */
-    public function getActive()
-    {
+    public function getActive() {
         return $this->active;
     }
 
@@ -342,10 +328,9 @@ class User implements UserInterface
      * @param integer $contractId
      * @return User
      */
-    public function setContractId($contractId)
-    {
+    public function setContractId($contractId) {
         $this->contract_id = $contractId;
-    
+
         return $this;
     }
 
@@ -354,8 +339,7 @@ class User implements UserInterface
      *
      * @return integer 
      */
-    public function getContractId()
-    {
+    public function getContractId() {
         return $this->contract_id;
     }
 
@@ -365,10 +349,9 @@ class User implements UserInterface
      * @param string $activationKey
      * @return User
      */
-    public function setActivationKey($activationKey)
-    {
+    public function setActivationKey($activationKey) {
         $this->activation_key = $activationKey;
-    
+
         return $this;
     }
 
@@ -377,8 +360,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getActivationKey()
-    {
+    public function getActivationKey() {
         return $this->activation_key;
     }
 
@@ -388,10 +370,9 @@ class User implements UserInterface
      * @param string $verificationKey
      * @return User
      */
-    public function setVerificationKey($verificationKey)
-    {
+    public function setVerificationKey($verificationKey) {
         $this->verification_key = $verificationKey;
-    
+
         return $this;
     }
 
@@ -400,8 +381,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getVerificationKey()
-    {
+    public function getVerificationKey() {
         return $this->verification_key;
     }
 
@@ -411,10 +391,9 @@ class User implements UserInterface
      * @param boolean $trustedUser
      * @return User
      */
-    public function setTrustedUser($trustedUser)
-    {
+    public function setTrustedUser($trustedUser) {
         $this->trusted_user = $trustedUser;
-    
+
         return $this;
     }
 
@@ -423,8 +402,7 @@ class User implements UserInterface
      *
      * @return boolean 
      */
-    public function getTrustedUser()
-    {
+    public function getTrustedUser() {
         return $this->trusted_user;
     }
 
@@ -434,10 +412,9 @@ class User implements UserInterface
      * @param string $firstName
      * @return User
      */
-    public function setFirstName($firstName)
-    {
+    public function setFirstName($firstName) {
         $this->FirstName = $firstName;
-    
+
         return $this;
     }
 
@@ -446,8 +423,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getFirstName()
-    {
+    public function getFirstName() {
         return $this->FirstName;
     }
 
@@ -457,10 +433,9 @@ class User implements UserInterface
      * @param string $lastName
      * @return User
      */
-    public function setLastName($lastName)
-    {
+    public function setLastName($lastName) {
         $this->LastName = $lastName;
-    
+
         return $this;
     }
 
@@ -469,8 +444,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getLastName()
-    {
+    public function getLastName() {
         return $this->LastName;
     }
 
@@ -480,10 +454,9 @@ class User implements UserInterface
      * @param string $dealershipName
      * @return User
      */
-    public function setDealershipName($dealershipName)
-    {
+    public function setDealershipName($dealershipName) {
         $this->DealershipName = $dealershipName;
-    
+
         return $this;
     }
 
@@ -492,8 +465,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getDealershipName()
-    {
+    public function getDealershipName() {
         return $this->DealershipName;
     }
 
@@ -503,10 +475,9 @@ class User implements UserInterface
      * @param string $address
      * @return User
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->Address = $address;
-    
+
         return $this;
     }
 
@@ -515,8 +486,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->Address;
     }
 
@@ -526,10 +496,9 @@ class User implements UserInterface
      * @param string $city
      * @return User
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->City = $city;
-    
+
         return $this;
     }
 
@@ -538,8 +507,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->City;
     }
 
@@ -549,10 +517,9 @@ class User implements UserInterface
      * @param string $postalCode
      * @return User
      */
-    public function setPostalCode($postalCode)
-    {
+    public function setPostalCode($postalCode) {
         $this->PostalCode = $postalCode;
-    
+
         return $this;
     }
 
@@ -561,8 +528,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getPostalCode()
-    {
+    public function getPostalCode() {
         return $this->PostalCode;
     }
 
@@ -572,10 +538,9 @@ class User implements UserInterface
      * @param string $phoneNumber
      * @return User
      */
-    public function setPhoneNumber($phoneNumber)
-    {
+    public function setPhoneNumber($phoneNumber) {
         $this->PhoneNumber = $phoneNumber;
-    
+
         return $this;
     }
 
@@ -584,8 +549,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getPhoneNumber()
-    {
+    public function getPhoneNumber() {
         return $this->PhoneNumber;
     }
 
@@ -595,10 +559,9 @@ class User implements UserInterface
      * @param string $dealershipWebsite
      * @return User
      */
-    public function setDealershipWebsite($dealershipWebsite)
-    {
+    public function setDealershipWebsite($dealershipWebsite) {
         $this->DealershipWebsite = $dealershipWebsite;
-    
+
         return $this;
     }
 
@@ -607,8 +570,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getDealershipWebsite()
-    {
+    public function getDealershipWebsite() {
         return $this->DealershipWebsite;
     }
 
@@ -618,10 +580,9 @@ class User implements UserInterface
      * @param boolean $displayEmail
      * @return User
      */
-    public function setDisplayEmail($displayEmail)
-    {
+    public function setDisplayEmail($displayEmail) {
         $this->DisplayEmail = $displayEmail;
-    
+
         return $this;
     }
 
@@ -630,8 +591,7 @@ class User implements UserInterface
      *
      * @return boolean 
      */
-    public function getDisplayEmail()
-    {
+    public function getDisplayEmail() {
         return $this->DisplayEmail;
     }
 
@@ -641,10 +601,9 @@ class User implements UserInterface
      * @param string $state
      * @return User
      */
-    public function setState($state)
-    {
+    public function setState($state) {
         $this->State = $state;
-    
+
         return $this;
     }
 
@@ -653,8 +612,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getState()
-    {
+    public function getState() {
         return $this->State;
     }
 
@@ -664,10 +622,9 @@ class User implements UserInterface
      * @param string $dealershipLogo
      * @return User
      */
-    public function setDealershipLogo($dealershipLogo)
-    {
+    public function setDealershipLogo($dealershipLogo) {
         $this->DealershipLogo = $dealershipLogo;
-    
+
         return $this;
     }
 
@@ -676,8 +633,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getDealershipLogo()
-    {
+    public function getDealershipLogo() {
         return $this->DealershipLogo;
     }
 
@@ -687,10 +643,9 @@ class User implements UserInterface
      * @param integer $thirdPartyId
      * @return User
      */
-    public function setThirdPartyId($thirdPartyId)
-    {
+    public function setThirdPartyId($thirdPartyId) {
         $this->third_party_id = $thirdPartyId;
-    
+
         return $this;
     }
 
@@ -699,8 +654,7 @@ class User implements UserInterface
      *
      * @return integer 
      */
-    public function getThirdPartyId()
-    {
+    public function getThirdPartyId() {
         return $this->third_party_id;
     }
 
@@ -710,10 +664,9 @@ class User implements UserInterface
      * @param string $serviceProviderContact
      * @return User
      */
-    public function setServiceProviderContact($serviceProviderContact)
-    {
+    public function setServiceProviderContact($serviceProviderContact) {
         $this->ServiceProviderContact = $serviceProviderContact;
-    
+
         return $this;
     }
 
@@ -722,8 +675,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderContact()
-    {
+    public function getServiceProviderContact() {
         return $this->ServiceProviderContact;
     }
 
@@ -733,10 +685,9 @@ class User implements UserInterface
      * @param string $serviceProviderAddress
      * @return User
      */
-    public function setServiceProviderAddress($serviceProviderAddress)
-    {
+    public function setServiceProviderAddress($serviceProviderAddress) {
         $this->ServiceProviderAddress = $serviceProviderAddress;
-    
+
         return $this;
     }
 
@@ -745,8 +696,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderAddress()
-    {
+    public function getServiceProviderAddress() {
         return $this->ServiceProviderAddress;
     }
 
@@ -756,10 +706,9 @@ class User implements UserInterface
      * @param string $serviceProviderCity
      * @return User
      */
-    public function setServiceProviderCity($serviceProviderCity)
-    {
+    public function setServiceProviderCity($serviceProviderCity) {
         $this->ServiceProviderCity = $serviceProviderCity;
-    
+
         return $this;
     }
 
@@ -768,8 +717,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderCity()
-    {
+    public function getServiceProviderCity() {
         return $this->ServiceProviderCity;
     }
 
@@ -779,10 +727,9 @@ class User implements UserInterface
      * @param string $serviceProviderPostal
      * @return User
      */
-    public function setServiceProviderPostal($serviceProviderPostal)
-    {
+    public function setServiceProviderPostal($serviceProviderPostal) {
         $this->ServiceProviderPostal = $serviceProviderPostal;
-    
+
         return $this;
     }
 
@@ -791,8 +738,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderPostal()
-    {
+    public function getServiceProviderPostal() {
         return $this->ServiceProviderPostal;
     }
 
@@ -802,10 +748,9 @@ class User implements UserInterface
      * @param string $serviceProviderWebsite
      * @return User
      */
-    public function setServiceProviderWebsite($serviceProviderWebsite)
-    {
+    public function setServiceProviderWebsite($serviceProviderWebsite) {
         $this->ServiceProviderWebsite = $serviceProviderWebsite;
-    
+
         return $this;
     }
 
@@ -814,8 +759,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderWebsite()
-    {
+    public function getServiceProviderWebsite() {
         return $this->ServiceProviderWebsite;
     }
 
@@ -825,10 +769,9 @@ class User implements UserInterface
      * @param string $serviceProviderProv
      * @return User
      */
-    public function setServiceProviderProv($serviceProviderProv)
-    {
+    public function setServiceProviderProv($serviceProviderProv) {
         $this->ServiceProviderProv = $serviceProviderProv;
-    
+
         return $this;
     }
 
@@ -837,8 +780,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderProv()
-    {
+    public function getServiceProviderProv() {
         return $this->ServiceProviderProv;
     }
 
@@ -848,10 +790,9 @@ class User implements UserInterface
      * @param string $serviceProviderFax
      * @return User
      */
-    public function setServiceProviderFax($serviceProviderFax)
-    {
+    public function setServiceProviderFax($serviceProviderFax) {
         $this->ServiceProviderFax = $serviceProviderFax;
-    
+
         return $this;
     }
 
@@ -860,8 +801,7 @@ class User implements UserInterface
      *
      * @return string 
      */
-    public function getServiceProviderFax()
-    {
+    public function getServiceProviderFax() {
         return $this->ServiceProviderFax;
     }
 
@@ -871,10 +811,9 @@ class User implements UserInterface
      * @param \DateTime $dateCreated
      * @return User
      */
-    public function setDateCreated($dateCreated)
-    {
+    public function setDateCreated($dateCreated) {
         $this->date_created = $dateCreated;
-    
+
         return $this;
     }
 
@@ -883,8 +822,7 @@ class User implements UserInterface
      *
      * @return \DateTime 
      */
-    public function getDateCreated()
-    {
+    public function getDateCreated() {
         return $this->date_created;
     }
 
@@ -894,10 +832,9 @@ class User implements UserInterface
      * @param \DateTime $dateUpdated
      * @return User
      */
-    public function setDateUpdated($dateUpdated)
-    {
+    public function setDateUpdated($dateUpdated) {
         $this->date_updated = $dateUpdated;
-    
+
         return $this;
     }
 
@@ -906,8 +843,7 @@ class User implements UserInterface
      *
      * @return \DateTime 
      */
-    public function getDateUpdated()
-    {
+    public function getDateUpdated() {
         return $this->date_updated;
     }
 
@@ -917,10 +853,9 @@ class User implements UserInterface
      * @param \Numa\DOAAdminBundle\Entity\Item $item
      * @return User
      */
-    public function addItem(\Numa\DOAAdminBundle\Entity\Item $item)
-    {
+    public function addItem(\Numa\DOAAdminBundle\Entity\Item $item) {
         $this->Item[] = $item;
-    
+
         return $this;
     }
 
@@ -929,8 +864,7 @@ class User implements UserInterface
      *
      * @param \Numa\DOAAdminBundle\Entity\Item $item
      */
-    public function removeItem(\Numa\DOAAdminBundle\Entity\Item $item)
-    {
+    public function removeItem(\Numa\DOAAdminBundle\Entity\Item $item) {
         $this->Item->removeElement($item);
     }
 
@@ -939,8 +873,7 @@ class User implements UserInterface
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getItem()
-    {
+    public function getItem() {
         return $this->Item;
     }
 
@@ -950,10 +883,9 @@ class User implements UserInterface
      * @param \Numa\DOAAdminBundle\Entity\UserGroup $userGroup
      * @return User
      */
-    public function setUserGroup(\Numa\DOAAdminBundle\Entity\UserGroup $userGroup = null)
-    {
+    public function setUserGroup(\Numa\DOAAdminBundle\Entity\UserGroup $userGroup = null) {
         $this->UserGroup = $userGroup;
-    
+
         return $this;
     }
 
@@ -962,40 +894,40 @@ class User implements UserInterface
      *
      * @return \Numa\DOAAdminBundle\Entity\UserGroup 
      */
-    public function getUserGroup()
-    {
+    public function getUserGroup() {
         return $this->UserGroup;
     }
-    
-        /**
+
+    /**
      * Get User
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function __toString()
-    {
+    public function __toString() {
         return $this->getUsername();
     }
-    
-        public function getRoles()
-    {
-        return array('ROLE_ADMIN');
+
+    public function getRoles() {
+        $groupName = strtolower($this->getUserGroup()->getName());
+        if($groupName=='admin') {
+            return array('ROLE_ADMIN');
+        }elseif($groupName=='regular_user'){
+            return array('ROLE_USER');
+        }
     }
- 
-    public function getSalt()
-    {
+
+    public function getSalt() {
         return null;
     }
- 
-    public function eraseCredentials()
-    {
- 
+
+    public function eraseCredentials() {
+        
     }
- 
-    public function equals(User $user)
-    {
+
+    public function equals(User $user) {
         return $user->getUsername() == $this->getUsername();
-    }  
+    }
+
     /**
      * @var integer
      */
@@ -1006,17 +938,15 @@ class User implements UserInterface
      */
     private $Importfeed;
 
-
     /**
      * Set balance
      *
      * @param integer $balance
      * @return User
      */
-    public function setBalance($balance)
-    {
+    public function setBalance($balance) {
         $this->balance = $balance;
-    
+
         return $this;
     }
 
@@ -1025,8 +955,7 @@ class User implements UserInterface
      *
      * @return integer 
      */
-    public function getBalance()
-    {
+    public function getBalance() {
         return $this->balance;
     }
 
@@ -1036,10 +965,9 @@ class User implements UserInterface
      * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
      * @return User
      */
-    public function addImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed)
-    {
+    public function addImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed) {
         $this->Importfeed[] = $importfeed;
-    
+
         return $this;
     }
 
@@ -1048,8 +976,7 @@ class User implements UserInterface
      *
      * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
      */
-    public function removeImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed)
-    {
+    public function removeImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed) {
         $this->Importfeed->removeElement($importfeed);
     }
 
@@ -1058,8 +985,66 @@ class User implements UserInterface
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getImportfeed()
-    {
+    public function getImportfeed() {
         return $this->Importfeed;
+    }
+    
+    public function __sleep(){
+	   return array('id', 'username', 'email');
+
+    }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Items;
+
+
+    /**
+     * Get Items
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getItems()
+    {
+        return $this->Items;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItems;
+
+
+    /**
+     * Add UserItems
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
+     * @return User
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
+    {
+        $this->UserItems[] = $userItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove UserItems
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
+    {
+        $this->UserItems->removeElement($userItems);
+    }
+
+    /**
+     * Get UserItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserItems()
+    {
+        return $this->UserItems;
     }
 }

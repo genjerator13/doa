@@ -209,5 +209,9 @@ class DefaultController extends Controller {
 
         return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
     }
+    
+    public function accessDeniedAction(){
+        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig');
+    }
 
 }

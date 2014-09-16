@@ -27,13 +27,7 @@ class SearchController extends Controller {
     public function searchAction(Request $request) {
         $this->initSearchParams($request);
 
-        $this->searchParameters->dump();
-        $text = $request->get('text');
-        $make = $request->get('Make');
-        $category = $request->get('category');
-        $BoatType = $request->get('BoatType');
-        $priceFrom = $request->get('priceFrom');
-        $priceTo = $request->get('priceTo');
+        //$this->searchParameters->dump();
 
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
@@ -41,7 +35,7 @@ class SearchController extends Controller {
         //create query        
         $query = $this->searchParameters->createSearchQuery();
         $items = $query->getResult();
-
+        //pagination
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
@@ -50,6 +44,7 @@ class SearchController extends Controller {
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
+        
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number));
     }
 
@@ -140,8 +135,8 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search_advanced'))
-                ->add('text', 'text', array(
+                ->setAction($this->get('router')->generate('search'))
+                ->add('searchText', 'text', array(
                     'label' => 'Search',
                     "required" => false
                 ))
@@ -169,8 +164,8 @@ class SearchController extends Controller {
                 ->add('optionList', 'text', array('label' => "Options List", "required" => false))
                 ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
                 ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
-                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('mileageFrom', 'text', array('label' => "milleage from", "required" => false))
+                ->add('mileageTo', 'text', array('label' => "to", "required" => false))
                 ->add('VIN', 'text', array('label' => "VIN", "required" => false))
                 ->add('category', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:Category',
@@ -189,7 +184,7 @@ class SearchController extends Controller {
                     'empty_value' => 'All Transmissions',
                     'label' => "transmission", "required" => false
                 ))
-                ->add('fueltype', 'entity', array(
+                ->add('fuelType', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Fuel Type');
@@ -301,7 +296,7 @@ class SearchController extends Controller {
                 ->add('model', 'hidden', array('label' => "Model", "required" => false))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
-                ->add('body_style', 'entity', array(
+                ->add('bodyStyle', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Body style');
@@ -317,8 +312,8 @@ class SearchController extends Controller {
                 ))
                 ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
                 ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
-                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('mileageFrom', 'text', array('label' => "mileage from", "required" => false))
+                ->add('mileageTo', 'text', array('label' => "to", "required" => false))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -335,7 +330,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any engine',
                     'label' => "Engine", "required" => false
                 ))
-                ->add('fueltype', 'entity', array(
+                ->add('fuelType', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Fuel Type');
@@ -347,7 +342,6 @@ class SearchController extends Controller {
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
                 ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -364,7 +358,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Engine',
                     'label' => "Engine", "required" => false
                 ))
-                ->add('exterior_color', 'entity', array(
+                ->add('exteriorColor', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Exterior Color');
@@ -372,7 +366,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Exterior Color',
                     'label' => "Exterior Color", "required" => false
                 ))
-                ->add('interior_color', 'entity', array(
+                ->add('interiorColor', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Interior Color');
@@ -382,6 +376,7 @@ class SearchController extends Controller {
                 ))
                 ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
                 ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('category_id', 'hidden', array('data' => 1))
                 ->getForm();
         $form->handleRequest($request);
 

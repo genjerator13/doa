@@ -39,15 +39,28 @@ class searchParameters {
             'priceTo' => new SearchItem('Price', '', 'rangeTo'),
             'yearTo' => new SearchItem('Year', 0, 'rangeFrom'),
             'yearFrom' => new SearchItem('Year', 0, 'rangeTo'),
+            'postedFrom' => new SearchItem('date_created', 0, 'dateRangeFrom'),
+            'postedTo' => new SearchItem('date_created', 0, 'dateRangeTo'),
+            'zip' => new SearchItem('Postal', "", 'string'),
+            'IW_NO' => new SearchItem('IW_NO', "", 'string'),
+            'isSold' => new SearchItem('active', 0, 'int'),
+            'exteriorColor' => new SearchItem('color', 0, 'int'),
+            'interiorColor' => new SearchItem('color', 0, 'int'),
+            //'withPicture'      => new SearchItem('color', 0, 'int'),
             //marine
-            'searchText' => new SearchItem('all', "", "string"),
+            'searchText' => new SearchItem('all', "", "text"),
             'boatType' => new SearchItem('Boat Type', 0, "int"),
-            'boatModel' => new SearchItem('Boat Model',"", "string"),
-            'boatMake' => new SearchItem('Boat Make',0, "int"),            
+            'boatModel' => new SearchItem('Boat Model', "", "string"),
+            'boatMake' => new SearchItem('Boat Make', 0, "int"),
             //cars
             'bodyStyle' => new SearchItem('Body Style', "", 'string'),
             'make' => new SearchItem('make', "", 'int'),
             'model' => new SearchItem('model', "", 'string'),
+            'transmission' => new SearchItem('Transmission', 0, 'int'),
+            'engine' => new SearchItem('Engine', 0, 'int'),
+            'mileageFrom' => new SearchItem('Mileage', 0, 'rangeFrom'),
+            'mileageTo' => new SearchItem('Mileage', 0, 'rangeTo'),
+            'fuelType' => new SearchItem('fuelType', 0, 'int'),
         );
     }
 
@@ -56,25 +69,27 @@ class searchParameters {
     }
 
     public function get($key) {
-        $value = $this->params[$key];
-        return $value;
+        if ($this->isParamSet($key)) {
+            $value = $this->params[$key];
+            return $value;
+        }
+        return $false;
     }
 
     public function dump() {
         foreach ($this->params as $key => $value) {
             if ($value instanceof SearchItem) {
-                echo $key.":::::";
+                echo $key . ":::::";
                 $value->dump();
             }
         }
     }
 
     public function setAll($params) {
-        foreach ($params as $key => $value) {            
-            if ($this->isParamSet($key)) {                
+        foreach ($params as $key => $value) {
+            if ($this->isParamSet($key)) {
                 $this->params[$key]->setValue($value);
             }
-            
         }
     }
 
@@ -83,8 +98,7 @@ class searchParameters {
     }
 
     public function isParamSet($key) {
-        $searchItem = $this->get($key);
-        if($searchItem instanceof SearchItem){            
+        if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
             return true;
         }
         return false;
@@ -98,35 +112,42 @@ class searchParameters {
                 ->join('i.ItemField', 'ifield');
 
         //->orderBy('u.name', 'ASC');
-        
+
         foreach ($this->params as $key => $searchItem) {
             if ($this->isParamSet($key)) {
-               
+
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
-                        
+
                     if (!$searchItem->isValueEmpty()) {
                         $type = $searchItem->getType();
                         print_r($searchItem);
-                        if ($type == 'all') {
+                        if ($type == 'text') {
                             $qb->andWhere('ifield.field_string_value LIKE :text');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
                         } elseif ($type == 'category') {
                             $qb->andWhere('i.category_id=:cat');
                             $qb->setParameter('cat', $searchItem->getValue());
                         } elseif ($type == 'string') {
-                            $qb->andWhere('ifield.field_name = \'' . $searchItem->getDbFieldName() . '\'');                            
-                            $qb->andWhere('ifield.field_string_value like \'%' . $searchItem->getValue().'%\'');
+                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
+                            $qb->andWhere('ifield.field_string_value like \'%' . $searchItem->getValue() . '%\'');
                         } elseif ($type == 'int') {
-                            $qb->andWhere('ifield.field_name = \'' . $searchItem->getDbFieldName() . '\'');                            
+                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
                             $qb->andWhere('ifield.field_integer_value = ' . $searchItem->getValue());
-                        }
-                        elseif ($type == 'rangeFrom') {
-                            $qb->andWhere('ifield.field_name = \''.$searchItem->getDbFieldName().'\'');
+                        } elseif ($type == 'rangeFrom') {
+                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
                             $qb->andWhere('ifield.field_integer_value <=' . $searchItem->getValue());
                             //$qb->orderBy('ifield.field_integer_value', "ASC");
-                        }elseif ($type == 'rangeTo') {
-                            $qb->andWhere('ifield.field_name = \''.$searchItem->getDbFieldName().'\'');
+                        } elseif ($type == 'rangeTo') {
+                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
                             $qb->andWhere('ifield.field_integer_value >=' . $searchItem->getValue());
+                            //$qb->orderBy('ifield.field_integer_value', "ASC");
+                        } elseif ($type == 'dateRangeFrom') {
+                            $qb->andWhere('i.date_created >= :dateFrom')
+                            
+                                    ->setParameter('dateFrom', $monday->format('Y-m-d'))
+                                    ->setParameter('sunday', $sunday->format('Y-m-d'));
+                        } elseif ($type == 'dateRangeTo') {
+                            $qb->andWhere('i.date_created >=' . $searchItem->getValue());
                             //$qb->orderBy('ifield.field_integer_value', "ASC");
                         }
                     }

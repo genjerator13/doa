@@ -836,4 +836,42 @@ class Item {
         return $this->dealer;
     }
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItems;
+
+
+    /**
+     * Add UserItems
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
+     * @return Item
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
+    {
+        $this->UserItems[] = $userItems;
+    
+        return $this;
+    }
+
+    /**
+     * Remove UserItems
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
+    {
+        $this->UserItems->removeElement($userItems);
+    }
+
+    /**
+     * Get UserItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserItems()
+    {
+        return $this->UserItems;
+    }
 }

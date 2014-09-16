@@ -142,9 +142,9 @@ ul.tmp{
 }
 
 .header-image {
-    background: url('/images/header_1.png') 100% no-repeat #ffffff;
+    background: url('/images/header_1.png') 100% bottom no-repeat #ffffff;
     width: 1000px;
-    height: 190px;
+    height: 160px;
     padding: 0;
     margin-left: 15px;
 }

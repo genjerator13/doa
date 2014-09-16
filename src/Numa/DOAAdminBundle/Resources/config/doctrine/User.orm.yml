@@ -135,7 +135,15 @@ Numa\DOAAdminBundle\Entity\User:
             mappedBy: Users
         Importfeed:
             targetEntity: Importfeed
-            mappedBy: Users   
+            mappedBy: Users
+        UserItems:
+            targetEntity: UserItem
+            mappedBy: User
+            cascade: ["persist","remove"]
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: cascade
     manyToOne:
         UserGroup:
             targetEntity: UserGroup

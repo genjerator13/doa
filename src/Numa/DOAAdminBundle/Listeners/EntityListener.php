@@ -32,10 +32,12 @@ class EntityListener {
                 }
             }
         } elseif ($entity instanceof User) {
-//            $factory = $this->container->get('security.encoder_factory');
-//            $encoder = $factory->getEncoder($entity);
-//            $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-//            $entity->setPassword($encodedPassword);
+            $factory = $this->container->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($entity);
+            $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+            echo $entity->getPassword()."::::".$encodedPassword;
+            $entity->setPassword($encodedPassword);
+            
         }
     }
 

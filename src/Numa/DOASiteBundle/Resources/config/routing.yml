@@ -20,16 +20,24 @@ homepage_catalog:
 buyer_register:
     path:     /user/register
     defaults: { _controller: NumaDOASiteBundle:User:register }
+profile:
+    pattern:  /user/profile
+    defaults: { _controller: NumaDOASiteBundle:User:profile, _locale: en } 
 register_success:
     path:     /user/register-success
     defaults: { _controller: NumaDOASiteBundle:User:registerSuccess }
 buyer_create:
     path:     /user/create
     defaults: { _controller: NumaDOASiteBundle:User:create }
-
+buyer_update:
+    path:     /user/update
+    defaults: { _controller: NumaDOASiteBundle:User:update }
 buyer_login:
     path:     /user/login
     defaults: { _controller: NumaDOASiteBundle:User:login }    
+item_savead:
+    path:     /item/save/{itemid}
+    defaults: { _controller: NumaDOASiteBundle:Item:savead }    
 item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }     

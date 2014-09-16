@@ -18,10 +18,16 @@ class NumaExtension extends \Twig_Extension {
         return array(
             'showItemField' => new \Twig_Function_Method($this, 'showItemField'),
             'dumpFields' => new \Twig_Function_Method($this, 'dumpFields'),
-            'price' => new \Twig_Function_Method($this, 'price')
+            'price' => new \Twig_Function_Method($this, 'price'),
+            'file_existsx' => new \Twig_Function_Method($this,'file_existsx')
         );
     }
-
+    
+    public function file_existsx($filename){
+        //echo "\\var\\doa\\web\\".$filename;
+        return file_exists(trim($filename,"/"));
+    }
+    
     public function showItemField($itemFields, $fieldname, $type = 'string') {
         $res = "";
         $fieldname = strtolower($fieldname);

@@ -12,7 +12,9 @@ login_check:
     pattern:   /login_check
 logout:
     pattern:   /logout
-
+ad:
+    pattern:   /error/403
+    defaults:  { _controller: NumaDOASiteBundle:Default:accessDenied }
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 

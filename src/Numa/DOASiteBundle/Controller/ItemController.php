@@ -42,5 +42,14 @@ class itemController extends Controller {
                 break;
         }
     }
+    
+    public function saveadAction(Request $request) {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $itemid = intval($request->get('itemid'));
+        $userItem = new \Numa\DOAAdminBundle\Entity\UserItem();
+        $userItem->setUser($user);
+        $userItem->setItemId($itemid);
+        
+    }
 
 }

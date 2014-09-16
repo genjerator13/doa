@@ -3,8 +3,7 @@ Numa\DOAAdminBundle\Entity\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: username
     properties:
-        password:
-            - NotBlank: ~
+        password:            
             - Length:
                 min: 3
         email:

@@ -1,0 +1,42 @@
+Numa\DOAAdminBundle\Entity\UserItem:
+    type: entity
+    table: user_item
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:        
+        user_id:
+            type: integer
+            nullable: true        
+        item_id:
+            type: integer
+            nullable: true 
+        active:
+            type: boolean
+            default: 0
+            nullable: true 
+        item_type:
+            type: integer
+            nullable: true 
+            default: 0;   
+        date_created:
+            type: datetime
+            nullable: true            
+        date_updated:
+            type: datetime
+            nullable: true
+            
+    manyToOne:
+        User:
+            targetEntity: User
+            inversedBy: UserItem
+            joinColumn:
+                name: user_id
+                referencedColumnName: id   
+        Item:
+            targetEntity: Item
+            inversedBy: UserItem
+            joinColumn:
+                name: item_id
+                referencedColumnName: id

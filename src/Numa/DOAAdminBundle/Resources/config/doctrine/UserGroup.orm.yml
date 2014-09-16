@@ -33,4 +33,4 @@ Numa\DOAAdminBundle\Entity\UserGroup:
     oneToMany:
         User:
             targetEntity: User
-            mappedBy: UserGroups
+            mappedBy: UserGroup
