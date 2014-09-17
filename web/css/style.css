@@ -40,6 +40,16 @@ form.search {
     font-size: 12px;
 }
 
+.searchResults .saved-search{
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    width: 280px;
+}
+
+.searchResults .saved-search a{
+    margin-left: 10px;
+}
 ul.tmp{
     margin-left: 222px;
 }

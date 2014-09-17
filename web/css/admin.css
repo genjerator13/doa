@@ -9,10 +9,7 @@ body
 {
     width:100%;
     font-family:Arial, Helvetica;
-    font-size:80%;
-    min-width:600px;        /* Minimum width of layout */
-    width:expression(document.body.clientWidth > 600 ? "100%" : "600px");   /* The min-width property does not work in old versions of Internet Explorer */
-	color: #666666;
+    color: #666666;
     height: 100%;
 }
 .clear{
@@ -186,6 +183,11 @@ body.fullSize
 {
 	text-decoration: underline;
 }
+
+i {
+    float: right;
+}
+
 .leftMenu li.active
 {
 	padding: 0 14px 0 0;
@@ -251,4 +253,8 @@ div.content form ul li{
 }
 ul.record_actions li{
     float: left;
+}
+
+.dashboard ul {
+    list-style-type: none;
 }
