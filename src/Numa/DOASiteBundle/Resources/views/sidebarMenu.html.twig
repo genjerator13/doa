@@ -1,0 +1,18 @@
+<div class="list-group">
+    {% if not is_granted('ROLE_USER') %}
+        <a class="list-group-item" href="{{path('buyer_login')}}"> Sign In | Register </a>
+    {% else %}
+        <a class="list-group-item" href="{{path('logout')}}"> Logout </a>
+    {%endif %}
+    <a class="list-group-item" href="{{path('homepage_categories')}}">Business Directory</a>
+    <a class="list-group-item" href="{{path('search_sellers')}}">Search Sellers</a>
+    {% if is_granted('ROLE_USER') %}
+        <span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span>
+    {% endif %}
+    <a class="list-group-item" href="{{path('buyer_saved_ads')}}">Saved Listings <span class="savedAds"></span></a>
+    <a class="list-group-item" href="#">Saved Searches</a>
+    {% if is_granted('ROLE_USER') %}
+        <a class="list-group-item" href="{{path('profile')}}">My profile</a>
+    {% endif %}
+</div>
+{{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }} 

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserItem
 {
+    const SAVED_AD = 1;
     /**
      * @var integer
      */
@@ -48,7 +49,7 @@ class UserItem
      * @var \Numa\DOAAdminBundle\Entity\Item
      */
     private $Item;
-
+    
 
     /**
      * Get id

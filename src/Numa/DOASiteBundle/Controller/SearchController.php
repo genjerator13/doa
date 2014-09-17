@@ -26,26 +26,36 @@ class SearchController extends Controller {
 
     public function searchAction(Request $request) {
         $this->initSearchParams($request);
-
         //$this->searchParameters->dump();
-
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
-        $page = empty($page) ? 1 : $page;
+        
         //create query        
         $query = $this->searchParameters->createSearchQuery();
+        
+        $param = $this->showItems($query,$page);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig',$param);
+    }
+    
+    public function showItems($query,$page=1,$number=10){
+        
         $items = $query->getResult();
+        
+        //die($page);
+        $page = empty($page) ? 1 : $page;
         //pagination
+        
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
+        
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
-        }
+        }        
+        return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number);
         
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number));
     }
 
     public function searchDispatcherAction(Request $request) {

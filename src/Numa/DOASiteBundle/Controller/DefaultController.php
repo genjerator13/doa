@@ -24,7 +24,7 @@ class DefaultController extends Controller {
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('bodyStyle', 'entity', array(
@@ -61,7 +61,7 @@ class DefaultController extends Controller {
         $marineForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('boatType', 'entity', array(
@@ -92,7 +92,7 @@ class DefaultController extends Controller {
         $rvsForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('modelRvs', 'choice', array('label' => 'Model'))
@@ -121,7 +121,7 @@ class DefaultController extends Controller {
         $motorsportForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('Type', 'choice', array('label' => 'Type'))
@@ -142,7 +142,7 @@ class DefaultController extends Controller {
         $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('agApplication', 'choice', array('label' => 'Ag Application'))
@@ -191,10 +191,10 @@ class DefaultController extends Controller {
     }
 
     public function searchAction(Request $request) {
-        $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+        $form =  $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('text', 'search', array('label' => false))

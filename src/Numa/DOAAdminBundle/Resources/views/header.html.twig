@@ -1,42 +1,15 @@
 <head>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
-    <title>iAuto Admin Panel </title>
-        {% stylesheets '@admin' '@bootstrap'  '@jquery_ui_css'  filter='cssrewrite' output='css/*.css' %}
+    <title>iAuto Admin Panel </title>        
+        {% stylesheets  '@bootstrap' '@bootstrap_select_css'  '@jquery_ui_css' '@admin'  filter='cssrewrite' output='css/*.css' %}        
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
     {% block javascripts %}
-        {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@tinymce_js' %}
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' '@bootstrap_select_js' '@jquery_ui_js' '@tinymce_js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
-
-    {% endblock %}
-    
-    <script>
-        $(function() {
-            $(".sortable").sortable();
-            $('.date').datepicker({dateFormat: 'yy-MM-dd'})
-            $(".sortable").disableSelection();
-        });
-        tinymce.init({selector:'textarea.tinymce',
-                // ===========================================
-// INCLUDE THE PLUGIN
-// ===========================================
-                plugins: [
-                "advlist autolink lists link image charmap print preview anchor",
-                "searchreplace visualblocks code fullscreen",
-                "insertdatetime media table contextmenu paste jbimages"
-        ],
-// ===========================================
-// PUT PLUGIN'S BUTTON on the toolbar
-// ===========================================
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
-// ===========================================
-// SET RELATIVE_URLS to FALSE (This is required for images to display properly)
-// ===========================================
-                relative_urls: false
-        });
-        </script>
-
-    </head>
+    {% endblock %}    
+</head>

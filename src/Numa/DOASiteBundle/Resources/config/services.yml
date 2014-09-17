@@ -3,3 +3,5 @@ services:
         class: Numa\Twig\NumaExtension
         tags:
            - { name: twig.extension } 
+    Numa.Controller.Search:
+        class: Numa\DOASiteBundle\Controller\SearchController

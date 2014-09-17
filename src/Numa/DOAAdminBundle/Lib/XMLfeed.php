@@ -58,9 +58,7 @@ class XMLfeed extends ContainerAware
 
 
                         foreach ($child->children() as $property) {
-
                             $this->XMLproperties[$property->getName()] = $property->getName();
-
                         }
 
                         break;

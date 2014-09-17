@@ -7,6 +7,9 @@ use Numa\DOAAdminBundle\Form\UserRegistrationType;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
+use Pagerfanta\Pagerfanta,
+    Pagerfanta\Adapter\DoctrineORMAdapter,
+    Pagerfanta\Exception\NotValidCurrentPageException;
 
 class UserController extends Controller {
 
@@ -115,6 +118,16 @@ class UserController extends Controller {
                     'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                     'error' => $error,
         ));
+    }
+
+    public function showSaveAdsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSavedAds($user->getId());     
+        $searchController = $this->get('Numa.Controller.Search');
+        $param = $searchController->showItems($items);        
+        //\Doctrine\Common\Util\Debug::dump($param);die();
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig',$param);
     }
 
 }

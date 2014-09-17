@@ -35,8 +35,11 @@ buyer_update:
 buyer_login:
     path:     /user/login
     defaults: { _controller: NumaDOASiteBundle:User:login }    
+buyer_saved_ads:
+    path:     /user/savedads
+    defaults: { _controller: NumaDOASiteBundle:User:showSaveAds }     
 item_savead:
-    path:     /item/save/{itemid}
+    path:     /item/save
     defaults: { _controller: NumaDOASiteBundle:Item:savead }    
 item_details:
     path:     /details/{itemId}/{description}
@@ -61,3 +64,6 @@ search_advanced:
 search_advanced_category:
     pattern:  /search-advanced-{category}
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvancedCategory, _locale: en } 
+search_save:    
+    pattern:  /search/save
+    defaults: { _controller: NumaDOASiteBundle:Search:saveSearch, _locale: en } 

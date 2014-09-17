@@ -220,10 +220,11 @@ class ImportmappingController extends Controller {
 
     public function feedAction(Request $request = null, $id) {
         $em = $this->getDoctrine()->getManager();
-
+        //get maping by feedid
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
-
+        //get feed
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
+        //get listing field by universal category 0
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $feed->getListingType())), array('category_sid' => 'ASC', 'caption' => 'ASC'));
         $listingfields = array();
         foreach ($fields as $field) {
@@ -241,7 +242,7 @@ class ImportmappingController extends Controller {
         } else {
             $XMLfeed = new XMLfeed($id);
             $props = $XMLfeed->getXMLproperties();
-            //print_r($props);
+            
 
             foreach ($props as $prop) {
 

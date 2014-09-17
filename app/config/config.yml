@@ -42,6 +42,9 @@ assetic:
         bootstrap:
             inputs:
                - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.css'        
+        bootstrap_select_css:
+            inputs:
+               - '%kernel.root_dir%/../web/bootstrap3/select/css/bootstrap-select.min.css'        
         style:
             inputs:
                - '%kernel.root_dir%/../web/css/style.css'  
@@ -55,6 +58,9 @@ assetic:
         bootstrapx_js:
             inputs:
                 - '%kernel.root_dir%/../web/bootstrap3/js/bootstrap.min.js'
+        bootstrap_select_js:
+            inputs:
+                - '%kernel.root_dir%/../web/bootstrap3/select/js/bootstrap-select.min.js'
         jquery_ui_js:
             inputs:
                 - '%kernel.root_dir%/../web/jqueryUI/js/jquery-ui-1.10.3.custom.min.js'

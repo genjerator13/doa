@@ -6,6 +6,10 @@
 
 {% block content %}
     <div class="searchResults">
+        <div class="saved-search">
+            <a><i class="glyphicon glyphicon-floppy-disk"></i>Save this Search</a>
+            <a><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
+        </div>
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
         <p>{{pagerfanta|length}} listings found</p>
 
@@ -22,17 +26,17 @@
         </form>
         <span class="sort">Sort by:<a href="#">Photos</a><a href="#">Year</a><a href="#">Make / Model</a></span>
         <div class="titles-details">
-                <ul class="list-inline">
-                    <li><a href="#">Mileage</a>
+            <ul class="list-inline">
+                <li><a href="#">Mileage</a>
 
-                    <li><a href="#">Price</a></li>
-                    <li><a href="#">Date</a></li>                                        
-                </ul>
-            </div>
+                <li><a href="#">Price</a></li>
+                <li><a href="#">Date</a></li>                                        
+            </ul>
+        </div>
     </p>
     <div class="row">
         <div class="col-md-12">
-            
+
         </div>
     </div>
     {% for item in pagerfanta %}
@@ -54,15 +58,31 @@
     {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
 </div>
 <script type="text/javascript">
-    num=10;
+    num = 10;
     {%if listing_per_page is defined %}
-    num = parseInt({{listing_per_page}});
+        num = parseInt({{listing_per_page}});
     {% endif %}
-$('select#numberoflisting option[value='+num+']').prop('selected', true)   
-$('select#numberoflisting').change(
-    function(){
-         $(this).closest('form').submit();
+        $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+        $('select#numberoflisting').change(
+                function() {
+                    $(this).closest('form').submit();
 
-    });
+                });
+
+        $(".saveAd").on("click", function() {
+            var itemId = $(this).closest('.item-row').attr("data");
+            var act = "add";
+            if(!$(this).prop('checked')){
+                act = "remove";
+            }
+            var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId,act:act}, function(data) {              
+                htmlx = "";
+                if(data.savedAds>0){
+                    htmlx = "("+data.savedAds+")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
 </script> 
 {% endblock %}

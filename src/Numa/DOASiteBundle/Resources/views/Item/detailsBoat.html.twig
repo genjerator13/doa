@@ -12,10 +12,8 @@
                     </div>  
 
 
-                    <a class="button prev"><</a>
-                    <a class="button next">></a>  
-                    {#    <a href=""><span class=" glyphicon glyphicon-chevron-left"></span></a>
-                        <a href="" class=" glyphicon glyphicon-chevron-right"></a>#}
+                    <a href=""><span class=" glyphicon glyphicon-chevron-left"></span></a>
+                    <a href="" class=" glyphicon glyphicon-chevron-right"></a>
 
 
                     <div class="thumbs">  
@@ -68,8 +66,8 @@
                             <h3>Dealer Info</h3>
                             {% if (dealer.logo is empty) %}
                                 <img alt="logo" src="{{dealer.logoUrl}}" />
-                                {% endif %}
-                                <p><strong>{{dealer.name}}<strong/></p>
+                            {% endif %}
+                            <p><strong>{{dealer.name}}<strong/></p>
                             <p>{{dealer.address}}</p>
                             <p>{{dealer.phone}}</p>
                             <p>{{dealer.location}}</p>
