@@ -1,6 +1,6 @@
-Numa\DOAAdminBundle\Entity\UserItem:
+Numa\DOAAdminBundle\Entity\UserSearch:
     type: entity
-    table: user_item
+    table: user_search
     id:
         id:
             type: integer
@@ -9,17 +9,20 @@ Numa\DOAAdminBundle\Entity\UserItem:
         user_id:
             type: integer
             nullable: true        
-        item_id:
-            type: integer
-            nullable: true 
         active:
             type: boolean
             default: 0
             nullable: true 
-        item_type:
+        search_type:
             type: integer
             nullable: true 
-            default: 0;   
+            default: 0;  
+        search_url:
+            type: string
+            nullable: true 
+        name:
+            type: string
+            nullable: true 
         date_created:
             type: datetime
             nullable: true            
@@ -28,17 +31,11 @@ Numa\DOAAdminBundle\Entity\UserItem:
             nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
-        preUpdate: [ setUpdatedAtValue ]             
+        preUpdate: [ setUpdatedAtValue ] 
     manyToOne:
         User:
             targetEntity: User
-            inversedBy: UserItem
+            inversedBy: UserSearch
             joinColumn:
                 name: user_id
                 referencedColumnName: id   
-        Item:
-            targetEntity: Item
-            inversedBy: UserItem
-            joinColumn:
-                name: item_id
-                referencedColumnName: id

@@ -22,6 +22,12 @@ form.search {
     margin-bottom: 10px;   
 }
 
+.search-name {
+    min-width: 100px;
+    display: block;
+    float: left;
+}
+
 .clear {
     clear: both;
 }

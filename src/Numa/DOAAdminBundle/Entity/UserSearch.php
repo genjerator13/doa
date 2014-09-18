@@ -5,11 +5,10 @@ namespace Numa\DOAAdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UserItem
+ * UserSearch
  */
-class UserItem
+class UserSearch
 {
-    const SAVED_AD = 1;
     /**
      * @var integer
      */
@@ -21,11 +20,6 @@ class UserItem
     private $user_id;
 
     /**
-     * @var integer
-     */
-    private $item_id;
-
-    /**
      * @var boolean
      */
     private $active;
@@ -33,7 +27,12 @@ class UserItem
     /**
      * @var integer
      */
-    private $item_type;
+    private $search_type;
+
+    /**
+     * @var string
+     */
+    private $search_url;
 
     /**
      * @var \DateTime
@@ -46,10 +45,10 @@ class UserItem
     private $date_updated;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\Item
+     * @var \Numa\DOAAdminBundle\Entity\User
      */
-    private $Item;
-    
+    private $User;
+
 
     /**
      * Get id
@@ -65,7 +64,7 @@ class UserItem
      * Set user_id
      *
      * @param integer $userId
-     * @return UserItem
+     * @return UserSearch
      */
     public function setUserId($userId)
     {
@@ -85,33 +84,10 @@ class UserItem
     }
 
     /**
-     * Set item_id
-     *
-     * @param integer $itemId
-     * @return UserItem
-     */
-    public function setItemId($itemId)
-    {
-        $this->item_id = $itemId;
-    
-        return $this;
-    }
-
-    /**
-     * Get item_id
-     *
-     * @return integer 
-     */
-    public function getItemId()
-    {
-        return $this->item_id;
-    }
-
-    /**
      * Set active
      *
      * @param boolean $active
-     * @return UserItem
+     * @return UserSearch
      */
     public function setActive($active)
     {
@@ -131,33 +107,56 @@ class UserItem
     }
 
     /**
-     * Set item_type
+     * Set search_type
      *
-     * @param integer $itemType
-     * @return UserItem
+     * @param integer $searchType
+     * @return UserSearch
      */
-    public function setItemType($itemType)
+    public function setSearchType($searchType)
     {
-        $this->item_type = $itemType;
+        $this->search_type = $searchType;
     
         return $this;
     }
 
     /**
-     * Get item_type
+     * Get search_type
      *
      * @return integer 
      */
-    public function getItemType()
+    public function getSearchType()
     {
-        return $this->item_type;
+        return $this->search_type;
+    }
+
+    /**
+     * Set search_url
+     *
+     * @param string $searchUrl
+     * @return UserSearch
+     */
+    public function setSearchUrl($searchUrl)
+    {
+        $this->search_url = $searchUrl;
+    
+        return $this;
+    }
+
+    /**
+     * Get search_url
+     *
+     * @return string 
+     */
+    public function getSearchUrl()
+    {
+        return $this->search_url;
     }
 
     /**
      * Set date_created
      *
      * @param \DateTime $dateCreated
-     * @return UserItem
+     * @return UserSearch
      */
     public function setDateCreated($dateCreated)
     {
@@ -180,7 +179,7 @@ class UserItem
      * Set date_updated
      *
      * @param \DateTime $dateUpdated
-     * @return UserItem
+     * @return UserSearch
      */
     public function setDateUpdated($dateUpdated)
     {
@@ -200,38 +199,10 @@ class UserItem
     }
 
     /**
-     * Set Item
-     *
-     * @param \Numa\DOAAdminBundle\Entity\Item $item
-     * @return UserItem
-     */
-    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
-    {
-        $this->Item = $item;
-    
-        return $this;
-    }
-
-    /**
-     * Get Item
-     *
-     * @return \Numa\DOAAdminBundle\Entity\Item 
-     */
-    public function getItem()
-    {
-        return $this->Item;
-    }
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\User
-     */
-    private $User;
-
-
-    /**
      * Set User
      *
      * @param \Numa\DOAAdminBundle\Entity\User $user
-     * @return UserItem
+     * @return UserSearch
      */
     public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
     {
@@ -264,5 +235,33 @@ class UserItem
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+    /**
+     * @var string
+     */
+    private $name;
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return UserSearch
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }

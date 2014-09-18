@@ -29,33 +29,32 @@ class SearchController extends Controller {
         //$this->searchParameters->dump();
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
-        
+
         //create query        
         $query = $this->searchParameters->createSearchQuery();
-        
-        $param = $this->showItems($query,$page);
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig',$param);
+
+        $param = $this->showItems($query, $page);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
-    
-    public function showItems($query,$page=1,$number=10){
-        
+
+    public function showItems($query, $page = 1, $number = 10) {
+
         $items = $query->getResult();
-        
+
         //die($page);
         $page = empty($page) ? 1 : $page;
         //pagination
-        
+
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
-        
+
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
-        }        
+        }
         return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number);
-        
     }
 
     public function searchDispatcherAction(Request $request) {
@@ -911,6 +910,40 @@ class SearchController extends Controller {
             \Doctrine\Common\Util\Debug::dump($query->getResult());
         }
         return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
+    }
+
+    public function saveSearchAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $ret = array();
+        $search_url = $request->get('url');
+        $name = $request->get('name');
+
+        $userSearches = $em->getRepository('NumaDOAAdminBundle:UserSearch')
+                ->findBy(array('User' => $user));
+        $userSearchCount = count($userSearches);
+        $userSearchExists = $em->getRepository('NumaDOAAdminBundle:UserSearch')
+                ->findOneBy(array('User' => $user,
+                                  'search_url' => $search_url,
+                                  'name' => $name
+            ));
+        
+        if (empty($userSearchExists)) {
+            $userSearch = new \Numa\DOAAdminBundle\Entity\UserSearch();
+            $userSearch->setUser($user);
+            $userSearch->setName($name);
+            $userSearch->setSearchUrl($search_url);
+            $em->persist($userSearch);
+            $userSearchCount++;
+        }
+
+        $em->flush();
+        $ret = array('savedSearch' => $userSearchCount);
+
+        $response = new Response(json_encode($ret));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
 }

@@ -74,6 +74,7 @@ class UserController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $registration = $form->getData();
             $userGroup = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:UserGroup')->find(2);
 
@@ -123,11 +124,47 @@ class UserController extends Controller {
     public function showSaveAdsAction() {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSavedAds($user->getId());     
-        $searchController = $this->get('Numa.Controller.Search');
-        $param = $searchController->showItems($items);        
-        //\Doctrine\Common\Util\Debug::dump($param);die();
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig',$param);
+        $param = array();
+        if ($user instanceof User) {
+            $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSavedAds($user->getId());
+            $searchController = $this->get('Numa.Controller.Search');
+            $param = $searchController->showItems($items);
+            //\Doctrine\Common\Util\Debug::dump($param);die();
+        }
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+    }
+
+    public function savedSearchesAction() {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();        
+        $userSearches = array();
+        if ($user instanceof User) {
+            $userSearches = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findBy(array('User'=>$user));            
+        }
+        return $this->render('NumaDOASiteBundle:User:savedSearches.html.twig', array('userSearches'=>$userSearches));
+    }
+    
+    public function deleteSearchAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser(); 
+        $searchid = intval($request->query->get('searchid'));
+        $userSearches = array();
+        if ($user instanceof User) {
+            if($searchid>0){
+
+                $userSearch = $em->getRepository('NumaDOAAdminBundle:UserSearch')->findOneBy(array('id'=>$searchid));   
+                
+                //\Doctrine\Common\Util\Debug::dump($userSearch);
+                if(!empty($userSearch)){
+
+                    $em->remove($userSearch);
+                    $em->flush();
+                }
+                
+            }
+        }
+        //return $this->redirect($this->generateUrl('buyer_saved_searches'));
+     
     }
 
 }

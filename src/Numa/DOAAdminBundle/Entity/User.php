@@ -1047,4 +1047,58 @@ class User implements UserInterface {
     {
         return $this->UserItems;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserSearch;
+
+
+    /**
+     * Add UserSearch
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserSearch $userSearch
+     * @return User
+     */
+    public function addUserSearch(\Numa\DOAAdminBundle\Entity\UserSearch $userSearch)
+    {
+        $this->UserSearch[] = $userSearch;
+    
+        return $this;
+    }
+
+    /**
+     * Remove UserSearch
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserSearch $userSearch
+     */
+    public function removeUserSearch(\Numa\DOAAdminBundle\Entity\UserSearch $userSearch)
+    {
+        $this->UserSearch->removeElement($userSearch);
+    }
+
+    /**
+     * Get UserSearch
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUserSearch()
+    {
+        return $this->UserSearch;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        // Add your code here
+    }
 }

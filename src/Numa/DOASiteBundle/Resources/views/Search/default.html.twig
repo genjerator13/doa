@@ -5,84 +5,134 @@
 {% endblock %}
 
 {% block content %}
-    <div class="searchResults">
-        <div class="saved-search">
-            <a><i class="glyphicon glyphicon-floppy-disk"></i>Save this Search</a>
-            <a><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
+
+
+
+    {% if pagerfanta is empty  %}
+        No results
+    {% else %}
+        <div class="searchResults">
+            <div class="saved-search">
+                <a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save this Search</a>
+                <a href="{{path('search_compare')}}"><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <form action="">
+                                <div class="input-group">
+                                    <div class="form-group  ">
+                                        <label>Set search name:</label>
+                                        <input type="search" class="form-control" required="required" name="savesearch" id="savesearch">
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>
+                                        <script>
+                                            $('a.ajaxSaveSearch').on('click', function() {
+
+                                                //$(this).parent().parent().html("aaaa");
+                                                //alert("aaa");
+                                                var savesearch = $("#savesearch").val();
+                                                var jqxhr = $.post("{{path('search_save')}}", {name: savesearch, url: document.URL}, function(data) {
+                                                    htmlx = "";
+                                                    
+                                                    if (data.savedSearch > 0) {
+                                                        htmlx = "(" + data.savedSearch + ")";
+                                                    }
+                                                    $('.savedSearch').html(htmlx);
+                                                    $('.modal-body').html("Search saved");
+                                                    setTimeout(function() {
+                                                        $('#saveSearch').modal('hide');
+                                                    }, 2000);
+                                                    
+                                                })
+                                            })
+                                        </script>
+                                    </span>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
+            <p>{{pagerfanta|length}} listings found</p>
+
+
+            <p><span class="left">Number of listings per page:</span>
+
+
+            <form action="" method="GET">
+                <select class="listingsNumber" id="numberoflisting" name="listings_per_page">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
+            </form>
+            <span class="sort">Sort by:<a href="#">Photos</a><a href="#">Year</a><a href="#">Make / Model</a></span>
+            <div class="titles-details">
+                <ul class="list-inline">
+                    <li><a href="#">Mileage</a>
+
+                    <li><a href="#">Price</a></li>
+                    <li><a href="#">Date</a></li>                                        
+                </ul>
+            </div>
+        </p>
+        <div class="row">
+            <div class="col-md-12">
+
+            </div>
         </div>
+        {% for item in pagerfanta %}
+            {#
+                    {%if item.getCategory().getName()=='Marine'%}
+                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                    {%endif%}
+                    {% if item.getCategory().getName()=='Car' %}
+                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                    {% endif %}
+                    {% if item.getCategory().getName()=='Motosport' %}
+                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                    {% endif %}
+                    {% if item.getCategory().getName()=='RVs' %}
+                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                    {% endif %}#}
+            {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+        {% endfor%}
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
-        <p>{{pagerfanta|length}} listings found</p>
-
-
-        <p><span class="left">Number of listings per page:</span>
-
-
-        <form action="" method="GET">
-            <select class="listingsNumber" id="numberoflisting" name="listings_per_page">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-        </form>
-        <span class="sort">Sort by:<a href="#">Photos</a><a href="#">Year</a><a href="#">Make / Model</a></span>
-        <div class="titles-details">
-            <ul class="list-inline">
-                <li><a href="#">Mileage</a>
-
-                <li><a href="#">Price</a></li>
-                <li><a href="#">Date</a></li>                                        
-            </ul>
-        </div>
-    </p>
-    <div class="row">
-        <div class="col-md-12">
-
-        </div>
     </div>
-    {% for item in pagerfanta %}
-        {#
-                {%if item.getCategory().getName()=='Marine'%}
-                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                {%endif%}
-                {% if item.getCategory().getName()=='Car' %}
-                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                {% endif %}
-                {% if item.getCategory().getName()=='Motosport' %}
-                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                {% endif %}
-                {% if item.getCategory().getName()=='RVs' %}
-                    <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                {% endif %}#}
-        {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
-    {% endfor%}
-    {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
-</div>
-<script type="text/javascript">
-    num = 10;
-    {%if listing_per_page is defined %}
-        num = parseInt({{listing_per_page}});
-    {% endif %}
-        $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-        $('select#numberoflisting').change(
-                function() {
-                    $(this).closest('form').submit();
+    <script type="text/javascript">
+        num = 10;
+        {%if listing_per_page is defined %}
+            num = parseInt({{listing_per_page}});
+        {% endif %}
+            $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+            $('select#numberoflisting').change(
+                    function() {
+                        $(this).closest('form').submit();
 
-                });
+                    });
 
-        $(".saveAd").on("click", function() {
-            var itemId = $(this).closest('.item-row').attr("data");
-            var act = "add";
-            if(!$(this).prop('checked')){
-                act = "remove";
-            }
-            var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId,act:act}, function(data) {              
-                htmlx = "";
-                if(data.savedAds>0){
-                    htmlx = "("+data.savedAds+")";
+            $(".saveAd").on("click", function() {
+                var itemId = $(this).closest('.item-row').attr("data");
+                var act = "add";
+                if (!$(this).prop('checked')) {
+                    act = "remove";
                 }
-                $('.savedAds').html(htmlx);
-            })
+                var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
+                    htmlx = "";
+                    if (data.savedAds > 0) {
+                        htmlx = "(" + data.savedAds + ")";
+                    }
+                    $('.savedAds').html(htmlx);
+                })
 
-        });
-</script> 
+            });
+    </script> 
+{% endif %}
 {% endblock %}

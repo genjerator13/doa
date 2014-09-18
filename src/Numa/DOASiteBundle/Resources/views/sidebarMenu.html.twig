@@ -10,7 +10,7 @@
         <span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span>
     {% endif %}
     <a class="list-group-item" href="{{path('buyer_saved_ads')}}">Saved Listings <span class="savedAds"></span></a>
-    <a class="list-group-item" href="#">Saved Searches</a>
+    <a class="list-group-item" href="{{path('buyer_saved_searches')}}">Saved Searches <span class="savedSearch"></span></a>
     {% if is_granted('ROLE_USER') %}
         <a class="list-group-item" href="{{path('profile')}}">My profile</a>
     {% endif %}

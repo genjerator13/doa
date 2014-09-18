@@ -128,16 +128,26 @@ Numa\DOAAdminBundle\Entity\User:
         date_updated:
             type: datetime
             nullable: true
-            
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]        
     oneToMany:
         Item:
             targetEntity: Item
-            mappedBy: Users
+            mappedBy: User
         Importfeed:
             targetEntity: Importfeed
-            mappedBy: Users
+            mappedBy: User
         UserItems:
             targetEntity: UserItem
+            mappedBy: User
+            cascade: ["persist","remove"]
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+                onDelete: cascade
+        UserSearch:
+            targetEntity: UserSearch
             mappedBy: User
             cascade: ["persist","remove"]
             joinColumn:

@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserItem
 {
+    const SAVED_AD = 1;
     /**
      * @var integer
      */
@@ -48,7 +49,7 @@ class UserItem
      * @var \Numa\DOAAdminBundle\Entity\Item
      */
     private $Item;
-
+    
 
     /**
      * Get id
@@ -219,5 +220,49 @@ class UserItem
     public function getItem()
     {
         return $this->Item;
+    }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\User
+     */
+    private $User;
+
+
+    /**
+     * Set User
+     *
+     * @param \Numa\DOAAdminBundle\Entity\User $user
+     * @return UserItem
+     */
+    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
+    {
+        $this->User = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get User
+     *
+     * @return \Numa\DOAAdminBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->User;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        // Add your code here
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        // Add your code here
     }
 }
