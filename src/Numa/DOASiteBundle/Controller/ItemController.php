@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -62,10 +63,10 @@ class itemController extends Controller {
             $userItemsCount = count($userItems);
             if ($act == 'add') {
                 $userItemExists = $em->getRepository('NumaDOAAdminBundle:UserItem')
-                    ->findOneBy(array('User' => $user,
-                                      'Item' => $item,
-                'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
-                if(empty($userItemExists)){
+                        ->findOneBy(array('User' => $user,
+                    'Item' => $item,
+                    'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
+                if (empty($userItemExists)) {
                     $userItem = new \Numa\DOAAdminBundle\Entity\UserItem();
                     $userItem->setUser($user);
                     $userItem->setItem($item);
@@ -85,6 +86,66 @@ class itemController extends Controller {
         $response = new Response(json_encode($ret));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    public function compareAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $itemid = intval($request->get('itemid'));
+        $act = $request->get('act');
+        $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);
+        $ret = array();
+        $session = $this->getRequest()->getSession();
+        $comparedItems = $session->get('comparedItem');
+        if ($act == 'removeall') {
+            $session->remove('comparedItem');
+        }
+        if ($item instanceof \Numa\DOAAdminBundle\Entity\Item) {
+
+            if (empty($comparedItems)) {
+                $comparedItems = array();
+            }
+            if ($act == 'add') {
+                $comparedItems[$itemid] = $itemid;
+            } elseif ($act == 'remove') {
+
+                unset($comparedItems[$itemid]);
+            }
+            $session->set('comparedItem', $comparedItems);
+        }
+        if ($request->isXmlHttpRequest()) {
+            $ret = array('comparedItes' => count($comparedItems));
+            $response = new Response(json_encode($ret));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        return $this->redirect($this->generateUrl('compared_listings'));
+    }
+
+    public function comparedListingAction(Request $request) {
+        $session = $this->getRequest()->getSession();
+        $comparedItems = $session->get('comparedItem');
+        $em = $this->getDoctrine()->getManager();
+        $fields = array(
+            array('name' => 'id'),
+            array('name' => 'image', 'type' => 'image'),
+            array('name' => 'activation_date', 'type' => 'date', 'format' => 'yyyy mm dd'),
+            array('name' => 'year'),
+            array('name' => 'fuel_type'),
+            array('name' => 'status'),
+            array('name' => 'address'),
+            array('name' => 'province'),
+            array('name' => 'is_sold'),
+            array('name' => 'vin'),
+            array('name' => 'city'),
+            array('name' => 'postal code'),
+            array('name' => 'price', 'type' => 'price'),
+            array('name' => 'boat make'), //
+        );
+        $comparedItemsArray = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('id' => $comparedItems));
+
+        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $fields, 'items' => $comparedItemsArray));
     }
 
 }

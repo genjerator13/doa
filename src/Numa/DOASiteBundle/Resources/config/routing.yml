@@ -46,7 +46,10 @@ buyer_delete_search:
     defaults: { _controller: NumaDOASiteBundle:User:deleteSearch } 
 item_savead:
     path:     /item/save
-    defaults: { _controller: NumaDOASiteBundle:Item:savead }    
+    defaults: { _controller: NumaDOASiteBundle:Item:savead }  
+item_compare:
+    path:     /item/compare
+    defaults: { _controller: NumaDOASiteBundle:Item:compare }
 item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }     
@@ -73,6 +76,6 @@ search_advanced_category:
 search_save:    
     pattern:  /search/save
     defaults: { _controller: NumaDOASiteBundle:Search:saveSearch, _locale: en } 
-search_compare:    
-    pattern:  /compare
-    defaults: { _controller: NumaDOASiteBundle:Item:compare, _locale: en }    
+compared_listings:    
+    pattern:  /compared-listing
+    defaults: { _controller: NumaDOASiteBundle:Item:comparedListing, _locale: en }    

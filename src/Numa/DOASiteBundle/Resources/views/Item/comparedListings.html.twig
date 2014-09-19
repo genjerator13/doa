@@ -1,0 +1,42 @@
+{% include 'NumaDOASiteBundle::header.html.twig' %}
+
+{% block content %}
+    <h1>Compare listings</h1>
+    {%if(items|length>0) %}
+        <table class="table">
+            {%for field in fields %}
+                <tr>
+                    <td>{{field.name}}:</td>
+                    {% for item in items %}
+
+                        {% set value = item.getItemFieldByName(field.name) %}
+                            {% if (field.type is defined and field.type=='image') %}
+                                {% if value['image'] is defined and value['image'] %}
+                                    <td><img alt=image" src="{{value['image']['stringvalue']}}"</td>    
+                                    {% endif %}
+                                {% elseif (field.type is defined and field.type=='date') %}
+                                <td>{{ value|date("m/d/Y") }}</td>
+                            {% elseif (field.name=='id') %}
+                                <td>
+                                    <a href="{{path('item_details', {'itemId': item.id, 'description': item.getMake()~item.getModel()}) }}">
+                                        View details
+                                    </a>
+                                </td>
+                            {% else %}
+                                <td>{{value}}</td>       
+                            {% endif %}
+                            {% endfor %}
+                            </tr>
+
+                            {% endfor %}
+                                <tr>
+                                    <td><a href="{{path('item_compare',{'act':'removeall'})}}">Remove all listing</a></td>
+                                    {% for item in items %}
+                                        <td><a href="{{path('item_compare',{'act':'remove','itemid':item.id})}}">Remove this listing</a></td>
+                                    {% endfor%}
+                                </tr>
+                            </table>
+                            {%else%}
+                                <p>There are no listings to compare</p>
+                            {%endif%}
+                                {% endblock %}

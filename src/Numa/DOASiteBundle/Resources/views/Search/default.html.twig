@@ -14,7 +14,7 @@
         <div class="searchResults">
             <div class="saved-search">
                 <a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save this Search</a>
-                <a href="{{path('search_compare')}}"><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
+                <a href="{{path('compared_listings')}}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
             </div>
 
             <!-- Modal -->
@@ -128,6 +128,21 @@
                     htmlx = "";
                     if (data.savedAds > 0) {
                         htmlx = "(" + data.savedAds + ")";
+                    }
+                    $('.savedAds').html(htmlx);
+                })
+
+            });
+            $(".compareAd").on("click", function() {
+                var itemId = $(this).closest('.item-row').attr("data");
+                var act = "add";
+                if (!$(this).prop('checked')) {
+                    act = "remove";
+                }
+                var jqxhr = $.post("{{path('item_compare')}}", {itemid: itemId, act: act}, function(data) {
+                    htmlx = "";
+                    if (data.comparedItes > 0) {
+                        htmlx = "(" + data.comparedItes + ")";
                     }
                     $('.savedAds').html(htmlx);
                 })

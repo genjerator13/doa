@@ -659,6 +659,19 @@ class Item {
             }
         }
     }
+    public function getImage($num=0){
+        $images = $this->getImages();
+        //      
+        if(!empty($images)){
+            $val = array_values($images);
+            unset($val[0]['object']);
+            $ret =  array('image'=>$val[0]);
+            //\Doctrine\Common\Util\Debug::dump($ret);//die();  
+            return $ret;
+            
+        }
+        return false;
+    }
     public function getImages() {
         $this->getItemFieldsArray();
 
@@ -690,7 +703,11 @@ class Item {
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
         $name = strtolower($name);
-
+        if(property_exists(get_class($this), $name)){
+            return $this->$name;
+        }elseif($name=='image'){
+            return $this->getImage();
+        }
         if (!empty($this->ItemFieldArray[$name])) {
             return $this->ItemFieldArray[$name]['stringvalue'];
         };
@@ -733,6 +750,7 @@ class Item {
         $isActivated = $importfeed->getActivateListing();
         if (!empty($isActivated)) {
             $this->setActive(true);
+            $this->setActivationDate(new \DateTime());
         }
         $isHighlighted = $importfeed->getMakeHighlighted();
         if (!empty($isHighlighted)) {
