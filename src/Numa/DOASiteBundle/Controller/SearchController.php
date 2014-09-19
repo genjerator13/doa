@@ -87,16 +87,16 @@ class SearchController extends Controller {
 //        $category = $query->getResult();
         $query = $this->getDoctrine()->getManager()
                 ->createQuery(
-                        'SELECT i FROM NumaDOAAdminBundle:Item i
+                        'SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%type%\'
+                                 WHERE ifield.field_name LIKE \'%subtype%\'
                                  
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
                 ->setParameter('model', "%" . $model . "%")
                 ->setParameter('category', "%" . $category . "%");
-
+        
         $items = $query->getResult();
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
