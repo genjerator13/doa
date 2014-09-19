@@ -16,7 +16,7 @@ class DefaultController extends Controller {
         foreach ($hometabs as $tab) {
             $tabs[$tab->getCategoryName()][] = $tab;
         }
-        //\Doctrine\Common\Util\Debug::dump($tabs);
+        
         //print_r($tabs);
         $vehCategory = 1;
         $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);

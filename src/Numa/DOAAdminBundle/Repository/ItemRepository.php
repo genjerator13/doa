@@ -46,5 +46,24 @@ class ItemRepository extends EntityRepository {
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery;
     }
+    
+    public function getItemFieldSubCats($cat) {
+        $subcatname = 'boat subtype';//test
+        if($cat==2){
+            $subcatname = 'boat subtype';
+        }
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('if.field_string_value')->distinct()
+                ->from('NumaDOAAdminBundle:Item'     , 'i')
+                ->join('NumaDOAAdminBundle:ItemField', 'if')
+                ->where('if.field_name=:subcatname')
+
+                ->setParameter('subcatname', $subcatname)
+                ;                
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        return $itemsQuery->getResult();
+    }
 
 }

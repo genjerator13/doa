@@ -14,15 +14,17 @@ class itemController extends Controller {
         $itemId = $request->get('itemId');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
         //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+        //\Doctrine\Common\Util\Debug::dump($item);die();
         if (empty($item)) {
             throw $this->createNotFoundException('message');
         }
         //$itemfields = $item->getItemFieldsArray();
         //get dealer
         $dealerid = $item->getItemFieldByName('dealer');
-
-        $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
+        $dealer = "";
+        if (!empty($dealerid)){
+            $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
+        }
         switch ($item->getCategoryId()) {
             case 1:
                 //car

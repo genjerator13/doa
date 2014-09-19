@@ -742,21 +742,27 @@ class Item {
      * @return Item
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
-        $this->Importfeed = $importfeed;
-        $isFeatured = $importfeed->getMakeFeatured();
+        if(!empty($importfeed)){
+            $this->Importfeed = $importfeed;
+            $isFeatured = $importfeed->getMakeFeatured();
+            $isActivated = $importfeed->getActivateListing();
+            $isHighlighted = $importfeed->getMakeHighlighted();
+            $isExpired = $importfeed->getExpirationAfter();
+            $dealer = $importfeed->getDefaultUser();
+        }
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
-        $isActivated = $importfeed->getActivateListing();
+        
         if (!empty($isActivated)) {
             $this->setActive(true);
             $this->setActivationDate(new \DateTime());
         }
-        $isHighlighted = $importfeed->getMakeHighlighted();
+        
         if (!empty($isHighlighted)) {
             $this->setFeatureHighlighted(true);
         }
-        $isExpired = $importfeed->getExpirationAfter();
+        
         if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
             $isDateCreated = $this->getDateCreated();
@@ -770,7 +776,7 @@ class Item {
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
 
-        $dealer = $importfeed->getDefaultUser();
+        
 
         if (!empty($dealer)) {
             $itemField = new ItemField();
