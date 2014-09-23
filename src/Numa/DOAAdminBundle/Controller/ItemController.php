@@ -57,6 +57,7 @@ class ItemController extends Controller {
                     $res['moderation_status'] = $row->getField('moderation_status');
                     $res['views'] = $row->getField('views');
                     $res['activation_date'] = $row->getField('activation_date');
+                   // $res['date_created'] = $row->getField('date_created');
                     
                     foreach ($fields as $field) {
                         if ($field->getFieldType() == 'array') {
@@ -81,7 +82,8 @@ class ItemController extends Controller {
                     }else{
                         $res['activation_date'] = $res['activation_date']->format('Y-m-d');
                     }
-
+                    
+                    
                     echo $controller->renderView("NumaDOAAdminBundle:Item:itemDetailsGrid.html.twig", array("details" => $res));
                 }
         );

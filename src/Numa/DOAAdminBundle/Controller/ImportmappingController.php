@@ -367,7 +367,7 @@ class ImportmappingController extends Controller {
             }//end mapping foreach
             //dealer
             $dealer = $feed->getDefaultUser();
-
+            
             if (!empty($dealer)) {
                 $dealerField = new ItemField();
                 $dealerField->setFieldBooleanValue(true);
@@ -377,11 +377,15 @@ class ImportmappingController extends Controller {
                 $dealerField->setFieldName('dealer');
 
                 $item->addItemField($dealerField);
+                
             }
+            
             $createdItems[] = $item;
             $em->persist($item);
             $em->flush();
+            
         }
+        
         $time = time() - $time;
 //        echo $time . ":::" . count($items);
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));

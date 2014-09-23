@@ -68,21 +68,20 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $list = "";
             if ($cat->getId() == 2) {
                 //Marine
-                $subCat = $em->getRepository('NumaDOAAdminBundle:Item')->getItemFieldSubCats($cat->getId());
-                \Doctrine\Common\Util\Debug::dump($subCat);
+                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByCaption('Boat Type');
                 if (!empty($subCat)) {
 
-                    //$list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
-                    foreach ($subCat as $key => $value) {
-                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_string_value'=>$value["field_string_value"]));
+                    $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
+                    foreach ($list as $key => $value) {
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
                         $count = count($items);
-                        print_r(count($items));echo ":".$value["field_string_value"]."\n";
+                        print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
                         //$count = $items->count();
                         $hometab = new HomeTab();
                         $hometab->setCategoryId($cat->getId());
                         $hometab->setCategoryName($cat->getName());
-                        //$hometab->setListingFieldLists($value);
-                        $hometab->setListingFieldListValue($value["field_string_value"]);
+                        $hometab->setListingFieldLists($value);
+                        $hometab->setListingFieldListValue($value->getValue());
                         $hometab->setCount($count);
                         $em->persist($hometab);
                         //print_r($key);

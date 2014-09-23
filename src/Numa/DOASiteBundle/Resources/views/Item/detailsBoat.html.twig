@@ -46,13 +46,8 @@
                                 </li>
                             {% endif %}
                         {% endfor %}
-
-
-
-
-                        <div id="map"> </div> 
-                        <script type="text/javascript">initialize();</script>
-
+                    </ul>
+                    <div id="map"> </div> 
                 </div>
                 {% endblock %}
 
@@ -71,4 +66,38 @@
                             <p><a style="" href="{{ path('search_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
 
                         {% endif %}
+                        <script src="https://maps.googleapis.com/maps/api/js"></script>
+                        <script>
+                            var geocoder = new google.maps.Geocoder();
+                            var address = "{{dealer.address}}";
+                            var latitude = 44.5403;
+                            var longitude = -78.5463;
+                            geocoder.geocode({'address': address}, function(results, status) {
+
+                                if (status == google.maps.GeocoderStatus.OK) {
+                                    latitude = results[0].geometry.location.lat();
+                                    longitude = results[0].geometry.location.lng();
+
+                                }
+                            });
+                            function initialize() {
+                                var mapCanvas = document.getElementById('map');
+                                var mapOptions = {
+                                    center: new google.maps.LatLng(latitude, longitude),
+                                    zoom: 13,
+                                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                                }
+
+                                var map = new google.maps.Map(mapCanvas, mapOptions)
+                                var myLatlng = new google.maps.LatLng(latitude,longitude);
+                                var marker = new google.maps.Marker({
+                                    position: myLatlng,
+                                    map: map,
+                                    title: '{{dealer.name}}'
+                                });
+
+                            }
+                            google.maps.event.addDomListener(window, 'load', initialize);
+                        </script>
+
                     {% endblock %}

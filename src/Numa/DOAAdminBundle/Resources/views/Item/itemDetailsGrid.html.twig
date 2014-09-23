@@ -10,7 +10,7 @@
             </a>
         </span>
     </div>
-    <div class="middle_details"
+    <div class="middle_details">
          <ul>
             <li class="itemdetailtitle">{{details.Year}} {{details.Make}}</li>
             <li>Listing ID # {{details.id}} in the category "{{details.category}} "</li>
@@ -40,8 +40,7 @@
             <li>
                 <span class="fieldValue fieldValueActive active">{% if details.active==1   %}<span class="active">Active</span>{%else%}<span class="inactive">Inactive</span>{%endif%}</span> 
                 and <span class="fieldValue fieldValueModerationStatus approved">{% if details.moderation_status==1   %}<span class="approved">Approved</span> {%else%}<span class="rejcted">Rejected</span>{%endif%}</span>							</li>
-            <li>0 pictures</li>
-            <li>0 comments</li>
+            <li>{{details['Image List']|length}} pictures</li>            
             <li>{{details.views}} views</li>
             <li>Activated on {% if details.activation_date is defined   %}{{details.activation_date}}{%endif%}</li>
         </ul>

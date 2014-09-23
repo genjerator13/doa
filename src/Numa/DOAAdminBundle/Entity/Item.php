@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
- * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date" ,groupBy="id")
+ * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 
@@ -89,11 +89,13 @@ class Item {
 
     /**
      * @var \DateTime
+     * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
      */
     private $date_created;
 
     /**
      * @var \DateTime
+     * 
      */
     private $date_updated;
 
@@ -680,6 +682,15 @@ class Item {
         }
         return array();
     }
+    
+    public function getCountImages(){
+        $this->getItemFieldsArray();
+
+        if (!empty($this->ItemFieldArray['image list'])) {
+            return count($this->ItemFieldArray['image list']);
+        }
+        return 0;
+    }
 
     public function getModel() {
         $this->getItemFieldsArray();
@@ -702,13 +713,17 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        $name = strtolower($name);
+        
+        
         if(property_exists(get_class($this), $name)){
+            $name = strtolower($name);
             return $this->$name;
         }elseif($name=='image'){
             return $this->getImage();
         }
+        
         if (!empty($this->ItemFieldArray[$name])) {
+
             return $this->ItemFieldArray[$name]['stringvalue'];
         };
         return "";
@@ -844,21 +859,7 @@ class Item {
     public function __toString() {
         return "test";
     }
-    public $dealer;
-    public function getDealer($id) {
-        if (empty($this->dealer)) {
-            global $kernel;
-
-            if ('AppCache' == get_class($kernel)) {
-                $kernel = $kernel->getKernel();
-            }
-
-                $em = $kernel->getContainer()->get( 'doctrine.orm.entity_manager' );
-                $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($id);
-                $this->dealer = $dealer;
-        }
-        return $this->dealer;
-    }
+    
 
     /**
      * @var \Doctrine\Common\Collections\Collection

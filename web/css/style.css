@@ -142,8 +142,8 @@ ul.tmp{
 
 #map{
     height: 400px;
-    margin-left: 20px;
-    padding-left: 20px;
+    width: 600px;
+
 }
 .comments {
     font-size: 12px;
