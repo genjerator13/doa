@@ -47,22 +47,16 @@ class XMLfeed extends ContainerAware
     }
     public function fetchXMLproperties()
     {
-
         if (empty($this->XMLproperties)) {
             if (self::URL == $this->entity->getImportMethod()) {
                 if (self::XML == $this->entity->getImportFormat()) {
-
                     $xml_obj = simplexml_load_file($this->source);
-
                     foreach ($xml_obj->children() as $child) {
-
-
                         foreach ($child->children() as $property) {
+                            
                             $this->XMLproperties[$property->getName()] = $property->getName();
                         }
-
                         break;
-
                     }
 
                 }
@@ -76,7 +70,11 @@ class XMLfeed extends ContainerAware
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
                 $this->items = self::xml2array($xml_obj->children());
-                $this->items = $this->items['item'];
+                if(!empty($this->items['item'])){
+                    $this->items = $this->items['item'];
+                }elseif(!empty($this->items['inventor'])){
+                    $this->items = $this->items['inventor'];
+                }
                 return $this->items;
             }
         }

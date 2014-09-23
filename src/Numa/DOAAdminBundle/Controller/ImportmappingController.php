@@ -219,18 +219,19 @@ class ImportmappingController extends Controller {
     }
 
     public function feedAction(Request $request = null, $id) {
+
         $em = $this->getDoctrine()->getManager();
         //get maping by feedid
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
         //get feed
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
         //get listing field by universal category 0
-        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $feed->getListingType())), array('category_sid' => 'ASC', 'caption' => 'ASC'));
+        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $feed->getListingType())), array('caption' => 'ASC'));
         $listingfields = array();
         foreach ($fields as $field) {
             $listingfields['listing'][$field->getId()] = $field->getCaption();
         }
-        $listingfields['preferredChoices'] = array('596');
+        //$listingfields['preferredChoices'] = array('596');//????
         //\Doctrine\Common\Util\Debug::dump($feed->getListingType());
         //\Doctrine\Common\Util\Debug::dump($listingfields);
         $importmappingCollection = new Importmappings();
@@ -242,7 +243,7 @@ class ImportmappingController extends Controller {
         } else {
             $XMLfeed = new XMLfeed($id);
             $props = $XMLfeed->getXMLproperties();
-            
+
 
             foreach ($props as $prop) {
 
@@ -302,7 +303,7 @@ class ImportmappingController extends Controller {
             $em->remove($old);
         }
         $em->flush();
-        
+
         //walk trough XML feed
         foreach ($items as $XMLitem) {
             $item = new Item();
@@ -316,14 +317,18 @@ class ImportmappingController extends Controller {
                 if (!empty($listingFields) && !empty($XMLitem->{$property})) {
                     $property = $maprow->getSid();
                     $stringValue = (string) $XMLitem->{$property};
-                    $itemField = new ItemField();
-                    
-                    $itemField->setAllValues($XMLitem->{$property});
-                    $itemField->setListingfield($maprow->getListingFields());
-                    
-                    $itemField->setFieldName($maprow->getListingFields()->getCaption());
-                    $itemField->setFieldType($maprow->getListingFields()->getType());
+                    if (!$XMLitem->{$property}->children()) {
+                        $itemField = new ItemField();
+
+                        $itemField->setAllValues($XMLitem->{$property});
+                        $itemField->setListingfield($maprow->getListingFields());
+
+                        $itemField->setFieldName($maprow->getListingFields()->getCaption());
+                        $itemField->setFieldType($maprow->getListingFields()->getType());
+                    }
                     $listingFieldsType = $listingFields->getType();
+                    //if xml property has children then do each child
+
                     if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
 
                         $listValues = $maprow->getListingFields()->getListingFieldLists();
@@ -335,35 +340,31 @@ class ImportmappingController extends Controller {
                                 $itemField->setFieldIntegerValue($listingList->getId());
                             }
                         }
-                    }if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                        $url = $stringValue;
-                        //get etension//
+                    }
+                    if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
+                        if ($XMLitem->{$property}->children()) {
+                            foreach ($XMLitem->{$property}->children() as $key => $value) {
+                                $itemField = new ItemField();
 
-                        $filename = pathinfo($url, PATHINFO_BASENAME);
+                                $itemField->setAllValues($XMLitem->{$property});
+                                $itemField->setListingfield($maprow->getListingFields());
 
-                        if (!empty($url)) {
-                            $upload_url = $this->container->getParameter('upload_url');
-                            $upload_path = $this->container->getParameter('upload_path');
-
-                            $img = $upload_path . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
-                            $img_url = $upload_url . strtolower(str_replace(" ", "-", $feed->getSid()))."_".$filename;
-                            $img = str_replace(array(" ",'%'), "-", $img);
-                            $img_url = str_replace(array(" ",'%'), "-", $img_url);
-                            if(!file_exists($img)){
-                                                       
-                                file_put_contents($img, file_get_contents($url));                                
+                                $itemField->setFieldName($maprow->getListingFields()->getCaption());
+                                $itemField->setFieldType($maprow->getListingFields()->getType());
+                                
+                                $this->handleImage((string) $value, $feed->getId(), $itemField);
+                                $item->addItemField($itemField);
                             }
-                            $itemField->setAllValues($img_url);
+                        } else {
+                            $this->handleImage($stringValue, $feed->getId(), $itemField);
                         }
                     }
                     //echo $itemField->getFieldStringValue()."<br>";
+                    if (!$XMLitem->{$property}->children()) {
+                        $item->addItemField($itemField);
+                    }
                 }
-                
-                $item->addItemField($itemField);
-                
-                    
             }//end mapping foreach
-
             //dealer
             $dealer = $feed->getDefaultUser();
 
@@ -377,13 +378,39 @@ class ImportmappingController extends Controller {
 
                 $item->addItemField($dealerField);
             }
-            $createdItems[]=$item;
+            $createdItems[] = $item;
             $em->persist($item);
             $em->flush();
         }
         $time = time() - $time;
 //        echo $time . ":::" . count($items);
-        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items'=>$createdItems));
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
+    }
+
+    private function handleImage($stringValue, $feed_sid, &$itemField) {
+
+        $url = $stringValue;
+        //get etension//
+
+        $filename = pathinfo($url, PATHINFO_BASENAME);
+
+        if (!empty($url)) {
+            $upload_url = $this->container->getParameter('upload_url');
+            $upload_path = $this->container->getParameter('upload_path');
+            $dir = $upload_path."/".$feed_sid;
+            if(!file_exists($dir)){
+                mkdir($dir, 0777);
+            }
+            $img = $dir."/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
+            $img_url = $upload_url."/".$feed_sid."/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
+            $img = str_replace(array(" ", '%'), "-", $img);
+            $img_url = str_replace(array(" ", '%'), "-", $img_url);
+            if (!file_exists($img)) {
+
+                file_put_contents($img, file_get_contents($url));
+            }
+            $itemField->setAllValues($img_url);
+        }
     }
 
 }
