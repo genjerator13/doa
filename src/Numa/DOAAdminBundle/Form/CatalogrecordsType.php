@@ -17,6 +17,8 @@ class CatalogrecordsType extends AbstractType
         $builder
             ->add('name')
             ->add('url')
+            ->add('address')
+            
             ->add('description', 'genemu_tinymce',array('attr'=>array('class'=>'tinymce')))
             ->add('CatalogCategory');
         ;
