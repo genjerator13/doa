@@ -42,7 +42,7 @@ class itemController extends Controller {
                 break;
             case 4:
                 //rvs
-                return $this->render('NumaDOASiteBundle:Item:detailsRVs.html.twig', array('item' => $item));
+                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item));
                 break;
             default:
                 break;

@@ -104,7 +104,8 @@ class DefaultController extends Controller {
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('florPane', 'text', array('label' => 'Flor Pane'))
+                ->add('category_id', 'hidden', array('data' => 4))
+                ->add('florPane', 'text', array('label' => 'Flor Pane', "required" => false))
                 ->add('class', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
