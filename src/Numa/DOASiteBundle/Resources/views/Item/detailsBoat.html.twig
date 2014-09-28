@@ -1,10 +1,11 @@
+{% block title %}<title>Dealers on Air vhg</title>{% endblock title %}
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
 {% block content %}
     {% set images = item.getImages()%}
         {% set desc = item.getMake()~item.getModel()%}
             <div class="detailsContent">
-                <h3>{{item.getItemFieldByName('year')}} {{desc}} <span class="price">{{item.getItemFieldByName('Price')|number_format(0, '.',',')}} $</span></h3>
+                <h3>{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">{{item.getItemFieldByName('Price')|number_format(0, '.',',')}} $</span></h3>
                 <!-- Jssor Slider Begin -->
                 <!-- You can move inline styles to css file or css block. -->
                 <div id="slider1_container" style="position: relative; width: 666px;
@@ -209,6 +210,42 @@
                     {% block rightsidebar %}
                         <ul>
                             <li>
+                                <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                <div id="fb-root"></div>
+                                <script>(function(d, s, id) {
+                                        var js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id))
+                                            return;
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                    }(document, 'script', 'facebook-jssdk'));</script>
+                            </li>
+                            <li>
+                                <a class="twitter-share-button"
+                                   href="https://twitter.com/share"
+                                   data-via="dealersonair"
+                                   date-text="sss">
+                                    Tweet
+                                </a>
+                                <script type="text/javascript">
+                                    window.twttr = (function(d, s, id) {
+                                        var t, js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) {
+                                            return
+                                        }
+                                        js = d.createElement(s);
+                                        js.id = id;
+                                        js.src = "https://platform.twitter.com/widgets.js";
+                                        fjs.parentNode.insertBefore(js, fjs);
+                                        return window.twttr || (t = {_e: [], ready: function(f) {
+                                                t._e.push(f)
+                                            }})
+                                    }(document, "script", "twitter-wjs"));
+                                </script>
+                            </li>
+                            <li>
                                 <a href="#"><i class="glyphicon glyphicon-print"></i></a>
                                 <a href="#">Print This Ad</a>
                             </li>
@@ -261,7 +298,7 @@
                         {% endif %}
                         <script src="https://maps.googleapis.com/maps/api/js"></script>
                         <script>
-                            var geocoder = new google.maps.Geocoder();
+                                    var geocoder = new google.maps.Geocoder();
                             {% if (dealer is defined and dealer is not empty) %}
                                 var address = "{{dealer.address}}";
                             {% else %}
