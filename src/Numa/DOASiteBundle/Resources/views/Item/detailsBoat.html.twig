@@ -1,4 +1,4 @@
-{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
 {% block content %}
     {% set images = item.getImages()%}
@@ -30,7 +30,7 @@
                                 <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
                             </div>
                         {% endfor %}
-                        
+
                     </div>
 
                     <!-- Thumbnail Navigator Skin Begin -->
@@ -207,6 +207,44 @@
                 {% endblock %}
 
                     {% block rightsidebar %}
+                        <ul>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-print"></i></a>
+                                <a href="#">Print This Ad</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-qrcode"></i></a>
+                                <a href="#">QR Code</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-arrow-right"></i></a>
+                                <a href="#">Get Direction</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-euro"></i></a>
+                                <a href="#">Loan Calculator</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="glyphicon glyphicon-th-list"></i></a>
+                                <a href="#">Comparision Table</a>
+                            </li>
+
+
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Compare Ad
+                                    </label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Save Ad
+                                    </label>
+                                </div>
+                            </li>
+                        </ul>  
                         {% if (dealer is defined and dealer is not empty) %}
                             <h3>Dealer Info</h3>
                             {% if (dealer.logo is empty) %}

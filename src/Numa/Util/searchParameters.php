@@ -79,7 +79,7 @@ class searchParameters {
     public function dump() {
         foreach ($this->params as $key => $value) {
             if ($value instanceof SearchItem) {
-                echo $key . ":::::";
+                
                 $value->dump();
             }
         }
@@ -120,7 +120,7 @@ class searchParameters {
 
                     if (!$searchItem->isValueEmpty()) {
                         $type = $searchItem->getType();
-                        print_r($searchItem);
+                        
                         if ($type == 'text') {
                             $qb->andWhere('ifield.field_string_value LIKE :text');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");

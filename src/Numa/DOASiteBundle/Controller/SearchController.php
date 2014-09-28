@@ -32,8 +32,7 @@ class SearchController extends Controller {
         $number = intval($request->get('listings_per_page'));
 
         //create query        
-        $query = $this->searchParameters->createSearchQuery();
-        
+        $query = $this->searchParameters->createSearchQuery();        
         $param = $this->showItems($query, $page);
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
@@ -907,7 +906,7 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            \Doctrine\Common\Util\Debug::dump($query->getResult());
+            //\Doctrine\Common\Util\Debug::dump($query->getResult());
         }
         return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
