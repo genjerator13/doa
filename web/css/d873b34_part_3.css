@@ -1,0 +1,207 @@
+@import '../../css/gallery.css';
+@import '../../css/home.css';
+
+.left {
+    float: left;
+}
+form.search {
+    float: right;
+}
+
+#searchform form .form-group {
+    margin-bottom: 0px;
+}
+
+#searchform form .choice {
+    /*padding: 0px;
+    padding-right: 30px;*/
+}
+
+#searchform form .checkbox {
+    margin-top: 10px;
+    margin-bottom: 10px;   
+}
+
+.search-name {
+    min-width: 100px;
+    display: block;
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.container {
+    width: 1000px;
+    padding: 0;
+}
+/* spoonbou says ... */
+
+.searchResults{
+    font-size: 12px;
+}
+
+.searchResults .saved-search{
+    position: absolute;
+    top: 30px;
+    right: 0px;
+    width: 280px;
+}
+
+.searchResults .saved-search a{
+    margin-left: 10px;
+}
+ul.tmp{
+    margin-left: 222px;
+}
+.listingsNumber{
+    float: left;
+}
+.item-row {
+    background: #CFDBC5;
+    margin-bottom: 20px;
+}
+.middle_details{
+    float:left;
+}
+.middle_details h4{
+    display: block;
+    color: grey;
+}
+.middle_details ul{
+    list-style: none;
+    clear: both;
+}
+.middle_details ul a{
+    color: olive;
+}
+
+.middle_details img {
+    float: left;
+    border: red solid 1px;
+    display: block;
+}
+.shortDetails{
+    width: 300px;
+    float: left;
+}
+
+.main-details {
+    float: right;
+}
+.titles-details {
+    float: right;
+}
+.main-details ul li, .titles-details  ul li{
+    width: 70px;
+}
+
+.right_details ul{
+    list-style: none;
+}
+
+.right_details ul li{
+/*    display: inline;
+    margin-left: 42px;*/
+}
+
+
+.clearFloat{
+    clear: both;
+}
+
+/* Show Details */
+
+.detailsContent{
+    float: left;
+}
+
+.showAllPictures, .viewSlideShow{
+    margin-left: 88px;
+    float: left;
+}
+.techData{
+    max-width: 222px;
+    margin-left: 42px;
+    float: left;
+    list-style: none;
+    font-size: 13px;
+}
+.standardFeatures li{
+    font-size: 13px;
+}
+.detailsContent h4{
+    clear: both;
+}
+
+
+#map{
+    height: 400px;
+    width: 600px;
+
+}
+.comments {
+    font-size: 12px;
+
+}
+.comments p{
+    display: inline;
+}
+.comments a{
+    display: inline;
+    text-decoration: underline;
+}
+
+.header-image {
+    background: url('/images/header_1.png') 100% bottom no-repeat #ffffff;
+    width: 1000px;
+    height: 160px;
+    padding: 0;
+    margin-left: 15px;
+}
+
+.header-image .logo{
+    background: url('/images/logo.png') no-repeat;
+    width: 350px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.navbar{
+    margin-bottom: 0;
+}
+
+.techData .fieldCaption {
+    width: 100px;
+}
+.techData .fieldValue {
+    font-weight: bold;
+}
+
+div.searchResults div.picture-detail {
+    float: left;
+    padding: 10px;
+    height: 130px;
+
+}
+
+.price {
+    color: #e38d13;
+}
+.sort{
+    margin-left: 20px;
+}
+.sort a{
+    padding: 10px;
+}
+
+select#numberoflisting {
+    margin-left: 10px;
+}
