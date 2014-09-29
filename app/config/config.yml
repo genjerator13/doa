@@ -119,9 +119,14 @@ liip_imagine:
         item_detail_image:
             quality: 100
             filters:
-                thumbnail: { size: [500, 260], mode: outbound }                
+                thumbnail: { size: [666, 480], mode: outbound }                
 parameters:
     upload_url: /upload/itemsimages/
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
-gregwar_image: ~                
+gregwar_image: ~  
+endroid_qr_code:
+    size: 100
+    padding: 10
+    extension: gif
+    error_correction_level: high
                 

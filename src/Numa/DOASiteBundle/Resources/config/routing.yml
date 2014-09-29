@@ -50,9 +50,15 @@ item_savead:
 item_compare:
     path:     /item/compare
     defaults: { _controller: NumaDOASiteBundle:Item:compare }
+item_qrcode:
+    path:     /item/qrcode
+    defaults: { _controller: NumaDOASiteBundle:Item:qrcode }    
 item_details:
     path:     /details/{itemId}/{description}
-    defaults: { _controller: NumaDOASiteBundle:Item:details }     
+    defaults: { _controller: NumaDOASiteBundle:Item:details }  
+item_print_details:
+    path:     /printdetails/{itemId}/{description}
+    defaults: { _controller: NumaDOASiteBundle:Item:details } 
 search_sellers:
     path:     /seller/search
     defaults: { _controller: NumaDOASiteBundle:Seller:search } 

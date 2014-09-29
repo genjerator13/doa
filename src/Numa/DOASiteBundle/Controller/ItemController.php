@@ -12,6 +12,13 @@ class itemController extends Controller {
     public function detailsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $itemId = $request->get('itemId');
+        $request = $this->container->get('request');
+        $routeName = $request->get('_route');
+        $print = false;
+        if ($routeName=='item_print_details'){
+            $print = true;
+        }
+        
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
         //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
         //
@@ -27,6 +34,8 @@ class itemController extends Controller {
             $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         }
         
+        return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print));
+        /*
         switch ($item->getCategoryId()) {
             case 1:
                 //car
@@ -42,11 +51,14 @@ class itemController extends Controller {
                 break;
             case 4:
                 //rvs
-                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer));
+                
                 break;
             default:
                 break;
         }
+         * *
+         *
+         */
     }
 
     public function saveadAction(Request $request) {
@@ -56,7 +68,7 @@ class itemController extends Controller {
         $act = $request->get('act');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);
         $ret = array();
-        if ($item instanceof \Numa\DOAAdminBundle\Entity\Item) {
+        if ($item instanceof \Numa\DOAAdminBundle\Entity\Item && $user instanceof Numa\DOAAdminBundle\Entity\User) {
 
             $userItem = $em->getRepository('NumaDOAAdminBundle:UserItem')
                     ->findOneBy(array('User' => $user,
@@ -150,6 +162,16 @@ class itemController extends Controller {
         $comparedItemsArray = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('id' => $comparedItems));
 
         return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $fields, 'items' => $comparedItemsArray));
+    }
+    
+    public function qrcodeAction(Request $request){
+        $link = $request->get('link');
+        return $this->redirect($this->generateUrl('endroid_qrcode', array(
+'text' => $link,
+'extension' => 'png',
+'size' => 500
+)));
+        
     }
 
 }
