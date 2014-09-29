@@ -29,4 +29,7 @@ $(".compareAd").on("click", function() {
     })
 
 });
-
+/*
+ * 
+ * 
+ */
