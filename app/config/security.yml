@@ -2,7 +2,8 @@ security:
     access_denied_url: /error/403
     role_hierarchy:
         ROLE_USER:       ROLE_USER
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        ROLE_BUSINES:    ROLE_BUSINES
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES]
  
     firewalls:
         dev:
@@ -21,11 +22,19 @@ security:
                 target: /
  
     access_control:
+        - { path: ^/admin/items/*, roles: [ROLE_ADMIN, ROLE_BUSINES] }
+        #- { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES] }        
         - { path: ^/admin, roles: ROLE_ADMIN }
  
     providers:
+        chain_provider:
+            chain:
+                providers: [main, busines]
         main:
             entity: { class: Numa\DOAAdminBundle\Entity\User, property: email }
+        busines:
+            entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords, property: email }
  
     encoders:
         Numa\DOAAdminBundle\Entity\User: sha512
+        Numa\DOAAdminBundle\Entity\Catalogrecords: sha512

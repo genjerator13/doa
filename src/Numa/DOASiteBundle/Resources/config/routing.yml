@@ -4,7 +4,7 @@ homepage:
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{model}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
-search_by_dealer:
+browse_by_dealer:
     path:  /browse_by_dealer/{dealerid}/{dealername}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByDealer, _locale: en }      
 homepage_categories:

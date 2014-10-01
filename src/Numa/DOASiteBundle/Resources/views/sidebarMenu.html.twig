@@ -1,17 +1,24 @@
 <div class="list-group">
-    {% if not is_granted('ROLE_USER') %}
+    {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
         <a class="list-group-item" href="{{path('buyer_login')}}"> Sign In | Register </a>
     {% else %}
-        <a class="list-group-item" href="{{path('logout')}}"> Logout </a>
+        <a class="list-group-item" href="{{path('logout')}}"> Log Out </a>
     {%endif %}
+
     <a class="list-group-item" href="{{path('homepage_categories')}}">Business Directory</a>
     <a class="list-group-item" href="{{path('search_sellers')}}">Search Sellers</a>
-    {% if is_granted('ROLE_USER') %}
+    {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
         <span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span>
+    {% endif %}
+    {% if is_granted('ROLE_BUSINES') %}
+        <a class="list-group-item" href="{{path('homepage_categories')}}">Add new listing</a>
+        <a class="list-group-item" href="{{path('homepage_categories')}}">Supscriptions</a>
+        <a class="list-group-item" href="{{ path('browse_by_dealer',{'dealerid': app.user.id,'dealername': app.user.username}) }}">My listings</a>
+        <a class="list-group-item" href="{{path('homepage_categories')}}">My profile</a>
     {% endif %}
     <a class="list-group-item" href="{{path('buyer_saved_ads')}}">Saved Listings <span class="savedAds"></span></a>
     <a class="list-group-item" href="{{path('buyer_saved_searches')}}">Saved Searches <span class="savedSearch"></span></a>
-    {% if is_granted('ROLE_USER') %}
+        {% if is_granted('ROLE_USER') %}
         <a class="list-group-item" href="{{path('profile')}}">My profile</a>
     {% endif %}
 </div>

@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Listeners;
 
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
@@ -18,48 +19,53 @@ class EntityListener {
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        
+        print_r(get_class($entity));
         //before save Item
         if ($entity instanceof Item) {
             $user = $this->container->get('security.context')->getToken()->getUser();
             $entity->setUser($user);
-        //before save Item Field
+            //before save Item Field
         } elseif ($entity instanceof ItemField) {
-            if($entity->getFieldType()=='list'){                
+            if ($entity->getFieldType() == 'list') {
                 $value = $entityManager->getRepository('NumaDOAAdminBundle:ListingfieldLists')->getListingValueById($entity->getFieldIntegerValue());
-                if(!empty($value)){
-                   $entity->setFieldStringValue($value);                
+                if (!empty($value)) {
+                    $entity->setFieldStringValue($value);
                 }
             }
-        } elseif ($entity instanceof User) {
-            $factory = $this->container->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($entity);
-            $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-            echo $entity->getPassword()."::::".$encodedPassword;
-            $entity->setPassword($encodedPassword);
+        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+            $this->setPassword($entity);
+        }
+    }
+
+    private function setPassword(&$entity) {
+        $factory = $this->container->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($entity);
+        $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
+        echo $entity->getPassword() . "::::" . $encodedPassword;
+        $entity->setPassword($encodedPassword);
+    }
+    public function preUpdate(PreUpdateEventArgs $args) {
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+            $this->setPassword($entity);
+            $args->setNewValue('password', $entity->getPassword());
+        }
+    }
+    public function postUpdate(LifecycleEventArgs $args) {
+        $entity = $args->getEntity();
+        
+        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+            $this->setPassword($entity);die('11111');
             
         }
     }
 
-    public function preUpdate(LifecycleEventArgs $args) {
-        /*
+    public function postLoad(LifecycleEventArgs $args) {
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        if ($entity instanceof User) {
-            $factory = $this->container->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($entity);
 
-            $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-            $entity->setPassword($encodedPassword);
-        }
-         * *
-         */
-    }
-    
-    public function postLoad(LifecycleEventArgs $args) {
-                $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
-        die("aaaaa");
     }
 
 }

@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
- * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date" ,groupBy="id")
+ * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 
@@ -89,11 +89,13 @@ class Item {
 
     /**
      * @var \DateTime
+     * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
      */
     private $date_created;
 
     /**
      * @var \DateTime
+     * 
      */
     private $date_updated;
 
@@ -659,6 +661,19 @@ class Item {
             }
         }
     }
+    public function getImage($num=0){
+        $images = $this->getImages();
+        //      
+        if(!empty($images)){
+            $val = array_values($images);
+            unset($val[0]['object']);
+            $ret =  array('image'=>$val[0]);
+            //\Doctrine\Common\Util\Debug::dump($ret);//die();  
+            return $ret;
+            
+        }
+        return false;
+    }
     public function getImages() {
         $this->getItemFieldsArray();
 
@@ -666,6 +681,15 @@ class Item {
             return $this->ItemFieldArray['image list'];
         }
         return array();
+    }
+    
+    public function getCountImages(){
+        $this->getItemFieldsArray();
+
+        if (!empty($this->ItemFieldArray['image list'])) {
+            return count($this->ItemFieldArray['image list']);
+        }
+        return 0;
     }
 
     public function getModel() {
@@ -689,9 +713,17 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        $name = strtolower($name);
-
+        
+        
+        if(property_exists(get_class($this), $name)){
+            $name = strtolower($name);
+            return $this->$name;
+        }elseif($name=='image'){
+            return $this->getImage();
+        }
+        
         if (!empty($this->ItemFieldArray[$name])) {
+
             return $this->ItemFieldArray[$name]['stringvalue'];
         };
         return "";
@@ -725,20 +757,27 @@ class Item {
      * @return Item
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
-        $this->Importfeed = $importfeed;
-        $isFeatured = $importfeed->getMakeFeatured();
+        if(!empty($importfeed)){
+            $this->Importfeed = $importfeed;
+            $isFeatured = $importfeed->getMakeFeatured();
+            $isActivated = $importfeed->getActivateListing();
+            $isHighlighted = $importfeed->getMakeHighlighted();
+            $isExpired = $importfeed->getExpirationAfter();
+            $dealer = $importfeed->getDefaultUser();
+        }
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
-        $isActivated = $importfeed->getActivateListing();
+        
         if (!empty($isActivated)) {
             $this->setActive(true);
+            $this->setActivationDate(new \DateTime());
         }
-        $isHighlighted = $importfeed->getMakeHighlighted();
+        
         if (!empty($isHighlighted)) {
             $this->setFeatureHighlighted(true);
         }
-        $isExpired = $importfeed->getExpirationAfter();
+        
         if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
             $isDateCreated = $this->getDateCreated();
@@ -752,7 +791,7 @@ class Item {
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
 
-        $dealer = $importfeed->getDefaultUser();
+        
 
         if (!empty($dealer)) {
             $itemField = new ItemField();
@@ -820,21 +859,7 @@ class Item {
     public function __toString() {
         return "test";
     }
-    public $dealer;
-    public function getDealer($id) {
-        if (empty($this->dealer)) {
-            global $kernel;
-
-            if ('AppCache' == get_class($kernel)) {
-                $kernel = $kernel->getKernel();
-            }
-
-                $em = $kernel->getContainer()->get( 'doctrine.orm.entity_manager' );
-                $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($id);
-                $this->dealer = $dealer;
-        }
-        return $this->dealer;
-    }
+    
 
     /**
      * @var \Doctrine\Common\Collections\Collection

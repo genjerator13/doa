@@ -169,8 +169,8 @@ class CatalogrecordsController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            
             $em->flush();
-
             return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
         }
 

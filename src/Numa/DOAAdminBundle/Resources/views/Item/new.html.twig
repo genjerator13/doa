@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends is_granted('ROLE_BUSINES')
+    ? 'NumaDOASiteBundle::home-layout.html.twig' 
+    : 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
     <h1>Add {{ entity.category }}</h1>

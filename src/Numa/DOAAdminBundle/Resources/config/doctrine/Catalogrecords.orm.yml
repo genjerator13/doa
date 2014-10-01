@@ -51,6 +51,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        password:
+            type: string
+            length: 255
+            nullable: true
         
     manyToOne:
         CatalogCategory:

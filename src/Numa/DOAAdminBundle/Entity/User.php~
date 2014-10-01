@@ -914,6 +914,7 @@ class User implements UserInterface {
         }elseif($groupName=='regular_user'){
             return array('ROLE_USER');
         }
+        return array('ROLE_USER');
     }
 
     public function getSalt() {

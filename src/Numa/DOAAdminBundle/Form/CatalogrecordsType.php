@@ -17,10 +17,14 @@ class CatalogrecordsType extends AbstractType
         $builder
             ->add('name')
             ->add('url')
+            ->add('email')
             ->add('address')
             
             ->add('description', 'genemu_tinymce',array('attr'=>array('class'=>'tinymce')))
-            ->add('CatalogCategory');
+            ->add('CatalogCategory')
+            ->add('logo','file',array('required'=>false))
+            ->add('logo_url','text',array('required'=>false))
+            ->add('password','password',array('required'=>false))
         ;
     }
     

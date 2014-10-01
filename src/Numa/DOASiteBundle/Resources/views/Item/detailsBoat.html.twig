@@ -229,7 +229,7 @@
                             <p>{{dealer.location}}</p>
                             <p>{{dealer.url}}</p>
                             <p>Send <a href="mailto:{{dealer.email}}" >email</a>
-                            <p><a style="" href="{{ path('search_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
+                            <p><a style="" href="{{ path('browse_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
 
                         {% endif %}
                         <script src="https://maps.googleapis.com/maps/api/js"></script>
