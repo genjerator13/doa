@@ -350,4 +350,32 @@ class HomeTab
     {
         $this->updated_at = new \DateTime();
     }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Category
+     */
+    private $Category;
+
+
+    /**
+     * Set Category
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Category $category
+     * @return HomeTab
+     */
+    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null)
+    {
+        $this->Category = $category;
+    
+        return $this;
+    }
+
+    /**
+     * Get Category
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Category 
+     */
+    public function getCategory()
+    {
+        return $this->Category;
+    }
 }

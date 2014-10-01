@@ -926,7 +926,7 @@ class User implements UserInterface {
     }
 
     public function equals(User $user) {
-        return $user->getUsername() == $this->getUsername();
+        return $user->getEmail() == $this->getEmail();
     }
 
     /**
@@ -992,7 +992,6 @@ class User implements UserInterface {
     
     public function __sleep(){
 	   return array('id', 'username', 'email');
-
     }
 
     /**

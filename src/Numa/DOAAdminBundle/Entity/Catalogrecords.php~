@@ -1,14 +1,15 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Catalogrecords
  */
-class Catalogrecords
-{
+class Catalogrecords implements UserInterface {
+
     /**
      * @var integer
      */
@@ -34,14 +35,12 @@ class Catalogrecords
      */
     private $CatalogCategory;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -51,10 +50,9 @@ class Catalogrecords
      * @param string $name
      * @return Catalogrecords
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -63,8 +61,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -74,10 +71,9 @@ class Catalogrecords
      * @param string $url
      * @return Catalogrecords
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
-    
+
         return $this;
     }
 
@@ -86,8 +82,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -97,10 +92,9 @@ class Catalogrecords
      * @param integer $categoryId
      * @return Catalogrecords
      */
-    public function setCategoryId($categoryId)
-    {
+    public function setCategoryId($categoryId) {
         $this->category_id = $categoryId;
-    
+
         return $this;
     }
 
@@ -109,8 +103,7 @@ class Catalogrecords
      *
      * @return integer 
      */
-    public function getCategoryId()
-    {
+    public function getCategoryId() {
         return $this->category_id;
     }
 
@@ -120,10 +113,9 @@ class Catalogrecords
      * @param \Numa\DOAAdminBundle\Entity\Catalogcategory $catalogCategory
      * @return Catalogrecords
      */
-    public function setCatalogCategory(\Numa\DOAAdminBundle\Entity\Catalogcategory $catalogCategory = null)
-    {
+    public function setCatalogCategory(\Numa\DOAAdminBundle\Entity\Catalogcategory $catalogCategory = null) {
         $this->CatalogCategory = $catalogCategory;
-    
+
         return $this;
     }
 
@@ -132,30 +124,28 @@ class Catalogrecords
      *
      * @return \Numa\DOAAdminBundle\Entity\Catalogcategory 
      */
-    public function getCatalogCategory()
-    {
+    public function getCatalogCategory() {
         return $this->CatalogCategory;
     }
+
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue()
-    {
+    public function setCreatedAtValue() {
         // Add your code here
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue()
-    {
+    public function setUpdatedAtValue() {
         // Add your code here
     }
+
     /**
      * @var string
      */
     private $description;
-
 
     /**
      * Set description
@@ -163,10 +153,9 @@ class Catalogrecords
      * @param string $description
      * @return Catalogrecords
      */
-    public function setDescription($description)
-    {
+    public function setDescription($description) {
         $this->description = $description;
-    
+
         return $this;
     }
 
@@ -175,10 +164,10 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
+
     /**
      * @var string
      */
@@ -204,17 +193,15 @@ class Catalogrecords
      */
     private $full;
 
-
     /**
      * Set address
      *
      * @param string $address
      * @return Catalogrecords
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-    
+
         return $this;
     }
 
@@ -223,8 +210,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -234,10 +220,9 @@ class Catalogrecords
      * @param string $phone
      * @return Catalogrecords
      */
-    public function setPhone($phone)
-    {
+    public function setPhone($phone) {
         $this->phone = $phone;
-    
+
         return $this;
     }
 
@@ -246,8 +231,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getPhone()
-    {
+    public function getPhone() {
         return $this->phone;
     }
 
@@ -257,10 +241,9 @@ class Catalogrecords
      * @param string $location
      * @return Catalogrecords
      */
-    public function setLocation($location)
-    {
+    public function setLocation($location) {
         $this->location = $location;
-    
+
         return $this;
     }
 
@@ -269,8 +252,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getLocation()
-    {
+    public function getLocation() {
         return $this->location;
     }
 
@@ -280,10 +262,9 @@ class Catalogrecords
      * @param string $email
      * @return Catalogrecords
      */
-    public function setEmail($email)
-    {
+    public function setEmail($email) {
         $this->email = $email;
-    
+
         return $this;
     }
 
@@ -292,8 +273,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return $this->email;
     }
 
@@ -303,10 +283,9 @@ class Catalogrecords
      * @param string $full
      * @return Catalogrecords
      */
-    public function setFull($full)
-    {
+    public function setFull($full) {
         $this->full = $full;
-    
+
         return $this;
     }
 
@@ -315,15 +294,14 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getFull()
-    {
+    public function getFull() {
         return $this->full;
     }
+
     /**
      * @var string
      */
     private $fax;
-
 
     /**
      * Set fax
@@ -331,10 +309,9 @@ class Catalogrecords
      * @param string $fax
      * @return Catalogrecords
      */
-    public function setFax($fax)
-    {
+    public function setFax($fax) {
         $this->fax = $fax;
-    
+
         return $this;
     }
 
@@ -343,14 +320,14 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getFax()
-    {
+    public function getFax() {
         return $this->fax;
     }
-    
+
     public function __toString() {
         return $this->getName();
     }
+
     /**
      * @var string
      */
@@ -361,17 +338,15 @@ class Catalogrecords
      */
     private $logo_url;
 
-
     /**
      * Set logo
      *
      * @param string $logo
      * @return Catalogrecords
      */
-    public function setLogo($logo)
-    {
+    public function setLogo($logo) {
         $this->logo = $logo;
-    
+
         return $this;
     }
 
@@ -380,8 +355,7 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getLogo()
-    {
+    public function getLogo() {
         return $this->logo;
     }
 
@@ -391,10 +365,9 @@ class Catalogrecords
      * @param string $logoUrl
      * @return Catalogrecords
      */
-    public function setLogoUrl($logoUrl)
-    {
+    public function setLogoUrl($logoUrl) {
         $this->logo_url = $logoUrl;
-    
+
         return $this;
     }
 
@@ -403,8 +376,64 @@ class Catalogrecords
      *
      * @return string 
      */
-    public function getLogoUrl()
-    {
+    public function getLogoUrl() {
         return $this->logo_url;
+    }
+
+    /**
+     * @var string
+     */
+    private $password;
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return Catalogrecords
+     */
+    public function setPassword($password) {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string 
+     */
+    public function getPassword() {
+        return $this->password;
+    }
+
+
+    public function getRoles() {
+        
+        return array('ROLE_BUSINES');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function equals(User $user) {
+        return $user->getEmail() == $this->getEmail();
+    }
+    
+        /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername() {
+        return $this->name;
+    }
+    
+    public function __sleep(){
+	   return array('id', 'name', 'email');
     }
 }

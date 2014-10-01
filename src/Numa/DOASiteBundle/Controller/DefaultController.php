@@ -13,8 +13,10 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
         $tabs = array();
+        
         foreach ($hometabs as $tab) {
-            $tabs[$tab->getCategoryName()][] = $tab;
+            $cat = $tab->getCategoryName();
+            $tabs[$cat][] = $tab;
         }
         
         //print_r($tabs);
