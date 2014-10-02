@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class itemController extends Controller {
+class ItemController extends Controller {
 
     public function detailsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -116,6 +116,7 @@ class itemController extends Controller {
         if ($act == 'removeall') {
             $session->remove('comparedItem');
         }
+        
         if ($item instanceof \Numa\DOAAdminBundle\Entity\Item) {
 
             if (empty($comparedItems)) {
@@ -128,7 +129,9 @@ class itemController extends Controller {
                 unset($comparedItems[$itemid]);
             }
             $session->set('comparedItem', $comparedItems);
+            
         }
+
         if ($request->isXmlHttpRequest()) {
             $ret = array('comparedItes' => count($comparedItems));
             $response = new Response(json_encode($ret));

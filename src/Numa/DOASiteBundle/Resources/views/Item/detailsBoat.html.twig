@@ -94,7 +94,7 @@
                 {% endblock %}
 
                     {% block rightsidebar %}
-                        <ul class="item-row" data="{{item.id}}">
+                        <ul class="item-row" data="{{item.id}}" url="{{path('item_compare')}}">
                             <li>
                                 <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                 <div id="fb-root"></div>
@@ -159,7 +159,7 @@
                                 <li>
                                     <div class="checkbox-inline">
                                         <label>
-                                            <input type="checkbox" class="compareAd"> Compare Ad
+                                            <input type="checkbox" class="compareAd" > Compare Ad
                                         </label>
                                     </div>
                                 </li>
@@ -326,8 +326,42 @@
                                     //responsive code end
                                 });
                             </script>
-                            {% javascripts '@NumaDOASiteBundle/Resources/Public/js/savecomparead.js' %}
+                            {#{% javascripts '@savecompared_js' %}
                             <script type="text/javascript" src="{{ asset_url }}"></script>
-                            {% endjavascripts %}
+                            {% endjavascripts %}#}
+                         <script>
+$(".saveAd").on("click", function() {
+    var itemId = $(this).closest('.item-row').attr("data");
+    console.log(itemId);
+    var act = "add";
+    if (!$(this).prop('checked')) {
+        act = "remove";
+    }
+    var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
+        htmlx = "";
+        if (data.savedAds > 0) {
+            htmlx = "(" + data.savedAds + ")";
+        }
+        $('.savedAds').html(htmlx);
+    })
 
+});
+$(".compareAd").on("click", function() {
+    var itemId = $(this).closest('.item-row').attr("data");
+    var url = $(this).closest('.item-row').attr("url");
+ 
+    var act = "add";
+    if (!$(this).prop('checked')) {
+        act = "remove";
+    }
+    var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
+        htmlx = "";
+        if (data.comparedItes > 0) {
+            htmlx = "(" + data.comparedItes + ")";
+        }
+        $('.savedAds').html(htmlx);
+    })
+
+});
+</script>
                             {% endblock %}

@@ -1,7 +1,7 @@
 {% block content %}
     {% set images = item.getImages()%}
         {% set desc = item.getMake()~item.getModel()%}
-            <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row">    
+            <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row" url="{{path('item_compare')}}">    
                 <div class="col-md-12">
                     <div class="picture-detail">
                         <a href="#">
