@@ -40,9 +40,12 @@ class EntityListener {
     private function setPassword(&$entity) {
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($entity);
-        $encodedPassword = $encoder->encodePassword($entity->getPassword(), $entity->getSalt());
-        echo $entity->getPassword() . "::::" . $encodedPassword;
-        $entity->setPassword($encodedPassword);
+        $plainPassword = $entity->getPassword();
+        $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+        echo $plainPassword . "::::" . $encodedPassword;
+        if(!empty($plainPassword)){
+            $entity->setPassword($encodedPassword);
+        }
     }
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();

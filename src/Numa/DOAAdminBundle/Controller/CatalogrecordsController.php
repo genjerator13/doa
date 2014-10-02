@@ -17,13 +17,16 @@ class CatalogrecordsController extends Controller {
      * Lists all Catalogrecords entities.
      *
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
+        $uploadForm = $this->createImportCSVForm();
+
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:index.html.twig', array(
                     'entities' => $entities,
+                    'uploadForm' => $uploadForm->createView(),
         ));
     }
 
@@ -64,6 +67,24 @@ class CatalogrecordsController extends Controller {
         ));
 
         $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn',)));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createImportCSVForm() {
+        $data = array();
+        $form = $this->createFormBuilder($data)
+                ->setAction($this->generateUrl('catalog_import_csv'))
+                ->add('upload', 'file', array('label' => 'CSV File to Submit'))
+                ->add('ImportCSV', 'submit', array('label' => 'Import CSV'))
+                ->getForm();
 
         return $form;
     }
@@ -110,7 +131,7 @@ class CatalogrecordsController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
         $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('ROLE_BUSINES') && $this->getUser()->getId()!=$id) {
+        if ($securityContext->isGranted('ROLE_BUSINES') && $this->getUser()->getId() != $id) {
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
         if (!$entity) {
@@ -190,7 +211,7 @@ class CatalogrecordsController extends Controller {
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
             }
-
+            
             $em->remove($entity);
             $em->flush();
         }
@@ -212,6 +233,77 @@ class CatalogrecordsController extends Controller {
                         ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger left',)))
                         ->getForm()
         ;
+    }
+
+    public function proccessImportCSVAction(Request $request) {
+        // Check if we are posting stuff
+        $uploadForm = $this->createImportCSVForm();
+        $uploadForm->handleRequest($request);
+
+        if ($uploadForm->isValid()) {
+            // If form is valid
+            // Get file
+            $file = $request->files->get('form');
+            $fileUpload = $file['upload'];
+            $res = array();
+            if ($fileUpload->getMimeType() == 'text/plain' &&
+                    (strtolower(($fileUpload->guessExtension()) == 'csv' || strtolower($fileUpload->guessExtension()) == 'txt'))) {
+                $file = $fileUpload->move($this->container->getParameter('upload_tmp'), $fileUpload->getClientOriginalName());
+                print_r(get_class($file));
+                if (($handle = fopen($file->getRealPath(), "r")) !== FALSE) {
+                    $rowCount = 0;
+
+                    while (($row = fgetcsv($handle)) !== FALSE) {
+                        //var_dump($row); // process the row.
+                        if ($rowCount > 0) {
+                            foreach ($header as $key => $value) {
+                                $tmp[$value] = $row[$key];
+                            }
+                            $res[] = $tmp;
+                        } else {
+                            $header = $row;
+                        }
+                        $rowCount++;
+                    }
+                }
+            } else {
+                
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $updated =0;
+            $new =0;
+            foreach ($res as $key => $row) {
+                $fields = Catalogrecords::$maping;
+                $newDealer = new Catalogrecords();
+                foreach ($fields as $key => $fieldDB) {
+                    $fn = 'set' . $fieldDB;
+                    var_dump($fn);
+                    if(is_callable(array($newDealer,$fn)) && !empty($row[$key])){
+                        $newDealer->$fn($row[$key]);
+                    }
+                }
+                if($newDealer->getEmail()){
+                    $existing = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('email'=>$newDealer->getEmail()));
+                    if(!empty($existing)){
+                        $existing = $newDealer;
+                        $updated++;
+                    }else{
+                        $new++;
+                        $em->persist($newDealer);
+                    }
+                }else{
+                    $this->addFlash('warning', 'CSV not correct format(no email in fields)');
+                    return $this->redirectToRoute('catalogs');
+                }
+            }
+
+            $em->flush();
+
+           
+        }
+        $this->addFlash('success', 'CSV imported: '.$updated.' :updated   '.$new.' :new');
+        return $this->redirectToRoute('catalogs');
     }
 
 }

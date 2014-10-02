@@ -28,3 +28,7 @@ catalogs_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:delete" }
     requirements: { _method: post|delete }
+catalog_import_csv:
+    pattern:  /proccessCSV
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:proccessImportCSV" }
+    requirements: { _method: post }

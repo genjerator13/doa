@@ -1,45 +1,60 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
-{% block content %}
-    <h1>Catalogrecords list</h1>
 
+{% block content %}
+    <h1>Business Catalog</h1>
+    
+    {{ form_start(uploadForm) }}
+    {{ form_errors(uploadForm) }}
+    <div class="file-upload">
+        {{ form_row(uploadForm.upload) }}
+    </div>
+
+{{ form_end(uploadForm) }}
+{% for label, flashes in app.session.flashbag.all %}
+    {% for flash in flashes %}
+        <div class="alert alert-{{ label }}">
+            {{ flash }}
+        </div>
+    {% endfor %}
+{% endfor %}
     <table class="records_list table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>Url</th>
-                <th>Category_id</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.name }}</td>
-                <td>{{ entity.url }}</td>
-                <td>{{ entity.categoryid }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('catalogs_show', { 'id': entity.id }) }}" class="btn">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn">edit</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.name }}</td>
+                    <td>{{ entity.url }}</td>
+                    <td>{{ entity.catalogcategory }}</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ path('catalogs_show', { 'id': entity.id }) }}" class="btn btn-primary">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                            </li>
+                            
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

@@ -1,11 +1,5 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-
-
 {% block content %}
-                                    <h1>Item list</h1>
-
-    {{grid(grid, 'NumaDOAAdminBundle:Twig:AdminGrid.html.twig', '', {'imgDir': 'img/'})}}
-
-
-
-    {% endblock %}
+<h1>Item list</h1>
+{{grid(grid, 'NumaDOAAdminBundle:Twig:AdminGrid.html.twig', '', {'imgDir': 'img/'})}}
+{% endblock %}

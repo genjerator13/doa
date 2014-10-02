@@ -55,7 +55,42 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
-        
+        contact:
+            type: string
+            length: 255
+            nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+        address2:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true  
+        zip:
+            type: string
+            length: 255
+            nullable: true
+        state:
+            type: string
+            length: 255
+            nullable: true
+        ShowRoomHours:
+            type: text
+            nulable: true
+        ServiceHours:
+            type: text
+            nulable: true
+        PartsHours:
+            type: text
+            nulable: true            
+        AdminHours:
+            type: text
+            nulable: true    
+
     manyToOne:
         CatalogCategory:
             targetEntity: Catalogcategory

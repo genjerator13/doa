@@ -34,7 +34,28 @@ class Catalogrecords implements UserInterface {
      * @var \Numa\DOAAdminBundle\Entity\Catalogcategory
      */
     private $CatalogCategory;
-
+    /**
+     *
+     * @var array (field_from csv => field from DB)
+     */
+    public static $maping = array(
+            'DealerID' => 'DealerId',
+            'DealerName' => 'Name',
+            'Address1' => 'Address',
+            'Address2' => 'Address2',
+            'City' => 'City',
+            'State' => 'State',
+            'Zip' => 'Zip',
+            'Phone' => 'Phone',
+            'Fax' => 'Fax',
+            'Email' => 'Email',
+            'DealerContact' => 'Contact',
+            'DealerWebsite' => 'Url',
+            'ShowRoomHours' => 'ShowRoomHours',
+            'ServiceHours' => 'ServiceHours',
+            'PartsHours' => 'PartsHours',
+            'AdminHours' => 'AdminHours'
+);
     /**
      * Get id
      *
@@ -435,5 +456,285 @@ class Catalogrecords implements UserInterface {
     
     public function __sleep(){
 	   return array('id', 'name', 'email');
+    }
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var string
+     */
+    private $address2;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $zip;
+
+    /**
+     * @var string
+     */
+    private $state;
+
+    /**
+     * @var string
+     */
+    private $ShowRoomHours;
+
+    /**
+     * @var string
+     */
+    private $ServiceHours;
+
+    /**
+     * @var string
+     */
+    private $PartsHours;
+
+    /**
+     * @var string
+     */
+    private $AdminHours;
+
+
+    /**
+     * Set dealer_id
+     *
+     * @param integer $dealerId
+     * @return Catalogrecords
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+    
+        return $this;
+    }
+
+    /**
+     * Get dealer_id
+     *
+     * @return integer 
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     * @return Catalogrecords
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+    
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string 
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Catalogrecords
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set zip
+     *
+     * @param string $zip
+     * @return Catalogrecords
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+    
+        return $this;
+    }
+
+    /**
+     * Get zip
+     *
+     * @return string 
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * Set state
+     *
+     * @param string $state
+     * @return Catalogrecords
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return string 
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set ShowRoomHours
+     *
+     * @param string $showRoomHours
+     * @return Catalogrecords
+     */
+    public function setShowRoomHours($showRoomHours)
+    {
+        $this->ShowRoomHours = $showRoomHours;
+    
+        return $this;
+    }
+
+    /**
+     * Get ShowRoomHours
+     *
+     * @return string 
+     */
+    public function getShowRoomHours()
+    {
+        return $this->ShowRoomHours;
+    }
+
+    /**
+     * Set ServiceHours
+     *
+     * @param string $serviceHours
+     * @return Catalogrecords
+     */
+    public function setServiceHours($serviceHours)
+    {
+        $this->ServiceHours = $serviceHours;
+    
+        return $this;
+    }
+
+    /**
+     * Get ServiceHours
+     *
+     * @return string 
+     */
+    public function getServiceHours()
+    {
+        return $this->ServiceHours;
+    }
+
+    /**
+     * Set PartsHours
+     *
+     * @param string $partsHours
+     * @return Catalogrecords
+     */
+    public function setPartsHours($partsHours)
+    {
+        $this->PartsHours = $partsHours;
+    
+        return $this;
+    }
+
+    /**
+     * Get PartsHours
+     *
+     * @return string 
+     */
+    public function getPartsHours()
+    {
+        return $this->PartsHours;
+    }
+
+    /**
+     * Set AdminHours
+     *
+     * @param string $adminHours
+     * @return Catalogrecords
+     */
+    public function setAdminHours($adminHours)
+    {
+        $this->AdminHours = $adminHours;
+    
+        return $this;
+    }
+
+    /**
+     * Get AdminHours
+     *
+     * @return string 
+     */
+    public function getAdminHours()
+    {
+        return $this->AdminHours;
+    }
+    /**
+     * @var string
+     */
+    private $contact;
+
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     * @return Catalogrecords
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+    
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string 
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }

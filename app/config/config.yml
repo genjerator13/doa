@@ -121,12 +121,27 @@ liip_imagine:
             filters:
                 thumbnail: { size: [666, 480], mode: outbound }                
 parameters:
-    upload_url: /upload/itemsimages/
+    upload_url: /upload/itemsimages
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
+    upload_tmp: %kernel.root_dir%/../web/upload/tmp/
 gregwar_image: ~  
 endroid_qr_code:
     size: 100
     padding: 10
     extension: gif
     error_correction_level: high
-                
+braincrafted_bootstrap:
+    output_dir:
+    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap
+    jquery_path: %kernel.root_dir%/../vendor/jquery/jquery/jquery-1.10.2.js
+    less_filter: less # "less", "lessphp", "sass" or "none"
+    fonts_dir: %kernel.root_dir%/../web/fonts
+    auto_configure:
+        assetic: true
+        twig: true
+        knp_menu: true
+        knp_paginator: true
+    customize:
+        variables_file: ~
+        bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
+        bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig                
