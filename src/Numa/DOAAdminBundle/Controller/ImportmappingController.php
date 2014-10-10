@@ -243,8 +243,8 @@ class ImportmappingController extends Controller {
             }
         } else {
 
-            $XMLfeed = new XMLfeed($id);
-            $props = $XMLfeed->getProperties();
+            $remoteFeed = new RemoteFeed($id);
+            $props = $remoteFeed->getRemoteProperties();
 
             foreach ($props as $prop) {
 

@@ -43,13 +43,13 @@ class RemoteFeed extends ContainerAware {
 
     public function getRemoteProperties() {
         if (empty($this->properties)) {
-            $this->fetchProperties();
+            $this->fetchRemoteProperties();
         }
         return $this->properties;
     }
 
     public function fetchRemoteProperties() {
-        if (empty($this->XMLproperties)) {
+        if (empty($this->properties)) {
             if (self::URL == $this->entity->getImportMethod()) {
                 if (self::XML == $this->entity->getImportFormat()) {
                     $xml_obj = simplexml_load_file($this->source);
