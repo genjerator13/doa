@@ -5,6 +5,8 @@ namespace Numa\DOAAdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormEvent;
 
 class ImportfeedType extends AbstractType
 {
@@ -15,6 +17,7 @@ class ImportfeedType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add('sid', null , array(
                                'attr'=> 
                                        array(
@@ -26,17 +29,17 @@ class ImportfeedType extends AbstractType
                                          'class'=>'form-control')
                     ))
             ->add('import_format', 'choice', array('choices' => $this->getImportFormatList(), 'expanded' => false,'attr'=>array('class'=>'form-control')))
-            ->add('delimiter', null , array(
+            ->add('delimiterx', null , array(
                                'attr'=> 
                                        array(
                                          'class'=>'form-control')
                     ))
             ->add('import_method', 'choice', array('choices' => $this->getImportMethod(), 'expanded' => false, 'attr'=>array('class'=>'form-control')))
-            ->add('import_source', null , array(
-                               'attr'=> 
-                                       array(
-                                         'class'=>'form-control')
-                    ))
+            ->add('import_source', null )
+
+            ->add('file_import_source', 'file' ,array('required'=>false))
+            
+                                   
             ->add('root_node', null , array(
                                'attr'=> 
                                        array(
@@ -47,7 +50,7 @@ class ImportfeedType extends AbstractType
                                        array(
                                          'class'=>'form-control')
                     ))
-            ->add('User', null , array(
+            ->add('Dealer', null , array(
                                'attr'=> 
                                        array(
                                          'class'=>'form-control')
@@ -85,9 +88,17 @@ class ImportfeedType extends AbstractType
             ->add('unique_field')
             ->add('update_on_match')
             ->add('expiration_after')
-
-
         ;
+        
+        //$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+//            $form = $event->getForm();
+//            $importFeed = $event->getData();
+//            if($importFeed->getImportMethod()=='upload-file'){
+//                $form->add('import_source', 'file' );
+//            }
+//            \Doctrine\Common\Util\Debug::dump($importFeed->getImportMethod());
+            //die("aaaa");
+        //});
     }
     
     /**

@@ -36,4 +36,9 @@ import_mapping_feed:
 import_mapping_fetch:
     pattern:  /{id}/fetch
     defaults: { _controller: "NumaDOAAdminBundle:Importmapping:fetch" }
-
+import_mapping_mapvalues:
+    pattern:  /mapvalues
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:mapvalues" }
+import_mapping_add_mapvalues:
+    pattern:  /addmapvalues
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:addMapValues" }

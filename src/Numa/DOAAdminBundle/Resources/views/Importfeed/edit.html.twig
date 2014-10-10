@@ -1,16 +1,30 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+
 {% block content %}
     <h1>Importfeed edit</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('importfeed') }}" class="btn">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('importfeed') }}" class="btn">
+                Back to the list
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+    {#<script>
+        //$('#numa_doaadminbundle_importfeed_import_method').change()
+        $("#numa_doaadminbundle_importfeed_import_method").change(function() {
+            
+            if ($(this).val()=="upload-file"){
+                $('#numa_doaadminbundle_importfeed_import_source').attr('class','file-upload')
+                $('#numa_doaadminbundle_importfeed_import_source').attr('type','file')
+                $('#numa_doaadminbundle_importfeed_import_source').closest('form').attr('enctype','multipart/form-data');
+            }else{
+                $('#numa_doaadminbundle_importfeed_import_source').attr('class','form-control')
+                $('#numa_doaadminbundle_importfeed_import_source').attr('type','text')
+            }
+        });
+    </script>#}
 {% endblock %}

@@ -19,7 +19,7 @@ class EntityListener {
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        print_r(get_class($entity));
+
         //before save Item
         if ($entity instanceof Item) {
             $user = $this->container->get('security.context')->getToken()->getUser();

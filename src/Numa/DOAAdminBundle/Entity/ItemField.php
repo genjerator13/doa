@@ -263,7 +263,8 @@ class ItemField
     public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
     {
         $this->Listingfield = $listingfield;
-    
+        $this->setFieldName($listingfield->getCaption());
+        $this->setFieldType($listingfield->getType());
         return $this;
     }
 
@@ -310,9 +311,20 @@ class ItemField
     }
     
     
-    function setAllValues($value) {
-        $this->field_string_value = (string) $value;
-        $this->field_integer_value = intval((string) $value);
-        $this->field_boolean_value = !empty($stringValue);
+    function setAllValues($value,$valueMapValues="") {
+        $value = (string)$value;
+        if(!empty($valueMapValues)){
+            $json = json_decode($valueMapValues,true);
+            if(!empty($json)){
+                foreach($json as $key=>$mapValue){
+                    if(strtolower($key)==  strtolower($value)){
+                        $value = $mapValue;
+                    }
+                }
+            }
+        }
+        $this->field_string_value = $value;
+        $this->field_integer_value = intval($value);
+        $this->field_boolean_value = !empty($value);
     }
 }

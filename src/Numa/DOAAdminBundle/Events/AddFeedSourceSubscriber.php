@@ -14,7 +14,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
     public static function getSubscribedEvents() {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::POST_SET_DATA => 'preSetData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
     function __construct($feed_sid,$properties)
@@ -27,9 +27,8 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-
-        //print_r($data->getProperty());die("aaa");
-
+        \Doctrine\Common\Util\Debug::dump($event->getData());
+        die("aaa");
         if (!$data || !$data->getId() || !$data->getProperty()) {
 
             //$feed = new XMLfeed($this->feed_sid)

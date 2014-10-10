@@ -52,8 +52,10 @@ class DBUtilsCommand extends ContainerAwareCommand {
     /**
      * Creates array for tabs on homepage
      */
-    function makeHomeTabs() {
-        print_r("Making home tabs\n");
+    function makeHomeTabs($echo=true) {
+        if($echo){
+            print_r("Making home tabs\n");
+        }
         $aCategories = array(1, 2, 3, 4);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
@@ -75,7 +77,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     foreach ($list as $key => $value) {
                         $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
                         $count = count($items);
-                        print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        if($echo){
+                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        }
                         //$count = $items->count();
                         $hometab = new HomeTab();
                         $hometab->setCategoryId($cat->getId());
@@ -97,7 +101,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     foreach ($list as $key => $value) {
                         $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
                         $count = count($items);
-                        print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        if($echo){
+                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        }
                         //$count = $items->count();
                         $hometab = new HomeTab();
                         $hometab->setCategoryId($cat->getId());

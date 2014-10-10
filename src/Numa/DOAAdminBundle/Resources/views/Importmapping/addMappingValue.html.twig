@@ -1,0 +1,30 @@
+{% if first is not empty and mapvalues is defined %}
+    {% for key,value in mapvalues %}
+        <div class='addMappingValue'>
+            <input type='text' class='remote-value' value='{{key}}'/>
+            {% if list is not empty %}
+                <select class='local-value'>
+                    {% for item in list %}
+                        <option {%if item.value==value%}selected='selected'{%endif%}>{{item.value}}</option>
+                    {% endfor %}
+                </select>
+            {% else %}
+                <input type='text' class='local-value' value='{{value}}'/>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endif %}
+{% if first is empty %}
+    <div class='addMappingValue'>
+        <input type='text' class='remote-value'/>
+        {% if list is not empty %}
+            <select class='local-value'>
+                {% for item in list %}
+                    <option>{{item.value}}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <input type='text' class='local-value'/>
+        {% endif %}
+    </div>
+{% endif %}

@@ -26,6 +26,10 @@ class ImportmappingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $feedCid = $this->feed_cid;
+        $categories = array(0);
+        if(!empty($feedCid)){
+            $categories[]=$feedCid;
+        }
         $builder
             ->add('sid')
             ->add('description', 'text', array('required' => false))
@@ -34,20 +38,22 @@ class ImportmappingType extends AbstractType
                 array(
                     'class' => 'NumaDOAAdminBundle:Listingfield',
                     'property' => 'caption',
-                    'query_builder' => function ($lr) use ($feedCid)
+                    'query_builder' => function ($lr) use ($categories)
                     {
                                // echo get_class($lr);
                         return $lr->createQueryBuilder('lf')
-                            ->where("lf.category_sid IN (0,".$feedCid.")")
+                            ->where("lf.category_sid IN (".implode(',', $categories).")")
                             ->orderBy('lf.caption', 'ASC');
                     },
                     'empty_value' => 'Choose an option',
                     'required' => false
                 )
-            );
+            )
+            //->add('id','hidden', array('required' => false,'label'=>' '))
+            ->add('value_map_values','hidden', array('required' => false, 'label'=>' ', 'attr' =>array('class'=>'mapvalue')));
         ;//->add('feed_sid','hidden');
         ;
-        //$builder->addEventSubscriber(new AddFeedSourceSubscriber($this->feed_sid, $this->properties));
+        //$builder->addEventSubscriber(new AddFeedSourceSubscriber($this->feed_cid, $this->properties));
 
     }
 

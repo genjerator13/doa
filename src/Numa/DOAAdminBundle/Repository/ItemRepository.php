@@ -65,5 +65,11 @@ class ItemRepository extends EntityRepository {
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery->getResult();
     }
+    
+    public function removeItemsByFeed($feed_id){
+        $feed_id = intval($feed_id);
+        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = '.$feed_id);
+        $numDeleted = $q->execute();
+    }
 
 }

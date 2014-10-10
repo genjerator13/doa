@@ -4,7 +4,6 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Form\ImportfeedType;
 
@@ -12,29 +11,27 @@ use Numa\DOAAdminBundle\Form\ImportfeedType;
  * Importfeed controller.
  *
  */
-class ImportfeedController extends Controller
-{
+class ImportfeedController extends Controller {
 
     /**
      * Lists all Importfeed entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Importfeed:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Importfeed entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new Importfeed();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -48,20 +45,19 @@ class ImportfeedController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Importfeed entity.
-    *
-    * @param Importfeed $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(Importfeed $entity)
-    {
+     * Creates a form to create a Importfeed entity.
+     *
+     * @param Importfeed $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(Importfeed $entity) {
         $form = $this->createForm(new ImportfeedType(), $entity, array(
             'action' => $this->generateUrl('importfeed_create'),
             'method' => 'POST',
@@ -76,14 +72,13 @@ class ImportfeedController extends Controller
      * Displays a form to create a new Importfeed entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new Importfeed();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +86,7 @@ class ImportfeedController extends Controller
      * Finds and displays a Importfeed entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -104,20 +98,19 @@ class ImportfeedController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Importfeed entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-
+        
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
-
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
@@ -126,21 +119,20 @@ class ImportfeedController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Importfeed entity.
-    *
-    * @param Importfeed $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(Importfeed $entity)
-    {
+     * Creates a form to edit a Importfeed entity.
+     *
+     * @param Importfeed $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(Importfeed $entity) {
         $form = $this->createForm(new ImportfeedType(), $entity, array(
             'action' => $this->generateUrl('importfeed_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -150,12 +142,12 @@ class ImportfeedController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Importfeed entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -169,23 +161,29 @@ class ImportfeedController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $is = $entity->getImportSourceFile();
+            //if($is instanceof \Symfony\Component\HttpFoundation\File\UploadedFile  && $is->getImportSourceFile()!=$is->getClientOriginalName() ){
+                    //&& !file_exists($entity->getAbsolutePath())){
+                $entity->upload();
+            //}
+            
             $em->flush();
 
             return $this->redirect($this->generateUrl('importfeed_edit', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Importfeed entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -211,13 +209,13 @@ class ImportfeedController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('importfeed_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('importfeed_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

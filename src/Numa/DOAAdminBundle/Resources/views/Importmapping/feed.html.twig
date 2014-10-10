@@ -1,64 +1,218 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-{% form_theme form 'NumaDOAAdminBundle:Importmapping:collection_widget.html.twig' %}
 
 {% block content %}
 
-<h3>Mapping {{feed.sid}}</h3>
-{{ form_start(form) }}
-{{ form_errors(form) }}
-{{ form_row (form._token) }}
-{{form(form)}}
+    <h3>Mapping {{feed.sid}}</h3>
+    {#{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row (form._token) }}
+    {{form(form)}}#}
 
-<script>
-// Get the ul that holds the collection of tags
-var collectionHolder = $('table.table');
-console.log(collectionHolder);
-// setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link btn btn-primary">Add new row</a>');
-console.log($addTagLink);
-jQuery(document).ready(function() {
-    // add the "add a tag" anchor and li to the tags ul
-    collectionHolder.after($addTagLink);
-    console.log(collectionHolder);
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    collectionHolder.data('index', collectionHolder.find(':input').length);
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row (form._token) }}
 
-    $addTagLink.on('click', function(e) {
-        // prevent the link from creating a "#" on the URL
-        e.preventDefault();
+    <table class='table'>
+        {# iterate over each existing tag and render its only field: name #}
+        <tr>
+            <th>
+                {{ form_label(form.ImportmappingRow[0].sid) }}
+            </th>
+            <th>
+                {{ form_label(form.ImportmappingRow[0].description) }}
+            </th>
+            <th>
+                {{ form_label(form.ImportmappingRow[0].ListingFields) }}
+            </th>
+            <th colspan='2'>
+                Actions
+            </th>
+        </tr>
+        {% for map in form.ImportmappingRow %}
+            <tr data='{{ map.vars.value.id }}'>
 
-        // add a new tag form (see next code block)
-        addTagForm(collectionHolder, $addTagLink);
-    });
-    collectionHolder.find('.remove').click(function() {
-        console.log($(this).closest("tr"));
-        $(this).closest("tr").remove();
-    });
-});
-function removeRow(){
-    
-}
-function addTagForm(collectionHolder, $addTagLink) {
-    // Get the data-prototype explained earlier
-    var prototype = collectionHolder.data('prototype');
+                <td>
+
+                    {{ form_errors(map.sid) }}
+                    {{ form_widget(map.sid) }}
+                </td>
+                <td>
+                    {{ form_errors(map.description) }}
+                    {{ form_widget(map.description) }}
+                </td>
+                <td>                    
+                    {{ form_errors(map.ListingFields) }}
+                    {{ form_widget(map.ListingFields) }}
+                </td>                   
+                    
+                <td>
+                    {{ form_errors(map.value_map_values) }}
+                    {{ form_widget(map.value_map_values) }}
+                    <a class="remove btn btn-primary" title="Remove" href="#">
+                        <span>Delete</span>
+                    </a>
+                </td>
+                <td>
+                    <a class="mapvalues btn btn-primary" title="value mapping" href="#">
+                        <span>Value mapping</span>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <button type='submit' class='btn btn-primary'>Save</button>
+    {{ form_end(form) }}
+    <!-- Modal -->
+    <div class="modal fade" id="mapvalues" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Value mapping</h3>
+                    <a class='btn btn-primary' id='addmapvalue'>Add map value</a>
+                    <div id="valuemapper-content"></div>
+                    <a class='btn btn-primary' id='savemapvalue'>Save map value</a>
+                    <a class='btn btn-primary' id='cancelmapvalue'>Cancel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get the ul that holds the collection of tags
+        var collectionHolder = $('table.table');
+        console.log(collectionHolder);
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="add_tag_link btn btn-primary">Add new row</a>');
+        console.log($addTagLink);
+        jQuery(document).ready(function() {
+            // add the "add a tag" anchor and li to the tags ul
+            collectionHolder.after($addTagLink);
+            console.log(collectionHolder);
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            collectionHolder.data('index', collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function(e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new tag form (see next code block)
+                addTagForm(collectionHolder, $addTagLink);
+            });
+
+            collectionHolder.find('.remove').click(function() {
+                console.log($(this).closest("tr"));
+                $(this).closest("tr").remove();
+            });
+        });
+
+        function removeRow() {
+
+        }
+
+        function addTagForm(collectionHolder, $addTagLink) {
+            // Get the data-prototype explained earlier
+            var prototype = collectionHolder.data('prototype');
 
 
-    // get the new index
-    var index = collectionHolder.data('index');
+            // get the new index
+            var index = collectionHolder.data('index');
 
-    // Replace '__name__' in the prototype's HTML to
-    // instead be a number based on how many items we have
-    var newForm = prototype.replace(/__name__/g, index);
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var newForm = prototype.replace(/__name__/g, index);
 
-    // increase the index with one for the next item
-    collectionHolder.data('index', index + 1);
+            // increase the index with one for the next item
+            collectionHolder.data('index', index + 1);
 
-    // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<tr></tr>').append(newForm);
-    collectionHolder.append($newFormLi);
-}
-</script>
+            // Display the form in the page in an li, before the "Add a tag" link li
+            var $newFormLi = $('<tr></tr>').append(newForm);
+            collectionHolder.append($newFormLi);
+        }
+        var mapinput = null;
+        var mapid = null;
+        $(".mapvalues").on("click", function() {
+
+            mapid = parseInt($(this).closest("tr").attr('data'));
+            mapinput = $(this).closest("tr").find('.mapvalue');
+
+            if (mapid > 0) {
+                $('#addmapvalue').attr('data', mapid);
+                var jqxhr = $.post("{{path('import_mapping_add_mapvalues')}}", {mapid: mapid, init: 'init'}, function(data) {
+                    $('#valuemapper-content').append(data);
+                })
+            }
+
+            $('#mapvalues').modal();
+        });
+
+        $('#addmapvalue').on("click", function() {
+            //mapid = $(this).attr('data');
+            if (mapid > 0) {
+                $('#addmapvalue').attr('data', mapid);
+                var jqxhr = $.post("{{path('import_mapping_add_mapvalues')}}", {mapid: mapid}, function(data) {
+                    console.log(data);
+                    $('#valuemapper-content').append(data);
+                })
+            }
+
+        });
+
+        $('#savemapvalue').on("click", function(e) {
+            var jsonRes = {};
+            var key = "";
+            $('.addMappingValue').each(function() {
+                key = $(this).find('.remote-value').val();
+                jsonRes[key] = $(this).find('.local-value').val();
+            });
+
+            mapinput.val(JSON.stringify(jsonRes));
+            var frm = $('form[name="numa_doaadminbundle_importmappingrows"]');
+            submitForm(frm,e);
+            mapinput = null;
+            mapid = null;
+            $('#valuemapper-content').html("");
+            $('#mapvalues').modal('hide');
+        });
+        //Cancel button pressed
+        $('#cancelmapvalue').on("click", function() {
+            $('#valuemapper-content').html("");
+            mapinput = null;
+            mapid = null;
+            $('#mapvalues').modal('hide');
+        });
+        
+        $('#mapvalues').on('hidden.bs.modal', function() {
+            $('#valuemapper-content').html("");
+            mapinput = null;
+            mapid = null;
+            //$('#valuemapper-content').html("");
+            //var frm = $('form[name="numa_doaadminbundle_importmappingrows"]');
+            //frm.submit();
+        });
+
+        //callback handler for form submit
+        var submitForm = function(form,e)
+        {
+            var postData = form.serializeArray();
+            var formURL = form.attr("action");
+            $.ajax(
+                    {
+                        url: formURL,
+                        type: "POST",
+                        data: postData,
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            //data: return data from server
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            //if fails     
+                        }
+                    });
+            e.preventDefault(); //STOP default action
+            //e.unbind(); //unbind. to stop multiple form submit.
+        };
+    </script>
 
 {% endblock %}
 

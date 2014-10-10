@@ -126,7 +126,7 @@ liip_imagine:
 parameters:
     upload_url: /upload/itemsimages
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
-    upload_tmp: %kernel.root_dir%/../web/upload/tmp/
+    upload_feed: %kernel.root_dir%/../web/upload/feed/
 gregwar_image: ~  
 endroid_qr_code:
     size: 100

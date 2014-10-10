@@ -9,14 +9,14 @@ Numa\DOAAdminBundle\Entity\Importfeed:
         sid:                                     
           type: string
           length: 255
-          unique: true
+          nullable: true
         description:                              
            type: text
         import_format:                            
            type: string
            length: 255
            nullable: true
-        delimiter:                                                            
+        delimiterx:                                                            
            type: string
            length: 255
            nullable: true
@@ -25,6 +25,10 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            length: 255
            nullable: true
         import_source:                                                        
+           type: string
+           length: 255
+           nullable: true
+        import_source_file:                                                        
            type: string
            length: 255
            nullable: true
@@ -37,7 +41,9 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            nullable: true
         default_user:                                                         
            type: integer
-           length: 255
+           nullable: true
+        dealer_id:                                                         
+           type: integer
            nullable: true
         notify_on_user_registration:              
            type: boolean
@@ -124,10 +130,15 @@ Numa\DOAAdminBundle\Entity\Importfeed:
                 name: listing_type
                 referencedColumnName: id
         User:
-            targetEntity: Catalogrecords
+            targetEntity: User
             inversedBy: Importfeed
             joinColumn:
                 name: default_user
+        Dealer:
+            targetEntity: Catalogrecords
+            inversedBy: Importfeed
+            joinColumn:
+                name: dealer_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

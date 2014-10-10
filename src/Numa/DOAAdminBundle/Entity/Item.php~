@@ -899,4 +899,76 @@ class Item {
     {
         return $this->UserItems;
     }
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set dealer_id
+     *
+     * @param integer $dealerId
+     * @return Item
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+    
+        return $this;
+    }
+
+    /**
+     * Get dealer_id
+     *
+     * @return integer 
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set Dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     * @return Item
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+    
+        return $this;
+    }
+
+    /**
+     * Get Dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+    
+    /**
+     * If the remote property is dealer id then make relation to the Catalogrecords (dealer)
+     * @param string $remotePropertyName
+     * @param string $remotePropertyValue
+     * @return $this
+     */
+    public function connectItemsWithDealer($remotePropertyName, $remotePropertyValue) {
+        
+        if(strtolower($remotePropertyName)=='dealerid' || strtolower($remotePropertyName)=='dealer'){
+            $dealerId = $remotePropertyValue;
+            $listingList = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealerId', $dealerId));                        
+            $this->setDealer($listingList);
+        }
+        return $this;
+    }
 }

@@ -248,7 +248,7 @@ class CatalogrecordsController extends Controller {
             $res = array();
             if ($fileUpload->getMimeType() == 'text/plain' &&
                     (strtolower(($fileUpload->guessExtension()) == 'csv' || strtolower($fileUpload->guessExtension()) == 'txt'))) {
-                $file = $fileUpload->move($this->container->getParameter('upload_tmp'), $fileUpload->getClientOriginalName());
+                $file = $fileUpload->move($this->container->getParameter('upload_feed'), $fileUpload->getClientOriginalName());
                 print_r(get_class($file));
                 if (($handle = fopen($file->getRealPath(), "r")) !== FALSE) {
                     $rowCount = 0;

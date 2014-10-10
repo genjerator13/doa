@@ -20,6 +20,7 @@ Numa\DOAAdminBundle\Entity\Item:
         user_id:                                     
               type: integer
               nullable: true
+        
         active:                                     
               type: boolean
               default: 0
@@ -77,6 +78,9 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 32
               nullable: true
+        dealer_id:                                     
+              type: integer
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
@@ -98,6 +102,12 @@ Numa\DOAAdminBundle\Entity\Item:
             inversedBy: Item
             joinColumn:
                 name: user_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Catalogrecords
+            inversedBy: Item
+            joinColumn:
+                name: dealer_id
                 referencedColumnName: id
     oneToMany:
         ItemField:

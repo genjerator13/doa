@@ -39,7 +39,7 @@ class Catalogrecords implements UserInterface {
      * @var array (field_from csv => field from DB)
      */
     public static $maping = array(
-            'DealerID' => 'Id',
+            'DealerID' => 'DealerId',
             'DealerName' => 'Name',
             'Address1' => 'Address',
             'Address2' => 'Address2',
@@ -708,5 +708,33 @@ class Catalogrecords implements UserInterface {
     public function getAdminHours()
     {
         return $this->AdminHours;
+    }
+    /**
+     * @var string
+     */
+    private $contact;
+
+
+    /**
+     * Set contact
+     *
+     * @param string $contact
+     * @return Catalogrecords
+     */
+    public function setContact($contact)
+    {
+        $this->contact = $contact;
+    
+        return $this;
+    }
+
+    /**
+     * Get contact
+     *
+     * @return string 
+     */
+    public function getContact()
+    {
+        return $this->contact;
     }
 }

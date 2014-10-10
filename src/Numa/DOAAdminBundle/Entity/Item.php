@@ -763,7 +763,8 @@ class Item {
             $isActivated = $importfeed->getActivateListing();
             $isHighlighted = $importfeed->getMakeHighlighted();
             $isExpired = $importfeed->getExpirationAfter();
-            $dealer = $importfeed->getDefaultUser();
+            $this->setDealer($importfeed->getDealer());
+            $this->setCategory($importfeed->getCategory());
         }
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
@@ -899,4 +900,61 @@ class Item {
     {
         return $this->UserItems;
     }
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set dealer_id
+     *
+     * @param integer $dealerId
+     * @return Item
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+    
+        return $this;
+    }
+
+    /**
+     * Get dealer_id
+     *
+     * @return integer 
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set Dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     * @return Item
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+    
+        return $this;
+    }
+
+    /**
+     * Get Dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+    
 }
