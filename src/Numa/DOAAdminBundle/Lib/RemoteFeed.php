@@ -21,6 +21,7 @@ class RemoteFeed extends ContainerAware {
     const URL = "Link-URL";
     const XML = "XML";
     const CSV = "CSV";
+    const UPLOAD = "upload-file";
 
     var $properties = array();
     var $em;
@@ -49,8 +50,9 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function fetchRemoteProperties() {
+        
         if (empty($this->properties)) {
-            if (self::URL == $this->entity->getImportMethod()) {
+            if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
                 if (self::XML == $this->entity->getImportFormat()) {
                     $xml_obj = simplexml_load_file($this->source);
                     foreach ($xml_obj->children() as $child) {
@@ -60,14 +62,21 @@ class RemoteFeed extends ContainerAware {
                         }
                         break;
                     }
-                }
-            } elseif (self::CSV == $this->entity->getImportFormat()) {
-                if (($handle = fopen($this->entity->getAbsolutePath(), "r")) !== FALSE) {
-                    $row = fgetcsv($handle);
-                    //set the properties from header
-                    foreach ($row as $hCell) {
+                }elseif (self::CSV == $this->entity->getImportFormat()) {                                                            
+                    $handleSource = $this->entity->getAbsolutePath();
+                    //echo strtolower(substr( $this->entity->getImportSource(), 0, 6 )).":::";
+                    if(strtolower(substr( $this->entity->getImportSource(), 0, 6 )) == "ftp://"){
+                        
+                        $handleSource = $this->entity->getImportSource();
+                    }
+                    //die($handleSource);
+                    if (($handle = fopen($handleSource, "r")) !== FALSE) {
+                        $row = fgetcsv($handle);
+                        //set the properties from header
+                        foreach ($row as $hCell) {
 
-                        $this->properties[$hCell] = $hCell;
+                            $this->properties[$hCell] = $hCell;
+                        }
                     }
                 }
             }

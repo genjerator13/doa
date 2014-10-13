@@ -957,4 +957,45 @@ class Item {
         return $this->Dealer;
     }
     
+    public function proccessImagesFromRemote($imageString, $maprow,$upload_path,$upload_url) {
+        $listingFields = $maprow->getListingFields();
+        $feed = $this->getImportfeed();
+        if (is_array($imageString)) {
+            $order = 0;
+            foreach ($imageString as $key => $value) {
+                $itemField = new ItemField();
+                
+                $itemField->setAllValues($value);
+                $itemField->setListingfield($listingFields);
+                $this->addItemField($itemField);
+                $itemField->handleImage($value, $feed->getId(),$upload_path,$upload_url,$order);
+                
+                $order++;
+            }
+        } else {
+            $pictureSeparator = $feed->getPicturesSeparator();
+            if(empty($pictureSeparator)){
+                $pictureSeparator = ";";
+            }
+            $picturesArray    = explode($pictureSeparator, $imageString);
+            $order = 0;
+            
+            if(count($picturesArray)>1){
+                $order = 1;
+            }
+            //print_r(count($picturesArray));
+            foreach($picturesArray as $picture){
+                $itemField = new ItemField();
+                
+                $itemField->setAllValues($picture);
+                $itemField->setListingfield($listingFields);
+                $this->addItemField($itemField);
+                $itemField->handleImage($picture, $upload_path,$upload_url,$order);
+                
+                $order++;
+                //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
+            }
+        }
+    }
+    
 }

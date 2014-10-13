@@ -763,7 +763,8 @@ class Item {
             $isActivated = $importfeed->getActivateListing();
             $isHighlighted = $importfeed->getMakeHighlighted();
             $isExpired = $importfeed->getExpirationAfter();
-            $dealer = $importfeed->getDefaultUser();
+            $this->setDealer($importfeed->getDealer());
+            $this->setCategory($importfeed->getCategory());
         }
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
@@ -956,19 +957,4 @@ class Item {
         return $this->Dealer;
     }
     
-    /**
-     * If the remote property is dealer id then make relation to the Catalogrecords (dealer)
-     * @param string $remotePropertyName
-     * @param string $remotePropertyValue
-     * @return $this
-     */
-    public function connectItemsWithDealer($remotePropertyName, $remotePropertyValue) {
-        
-        if(strtolower($remotePropertyName)=='dealerid' || strtolower($remotePropertyName)=='dealer'){
-            $dealerId = $remotePropertyValue;
-            $listingList = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealerId', $dealerId));                        
-            $this->setDealer($listingList);
-        }
-        return $this;
-    }
 }

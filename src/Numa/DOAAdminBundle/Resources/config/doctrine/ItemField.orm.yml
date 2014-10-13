@@ -30,6 +30,9 @@ Numa\DOAAdminBundle\Entity\ItemField:
         field_id:
             type: integer
             nullable: true
+        sort_order:
+            type: integer
+            nullable: true
     manyToOne:
         Item:
             targetEntity: Item

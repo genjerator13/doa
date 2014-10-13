@@ -990,4 +990,32 @@ class Importfeed {
     {
         return $this->delimiterx;
     }
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+
+    /**
+     * Set dealer_id
+     *
+     * @param integer $dealerId
+     * @return Importfeed
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+    
+        return $this;
+    }
+
+    /**
+     * Get dealer_id
+     *
+     * @return integer 
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
 }

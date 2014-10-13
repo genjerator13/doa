@@ -242,12 +242,10 @@ class ImportmappingController extends Controller {
                 $importmappingCollection->addImportmappingRow($entity);
             }
         } else {
-
             $remoteFeed = new RemoteFeed($id);
             $props = $remoteFeed->getRemoteProperties();
 
             foreach ($props as $prop) {
-
                 $im = new Importmapping();
                 $im->setDescription($prop);
                 $im->setSid($prop);
@@ -265,8 +263,7 @@ class ImportmappingController extends Controller {
 
         $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
 
-        $collection->add('feed_sid', 'hidden', array(
-            'data' => $id));
+        $collection->add('feed_sid', 'hidden', array('data' => $id));
         $collection->handleRequest($request);
 
         if ($collection->isValid()) {
@@ -277,7 +274,7 @@ class ImportmappingController extends Controller {
             }
             $em->flush();
 
-            if(!$request->isXmlHttpRequest()){
+            if (!$request->isXmlHttpRequest()) {
                 return $this->redirect($this->generateUrl('importfeed'));
             }
         }
@@ -304,7 +301,7 @@ class ImportmappingController extends Controller {
         $itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
         //remove old items
         $em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);
-        
+
         //walk trough XML feed
         foreach ($items as $importItem) {
 
@@ -318,19 +315,21 @@ class ImportmappingController extends Controller {
                 //check if there are predefined listing field in database (listing_field_lists)
                 if (!empty($listingFields) && !empty($importItem[$property])) {
                     $stringValue = $importItem[$property];
-                    if (!is_array($stringValue)) {
-                        $itemField = new ItemField();
-                        $itemField->setAllValues($stringValue,$maprow->getValueMapValues());
-                        $itemField->setListingfield($listingFields);//will set caption and type by listing field
-                    }
                     $listingFieldsType = $listingFields->getType();
+                    if ($listingFieldsType != 'array') {
+                        $itemField = new ItemField();
+                        $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
+                        $itemField->setListingfield($listingFields); //will set caption and type by listing field
+                        $stringValue = $itemField->getFieldStringValue();
+                    }
                     
+
                     //if xml property has children then do each child
                     if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
                         $listValues = $listingFields->getListingFieldLists();
                         if (!$listValues->isEmpty()) {
                             //get listingFieldlist by ID and stringValue
-                            $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($itemField->getFieldStringValue(), $maprow->getListingFields()->getId());
+                            $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
                             if (!empty($listingList)) {
                                 //\Doctrine\Common\Util\Debug::dump($listingList->getId());
                                 $itemField->setFieldIntegerValue($listingList->getId());
@@ -339,25 +338,12 @@ class ImportmappingController extends Controller {
                     }
 
                     if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                        if (is_array($stringValue)) {
-                            foreach ($stringValue as $key => $value) {
-                                $itemField = new ItemField();
-
-                                $itemField->setAllValues($stringValue);
-                                $itemField->setListingfield($listingFields);
-
-                                //$itemField->setFieldName($maprow->getListingFields()->getCaption());
-                                //$itemField->setFieldType($maprow->getListingFields()->getType());
-
-                                $this->handleImage($value, $feed->getId(), $itemField);
-                                $item->addItemField($itemField);
-                            }
-                        } else {
-                            $this->handleImage($stringValue, $feed->getId(), $itemField);
-                        }
+                        $upload_url = $this->container->getParameter('upload_url');
+                        $upload_path = $this->container->getParameter('upload_path');
+                        $item->proccessImagesFromRemote($stringValue, $maprow, $upload_path, $upload_url);
                     }
 
-                    if (!is_array($stringValue)) {
+                    if ($listingFieldsType != 'array') {
                         $item->addItemField($itemField);
                     }
                     //connect with dealer
@@ -375,7 +361,7 @@ class ImportmappingController extends Controller {
         }
 
         $time = time() - $time;
-        
+
         //update hometabs
         $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
         $command->setContainer($this->container);
@@ -383,7 +369,7 @@ class ImportmappingController extends Controller {
 //        echo $time . ":::" . count($items);
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }
-
+/*
     private function handleImage($stringValue, $feed_sid, &$itemField) {
 
         $url = $stringValue;
@@ -410,24 +396,60 @@ class ImportmappingController extends Controller {
         }
     }
 
+    private function proccessImagesFromRemote($imageString, Item $item, $maprow) {
+        $listingFields = $maprow->getListingFields();
+        $feed = $item->getImportfeed();
+        if (is_array($imageString)) {
+            $order = 0;
+            foreach ($imageString as $key => $value) {
+                $itemField = new ItemField();
+
+                $itemField->setAllValues($value);
+                $itemField->setListingfield($listingFields);
+
+                $this->handleImage($value, $feed->getId(), $itemField,$order);
+                $item->addItemField($itemField);
+                $order++;
+            }
+        } else {
+            $pictureSeparator = $feed->getPicturesSeparator();
+            $picturesArray    = explode($pictureSeparator, $imageString);
+            $order = 0;
+            
+            if(count($picturesArray)>1){
+                $order = 1;
+            }
+            
+            foreach($picturesArray as $picture){
+                $itemField = new ItemField();
+                $itemField->setAllValues($value);
+                $itemField->setListingfield($listingFields);
+                $this->handleImage($picture, $feed->getId(), $itemField,$order);
+                $item->addItemField($itemField);
+                $order++;
+            }
+        }
+    }
+*/
     public function mapvaluesAction(Request $request = null) {
         $mapid = intval($request->request->get('mapid'));
         $json = array();
         if (!empty($mapid)) {
             $em = $this->getDoctrine()->getManager();
             $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($mapid);
-            
+
             $json = $mapping->getValueMapValues();
         }
         $response = new Response(json_encode($json));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
     public function addMapValuesAction(Request $request = null) {
         $mapid = intval($request->request->get('mapid'));
         $init = $request->request->get('init');
-        $first = false;  
-        if(!empty($init)){
+        $first = false;
+        if (!empty($init)) {
             $first = true;
         }
         $listingFieldList = array();
@@ -438,15 +460,14 @@ class ImportmappingController extends Controller {
             $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($mapid);
             //\Doctrine\Common\Util\Debug::dump($mapping);
             $listingField = $mapping->getListingFields();
-            $type =  $listingField->getType();
-            $listingFieldList = $listingField->getListingFieldLists();   
+            $type = $listingField->getType();
+            $listingFieldList = $listingField->getListingFieldLists();
             $mapvalues = $mapping->getValueMapValues();
-            
-            $mapvaluesJson = json_decode($mapvalues,true);
 
+            $mapvaluesJson = json_decode($mapvalues, true);
         }
         //prinr_($mapvalues);
-        return $this->render('NumaDOAAdminBundle:Importmapping:addMappingValue.html.twig', array('list' => $listingFieldList,'mapvalues'=>$mapvaluesJson,'first'=>$first));
+        return $this->render('NumaDOAAdminBundle:Importmapping:addMappingValue.html.twig', array('list' => $listingFieldList, 'mapvalues' => $mapvaluesJson, 'first' => $first));
     }
 
 }

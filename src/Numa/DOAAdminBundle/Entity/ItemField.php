@@ -327,4 +327,58 @@ class ItemField
         $this->field_integer_value = intval($value);
         $this->field_boolean_value = !empty($value);
     }
+    /**
+     * @var integer
+     */
+    private $sort_order;
+
+
+    /**
+     * Set sort_order
+     *
+     * @param integer $sortOrder
+     * @return ItemField
+     */
+    public function setSortOrder($sortOrder)
+    {
+        $this->sort_order = $sortOrder;
+    
+        return $this;
+    }
+
+    /**
+     * Get sort_order
+     *
+     * @return integer 
+     */
+    public function getSortOrder()
+    {
+        return $this->sort_order;
+    }
+    
+    public function handleImage($stringValue, $upload_path,$upload_url,$order=0) {
+
+        $url = $stringValue;
+        //get etension//
+
+        $filename = pathinfo($url, PATHINFO_BASENAME);
+
+        if (!empty($url)) {
+            $feed_sid = $this->getItem()->getImportfeed()->getId();
+            $dir = $upload_path . "/" . $feed_sid;
+            if (!file_exists($dir)) {
+                mkdir($dir, 0777);
+            }
+            $img = $dir . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
+            $img_url = $upload_url . "/" . $feed_sid . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
+            $img = str_replace(array(" ", '%'), "-", $img);
+            $img_url = str_replace(array(" ", '%'), "-", $img_url);
+            if (!file_exists($img)) {
+
+                file_put_contents($img, file_get_contents($url));
+            }
+            $this->setAllValues($img_url);
+            $this->setSortOrder($order);
+        }
+    }
 }
