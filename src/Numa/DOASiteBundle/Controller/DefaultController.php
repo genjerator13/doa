@@ -97,29 +97,30 @@ class DefaultController extends Controller {
                 ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-                ->add('modelRvs', 'choice', array('label' => 'Model'))
-                ->add('makeRvs', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy(760, 4);
-            },
+                ->add('modelRvs', 'choice', array('label' => 'Model','required'=>false))
+                ->add('makeRvs', 'entity', array(                    
+                            'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                            'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy(760, 4);
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('category_id', 'hidden', array('data' => 4))
+                ->add('category_id', 'hidden', array('data' => 4,'required'=>false))
                 ->add('florPane', 'text', array('label' => 'Flor Pane', "required" => false))
                 ->add('class', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('type',4);
-            },
+                            'class' => 'NumaDOAAdminBundle:ListingFieldLists',
+                            'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy('type',4);
+                    },
                     'empty_value' => 'Any class',
+                    'required'=>false,
                     'label' => "Class", "required" => false
                 ))
                 ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
                 ->add('priceTo', 'text', array('label' => 'to', "required" => false))
-                ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray()))
-                ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax)))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(),'required'=>false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(),'required'=>false, 'preferred_choices' => array(Util::yearMax)))
                 ->getForm();
         $motorsportForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,

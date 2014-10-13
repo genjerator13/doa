@@ -460,7 +460,7 @@ class ImportmappingController extends Controller {
             $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($mapid);
             //\Doctrine\Common\Util\Debug::dump($mapping);
             $listingField = $mapping->getListingFields();
-            $type = $listingField->getType();
+            //$type = $listingField->getType();
             $listingFieldList = $listingField->getListingFieldLists();
             $mapvalues = $mapping->getValueMapValues();
 

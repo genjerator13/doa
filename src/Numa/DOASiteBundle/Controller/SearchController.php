@@ -22,7 +22,6 @@ class SearchController extends Controller {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
         $this->searchParameters->setAll($request->query->all());
-        
     }
 
     public function searchAction(Request $request) {
@@ -32,7 +31,7 @@ class SearchController extends Controller {
         $number = intval($request->get('listings_per_page'));
 
         //create query        
-        $query = $this->searchParameters->createSearchQuery();        
+        $query = $this->searchParameters->createSearchQuery();
         $param = $this->showItems($query, $page);
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
@@ -68,34 +67,44 @@ class SearchController extends Controller {
         return $this->redirect($this->generateUrl('search', $param));
     }
 
-    public function searchByCategoryModelAction(Request $request) {
-        $model = $request->get('model');
-        $category = $request->get('category');
-        $page = $request->get('page');
-        $page = empty($page) ? 1 : $page;
+    public function createQuerySearchByCategory($model, $category,$page=1) {
+        
         $model = str_replace(" boat", "", $model);
         if (strstr($model, 'watercraft')) {
             $model = 'watercraft';
         }
-//        $repository = $this->getDoctrine()->getRepository('NumaDOAAdmin:Category');
-//
-//        $query = $repository->createQueryBuilder('c')
-//                ->where('c.name like :name')
-//                ->setParameter('name', '%$category%')
-//                ->getQuery();
-//
-//        $category = $query->getResult();
-        $query = $this->getDoctrine()->getManager()
-                ->createQuery(
-                        'SELECT distinct i FROM NumaDOAAdminBundle:Item i
+        
+        if($category=='marine'){
+            $query = $this->getDoctrine()->getManager()
+            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%boat type%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-                ->setParameter('model', "%" . $model . "%")
-                ->setParameter('category', "%" . $category . "%");
-        
+            ->setParameter('model', "%" . $model . "%")
+            ->setParameter('category', "%" . $category . "%");
+        }elseif($category=='rvs'){
+            $query = $this->getDoctrine()->getManager()
+            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 JOIN i.Category c
+                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 AND ifield.field_string_value LIKE :model
+                                 AND c.name LIKE :category')
+            ->setParameter('model', "%" . $model . "%")
+            ->setParameter('category', "%" . $category . "%");
+        }
+        return $query;
+    }
+
+    public function searchByCategoryModelAction(Request $request) {
+        $model = $request->get('model');
+        $category = $request->get('category');
+        $page = $request->get('page');
+        $page = empty($page) ? 1 : $page;
+        $query = $this->createQuerySearchByCategory($model, $category,$page);
+
         $items = $query->getResult();
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
@@ -924,10 +933,10 @@ class SearchController extends Controller {
         $userSearchCount = count($userSearches);
         $userSearchExists = $em->getRepository('NumaDOAAdminBundle:UserSearch')
                 ->findOneBy(array('User' => $user,
-                                  'search_url' => $search_url,
-                                  'name' => $name
-            ));
-        
+            'search_url' => $search_url,
+            'name' => $name
+        ));
+
         if (empty($userSearchExists)) {
             $userSearch = new \Numa\DOAAdminBundle\Entity\UserSearch();
             $userSearch->setUser($user);
