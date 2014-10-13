@@ -24,6 +24,7 @@ class ItemType extends AbstractType
             ->add('moderation_status','choice',array('choices'=>array('APPROVED','NEW')))
             ->add('keywords')
             ->add('featured')
+            ->add('Category')
             ->add('pictures')
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',
@@ -44,9 +45,7 @@ class ItemType extends AbstractType
             ->add('Importfeed')
             ->add('User')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
-        'by_reference' => false,))
-
-            
+        'by_reference' => false,))            
         ;
 
     }
