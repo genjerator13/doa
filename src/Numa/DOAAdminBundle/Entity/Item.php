@@ -907,6 +907,7 @@ class Item {
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     * @GRID\Column(type="text", field="Dealer.name", title="Dealer", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      */
     private $Dealer;
 

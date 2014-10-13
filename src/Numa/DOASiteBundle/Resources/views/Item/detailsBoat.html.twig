@@ -3,7 +3,7 @@
     ? 'NumaDOASiteBundle::print-layout.html.twig' 
     : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% block title %}<title>Dealers on Air vhg</title>{% endblock title %}
+{% block title %}<title>Dealers on Air</title>{% endblock title %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@NumaDOASiteBundle/Resources/Public/css/jssor.css' %}
@@ -138,6 +138,7 @@
                                 </a>
                             </li>
                             {% set currentPath = app.request.uri %}
+                            {% set dealer = item.getDealer() %}
                                 <li>
                                     <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank"><i class="glyphicon glyphicon-qrcode"></i></a>
                                     <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank">QR Code</a>

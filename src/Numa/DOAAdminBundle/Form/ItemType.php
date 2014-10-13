@@ -25,6 +25,7 @@ class ItemType extends AbstractType
             ->add('keywords')
             ->add('featured')
             ->add('Category')
+            ->add('Dealer')
             ->add('pictures')
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',

@@ -53,6 +53,7 @@ class ItemController extends Controller {
                         
                     }
                     $res['username'] = $row->getField('User.username');
+                    $res['dealer'] = $row->getField('Dealer.name');
                     $res['active'] = $row->getField('active');
                     $res['moderation_status'] = $row->getField('moderation_status');
                     $res['views'] = $row->getField('views');
