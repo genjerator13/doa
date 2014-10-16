@@ -71,23 +71,44 @@
                 </div>
                 <!-- Jssor Slider End -->
 
+                <div class='row'>
+                    <ul class="techData">
 
-                <ul class="techData">
+                        <li>
+                            <span class="fieldCaption fieldCaptionId">Listing #</span>
+                            <span class="fieldValue fieldValueId">{{item.id}}</span>
+                        </li>
+                        {% set ignore_fields = ['Image List','dealer'] %}
+                            {% for field in item.ItemField %}
 
-                    <li>
-                        <span class="fieldCaption fieldCaptionId">Listing #</span>
-                        <span class="fieldValue fieldValueId">{{item.id}}</span>
-                    </li>
-                    {% set ignore_fields = ['Image List','dealer'] %}
-                        {% for field in item.ItemField %}
-                            {% if field.fieldName not in ignore_fields %}
-                                <li>
-                                    <span class="fieldCaption field{{field.fieldStringValue}}">{{field.fieldName}} </span>
-                                    <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                </li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
+                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' %}
+                                    <li>
+                                        <span class="fieldCaption field{{field.fieldStringValue}}">{{field.fieldName}} </span>
+                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class='row'>
+                        <h4>Options list</h4>
+                        <ul class='option-lists'>
+
+                            {% for field in item.ItemField %}
+                                {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' %}
+
+                                    <li class="col-md-4">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" checked="checked"> {{field.fieldName}}
+                                            </label>
+                                        </div>
+                                    </li>
+                                {% endif %}
+
+                            {% endfor %}
+                        </ul>
+                    </div>
                     <div id="map"> </div> 
 
                 </div>
@@ -138,231 +159,231 @@
                                 </a>
                             </li>
                             {% set currentPath = app.request.uri %}
-                            {% set dealer = item.getDealer() %}
-                                <li>
-                                    <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank"><i class="glyphicon glyphicon-qrcode"></i></a>
-                                    <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank">QR Code</a>
-                                </li>
-                                <li>
-                                    <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{dealer.address|url_encode()}}{%endif%}" target="_blank"><i class="glyphicon glyphicon-arrow-right"></i></a>
-                                    <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{dealer.address|url_encode()}}{%endif%}" target="_blank">Get Direction</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="loan-calc" ><i class="glyphicon glyphicon-euro"></i></a>
-                                    <a href="#" class="loan-calc">Loan Calculator</a>
-                                </li>
-                                <li>
-                                    <a href="{{path('compared_listings')}}" target="_blank"><i class="glyphicon glyphicon-th-list"></i></a>
-                                    <a href="{{path('compared_listings')}}" target="_blank">Comparision Table</a>
-                                </li>
+                                {% set dealer = item.getDealer() %}
+                                    <li>
+                                        <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank"><i class="glyphicon glyphicon-qrcode"></i></a>
+                                        <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank">QR Code</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{dealer.address|url_encode()}}{%endif%}" target="_blank"><i class="glyphicon glyphicon-arrow-right"></i></a>
+                                        <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{dealer.address|url_encode()}}{%endif%}" target="_blank">Get Direction</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="loan-calc" ><i class="glyphicon glyphicon-euro"></i></a>
+                                        <a href="#" class="loan-calc">Loan Calculator</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{path('compared_listings')}}" target="_blank"><i class="glyphicon glyphicon-th-list"></i></a>
+                                        <a href="{{path('compared_listings')}}" target="_blank">Comparision Table</a>
+                                    </li>
 
 
-                                <li>
-                                    <div class="checkbox-inline">
-                                        <label>
-                                            <input type="checkbox" class="compareAd" > Compare Ad
-                                        </label>
+                                    <li>
+                                        <div class="checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" class="compareAd" > Compare Ad
+                                            </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" class="saveAd"> Save Ad
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul> 
+                                <div id="dialog" title="Loan Calculator">
+                                    <div class="col-sm-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">Monthly payment
+                                            </label>
+                                        </div>
                                     </div>
-                                </li>
-                                <li>
-                                    <div class="checkbox-inline">
-                                        <label>
-                                            <input type="checkbox" class="saveAd"> Save Ad
-                                        </label>
+                                    <div class="col-sm-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">Loan amounth
+                                            </label>
+                                        </div>
                                     </div>
-                                </li>
-                            </ul> 
-                            <div id="dialog" title="Loan Calculator">
-                                <div class="col-sm-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Monthly payment
-                                        </label>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Term of Loan</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
                                     </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox">Loan amounth
-                                        </label>
+                                    <div class="form-group">
+                                        <label for="interestrate">Interest rate</label>
+                                        <input type="text" class="form-control" id="interestrate" placeholder="">
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="loanamount">Loan Amount</label>
+                                        <input type="text" class="form-control" id="loanamount" placeholder="">
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Term of Loan</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="interestrate">Interest rate</label>
-                                    <input type="text" class="form-control" id="interestrate" placeholder="">
-                                </div> 
-                                <div class="form-group">
-                                    <label for="loanamount">Loan Amount</label>
-                                    <input type="text" class="form-control" id="loanamount" placeholder="">
-                                </div>
-                                <div class="form-group">
-                                    <label for="monthlypayment">Monthly payment</label>
-                                    <input type="text" class="form-control" id="monthlypayment" placeholder="">
-                                </div>
-                            </tbody>
-                        </div>
+                                    <div class="form-group">
+                                        <label for="monthlypayment">Monthly payment</label>
+                                        <input type="text" class="form-control" id="monthlypayment" placeholder="">
+                                    </div>
+                                </tbody>
+                            </div>
 
-                        <script>
-                            $(function() {
-                                $("#dialog").dialog({
-                                    autoOpen: false,
-                                    width: 500,
-                                    height: 500
-                                });
-                                $(".loan-calc").click(function() {
-                                    $("#dialog").dialog("open");
-                                });
-                            });
-                        </script> 
-
-                        {% if (dealer is defined and dealer is not empty) %}
-                            <h3>Dealer Info</h3>
-                            {% if (dealer.logo is empty) %}
-                                <img alt="logo" src="{{dealer.logoUrl}}" />
-                            {% endif %}
-                            <p><strong>{{dealer.name}}<strong/></p>
-                            <p>{{dealer.address}}</p>
-                            <p>{{dealer.phone}}</p>
-                            <p>{{dealer.location}}</p>
-                            <p>{{dealer.url}}</p>
-                            <p>Send <a href="mailto:{{dealer.email}}" >email</a>
-                            <p><a style="" href="{{ path('browse_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
-
-                        {% endif %}
-                        <script src="https://maps.googleapis.com/maps/api/js"></script>
-                        <script>
-                            var geocoder = new google.maps.Geocoder();
-                            {% if (dealer is defined and dealer is not empty) %}
-                                var address = "{{dealer.address}}";
-                            {% else %}
-                                var address = "saskatoon";
-                            {% endif %}
-                                var latitude = 44.5403;
-                                var longitude = -78.5463;
-                                geocoder.geocode({'address': address}, function(results, status) {
-
-                                    if (status == google.maps.GeocoderStatus.OK) {
-                                        latitude = results[0].geometry.location.lat();
-                                        longitude = results[0].geometry.location.lng();
-
-                                    }
-                                });
-                                function initialize() {
-                                    var mapCanvas = document.getElementById('map');
-                                    var mapOptions = {
-                                        center: new google.maps.LatLng(latitude, longitude),
-                                        zoom: 13,
-                                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                                    }
-
-                                    var map = new google.maps.Map(mapCanvas, mapOptions)
-                                    var myLatlng = new google.maps.LatLng(latitude, longitude);
-                                    var marker = new google.maps.Marker({
-                                        position: myLatlng,
-                                        map: map,{% if (dealer is defined and dealer is not empty) %}
-                                        title: '{{dealer.name}}'
-                            {% endif %}
-                                    });
-
-                                }
-                                google.maps.event.addDomListener(window, 'load', initialize);
-                            </script>
-                            {% javascripts     '@jquery_jssor_js' output="filename.js" %}
-                            <script src="{{ asset_url }}"></script>
-                            {% endjavascripts %}
                             <script>
-                                jQuery(document).ready(function($) {
-                                    var options = {
-                                        $AutoPlay: true, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
-                                        $AutoPlayInterval: 4000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
-                                        $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
-                                        $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                                        $UISearchMode: 0, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
-
-                                        $ThumbnailNavigatorOptions: {
-                                            $Class: $JssorThumbnailNavigator$, //[Required] Class to create thumbnail navigator instance
-                                            $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-
-                                            $Loop: 2, //[Optional] Enable loop(circular) of carousel or not, 0: stop, 1: loop, 2 rewind, default value is 1
-                                            $SpacingX: 3, //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
-                                            $SpacingY: 3, //[Optional] Vertical space between each thumbnail in pixel, default value is 0
-                                            $DisplayPieces: 6, //[Optional] Number of pieces to display, default value is 1
-                                            $ParkingPosition: 204, //[Optional] The offset position to park thumbnail,
-
-                                            $ArrowNavigatorOptions: {
-                                                $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                                                $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                                                $AutoCenter: 2, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                                                $Steps: 6                                       //[Optional] Steps to go for each navigation request, default value is 1
-                                            }
-                                        }
-                                    };
-
-                                    var jssor_slider1 = new $JssorSlider$("slider1_container", options);
-
-                                    //responsive code begin
-                                    //you can remove responsive code if you don't want the slider scales while window resizes
-                                    function ScaleSlider() {
-                                        var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
-                                        if (parentWidth)
-                                            jssor_slider1.$SetScaleWidth(Math.min(parentWidth, 720));
-                                        else
-                                            window.setTimeout(ScaleSlider, 30);
-                                    }
-
-                                    ScaleSlider();
-
-                                    if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
-                                        $(window).bind('resize', ScaleSlider);
-                                    }
-
-
-                                    //if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
-                                    //    $(window).bind("orientationchange", ScaleSlider);
-                                    //}
-                                    //responsive code end
+                                $(function() {
+                                    $("#dialog").dialog({
+                                        autoOpen: false,
+                                        width: 500,
+                                        height: 500
+                                    });
+                                    $(".loan-calc").click(function() {
+                                        $("#dialog").dialog("open");
+                                    });
                                 });
-                            </script>
-                            {#{% javascripts '@savecompared_js' %}
-                            <script type="text/javascript" src="{{ asset_url }}"></script>
-                            {% endjavascripts %}#}
-                         <script>
-$(".saveAd").on("click", function() {
-    var itemId = $(this).closest('.item-row').attr("data");
-    console.log(itemId);
-    var act = "add";
-    if (!$(this).prop('checked')) {
-        act = "remove";
-    }
-    var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
-        htmlx = "";
-        if (data.savedAds > 0) {
-            htmlx = "(" + data.savedAds + ")";
-        }
-        $('.savedAds').html(htmlx);
-    })
+                            </script> 
 
-});
-$(".compareAd").on("click", function() {
-    var itemId = $(this).closest('.item-row').attr("data");
-    var url = $(this).closest('.item-row').attr("url");
- 
-    var act = "add";
-    if (!$(this).prop('checked')) {
-        act = "remove";
-    }
-    var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
-        htmlx = "";
-        if (data.comparedItes > 0) {
-            htmlx = "(" + data.comparedItes + ")";
-        }
-        $('.savedAds').html(htmlx);
-    })
+                            {% if (dealer is defined and dealer is not empty) %}
+                                <h3>Dealer Info</h3>
+                                {% if (dealer.logo is empty) %}
+                                    <img alt="logo" src="{{dealer.logoUrl}}" />
+                                {% endif %}
+                                <p><strong>{{dealer.name}}<strong/></p>
+                                <p>{{dealer.address}}</p>
+                                <p>{{dealer.phone}}</p>
+                                <p>{{dealer.location}}</p>
+                                <p>{{dealer.url}}</p>
+                                <p>Send <a href="mailto:{{dealer.email}}" >email</a>
+                                <p><a style="" href="{{ path('browse_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">All adds by that dealser</a></p>
 
-});
-</script>
-                            {% endblock %}
+                            {% endif %}
+                            <script src="https://maps.googleapis.com/maps/api/js"></script>
+                            <script>
+                                var geocoder = new google.maps.Geocoder();
+                                {% if (dealer is defined and dealer is not empty) %}
+                                    var address = "{{dealer.address}}";
+                                {% else %}
+                                    var address = "saskatoon";
+                                {% endif %}
+                                    var latitude = 44.5403;
+                                    var longitude = -78.5463;
+                                    geocoder.geocode({'address': address}, function(results, status) {
+
+                                        if (status == google.maps.GeocoderStatus.OK) {
+                                            latitude = results[0].geometry.location.lat();
+                                            longitude = results[0].geometry.location.lng();
+
+                                        }
+                                    });
+                                    function initialize() {
+                                        var mapCanvas = document.getElementById('map');
+                                        var mapOptions = {
+                                            center: new google.maps.LatLng(latitude, longitude),
+                                            zoom: 13,
+                                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        }
+
+                                        var map = new google.maps.Map(mapCanvas, mapOptions)
+                                        var myLatlng = new google.maps.LatLng(latitude, longitude);
+                                        var marker = new google.maps.Marker({
+                                            position: myLatlng,
+                                            map: map,{% if (dealer is defined and dealer is not empty) %}
+                                            title: '{{dealer.name}}'
+                                {% endif %}
+                                        });
+
+                                    }
+                                    google.maps.event.addDomListener(window, 'load', initialize);
+                                </script>
+                                {% javascripts     '@jquery_jssor_js' output="filename.js" %}
+                                <script src="{{ asset_url }}"></script>
+                                {% endjavascripts %}
+                                <script>
+                                    jQuery(document).ready(function($) {
+                                        var options = {
+                                            $AutoPlay: true, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                                            $AutoPlayInterval: 4000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+                                            $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
+                                            $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
+                                            $UISearchMode: 0, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+
+                                            $ThumbnailNavigatorOptions: {
+                                                $Class: $JssorThumbnailNavigator$, //[Required] Class to create thumbnail navigator instance
+                                                $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+
+                                                $Loop: 2, //[Optional] Enable loop(circular) of carousel or not, 0: stop, 1: loop, 2 rewind, default value is 1
+                                                $SpacingX: 3, //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
+                                                $SpacingY: 3, //[Optional] Vertical space between each thumbnail in pixel, default value is 0
+                                                $DisplayPieces: 6, //[Optional] Number of pieces to display, default value is 1
+                                                $ParkingPosition: 204, //[Optional] The offset position to park thumbnail,
+
+                                                $ArrowNavigatorOptions: {
+                                                    $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
+                                                    $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
+                                                    $AutoCenter: 2, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
+                                                    $Steps: 6                                       //[Optional] Steps to go for each navigation request, default value is 1
+                                                }
+                                            }
+                                        };
+
+                                        var jssor_slider1 = new $JssorSlider$("slider1_container", options);
+
+                                        //responsive code begin
+                                        //you can remove responsive code if you don't want the slider scales while window resizes
+                                        function ScaleSlider() {
+                                            var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
+                                            if (parentWidth)
+                                                jssor_slider1.$SetScaleWidth(Math.min(parentWidth, 720));
+                                            else
+                                                window.setTimeout(ScaleSlider, 30);
+                                        }
+
+                                        ScaleSlider();
+
+                                        if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
+                                            $(window).bind('resize', ScaleSlider);
+                                        }
+
+
+                                        //if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
+                                        //    $(window).bind("orientationchange", ScaleSlider);
+                                        //}
+                                        //responsive code end
+                                    });
+                                </script>
+                                {#{% javascripts '@savecompared_js' %}
+                                <script type="text/javascript" src="{{ asset_url }}"></script>
+                                {% endjavascripts %}#}
+                                <script>
+                                    $(".saveAd").on("click", function() {
+                                        var itemId = $(this).closest('.item-row').attr("data");
+                                        console.log(itemId);
+                                        var act = "add";
+                                        if (!$(this).prop('checked')) {
+                                            act = "remove";
+                                        }
+                                        var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
+                                            htmlx = "";
+                                            if (data.savedAds > 0) {
+                                                htmlx = "(" + data.savedAds + ")";
+                                            }
+                                            $('.savedAds').html(htmlx);
+                                        })
+
+                                    });
+                                    $(".compareAd").on("click", function() {
+                                        var itemId = $(this).closest('.item-row').attr("data");
+                                        var url = $(this).closest('.item-row').attr("url");
+
+                                        var act = "add";
+                                        if (!$(this).prop('checked')) {
+                                            act = "remove";
+                                        }
+                                        var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
+                                            htmlx = "";
+                                            if (data.comparedItes > 0) {
+                                                htmlx = "(" + data.comparedItes + ")";
+                                            }
+                                            $('.savedAds').html(htmlx);
+                                        })
+
+                                    });
+                                </script>
+                                {% endblock %}

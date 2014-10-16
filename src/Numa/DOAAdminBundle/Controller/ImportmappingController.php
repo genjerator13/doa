@@ -301,10 +301,10 @@ class ImportmappingController extends Controller {
         $itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
         //remove old items
         $em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);
-
+        
         //walk trough XML feed
         foreach ($items as $importItem) {
-
+            $processed = false;
             $item = new Item();
             $item->setImportfeed($feed);
             $item->removeAllItemField();
@@ -316,12 +316,12 @@ class ImportmappingController extends Controller {
                 if (!empty($listingFields) && !empty($importItem[$property])) {
                     $stringValue = $importItem[$property];
                     $listingFieldsType = $listingFields->getType();
-                    if ($listingFieldsType != 'array') {
-                        $itemField = new ItemField();
-                        $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
-                        $itemField->setListingfield($listingFields); //will set caption and type by listing field
-                        $stringValue = $itemField->getFieldStringValue();
-                    }
+                    //if ($listingFieldsType != 'array') {
+                    $itemField = new ItemField();
+                    $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
+                    $itemField->setListingfield($listingFields); //will set caption and type by listing field
+                    $stringValue = $itemField->getFieldStringValue();
+                    //}
                     
 
                     //if xml property has children then do each child
@@ -331,7 +331,6 @@ class ImportmappingController extends Controller {
                             //get listingFieldlist by ID and stringValue
                             $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
                             if (!empty($listingList)) {
-                                //\Doctrine\Common\Util\Debug::dump($listingList->getId());
                                 $itemField->setFieldIntegerValue($listingList->getId());
                             }
                         }
@@ -341,9 +340,15 @@ class ImportmappingController extends Controller {
                         $upload_url = $this->container->getParameter('upload_url');
                         $upload_path = $this->container->getParameter('upload_path');
                         $item->proccessImagesFromRemote($stringValue, $maprow, $upload_path, $upload_url);
+                        $processed = true;
+                    }
+                    
+                    if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
+                        $processed = true;
+                        $item->proccessOptionsList($stringValue, $feed->getOptionsSeparator());
                     }
 
-                    if ($listingFieldsType != 'array') {
+                    if (!$processed) {
                         $item->addItemField($itemField);
                     }
                     //connect with dealer

@@ -695,11 +695,13 @@ class Item {
     public function getModel() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-
+        //die();
         //if ($this->Category->getName() == "Marine") {
-            return $this->ItemFieldArray['model']['stringvalue'];
+        
+        $model = $this->ItemFieldArray['model']['stringvalue'];
+        
         //}
-        //return "";
+        return $model;
     }
 
     public function getMake() {
@@ -707,6 +709,8 @@ class Item {
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category->getName() == "Marine") {
             return $this->ItemFieldArray['boat make']['stringvalue'];
+        }elseif ($this->Category->getName() == "Car") {
+            return $this->ItemFieldArray['make model']['stringvalue']." ";
         }
         return "";
     }
@@ -957,7 +961,19 @@ class Item {
     {
         return $this->Dealer;
     }
-    
+    public function proccessOptionsList($stringvalue,$separator){
+        $optionsArray = explode($separator, $stringvalue);
+        $order = 1;
+        foreach ($optionsArray as $key => $option) {
+                $itemField = new ItemField();                
+                $itemField->setAllValues(true);
+                $itemField->setFieldName($option);
+                $itemField->setFieldType('boolean');
+                $itemField->setSortOrder($order);
+                $this->addItemField($itemField);                
+                $order++;
+            }
+    }
     public function proccessImagesFromRemote($imageString, $maprow,$upload_path,$upload_url) {
         $listingFields = $maprow->getListingFields();
         $feed = $this->getImportfeed();
