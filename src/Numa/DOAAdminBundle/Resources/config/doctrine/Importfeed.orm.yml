@@ -12,6 +12,10 @@ Numa\DOAAdminBundle\Entity\Importfeed:
           nullable: true
         description:                              
            type: text
+        photo_feed:              
+           type: boolean
+           default: 0
+           nullable: true
         import_format:                            
            type: string
            length: 255

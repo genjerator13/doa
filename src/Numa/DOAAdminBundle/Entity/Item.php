@@ -624,7 +624,7 @@ class Item {
     public function getItemField() {
         $this->getItemFieldsArray();
         return $this->ItemField;
-    }
+    }   
 
     /**
      * Get ItemFields
@@ -708,9 +708,13 @@ class Item {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category->getName() == "Marine") {
-            return $this->ItemFieldArray['boat make']['stringvalue'];
+            if(isset($this->ItemFieldArray['boat make'])){
+                return $this->ItemFieldArray['boat make']['stringvalue'];
+            }
         }elseif ($this->Category->getName() == "Car") {
-            return $this->ItemFieldArray['make model']['stringvalue']." ";
+            if(isset($this->ItemFieldArray['make model'])){
+                return $this->ItemFieldArray['make model']['stringvalue']." ";
+            }
         }
         return "";
     }
@@ -1014,5 +1018,17 @@ class Item {
             }
         }
     }
+    
+    public function getItemFieldObjectByName($field_name){
+
+        foreach ($this->getItemField() as $key => $itemfield) {
+            if(strtolower($itemfield->getFieldName())==strtolower($field_name)){
+                return $itemfield;
+            }
+        }
+        return null;
+    }
+    
+
     
 }

@@ -1018,4 +1018,32 @@ class Importfeed {
     {
         return $this->dealer_id;
     }
+    /**
+     * @var boolean
+     */
+    private $photo_feed;
+
+
+    /**
+     * Set photo_feed
+     *
+     * @param boolean $photoFeed
+     * @return Importfeed
+     */
+    public function setPhotoFeed($photoFeed)
+    {
+        $this->photo_feed = $photoFeed;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo_feed
+     *
+     * @return boolean 
+     */
+    public function getPhotoFeed()
+    {
+        return $this->photo_feed;
+    }
 }

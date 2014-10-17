@@ -625,6 +625,11 @@ class Item {
         $this->getItemFieldsArray();
         return $this->ItemField;
     }
+    
+    public function emptyItemFields() {
+        
+        $this->ItemField = null;
+    }
 
     /**
      * Get ItemFields
@@ -695,18 +700,26 @@ class Item {
     public function getModel() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-
+        //die();
         //if ($this->Category->getName() == "Marine") {
-            return $this->ItemFieldArray['model']['stringvalue'];
+        
+        $model = $this->ItemFieldArray['model']['stringvalue'];
+        
         //}
-        //return "";
+        return $model;
     }
 
     public function getMake() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category->getName() == "Marine") {
-            return $this->ItemFieldArray['boat make']['stringvalue'];
+            if(isset($this->ItemFieldArray['boat make'])){
+                return $this->ItemFieldArray['boat make']['stringvalue'];
+            }
+        }elseif ($this->Category->getName() == "Car") {
+            if(isset($this->ItemFieldArray['make model'])){
+                return $this->ItemFieldArray['make model']['stringvalue']." ";
+            }
         }
         return "";
     }
@@ -907,6 +920,7 @@ class Item {
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     * @GRID\Column(type="text", field="Dealer.name", title="Dealer", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      */
     private $Dealer;
 
@@ -956,5 +970,70 @@ class Item {
     {
         return $this->Dealer;
     }
+    public function proccessOptionsList($stringvalue,$separator){
+        $optionsArray = explode($separator, $stringvalue);
+        $order = 1;
+        foreach ($optionsArray as $key => $option) {
+                $itemField = new ItemField();                
+                $itemField->setAllValues(true);
+                $itemField->setFieldName($option);
+                $itemField->setFieldType('boolean');
+                $itemField->setSortOrder($order);
+                $this->addItemField($itemField);                
+                $order++;
+            }
+    }
+    public function proccessImagesFromRemote($imageString, $maprow,$upload_path,$upload_url) {
+        $listingFields = $maprow->getListingFields();
+        $feed = $this->getImportfeed();
+        if (is_array($imageString)) {
+            $order = 0;
+            foreach ($imageString as $key => $value) {
+                $itemField = new ItemField();
+                
+                $itemField->setAllValues($value);
+                $itemField->setListingfield($listingFields);
+                $this->addItemField($itemField);
+                $itemField->handleImage($value, $feed->getId(),$upload_path,$upload_url,$order);
+                
+                $order++;
+            }
+        } else {
+            $pictureSeparator = $feed->getPicturesSeparator();
+            if(empty($pictureSeparator)){
+                $pictureSeparator = ";";
+            }
+            $picturesArray    = explode($pictureSeparator, $imageString);
+            $order = 0;
+            
+            if(count($picturesArray)>1){
+                $order = 1;
+            }
+            //print_r(count($picturesArray));
+            foreach($picturesArray as $picture){
+                $itemField = new ItemField();
+                
+                $itemField->setAllValues($picture);
+                $itemField->setListingfield($listingFields);
+                $this->addItemField($itemField);
+                $itemField->handleImage($picture, $upload_path,$upload_url,$order);
+                
+                $order++;
+                //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
+            }
+        }
+    }
+    
+    public function getItemFieldObjectByName($field_name){
+
+        foreach ($this->getItemField() as $key => $itemfield) {
+            if(strtolower($itemfield->getFieldName())==strtolower($field_name)){
+                return $itemfield;
+            }
+        }
+        return null;
+    }
+    
+
     
 }

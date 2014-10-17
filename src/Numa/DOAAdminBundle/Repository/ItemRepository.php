@@ -3,6 +3,10 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOAAdminBundle\Entity\ItemField;
+use Numa\DOAAdminBundle\Entity\Listingfield;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 class ItemRepository extends EntityRepository {
 
@@ -24,6 +28,7 @@ class ItemRepository extends EntityRepository {
         $res = $query->getResult(); //getOneOrNullResult();
         return $res;
     }
+
     /**
      * Returns saved ads for the requested user id
      * @param integer $user_id
@@ -38,38 +43,137 @@ class ItemRepository extends EntityRepository {
                 //->from('NumaDOAAdminBundle:Item', 'i')
                 //->join('NumaDOAAdminBundle:UserItem', 'ui')
                 ->where('ui.user_id=:user_id')
-                ->andWhere('ui.item_type= :item_type')                
+                ->andWhere('ui.item_type= :item_type')
                 ->setParameter('item_type', \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD)
                 ->setParameter('user_id', $user_id)
-                ;                
+        ;
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery;
     }
-    
+
     public function getItemFieldSubCats($cat) {
-        $subcatname = 'boat subtype';//test
-        if($cat==2){
+        $subcatname = 'boat subtype'; //test
+        if ($cat == 2) {
             $subcatname = 'boat subtype';
         }
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('if.field_string_value')->distinct()
-                ->from('NumaDOAAdminBundle:Item'     , 'i')
+                ->from('NumaDOAAdminBundle:Item', 'i')
                 ->join('NumaDOAAdminBundle:ItemField', 'if')
                 ->where('if.field_name=:subcatname')
-
                 ->setParameter('subcatname', $subcatname)
-                ;                
+        ;
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery->getResult();
     }
-    
-    public function removeItemsByFeed($feed_id){
+
+    public function removeAllItemFields($item_id) {
+        $item_id = intval($item_id);
+        if (!empty($item_id)) {
+            
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
+            $numDeleted = $q->execute();
+        }
+    }
+
+    public function findItemByUniqueField($uniqueField, $value) {
+
+        
+
+        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
+        $itemsQuery = $this->getEntityManager()
+                        ->createQuery($q)->setMaxResults(1);
+        
+          //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+          //print_r($value);
+          //print_r($uniqueField);
+         //
+        return $itemsQuery->getOneOrNullResult();
+    }
+
+    public function removeItemsByFeed($feed_id) {
         $feed_id = intval($feed_id);
-        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = '.$feed_id);
+        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
         $numDeleted = $q->execute();
+    }
+
+    public function importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path) {
+        $em = $this->getEntityManager();
+        $uniqueField = $feed->getUniqueField();
+        $processed = false;
+        
+        $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(),$uniqueField);
+        
+        if(!empty($uniqueField)){
+            $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
+        }
+        //\Doctrine\Common\Util\Debug::dump($item);die();
+        if (empty($item)) {
+            $item = new Item();
+        }
+        $item->setImportfeed($feed);
+        $item->removeAllItemField();
+        if($feed->getPhotoFeed()){
+            $this->removeAllItemFields($item->getId());
+            //die("aaa".$feed->getPhotoFeed());
+        }
+        
+        foreach ($mapping as $maprow) {
+            $property = $maprow->getSid();
+
+            $listingFields = $maprow->getListingFields();
+            //check if there are predefined listing field in database (listing_field_lists)
+
+            if (!empty($listingFields) && !empty($importItem[$property])) {
+                $stringValue = $importItem[$property];
+                $listingFieldsType = $listingFields->getType();
+
+                $itemField = new ItemField();
+                $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
+                $itemField->setListingfield($listingFields); //will set caption and type by listing field
+                $stringValue = $itemField->getFieldStringValue();
+
+                //if xml property has children then do each child
+                if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
+                    $listValues = $listingFields->getListingFieldLists();
+                    if (!$listValues->isEmpty()) {
+                        //get listingFieldlist by ID and stringValue
+                        $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                        if (!empty($listingList)) {
+                            $itemField->setFieldIntegerValue($listingList->getId());
+                        }
+                    }
+                }
+
+                if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
+
+                    $item->proccessImagesFromRemote($stringValue, $maprow, $upload_path, $upload_url);
+                    $processed = true;
+                }
+
+                if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
+                    $processed = true;
+                    $item->proccessOptionsList($stringValue, $feed->getOptionsSeparator());
+                }
+
+                if (!$processed) {
+                    $item->addItemField($itemField);
+                }
+                //connect with dealer
+                if (strtolower($property) == 'dealerid' || strtolower($property) == 'dealer') {
+                    $dealerId = $stringValue;
+                    $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
+                    $item->setDealer($dealer);
+                }
+            }
+        }//end mapping foreach
+        //$createdItems[] = $item;
+        //$em->persist($item);
+        //$em->flush();
+        return $item;
     }
 
 }

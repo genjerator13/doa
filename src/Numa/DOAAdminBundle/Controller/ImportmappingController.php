@@ -290,76 +290,25 @@ class ImportmappingController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $createdItems = array();
         $feed_id = $id;
+        //$uniqueField = $feed->getUniqueField();
         $remoteFeed = new Remotefeed($id);
         $items = $remoteFeed->getRemoteItems();
-        //print_r($this->items);die();
         //get import feed by id
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($feed_id);
         //get mapping by feed id
         $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
         //get mold items by feed id
-        $itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
+        //$itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
         //remove old items
-        $em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);
-        
+        //$em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);        
         //walk trough XML feed
+        $upload_url = $this->container->getParameter('upload_url');
+        $upload_path = $this->container->getParameter('upload_path');
+        
+        
         foreach ($items as $importItem) {
-            $processed = false;
-            $item = new Item();
-            $item->setImportfeed($feed);
-            $item->removeAllItemField();
-
-            foreach ($mapping as $maprow) {
-                $property = $maprow->getSid();
-                $listingFields = $maprow->getListingFields();
-                //check if there are predefined listing field in database (listing_field_lists)
-                if (!empty($listingFields) && !empty($importItem[$property])) {
-                    $stringValue = $importItem[$property];
-                    $listingFieldsType = $listingFields->getType();
-                    //if ($listingFieldsType != 'array') {
-                    $itemField = new ItemField();
-                    $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
-                    $itemField->setListingfield($listingFields); //will set caption and type by listing field
-                    $stringValue = $itemField->getFieldStringValue();
-                    //}
-                    
-
-                    //if xml property has children then do each child
-                    if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
-                        $listValues = $listingFields->getListingFieldLists();
-                        if (!$listValues->isEmpty()) {
-                            //get listingFieldlist by ID and stringValue
-                            $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
-                            if (!empty($listingList)) {
-                                $itemField->setFieldIntegerValue($listingList->getId());
-                            }
-                        }
-                    }
-
-                    if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                        $upload_url = $this->container->getParameter('upload_url');
-                        $upload_path = $this->container->getParameter('upload_path');
-                        $item->proccessImagesFromRemote($stringValue, $maprow, $upload_path, $upload_url);
-                        $processed = true;
-                    }
-                    
-                    if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
-                        $processed = true;
-                        $item->proccessOptionsList($stringValue, $feed->getOptionsSeparator());
-                    }
-
-                    if (!$processed) {
-                        $item->addItemField($itemField);
-                    }
-                    //connect with dealer
-                    if (strtolower($property) == 'dealerid' || strtolower($property) == 'dealer') {
-                        $dealerId = $stringValue;
-                        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
-                        $item->setDealer($dealer);
-                    }
-                }
-            }//end mapping foreach
-
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping,$feed, $upload_url, $upload_path);
+            
             $createdItems[] = $item;
             $em->persist($item);
             $em->flush();

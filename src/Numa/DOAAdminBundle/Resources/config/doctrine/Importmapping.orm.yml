@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\Importmapping:
     type: entity
     table: import_mapping
+    repositoryClass: Numa\DOAAdminBundle\Repository\MappingRepository
     id:
         id:
             type: integer
