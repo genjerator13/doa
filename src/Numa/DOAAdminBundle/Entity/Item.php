@@ -995,6 +995,7 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
+
             if(empty($pictureSeparator)){
                 $pictureSeparator = ";";
             }

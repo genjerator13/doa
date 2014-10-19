@@ -323,68 +323,7 @@ class ImportmappingController extends Controller {
 //        echo $time . ":::" . count($items);
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }
-/*
-    private function handleImage($stringValue, $feed_sid, &$itemField) {
 
-        $url = $stringValue;
-        //get etension//
-
-        $filename = pathinfo($url, PATHINFO_BASENAME);
-
-        if (!empty($url)) {
-            $upload_url = $this->container->getParameter('upload_url');
-            $upload_path = $this->container->getParameter('upload_path');
-            $dir = $upload_path . "/" . $feed_sid;
-            if (!file_exists($dir)) {
-                mkdir($dir, 0777);
-            }
-            $img = $dir . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
-            $img_url = $upload_url . "/" . $feed_sid . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
-            $img = str_replace(array(" ", '%'), "-", $img);
-            $img_url = str_replace(array(" ", '%'), "-", $img_url);
-            if (!file_exists($img)) {
-
-                file_put_contents($img, file_get_contents($url));
-            }
-            $itemField->setAllValues($img_url);
-        }
-    }
-
-    private function proccessImagesFromRemote($imageString, Item $item, $maprow) {
-        $listingFields = $maprow->getListingFields();
-        $feed = $item->getImportfeed();
-        if (is_array($imageString)) {
-            $order = 0;
-            foreach ($imageString as $key => $value) {
-                $itemField = new ItemField();
-
-                $itemField->setAllValues($value);
-                $itemField->setListingfield($listingFields);
-
-                $this->handleImage($value, $feed->getId(), $itemField,$order);
-                $item->addItemField($itemField);
-                $order++;
-            }
-        } else {
-            $pictureSeparator = $feed->getPicturesSeparator();
-            $picturesArray    = explode($pictureSeparator, $imageString);
-            $order = 0;
-            
-            if(count($picturesArray)>1){
-                $order = 1;
-            }
-            
-            foreach($picturesArray as $picture){
-                $itemField = new ItemField();
-                $itemField->setAllValues($value);
-                $itemField->setListingfield($listingFields);
-                $this->handleImage($picture, $feed->getId(), $itemField,$order);
-                $item->addItemField($itemField);
-                $order++;
-            }
-        }
-    }
-*/
     public function mapvaluesAction(Request $request = null) {
         $mapid = intval($request->request->get('mapid'));
         $json = array();
