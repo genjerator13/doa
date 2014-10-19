@@ -73,7 +73,7 @@ class ItemRepository extends EntityRepository {
     public function removeAllItemFields($item_id) {
         $item_id = intval($item_id);
         if (!empty($item_id)) {
-            
+
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
             $numDeleted = $q->execute();
         }
@@ -81,16 +81,16 @@ class ItemRepository extends EntityRepository {
 
     public function findItemByUniqueField($uniqueField, $value) {
 
-        
+
 
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
         $itemsQuery = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
-        
-          //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-          //print_r($value);
-          //print_r($uniqueField);
-         //
+
+        //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        //print_r($value);
+        //print_r($uniqueField);
+        //
         return $itemsQuery->getOneOrNullResult();
     }
 
@@ -102,25 +102,30 @@ class ItemRepository extends EntityRepository {
 
     public function importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path) {
         $em = $this->getEntityManager();
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
-        
-        $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(),$uniqueField);
-        
-        if(!empty($uniqueField)){
+        $persist = false;
+
+        $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
+
+        if (!empty($uniqueField)) {
             $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
         }
         //\Doctrine\Common\Util\Debug::dump($item);die();
         if (empty($item)) {
+            $persist = true;
             $item = new Item();
             $item->setImportfeed($feed);
+        } else {
+            
         }
         
 
-        if($feed->getPhotoFeed()){
+        if ($feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         }
-        
+
         foreach ($mapping as $maprow) {
             $property = $maprow->getSid();
 
@@ -151,7 +156,7 @@ class ItemRepository extends EntityRepository {
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
 
                     $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url);
-                    
+
                     $processed = true;
                 }
 
@@ -174,6 +179,12 @@ class ItemRepository extends EntityRepository {
         //$createdItems[] = $item;
         //$em->persist($item);
         //$em->flush();
+        if ($persist) {
+
+            echo '::::';
+            $em->persist($item);
+        }
+        $em->flush();
         return $item;
     }
 

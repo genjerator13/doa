@@ -288,6 +288,7 @@ class ImportmappingController extends Controller {
     public function fetchAction(Request $request = null, $id) {
         $time = time();
         $em = $this->getDoctrine()->getManager();
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $createdItems = array();
         $feed_id = $id;
         //$uniqueField = $feed->getUniqueField();
@@ -310,8 +311,7 @@ class ImportmappingController extends Controller {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping,$feed, $upload_url, $upload_path);
             
             $createdItems[] = $item;
-            $em->persist($item);
-            $em->flush();
+
         }
 
         $time = time() - $time;

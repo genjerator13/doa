@@ -624,7 +624,7 @@ class Item {
     public function getItemField() {
         $this->getItemFieldsArray();
         return $this->ItemField;
-    }   
+    }
 
     /**
      * Get ItemFields
@@ -653,27 +653,29 @@ class Item {
 
         return $this->ItemFieldArray;
     }
-    public function dumpItemFields(){
+
+    public function dumpItemFields() {
         $this->getItemFieldsArray();
         foreach ($this->ItemFieldArray as $key => $value) {
-            if(!empty($value['stringvalue'])){
-                echo "<br>".$key.":::".$value['stringvalue'];
+            if (!empty($value['stringvalue'])) {
+                echo "<br>" . $key . ":::" . $value['stringvalue'];
             }
         }
     }
-    public function getImage($num=0){
+
+    public function getImage($num = 0) {
         $images = $this->getImages();
         //      
-        if(!empty($images)){
+        if (!empty($images)) {
             $val = array_values($images);
             unset($val[0]['object']);
-            $ret =  array('image'=>$val[0]);
+            $ret = array('image' => $val[0]);
             //\Doctrine\Common\Util\Debug::dump($ret);//die();  
             return $ret;
-            
         }
         return false;
     }
+
     public function getImages() {
         $this->getItemFieldsArray();
 
@@ -682,8 +684,8 @@ class Item {
         }
         return array();
     }
-    
-    public function getCountImages(){
+
+    public function getCountImages() {
         $this->getItemFieldsArray();
 
         if (!empty($this->ItemFieldArray['image list'])) {
@@ -696,25 +698,29 @@ class Item {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         //die();
-        //if ($this->Category->getName() == "Marine") {
-        
-        $model = $this->ItemFieldArray['model']['stringvalue'];
-        
-        //}
+        $model = "";
+        if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
+            if ($this->Category->getName() == "Marine") {
+
+                $model = $this->ItemFieldArray['model']['stringvalue'];
+            }if ($this->Category->getName() == "Marine") {
+                $model = $this->ItemFieldArray['model']['stringvalue'];
+            }
+        }
         return $model;
     }
 
     public function getMake() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-        if($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category){
+        if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
             if ($this->Category->getName() == "Marine") {
-                if(isset($this->ItemFieldArray['boat make'])){
+                if (isset($this->ItemFieldArray['boat make'])) {
                     return $this->ItemFieldArray['boat make']['stringvalue'];
                 }
-            }elseif ($this->Category->getName() == "Car") {
-                if(isset($this->ItemFieldArray['make model'])){
-                    return $this->ItemFieldArray['make model']['stringvalue']." ";
+            } elseif ($this->Category->getName() == "Car") {
+                if (isset($this->ItemFieldArray['make model'])) {
+                    return $this->ItemFieldArray['make model']['stringvalue'] . " ";
                 }
             }
         }
@@ -723,15 +729,15 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        
-        
-        if(property_exists(get_class($this), $name)){
+
+
+        if (property_exists(get_class($this), $name)) {
             $name = strtolower($name);
             return $this->$name;
-        }elseif($name=='image'){
+        } elseif ($name == 'image') {
             return $this->getImage();
         }
-        
+
         if (!empty($this->ItemFieldArray[$name])) {
 
             return $this->ItemFieldArray[$name]['stringvalue'];
@@ -767,7 +773,7 @@ class Item {
      * @return Item
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
-        if(!empty($importfeed)){
+        if (!empty($importfeed)) {
             $this->Importfeed = $importfeed;
             $isFeatured = $importfeed->getMakeFeatured();
             $isActivated = $importfeed->getActivateListing();
@@ -779,16 +785,16 @@ class Item {
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
-        
+
         if (!empty($isActivated)) {
             $this->setActive(true);
             $this->setActivationDate(new \DateTime());
         }
-        
+
         if (!empty($isHighlighted)) {
             $this->setFeatureHighlighted(true);
         }
-        
+
         if (!empty($isExpired)) {
             $days = $importfeed->getExpirationAfter();
             $isDateCreated = $this->getDateCreated();
@@ -802,7 +808,7 @@ class Item {
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
         }
 
-        
+
 
         if (!empty($dealer)) {
             $itemField = new ItemField();
@@ -870,13 +876,11 @@ class Item {
     public function __toString() {
         return "test";
     }
-    
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
     private $UserItems;
-
 
     /**
      * Add UserItems
@@ -884,10 +888,9 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
      * @return Item
      */
-    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
-    {
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
         $this->UserItems[] = $userItems;
-    
+
         return $this;
     }
 
@@ -896,8 +899,7 @@ class Item {
      *
      * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
      */
-    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
-    {
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
         $this->UserItems->removeElement($userItems);
     }
 
@@ -906,10 +908,10 @@ class Item {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getUserItems()
-    {
+    public function getUserItems() {
         return $this->UserItems;
     }
+
     /**
      * @var integer
      */
@@ -921,17 +923,15 @@ class Item {
      */
     private $Dealer;
 
-
     /**
      * Set dealer_id
      *
      * @param integer $dealerId
      * @return Item
      */
-    public function setDealerId($dealerId)
-    {
+    public function setDealerId($dealerId) {
         $this->dealer_id = $dealerId;
-    
+
         return $this;
     }
 
@@ -940,8 +940,7 @@ class Item {
      *
      * @return integer 
      */
-    public function getDealerId()
-    {
+    public function getDealerId() {
         return $this->dealer_id;
     }
 
@@ -951,10 +950,9 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
      * @return Item
      */
-    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
-    {
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null) {
         $this->Dealer = $dealer;
-    
+
         return $this;
     }
 
@@ -963,76 +961,75 @@ class Item {
      *
      * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
      */
-    public function getDealer()
-    {
+    public function getDealer() {
         return $this->Dealer;
     }
-    public function proccessOptionsList($stringvalue,$separator){
+
+    public function proccessOptionsList($stringvalue, $separator) {
         $optionsArray = explode($separator, $stringvalue);
         $order = 1;
         foreach ($optionsArray as $key => $option) {
-                $itemField = new ItemField();                
-                $itemField->setAllValues(true);
-                $itemField->setFieldName($option);
-                $itemField->setFieldType('boolean');
-                $itemField->setSortOrder($order);
-                $this->addItemField($itemField);                
-                $order++;
-            }
+            $itemField = new ItemField();
+            $itemField->setAllValues(true);
+            $itemField->setFieldName($option);
+            $itemField->setFieldType('boolean');
+            $itemField->setSortOrder($order);
+            $this->addItemField($itemField);
+            $order++;
+        }
     }
-    public function proccessImagesFromRemote($imageString, $maprow,$feed,$upload_path,$upload_url) {
+
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url) {
         $listingFields = $maprow->getListingFields();
         $localy = $feed->getPicturesSaveLocaly();
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
-                
+
                 $itemField->setAllValues($value);
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
-                $itemField->handleImage($value, $feed->getId(),$upload_path,$upload_url,$order,$localy);
-                
+                $itemField->handleImage($value, $feed->getId(), $upload_path, $upload_url, $order, $localy);
+
                 $order++;
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
 
-            if(empty($pictureSeparator)){
+            if (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
-            $picturesArray    = explode($pictureSeparator, $imageString);
-            
+            $picturesArray = explode($pictureSeparator, $imageString);
+
             $order = 0;
-            
-            if(count($picturesArray)>1){
+
+            if (count($picturesArray) > 1) {
                 $order = 1;
             }
             //print_r(count($picturesArray));
-            foreach($picturesArray as $picture){
+            foreach ($picturesArray as $picture) {
                 $itemField = new ItemField();
-                
+
                 $itemField->setAllValues($picture);
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
-                $itemField->handleImage($picture, $upload_path,$upload_url,$order,$localy);
-                
+                $itemField->handleImage($picture, $upload_path, $upload_url, $order, $localy);
+
                 $order++;
                 //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
             }
         }
     }
-    
-    public function getItemFieldObjectByName($field_name){
+
+    public function getItemFieldObjectByName($field_name) {
 
         foreach ($this->getItemField() as $key => $itemfield) {
-            if(strtolower($itemfield->getFieldName())==strtolower($field_name)){
+            if (strtolower($itemfield->getFieldName()) == strtolower($field_name)) {
                 return $itemfield;
             }
         }
         return null;
     }
-    
 
-    
 }
