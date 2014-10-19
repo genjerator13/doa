@@ -122,7 +122,7 @@ class ItemRepository extends EntityRepository {
         }
         
 
-        if ($feed->getPhotoFeed()) {
+        if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         }
 
