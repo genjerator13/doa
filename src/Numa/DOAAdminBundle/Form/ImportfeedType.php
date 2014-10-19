@@ -77,6 +77,7 @@ class ImportfeedType extends AbstractType {
                 ))
                 ->add('pictures_key')
                 ->add('pictures_separator')
+                ->add('pictures_save_localy')
                 ->add('activate_listing')
                 ->add('make_featured')
                 ->add('make_highlighted')

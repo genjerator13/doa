@@ -624,12 +624,7 @@ class Item {
     public function getItemField() {
         $this->getItemFieldsArray();
         return $this->ItemField;
-    }
-    
-    public function emptyItemFields() {
-        
-        $this->ItemField = null;
-    }
+    }   
 
     /**
      * Get ItemFields
@@ -712,13 +707,15 @@ class Item {
     public function getMake() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-        if ($this->Category->getName() == "Marine") {
-            if(isset($this->ItemFieldArray['boat make'])){
-                return $this->ItemFieldArray['boat make']['stringvalue'];
-            }
-        }elseif ($this->Category->getName() == "Car") {
-            if(isset($this->ItemFieldArray['make model'])){
-                return $this->ItemFieldArray['make model']['stringvalue']." ";
+        if($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category){
+            if ($this->Category->getName() == "Marine") {
+                if(isset($this->ItemFieldArray['boat make'])){
+                    return $this->ItemFieldArray['boat make']['stringvalue'];
+                }
+            }elseif ($this->Category->getName() == "Car") {
+                if(isset($this->ItemFieldArray['make model'])){
+                    return $this->ItemFieldArray['make model']['stringvalue']." ";
+                }
             }
         }
         return "";
@@ -983,9 +980,9 @@ class Item {
                 $order++;
             }
     }
-    public function proccessImagesFromRemote($imageString, $maprow,$upload_path,$upload_url) {
+    public function proccessImagesFromRemote($imageString, $maprow,$feed,$upload_path,$upload_url) {
         $listingFields = $maprow->getListingFields();
-        $feed = $this->getImportfeed();
+        //$feed = $this->getImportfeed();
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
@@ -1000,10 +997,12 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
+
             if(empty($pictureSeparator)){
                 $pictureSeparator = ";";
             }
             $picturesArray    = explode($pictureSeparator, $imageString);
+            
             $order = 0;
             
             if(count($picturesArray)>1){

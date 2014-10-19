@@ -72,6 +72,10 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            type: string
            length: 255
            nullable: true
+        pictures_save_localy:                                                                              
+           type: boolean
+           default: 1
+           nullable: true
         activate_listing:                                       
            type: boolean
            default: 0

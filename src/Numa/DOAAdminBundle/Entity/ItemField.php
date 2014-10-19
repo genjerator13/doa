@@ -331,14 +331,15 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0) {
+    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0 , $localy=false) {
 
         $url = $stringValue;
         //get etension//
 
         $filename = pathinfo($url, PATHINFO_BASENAME);
 
-        if (!empty($url)) {
+        
+        if (!empty($url) && $localy) {
             $feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
             if (!file_exists($dir)) {
@@ -350,7 +351,8 @@ class ItemField {
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
             if (!file_exists($img)) {
                 $http = substr($url, 0, 4) == 'http';
-
+                
+                
                 if ($http) {
 
 
@@ -372,10 +374,14 @@ class ItemField {
                         
                     }
                 }
+                 
+                 
             }
-            $this->setAllValues($img_url);
+         
+            $this->setAllValues($url);
             $this->setSortOrder($order);
         }
+
     }
 
 }

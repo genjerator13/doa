@@ -1046,4 +1046,32 @@ class Importfeed {
     {
         return $this->photo_feed;
     }
+    /**
+     * @var boolean
+     */
+    private $pictures_save_localy;
+
+
+    /**
+     * Set pictures_save_localy
+     *
+     * @param boolean $picturesSaveLocaly
+     * @return Importfeed
+     */
+    public function setPicturesSaveLocaly($picturesSaveLocaly)
+    {
+        $this->pictures_save_localy = $picturesSaveLocaly;
+    
+        return $this;
+    }
+
+    /**
+     * Get pictures_save_localy
+     *
+     * @return boolean 
+     */
+    public function getPicturesSaveLocaly()
+    {
+        return $this->pictures_save_localy;
+    }
 }

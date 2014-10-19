@@ -9,10 +9,14 @@
                                 <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
                             {% else %} 
                                 {% set image = item.getImages()|first["stringvalue"]%}
+                                {% if ('http' not in image) %}
                                     <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                                    {% else %}
+                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" />                                    
                                     {%endif%}
                                     </a>
-
+                                    
+                            {% endif %}
                                 </div>
                                 <div class="shortDetails">
                                     <h4>

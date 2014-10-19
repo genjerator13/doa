@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ItemField
  */
-class ItemField
-{
+class ItemField {
+
     /**
      * @var integer
      */
@@ -59,14 +59,12 @@ class ItemField
      */
     private $Listingfield;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -76,10 +74,9 @@ class ItemField
      * @param integer $itemId
      * @return ItemField
      */
-    public function setItemId($itemId)
-    {
+    public function setItemId($itemId) {
         $this->item_id = $itemId;
-    
+
         return $this;
     }
 
@@ -88,8 +85,7 @@ class ItemField
      *
      * @return integer 
      */
-    public function getItemId()
-    {
+    public function getItemId() {
         return $this->item_id;
     }
 
@@ -99,10 +95,9 @@ class ItemField
      * @param string $fieldName
      * @return ItemField
      */
-    public function setFieldName($fieldName)
-    {
+    public function setFieldName($fieldName) {
         $this->field_name = $fieldName;
-    
+
         return $this;
     }
 
@@ -111,8 +106,7 @@ class ItemField
      *
      * @return string 
      */
-    public function getFieldName()
-    {
+    public function getFieldName() {
         return $this->field_name;
     }
 
@@ -122,10 +116,9 @@ class ItemField
      * @param string $fieldType
      * @return ItemField
      */
-    public function setFieldType($fieldType)
-    {
+    public function setFieldType($fieldType) {
         $this->field_type = $fieldType;
-    
+
         return $this;
     }
 
@@ -134,8 +127,7 @@ class ItemField
      *
      * @return string 
      */
-    public function getFieldType()
-    {
+    public function getFieldType() {
         return $this->field_type;
     }
 
@@ -145,10 +137,9 @@ class ItemField
      * @param string $fieldStringValue
      * @return ItemField
      */
-    public function setFieldStringValue($fieldStringValue)
-    {
+    public function setFieldStringValue($fieldStringValue) {
         $this->field_string_value = $fieldStringValue;
-    
+
         return $this;
     }
 
@@ -157,8 +148,7 @@ class ItemField
      *
      * @return string 
      */
-    public function getFieldStringValue()
-    {
+    public function getFieldStringValue() {
         return $this->field_string_value;
     }
 
@@ -168,10 +158,9 @@ class ItemField
      * @param boolean $fieldBooleanValue
      * @return ItemField
      */
-    public function setFieldBooleanValue($fieldBooleanValue)
-    {
+    public function setFieldBooleanValue($fieldBooleanValue) {
         $this->field_boolean_value = $fieldBooleanValue;
-    
+
         return $this;
     }
 
@@ -180,8 +169,7 @@ class ItemField
      *
      * @return boolean 
      */
-    public function getFieldBooleanValue()
-    {
+    public function getFieldBooleanValue() {
         return $this->field_boolean_value;
     }
 
@@ -191,10 +179,9 @@ class ItemField
      * @param integer $fieldIntegerValue
      * @return ItemField
      */
-    public function setFieldIntegerValue($fieldIntegerValue)
-    {
+    public function setFieldIntegerValue($fieldIntegerValue) {
         $this->field_integer_value = $fieldIntegerValue;
-    
+
         return $this;
     }
 
@@ -203,8 +190,7 @@ class ItemField
      *
      * @return integer 
      */
-    public function getFieldIntegerValue()
-    {
+    public function getFieldIntegerValue() {
         return $this->field_integer_value;
     }
 
@@ -214,10 +200,9 @@ class ItemField
      * @param \DateTime $fieldDatetimeValue
      * @return ItemField
      */
-    public function setFieldDatetimeValue($fieldDatetimeValue)
-    {
+    public function setFieldDatetimeValue($fieldDatetimeValue) {
         $this->field_datetime_value = $fieldDatetimeValue;
-    
+
         return $this;
     }
 
@@ -226,8 +211,7 @@ class ItemField
      *
      * @return \DateTime 
      */
-    public function getFieldDatetimeValue()
-    {
+    public function getFieldDatetimeValue() {
         return $this->field_datetime_value;
     }
 
@@ -237,10 +221,9 @@ class ItemField
      * @param integer $fieldId
      * @return ItemField
      */
-    public function setFieldId($fieldId)
-    {
+    public function setFieldId($fieldId) {
         $this->field_id = $fieldId;
-    
+
         return $this;
     }
 
@@ -249,8 +232,7 @@ class ItemField
      *
      * @return integer 
      */
-    public function getFieldId()
-    {
+    public function getFieldId() {
         return $this->field_id;
     }
 
@@ -260,8 +242,7 @@ class ItemField
      * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingfield
      * @return ItemField
      */
-    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
-    {
+    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null) {
         $this->Listingfield = $listingfield;
         $this->setFieldName($listingfield->getCaption());
         $this->setFieldType($listingfield->getType());
@@ -273,15 +254,14 @@ class ItemField
      *
      * @return \Numa\DOAAdminBundle\Entity\Listingfield 
      */
-    public function getListingfield()
-    {
+    public function getListingfield() {
         return $this->Listingfield;
     }
+
     /**
      * @var \Numa\DOAAdminBundle\Entity\Item
      */
     private $Item;
-
 
     /**
      * Set Item
@@ -289,10 +269,9 @@ class ItemField
      * @param \Numa\DOAAdminBundle\Entity\Item $item
      * @return ItemField
      */
-    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
-    {
+    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null) {
         $this->Item = $item;
-    
+
         return $this;
     }
 
@@ -301,23 +280,21 @@ class ItemField
      *
      * @return \Numa\DOAAdminBundle\Entity\Item 
      */
-    public function getItem()
-    {
+    public function getItem() {
         return $this->Item;
     }
 
-    public function __toString(){
+    public function __toString() {
         return $this->getFieldName();
     }
-    
-    
-    function setAllValues($value,$valueMapValues="") {
-        $value = (string)$value;
-        if(!empty($valueMapValues)){
-            $json = json_decode($valueMapValues,true);
-            if(!empty($json)){
-                foreach($json as $key=>$mapValue){
-                    if(strtolower($key)==  strtolower($value)){
+
+    function setAllValues($value, $valueMapValues = "") {
+        $value = (string) $value;
+        if (!empty($valueMapValues)) {
+            $json = json_decode($valueMapValues, true);
+            if (!empty($json)) {
+                foreach ($json as $key => $mapValue) {
+                    if (strtolower($key) == strtolower($value)) {
                         $value = $mapValue;
                     }
                 }
@@ -327,11 +304,11 @@ class ItemField
         $this->field_integer_value = intval($value);
         $this->field_boolean_value = !empty($value);
     }
+
     /**
      * @var integer
      */
     private $sort_order;
-
 
     /**
      * Set sort_order
@@ -339,10 +316,9 @@ class ItemField
      * @param integer $sortOrder
      * @return ItemField
      */
-    public function setSortOrder($sortOrder)
-    {
+    public function setSortOrder($sortOrder) {
         $this->sort_order = $sortOrder;
-    
+
         return $this;
     }
 
@@ -351,18 +327,18 @@ class ItemField
      *
      * @return integer 
      */
-    public function getSortOrder()
-    {
+    public function getSortOrder() {
         return $this->sort_order;
     }
-    
-    public function handleImage($stringValue, $upload_path,$upload_url,$order=0) {
+
+    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0) {
 
         $url = $stringValue;
         //get etension//
 
         $filename = pathinfo($url, PATHINFO_BASENAME);
 
+        /*
         if (!empty($url)) {
             $feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
@@ -374,11 +350,39 @@ class ItemField
             $img = str_replace(array(" ", '%'), "-", $img);
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
             if (!file_exists($img)) {
+                $http = substr($url, 0, 4) == 'http';
+                
+                
+                if ($http) {
 
-                file_put_contents($img, file_get_contents($url));
+
+                    //$exists = ($fp = fopen($url, "r")) !== FALSE;
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_NOBODY, 1);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                    curl_exec($ch);
+                    $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
+                    curl_close($ch);
+                    
+                    if ($is200) {
+                        //valid 
+
+                        file_put_contents($img, file_get_contents($url));
+                        
+                    } else {
+                        
+                    }
+                }
+                 
+                 
             }
-            $this->setAllValues($img_url);
+         
+            $this->setAllValues($url);
             $this->setSortOrder($order);
         }
+         * 
+         */
     }
+
 }

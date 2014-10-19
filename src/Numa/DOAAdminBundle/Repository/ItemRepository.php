@@ -113,12 +113,12 @@ class ItemRepository extends EntityRepository {
         //\Doctrine\Common\Util\Debug::dump($item);die();
         if (empty($item)) {
             $item = new Item();
+            $item->setImportfeed($feed);
         }
-        $item->setImportfeed($feed);
-        $item->removeAllItemField();
+        
+
         if($feed->getPhotoFeed()){
             $this->removeAllItemFields($item->getId());
-            //die("aaa".$feed->getPhotoFeed());
         }
         
         foreach ($mapping as $maprow) {
@@ -150,7 +150,7 @@ class ItemRepository extends EntityRepository {
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
 
-                    $item->proccessImagesFromRemote($stringValue, $maprow, $upload_path, $upload_url);
+                    $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url);
                     
                     $processed = true;
                 }

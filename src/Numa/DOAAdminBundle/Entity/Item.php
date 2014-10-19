@@ -707,13 +707,15 @@ class Item {
     public function getMake() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
-        if ($this->Category->getName() == "Marine") {
-            if(isset($this->ItemFieldArray['boat make'])){
-                return $this->ItemFieldArray['boat make']['stringvalue'];
-            }
-        }elseif ($this->Category->getName() == "Car") {
-            if(isset($this->ItemFieldArray['make model'])){
-                return $this->ItemFieldArray['make model']['stringvalue']." ";
+        if($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category){
+            if ($this->Category->getName() == "Marine") {
+                if(isset($this->ItemFieldArray['boat make'])){
+                    return $this->ItemFieldArray['boat make']['stringvalue'];
+                }
+            }elseif ($this->Category->getName() == "Car") {
+                if(isset($this->ItemFieldArray['make model'])){
+                    return $this->ItemFieldArray['make model']['stringvalue']." ";
+                }
             }
         }
         return "";
@@ -978,9 +980,9 @@ class Item {
                 $order++;
             }
     }
-    public function proccessImagesFromRemote($imageString, $maprow,$upload_path,$upload_url) {
+    public function proccessImagesFromRemote($imageString, $maprow,$feed,$upload_path,$upload_url) {
         $listingFields = $maprow->getListingFields();
-        $feed = $this->getImportfeed();
+        $localy = $feed->getPicturesSaveLocaly();
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
@@ -989,7 +991,7 @@ class Item {
                 $itemField->setAllValues($value);
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
-                $itemField->handleImage($value, $feed->getId(),$upload_path,$upload_url,$order);
+                $itemField->handleImage($value, $feed->getId(),$upload_path,$upload_url,$order,$localy);
                 
                 $order++;
             }
@@ -1000,6 +1002,7 @@ class Item {
                 $pictureSeparator = ";";
             }
             $picturesArray    = explode($pictureSeparator, $imageString);
+            
             $order = 0;
             
             if(count($picturesArray)>1){
@@ -1012,7 +1015,7 @@ class Item {
                 $itemField->setAllValues($picture);
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
-                $itemField->handleImage($picture, $upload_path,$upload_url,$order);
+                $itemField->handleImage($picture, $upload_path,$upload_url,$order,$localy);
                 
                 $order++;
                 //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
