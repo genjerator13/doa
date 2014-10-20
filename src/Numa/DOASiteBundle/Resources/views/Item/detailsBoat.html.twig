@@ -12,9 +12,10 @@
 {% endblock %}
 
 {% set images = item.getImages()%}
+    
     {% set desc = item.getMake()~item.getModel()%}
         {% block content %}
-
+{{images|length}}
             <div class="detailsContent">
                 <h3>{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">{{item.getItemFieldByName('Price')|number_format(0, '.',',')}} $</span></h3>
                 <!-- Jssor Slider Begin -->
@@ -43,7 +44,7 @@
                                     <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
 
                                 {% else %}
-                                    aaaaa
+                                    
                                     <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
                                     <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
 
