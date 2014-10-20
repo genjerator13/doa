@@ -33,6 +33,9 @@ Numa\DOAAdminBundle\Entity\ItemField:
         sort_order:
             type: integer
             nullable: true
+        feed_id:
+            type: integer
+            nullable: true
     manyToOne:
         Item:
             targetEntity: Item

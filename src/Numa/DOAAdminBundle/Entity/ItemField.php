@@ -384,4 +384,32 @@ class ItemField {
 
     }
 
+    /**
+     * @var integer
+     */
+    private $feed_id;
+
+
+    /**
+     * Set feed_id
+     *
+     * @param integer $feedId
+     * @return ItemField
+     */
+    public function setFeedId($feedId)
+    {
+        $this->feed_id = $feedId;
+    
+        return $this;
+    }
+
+    /**
+     * Get feed_id
+     *
+     * @return integer 
+     */
+    public function getFeedId()
+    {
+        return $this->feed_id;
+    }
 }

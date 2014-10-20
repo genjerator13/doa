@@ -82,13 +82,8 @@ class ItemRepository extends EntityRepository {
     public function removeAllItemFieldsByFeed($feed_id) {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
-
-            $q = $this->getEntityManager()->createQuery('SELECT if from NumaDOAAdminBundle:ItemField if JOIN if.Item i where i.feed_id = ' . $feed_id);
-            $toDelete = $q->execute();
-            foreach ($toDelete as $result) {
-                $this->getEntityManager()->remove($result);
-            }
-            $this->getEntityManager()->flush();
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
+            $numDeleted = $q->execute();
         }
     }
 
