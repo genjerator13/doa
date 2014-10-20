@@ -991,7 +991,7 @@ class Item {
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
                 $itemField->handleImage($value, $feed->getId(), $upload_path, $upload_url, $order, $localy);
-
+                echo "$value, $feed->getId(), $localy";
                 $order++;
             }
         } else {

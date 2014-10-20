@@ -139,7 +139,7 @@ class ItemRepository extends EntityRepository {
             $this->removeAllItemFields($item->getId());
         } else {
             $this->removeAllItemFieldsByFeed($feed->getId());
-
+            echo $feed->getId();
         }
 
         foreach ($mapping as $maprow) {
