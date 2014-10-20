@@ -338,7 +338,7 @@ class ItemField {
 
         $filename = pathinfo($url, PATHINFO_BASENAME);
 
-        
+        $img_url = $url;
         if (!empty($url) && $localy) {
             $feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
@@ -378,7 +378,7 @@ class ItemField {
                  
             }
          
-            $this->setAllValues($url);
+            $this->setAllValues($img_url);
             $this->setSortOrder($order);
         }
 
