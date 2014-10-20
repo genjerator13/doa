@@ -1015,7 +1015,7 @@ class Item {
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
                 $itemField->handleImage($picture,  $upload_path, $upload_url, $order, $localy);
-                print_r($picture);echo ":::".$localy;
+                
                 $order++;
                 //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
             }
