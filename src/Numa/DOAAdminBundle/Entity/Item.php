@@ -990,9 +990,9 @@ class Item {
                 $itemField->setAllValues($value);
                 $itemField->setFeedId($feed->getId());
                 $itemField->setListingfield($listingFields);
-                $this->addItemField($itemField);
-                $itemField->handleImage($value, $upload_path, $upload_url, $order, $localy);
                 
+                $itemField->handleImage($value, $upload_path, $upload_url,$this->getFeedId(), $order, $localy);
+                $this->addItemField($itemField);
                 $order++;
             }
         } else {
@@ -1014,9 +1014,10 @@ class Item {
 
                 $itemField->setAllValues($picture);
                 $itemField->setListingfield($listingFields);
-                $this->addItemField($itemField);
-                $itemField->handleImage($picture,  $upload_path, $upload_url, $order, $localy);
                 $itemField->setFeedId($feed->getId());
+                $itemField->handleImage($picture,  $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                
+                $this->addItemField($itemField);
                 $order++;
                 //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
             }

@@ -169,9 +169,7 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-
                     $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url);
-
                     $processed = true;
                 }
 

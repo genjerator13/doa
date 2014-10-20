@@ -331,7 +331,7 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0, $localy = false) {
+    public function handleImage($stringValue, $upload_path, $upload_url,$feed_sid, $order = 0, $localy = false) {
 
         $url = $stringValue;
         //get etension//
@@ -340,7 +340,7 @@ class ItemField {
 
         $img_url = $url;
         if (!empty($url) && $localy) {
-            $feed_sid = $this->getItem()->getImportfeed()->getId();
+            //$feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
             if (!file_exists($dir)) {
                 mkdir($dir, 0777);
@@ -349,6 +349,7 @@ class ItemField {
             $img_url = $upload_url . "/" . $feed_sid . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
             $img = str_replace(array(" ", '%'), "-", $img);
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
+            
             if (!file_exists($img)) {
                 $http = substr($url, 0, 4) == 'http';
 
