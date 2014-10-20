@@ -331,7 +331,7 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0 , $localy=false) {
+    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0, $localy = false) {
 
         $url = $stringValue;
         //get etension//
@@ -351,8 +351,8 @@ class ItemField {
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
             if (!file_exists($img)) {
                 $http = substr($url, 0, 4) == 'http';
-                
-                
+
+
                 if ($http) {
 
 
@@ -369,19 +369,14 @@ class ItemField {
                         //valid 
 
                         file_put_contents($img, file_get_contents($url));
-                        
                     } else {
                         
                     }
                 }
-                 
-                 
             }
-         
-            $this->setAllValues($img_url);
-            $this->setSortOrder($order);
         }
-
+        $this->setAllValues($img_url);
+        $this->setSortOrder($order);
     }
 
     /**
@@ -389,17 +384,15 @@ class ItemField {
      */
     private $feed_id;
 
-
     /**
      * Set feed_id
      *
      * @param integer $feedId
      * @return ItemField
      */
-    public function setFeedId($feedId)
-    {
+    public function setFeedId($feedId) {
         $this->feed_id = $feedId;
-    
+
         return $this;
     }
 
@@ -408,8 +401,8 @@ class ItemField {
      *
      * @return integer 
      */
-    public function getFeedId()
-    {
+    public function getFeedId() {
         return $this->feed_id;
     }
+
 }
