@@ -79,6 +79,19 @@ class ItemRepository extends EntityRepository {
         }
     }
 
+    public function removeAllItemFieldsByFeed($feed_id) {
+        $feed_id = intval($feed_id);
+        if (!empty($feed_id)) {
+
+            $q = $this->getEntityManager()->createQuery('SELECT if from NumaDOAAdminBundle:ItemField if JOIN if.Item i where i.feed_id = ' . $feed_id);
+            $toDelete = $q->execute();
+            foreach ($toDelete as $result) {
+                $this->getEntityManager()->remove($result);
+            }
+            $this->getEntityManager()->flush();
+        }
+    }
+
     public function findItemByUniqueField($uniqueField, $value) {
 
 
@@ -120,10 +133,13 @@ class ItemRepository extends EntityRepository {
         } else {
             
         }
-        
 
+        //clear all item fields if not photo feed
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
+        } else {
+            $this->removeAllItemFieldsByFeed($feed->getId());
+
         }
 
         foreach ($mapping as $maprow) {

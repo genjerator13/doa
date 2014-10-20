@@ -10,12 +10,9 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 {% endblock %}
-
-{% set images = item.getImages()%}
-    
+{% set images = item.getImages()%}    
     {% set desc = item.getMake()~item.getModel()%}
         {% block content %}
-{{images|length}}
             <div class="detailsContent">
                 <h3>{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">{{item.getItemFieldByName('Price')|number_format(0, '.',',')}} $</span></h3>
                 <!-- Jssor Slider Begin -->

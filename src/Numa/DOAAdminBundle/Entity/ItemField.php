@@ -364,7 +364,7 @@ class ItemField {
                     curl_exec($ch);
                     $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
                     curl_close($ch);
-                    
+
                     if ($is200) {
                         //valid 
 
