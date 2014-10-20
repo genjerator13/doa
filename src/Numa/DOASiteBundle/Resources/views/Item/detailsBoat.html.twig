@@ -38,11 +38,12 @@
                          overflow: hidden;">
                         {% for key,image in images %}    
                             <div>
-                                {% if ('http' not in image) %}
+                                {% if ('http' not in image.stringvalue) %}
                                     <img  u="image" src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />                              
                                     <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
 
                                 {% else %}
+                                    aaaaa
                                     <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
                                     <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
 
