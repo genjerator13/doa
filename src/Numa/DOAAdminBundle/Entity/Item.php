@@ -991,7 +991,7 @@ class Item {
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
                 $itemField->handleImage($value, $feed->getId(), $upload_path, $upload_url, $order, $localy);
-                echo "$value, $feed->getId(), $localy";
+                
                 $order++;
             }
         } else {
@@ -1015,7 +1015,7 @@ class Item {
                 $itemField->setListingfield($listingFields);
                 $this->addItemField($itemField);
                 $itemField->handleImage($picture, $upload_path, $upload_url, $order, $localy);
-
+                echo "$value, $feed->getId(), $localy";
                 $order++;
                 //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
             }
