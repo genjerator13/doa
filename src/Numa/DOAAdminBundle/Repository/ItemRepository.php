@@ -121,8 +121,11 @@ class ItemRepository extends EntityRepository {
             $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
         }
         //\Doctrine\Common\Util\Debug::dump($item);die();
+        
         if (empty($item)) {
+            
             if($feed->getPhotoFeed()){
+                
                 return null;
             }
             $persist = true;
@@ -136,7 +139,7 @@ class ItemRepository extends EntityRepository {
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         } else {
-            return null;
+
             $this->removeAllItemFieldsByFeed($feed->getId());
             echo $feed->getId();
         }
@@ -192,6 +195,7 @@ class ItemRepository extends EntityRepository {
         //$createdItems[] = $item;
         //$em->persist($item);
         //$em->flush();
+        
         if ($persist) {
             $em->persist($item);
         }

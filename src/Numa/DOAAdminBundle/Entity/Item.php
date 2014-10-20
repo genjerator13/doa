@@ -982,6 +982,7 @@ class Item {
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url) {
         $listingFields = $maprow->getListingFields();
         $localy = $feed->getPicturesSaveLocaly();
+        
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
