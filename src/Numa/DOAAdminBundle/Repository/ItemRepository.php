@@ -7,6 +7,7 @@ use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Doctrine\Common\Collections\Criteria;
 
 class ItemRepository extends EntityRepository {
 
@@ -121,11 +122,11 @@ class ItemRepository extends EntityRepository {
             $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
         }
         //\Doctrine\Common\Util\Debug::dump($item);die();
-        
+
         if (empty($item)) {
-            
-            if($feed->getPhotoFeed()){
-                
+            //echo $uniqueMapRow->getListingFields()->getCaption()."....". $importItem[$uniqueField].":::".$uniqueField;
+            if ($feed->getPhotoFeed()) {
+
                 return null;
             }
             $persist = true;
@@ -139,9 +140,8 @@ class ItemRepository extends EntityRepository {
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         } else {
-
             $this->removeAllItemFieldsByFeed($feed->getId());
-            echo $feed->getId();
+
         }
 
         foreach ($mapping as $maprow) {
@@ -156,6 +156,7 @@ class ItemRepository extends EntityRepository {
 
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
+                $itemField->setFeedId($feed->getId());
                 $itemField->setListingfield($listingFields); //will set caption and type by listing field
                 $stringValue = $itemField->getFieldStringValue();
 
@@ -172,7 +173,7 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                    $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url);
+                    $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
                     $processed = true;
                 }
 
@@ -192,14 +193,18 @@ class ItemRepository extends EntityRepository {
                 }
             }
         }//end mapping foreach
-        //$createdItems[] = $item;
-        //$em->persist($item);
-        //$em->flush();
-        
+
+/*
+        $criteria = Criteria::create()
+                ->where(Criteria::expr()->eq("fieldName", "Image List"))
+        ;
+        $images = $item->getItemField()->matching($criteria);
+ * 
+ */
+ 
         if ($persist) {
             $em->persist($item);
         }
-        $em->flush();
         return $item;
     }
 

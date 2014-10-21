@@ -971,6 +971,7 @@ class Item {
         foreach ($optionsArray as $key => $option) {
             $itemField = new ItemField();
             $itemField->setAllValues(true);
+            $itemField->setFeedId($this->getFeedId());
             $itemField->setFieldName($option);
             $itemField->setFieldType('boolean');
             $itemField->setSortOrder($order);
@@ -979,7 +980,7 @@ class Item {
         }
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url,$em) {
         $listingFields = $maprow->getListingFields();
         $localy = $feed->getPicturesSaveLocaly();
         
@@ -1009,19 +1010,20 @@ class Item {
             if (count($picturesArray) > 1) {
                 $order = 1;
             }
-            //print_r(count($picturesArray));
+
             foreach ($picturesArray as $picture) {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($picture);
                 $itemField->setListingfield($listingFields);
                 $itemField->setFeedId($feed->getId());
+                $itemField->setItem($this);
                 $itemField->handleImage($picture,  $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
-                
                 $this->addItemField($itemField);
                 $order++;
-                //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
+
             }
+
         }
     }
 

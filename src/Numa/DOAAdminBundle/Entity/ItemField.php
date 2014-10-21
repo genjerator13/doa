@@ -331,7 +331,7 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url,$feed_sid, $order = 0, $localy = false) {
+    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false) {
 
         $url = $stringValue;
         //get etension//
@@ -339,6 +339,8 @@ class ItemField {
         $filename = pathinfo($url, PATHINFO_BASENAME);
 
         $img_url = $url;
+        //echo $this->getId().":::".$this->getFieldStringValue().":::".$localy.":::".$this->getSortOrder()."::".$this->getItem()->getId()."<br>";
+                
         if (!empty($url) && $localy) {
             //$feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
@@ -349,15 +351,10 @@ class ItemField {
             $img_url = $upload_url . "/" . $feed_sid . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
             $img = str_replace(array(" ", '%'), "-", $img);
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
-            
-            if (!file_exists($img)) {
+
+            if (!file_exists($img)) {              
                 $http = substr($url, 0, 4) == 'http';
-
-
                 if ($http) {
-
-
-                    //$exists = ($fp = fopen($url, "r")) !== FALSE;
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_NOBODY, 1);
@@ -368,7 +365,6 @@ class ItemField {
 
                     if ($is200) {
                         //valid 
-
                         file_put_contents($img, file_get_contents($url));
                     } else {
                         
@@ -376,6 +372,7 @@ class ItemField {
                 }
             }
         }
+
         $this->setAllValues($img_url);
         $this->setSortOrder($order);
     }

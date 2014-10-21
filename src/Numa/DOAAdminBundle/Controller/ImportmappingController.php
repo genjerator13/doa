@@ -314,7 +314,7 @@ class ImportmappingController extends Controller {
             }
 
         }
-
+        $em->flush();
         $time = time() - $time;
 
         //update hometabs

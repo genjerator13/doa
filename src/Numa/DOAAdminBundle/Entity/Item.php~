@@ -971,6 +971,7 @@ class Item {
         foreach ($optionsArray as $key => $option) {
             $itemField = new ItemField();
             $itemField->setAllValues(true);
+            $itemField->setFeedId($this->getFeedId());
             $itemField->setFieldName($option);
             $itemField->setFieldType('boolean');
             $itemField->setSortOrder($order);
@@ -979,19 +980,21 @@ class Item {
         }
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url,$em) {
         $listingFields = $maprow->getListingFields();
         $localy = $feed->getPicturesSaveLocaly();
+        
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($value);
+                $itemField->setFeedId($feed->getId());
                 $itemField->setListingfield($listingFields);
-                $this->addItemField($itemField);
-                $itemField->handleImage($value, $upload_path, $upload_url, $order, $localy);
                 
+                $itemField->handleImage($value, $upload_path, $upload_url,$this->getFeedId(), $order, $localy);
+                $this->addItemField($itemField);
                 $order++;
             }
         } else {
@@ -1013,12 +1016,19 @@ class Item {
 
                 $itemField->setAllValues($picture);
                 $itemField->setListingfield($listingFields);
+                $itemField->setFeedId($feed->getId());
+                $itemField->setItem($this);
+                $itemField->handleImage($picture,  $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                
                 $this->addItemField($itemField);
-                $itemField->handleImage($picture,  $upload_path, $upload_url, $order, $localy);
+                $em->persist($itemField);
+
                 
                 $order++;
-                //\Doctrine\Common\Util\Debug::dump($itemField->getFieldStringValue());
+                //
             }
+            //$em->flush();
+           
         }
     }
 

@@ -331,7 +331,7 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url, $order = 0 , $localy=false) {
+    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false) {
 
         $url = $stringValue;
         //get etension//
@@ -339,8 +339,10 @@ class ItemField {
         $filename = pathinfo($url, PATHINFO_BASENAME);
 
         $img_url = $url;
+        echo $this->getId().":::".$this->getFieldStringValue().":::".$localy.":::".$this->getSortOrder()."::".$this->getItem()->getId()."<br>";
+                
         if (!empty($url) && $localy) {
-            $feed_sid = $this->getItem()->getImportfeed()->getId();
+            //$feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
             if (!file_exists($dir)) {
                 mkdir($dir, 0777);
@@ -349,14 +351,18 @@ class ItemField {
             $img_url = $upload_url . "/" . $feed_sid . "/" . strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
             $img = str_replace(array(" ", '%'), "-", $img);
             $img_url = str_replace(array(" ", '%'), "-", $img_url);
+            echo "<br>" . $img . "</br>";
+            echo "<br>" . $img_url . "</br>";
             if (!file_exists($img)) {
+                
                 $http = substr($url, 0, 4) == 'http';
-                
-                
+                echo "<br>Image not Exists".$http."</br>";
+
                 if ($http) {
 
 
                     //$exists = ($fp = fopen($url, "r")) !== FALSE;
+                    /*
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
                     curl_setopt($ch, CURLOPT_NOBODY, 1);
@@ -369,19 +375,43 @@ class ItemField {
                         //valid 
 
                         file_put_contents($img, file_get_contents($url));
-                        
                     } else {
                         
                     }
+                     * 
+                     */
                 }
-                 
-                 
             }
-         
-            $this->setAllValues($img_url);
-            $this->setSortOrder($order);
         }
 
+        $this->setAllValues($img_url);
+        $this->setSortOrder($order);
+    }
+
+    /**
+     * @var integer
+     */
+    private $feed_id;
+
+    /**
+     * Set feed_id
+     *
+     * @param integer $feedId
+     * @return ItemField
+     */
+    public function setFeedId($feedId) {
+        $this->feed_id = $feedId;
+
+        return $this;
+    }
+
+    /**
+     * Get feed_id
+     *
+     * @return integer 
+     */
+    public function getFeedId() {
+        return $this->feed_id;
     }
 
 }
