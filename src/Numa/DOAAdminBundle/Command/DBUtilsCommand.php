@@ -68,7 +68,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
         foreach ($categories as $cat) {
 
             $list = "";
-            if ($cat->getId() == 2) {
+    if ($cat->getId() == 2) {
                 //Marine
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByCaption('Boat Type');
                 if (!empty($subCat)) {
@@ -95,6 +95,30 @@ class DBUtilsCommand extends ContainerAwareCommand {
             }else if ($cat->getId() == 4 || $cat->getId() == 3) {
                 //RV
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption'=>'Type','category_sid'=>$cat->getId()));
+                if (!empty($subCat)) {
+
+                    $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
+                    foreach ($list as $key => $value) {
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
+                        $count = count($items);
+                        if($echo){
+                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        }
+                        //$count = $items->count();
+                        $hometab = new HomeTab();
+                        $hometab->setCategoryId($cat->getId());
+                        $hometab->setCategoryName($cat->getName());
+                        $hometab->setListingFieldLists($value);
+                        $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setCount($count);
+                        $em->persist($hometab);
+                        //print_r($key);
+                    }
+                    $em->flush();
+                }
+            }else if ($cat->getId() == 1) {
+                //RV
+                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption'=>'Body Style','category_sid'=>$cat->getId()));
                 if (!empty($subCat)) {
 
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));

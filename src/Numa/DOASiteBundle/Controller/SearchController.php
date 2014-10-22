@@ -73,8 +73,17 @@ class SearchController extends Controller {
         if (strstr($model, 'watercraft')) {
             $model = 'watercraft';
         }
-        
-        if($category=='marine'){
+        if($category=='car'){
+            $query = $this->getDoctrine()->getManager()
+            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 JOIN i.Category c
+                                 WHERE ifield.field_name LIKE \'%Body Style%\'                                 
+                                 AND ifield.field_string_value LIKE :model
+                                 AND c.name LIKE :category')
+            ->setParameter('model', "%" . $model . "%")
+            ->setParameter('category', "%" . $category . "%");
+        }elseif($category=='marine'){
             $query = $this->getDoctrine()->getManager()
             ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
