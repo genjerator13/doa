@@ -68,6 +68,7 @@ class ItemController extends Controller {
                     $res[$field->getFieldName()] = $field->getFieldStringValue();
                 }
             }
+            
             if (empty($res['Image List'])) {
                 $res['Image List'] = "";
             }
