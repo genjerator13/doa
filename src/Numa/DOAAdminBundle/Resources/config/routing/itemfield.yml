@@ -27,4 +27,4 @@ itemfield_update:
 itemfield_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:ItemField:delete" }
-    requirements: { _method: post|delete }
+    #requirements: { _method: post|delete }

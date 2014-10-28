@@ -23,6 +23,7 @@ class searchParameters {
     protected $order = "asc";
     public $init = false;
     protected $params = array();
+    protected $listing_per_page;
 
     public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {
         $this->container = $container;
@@ -31,8 +32,10 @@ class searchParameters {
 
     public function initParams() {
         $this->init = true;
+        $this->listing_per_page=10;
         $this->params = array(
             //universal
+            'text' => new SearchItem('all', '', 'text'),
             'category' => new SearchItem('category', '', 'string'),
             'category_id' => new SearchItem('category', 0, 'category'),
             'priceFrom' => new SearchItem('Price', 0, 'rangeFrom'),
@@ -84,10 +87,17 @@ class searchParameters {
             }
         }
     }
-
+    public function setListingPerPage($lpg=10){
+        $this->listing_per_page = $lpg;
+    }
+    
+    public function getListingPerPage(){
+        return $this->listing_per_page;
+    }
+    
     public function setAll($params) {
         foreach ($params as $key => $value) {
-            if ($this->isParamSet($key)) {
+            if ($this->isParamSet($key)) {                
                 $this->params[$key]->setValue($value);
             }
         }
@@ -175,6 +185,7 @@ class searchParameters {
           }
          * 
          */
+        
         return $qb->getQuery();
     }
 

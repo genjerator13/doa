@@ -3,63 +3,81 @@
     : 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>Add {{ entity.category }}</h1>
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
-    {{ form_row (form._token) }}
-    {{ form_row(form.moderation_status) }}
-    {{ form_row(form.Dealer) }}
-    {{ form_row(form.Category) }}
-    {{ form_row(form.keywords) }}
-    {{ form_row(form.featured) }}
-    {{ form_row(form.pictures) }}
-    {{ form_row(form.activation_date) }}
-    {{ form_row(form.expiration_date) }}
-    {{ form_row(form.auto_extend) }}
-    {{ form_row(form.active) }}
-    {{ form_row(form.feature_highlighted) }}
-    {{ form_row(form.feature_slideshow) }}
-    {{ form_row(form.feature_youtube) }}
-
-
-    <ul>
-        {% for field in form.Itemfield %}
-            <li>
-            <span>
-                {{ form_row(field.field_name) }}
-                {{ field.vars.value.getFieldName }}
-                </span>
-                {{ form_row(field.field_type) }}
-                <span>
-
-                {% if field.field_string_value is defined %}
-                    {{ form_widget(field.field_string_value) }}
+    {% set action="Add new listing" %}
+        {% if entity.id is not empty %}
+            {% set action="Edit listing #"~entity.id~" , "~entity.getMake()~" "~entity.getModel() %}
                 {% endif %}
-                    {% if field.field_integer_value is defined %}
-                        {{ form_widget(field.field_integer_value) }}
-                    {% endif %}
-                    {% if field.field_boolean_value is defined %}
-                        {{ form_widget(field.field_boolean_value) }}
-                    {% endif %}
-                    </span>
-            </li>
+                    <h1>{{action}}</h1>
+                    <div class="listingActions">
+                        This listing is	
+                        {% if entity.active %}
+                            <span class="">Active</span>
+                        {%else%}
+                            <span class="">InActive</span>
+                        {%endif%}
+                         and 
+                         <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
+                        | <a href="#" class="itemControls deactivate">Deactivate</a>
+                        | <a href="#" class="itemControls view">View Listing</a>
+                        | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
+                        </div>
+                        <p>Fields marked with an asterisk (*) are mandatory.</p>
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row (form._token) }}
+                        {{ form_row(form.moderation_status) }}
+                        {{ form_row(form.Dealer) }}
+                        {{ form_row(form.Category) }}
+                        {{ form_row(form.keywords) }}
+                        {{ form_row(form.featured) }}
+                        {{ form_row(form.pictures) }}
+                        {{ form_row(form.activation_date) }}
+                        {{ form_row(form.expiration_date) }}
+                        {{ form_row(form.auto_extend) }}
+                        {{ form_row(form.active) }}
+                        {{ form_row(form.feature_highlighted) }}
+                        {{ form_row(form.feature_slideshow) }}
+                        {{ form_row(form.feature_youtube) }}
 
-        {% endfor %}
-    </ul>
+
+                        <ul>
+                            {% for field in form.Itemfield %}
+                                <li>
+                                    <span>
+                                        {{ form_row(field.field_name) }}
+                                        {{ field.vars.value.getFieldName }}
+                                    </span>
+                                    {{ form_row(field.field_type) }}
+                                    <span>
+
+                                        {% if field.field_string_value is defined %}
+                                            {{ form_widget(field.field_string_value) }}
+                                        {% endif %}
+                                        {% if field.field_integer_value is defined %}
+                                            {{ form_widget(field.field_integer_value) }}
+                                        {% endif %}
+                                        {% if field.field_boolean_value is defined %}
+                                            {{ form_widget(field.field_boolean_value) }}
+                                        {% endif %}
+                                    </span>
+                                </li>
+
+                            {% endfor %}
+                        </ul>
 
 
 
-    <ul class="record_actions">
-        <li>
-            <button class="btn btn-primary">
-                Submit
-            </button>
-        </li>
-        <li>
-            <a href="{{ path('items') }}" class="btn btn-primary">
-                Back to the list
-            </a>
-        </li>
+                        <ul class="record_actions">
+                            <li>
+                                <button class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </li>
+                            <li>
+                                <a href="{{ path('items') }}" class="btn btn-primary">
+                                    Back to the list
+                                </a>
+                            </li>
 
-    </ul>
-{% endblock %}
+                        </ul>
+                        {% endblock %}

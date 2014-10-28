@@ -21,6 +21,8 @@ class SearchController extends Controller {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
+        
+        $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
         $this->searchParameters->setAll($request->query->all());
     }
 
@@ -32,7 +34,7 @@ class SearchController extends Controller {
 
         //create query        
         $query = $this->searchParameters->createSearchQuery();
-        $param = $this->showItems($query, $page);
+        $param = $this->showItems($query, $page,$this->searchParameters->getListingPerPage());
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 

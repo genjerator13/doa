@@ -44,3 +44,6 @@ items_reject:
 items_approve:
     pattern:  /{id}/reject
     defaults: { _controller: "NumaDOAAdminBundle:Item:approve" }
+item_images:
+    pattern: /{id}/images
+    defaults: { _controller: "NumaDOAAdminBundle:Image:show" }

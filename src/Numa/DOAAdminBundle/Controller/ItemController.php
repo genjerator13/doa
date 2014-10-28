@@ -16,6 +16,7 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ArrayColumn;
 use APY\DataGridBundle\Grid\Column\TextColumn;
 use APY\DataGridBundle\Grid\Column\BlankColumn;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * Item controller.
@@ -33,60 +34,60 @@ class ItemController extends Controller {
         $grid = $this->get('grid');
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
-        
+
         //main column
         $maincolumn = new BlankColumn();
         $grid->addColumn($maincolumn);
         $controller = $this;
         $maincolumn->manipulateRenderCell(
                 function($value, $row, $router) use ($controller) {
-                    $res = array();
+            $res = array();
 
-                    $id = $row->getField('id');
-                    $em = $controller->getDoctrine()->getManager();
+            $id = $row->getField('id');
+            $em = $controller->getDoctrine()->getManager();
 
-                    $fields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $id));
+            $fields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $id));
 
-                    $res['id'] = $id;
-                    $res['category'] = $row->getField('Category.name');
-                    if (empty($res['category'])) {
-                        
-                    }
-                    $res['username'] = $row->getField('User.username');
-                    $res['dealer'] = $row->getField('Dealer.name');
-                    $res['active'] = $row->getField('active');
-                    $res['moderation_status'] = $row->getField('moderation_status');
-                    $res['views'] = $row->getField('views');
-                    $res['activation_date'] = $row->getField('activation_date');
-                   // $res['date_created'] = $row->getField('date_created');
-                    
-                    foreach ($fields as $field) {
-                        if ($field->getFieldType() == 'array') {
-                            $res[$field->getFieldName()][] = $field->getFieldStringValue();
-                        } else {
-                            $res[$field->getFieldName()] = $field->getFieldStringValue();
-                        }
-                    }
-                    if (empty($res['Image List'])) {
-                        $res['Image List'] = "";
-                    }
-                    if (empty($res['Year'])) {
-                        $res['Year'] = "";
-                    }
-                    
-                    if (empty($res['Make'])) {
-                        $res['Make'] = "";
-                    }
-                    
-                    if (empty($res['activation_date'])) {
-                        $res['activation_date'] = " ";
-                    }else{
-                        $res['activation_date'] = $res['activation_date']->format('Y-m-d');
-                    }
-                    
-                    
-                    echo $controller->renderView("NumaDOAAdminBundle:Item:itemDetailsGrid.html.twig", array("details" => $res));
+            $res['id'] = $id;
+            $res['category'] = $row->getField('Category.name');
+            if (empty($res['category'])) {
+                
+            }
+            $res['username'] = $row->getField('User.username');
+            $res['dealer'] = $row->getField('Dealer.name');
+            $res['active'] = $row->getField('active');
+            $res['moderation_status'] = $row->getField('moderation_status');
+            $res['views'] = $row->getField('views');
+            $res['activation_date'] = $row->getField('activation_date');
+            // $res['date_created'] = $row->getField('date_created');
+
+            foreach ($fields as $field) {
+                if ($field->getFieldType() == 'array') {
+                    $res[$field->getFieldName()][] = $field->getFieldStringValue();
+                } else {
+                    $res[$field->getFieldName()] = $field->getFieldStringValue();
                 }
+            }
+            if (empty($res['Image List'])) {
+                $res['Image List'] = "";
+            }
+            if (empty($res['Year'])) {
+                $res['Year'] = "";
+            }
+
+            if (empty($res['Make'])) {
+                $res['Make'] = "";
+            }
+
+            if (empty($res['activation_date'])) {
+                $res['activation_date'] = " ";
+            } else {
+                $res['activation_date'] = $res['activation_date']->format('Y-m-d');
+            }
+
+
+            echo $controller->renderView("NumaDOAAdminBundle:Item:itemDetailsGrid.html.twig", array("details" => $res));
+        }
         );
 
         //actions in row and mass actions
@@ -101,10 +102,8 @@ class ItemController extends Controller {
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
         $grid->addMassAction($yourMassAction);
-        
+
         //$grid->isTitleSectionVisible = false;
-
-
         //hide certain columns
         //$grid->hideColumns('id');
         //$grid->hideColumns('Category.name');
@@ -117,8 +116,8 @@ class ItemController extends Controller {
 
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
     }
-    
-    static function test ($primaryKeys, $allPrimaryKeys, $session, $parameters){
+
+    static function test($primaryKeys, $allPrimaryKeys, $session, $parameters) {
         print_r($primaryKeys);
         die();
     }
@@ -198,10 +197,10 @@ class ItemController extends Controller {
         //get all listing fields for the category + default listing fields
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $cat_id)));
         if (!empty($fields)) {
-            
+
 
             //
-            
+
             foreach ($fields as $key => $field) {
                 $itemField = new ItemField();
                 //check if item field has value for the listing_field if edit (exists)
@@ -219,7 +218,7 @@ class ItemController extends Controller {
                     $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
 
 
-                    if (!empty($listingField)) {                      
+                    if (!empty($listingField)) {
                         $itemField->setFieldStringValue($listingField['field_string_value']);
                         $itemField->setFieldIntegerValue($listingField['field_integer_value']);
                         $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
@@ -228,18 +227,16 @@ class ItemController extends Controller {
                 $itemField->setListingfield($field);
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
-               
+
 
                 $entity->addItemField($itemField);
-                
             }
-                        //remove all existing item fields TO DO add this to ItemField repository            
-            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id'=>$item_id));
-            foreach($oldItemFields as $oldone){
+            //remove all existing item fields TO DO add this to ItemField repository            
+            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id));
+            foreach ($oldItemFields as $oldone) {
                 $em->remove($oldone);
             }
             $em->flush();
-            
         }
         $entity->setCategory($category);
         $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager()), $entity, array(
@@ -251,8 +248,8 @@ class ItemController extends Controller {
         if ($form->isValid()) {
             $em->persist($entity);
             $em->flush();
-        } 
-        
+        }
+
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
@@ -293,30 +290,11 @@ class ItemController extends Controller {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
         $feed = $entity->getImportFeed();
-        if(!empty($feed)){
+        if (!empty($feed)) {
             return $this->newAction($request, $entity->getImportFeed()->getListingType(), $id);
         }
-        
+
         return $this->newAction($request, $entity->getCategoryId(), $id);
-
-        /*
-          $originalItemFields = array();
-          $form = $this->createForm(new ItemType(), $entity);
-          $form->handleRequest($request);
-
-          if ($form->isValid()) {
-          $em = $this->getDoctrine()->getManager();
-          $em->persist($entity);
-          $em->flush();
-
-          return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
-          }
-          return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-          'entity' => $entity,
-          'form' => $form ->createView(),
-          'category' => $entity->getCategory(),
-          ));
-         */
     }
 
     /**
@@ -389,7 +367,7 @@ class ItemController extends Controller {
 
         return $this->redirect($this->generateUrl('items'));
     }
-    
+
     /**
      * Activate a Item entity.
      *
@@ -409,7 +387,7 @@ class ItemController extends Controller {
 
         return $this->redirect($this->generateUrl('items', array('id' => $id)));
     }
-    
+
     /**
      * deactivate a Item entity.
      *
@@ -423,12 +401,12 @@ class ItemController extends Controller {
         }
 
         $entity->setActive(0);
-        
+
         $em->flush();
 
         return $this->redirect($this->generateUrl('items', array('id' => $id)));
     }
-    
+
     /**
      * reject a Item entity.
      *
@@ -442,12 +420,12 @@ class ItemController extends Controller {
         }
 
         $entity->setModerationStatus(0);
-        
+
         $em->flush();
 
         return $this->redirect($this->generateUrl('items', array('id' => $id)));
     }
-    
+
     /**
      * approve a Item entity.
      *
@@ -461,7 +439,7 @@ class ItemController extends Controller {
         }
 
         $entity->setModerationStatus(1);
-        
+
         $em->flush();
 
         return $this->redirect($this->generateUrl('items', array('id' => $id)));

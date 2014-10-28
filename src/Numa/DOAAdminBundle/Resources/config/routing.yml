@@ -1,5 +1,5 @@
 numa_doa_admin_homepage:
-    pattern:  /dashboard
+    pattern:  /
     defaults: { _controller: NumaDOAAdminBundle:Default:index }
 NumaDOAAdminBundle_catalogs:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/catalogrecords.yml"
@@ -16,6 +16,9 @@ NumaDOAAdminBundle_import_mapping:
 NumaDOAAdminBundle_items:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/item.yml"
         prefix:   /items
+NumaDOAAdminBundle_item_field:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/itemfield.yml"
+        prefix:   /itemsfield
 NumaDOAAdminBundle_user:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/user.yml"
         prefix:   /user

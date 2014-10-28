@@ -4,7 +4,6 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Form\ItemFieldType;
 
@@ -12,29 +11,27 @@ use Numa\DOAAdminBundle\Form\ItemFieldType;
  * ItemField controller.
  *
  */
-class ItemFieldController extends Controller
-{
+class ItemFieldController extends Controller {
 
     /**
      * Lists all ItemField entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:ItemField')->findAll();
 
         return $this->render('NumaDOAAdminBundle:ItemField:index.html.twig', array(
-            'entities' => $entities,
+                    'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new ItemField entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new ItemField();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -48,20 +45,19 @@ class ItemFieldController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:ItemField:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a ItemField entity.
-    *
-    * @param ItemField $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(ItemField $entity)
-    {
+     * Creates a form to create a ItemField entity.
+     *
+     * @param ItemField $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(ItemField $entity) {
         $form = $this->createForm(new ItemFieldType(), $entity, array(
             'action' => $this->generateUrl('itemfield_create'),
             'method' => 'POST',
@@ -76,14 +72,13 @@ class ItemFieldController extends Controller
      * Displays a form to create a new ItemField entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new ItemField();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:ItemField:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -91,8 +86,7 @@ class ItemFieldController extends Controller
      * Finds and displays a ItemField entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
@@ -104,16 +98,15 @@ class ItemFieldController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ItemField:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing ItemField entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
@@ -126,21 +119,20 @@ class ItemFieldController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ItemField:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a ItemField entity.
-    *
-    * @param ItemField $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(ItemField $entity)
-    {
+     * Creates a form to edit a ItemField entity.
+     *
+     * @param ItemField $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(ItemField $entity) {
         $form = $this->createForm(new ItemFieldType(), $entity, array(
             'action' => $this->generateUrl('itemfield_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -150,12 +142,12 @@ class ItemFieldController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing ItemField entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
@@ -175,21 +167,27 @@ class ItemFieldController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:ItemField:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a ItemField entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
+        print_r($request->query->get('urlredirect'));
+        $redirect = $request->query->get('urlredirect');
+        if (empty($redirect)) {
+            $redirect = $this->generateUrl('itemfield');
+        }
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() || !empty($redirect)) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
 
@@ -200,8 +198,7 @@ class ItemFieldController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
-        return $this->redirect($this->generateUrl('itemfield'));
+        return $this->redirect($redirect);
     }
 
     /**
@@ -211,13 +208,13 @@ class ItemFieldController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    public function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('itemfield_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('itemfield_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

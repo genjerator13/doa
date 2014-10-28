@@ -1,0 +1,27 @@
+{% extends is_granted('ROLE_BUSINES')
+    ? 'NumaDOASiteBundle::home-layout.html.twig' 
+    : 'NumaDOAAdminBundle::layout.html.twig' %}
+    {% form_theme addimages 'bootstrap_3_layout.html.twig' %}
+    {% block content %}
+        
+    {{ form_start(addimages) }}
+    {{ form_errors(addimages) }}
+    <div class="file-upload">
+        {{ form_row(addimages.Picture1) }}
+    </div>
+
+    {{ form_end(addimages) }}
+
+<table class=''table'>
+       {% for image in images %}
+           <tr>
+               <td>
+                   <img alt="" src="{{image.getFieldStringValue()|imagine_filter('search_image')}}" />
+               </td>
+               {#<td><a href="#"><i class='glyphicon glyphicon-arrow-up'></i></a><a  href="{{path('images_order_up',{'up':111,'down':)}}"><i class='glyphicon glyphicon-arrow-down'></i></a></td>
+              #} <td><a href="{{path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri })}}"><i class='glyphicon glyphicon-trash'></i></a></td>
+           </tr>
+
+       {% endfor %}
+</table>
+{% endblock %}

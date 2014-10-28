@@ -900,7 +900,7 @@ class Importfeed {
      *
      * @param UploadedFile $file
      */
-    public function setFileIportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null) {
+    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null) {
         $this->file_import_source = $file_import_source;
     }
 

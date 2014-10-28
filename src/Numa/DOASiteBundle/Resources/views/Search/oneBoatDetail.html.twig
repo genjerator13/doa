@@ -1,10 +1,14 @@
 {% block content %}
     {% set images = item.getImages()%}
         {% set desc = item.getMake()~item.getModel()%}
+            {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc}) %}
+            {% if detailUrl is empty %}
+                {% set detailUrl = "details" %}
+            {% endif %}
             <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row" url="{{path('item_compare')}}">    
                 <div class="col-md-12">
                     <div class="picture-detail">
-                        <a href="#">
+                        <a href="{{detailUrl}}">
                             {% if images is empty  %}
                                 <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
                             {% else %} 
@@ -20,7 +24,7 @@
                                 </div>
                                 <div class="shortDetails">
                                     <h4>
-                                        <a href="{{path('item_details', {'itemId': item.id, 'description': ""+desc}) }}">
+                                        <a href="{{detailUrl}}">
                                             {{item.getItemFieldByName('year')}} {{desc}}
                                         </a>                                    
                                     </h4>
@@ -31,7 +35,7 @@
 
                                     <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
                                     <br>
-                                    <a href="#">View Details</a>
+                                    <a href="{{detailUrl}}">View Details</a>
                                     <div class="checkbox-inline">
                                         <label>
                                             <input type="checkbox" class="saveAd"> Save Ad

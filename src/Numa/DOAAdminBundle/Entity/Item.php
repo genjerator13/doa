@@ -700,7 +700,7 @@ class Item {
         //die();
         $model = "";
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
-            if ($this->Category->getName() == "Marine") {
+            if ($this->Category->getName() == "Car") {
 
                 $model = $this->ItemFieldArray['model']['stringvalue'];
             }if ($this->Category->getName() == "Marine") {

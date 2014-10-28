@@ -25,3 +25,6 @@ services:
 #        arguments:  [@service_container, @router]
 #        tags:
 #            - { name: 'monolog.logger', channel: 'security' }
+
+#    ItemField:
+#        class: Numa\DOAAdminBundle\Controller\ItemField
