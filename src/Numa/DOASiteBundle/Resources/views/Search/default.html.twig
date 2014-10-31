@@ -1,13 +1,8 @@
 {% extends 'NumaDOASiteBundle::search-layout.html.twig' %}
 {% block javascripts %}
     {{parent()}} 
-
 {% endblock %}
-
 {% block content %}
-
-
-
     {% if pagerfanta is empty  %}
         No results
     {% else %}
@@ -16,7 +11,6 @@
                 <a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save this Search</a>
                 <a href="{{path('compared_listings')}}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View comparision results</a>
             </div>
-
             <!-- Modal -->
             <div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">

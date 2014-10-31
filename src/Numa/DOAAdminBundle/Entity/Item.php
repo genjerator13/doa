@@ -703,7 +703,12 @@ class Item {
             if ($this->Category->getName() == "Car") {
 
                 $model = $this->ItemFieldArray['model']['stringvalue'];
-            }if ($this->Category->getName() == "Marine") {
+            }
+            if ($this->Category->getName() == "Marine") {
+                $model = $this->ItemFieldArray['model']['stringvalue'];
+            }
+            if ($this->Category->getName() == "RVs") {
+
                 $model = $this->ItemFieldArray['model']['stringvalue'];
             }
         }
@@ -719,6 +724,11 @@ class Item {
                     return $this->ItemFieldArray['boat make']['stringvalue'];
                 }
             } elseif ($this->Category->getName() == "Car") {
+                if (isset($this->ItemFieldArray['make model'])) {
+                    return $this->ItemFieldArray['make model']['stringvalue'] . " ";
+                }
+            }
+            elseif ($this->Category->getName() == "RVs") {
                 if (isset($this->ItemFieldArray['make model'])) {
                     return $this->ItemFieldArray['make model']['stringvalue'] . " ";
                 }

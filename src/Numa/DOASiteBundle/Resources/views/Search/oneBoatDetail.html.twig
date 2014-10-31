@@ -1,7 +1,10 @@
 {% block content %}
     {% set images = item.getImages()%}
         {% set desc = item.getMake()~item.getModel()%}
-            {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc}) %}
+            {% if desc is empty %}
+                {% set desc = "test" %}
+            {% endif %}
+                {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc|url_encode()}) %}
             {% if detailUrl is empty %}
                 {% set detailUrl = "details" %}
             {% endif %}
@@ -10,7 +13,7 @@
                     <div class="picture-detail">
                         <a href="{{detailUrl}}">
                             {% if images is empty  %}
-                                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png" />
+                                <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
                             {% else %} 
                                 {% set image = item.getImages()|first["stringvalue"]%}
                                 {% if ('http' not in image) %}

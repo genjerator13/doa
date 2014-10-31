@@ -42,7 +42,7 @@ class ListingFieldTreeRepository extends EntityRepository {
                 ->from('NumaDOAAdminBundle:ListingfieldTree', 't')
                 //->join('NumaDOAAdminBundle:Listingfield', 'l')
                 ->where('t.listing_field_id=:fieldid')
-                ->andWhere('t.parent=0')
+                ->andWhere('t.parent is NULL')
                 //->andWhere('t.caption like :property')
                 ->setParameter('fieldid', $fieldId);
         ;
@@ -50,6 +50,24 @@ class ListingFieldTreeRepository extends EntityRepository {
         //$res = $query; //->getResult();
         ;
         return $qb;
+    }
+    
+        /**
+     * 
+     * @param type $propertyName
+     * @param type $listing_field_id
+     * @return type
+     */
+    public function findOneByValue($propertyName, $listing_field_id) {
+
+        $q = 'SELECT t FROM NumaDOAAdminBundle:ListingfieldTree t WHERE 
+                    ( t.listing_field_id = ' . $listing_field_id . ' AND
+                    (t.name like \'' .        $propertyName .  '\'  OR 
+                     t.name like \'%' .       $propertyName . '%\'     )) ';
+        $query = $this->getEntityManager()
+                        ->createQuery($q)->setMaxResults(1);
+        $res = $query->getOneOrNullResult(); //getOneOrNullResult();
+        return $res;
     }
 
 }

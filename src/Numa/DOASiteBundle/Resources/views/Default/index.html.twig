@@ -19,16 +19,16 @@
                     <div class="col-md-4">
                         <a href="#" class="imageLink">
                             {% set words = item.ListingFieldListValue|split(' ', 2) %}
-                            {% set imagefile = asset('images/'~ item.ListingFieldListValue ~'.jpg') %}
+                            {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
                                 
                                 {% if file_existsx(imagefile) %}
-                                    <img style="" alt="" src="{{ asset('images/'~ item.ListingFieldListValue ~'.jpg') }}">
+                                    <img style="" alt="" src="{{ imagefile }}">
                                 {% else %}
-                                    <img style="" alt="" src="{{ asset('images/no_image_available_small.png') }}">
+                                    <img style="" alt="{{item.ListingFieldListValue|replace({'/': ''})}}" src="{{ asset('images/no_image_available_small.png') }}">
                                 {% endif %}
                             </a>
                             <br>
-                            <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': attribute(words, 0)|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
+                            <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'model': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                         </div>
                         {%endfor%}
                         </div>
@@ -224,7 +224,7 @@
                                             key = keyx;
                                             value = test[keyx];
                                         }
-                                        $(model).append($("<option />").val(key).text(value))
+                                        $(model).append($("<option />").val(value).text(value))
                                     });
                                 });
                             }

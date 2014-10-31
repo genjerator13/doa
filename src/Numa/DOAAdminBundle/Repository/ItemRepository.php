@@ -171,6 +171,16 @@ class ItemRepository extends EntityRepository {
                         }
                     }
                 }
+                
+                //if xml property has children then do each child
+                if (!empty($listingFieldsType) && $listingFieldsType == 'tree') {
+                    //get listingFieldlist by ID and stringValue
+                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                    //echo $stringValue.", ".$maprow->getListingFields()->getId();die();
+                    if (!empty($listingTree)) {
+                        $itemField->setFieldIntegerValue($listingTree->getId());
+                    }                    
+                }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);

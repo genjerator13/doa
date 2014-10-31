@@ -110,10 +110,11 @@ class SearchController extends Controller {
     }
 
     public function searchByCategoryModelAction(Request $request) {
-        $model = $request->get('model');
+        $model = urldecode($request->get('model'));
         $category = $request->get('category');
         $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
+
         $query = $this->createQuerySearchByCategory($model, $category,$page);
 
         $items = $query->getResult();
