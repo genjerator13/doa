@@ -164,7 +164,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('POST')
-                ->setAction($this->get('router')->generate('search'))
+                ->setAction($this->get('router')->generate('search_dispatch'))
                 ->add('searchText', 'text', array(
                     'label' => 'Search',
                     "required" => false
