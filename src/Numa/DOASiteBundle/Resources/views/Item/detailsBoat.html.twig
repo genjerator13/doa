@@ -88,7 +88,7 @@
                         {% set ignore_fields = ['Image List','dealer'] %}
                             {% for field in item.ItemField %}
 
-                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' %}
+                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                     <li>
                                         <span class="fieldCaption field{{field.fieldStringValue}}">{{field.fieldName}} </span>
                                         <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
