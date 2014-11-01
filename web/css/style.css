@@ -216,6 +216,9 @@ a.imageLink {
 
 div.imagebox {
     position: relative;
-    height: 100px;
+    height: 100px;    
+}
+
+div.imageouterbox {
     margin-bottom: 20px;
 }
