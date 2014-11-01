@@ -52,33 +52,34 @@ class DBUtilsCommand extends ContainerAwareCommand {
     /**
      * Creates array for tabs on homepage
      */
-    function makeHomeTabs($echo=true) {
-        if($echo){
+    function makeHomeTabs($echo = true) {
+        if ($echo) {
             print_r("Making home tabs\n");
         }
-        $aCategories = array(1, 2, 3, 4);
+        $aCategories = array(1, 2, 3, 4, 13);
         $em = $this->getContainer()->get('doctrine')->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
         $tabs = array();
         //remove old hometabs
         $oldHometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-        foreach($oldHometabs as $hometab){
+        foreach ($oldHometabs as $hometab) {
             $em->remove($hometab);
         }
         foreach ($categories as $cat) {
 
             $list = "";
-    if ($cat->getId() == 2) {
+            if ($cat->getId() == 2) {
                 //Marine
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByCaption('Boat Type');
                 if (!empty($subCat)) {
 
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
-                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
                         $count = count($items);
-                        if($echo){
-                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        if ($echo) {
+                            print_r(count($items));
+                            echo ":" . $subCat->getId() . ":" . $value->getId() . "\n";
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();
@@ -92,17 +93,18 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     }
                     $em->flush();
                 }
-            }else if ($cat->getId() == 4 || $cat->getId() == 3) {
+            } else if ($cat->getId() == 4 || $cat->getId() == 3) {
                 //RV
-                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption'=>'Type','category_sid'=>$cat->getId()));
+                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Type', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
 
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
-                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
                         $count = count($items);
-                        if($echo){
-                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        if ($echo) {
+                            print_r(count($items));
+                            echo ":" . $subCat->getId() . ":" . $value->getId() . "\n";
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();
@@ -116,17 +118,44 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     }
                     $em->flush();
                 }
-            }else if ($cat->getId() == 1) {
+            } else if ($cat->getId() == 1) {
                 //RV
-                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption'=>'Body Style','category_sid'=>$cat->getId()));
+                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Body Style', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
 
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
-                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(),'field_integer_value'=>$value->getId()));
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
                         $count = count($items);
-                        if($echo){
-                            print_r(count($items));echo ":".$subCat->getId().":".$value->getId()."\n";
+                        if ($echo) {
+                            print_r(count($items));
+                            echo ":" . $subCat->getId() . ":" . $value->getId() . "\n";
+                        }
+                        //$count = $items->count();
+                        $hometab = new HomeTab();
+                        $hometab->setCategoryId($cat->getId());
+                        $hometab->setCategoryName($cat->getName());
+                        $hometab->setListingFieldLists($value);
+                        $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setCount($count);
+                        $em->persist($hometab);
+                        //print_r($key);
+                    }
+                    $em->flush();
+                }
+            } else if ($cat->getId() == 13) {
+                //Ag
+                //
+                $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Ag Application', 'category_sid' => $cat->getId()));
+                if (!empty($subCat)) {
+                    
+                    $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
+                    foreach ($list as $key => $value) {
+                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
+                        $count = count($items);
+                        if ($echo) {
+                            print_r(count($items));
+                            echo ":" . $subCat->getId() . ":" . $value->getId() . "\n";
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();
