@@ -1,4 +1,4 @@
-/*@import url("../../css/reset.css");*/
+/*@import url("reset.css");*/
 
 /* layout styles */
 html
@@ -101,7 +101,7 @@ body.fullSize
 
 .leftmenu
 {
-    background: url('../../css/bg.png') 15px 0 repeat-y #ffffff;
+    background: url('bg.png') 15px 0 repeat-y #ffffff;
     min-height: 100%;
     /* Left column background colour here */
 }
@@ -158,13 +158,13 @@ body.fullSize
 	line-height: 25px;
 	font-weight: bold;
 	color: #1772DA;
-	background: url('../../css/menu_caption_arrow.png') left center no-repeat;
+	background: url('menu_caption_arrow.png') left center no-repeat;
 	padding: 0 0 0 15px;
 	cursor: pointer;
 }
 .leftMenu .caption.active
 {
-	background: url('../../css/active_menu_caption_arrow.png') left center no-repeat;
+	background: url('active_menu_caption_arrow.png') left center no-repeat;
 }
 
 .leftMenu a
@@ -191,12 +191,12 @@ i {
 .leftMenu li.active
 {
 	padding: 0 14px 0 0;
-	background: url('../../css/active_menu_item_arrow.png') no-repeat right center;
+	background: url('active_menu_item_arrow.png') no-repeat right center;
 }
 .leftMenu a.active,
 .leftMenu a.active:hover
 {
-	background: url('../../css/active_menu_item_bg.png') repeat-x left;
+	background: url('active_menu_item_bg.png') repeat-x left;
 	color: #fff;
 	text-decoration: none;
 }
