@@ -67,8 +67,28 @@ class searchParameters {
         );
     }
 
-    public function getParams() {
-        return $this->params;
+    public function getParams($all=true) {
+        $res = array();
+        if($all){
+            return $this->params;
+        }else{
+            foreach ($this->params as $key => $param) {
+                if($this->isParamValueSet($key)){
+                    $res[$key] = $param; 
+                }
+            }
+        }
+        return $res;
+    }
+    
+    public function makeUrlQuery(){
+        $params = $this->getParams(false);
+        $aQuery = array();
+        foreach ($params as $key => $value) {
+            $aQuery[] = $key."=".$value->getValue();            
+        }
+        $query = implode("&", $aQuery);
+        return $query;
     }
 
     public function get($key) {
@@ -107,9 +127,21 @@ class searchParameters {
         $this->params[$key] = $value;
     }
 
-    public function isParamSet($key) {
+    public function isParamSet($key) {        
         if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
-            return true;
+                return true;
+        }
+        return false;
+    }
+    
+    public function isParamValueSet($key) {
+        
+        if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
+            $searchItem = $this->params[$key];
+            $searchItemValue = $searchItem->getValue();
+            if(!empty($searchItemValue)){
+                return true;
+            }
         }
         return false;
     }

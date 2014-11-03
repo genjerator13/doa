@@ -66,6 +66,7 @@
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
+                <input type="hidden" value="{{ queryUrl }}" name="searchSource" id="searchSource">
             </form>
             <span class="sort">Sort by:<a href="#">Photos</a><a href="{{ app.request.uri }}&sort_field=year">Year</a><a href="#">Make / Model</a></span>
             <div class="titles-details">
@@ -108,6 +109,9 @@
             $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
             $('select#numberoflisting').change(
                     function() {
+                        var ss = $("#searchSource").val();
+                        ss = ss+$("#numberoflisting").val()
+                        console.log(ss);
                         $(this).closest('form').submit();
 
                     });

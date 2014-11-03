@@ -23,18 +23,33 @@ class SearchController extends Controller {
         }
         
         $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
-        $this->searchParameters->setAll($request->query->all());
+        $parameters = $request->query->all();
+        if(!empty($parameters['searchSource'])){
+            $aSearchSource = explode('&', $parameters['searchSource']);
+            foreach($aSearchSource as $key=>$param){
+                $paramValue = explode("=",$param);
+                $parameters[$paramValue[0]] = $paramValue[1];
+            }
+            unset($parameters['searchSource']);
+            $this->searchParameters->setAll($parameters);
+            return $this->redirect($this->generateUrl('search_dispatch', $parameters));
+        }
+
+        $this->searchParameters->setAll($parameters);
     }
 
     public function searchAction(Request $request) {
         $this->initSearchParams($request);
-        //$this->searchParameters->dump();die();
+        
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
-
+        $parameters = $this->searchParameters->getParams(false);
+        $queryUrl = $this->searchParameters->makeUrlQuery();
+        
         //create query        
         $query = $this->searchParameters->createSearchQuery();
         $param = $this->showItems($query, $page,$this->searchParameters->getListingPerPage());
+
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
@@ -49,13 +64,14 @@ class SearchController extends Controller {
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
-
+        $queryUrl = $this->searchParameters->makeUrlQuery();
+        
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
-        return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number);
+        return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number, 'queryUrl'=>$queryUrl);
     }
 
     public function searchDispatcherAction(Request $request) {
