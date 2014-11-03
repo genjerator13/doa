@@ -63,7 +63,8 @@ ul.tmp{
     float: left;
 }
 .item-row {
-    background: #CFDBC5;
+    /*background: #CFDBC5;*/
+    border: 1px solid #dddddd;
     margin-bottom: 20px;
 }
 .middle_details{
@@ -221,4 +222,9 @@ div.imagebox {
 
 div.imageouterbox {
     margin-bottom: 20px;
+}
+
+
+ul.righsidebar-block{
+    margin-top: 20px;
 }
