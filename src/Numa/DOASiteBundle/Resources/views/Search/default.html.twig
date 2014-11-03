@@ -61,12 +61,12 @@
 
 {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
             <form action="{{ app.request.uri }}" method="GET">
-                <select class="listingsNumber" id="numberoflisting" name="listings_per_page">
+                <select class="listingsNumber form-control" id="numberoflisting" name="listings_per_page">
                     <option value="10">10</option>
                     <option value="20">20</option>
                     <option value="50">50</option>
                 </select>
-                <input type="hidden" value="{{ queryUrl }}" name="searchSource" id="searchSource">
+                <input type="hidden" value="{% if queryUrl is not empty %}{{ queryUrl }}{%endif%}" name="searchSource" id="searchSource">
             </form>
             <span class="sort">Sort by:<a href="#">Photos</a><a href="{{ app.request.uri }}&sort_field=year">Year</a><a href="#">Make / Model</a></span>
             <div class="titles-details">
