@@ -51,8 +51,12 @@ class AddItemSubscriber implements EventSubscriberInterface {
             $selected = 0;
             if (!empty($id)) {
                 $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
-                $selected = $selected->getId();
                 
+                if($selected instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists){
+                    $selected = $selected->getId();                
+                }else{
+                    $selected = 0;
+                }
             }
 
             $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $data->getListingfield()->getId()));

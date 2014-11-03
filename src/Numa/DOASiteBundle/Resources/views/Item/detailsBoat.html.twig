@@ -77,7 +77,12 @@
                     <!-- Trigger -->
                 </div>
                 <!-- Jssor Slider End -->
-
+                
+                {% if item.getItemFieldByName('youtube video id') is not empty%}
+                    <div class="youtube-video">
+                        <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                {% endif %}
                 <div class='row'>
                     <ul class="techData">
 
@@ -85,7 +90,7 @@
                             <span class="fieldCaption fieldCaptionId">Listing #</span>
                             <span class="fieldValue fieldValueId">{{item.id}}</span>
                         </li>
-                        {% set ignore_fields = ['Image List','dealer'] %}
+                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID'] %}
                             {% for field in item.ItemField %}
 
                                 {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}

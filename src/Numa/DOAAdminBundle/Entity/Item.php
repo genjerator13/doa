@@ -747,7 +747,7 @@ class Item {
         } elseif ($name == 'image') {
             return $this->getImage();
         }
-
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if (!empty($this->ItemFieldArray[$name])) {
 
             return $this->ItemFieldArray[$name]['stringvalue'];
