@@ -107,8 +107,8 @@ ul.tmp{
 }
 
 .right_details ul li{
-/*    display: inline;
-    margin-left: 42px;*/
+    /*    display: inline;
+        margin-left: 42px;*/
 }
 
 
@@ -126,13 +126,7 @@ ul.tmp{
     margin-left: 88px;
     float: left;
 }
-.techData{
-    max-width: 222px;
-    margin-left: 42px;
-    float: left;
-    list-style: none;
-    font-size: 13px;
-}
+
 .standardFeatures li{
     font-size: 13px;
 }
@@ -181,9 +175,13 @@ ul.tmp{
 
 .techData .fieldCaption {
     width: 100px;
-}
-.techData .fieldValue {
     font-weight: bold;
+}
+
+.techData{
+    float: left;
+    list-style: none;
+    font-size: 13px;
 }
 
 div.searchResults div.picture-detail {
