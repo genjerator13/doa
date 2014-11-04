@@ -4,7 +4,6 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOAAdminBundle\Form\UserType;
 use APY\DataGridBundle\Grid\Source\Entity;
@@ -20,33 +19,37 @@ use APY\DataGridBundle\Grid\Column\BlankColumn;
  * User controller.
  *
  */
-class UserController extends Controller
-{
+class UserController extends Controller {
 
     /**
      * Lists all User entities.
      *
      */
-    public function indexAction()
-    {
+    public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-                $source = new Entity('NumaDOAAdminBundle:User');
+        $source = new Entity('NumaDOAAdminBundle:User');
 
         $grid = $this->get('grid');
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
         $entities = $em->getRepository('NumaDOAAdminBundle:User')->findAll();
-        return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
-        return $this->render('NumaDOAAdminBundle:User:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        $yourMassAction = new MassAction('Delete', 'Numa\DOAAdminBundle\Controller\ItemController::test');
+        $rowAction = new RowAction('Delete', 'user_delete', true, '_self', array('class' => 'grid_delete_action'));
+        $grid->addRowAction($rowAction);
+        $rowAction2 = new RowAction('Edit', 'user_edit');
+        $rowAction2->setRouteParameters(array('id'));
+        $grid->addRowAction($rowAction2);
+        $grid->addMassAction($yourMassAction);
+
+        return $grid->getGridResponse('NumaDOAAdminBundle:User:indexGrid.html.twig');
+
     }
+
     /**
      * Creates a new User entity.
      *
      */
-    public function createAction(Request $request)
-    {
+    public function createAction(Request $request) {
         $entity = new User();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -60,20 +63,19 @@ class UserController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a User entity.
-    *
-    * @param User $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(User $entity)
-    {
+     * Creates a form to create a User entity.
+     *
+     * @param User $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(User $entity) {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_create'),
             'method' => 'POST',
@@ -88,14 +90,13 @@ class UserController extends Controller
      * Displays a form to create a new User entity.
      *
      */
-    public function newAction()
-    {
+    public function newAction() {
         $entity = new User();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
+                    'entity' => $entity,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -103,8 +104,7 @@ class UserController extends Controller
      * Finds and displays a User entity.
      *
      */
-    public function showAction($id)
-    {
+    public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -116,16 +116,15 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:User:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing User entity.
      *
      */
-    public function editAction($id)
-    {
+    public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -138,21 +137,20 @@ class UserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a User entity.
-    *
-    * @param User $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(User $entity)
-    {
+     * Creates a form to edit a User entity.
+     *
+     * @param User $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(User $entity) {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -162,12 +160,12 @@ class UserController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing User entity.
      *
      */
-    public function updateAction(Request $request, $id)
-    {
+    public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -187,21 +185,21 @@ class UserController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+                    'entity' => $entity,
+                    'edit_form' => $editForm->createView(),
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a User entity.
      *
      */
-    public function deleteAction(Request $request, $id)
-    {
+    public function deleteAction(Request $request, $id) {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
 
@@ -211,7 +209,7 @@ class UserController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('user'));
     }
@@ -223,13 +221,13 @@ class UserController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id)
-    {
+    private function createDeleteForm($id) {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
+                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        ->add('submit', 'submit', array('label' => 'Delete'))
+                        ->getForm()
         ;
     }
+
 }

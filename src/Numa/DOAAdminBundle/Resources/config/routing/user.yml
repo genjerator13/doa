@@ -27,4 +27,4 @@ user_update:
 user_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:User:delete" }
-    requirements: { _method: post|delete }
+    requirements: { _method: get|post|delete }

@@ -4,9 +4,14 @@ namespace Numa\DOAAdminBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
  * User
+ */
+
+/**
+ * @GRID\Source(columns ="id,UserGroup.name,username,email")
  */
 class User implements UserInterface {
 
@@ -177,7 +182,9 @@ class User implements UserInterface {
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\UserGroup
+     * @GRID\Column(type="text", field="UserGroup.name", title="usergroup", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
      */
+    
     protected $UserGroup;
 
     /**
