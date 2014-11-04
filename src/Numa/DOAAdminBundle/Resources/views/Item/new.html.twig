@@ -19,7 +19,9 @@
                          <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
                         | <a href="#" class="itemControls deactivate">Deactivate</a>
                         | <a href="#" class="itemControls view">View Listing</a>
+                        {% if entity.id is not empty %}
                         | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
+                        {% endif %}
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.</p>
                         {{ form_start(form) }}
