@@ -154,10 +154,7 @@ class SearchController extends Controller {
         $query = $this->getDoctrine()->getManager()
                 ->createQuery(
                         'SELECT i FROM NumaDOAAdminBundle:Item i
-                                 JOIN i.ItemField ifield
-                                 JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'dealer\'
-                                 AND ifield.field_string_value=:dealerid
+                                 WHERE i.dealer_id=:dealerid
                                  ')
                 ->setParameter('dealerid', $dealerid);
 
