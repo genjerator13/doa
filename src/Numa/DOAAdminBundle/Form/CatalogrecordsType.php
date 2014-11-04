@@ -22,7 +22,7 @@ class CatalogrecordsType extends AbstractType
             
             ->add('description', 'genemu_tinymce',array('attr'=>array('class'=>'tinymce')))
             ->add('CatalogCategory')
-            ->add('logo','file',array('required'=>false))
+            ->add('logo','file',array('required'=>false,'data_class' => null))
             ->add('logo_url','text',array('required'=>false))
             ->add('password','password',array('required'=>false))
         ;
