@@ -41,7 +41,7 @@
                                     <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
 
                                 {% else %}
-                                    
+
                                     <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
                                     <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
 
@@ -77,33 +77,34 @@
                     <!-- Trigger -->
                 </div>
                 <!-- Jssor Slider End -->
-                
+
                 {% if item.getItemFieldByName('youtube video id') is not empty%}
                     <div class='row'>
-                    <h4>Youtube video:</h4>
-                    <div class="youtube-video">
-                        <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
-                    </div>
+                        <h4>Youtube video:</h4>
+                        <div class="youtube-video">
+                            <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
                 {% endif %}
                 <div class='row'>
                     <h4>Details:</h4>
                     <ul class="techData">
-
-                        <li>
-                            <span class="fieldCaption fieldCaptionId">Listing #</span>
-                            <span class="fieldValue fieldValueId">{{item.id}}</span>
-                        </li>
-                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','seller comments'] %}
+                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment'] %}
                             {% for field in item.ItemField %}
 
                                 {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                     <li class="col-md-6">
-                                        <span class="fieldCaption field{{field.fieldStringValue}}">{{field.fieldName}}: </span>
+                                        <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
                                         <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
                                     </li>
                                 {% endif %}
                             {% endfor %}
+                            {% if item.getItemFieldByName('seller comment') is not empty %}
+                                <li class="col-md-12">
+                                    <div class="fieldCaption field" >Seller Comments: </div>
+                                    <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
+                                </li>
+                            {% endif %}
                         </ul>
                     </div>
                     <div class='row'>
@@ -270,7 +271,7 @@
                                 <p><a style="" href="{{ path('browse_by_dealer',{'dealerid': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                                 <p>
                                     <span class="fieldCaption fieldCaptionId">Listing #</span>
-                                   <span class="fieldValue fieldValueId">{{item.id}}</span>
+                                    <span class="fieldValue fieldValueId">{{item.id}}</span>
                                 </p>
 
                             {% endif %}
