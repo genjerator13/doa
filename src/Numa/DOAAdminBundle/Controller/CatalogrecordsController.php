@@ -41,10 +41,12 @@ class CatalogrecordsController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity->upload();
+            
             $em->persist($entity);
+            
             $em->flush();
-
+            $entity->upload();
+            $em->flush();
             return $this->redirect($this->generateUrl('catalogs_show', array('id' => $entity->getId())));
         }
 
@@ -184,9 +186,9 @@ class CatalogrecordsController extends Controller {
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
-            $entity->upload();
+        if ($editForm->isValid()) {            
             $em->flush();
+            $entity->upload();
             return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
         }
 

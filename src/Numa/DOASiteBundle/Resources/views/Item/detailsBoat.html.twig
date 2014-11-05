@@ -95,7 +95,12 @@
                                 {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                     <li class="col-md-6">
                                         <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
+                                        {% if field.fieldName=="Price" %}
+                                        
+                                         <span classb="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span>   
+                                        {% else %}
                                         <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                        {% endif %}
                                     </li>
                                 {% endif %}
                             {% endfor %}

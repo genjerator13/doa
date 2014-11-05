@@ -37,29 +37,31 @@ class EntityListener {
         }
     }
 
-    private function setPassword(&$entity) {
+    private function setPassword($entity) {
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($entity);
         $plainPassword = $entity->getPassword();
         $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
         echo $plainPassword . "::::" . $encodedPassword;
-        if(!empty($plainPassword)){
+        if(!empty($plainPassword) && $plainPassword!=$encodedPassword){
+            echo $plainPassword . "::::" . $encodedPassword;
             $entity->setPassword($encodedPassword);
         }
+        
     }
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);
-            $args->setNewValue('password', $entity->getPassword());
+            //$args->setNewValue('password', $entity->getPassword());
         }
     }
     public function postUpdate(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-            $this->setPassword($entity);die('11111');
+            $this->setPassword($entity);
             
         }
     }

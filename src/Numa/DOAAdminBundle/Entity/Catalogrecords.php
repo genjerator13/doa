@@ -755,7 +755,7 @@ class Catalogrecords implements UserInterface {
     protected function getUploadDir() {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'upload/dealers';
+        return 'upload/dealers/'.$this->getId();
     }
 
     public $file_import_source;
@@ -792,9 +792,9 @@ class Catalogrecords implements UserInterface {
         $this->getFileImportSource()->move(
                 $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
         );
-
+        
         // set the path property to the filename where you've saved the file
-        $this->logo = $this->getFileImportSource()->getClientOriginalName();
+        $this->logo = $this->getUploadDir()."/".$this->getFileImportSource()->getClientOriginalName();
         
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
