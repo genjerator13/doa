@@ -33,7 +33,7 @@ class ItemController extends Controller {
         if (!empty($dealerid)){
             $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         }
-        
+        //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
         return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print));
         /*
         switch ($item->getCategoryId()) {
