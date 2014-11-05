@@ -261,6 +261,8 @@
                                 <h3>Dealer Info</h3>
                                 {% if (dealer.logo is empty) %}
                                     <img alt="logo" src="{{dealer.logoUrl}}" />
+                                {% else %}
+                                    <img alt="logo" src="{{asset(dealer.getLogoImage())}}" />
                                 {% endif %}
                                 <p><strong>{{dealer.name}}<strong/></p>
                                 <p>{{dealer.address}}</p>

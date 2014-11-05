@@ -1060,8 +1060,7 @@ class Importfeed {
      */
     public function setPicturesSaveLocaly($picturesSaveLocaly)
     {
-        $this->pictures_save_localy = $picturesSaveLocaly;
-    
+        $this->pictures_save_localy = $picturesSaveLocaly;    
         return $this;
     }
 

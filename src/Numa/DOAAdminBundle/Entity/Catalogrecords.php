@@ -737,4 +737,66 @@ class Catalogrecords implements UserInterface {
     {
         return $this->contact;
     }
+    
+    public function getAbsolutePath() {
+        return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
+    }
+
+    public function getLogoImage() {
+        return null === $this->logo ? null : '/'.$this->getUploadDir() . '/' . $this->logo;
+    }
+
+    protected function getUploadRootDir() {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir() {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'upload/dealers';
+    }
+
+    public $file_import_source;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null) {
+        $this->file_import_source = $file_import_source;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFileImportSource() {
+        return $this->file_import_source;
+    }
+
+    public function upload() {
+        // the file property can be empty if the field is not required
+        
+        if (null === $this->getFileImportSource()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFileImportSource()->move(
+                $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->logo = $this->getFileImportSource()->getClientOriginalName();
+        
+        // clean up the file property as you won't need it anymore
+        $this->file_import_source = null;
+    }
 }
