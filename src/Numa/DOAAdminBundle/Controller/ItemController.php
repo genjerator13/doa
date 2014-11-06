@@ -377,16 +377,32 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $activation = $request->get('active');
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-
+        $securityContext = $this->container->get('security.context');
+        
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
 
+        //if business login and dealer listing
+        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
+        if ($securityContext->isGranted('ROLE_BUSINES')){
+            
+                if($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+                   $entity->getDealer()->getId()!=$this->getUser()->getId()) {        
+                    throw $this->createAccessDeniedException('You cannot access this page!');
+                }else{
+                    
+                    $url = $this->getRequest()->headers->get("referer");                     
+                    $return = $this->redirect($url);
+                    
+                }
+        }
+        
+        
         $entity->setActive(1);
         $entity->setActivationDate(new \DateTime());
         $em->flush();
-
-        return $this->redirect($this->generateUrl('items', array('id' => $id)));
+        return $return;
     }
 
     /**
@@ -396,16 +412,29 @@ class ItemController extends Controller {
     public function deactivateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-
+        $securityContext = $this->container->get('security.context');
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
-
+        //if business login and dealer listing
+        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
+        if ($securityContext->isGranted('ROLE_BUSINES')){
+            
+                if($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+                   $entity->getDealer()->getId()!=$this->getUser()->getId()) {        
+                    throw $this->createAccessDeniedException('You cannot access this page!');
+                }else{
+                    
+                    $url = $this->getRequest()->headers->get("referer");       
+                    $return = $this->redirect($url);
+                    
+                }
+        }
         $entity->setActive(0);
 
         $em->flush();
 
-        return $this->redirect($this->generateUrl('items', array('id' => $id)));
+        return $return;
     }
 
     /**

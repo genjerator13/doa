@@ -12,176 +12,178 @@
 {% endblock %}
 {% set images = item.getImages()%}    
     {% set desc = item.getMake()~item.getModel()%}
-        {% block content %}
-            <div class="detailsContent">
-                <h3>{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span></h3>
-                <!-- Jssor Slider Begin -->
-                <!-- You can move inline styles to css file or css block. -->
-                <div id="slider1_container" style="position: relative; width: 666px;
-                     height: 480px; overflow: hidden;">
+        {% set currentPath = app.request.uri %}
+            {% set dealer = item.getDealer() %}
+                {% block content %}
+                    <div class="detailsContent">
+                        <h3>{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span></h3>
+                        <!-- Jssor Slider Begin -->
+                        <!-- You can move inline styles to css file or css block. -->
+                        <div id="slider1_container" style="position: relative; width: 666px;
+                             height: 480px; overflow: hidden;">
 
-                    <!-- Loading Screen -->
-                    <div u="loading" style="position: absolute; top: 0px; left: 0px;">
-                        <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
-                             background-color: #000; top: 0px; left: 0px;width: 100%;height:100%;">
-                        </div>
-                        <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
-                             top: 0px; left: 0px;width: 100%;height:100%;">
-                        </div>
-                    </div>
-
-                    <!-- Slides Container -->
-
-                    <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 666px; height: 480px;
-                         overflow: hidden;">
-                        {% for key,image in images %}    
-                            <div>
-                                {% if ('http' not in image.stringvalue) %}
-                                    <img  u="image" src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />                              
-                                    <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
-
-                                {% else %}
-
-                                    <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
-                                    <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
-
-                                {%endif%}
-
-                            </div>
-                        {% endfor %}
-
-                    </div>
-
-                    <!-- Thumbnail Navigator Skin Begin -->
-                    <div u="thumbnavigator" class="jssort07" style="position: absolute; width: 666px; height: 100px; left: 0px; bottom: 0px; overflow: hidden; ">
-                        <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
-
-                        <div u="slides" style="cursor: move;">
-                            <div u="prototype" class="p" style="POSITION: absolute; WIDTH: 99px; HEIGHT: 66px; TOP: 0; LEFT: 0;">
-                                <thumbnailtemplate class="i" style="position:absolute;"></thumbnailtemplate>
-                                <div class="o">
+                            <!-- Loading Screen -->
+                            <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                                <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
+                                     background-color: #000; top: 0px; left: 0px;width: 100%;height:100%;">
+                                </div>
+                                <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
+                                     top: 0px; left: 0px;width: 100%;height:100%;">
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Arrow Left -->
-                        <span u="arrowleft" class="jssora11l" style="width: 37px; height: 37px; top: 123px; left: 8px;">
-                        </span>
-                        <!-- Arrow Right -->
-                        <span u="arrowright" class="jssora11r" style="width: 37px; height: 37px; top: 123px; right: 8px">
-                        </span>
-                        <!-- Arrow Navigator Skin End -->
-                    </div>
-                    <!-- ThumbnailNavigator Skin End -->
-                    <a style="display: none" href="http://www.jssor.com">responsive carousel</a>
-                    <!-- Trigger -->
-                </div>
-                <!-- Jssor Slider End -->
+                            <!-- Slides Container -->
 
-                {% if item.getItemFieldByName('youtube video id') is not empty%}
-                    <div class='row'>
-                        <h4>Youtube video:</h4>
-                        <div class="youtube-video">
-                            <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class='row'>
-                    <h4>Details:</h4>
-                    <ul class="techData">
-                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment'] %}
-                            {% for field in item.ItemField %}
+                            <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 666px; height: 480px;
+                                 overflow: hidden;">
+                                {% for key,image in images %}    
+                                    <div>
+                                        {% if ('http' not in image.stringvalue) %}
+                                            <img  u="image" src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />                              
+                                            <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
 
-                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                    <li class="col-md-6">
-                                        <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
-                                        {% if field.fieldName=="Price" %}
-                                        
-                                         <span classb="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span>   
                                         {% else %}
-                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                        {% endif %}
-                                    </li>
-                                {% endif %}
-                            {% endfor %}
-                            {% if item.getItemFieldByName('seller comment') is not empty %}
-                                <li class="col-md-12">
-                                    <div class="fieldCaption field" >Seller Comments: </div>
-                                    <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                    <div class='row'>
-                        <h4>Options list:</h4>
-                        <ul class='option-lists'>
 
-                            {% for field in item.ItemField %}
-                                {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' %}
+                                            <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
+                                            <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
 
-                                    <li class="col-md-4">
-                                        <div class="checkbox">
-                                            <label>
-                                                <i class="glyphicon glyphicon-check"></i> {{field.fieldName}}
-                                            </label>
+                                        {%endif%}
+
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+
+                            <!-- Thumbnail Navigator Skin Begin -->
+                            <div u="thumbnavigator" class="jssort07" style="position: absolute; width: 666px; height: 100px; left: 0px; bottom: 0px; overflow: hidden; ">
+                                <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
+
+                                <div u="slides" style="cursor: move;">
+                                    <div u="prototype" class="p" style="POSITION: absolute; WIDTH: 99px; HEIGHT: 66px; TOP: 0; LEFT: 0;">
+                                        <thumbnailtemplate class="i" style="position:absolute;"></thumbnailtemplate>
+                                        <div class="o">
                                         </div>
+                                    </div>
+                                </div>
+
+                                <!-- Arrow Left -->
+                                <span u="arrowleft" class="jssora11l" style="width: 37px; height: 37px; top: 123px; left: 8px;">
+                                </span>
+                                <!-- Arrow Right -->
+                                <span u="arrowright" class="jssora11r" style="width: 37px; height: 37px; top: 123px; right: 8px">
+                                </span>
+                                <!-- Arrow Navigator Skin End -->
+                            </div>
+                            <!-- ThumbnailNavigator Skin End -->
+                            <a style="display: none" href="http://www.jssor.com">responsive carousel</a>
+                            <!-- Trigger -->
+                        </div>
+                        <!-- Jssor Slider End -->
+
+                        {% if item.getItemFieldByName('youtube video id') is not empty%}
+                            <div class='row'>
+                                <h4>Youtube video:</h4>
+                                <div class="youtube-video">
+                                    <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <div class='row'>
+                            <h4>Details:</h4>
+                            <ul class="techData">
+                                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment'] %}
+                                    {% for field in item.ItemField %}
+
+                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                            <li class="col-md-6">
+                                                <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
+                                                {% if field.fieldName=="Price" %}
+
+                                                    <span classb="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span>   
+                                                {% else %}
+                                                    <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                                {% endif %}
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if item.getItemFieldByName('seller comment') is not empty %}
+                                        <li class="col-md-12">
+                                            <div class="fieldCaption field" >Seller Comments: </div>
+                                            <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <div class='row'>
+                                <h4>Options list:</h4>
+                                <ul class='option-lists'>
+
+                                    {% for field in item.ItemField %}
+                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' %}
+
+                                            <li class="col-md-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <i class="glyphicon glyphicon-check"></i> {{field.fieldName}}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div id="map"> </div> 
+
+                        </div>
+                        {% endblock %}
+
+                            {% block rightsidebar %}
+
+                                <ul class="righsidebar-block" data="{{item.id}}" url="{{path('item_compare')}}">
+                                    <li>
+                                        <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                        <div id="fb-root"></div>
+                                        <script>(function(d, s, id) {
+                                                var js, fjs = d.getElementsByTagName(s)[0];
+                                                if (d.getElementById(id))
+                                                    return;
+                                                js = d.createElement(s);
+                                                js.id = id;
+                                                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
+                                                fjs.parentNode.insertBefore(js, fjs);
+                                            }(document, 'script', 'facebook-jssdk'));</script>
                                     </li>
-                                {% endif %}
+                                    <li>
+                                        <a class="twitter-share-button"
+                                           href="https://twitter.com/share"
+                                           data-via="dealersonair"
+                                           date-text="sss">
+                                            Tweet
+                                        </a>
+                                        <script type="text/javascript">
+                                            window.twttr = (function(d, s, id) {
+                                                var t, js, fjs = d.getElementsByTagName(s)[0];
+                                                if (d.getElementById(id)) {
+                                                    return
+                                                }
+                                                js = d.createElement(s);
+                                                js.id = id;
+                                                js.src = "https://platform.twitter.com/widgets.js";
+                                                fjs.parentNode.insertBefore(js, fjs);
+                                                return window.twttr || (t = {_e: [], ready: function(f) {
+                                                        t._e.push(f)
+                                                    }})
+                                            }(document, "script", "twitter-wjs"));
+                                        </script>
+                                    </li>
+                                    <li>
+                                        <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}"><i class="glyphicon glyphicon-print"></i></a>
+                                        <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}">
+                                            Print This Ad
+                                        </a>
+                                    </li>
 
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div id="map"> </div> 
-
-                </div>
-                {% endblock %}
-
-                    {% block rightsidebar %}
-                        <ul class="righsidebar-block" data="{{item.id}}" url="{{path('item_compare')}}">
-                            <li>
-                                <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
-                                <div id="fb-root"></div>
-                                <script>(function(d, s, id) {
-                                        var js, fjs = d.getElementsByTagName(s)[0];
-                                        if (d.getElementById(id))
-                                            return;
-                                        js = d.createElement(s);
-                                        js.id = id;
-                                        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.0";
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                    }(document, 'script', 'facebook-jssdk'));</script>
-                            </li>
-                            <li>
-                                <a class="twitter-share-button"
-                                   href="https://twitter.com/share"
-                                   data-via="dealersonair"
-                                   date-text="sss">
-                                    Tweet
-                                </a>
-                                <script type="text/javascript">
-                                    window.twttr = (function(d, s, id) {
-                                        var t, js, fjs = d.getElementsByTagName(s)[0];
-                                        if (d.getElementById(id)) {
-                                            return
-                                        }
-                                        js = d.createElement(s);
-                                        js.id = id;
-                                        js.src = "https://platform.twitter.com/widgets.js";
-                                        fjs.parentNode.insertBefore(js, fjs);
-                                        return window.twttr || (t = {_e: [], ready: function(f) {
-                                                t._e.push(f)
-                                            }})
-                                    }(document, "script", "twitter-wjs"));
-                                </script>
-                            </li>
-                            <li>
-                                <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}"><i class="glyphicon glyphicon-print"></i></a>
-                                <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}">
-                                    Print This Ad
-                                </a>
-                            </li>
-                            {% set currentPath = app.request.uri %}
-                                {% set dealer = item.getDealer() %}
                                     <li>
                                         <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank"><i class="glyphicon glyphicon-qrcode"></i></a>
                                         <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank">QR Code</a>
@@ -280,6 +282,14 @@
                                     <span class="fieldCaption fieldCaptionId">Listing #</span>
                                     <span class="fieldValue fieldValueId">{{item.id}}</span>
                                 </p>
+                                {% if app.user and app.user.getId()==dealer.id%}
+                                    <a class="btn btn-primary" href="{{path('items_edit',{'id':item.id})}}" >Edit this listing</a>
+                                    {% if item.getActive() %}
+                                        <a class="btn btn-primary" href="{{path('items_deactivate',{'id':item.id})}}">Deactivate</a>
+                                        {% else %}
+                                        <a  class="btn btn-primary" href="{{path('items_activate',{'id':item.id})}}">Activate</a>
+                                        {% endif %}
+                                    {% endif %}
 
                             {% endif %}
                             <script src="https://maps.googleapis.com/maps/api/js"></script>

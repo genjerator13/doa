@@ -3,64 +3,78 @@
         {% set desc = item.getMake()~item.getModel()%}
             {% if desc is empty %}
                 {% set desc = "test" %}
-            {% endif %}
-                {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc|url_encode()}) %}
-            {% if detailUrl is empty %}
-                {% set detailUrl = "details" %}
-            {% endif %}
-            <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row" url="{{path('item_compare')}}">    
-                <div class="col-md-12">
-                    <div class="picture-detail">
-                        <a href="{{detailUrl}}">
-                            {% if images is empty  %}
-                                <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
-                            {% else %} 
-                                {% set image = item.getImages()|first["stringvalue"]%}
-                                {% if ('http' not in image) %}
-                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
-                                    {% else %}
-                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
-                                    {%endif%}
-                                    </a>
-                                    
-                            {% endif %}
-                                </div>
-                                <div class="shortDetails">
-                                    <h4>
-                                        <a href="{{detailUrl}}">
-                                            {{item.getItemFieldByName('year')}} {{desc}}
-                                        </a>                                    
-                                    </h4>
+                    {% endif %}
+                        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc|url_encode()}) %}
+                            {% set dealer = item.getDealer() %}
+                            {% if detailUrl is empty %}
+                                {% set detailUrl = "details" %}
+                                
+                                    {% endif %}
+                                        <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row" url="{{path('item_compare')}}">    
+                                            <div class="col-md-12">
+                                                <div class="picture-detail">
+                                                    <a href="{{detailUrl}}">
+                                                        {% if images is empty  %}
+                                                            <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
+                                                        {% else %} 
+                                                            {% set image = item.getImages()|first["stringvalue"]%}
+                                                                {% if ('http' not in image) %}
+                                                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                                                                {% else %}
+                                                                    <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
+                                                                {%endif%}
+                                                            </a>
 
-                                    <div>Listing ID # {{item.id}} in the category "{{item.category}} "</div>
-                                    <div>Posted by {{item.getUser('username')}} </div>
+                                                            {% endif %}
+                                                            </div>
+                                                            <div class="shortDetails">
+                                                                <h4>
+                                                                    <a href="{{detailUrl}}">
+                                                                        {{item.getItemFieldByName('year')}} {{desc}}
+                                                                    </a>                                    
+                                                                </h4>
+
+                                                                <div>Listing ID # {{item.id}} in the category "{{item.category}} "</div>
+                                                                <div>Posted by {{item.getUser('username')}} </div>
 
 
-                                    <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
-                                    <br>
-                                    <a href="{{detailUrl}}">View Details</a>
-                                    <div class="checkbox-inline">
-                                        <label>
-                                            <input type="checkbox" class="saveAd"> Save Ad
-                                        </label>
-                                    </div>
-                                    <div class="checkbox-inline">
-                                        <label>
-                                            <input type="checkbox" class="compareAd"> Compare Ad
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="main-details">
-                                    <ul class="list-inline">
-                                        <li>{{item.getItemFieldByName('mileage')|number_format(0, '.',',')}}
+                                                                <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
+                                                                <br>
+                                                                <a href="{{detailUrl}}">View Details</a>
+                                                                <div class="checkbox-inline">
+                                                                    <label>
+                                                                        <input type="checkbox" class="saveAd"> Save Ad
+                                                                    </label>
+                                                                </div>
+                                                                <div class="checkbox-inline">
+                                                                    <label>
+                                                                        <input type="checkbox" class="compareAd"> Compare Ad
+                                                                    </label>
+                                                                </div>
+                                                                {% if app.user and app.user.getId()==dealer.id%}
+                                                                    <ul class="list-inline">
+                                                                        <li><a href="{{path('items_edit',{'id':item.id})}}">Edit</a></li>
+                                                                        {% if item.getActive() %}
+                                                                        <li><a href="{{path('items_deactivate',{'id':item.id})}}">Deactivate</a></li>
+                                                                        {% else %}
+                                                                        <li><a href="{{path('items_activate',{'id':item.id})}}">Activate</a></li>
+                                                                        {% endif %}
+                                                                        
+                                                                    </ul>
+                                                                {% endif %}
 
-                                        <li><span class="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span></li>
-                                        <li>{{item.DateCreated|date('Y-m-d')}}</li>                                        
-                                    </ul>
-                                </div>
+                                                            </div>
+                                                            <div class="main-details">
+                                                                <ul class="list-inline">
+                                                                    <li>{{item.getItemFieldByName('mileage')|number_format(0, '.',',')}}
 
-                            </div>
-                        </div>
-                        <div class="clear"></div>
+                                                                    <li><span class="price">{{item.getItemFieldByName('price')|number_format(0, '.',',')}} $</span></li>
+                                                                    <li>{{item.DateCreated|date('Y-m-d')}}</li>                                        
+                                                                </ul>
+                                                            </div>
 
-                        {% endblock %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="clear"></div>
+
+                                                    {% endblock %}
