@@ -54,7 +54,7 @@ class EntityListener {
         $entityManager = $args->getEntityManager();
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);
-            //$args->setNewValue('password', $entity->getPassword());
+            $args->setNewValue('password', $entity->getPassword());
         }
     }
     public function postUpdate(LifecycleEventArgs $args) {
