@@ -97,7 +97,11 @@
                     {% if item.getCategory().getName()=='RVs' %}
                         <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
                     {% endif %}#}
-            {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+            {% if queryUrl is defined %}
+                {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl})}}
+            {% else %}
+                {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+            {% endif %}
         {% endfor%}
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
     </div>

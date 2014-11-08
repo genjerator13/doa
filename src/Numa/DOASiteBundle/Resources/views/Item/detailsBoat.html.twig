@@ -263,7 +263,9 @@
                                     });
                                 });
                             </script> 
-
+                            
+                                <a href="{{app.request.headers.get('referer')}}">Back to search</a>
+                            
                             {% if (dealer is defined and dealer is not empty) %}
                                 <h3>Dealer Info</h3>
                                 {% if (dealer.logo is empty) %}

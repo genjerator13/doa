@@ -16,7 +16,7 @@ use Numa\Util\searchParameters;
 class SearchController extends Controller {
 
     protected $searchParameters;
-
+    protected $queryUrl;
     public function initSearchParams(Request $request) {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
@@ -24,6 +24,9 @@ class SearchController extends Controller {
         
         $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
         $parameters = $request->query->all();
+        
+        $parameters = array_merge($parameters , $request->attributes->get('_route_params'));
+        
         if(!empty($parameters['searchSource'])){
             $aSearchSource = explode('&', $parameters['searchSource']);
             foreach($aSearchSource as $key=>$param){
@@ -36,6 +39,7 @@ class SearchController extends Controller {
         }
 
         $this->searchParameters->setAll($parameters);
+        $this->queryUrl = $this->searchParameters->makeUrlQuery();
     }
 
     public function searchAction(Request $request) {
@@ -71,6 +75,8 @@ class SearchController extends Controller {
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
+        
+        
         return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number, 'queryUrl'=>$queryUrl);
     }
 
@@ -134,7 +140,7 @@ class SearchController extends Controller {
         $query = $this->createQuerySearchByCategory($model, $category,$page);
 
         $items = $query->getResult();
-
+        $this->initSearchParams($request);
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $pagerfanta->setMaxPerPage(10);
         try {

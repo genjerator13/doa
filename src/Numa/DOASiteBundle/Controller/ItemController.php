@@ -12,6 +12,8 @@ class ItemController extends Controller {
     public function detailsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $itemId = $request->get('itemId');
+        $searchQ = $request->query->get('searchQ');
+
         $request = $this->container->get('request');
         $routeName = $request->get('_route');
         $print = false;
@@ -34,7 +36,7 @@ class ItemController extends Controller {
             $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         }
         //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
-        return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print));
+        return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print,'searchQ'=>$searchQ));
         /*
         switch ($item->getCategoryId()) {
             case 1:

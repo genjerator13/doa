@@ -5,6 +5,9 @@
                 {% set desc = "test" %}
                     {% endif %}
                         {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc|url_encode()}) %}
+                            {% if searchQ is defined %}
+                                {% set detailUrl = path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ}) %}
+                            {% endif %}
                             {% set dealer = item.getDealer() %}
                             {% if detailUrl is empty %}
                                 {% set detailUrl = "details" %}
