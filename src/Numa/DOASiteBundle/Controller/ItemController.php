@@ -36,31 +36,11 @@ class ItemController extends Controller {
             $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         }
         //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
+        //add 1 more view
+        $item->setViews($item->getViews()+1);
+        $em->flush();
         return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print,'searchQ'=>$searchQ));
-        /*
-        switch ($item->getCategoryId()) {
-            case 1:
-                //car
-                return $this->render('NumaDOASiteBundle:Item:detailsCar.html.twig', array('item' => $item, 'dealer' => $dealer));
-                break;
-            case 2:
-                //marine
-                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer));
-                break;
-            case 3:
-                //motorsport
-                return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer));
-                break;
-            case 4:
-                //rvs
-                
-                break;
-            default:
-                break;
-        }
-         * *
-         *
-         */
+     
     }
 
     public function saveadAction(Request $request) {

@@ -285,6 +285,7 @@
                                     <span class="fieldValue fieldValueId">{{item.id}}</span>
                                 </p>
                                 {% if app.user and app.user.getId()==dealer.id%}
+                                    <p>Views ({{item.views}})<p>
                                     <a class="btn btn-primary" href="{{path('items_edit',{'id':item.id})}}" >Edit this listing</a>
                                     {% if item.getActive() %}
                                         <a class="btn btn-primary" href="{{path('items_deactivate',{'id':item.id})}}">Deactivate</a>

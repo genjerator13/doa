@@ -43,7 +43,7 @@
 
                                                                 <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
                                                                 <br>
-                                                                <a href="{{detailUrl}}">View Details</a>
+                                                                <a href="{{detailUrl}}">View Details {% if app.user and app.user.getId()==dealer.id%}({{item.views}} views){% endif %}</a>
                                                                 <div class="checkbox-inline">
                                                                     <label>
                                                                         <input type="checkbox" class="saveAd"> Save Ad
