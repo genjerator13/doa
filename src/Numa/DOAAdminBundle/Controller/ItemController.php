@@ -68,7 +68,7 @@ class ItemController extends Controller {
                     $res[$field->getFieldName()] = $field->getFieldStringValue();
                 }
             }
-            
+
             if (empty($res['Image List'])) {
                 $res['Image List'] = "";
             }
@@ -93,6 +93,8 @@ class ItemController extends Controller {
 
         //actions in row and mass actions
         //$grid->addRowAction(new RowAction('Show', 'items'));
+        $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
+        $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Activate', 'Numa\DOAAdminBundle\Controller\ItemController::test');
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Deactivate', 'Numa\DOAAdminBundle\Controller\ItemController::deactivateAction');
@@ -121,6 +123,20 @@ class ItemController extends Controller {
     static function test($primaryKeys, $allPrimaryKeys, $session, $parameters) {
         print_r($primaryKeys);
         die();
+    }
+
+    public function massDeleteAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        print_r($primaryKeys);
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $em->remove($entity);
+            }
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('items'));
     }
 
     /**
@@ -354,17 +370,17 @@ class ItemController extends Controller {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        //if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Item entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Item entity.');
         }
+
+        $em->remove($entity);
+        $em->flush();
+        //}
 
         return $this->redirect($this->generateUrl('items'));
     }
@@ -378,27 +394,26 @@ class ItemController extends Controller {
         $activation = $request->get('active');
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
         $securityContext = $this->container->get('security.context');
-        
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
 
         //if business login and dealer listing
         $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
-        if ($securityContext->isGranted('ROLE_BUSINES')){
-            
-                if($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
-                   $entity->getDealer()->getId()!=$this->getUser()->getId()) {        
-                    throw $this->createAccessDeniedException('You cannot access this page!');
-                }else{
-                    
-                    $url = $this->getRequest()->headers->get("referer");                     
-                    $return = $this->redirect($url);
-                    
-                }
+        if ($securityContext->isGranted('ROLE_BUSINES')) {
+
+            if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+                    $entity->getDealer()->getId() != $this->getUser()->getId()) {
+                throw $this->createAccessDeniedException('You cannot access this page!');
+            } else {
+
+                $url = $this->getRequest()->headers->get("referer");
+                $return = $this->redirect($url);
+            }
         }
-        
-        
+
+
         $entity->setActive(1);
         $entity->setActivationDate(new \DateTime());
         $em->flush();
@@ -418,17 +433,16 @@ class ItemController extends Controller {
         }
         //if business login and dealer listing
         $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
-        if ($securityContext->isGranted('ROLE_BUSINES')){
-            
-                if($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
-                   $entity->getDealer()->getId()!=$this->getUser()->getId()) {        
-                    throw $this->createAccessDeniedException('You cannot access this page!');
-                }else{
-                    
-                    $url = $this->getRequest()->headers->get("referer");       
-                    $return = $this->redirect($url);
-                    
-                }
+        if ($securityContext->isGranted('ROLE_BUSINES')) {
+
+            if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+                    $entity->getDealer()->getId() != $this->getUser()->getId()) {
+                throw $this->createAccessDeniedException('You cannot access this page!');
+            } else {
+
+                $url = $this->getRequest()->headers->get("referer");
+                $return = $this->redirect($url);
+            }
         }
         $entity->setActive(0);
 
