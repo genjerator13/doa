@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 class ListingFieldListsRepository extends EntityRepository {
+
     /**
      * 
      * @param type $propertyName
@@ -23,13 +24,12 @@ class ListingFieldListsRepository extends EntityRepository {
         return $res;
     }
 
-
     /**
      * 
      * @param type $property
      * @return type
      */
-    public function findAllBy($property, $cat=0) {
+    public function findAllBy($property, $cat = 0) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
@@ -40,26 +40,47 @@ class ListingFieldListsRepository extends EntityRepository {
                 //->andWhere('l.category_sid like :property')
                 ->setParameter('property', "%" . $property . "%");
         ;
-        if($cat>0){
+        if ($cat > 0) {
             $qb->andWhere('l.category_sid=:csid')
-               ->setParameter('csid', $cat);
+                    ->setParameter('csid', $cat);
         }
         //$res = $query; //->getResult();
         ;
         return $qb;
     }
-    
-    
-    
-    public function getListingValueById($id){
-        if(empty($id)){
+
+    public function getListingValueById($id) {
+        if (empty($id)) {
             return NULL;
         }
         $list = $this->find($id);
-        if(!empty($list)){
+        if (!empty($list)) {
             return $list->getValue();
         }
         return NULL;
+    }
+
+    public function getJsonListModels($fieldId) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $query = $qb->select('tp')
+                ->from('NumaDOAAdminBundle:ListingFieldLists', 'tp')
+                ->where('tp.listing_field_id=:field_id')
+                ->setParameter('field_id', $fieldId)
+                ->getQuery();
+        ;
+
+        $results = $query->getResult();
+        $jsonArray = array();
+       
+        foreach ($results as $res) {
+            
+//            foreach ($res->getChildren() as $children) {
+                $name = str_replace(array("'", ".", ",", "}", "{", "\""), "", $res->getValue());
+                $jsonArray[$res->getId()] = $name;
+//            }
+        }
+        return json_encode($jsonArray);
     }
 
 }
