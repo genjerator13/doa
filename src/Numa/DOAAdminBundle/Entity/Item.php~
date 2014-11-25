@@ -700,10 +700,15 @@ class Item {
         //die();
         $model = "";
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
-            if ($this->Category->getName() == "Marine") {
+            if ($this->Category->getName() == "Car") {
 
                 $model = $this->ItemFieldArray['model']['stringvalue'];
-            }if ($this->Category->getName() == "Marine") {
+            }
+            if ($this->Category->getName() == "Marine") {
+                $model = $this->ItemFieldArray['model']['stringvalue'];
+            }
+            if ($this->Category->getName() == "RVs") {
+
                 $model = $this->ItemFieldArray['model']['stringvalue'];
             }
         }
@@ -723,6 +728,11 @@ class Item {
                     return $this->ItemFieldArray['make model']['stringvalue'] . " ";
                 }
             }
+            elseif ($this->Category->getName() == "RVs") {
+                if (isset($this->ItemFieldArray['make model'])) {
+                    return $this->ItemFieldArray['make model']['stringvalue'] . " ";
+                }
+            }
         }
         return "";
     }
@@ -737,7 +747,7 @@ class Item {
         } elseif ($name == 'image') {
             return $this->getImage();
         }
-
+        //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if (!empty($this->ItemFieldArray[$name])) {
 
             return $this->ItemFieldArray[$name]['stringvalue'];
@@ -1010,7 +1020,7 @@ class Item {
             if (count($picturesArray) > 1) {
                 $order = 1;
             }
-            //print_r(count($picturesArray));
+
             foreach ($picturesArray as $picture) {
                 $itemField = new ItemField();
 
@@ -1019,16 +1029,11 @@ class Item {
                 $itemField->setFeedId($feed->getId());
                 $itemField->setItem($this);
                 $itemField->handleImage($picture,  $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
-                
                 $this->addItemField($itemField);
-                $em->persist($itemField);
-
-                
                 $order++;
-                //
+
             }
-            //$em->flush();
-           
+
         }
     }
 

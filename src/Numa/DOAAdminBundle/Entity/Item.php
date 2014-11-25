@@ -1047,4 +1047,414 @@ class Item {
         return null;
     }
 
+    /**
+     * @var string
+     */
+    private $body_style;
+
+    /**
+     * @var string
+     */
+    private $model;
+
+    /**
+     * @var integer
+     */
+    private $price;
+
+    /**
+     * @var integer
+     */
+    private $year;
+
+    /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $flor_pane;
+
+    /**
+     * @var string
+     */
+    private $ag_application;
+
+    /**
+     * @var string
+     */
+    private $postal;
+
+    /**
+     * @var string
+     */
+    private $city;
+
+    /**
+     * @var string
+     */
+    private $address;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+    /**
+     * @var string
+     */
+    private $stock_nr;
+
+    /**
+     * @var string
+     */
+    private $mileage;
+
+    /**
+     * @var string
+     */
+    private $VIN;
+
+    /**
+     * @var string
+     */
+    private $transmission;
+
+
+    /**
+     * Set body_style
+     *
+     * @param string $bodyStyle
+     * @return Item
+     */
+    public function setBodyStyle($bodyStyle)
+    {
+        $this->body_style = $bodyStyle;
+    
+        return $this;
+    }
+
+    /**
+     * Get body_style
+     *
+     * @return string 
+     */
+    public function getBodyStyle()
+    {
+        return $this->body_style;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     * @return Item
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+    
+        return $this;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return Item
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+    
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     * @return Item
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+    
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer 
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     * @return Item
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+    
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Set flor_pane
+     *
+     * @param string $florPane
+     * @return Item
+     */
+    public function setFlorPane($florPane)
+    {
+        $this->flor_pane = $florPane;
+    
+        return $this;
+    }
+
+    /**
+     * Get flor_pane
+     *
+     * @return string 
+     */
+    public function getFlorPane()
+    {
+        return $this->flor_pane;
+    }
+
+    /**
+     * Set ag_application
+     *
+     * @param string $agApplication
+     * @return Item
+     */
+    public function setAgApplication($agApplication)
+    {
+        $this->ag_application = $agApplication;
+    
+        return $this;
+    }
+
+    /**
+     * Get ag_application
+     *
+     * @return string 
+     */
+    public function getAgApplication()
+    {
+        return $this->ag_application;
+    }
+
+    /**
+     * Set postal
+     *
+     * @param string $postal
+     * @return Item
+     */
+    public function setPostal($postal)
+    {
+        $this->postal = $postal;
+    
+        return $this;
+    }
+
+    /**
+     * Get postal
+     *
+     * @return string 
+     */
+    public function getPostal()
+    {
+        return $this->postal;
+    }
+
+    /**
+     * Set city
+     *
+     * @param string $city
+     * @return Item
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    
+        return $this;
+    }
+
+    /**
+     * Get city
+     *
+     * @return string 
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Item
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+    
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return Item
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set stock_nr
+     *
+     * @param string $stockNr
+     * @return Item
+     */
+    public function setStockNr($stockNr)
+    {
+        $this->stock_nr = $stockNr;
+    
+        return $this;
+    }
+
+    /**
+     * Get stock_nr
+     *
+     * @return string 
+     */
+    public function getStockNr()
+    {
+        return $this->stock_nr;
+    }
+
+    /**
+     * Set mileage
+     *
+     * @param string $mileage
+     * @return Item
+     */
+    public function setMileage($mileage)
+    {
+        $this->mileage = $mileage;
+    
+        return $this;
+    }
+
+    /**
+     * Get mileage
+     *
+     * @return string 
+     */
+    public function getMileage()
+    {
+        return $this->mileage;
+    }
+
+    /**
+     * Set VIN
+     *
+     * @param string $vIN
+     * @return Item
+     */
+    public function setVIN($vIN)
+    {
+        $this->VIN = $vIN;
+    
+        return $this;
+    }
+
+    /**
+     * Get VIN
+     *
+     * @return string 
+     */
+    public function getVIN()
+    {
+        return $this->VIN;
+    }
+
+    /**
+     * Set transmission
+     *
+     * @param string $transmission
+     * @return Item
+     */
+    public function setTransmission($transmission)
+    {
+        $this->transmission = $transmission;
+    
+        return $this;
+    }
+
+    /**
+     * Get transmission
+     *
+     * @return string 
+     */
+    public function getTransmission()
+    {
+        return $this->transmission;
+    }
 }

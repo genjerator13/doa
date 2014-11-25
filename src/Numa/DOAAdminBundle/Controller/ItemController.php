@@ -62,8 +62,9 @@ class ItemController extends Controller {
             // $res['date_created'] = $row->getField('date_created');
 
             foreach ($fields as $field) {
-                if ($field->getFieldType() == 'array') {
+                if (strtolower($field->getFieldType()) == 'array') {
                     $res[$field->getFieldName()][] = $field->getFieldStringValue();
+                    
                 } else {
                     $res[$field->getFieldName()] = $field->getFieldStringValue();
                 }

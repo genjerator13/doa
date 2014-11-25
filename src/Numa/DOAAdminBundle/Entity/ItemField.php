@@ -335,13 +335,13 @@ class ItemField {
 
         $url = $stringValue;
         //get etension//
-        
+
         $filename = pathinfo($url, PATHINFO_BASENAME);
-        if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile){
+        if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             $filename = $url->getClientOriginalName();
         }
         $img_url = $url;
-                
+
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //$feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid;
@@ -349,17 +349,19 @@ class ItemField {
                 mkdir($dir, 0777);
             }
             $filename = strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
-            $img = $dir . "/" .$filename ;
-            $img_url = $upload_url . "/" . $feed_sid . "/"   . $filename;
-            $img = str_replace(array(" ", '%'), "-", $img);
-            $img_url = str_replace(array(" ", '%'), "-", $img_url);
+
+            $filename = str_replace(array(" ", '%'), "-", $filename);
+
+            $img = $dir . "/" . $filename;
+            $img_url = $upload_url . "/" . $feed_sid . "/" . $filename;
+
             
-            if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile){
-                echo $dir.":::".$filename;
+
+            if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+                echo $dir . ":::" . $filename;
 
                 $file = $url->move($dir, $filename);
-
-            }else if (!file_exists($img)) {              
+            } else if (!file_exists($img)) {
                 $http = substr($url, 0, 4) == 'http';
                 if ($http) {
                     $ch = curl_init();
@@ -379,7 +381,7 @@ class ItemField {
                 }
             }
         }
-        
+
         $this->setFieldName('Image List');
         $this->setFieldType('Array');
         $this->setAllValues($img_url);
