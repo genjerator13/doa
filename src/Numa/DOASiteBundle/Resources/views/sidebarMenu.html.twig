@@ -8,8 +8,9 @@
     <a class="list-group-item" href="{{path('homepage_categories')}}">Business Directory</a>
     <a class="list-group-item" href="{{path('search_sellers')}}">Search Sellers</a>
 #}
-<div class="list-group">
+
     {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
+        <div class="list-group">
         <span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span>    
         {% if is_granted('ROLE_BUSINES') %}
             <a class="list-group-item" href="{{path('additem')}}">Add new listing</a>
@@ -22,6 +23,7 @@
         {% if is_granted('ROLE_USER') %}
             <a class="list-group-item" href="{{path('profile')}}">My profile</a>
         {% endif %}
+        </div>
     {% endif %}
-</div>
+
 {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }} 
