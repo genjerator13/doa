@@ -10,6 +10,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        username:
+            type: string
+            length: 255
+            nullable: true
         category_id:
             type: integer
             nullable: true

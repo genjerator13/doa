@@ -16,6 +16,7 @@ class CatalogrecordsType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('username')
             ->add('url')
             ->add('email')
             ->add('address')

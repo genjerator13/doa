@@ -450,8 +450,13 @@ class Catalogrecords implements UserInterface {
      *
      * @return string 
      */
+    private $username;
     public function getUsername() {
         return $this->name;
+    }
+    
+    public function setUserame($username){
+        $this->username = $username;
     }
     
     public function __sleep(){

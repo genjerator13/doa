@@ -442,7 +442,7 @@ class Catalogrecords implements UserInterface {
     }
 
     public function equals(User $user) {
-        return $user->getEmail() == $this->getEmail();
+        return $user->getUsername() == $this->getUsername();
     }
     
         /**
@@ -450,8 +450,13 @@ class Catalogrecords implements UserInterface {
      *
      * @return string 
      */
+    private $username;
     public function getUsername() {
-        return $this->name;
+        return $this->username;
+    }
+    
+    public function setUserame($username){
+        $this->username = $username;
     }
     
     public function __sleep(){
@@ -798,5 +803,18 @@ class Catalogrecords implements UserInterface {
         
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return Catalogrecords
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    
+        return $this;
     }
 }
