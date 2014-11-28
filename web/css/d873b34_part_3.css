@@ -230,3 +230,9 @@ ul.righsidebar-block{
 div.youtube-video {
     margin: 20px 0 0 20px;
 }
+
+.navbar-default .navbar-nav > li > a {
+    color: #777777;
+    //border: 1px solid red;
+    font-size: 90%
+}

@@ -16,18 +16,8 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="navbar-collapse collapse">
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="{{path('homepage')}}">Home</a></li>
-                            <li><a href="{{path('buyer_login')}}">Dealer login</a></li>
-                            <li><a href="{{ path('search_advanced') }}">Advanced Search</a></li>
-                            <li><a href="{{ path('buyer_register') }}">Buyer Registration</a></li>
-
-                        </ul>
-
+                    <div class="navbar-collapse collapse">                      
                             {{ render_esi(controller('NumaDOASiteBundle:Default:search')) }}
-
-
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
