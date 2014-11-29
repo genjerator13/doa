@@ -84,16 +84,16 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             nullable: true
         ShowRoomHours:
             type: text
-            nulable: true
+            nullable: true
         ServiceHours:
             type: text
-            nulable: true
+            nullable: true
         PartsHours:
             type: text
-            nulable: true            
+            nullable: true            
         AdminHours:
             type: text
-            nulable: true    
+            nullable: true    
 
     manyToOne:
         CatalogCategory:
