@@ -137,8 +137,8 @@ class ItemRepository extends EntityRepository {
             }
             $persist = true;
             $item = new Item();
-            if($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed){        
-                
+            if ($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed) {
+
                 $item->setImportfeed($feed);
             }
         } else {
@@ -166,10 +166,12 @@ class ItemRepository extends EntityRepository {
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
-                    
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+
+                    $itemField->setListingfield($test);
                     //$itemField->setListingfield($listingFields); //will set caption and type by listing field
-                    $itemField->setFieldName($listingFields->getCaption());
-                    $itemField->setFieldType($listingFields->getType());
+                    //$itemField->setFieldName($listingFields->getCaption());
+                    //$itemField->setFieldType($listingFields->getType());
                 }
                 $stringValue = $itemField->getFieldStringValue();
 
@@ -196,8 +198,9 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
+
                     $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
-                    $processed = true;
+                    //$processed = true;
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
@@ -206,7 +209,9 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!$processed) {
-                    $item->addItemField($itemField);
+                    if ($itemField instanceof \Numa\DOAAdminBundle\Entity\ItemField) {
+                        $item->addItemField($itemField);
+                    }
                 }
                 //connect with dealer
                 if (strtolower($property) == 'dealerid' || strtolower($property) == 'dealer') {

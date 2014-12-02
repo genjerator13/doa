@@ -671,7 +671,7 @@ class Item {
             $val = array_values($images);
             unset($val[0]['object']);
             $ret = array('image' => $val[0]);
-            //\Doctrine\Common\Util\Debug::dump($ret);//die();  
+            
             return $ret;
         }
         return false;
@@ -988,16 +988,20 @@ class Item {
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
         $listingFields = $maprow->getListingFields();
+        
         $localy = $feed->getPicturesSaveLocaly();
-
+        
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($value);
+                
                 $itemField->setFeedId($feed->getId());
-                $itemField->setListingfield($listingFields);
+                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                    $itemField->setListingfield($listingFields);
+                }
 
                 $itemField->handleImage($value, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
                 $this->addItemField($itemField);
@@ -1021,7 +1025,14 @@ class Item {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($picture);
-                $itemField->setListingfield($listingFields);
+//                //$itemField->setListingfield($listingFields);
+                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                    echo"-";;print_r($maprow->getListingFields()->getId());echo"-";
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+
+                    $itemField->setListingfield($test);
+                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
+                }
                 $itemField->setFeedId($feed->getId());
                 $itemField->setItem($this);
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);

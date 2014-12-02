@@ -28,6 +28,7 @@ class RemoteFeed extends ContainerAware {
     var $entity;
     var $source;
     var $category;
+    var $items;
 
     public function __construct($id) {
         $this->feedid = $id;
@@ -38,6 +39,7 @@ class RemoteFeed extends ContainerAware {
         $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getEntityManager('default');
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);
         ;
+        $this->items = array();
         $this->source = $this->entity->getImportSource();
         $this->category = $this->entity->getCategory();
     }
@@ -158,6 +160,7 @@ die($local_file);
                 }
             }
         }
+        //\Doctrine\Common\Util\Debug::dump($mapping);
         return $this->items;
     }
 

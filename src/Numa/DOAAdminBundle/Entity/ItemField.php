@@ -243,7 +243,9 @@ class ItemField {
      * @return ItemField
      */
     public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null) {
-        $this->Listingfield = $listingfield;
+        if(!empty($listingfield)){
+            $this->Listingfield = $listingfield;
+        }
         $this->setFieldName($listingfield->getCaption());
         $this->setFieldType($listingfield->getType());
         return $this;
