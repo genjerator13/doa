@@ -592,8 +592,9 @@ class Item {
      * @return Item
      */
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
-        $this->ItemField->add($itemField);
+        $this->ItemField->add($itemField);        
         $itemField->setItem($this);
+        $this->equalizeItemField($itemField);
         return $this;
     }
 
@@ -727,8 +728,7 @@ class Item {
                 if (isset($this->ItemFieldArray['make model'])) {
                     return $this->ItemFieldArray['make model']['stringvalue'] . " ";
                 }
-            }
-            elseif ($this->Category->getName() == "RVs") {
+            } elseif ($this->Category->getName() == "RVs") {
                 if (isset($this->ItemFieldArray['make model'])) {
                     return $this->ItemFieldArray['make model']['stringvalue'] . " ";
                 }
@@ -783,15 +783,22 @@ class Item {
      * @return Item
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
+
         if (!empty($importfeed)) {
-            $this->Importfeed = $importfeed;
-            $isFeatured = $importfeed->getMakeFeatured();
-            $isActivated = $importfeed->getActivateListing();
-            $isHighlighted = $importfeed->getMakeHighlighted();
-            $isExpired = $importfeed->getExpirationAfter();
-            $this->setDealer($importfeed->getDealer());
-            $this->setCategory($importfeed->getCategory());
+            
+            //$this->Importfeed = $importfeed;
+//            $isFeatured = $importfeed->getMakeFeatured();
+//            $isActivated = $importfeed->getActivateListing();
+//            $isHighlighted = $importfeed->getMakeHighlighted();
+//            $isExpired = $importfeed->getExpirationAfter();
+            if($importfeed->getDealer() instanceof Numa\DOAAdminBundle\Entity\Catalogrecords){
+                $this->setDealer($importfeed->getDealer());
+            }
+            if($importfeed->getCategory() instanceof Numa\DOAAdminBundle\Entity\Category){
+                $this->setCategory($importfeed->getCategory());
+            }
         }
+ 
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
@@ -816,19 +823,6 @@ class Item {
             $test = new \DateTime();
             $test = $test->setDate($this->getDateCreated()->format("Y"), $this->getDateCreated()->format('m'), $this->getDateCreated()->format('d'));
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
-        }
-
-
-
-        if (!empty($dealer)) {
-            $itemField = new ItemField();
-            $itemField->setFieldBooleanValue(true);
-            $itemField->setFieldIntegerValue($dealer);
-
-            $itemField->setFieldStringValue($dealer);
-            $itemField->setFieldName('dealer');
-
-            $this->addItemField($itemField);
         }
 
         return $this;
@@ -988,12 +982,14 @@ class Item {
             $this->addItemField($itemField);
             $order++;
         }
+        unset($optionsArray);
+        unset($order);
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url,$em) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
         $listingFields = $maprow->getListingFields();
         $localy = $feed->getPicturesSaveLocaly();
-        
+
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
@@ -1002,8 +998,8 @@ class Item {
                 $itemField->setAllValues($value);
                 $itemField->setFeedId($feed->getId());
                 $itemField->setListingfield($listingFields);
-                
-                $itemField->handleImage($value, $upload_path, $upload_url,$this->getFeedId(), $order, $localy);
+
+                $itemField->handleImage($value, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
                 $this->addItemField($itemField);
                 $order++;
             }
@@ -1028,12 +1024,12 @@ class Item {
                 $itemField->setListingfield($listingFields);
                 $itemField->setFeedId($feed->getId());
                 $itemField->setItem($this);
-                $itemField->handleImage($picture,  $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
                 $this->addItemField($itemField);
+                unset($itemField);
                 $order++;
-
             }
-
+            unset($picturesArray);
         }
     }
 
@@ -1122,17 +1118,15 @@ class Item {
      */
     private $transmission;
 
-
     /**
      * Set body_style
      *
      * @param string $bodyStyle
      * @return Item
      */
-    public function setBodyStyle($bodyStyle)
-    {
+    public function setBodyStyle($bodyStyle) {
         $this->body_style = $bodyStyle;
-    
+
         return $this;
     }
 
@@ -1141,8 +1135,7 @@ class Item {
      *
      * @return string 
      */
-    public function getBodyStyle()
-    {
+    public function getBodyStyle() {
         return $this->body_style;
     }
 
@@ -1152,10 +1145,9 @@ class Item {
      * @param string $model
      * @return Item
      */
-    public function setModel($model)
-    {
+    public function setModel($model) {
         $this->model = $model;
-    
+
         return $this;
     }
 
@@ -1165,10 +1157,9 @@ class Item {
      * @param integer $price
      * @return Item
      */
-    public function setPrice($price)
-    {
+    public function setPrice($price) {
         $this->price = $price;
-    
+
         return $this;
     }
 
@@ -1177,8 +1168,7 @@ class Item {
      *
      * @return integer 
      */
-    public function getPrice()
-    {
+    public function getPrice() {
         return $this->price;
     }
 
@@ -1188,10 +1178,9 @@ class Item {
      * @param integer $year
      * @return Item
      */
-    public function setYear($year)
-    {
+    public function setYear($year) {
         $this->year = $year;
-    
+
         return $this;
     }
 
@@ -1200,8 +1189,7 @@ class Item {
      *
      * @return integer 
      */
-    public function getYear()
-    {
+    public function getYear() {
         return $this->year;
     }
 
@@ -1211,10 +1199,9 @@ class Item {
      * @param string $type
      * @return Item
      */
-    public function setType($type)
-    {
+    public function setType($type) {
         $this->type = $type;
-    
+
         return $this;
     }
 
@@ -1223,8 +1210,7 @@ class Item {
      *
      * @return string 
      */
-    public function getType()
-    {
+    public function getType() {
         return $this->type;
     }
 
@@ -1234,10 +1220,9 @@ class Item {
      * @param string $florPane
      * @return Item
      */
-    public function setFlorPane($florPane)
-    {
+    public function setFlorPane($florPane) {
         $this->flor_pane = $florPane;
-    
+
         return $this;
     }
 
@@ -1246,8 +1231,7 @@ class Item {
      *
      * @return string 
      */
-    public function getFlorPane()
-    {
+    public function getFlorPane() {
         return $this->flor_pane;
     }
 
@@ -1257,10 +1241,9 @@ class Item {
      * @param string $agApplication
      * @return Item
      */
-    public function setAgApplication($agApplication)
-    {
+    public function setAgApplication($agApplication) {
         $this->ag_application = $agApplication;
-    
+
         return $this;
     }
 
@@ -1269,8 +1252,7 @@ class Item {
      *
      * @return string 
      */
-    public function getAgApplication()
-    {
+    public function getAgApplication() {
         return $this->ag_application;
     }
 
@@ -1280,10 +1262,9 @@ class Item {
      * @param string $postal
      * @return Item
      */
-    public function setPostal($postal)
-    {
+    public function setPostal($postal) {
         $this->postal = $postal;
-    
+
         return $this;
     }
 
@@ -1292,8 +1273,7 @@ class Item {
      *
      * @return string 
      */
-    public function getPostal()
-    {
+    public function getPostal() {
         return $this->postal;
     }
 
@@ -1303,10 +1283,9 @@ class Item {
      * @param string $city
      * @return Item
      */
-    public function setCity($city)
-    {
+    public function setCity($city) {
         $this->city = $city;
-    
+
         return $this;
     }
 
@@ -1315,8 +1294,7 @@ class Item {
      *
      * @return string 
      */
-    public function getCity()
-    {
+    public function getCity() {
         return $this->city;
     }
 
@@ -1326,10 +1304,9 @@ class Item {
      * @param string $address
      * @return Item
      */
-    public function setAddress($address)
-    {
+    public function setAddress($address) {
         $this->address = $address;
-    
+
         return $this;
     }
 
@@ -1338,8 +1315,7 @@ class Item {
      *
      * @return string 
      */
-    public function getAddress()
-    {
+    public function getAddress() {
         return $this->address;
     }
 
@@ -1349,10 +1325,9 @@ class Item {
      * @param string $status
      * @return Item
      */
-    public function setStatus($status)
-    {
+    public function setStatus($status) {
         $this->status = $status;
-    
+
         return $this;
     }
 
@@ -1361,8 +1336,7 @@ class Item {
      *
      * @return string 
      */
-    public function getStatus()
-    {
+    public function getStatus() {
         return $this->status;
     }
 
@@ -1372,10 +1346,9 @@ class Item {
      * @param string $stockNr
      * @return Item
      */
-    public function setStockNr($stockNr)
-    {
+    public function setStockNr($stockNr) {
         $this->stock_nr = $stockNr;
-    
+
         return $this;
     }
 
@@ -1384,8 +1357,7 @@ class Item {
      *
      * @return string 
      */
-    public function getStockNr()
-    {
+    public function getStockNr() {
         return $this->stock_nr;
     }
 
@@ -1395,10 +1367,9 @@ class Item {
      * @param string $mileage
      * @return Item
      */
-    public function setMileage($mileage)
-    {
+    public function setMileage($mileage) {
         $this->mileage = $mileage;
-    
+
         return $this;
     }
 
@@ -1407,8 +1378,7 @@ class Item {
      *
      * @return string 
      */
-    public function getMileage()
-    {
+    public function getMileage() {
         return $this->mileage;
     }
 
@@ -1418,10 +1388,9 @@ class Item {
      * @param string $vIN
      * @return Item
      */
-    public function setVIN($vIN)
-    {
+    public function setVIN($vIN) {
         $this->VIN = $vIN;
-    
+
         return $this;
     }
 
@@ -1430,8 +1399,7 @@ class Item {
      *
      * @return string 
      */
-    public function getVIN()
-    {
+    public function getVIN() {
         return $this->VIN;
     }
 
@@ -1441,10 +1409,9 @@ class Item {
      * @param string $transmission
      * @return Item
      */
-    public function setTransmission($transmission)
-    {
+    public function setTransmission($transmission) {
         $this->transmission = $transmission;
-    
+
         return $this;
     }
 
@@ -1453,8 +1420,80 @@ class Item {
      *
      * @return string 
      */
-    public function getTransmission()
-    {
+    public function getTransmission() {
         return $this->transmission;
     }
+
+    public function equalizeItemField(ItemField $itemField) {
+        if (strtolower($itemField->getFieldName()) == 'year') {           
+            $this->setYear($itemField->getFieldIntegerValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'mileage') {
+            $this->setMileage($itemField->getFieldIntegerValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'price') {
+            $this->setPrice($itemField->getFieldIntegerValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'model' || strtolower($itemField->getFieldName()) == 'boat model') {
+            $this->setModel($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'make' || strtolower($itemField->getFieldName()) == 'boat make'|| strtolower($itemField->getFieldName()) == 'make model') {
+            $this->setMake($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'vin') {
+            $this->setVin($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'body style') {
+            $this->setBodyStyle($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
+            $this->setTransmission($itemField->getFieldStringValue());
+        }
+    }
+
+    public function equalizeItemFields() {
+        foreach ($this->getItemField() as $key => $itemField) {
+            if ($itemField instanceof ItemField) {
+                $this->equalizeItemField($itemField);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @var integer
+     */
+    private $photos;
+
+    /**
+     * @var string
+     */
+    private $make;
+
+    /**
+     * Set photos
+     *
+     * @param integer $photos
+     * @return Item
+     */
+    public function setPhotos($photos) {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Get photos
+     *
+     * @return integer 
+     */
+    public function getPhotos() {
+        return $this->photos;
+    }
+
+    /**
+     * Set make
+     *
+     * @param string $make
+     * @return Item
+     */
+    public function setMake($make) {
+        $this->make = $make;
+
+        return $this;
+    }
+
 }

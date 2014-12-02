@@ -30,8 +30,8 @@ class MappingRepository extends EntityRepository {
         ;
             
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //print_r($feed_id);
-        //print_r($remoteProperty);
+        //\Doctrine\Common\Util\Debug::dump($feed_id);
+        //\Doctrine\Common\Util\Debug::dump($remoteProperty);
         //\Doctrine\Common\Util\Debug::dump($itemsQuery->getSQL());die();
         return $itemsQuery->getOneOrNullResult();
     }

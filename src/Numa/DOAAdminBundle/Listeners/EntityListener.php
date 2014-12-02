@@ -23,7 +23,11 @@ class EntityListener {
         //before save Item
         if ($entity instanceof Item) {
             $user = $this->container->get('security.context')->getToken()->getUser();
-            $entity->setUser($user);
+//\Doctrine\Common\Util\Debug::dump($user);
+            if($user instanceof Numa\DOAAdminBundle\Entity\User){
+                //echo "Aaaaaassssss";
+                $entity->setUser($user);
+            }
             //before save Item Field
         } elseif ($entity instanceof ItemField) {
             if ($entity->getFieldType() == 'list') {
@@ -49,6 +53,7 @@ class EntityListener {
         }
         
     }
+    
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
@@ -56,7 +61,11 @@ class EntityListener {
             $this->setPassword($entity);
             $args->setNewValue('password', $entity->getPassword());
         }
+        if ($entity instanceof Item) {
+            $entity->equalizeItemFields();
+        }
     }
+    
     public function postUpdate(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         

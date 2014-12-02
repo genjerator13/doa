@@ -140,19 +140,14 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
-        stock_nr:
+        price:
+              type: float
+              nullable: true
+        make:
               type: string
               length: 255
               nullable: true
-        stock_nr:
-              type: string
-              length: 255
-              nullable: true
-        stock_nr:
-              type: string
-              length: 255
-              nullable: true
-        stock_nr:
+        model:
               type: string
               length: 255
               nullable: true
@@ -170,18 +165,21 @@ Numa\DOAAdminBundle\Entity\Item:
         Importfeed:
             targetEntity: Importfeed
             inversedBy: Item
+            cascade: ["persist","remove"]
             joinColumn:
                 name: feed_id
                 referencedColumnName: id
         User:
             targetEntity: User
             inversedBy: Item
+            cascade: ["persist","remove"]
             joinColumn:
                 name: user_id
                 referencedColumnName: id
         Dealer:
             targetEntity: Catalogrecords
             inversedBy: Item
+            cascade: ["persist","remove"]
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id

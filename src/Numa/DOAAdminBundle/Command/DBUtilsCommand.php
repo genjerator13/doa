@@ -46,6 +46,8 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->makeListingFromTemp();
         } elseif ($command == 'hometabs') {
             $this->makeHomeTabs();
+        } elseif($command == 'equalize'){
+            $this->equalizeAllItems();
         }
     }
 
@@ -171,6 +173,18 @@ class DBUtilsCommand extends ContainerAwareCommand {
                 }
             }
         }
+    }
+    
+    function equalizeAllItems(){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        foreach ($items as $item){
+            if($item instanceof \Numa\DOAAdminBundle\Entity\Item){
+                $item->equalizeItemFields();
+            }
+        }
+        $em->flush();
+                
     }
 
 }

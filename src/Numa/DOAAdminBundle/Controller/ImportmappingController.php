@@ -286,14 +286,18 @@ class ImportmappingController extends Controller {
     }
 
     public function fetchAction(Request $request = null, $id) {
+        //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $time = time();
         $em = $this->getDoctrine()->getManager();
+        
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $em->clear();
         $createdItems = array();
         $feed_id = $id;
         //$uniqueField = $feed->getUniqueField();
         $remoteFeed = new Remotefeed($id);
         $items = $remoteFeed->getRemoteItems();
+        unset($remoteFeed);
         //get import feed by id
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($feed_id);
         //get mapping by feed id
@@ -305,23 +309,42 @@ class ImportmappingController extends Controller {
         //walk trough XML feed
         $upload_url = $this->container->getParameter('upload_url');
         $upload_path = $this->container->getParameter('upload_path');
-        
-        
+
+        echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+        $count = 0;
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping,$feed, $upload_url, $upload_path);
-            if(!empty($item)){
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path);
+            unset($importItem);
+            if (!empty($item)) {
                 $createdItems[] = $item;
             }
-
+            unset($item);
+            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+            $count++;
+            if ($count % 100 == 0) {
+                $em->flush();
+                $em->clear();
+                
+            }
+//             if ($count  >= 500) {
+//                 $time = time() - $time;
+//                 echo $time."Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
+//                die();
+//             }
         }
+        unset($items);
+        unset($mapping);
+        unset($feed);
         $em->flush();
+        $em->clear();
         $time = time() - $time;
 
         //update hometabs
         $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
         $command->setContainer($this->container);
         $resultCode = $command->makeHomeTabs(false);
-//        echo $time . ":::" . count($items);
+        echo $time . ":::" . count($createdItems);
+        //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }
 

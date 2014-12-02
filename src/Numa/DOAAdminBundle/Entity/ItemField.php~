@@ -414,4 +414,32 @@ class ItemField {
         return $this->feed_id;
     }
 
+    /**
+     * @var double
+     */
+    private $field_double_value;
+
+
+    /**
+     * Set field_double_value
+     *
+     * @param \double $fieldDoubleValue
+     * @return ItemField
+     */
+    public function setFieldDoubleValue(\double $fieldDoubleValue)
+    {
+        $this->field_double_value = $fieldDoubleValue;
+    
+        return $this;
+    }
+
+    /**
+     * Get field_double_value
+     *
+     * @return \double 
+     */
+    public function getFieldDoubleValue()
+    {
+        return $this->field_double_value;
+    }
 }

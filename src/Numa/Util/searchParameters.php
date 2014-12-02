@@ -159,8 +159,9 @@ class searchParameters {
             if ($this->isParamSet($key)) {
 
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
-
+                    
                     if (!$searchItem->isValueEmpty()) {
+                        var_dump($searchItem);
                         $type = $searchItem->getType();
                         
                         if ($type == 'text') {

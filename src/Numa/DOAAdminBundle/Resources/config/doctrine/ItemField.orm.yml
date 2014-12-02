@@ -24,6 +24,9 @@ Numa\DOAAdminBundle\Entity\ItemField:
         field_integer_value:
             type: integer
             nullable: true
+        field_double_value:
+            type: float
+            nullable: true
         field_datetime_value:
             type: datetime
             nullable: true

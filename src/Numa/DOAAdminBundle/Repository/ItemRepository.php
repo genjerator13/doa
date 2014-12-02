@@ -110,6 +110,7 @@ class ItemRepository extends EntityRepository {
     }
 
     public function importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path) {
+        //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $em = $this->getEntityManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $uniqueField = $feed->getUniqueField();
@@ -121,8 +122,13 @@ class ItemRepository extends EntityRepository {
         if (!empty($uniqueField)) {
             $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
         }
+        unset($uniqueMapRow);
+        unset($uniqueField);
         //\Doctrine\Common\Util\Debug::dump($item);die();
-
+//        $user = $this->container->get('security.context')->getToken()->getUser();
+//        if($user instanceof \Numa\DOAAdminBundle\Entity\User){
+//            $item->setUser($user);
+//        }
         if (empty($item)) {
             //echo $uniqueMapRow->getListingFields()->getCaption()."....". $importItem[$uniqueField].":::".$uniqueField;
             if ($feed->getPhotoFeed()) {
@@ -131,7 +137,10 @@ class ItemRepository extends EntityRepository {
             }
             $persist = true;
             $item = new Item();
-            $item->setImportfeed($feed);
+            if($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed){        
+                
+                $item->setImportfeed($feed);
+            }
         } else {
             
         }
@@ -141,7 +150,6 @@ class ItemRepository extends EntityRepository {
             $this->removeAllItemFields($item->getId());
         } else {
             $this->removeAllItemFieldsByFeed($feed->getId());
-
         }
 
         foreach ($mapping as $maprow) {
@@ -157,7 +165,12 @@ class ItemRepository extends EntityRepository {
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
-                $itemField->setListingfield($listingFields); //will set caption and type by listing field
+                if ($listingFields instanceof Listingfield) {
+                    
+                    //$itemField->setListingfield($listingFields); //will set caption and type by listing field
+                    $itemField->setFieldName($listingFields->getCaption());
+                    $itemField->setFieldType($listingFields->getType());
+                }
                 $stringValue = $itemField->getFieldStringValue();
 
                 //if xml property has children then do each child
@@ -166,20 +179,20 @@ class ItemRepository extends EntityRepository {
                     if (!$listValues->isEmpty()) {
                         //get listingFieldlist by ID and stringValue
                         $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
-                        if (!empty($listingList)) {
+                        if ($listingList instanceof ListingFieldLists) {
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
                     }
                 }
-                
+
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'tree') {
                     //get listingFieldlist by ID and stringValue
                     $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
-                    //echo $stringValue.", ".$maprow->getListingFields()->getId();die();
-                    if (!empty($listingTree)) {
+                    //echo $stringValue.", ".$maprow->getListingFields()->getId();die(); {
+                    if ($listingTree instanceof ListingFieldTree) {
                         $itemField->setFieldIntegerValue($listingTree->getId());
-                    }                    
+                    }
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
@@ -199,22 +212,33 @@ class ItemRepository extends EntityRepository {
                 if (strtolower($property) == 'dealerid' || strtolower($property) == 'dealer') {
                     $dealerId = $stringValue;
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
-                    $item->setDealer($dealer);
+                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+                        $item->setDealer($dealer);
+                    }
+                    unset($dealer);
+                    unset($dealerId);
                 }
             }
+            unset($itemField);
+            unset($stringValue);
+            unset($listingFieldsType);
+            unset($property);
         }//end mapping foreach
 
-/*
-        $criteria = Criteria::create()
-                ->where(Criteria::expr()->eq("fieldName", "Image List"))
-        ;
-        $images = $item->getItemField()->matching($criteria);
- * 
- */
- 
+
+
+        /*
+          $criteria = Criteria::create()
+          ->where(Criteria::expr()->eq("fieldName", "Image List"))
+          ;
+          $images = $item->getItemField()->matching($criteria);
+         * 
+         */
+
         if ($persist) {
             $em->persist($item);
         }
+        //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }
 
