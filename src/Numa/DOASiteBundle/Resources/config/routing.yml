@@ -57,7 +57,7 @@ item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }  
 item_print_details:
-    path:     /printdetails/{itemId}/{description}
+    path:     /printdetails/{itemId}
     defaults: { _controller: NumaDOASiteBundle:Item:details } 
 search_sellers:
     path:     /seller/search
