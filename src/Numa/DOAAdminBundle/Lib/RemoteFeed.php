@@ -66,22 +66,23 @@ class RemoteFeed extends ContainerAware {
                         break;
                     }
                 } elseif (self::CSV == $this->entity->getImportFormat()) {
-                    $handleSource = $this->entity->getAbsolutePath();
-                    //echo strtolower(substr( $this->entity->getImportSource(), 0, 6 )).":::";
-                    /*
-                    if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-
-                        $handleSource = $this->entity->getImportSource();
-                        $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
-                        $local_file .= $this->entity->getID() . "/ftp_source.csv";
-die($local_file);
-                        ftp_get($ftpExplode[0], $local_file, $ftpExplode[1], FTP_ASCII);
-                        
+                    $handleSource = $this->entity->getImportSource();
+                    $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+                    if (!file_exists($upload_path . $this->entity->getID())) {
+                        mkdir($upload_path . $this->entity->getID());
+                        echo $upload_path . $this->entity->getID();
                     }
-                    //die($handleSource);
-                     * 
-                     */
-                    if (($handle = fopen($handleSource, "r")) !== FALSE) {
+                    
+                    $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                    
+                    $ftp = self::getFtpConnection($handleSource);
+                    
+                    //$ftpExplode = explode("/", $handleSource);
+                    ////
+                    //print_r($ftpExplode[count($ftpExplode) - 1]);
+                    ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                    
+                    if (($handle = fopen($local_file, "r")) !== FALSE) {
                         $row = fgetcsv($handle);
                         //set the properties from header
                         foreach ($row as $hCell) {
@@ -128,25 +129,23 @@ die($local_file);
 
                 $handleSource = $this->entity->getImportSource();
                 $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
-                if(!file_exists($upload_path .  $this->entity->getID())){
-                    mkdir($upload_path .  $this->entity->getID());
-                    echo $upload_path .  $this->entity->getID();
+                if (!file_exists($upload_path . $this->entity->getID())) {
+                    mkdir($upload_path . $this->entity->getID());
+                    echo $upload_path . $this->entity->getID();
                 }
-                
-                $local_file = $upload_path .  $this->entity->getID() . "/ftp_source.csv";
-                $conn = self::getFtpConnection($handleSource);
-                $ftpExplode = explode("/", $handleSource);
 
-                ftp_get($conn, $local_file, $ftpExplode[count($ftpExplode)-1], FTP_ASCII);
-                
+                $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                $ftp = self::getFtpConnection($handleSource);
+
+                ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
                 $filename = $local_file;
             }
             if (($handle = fopen($filename, "r")) !== FALSE) {
-                
-                
+
+
                 while (($row = fgetcsv($handle)) !== FALSE) {
                     //var_dump($row); // process the row.
-                    
+
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
                             $tmp[$value] = $row[$key];
@@ -156,7 +155,6 @@ die($local_file);
                         $header = $row;
                     }
                     $rowCount++;
-                    
                 }
             }
         }
@@ -181,7 +179,7 @@ die($local_file);
         preg_match("/ftp:\/\/(.*?):(.*?)@(.*?)\/(.*)/i", $uri, $match);
 
         // Set up a connection
-        print_r($match);
+
         $conn = ftp_connect($match[3]);
 
         // Login
@@ -190,7 +188,7 @@ die($local_file);
             //ftp_chdir($conn, $match[5]);
             ftp_pasv($conn, true);
             // Return the resource
-            return $conn;
+            return array('conn'=>$conn,'filepath'=>$match[4]);
         }
 
         // Or retun null

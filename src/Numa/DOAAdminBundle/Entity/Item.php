@@ -970,6 +970,9 @@ class Item {
     }
 
     public function proccessOptionsList($stringvalue, $separator) {
+        if(empty($separator)){
+            $separator = "|";
+        }
         $optionsArray = explode($separator, $stringvalue);
         $order = 1;
         foreach ($optionsArray as $key => $option) {
@@ -1027,7 +1030,7 @@ class Item {
                 $itemField->setAllValues($picture);
 //                //$itemField->setListingfield($listingFields);
                 if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
-                    echo"-";;print_r($maprow->getListingFields()->getId());echo"-";
+                    
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
 
                     $itemField->setListingfield($test);
