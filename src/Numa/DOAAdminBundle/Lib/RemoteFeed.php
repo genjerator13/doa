@@ -70,7 +70,6 @@ class RemoteFeed extends ContainerAware {
                     $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
                     if (!file_exists($upload_path . $this->entity->getID())) {
                         mkdir($upload_path . $this->entity->getID());
-                        echo $upload_path . $this->entity->getID();
                     }
                     
                     $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";

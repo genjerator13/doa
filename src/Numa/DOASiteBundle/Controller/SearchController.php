@@ -127,6 +127,26 @@ class SearchController extends Controller {
                                  AND c.name LIKE :category')
             ->setParameter('model', "%" . $model . "%")
             ->setParameter('category', "%" . $category . "%");
+        }elseif($category=='motorsport'){
+            $query = $this->getDoctrine()->getManager()
+            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 JOIN i.Category c
+                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 AND ifield.field_string_value LIKE :model
+                                 AND c.name LIKE :category')
+            ->setParameter('model', "%" . $model . "%")
+            ->setParameter('category', "%" . $category . "%");
+        }elseif($category=='ag'){
+            $query = $this->getDoctrine()->getManager()
+            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                                 JOIN i.ItemField ifield
+                                 JOIN i.Category c
+                                 WHERE ifield.field_name LIKE \'%type%\'                                 
+                                 AND ifield.field_string_value LIKE :model
+                                 AND c.name LIKE :category')
+            ->setParameter('model', "%" . $model . "%")
+            ->setParameter('category', "%" . $category . "%");
         }
         return $query;
     }
