@@ -184,7 +184,7 @@ class ItemRepository extends EntityRepository {
                         //get listingFieldlist by ID and stringValue
                         $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
                         if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
-                           echo "::::::::::::::".$stringValue.":::".$maprow->getListingFields()->getId().get_class($listingList);
+                           //echo "::::::::::::::".$stringValue.":::".$maprow->getListingFields()->getId().get_class($listingList);
                          
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
