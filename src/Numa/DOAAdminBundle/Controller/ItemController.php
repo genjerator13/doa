@@ -64,7 +64,6 @@ class ItemController extends Controller {
             foreach ($fields as $field) {
                 if (strtolower($field->getFieldType()) == 'array') {
                     $res[$field->getFieldName()][] = $field->getFieldStringValue();
-                    
                 } else {
                     $res[$field->getFieldName()] = $field->getFieldStringValue();
                 }
@@ -96,13 +95,13 @@ class ItemController extends Controller {
         //$grid->addRowAction(new RowAction('Show', 'items'));
         $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
         $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Activate', 'Numa\DOAAdminBundle\Controller\ItemController::test');
+        $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
         $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Deactivate', 'Numa\DOAAdminBundle\Controller\ItemController::deactivateAction');
+        $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
         $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Approve', 'Numa\DOAAdminBundle\Controller\ItemController::approveAction');
+        $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
         $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Reject', 'Numa\DOAAdminBundle\Controller\ItemController::rejectAction');
+        $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
         $grid->addMassAction($yourMassAction);
@@ -121,14 +120,60 @@ class ItemController extends Controller {
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
     }
 
-    static function test($primaryKeys, $allPrimaryKeys, $session, $parameters) {
-        print_r($primaryKeys);
-        die();
+    public function massActivateAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $entity->setActive(true);
+            }
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('items'));
+    }
+
+    public function massDeactivateAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $entity->setActive(false);
+            }
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('items'));
+    }
+
+    public function massApproveAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $entity->setModerationStatus(1);
+            }
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('items'));
+    }
+    
+    public function massRejectAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $entity->setModerationStatus(0);
+            }
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('items'));
     }
 
     public function massDeleteAction($primaryKeys, $allPrimaryKeys) {
         $em = $this->getDoctrine()->getManager();
-        print_r($primaryKeys);
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
 

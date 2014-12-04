@@ -165,21 +165,21 @@ Numa\DOAAdminBundle\Entity\Item:
         Importfeed:
             targetEntity: Importfeed
             inversedBy: Item
-            cascade: ["persist","remove"]
+            cascade: ["persist"]
             joinColumn:
                 name: feed_id
                 referencedColumnName: id
         User:
             targetEntity: User
             inversedBy: Item
-            cascade: ["persist","remove"]
+            cascade: ["persist"]
             joinColumn:
                 name: user_id
                 referencedColumnName: id
         Dealer:
             targetEntity: Catalogrecords
             inversedBy: Item
-            cascade: ["persist","remove"]
+            cascade: ["persist"]
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
