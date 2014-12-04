@@ -84,7 +84,11 @@ class RemoteFeed extends ContainerAware {
                         $filename = $local_file;
                     }
                     if (($handle = fopen($filename, "r")) !== FALSE) {
-                        $row = fgetcsv($handle);
+                        $delimeter = $this->entity->getDelimiterx();
+                        if(empty($delimeter)){
+                            $delimeter = ',';
+                        }
+                        $row = fgetcsv($handle,0,$delimeter);
                         //set the properties from header
                         foreach ($row as $hCell) {
 
