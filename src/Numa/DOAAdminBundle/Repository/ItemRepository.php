@@ -120,7 +120,9 @@ class ItemRepository extends EntityRepository {
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
 
         if (!empty($uniqueField)) {
-            $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
+            if(!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
+            }
         }
         unset($uniqueMapRow);
         unset($uniqueField);
@@ -176,10 +178,14 @@ class ItemRepository extends EntityRepository {
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
                     $listValues = $listingFields->getListingFieldLists();
-                    if (!$listValues->isEmpty()) {
+                    
+                    if (count($listValues)>0) {
+                        
                         //get listingFieldlist by ID and stringValue
                         $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
-                        if ($listingList instanceof ListingFieldLists) {
+                        if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
+                           echo "::::::::::::::".$stringValue.":::".$maprow->getListingFields()->getId().get_class($listingList);
+                         
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
                     }
