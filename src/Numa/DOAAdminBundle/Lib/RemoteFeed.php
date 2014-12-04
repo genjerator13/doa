@@ -71,17 +71,19 @@ class RemoteFeed extends ContainerAware {
                     if (!file_exists($upload_path . $this->entity->getID())) {
                         mkdir($upload_path . $this->entity->getID());
                     }
+                    $filename = $this->entity->getAbsolutePath();
+                    if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
+                        $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
                     
-                    $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                        $ftp = self::getFtpConnection($handleSource);
                     
-                    $ftp = self::getFtpConnection($handleSource);
-                    
-                    //$ftpExplode = explode("/", $handleSource);
-                    ////
-                    //print_r($ftpExplode[count($ftpExplode) - 1]);
-                    ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
-                    
-                    if (($handle = fopen($local_file, "r")) !== FALSE) {
+                        //$ftpExplode = explode("/", $handleSource);
+                        ////
+                        //print_r($ftpExplode[count($ftpExplode) - 1]);
+                        ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                        $filename = $local_file;
+                    }
+                    if (($handle = fopen($filename, "r")) !== FALSE) {
                         $row = fgetcsv($handle);
                         //set the properties from header
                         foreach ($row as $hCell) {
@@ -157,7 +159,7 @@ class RemoteFeed extends ContainerAware {
                 }
             }
         }
-        //\Doctrine\Common\Util\Debug::dump($mapping);
+        //\Doctrine\Common\Util\Debug::dump($this->items);
         return $this->items;
     }
 

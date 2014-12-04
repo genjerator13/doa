@@ -786,15 +786,20 @@ class Item {
 
         if (!empty($importfeed)) {
             
-            //$this->Importfeed = $importfeed;
-//            $isFeatured = $importfeed->getMakeFeatured();
-//            $isActivated = $importfeed->getActivateListing();
-//            $isHighlighted = $importfeed->getMakeHighlighted();
-//            $isExpired = $importfeed->getExpirationAfter();
-            if($importfeed->getDealer() instanceof Numa\DOAAdminBundle\Entity\Catalogrecords){
+            $this->Importfeed = $importfeed;
+            $isFeatured = $importfeed->getMakeFeatured();
+            $isActivated = $importfeed->getActivateListing();
+            $isHighlighted = $importfeed->getMakeHighlighted();
+            $isExpired = $importfeed->getExpirationAfter();
+
+                                                   
+            if($importfeed->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords){
+                            
                 $this->setDealer($importfeed->getDealer());
             }
-            if($importfeed->getCategory() instanceof Numa\DOAAdminBundle\Entity\Category){
+            
+            if($importfeed->getCategory() instanceof \Numa\DOAAdminBundle\Entity\Category){
+                
                 $this->setCategory($importfeed->getCategory());
             }
         }

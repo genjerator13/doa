@@ -137,12 +137,10 @@ class ItemRepository extends EntityRepository {
             }
             $persist = true;
             $item = new Item();
-            if ($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed) {
-
-                $item->setImportfeed($feed);
-            }
-        } else {
-            
+        }
+        if ($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed) {
+            //die("aaaa");
+            $item->setImportfeed($feed);
         }
 
         //clear all item fields if not photo feed
