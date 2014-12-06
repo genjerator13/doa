@@ -52,6 +52,7 @@ class SearchController extends Controller {
         
         //create query        
         $query = $this->searchParameters->createSearchQuery();
+        //die($query->getSql());
         $param = $this->showItems($query, $page,$this->searchParameters->getListingPerPage());
 
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);

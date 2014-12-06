@@ -17,6 +17,8 @@ class SearchItem {
     protected $type;
     protected $dbFieldName;
     protected $value;
+    protected $realValue;//if make = 640 real value is ferrary
+    
     
     
     public function __construct($dbFieldValue,$value='',$type='string') {
@@ -37,7 +39,15 @@ class SearchItem {
     }
     
     public function setValue($value){
-        $this->value = preg_replace("/[^A-Za-z0-9 \_\-\.]/", '', $value);
+        
+        $this->value     = preg_replace("/[^A-Za-z0-9 \_\-\.]/", '', $value);
+        $this->realValue = $this->value;
+    }
+    
+    public function setRealValue($value){
+        
+        
+        $this->realValue = $value;
     }
     
     public function dump(){

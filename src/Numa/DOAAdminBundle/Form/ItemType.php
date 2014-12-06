@@ -26,7 +26,35 @@ class ItemType extends AbstractType
             ->add('featured')
             ->add('Category')
             ->add('Dealer')
-            ->add('pictures')
+            ->add('price')
+            ->add('year')
+            ->add('bodyStyle', 'choice', array(
+                    'choices'   => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style',0,true),
+                    'required'  => false,
+                    'empty_value' => 'Any Body Style',
+                    'label' => "Body Style", "required" => false
+                ))
+//            ->add('make', 'choice', array(
+//                    'choices'   => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Make',0,true),
+//                    'required'  => false,
+//                    'empty_value' => 'Any Make',
+//                    'label' => "Make", "required" => false
+//                ))
+            ->add('make')
+            ->add('model')
+            ->add('type')
+            ->add('transmission', 'choice', array(
+                    'choices'   => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('transmission',0,true),
+                    'required'  => false,
+                    'empty_value' => 'Any Transmission',
+                    'label' => "Transmission", "required" => false
+                ))
+            ->add('VIN')
+            ->add('mileage')
+            ->add('florPane')
+            ->add('stockNr')
+            ->add('status')
+            ->add('agApplication')
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',
 	            'format' => 'yyyy-MM-dd',

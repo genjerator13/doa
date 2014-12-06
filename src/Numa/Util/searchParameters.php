@@ -32,16 +32,16 @@ class searchParameters {
 
     public function initParams() {
         $this->init = true;
-        $this->listing_per_page=10;
+        $this->listing_per_page = 10;
         $this->params = array(
             //universal
             'text' => new SearchItem('all', '', 'text'),
             'category' => new SearchItem('category', '', 'string'),
             'category_id' => new SearchItem('category', 0, 'category'),
-            'priceFrom' => new SearchItem('Price', 0, 'rangeFrom'),
-            'priceTo' => new SearchItem('Price', '', 'rangeTo'),
-            'yearTo' => new SearchItem('Year', 0, 'rangeFrom'),
-            'yearFrom' => new SearchItem('Year', 0, 'rangeTo'),
+            'priceFrom' => new SearchItem('price', 0, 'rangeFrom'),
+            'priceTo' => new SearchItem('price', '', 'rangeTo'),
+            'yearTo' => new SearchItem('year', 0, 'rangeTo'),
+            'yearFrom' => new SearchItem('year', 0, 'rangeFrom'),
             'postedFrom' => new SearchItem('date_created', 0, 'dateRangeFrom'),
             'postedTo' => new SearchItem('date_created', 0, 'dateRangeTo'),
             'zip' => new SearchItem('Postal', "", 'string'),
@@ -52,12 +52,12 @@ class searchParameters {
             //'withPicture'      => new SearchItem('color', 0, 'int'),
             //marine
             'searchText' => new SearchItem('all', "", "text"),
-            'boatType' => new SearchItem('Boat Type', 0, "int"),
-            'boatModel' => new SearchItem('Boat Model', "", "string"),
-            'boatMake' => new SearchItem('Boat Make', 0, "int"),
+            'boatType' => new SearchItem('type', 0, "list"),
+            'boatModel' => new SearchItem('model', "", "string"),
+            'boatMake' => new SearchItem('make', 0, "list"),
             //cars
-            'bodyStyle' => new SearchItem('Body Style', "", 'string'),
-            'make' => new SearchItem('make', "", 'int'),
+            'bodyStyle' => new SearchItem('body_style', "", 'list'),
+            'make' => new SearchItem('make', "", 'tree'),
             'model' => new SearchItem('model', "", 'string'),
             'transmission' => new SearchItem('Transmission', 0, 'int'),
             'engine' => new SearchItem('Engine', 0, 'int'),
@@ -67,25 +67,25 @@ class searchParameters {
         );
     }
 
-    public function getParams($all=true) {
+    public function getParams($all = true) {
         $res = array();
-        if($all){
+        if ($all) {
             return $this->params;
-        }else{
+        } else {
             foreach ($this->params as $key => $param) {
-                if($this->isParamValueSet($key)){
-                    $res[$key] = $param; 
+                if ($this->isParamValueSet($key)) {
+                    $res[$key] = $param;
                 }
             }
         }
         return $res;
     }
-    
-    public function makeUrlQuery(){
+
+    public function makeUrlQuery() {
         $params = $this->getParams(false);
         $aQuery = array();
         foreach ($params as $key => $value) {
-            $aQuery[] = $key."=".$value->getValue();            
+            $aQuery[] = $key . "=" . $value->getValue();
         }
         $query = implode("&", $aQuery);
         return $query;
@@ -102,23 +102,24 @@ class searchParameters {
     public function dump() {
         foreach ($this->params as $key => $value) {
             if ($value instanceof SearchItem) {
-                
+
                 $value->dump();
             }
         }
     }
-    public function setListingPerPage($lpg=10){
+
+    public function setListingPerPage($lpg = 10) {
         $this->listing_per_page = $lpg;
     }
-    
-    public function getListingPerPage(){
+
+    public function getListingPerPage() {
         return $this->listing_per_page;
     }
-    
+
     public function setAll($params) {
         foreach ($params as $key => $value) {
-            if ($this->isParamSet($key)) {                
-                $this->params[$key]->setValue($value);
+            if ($this->isParamSet($key)) {
+                $this->params[$key]->setValue($value);                
             }
         }
     }
@@ -127,19 +128,19 @@ class searchParameters {
         $this->params[$key] = $value;
     }
 
-    public function isParamSet($key) {        
+    public function isParamSet($key) {
         if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
-                return true;
+            return true;
         }
         return false;
     }
-    
+
     public function isParamValueSet($key) {
-        
+
         if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
             $searchItem = $this->params[$key];
             $searchItemValue = $searchItem->getValue();
-            if(!empty($searchItemValue)){
+            if (!empty($searchItemValue)) {
                 return true;
             }
         }
@@ -150,8 +151,7 @@ class searchParameters {
         //create query
         $qb = $this->container->get('doctrine')->getEntityManager()->createQueryBuilder();
         $qb->select('i')
-                ->from('NumaDOAAdminBundle:Item', 'i')
-                ->join('i.ItemField', 'ifield');
+                ->from('NumaDOAAdminBundle:Item', 'i');
 
         //->orderBy('u.name', 'ASC');
 
@@ -159,39 +159,48 @@ class searchParameters {
             if ($this->isParamSet($key)) {
 
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
-                    
+
                     if (!$searchItem->isValueEmpty()) {
                         var_dump($searchItem);
                         $type = $searchItem->getType();
-                        
+                        $dbName = $searchItem->getDbFieldName();
+                        $value = $searchItem->getValue();
+                        echo $dbName . ":" . $type;
                         if ($type == 'text') {
-                            $qb->andWhere('ifield.field_string_value LIKE :text');
+                            $qb->andWhere('i.' . $dbName . ' LIKE :text');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
                         } elseif ($type == 'category') {
                             $qb->andWhere('i.category_id=:cat');
                             $qb->setParameter('cat', $searchItem->getValue());
                         } elseif ($type == 'string') {
-                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
-                            $qb->andWhere('ifield.field_string_value like \'%' . $searchItem->getValue() . '%\'');
+                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                            $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
                         } elseif ($type == 'int') {
-                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
-                            $qb->andWhere('ifield.field_integer_value = ' . $searchItem->getValue());
+//                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
+//                            $qb->andWhere('ifield.field_integer_value = ' . $searchItem->getValue());
                         } elseif ($type == 'rangeFrom') {
-                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
-                            $qb->andWhere('ifield.field_integer_value <=' . $searchItem->getValue());
-                            //$qb->orderBy('ifield.field_integer_value', "ASC");
+                            $qb->andWhere('i.' . $dbName . ' >= :' . $dbName."from");
+                            $qb->setParameter($dbName."from", floatval($searchItem->getValue()));
+                                                        
                         } elseif ($type == 'rangeTo') {
-                            $qb->andWhere('ifield.field_name like \'%' . $searchItem->getDbFieldName() . '%\'');
-                            $qb->andWhere('ifield.field_integer_value >=' . $searchItem->getValue());
-                            //$qb->orderBy('ifield.field_integer_value', "ASC");
+                            $qb->andWhere('i.' . $dbName . '<= :' . $dbName."to");
+                            $qb->setParameter($dbName."to", floatval($searchItem->getValue()));
                         } elseif ($type == 'dateRangeFrom') {
-                            $qb->andWhere('i.date_created >= :dateFrom')
-                            
-                                    ->setParameter('dateFrom', $monday->format('Y-m-d'))
-                                    ->setParameter('sunday', $sunday->format('Y-m-d'));
+//                            $qb->andWhere('i.date_created >= :dateFrom')
+//                            
+//                                    ->setParameter('dateFrom', $monday->format('Y-m-d'))
+//                                    ->setParameter('sunday', $sunday->format('Y-m-d'));
                         } elseif ($type == 'dateRangeTo') {
-                            $qb->andWhere('i.date_created >=' . $searchItem->getValue());
-                            //$qb->orderBy('ifield.field_integer_value', "ASC");
+//                            $qb->andWhere('i.date_created >=' . $searchItem->getValue());
+//                            //$qb->orderBy('ifield.field_integer_value', "ASC");
+                        } elseif ($type == 'list') {
+                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('id' => $searchItem->getValue()));
+                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                            $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
+                        } elseif ($type == 'tree') {
+                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
+                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                            $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
                         }
                     }
                 }
@@ -218,7 +227,7 @@ class searchParameters {
           }
          * 
          */
-        
+
         return $qb->getQuery();
     }
 

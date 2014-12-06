@@ -247,6 +247,7 @@ class ItemRepository extends EntityRepository {
         if ($persist) {
             $em->persist($item);
         }
+        $item->equalizeItemFields();
         //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }

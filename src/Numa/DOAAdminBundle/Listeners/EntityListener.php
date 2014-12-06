@@ -62,7 +62,7 @@ class EntityListener {
             $args->setNewValue('password', $entity->getPassword());
         }
         if ($entity instanceof Item) {
-            $entity->equalizeItemFields();
+            //$entity->equalizeItemFields();
         }
     }
     

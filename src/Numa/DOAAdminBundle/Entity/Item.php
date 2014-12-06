@@ -594,7 +594,7 @@ class Item {
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
         $this->ItemField->add($itemField);        
         $itemField->setItem($this);
-        $this->equalizeItemField($itemField);
+        //$this->equalizeItemField($itemField);
         return $this;
     }
 
@@ -1011,7 +1011,7 @@ class Item {
                     $itemField->setListingfield($listingFields);
                 }
 
-                $itemField->handleImage($value, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
                 $this->addItemField($itemField);
                 $order++;
             }
@@ -1460,6 +1460,8 @@ class Item {
             $this->setBodyStyle($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
             $this->setTransmission($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
+            $this->setType($itemField->getFieldStringValue());
         }
     }
 
@@ -1511,7 +1513,6 @@ class Item {
      */
     public function setMake($make) {
         $this->make = $make;
-
         return $this;
     }
 

@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class ListingFieldTreeRepository extends EntityRepository {
 
-    public function getJsonTreeModels($fieldId,$root = 1, $deep = 2) {
+    public function getJsonTreeModels($fieldId, $root = 1, $deep = 2) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $query = $qb->select('tp')
@@ -24,18 +24,18 @@ class ListingFieldTreeRepository extends EntityRepository {
 
         $results = $query->getResult();
         $jsonArray = array();
-        foreach($results as $res){
-            foreach($res->getChildren() as $children){
-                $name = str_replace(array("'",".",",","}","{","\""),"",$children->getName());
-                $jsonArray[$res->getId()][] = array($children->getId()=>  $name);
+        foreach ($results as $res) {
+            foreach ($res->getChildren() as $children) {
+                $name = str_replace(array("'", ".", ",", "}", "{", "\""), "", $children->getName());
+                $jsonArray[$res->getId()][] = array($children->getId() => $name);
             }
         }
 
-        
+
         return json_encode($jsonArray);
     }
-    
-        public function findAllBy($fieldId) {
+
+    public function findAllBy($fieldId) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('t')
@@ -46,13 +46,20 @@ class ListingFieldTreeRepository extends EntityRepository {
                 //->andWhere('t.caption like :property')
                 ->setParameter('fieldid', $fieldId);
         ;
-
-        //$res = $query; //->getResult();
-        ;
+//        $res = array();
+//        if ($result) {
+//            $result = $qb->getQuery()->getResult();
+//            foreach ($result as $key => $value) {
+//                $res[$value->getName()] = $value->getName();
+//            }
+//
+//            return $res;
+//        }
+//        ;
         return $qb;
     }
-    
-        /**
+
+    /**
      * 
      * @param type $propertyName
      * @param type $listing_field_id
@@ -62,8 +69,8 @@ class ListingFieldTreeRepository extends EntityRepository {
 
         $q = 'SELECT t FROM NumaDOAAdminBundle:ListingfieldTree t WHERE 
                     ( t.listing_field_id = ' . $listing_field_id . ' AND
-                    (t.name like \'' .        $propertyName .  '\'  OR 
-                     t.name like \'%' .       $propertyName . '%\'     )) ';
+                    (t.name like \'' . $propertyName . '\'  OR 
+                     t.name like \'%' . $propertyName . '%\'     )) ';
         $query = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
         $res = $query->getOneOrNullResult(); //getOneOrNullResult();

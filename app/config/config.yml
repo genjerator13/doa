@@ -113,6 +113,11 @@ genemu_form:
         theme:   advanced
         
 liip_imagine:
+    resolvers:
+        default:
+            web_path:
+              web_root:  %kernel.root_dir%/../web
+              cache_prefix: web/media/cache
     filter_sets:
         search_image:
             quality: 100
