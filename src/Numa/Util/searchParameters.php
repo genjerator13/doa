@@ -161,11 +161,11 @@ class searchParameters {
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
 
                     if (!$searchItem->isValueEmpty()) {
-                        var_dump($searchItem);
+
                         $type = $searchItem->getType();
                         $dbName = $searchItem->getDbFieldName();
                         $value = $searchItem->getValue();
-                        echo $dbName . ":" . $type;
+
                         if ($type == 'text') {
                             $qb->andWhere('i.' . $dbName . ' LIKE :text');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
