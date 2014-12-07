@@ -312,6 +312,7 @@ class ImportmappingController extends Controller {
 
         echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $count = 0;
+
         foreach ($items as $importItem) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
 

@@ -74,9 +74,9 @@ class RemoteFeed extends ContainerAware {
                     $filename = $this->entity->getAbsolutePath();
                     if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
                         $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
-                    
+
                         $ftp = self::getFtpConnection($handleSource);
-                    
+
                         //$ftpExplode = explode("/", $handleSource);
                         ////
                         //print_r($ftpExplode[count($ftpExplode) - 1]);
@@ -85,10 +85,10 @@ class RemoteFeed extends ContainerAware {
                     }
                     if (($handle = fopen($filename, "r")) !== FALSE) {
                         $delimeter = $this->entity->getDelimiterx();
-                        if(empty($delimeter)){
+                        if (empty($delimeter)) {
                             $delimeter = ',';
                         }
-                        $row = fgetcsv($handle,0,$delimeter);
+                        $row = fgetcsv($handle, 0, $delimeter);
                         //set the properties from header
                         foreach ($row as $hCell) {
 
@@ -146,11 +146,13 @@ class RemoteFeed extends ContainerAware {
                 $filename = $local_file;
             }
             if (($handle = fopen($filename, "r")) !== FALSE) {
-
-
-                while (($row = fgetcsv($handle)) !== FALSE) {
+                $delimeter = $this->entity->getDelimiterx();
+                if (empty($delimeter)) {
+                    $delimeter = ',';
+                }
+                
+                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
                     //var_dump($row); // process the row.
-
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
                             $tmp[$value] = $row[$key];
@@ -159,9 +161,12 @@ class RemoteFeed extends ContainerAware {
                     } else {
                         $header = $row;
                     }
+                    
                     $rowCount++;
+                    
                 }
             }
+
         }
         //\Doctrine\Common\Util\Debug::dump($this->items);
         return $this->items;
@@ -193,7 +198,7 @@ class RemoteFeed extends ContainerAware {
             //ftp_chdir($conn, $match[5]);
             ftp_pasv($conn, true);
             // Return the resource
-            return array('conn'=>$conn,'filepath'=>$match[4]);
+            return array('conn' => $conn, 'filepath' => $match[4]);
         }
 
         // Or retun null
