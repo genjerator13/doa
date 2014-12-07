@@ -109,10 +109,11 @@ class ItemRepository extends EntityRepository {
         $numDeleted = $q->execute();
     }
 
-    public function importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path) {
+    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $em = $this->getEntityManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
@@ -140,8 +141,8 @@ class ItemRepository extends EntityRepository {
             $persist = true;
             $item = new Item();
         }
-        if ($feed instanceof \Numa\DOAAdminBundle\Entity\Importfeed) {
-            //die("aaaa");
+        if (!empty($feed_id)) {
+            
             $item->setImportfeed($feed);
         }
 

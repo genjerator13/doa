@@ -784,8 +784,8 @@ class Item {
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
 
-        if (!empty($importfeed)) {
-            
+        //if (!empty($importfeed)) {
+            //die(get_class($importfeed));
             $this->Importfeed = $importfeed;
             $isFeatured = $importfeed->getMakeFeatured();
             $isActivated = $importfeed->getActivateListing();
@@ -802,7 +802,7 @@ class Item {
                 
                 $this->setCategory($importfeed->getCategory());
             }
-        }
+        //}
  
         if (!empty($isFeatured)) {
             $this->setFeatured(true);

@@ -299,7 +299,7 @@ class ImportmappingController extends Controller {
         $items = $remoteFeed->getRemoteItems();
         unset($remoteFeed);
         //get import feed by id
-        $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($feed_id);
+        //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
         //get mapping by feed id
         $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
         //get mold items by feed id
@@ -313,7 +313,7 @@ class ImportmappingController extends Controller {
         echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $count = 0;
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed, $upload_url, $upload_path);
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
 
             if (!empty($item)) {
                 $createdItems[] = $item;
@@ -334,7 +334,7 @@ class ImportmappingController extends Controller {
         }
         unset($items);
         unset($mapping);
-        unset($feed);
+        //unset($feed);
         $em->flush();
         $em->clear();
         $time = time() - $time;

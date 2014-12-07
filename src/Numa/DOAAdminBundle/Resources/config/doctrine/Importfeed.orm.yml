@@ -134,6 +134,7 @@ Numa\DOAAdminBundle\Entity\Importfeed:
         Category:
             targetEntity: Category
             inversedBy: Importfeed
+            cascade: ["persist"]
             joinColumn:
                 name: listing_type
                 referencedColumnName: id
