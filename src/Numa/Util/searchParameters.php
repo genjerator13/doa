@@ -19,8 +19,8 @@ class searchParameters {
 
     private $container;
     protected $page = 1;
-    protected $sort = "";
-    protected $order = "asc";
+    protected $sort_by = "";
+    protected $sort_order = "asc";
     public $init = false;
     protected $params = array();
     protected $listing_per_page;
@@ -80,12 +80,26 @@ class searchParameters {
         }
         return $res;
     }
-
-    public function makeUrlQuery() {
+    /**
+     * Returns url query based by the search parameters and by sorting fields and order
+     * @return string
+     */
+    public function makeUrlQuery($sort=true) {
         $params = $this->getParams(false);
         $aQuery = array();
         foreach ($params as $key => $value) {
             $aQuery[] = $key . "=" . $value->getValue();
+        }
+        
+        if($sort){
+            //add sort by field
+            if(!empty($this->sort_by)){
+                $aQuery[] =  "sort_by=" .$this->sort_by;
+            }
+            //add sort order
+            if(!empty($this->sort_by)){
+                $aQuery[] =  "sort_order=" .$this->sort_order;
+            }
         }
         $query = implode("&", $aQuery);
         return $query;
@@ -117,7 +131,9 @@ class searchParameters {
     }
 
     public function setAll($params) {
+
         foreach ($params as $key => $value) {
+            
             if ($this->isParamSet($key)) {
                 $this->params[$key]->setValue($value);                
             }
@@ -203,6 +219,10 @@ class searchParameters {
                             $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
                         }
                     }
+                }
+                //sort
+                if(!empty($this->sort_by)){
+                    $qb->orderBy("i.".$this->sort_by,  $this->sort_order);
                 }
             }
         }
@@ -297,9 +317,25 @@ class searchParameters {
     }
 
     public function setSort($sort) {
-        if (!empty($sort)) {
-            $this->sort = $sort;
+        if (!empty($sort['sort_by'])) {
+            $this->sort_by = $sort['sort_by'];
         }
+        
+        if (!empty($sort['sort_order'])) {
+            $this->sort_order = $sort['sort_order'];
+            if(strtolower($sort['sort_order'])=='desc'){
+                $this->sort_order = 'desc';
+            }
+        }
+    }
+    
+    public function getSortBy(){
+        return $this->sort_by;
+    }
+    
+    
+    public function getSortOrder(){
+        return $this->sort_order;
     }
 
     /**

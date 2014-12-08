@@ -17,43 +17,51 @@ class SearchController extends Controller {
 
     protected $searchParameters;
     protected $queryUrl;
+
+    /**
+     * Collects all parameters and turn them into searchParameters
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type 
+     */
     public function initSearchParams(Request $request) {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
-        
+
         $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
         $parameters = $request->query->all();
-        
-        $parameters = array_merge($parameters , $request->attributes->get('_route_params'));
-        
-        if(!empty($parameters['searchSource'])){
+
+        $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+
+        //set the search source, where from the search came from URL
+        if (!empty($parameters['searchSource'])) {
             $aSearchSource = explode('&', $parameters['searchSource']);
-            foreach($aSearchSource as $key=>$param){
-                $paramValue = explode("=",$param);
+            foreach ($aSearchSource as $key => $param) {
+                $paramValue = explode("=", $param);
                 $parameters[$paramValue[0]] = $paramValue[1];
             }
             unset($parameters['searchSource']);
             $this->searchParameters->setAll($parameters);
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
-
+        //set sort search parameters
+        $this->searchParameters->setSort($parameters);
+        //$sortParams =  $parameters['search_field'];
+        //print_r($parameters); //die();
         $this->searchParameters->setAll($parameters);
-        $this->queryUrl = $this->searchParameters->makeUrlQuery();
     }
 
     public function searchAction(Request $request) {
         $this->initSearchParams($request);
-        
+
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
         $parameters = $this->searchParameters->getParams(false);
-        $queryUrl = $this->searchParameters->makeUrlQuery();
-        
+        //$queryUrl = $this->searchParameters->makeUrlQuery();
         //create query        
         $query = $this->searchParameters->createSearchQuery();
-        //die($query->getSql());
-        $param = $this->showItems($query, $page,$this->searchParameters->getListingPerPage());
+
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
 
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
@@ -69,16 +77,24 @@ class SearchController extends Controller {
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
-        $queryUrl = $this->searchParameters->makeUrlQuery();
-        
+        //$queryUrl = $this->searchParameters->makeUrlQuery();
+
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
-        
-        
-        return array('items' => $items, 'pagerfanta' => $pagerfanta, 'listing_per_page' => $number, 'queryUrl'=>$queryUrl);
+        $this->queryUrl = $this->searchParameters->makeUrlQuery();
+        $this->queryUrlNoSort = $this->searchParameters->makeUrlQuery(false);
+
+        return array('items' => $items,
+            'pagerfanta' => $pagerfanta,
+            'listing_per_page' => $number,
+            'queryUrl' => $this->queryUrl,
+            'queryUrlNoSort' => $this->queryUrlNoSort,
+            'sort_by' => $this->searchParameters->getSortBy(),
+            'sort_order' => $this->searchParameters->getSortOrder()
+        );
     }
 
     public function searchDispatcherAction(Request $request) {
@@ -92,62 +108,62 @@ class SearchController extends Controller {
         return $this->redirect($this->generateUrl('search', $param));
     }
 
-    public function createQuerySearchByCategory($model, $category,$page=1) {
-        
+    public function createQuerySearchByCategory($model, $category, $page = 1) {
+
         $model = str_replace(" boat", "", $model);
         if (strstr($model, 'watercraft')) {
             $model = 'watercraft';
         }
-        if($category=='car'){
+        if ($category == 'car') {
             $query = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                    ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%Body Style%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-            ->setParameter('model', "%" . $model . "%")
-            ->setParameter('category', "%" . $category . "%");
-        }elseif($category=='marine'){
+                    ->setParameter('model', "%" . $model . "%")
+                    ->setParameter('category', "%" . $category . "%");
+        } elseif ($category == 'marine') {
             $query = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                    ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%boat type%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-            ->setParameter('model', "%" . $model . "%")
-            ->setParameter('category', "%" . $category . "%");
-        }elseif($category=='rvs'){
+                    ->setParameter('model', "%" . $model . "%")
+                    ->setParameter('category', "%" . $category . "%");
+        } elseif ($category == 'rvs') {
             $query = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                    ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%type%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-            ->setParameter('model', "%" . $model . "%")
-            ->setParameter('category', "%" . $category . "%");
-        }elseif($category=='motorsport'){
+                    ->setParameter('model', "%" . $model . "%")
+                    ->setParameter('category', "%" . $category . "%");
+        } elseif ($category == 'motorsport') {
             $query = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                    ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%type%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-            ->setParameter('model', "%" . $model . "%")
-            ->setParameter('category', "%" . $category . "%");
-        }elseif($category=='ag'){
+                    ->setParameter('model', "%" . $model . "%")
+                    ->setParameter('category', "%" . $category . "%");
+        } elseif ($category == 'ag') {
             $query = $this->getDoctrine()->getManager()
-            ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
+                    ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
                                  JOIN i.ItemField ifield
                                  JOIN i.Category c
                                  WHERE ifield.field_name LIKE \'%type%\'                                 
                                  AND ifield.field_string_value LIKE :model
                                  AND c.name LIKE :category')
-            ->setParameter('model', "%" . $model . "%")
-            ->setParameter('category', "%" . $category . "%");
+                    ->setParameter('model', "%" . $model . "%")
+                    ->setParameter('category', "%" . $category . "%");
         }
         return $query;
     }
@@ -158,7 +174,7 @@ class SearchController extends Controller {
         $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
 
-        $query = $this->createQuerySearchByCategory($model, $category,$page);
+        $query = $this->createQuerySearchByCategory($model, $category, $page);
 
         $items = $query->getResult();
         $this->initSearchParams($request);
@@ -649,7 +665,7 @@ class SearchController extends Controller {
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('make',3);
+                return $er->findAllBy('make', 3);
             },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
@@ -658,7 +674,7 @@ class SearchController extends Controller {
                 ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Type',3);
+                return $er->findAllBy('Type', 3);
             },
                     'empty_value' => 'Any type',
                     'label' => "Type", "required" => false
@@ -872,7 +888,6 @@ class SearchController extends Controller {
                 ->add('exteriorcolor', 'text', array('label' => "Exterior Color", "required" => false))
                 ->add('interiorcolor', 'text', array('label' => "Interior Color", "required" => false))
                 ->add('flooring', 'text', array('label' => "Flooring", "required" => false))
-
                 ->add('addonscreenroom', 'checkbox', array('label' => "Add-On Screen Room", "required" => false))
                 ->add('cablehookup', 'checkbox', array('label' => "Cable Hookup", "required" => false))
                 ->add('ceilingfansvents', 'checkbox', array('label' => "Ceiling Fans/Vents", "required" => false))

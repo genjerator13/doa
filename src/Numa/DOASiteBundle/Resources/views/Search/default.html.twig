@@ -59,102 +59,203 @@
 
             <p><span class="left">Number of listings per page:</span>
 
-{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-            <form action="{{ app.request.uri }}" method="GET">
-                <select class="listingsNumber form-control" id="numberoflisting" name="listings_per_page">
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="50">50</option>
-                </select>
-                <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{%endif%}" name="searchSource" id="searchSource">
-            </form>
-            <span class="sort">Sort by:<a href="#">Photos</a><a href="{{ app.request.uri }}&sort_field=year">Year</a><a href="#">Make / Model</a></span>
-            <div class="titles-details">
-                <ul class="list-inline">
-                    <li><a href="#">Mileage</a>
+                {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                    <select class="listingsNumber form-control" id="numberoflisting" name="listings_per_page">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                    </select>
+                    <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{%endif%}" name="searchSource" id="searchSource">
 
-                    <li><a href="#">Price</a></li>
-                    <li><a href="#">Date</a></li>                                        
-                </ul>
-            </div>
-        </p>
-        <div class="row">
-            <div class="col-md-12">
+                    <script>
+                        $('.listingsNumber').change(function(){
+                            lnr = parseInt(($(this).val()));
+                            window.location.href = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page="+lnr;
+                        })
+                    </script>
+                {%set sortYearUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=year&sort_order=asc
+                {%endset%}
+                {% if sort_by=='year' and sort_order == 'asc' %}
+                    {%set sortYearUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=year&sort_order=desc
+                    {%endset%}
+                {%endif %}
 
+                {%set sortPriceUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=price&sort_order=asc
+                {%endset%}
+                {% if sort_by=='price' and sort_order == 'asc' %}
+                    {%set sortPriceUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=price&sort_order=desc
+                    {%endset%}
+                {%endif %}
+
+                {%set sortPicturesUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=pictures&sort_order=asc
+                {%endset%}
+                {% if sort_by=='pictures' and sort_order == 'asc' %}
+                    {%set sortPicturesUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=pictures&sort_order=desc
+                    {%endset%}
+                {%endif %}
+
+                {%set sortMakeUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=make&sort_order=asc
+                {%endset%}
+                {% if sort_by=='make' and sort_order == 'asc' %}
+                    {%set sortPriceUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=make&sort_order=desc
+                    {%endset%}
+                {%endif %}
+
+                {%set sortMileageUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=mileage&sort_order=asc
+                {%endset%}
+                {% if sort_by=='mileage' and sort_order == 'asc' %}
+                    {%set sortMileageUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=mileage&sort_order=desc
+                    {%endset%}
+                {%endif %}
+
+                {%set sortDateUrl %}
+                    {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=date_created&sort_order=asc
+                {%endset%}
+                {% if sort_by=='date_created' and sort_order == 'asc' %}
+                    {%set sortDateUrl %}
+                        {{path('search_dispatch')}}?{{queryUrlNoSort}}&sort_by=date_created&sort_order=desc
+                    {%endset%}
+                {%endif %}
+                <span class="sort">Sort by:
+                    <a href="{{sortPicturesUrl}}">
+                        {%if sort_by=='pictures' and sort_order=='asc' %}
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                        {%elseif(sort_by=='pictures' and sort_order=='desc') %}
+                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                        {%endif%}
+                        Photos
+                    </a>
+                    <a href="{{sortYearUrl}}" >
+                        {%if sort_by=='year' and sort_order=='asc' %}
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                        {%elseif(sort_by=='year' and sort_order=='desc') %}
+                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                            {%endif%}
+                        Year
+                    </a>
+                    <a href="{{sortMakeUrl}}">
+                        {%if sort_by=='make' and sort_order=='asc' %}
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                        {%elseif(sort_by=='make' and sort_order=='desc') %}
+                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                        {%endif%}
+                        Make / Model
+                    </a></span>
+                <div class="titles-details">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="{{sortMileageUrl}}">
+                                {%if sort_by=='mileage' and sort_order=='asc' %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                                {%elseif(sort_by=='mileage' and sort_order=='desc') %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                                {%endif%}
+                                Mileage
+                            </a>
+
+                        <li>
+                            <a href="{{sortPriceUrl}}">
+                                {%if sort_by=='price' and sort_order=='asc' %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                                {%elseif(sort_by=='price' and sort_order=='desc') %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                                {%endif%}
+                                Price</a></li>
+                        <li><a href="{{sortDateUrl}}">{%if sort_by=='date_created' and sort_order=='asc' %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                                {%elseif(sort_by=='created' and sort_order=='desc') %}
+                                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                                {%endif%}Date</a></li>                                        
+                    </ul>
+                </div>
+            </p>
+            <div class="row">
+                <div class="col-md-12">
+
+                </div>
             </div>
+            {% for item in pagerfanta %}
+                {#
+                        {%if item.getCategory().getName()=='Marine'%}
+                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                        {%endif%}
+                        {% if item.getCategory().getName()=='Car' %}
+                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                        {% endif %}
+                        {% if item.getCategory().getName()=='Motosport' %}
+                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                        {% endif %}
+                        {% if item.getCategory().getName()=='RVs' %}
+                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
+                        {% endif %}#}
+                {% if queryUrl is defined %}
+                    {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl})}}
+                {% else %}
+                    {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+                {% endif %}
+            {% endfor%}
+            {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
         </div>
-        {% for item in pagerfanta %}
-            {#
-                    {%if item.getCategory().getName()=='Marine'%}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {%endif%}
-                    {% if item.getCategory().getName()=='Car' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}
-                    {% if item.getCategory().getName()=='Motosport' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}
-                    {% if item.getCategory().getName()=='RVs' %}
-                        <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                    {% endif %}#}
-            {% if queryUrl is defined %}
-                {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl})}}
-            {% else %}
-                {{include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item})}}
+        <script type="text/javascript">
+            num = 10;
+            {%if listing_per_page is defined %}
+                num = parseInt({{listing_per_page}});
             {% endif %}
-        {% endfor%}
-        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
-    </div>
-    <script type="text/javascript">
-        num = 10;
-        {%if listing_per_page is defined %}
-            num = parseInt({{listing_per_page}});
+                $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+                $('select#numberoflisting').change(
+                        function() {
+                            var ss = $("#searchSource").val();
+                            ss = ss + $("#numberoflisting").val()
+                            console.log(ss);
+                            $(this).closest('form').submit();
+
+                        });
+        </script> 
+
+        <script>
+            $(".saveAd").on("click", function() {
+                var itemId = $(this).closest('.item-row').attr("data");
+                console.log(itemId);
+                var act = "add";
+                if (!$(this).prop('checked')) {
+                    act = "remove";
+                }
+                var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
+                    htmlx = "";
+                    if (data.savedAds > 0) {
+                        htmlx = "(" + data.savedAds + ")";
+                    }
+                    $('.savedAds').html(htmlx);
+                })
+
+            });
+            $(".compareAd").on("click", function() {
+                var itemId = $(this).closest('.item-row').attr("data");
+                var url = $(this).closest('.item-row').attr("url");
+
+                var act = "add";
+                if (!$(this).prop('checked')) {
+                    act = "remove";
+                }
+                var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
+                    htmlx = "";
+                    if (data.comparedItes > 0) {
+                        htmlx = "(" + data.comparedItes + ")";
+                    }
+                    $('.savedAds').html(htmlx);
+                })
+
+            });
+        </script>
         {% endif %}
-            $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-            $('select#numberoflisting').change(
-                    function() {
-                        var ss = $("#searchSource").val();
-                        ss = ss+$("#numberoflisting").val()
-                        console.log(ss);
-                        $(this).closest('form').submit();
-
-                    });
-    </script> 
-
-                         <script>
-$(".saveAd").on("click", function() {
-    var itemId = $(this).closest('.item-row').attr("data");
-    console.log(itemId);
-    var act = "add";
-    if (!$(this).prop('checked')) {
-        act = "remove";
-    }
-    var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
-        htmlx = "";
-        if (data.savedAds > 0) {
-            htmlx = "(" + data.savedAds + ")";
-        }
-        $('.savedAds').html(htmlx);
-    })
-
-});
-$(".compareAd").on("click", function() {
-    var itemId = $(this).closest('.item-row').attr("data");
-    var url = $(this).closest('.item-row').attr("url");
- 
-    var act = "add";
-    if (!$(this).prop('checked')) {
-        act = "remove";
-    }
-    var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
-        htmlx = "";
-        if (data.comparedItes > 0) {
-            htmlx = "(" + data.comparedItes + ")";
-        }
-        $('.savedAds').html(htmlx);
-    })
-
-});
-</script>
-{% endif %}
-{% endblock %}
+            {% endblock %}

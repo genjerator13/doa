@@ -594,7 +594,7 @@ class Item {
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
         $this->ItemField->add($itemField);        
         $itemField->setItem($this);
-        $this->equalizeItemField($itemField);
+        //$this->equalizeItemField($itemField);
         return $this;
     }
 
@@ -671,7 +671,7 @@ class Item {
             $val = array_values($images);
             unset($val[0]['object']);
             $ret = array('image' => $val[0]);
-            //\Doctrine\Common\Util\Debug::dump($ret);//die();  
+            
             return $ret;
         }
         return false;
@@ -783,15 +783,27 @@ class Item {
      * @return Item
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
-        if (!empty($importfeed)) {
+
+        //if (!empty($importfeed)) {
+            //die(get_class($importfeed));
             $this->Importfeed = $importfeed;
             $isFeatured = $importfeed->getMakeFeatured();
             $isActivated = $importfeed->getActivateListing();
             $isHighlighted = $importfeed->getMakeHighlighted();
             $isExpired = $importfeed->getExpirationAfter();
-            $this->setDealer($importfeed->getDealer());
-            $this->setCategory($importfeed->getCategory());
-        }
+
+                                                   
+            if($importfeed->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords){
+                            
+                $this->setDealer($importfeed->getDealer());
+            }
+            
+            if($importfeed->getCategory() instanceof \Numa\DOAAdminBundle\Entity\Category){
+                
+                $this->setCategory($importfeed->getCategory());
+            }
+        //}
+ 
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
@@ -816,19 +828,6 @@ class Item {
             $test = new \DateTime();
             $test = $test->setDate($this->getDateCreated()->format("Y"), $this->getDateCreated()->format('m'), $this->getDateCreated()->format('d'));
             $this->setExpirationDate($test->add(new \DateInterval('P' . $days . 'D')));
-        }
-
-
-
-        if (!empty($dealer)) {
-            $itemField = new ItemField();
-            $itemField->setFieldBooleanValue(true);
-            $itemField->setFieldIntegerValue($dealer);
-
-            $itemField->setFieldStringValue($dealer);
-            $itemField->setFieldName('dealer');
-
-            $this->addItemField($itemField);
         }
 
         return $this;
@@ -976,6 +975,9 @@ class Item {
     }
 
     public function proccessOptionsList($stringvalue, $separator) {
+        if(empty($separator)){
+            $separator = "|";
+        }
         $optionsArray = explode($separator, $stringvalue);
         $order = 1;
         foreach ($optionsArray as $key => $option) {
@@ -988,22 +990,28 @@ class Item {
             $this->addItemField($itemField);
             $order++;
         }
+        unset($optionsArray);
+        unset($order);
     }
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
         $listingFields = $maprow->getListingFields();
+        
         $localy = $feed->getPicturesSaveLocaly();
-
+        
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($value);
+                
                 $itemField->setFeedId($feed->getId());
-                $itemField->setListingfield($listingFields);
+                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                    $itemField->setListingfield($listingFields);
+                }
 
-                $itemField->handleImage($value, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
                 $this->addItemField($itemField);
                 $order++;
             }
@@ -1025,13 +1033,22 @@ class Item {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($picture);
-                $itemField->setListingfield($listingFields);
+//                //$itemField->setListingfield($listingFields);
+                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                    
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+
+                    $itemField->setListingfield($test);
+                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
+                }
                 $itemField->setFeedId($feed->getId());
                 $itemField->setItem($this);
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
                 $this->addItemField($itemField);
+                unset($itemField);
                 $order++;
             }
+            unset($picturesArray);
         }
     }
 
@@ -1439,6 +1456,12 @@ class Item {
             $this->setMake($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'vin') {
             $this->setVin($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'body style') {
+            $this->setBodyStyle($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
+            $this->setTransmission($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
+            $this->setType($itemField->getFieldStringValue());
         }
     }
 
@@ -1490,7 +1513,6 @@ class Item {
      */
     public function setMake($make) {
         $this->make = $make;
-
         return $this;
     }
 

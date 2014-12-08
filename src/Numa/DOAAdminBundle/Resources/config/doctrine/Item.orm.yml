@@ -129,8 +129,7 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         mileage:
-              type: string
-              length: 255
+              type: integer
               nullable: true
         VIN:
               type: string
