@@ -23,7 +23,7 @@ class SearchController extends Controller {
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return type 
      */
-    public function initSearchParams(Request $request) {
+    public function initSearchParams(Request $request,$additionalParams=array()) {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
@@ -32,7 +32,9 @@ class SearchController extends Controller {
         $parameters = $request->query->all();
 
         $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
-
+        if(!empty($additionalParams)){
+            $parameters = array_merge($parameters,$additionalParams);
+        }
         //set the search source, where from the search came from URL
         if (!empty($parameters['searchSource'])) {
             $aSearchSource = explode('&', $parameters['searchSource']);
@@ -47,7 +49,7 @@ class SearchController extends Controller {
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
         //$sortParams =  $parameters['search_field'];
-        //print_r($parameters); //die();
+        
         $this->searchParameters->setAll($parameters);
     }
 
@@ -117,11 +119,8 @@ class SearchController extends Controller {
         if ($category == 'car') {
             $query = $this->getDoctrine()->getManager()
                     ->createQuery('SELECT distinct i FROM NumaDOAAdminBundle:Item i
-                                 JOIN i.ItemField ifield
-                                 JOIN i.Category c
-                                 WHERE ifield.field_name LIKE \'%Body Style%\'                                 
-                                 AND ifield.field_string_value LIKE :model
-                                 AND c.name LIKE :category')
+                                 WHERE i.body_style LIKE :model                              
+                                 AND i.category_id=1')
                     ->setParameter('model', "%" . $model . "%")
                     ->setParameter('category', "%" . $category . "%");
         } elseif ($category == 'marine') {
@@ -171,21 +170,23 @@ class SearchController extends Controller {
     public function searchByCategoryModelAction(Request $request) {
         $model = urldecode($request->get('model'));
         $category = $request->get('category');
+
+        $cat = $this->getDoctrine()->getManager()->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name'=>$category));
+        
+        $this->initSearchParams($request, array('category_id'=>$cat->getId()));
+        
         $page = $request->get('page');
-        $page = empty($page) ? 1 : $page;
+        $number = intval($request->get('listings_per_page'));
 
-        $query = $this->createQuerySearchByCategory($model, $category, $page);
+        
+        
+        //$queryUrl = $this->searchParameters->makeUrlQuery();
+        //create query        
+        $query = $this->searchParameters->createSearchQuery();
+                
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
 
-        $items = $query->getResult();
-        $this->initSearchParams($request);
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
-        $pagerfanta->setMaxPerPage(10);
-        try {
-            $pagerfanta->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
-        }
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function searchByDealerAction(Request $request) {
