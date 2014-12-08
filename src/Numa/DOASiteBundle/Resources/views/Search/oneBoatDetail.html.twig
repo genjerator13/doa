@@ -43,7 +43,7 @@
 
                                                                 <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
                                                                 <br>
-                                                                <a href="{{detailUrl}}">View Details {% if app.user and app.user.getId()==dealer.id%}({{item.views}} views){% endif %}</a>
+                                                                <a href="{{detailUrl}}">View Details {% if dealer and app.user and app.user.getId()==dealer.id%}({{item.views}} views){% endif %}</a>
                                                                 <div class="checkbox-inline">
                                                                     <label>
                                                                         <input type="checkbox" class="saveAd"> Save Ad
@@ -54,7 +54,7 @@
                                                                         <input type="checkbox" class="compareAd"> Compare Ad
                                                                     </label>
                                                                 </div>
-                                                                {% if app.user and app.user.getId()==dealer.id%}
+                                                                {% if dealer and app.user and app.user.getId()==dealer.id%}
                                                                     <ul class="list-inline">
                                                                         <li><a href="{{path('items_edit',{'id':item.id})}}">Edit</a></li>
                                                                         {% if item.getActive() %}

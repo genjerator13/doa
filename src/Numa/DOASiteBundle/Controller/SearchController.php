@@ -220,7 +220,7 @@ class SearchController extends Controller {
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->add('searchText', 'text', array(
                     'label' => 'Search',
@@ -369,7 +369,7 @@ class SearchController extends Controller {
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
@@ -491,7 +491,7 @@ class SearchController extends Controller {
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'marine')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -661,7 +661,7 @@ class SearchController extends Controller {
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'motorsport')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -788,7 +788,7 @@ class SearchController extends Controller {
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
-                ->setMethod('POST')
+                ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'rvs')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
