@@ -128,25 +128,36 @@ class ItemController extends Controller {
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
         $imageColumn->setTitle("Image");
-        $grid->addColumn($imageColumn,1);
+        $grid->addColumn($imageColumn, 1);
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
         $entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         //main column
-        
+
         $controller = $this;
         $imageColumn->manipulateRenderCell(
-            function($value, $row, $router) use ($controller) {
-                $em = $controller->getDoctrine()->getManager();
-                $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
-                //\kint::dump($item->getImage());
-                
-                $image =  $item->getImage();
-                        
-                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig",array('image'=>$image,'id'=>$row->getField('id')));
-            }
-        );
+                function($value, $row, $router) use ($controller) {
+            $em = $controller->getDoctrine()->getManager();
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
+            //\kint::dump($item->getImage());
 
+            $image = $item->getImage();
+
+            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+        }
+        );
+        $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
+        $grid->addMassAction($yourMassAction);
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:indexGrid.html.twig');
     }
 
