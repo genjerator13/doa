@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 /**
- * @GRID\Source(columns ="id,Category.name,User.UserGroup.name,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,Category.name,make,model,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 
@@ -45,7 +45,7 @@ class Item {
 
     /**
      * @var string
-     * @GRID\Column(type="text", field="moderation_status", title="moderation_status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @GRID\Column(type="text", field="moderation_status", title="Status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
 
      */
     private $moderation_status;
@@ -62,6 +62,7 @@ class Item {
 
     /**
      * @var integer
+     * @GRID\Column(type="text", field="views", title="Views", filterable=false, operatorsVisible=false)
      */
     private $views;
 
@@ -1069,6 +1070,7 @@ class Item {
 
     /**
      * @var string
+     * @GRID\Column(type="text", field="model", title="Model", filterable=true, defaultOperator="eq",operatorsVisible=false)
      */
     private $model;
 
@@ -1481,6 +1483,7 @@ class Item {
 
     /**
      * @var string
+     * @GRID\Column(type="text", field="make", title="Make")
      */
     private $make;
 

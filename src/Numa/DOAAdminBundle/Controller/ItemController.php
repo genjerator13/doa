@@ -24,11 +24,7 @@ use Doctrine\Common\Collections\Criteria;
  */
 class ItemController extends Controller {
 
-    /**
-     * Lists all Item entities.
-     *
-     */
-    public function indexAction() {
+    public function index2Action() {
         $source = new Entity('NumaDOAAdminBundle:Item');
 
         $grid = $this->get('grid');
@@ -120,6 +116,40 @@ class ItemController extends Controller {
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
     }
 
+    /**
+     * Lists all User entities.
+     *
+     */
+    public function indexAction() {
+        $em = $this->getDoctrine()->getManager();
+        $source = new Entity('NumaDOAAdminBundle:Item');
+
+        $grid = $this->get('grid');
+        $grid->setLimits(array(10, 20, 50));
+        $imageColumn = new BlankColumn();
+        $imageColumn->setTitle("Image");
+        $grid->addColumn($imageColumn,1);
+        //$tableAlias = $source->getTableAlias();
+        $grid->setSource($source);
+        $entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        //main column
+        
+        $controller = $this;
+        $imageColumn->manipulateRenderCell(
+            function($value, $row, $router) use ($controller) {
+                $em = $controller->getDoctrine()->getManager();
+                $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
+                //\kint::dump($item->getImage());
+                
+                $image =  $item->getImage();
+                        
+                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig",array('image'=>$image,'id'=>$row->getField('id')));
+            }
+        );
+
+        return $grid->getGridResponse('NumaDOAAdminBundle:Item:indexGrid.html.twig');
+    }
+
     public function massActivateAction($primaryKeys, $allPrimaryKeys) {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
@@ -158,7 +188,7 @@ class ItemController extends Controller {
         $em->flush();
         return $this->redirect($this->generateUrl('items'));
     }
-    
+
     public function massRejectAction($primaryKeys, $allPrimaryKeys) {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
