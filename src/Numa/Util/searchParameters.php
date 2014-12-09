@@ -67,6 +67,7 @@ class searchParameters {
             'mileageFrom' => new SearchItem('Mileage', 0, 'rangeFrom'),
             'mileageTo' => new SearchItem('Mileage', 0, 'rangeTo'),
             'fuelType' => new SearchItem('fuelType', 0, 'int'),
+            'dealer_id' => new SearchItem('dealer_id', 0, 'int'),
         );
     }
 
@@ -181,7 +182,7 @@ class searchParameters {
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
 
                     if (!$searchItem->isValueEmpty()) {
-
+                        
                         $type = $searchItem->getType();
                         $dbName = $searchItem->getDbFieldName();
                         $value = $searchItem->getValue();

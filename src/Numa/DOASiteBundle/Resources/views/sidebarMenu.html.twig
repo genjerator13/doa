@@ -15,7 +15,7 @@
         {% if is_granted('ROLE_BUSINES') %}
             <a class="list-group-item" href="{{path('additem')}}">Add new listing</a>
             <a class="list-group-item" href="#">Supscriptions</a>
-            <a class="list-group-item" href="{{ path('browse_by_dealer',{'dealerid': app.user.id,'dealername': app.user.username}) }}">My listings</a>
+            <a class="list-group-item" href="{{ path('browse_by_dealer',{'dealer_id': app.user.id,'dealername': app.user.username}) }}">My listings</a>
             <a class="list-group-item" href="{{path('catalogs_edit',{'id':app.user.id})}}">My profile</a>
         {% endif %}
         <a class="list-group-item" href="{{path('buyer_saved_ads')}}">Saved Listings <span class="savedAds"></span></a>

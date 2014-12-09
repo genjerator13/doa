@@ -23,7 +23,7 @@ class SearchController extends Controller {
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return type 
      */
-    public function initSearchParams(Request $request,$additionalParams=array()) {
+    public function initSearchParams(Request $request, $additionalParams = array()) {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
@@ -32,8 +32,8 @@ class SearchController extends Controller {
         $parameters = $request->query->all();
 
         $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
-        if(!empty($additionalParams)){
-            $parameters = array_merge($parameters,$additionalParams);
+        if (!empty($additionalParams)) {
+            $parameters = array_merge($parameters, $additionalParams);
         }
         //set the search source, where from the search came from URL
         if (!empty($parameters['searchSource'])) {
@@ -49,7 +49,7 @@ class SearchController extends Controller {
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
         //$sortParams =  $parameters['search_field'];
-        
+
         $this->searchParameters->setAll($parameters);
     }
 
@@ -171,19 +171,16 @@ class SearchController extends Controller {
         $model = urldecode($request->get('model'));
         $category = $request->get('category');
 
-        $cat = $this->getDoctrine()->getManager()->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name'=>$category));
-        
-        $this->initSearchParams($request, array('category_id'=>$cat->getId()));
-        
+        $cat = $this->getDoctrine()->getManager()->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name' => $category));
+
+        $this->initSearchParams($request, array('category_id' => $cat->getId()));
+
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
 
-        
-        
-        //$queryUrl = $this->searchParameters->makeUrlQuery();
         //create query        
         $query = $this->searchParameters->createSearchQuery();
-                
+
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
 
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
@@ -192,27 +189,18 @@ class SearchController extends Controller {
     public function searchByDealerAction(Request $request) {
         $dealerid = $request->get('dealerid');
 
-        $page = $request->get('page');
         $page = empty($page) ? 1 : $page;
+        
+        $this->initSearchParams($request);
+        $page = $request->get('page');
+        $number = intval($request->get('listings_per_page'));
 
-        $query = $this->getDoctrine()->getManager()
-                ->createQuery(
-                        'SELECT i FROM NumaDOAAdminBundle:Item i
-                                 WHERE i.dealer_id=:dealerid
-                                 ')
-                ->setParameter('dealerid', $dealerid);
+        //create query        
+        $query = $this->searchParameters->createSearchQuery();
 
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
 
-        $items = $query->getResult();
-
-        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
-        $pagerfanta->setMaxPerPage(10);
-        try {
-            $pagerfanta->setCurrentPage($page);
-        } catch (NotValidCurrentPageException $e) {
-            throw new NotFoundHttpException();
-        }
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function searchAdvancedAction(Request $request) {

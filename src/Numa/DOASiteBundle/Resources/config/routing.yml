@@ -11,7 +11,7 @@ search_by_rvs_type:
     path:  /browse_by_rvs_type_{category}/{rvsTypeString}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en } 
 browse_by_dealer:
-    path:  /browse_by_dealer/{dealerid}/{dealername}
+    path:  /browse_by_dealer/{dealer_id}/{dealername}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByDealer, _locale: en }      
 homepage_categories:
     path:  /categories

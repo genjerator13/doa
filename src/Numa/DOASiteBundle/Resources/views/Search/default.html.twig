@@ -70,7 +70,11 @@
                     <script>
                         $('.listingsNumber').change(function(){
                             lnr = parseInt(($(this).val()));
-                            window.location.href = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page="+lnr;
+                            {%if queryUrl is defined %}
+                                window.location.href = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page="+lnr;
+                            {% else %}
+                                window.location.href = "{{path('search_dispatch')}}?listings_per_page="+lnr;
+                            {% endif %}
                         })
                     </script>
                 {%set sortYearUrl %}
