@@ -306,11 +306,11 @@
                                     var latitude = 44.5403;
                                     var longitude = -78.5463;
                                     geocoder.geocode({'address': address}, function(results, status) {
-
+                                        console.log(status+":::::"+address);
                                         if (status == google.maps.GeocoderStatus.OK) {
                                             latitude = results[0].geometry.location.lat();
                                             longitude = results[0].geometry.location.lng();
-
+                                            
                                         }
                                     });
                                     function initialize() {

@@ -187,7 +187,7 @@ class SearchController extends Controller {
     }
 
     public function searchByDealerAction(Request $request) {
-        $dealerid = $request->get('dealerid');
+
 
         $page = empty($page) ? 1 : $page;
         
