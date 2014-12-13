@@ -161,8 +161,8 @@ ul.tmp{
 }
 
 .header-image .logo{
-    background: url('/images/logo.png') no-repeat;
-    width: 350px;
+    background: url('/images/logo_cv.png') no-repeat;
+    width: 666px;
     height: 100px;
     position: absolute;
     bottom: 0;

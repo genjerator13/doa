@@ -1,5 +1,5 @@
-@import 'gallery.css';
-@import 'home.css';
+@import '../../css/gallery.css';
+@import '../../css/home.css';
 
 .left {
     float: left;
@@ -107,8 +107,8 @@ ul.tmp{
 }
 
 .right_details ul li{
-/*    display: inline;
-    margin-left: 42px;*/
+    /*    display: inline;
+        margin-left: 42px;*/
 }
 
 
@@ -161,8 +161,8 @@ ul.tmp{
 }
 
 .header-image .logo{
-    background: url('/images/logo.png') no-repeat;
-    width: 350px;
+    background: url('/images/logo_cv.png') no-repeat;
+    width: 666px;
     height: 100px;
     position: absolute;
     bottom: 0;
@@ -177,8 +177,8 @@ ul.tmp{
     width: 130px;
     font-weight: bold;
 }
+
 .techData{
-    margin-top: 10px;
     float: left;
     list-style: none;
     font-size: 13px;
@@ -203,7 +203,7 @@ div.searchResults div.picture-detail {
 
 select#numberoflisting {
     margin-left: 10px;
-        width: 70px;
+    width: 70px;
 }
 
 a.imageLink {
@@ -216,12 +216,13 @@ a.imageLink {
 
 div.imagebox {
     position: relative;
-    height: 100px;
+    height: 100px;    
 }
 
 div.imageouterbox {
     margin-bottom: 20px;
 }
+
 
 ul.righsidebar-block{
     margin-top: 20px;
