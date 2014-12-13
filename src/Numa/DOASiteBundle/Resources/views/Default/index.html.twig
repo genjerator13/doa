@@ -1,7 +1,7 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
 {% block content %}
     <!-- Nav tabs -->
-    <h2>Search by body style</h2>
+    <h2>Search by Body Style</h2>
     <ul class="nav nav-tabs" id="myTab">
         {% for key,tab in tabs %}
             <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
@@ -42,7 +42,7 @@
                                 </div>
                                 {%endfor%}
                                 </div>
-                                <h2>Search by category</h2>
+                                <h2>Search by Category</h2>
                                 <ul class="nav nav-tabs" id="categoryTab">                
                                     <li><a href="#vehicle" data-toggle="tab">Vehicle</a></li>
                                     <li><a href="#marine" data-toggle="tab">Marine</a></li>
@@ -60,12 +60,12 @@
                                         {{ form_errors(vehicleForm) }}
                                         <div class="row">
                                             {{ form_row(vehicleForm.bodyStyle,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                        </div>                                        
+                                        <div class="row">
+                                            {{ form_row(vehicleForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
                                             {{ form_row(vehicleForm.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>
-                                        <div class="row">
-                                            {{ form_row(vehicleForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
                                             {{ form_row(vehicleForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
