@@ -1,5 +1,9 @@
-{% if "http://" not in image.image.stringvalue %}
-    <a href="{{path('items_edit',{'id':id})}}"><img  src="{{image.image.stringvalue|imagine_filter('search_image')}}" alt="image" /></a>                              
-{% else %}
-    <a href="{{path('items_edit',{'id':id})}}"><img  src="{{image.image.stringvalue}}" alt="image" width="120px"/></a>                              
-{%endif %}                                      
+{% if image is defined and image.image is defined %}
+    {% if  "http://" not in image.image.stringvalue %}
+        <a href="{{path('items_edit',{'id':id})}}"><img  src="{{image.image.stringvalue|imagine_filter('search_image')}}" alt="image" /></a>                              
+    {% else %}
+        <a href="{{path('items_edit',{'id':id})}}"><img  src="{{image.image.stringvalue}}" alt="image" width="120px"/></a>                              
+    {%endif %} 
+{%else %}
+    <a href="{{path('items_edit',{'id':id})}}"><img  src="{{ asset('images/no_image_available_small.png') }}" alt="image" width="120px"/></a>                              
+{% endif %}

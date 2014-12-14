@@ -4,14 +4,17 @@
     <h2>Search by Body Style</h2>
     <ul class="nav nav-tabs" id="myTab">
         {% for key,tab in tabs %}
-            <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
+            {% if key=='Car' %}   
+                {% set key = 'Vehicle' %}
+            {% endif %}
+                <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
             {%endfor%}
     </ul>
 
     <!-- Tab panes -->
     <div class="tab-content">
         {% for key,tab in tabs %}
-
+            
             <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
 
                 {% for key2,item in tab %}
