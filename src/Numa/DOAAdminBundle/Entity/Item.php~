@@ -1519,4 +1519,32 @@ class Item {
         return $this;
     }
 
+    /**
+     * @var string
+     */
+    private $floor_plan;
+
+
+    /**
+     * Set floor_plan
+     *
+     * @param string $floorPlan
+     * @return Item
+     */
+    public function setFloorPlan($floorPlan)
+    {
+        $this->floor_plan = $floorPlan;
+    
+        return $this;
+    }
+
+    /**
+     * Get floor_plan
+     *
+     * @return string 
+     */
+    public function getFloorPlan()
+    {
+        return $this->floor_plan;
+    }
 }

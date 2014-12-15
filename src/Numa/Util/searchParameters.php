@@ -53,6 +53,7 @@ class searchParameters {
             //marine
             'searchText' => new SearchItem('all', "", "text"),
             'boatType' => new SearchItem('type', 0, "list"),
+            'typeString' => new SearchItem('type', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatModel' => new SearchItem('model', "", "string"),
             'boatMake' => new SearchItem('make', 0, "list"),

@@ -224,22 +224,22 @@ class SearchController extends Controller {
                     'label' => "in", "required" => false
                 ))
                 //->add('category', 'choice', array('label' => "in", "required" => false))
-                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
                 ->add('distance', 'choice', array('label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
                 ->add('id', 'text', array('label' => "Ad ID", "required" => false))
-                ->add('postedFrom', 'text', array('label' => "Posted within", "required" => false))
-                ->add('postedTo', 'text', array('label' => "to", "required" => false))
+                ->add('postedFrom', 'text', array('label' => "Posted Within", "required" => false))
+                ->add('postedTo', 'text', array('label' => "To", "required" => false))
                 ->add('feedFrom', 'text', array('label' => "Feed Sid", "required" => false))
-                ->add('feedTo', 'text', array('label' => "to", "required" => false))
+                ->add('feedTo', 'text', array('label' => "To", "required" => false))
                 ->add('status', 'text', array('label' => "Status", "required" => false))
                 ->add('city', 'text', array('label' => "City", "required" => false))
                 ->add('stock', 'text', array('label' => "Stock Number", "required" => false))
                 ->add('optionList', 'text', array('label' => "Options List", "required" => false))
-                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
-                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('mileageFrom', 'text', array('label' => "milleage from", "required" => false))
-                ->add('mileageTo', 'text', array('label' => "to", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price To", "required" => false))
+                ->add('mileageFrom', 'text', array('label' => "Milleage From", "required" => false))
+                ->add('mileageTo', 'text', array('label' => "To", "required" => false))
                 ->add('VIN', 'text', array('label' => "VIN", "required" => false))
                 ->add('category', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:Category',
@@ -270,7 +270,7 @@ class SearchController extends Controller {
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
                 ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include Sold items", "required" => false))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -369,7 +369,7 @@ class SearchController extends Controller {
                 ))
                 ->add('model', 'hidden', array('label' => "Model", "required" => false))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
                 ->add('bodyStyle', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -378,16 +378,16 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Body Style',
                     'label' => "Body Style", "required" => false
                 ))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
+                ->add('yearTo', 'text', array('label' => "To", "required" => false))
                 ->add('text', 'text', array(
                     'label' => 'Search',
                     "required" => false
                 ))
-                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
-                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('mileageFrom', 'text', array('label' => "mileage from", "required" => false))
-                ->add('mileageTo', 'text', array('label' => "to", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price To", "required" => false))
+                ->add('mileageFrom', 'text', array('label' => "Mileage From", "required" => false))
+                ->add('mileageTo', 'text', array('label' => "To", "required" => false))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -401,7 +401,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('engine');
             },
-                    'empty_value' => 'Any engine',
+                    'empty_value' => 'Any Engine',
                     'label' => "Engine", "required" => false
                 ))
                 ->add('fuelType', 'entity', array(
@@ -413,8 +413,8 @@ class SearchController extends Controller {
                     'label' => "Fuel Types", "required" => false
                 ))
                 //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
+                ->add('yearTo', 'text', array('label' => "To", "required" => false))
                 ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -448,8 +448,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
                 ))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
-                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
+                ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
                 ->add('category_id', 'hidden', array('data' => 1))
                 ->getForm();
         $form->handleRequest($request);
@@ -498,16 +498,16 @@ class SearchController extends Controller {
                     'empty_value' => 'Any type',
                     'label' => "Type", "required" => false
                 ))
-                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('distance', 'choice', array('empty_value' => 'Any Distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
+                ->add('yearTo', 'text', array('label' => "To", "required" => false))
 //                ->add('text', 'text', array(
 //                    'label' => 'Search',
 //                    "required" => false
 //                ))
-                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
-                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price To", "required" => false))
 //                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
 //                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
                 ->add('keywords', 'text', array('label' => "Keyword", "required" => false))
@@ -528,7 +528,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Drive Type');
             },
-                    'empty_value' => 'Any drive type',
+                    'empty_value' => 'Any Drive Type',
                     'label' => "Drive Type", "required" => false
                 ))
                 ->add('enginetype', 'entity', array(
@@ -536,7 +536,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Engine Type');
             },
-                    'empty_value' => 'Any engine type',
+                    'empty_value' => 'Any Engine Type',
                     'label' => "Engine Type", "required" => false
                 ))
                 ->add('transmission', 'entity', array(
@@ -545,14 +545,14 @@ class SearchController extends Controller {
                 return $er->findAllBy('Transmission');
             },
                     'empty_value' => 'All Transmissions',
-                    'label' => "transmission", "required" => false
+                    'label' => "Transmission", "required" => false
                 ))
                 ->add('enginetype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Engine Type');
             },
-                    'empty_value' => 'Any engine',
+                    'empty_value' => 'Any Engine',
                     'label' => "Engine Type", "required" => false
                 ))
                 ->add('horsepower', 'text', array('label' => "Horsepower", "required" => false))
@@ -565,7 +565,7 @@ class SearchController extends Controller {
                     'label' => "Fuel Types", "required" => false
                 ))
                 ->add('fuelcapacity', 'text', array('label' => "Fuel Capacity", "required" => false))
-                ->add('ofhours', 'text', array('label' => "# of Hours", "required" => false))
+                ->add('ofhours', 'text', array('label' => "# Of Hours", "required" => false))
                 //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
 //                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
 //                ->add('yearTo', 'text', array('label' => "to", "required" => false))
@@ -603,7 +603,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
                 ))
-                ->add('passengers', 'text', array('label' => "# of Passengers", "required" => false))
+                ->add('passengers', 'text', array('label' => "# Of Passengers", "required" => false))
                 ->add('trailer', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -620,8 +620,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Battery',
                     'label' => "Battery", "required" => false
                 ))
-                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
+                ->add('isSold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -668,18 +668,18 @@ class SearchController extends Controller {
                     'empty_value' => 'Any type',
                     'label' => "Type", "required" => false
                 ))
-                ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
+                ->add('distance', 'choice', array('empty_value' => 'Any Distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
+                ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
+                ->add('yearTo', 'text', array('label' => "To", "required" => false))
 //                ->add('text', 'text', array(
 //                    'label' => 'Search',
 //                    "required" => false
 //                ))
-                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
-                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "Milleage from", "required" => false))
-                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price To", "required" => false))
+                ->add('milleageFrom', 'text', array('label' => "Milleage From", "required" => false))
+                ->add('milleageTo', 'text', array('label' => "To", "required" => false))
                 ->add('keywords', 'text', array('label' => "Keyword", "required" => false))
                 ->add('engine', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
@@ -707,7 +707,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Steering Type');
             },
-                    'empty_value' => 'Any steering type',
+                    'empty_value' => 'Any Steering Type',
                     'label' => "Steering Type", "required" => false
                 ))
                 ->add('ignition', 'text', array('label' => "Ignition", "required" => false))
@@ -716,7 +716,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Drive Type');
             },
-                    'empty_value' => 'Any drive type',
+                    'empty_value' => 'Any Drive Type',
                     'label' => "Drive Type", "required" => false
                 ))
                 ->add('gears', 'text', array('label' => "Gears", "required" => false))
@@ -803,7 +803,7 @@ class SearchController extends Controller {
                     'label' => "Model", "required" => false
                 ))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
-                ->add('zip', 'text', array('label' => "of Postal Code", "required" => false))
+                ->add('zip', 'text', array('label' => "of Zip / Postal", "required" => false))
                 ->add('type', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
@@ -812,12 +812,12 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Type',
                     'label' => "Type", "required" => false
                 ))
-                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-                ->add('yearTo', 'text', array('label' => "to", "required" => false))
-                ->add('priceFrom', 'text', array('label' => "Price from", "required" => false))
-                ->add('priceTo', 'text', array('label' => "Price to", "required" => false))
-                ->add('milleageFrom', 'text', array('label' => "milleage from", "required" => false))
-                ->add('milleageTo', 'text', array('label' => "to", "required" => false))
+                ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
+                ->add('yearTo', 'text', array('label' => "To", "required" => false))
+                ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
+                ->add('priceTo', 'text', array('label' => "Price To", "required" => false))
+                ->add('milleageFrom', 'text', array('label' => "Milleage From", "required" => false))
+                ->add('milleageTo', 'text', array('label' => "To", "required" => false))
                 ->add('keyword', 'hidden', array('label' => "Keyword", "required" => false))
                 ->add('chassistype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
@@ -832,7 +832,7 @@ class SearchController extends Controller {
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('engine');
             },
-                    'empty_value' => 'Any engine',
+                    'empty_value' => 'Any Engine',
                     'label' => "Engine", "required" => false
                 ))
                 ->add('fueltype', 'entity', array(
@@ -927,8 +927,8 @@ class SearchController extends Controller {
                 ->add('trailerhitch', 'checkbox', array('label' => "Trailer", "required" => false))
                 ->add('sparetire', 'checkbox', array('label' => "Spare Tire", "required" => false))
                 ->add('backupcamera', 'checkbox', array('label' => "Backup Camera", "required" => false))
-                ->add('issold', 'checkbox', array('label' => "Include sold items", "required" => false))
-                ->add('withpictures', 'checkbox', array('label' => "With pictures only", "required" => false))
+                ->add('issold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
+                ->add('withpictures', 'checkbox', array('label' => "With Pictures Only", "required" => false))
                 ->getForm();
         $form->handleRequest($request);
 

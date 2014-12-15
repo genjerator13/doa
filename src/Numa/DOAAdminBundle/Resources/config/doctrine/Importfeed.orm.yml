@@ -146,9 +146,15 @@ Numa\DOAAdminBundle\Entity\Importfeed:
         Dealer:
             targetEntity: Catalogrecords
             inversedBy: Importfeed
+            cascade: ["remove"]
+            onDelete: CASCADE
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
+                nullabe: true
+                
+                
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
+        

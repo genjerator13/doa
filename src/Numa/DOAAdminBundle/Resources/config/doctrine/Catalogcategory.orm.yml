@@ -16,3 +16,5 @@ Numa\DOAAdminBundle\Entity\Catalogcategory:
         CatalogRecords:
             targetEntity: Catalogrecords
             mappedBy: catalogcategories
+            onDelete: CASCADE
+            cascade: ["remove"]

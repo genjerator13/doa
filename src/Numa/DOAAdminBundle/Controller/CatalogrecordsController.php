@@ -210,7 +210,7 @@ class CatalogrecordsController extends Controller {
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
-
+            
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
             }
