@@ -9,29 +9,23 @@
             {% endif %}
                 <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
             {%endfor%}
-    </ul>
-
+    </ul>s
     <!-- Tab panes -->
     <div class="tab-content">
-        {% for key,tab in tabs %}
-            
+        {% for key,tab in tabs %}           
             <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
-
                 {% for key2,item in tab %}
-
                     <div class="col-md-4 imageouterbox">
                         <div class='imagebox'>
                             <a href="#" class="imageLink">
                                 {% set words = item.ListingFieldListValue|split(' ', 2) %}
                                     {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
-
                                         {% if file_existsx(imagefile) %}
                                             <img style="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
                                         {% else %}
                                             <img style="" alt="{{item.ListingFieldListValue|replace({'/': ''})}}" src="{{ asset('images/no_image_available_small.png') }}">
                                         {% endif %}
                                     </a>
-
                                 </div>
                                 {% if key=='Car' or  key|lower=='motorsport' or key|lower=='ag'  %}                                
                                     <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
@@ -57,8 +51,6 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="vehicle">
                                         {% form_theme vehicleForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
                                         {{ form_start(vehicleForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(vehicleForm) }}
                                         <div class="row">
@@ -78,30 +70,25 @@
                                             {{ form_row(vehicleForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(vehicleForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                         </div> 
-
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary">Find</button>
                                             <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced Search</a>
                                         </span>
-
                                         {{ form_end(vehicleForm) }}
-
                                     </div>
                                     <div class="tab-pane" id="marine">
                                         {% form_theme marineForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
                                         {{ form_start(marineForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(marineForm) }}
                                         <div class="row">
                                             {{ form_row(marineForm.boatType,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
-                                            {{ form_row(marineForm.boatModel,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>
-                                        <div class="row">
                                             {{ form_row(marineForm.boatMake,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
+                                        <div class="row">
+                                            {{ form_row(marineForm.boatModel,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>                                       
                                         <div class="row">
                                             {{ form_row(marineForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(marineForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
@@ -110,30 +97,25 @@
                                             {{ form_row(marineForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(marineForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                         </div> 
-
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                            <a href="#" class="btn btn-default">Advanced Search</a>
                                         </span>
-
                                         {{ form_end(marineForm) }}
                                     </div>
                                     <div class="tab-pane" id="motorsport">
                                         {% form_theme motorsportForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
                                         {{ form_start(motorsportForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(motorsportForm) }}
                                         <div class="row">
                                             {{ form_row(motorsportForm.Type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
-                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>
-                                        <div class="row">
                                             {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
-
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>                                       
                                         <div class="row">
                                             {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
@@ -142,21 +124,16 @@
                                             {{ form_row(motorsportForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(motorsportForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                         </div> 
-
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary">Find</button>
                                             <a href="#" class="btn btn-default">Advanced search</a>
                                         </span>
-
                                         {{ form_end(motorsportForm) }}                                    
                                     </div>
                                     <div class="tab-pane" id="rvs">
                                         {% form_theme rvsForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
                                         {{ form_start(rvsForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(rvsForm) }}
-
                                         <div class="row">
                                             {{ form_row(rvsForm.modelRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
@@ -164,7 +141,7 @@
                                             {{ form_row(rvsForm.makeRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
-                                            {{ form_row(rvsForm.florPane,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                            {{ form_row(rvsForm.floorPlan,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
                                             {{ form_row(rvsForm.class,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
@@ -177,18 +154,14 @@
                                             {{ form_row(rvsForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(rvsForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                         </div> 
-
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary">Find</button>                                            
                                             <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced Search</a>
                                         </span>
-
                                         {{ form_end(rvsForm) }}    
                                     </div>
                                     <div class="tab-pane" id="ag">
                                         {% form_theme agForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-
-
                                         {{ form_start(agForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(agForm) }}
                                         <div class="row">

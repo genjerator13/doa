@@ -71,9 +71,16 @@
                         $('.listingsNumber').change(function(){
                             lnr = parseInt(($(this).val()));
                             {%if queryUrl is defined %}
-                                window.location.href = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page="+lnr;
+                                url = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page="+lnr;
+                                url = url.replace(/&amp;/g, '&');
+                                //console.log(url);
+                                //console.log("{{queryUrl}}");
+                                window.location.href = url;
                             {% else %}
-                                window.location.href = "{{path('search_dispatch')}}?listings_per_page="+lnr;
+                                
+                                
+                                console.log({{path('search_dispatch')}}?listings_per_page="+lnr);
+                                //window.open(url.replace("&amp;","&"));
                             {% endif %}
                         })
                     </script>
@@ -216,14 +223,14 @@
                 num = parseInt({{listing_per_page}});
             {% endif %}
                 $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-                $('select#numberoflisting').change(
+                {#$('select#numberoflisting').change(
                         function() {
                             var ss = $("#searchSource").val();
                             ss = ss + $("#numberoflisting").val()
                             console.log(ss);
                             $(this).closest('form').submit();
 
-                        });
+                        });#}
         </script> 
 
         <script>

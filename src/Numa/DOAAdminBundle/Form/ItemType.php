@@ -51,7 +51,7 @@ class ItemType extends AbstractType
                 ))
             ->add('VIN')
             ->add('mileage')
-            ->add('florPane')
+            ->add('floorPlan')
             ->add('stockNr')
             ->add('status')
             ->add('agApplication')

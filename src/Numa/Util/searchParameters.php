@@ -188,7 +188,7 @@ class searchParameters {
                         $value = $searchItem->getValue();
 
                         if ($dbName == 'all') {
-                            $qb->andWhere('i.model LIKE :text or i.make LIKe :text or i.type LIKE :text or i.body_style LIKE :text or i.year LIKE :text or i.VIN LIKE :text or i.transmission LIKE :text or i.flor_pane LIKE :text or i.keywords LIKE :text ');
+                            $qb->andWhere('i.model LIKE :text or i.make LIKe :text or i.type LIKE :text or i.body_style LIKE :text or i.year LIKE :text or i.VIN LIKE :text or i.transmission LIKE :text or i.floor_plan LIKE :text or i.keywords LIKE :text ');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
 //                        } elseif ($type == 'category') {
 //                            $qb->andWhere('i.category_id=:cat');

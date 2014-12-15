@@ -107,7 +107,7 @@ class DefaultController extends Controller {
                     'label' => "Make", "required" => false
                 ))
                 ->add('category_id', 'hidden', array('data' => 4,'required'=>false))
-                ->add('florPane', 'text', array('label' => 'Flor Pane', "required" => false))
+                ->add('floorPlan', 'text', array('label' => 'Floor Plan', "required" => false))
                 ->add('class', 'entity', array(
                             'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                             'query_builder' => function(EntityRepository $er) {

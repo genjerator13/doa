@@ -100,7 +100,7 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
-        flor_pane:
+        floor_plan:
               type: string
               length: 255
               nullable: true
