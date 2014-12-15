@@ -33,14 +33,12 @@
                                     </a>
 
                                 </div>
-                                {% if key=='Car' || key|lower=='motorsport' || key|lower=='ag'  %}                                
+                                {% if key=='Car' or  key|lower=='motorsport' or key|lower=='ag'  %}                                
                                     <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                                 {%elseif key=='Marine' %}
                                     <a style="" href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                                 {%elseif key=='RVs'%}
                                     <a style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>                                
-                                {%elseif %}
-                                    <a style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                                 {% endif %}                                    
                                 </div>
                                 {%endfor%}
