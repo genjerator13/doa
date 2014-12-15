@@ -19,8 +19,8 @@ class EntityListener {
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-
         //before save Item
+        
         if ($entity instanceof Item) {
             $user = $this->container->get('security.context')->getToken()->getUser();
 //\Doctrine\Common\Util\Debug::dump($user);
@@ -37,6 +37,7 @@ class EntityListener {
                 }
             }
         } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+            
             $this->setPassword($entity);
         }
     }
@@ -46,9 +47,9 @@ class EntityListener {
         $encoder = $factory->getEncoder($entity);
         $plainPassword = $entity->getPassword();
         $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
-        echo $plainPassword . "::::" . $encodedPassword;
-        if(!empty($plainPassword) && $plainPassword!=$encodedPassword){
-            echo $plainPassword . "::::" . $encodedPassword;
+        
+        if(!empty($plainPassword)){
+            
             $entity->setPassword($encodedPassword);
         }
         
@@ -57,9 +58,10 @@ class EntityListener {
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+        
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);
-            //$args->setNewValue('password', $entity->getPassword());
+            $args->setNewValue('password', $entity->getPassword());
         }
         if ($entity instanceof Item) {
             //$entity->equalizeItemFields();
@@ -67,10 +69,10 @@ class EntityListener {
     }
     
     public function postUpdate(LifecycleEventArgs $args) {
-        $entity = $args->getEntity();
+        //$entity = $args->getEntity();
         
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-            $this->setPassword($entity);
+            //$this->setPassword($entity);
             
         }
     }

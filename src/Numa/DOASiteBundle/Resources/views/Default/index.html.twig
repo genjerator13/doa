@@ -33,13 +33,15 @@
                                     </a>
 
                                 </div>
-                                {% if key=='Car' %}                                
+                                {% if key=='Car' || key|lower=='motorsport' || key|lower=='ag'  %}                                
                                     <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                                 {%elseif key=='Marine' %}
                                     <a style="" href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
                                 {%elseif key=='RVs'%}
+                                    <a style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>                                
+                                {%elseif %}
                                     <a style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
-                                {%endif%}
+                                {% endif %}                                    
                                 </div>
                                 {%endfor%}
                                 </div>
@@ -81,7 +83,7 @@
 
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                            <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced Search</a>
                                         </span>
 
                                         {{ form_end(vehicleForm) }}
@@ -179,8 +181,8 @@
                                         </div> 
 
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                            <button type="submit" class="btn btn-primary">Find</button>                                            
+                                            <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced Search</a>
                                         </span>
 
                                         {{ form_end(rvsForm) }}    

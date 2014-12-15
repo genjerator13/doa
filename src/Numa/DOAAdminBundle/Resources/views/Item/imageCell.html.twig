@@ -1,4 +1,4 @@
-{% if image is defined and image.image is defined %}
+{% if image is defined and image is not empty and image.image is defined %}
     {% if  "http://" not in image.image.stringvalue %}
         <a href="{{path('items_edit',{'id':id})}}"><img  src="{{image.image.stringvalue|imagine_filter('search_image')}}" alt="image" /></a>                              
     {% else %}
