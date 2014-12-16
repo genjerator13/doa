@@ -428,7 +428,7 @@ class ItemField {
      * @param \double $fieldDoubleValue
      * @return ItemField
      */
-    public function setFieldDoubleValue(\double $fieldDoubleValue)
+    public function setFieldDoubleValue($fieldDoubleValue)
     {
         $this->field_double_value = $fieldDoubleValue;
     
@@ -438,7 +438,7 @@ class ItemField {
     /**
      * Get field_double_value
      *
-     * @return \double 
+     * @return double 
      */
     public function getFieldDoubleValue()
     {
