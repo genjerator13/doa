@@ -417,7 +417,7 @@ class Listingfield
     /**
      * Remove ImportMapping
      *
-     * @param \Numa\DOAAdminBundle\Entity\Importmapping $importmapping
+     * @param \Numa\DOAAdminBundle\Entity\Importmapping $importMapping
      */
     public function removeImportMapping(\Numa\DOAAdminBundle\Entity\Importmapping $importMapping)
     {
