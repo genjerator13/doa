@@ -29,7 +29,7 @@ class ListingFieldListsRepository extends EntityRepository {
      * @param type $property
      * @return type
      */
-    public function findAllBy($property, $cat = 0, $result=false) {
+    public function findAllBy($property, $cat = 0, $result = false) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
@@ -38,6 +38,7 @@ class ListingFieldListsRepository extends EntityRepository {
                 ->where('lfl.listing_field_id=l.id')
                 ->andWhere('l.caption like :property')
                 //->andWhere('l.category_sid like :property')
+                ->orderBy('lfl.value', 'DESC')
                 ->setParameter('property', "%" . $property . "%");
         ;
         if ($cat > 0) {
@@ -45,7 +46,7 @@ class ListingFieldListsRepository extends EntityRepository {
                     ->setParameter('csid', $cat);
         }
         $res = array();
-        if($result){
+        if ($result) {
             $result = $qb->getQuery()->getResult();
             foreach ($result as $key => $value) {
                 $res[$value->getValue()] = $value->getValue();
@@ -74,19 +75,17 @@ class ListingFieldListsRepository extends EntityRepository {
         $query = $qb->select('tp')
                 ->from('NumaDOAAdminBundle:ListingFieldLists', 'tp')
                 ->where('tp.listing_field_id=:field_id')
-                ->setParameter('field_id', $fieldId)
+                ->setParameter('field_id', $fieldId)                
                 ->getQuery();
         ;
 
         $results = $query->getResult();
         $jsonArray = array();
-       
+
         foreach ($results as $res) {
-            
-//            foreach ($res->getChildren() as $children) {
-                $name = str_replace(array("'", ".", ",", "}", "{", "\""), "", $res->getValue());
-                $jsonArray[$res->getId()] = $name;
-//            }
+
+            $name = str_replace(array("'", ".", ",", "}", "{", "\""), "", $res->getValue());
+            $jsonArray[$res->getId()] = $name;
         }
         return json_encode($jsonArray);
     }

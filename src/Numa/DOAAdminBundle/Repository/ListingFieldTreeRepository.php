@@ -19,8 +19,10 @@ class ListingFieldTreeRepository extends EntityRepository {
                 ->from('NumaDOAAdminBundle:ListingFieldTree', 'tp')
                 ->where('tp.listing_field_id=:field_id')
                 ->setParameter('field_id', $fieldId)
+                ->orderBy('tp.name','DESC')
                 ->getQuery();
         ;
+        
 
         $results = $query->getResult();
         $jsonArray = array();
@@ -43,6 +45,7 @@ class ListingFieldTreeRepository extends EntityRepository {
                 //->join('NumaDOAAdminBundle:Listingfield', 'l')
                 ->where('t.listing_field_id=:fieldid')
                 ->andWhere('t.parent is NULL')
+                ->orderBy('t.name', 'DESC')
                 //->andWhere('t.caption like :property')
                 ->setParameter('fieldid', $fieldId);
         ;
