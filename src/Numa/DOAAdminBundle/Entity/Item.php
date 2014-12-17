@@ -1018,12 +1018,13 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-
+            
             if (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
+            
             $picturesArray = explode($pictureSeparator, $imageString);
-
+            
             $order = 0;
 
             if (count($picturesArray) > 1) {

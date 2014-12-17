@@ -155,7 +155,7 @@ class ItemRepository extends EntityRepository {
 
         foreach ($mapping as $maprow) {
             $property = $maprow->getSid();
-
+            $processed = false;
             $listingFields = $maprow->getListingFields();
             //check if there are predefined listing field in database (listing_field_lists)
 
@@ -203,9 +203,12 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-
+                    //dump($feed);
                     $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
-                    //$processed = true;
+                    
+                    $processed = true;
+                }else{
+                     
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
