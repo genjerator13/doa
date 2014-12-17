@@ -69,6 +69,8 @@ class searchParameters {
             'mileageTo' => new SearchItem('Mileage', 0, 'rangeTo'),
             'fuelType' => new SearchItem('fuelType', 0, 'int'),
             'dealer_id' => new SearchItem('dealer_id', 0, 'int'),
+            //
+            'VIN' => new SearchItem('VIN', 0, 'string'),
         );
     }
 
