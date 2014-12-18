@@ -107,12 +107,12 @@ class DBUtilsCommand extends ContainerAwareCommand {
             
             //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count++;
-            echo "Item: ".$item->getId(). ":".count($item->getImages2())."\n";
+            echo $count.":::Item: ".$item->getId(). ":".count($item->getImages2())."\n";
             unset($item);
             if ($count % 500 == 0) {
                 $em->flush();
                 $em->clear();
-                
+                echo "flush and clear \n";
             }
 //             if ($count  >= 500) {
 //                 $time = time() - $time;
@@ -126,13 +126,14 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $em->clear();
         unset($items);
         unset($mapping);
+        echo "flush and clear end \n";
         $time = time() - $time;
 
         //update hometabs
         //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
         //$command->setContainer($this->container);
         //$resultCode = $command->makeHomeTabs(false);
-        echo $time . ":::" . count($createdItems);
+        echo "time: ".$time . "::Count Items :" . count($createdItems);
         //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
         //return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }
