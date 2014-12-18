@@ -322,7 +322,7 @@ class ImportmappingController extends Controller {
             unset($item);
             //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count++;
-            if ($count % 100 == 0) {
+            if ($count % 300 == 0) {
                 $em->flush();
                 $em->clear();
             }

@@ -594,7 +594,7 @@ class Item {
      * @return Item
      */
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
-        $this->ItemField->add($itemField);        
+        $this->ItemField->add($itemField);
         $itemField->setItem($this);
         //$this->equalizeItemField($itemField);
         return $this;
@@ -665,22 +665,22 @@ class Item {
             }
         }
     }
-    
-    public function getImages2(){
+
+    public function getImages2() {
         $if = $this->getItemField();
-$criteria = Criteria::create()
-    ->where(Criteria::expr()->eq("fieldName", "Image List"))
-    //->orderBy(array("username" => Criteria::ASC))
-    //->setFirstResult(0)
-    //->setMaxResults(20)
-;
+        $criteria = Criteria::create()
+                ->where(Criteria::expr()->eq("fieldName", "Image List"))
 
-return  $if->matching($criteria);
+        ;
 
+        return $if->matching($criteria);
+    }
 
-;
-
-$birthdayUsers = $userCollection->matching($criteria);
+    public function getImage2($num = 0) {
+        $images = $this->getImages2();
+        foreach ($images as $image) {
+            return $image;
+        }
     }
 
     public function getImage($num = 0) {
@@ -690,7 +690,7 @@ $birthdayUsers = $userCollection->matching($criteria);
             $val = array_values($images);
             unset($val[0]['object']);
             $ret = array('image' => $val[0]);
-            
+
             return $ret;
         }
         return false;
@@ -803,7 +803,7 @@ $birthdayUsers = $userCollection->matching($criteria);
      */
     public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
 
-        //if (!empty($importfeed)) {
+        if (!empty($importfeed)) {
             //die(get_class($importfeed));
             $this->Importfeed = $importfeed;
             $isFeatured = $importfeed->getMakeFeatured();
@@ -811,18 +811,18 @@ $birthdayUsers = $userCollection->matching($criteria);
             $isHighlighted = $importfeed->getMakeHighlighted();
             $isExpired = $importfeed->getExpirationAfter();
 
-                                                   
-            if($importfeed->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords){
-                            
+
+            if ($importfeed->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+
                 $this->setDealer($importfeed->getDealer());
             }
-            
-            if($importfeed->getCategory() instanceof \Numa\DOAAdminBundle\Entity\Category){
-                
+
+            if ($importfeed->getCategory() instanceof \Numa\DOAAdminBundle\Entity\Category) {
+
                 $this->setCategory($importfeed->getCategory());
             }
-        //}
- 
+        }
+
         if (!empty($isFeatured)) {
             $this->setFeatured(true);
         }
@@ -994,7 +994,7 @@ $birthdayUsers = $userCollection->matching($criteria);
     }
 
     public function proccessOptionsList($stringvalue, $separator) {
-        if(empty($separator)){
+        if (empty($separator)) {
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
@@ -1015,18 +1015,18 @@ $birthdayUsers = $userCollection->matching($criteria);
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
         $listingFields = $maprow->getListingFields();
-        
+
         $localy = $feed->getPicturesSaveLocaly();
-        
+
         if (is_array($imageString)) {
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($value);
-                
+
                 $itemField->setFeedId($feed->getId());
-                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+                if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                     $itemField->setListingfield($listingFields);
                 }
 
@@ -1036,13 +1036,13 @@ $birthdayUsers = $userCollection->matching($criteria);
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-            
+
             if (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
-            
+
             $picturesArray = explode($pictureSeparator, $imageString);
-            
+
             $order = 0;
 
             if (count($picturesArray) > 1) {
@@ -1054,8 +1054,8 @@ $birthdayUsers = $userCollection->matching($criteria);
 
                 $itemField->setAllValues($picture);
 //                //$itemField->setListingfield($listingFields);
-                if($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
-                    
+                if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
+
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
 
                     $itemField->setListingfield($test);
@@ -1466,7 +1466,7 @@ $birthdayUsers = $userCollection->matching($criteria);
     }
 
     public function equalizeItemField(ItemField $itemField) {
-        if (strtolower($itemField->getFieldName()) == 'year') {           
+        if (strtolower($itemField->getFieldName()) == 'year') {
             $this->setYear($itemField->getFieldIntegerValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mileage') {
             $this->setMileage($itemField->getFieldIntegerValue());
@@ -1474,7 +1474,7 @@ $birthdayUsers = $userCollection->matching($criteria);
             $this->setPrice($itemField->getFieldIntegerValue());
         } elseif (strtolower($itemField->getFieldName()) == 'model' || strtolower($itemField->getFieldName()) == 'boat model') {
             $this->setModel($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'make' || strtolower($itemField->getFieldName()) == 'boat make'|| strtolower($itemField->getFieldName()) == 'make model') {
+        } elseif (strtolower($itemField->getFieldName()) == 'make' || strtolower($itemField->getFieldName()) == 'boat make' || strtolower($itemField->getFieldName()) == 'make model') {
             $this->setMake($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'vin') {
             $this->setVin($itemField->getFieldStringValue());
@@ -1544,17 +1544,15 @@ $birthdayUsers = $userCollection->matching($criteria);
      */
     private $floor_plan;
 
-
     /**
      * Set floor_plan
      *
      * @param string $floorPlan
      * @return Item
      */
-    public function setFloorPlan($floorPlan)
-    {
+    public function setFloorPlan($floorPlan) {
         $this->floor_plan = $floorPlan;
-    
+
         return $this;
     }
 
@@ -1563,8 +1561,7 @@ $birthdayUsers = $userCollection->matching($criteria);
      *
      * @return string 
      */
-    public function getFloorPlan()
-    {
+    public function getFloorPlan() {
         return $this->floor_plan;
     }
 
@@ -1573,8 +1570,7 @@ $birthdayUsers = $userCollection->matching($criteria);
      *
      * @return string
      */
-    public function getModel()
-    {
+    public function getModel() {
         return $this->model;
     }
 
@@ -1583,8 +1579,8 @@ $birthdayUsers = $userCollection->matching($criteria);
      *
      * @return string
      */
-    public function getMake()
-    {
+    public function getMake() {
         return $this->make;
     }
+
 }
