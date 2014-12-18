@@ -12,7 +12,10 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        {% for key,tab in tabs %}           
+        {% for key,tab in tabs %}     
+             {% if key|lower=='car' %}   
+                {% set key = 'Vehicle' %}
+            {% endif %}
             <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
                 {% for key2,item in tab %}
                     <div class="col-md-4 imageouterbox">
