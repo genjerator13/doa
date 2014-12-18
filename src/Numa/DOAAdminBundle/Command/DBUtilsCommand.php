@@ -9,6 +9,12 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOAAdminBundle\Entity\HomeTab;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Numa\DOAAdminBundle\Entity\Importmapping;
+use Numa\DOAAdminBundle\Entity\Importmappings;
+use Numa\DOAAdminBundle\Form\ImportmappingType;
+use Numa\DOAAdminBundle\Form\ImportmappingRowType;
+use Numa\DOAAdminBundle\Lib\RemoteFeed;
 
 class DBUtilsCommand extends ContainerAwareCommand {
 
@@ -17,6 +23,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $this
                 ->setName('numa:dbutil')
                 ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
+                ->addArgument('feed_id', InputArgument::OPTIONAL, 'feed id')
                 ->setDescription('fix listing fields table')
         ;
     }
@@ -42,13 +49,91 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output) {
         $command = $input->getArgument('function');
+        $feed_id = $input->getArgument('feed_id');
         if ($command == 'makelistfromtemp') {
             $this->makeListingFromTemp();
         } elseif ($command == 'hometabs') {
             $this->makeHomeTabs();
-        } elseif($command == 'equalize'){
+        } elseif ($command == 'equalize') {
             $this->equalizeAllItems();
+        } elseif ($command == 'fetchFeed') {
+            
+            $this->fetchFeed($feed_id);
         }
+    }
+
+    public function fetchFeed2($feed_id) {
+
+        $Controller = new \Numa\DOAAdminBundle\Controller\ImportmappingController();
+        
+        $Controller->fetchAction(null,$feed_id);
+        print_r($feed_id);die("aaaaa");
+    }
+    public function fetchFeed( $id) {
+        //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+        $time = time();
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $em->clear();
+        $createdItems = array();
+        $feed_id = $id;
+        //$uniqueField = $feed->getUniqueField();
+        print_r($id."::::::");
+        $remoteFeed = new Remotefeed($id);
+        $items = $remoteFeed->getRemoteItems();
+        unset($remoteFeed);
+        //get import feed by id
+        //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
+        //get mapping by feed id
+        $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
+        //get mold items by feed id
+        //$itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
+        //remove old items
+        //$em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);        
+        //walk trough XML feed
+        $upload_url = $this->getContainer()->getParameter('upload_url');
+        $upload_path = $this->getContainer()->getParameter('upload_path');
+
+        //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+        $count = 0;
+
+        foreach ($items as $importItem) {
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
+
+            if (!empty($item)) {
+                $createdItems[] = $item;
+            }
+            unset($item);
+            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+            $count++;
+            echo "Item: ".$item->getId(). ":".count($item->getImages2())."\n";
+            if ($count % 500 == 0) {
+                $em->flush();
+                $em->clear();
+                
+            }
+//             if ($count  >= 500) {
+//                 $time = time() - $time;
+//                 echo $time."Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
+//                die();
+//             }
+        }
+
+        //unset($feed);
+        $em->flush();
+        $em->clear();
+        unset($items);
+        unset($mapping);
+        $time = time() - $time;
+
+        //update hometabs
+        //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+        //$command->setContainer($this->container);
+        //$resultCode = $command->makeHomeTabs(false);
+        echo $time . ":::" . count($createdItems);
+        //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
+        //return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }
 
     /**
@@ -150,7 +235,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                 //
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Ag Application', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
-                    
+
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
                         $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
@@ -174,17 +259,16 @@ class DBUtilsCommand extends ContainerAwareCommand {
             }
         }
     }
-    
-    function equalizeAllItems(){
+
+    function equalizeAllItems() {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-        foreach ($items as $item){
-            if($item instanceof \Numa\DOAAdminBundle\Entity\Item){
+        foreach ($items as $item) {
+            if ($item instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $item->equalizeItemFields();
             }
         }
         $em->flush();
-                
     }
 
 }

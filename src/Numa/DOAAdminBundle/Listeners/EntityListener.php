@@ -20,13 +20,15 @@ class EntityListener {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         //before save Item
-        
+
         if ($entity instanceof Item) {
-            $user = $this->container->get('security.context')->getToken()->getUser();
+            if ($this->container->get('security.context')->getToken()) {
+                $user = $this->container->get('security.context')->getToken()->getUser();
 //\Doctrine\Common\Util\Debug::dump($user);
-            if($user instanceof Numa\DOAAdminBundle\Entity\User){
-                //echo "Aaaaaassssss";
-                $entity->setUser($user);
+                if ($user instanceof Numa\DOAAdminBundle\Entity\User) {
+                    //echo "Aaaaaassssss";
+                    $entity->setUser($user);
+                }
             }
             //before save Item Field
         } elseif ($entity instanceof ItemField) {
@@ -37,7 +39,7 @@ class EntityListener {
                 }
             }
         } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-            
+
             $this->setPassword($entity);
         }
     }
@@ -47,18 +49,17 @@ class EntityListener {
         $encoder = $factory->getEncoder($entity);
         $plainPassword = $entity->getPassword();
         $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
-        
-        if(!empty($plainPassword)){
-            
+
+        if (!empty($plainPassword)) {
+
             $entity->setPassword($encodedPassword);
         }
-        
     }
-    
+
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-        
+
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);
             $args->setNewValue('password', $entity->getPassword());
@@ -67,13 +68,12 @@ class EntityListener {
             //$entity->equalizeItemFields();
         }
     }
-    
+
     public function postUpdate(LifecycleEventArgs $args) {
         //$entity = $args->getEntity();
-        
+
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             //$this->setPassword($entity);
-            
         }
     }
 
@@ -81,7 +81,6 @@ class EntityListener {
 
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
-
     }
 
 }
