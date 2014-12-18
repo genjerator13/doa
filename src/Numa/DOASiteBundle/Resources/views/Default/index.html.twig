@@ -118,11 +118,12 @@
                                             {{ form_row(motorsportForm.Type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
+                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>  
+                                        <div class="row">
                                             {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>                                       
+                                                                             
                                         <div class="row">
                                             {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                             {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
@@ -142,11 +143,12 @@
                                         {{ form_start(rvsForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(rvsForm) }}
                                         <div class="row">
-                                            {{ form_row(rvsForm.modelRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>
-                                        <div class="row">
                                             {{ form_row(rvsForm.makeRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
+                                        <div class="row">
+                                            {{ form_row(rvsForm.modelRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>
+                                        
                                         <div class="row">
                                             {{ form_row(rvsForm.floorPlan,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
@@ -175,10 +177,10 @@
                                             {{ form_row(agForm.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
-                                            {{ form_row(agForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                            {{ form_row(agForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
-                                            {{ form_row(agForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                            {{ form_row(agForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
                                             {{ form_row(agForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
