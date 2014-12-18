@@ -243,3 +243,7 @@ div.youtube-video {
     //border: 1px solid red;
     font-size: 90%
 }
+.hometab-text{
+    width: 100%;
+    text-align:center;
+}

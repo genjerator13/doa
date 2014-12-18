@@ -14,14 +14,25 @@
     <div class="tab-content">
         {% for key,tab in tabs %}     
              {% if key|lower=='car' %}   
-                {% set key = 'Vehicle' %}
-            {% endif %}
+                <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{"Vehicle"|replace(" ","_")}}">
+            {% else %}
             <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
+                {% endif %}
                 {% for key2,item in tab %}
                     <div class="col-md-4 imageouterbox">
                         <div class='imagebox'>
-                            <a href="#" class="imageLink">
+                            
                                 {% set words = item.ListingFieldListValue|split(' ', 2) %}
+                                      {% if key|lower=='vehicle' or key|lower=='car'  %}                                
+                                    <a  class="imageLink" style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                {%elseif key=='Marine' %}
+                                    <a  class="imageLink" style="" href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                {%elseif key=='RVs'%}
+                                    <a  class="imageLink" style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">        
+                                {%elseif  key|lower=='motorsport' or key|lower=='ag'%}
+                                    <a  class="imageLink" style="" href="{{ path('search_by_type',{'category': key|url_encode|lower,'typeString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                {% endif %}  
+                                <div class="hometab-text" >{{item.ListingFieldListValue}} ({{item.count}})</div>
                                     {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
                                         {% if file_existsx(imagefile) %}
                                             <img style="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
@@ -30,16 +41,6 @@
                                         {% endif %}
                                     </a>
                                 </div>
-                                        {% if key|lower=='vehicle' or key|lower=='car'  %}                                
-                                    <a style="" href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
-                                {%elseif key=='Marine' %}
-                                    <a style="" href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>
-                                {%elseif key=='RVs'%}
-                                    <a style="" href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>                                
-                                {%elseif  key|lower=='motorsport' or key|lower=='ag'%}
-                                    <a style="" href="{{ path('search_by_type',{'category': key|url_encode|lower,'typeString': item.ListingFieldListValue|url_encode|lower}) }}">{{item.ListingFieldListValue}} ({{item.count}})</a>                                
-                                {% endif %}                                    
-                                 
                                 </div>
                                 {%endfor%}
                                 </div>
