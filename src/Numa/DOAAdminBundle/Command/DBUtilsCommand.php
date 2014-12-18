@@ -104,10 +104,11 @@ class DBUtilsCommand extends ContainerAwareCommand {
             if (!empty($item)) {
                 $createdItems[] = $item;
             }
-            unset($item);
+            
             //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count++;
             echo "Item: ".$item->getId(). ":".count($item->getImages2())."\n";
+            unset($item);
             if ($count % 500 == 0) {
                 $em->flush();
                 $em->clear();
