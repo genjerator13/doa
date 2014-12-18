@@ -162,6 +162,15 @@ class Catalogrecords implements UserInterface {
     public function setUpdatedAtValue() {
         // Add your code here
     }
+    
+        
+    /**
+     * @ORM\PreRemove
+     */
+    public function doBeforeRemoved() {
+        die("sssss");
+    }
+
 
     /**
      * @var string
@@ -817,4 +826,8 @@ class Catalogrecords implements UserInterface {
     
         return $this;
     }
+    
+        
+
+
 }

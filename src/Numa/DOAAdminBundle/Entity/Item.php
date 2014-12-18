@@ -696,7 +696,7 @@ class Item {
         return 0;
     }
 
-    public function getModel() {
+    public function getModel2() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         //die();
@@ -717,7 +717,7 @@ class Item {
         return $model;
     }
 
-    public function getMake() {
+    public function getMake2() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
@@ -1044,10 +1044,11 @@ class Item {
                     ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
                 }
                 $itemField->setFeedId($feed->getId());
-                $itemField->setItem($this);
+                //$itemField->setItem($this);
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                //$em->persist($itemField);
                 $this->addItemField($itemField);
-                unset($itemField);
+                //unset($itemField);
                 $order++;
             }
             unset($picturesArray);
@@ -1547,5 +1548,25 @@ class Item {
     public function getFloorPlan()
     {
         return $this->floor_plan;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Get make
+     *
+     * @return string
+     */
+    public function getMake()
+    {
+        return $this->make;
     }
 }

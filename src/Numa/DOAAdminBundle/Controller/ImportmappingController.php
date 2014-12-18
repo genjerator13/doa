@@ -289,7 +289,7 @@ class ImportmappingController extends Controller {
         //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $time = time();
         $em = $this->getDoctrine()->getManager();
-        
+
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $em->clear();
         $createdItems = array();
@@ -325,7 +325,6 @@ class ImportmappingController extends Controller {
             if ($count % 100 == 0) {
                 $em->flush();
                 $em->clear();
-                
             }
 //             if ($count  >= 500) {
 //                 $time = time() - $time;
@@ -333,11 +332,12 @@ class ImportmappingController extends Controller {
 //                die();
 //             }
         }
-        unset($items);
-        unset($mapping);
+
         //unset($feed);
         $em->flush();
         $em->clear();
+        unset($items);
+        unset($mapping);
         $time = time() - $time;
 
         //update hometabs

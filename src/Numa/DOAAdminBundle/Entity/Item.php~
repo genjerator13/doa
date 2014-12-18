@@ -696,7 +696,7 @@ class Item {
         return 0;
     }
 
-    public function getModel() {
+    public function getModel2() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         //die();
@@ -717,7 +717,7 @@ class Item {
         return $model;
     }
 
-    public function getMake() {
+    public function getMake2() {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
@@ -1018,12 +1018,13 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-
+            
             if (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
+            
             $picturesArray = explode($pictureSeparator, $imageString);
-
+            
             $order = 0;
 
             if (count($picturesArray) > 1) {
