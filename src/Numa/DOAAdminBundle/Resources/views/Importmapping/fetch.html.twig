@@ -11,8 +11,10 @@
         {% for key,field in item.getItemFieldsArray() %}
             <div>{{key}}: {%if field['stringvalue'] is defined %}{{field['stringvalue']}}{% endif %}</div>
         {% endfor %}
-        {% for key,field in item.getImages() %}
-            <div>{{key}}: {%if field['stringvalue'] is defined %}{{field['stringvalue']}}{% endif %}</div>
+        
+        {% for key,field in item.getImages2() %}
+            {#{{dump(field)}}#}
+            <div>{{key}}: {{field.fieldStringValue}}</div>
         {% endfor %}
     {% endfor %}
 {% endblock %}

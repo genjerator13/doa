@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @GRID\Source(columns ="id,Category.name,make,model,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
@@ -663,6 +664,23 @@ class Item {
                 echo "<br>" . $key . ":::" . $value['stringvalue'];
             }
         }
+    }
+    
+    public function getImages2(){
+        $if = $this->getItemField();
+$criteria = Criteria::create()
+    ->where(Criteria::expr()->eq("fieldName", "Image List"))
+    //->orderBy(array("username" => Criteria::ASC))
+    //->setFirstResult(0)
+    //->setMaxResults(20)
+;
+
+return  $if->matching($criteria);
+
+
+;
+
+$birthdayUsers = $userCollection->matching($criteria);
     }
 
     public function getImage($num = 0) {
