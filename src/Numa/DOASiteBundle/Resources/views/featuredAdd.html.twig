@@ -10,15 +10,18 @@
 
                     
                 {% set image = item.getImages2()|first%}
-                {% if image is defined and image is not empty  %}
-                    {% if  "http://" not in image.fieldStringValue %}
-                        <a href="{{path('items_edit',{'id':item.id})}}"><img  src="{{image.fieldStringValue|imagine_filter('search_image')}}" alt="image" /></a>                              
-                    {% else %}
-                        <a href="{{path('items_edit',{'id':item.id})}}"><img  src="{{image.fieldStringValue}}" alt="image" width="120px"/></a>                              
-                    {%endif %} 
-                {%else %}
-                    <a href="{{path('items_edit',{'id':item.id})}}"><img  src="{{ asset('images/no_image_available_small.png') }}" alt="image" width="120px"/></a>                              
-                {% endif %}    
+                {% if images is empty  %}
+                    <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
+                {% else %} 
+                    {% set image = item.getImages()|first["stringvalue"]%}
+                        {% if ('http' not in image) %}
+                            <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                        {% else %}
+                            <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
+                        {%endif%}
+                    </a>
+
+                    {% endif %}
                     
                     {{price(item.getItemFieldByName('price'))|raw}}
                 </a>
