@@ -24,9 +24,52 @@ class ItemRepository extends EntityRepository {
         if (empty($max)) {
             $max = 5;
         }
-        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
-        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
-        $res = $query->getResult(); //getOneOrNullResult();
+//        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
+//        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
+//        $res = $query->getResult(); //getOneOrNullResult();
+//        //
+
+                
+        
+        $sql = " SELECT count(*) as count FROM item WHERE featured=1 AND active=1";
+        $res2 = array();
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        $res2 = $stmt->fetchAll();
+        
+        $count = intval($res2[0]['count']);
+        $maxOffset = $count - $max<=0?$count:$max;
+        
+        $sql = " SELECT model, make, id,year,price FROM item WHERE featured=1 AND active=1";
+        
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        $res2 = $stmt->fetchAll();
+        $rand_keys = array_rand($res2, $maxOffset);
+        $randResult = array();
+        foreach($rand_keys as $key){
+            $randResult[] = $res2[$key]['id'];
+        }
+        
+        $qb=$this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+           ->from('NumaDOAAdminBundle:Item', 'i')
+           //->andWhere('i.featured=1')
+           //->andWhere('i.active=1');
+           ->andWhere('i.id IN (:ids)')
+              ->setParameter('ids', $randResult);
+        
+//        $qb->getQ = $query; //->getResult();
+//        $query_builder->select("item i")
+//              ->andWhere('r.winner IN (:ids)')
+//              ->setParameter('ids', $ids);
+//        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
+//        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
+//        $res = $query->getResult(); //getOneOrNullResult();
+        $res = $qb->getQuery()->getResult(); //->getResult();
+//        dump($qb->getQuery());
+//        dump($res);
+//        die();
         return $res;
     }
 
@@ -37,6 +80,7 @@ class ItemRepository extends EntityRepository {
      */
     public function findSavedAds($user_id) {
         $user_id = intval($user_id);
+        
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
