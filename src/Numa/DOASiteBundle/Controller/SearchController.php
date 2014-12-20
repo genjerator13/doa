@@ -362,11 +362,11 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'car')))
+                ->setAction($this->get('router')->generate('search_dispatch'))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('make');
+                return $er->findAllBy(614);
             },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
@@ -484,8 +484,8 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'marine')))
-                ->add('make', 'entity', array(
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->add('boatMake', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
                 return $er->findAllBy('Boat Make');
@@ -570,19 +570,7 @@ class SearchController extends Controller {
                 ))
                 ->add('fuelcapacity', 'text', array('label' => "Fuel Capacity", "required" => false))
                 ->add('ofhours', 'text', array('label' => "# Of Hours", "required" => false))
-                //->add('fueltype', 'choice', array('label' => "Fuel Type", "required" => false))
-//                ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
-//                ->add('yearTo', 'text', array('label' => "to", "required" => false))
-//                ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
-//                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
-//                ->add('engine', 'entity', array(
-//                    'class' => 'NumaDOAAdminBundle:ListingFieldLists',
-//                    'query_builder' => function(EntityRepository $er) {
-//                return $er->findAllBy('Engine');
-//            },
-//                    'empty_value' => 'Any Engine',
-//                    'label' => "Engine", "required" => false
-//                ))
+
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -626,6 +614,7 @@ class SearchController extends Controller {
                 ))
                 ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
                 ->add('isSold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
+                ->add('category_id', 'hidden', array('data' => 2))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -654,7 +643,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'motorsport')))
+                ->setAction($this->get('router')->generate('search_dispatch'))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -753,6 +742,7 @@ class SearchController extends Controller {
                 ))
                 ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
                 ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -781,12 +771,13 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'rvs')))
-                ->add('make', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('make');
-            },
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                
+                ->add('makeRvs', 'entity', array(                    
+                            'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                            'query_builder' => function(EntityRepository $er) {
+                        return $er->findAllBy(760, 4);
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
@@ -798,14 +789,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Class',
                     'label' => "Class", "required" => false
                 ))
-                ->add('model', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('model');
-            },
-                    'empty_value' => 'Any Model',
-                    'label' => "Model", "required" => false
-                ))
+                ->add('modelRvs', 'choice', array('label' => 'Model','required'=>false))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "of Zip / Postal", "required" => false))
                 ->add('type', 'entity', array(
@@ -933,6 +917,7 @@ class SearchController extends Controller {
                 ->add('backupcamera', 'checkbox', array('label' => "Backup Camera", "required" => false))
                 ->add('issold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
                 ->add('withpictures', 'checkbox', array('label' => "With Pictures Only", "required" => false))
+                ->add('category_id', 'hidden', array('data' => 4))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -1079,7 +1064,7 @@ class SearchController extends Controller {
                 ->add('electricalhookup', 'checkbox', array('label' => "Electrical Hookup", "required" => false))
                 ->add('stereo', 'checkbox', array('label' => "Stereo", "required" => false))
                 ->add('dvdplayer', 'checkbox', array('label' => "DVD Player", "required" => false))
-                ->add('cd', 'checkbox', array('label' => "CD", "required" => false))
+                ->add('cd', 'checkbox', array('label' => "CD", "required" => true,'value'=>true))
                 ->add('satellitedish', 'checkbox', array('label' => "Satellite Dish", "required" => false))
                 ->add('centralvac', 'checkbox', array('label' => "Central Vac", "required" => false))
                 ->add('insulatedplumbing', 'checkbox', array('label' => "Insulated Plumbing", "required" => false))

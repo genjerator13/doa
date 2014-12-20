@@ -57,6 +57,8 @@ class searchParameters {
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatModel' => new SearchItem('model', "", "string"),
             'boatMake' => new SearchItem('make', 0, "list"),
+            'modelRvs' => new SearchItem('model', "", "string"),
+            'makeRvs' => new SearchItem('make', 0, "tree"),
             'rvsTypeString' => new SearchItem('type', 0, "string"),
             //cars
             'bodyStyle' => new SearchItem('body_style', "", 'list'),
@@ -220,9 +222,12 @@ class searchParameters {
                         } elseif ($type == 'list') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('id' => $searchItem->getValue()));
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                           
                             $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
+                            
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
+                            //dump($lflValue);die();
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
                             $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
                         }

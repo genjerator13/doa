@@ -7,13 +7,13 @@
         {{ form_errors(form) }}
         <h3>Find Your RVs</h3>
         <div class="row">
-            {{ form_row(form.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.makeRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
             {{ form_row(form.classs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
         </div>
         <div class="row">
-            {{ form_row(form.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+            {{ form_row(form.modelRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
         </div> 
         <div class="row">
             {{ form_row(form.type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
@@ -163,6 +163,7 @@
             {{ form_row(form.withpictures,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
             {{ form_row(form.issold,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
         </div> 
+        {{ form_row(form.category_id)}}
         <br><br>
         <div class="form-group">
             <div class="col-sm-4"></div>
@@ -185,13 +186,13 @@
                         key = keyx;
                         value = test[keyx];
                     }
-                    $(model).append($("<option />").val(key).text(value))
+                    $(model).append($("<option />").val(value).text(value))
                 });
             });
         }
 
         $(document).ready(function() {
-            treeX('#make', '#model', treeData);
+            treeX('#makeRvs', '#modelRvs', treeData);
         });
     </script>
 {% endblock %}
