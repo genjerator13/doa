@@ -59,6 +59,7 @@ class ListingFieldTreeRepository extends EntityRepository {
 //            return $res;
 //        }
 //        ;
+        //dump($qb->getQuery());die();
         return $qb;
     }
 

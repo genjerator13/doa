@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
 /**
- * @GRID\Source(columns ="id,Category.name,make,model,User.username,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 

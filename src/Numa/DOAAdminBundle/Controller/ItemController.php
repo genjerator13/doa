@@ -139,7 +139,7 @@ class ItemController extends Controller {
                 function($value, $row, $router) use ($controller) {
             $em = $controller->getDoctrine()->getManager();
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
-            //\kint::dump($item->getImage());
+
 
             $image = $item->getImage();
 
