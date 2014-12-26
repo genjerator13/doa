@@ -11,7 +11,7 @@
     {% endstylesheets %}
 {% endblock %}
 {% set images = item.getImages()%}    
-    {% set desc = item.getMake()~item.getModel()%}
+    {% set desc = item.getMake()~" "~item.getModel()%}
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
@@ -100,6 +100,8 @@
                                                 {% if field.fieldName=="Price" %}
 
                                                     <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>   
+                                                {% elseif field.fieldName|lower=="make model" %}
+                                                    <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
                                                 {% else %}
                                                     <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
                                                 {% endif %}
