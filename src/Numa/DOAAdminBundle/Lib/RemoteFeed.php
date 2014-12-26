@@ -72,6 +72,7 @@ class RemoteFeed extends ContainerAware {
                         mkdir($upload_path . $this->entity->getID());
                     }
                     $filename = $this->entity->getAbsolutePath();
+                    
                     if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
                         $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
 

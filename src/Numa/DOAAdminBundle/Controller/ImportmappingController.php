@@ -229,6 +229,7 @@ class ImportmappingController extends Controller {
         //get listing field by universal category 0
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $feed->getListingType())), array('caption' => 'ASC'));
         $listingfields = array();
+        
         foreach ($fields as $field) {
             $listingfields['listing'][$field->getId()] = $field->getCaption();
         }
@@ -244,7 +245,7 @@ class ImportmappingController extends Controller {
         } else {
             $remoteFeed = new RemoteFeed($id);
             $props = $remoteFeed->getRemoteProperties();
-
+            
             foreach ($props as $prop) {
                 $im = new Importmapping();
                 $im->setDescription($prop);
@@ -262,7 +263,7 @@ class ImportmappingController extends Controller {
         }
 
         $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
-
+        
         $collection->add('feed_sid', 'hidden', array('data' => $id));
         $collection->handleRequest($request);
 
@@ -278,7 +279,7 @@ class ImportmappingController extends Controller {
                 return $this->redirect($this->generateUrl('importfeed'));
             }
         }
-
+        
         return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
                     'form' => $collection->createView(),
                     'feed' => $feed,

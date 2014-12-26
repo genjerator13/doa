@@ -18,7 +18,7 @@
                                 <td>{{ value|date("m/d/Y") }}</td>
                             {% elseif (field.name=='id') %}
                                 <td>
-                                    <a href="{{path('item_details', {'itemId': item.id, 'description': item.getMake()~item.getModel()}) }}">
+                                    <a href="{{path('item_details', {'itemId': item.id, 'description': item.getMake()~" "~item.getModel()}) }}">
                                         View details
                                     </a>
                                 </td>
