@@ -210,20 +210,29 @@ select#numberoflisting {
 }
 
 a.imageLink {
+    position: relative;
     display: block;
-    position: absolute;
-    bottom:0;
-    left: 0;
-    min-height: 50px;
+    text-align: center;
+    left: -50%; 
+    /*border: dotted red 1px;*/
+    
+    
 }
 
 div.imagebox {
-    position: relative;
-    height: 100px;    
+    position: absolute;
+    bottom: 0;  
+    left: 50%;
+    text-align: center;
+    width: 100%;
 }
 
 div.imageouterbox {
+    
     margin-bottom: 20px;
+    text-align: center;
+    min-height: 120px;
+    
 }
 
 

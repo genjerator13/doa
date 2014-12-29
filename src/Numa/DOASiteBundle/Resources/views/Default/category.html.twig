@@ -1,25 +1,33 @@
 
 {% block content %}
 
-{#<h2>{{category.name}}</h2>#}
-<div class="list-group id="myTab">
-    {% for key,item in catalogs %}
-        <a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="list-group-item">{{item.name}}</a>
-                  <div>{{item.description| raw}}
-                  <dl class="captions businessCatalogCaptions">
-<dt>E-mail:</dt>
-<dd>{{item.email}}</dd>
-<dt>Website:</dt>
-<dd>{{item.url}}</dd>
-<dt>Phone:</dt>
-<dd>{{item.phone}}</dd>
-<dt>Fax:</dt>
-<dd>{{item.fax}}</dd>
-</dl>
-                  </div>
-
-                {%endfor%}
-        </div>
+    {#<h2>{{category.name}}</h2>#}
+    <div class="list-group id="myTab">
+         {% for key,item in catalogs %}
+             <a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="list-group-item">{{item.name}}</a>
+             <div>{{item.description| raw}}
+                 <dl class="captions businessCatalogCaptions">
+                     <dt>Address:</dt>
+                     <dd>{{item.address}}</dd>
+                     <dt>City:</dt>
+                     <dd>{{item.city}} {{item.zip}}</dd>
+                     <dt>Province / State:</dt>
+                     <dd>{{item.state}}</dd>
+                     <dt>E-mail:</dt>
+                     <dd>{{item.email}}</dd>
+                     <dt>Website:</dt>
+                     <dd>{{item.url}}</dd>
+                     <dt>Phone:</dt>
+                     <dd>{{item.phone}}</dd>
+                     <dt>Fax:</dt>
+                     <dd>{{item.fax}}</dd>
+                 </dl>
+                 <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': item.id,'dealername': item.name}) }}">See All Listings By This Dealer</a></p>
+                                
+             </div>
+                           
+         {%endfor%}
+    </div>
 
 {% endblock %}
 

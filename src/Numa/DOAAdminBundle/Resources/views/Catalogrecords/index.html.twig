@@ -2,21 +2,21 @@
 
 {% block content %}
     <h1>Business Catalog</h1>
-    
+
     {{ form_start(uploadForm) }}
     {{ form_errors(uploadForm) }}
     <div class="file-upload">
         {{ form_row(uploadForm.upload) }}
     </div>
 
-{{ form_end(uploadForm) }}
-{% for label, flashes in app.session.flashbag.all %}
-    {% for flash in flashes %}
-        <div class="alert alert-{{ label }}">
-            {{ flash }}
-        </div>
+    {{ form_end(uploadForm) }}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <div class="alert alert-{{ label }}">
+                {{ flash }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
     <table class="records_list table">
         <thead>
             <tr>
@@ -42,7 +42,9 @@
                             <li>
                                 <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
                             </li>
-                            
+                            <li>
+                                <a href="{{ path('catalogs_delete', { 'id': entity.id }) }}" class="btn btn-danger"  data-confirm="All the listings <strong>{{entity.name}}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -57,4 +59,20 @@
             </a>
         </li>
     </ul>
+    <script>
+        $(document).ready(function() {
+            $('a[data-confirm]').click(function(ev) {
+                var href = $(this).attr('href');
+                if (!$('#dataConfirmModal').length) {
+                    $('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
+                      //$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');
+                    
+                }
+                $('#dataConfirmModal').find('.modal-body').append($(this).attr('data-confirm'));
+                $('#dataConfirmOK').attr('href', href);
+                $('#dataConfirmModal').modal({show: true});
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

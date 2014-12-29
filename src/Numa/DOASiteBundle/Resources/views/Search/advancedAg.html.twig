@@ -8,15 +8,10 @@
         <h3>Find Your Ag</h3>
         <div class="row">
             {{ form_row(form.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-        </div>
-        <div class="row">
-            {{ form_row(form.classs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
-        </div>
-        <div class="row">
             {{ form_row(form.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
-        </div> 
+        </div>
         <div class="row">
-            {{ form_row(form.type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
             {{ form_row(form.distance,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6 choice','class':'input-group  input-group-sm' }) }}       
@@ -31,17 +26,17 @@
             {{ form_row(form.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>        
         <div class="row">
-            {{ form_row(form.milleageFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.milleageTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-        </div>
-        <div class="row">
             {{ form_row(form.keyword,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            
         </div>
         <div class="row">
-            {{ form_row(form.chassistype,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.engine,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
-            {{ form_row(form.engine,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+            {{ form_row(form.horsepower,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.hours,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
             {{ form_row(form.fueltype,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
@@ -50,115 +45,26 @@
             {{ form_row(form.transmission,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>  
         <div class="row">
-            {{ form_row(form.drivetype,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.stering,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
-            {{ form_row(form.sleeps,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.speedForward,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
-            {{ form_row(form.slideouts,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.speedReverse,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>  
         <div class="row">
-            {{ form_row(form.length,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.tireSize,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
-            {{ form_row(form.weight,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.tireEquipment,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
         <div class="row">
-            {{ form_row(form.exteriorcolor,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.cuttingWidthFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
-        {#<div class="row">
-            {{ form_row(form.interiorcolor,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-        </div>#}
         <div class="row">
-            {{ form_row(form.flooring,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-        </div>  
-        <br><br>
-        <h4>RV Features :</h4>
-        <div class="row">
-            {{ form_row(form.addonscreenroom) }}
-            {{ form_row(form.cablehookup,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.ceilingfansvents,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.dcconverter,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.electricaljacks,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.stabilizerjacks,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.airconditionerroof,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.furnace,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.airconditionercentral,{ 'attr': {'class': ''},'groupclass':'col-sm-5','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.dieselgenerator,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.gasgenerator,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.propanetank,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.propanegenerator,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.electricalhookup,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.stereo,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.dvdplayer,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.cd,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.satellitedish,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.centralvac,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.insulatedplumbing,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.portableskylight,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.shower,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.exteriorshower,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.tub,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.toilet,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.waterheater,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.dsiwaterheater,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.frontoverheadbunk,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.doublebed,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.bunkbeds,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.jackjillbunks,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.queenbed,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.rearbed,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.twinbed,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.sofabeddaveno,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.lpgco2detectors,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.tvantenna,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.tv,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.vcr,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.stove,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.oven,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.rangehood,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.microwave,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.convectionoven,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.roofrack,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.awning,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.ladder,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.trailerhitch,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
-        <div class="row">
-            {{ form_row(form.sparetire,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-            {{ form_row(form.backupcamera,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
-        </div> 
+            {{ form_row(form.cuttingWidthTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>          
         <div class="row">
             {{ form_row(form.withpictures,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
             {{ form_row(form.issold,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}

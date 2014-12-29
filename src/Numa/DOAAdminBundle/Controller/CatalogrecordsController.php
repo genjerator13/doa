@@ -207,17 +207,27 @@ class CatalogrecordsController extends Controller {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
+            
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
             
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
             }
-            
+            //remove the dealer and all the listings he created
+            $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Dealer'=>$entity));
+            foreach ($listings as $key => $listing) {
+                $em->remove($listing);
+            }
+            //remove the dealer and all the import feed he created
+            $feeds = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findBy(array('Dealer'=>$entity));
+            foreach ($listings as $key => $listing) {
+                $feeds->setDealer(null);
+            }
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('catalogs'));
     }

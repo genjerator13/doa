@@ -276,10 +276,12 @@
                                     <img alt="logo" src="{{asset(dealer.getLogoImage())}}" />
                                 {% endif %}
                                 <p><strong>{{dealer.name}}<strong/></p>
+                                <p>{{dealer.state}}</p>
+                                <p>{{dealer.city}} {{dealer.zip}}</p>
                                 <p>{{dealer.address}}</p>
                                 <p>{{dealer.phone}}</p>
                                 <p>{{dealer.location}}</p>
-                                <p><a href="{{dealer.url}}">{{dealer.url}}</a></p>
+                                <p><a href="{{dealer.url}}">Visit Our Website</a></p>
                                 <p>Send <a href="mailto:{{dealer.email}}" >email</a>
                                 <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                                 <p>
