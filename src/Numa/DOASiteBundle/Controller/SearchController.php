@@ -948,7 +948,7 @@ class SearchController extends Controller {
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
-                ->setAction($this->get('router')->generate('search_advanced_category', array('category' => 'Ag')))
+                ->setAction($this->get('router')->generate('search_dispatch', array('category' => 'Ag')))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {

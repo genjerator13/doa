@@ -222,8 +222,10 @@ class CatalogrecordsController extends Controller {
             }
             //remove the dealer and all the import feed he created
             $feeds = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findBy(array('Dealer'=>$entity));
-            foreach ($listings as $key => $listing) {
-                $feeds->setDealer(null);
+            foreach ($feeds as $key => $feed) {
+                
+                $feed->setDealer(null);
+
             }
             $em->remove($entity);
             $em->flush();
