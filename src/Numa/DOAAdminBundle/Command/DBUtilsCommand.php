@@ -109,7 +109,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $count++;
             echo $count.":::Item: ".$item->getId(). ":".count($item->getImages2()).":VIN:".$item->getVin()."\n";
             unset($item);
-            if ($count % 300 == 0) {
+            if ($count % 250 == 0) {
                 $em->flush();
                 $em->clear();
                 echo "flush and clear \n";
