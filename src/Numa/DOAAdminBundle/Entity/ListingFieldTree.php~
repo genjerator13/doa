@@ -241,4 +241,28 @@ class ListingFieldTree
     public function __toString() {
         return $this->getName();
     }
+
+    /**
+     * Add child
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $child
+     *
+     * @return ListingFieldTree
+     */
+    public function addChild(\Numa\DOAAdminBundle\Entity\ListingFieldTree $child)
+    {
+        $this->children[] = $child;
+
+        return $this;
+    }
+
+    /**
+     * Remove child
+     *
+     * @param \Numa\DOAAdminBundle\Entity\ListingFieldTree $child
+     */
+    public function removeChild(\Numa\DOAAdminBundle\Entity\ListingFieldTree $child)
+    {
+        $this->children->removeElement($child);
+    }
 }

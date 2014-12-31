@@ -117,7 +117,7 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function getRemoteItems() {
-        $rowCount = 0;
+        
         if (self::URL == $this->entity->getImportMethod()) {
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
@@ -128,43 +128,45 @@ class RemoteFeed extends ContainerAware {
                     $this->items = $this->items['inventor'];
                 }
                 return $this->xml2array($this->items);
-            }
-        } elseif (self::CSV == $this->entity->getImportFormat()) {
-            $filename = $this->entity->getAbsolutePath();
-            if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-
-                $handleSource = $this->entity->getImportSource();
-                $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
-                if (!file_exists($upload_path . $this->entity->getID())) {
-                    mkdir($upload_path . $this->entity->getID());
-                    echo $upload_path . $this->entity->getID();
-                }
-
-                $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
-                $ftp = self::getFtpConnection($handleSource);
-
-                ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
-                $filename = $local_file;
-            }
-            if (($handle = fopen($filename, "r")) !== FALSE) {
-                $delimeter = $this->entity->getDelimiterx();
-                if (empty($delimeter)) {
-                    $delimeter = ',';
-                }
+            } elseif (self::CSV == $this->entity->getImportFormat()) {
                 
-                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
-                    //var_dump($row); // process the row.
-                    if ($rowCount > 0) {
-                        foreach ($header as $key => $value) {
-                            $tmp[$value] = $row[$key];
-                        }
-                        $this->items[] = $tmp;
-                    } else {
-                        $header = $row;
+                $filename = $this->entity->getAbsolutePath();
+                $rowCount = 0;
+                if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
+
+                    $handleSource = $this->entity->getImportSource();
+                    $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+                    if (!file_exists($upload_path . $this->entity->getID())) {
+                        mkdir($upload_path . $this->entity->getID());
+                        echo $upload_path . $this->entity->getID();
                     }
-                    
-                    $rowCount++;
-                    
+
+                    $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                    $ftp = self::getFtpConnection($handleSource);
+
+                    ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                    $filename = $local_file;
+                }
+                if (($handle = fopen($filename, "r")) !== FALSE) {
+                    $delimeter = $this->entity->getDelimiterx();
+                    if (empty($delimeter)) {
+                        $delimeter = ',';
+                    }
+
+                    while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
+                        //var_dump($row); // process the row.
+                        if ($rowCount > 0) {
+                            foreach ($header as $key => $value) {
+                                $tmp[$value] = $row[$key];
+                            }
+                            $this->items[] = $tmp;
+                        } else {
+                            $header = $row;
+                        }
+
+                        $rowCount++;
+
+                    }
                 }
             }
 
