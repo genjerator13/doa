@@ -117,7 +117,7 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function getRemoteItems() {
-        
+        print_r($this->entity->getImportMethod());
         if (self::URL == $this->entity->getImportMethod()) {
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
@@ -128,49 +128,51 @@ class RemoteFeed extends ContainerAware {
                     $this->items = $this->items['inventor'];
                 }
                 return $this->xml2array($this->items);
-            } elseif (self::CSV == $this->entity->getImportFormat()) {
-                
-                $filename = $this->entity->getAbsolutePath();
-                $rowCount = 0;
-                if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
+            } 
+        }
+        if (self::CSV == $this->entity->getImportFormat()) {
 
-                    $handleSource = $this->entity->getImportSource();
-                    $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
-                    if (!file_exists($upload_path . $this->entity->getID())) {
-                        mkdir($upload_path . $this->entity->getID());
-                        echo $upload_path . $this->entity->getID();
-                    }
+            $filename = $this->entity->getAbsolutePath();
+            $rowCount = 0;
+            if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
 
-                    $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
-                    $ftp = self::getFtpConnection($handleSource);
-
-                    ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
-                    $filename = $local_file;
+                $handleSource = $this->entity->getImportSource();
+                $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+                if (!file_exists($upload_path . $this->entity->getID())) {
+                    mkdir($upload_path . $this->entity->getID());
+                    echo $upload_path . $this->entity->getID();
                 }
-                if (($handle = fopen($filename, "r")) !== FALSE) {
-                    $delimeter = $this->entity->getDelimiterx();
-                    if (empty($delimeter)) {
-                        $delimeter = ',';
-                    }
 
-                    while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
-                        //var_dump($row); // process the row.
-                        if ($rowCount > 0) {
-                            foreach ($header as $key => $value) {
-                                $tmp[$value] = $row[$key];
-                            }
-                            $this->items[] = $tmp;
-                        } else {
-                            $header = $row;
+                $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                $ftp = self::getFtpConnection($handleSource);
+
+                ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                $filename = $local_file;
+            }
+            if (($handle = fopen($filename, "r")) !== FALSE) {
+                $delimeter = $this->entity->getDelimiterx();
+                if (empty($delimeter)) {
+                    $delimeter = ',';
+                }
+
+                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
+                    //var_dump($row); // process the row.
+                    if ($rowCount > 0) {
+                        foreach ($header as $key => $value) {
+                            $tmp[$value] = $row[$key];
                         }
-
-                        $rowCount++;
-
+                        $this->items[] = $tmp;
+                    } else {
+                        $header = $row;
                     }
+
+                    $rowCount++;
+
                 }
             }
-
         }
+
+        
         //\Doctrine\Common\Util\Debug::dump($this->items);
         return $this->items;
     }
