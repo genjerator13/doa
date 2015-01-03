@@ -57,7 +57,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
         } elseif ($command == 'equalize') {
             $this->equalizeAllItems();
         } elseif ($command == 'fetchFeed') {
-            
+
             $this->fetchFeed($feed_id);
         }
     }
@@ -65,11 +65,13 @@ class DBUtilsCommand extends ContainerAwareCommand {
     public function fetchFeed2($feed_id) {
 
         $Controller = new \Numa\DOAAdminBundle\Controller\ImportmappingController();
-        
-        $Controller->fetchAction(null,$feed_id);
-        print_r($feed_id);die("aaaaa");
+
+        $Controller->fetchAction(null, $feed_id);
+        //print_r($feed_id);
+        //die("aaaaa");
     }
-    public function fetchFeed( $id) {
+
+    public function fetchFeed($id) {
         //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $time = time();
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -79,7 +81,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $createdItems = array();
         $feed_id = $id;
         //$uniqueField = $feed->getUniqueField();
-        print_r($id."::::::");
         $remoteFeed = new Remotefeed($id);
         $items = $remoteFeed->getRemoteItems();
         unset($remoteFeed);
@@ -100,15 +101,16 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
         foreach ($items as $importItem) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
-
+            //echo "$importItem:::$mapping:::$feed_id:::\n";
             if (!empty($item)) {
                 $createdItems[] = $item;
+                //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+                
+                echo $count . ":::Item: " . $item->getId() . ":" . count($item->getImages2()) . ":VIN:" . $item->getVin() . "\n";
+                unset($item);
             }
-            
-            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+
             $count++;
-            echo $count.":::Item: ".$item->getId(). ":".count($item->getImages2()).":VIN:".$item->getVin()."\n";
-            unset($item);
             if ($count % 250 == 0) {
                 $em->flush();
                 $em->clear();
@@ -133,7 +135,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
         //$command->setContainer($this->container);
         //$resultCode = $command->makeHomeTabs(false);
-        echo "time: ".$time . "::Count Items :" . count($createdItems);
+        echo "time: " . $time . "::Count Items :" . count($createdItems);
         //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
         //return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
     }

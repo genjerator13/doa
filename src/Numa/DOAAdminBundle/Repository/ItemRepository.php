@@ -141,8 +141,8 @@ class ItemRepository extends EntityRepository {
                         ->createQuery($q)->setMaxResults(1);
 
         //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //print_r($value);
-        //print_r($uniqueField);
+        //print_r($value);echo "::::";
+        //print_r($uniqueField);echo "\n";
         //
         return $itemsQuery->getOneOrNullResult();
     }
@@ -168,6 +168,7 @@ class ItemRepository extends EntityRepository {
             if(!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
             }
+            
         }
         unset($uniqueMapRow);
         unset($uniqueField);
@@ -291,11 +292,11 @@ class ItemRepository extends EntityRepository {
           $images = $item->getItemField()->matching($criteria);
          * 
          */
-
+        $item->equalizeItemFields();
         if ($persist) {
             $em->persist($item);
         }
-        $item->equalizeItemFields();
+        
         //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }
