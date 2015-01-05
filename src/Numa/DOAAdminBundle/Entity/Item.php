@@ -1484,6 +1484,14 @@ class Item {
             $this->setTransmission($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
             $this->setType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
+            $this->setEngine($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'exterior color') {
+            $this->setExteriorColor($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'interior color') {
+            $this->setInteriorColor($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
+            $this->setFuelType($itemField->getFieldStringValue());
         }
     }
 
@@ -1583,4 +1591,120 @@ class Item {
         return $this->make;
     }
 
+    /**
+     * @var string
+     */
+    private $engine;
+
+    /**
+     * @var string
+     */
+    private $fuel_type;
+
+    /**
+     * @var string
+     */
+    private $interior_color;
+
+    /**
+     * @var string
+     */
+    private $exterior_color;
+
+
+    /**
+     * Set engine
+     *
+     * @param string $engine
+     *
+     * @return Item
+     */
+    public function setEngine($engine)
+    {
+        $this->engine = $engine;
+
+        return $this;
+    }
+
+    /**
+     * Get engine
+     *
+     * @return string
+     */
+    public function getEngine()
+    {
+        return $this->engine;
+    }
+
+    /**
+     * Set fuelType
+     *
+     * @param string $fuelType
+     *
+     * @return Item
+     */
+    public function setFuelType($fuelType)
+    {
+        $this->fuel_type = $fuelType;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelType
+     *
+     * @return string
+     */
+    public function getFuelType()
+    {
+        return $this->fuel_type;
+    }
+
+    /**
+     * Set interiorColor
+     *
+     * @param string $interiorColor
+     *
+     * @return Item
+     */
+    public function setInteriorColor($interiorColor)
+    {
+        $this->interior_color = $interiorColor;
+
+        return $this;
+    }
+
+    /**
+     * Get interiorColor
+     *
+     * @return string
+     */
+    public function getInteriorColor()
+    {
+        return $this->interior_color;
+    }
+
+    /**
+     * Set exteriorColor
+     *
+     * @param string $exteriorColor
+     *
+     * @return Item
+     */
+    public function setExteriorColor($exteriorColor)
+    {
+        $this->exterior_color = $exteriorColor;
+
+        return $this;
+    }
+
+    /**
+     * Get exteriorColor
+     *
+     * @return string
+     */
+    public function getExteriorColor()
+    {
+        return $this->exterior_color;
+    }
 }

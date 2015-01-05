@@ -150,7 +150,22 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
-               
+        engine:
+              type: string
+              length: 255
+              nullable: true
+        fuel_type:
+              type: string
+              length: 255
+              nullable: true               
+        interior_color:
+              type: string
+              length: 255
+              nullable: true
+        exterior_color:
+              type: string
+              length: 255
+              nullable: true         
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

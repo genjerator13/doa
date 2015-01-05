@@ -190,7 +190,7 @@ class SearchController extends Controller {
 
 
         $page = empty($page) ? 1 : $page;
-        
+
         $this->initSearchParams($request);
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
@@ -224,7 +224,7 @@ class SearchController extends Controller {
                     'label' => "in", "required" => false
                 ))
                 //->add('category', 'choice', array('label' => "in", "required" => false))
-                ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
+                ->add('withPicture', 'choice', array('label' => "With Pictures Only", "required" => false))
                 ->add('distance', 'choice', array('label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
                 ->add('id', 'text', array('label' => "Ad ID", "required" => false))
@@ -270,7 +270,8 @@ class SearchController extends Controller {
                 ->add('yearFrom', 'text', array('label' => "Year from", "required" => false))
                 ->add('yearTo', 'text', array('label' => "to", "required" => false))
                 ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include Sold items", "required" => false))
+                ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
+                ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -347,7 +348,7 @@ class SearchController extends Controller {
         if (strtolower($categoryName) == 'rvs') {
             return $this->searchAdvancedRVs($request);
         }
-        
+
         if (strtolower($categoryName) == 'ag') {
             return $this->searchAdvancedAg($request);
         }
@@ -452,8 +453,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Interior Color',
                     'label' => "Interior Color", "required" => false
                 ))
-                ->add('isSold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
-                ->add('withPicture', 'checkbox', array('label' => "With Pictures Only", "required" => false))
+                ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
+                ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
                 ->add('category_id', 'hidden', array('data' => 1))
                 ->getForm();
         $form->handleRequest($request);
@@ -570,7 +571,6 @@ class SearchController extends Controller {
                 ))
                 ->add('fuelcapacity', 'text', array('label' => "Fuel Capacity", "required" => false))
                 ->add('ofhours', 'text', array('label' => "# Of Hours", "required" => false))
-
                 ->add('transmission', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -740,8 +740,8 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Trailer',
                     'label' => "Trailer", "required" => false
                 ))
-                ->add('withPicture', 'checkbox', array('label' => "With pictures only", "required" => false))
-                ->add('isSold', 'checkbox', array('label' => "Include sold items", "required" => false))
+                ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
+                ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
                 ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
         $form->handleRequest($request);
@@ -772,12 +772,11 @@ class SearchController extends Controller {
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
-                
-                ->add('makeRvs', 'entity', array(                    
-                            'class' => 'NumaDOAAdminBundle:ListingFieldTree',
-                            'query_builder' => function(EntityRepository $er) {
-                        return $er->findAllBy(760, 4);
-                    },
+                ->add('makeRvs', 'entity', array(
+                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+                    'query_builder' => function(EntityRepository $er) {
+                return $er->findAllBy(760, 4);
+            },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
@@ -789,7 +788,7 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Class',
                     'label' => "Class", "required" => false
                 ))
-                ->add('modelRvs', 'choice', array('label' => 'Model','required'=>false))
+                ->add('modelRvs', 'choice', array('label' => 'Model', 'required' => false))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "of Zip / Postal", "required" => false))
                 ->add('type', 'entity', array(
@@ -915,8 +914,8 @@ class SearchController extends Controller {
                 ->add('trailerhitch', 'checkbox', array('label' => "Trailer", "required" => false))
                 ->add('sparetire', 'checkbox', array('label' => "Spare Tire", "required" => false))
                 ->add('backupcamera', 'checkbox', array('label' => "Backup Camera", "required" => false))
-                ->add('issold', 'checkbox', array('label' => "Include Sold Items", "required" => false))
-                ->add('withpictures', 'checkbox', array('label' => "With Pictures Only", "required" => false))
+                ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
+                ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
                 ->add('category_id', 'hidden', array('data' => 4))
                 ->getForm();
         $form->handleRequest($request);
@@ -936,9 +935,10 @@ class SearchController extends Controller {
         }
         return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
+
     //ag
-    
-    
+
+
     public function searchAdvancedAg(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(721);
@@ -952,13 +952,12 @@ class SearchController extends Controller {
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Make',13);
+                return $er->findAllBy('Make', 13);
             },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
                 ->add('model', 'text', array('label' => "Model", "required" => false))
-               
                 ->add('agApplication', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
@@ -969,7 +968,6 @@ class SearchController extends Controller {
                 ))
                 ->add('distance', 'choice', array('empty_value' => 'Any distance ', 'choices' => array(10 => "Within 10 km", 20 => "Within 20 km", 30 => "Within 30 km", 40 => "Within 40 km", 50 => "Within 50 km"), 'label' => "Search Within", "required" => false))
                 ->add('zip', 'text', array('label' => "of Zip / Postal", "required" => false))
-               
                 ->add('yearFrom', 'text', array('label' => "Year From", "required" => false))
                 ->add('yearTo', 'text', array('label' => "To", "required" => false))
                 ->add('priceFrom', 'text', array('label' => "Price From", "required" => false))
@@ -981,7 +979,7 @@ class SearchController extends Controller {
                 ->add('fueltype', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Fuel Type',0);
+                return $er->findAllBy('Fuel Type', 0);
             },
                     'empty_value' => 'All Fuel Types',
                     'label' => "Fuel Types", "required" => false
@@ -994,7 +992,6 @@ class SearchController extends Controller {
                     'empty_value' => 'Any Transmission',
                     'label' => "Transmission", "required" => false
                 ))
-
                 ->add('stering', 'text', array('label' => "Stering", "required" => false))
                 ->add('speedForward', 'text', array('label' => "Speed Forward", "required" => false))
                 ->add('speedReverse', 'text', array('label' => "Speed Reverse", "required" => false))
@@ -1002,9 +999,8 @@ class SearchController extends Controller {
                 ->add('tireEquipment', 'text', array('label' => "Tire Equipment", "required" => false))
                 ->add('cuttingWidthFrom', 'text', array('label' => "Cutting Width From", "required" => false))
                 ->add('cuttingWidthTo', 'text', array('label' => "Cutting Width To", "required" => false))
-                ->add('issold', 'choice', array('expanded'=>true,'multiple'=>true, "required" => false, 'choices'=>array(1=>'include sold items')))
-                ->add('withpictures', 'choice', array('expanded'=>true,'multiple'=>true, "required" => false, 'choices'=>array(1=>'with pictures only')))
-                
+                ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
+                ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
                 ->getForm();
         $form->handleRequest($request);
 
@@ -1023,7 +1019,7 @@ class SearchController extends Controller {
         }
         return $this->render('NumaDOASiteBundle:Search:advancedAg.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
-    
+
     //endeg
     public function saveSearchAction(Request $request) {
 
