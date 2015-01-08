@@ -72,9 +72,9 @@ class RemoteFeed extends ContainerAware {
                         mkdir($upload_path . $this->entity->getID());
                     }
                     $filename = $this->entity->getAbsolutePath();
-                    
+                    $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
                     if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-                        $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+                        
 
                         $ftp = self::getFtpConnection($handleSource);
 
@@ -82,6 +82,18 @@ class RemoteFeed extends ContainerAware {
                         ////
                         //print_r($ftpExplode[count($ftpExplode) - 1]);
                         ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                        $filename = $local_file;
+                    } elseif (strtolower(substr($this->entity->getImportSource(), 0, 7)) == "http://") {
+
+                        $ch = curl_init();
+                        dump($handleSource);
+                        dump($local_file);
+                        curl_setopt($ch, CURLOPT_URL, $handleSource);
+                        $fp = fopen($local_file, 'w');
+                        curl_setopt($ch, CURLOPT_FILE, $fp);
+                        curl_exec($ch);
+                        curl_close($ch);
+                        fclose($fp);
                         $filename = $local_file;
                     }
                     if (($handle = fopen($filename, "r")) !== FALSE) {
@@ -128,25 +140,40 @@ class RemoteFeed extends ContainerAware {
                     $this->items = $this->items['inventor'];
                 }
                 return $this->xml2array($this->items);
-            } 
+            }
         }
         if (self::CSV == $this->entity->getImportFormat()) {
 
             $filename = $this->entity->getAbsolutePath();
             $rowCount = 0;
+            $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+            $handleSource = $this->entity->getImportSource();
+            $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
 
-                $handleSource = $this->entity->getImportSource();
-                $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+
+
                 if (!file_exists($upload_path . $this->entity->getID())) {
                     mkdir($upload_path . $this->entity->getID());
                     echo $upload_path . $this->entity->getID();
                 }
 
-                $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
+
                 $ftp = self::getFtpConnection($handleSource);
 
                 ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
+                $filename = $local_file;
+            } elseif (strtolower(substr($this->entity->getImportSource(), 0, 7)) == "http://") {
+
+                $ch = curl_init();
+                dump($handleSource);
+                dump($local_file);
+                curl_setopt($ch, CURLOPT_URL, $handleSource);
+                $fp = fopen($local_file, 'w');
+                curl_setopt($ch, CURLOPT_FILE, $fp);
+                curl_exec($ch);
+                curl_close($ch);
+                fclose($fp);
                 $filename = $local_file;
             }
             if (($handle = fopen($filename, "r")) !== FALSE) {
@@ -167,12 +194,11 @@ class RemoteFeed extends ContainerAware {
                     }
 
                     $rowCount++;
-
                 }
             }
         }
 
-        
+
         //\Doctrine\Common\Util\Debug::dump($this->items);
         return $this->items;
     }
