@@ -57,8 +57,10 @@ class DBUtilsCommand extends ContainerAwareCommand {
         } elseif ($command == 'equalize') {
             $this->equalizeAllItems();
         } elseif ($command == 'fetchFeed') {
-
-            $this->fetchFeed($feed_id);
+            $em = $this->getContainer()->get('doctrine')->getManager();
+            $em->getConnection()->getConfiguration()->setSQLLogger(null);
+            $em->clear();
+            $this->fetchFeed($feed_id, $em);
         }
     }
 
@@ -71,13 +73,12 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //die("aaaaa");
     }
 
-    public function fetchFeed($id) {
+    public function fetchFeed($id, $em) {
         //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $time = time();
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        //$em = $this->getContainer()->get('doctrine')->getManager();
 
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $em->clear();
+
         $createdItems = array();
         $feed_id = $id;
         //$uniqueField = $feed->getUniqueField();
@@ -100,20 +101,21 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $count = 0;
 
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em);
             //echo "$importItem:::$mapping:::$feed_id:::\n";
             if (!empty($item)) {
                 $createdItems[] = $item;
                 //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-                
+
                 echo $count . ":::Item: " . $item->getId() . ":" . count($item->getImages2()) . ":VIN:" . $item->getVin() . "\n";
-                unset($item);
+                //unset($item);
             }
 
             $count++;
-            if ($count % 250 == 0) {
+            if ($count % 50 == 0) {
                 $em->flush();
                 $em->clear();
+
                 echo "flush and clear \n";
             }
 //             if ($count  >= 500) {

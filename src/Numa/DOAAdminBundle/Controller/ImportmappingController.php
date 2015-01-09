@@ -315,7 +315,7 @@ class ImportmappingController extends Controller {
         $count = 0;
 
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path);
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em);
 
             if (!empty($item)) {
                 $createdItems[] = $item;

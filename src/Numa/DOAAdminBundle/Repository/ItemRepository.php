@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 
 class ItemRepository extends EntityRepository {
-
+    protected $itemFieldsDeleted=false;
     public function getItemFields($item_id) {
 
         $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
@@ -153,10 +153,9 @@ class ItemRepository extends EntityRepository {
         $numDeleted = $q->execute();
     }
 
-    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path) {
+    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        $em = $this->getEntityManager();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
+
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
@@ -172,13 +171,8 @@ class ItemRepository extends EntityRepository {
         }
         unset($uniqueMapRow);
         unset($uniqueField);
-        //\Doctrine\Common\Util\Debug::dump($item);die();
-//        $user = $this->container->get('security.context')->getToken()->getUser();
-//        if($user instanceof \Numa\DOAAdminBundle\Entity\User){
-//            $item->setUser($user);
-//        }
+
         if (empty($item)) {
-            //echo $uniqueMapRow->getListingFields()->getCaption()."....". $importItem[$uniqueField].":::".$uniqueField;
             if ($feed->getPhotoFeed()) {
 
                 return null;
@@ -192,10 +186,14 @@ class ItemRepository extends EntityRepository {
         }
 
         //clear all item fields if not photo feed
+        
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         } else {
-            $this->removeAllItemFieldsByFeed($feed->getId());
+            if(!$this->itemFieldsDeleted){
+                $this->removeAllItemFieldsByFeed($feed->getId());
+                $this->itemFieldsDeleted = true;
+            }
         }
 
         foreach ($mapping as $maprow) {
