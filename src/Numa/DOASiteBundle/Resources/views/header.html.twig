@@ -2,7 +2,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
 
-    {% block title %}<title>Kentuckiana Vehicles</title>{% endblock title %}
+    {% block title %}<title>{{title}}</title>{% endblock title %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}

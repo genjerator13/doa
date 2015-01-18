@@ -25,6 +25,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        title: semoautomall
 
 # Assetic Configuration
 assetic:
@@ -136,6 +138,7 @@ parameters:
     upload_url: /upload/itemsimages
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
+    
 gregwar_image: ~  
 endroid_qr_code:
     size: 100
