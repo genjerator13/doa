@@ -45,32 +45,36 @@ class ItemRepository extends EntityRepository {
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         $res2 = $stmt->fetchAll();
-        $rand_keys = array_rand($res2, $maxOffset);
-        $randResult = array();
-        foreach($rand_keys as $key){
-            $randResult[] = $res2[$key]['id'];
+        if(!empty($res2)){
+            $rand_keys = array_rand($res2, $maxOffset);
+            $randResult = array();
+            foreach($rand_keys as $key){
+                $randResult[] = $res2[$key]['id'];
+            }
+
+            $qb=$this->getEntityManager()->createQueryBuilder();
+            $qb->select('i')
+               ->from('NumaDOAAdminBundle:Item', 'i')
+               //->andWhere('i.featured=1')
+               //->andWhere('i.active=1');
+               ->andWhere('i.id IN (:ids)')
+                  ->setParameter('ids', $randResult);
+
+    //        $qb->getQ = $query; //->getResult();
+    //        $query_builder->select("item i")
+    //              ->andWhere('r.winner IN (:ids)')
+    //              ->setParameter('ids', $ids);
+    //        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
+    //        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
+    //        $res = $query->getResult(); //getOneOrNullResult();
+            $res = $qb->getQuery()->getResult(); //->getResult();
+    //        dump($qb->getQuery());
+    //        dump($res);
+    //        die();
+        
+            return $res;
         }
-        
-        $qb=$this->getEntityManager()->createQueryBuilder();
-        $qb->select('i')
-           ->from('NumaDOAAdminBundle:Item', 'i')
-           //->andWhere('i.featured=1')
-           //->andWhere('i.active=1');
-           ->andWhere('i.id IN (:ids)')
-              ->setParameter('ids', $randResult);
-        
-//        $qb->getQ = $query; //->getResult();
-//        $query_builder->select("item i")
-//              ->andWhere('r.winner IN (:ids)')
-//              ->setParameter('ids', $ids);
-//        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
-//        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
-//        $res = $query->getResult(); //getOneOrNullResult();
-        $res = $qb->getQuery()->getResult(); //->getResult();
-//        dump($qb->getQuery());
-//        dump($res);
-//        die();
-        return $res;
+        return null;
     }
 
     /**
