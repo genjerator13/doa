@@ -24,19 +24,12 @@ class ItemRepository extends EntityRepository {
         if (empty($max)) {
             $max = 5;
         }
-//        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
-//        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
-//        $res = $query->getResult(); //getOneOrNullResult();
-//        //
 
-                
-        
         $sql = " SELECT count(*) as count FROM item WHERE featured=1 AND active=1";
         $res2 = array();
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         $res2 = $stmt->fetchAll();
-        
         $count = intval($res2[0]['count']);
         $maxOffset = $count - $max<=0?$count:$max;
         

@@ -35,6 +35,7 @@ class searchParameters {
         $this->listing_per_page = 10;
         $this->params = array(
             //universal
+            'id' => new SearchItem('id', '', 'int'),
             'text' => new SearchItem('all', '', 'text'),
             'category' => new SearchItem('category', '', 'category'),
             'category_id' => new SearchItem('category_id', 0, 'int'),

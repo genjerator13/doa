@@ -41,7 +41,7 @@
                                                                 <div>Posted by {{dealer}} </div>
 
 
-                                                                <span class="glyphicon glyphicon-earphone"> 3388-22134</span>
+                                                                <span class="glyphicon glyphicon-earphone">{% if dealer %}{{dealer.phone}}{%endif%}</span>
                                                                 <br>
                                                                 <a href="{{detailUrl}}">View Details {% if dealer and app.user and app.user.getId()==dealer.id%}({{item.views}} views){% endif %}</a>
                                                                 <div class="checkbox-inline">
