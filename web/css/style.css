@@ -1,3 +1,8 @@
+@font-face {
+    font-family: bauhaus93;
+    src: url(bauhaus93.ttf);
+}
+
 .left {
     float: left;
 }
@@ -164,6 +169,13 @@ ul.tmp{
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.logo-text {
+    font-family: bauhaus93;
+    color: #ED7D31;
+    font-size: 24px;
+    margin-top: -40px;
 }
 
 .navbar{
