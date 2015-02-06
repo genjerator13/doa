@@ -365,4 +365,19 @@ a{
 ul,li{list-style:none;margin:0;padding:0;}
 
 /*gallery*/
+/*FOOTER*/
+.footer {
+    height: 125px;
+}
+.footer-img {
+    display: block;    
+    height: 125px;
+    width: 100% ;
+    background: url('/images/logoSemo.jpg') no-repeat;
+     margin-left: 15px;
+}
+.copyright{
+    margin-left: 15px;
+}
+/*FOOTER*/
 
