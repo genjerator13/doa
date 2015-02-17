@@ -1036,11 +1036,12 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-
-            if (empty($pictureSeparator)) {
+            if($pictureSeparator=="{space}"){
+                $pictureSeparator = " ";
+            }elseif (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
-
+            
             $picturesArray = explode($pictureSeparator, $imageString);
 
             $order = 0;
