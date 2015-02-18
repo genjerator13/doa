@@ -24,7 +24,6 @@ class EntityListener {
         if ($entity instanceof Item) {
             if ($this->container->get('security.context')->getToken()) {
                 $user = $this->container->get('security.context')->getToken()->getUser();
-//\Doctrine\Common\Util\Debug::dump($user);
                 if ($user instanceof Numa\DOAAdminBundle\Entity\User) {
                     //echo "Aaaaaassssss";
                     $entity->setUser($user);
@@ -70,10 +69,14 @@ class EntityListener {
     }
 
     public function postUpdate(LifecycleEventArgs $args) {
-        //$entity = $args->getEntity();
+        $entity = $args->getEntity();
 
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             //$this->setPassword($entity);
+        } elseif ($entity instanceof Item) {
+            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command->setContainer($this->container);
+            $resultCode = $command->makeHomeTabs(false);
         }
     }
 

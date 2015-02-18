@@ -394,8 +394,14 @@ class ItemController extends Controller {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
         $feed = $entity->getImportFeed();
+        
         if (!empty($feed)) {
-            return $this->newAction($request, $entity->getImportFeed()->getListingType(), $id);
+            $category = $feed->getListingType(); //use category entered in feed
+            if($entity->getCategory() instanceof \Numa\DOAAdminBundle\Entity\Category){
+                
+                $category = $entity->getCategory();
+            }
+            return $this->newAction($request, $category, $id);
         }
 
         return $this->newAction($request, $entity->getCategoryId(), $id);

@@ -212,19 +212,20 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     $em->flush();
                 }
             } else if ($cat->getId() == 1) {
-                //RV
+                //find subcategory of category(car and body style)
+                
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Body Style', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
-
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
+                    //list of all subcategoryes
                     foreach ($list as $key => $value) {
-                        $items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
+                        //count each and put to hometabs
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'body_style'  =>$value->getValue()));
                         $count = count($items);
                         if ($echo) {
                             print_r(count($items));
                             echo ":" . $subCat->getId() . ":" . $value->getId() . "\n";
                         }
-                        //$count = $items->count();
                         $hometab = new HomeTab();
                         $hometab->setCategoryId($cat->getId());
                         $hometab->setCategoryName($cat->getName());
@@ -232,7 +233,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         $hometab->setListingFieldListValue($value->getValue());
                         $hometab->setCount($count);
                         $em->persist($hometab);
-                        //print_r($key);
+
                     }
                     $em->flush();
                 }
