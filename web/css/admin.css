@@ -77,7 +77,7 @@ body.fullSize
                         Right padding = right column width + centre column right padding width */
     position:relative;
     left:200%;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .rightBack .leftSection
@@ -130,7 +130,7 @@ body.fullSize
     margin:0 15px 0 220px;
     position:relative;
     right:100%;
-    overflow:hidden;
+    overflow: auto;
     border: 1px solid transparent; /* for IE7, otherwise .list4columns does not work correctly (#2313) */
 }
 
