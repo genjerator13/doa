@@ -23,35 +23,21 @@ class AddItemSubscriber implements EventSubscriberInterface {
     }
 
     public function preSubmitData(FormEvent $event) {
-        //$data = $event->getData();
-        /*
-          if($data ['field_type']  == 'list'){
-          //print_r($data);die();
-          $id = $data->getFieldIntegerValue();
-          if (!empty($id)) {
-          $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
-          if(!empty($selected)){
-          //$data->setFieldStringValue($selected->getValue());
-          }
-          }
-          }
-         * 
-         */
+
     }
 
     public function preSetData(FormEvent $event) {
+        
         $data = $event->getData();
         $form = $event->getForm();
 
-        //\Doctrine\Common\Util\Debug::dump($data);
         if ($data->getFieldType() == 'list') {
 
             $id = $data->getFieldIntegerValue();
             $stringVal = $data->getFieldStringValue();
             $selected = 0;
             if (!empty($id)) {
-                $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);
-                
+                $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);                
                 if($selected instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists){
                     $selected = $selected->getId();                
                 }else{
