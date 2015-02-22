@@ -179,7 +179,7 @@
                     {{ form_row(form.exteriorColor) }}
                     {{ form_row(form.interiorColor) }}
                     {{ form_row(form.doors) }}
-                    <input type=hidden" value="" name="redirect" id="redirect">
+                    
                     <h2>Vehicle features</h2>
                     <ul>
                         {% for field in form.Itemfield %}
@@ -220,6 +220,8 @@
                         </li>
 
                     </ul>
+                    <input type="hidden" value="" name="redirect" id="redirect" style=""/>
+                    
                     {% if entity.id is not empty %}
                         <script>
                             $(document).ready(function() {
