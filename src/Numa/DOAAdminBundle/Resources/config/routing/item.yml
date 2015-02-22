@@ -18,6 +18,10 @@ items_create:
     pattern:  /create
     defaults: { _controller: "NumaDOAAdminBundle:Item:create" }
     requirements: { _method: post }
+item_category_change:
+    pattern:  /{id}/category
+    defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory" }
+    requirements: { _method: post|put }  
 
 items_edit:
     pattern:  /{id}/edit

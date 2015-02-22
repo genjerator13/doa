@@ -1036,11 +1036,12 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-
-            if (empty($pictureSeparator)) {
+            if($pictureSeparator=="{space}"){
+                $pictureSeparator = " ";
+            }elseif (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
-
+            
             $picturesArray = explode($pictureSeparator, $imageString);
 
             $order = 0;
@@ -1484,6 +1485,14 @@ class Item {
             $this->setTransmission($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
             $this->setType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
+            $this->setEngine($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'exterior color') {
+            $this->setExteriorColor($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'interior color') {
+            $this->setInteriorColor($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
+            $this->setFuelType($itemField->getFieldStringValue());
         }
     }
 
@@ -1583,4 +1592,265 @@ class Item {
         return $this->make;
     }
 
+    /**
+     * @var string
+     */
+    private $engine;
+
+    /**
+     * @var string
+     */
+    private $fuel_type;
+
+    /**
+     * @var string
+     */
+    private $interior_color;
+
+    /**
+     * @var string
+     */
+    private $exterior_color;
+
+
+    /**
+     * Set engine
+     *
+     * @param string $engine
+     *
+     * @return Item
+     */
+    public function setEngine($engine)
+    {
+        $this->engine = $engine;
+
+        return $this;
+    }
+
+    /**
+     * Get engine
+     *
+     * @return string
+     */
+    public function getEngine()
+    {
+        return $this->engine;
+    }
+
+    /**
+     * Set fuelType
+     *
+     * @param string $fuelType
+     *
+     * @return Item
+     */
+    public function setFuelType($fuelType)
+    {
+        $this->fuel_type = $fuelType;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelType
+     *
+     * @return string
+     */
+    public function getFuelType()
+    {
+        return $this->fuel_type;
+    }
+
+    /**
+     * Set interiorColor
+     *
+     * @param string $interiorColor
+     *
+     * @return Item
+     */
+    public function setInteriorColor($interiorColor)
+    {
+        $this->interior_color = $interiorColor;
+
+        return $this;
+    }
+
+    /**
+     * Get interiorColor
+     *
+     * @return string
+     */
+    public function getInteriorColor()
+    {
+        return $this->interior_color;
+    }
+
+    /**
+     * Set exteriorColor
+     *
+     * @param string $exteriorColor
+     *
+     * @return Item
+     */
+    public function setExteriorColor($exteriorColor)
+    {
+        $this->exterior_color = $exteriorColor;
+
+        return $this;
+    }
+
+    /**
+     * Get exteriorColor
+     *
+     * @return string
+     */
+    public function getExteriorColor()
+    {
+        return $this->exterior_color;
+    }
+    /**
+     * @var boolean
+     */
+    private $sold;
+
+    /**
+     * @var string
+     */
+    private $body_description;
+
+    /**
+     * @var string
+     */
+    private $videoId;
+
+
+    /**
+     * Set sold
+     *
+     * @param boolean $sold
+     *
+     * @return Item
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return boolean
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set bodyDescription
+     *
+     * @param string $bodyDescription
+     *
+     * @return Item
+     */
+    public function setBodyDescription($bodyDescription)
+    {
+        $this->body_description = $bodyDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyDescription
+     *
+     * @return string
+     */
+    public function getBodyDescription()
+    {
+        return $this->body_description;
+    }
+
+    /**
+     * Set videoId
+     *
+     * @param string $videoId
+     *
+     * @return Item
+     */
+    public function setVideoId($videoId)
+    {
+        $this->videoId = $videoId;
+
+        return $this;
+    }
+
+    /**
+     * Get videoId
+     *
+     * @return string
+     */
+    public function getVideoId()
+    {
+        return $this->videoId;
+    }
+    /**
+     * @var string
+     */
+    private $trim;
+
+
+    /**
+     * Set trim
+     *
+     * @param string $trim
+     *
+     * @return Item
+     */
+    public function setTrim($trim)
+    {
+        $this->trim = $trim;
+
+        return $this;
+    }
+
+    /**
+     * Get trim
+     *
+     * @return string
+     */
+    public function getTrim()
+    {
+        return $this->trim;
+    }
+    /**
+     * @var string
+     */
+    private $doors;
+
+
+    /**
+     * Set doors
+     *
+     * @param string $doors
+     *
+     * @return Item
+     */
+    public function setDoors($doors)
+    {
+        $this->doors = $doors;
+
+        return $this;
+    }
+
+    /**
+     * Get doors
+     *
+     * @return string
+     */
+    public function getDoors()
+    {
+        return $this->doors;
+    }
 }

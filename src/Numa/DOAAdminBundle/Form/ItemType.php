@@ -5,13 +5,17 @@ namespace Numa\DOAAdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-
+use Numa\DOAAdminBundle\Events\AddItemSubscriber;
 
 class ItemType extends AbstractType
 {
     protected $em;
-    public function __construct($em=null) {
+    protected $securityContext;
+    protected $dealerID;
+    public function __construct($em=null, $securityContext=null,$dealerID=null) {
         $this->em = $em;
+        $this->dealerID =$dealerID ;
+        $this->securityContext = $securityContext;
     }
         /**
      * @param FormBuilderInterface $builder
@@ -21,11 +25,22 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('active')
+            ->add('sold')
+            ->add('trim')
+            ->add('bodyDescription')
+            ->add('exteriorColor')
+            ->add('interiorColor')
+            ->add('doors')
+            ->add('engine')
+            ->add('fuelType')
+            ->add('driveType')
+            ->add('videoID')
             ->add('moderation_status','choice',array('choices'=>array('APPROVED','NEW')))
             ->add('keywords')
             ->add('featured')
             ->add('Category')
             ->add('Dealer')
+
             ->add('price')
             ->add('year')
             ->add('bodyStyle', 'choice', array(
@@ -76,7 +91,8 @@ class ItemType extends AbstractType
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;
-
+        
+        $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID));
     }
     
     /**

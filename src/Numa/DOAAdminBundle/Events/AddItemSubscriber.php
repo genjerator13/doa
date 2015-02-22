@@ -11,9 +11,14 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class AddItemSubscriber implements EventSubscriberInterface {
 
     protected $em;
+    protected $securityContext;
+    protected $dealerID;
 
-    public function __construct($em) {
+    public function __construct($em,$securityContext,$dealerID) {
         $this->em = $em;
+        $this->dealerID = $dealerID;
+        
+        $this->securityContext = $securityContext;
     }
 
     public static function getSubscribedEvents() {
@@ -23,57 +28,54 @@ class AddItemSubscriber implements EventSubscriberInterface {
     }
 
     public function preSubmitData(FormEvent $event) {
-
+        
     }
 
     public function preSetData(FormEvent $event) {
-        
-        $data = $event->getData();
+
+        $item = $event->getData();
         $form = $event->getForm();
+        $formItemFields = $form->get('Itemfield');
+        //$data->removeAllItemField();
+        //$data->getDoors();
+        //check all 
+        $cat = $item->getCategoryId();
+        foreach (\Numa\DOAAdminBundle\Entity\Item::$carFields as $carFieldDB=>$carFieldField) {
 
-        if ($data->getFieldType() == 'list') {
+            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => $carFieldDB,'category_sid'=>array($cat,0)));
+            dump($listingList);
+            if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
+                $type = $listingList->getType();
+                if ($type == 'list') {
+                    $selected = $item->getItemFieldByName($carFieldDB);
+                    $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
+                    $values = array();
+                    foreach ($listingList as $key => $value) {
+                        $values[$value->getValue()] = $value->getValue();
+                    }
 
-            $id = $data->getFieldIntegerValue();
-            $stringVal = $data->getFieldStringValue();
-            $selected = 0;
-            if (!empty($id)) {
-                $selected = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneById($id);                
-                if($selected instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists){
-                    $selected = $selected->getId();                
-                }else{
-                    $selected = 0;
+                    //make form name from db name TODO function for that
+                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    
                 }
             }
-
-            $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $data->getListingfield()->getId()));
-            $values = array();
-            
-            foreach ($listingList as $key => $value) {
-                $values[$value->getId()] = $value->getValue();
-            }
-
-            
-            $form->add('field_string_value', 'hidden');
-            $form->add('field_integer_value', 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
-            $form->add('field_id', 'hidden');
-        }else if($data->getFieldType() == 'boolean'){
-            $form->add('field_string_value', 'hidden');
-            $form->add('field_boolean_value', 'checkbox',array('required'=>false,'data'=>$data->getFieldBooleanValue()));
-        }else if($data->getFieldType() == 'string'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'geo'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'integer'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'decimal'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'video'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'rating'){
-            $form->add('field_string_value', 'text',array('required'=>false));            
-        }else if($data->getFieldType() == 'array'){
-            $form->add('field_string_value', 'text',array('required'=>false));                       
         }
+
+        if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
+
+            $item->setDealer($this->dealerID);
+            $form->remove('Dealer');
+            $form->add('dealer_id','hidden',array('data'=>$this->dealerID->getId()));                    
+        }
+        
+        foreach ($item->getItemField() as $itemfield) {
+            if ($itemfield->getFieldType() == 'boolean') {
+                
+            } else {
+                $item->removeItemField($itemfield);
+            }
+        }
+
     }
 
 }

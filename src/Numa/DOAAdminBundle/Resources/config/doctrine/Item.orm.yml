@@ -33,6 +33,10 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        sold:                                     
+              type: boolean
+              default: 0
+              nullable: true
         featured:                                     
               type: boolean
               default: 0
@@ -83,6 +87,10 @@ Numa\DOAAdminBundle\Entity\Item:
               nullable: true
               
         body_style:
+              type: string
+              length: 255
+              nullable: true
+        body_description:
               type: string
               length: 255
               nullable: true
@@ -157,7 +165,11 @@ Numa\DOAAdminBundle\Entity\Item:
         fuel_type:
               type: string
               length: 255
-              nullable: true               
+              nullable: true
+        drive_type:
+              type: string
+              length: 255
+              nullable: true  
         interior_color:
               type: string
               length: 255
@@ -165,7 +177,19 @@ Numa\DOAAdminBundle\Entity\Item:
         exterior_color:
               type: string
               length: 255
-              nullable: true         
+              nullable: true
+        videoId:            
+              type: string
+              length: 255
+              nullable: true  
+        trim:
+              type: string
+              length: 255
+              nullable: true 
+        doors:
+              type: string
+              length: 255
+              nullable: true 
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

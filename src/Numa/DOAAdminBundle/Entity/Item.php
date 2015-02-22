@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Criteria;
  * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
-
+    public static $carFields = array('doors'=>'doors','Exterior Color'=>'exteriorColor','Interior Color'=>'interiorColor','engine'=>'engine','transmission'=>'transmission','Fuel Type'=>'fuelType','Drive Type'=>'driveType');
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -1493,6 +1493,12 @@ class Item {
             $this->setInteriorColor($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
             $this->setFuelType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'drive type') {
+            $this->setFuelType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'doors') {
+            $this->setFuelType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'trim') {
+            $this->setFuelType($itemField->getFieldStringValue());
         }
     }
 
@@ -1708,4 +1714,180 @@ class Item {
     {
         return $this->exterior_color;
     }
+    /**
+     * @var boolean
+     */
+    private $sold;
+
+    /**
+     * @var string
+     */
+    private $body_description;
+
+    /**
+     * @var string
+     */
+    private $videoId;
+
+
+    /**
+     * Set sold
+     *
+     * @param boolean $sold
+     *
+     * @return Item
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return boolean
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set bodyDescription
+     *
+     * @param string $bodyDescription
+     *
+     * @return Item
+     */
+    public function setBodyDescription($bodyDescription)
+    {
+        $this->body_description = $bodyDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get bodyDescription
+     *
+     * @return string
+     */
+    public function getBodyDescription()
+    {
+        return $this->body_description;
+    }
+
+    /**
+     * Set videoId
+     *
+     * @param string $videoId
+     *
+     * @return Item
+     */
+    public function setVideoId($videoId)
+    {
+        $this->videoId = $videoId;
+
+        return $this;
+    }
+
+    /**
+     * Get videoId
+     *
+     * @return string
+     */
+    public function getVideoId()
+    {
+        return $this->videoId;
+    }
+    /**
+     * @var string
+     */
+    private $trim;
+
+
+    /**
+     * Set trim
+     *
+     * @param string $trim
+     *
+     * @return Item
+     */
+    public function setTrim($trim)
+    {
+        $this->trim = $trim;
+
+        return $this;
+    }
+
+    /**
+     * Get trim
+     *
+     * @return string
+     */
+    public function getTrim()
+    {
+        return $this->trim;
+    }
+    /**
+     * @var string
+     */
+    private $doors;
+
+
+    /**
+     * Set doors
+     *
+     * @param string $doors
+     *
+     * @return Item
+     */
+    public function setDoors($doors)
+    {
+        $this->doors = $doors;
+
+        return $this;
+    }
+
+    /**
+     * Get doors
+     *
+     * @return string
+     */
+    public function getDoors()
+    {
+        return $this->doors;
+    }
+    /**
+     * @var string
+     */
+    private $drive_type;
+
+
+    /**
+     * Set driveType
+     *
+     * @param string $driveType
+     *
+     * @return Item
+     */
+    public function setDriveType($driveType)
+    {
+        $this->drive_type = $driveType;
+
+        return $this;
+    }
+
+    /**
+     * Get driveType
+     *
+     * @return string
+     */
+    public function getDriveType()
+    {
+        return $this->drive_type;
+    }
+    
+    
 }
