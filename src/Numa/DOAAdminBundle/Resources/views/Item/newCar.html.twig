@@ -8,58 +8,60 @@
             {% set action="Edit listing #"~entity.id~" , "~entity.getMake()~" "~entity.getModel() %}
                 {% endif %}
                     <div class="new-listing new-car">
-                    <h1>{{action}}</h1>
-                    <div class="listingActions">
-                        This listing is	
-                        {% if entity.active %}
-                            <span class="">Active</span>
-                        {%else%}
-                            <span class="">InActive</span>
-                        {%endif%}
-                        and 
-                        <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
-                        | <a href="#" class="itemControls deactivate">Deactivate</a>
-                        | <a href="#" class="itemControls view">View Listing</a>
-                        {% if entity.id is not empty %}
-                            | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
-                        {% endif %}
-                    </div>
-                    <p>Fields marked with an asterisk (*) are mandatory.car</p>
-                    {{ form_start(form) }}
-                    {{ form_errors(form) }}
-                    {{ form_row (form._token) }}
+                        <h1>{{action}}</h1>
 
-                    <div class="form-group">
-                        {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}  
+                        {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        {{ form_row (form._token) }}
+                        <div class="listingActions">
+                            This listing is	
+                            {% if entity.active %}
+                                <span class="">Active</span>
+                            {%else%}
+                                <span class="">InActive</span>
+                            {%endif%}
+                            and 
+                            <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
+                            | <a href="#" class="itemControls deactivate">Deactivate</a>
+                            | <a href="#" class="itemControls view">View Listing</a>
+                            {% if entity.id is not empty %}
+                                | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
+                            {% else %}
+                                | <a href="#" id="addimages">Add Pictures</a>
+                            {% endif %}
                         </div>
-                    </div>
-                    {% if(is_granted('ROLE_BUSINES'))%}
-                        {{ form_row(form.dealer_id) }}
-                    {% else %}
+                        <p>Fields marked with an asterisk (*) are mandatory.car</p>
                         <div class="form-group">
-                            {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+                            {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}   
                             <div class="col-sm-9">                            
-                                {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}  
+                                {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}  
                             </div>
                         </div>
-                    {% endif %}                
-                    <div class="form-group">
-                        {{ form_label(form.sold, 'Sold', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.sold, { 'attr': {'class': 'form-control'} }) }}  
+                        {% if(is_granted('ROLE_BUSINES'))%}
+                            {{ form_row(form.dealer_id) }}
+                        {% else %}
+                            <div class="form-group">
+                                {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+                                <div class="col-sm-9">                            
+                                    {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}  
+                                </div>
+                            </div>
+                        {% endif %}                
+                        <div class="form-group">
+                            {{ form_label(form.sold, 'Sold', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+                            <div class="col-sm-9">                            
+                                {{ form_widget(form.sold, { 'attr': {'class': 'form-control'} }) }}  
+                            </div>
                         </div>
-                    </div>
-                    
+
                         <div class="form-group">
                             {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}   
                             <div class="col-sm-9">                            
                                 {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}  
                             </div>
                         </div>
-                    
-                   
+
+
                         <div class="form-group">
                             {{ form_label(form.status, 'Status', { 'label_attr': {'class': 'col-sm-3'} }) }}   
                             <div class="col-sm-9">                            
@@ -87,7 +89,7 @@
                             {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
                         </div>
                     </div>
-                        
+
                     <div class="form-group">
                         {{ form_label(form.trim, 'trim', { 'label_attr': {'class': 'col-sm-3'} }) }}   
                         <div class="col-sm-9">                            
@@ -177,12 +179,12 @@
                     {{ form_row(form.exteriorColor) }}
                     {{ form_row(form.interiorColor) }}
                     {{ form_row(form.doors) }}
-
+                    <input type=hidden" value="" name="redirect" id="redirect">
                     <h2>Vehicle features</h2>
                     <ul>
                         {% for field in form.Itemfield %}
                             <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
-
+                                
                                 <span>
 
                                     {% if field.field_string_value is defined %}
@@ -196,10 +198,10 @@
                                     {% endif %}
                                 </span>
                                 <span>
-
+                                    {{ form_row(field.field_name) }}
                                     {{ field.vars.value.getFieldName }}
                                 </span>
-
+                                {{ form_row(field.field_type) }}
                             </li>
 
                         {% endfor %}
@@ -229,8 +231,22 @@
                                     form.submit();
 
                                 });
+
+
+
                             });
                         </script>
-                    {% else %}                    
+                    {% else %}    
+                        <script>
+                            $("#addimages").on("click", function(e) {
+                                e.preventDefault();
+                                var form = $(this).closest('form');
+
+                                //form.attr('action', '{{path("item_category_change",{id:0,redirect:'images'})}}');
+                                $("#redirect").val("images");
+                                console.log(form.attr('action'));
+                                form.submit();
+                            });
+                        </script>
                     {% endif %}
                     {% endblock %}

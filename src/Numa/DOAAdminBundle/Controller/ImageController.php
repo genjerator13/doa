@@ -67,12 +67,9 @@ class ImageController extends Controller {
                     $itemField->setItem($item);
                     $itemField->setListingfield($ImageList);
                     $em->persist($itemField);
-                    //echo $itemField->getId().":::::::";
-                    //$file = $file->move($this->container->getParameter('upload_feed'), $file->getClientOriginalName());
-                    
                 }
                 $em->flush();
-                //\Doctrine\Common\Util\Debug::dump($files);
+
             }
             return $this->redirect($this->generateUrl('item_images',array('id'=>$id)));
         }

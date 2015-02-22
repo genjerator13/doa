@@ -3,7 +3,7 @@
     : 'NumaDOAAdminBundle::layout.html.twig' %}
     {% form_theme addimages 'bootstrap_3_layout.html.twig' %}
     {% block content %}
-        
+        <a href="{{path('items_edit',{id:item.id})}}">Back to listing ({{item.id}})</a>
     {{ form_start(addimages) }}
     {{ form_errors(addimages) }}
     <div class="file-upload">
@@ -12,6 +12,7 @@
 
     {{ form_end(addimages) }}
 
+                          
 <table class='table'>
        {% for image in images %}
            <tr>
