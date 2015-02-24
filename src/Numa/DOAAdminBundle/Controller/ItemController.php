@@ -168,9 +168,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setActive(true);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -181,9 +182,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setActive(false);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -194,9 +196,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(1);
+                 $em->flush();
             }
         }
-        $em->flush();
+       
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -207,9 +210,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(0);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -220,9 +224,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $em->remove($entity);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
