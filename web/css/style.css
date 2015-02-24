@@ -158,9 +158,10 @@ ul.tmp{
 }
 
 .header-image .logo{
-    background: url('/images/logo_cv.png') no-repeat;
-    width: 666px;
-    height: 100px;
+    background: url('/images/The-Peak-Logo-Transparent.gif') no-repeat;
+    
+    width: 165px;
+    height: 150px;
     position: absolute;
     bottom: 0;
     left: 0;
