@@ -41,25 +41,42 @@ class AddItemSubscriber implements EventSubscriberInterface {
         //check all 
         $cat = $item->getCategoryId();
         foreach (\Numa\DOAAdminBundle\Entity\Item::$carFields as $carFieldDB=>$carFieldField) {
-
-            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => $carFieldDB,'category_sid'=>array($cat,0)));
-            dump($listingList);
+            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB,1,true);
+            
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
+                
                 $type = $listingList->getType();
-                if ($type == 'list') {
+                if (strtolower($type) == 'list') {
                     $selected = $item->getItemFieldByName($carFieldDB);
                     $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
                     $values = array();
                     foreach ($listingList as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
-
                     //make form name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                     
+                }elseif(strtolower($type) == 'tree') {
+                    $selected = $item->getItemFieldByName($carFieldDB);
+                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(),'level'=>1));
+                    $values = array();
+                    foreach ($listingTree as $key => $value) {
+                        $values[$value->getName()] = $value->getName();
+                    }
+
+                    //make form name from db name TODO function for that
+                    
+                    
+                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    
                 }
+//                dump($carFieldDB);
+//                dump($listingList);
+//                    dump($values);
+//                    dump($selected);
             }
         }
+        //die();
 
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
 

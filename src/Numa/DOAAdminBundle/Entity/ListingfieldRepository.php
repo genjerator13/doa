@@ -6,20 +6,43 @@ use Doctrine\ORM\EntityRepository;
 
 class ListingfieldRepository extends EntityRepository
 {
-    public function findOneByProperty($propertyName,$category_id)
+    public function findOneByProperty($propertyName,$category_id,$exact=false)
     {
         $categories = array(0);
         if(!empty($category_id)){
             $categories[]=$category_id;
         }
         $q='SELECT l FROM NumaDOAAdminBundle:Listingfield l WHERE 
-                    (l.caption like \''.$propertyName.'\'  OR 
-                     l.caption like \'%'.$propertyName.'%\'     ) AND l.category_sid IN ('.  implode(',', $categories).')';
+                    l.caption like \''.$propertyName.'\'  ';
+        if(!$exact){
+               $q .=  ' OR  l.caption like \'%'.$propertyName.'%\'      ';
+        }
+              $q .=  ' AND l.category_sid IN ('.  implode(',', $categories).')';
         $query =  $this->getEntityManager()
             ->createQuery($q)->setMaxResults(1) ;
         $res =$query->getOneOrNullResult();//getOneOrNullResult();
-
+//        if($propertyName=='engine'){
+//            dump($q);die();
+//        }
          return $res;
+    }
+    
+    public function findAllByCaption($caption, $categories = array()) {
+
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('lf')
+                ->from('NumaDOAAdminBundle:Listingfield', 'lf')
+                ->andWhere('l.caption like :caption')
+                ->andWhere('l.category_sid like :categories')                                
+                ->setParameter('property', "%" . $property . "%");
+        if(is_array($categories) && !empty($categories)){
+                $qb    ->andWhere('r.winner IN (:categories)')
+                ->setParameter('categories', $categories);
+        ;
+        }
+        $res = $query->getResult(); //getOneOrNullResult();
+        return $res;
     }
 
     public function findAllOrderedByName()

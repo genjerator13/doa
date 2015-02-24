@@ -190,6 +190,10 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true 
+        seller_comment:
+              type: text
+              length: 255
+              nullable: true 
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

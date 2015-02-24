@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Criteria;
  * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
-    public static $carFields = array('doors'=>'doors','Exterior Color'=>'exteriorColor','Interior Color'=>'interiorColor','engine'=>'engine','transmission'=>'transmission','Fuel Type'=>'fuelType','Drive Type'=>'driveType');
+    public static $carFields = array('doors'=>'doors','exterior_color'=>'exteriorColor','interior_color'=>'interiorColor','engine'=>'engine','transmission'=>'transmission','fuel_type'=>'fuelType','drive_type'=>'driveType','make'=>'make','model'=>'model');
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -1494,11 +1494,15 @@ class Item {
         }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
             $this->setFuelType($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'drive type') {
-            $this->setFuelType($itemField->getFieldStringValue());
+            $this->setDriveType($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'doors') {
-            $this->setFuelType($itemField->getFieldStringValue());
+            $this->setDoors($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'trim') {
-            $this->setFuelType($itemField->getFieldStringValue());
+            $this->setTrim($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'status') {
+            $this->setStatus($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'seller comment') {
+            $this->setSellerComment($itemField->getFieldStringValue());
         }
     }
 
@@ -1890,4 +1894,33 @@ class Item {
     }
     
     
+    /**
+     * @var string
+     */
+    private $seller_comment;
+
+
+    /**
+     * Set sellerComment
+     *
+     * @param string $sellerComment
+     *
+     * @return Item
+     */
+    public function setSellerComment($sellerComment)
+    {
+        $this->seller_comment = $sellerComment;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerComment
+     *
+     * @return string
+     */
+    public function getSellerComment()
+    {
+        return $this->seller_comment;
+    }
 }

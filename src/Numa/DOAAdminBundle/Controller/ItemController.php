@@ -297,14 +297,16 @@ class ItemController extends Controller {
             $item = $em->getRepository('NumaDOAAdminBundle:Item'); //->findOneById(1347);
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($item_id);
         }
-
+         
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $cat_id)));
+        
         if (!empty($fields)) {
             
             foreach ($fields as $key => $field) {
                 //dump($field);
                 $itemField = new ItemField();
                 //check if item field has value for the listing_field if edit (exists)
+                
                 if ($item_id != null) {
                     $qb = $item->createQueryBuilder('i')
                             ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
@@ -324,18 +326,21 @@ class ItemController extends Controller {
                         $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
                     }
                 }
+                 
                 $itemField->setListingfield($field);
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
                 
                 if(strtolower($field->getCaption())!='image list'){
-                    dump($field);
+                    
                     $entity->addItemField($itemField);
                 }
+
             }
             //die();
             //remove all existing item fields TO DO add this to ItemField repository            
             $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id,'field_type'=>'boolean'));
+            //dump($oldItemFields);die();
             foreach ($oldItemFields as $oldone) {
                 $em->remove($oldone);
             }
@@ -350,16 +355,17 @@ class ItemController extends Controller {
         ));
 
         $form->handleRequest($request);
-
+        
         if ($form->isValid()) {
             $em->persist($entity);
+            
             $em->flush();
             //dump($request->get("redirect"));die();
             if($request->get("redirect")=="images"){
-                return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
+                //return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
                           
             }
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
+            //return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
         if ($cat_id == 1) {
             return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
@@ -421,8 +427,39 @@ class ItemController extends Controller {
 
             $category = $entity->getCategoryId();
         }
+        //get category by request parameter
+        $categoryEntity = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($category);
+         
+        
+        $entity->setCategory($categoryEntity);
 
-        return $this->newAction($request, $category, $id);
+        $securityContext = $this->container->get('security.context');
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser()), $entity, array(
+            'method' => 'POST',
+        ));
+
+        $form->handleRequest($request);
+        dump($form);
+        if ($form->isValid()) {
+            $em->persist($entity);
+            
+            $em->flush();
+
+        }
+        //die("aaaa");
+        if ($category == 1) {
+            return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                        'category' => $categoryEntity
+            ));
+        } else {
+            return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                        'category' => $categoryEntity,
+            ));
+        }
     }
 
     /**

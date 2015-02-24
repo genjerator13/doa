@@ -150,6 +150,12 @@
                             {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
                         </div>
                     </div>
+                        <div class="form-group">
+                        {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+                        <div class="col-sm-9">                            
+                            {{ form_widget(form.fuelType, { 'attr': {'class': 'form-control'} }) }}  
+                        </div>
+                    </div>
                     <div class="form-group">
                         {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
                         <div class="col-sm-9">                            
@@ -220,7 +226,7 @@
                         </li>
 
                     </ul>
-                    <input type="hidden" value="" name="redirect" id="redirect" style=""/>
+                    
                     
                     {% if entity.id is not empty %}
                         <script>

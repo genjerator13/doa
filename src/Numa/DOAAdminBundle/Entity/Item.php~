@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Criteria;
  * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
-
+    public static $carFields = array('doors'=>'doors','Exterior Color'=>'exteriorColor','Interior Color'=>'interiorColor','engine'=>'engine','transmission'=>'transmission','Fuel Type'=>'fuelType','Drive Type'=>'driveType','make model'=>'make','model'=>'model');
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -1493,6 +1493,16 @@ class Item {
             $this->setInteriorColor($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
             $this->setFuelType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'drive type') {
+            $this->setDriveType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'doors') {
+            $this->setDoors($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'trim') {
+            $this->setTrim($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'status') {
+            $this->setStatus($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'seller comment') {
+            $this->setSellerComment($itemField->getFieldStringValue());
         }
     }
 
@@ -1853,4 +1863,35 @@ class Item {
     {
         return $this->doors;
     }
+    /**
+     * @var string
+     */
+    private $drive_type;
+
+
+    /**
+     * Set driveType
+     *
+     * @param string $driveType
+     *
+     * @return Item
+     */
+    public function setDriveType($driveType)
+    {
+        $this->drive_type = $driveType;
+
+        return $this;
+    }
+
+    /**
+     * Get driveType
+     *
+     * @return string
+     */
+    public function getDriveType()
+    {
+        return $this->drive_type;
+    }
+    
+    
 }
