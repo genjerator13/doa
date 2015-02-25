@@ -5,8 +5,8 @@ namespace Numa\DOAAdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Numa\DOAAdminBundle\Events\AddItemSubscriber;
 
+use Numa\DOAAdminBundle\Events\AddItemFieldSubscriber;
 class ItemFieldType extends AbstractType {
 
     protected $em;
@@ -25,7 +25,7 @@ class ItemFieldType extends AbstractType {
                 ->add('field_type', 'hidden')
                 ->add('field_string_value')
         ;
-        $builder->addEventSubscriber(new AddItemSubscriber($this->em));
+        $builder->addEventSubscriber(new AddItemFieldSubscriber($this->em));        
     }
 
     /**

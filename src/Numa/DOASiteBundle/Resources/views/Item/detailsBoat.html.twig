@@ -89,10 +89,14 @@
                             </div>
                         {% endif %}
                         <div class='row'>
+                            
+                            {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
+                                 {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}                                 
+                            {% if item.categoryId()==1%}
+                            {% else %}
                             <h4>Details:</h4>
                             <ul class="techData">
-                                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
-                                    {% for field in item.ItemField %}
+                                   {% for field in item.ItemField %}
 
                                         {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                             <li class="col-md-6">
@@ -115,14 +119,16 @@
                                         </li>
                                     {% endif %}
                                 </ul>
+                                {% endif %}
                             </div>
                             <div class='row'>
                                 <h4>Options list:</h4>
                                 <ul class='option-lists'>
 
                                     {% for field in item.ItemField %}
-                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' %}
-
+                                        
+                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
+                                            
                                             <li class="col-md-4">
                                                 <div class="checkbox">
                                                     <label>

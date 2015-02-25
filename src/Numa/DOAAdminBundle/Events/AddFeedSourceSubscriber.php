@@ -27,7 +27,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
     public function preSetData(FormEvent $event) {
         $data = $event->getData();
         $form = $event->getForm();
-        \Doctrine\Common\Util\Debug::dump($event->getData());
+
         die("aaa");
         if (!$data || !$data->getId() || !$data->getProperty()) {
 
