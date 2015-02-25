@@ -13,11 +13,11 @@ class ListingFieldListsRepository extends EntityRepository {
      * @return type
      */
     public function findOneByValue($propertyName, $listing_field_id) {
-
+        $propertyName = str_replace("'", "", $propertyName);
         $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
-                    ( l.listing_field_id = ' . $listing_field_id . ' AND
-                    (l.value like \'' . $propertyName . '\'  OR 
-                     l.value like \'%' . $propertyName . '%\'     )) ';
+                     l.listing_field_id = ' . $listing_field_id . ' AND
+                     l.value like \'' . $propertyName . '\'  OR 
+                     l.value like \'%' . $propertyName . '%\'     ';
         $query = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
         $res = $query->getOneOrNullResult(); //getOneOrNullResult();
