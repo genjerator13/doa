@@ -39,7 +39,7 @@ class Item {
 
     /**
      * @var boolean
-     * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"Active","inactive"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
 
      */
     private $active;
