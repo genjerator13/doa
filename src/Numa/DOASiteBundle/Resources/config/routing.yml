@@ -1,6 +1,9 @@
 homepage:
     path:  /
     defaults: { _controller: NumaDOASiteBundle:Default:index }
+sandbox:
+    path:  /sandbox
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:index }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{bodyStyleString}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
