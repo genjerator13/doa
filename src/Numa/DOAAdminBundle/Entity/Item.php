@@ -10,7 +10,9 @@ use Doctrine\Common\Collections\Criteria;
  * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
-    public static $carFields = array('doors'=>'doors','exterior_color'=>'exteriorColor','interior_color'=>'interiorColor','engine'=>'engine','transmission'=>'transmission','fuel_type'=>'fuelType','drive_type'=>'driveType','make'=>'make','model'=>'model');
+
+    public static $carFields = array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'make' => 'make', 'model' => 'model');
+
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -1024,11 +1026,15 @@ class Item {
                 $itemField = new ItemField();
 
                 $itemField->setAllValues($value);
-
-                $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                    $itemField->setListingfield($listingFields);
+
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+
+                    $itemField->setListingfield($test);
+                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
                 }
+                $itemField->setFeedId($feed->getId());
+                
 
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
                 $this->addItemField($itemField);
@@ -1037,12 +1043,12 @@ class Item {
             }
         } else {
             $pictureSeparator = $feed->getPicturesSeparator();
-            if($pictureSeparator=="{space}"){
+            if ($pictureSeparator == "{space}") {
                 $pictureSeparator = " ";
-            }elseif (empty($pictureSeparator)) {
+            } elseif (empty($pictureSeparator)) {
                 $pictureSeparator = ";";
             }
-            
+
             $picturesArray = explode($pictureSeparator, $imageString);
 
             $order = 0;
@@ -1053,7 +1059,7 @@ class Item {
 
             foreach ($picturesArray as $picture) {
                 $itemField = new ItemField();
-                
+
                 $itemField->setAllValues($picture);
 //                //$itemField->setListingfield($listingFields);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
@@ -1486,23 +1492,23 @@ class Item {
             $this->setTransmission($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
             $this->setType($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
+        } elseif (strtolower($itemField->getFieldName()) == 'engine' || strtolower($itemField->getFieldName()) == 'engine type') {
             $this->setEngine($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'exterior color') {
+        } elseif (strtolower($itemField->getFieldName()) == 'exterior color') {
             $this->setExteriorColor($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'interior color') {
+        } elseif (strtolower($itemField->getFieldName()) == 'interior color') {
             $this->setInteriorColor($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
+        } elseif (strtolower($itemField->getFieldName()) == 'fuel type') {
             $this->setFuelType($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'drive type') {
+        } elseif (strtolower($itemField->getFieldName()) == 'drive type') {
             $this->setDriveType($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'doors') {
+        } elseif (strtolower($itemField->getFieldName()) == 'doors') {
             $this->setDoors($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'trim') {
+        } elseif (strtolower($itemField->getFieldName()) == 'trim') {
             $this->setTrim($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'status') {
+        } elseif (strtolower($itemField->getFieldName()) == 'status') {
             $this->setStatus($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'seller comment') {
+        } elseif (strtolower($itemField->getFieldName()) == 'seller comment') {
             $this->setSellerComment($itemField->getFieldStringValue());
         }
     }
@@ -1623,7 +1629,6 @@ class Item {
      */
     private $exterior_color;
 
-
     /**
      * Set engine
      *
@@ -1631,8 +1636,7 @@ class Item {
      *
      * @return Item
      */
-    public function setEngine($engine)
-    {
+    public function setEngine($engine) {
         $this->engine = $engine;
 
         return $this;
@@ -1643,8 +1647,7 @@ class Item {
      *
      * @return string
      */
-    public function getEngine()
-    {
+    public function getEngine() {
         return $this->engine;
     }
 
@@ -1655,8 +1658,7 @@ class Item {
      *
      * @return Item
      */
-    public function setFuelType($fuelType)
-    {
+    public function setFuelType($fuelType) {
         $this->fuel_type = $fuelType;
 
         return $this;
@@ -1667,8 +1669,7 @@ class Item {
      *
      * @return string
      */
-    public function getFuelType()
-    {
+    public function getFuelType() {
         return $this->fuel_type;
     }
 
@@ -1679,8 +1680,7 @@ class Item {
      *
      * @return Item
      */
-    public function setInteriorColor($interiorColor)
-    {
+    public function setInteriorColor($interiorColor) {
         $this->interior_color = $interiorColor;
 
         return $this;
@@ -1691,8 +1691,7 @@ class Item {
      *
      * @return string
      */
-    public function getInteriorColor()
-    {
+    public function getInteriorColor() {
         return $this->interior_color;
     }
 
@@ -1703,8 +1702,7 @@ class Item {
      *
      * @return Item
      */
-    public function setExteriorColor($exteriorColor)
-    {
+    public function setExteriorColor($exteriorColor) {
         $this->exterior_color = $exteriorColor;
 
         return $this;
@@ -1715,10 +1713,10 @@ class Item {
      *
      * @return string
      */
-    public function getExteriorColor()
-    {
+    public function getExteriorColor() {
         return $this->exterior_color;
     }
+
     /**
      * @var boolean
      */
@@ -1734,7 +1732,6 @@ class Item {
      */
     private $videoId;
 
-
     /**
      * Set sold
      *
@@ -1742,8 +1739,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSold($sold)
-    {
+    public function setSold($sold) {
         $this->sold = $sold;
 
         return $this;
@@ -1754,8 +1750,7 @@ class Item {
      *
      * @return boolean
      */
-    public function getSold()
-    {
+    public function getSold() {
         return $this->sold;
     }
 
@@ -1766,8 +1761,7 @@ class Item {
      *
      * @return Item
      */
-    public function setBodyDescription($bodyDescription)
-    {
+    public function setBodyDescription($bodyDescription) {
         $this->body_description = $bodyDescription;
 
         return $this;
@@ -1778,8 +1772,7 @@ class Item {
      *
      * @return string
      */
-    public function getBodyDescription()
-    {
+    public function getBodyDescription() {
         return $this->body_description;
     }
 
@@ -1790,8 +1783,7 @@ class Item {
      *
      * @return Item
      */
-    public function setVideoId($videoId)
-    {
+    public function setVideoId($videoId) {
         $this->videoId = $videoId;
 
         return $this;
@@ -1802,15 +1794,14 @@ class Item {
      *
      * @return string
      */
-    public function getVideoId()
-    {
+    public function getVideoId() {
         return $this->videoId;
     }
+
     /**
      * @var string
      */
     private $trim;
-
 
     /**
      * Set trim
@@ -1819,8 +1810,7 @@ class Item {
      *
      * @return Item
      */
-    public function setTrim($trim)
-    {
+    public function setTrim($trim) {
         $this->trim = $trim;
 
         return $this;
@@ -1831,15 +1821,14 @@ class Item {
      *
      * @return string
      */
-    public function getTrim()
-    {
+    public function getTrim() {
         return $this->trim;
     }
+
     /**
      * @var string
      */
     private $doors;
-
 
     /**
      * Set doors
@@ -1848,8 +1837,7 @@ class Item {
      *
      * @return Item
      */
-    public function setDoors($doors)
-    {
+    public function setDoors($doors) {
         $this->doors = $doors;
 
         return $this;
@@ -1860,15 +1848,14 @@ class Item {
      *
      * @return string
      */
-    public function getDoors()
-    {
+    public function getDoors() {
         return $this->doors;
     }
+
     /**
      * @var string
      */
     private $drive_type;
-
 
     /**
      * Set driveType
@@ -1877,8 +1864,7 @@ class Item {
      *
      * @return Item
      */
-    public function setDriveType($driveType)
-    {
+    public function setDriveType($driveType) {
         $this->drive_type = $driveType;
 
         return $this;
@@ -1889,17 +1875,14 @@ class Item {
      *
      * @return string
      */
-    public function getDriveType()
-    {
+    public function getDriveType() {
         return $this->drive_type;
     }
-    
-    
+
     /**
      * @var string
      */
     private $seller_comment;
-
 
     /**
      * Set sellerComment
@@ -1908,8 +1891,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSellerComment($sellerComment)
-    {
+    public function setSellerComment($sellerComment) {
         $this->seller_comment = $sellerComment;
 
         return $this;
@@ -1920,8 +1902,8 @@ class Item {
      *
      * @return string
      */
-    public function getSellerComment()
-    {
+    public function getSellerComment() {
         return $this->seller_comment;
     }
+
 }
