@@ -46,6 +46,12 @@
                                     {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}  
                                 </div>
                             </div>
+                            <div class="form-group">
+                                {{ form_label(form.featured, 'Featured', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+                                <div class="col-sm-9">                            
+                                    {{ form_widget(form.featured, { 'attr': {'class': 'form-control'} }) }}  
+                                </div>
+                            </div>
                         {% endif %}                
                         <div class="form-group">
                             {{ form_label(form.sold, 'Sold', { 'label_attr': {'class': 'col-sm-3'} }) }}   
