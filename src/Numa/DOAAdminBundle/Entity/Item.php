@@ -1032,6 +1032,7 @@ class Item {
 
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
                 $this->addItemField($itemField);
+                $em->persist($itemField);
                 $order++;
             }
         } else {
@@ -1052,7 +1053,7 @@ class Item {
 
             foreach ($picturesArray as $picture) {
                 $itemField = new ItemField();
-
+                
                 $itemField->setAllValues($picture);
 //                //$itemField->setListingfield($listingFields);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
@@ -1065,7 +1066,7 @@ class Item {
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
-                //$em->persist($itemField);
+                $em->persist($itemField);
                 $this->addItemField($itemField);
                 //unset($itemField);
                 $order++;

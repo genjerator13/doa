@@ -50,6 +50,7 @@ Numa\DOAAdminBundle\Entity\ItemField:
         Listingfield:
             targetEntity: Listingfield
             inversedBy: ItemField
+            #cascade: ["persist","remove"]
             joinColumn:
                 name: field_id
                 referencedColumnName: id

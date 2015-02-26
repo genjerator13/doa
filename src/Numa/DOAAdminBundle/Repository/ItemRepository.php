@@ -202,14 +202,15 @@ class ItemRepository extends EntityRepository {
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
-
+                
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
-
-                    $itemField->setListingfield($test);
+                    if ($test instanceof Listingfield) {
+                        $itemField->setListingfield($test);
+                    }
                     //$itemField->setListingfield($listingFields); //will set caption and type by listing field
                     //$itemField->setFieldName($listingFields->getCaption());
                     //$itemField->setFieldType($listingFields->getType());
@@ -243,9 +244,14 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                    //dump($feed);
-                    $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
-                    
+                    //check if string
+                    $json = json_decode($stringValue,true);
+                   //dump($json);
+                    if(is_array($json)){
+                        $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em);
+                    }else{
+                        $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
+                    }
                     $processed = true;
                 }else{
                      
