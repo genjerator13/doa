@@ -243,7 +243,7 @@ class ItemField {
      * @return ItemField
      */
     public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null) {
-        if(!empty($listingfield)){
+        if ($listingfield instanceof ListingFieldTree) {
             $this->Listingfield = $listingfield;
         }
         $this->setFieldName($listingfield->getCaption());
@@ -291,7 +291,13 @@ class ItemField {
     }
 
     function setAllValues($value, $valueMapValues = "") {
-        $value = (string) $value;
+        
+        if(is_array($value)){
+            $value =json_encode($value, true);
+        }else{
+            $value = (string) $value;
+        }
+        
         if (!empty($valueMapValues)) {
             $json = json_decode($valueMapValues, true);
             if (!empty($json)) {
@@ -302,6 +308,7 @@ class ItemField {
                 }
             }
         }
+        
         $this->field_string_value = $value;
         $this->field_integer_value = intval($value);
         $this->field_boolean_value = !empty($value);
