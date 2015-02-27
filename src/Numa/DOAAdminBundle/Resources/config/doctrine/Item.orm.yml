@@ -192,8 +192,48 @@ Numa\DOAAdminBundle\Entity\Item:
               nullable: true 
         seller_comment:
               type: text
-              length: 255
               nullable: true 
+        length:
+              type: float
+              nullable: true
+        boat_weight:
+              type: float
+              nullable: true
+        hull_design:
+              type: string
+              length: 255
+              nullable: true              
+        beam:
+              type: string
+              length: 255
+              nullable: true              
+        steering_type:
+              type: string
+              length: 255
+              nullable: true              
+        of_hours:
+              type: string
+              length: 255
+              nullable: true              
+        passengers:
+              type: string
+              length: 255
+              nullable: true              
+        trailer:
+              type: string
+              length: 255
+              nullable: true              
+        battery:
+              type: string
+              length: 255
+              nullable: true              
+        fuel_capacity:
+              type: string
+              length: 255
+              nullable: true              
+        horsepower:
+              type: integer
+              nullable: true              
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

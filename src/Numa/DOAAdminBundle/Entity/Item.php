@@ -11,7 +11,10 @@ use Doctrine\Common\Collections\Criteria;
  */
 class Item {
 
-    public static $carFields = array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'make' => 'make', 'model' => 'model');
+    public static $fields = array(1=>
+        array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
+                                  2=>
+        array('Boat Type'=>'type','exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType','drive_type' => 'driveType'));
 
     /**
      * @var integer
@@ -1906,4 +1909,352 @@ class Item {
         return $this->seller_comment;
     }
 
+    /**
+     * @var float
+     */
+    private $length;
+
+    /**
+     * @var float
+     */
+    private $boat_weight;
+
+    /**
+     * @var string
+     */
+    private $hull_design;
+
+    /**
+     * @var string
+     */
+    private $steering_type;
+
+    /**
+     * @var string
+     */
+    private $of_hours;
+
+    /**
+     * @var string
+     */
+    private $passengers;
+
+    /**
+     * @var string
+     */
+    private $trailer;
+
+    /**
+     * @var string
+     */
+    private $battery;
+
+    /**
+     * @var string
+     */
+    private $fuel_capacity;
+
+    /**
+     * @var integer
+     */
+    private $horsepower;
+
+
+    /**
+     * Set length
+     *
+     * @param float $length
+     *
+     * @return Item
+     */
+    public function setLength($length)
+    {
+        $this->length = $length;
+
+        return $this;
+    }
+
+    /**
+     * Get length
+     *
+     * @return float
+     */
+    public function getLength()
+    {
+        return $this->length;
+    }
+
+    /**
+     * Set boatWeight
+     *
+     * @param float $boatWeight
+     *
+     * @return Item
+     */
+    public function setBoatWeight($boatWeight)
+    {
+        $this->boat_weight = $boatWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get boatWeight
+     *
+     * @return float
+     */
+    public function getBoatWeight()
+    {
+        return $this->boat_weight;
+    }
+
+    /**
+     * Set hullDesign
+     *
+     * @param string $hullDesign
+     *
+     * @return Item
+     */
+    public function setHullDesign($hullDesign)
+    {
+        $this->hull_design = $hullDesign;
+
+        return $this;
+    }
+
+    /**
+     * Get hullDesign
+     *
+     * @return string
+     */
+    public function getHullDesign()
+    {
+        return $this->hull_design;
+    }
+
+    /**
+     * Set steeringType
+     *
+     * @param string $steeringType
+     *
+     * @return Item
+     */
+    public function setSteeringType($steeringType)
+    {
+        $this->steering_type = $steeringType;
+
+        return $this;
+    }
+
+    /**
+     * Get steeringType
+     *
+     * @return string
+     */
+    public function getSteeringType()
+    {
+        return $this->steering_type;
+    }
+
+    /**
+     * Set ofHours
+     *
+     * @param string $ofHours
+     *
+     * @return Item
+     */
+    public function setOfHours($ofHours)
+    {
+        $this->of_hours = $ofHours;
+
+        return $this;
+    }
+
+    /**
+     * Get ofHours
+     *
+     * @return string
+     */
+    public function getOfHours()
+    {
+        return $this->of_hours;
+    }
+
+    /**
+     * Set passengers
+     *
+     * @param string $passengers
+     *
+     * @return Item
+     */
+    public function setPassengers($passengers)
+    {
+        $this->passengers = $passengers;
+
+        return $this;
+    }
+
+    /**
+     * Get passengers
+     *
+     * @return string
+     */
+    public function getPassengers()
+    {
+        return $this->passengers;
+    }
+
+    /**
+     * Set trailer
+     *
+     * @param string $trailer
+     *
+     * @return Item
+     */
+    public function setTrailer($trailer)
+    {
+        $this->trailer = $trailer;
+
+        return $this;
+    }
+
+    /**
+     * Get trailer
+     *
+     * @return string
+     */
+    public function getTrailer()
+    {
+        return $this->trailer;
+    }
+
+    /**
+     * Set battery
+     *
+     * @param string $battery
+     *
+     * @return Item
+     */
+    public function setBattery($battery)
+    {
+        $this->battery = $battery;
+
+        return $this;
+    }
+
+    /**
+     * Get battery
+     *
+     * @return string
+     */
+    public function getBattery()
+    {
+        return $this->battery;
+    }
+
+    /**
+     * Set fuelCapacity
+     *
+     * @param string $fuelCapacity
+     *
+     * @return Item
+     */
+    public function setFuelCapacity($fuelCapacity)
+    {
+        $this->fuel_capacity = $fuelCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelCapacity
+     *
+     * @return string
+     */
+    public function getFuelCapacity()
+    {
+        return $this->fuel_capacity;
+    }
+
+    /**
+     * Set horsepower
+     *
+     * @param integer $horsepower
+     *
+     * @return Item
+     */
+    public function setHorsepower($horsepower)
+    {
+        $this->horsepower = $horsepower;
+
+        return $this;
+    }
+
+    /**
+     * Get horsepower
+     *
+     * @return integer
+     */
+    public function getHorsepower()
+    {
+        return $this->horsepower;
+    }
+    /**
+     * @var string
+     */
+    private $beam;
+
+
+    /**
+     * Set beam
+     *
+     * @param string $beam
+     *
+     * @return Item
+     */
+    public function setBeam($beam)
+    {
+        $this->beam = $beam;
+
+        return $this;
+    }
+
+    /**
+     * Get beam
+     *
+     * @return string
+     */
+    public function getBeam()
+    {
+        return $this->beam;
+    }
+    /**
+     * @var string
+     */
+    private $passenger;
+
+
+    /**
+     * Set passenger
+     *
+     * @param string $passenger
+     *
+     * @return Item
+     */
+    public function setPassenger($passenger)
+    {
+        $this->passenger = $passenger;
+
+        return $this;
+    }
+
+    /**
+     * Get passenger
+     *
+     * @return string
+     */
+    public function getPassenger()
+    {
+        return $this->passenger;
+    }
 }

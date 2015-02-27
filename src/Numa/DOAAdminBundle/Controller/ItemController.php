@@ -355,7 +355,7 @@ class ItemController extends Controller {
         $entity->setCategory($category);
 
         $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser()), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser(),$category), $entity, array(
             'method' => 'POST',
         ));
 
@@ -367,13 +367,20 @@ class ItemController extends Controller {
             $em->flush();
             //dump($request->get("redirect"));die();
             if($request->get("redirect")=="images"){
-                //return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
                           
             }
-            //return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
+
         if ($cat_id == 1) {
             return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                        'category' => $category
+            ));
+        } elseif ($cat_id == 2) {
+            return $this->render('NumaDOAAdminBundle:Item:newMarine.html.twig', array(
                         'entity' => $entity,
                         'form' => $form->createView(),
                         'category' => $category
@@ -454,6 +461,12 @@ class ItemController extends Controller {
         //die("aaaa");
         if ($category == 1) {
             return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
+                        'entity' => $entity,
+                        'form' => $form->createView(),
+                        'category' => $categoryEntity
+            ));
+        } elseif ($category == 2) {
+            return $this->render('NumaDOAAdminBundle:Item:newMarine.html.twig', array(
                         'entity' => $entity,
                         'form' => $form->createView(),
                         'category' => $categoryEntity

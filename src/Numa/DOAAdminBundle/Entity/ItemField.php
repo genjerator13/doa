@@ -291,30 +291,31 @@ class ItemField {
     }
 
     function setAllValues($value, $valueMapValues = "") {
-        
-        if(is_array($value)){
-            $value =json_encode($value, true);
-        }else{
+
+        if (is_array($value)) {
+            $value = json_encode($value, true);
+        } else {
             $value = (string) $value;
         }
-        
+
         if (!empty($valueMapValues)) {
             $json = json_decode($valueMapValues, true);
-            
+
             if (!empty($json)) {
-                
+
                 foreach ($json as $key => $mapValue) {
-                    
+
                     //dump($value);
+
                     if (strtolower($key) == strtolower($value)) {
+                        
                         $value = $mapValue;
                     }
                 }
             }
-             
         }
-       
-        
+
+
         $this->field_string_value = $value;
         $this->field_integer_value = intval($value);
         $this->field_boolean_value = !empty($value);
@@ -370,7 +371,7 @@ class ItemField {
             $img = $dir . "/" . $filename;
             $img_url = $upload_url . "/" . $feed_sid . "/" . $filename;
 
-            
+
 
             if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
                 echo $dir . ":::" . $filename;
@@ -434,17 +435,15 @@ class ItemField {
      */
     private $field_double_value;
 
-
     /**
      * Set field_double_value
      *
      * @param \double $fieldDoubleValue
      * @return ItemField
      */
-    public function setFieldDoubleValue($fieldDoubleValue)
-    {
+    public function setFieldDoubleValue($fieldDoubleValue) {
         $this->field_double_value = $fieldDoubleValue;
-    
+
         return $this;
     }
 
@@ -453,8 +452,8 @@ class ItemField {
      *
      * @return double 
      */
-    public function getFieldDoubleValue()
-    {
+    public function getFieldDoubleValue() {
         return $this->field_double_value;
     }
+
 }
