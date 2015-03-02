@@ -150,11 +150,10 @@ ul.tmp{
 }
 
 .header-image {
-    background: url('/images/header_1.png') 100% bottom no-repeat #ffffff;
-    width: 1000px;
-    height: 160px;
+    background: url('/images/heder.jpg') 50% bottom no-repeat #ffffff;
+    width: 100%;
+    height: 165px;
     padding: 0;
-    margin-left: 15px;
 }
 
 .header-image .logo{
@@ -367,3 +366,11 @@ ul,li{list-style:none;margin:0;padding:0;}
 
 /*gallery*/
 
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #d3d3d3;
+    color: #555555;
+}
+
+.navbar-default {
+    border-width: medium medium 0;
+}
