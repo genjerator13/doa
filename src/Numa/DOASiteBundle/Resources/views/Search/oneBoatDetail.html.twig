@@ -16,7 +16,7 @@
                                         <div data="{{item.id}}" id="item_{{item.id}}" class="row item-row" url="{{path('item_compare')}}">    
                                             <div class="col-md-12">
                                                 <div class="picture-detail">
-                                                    <a href="{{detailUrl}}">
+                                                    <a href="{{detailUrl}}" class="thumbnail">
                                                         {% if images is empty  %}
                                                             <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
                                                         {% else %} 
@@ -26,9 +26,10 @@
                                                                 {% else %}
                                                                     <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
                                                                 {%endif%}
-                                                            </a>
+                                                            
 
                                                             {% endif %}
+                                                                </a>
                                                             </div>
                                                             <div class="shortDetails">
                                                                 <h4>

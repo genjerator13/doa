@@ -373,25 +373,17 @@ class ItemController extends Controller {
             return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
 
-        if ($cat_id == 1) {
-            return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $category
-            ));
-        } elseif ($cat_id == 2) {
-            return $this->render('NumaDOAAdminBundle:Item:newMarine.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $category
-            ));
-        } else {
+        return $this->switchTemplateByCategory($cat_id,$entity,$form,$category);
+    }
+    
+    private function switchTemplateByCategory($cat_id,$entity,$form,$category){
+
             return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                         'entity' => $entity,
                         'form' => $form->createView(),
                         'category' => $category,
             ));
-        }
+
     }
 
     /**
@@ -458,26 +450,7 @@ class ItemController extends Controller {
             $em->flush();
 
         }
-        //die("aaaa");
-        if ($category == 1) {
-            return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $categoryEntity
-            ));
-        } elseif ($category == 2) {
-            return $this->render('NumaDOAAdminBundle:Item:newMarine.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $categoryEntity
-            ));
-        } else {
-            return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $categoryEntity,
-            ));
-        }
+        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory() );
     }
 
     /**

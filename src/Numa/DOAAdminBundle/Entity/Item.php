@@ -11,10 +11,17 @@ use Doctrine\Common\Collections\Criteria;
  */
 class Item {
 
-    public static $fields = array(1=>
+    public static $fields = array(1 =>
         array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
-                                  2=>
-        array('Boat Type'=>'type','exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType','drive_type' => 'driveType'));
+        2 =>
+        array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        3 =>
+        array('exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        4 =>
+        array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
+        13 =>
+        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication','steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+    );
 
     /**
      * @var integer
@@ -1037,7 +1044,7 @@ class Item {
                     ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
                 }
                 $itemField->setFeedId($feed->getId());
-                
+
 
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
                 $this->addItemField($itemField);
@@ -1513,6 +1520,50 @@ class Item {
             $this->setStatus($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'seller comment') {
             $this->setSellerComment($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'beam') {
+            $this->setBeam($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'length' || strtolower($itemField->getFieldName()) == 'length(ft)') {
+            $this->setLength($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'hull design') {
+            $this->setHullDesign($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'steering type') {
+            $this->setSteeringType($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fuel capacity') {
+            $this->setFuelCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'of hours') {
+            $this->setOfHours($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'passengers') {
+            $this->setPassenger($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'battery') {
+            $this->setBattery($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'trailer') {
+            $this->setTrailer($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'ignition') {
+            $this->setIgnition($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'gears') {
+            $this->setgears($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'width') {
+            $this->setWidth($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'displacement') {
+            $this->setDisplacement($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'chassis type') {
+            $this->setChassisType($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'slide outs') {
+            $this->setSlideOuts($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
+            $this->setFlooring($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'floor plan') {
+            $this->setFloorPlan($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'class') {
+            $this->setClass($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'weight') {
+            $this->setWeight($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'engine type') {
+            $this->setEngineType($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fuel system') {
+            $this->setFuelSystem($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fuel capacity') {
+            $this->setFuelCapacity($itemField->getFieldStringValue());
         }
     }
 
@@ -1959,7 +2010,6 @@ class Item {
      */
     private $horsepower;
 
-
     /**
      * Set length
      *
@@ -1967,8 +2017,7 @@ class Item {
      *
      * @return Item
      */
-    public function setLength($length)
-    {
+    public function setLength($length) {
         $this->length = $length;
 
         return $this;
@@ -1979,8 +2028,7 @@ class Item {
      *
      * @return float
      */
-    public function getLength()
-    {
+    public function getLength() {
         return $this->length;
     }
 
@@ -1991,8 +2039,7 @@ class Item {
      *
      * @return Item
      */
-    public function setBoatWeight($boatWeight)
-    {
+    public function setBoatWeight($boatWeight) {
         $this->boat_weight = $boatWeight;
 
         return $this;
@@ -2003,8 +2050,7 @@ class Item {
      *
      * @return float
      */
-    public function getBoatWeight()
-    {
+    public function getBoatWeight() {
         return $this->boat_weight;
     }
 
@@ -2015,8 +2061,7 @@ class Item {
      *
      * @return Item
      */
-    public function setHullDesign($hullDesign)
-    {
+    public function setHullDesign($hullDesign) {
         $this->hull_design = $hullDesign;
 
         return $this;
@@ -2027,8 +2072,7 @@ class Item {
      *
      * @return string
      */
-    public function getHullDesign()
-    {
+    public function getHullDesign() {
         return $this->hull_design;
     }
 
@@ -2039,8 +2083,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSteeringType($steeringType)
-    {
+    public function setSteeringType($steeringType) {
         $this->steering_type = $steeringType;
 
         return $this;
@@ -2051,8 +2094,7 @@ class Item {
      *
      * @return string
      */
-    public function getSteeringType()
-    {
+    public function getSteeringType() {
         return $this->steering_type;
     }
 
@@ -2063,8 +2105,7 @@ class Item {
      *
      * @return Item
      */
-    public function setOfHours($ofHours)
-    {
+    public function setOfHours($ofHours) {
         $this->of_hours = $ofHours;
 
         return $this;
@@ -2075,8 +2116,7 @@ class Item {
      *
      * @return string
      */
-    public function getOfHours()
-    {
+    public function getOfHours() {
         return $this->of_hours;
     }
 
@@ -2087,8 +2127,7 @@ class Item {
      *
      * @return Item
      */
-    public function setPassengers($passengers)
-    {
+    public function setPassengers($passengers) {
         $this->passengers = $passengers;
 
         return $this;
@@ -2099,8 +2138,7 @@ class Item {
      *
      * @return string
      */
-    public function getPassengers()
-    {
+    public function getPassengers() {
         return $this->passengers;
     }
 
@@ -2111,8 +2149,7 @@ class Item {
      *
      * @return Item
      */
-    public function setTrailer($trailer)
-    {
+    public function setTrailer($trailer) {
         $this->trailer = $trailer;
 
         return $this;
@@ -2123,8 +2160,7 @@ class Item {
      *
      * @return string
      */
-    public function getTrailer()
-    {
+    public function getTrailer() {
         return $this->trailer;
     }
 
@@ -2135,8 +2171,7 @@ class Item {
      *
      * @return Item
      */
-    public function setBattery($battery)
-    {
+    public function setBattery($battery) {
         $this->battery = $battery;
 
         return $this;
@@ -2147,8 +2182,7 @@ class Item {
      *
      * @return string
      */
-    public function getBattery()
-    {
+    public function getBattery() {
         return $this->battery;
     }
 
@@ -2159,8 +2193,7 @@ class Item {
      *
      * @return Item
      */
-    public function setFuelCapacity($fuelCapacity)
-    {
+    public function setFuelCapacity($fuelCapacity) {
         $this->fuel_capacity = $fuelCapacity;
 
         return $this;
@@ -2171,8 +2204,7 @@ class Item {
      *
      * @return string
      */
-    public function getFuelCapacity()
-    {
+    public function getFuelCapacity() {
         return $this->fuel_capacity;
     }
 
@@ -2183,8 +2215,7 @@ class Item {
      *
      * @return Item
      */
-    public function setHorsepower($horsepower)
-    {
+    public function setHorsepower($horsepower) {
         $this->horsepower = $horsepower;
 
         return $this;
@@ -2195,15 +2226,14 @@ class Item {
      *
      * @return integer
      */
-    public function getHorsepower()
-    {
+    public function getHorsepower() {
         return $this->horsepower;
     }
+
     /**
      * @var string
      */
     private $beam;
-
 
     /**
      * Set beam
@@ -2212,8 +2242,7 @@ class Item {
      *
      * @return Item
      */
-    public function setBeam($beam)
-    {
+    public function setBeam($beam) {
         $this->beam = $beam;
 
         return $this;
@@ -2224,15 +2253,14 @@ class Item {
      *
      * @return string
      */
-    public function getBeam()
-    {
+    public function getBeam() {
         return $this->beam;
     }
+
     /**
      * @var string
      */
     private $passenger;
-
 
     /**
      * Set passenger
@@ -2241,8 +2269,7 @@ class Item {
      *
      * @return Item
      */
-    public function setPassenger($passenger)
-    {
+    public function setPassenger($passenger) {
         $this->passenger = $passenger;
 
         return $this;
@@ -2253,8 +2280,533 @@ class Item {
      *
      * @return string
      */
-    public function getPassenger()
-    {
+    public function getPassenger() {
         return $this->passenger;
+    }
+
+    /**
+     * @var string
+     */
+    private $fuel_system;
+
+    /**
+     * @var string
+     */
+    private $ignition;
+
+    /**
+     * @var string
+     */
+    private $gears;
+
+    /**
+     * @var float
+     */
+    private $width;
+
+    /**
+     * Set fuelSystem
+     *
+     * @param string $fuelSystem
+     *
+     * @return Item
+     */
+    public function setFuelSystem($fuelSystem) {
+        $this->fuel_system = $fuelSystem;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelSystem
+     *
+     * @return string
+     */
+    public function getFuelSystem() {
+        return $this->fuel_system;
+    }
+
+    /**
+     * Set ignition
+     *
+     * @param string $ignition
+     *
+     * @return Item
+     */
+    public function setIgnition($ignition) {
+        $this->ignition = $ignition;
+
+        return $this;
+    }
+
+    /**
+     * Get ignition
+     *
+     * @return string
+     */
+    public function getIgnition() {
+        return $this->ignition;
+    }
+
+    /**
+     * Set gears
+     *
+     * @param string $gears
+     *
+     * @return Item
+     */
+    public function setGears($gears) {
+        $this->gears = $gears;
+
+        return $this;
+    }
+
+    /**
+     * Get gears
+     *
+     * @return string
+     */
+    public function getGears() {
+        return $this->gears;
+    }
+
+    /**
+     * Set width
+     *
+     * @param float $width
+     *
+     * @return Item
+     */
+    public function setWidth($width) {
+        $this->width = $width;
+
+        return $this;
+    }
+
+    /**
+     * Get width
+     *
+     * @return float
+     */
+    public function getWidth() {
+        return $this->width;
+    }
+
+    /**
+     * @var string
+     */
+    private $engine_type;
+
+    /**
+     * Set engineType
+     *
+     * @param string $engineType
+     *
+     * @return Item
+     */
+    public function setEngineType($engineType) {
+        $this->engine_type = $engineType;
+
+        return $this;
+    }
+
+    /**
+     * Get engineType
+     *
+     * @return string
+     */
+    public function getEngineType() {
+        return $this->engine_type;
+    }
+
+    /**
+     * @var string
+     */
+    private $displacement;
+
+    /**
+     * Set displacement
+     *
+     * @param string $displacement
+     *
+     * @return Item
+     */
+    public function setDisplacement($displacement) {
+        $this->displacement = $displacement;
+
+        return $this;
+    }
+
+    /**
+     * Get displacement
+     *
+     * @return string
+     */
+    public function getDisplacement() {
+        return $this->displacement;
+    }
+
+    /**
+     * @var string
+     */
+    private $chassis_type;
+
+    /**
+     * @var string
+     */
+    private $sleeps;
+
+    /**
+     * @var string
+     */
+    private $slide_outs;
+
+    /**
+     * @var string
+     */
+    private $flooring;
+
+    /**
+     * Set chassisType
+     *
+     * @param string $chassisType
+     *
+     * @return Item
+     */
+    public function setChassisType($chassisType) {
+        $this->chassis_type = $chassisType;
+
+        return $this;
+    }
+
+    /**
+     * Get chassisType
+     *
+     * @return string
+     */
+    public function getChassisType() {
+        return $this->chassis_type;
+    }
+
+    /**
+     * Set sleeps
+     *
+     * @param string $sleeps
+     *
+     * @return Item
+     */
+    public function setSleeps($sleeps) {
+        $this->sleeps = $sleeps;
+
+        return $this;
+    }
+
+    /**
+     * Get sleeps
+     *
+     * @return string
+     */
+    public function getSleeps() {
+        return $this->sleeps;
+    }
+
+    /**
+     * Set slideOuts
+     *
+     * @param string $slideOuts
+     *
+     * @return Item
+     */
+    public function setSlideOuts($slideOuts) {
+        $this->slide_outs = $slideOuts;
+
+        return $this;
+    }
+
+    /**
+     * Get slideOuts
+     *
+     * @return string
+     */
+    public function getSlideOuts() {
+        return $this->slide_outs;
+    }
+
+    /**
+     * Set flooring
+     *
+     * @param string $flooring
+     *
+     * @return Item
+     */
+    public function setFlooring($flooring) {
+        $this->flooring = $flooring;
+
+        return $this;
+    }
+
+    /**
+     * Get flooring
+     *
+     * @return string
+     */
+    public function getFlooring() {
+        return $this->flooring;
+    }
+
+    /**
+     * @var string
+     */
+    private $flor_plan;
+
+    /**
+     * Set florPlan
+     *
+     * @param string $florPlan
+     *
+     * @return Item
+     */
+    public function setFlorPlan($florPlan) {
+        $this->flor_plan = $florPlan;
+
+        return $this;
+    }
+
+    /**
+     * Get florPlan
+     *
+     * @return string
+     */
+    public function getFlorPlan() {
+        return $this->flor_plan;
+    }
+
+    /**
+     * @var string
+     */
+    private $class;
+
+    /**
+     * Set class
+     *
+     * @param string $class
+     *
+     * @return Item
+     */
+    public function setClass($class) {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    /**
+     * Get class
+     *
+     * @return string
+     */
+    public function getClass() {
+        return $this->class;
+    }
+
+    /**
+     * @var float
+     */
+    private $weight;
+
+    /**
+     * Set weight
+     *
+     * @param float $weight
+     *
+     * @return Item
+     */
+    public function setWeight($weight) {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    /**
+     * Get weight
+     *
+     * @return float
+     */
+    public function getWeight() {
+        return $this->weight;
+    }
+
+    /**
+     * @var string
+     */
+    private $operator_station;
+
+    /**
+     * @var string
+     */
+    private $speed_forward;
+
+    /**
+     * @var string
+     */
+    private $speed_reverse;
+
+    /**
+     * @var string
+     */
+    private $tire_size;
+
+    /**
+     * @var string
+     */
+    private $tire_equipment;
+
+    /**
+     * @var string
+     */
+    private $cutting_width;
+
+
+    /**
+     * Set operatorStation
+     *
+     * @param string $operatorStation
+     *
+     * @return Item
+     */
+    public function setOperatorStation($operatorStation)
+    {
+        $this->operator_station = $operatorStation;
+
+        return $this;
+    }
+
+    /**
+     * Get operatorStation
+     *
+     * @return string
+     */
+    public function getOperatorStation()
+    {
+        return $this->operator_station;
+    }
+
+    /**
+     * Set speedForward
+     *
+     * @param string $speedForward
+     *
+     * @return Item
+     */
+    public function setSpeedForward($speedForward)
+    {
+        $this->speed_forward = $speedForward;
+
+        return $this;
+    }
+
+    /**
+     * Get speedForward
+     *
+     * @return string
+     */
+    public function getSpeedForward()
+    {
+        return $this->speed_forward;
+    }
+
+    /**
+     * Set speedReverse
+     *
+     * @param string $speedReverse
+     *
+     * @return Item
+     */
+    public function setSpeedReverse($speedReverse)
+    {
+        $this->speed_reverse = $speedReverse;
+
+        return $this;
+    }
+
+    /**
+     * Get speedReverse
+     *
+     * @return string
+     */
+    public function getSpeedReverse()
+    {
+        return $this->speed_reverse;
+    }
+
+    /**
+     * Set tireSize
+     *
+     * @param string $tireSize
+     *
+     * @return Item
+     */
+    public function setTireSize($tireSize)
+    {
+        $this->tire_size = $tireSize;
+
+        return $this;
+    }
+
+    /**
+     * Get tireSize
+     *
+     * @return string
+     */
+    public function getTireSize()
+    {
+        return $this->tire_size;
+    }
+
+    /**
+     * Set tireEquipment
+     *
+     * @param string $tireEquipment
+     *
+     * @return Item
+     */
+    public function setTireEquipment($tireEquipment)
+    {
+        $this->tire_equipment = $tireEquipment;
+
+        return $this;
+    }
+
+    /**
+     * Get tireEquipment
+     *
+     * @return string
+     */
+    public function getTireEquipment()
+    {
+        return $this->tire_equipment;
+    }
+
+    /**
+     * Set cuttingWidth
+     *
+     * @param string $cuttingWidth
+     *
+     * @return Item
+     */
+    public function setCuttingWidth($cuttingWidth)
+    {
+        $this->cutting_width = $cuttingWidth;
+
+        return $this;
+    }
+
+    /**
+     * Get cuttingWidth
+     *
+     * @return string
+     */
+    public function getCuttingWidth()
+    {
+        return $this->cutting_width;
     }
 }

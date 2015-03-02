@@ -48,9 +48,9 @@ class AddItemSubscriber implements EventSubscriberInterface {
         
         foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB=>$carFieldField) {
             $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB,$cat,true);
-            dump($carFieldField );
+            
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                
+                dump($listingList );
                 $type = $listingList->getType();
                 
                 if (strtolower($type) == 'list') {

@@ -1,268 +1,93 @@
-{% extends is_granted('ROLE_BUSINES')
-    ? 'NumaDOASiteBundle::home-layout.html.twig' 
-    : 'NumaDOAAdminBundle::layout.html.twig' %}
-{#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
+
 {% block content %}
-    {% set action="Add new listing" %}
-        {% if entity.id is not empty %}
-            {% set action="Edit listing #"~entity.id~" , "~entity.getMake()~" "~entity.getModel() %}
-                {% endif %}
-                    <div class="new-listing new-car">
-                        <h1>{{action}}</h1>
-
-                        {{ form_start(form) }}
-                        {{ form_errors(form) }}
-                        {{ form_row (form._token) }}
-                        <div class="listingActions">
-                            This listing is	
-                            {% if entity.active %}
-                                <span class="">Active</span>
-                            {%else%}
-                                <span class="">InActive</span>
-                            {%endif%}
-                            and 
-                            <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
-                            | <a href="#" class="itemControls deactivate">Deactivate</a>
-                            | <a href="#" class="itemControls view">View Listing</a>
-                            {% if entity.id is not empty %}
-                                | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
-                            {% else %}
-                                | <a href="#" id="addimages">Add Pictures</a>
-                            {% endif %}
-                        </div>
-                        <p>Fields marked with an asterisk (*) are mandatory.car</p>
-                        <div class="form-group">
-                            {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                            <div class="col-sm-9">                            
-                                {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}  
-                            </div>
-                        </div>
-                        {% if(is_granted('ROLE_BUSINES'))%}
-                            {{ form_row(form.dealer_id) }}
-                        {% else %}
-                            <div class="form-group">
-                                {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                                <div class="col-sm-9">                            
-                                    {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}  
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(form.featured, 'Featured', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                                <div class="col-sm-9">                            
-                                    {{ form_widget(form.featured, { 'attr': {'class': 'form-control'} }) }}  
-                                </div>
-                            </div>
-                        {% endif %}                
-                        <div class="form-group">
-                            {{ form_label(form.active, 'Active', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                            <div class="col-sm-9">                            
-                                {{ form_widget(form.active, { 'attr': {'class': 'form-control'} }) }}  
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.sold, 'Sold', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                            <div class="col-sm-9">                            
-                                {{ form_widget(form.sold, { 'attr': {'class': 'form-control'} }) }}  
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                            <div class="col-sm-9">                            
-                                {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}  
-                            </div>
-                        </div>
 
 
-                        <div class="form-group">
-                            {{ form_label(form.status, 'Status', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                            <div class="col-sm-9">                            
-                                {{ form_widget(form.status, { 'attr': {'class': 'form-control'} }) }}  
-                            </div>
-                        </div>
-                    </div>
+    <div class="form-group">
+        {{ form_label(form.stockNr, 'stockNr', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.stockNr, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        {{ form_label(form.stockNr, 'stockNr', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.stockNr, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
+    <div class="form-group">
+        {{ form_label(form.make, 'make', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.model, 'model', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
 
-                    <div class="form-group">
-                        {{ form_label(form.make, 'make', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.model, 'model', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        {{ form_label(form.trim, 'trim', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.trim, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.bodyStyle, 'bodyStyle', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.bodyStyle, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.bodyDescription, 'bodyDescription', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.bodyDescription, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.price, 'price', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.price, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.mileage, 'mileage', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.mileage, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.exteriorColor, 'exteriorColor', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.interiorColor, 'interiorColor', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.interiorColor, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.doors, 'doors', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.doors, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.engine, 'Engine', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.transmission, 'Transmission', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.fuelType, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.driveType, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.VIN, 'VIN', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.VIN, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.videoID, 'Video ID', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.videoID, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.seller_comment, 'Seller Comment', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-                        <div class="col-sm-9">                            
-                            {{ form_widget(form.seller_comment, { 'attr': {'class': 'form-control'} }) }}  
-                        </div>
-                    </div>
+    <div class="form-group">
+        {{ form_label(form.trim, 'trim', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.trim, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.bodyStyle, 'bodyStyle', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.bodyStyle, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.bodyDescription, 'bodyDescription', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.bodyDescription, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.exteriorColor, 'exteriorColor', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.interiorColor, 'interiorColor', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.interiorColor, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.doors, 'doors', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.doors, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.engine, 'Engine', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.transmission, 'Transmission', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.fuelType, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.driveType, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.VIN, 'VIN', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.VIN, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
 
 
-                    <h2>Vehicle features</h2>
-                    <ul>
-                        {% for field in form.Itemfield %}
-                            <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
-
-                                <span>
-
-                                    {% if field.field_string_value is defined %}
-                                        {{ form_widget(field.field_string_value) }}
-                                    {% endif %}
-                                    {% if field.field_integer_value is defined %}
-                                        {{ form_widget(field.field_integer_value) }}
-                                    {% endif %}
-                                    {% if field.field_boolean_value is defined %}
-                                        {{ form_widget(field.field_boolean_value) }}
-                                    {% endif %}
-                                </span>
-                                <span>
-                                    {{ form_row(field.field_name) }}
-                                    {{ field.vars.value.getFieldName }}
-                                </span>
-                                {{ form_row(field.field_type) }}
-                            </li>
-
-                        {% endfor %}
-                    </ul>
-
-                    <ul class="record_actions">
-                        <li>
-                            <button class="btn btn-primary">
-                                Submit
-                            </button>
-                        </li>
-                        <li>
-                            <a href="{{ path('items') }}" class="btn btn-primary">
-                                Back to the list
-                            </a>
-                        </li>
-
-                    </ul>
-
-
-                    {% if entity.id is not empty %}
-                        <script>
-                            $(document).ready(function() {
-                                $("#numa_doaadminbundle_item_Category").change(function(e) {
-                                    var form = $(this).closest('form');
-
-                                    form.attr('action', '{{path("item_category_change",{id:entity.id})}}');
-                                    console.log(form.attr('action'));
-                                    form.submit();
-
-                                });
-
-
-
-                            });
-                        </script>
-                    {% else %}    
-                        <script>
-                            $("#addimages").on("click", function(e) {
-                                e.preventDefault();
-                                var form = $(this).closest('form');
-
-                                //form.attr('action', '{{path("item_category_change",{id:0,redirect:'images'})}}');
-                                $("#redirect").val("images");
-                                console.log(form.attr('action'));
-                                form.submit();
-                            });
-                        </script>
-                    {% endif %}
-                    {% endblock %}
+{% endblock %}
