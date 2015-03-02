@@ -194,7 +194,7 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer));
     }
 
-    public function searchAction(Request $request) {
+    public function searchAction(Request $request,$route) {
         $form =  $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -203,8 +203,7 @@ class DefaultController extends Controller {
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 ->add('text', 'search', array('label' => false))
                 ->getForm();
-
-        return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView()));
+        return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(),'route'=>$route));
     }
 
     public function featuredAddAction($max) {

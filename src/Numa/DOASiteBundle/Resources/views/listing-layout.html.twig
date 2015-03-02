@@ -36,9 +36,10 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div class="navbar-collapse collapse">
-                    {{ render_esi(controller('NumaDOASiteBundle:Default:search')) }}
-                </div><!--/.nav-collapse -->
+               <div class="navbar-collapse collapse">         
+                        {% set route = app.request.get('_route') %}
+                            {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
+                    </div><!--/.nav-collapse -->
             </div>
         </div>
 

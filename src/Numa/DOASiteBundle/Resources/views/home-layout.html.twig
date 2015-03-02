@@ -16,19 +16,18 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="navbar-collapse collapse">                      
-                            {{ render_esi(controller('NumaDOASiteBundle:Default:search')) }}
+                    <div class="navbar-collapse collapse">         
+                        {% set route = app.request.get('_route') %}
+                            {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
 
-
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 header-image" >
-                        <div class="logo"></div>
+<div class="header-image" >
+                       
                     </div>
-                </div>
+            <div class="container">
+
                 <div class="row">
 
                     <div class="col-md-2">

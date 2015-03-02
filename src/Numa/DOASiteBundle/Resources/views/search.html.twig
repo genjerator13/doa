@@ -8,9 +8,9 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-            <li class="active"><a href="{{path('homepage')}}">Home</a></li>
-            <li><a href="{{path('buyer_login')}}">Dealer login</a></li>
-            <li><a href="{{ path('search_advanced') }}">Advanced Search</a></li>
+            <li class="{% if route=='homepage' %}active{% endif %}"><a href="{{path('homepage')}}">Home</a></li>
+            <li class="{% if route=='buyer_login' %}active{% endif %}"><a href="{{path('buyer_login')}}">Dealer login</a></li>
+            <li class="{% if route=='search_advanced' %}active{% endif %}"><a href="{{ path('search_advanced') }}">Advanced Search</a></li>
 
             <li>
                 {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
@@ -19,10 +19,10 @@
                     <a class="" href="{{path('logout')}}"> Log Out </a>
                 {%endif %}
             </li>
-            <li>
+            <li  class="{% if route=='homepage_categories' %}active{% endif %}">
                 <a class="" href="{{path('homepage_categories')}}">Business Directory</a>
             </li>
-            <li>
+            <li class="{% if route=='search_sellers' %}active{% endif %}">
                 <a class="" href="{{path('search_sellers')}}">Search Sellers</a>
             </li>
         </ul>
