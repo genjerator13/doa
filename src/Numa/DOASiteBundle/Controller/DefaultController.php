@@ -194,7 +194,7 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer));
     }
 
-    public function searchAction(Request $request,$route) {
+    public function searchAction(Request $request,$route="") {
         $form =  $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))

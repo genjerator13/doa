@@ -7,18 +7,18 @@
         {% for item in items %}
             {% set images = item.getImages()%}
             {% set desc = item.getMake()~item.getModel()%}
-                <a href="{{path('item_details', {'itemId': item.id, 'description': desc}) }}">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
+                <a  href="{{path('item_details', {'itemId': item.id, 'description': desc}) }}">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
 
                     
                 {% set image = item.getImages2()|first%}
                 {% if images is empty  %}
-                    <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
+                    <img class="thumbnail" alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
                 {% else %} 
                     {% set image = item.getImages()|first["stringvalue"]%}
                         {% if ('http' not in image) %}
-                            <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                            <img class="thumbnail" alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
                         {% else %}
-                            <img alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
+                            <img class="thumbnail" alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
                         {%endif%}
                     </a>
 
