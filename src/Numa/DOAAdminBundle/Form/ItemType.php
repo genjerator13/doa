@@ -13,10 +13,12 @@ class ItemType extends AbstractType
     protected $em;
     protected $securityContext;
     protected $dealerID;
-    public function __construct($em=null, $securityContext=null,$dealerID=null) {
+    protected $category;
+    public function __construct($em=null, $securityContext=null,$dealerID=null,$category=null) {
         $this->em = $em;
         $this->dealerID =$dealerID ;
         $this->securityContext = $securityContext;
+        $this->category = $category;
     }
         /**
      * @param FormBuilderInterface $builder
@@ -33,7 +35,10 @@ class ItemType extends AbstractType
             ->add('interiorColor')
             ->add('doors')
             ->add('engine')
+            ->add('engineType')
             ->add('fuelType')
+            ->add('fuelSystem')
+            ->add('fuelCapacity')
             ->add('driveType')
             ->add('videoID')
             ->add('moderation_status','choice',array('choices'=>array('APPROVED','NEW')))
@@ -83,12 +88,41 @@ class ItemType extends AbstractType
             ->add('feature_slideshow')
             ->add('feature_youtube')
             ->add('Importfeed')
+            ->add('seller_comment')
             ->add('User')
+            ->add('length')
+            ->add('beam')            
+            ->add('hullDesign')
+            ->add('steeringType')
+            ->add('horsepower')
+            ->add('fuelCapacity')
+            ->add('ofHours')
+
+            ->add('passengers')
+            ->add('battery')
+            ->add('trailer')
+            ->add('ignition')
+            ->add('gears')
+            ->add('width')
+            ->add('displacement')
+            ->add('chassisType')
+            ->add('sleeps')
+            ->add('slideOuts')
+            ->add('flooring')
+            ->add('floorPlan')
+            ->add('class')
+            ->add('weight')
+            ->add('operatorStation')
+            ->add('speedForward')
+            ->add('speedReverse')
+            ->add('tireSize')
+            ->add('tireEquipment')
+            ->add('cuttingWidth')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;
         
-        $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID));
+        $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID, $this->category));
         $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
         $event->stopPropagation();
     }, 900);

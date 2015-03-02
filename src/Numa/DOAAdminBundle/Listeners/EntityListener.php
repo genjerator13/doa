@@ -76,7 +76,7 @@ class EntityListener {
         } elseif ($entity instanceof Item) {
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
-            $resultCode = $command->makeHomeTabs(false);
+            //$resultCode = $command->makeHomeTabs(false);
         }
     }
 

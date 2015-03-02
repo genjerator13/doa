@@ -1,3 +1,8 @@
+@font-face {
+    font-family: bauhaus93;
+    src: url(bauhaus93.ttf);
+}
+
 .left {
     float: left;
 }
@@ -164,6 +169,13 @@ ul.tmp{
     position: absolute;
     bottom: 0;
     left: 0;
+}
+
+.logo-text {
+    font-family: bauhaus93;
+    color: #ED7D31;
+    font-size: 24px;
+    margin-top: -40px;
 }
 
 .navbar{
@@ -365,6 +377,21 @@ a{
 ul,li{list-style:none;margin:0;padding:0;}
 
 /*gallery*/
+/*FOOTER*/
+.footer {
+    height: 125px;
+}
+.footer-img {
+    display: block;    
+    height: 125px;
+    width: 100% ;
+    background: url('/images/logoSemo.jpg') no-repeat;
+     margin-left: 15px;
+}
+.copyright{
+    margin-left: 15px;
+}
+/*FOOTER*/
 
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     background-color: #d3d3d3;
@@ -373,4 +400,6 @@ ul,li{list-style:none;margin:0;padding:0;}
 
 .navbar-default {
     border-width: medium medium 0;
+.new-listing .row{
+    margin-bottom: 20px;
 }

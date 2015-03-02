@@ -168,9 +168,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setActive(true);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -181,9 +182,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setActive(false);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -194,9 +196,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(1);
+                 $em->flush();
             }
         }
-        $em->flush();
+       
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -207,9 +210,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(0);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -220,9 +224,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $em->remove($entity);
+                $em->flush();
             }
         }
-        $em->flush();
+        
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -350,7 +355,7 @@ class ItemController extends Controller {
         $entity->setCategory($category);
 
         $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser()), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser(),$category), $entity, array(
             'method' => 'POST',
         ));
 
@@ -362,24 +367,23 @@ class ItemController extends Controller {
             $em->flush();
             //dump($request->get("redirect"));die();
             if($request->get("redirect")=="images"){
-                //return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
+                return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
                           
             }
-            //return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
-        if ($cat_id == 1) {
-            return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $category
-            ));
-        } else {
+
+        return $this->switchTemplateByCategory($cat_id,$entity,$form,$category);
+    }
+    
+    private function switchTemplateByCategory($cat_id,$entity,$form,$category){
+
             return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                         'entity' => $entity,
                         'form' => $form->createView(),
                         'category' => $category,
             ));
-        }
+
     }
 
     /**
@@ -446,20 +450,7 @@ class ItemController extends Controller {
             $em->flush();
 
         }
-        //die("aaaa");
-        if ($category == 1) {
-            return $this->render('NumaDOAAdminBundle:Item:newCar.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $categoryEntity
-            ));
-        } else {
-            return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $categoryEntity,
-            ));
-        }
+        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory() );
     }
 
     /**

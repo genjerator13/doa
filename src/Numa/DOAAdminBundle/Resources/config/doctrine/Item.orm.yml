@@ -162,6 +162,10 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        engine_type:
+              type: string
+              length: 255
+              nullable: true
         fuel_type:
               type: string
               length: 255
@@ -192,8 +196,116 @@ Numa\DOAAdminBundle\Entity\Item:
               nullable: true 
         seller_comment:
               type: text
-              length: 255
               nullable: true 
+        length:
+              type: float
+              nullable: true
+        weight:
+              type: float
+              nullable: true
+        hull_design:
+              type: string
+              length: 255
+              nullable: true              
+        beam:
+              type: string
+              length: 255
+              nullable: true              
+        steering_type:
+              type: string
+              length: 255
+              nullable: true              
+        of_hours:
+              type: string
+              length: 255
+              nullable: true              
+        passengers:
+              type: string
+              length: 255
+              nullable: true              
+        trailer:
+              type: string
+              length: 255
+              nullable: true              
+        battery:
+              type: string
+              length: 255
+              nullable: true              
+        fuel_capacity:
+              type: string
+              length: 255
+              nullable: true              
+        fuel_system:
+              type: string
+              length: 255
+              nullable: true               
+        ignition:
+              type: string
+              length: 255
+              nullable: true               
+        gears:
+              type: string
+              length: 255
+              nullable: true               
+        displacement:
+              type: string
+              length: 255
+              nullable: true               
+        chassis_type:
+              type: string
+              length: 255
+              nullable: true               
+        sleeps:
+              type: string
+              length: 255
+              nullable: true               
+        slide_outs:
+              type: string
+              length: 255
+              nullable: true               
+        flooring:
+              type: string
+              length: 255
+              nullable: true               
+        floor_plan:
+              type: string
+              length: 255
+              nullable: true               
+        class:
+              type: string
+              length: 255
+              nullable: true               
+        operator_station:
+              type: string
+              length: 255
+              nullable: true               
+        speed_forward:
+              type: string
+              length: 255
+              nullable: true               
+        speed_reverse:
+              type: string
+              length: 255
+              nullable: true               
+        tire_size:
+              type: string
+              length: 255
+              nullable: true               
+        tire_equipment:
+              type: string
+              length: 255
+              nullable: true               
+        cutting_width:
+              type: string
+              length: 255
+              nullable: true               
+        horsepower:
+              type: integer
+              nullable: true
+        width:
+              type: float
+              nullable: true
+
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

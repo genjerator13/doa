@@ -54,7 +54,7 @@
                 </div>
             </div>
             {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}   
-            <p>{{pagerfanta|length}} listings found</p>
+            <p></p>
 
 
             <p><span class="left">Number of listings per page:</span>
@@ -161,7 +161,7 @@
                             <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
                         {%endif%}
                         Make / Model
-                    </a></span>
+                    </a></span><span class="text-right pull-right">{{pagerfanta|length}} listings found</span>
                 <div class="titles-details">
                     <ul class="list-inline">
                         <li>
@@ -188,7 +188,9 @@
                                     <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
                                 {%endif%}Date</a></li>                                        
                     </ul>
+                    
                 </div>
+                                
             </p>
             <div class="row">
                 <div class="col-md-12">

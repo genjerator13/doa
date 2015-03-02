@@ -149,10 +149,19 @@ class ItemRepository extends EntityRepository {
         $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
         $numDeleted = $q->execute();
     }
-
+    /**
+     * Imports single remote listing(Item)
+     * @param type $importItem (array remote Item)
+     * @param type $mapping (mapping row)
+     * @param type $feed_id (id of the feed
+     * @param type $upload_url 
+     * @param type $upload_path
+     * @param type $em
+     * @return \Numa\DOAAdminBundle\Entity\Item|null
+     */
     public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-
+        
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
@@ -202,14 +211,16 @@ class ItemRepository extends EntityRepository {
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
-
+                
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
-
-                    $itemField->setListingfield($test);
+                    if ($test instanceof Listingfield) {
+                        
+                        $itemField->setListingfield($test);
+                    }
                     //$itemField->setListingfield($listingFields); //will set caption and type by listing field
                     //$itemField->setFieldName($listingFields->getCaption());
                     //$itemField->setFieldType($listingFields->getType());
@@ -243,9 +254,14 @@ class ItemRepository extends EntityRepository {
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
-                    //dump($feed);
-                    $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
-                    
+                    //check if string or array
+                    $json = json_decode($stringValue,true);
+                   //dump($json);
+                    if(is_array($json)){
+                        $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em);
+                    }else{
+                        $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
+                    }
                     $processed = true;
                 }else{
                      
@@ -258,6 +274,7 @@ class ItemRepository extends EntityRepository {
 
                 if (!$processed) {
                     if ($itemField instanceof \Numa\DOAAdminBundle\Entity\ItemField) {
+                        
                         $item->addItemField($itemField);
                     }
                 }

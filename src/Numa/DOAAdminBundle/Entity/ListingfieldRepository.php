@@ -21,10 +21,8 @@ class ListingfieldRepository extends EntityRepository
         $query =  $this->getEntityManager()
             ->createQuery($q)->setMaxResults(1) ;
         $res =$query->getOneOrNullResult();//getOneOrNullResult();
-//        if($propertyName=='engine'){
-//            dump($q);die();
-//        }
-         return $res;
+     
+        return $res;
     }
     
     public function findAllByCaption($caption, $categories = array()) {
