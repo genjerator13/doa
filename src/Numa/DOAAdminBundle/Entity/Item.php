@@ -14,13 +14,13 @@ class Item {
     public static $fields = array(1 =>
         array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
-        array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Cooling System'=>'coolingSystem','make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication','steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
 
     /**
@@ -1011,15 +1011,48 @@ class Item {
         }
         $optionsArray = explode($separator, $stringvalue);
         $order = 1;
-        foreach ($optionsArray as $key => $option) {
-            $itemField = new ItemField();
-            $itemField->setAllValues(true);
-            $itemField->setFeedId($this->getFeedId());
-            $itemField->setFieldName($option);
-            $itemField->setFieldType('boolean');
-            $itemField->setSortOrder($order);
-            $this->addItemField($itemField);
-            $order++;
+
+        $proccessed = false;
+        if (is_array($optionsArray)) {
+            $json = json_decode($optionsArray[0], true);
+            //dump($json['option']);
+            if (is_array($json['option'])) {
+                $optionsArray = array();
+                foreach ($json['option'] as $key => $value) {
+                    $itemField = new ItemField();
+                    if(empty($value['label'])){
+                        //if label is not defined, set as true
+                        $itemField->setAllValues(true);
+                        $itemField->setFieldType('boolean');
+                        $itemField->setFieldName($value['value']);
+                    }else{
+                        $itemField->setAllValues($value['value']);
+                        $itemField->setFieldType('string');
+                        $itemField->setFieldName($value['label']);
+                    }
+                    $itemField->setFeedId($this->getFeedId());
+                    
+                    
+                    $itemField->setSortOrder($order);
+                    $this->addItemField($itemField);
+                    $order++;
+                    $proccessed = true;
+                }
+            }
+        }
+        //dump($optionsArray);
+        //die();
+        if (!$proccessed) {
+            foreach ($optionsArray as $key => $option) {
+                $itemField = new ItemField();
+                $itemField->setAllValues(true);
+                $itemField->setFeedId($this->getFeedId());
+                $itemField->setFieldName($option);
+                $itemField->setFieldType('boolean');
+                $itemField->setSortOrder($order);
+                $this->addItemField($itemField);
+                $order++;
+            }
         }
         unset($optionsArray);
         unset($order);
@@ -1031,22 +1064,20 @@ class Item {
         $localy = $feed->getPicturesSaveLocaly();
 
         if (is_array($imageString)) {
+
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
-
                 $itemField->setAllValues($value);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
-
                     $itemField->setListingfield($test);
-                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
                 }
                 $itemField->setFeedId($feed->getId());
 
 
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
+
                 $this->addItemField($itemField);
                 $em->persist($itemField);
                 $order++;
@@ -2665,7 +2696,6 @@ class Item {
      */
     private $cutting_width;
 
-
     /**
      * Set operatorStation
      *
@@ -2673,8 +2703,7 @@ class Item {
      *
      * @return Item
      */
-    public function setOperatorStation($operatorStation)
-    {
+    public function setOperatorStation($operatorStation) {
         $this->operator_station = $operatorStation;
 
         return $this;
@@ -2685,8 +2714,7 @@ class Item {
      *
      * @return string
      */
-    public function getOperatorStation()
-    {
+    public function getOperatorStation() {
         return $this->operator_station;
     }
 
@@ -2697,8 +2725,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSpeedForward($speedForward)
-    {
+    public function setSpeedForward($speedForward) {
         $this->speed_forward = $speedForward;
 
         return $this;
@@ -2709,8 +2736,7 @@ class Item {
      *
      * @return string
      */
-    public function getSpeedForward()
-    {
+    public function getSpeedForward() {
         return $this->speed_forward;
     }
 
@@ -2721,8 +2747,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSpeedReverse($speedReverse)
-    {
+    public function setSpeedReverse($speedReverse) {
         $this->speed_reverse = $speedReverse;
 
         return $this;
@@ -2733,8 +2758,7 @@ class Item {
      *
      * @return string
      */
-    public function getSpeedReverse()
-    {
+    public function getSpeedReverse() {
         return $this->speed_reverse;
     }
 
@@ -2745,8 +2769,7 @@ class Item {
      *
      * @return Item
      */
-    public function setTireSize($tireSize)
-    {
+    public function setTireSize($tireSize) {
         $this->tire_size = $tireSize;
 
         return $this;
@@ -2757,8 +2780,7 @@ class Item {
      *
      * @return string
      */
-    public function getTireSize()
-    {
+    public function getTireSize() {
         return $this->tire_size;
     }
 
@@ -2769,8 +2791,7 @@ class Item {
      *
      * @return Item
      */
-    public function setTireEquipment($tireEquipment)
-    {
+    public function setTireEquipment($tireEquipment) {
         $this->tire_equipment = $tireEquipment;
 
         return $this;
@@ -2781,8 +2802,7 @@ class Item {
      *
      * @return string
      */
-    public function getTireEquipment()
-    {
+    public function getTireEquipment() {
         return $this->tire_equipment;
     }
 
@@ -2793,8 +2813,7 @@ class Item {
      *
      * @return Item
      */
-    public function setCuttingWidth($cuttingWidth)
-    {
+    public function setCuttingWidth($cuttingWidth) {
         $this->cutting_width = $cuttingWidth;
 
         return $this;
@@ -2805,8 +2824,95 @@ class Item {
      *
      * @return string
      */
-    public function getCuttingWidth()
-    {
+    public function getCuttingWidth() {
         return $this->cutting_width;
+    }
+
+    /**
+     * @var string
+     */
+    private $cooling_system;
+
+
+    /**
+     * Set coolingSystem
+     *
+     * @param string $coolingSystem
+     *
+     * @return Item
+     */
+    public function setCoolingSystem($coolingSystem)
+    {
+        $this->cooling_system = $coolingSystem;
+
+        return $this;
+    }
+
+    /**
+     * Get coolingSystem
+     *
+     * @return string
+     */
+    public function getCoolingSystem()
+    {
+        return $this->cooling_system;
+    }
+    /**
+     * @var string
+     */
+    private $chassis;
+
+
+    /**
+     * Set chassis
+     *
+     * @param string $chassis
+     *
+     * @return Item
+     */
+    public function setChassis($chassis)
+    {
+        $this->chassis = $chassis;
+
+        return $this;
+    }
+
+    /**
+     * Get chassis
+     *
+     * @return string
+     */
+    public function getChassis()
+    {
+        return $this->chassis;
+    }
+    /**
+     * @var string
+     */
+    private $steering;
+
+
+    /**
+     * Set steering
+     *
+     * @param string $steering
+     *
+     * @return Item
+     */
+    public function setSteering($steering)
+    {
+        $this->steering = $steering;
+
+        return $this;
+    }
+
+    /**
+     * Get steering
+     *
+     * @return string
+     */
+    public function getSteering()
+    {
+        return $this->steering;
     }
 }

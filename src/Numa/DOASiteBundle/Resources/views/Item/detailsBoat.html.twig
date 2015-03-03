@@ -21,6 +21,7 @@
 
                             <!-- Jssor Slider Begin -->
                             <!-- You can move inline styles to css file or css block. -->
+                            {% if (images|length) >0 %}
                             <div id="slider1_container" style="position: relative; width: 666px;
                                  height: 480px; overflow: hidden;">
 
@@ -35,7 +36,8 @@
                                 </div>
 
                                 <!-- Slides Container -->
-
+                                
+                                
                                 <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 666px; height: 480px;
                                      overflow: hidden;">
                                     {% for key,image in images %}    
@@ -55,7 +57,7 @@
                                     {% endfor %}
 
                                 </div>
-
+                               
                                 <!-- Thumbnail Navigator Skin Begin -->
                                 <div u="thumbnavigator" class="jssort07" style="position: absolute; width: 666px; height: 100px; left: 0px; bottom: 0px; overflow: hidden; ">
                                     <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
@@ -79,9 +81,10 @@
                                 <!-- ThumbnailNavigator Skin End -->
                                 <a style="display: none" href="http://www.jssor.com">responsive carousel</a>
                                 <!-- Trigger -->
+                                 {%endif%}
                             </div>
                             <!-- Jssor Slider End -->
-
+                            
                             {% if item.getItemFieldByName('youtube video id') is not empty%}
                                 <div class='row'>
                                     <h4>Youtube video:</h4>
@@ -93,8 +96,17 @@
                             <div class='row'>
 
                                 {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
-                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}                                 
+                                                                  
                                     {% if item.categoryId()==1%}
+                                        {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}   
+                                    {% elseif(item.categoryId()==2) %}
+                                        {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}   
+                                    {% elseif(item.categoryId()==3) %}
+                                        {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}  
+                                    {% elseif(item.categoryId()==4) %}
+                                        {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}  
+                                    {% elseif(item.categoryId()==13) %}
+                                        {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}  
                                     {% else %}
                                         <h4>Details:</h4>
                                         <ul class="techData">
@@ -123,6 +135,8 @@
                                         </ul>
                                     {% endif %}
                                 </div>
+
+                                {% if (item.ItemField|length)>0 %}
                                 <div class='row'>
                                     <h4>Options list:</h4>
                                     <ul class='option-lists'>
@@ -143,6 +157,7 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
+                                {% endif %}
                                 <div id="map"> </div> 
 
                         </div>

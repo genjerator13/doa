@@ -300,15 +300,9 @@ class ItemField {
 
         if (!empty($valueMapValues)) {
             $json = json_decode($valueMapValues, true);
-
             if (!empty($json)) {
-
                 foreach ($json as $key => $mapValue) {
-
-                    //dump($value);
-
-                    if (strtolower($key) == strtolower($value)) {
-                        
+                    if (strtolower($key) == strtolower($value)) {                        
                         $value = $mapValue;
                     }
                 }
@@ -348,14 +342,12 @@ class ItemField {
     }
 
     public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false) {
-
-        $url = $stringValue;
-        //get etension//
-
+        $url = $stringValue;        
         $filename = pathinfo($url, PATHINFO_BASENAME);
         if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             $filename = $url->getClientOriginalName();
         }
+        
         $img_url = $url;
 
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {

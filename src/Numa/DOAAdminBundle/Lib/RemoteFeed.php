@@ -51,43 +51,50 @@ class RemoteFeed extends ContainerAware {
         return $this->properties;
     }
 
-    public function fetchRemoteProperties() {
-
-
+    /**
+     * fetches meta data from remote sources: columns from csv or nodes from XML
+     * 
+     */
+    public function fetchRemoteProperties() {       
+        $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+        if(self::URL == $this->entity->getImportMethod()){
+            $upload_path="";
+        }
         if (empty($this->properties)) {
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
                 if (self::XML == $this->entity->getImportFormat()) {
-                    $xml_obj = simplexml_load_file($this->source);
-                    foreach ($xml_obj->children() as $child) {
-                        foreach ($child->children() as $property) {
 
+                    $xml_obj = simplexml_load_file($upload_path . $this->source);
+                    $rootNode = $this->entity->getRootNode();
+                    if (!empty($rootNode)) {
+                        $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
+                    }
+                    if (empty($xmlSource)) {
+                        $xmlSource = $xml_obj->children();
+                    }
+
+                    foreach ($xmlSource as $child) {
+                        foreach ($child->children() as $property) {
                             $this->properties[$property->getName()] = $property->getName();
                         }
                         break;
                     }
+
                 } elseif (self::CSV == $this->entity->getImportFormat()) {
                     $handleSource = $this->entity->getImportSource();
-                    $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+
                     if (!file_exists($upload_path . $this->entity->getID())) {
                         mkdir($upload_path . $this->entity->getID());
                     }
                     $filename = $this->entity->getAbsolutePath();
                     $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
                     if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-                        
-
                         $ftp = self::getFtpConnection($handleSource);
-
-                        //$ftpExplode = explode("/", $handleSource);
-                        ////
-                        //print_r($ftpExplode[count($ftpExplode) - 1]);
                         ftp_get($ftp['conn'], $local_file, $ftp['filepath'], FTP_ASCII);
                         $filename = $local_file;
                     } elseif (strtolower(substr($this->entity->getImportSource(), 0, 7)) == "http://") {
 
                         $ch = curl_init();
-                        dump($handleSource);
-                        dump($local_file);
                         curl_setopt($ch, CURLOPT_URL, $handleSource);
                         $fp = fopen($local_file, 'w');
                         curl_setopt($ch, CURLOPT_FILE, $fp);
@@ -129,24 +136,38 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function getRemoteItems() {
-        print_r($this->entity->getImportMethod());
-        if (self::URL == $this->entity->getImportMethod()) {
-            if (self::XML == $this->entity->getImportFormat()) {
-                $xml_obj = simplexml_load_file($this->source);
-                $this->items = self::xml2array($xml_obj->children());
-                if (!empty($this->items['item'])) {
-                    $this->items = $this->items['item'];
-                } elseif (!empty($this->items['inventor'])) {
-                    $this->items = $this->items['inventor'];
-                }
-                return $this->xml2array($this->items);
+        
+        $sourceFile = $this->source;
+        $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+        if (self::UPLOAD == $this->entity->getImportMethod()) {
+            $sourceFile = $upload_path . $sourceFile;
+        }
+        if (self::XML == $this->entity->getImportFormat()) {
+            $xml_obj = simplexml_load_file($sourceFile);
+
+            $rootNode = $this->entity->getRootNode();
+            if (!empty($rootNode)) {
+                $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
             }
+            if (empty($xmlSource)) {
+                $xmlSource = $xml_obj->children();
+            }
+            $this->items = self::xml2array($xmlSource);
+
+            if (!empty($this->items['item'])) {
+                $this->items = $this->items['item'];
+            } elseif (!empty($this->items['inventor'])) {
+                $this->items = $this->items['inventor'];
+            }
+
+            //dump($this->items);
+            return $this->xml2array($this->items);
         }
         if (self::CSV == $this->entity->getImportFormat()) {
 
             $filename = $this->entity->getAbsolutePath();
             $rowCount = 0;
-            $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+
             $handleSource = $this->entity->getImportSource();
             $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {

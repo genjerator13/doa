@@ -10,7 +10,9 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 
 class ItemRepository extends EntityRepository {
-    protected $itemFieldsDeleted=false;
+
+    protected $itemFieldsDeleted = false;
+
     public function getItemFields($item_id) {
 
         $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
@@ -31,40 +33,40 @@ class ItemRepository extends EntityRepository {
         $stmt->execute();
         $res2 = $stmt->fetchAll();
         $count = intval($res2[0]['count']);
-        $maxOffset = $count - $max<=0?$count:$max;
-        
+        $maxOffset = $count - $max <= 0 ? $count : $max;
+
         $sql = " SELECT model, make, id,year,price FROM item WHERE featured=1 AND active=1";
-        
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         $res2 = $stmt->fetchAll();
-        if(!empty($res2)){
+        if (!empty($res2)) {
             $rand_keys = array_rand($res2, $maxOffset);
             $randResult = array();
-            foreach($rand_keys as $key){
+            foreach ($rand_keys as $key) {
                 $randResult[] = $res2[$key]['id'];
             }
 
-            $qb=$this->getEntityManager()->createQueryBuilder();
+            $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->select('i')
-               ->from('NumaDOAAdminBundle:Item', 'i')
-               //->andWhere('i.featured=1')
-               //->andWhere('i.active=1');
-               ->andWhere('i.id IN (:ids)')
-                  ->setParameter('ids', $randResult);
+                    ->from('NumaDOAAdminBundle:Item', 'i')
+                    //->andWhere('i.featured=1')
+                    //->andWhere('i.active=1');
+                    ->andWhere('i.id IN (:ids)')
+                    ->setParameter('ids', $randResult);
 
-    //        $qb->getQ = $query; //->getResult();
-    //        $query_builder->select("item i")
-    //              ->andWhere('r.winner IN (:ids)')
-    //              ->setParameter('ids', $ids);
-    //        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
-    //        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
-    //        $res = $query->getResult(); //getOneOrNullResult();
+            //        $qb->getQ = $query; //->getResult();
+            //        $query_builder->select("item i")
+            //              ->andWhere('r.winner IN (:ids)')
+            //              ->setParameter('ids', $ids);
+            //        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
+            //        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
+            //        $res = $query->getResult(); //getOneOrNullResult();
             $res = $qb->getQuery()->getResult(); //->getResult();
-    //        dump($qb->getQuery());
-    //        dump($res);
-    //        die();
-        
+            //        dump($qb->getQuery());
+            //        dump($res);
+            //        die();
+
             return $res;
         }
         return null;
@@ -77,7 +79,7 @@ class ItemRepository extends EntityRepository {
      */
     public function findSavedAds($user_id) {
         $user_id = intval($user_id);
-        
+
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
@@ -149,6 +151,7 @@ class ItemRepository extends EntityRepository {
         $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
         $numDeleted = $q->execute();
     }
+
     /**
      * Imports single remote listing(Item)
      * @param type $importItem (array remote Item)
@@ -159,9 +162,9 @@ class ItemRepository extends EntityRepository {
      * @param type $em
      * @return \Numa\DOAAdminBundle\Entity\Item|null
      */
-    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em) {
+    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        
+
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
@@ -170,10 +173,9 @@ class ItemRepository extends EntityRepository {
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
 
         if (!empty($uniqueField)) {
-            if(!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield){
+            if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
             }
-            
         }
         unset($uniqueMapRow);
         unset($uniqueField);
@@ -187,16 +189,16 @@ class ItemRepository extends EntityRepository {
             $item = new Item();
         }
         if (!empty($feed_id)) {
-            
+
             $item->setImportfeed($feed);
         }
 
         //clear all item fields if not photo feed
-        
+
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         } else {
-            if(!$this->itemFieldsDeleted){
+            if (!$this->itemFieldsDeleted) {
                 $this->removeAllItemFieldsByFeed($feed->getId());
                 $this->itemFieldsDeleted = true;
             }
@@ -211,14 +213,14 @@ class ItemRepository extends EntityRepository {
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
-                
+
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
                     if ($test instanceof Listingfield) {
-                        
+
                         $itemField->setListingfield($test);
                     }
                     //$itemField->setListingfield($listingFields); //will set caption and type by listing field
@@ -230,14 +232,12 @@ class ItemRepository extends EntityRepository {
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
                     $listValues = $listingFields->getListingFieldLists();
-                    
-                    if (count($listValues)>0) {
-                        
+
+                    if (count($listValues) > 0) {
+
                         //get listingFieldlist by ID and stringValue
                         $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
-                        if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
-                           //echo "::::::::::::::".$stringValue.":::".$maprow->getListingFields()->getId().get_class($listingList);
-                         
+                        if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {                            
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
                     }
@@ -255,16 +255,27 @@ class ItemRepository extends EntityRepository {
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     //check if string or array
-                    $json = json_decode($stringValue,true);
-                   //dump($json);
-                    if(is_array($json)){
-                        $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em);
-                    }else{
+                    $json = json_decode($stringValue, true);
+                    //dump($json);
+                    if (is_array($json)) {
+                        if (is_array($json['image'])) {
+                            $temp=array();
+                            foreach ($json['image'] as $key => $value) {
+                                if(!empty($value['filePointer'])){
+                                    $temp[]=$value['filePointer'];
+                                }
+                            }
+                            $item->proccessImagesFromRemote($temp, $maprow, $feed, $upload_path, $upload_url, $em);
+                        }else{
+                            $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em);
+                        }
+                    } else {
+                        ///TODO
                         $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
                     }
                     $processed = true;
-                }else{
-                     
+                } else {
+                    
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
@@ -274,7 +285,7 @@ class ItemRepository extends EntityRepository {
 
                 if (!$processed) {
                     if ($itemField instanceof \Numa\DOAAdminBundle\Entity\ItemField) {
-                        
+
                         $item->addItemField($itemField);
                     }
                 }
@@ -308,7 +319,7 @@ class ItemRepository extends EntityRepository {
         if ($persist) {
             $em->persist($item);
         }
-        
+
         //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }

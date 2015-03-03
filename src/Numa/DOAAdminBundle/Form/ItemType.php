@@ -94,6 +94,7 @@ class ItemType extends AbstractType
             ->add('beam')            
             ->add('hullDesign')
             ->add('steeringType')
+            ->add('steering')
             ->add('horsepower')
             ->add('fuelCapacity')
             ->add('ofHours')
@@ -105,6 +106,7 @@ class ItemType extends AbstractType
             ->add('gears')
             ->add('width')
             ->add('displacement')
+            ->add('chassis')
             ->add('chassisType')
             ->add('sleeps')
             ->add('slideOuts')
@@ -118,6 +120,7 @@ class ItemType extends AbstractType
             ->add('tireSize')
             ->add('tireEquipment')
             ->add('cuttingWidth')
+            ->add('coolingSystem')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;
