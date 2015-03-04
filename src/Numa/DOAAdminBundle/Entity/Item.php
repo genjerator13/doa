@@ -16,7 +16,7 @@ class Item {
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('Cooling System'=>'coolingSystem','make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
@@ -1020,23 +1020,25 @@ class Item {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
-                    if(empty($value['label'])){
-                        //if label is not defined, set as true
-                        $itemField->setAllValues(true);
-                        $itemField->setFieldType('boolean');
-                        $itemField->setFieldName($value['value']);
-                    }else{
-                        $itemField->setAllValues($value['value']);
-                        $itemField->setFieldType('string');
-                        $itemField->setFieldName($value['label']);
+                    if ($value['value']) {
+                        if (empty($value['label'])) {
+                            //if label is not defined, set as true
+                            $itemField->setAllValues(true);
+                            $itemField->setFieldType('boolean');
+                            $itemField->setFieldName($value['value']);
+                        } else {
+                            $itemField->setAllValues($value['value']);
+                            $itemField->setFieldType('string');
+                            $itemField->setFieldName($value['label']);
+                        }
+                        $itemField->setFeedId($this->getFeedId());
+
+
+                        $itemField->setSortOrder($order);
+                        $this->addItemField($itemField);
+                        $order++;
+                        $proccessed = true;
                     }
-                    $itemField->setFeedId($this->getFeedId());
-                    
-                    
-                    $itemField->setSortOrder($order);
-                    $this->addItemField($itemField);
-                    $order++;
-                    $proccessed = true;
                 }
             }
         }
@@ -2833,7 +2835,6 @@ class Item {
      */
     private $cooling_system;
 
-
     /**
      * Set coolingSystem
      *
@@ -2841,8 +2842,7 @@ class Item {
      *
      * @return Item
      */
-    public function setCoolingSystem($coolingSystem)
-    {
+    public function setCoolingSystem($coolingSystem) {
         $this->cooling_system = $coolingSystem;
 
         return $this;
@@ -2853,15 +2853,14 @@ class Item {
      *
      * @return string
      */
-    public function getCoolingSystem()
-    {
+    public function getCoolingSystem() {
         return $this->cooling_system;
     }
+
     /**
      * @var string
      */
     private $chassis;
-
 
     /**
      * Set chassis
@@ -2870,8 +2869,7 @@ class Item {
      *
      * @return Item
      */
-    public function setChassis($chassis)
-    {
+    public function setChassis($chassis) {
         $this->chassis = $chassis;
 
         return $this;
@@ -2882,15 +2880,14 @@ class Item {
      *
      * @return string
      */
-    public function getChassis()
-    {
+    public function getChassis() {
         return $this->chassis;
     }
+
     /**
      * @var string
      */
     private $steering;
-
 
     /**
      * Set steering
@@ -2899,8 +2896,7 @@ class Item {
      *
      * @return Item
      */
-    public function setSteering($steering)
-    {
+    public function setSteering($steering) {
         $this->steering = $steering;
 
         return $this;
@@ -2911,8 +2907,8 @@ class Item {
      *
      * @return string
      */
-    public function getSteering()
-    {
+    public function getSteering() {
         return $this->steering;
     }
+
 }
