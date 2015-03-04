@@ -1596,6 +1596,20 @@ class Item {
             $this->setFuelSystem($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'fuel capacity') {
             $this->setFuelCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'cooling system') {
+            $this->setCoolingSystem($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'cutting width') {
+            $this->setCoolingSystem($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'tire equipment') {
+            $this->setTireEquipment($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'tire size') {
+            $this->setTireSize($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'speed reverse') {
+            $this->setSpeedReverse($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'speed forward') {
+            $this->setSpeedForward($itemField->getFieldStringValue());        
+        } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
+            $this->setOperatorStation($itemField->getFieldStringValue());
         }
     }
 
