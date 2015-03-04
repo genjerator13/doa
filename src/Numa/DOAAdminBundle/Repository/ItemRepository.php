@@ -134,7 +134,9 @@ class ItemRepository extends EntityRepository {
     public function findItemByUniqueField($uniqueField, $value) {
 
 
-
+        if(is_array($value)){
+            return false;
+        }
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
         $itemsQuery = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
