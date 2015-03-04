@@ -1020,7 +1020,7 @@ class Item {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
-                    if ($value['value']) {
+                    if (!empty($value['value'])) {
                         if (empty($value['label'])) {
                             //if label is not defined, set as true
                             $itemField->setAllValues(true);
@@ -1031,9 +1031,8 @@ class Item {
                             $itemField->setFieldType('string');
                             $itemField->setFieldName($value['label']);
                         }
+
                         $itemField->setFeedId($this->getFeedId());
-
-
                         $itemField->setSortOrder($order);
                         $this->addItemField($itemField);
                         $order++;
