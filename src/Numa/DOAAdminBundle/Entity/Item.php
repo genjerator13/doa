@@ -1610,6 +1610,8 @@ class Item {
             $this->setSpeedForward($itemField->getFieldStringValue());        
         } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
             $this->setOperatorStation($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
+            $this->setStockNumber($itemField->getFieldStringValue());
         }
     }
 
