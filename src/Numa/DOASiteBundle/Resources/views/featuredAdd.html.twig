@@ -16,15 +16,13 @@
                 {% else %} 
                     {% set image = item.getImages()|first["stringvalue"]%}
                         {% if ('http' not in image) %}
-                            <img class="thumbnail" alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image|imagine_filter('search_image')}}" />
+                            <img class="thumbnail" alt="featured ad" src="{{image|imagine_filter('search_image')}}" />
                         {% else %}
-                            <img class="thumbnail" alt="{{item.getItemFieldByName('year')}} {{desc}}" src="{{image}}" width="120" height="90"/>                                    
+                            <img class="thumbnail" alt="featured ad" src="{{image}}" width="120" height="90"/>                                    
                         {%endif%}
-                    </a>
-
-                    {% endif %}
-                    
-                    {{price(item.getItemFieldByName('price'))|raw}}
+                   
+                    {% endif %}                    
+                        <span class="text-center">{{price(item.getItemFieldByName('price'))|raw}}</span>
                 </a>
         {% endfor %}
     </div>
