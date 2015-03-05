@@ -59,7 +59,9 @@ class NumaExtension extends \Twig_Extension {
         if(empty($price)){
             $price = "No price";
         }else{
-            $price = money_format('%(#10n', $price);
+            setlocale(LC_MONETARY, 'en_US');
+            $price = money_format('%i', floatval($price));
+            $price = "$ ".number_format(floatval($price) , 0, ",", ",");
         }
         $return = '<span class="price">'.$price.'</span>';
         return $return;
