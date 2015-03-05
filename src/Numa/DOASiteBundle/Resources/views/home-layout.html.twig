@@ -5,63 +5,64 @@
     {% include 'NumaDOASiteBundle::header.html.twig'  %}
     <body class=" default ">
 
-            <!-- Static navbar -->
-            <div class="navbar navbar-default navbar-static-top" role="navigation">
-                <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div class="navbar-collapse collapse">         
-                        {% set route = app.request.get('_route') %}
-                            {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
+        <!-- Static navbar -->
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">         
+                    {% set route = app.request.get('_route') %}
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
                     </div><!--/.nav-collapse -->
                 </div>
             </div>
 
-
-<div class="header-image" >
-                       
-                    </div>
+            </div>
             <div class="container">
-
+                <div class="row">
+                    <div class="col-md-12 header-image" >
+                        <div class="logo"><div class="logo-text">SEMO Auto Mall</div></div>
+                    </div>
+                </div>
                 <div class="row">
 
-                <div class="col-md-2">
+                    <div class="col-md-2">
 
-                    {{include('NumaDOASiteBundle::sidebarMenu.html.twig')}}
+                        {{include('NumaDOASiteBundle::sidebarMenu.html.twig')}}
 
+                    </div>
+
+
+                    <div class="col-md-8">
+
+
+                        {% block content %}
+                        {% endblock %}
+                    </div>
+                    <div class="col-md-2">
+
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }}       
+                        {% block rightsidebar %}
+                        {% endblock %}
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="footer col-md-12">
+                        <a class="footer-img"></a>
+                        <p class="copyright">©Copyright 2014 All Rights Reserved. {{title}}</p>
+                    </div>        
+                </div>          
+            </div> <!-- /container -->
 
 
-                <div class="col-md-8">
+        </body>
+    </html>
 
-
-                    {% block content %}
-                    {% endblock %}
-                </div>
-                <div class="col-md-2">
-
-                    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }}       
-                    {% block rightsidebar %}
-                    {% endblock %}
-                </div>
-            </div>
-            <div class="row">
-                <div class="footer col-md-12">
-                    <a class="footer-img"></a>
-                    <p class="copyright">©Copyright 2014 All Rights Reserved. {{title}}</p>
-                </div>        
-            </div>          
-        </div> <!-- /container -->
-
-
-    </body>
-</html>
-
-<!-- /default:main:default.tpl -->
+    <!-- /default:main:default.tpl -->
 
