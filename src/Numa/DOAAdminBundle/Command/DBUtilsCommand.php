@@ -259,8 +259,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'ag_application'  =>$value->getValue()));
                         
                         $count = count($items);
-                        if ($echo) {
-                            
+                        if ($echo) {                            
                             echo count($items).":" . $subCat->getId() . ":" . $value->getId()."::".$value->getValue() . "\n";
                         }
                         //$count = $items->count();
