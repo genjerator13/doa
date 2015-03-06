@@ -1612,6 +1612,8 @@ class Item {
             $this->setOperatorStation($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
             $this->setStockNr($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+            $this->setAgApplication($itemField->getFieldStringValue());
         }
     }
 
