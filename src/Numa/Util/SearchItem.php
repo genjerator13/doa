@@ -39,7 +39,8 @@ class SearchItem {
     }
     
     public function setValue($value){
-        
+        $temp = explode("/", $value);
+        $value = $temp[0];
         $this->value     = preg_replace("/[^A-Za-z0-9 \_\-\.]/", '', $value);
         $this->realValue = $this->value;
     }
