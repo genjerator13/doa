@@ -303,6 +303,7 @@ class ImportmappingController extends Controller {
         //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
         //get mapping by feed id
         $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
+        $sold = $em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
         //get mold items by feed id
         //$itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
         //remove old items
