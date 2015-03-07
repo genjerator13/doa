@@ -171,7 +171,7 @@ class ItemController extends Controller {
                 $em->flush();
             }
         }
-        
+
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -185,7 +185,7 @@ class ItemController extends Controller {
                 $em->flush();
             }
         }
-        
+
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -196,10 +196,10 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(1);
-                 $em->flush();
+                $em->flush();
             }
         }
-       
+
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -213,7 +213,7 @@ class ItemController extends Controller {
                 $em->flush();
             }
         }
-        
+
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -227,7 +227,7 @@ class ItemController extends Controller {
                 $em->flush();
             }
         }
-        
+
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -258,7 +258,10 @@ class ItemController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
+                        $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command->setContainer($this->container);
+            $resultCode = $command->makeHomeTabs(false);
+            dump($resultCode);die();
             return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
         }
 
@@ -302,16 +305,16 @@ class ItemController extends Controller {
             $item = $em->getRepository('NumaDOAAdminBundle:Item'); //->findOneById(1347);
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($item_id);
         }
-         
+
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $cat_id)));
-        
+
         if (!empty($fields)) {
-            
+
             foreach ($fields as $key => $field) {
                 //dump($field);
                 $itemField = new ItemField();
                 //check if item field has value for the listing_field if edit (exists)
-                
+
                 if ($item_id != null) {
                     $qb = $item->createQueryBuilder('i')
                             ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
@@ -331,59 +334,57 @@ class ItemController extends Controller {
                         $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
                     }
                 }
-                 
+
                 $itemField->setListingfield($field);
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
-                
-                if(strtolower($field->getCaption())!='image list'){
-                    
+
+                if (strtolower($field->getCaption()) != 'image list') {
+
                     $entity->addItemField($itemField);
                 }
-
             }
             //die();
             //remove all existing item fields TO DO add this to ItemField repository            
-            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id,'field_type'=>'boolean'));
+            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id, 'field_type' => 'boolean'));
             //dump($oldItemFields);die();
             foreach ($oldItemFields as $oldone) {
                 $em->remove($oldone);
             }
             $em->flush();
-            
         }
         $entity->setCategory($category);
 
         $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser(),$category), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser(), $category), $entity, array(
             'method' => 'POST',
         ));
 
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em->persist($entity);
-            
+                        $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command->setContainer($this->container);
+            $resultCode = $command->makeHomeTabs(false);
             $em->flush();
             //dump($request->get("redirect"));die();
-            if($request->get("redirect")=="images"){
+            if ($request->get("redirect") == "images") {
                 return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
-                          
             }
             return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
 
-        return $this->switchTemplateByCategory($cat_id,$entity,$form,$category);
+        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category);
     }
-    
-    private function switchTemplateByCategory($cat_id,$entity,$form,$category){
 
-            return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                        'entity' => $entity,
-                        'form' => $form->createView(),
-                        'category' => $category,
-            ));
+    private function switchTemplateByCategory($cat_id, $entity, $form, $category) {
 
+        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
+                    'entity' => $entity,
+                    'form' => $form->createView(),
+                    'category' => $category,
+        ));
     }
 
     /**
@@ -433,8 +434,8 @@ class ItemController extends Controller {
         }
         //get category by request parameter
         $categoryEntity = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($category);
-         
-        
+
+
         $entity->setCategory($categoryEntity);
 
         $securityContext = $this->container->get('security.context');
@@ -443,14 +444,17 @@ class ItemController extends Controller {
         ));
 
         $form->handleRequest($request);
-        dump($form);
+
         if ($form->isValid()) {
             $em->persist($entity);
-            
-            $em->flush();
+            //refresh tabs
+            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command->setContainer($this->container);
+            $resultCode = $command->makeHomeTabs(false);
 
+            $em->flush();
         }
-        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory() );
+        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory());
     }
 
     /**
@@ -490,7 +494,11 @@ class ItemController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
+            //update hometabs
+            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command->setContainer($this->container);
+            $resultCode = $command->makeHomeTabs(false);
+            dump($resultCode);die();
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
         }
 
@@ -653,16 +661,16 @@ class ItemController extends Controller {
         }
 
         $securityContext = $this->container->get('security.context');
-        
+
         $form = $this->createForm(new ItemType($em, $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
-        
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em->flush();
-            
+
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
         }
     }
