@@ -34,7 +34,7 @@
                                                             <div class="shortDetails">
                                                                 <h4>
                                                                     <a href="{{detailUrl}}">
-                                                                        {{item.getItemFieldByName('year')}} {{desc}}
+                                                                        {{item.getItemFieldByName('year')}} {{desc}} {% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}
                                                                     </a>                                    
                                                                 </h4>
 
