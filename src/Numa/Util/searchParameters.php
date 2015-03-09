@@ -47,7 +47,7 @@ class searchParameters {
             'postedTo' => new SearchItem('date_created', 0, 'dateRangeTo'),
             'zip' => new SearchItem('Postal', "", 'string'),
             'IW_NO' => new SearchItem('IW_NO', "", 'string'),
-            'isSold' => new SearchItem('active', 0, 'int'),
+            'isSold' => new SearchItem('sold', 0, 'int'),
             'exteriorColor' => new SearchItem('exterior_color', 0, 'int'),
             'interiorColor' => new SearchItem('interior_color', 0, 'int'),
             //'withPicture'      => new SearchItem('color', 0, 'int'),
@@ -145,8 +145,12 @@ class searchParameters {
         foreach ($params as $key => $value) {
             
             if ($this->isParamSet($key)) {
-                
-                $this->params[$key]->setValue(urldecode($value));                
+                if(is_array($value)){                    
+                    $value = $value[0];
+                }
+                if(!empty($value)){                    
+                    $this->params[$key]->setValue(urldecode($value));                                    
+                }
             }
         }
     }
@@ -204,7 +208,9 @@ class searchParameters {
                             $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
                         } elseif ($type == 'int') {
                             $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
+                            
                             $qb->setParameter($dbName,  $searchItem->getValue() );
+                            dump($qb->getQuery());
                         } elseif ($type == 'rangeFrom') {
                             $qb->andWhere('i.' . $dbName . ' >= :' . $dbName."from");
                             $qb->setParameter($dbName."from", floatval($searchItem->getValue()));
@@ -234,6 +240,7 @@ class searchParameters {
                         }
                     }
                 }
+                
                 //sort
                 if(!empty($this->sort_by)){
                     $qb->orderBy("i.".$this->sort_by,  $this->sort_order);
