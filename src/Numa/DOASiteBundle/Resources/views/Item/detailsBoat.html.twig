@@ -17,7 +17,7 @@
                 {% block content %}
                     <div class="detailsContent">
 
-                        <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span></h2>
+                        <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
 
                             <!-- Jssor Slider Begin -->
                             <!-- You can move inline styles to css file or css block. -->

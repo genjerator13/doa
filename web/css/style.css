@@ -432,3 +432,7 @@ h4{
 .panel-body a {
     margin-bottom: 20px;
 }
+
+.badge {
+    background-color: #F00;
+}
