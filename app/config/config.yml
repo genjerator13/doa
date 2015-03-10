@@ -61,6 +61,9 @@ assetic:
         bx_slider_css:
             inputs:
                - '%kernel.root_dir%/../web/css/jquery.bxslider.css'
+        flex_slider_css:
+            inputs:
+               - '%kernel.root_dir%/../web/flexSlider/flexslider.css'
         #javascript
         bootstrapx_js:
             inputs:
@@ -80,6 +83,9 @@ assetic:
         bx_slider_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/jquery.bxslider.js'
+        flex_slider_js:
+            inputs:
+                - '%kernel.root_dir%/../web/flexSlider/jquery.flexslider.js'
         common_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/common.js'

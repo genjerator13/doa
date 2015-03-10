@@ -19,34 +19,73 @@
 
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
 
-
+                        <!-- Place somewhere in the <body> of your page -->
+{#                        <div id="slider" class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <img src="slide1.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide2.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide3.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide4.jpg" />
+                                </li>
+                                <!-- items mirrored twice, total of 12 -->
+                            </ul>
+                        </div>
+                        <div id="carousel" class="flexslider">
+                            <ul class="slides">
+                                <li>
+                                    <img src="slide1.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide2.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide3.jpg" />
+                                </li>
+                                <li>
+                                    <img src="slide4.jpg" />
+                                </li>
+                                <!-- items mirrored twice, total of 12 -->
+                            </ul>
+                        </div>#}
 
                         {% if (images|length) >0 %}
-                            <ul class="bxslider">
-                                {% for key,image in images %}    
-                                    {% if ('http' not in image.stringvalue) %}
-                                        <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
-                                        {% else %}
-                                        <li><img src="{{image.stringvalue}}" alt="image{{key}}" width="666px" />    </li>
-                                        {%endif%}
-                                    {% endfor %}
+                            <div id="slider" class="flexslider">
+                                <ul class="slides">
+                                    {% for key,image in images %}    
+                                        {% if ('http' not in image.stringvalue) %}
+                                            <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
+                                            {% else %}
+                                            <li><img src="{{image.stringvalue}}" alt="image{{key}}" width="666px" />    </li>
+                                            {%endif%}
+                                        {% endfor %}
 
-                            </ul>
+                                </ul>
+                            </div>
                         {%endif%}
                         {% if (images|length) >0 %}
-                            <div id="bx-pager">
-                                {% for key,image in images %}    
-                                    <a data-slide-index="{{ (loop.index-1) }}" href="">
+                            <div id="carousel" class="flexslider">
+                                <ul class="slides">
+                                    {% for key,image in images %}    
+                                        <li>
+                                            {#<a data-slide-index="{{ (loop.index-1) }}" href="">#}
 
-                                        {% if ('http' not in image.stringvalue) %}
-                                            <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
-                                        {% else %}
-                                            <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
-                                        {%endif%}
+                                                {% if ('http' not in image.stringvalue) %}
+                                                    <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+                                                {% else %}
+                                                    <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
+                                                {%endif%}
 
-                                    </a>
-                                {% endfor %}
-
+                                           {# </a>#}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         {%endif%}
 
@@ -333,8 +372,23 @@
                                     {% endjavascripts %}
                                     <script>
                                         $(document).ready(function() {
-                                            $('.bxslider').bxSlider({
-                                                pagerCustom: '#bx-pager'
+                                            // The slider being synced must be initialized first
+                                            $('#carousel').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                itemWidth: 120,
+                                                itemMargin: 10,
+                                                asNavFor: '#slider'
+                                            });
+
+                                            $('#slider').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                sync: "#carousel"
                                             });
                                         });
                                     </script>
