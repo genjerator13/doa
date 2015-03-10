@@ -21,14 +21,15 @@
 
 
 
-
                         {% if (images|length) >0 %}
                             <ul class="bxslider">
                                 {% for key,image in images %}    
-                                    <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
-
-
-                                {% endfor %}
+                                    {% if ('http' not in image.stringvalue) %}
+                                        <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
+                                        {% else %}
+                                        <li><img src="{{image.stringvalue}}" alt="image{{key}}" />    </li>
+                                        {%endif%}
+                                    {% endfor %}
 
                             </ul>
                         {%endif%}
@@ -36,7 +37,12 @@
                             <div id="bx-pager">
                                 {% for key,image in images %}    
                                     <a data-slide-index="{{ (loop.index-1) }}" href="">
-                                        <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+
+                                        {% if ('http' not in image.stringvalue) %}
+                                            <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+                                        {% else %}
+                                            <img src="{{image.stringvalue}}" alt="image{{key}}" />
+                                        {%endif%}
 
                                     </a>
                                 {% endfor %}
@@ -326,11 +332,11 @@
                                     <script src="{{ asset_url }}"></script>
                                     {% endjavascripts %}
                                     <script>
-                $(document).ready(function() {
-                    $('.bxslider').bxSlider({
-                        pagerCustom: '#bx-pager'
-                    });
-                });
+                                        $(document).ready(function() {
+                                            $('.bxslider').bxSlider({
+                                                pagerCustom: '#bx-pager'
+                                            });
+                                        });
                                     </script>
                                     {#{% javascripts '@savecompared_js' %}
                                     <script type="text/javascript" src="{{ asset_url }}"></script>
