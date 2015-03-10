@@ -51,7 +51,6 @@ class SearchController extends Controller {
         //$sortParams =  $parameters['search_field'];
 
         $this->searchParameters->setAll($parameters);
-        dump($this->searchParameters->getParams());
     }
 
     public function searchAction(Request $request) {
@@ -358,7 +357,7 @@ class SearchController extends Controller {
     public function searchAdvancedCar(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -471,7 +470,7 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            //\Doctrine\Common\Util\Debug::dump($query->getResult());
+
         }
         return $this->render('NumaDOASiteBundle:Search:advancedCar.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
@@ -479,8 +478,7 @@ class SearchController extends Controller {
     public function searchAdvancedMarine(Request $request) {
         $em = $this->getDoctrine()->getManager();
         //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels();
-        $json = "";
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+        $json = "";        
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -630,15 +628,14 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            //\Doctrine\Common\Util\Debug::dump($query->getResult());
+            
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMarine.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
 
     public function searchAdvancedMotorsport(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->getJsonListModels(700);
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+        //$json = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->getJsonListModels(700);        
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -758,15 +755,14 @@ class SearchController extends Controller {
                                  AND i.category_id=2
                                 ')
                     ->setParameter('model', 197);
-            //\Doctrine\Common\Util\Debug::dump($query->getResult());
+            
         }
         return $this->render('NumaDOASiteBundle:Search:advancedMotorsport.html.twig', array('form' => $form->createView()));
     }
 
     public function searchAdvancedRVs(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);        
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -931,8 +927,7 @@ class SearchController extends Controller {
                                  WHERE ifield.field_integer_value = :model
                                  AND i.category_id=2
                                 ')
-                    ->setParameter('model', 197);
-            //\Doctrine\Common\Util\Debug::dump($query->getResult());
+                    ->setParameter('model', 197);            
         }
         return $this->render('NumaDOASiteBundle:Search:advancedRVs.html.twig', array('form' => $form->createView(), 'json' => $json));
     }
@@ -943,7 +938,7 @@ class SearchController extends Controller {
     public function searchAdvancedAg(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(721);
-        //\Doctrine\Common\Util\Debug::dump($test);die();
+        
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -1015,8 +1010,7 @@ class SearchController extends Controller {
                                  WHERE ifield.field_integer_value = :model
                                  AND i.category_id=2
                                 ')
-                    ->setParameter('model', 197);
-            //\Doctrine\Common\Util\Debug::dump($query->getResult());
+                    ->setParameter('model', 197);            
         }
         return $this->render('NumaDOASiteBundle:Search:advancedAg.html.twig', array('form' => $form->createView(), 'json' => $json));
     }

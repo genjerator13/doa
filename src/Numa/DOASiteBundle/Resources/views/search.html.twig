@@ -12,9 +12,9 @@
             <li class="{% if route=='buyer_login' %}active{% endif %}"><a href="{{path('buyer_login')}}">Dealer login</a></li>
             <li class="{% if route=='search_advanced' %}active{% endif %}"><a href="{{ path('search_advanced') }}">Advanced Search</a></li>
 
-            <li>
+            <li class="{% if route=='buyer_register' %}active{% endif %}">
                 {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
-                    <a class="" href="{{path('buyer_login')}}">Buyer Registration / Sign In</a>
+                    <a  href="{{path('buyer_register')}}">Buyer Registration / Sign In</a>
                 {% else %}
                     <a class="" href="{{path('logout')}}"> Log Out </a>
                 {%endif %}
