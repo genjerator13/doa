@@ -210,7 +210,7 @@ class searchParameters {
                             $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
                             
                             $qb->setParameter($dbName,  $searchItem->getValue() );
-                            dump($qb->getQuery());
+                            
                         } elseif ($type == 'rangeFrom') {
                             $qb->andWhere('i.' . $dbName . ' >= :' . $dbName."from");
                             $qb->setParameter($dbName."from", floatval($searchItem->getValue()));
@@ -234,7 +234,7 @@ class searchParameters {
                             
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
-                            //dump($lflValue);die();
+                            
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
                             $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
                         }
