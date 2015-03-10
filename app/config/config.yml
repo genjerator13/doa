@@ -58,6 +58,9 @@ assetic:
         jquery_ui_css:
             inputs:
                - '%kernel.root_dir%/../web/jqueryUI/css/ui-lightness/jquery-ui-1.10.3.custom.css'
+        bx_slider_css:
+            inputs:
+               - '%kernel.root_dir%/../web/css/jquery.bxslider.css'
         #javascript
         bootstrapx_js:
             inputs:
@@ -74,6 +77,9 @@ assetic:
                 - '%kernel.root_dir%/../web/js/jssor/jssor.core.js'
                 - '%kernel.root_dir%/../web/js/jssor/jssor.slider.js'
                 - '%kernel.root_dir%/../web/js/jssor/jssor.utils.js'
+        bx_slider_js:
+            inputs:
+                - '%kernel.root_dir%/../web/js/jquery.bxslider.js'
         common_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/common.js'

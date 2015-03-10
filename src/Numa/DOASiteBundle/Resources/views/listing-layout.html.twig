@@ -8,14 +8,14 @@
 
         {% block title %}<title>{{title}}</title>{% endblock title %}
         {% block stylesheets %}
-            {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' filter='cssrewrite' output='css/*.css' %}
+            {% stylesheets '@bootstrap'  '@jquery_ui_css' '@bx_slider_css' '@style' filter='cssrewrite' output='css/*.css' %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
             {% endstylesheets %}
         {% endblock %}
         {% block javascripts %}
             <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
             <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-            {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' %}
+            {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@bx_slider_js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
 
             {% endjavascripts %}
