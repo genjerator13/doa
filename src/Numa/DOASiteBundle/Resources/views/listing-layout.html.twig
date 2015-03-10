@@ -5,7 +5,6 @@
     <head>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
-
         {% block title %}<title>{{title}}</title>{% endblock title %}
         {% block stylesheets %}
             {% stylesheets '@bootstrap'  '@jquery_ui_css' '@bx_slider_css' '@style' filter='cssrewrite' output='css/*.css' %}
@@ -17,10 +16,7 @@
             <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
             {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@bx_slider_js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
-
             {% endjavascripts %}
-
-
         {% endblock %}
     </head>
     <body class=" default ">
@@ -38,7 +34,6 @@
                 <div class="navbar-collapse collapse">         
                     {% set route = app.request.get('_route') %}
                         {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
-
                     </div>
                 </div>
             </div>
@@ -66,4 +61,3 @@
             </div> <!-- /container -->
         </body>
     </html>
-
