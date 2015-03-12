@@ -20,40 +20,40 @@
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
 
                         <!-- Place somewhere in the <body> of your page -->
-{#                        <div id="slider" class="flexslider">
-                            <ul class="slides">
-                                <li>
-                                    <img src="slide1.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide2.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide3.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide4.jpg" />
-                                </li>
-                                <!-- items mirrored twice, total of 12 -->
-                            </ul>
-                        </div>
-                        <div id="carousel" class="flexslider">
-                            <ul class="slides">
-                                <li>
-                                    <img src="slide1.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide2.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide3.jpg" />
-                                </li>
-                                <li>
-                                    <img src="slide4.jpg" />
-                                </li>
-                                <!-- items mirrored twice, total of 12 -->
-                            </ul>
-                        </div>#}
+                        {#                        <div id="slider" class="flexslider">
+                                                    <ul class="slides">
+                                                        <li>
+                                                            <img src="slide1.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide2.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide3.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide4.jpg" />
+                                                        </li>
+                                                        <!-- items mirrored twice, total of 12 -->
+                                                    </ul>
+                                                </div>
+                                                <div id="carousel" class="flexslider">
+                                                    <ul class="slides">
+                                                        <li>
+                                                            <img src="slide1.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide2.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide3.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide4.jpg" />
+                                                        </li>
+                                                        <!-- items mirrored twice, total of 12 -->
+                                                    </ul>
+                                                </div>#}
 
                         {% if (images|length) >0 %}
                             <div id="slider" class="flexslider">
@@ -76,13 +76,13 @@
                                         <li>
                                             {#<a data-slide-index="{{ (loop.index-1) }}" href="">#}
 
-                                                {% if ('http' not in image.stringvalue) %}
-                                                    <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
-                                                {% else %}
-                                                    <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
-                                                {%endif%}
+                                            {% if ('http' not in image.stringvalue) %}
+                                                <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+                                            {% else %}
+                                                <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
+                                            {%endif%}
 
-                                           {# </a>#}
+                                            {# </a>#}
                                         </li>
                                     {% endfor %}
                                 </ul>
@@ -312,7 +312,29 @@
                                 <p>{{dealer.phone}}</p>
                                 <p>{{dealer.location}}</p>
                                 <p><a href="{{dealer.url}}">Visit Our Website</a></p>
-                                <p>Send <a href="mailto:{{dealer.email}}" >email</a>
+                                <p>Send <a  data-toggle="modal" data-target="#myModal" >email</a>
+                                    
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Send email to {{dealer}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
+                                                <form action="" method="post" name="form">
+                                               {{form_rest(emailForm)}}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Send Email</button>
+                                                
+                                            </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                                 <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                                 <p>
                                     <span class="fieldCaption fieldCaptionId">Listing #</span>

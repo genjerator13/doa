@@ -27,6 +27,7 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         title: Peak Dealers Online
+        subject: Email from 
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
