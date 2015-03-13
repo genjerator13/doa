@@ -39,11 +39,17 @@ class ItemController extends Controller {
         //add 1 more view
         $item->setViews($item->getViews() + 1);
         $em->flush();
-        return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
-                    'dealer' => $dealer,
-                    'print' => $print,
-                    'searchQ' => $searchQ,
-                    'emailForm' => $this->emailDealerForm($request,$item->getDealer())->createView()));
+        $emailForm = $this->emailDealerForm($request,$item->getDealer());
+        
+        if($emailForm instanceof \Symfony\Component\Form\Form ){
+            return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
+                        'dealer' => $dealer,
+                        'print' => $print,
+                        'searchQ' => $searchQ,
+                        'emailForm' => $emailForm->createView()));
+        }else{
+            return $emailForm;
+        }
     }
 
     public function saveadAction(Request $request) {
@@ -205,6 +211,13 @@ class ItemController extends Controller {
              */
             ;
             $ok = $mailer->send($message);
+            $currentRoute = $request->attributes->get('_route');
+            $currentRouteParams = $request->attributes->get('_route_params');
+            
+            $currentUrl = $this->get('router')
+                     ->generate($currentRoute, $currentRouteParams, true);
+
+            return $this->redirect($currentUrl);
 
         }
         return $form;

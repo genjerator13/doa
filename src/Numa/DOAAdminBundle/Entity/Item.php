@@ -2929,4 +2929,62 @@ class Item {
         return $this->steering;
     }
 
+    /**
+     * @var float
+     */
+    private $mpgCity;
+
+    /**
+     * @var float
+     */
+    private $mpgHighway;
+
+
+    /**
+     * Set mpgCity
+     *
+     * @param float $mpgCity
+     *
+     * @return Item
+     */
+    public function setMpgCity($mpgCity)
+    {
+        $this->mpgCity = $mpgCity;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgCity
+     *
+     * @return float
+     */
+    public function getMpgCity()
+    {
+        return $this->mpgCity;
+    }
+
+    /**
+     * Set mpgHighway
+     *
+     * @param float $mpgHighway
+     *
+     * @return Item
+     */
+    public function setMpgHighway($mpgHighway)
+    {
+        $this->mpgHighway = $mpgHighway;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgHighway
+     *
+     * @return float
+     */
+    public function getMpgHighway()
+    {
+        return $this->mpgHighway;
+    }
 }

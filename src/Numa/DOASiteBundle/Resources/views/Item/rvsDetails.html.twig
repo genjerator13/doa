@@ -93,7 +93,14 @@
         <span class="fieldCaption field-status">Flooring: </span>
         <span class="fieldValue fieldValue-status">{{item.getFlooring()}}</span>
     </li>    
-
+    <li class="col-md-6">
+        <span class="fieldCaption field-status">MPG - City: </span>
+        <span class="fieldValue fieldValue-status">{{item.getMpgCity()}}</span>
+    </li>
+    <li class="col-md-6">
+        <span class="fieldCaption field-status">MPG - Highway: </span>
+        <span class="fieldValue fieldValue-status">{{item.getMpgHighway()}}</span>
+    </li>
 
     {% if item.getSellerComment() is not empty %}
         <li class="col-md-12">

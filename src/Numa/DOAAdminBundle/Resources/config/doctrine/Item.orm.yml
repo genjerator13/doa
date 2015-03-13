@@ -317,6 +317,12 @@ Numa\DOAAdminBundle\Entity\Item:
         width:
               type: float
               nullable: true
+        mpgCity:
+              type: float
+              nullable: true
+        mpgHighway:
+              type: float
+              nullable: true
 
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

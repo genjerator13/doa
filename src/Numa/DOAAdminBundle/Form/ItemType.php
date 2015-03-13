@@ -121,6 +121,8 @@ class ItemType extends AbstractType
             ->add('tireEquipment')
             ->add('cuttingWidth')
             ->add('coolingSystem')
+            ->add('mpgCity')
+            ->add('mpgHighway')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;
