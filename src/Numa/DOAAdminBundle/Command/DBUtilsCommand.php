@@ -208,7 +208,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         if ($echo) {
                             print_r(count($items));
                             echo $subCat->getCaption()." : " . $subCat->getId() . ":" . $value->getId() . " : ".$value->getValue()."\n";
-                            dump($echo);
+                            //dump($echo);
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();

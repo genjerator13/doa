@@ -261,7 +261,7 @@ class ItemController extends Controller {
                         $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            dump($resultCode);die();
+            //dump($resultCode);die();
             return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
         }
 
@@ -498,7 +498,7 @@ class ItemController extends Controller {
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            dump($resultCode);die();
+            //dump($resultCode);die();
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
         }
 
