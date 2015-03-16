@@ -25,7 +25,7 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
-            new Cg\KintBundle\CgKintBundle(),
+            new Lsw\MemcacheBundle\LswMemcacheBundle(),
             #new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Symfony\Bundle\DebugBundle\DebugBundle(),
         );
