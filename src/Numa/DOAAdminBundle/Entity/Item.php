@@ -20,7 +20,7 @@ class Item {
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+        array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
 
     /**
@@ -770,8 +770,7 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-
-
+        dump($name);
         if (property_exists(get_class($this), $name)) {
             $name = strtolower($name);
             return $this->$name;
@@ -1607,12 +1606,12 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'speed reverse') {
             $this->setSpeedReverse($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'speed forward') {
-            $this->setSpeedForward($itemField->getFieldStringValue());        
+            $this->setSpeedForward($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
             $this->setOperatorStation($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
             $this->setStockNr($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+        } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
         }
@@ -2939,7 +2938,6 @@ class Item {
      */
     private $mpgHighway;
 
-
     /**
      * Set mpgCity
      *
@@ -2947,8 +2945,7 @@ class Item {
      *
      * @return Item
      */
-    public function setMpgCity($mpgCity)
-    {
+    public function setMpgCity($mpgCity) {
         $this->mpgCity = $mpgCity;
 
         return $this;
@@ -2959,8 +2956,7 @@ class Item {
      *
      * @return float
      */
-    public function getMpgCity()
-    {
+    public function getMpgCity() {
         return $this->mpgCity;
     }
 
@@ -2971,8 +2967,7 @@ class Item {
      *
      * @return Item
      */
-    public function setMpgHighway($mpgHighway)
-    {
+    public function setMpgHighway($mpgHighway) {
         $this->mpgHighway = $mpgHighway;
 
         return $this;
@@ -2983,8 +2978,8 @@ class Item {
      *
      * @return float
      */
-    public function getMpgHighway()
-    {
+    public function getMpgHighway() {
         return $this->mpgHighway;
     }
+
 }
