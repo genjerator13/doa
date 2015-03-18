@@ -770,7 +770,6 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        dump($name);
         if (property_exists(get_class($this), $name)) {
             $name = strtolower($name);
             return $this->$name;
