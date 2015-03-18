@@ -436,3 +436,7 @@ h4{
 .badge {
     background-color: #F00;
 }
+
+.bx-wrapper, .flexslider {
+    margin-bottom: 0;
+}

@@ -21,6 +21,8 @@ class DefaultController extends Controller {
         
         //print_r($tabs);
         $vehCategory = 1;
+        //$jsonCar ="";
+        //$jsonRvs ="";
         $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
         $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(

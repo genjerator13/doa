@@ -293,7 +293,7 @@ class CatalogrecordsController extends Controller {
                 $newDealer = new Catalogrecords();
                 foreach ($fields as $key => $fieldDB) {
                     $fn = 'set' . $fieldDB;
-                    var_dump($fn);
+                    //var_dump($fn);
                     if(is_callable(array($newDealer,$fn)) && !empty($row[$key])){
                         $newDealer->$fn($row[$key]);
                     }

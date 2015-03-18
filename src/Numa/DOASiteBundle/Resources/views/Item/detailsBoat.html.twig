@@ -19,126 +19,131 @@
 
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
 
-                            <!-- Jssor Slider Begin -->
-                            <!-- You can move inline styles to css file or css block. -->
-                            {% if (images|length) >0 %}
-                            <div id="slider1_container" style="position: relative; width: 666px;
-                                 height: 480px; overflow: hidden;">
+                        <!-- Place somewhere in the <body> of your page -->
+                        {#                        <div id="slider" class="flexslider">
+                                                    <ul class="slides">
+                                                        <li>
+                                                            <img src="slide1.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide2.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide3.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide4.jpg" />
+                                                        </li>
+                                                        <!-- items mirrored twice, total of 12 -->
+                                                    </ul>
+                                                </div>
+                                                <div id="carousel" class="flexslider">
+                                                    <ul class="slides">
+                                                        <li>
+                                                            <img src="slide1.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide2.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide3.jpg" />
+                                                        </li>
+                                                        <li>
+                                                            <img src="slide4.jpg" />
+                                                        </li>
+                                                        <!-- items mirrored twice, total of 12 -->
+                                                    </ul>
+                                                </div>#}
 
-                                <!-- Loading Screen -->
-                                <div u="loading" style="position: absolute; top: 0px; left: 0px;">
-                                    <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block;
-                                         background-color: #000; top: 0px; left: 0px;width: 100%;height:100%;">
-                                    </div>
-                                    <div style="position: absolute; display: block; background: url(../img/loading.gif) no-repeat center center;
-                                         top: 0px; left: 0px;width: 100%;height:100%;">
-                                    </div>
-                                </div>
-
-                                <!-- Slides Container -->
-                                
-                                
-                                <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 666px; height: 480px;
-                                     overflow: hidden;">
+                        {% if (images|length) >0 %}
+                            <div id="slider" class="flexslider">
+                                <ul class="slides">
                                     {% for key,image in images %}    
-                                        <div>
-                                            {% if ('http' not in image.stringvalue) %}
-                                                <img  u="image" src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />                              
-                                                <img  u="thumb" src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />                              
-
+                                        {% if ('http' not in image.stringvalue) %}
+                                            <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
                                             {% else %}
+                                            <li><img src="{{image.stringvalue}}" alt="image{{key}}" width="666px" />    </li>
+                                            {%endif%}
+                                        {% endfor %}
 
-                                                <img  u="image" src="{{image.stringvalue}}" alt="image{{key}}" width="666" height="480"/>                              
-                                                <img  u="thumb" src="{{image.stringvalue}}" alt="image{{key}}" width="120" height="90"/>                              
+                                </ul>
+                            </div>
+                        {%endif%}
+                        {% if (images|length) >0 %}
+                            <div id="carousel" class="flexslider">
+                                <ul class="slides">
+                                    {% for key,image in images %}    
+                                        <li>
+                                            {#<a data-slide-index="{{ (loop.index-1) }}" href="">#}
 
+                                            {% if ('http' not in image.stringvalue) %}
+                                                <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+                                            {% else %}
+                                                <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
                                             {%endif%}
 
-                                        </div>
+                                            {# </a>#}
+                                        </li>
                                     {% endfor %}
-
-                                </div>
-                               
-                                <!-- Thumbnail Navigator Skin Begin -->
-                                <div u="thumbnavigator" class="jssort07" style="position: absolute; width: 666px; height: 100px; left: 0px; bottom: 0px; overflow: hidden; ">
-                                    <div style=" background-color: #000; filter:alpha(opacity=30); opacity:.3; width: 100%; height:100%;"></div>
-
-                                    <div u="slides" style="cursor: move;">
-                                        <div u="prototype" class="p" style="POSITION: absolute; WIDTH: 99px; HEIGHT: 66px; TOP: 0; LEFT: 0;">
-                                            <thumbnailtemplate class="i" style="position:absolute;"></thumbnailtemplate>
-                                            <div class="o">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Arrow Left -->
-                                    <span u="arrowleft" class="jssora11l" style="width: 37px; height: 37px; top: 123px; left: 8px;">
-                                    </span>
-                                    <!-- Arrow Right -->
-                                    <span u="arrowright" class="jssora11r" style="width: 37px; height: 37px; top: 123px; right: 8px">
-                                    </span>
-                                    <!-- Arrow Navigator Skin End -->
-                                </div>
-                                <!-- ThumbnailNavigator Skin End -->
-                                <a style="display: none" href="http://www.jssor.com">responsive carousel</a>
-                                <!-- Trigger -->
-                                 {%endif%}
+                                </ul>
                             </div>
-                            <!-- Jssor Slider End -->
-                            
-                            {% if item.getItemFieldByName('youtube video id') is not empty%}
-                                <div class='row'>
-                                    <h4>Youtube video:</h4>
-                                    <div class="youtube-video">
-                                        <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            {% endif %}
-                            <h4>Details:</h4>
+                        {%endif%}
+
+                        {% if item.getItemFieldByName('youtube video id') is not empty%}
                             <div class='row'>
-                                
-                                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
-                                                                  
-                                    {% if item.categoryId()==1%}
-                                        {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}   
-                                    {% elseif(item.categoryId()==2) %}
-                                        {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}   
-                                    {% elseif(item.categoryId()==3) %}
-                                        {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}  
-                                    {% elseif(item.categoryId()==4) %}
-                                        {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}  
-                                    {% elseif(item.categoryId()==13) %}
-                                        {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}  
-                                    {% else %}
-                                        
-                                        
-                                        <ul class="techData">
-                                            {% for field in item.ItemField %}
+                                <h4>Youtube video:</h4>
+                                <div class="youtube-video">
+                                    <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        {% endif %}
 
-                                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                                    <li class="col-md-6">
-                                                        <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
-                                                        {% if field.fieldName=="Price" %}
+                        <h4>Details:</h4>
+                        <div class='row'>
 
-                                                            <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>   
-                                                        {% elseif field.fieldName|lower=="make model" %}
-                                                            <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                                        {% else %}
-                                                            <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                                        {% endif %}
-                                                    </li>
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% if item.getItemFieldByName('seller comment') is not empty %}
-                                                <li class="col-md-12">
-                                                    <div class="fieldCaption field" >Seller Comments: </div>
-                                                    <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
+                            {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
+
+                                {% if item.categoryId()==1%}
+                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}   
+                                {% elseif(item.categoryId()==2) %}
+                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}   
+                                {% elseif(item.categoryId()==3) %}
+                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}  
+                                {% elseif(item.categoryId()==4) %}
+                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}  
+                                {% elseif(item.categoryId()==13) %}
+                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}  
+                                {% else %}
+
+
+                                    <ul class="techData">
+                                        {% for field in item.ItemField %}
+
+                                            {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                                <li class="col-md-6">
+                                                    <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
+                                                    {% if field.fieldName=="Price" %}
+
+                                                        <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>   
+                                                    {% elseif field.fieldName|lower=="make model" %}
+                                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                                    {% else %}
+                                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
+                                                    {% endif %}
                                                 </li>
                                             {% endif %}
-                                        </ul>
-                                    {% endif %}
-                                </div>
+                                        {% endfor %}
+                                        {% if item.getItemFieldByName('seller comment') is not empty %}
+                                            <li class="col-md-12">
+                                                <div class="fieldCaption field" >Seller Comments: </div>
+                                                <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                {% endif %}
+                            </div>
 
-                                {% if (item.ItemField|length)>0 %}
+                            {% if (item.ItemField|length)>0 %}
                                 <div class='row'>
                                     <h4>Options list:</h4>
                                     <ul class='option-lists'>
@@ -159,8 +164,8 @@
                                         {% endfor %}
                                     </ul>
                                 </div>
-                                {% endif %}
-                                <div id="map"> </div> 
+                            {% endif %}
+                            <div id="map"> </div> 
 
                         </div>
                         {% endblock %}
@@ -307,7 +312,29 @@
                                 <p>{{dealer.phone}}</p>
                                 <p>{{dealer.location}}</p>
                                 <p><a href="{{dealer.url}}">Visit Our Website</a></p>
-                                <p>Send <a href="mailto:{{dealer.email}}" >email</a>
+                                <p>Send <a  data-toggle="modal" data-target="#myModal" >email</a>
+                                    
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title">Send email to {{dealer}}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
+                                                <form action="" method="post" name="form">
+                                               {{form_rest(emailForm)}}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Send Email</button>
+                                                
+                                            </div>
+                                            </form>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
                                 <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                                 <p>
                                     <span class="fieldCaption fieldCaptionId">Listing #</span>
@@ -366,56 +393,25 @@
                                     <script src="{{ asset_url }}"></script>
                                     {% endjavascripts %}
                                     <script>
-                                        jQuery(document).ready(function($) {
-                                            var options = {
-                                                $AutoPlay: true, //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
-                                                $AutoPlayInterval: 4000, //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
-                                                $SlideDuration: 500, //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
-                                                $DragOrientation: 3, //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $DisplayPieces is greater than 1, or parking position is not 0)
-                                                $UISearchMode: 0, //[Optional] The way (0 parellel, 1 recursive, default value is 1) to search UI components (slides container, loading screen, navigator container, arrow navigator container, thumbnail navigator container etc).
+                                        $(document).ready(function() {
+                                            // The slider being synced must be initialized first
+                                            $('#carousel').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                itemWidth: 120,
+                                                itemMargin: 10,
+                                                asNavFor: '#slider'
+                                            });
 
-                                                $ThumbnailNavigatorOptions: {
-                                                    $Class: $JssorThumbnailNavigator$, //[Required] Class to create thumbnail navigator instance
-                                                    $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-
-                                                    $Loop: 2, //[Optional] Enable loop(circular) of carousel or not, 0: stop, 1: loop, 2 rewind, default value is 1
-                                                    $SpacingX: 3, //[Optional] Horizontal space between each thumbnail in pixel, default value is 0
-                                                    $SpacingY: 3, //[Optional] Vertical space between each thumbnail in pixel, default value is 0
-                                                    $DisplayPieces: 6, //[Optional] Number of pieces to display, default value is 1
-                                                    $ParkingPosition: 204, //[Optional] The offset position to park thumbnail,
-
-                                                    $ArrowNavigatorOptions: {
-                                                        $Class: $JssorArrowNavigator$, //[Requried] Class to create arrow navigator instance
-                                                        $ChanceToShow: 2, //[Required] 0 Never, 1 Mouse Over, 2 Always
-                                                        $AutoCenter: 2, //[Optional] Auto center arrows in parent container, 0 No, 1 Horizontal, 2 Vertical, 3 Both, default value is 0
-                                                        $Steps: 6                                       //[Optional] Steps to go for each navigation request, default value is 1
-                                                    }
-                                                }
-                                            };
-
-                                            var jssor_slider1 = new $JssorSlider$("slider1_container", options);
-
-                                            //responsive code begin
-                                            //you can remove responsive code if you don't want the slider scales while window resizes
-                                            function ScaleSlider() {
-                                                var parentWidth = jssor_slider1.$Elmt.parentNode.clientWidth;
-                                                if (parentWidth)
-                                                    jssor_slider1.$SetScaleWidth(Math.min(parentWidth, 720));
-                                                else
-                                                    window.setTimeout(ScaleSlider, 30);
-                                            }
-
-                                            ScaleSlider();
-
-                                            if (!navigator.userAgent.match(/(iPhone|iPod|iPad|BlackBerry|IEMobile)/)) {
-                                                $(window).bind('resize', ScaleSlider);
-                                            }
-
-
-                                            //if (navigator.userAgent.match(/(iPhone|iPod|iPad)/)) {
-                                            //    $(window).bind("orientationchange", ScaleSlider);
-                                            //}
-                                            //responsive code end
+                                            $('#slider').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                sync: "#carousel"
+                                            });
                                         });
                                     </script>
                                     {#{% javascripts '@savecompared_js' %}

@@ -22,7 +22,7 @@
     
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.7.x-dev",
+        "symfony/symfony": "2.6.x",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         
@@ -45,7 +45,7 @@
         "gregwar/image-bundle": "dev-master",
         "endroid/qrcode-bundle": "dev-master",
         "twbs/bootstrap": "dev-master",
-        "cg/kint-bundle": "dev-master"
+        "leaseweb/memcache-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

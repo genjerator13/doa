@@ -16,7 +16,7 @@ class Item {
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('Cooling System'=>'coolingSystem','make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
@@ -1020,23 +1020,24 @@ class Item {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
-                    if(empty($value['label'])){
-                        //if label is not defined, set as true
-                        $itemField->setAllValues(true);
-                        $itemField->setFieldType('boolean');
-                        $itemField->setFieldName($value['value']);
-                    }else{
-                        $itemField->setAllValues($value['value']);
-                        $itemField->setFieldType('string');
-                        $itemField->setFieldName($value['label']);
+                    if (!empty($value['value'])) {
+                        if (empty($value['label'])) {
+                            //if label is not defined, set as true
+                            $itemField->setAllValues(true);
+                            $itemField->setFieldType('boolean');
+                            $itemField->setFieldName($value['value']);
+                        } else {
+                            $itemField->setAllValues($value['value']);
+                            $itemField->setFieldType('string');
+                            $itemField->setFieldName($value['label']);
+                        }
+
+                        $itemField->setFeedId($this->getFeedId());
+                        $itemField->setSortOrder($order);
+                        $this->addItemField($itemField);
+                        $order++;
+                        $proccessed = true;
                     }
-                    $itemField->setFeedId($this->getFeedId());
-                    
-                    
-                    $itemField->setSortOrder($order);
-                    $this->addItemField($itemField);
-                    $order++;
-                    $proccessed = true;
                 }
             }
         }
@@ -1595,6 +1596,25 @@ class Item {
             $this->setFuelSystem($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'fuel capacity') {
             $this->setFuelCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'cooling system') {
+            $this->setCoolingSystem($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'cutting width') {
+            $this->setCoolingSystem($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'tire equipment') {
+            $this->setTireEquipment($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'tire size') {
+            $this->setTireSize($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'speed reverse') {
+            $this->setSpeedReverse($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'speed forward') {
+            $this->setSpeedForward($itemField->getFieldStringValue());        
+        } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
+            $this->setOperatorStation($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
+            $this->setStockNr($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+            $this->setAgApplication($itemField->getFieldStringValue());
+            $this->setType($itemField->getFieldStringValue());
         }
     }
 
@@ -2833,7 +2853,6 @@ class Item {
      */
     private $cooling_system;
 
-
     /**
      * Set coolingSystem
      *
@@ -2841,8 +2860,7 @@ class Item {
      *
      * @return Item
      */
-    public function setCoolingSystem($coolingSystem)
-    {
+    public function setCoolingSystem($coolingSystem) {
         $this->cooling_system = $coolingSystem;
 
         return $this;
@@ -2853,15 +2871,14 @@ class Item {
      *
      * @return string
      */
-    public function getCoolingSystem()
-    {
+    public function getCoolingSystem() {
         return $this->cooling_system;
     }
+
     /**
      * @var string
      */
     private $chassis;
-
 
     /**
      * Set chassis
@@ -2870,8 +2887,7 @@ class Item {
      *
      * @return Item
      */
-    public function setChassis($chassis)
-    {
+    public function setChassis($chassis) {
         $this->chassis = $chassis;
 
         return $this;
@@ -2882,8 +2898,35 @@ class Item {
      *
      * @return string
      */
-    public function getChassis()
-    {
+    public function getChassis() {
         return $this->chassis;
     }
+
+    /**
+     * @var string
+     */
+    private $steering;
+
+    /**
+     * Set steering
+     *
+     * @param string $steering
+     *
+     * @return Item
+     */
+    public function setSteering($steering) {
+        $this->steering = $steering;
+
+        return $this;
+    }
+
+    /**
+     * Get steering
+     *
+     * @return string
+     */
+    public function getSteering() {
+        return $this->steering;
+    }
+
 }

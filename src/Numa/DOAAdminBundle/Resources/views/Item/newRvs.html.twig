@@ -118,4 +118,16 @@
             {{ form_widget(form.flooring, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
+    <div class="form-group">
+        {{ form_label(form.mpgCity, 'MPG - City', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.mpgCity, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.mpgHighway, 'MPG - Highway', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.mpgHighway, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
 {% endblock %}

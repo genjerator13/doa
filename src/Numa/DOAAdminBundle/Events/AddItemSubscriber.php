@@ -50,11 +50,12 @@ class AddItemSubscriber implements EventSubscriberInterface {
             $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB,$cat,true);
             
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                dump($listingList );
+                //dump($listingList );
                 $type = $listingList->getType();
                 
                 if (strtolower($type) == 'list') {
                     $selected = $item->getItemFieldByName($carFieldDB);
+                    
                     $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
                     $values = array();
                     foreach ($listingList as $key => $value) {
@@ -73,8 +74,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
                     foreach ($listingTree as $key => $value) {
                         $values[$value->getName()] = $value->getName();
                     }
-                    dump($values);
-                    dump($selected);
+                    //dump($values);
+                    //dump($selected);
                     //make form name from db name TODO function for that
                     
                     

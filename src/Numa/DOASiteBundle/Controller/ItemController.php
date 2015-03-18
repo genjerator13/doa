@@ -17,10 +17,10 @@ class ItemController extends Controller {
         $request = $this->container->get('request');
         $routeName = $request->get('_route');
         $print = false;
-        if ($routeName=='item_print_details'){
+        if ($routeName == 'item_print_details') {
             $print = true;
         }
-        
+
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
         //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
         //
@@ -30,17 +30,26 @@ class ItemController extends Controller {
         //$itemfields = $item->getItemFieldsArray();
         //get dealer
         $dealerid = $item->getItemFieldByName('dealer');
-        
+
         $dealer = "";
-        if (!empty($dealerid)){
+        if (!empty($dealerid)) {
             $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
         }
         //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
         //add 1 more view
-        $item->setViews($item->getViews()+1);
+        $item->setViews($item->getViews() + 1);
         $em->flush();
-        return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item, 'dealer' => $dealer,'print'=>$print,'searchQ'=>$searchQ));
-     
+        $emailForm = $this->emailDealerForm($request,$item->getDealer());
+        
+        if($emailForm instanceof \Symfony\Component\Form\Form ){
+            return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
+                        'dealer' => $dealer,
+                        'print' => $print,
+                        'searchQ' => $searchQ,
+                        'emailForm' => $emailForm->createView()));
+        }else{
+            return $emailForm;
+        }
     }
 
     public function saveadAction(Request $request) {
@@ -98,7 +107,7 @@ class ItemController extends Controller {
         if ($act == 'removeall') {
             $session->remove('comparedItem');
         }
-        
+
         if ($item instanceof \Numa\DOAAdminBundle\Entity\Item) {
 
             if (empty($comparedItems)) {
@@ -111,7 +120,6 @@ class ItemController extends Controller {
                 unset($comparedItems[$itemid]);
             }
             $session->set('comparedItem', $comparedItems);
-            
         }
 
         if ($request->isXmlHttpRequest()) {
@@ -148,15 +156,71 @@ class ItemController extends Controller {
 
         return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $fields, 'items' => $comparedItemsArray));
     }
-    
-    public function qrcodeAction(Request $request){
+
+    public function qrcodeAction(Request $request) {
         $link = $request->get('link');
         return $this->redirect($this->generateUrl('endroid_qrcode', array(
-'text' => $link,
-'extension' => 'png',
-'size' => 500
-)));
-        
+                            'text' => $link,
+                            'extension' => 'png',
+                            'size' => 500
+        )));
+    }
+
+    public function emailDealerForm($request,$dealer) {
+        $data = array();
+        $form = $this->createFormBuilder($data)
+                ->add('comments', 'textarea')
+                ->add('first_name', 'text')
+                ->add('last_name', 'text')
+                ->add('email', 'email')
+                ->add('dealer', 'hidden')
+                ->getForm();
+
+        if ($request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
+            $form->bind($request);
+
+            // $data is a simply array with your form fields 
+            // like "query" and "category" as defined above.
+            $data = $form->getData();
+            $emailFrom = $data['email'];
+            $emailTo = $dealer->getEmail();
+            $emailBody = $data['comments'];
+            $twig = $this->container->get('twig');
+            $globals = $twig->getGlobals();
+            $subject = $globals['subject'];
+            $title = $globals['title'];
+            $subject = $subject ." ".$title;
+            ;
+
+
+            $mailer = $this->get('mailer');
+            $message = $mailer->createMessage()
+                    ->setSubject('email from ')
+                    ->setFrom($emailFrom)
+                    ->setTo('e.medjesi@gmail.com')
+                    ->setBody($emailTo.":".$emailBody);
+            /*
+             * If you also want to include a plaintext version of the message
+              ->addPart(
+              $this->renderView(
+              'Emails/registration.txt.twig',
+              array('name' => $name)
+              ),
+              'text/plain'
+              )
+             */
+            ;
+            $ok = $mailer->send($message);
+            $currentRoute = $request->attributes->get('_route');
+            $currentRouteParams = $request->attributes->get('_route_params');
+            
+            $currentUrl = $this->get('router')
+                     ->generate($currentRoute, $currentRouteParams, true);
+
+            return $this->redirect($currentUrl);
+
+        }
+        return $form;
     }
 
 }

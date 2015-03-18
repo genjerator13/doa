@@ -25,15 +25,16 @@ class AppKernel extends Kernel
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new Gregwar\ImageBundle\GregwarImageBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
-            new Cg\KintBundle\CgKintBundle(),
+            new Lsw\MemcacheBundle\LswMemcacheBundle(),
             #new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            new Symfony\Bundle\DebugBundle\DebugBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-            $bundles[] = new Symfony\Bundle\DebugBundle\DebugBundle();
+            
         }
 
         return $bundles;
