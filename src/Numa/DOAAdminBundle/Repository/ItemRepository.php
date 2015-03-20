@@ -113,6 +113,29 @@ class ItemRepository extends EntityRepository {
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery->getResult();
     }
+    
+    public function getItemBySubCats($cat,$subcatname) {
+                    
+        $subcat = 'type'; //test
+        $cat = intval($cat);
+        if ($cat == 13) {
+            $subcat = 'ag_application';
+        }
+        
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('i')->distinct()
+                ->from('NumaDOAAdminBundle:Item', 'i')                
+                ->where('i.category_id=:category')
+                ->andWhere('i.'.$subcat.' like :subcatname')                
+                ->setParameter('category', $cat)
+                ->setParameter('subcatname', "%" . $subcatname . "%");
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+
+        //dump($itemsQuery->getSQL());
+       return $itemsQuery->getResult();
+    }
 
     public function removeAllItemFields($item_id) {
         $item_id = intval($item_id);

@@ -23,8 +23,18 @@ class DefaultController extends Controller {
         $vehCategory = 1;
         //$jsonCar ="";
         //$jsonRvs ="";
-        $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-        $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
+        
+        $jsonCar = $this->get('memcache.default')->get('jsonCar');
+        if(empty($jsonCar)){
+            $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
+            $this->get('memcache.default')->set('jsonCar', $jsonCar);
+        }
+        
+        $jsonRvs = $this->get('memcache.default')->get('jsonRvs');
+        if(empty($jsonCar)){
+            $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
+            $this->get('memcache.default')->set('jsonRvs', $jsonRvs);
+        }
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
