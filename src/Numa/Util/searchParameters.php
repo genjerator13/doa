@@ -148,7 +148,6 @@ class searchParameters {
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
         }
-        dump($params);
         foreach ($params as $key => $value) {
             
             if ($this->isParamSet($key)) {
