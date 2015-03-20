@@ -55,6 +55,7 @@ class searchParameters {
             'searchText' => new SearchItem('all', "", "text"),
             'boatType' => new SearchItem('type', 0, "list"),
             'typeString' => new SearchItem('type', 0, "string"),
+            'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatModel' => new SearchItem('model', "", "string"),
             'boatMake' => new SearchItem('make', 0, "list"),
@@ -141,7 +142,13 @@ class searchParameters {
     }
 
     public function setAll($params) {
-
+        
+        if($params['category_id']==13 && !empty($params['typeString']))
+        {            
+            $params['ag_applicationString'] = $params['typeString'];
+            unset($params['typeString']);
+        }
+        dump($params);
         foreach ($params as $key => $value) {
             
             if ($this->isParamSet($key)) {
