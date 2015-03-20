@@ -257,7 +257,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
                         //$items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
-                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'ag_application'  =>$value->getValue()));
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->getItemBySubCats($cat->getId(),$value->getValue());
                         
                         $count = count($items);
                         if ($echo) {                            
