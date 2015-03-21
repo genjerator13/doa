@@ -1,97 +1,138 @@
 <h4>Details:</h4>
 <ul class="techData">
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Status: </span>
-        <span class="fieldValue fieldValue-status">{{item.getStatus()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Year: </span>
-        <span class="fieldValue fieldValue-status">{{item.getYear()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Make Model: </span>
-        <span class="fieldValue fieldValue-status">{{item.getMake()}}</span>
-    </li>
-
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Model: </span>
-        <span class="fieldValue fieldValue-status">{{item.getModel()}}</span>
-    </li>            
+    {% if item.getStatus() is not empty %}
         <li class="col-md-6">
-        <span class="fieldCaption field-status">Stock Number: </span>
-        <span class="fieldValue fieldValue-status">{{item.getStockNr()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Ag Application: </span>
-        <span class="fieldValue fieldValue-status">{{item.getAgApplication()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Type: </span>
-        <span class="fieldValue fieldValue-status">{{item.getType()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Mileage: </span>
-        <span class="fieldValue fieldValue-status">{{item.getMileage()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Price: </span>
-        <span class="fieldValue fieldValue-status">{{item.getPrice()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Drive Type: </span>
-        <span class="fieldValue fieldValue-status">{{item.getDriveType()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Engine: </span>
-        <span class="fieldValue fieldValue-status">{{item.getEngine()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Horsepower: </span>
-        <span class="fieldValue fieldValue-status">{{item.getHorsepower()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Hourse: </span>
-        <span class="fieldValue fieldValue-status">{{item.getOfHours()}}</span>
-    </li>
+            <span class="fieldCaption field-status">Status: </span>
+            <span class="fieldValue fieldValue-status">{{item.getStatus()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getYear() is not empty %}
         <li class="col-md-6">
-        <span class="fieldCaption field-status">Fuel Type: </span>
-        <span class="fieldValue fieldValue-status">{{item.getFuelType()}}</span>
-    </li>
+            <span class="fieldCaption field-status">Year: </span>
+            <span class="fieldValue fieldValue-status">{{item.getYear()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getMake() is not empty %}
         <li class="col-md-6">
-        <span class="fieldCaption field-status">Transmission: </span>
-        <span class="fieldValue fieldValue-status">{{item.getTransmission()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Operator Station: </span>
-        <span class="fieldValue fieldValue-status">{{item.getOperatorStation()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Steering: </span>
-        <span class="fieldValue fieldValue-status">{{item.getSteering()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Speed Forward: </span>
-        <span class="fieldValue fieldValue-status">{{item.getSpeedForward()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Speed Reverse: </span>
-        <span class="fieldValue fieldValue-status">{{item.getSpeedReverse()}}</span>
-    </li>
+            <span class="fieldCaption field-status">Make Model: </span>
+            <span class="fieldValue fieldValue-status">{{item.getMake()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getModel() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Model: </span>
+            <span class="fieldValue fieldValue-status">{{item.getModel()}}</span>
+        </li>          
+    {% endif %}
+    {% if item.getStockNr() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Stock Number: </span>
+            <span class="fieldValue fieldValue-status">{{item.getStockNr()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getAgApplication() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Ag Application: </span>
+            <span class="fieldValue fieldValue-status">{{item.getAgApplication()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getType() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Type: </span>
+            <span class="fieldValue fieldValue-status">{{item.getType()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getMileage() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Mileage: </span>
+            <span class="fieldValue fieldValue-status">{{item.getMileage()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getPrice() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Price: </span>
+            <span class="fieldValue fieldValue-status">{{item.getPrice()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getDriveType() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Drive Type: </span>
+            <span class="fieldValue fieldValue-status">{{item.getDriveType()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getEngine() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Engine: </span>
+            <span class="fieldValue fieldValue-status">{{item.getEngine()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getHorsepower() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Horsepower: </span>
+            <span class="fieldValue fieldValue-status">{{item.getHorsepower()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getOfHours() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Hourse: </span>
+            <span class="fieldValue fieldValue-status">{{item.getOfHours()}}</span>
 
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Tire Size: </span>
-        <span class="fieldValue fieldValue-status">{{item.getTireSize()}}</span>
-    </li>
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Tire Equipment: </span>
-        <span class="fieldValue fieldValue-status">{{item.getTireSize()}}</span>
-    </li>
-
-    <li class="col-md-6">
-        <span class="fieldCaption field-status">Cutting Width: </span>
-        <span class="fieldValue fieldValue-status">{{item.getCuttingWidth()}}</span>
-    </li>
-
+        </li>
+    {% endif %}
+    {% if item.getFuelType() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Fuel Type: </span>
+            <span class="fieldValue fieldValue-status">{{item.getFuelType()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getTransmission() is not empty %}    
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Transmission: </span>
+            <span class="fieldValue fieldValue-status">{{item.getTransmission()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getOperatorStation() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Operator Station: </span>
+            <span class="fieldValue fieldValue-status">{{item.getOperatorStation()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getSteering() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Steering: </span>
+            <span class="fieldValue fieldValue-status">{{item.getSteering()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getSpeedForward() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Speed Forward: </span>
+            <span class="fieldValue fieldValue-status">{{item.getSpeedForward()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getSpeedReverse() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Speed Reverse: </span>
+            <span class="fieldValue fieldValue-status">{{item.getSpeedReverse()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getTireSize() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Tire Size: </span>
+            <span class="fieldValue fieldValue-status">{{item.getTireSize()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getTireSize() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Tire Equipment: </span>
+            <span class="fieldValue fieldValue-status">{{item.getTireSize()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getCuttingWidth() is not empty %}
+        <li class="col-md-6">
+            <span class="fieldCaption field-status">Cutting Width: </span>
+            <span class="fieldValue fieldValue-status">{{item.getCuttingWidth()}}</span>
+        </li>
+    {% endif %}
     {% if item.getSellerComment() is not empty %}
         <li class="col-md-12">
             <div class="fieldCaption field" >Seller Comments: </div>
