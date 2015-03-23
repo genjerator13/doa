@@ -63,7 +63,12 @@
             {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
-
+    <div class="form-group">
+        {{ form_label(form.type, 'Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>
     <div class="form-group">
         {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
         <div class="col-sm-9">                            

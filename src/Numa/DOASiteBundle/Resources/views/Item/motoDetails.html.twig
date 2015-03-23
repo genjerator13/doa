@@ -48,10 +48,10 @@
             <span class="fieldValue fieldValue-status">{{item.getMileage()}}</span>
         </li>
     {% endif %}
-    {% if item.getSellerComment() is not empty %}
+    {% if item.getPrice() is not empty %}
         <li class="col-md-6">
             <span class="fieldCaption field-status">Price: </span>
-            <span class="fieldValue fieldValue-status">{{item.getPrice()}}</span>
+            <span class="fieldValue fieldValue-status">$ {{item.getPrice()|number_format(0, '.',',')}}</span>
         </li>
     {% endif %}
     {% if item.getEngine() is not empty %}
