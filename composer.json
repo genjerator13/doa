@@ -45,7 +45,8 @@
         "gregwar/image-bundle": "dev-master",
         "endroid/qrcode-bundle": "dev-master",
         "twbs/bootstrap": "dev-master",
-        "leaseweb/memcache-bundle": "*"
+        "leaseweb/memcache-bundle": "*",
+        "leaseweb/guzzle-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [

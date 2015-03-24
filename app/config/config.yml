@@ -8,6 +8,17 @@ lsw_memcache:
         default:
             hosts:
               - { dsn: localhost, port: 11211 }
+lsw_guzzle:
+    clients:
+        test:
+            config:
+                json_objects: true
+                curl.options:
+                    CURLOPT_CONNECTTIMEOUT: 10
+                    CURLOPT_SSL_VERIFYPEER: false
+                    CURLOPT_USERAGENT: "LeaseWeb API Caller"
+                    CURLOPT_FOLLOWLOCATION: true
+                    CURLOPT_SSLVERSION: 3              
 framework:
     #esi:             ~
     #translator:      { fallback: %locale% }
