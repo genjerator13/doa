@@ -26,9 +26,9 @@ class AppKernel extends Kernel
             new Gregwar\ImageBundle\GregwarImageBundle(),
             new Endroid\Bundle\QrCodeBundle\EndroidQrCodeBundle(),
             new Lsw\MemcacheBundle\LswMemcacheBundle(),
-            #new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
+            //#new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Symfony\Bundle\DebugBundle\DebugBundle(),
-            new Lsw\GuzzleBundle\LswGuzzleBundle(),
+            //#new Lsw\ApiCallerBundle\LswApiCallerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
