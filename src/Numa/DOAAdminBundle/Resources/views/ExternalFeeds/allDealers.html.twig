@@ -1,0 +1,42 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <div>
+        <h1>Autonet Feed</h1>
+        {% if(dealers.dealer is empty) %}
+            <p> No dealers found </p>
+        {% elseif(dealers['@attributes'] is not empty) %}
+            
+            <table class="table">
+                <tr>
+                    <th>Dealer Id</th>
+                    <th>Vehicle Count</th>
+                    <th>Last Update</th>
+                </tr>
+            
+                <tr>
+                    <td><a href="{{path('feed_api_dealer',{'dealer_id':dealers.dealer['@attributes']['id']})}}">Download XML for the dealer {{dealers.dealer['@attributes']['id']}}</a></td>
+                    <td>{{dealers.dealer['@attributes']['vehicle_count']}}</td>
+                    <td>{{dealers.dealer['last_update']}}</td>
+                </tr>
+            
+            </table>
+        {% else %}                   
+            <p>Total dealers: {{dealers.dealer|length}}</p>
+            {#<table class="table">
+                <tr>
+                    <th>Dealer Id</th>
+                    <th>Vehicle Count</th>
+                    <th>Last Update</th>
+                </tr>
+            {% for dealer in dealers.dealer %}
+                <tr>
+                    <td><a href="{{path('feed_api_dealer',{'dealer_id':dealer['@attributes']['id']})}}">{{dealer['@attributes']['id']}}</a></td>
+                    <td>{{dealer['@attributes']['vehicle_count']}}</td>
+                    <td>{{dealer['last_update']}}</td>
+                </tr>
+            {% endfor %}
+            </table>#}
+        {%endif%}
+    </div>
+ {% endblock %}
