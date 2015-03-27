@@ -56,14 +56,18 @@ class RemoteFeed extends ContainerAware {
      * 
      */
     public function fetchRemoteProperties() {       
+        
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
         if(self::URL == $this->entity->getImportMethod()){
             $upload_path="";
         }
+        
         if (empty($this->properties)) {
+            
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
+                
                 if (self::XML == $this->entity->getImportFormat()) {
-
+                    
                     $xml_obj = simplexml_load_file($upload_path . $this->source);
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {

@@ -61,7 +61,6 @@ class Autonet extends Curl {
             $xml .= $vehXML;
         }
         $xml .= "</inventory>";
-
         return $xml;
     }
 
@@ -69,26 +68,32 @@ class Autonet extends Curl {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id);
         $vehicles = $this->call();
 
-        $vehiclesXml = new SimpleXMLElement($vehicles);
-        $json = json_encode($vehiclesXml);
-        $array = json_decode($json, TRUE);
         $photos = $this->getVehiclePhotos($dealer_id, $vehicle_id);
-       
-        
-        
-        //foreach ()
-        $xml1 = simplexml_load_string( $vehicles);
-        $xml2 = simplexml_load_string($photos);
 
-        $domToChange = dom_import_simplexml($xml1->photos);
-        dump($photos);
-        $domReplace = dom_import_simplexml($xml2);
 
-        $nodeImport = $domToChange->ownerDocument->importNode($domReplace, TRUE);
-        $domToChange->parentNode->replaceChild($nodeImport, $domToChange);
 
-        $xml = str_replace('<?xml version="1.0"?>', "",$xml1->asXML());
-        //dump($xml);die();
+        //replace photo element from vehicle XML
+        $xml1Photos = simplexml_load_string($vehicles);
+        $xml2Photos = simplexml_load_string($photos);
+        $domToChangePhotos = dom_import_simplexml($xml1Photos->photos);
+        $domReplacePhotos = dom_import_simplexml($xml2Photos);
+        $nodeImport = $domToChangePhotos->ownerDocument->importNode($domReplacePhotos, TRUE);
+        $domToChangePhotos->parentNode->replaceChild($nodeImport, $domToChangePhotos);
+
+        //replace option element from vehicle XML
+
+
+        $xml1Options = simplexml_load_string($xml1Photos->asXML());
+        $optionsReplacement = $this->processOptions($xml1Options->options);
+        $xml2Options = simplexml_load_string($optionsReplacement);
+        $domToChangeOptions = dom_import_simplexml($xml1Options->options);
+
+        $domReplaceOptions = dom_import_simplexml($xml2Options);
+        $nodeImportOptions = $domToChangeOptions->ownerDocument->importNode($domReplaceOptions, TRUE);
+        $domToChangeOptions->parentNode->replaceChild($nodeImportOptions, $domToChangeOptions);
+
+        $xml = str_replace('<?xml version="1.0"?>', "", $xml1Options->asXML());
+
         return $xml;
     }
 
@@ -100,18 +105,28 @@ class Autonet extends Curl {
         $json = json_encode($photosXml);
         $array = json_decode($json, TRUE);
         $photosXml = "\n<photos>\n";
-        if(!empty($array['photo'])){
-            
-            foreach ($array['photo'] as $key=>$photo) {
+        if (!empty($array['photo'])) {
+
+            foreach ($array['photo'] as $key => $photo) {
                 $photosXml .= "<photo>\n";
-                $photosXml .= $this->getFullPath()."/".$key."\n";                
+                $photosXml .= $this->getFullPath() . "/" . $key . "\n";
                 $photosXml .= "</photo>\n";
             }
-            
         }
         $photosXml .= "</photos>\n";
         //dump($photosXml);die();
         return $photosXml;
+    }
+
+    public function processOptions($options) {
+
+        $optionsXml = "<options>";
+        foreach ($options->option as $option) {
+            $optionsXml .="<option id='".$option['id']."'>".$option['id']."</option>";
+            
+        }
+        $optionsXml .= "</options>";
+        return $optionsXml;
     }
 
     public function getPhoto($dealer_id, $vehicle_id, $photo_id) {

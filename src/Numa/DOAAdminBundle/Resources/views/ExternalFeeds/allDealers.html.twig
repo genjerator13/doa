@@ -23,7 +23,7 @@
             </table>
         {% else %}                   
             <p>Total dealers: {{dealers.dealer|length}}</p>
-            {#<table class="table">
+            <table class="table">
                 <tr>
                     <th>Dealer Id</th>
                     <th>Vehicle Count</th>
@@ -36,7 +36,7 @@
                     <td>{{dealer['last_update']}}</td>
                 </tr>
             {% endfor %}
-            </table>#}
+            </table>
         {%endif%}
     </div>
  {% endblock %}
