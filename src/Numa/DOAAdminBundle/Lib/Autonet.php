@@ -67,13 +67,21 @@ class Autonet extends Curl {
     public function getVehicleXml($dealer_id, $vehicle_id) {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id);
         $vehicles = $this->call();
+        //ids
+        $xml1Vehicles = simplexml_load_string($vehicles);
+        $id = (string) $xml1Vehicles->attributes()->id[0];
+        $xml1Vehicles->addChild("id", $id);
 
-        $photos = $this->getVehiclePhotos($dealer_id, $vehicle_id);
-
-
+        //prices
+        if (!empty($xml1Vehicles->price) && $xml1Vehicles->price->children()) {
+            foreach ($xml1Vehicles->price->children() as $key => $price) {
+                $xml1Vehicles->addChild("price" . $key, $price);
+            }
+        }
 
         //replace photo element from vehicle XML
-        $xml1Photos = simplexml_load_string($vehicles);
+        $photos = $this->getVehiclePhotos($dealer_id, $vehicle_id);
+        $xml1Photos = $xml1Vehicles;
         $xml2Photos = simplexml_load_string($photos);
         $domToChangePhotos = dom_import_simplexml($xml1Photos->photos);
         $domReplacePhotos = dom_import_simplexml($xml2Photos);
@@ -81,8 +89,6 @@ class Autonet extends Curl {
         $domToChangePhotos->parentNode->replaceChild($nodeImport, $domToChangePhotos);
 
         //replace option element from vehicle XML
-
-
         $xml1Options = simplexml_load_string($xml1Photos->asXML());
         $optionsReplacement = $this->processOptions($xml1Options->options);
         $xml2Options = simplexml_load_string($optionsReplacement);
@@ -122,8 +128,7 @@ class Autonet extends Curl {
 
         $optionsXml = "<options>";
         foreach ($options->option as $option) {
-            $optionsXml .="<option id='".$option['id']."'>".$option['id']."</option>";
-            
+            $optionsXml .="<option id='" . $option['id'] . "'>" . $option['id'] . "</option>";
         }
         $optionsXml .= "</options>";
         return $optionsXml;

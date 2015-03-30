@@ -16,11 +16,11 @@ class Item {
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+        array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
 
     /**
@@ -770,8 +770,6 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-
-
         if (property_exists(get_class($this), $name)) {
             $name = strtolower($name);
             return $this->$name;
@@ -1607,12 +1605,12 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'speed reverse') {
             $this->setSpeedReverse($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'speed forward') {
-            $this->setSpeedForward($itemField->getFieldStringValue());        
+            $this->setSpeedForward($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
             $this->setOperatorStation($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
             $this->setStockNr($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+        } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
         }
@@ -2927,6 +2925,60 @@ class Item {
      */
     public function getSteering() {
         return $this->steering;
+    }
+
+    /**
+     * @var float
+     */
+    private $mpgCity;
+
+    /**
+     * @var float
+     */
+    private $mpgHighway;
+
+    /**
+     * Set mpgCity
+     *
+     * @param float $mpgCity
+     *
+     * @return Item
+     */
+    public function setMpgCity($mpgCity) {
+        $this->mpgCity = $mpgCity;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgCity
+     *
+     * @return float
+     */
+    public function getMpgCity() {
+        return $this->mpgCity;
+    }
+
+    /**
+     * Set mpgHighway
+     *
+     * @param float $mpgHighway
+     *
+     * @return Item
+     */
+    public function setMpgHighway($mpgHighway) {
+        $this->mpgHighway = $mpgHighway;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgHighway
+     *
+     * @return float
+     */
+    public function getMpgHighway() {
+        return $this->mpgHighway;
     }
 
 }

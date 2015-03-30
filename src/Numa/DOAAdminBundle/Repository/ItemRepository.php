@@ -210,10 +210,11 @@ class ItemRepository extends EntityRepository {
         $persist = false;
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
-            
+        $uniqueValue = $importItem[$uniqueField];
         if (!empty($uniqueField)) {
+            
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
+                $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $uniqueValue);
             }
         }
         unset($uniqueMapRow);
@@ -304,13 +305,13 @@ class ItemRepository extends EntityRepository {
                                     $temp[] = $value['filePointer'];
                                 }
                             }
-                            $item->proccessImagesFromRemote($temp, $maprow, $feed, $upload_path, $upload_url, $em);
+                            $item->proccessImagesFromRemote($temp, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue);
                         } else {
-                            $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em);
+                            $item->proccessImagesFromRemote($json, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue);
                         }
                     } else {
                         ///TODO
-                        $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em);
+                        $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue);
                     }
                     $processed = true;
                 } else {

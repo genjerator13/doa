@@ -89,6 +89,16 @@ class ImportfeedType extends AbstractType {
                 ->add('unique_field')
                 ->add('update_on_match')
                 ->add('expiration_after')
+                ->add('username', null, array(
+                    'attr' =>
+                    array(
+                        'class' => 'form-control')
+                ))
+                ->add('password', null, array(
+                    'attr' =>
+                    array(
+                        'class' => 'form-control')
+                ))
         ;
 
         //$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
