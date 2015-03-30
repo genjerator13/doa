@@ -11,50 +11,12 @@
     {% endstylesheets %}
 {% endblock %}
 {% set images = item.getImages()%}    
-    {% set desc = item.getMake()~" "~item.getModel()%}
+    {% set desc = item.getMake()~" "~item.getModel()~" "%}
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
                     <div class="detailsContent">
-
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
-
-                        <!-- Place somewhere in the <body> of your page -->
-                        {#                        <div id="slider" class="flexslider">
-                                                    <ul class="slides">
-                                                        <li>
-                                                            <img src="slide1.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide2.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide3.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide4.jpg" />
-                                                        </li>
-                                                        <!-- items mirrored twice, total of 12 -->
-                                                    </ul>
-                                                </div>
-                                                <div id="carousel" class="flexslider">
-                                                    <ul class="slides">
-                                                        <li>
-                                                            <img src="slide1.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide2.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide3.jpg" />
-                                                        </li>
-                                                        <li>
-                                                            <img src="slide4.jpg" />
-                                                        </li>
-                                                        <!-- items mirrored twice, total of 12 -->
-                                                    </ul>
-                                                </div>#}
-
                         {% if (images|length) >0 %}
                             <div id="slider" class="flexslider">
                                 <ul class="slides">
@@ -62,10 +24,9 @@
                                         {% if ('http' not in image.stringvalue) %}
                                             <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
                                             {% else %}
-                                            <li><img src="{{image.stringvalue}}" alt="image{{key}}" width="666px" />    </li>
+                                            <li><img src="{{image.stringvalue}}" alt="image{{key}}" height="500px" />    </li>
                                             {%endif%}
                                         {% endfor %}
-
                                 </ul>
                             </div>
                         {%endif%}
@@ -74,15 +35,11 @@
                                 <ul class="slides">
                                     {% for key,image in images %}    
                                         <li>
-                                            {#<a data-slide-index="{{ (loop.index-1) }}" href="">#}
-
                                             {% if ('http' not in image.stringvalue) %}
                                                 <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
                                             {% else %}
                                                 <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
                                             {%endif%}
-
-                                            {# </a>#}
                                         </li>
                                     {% endfor %}
                                 </ul>
