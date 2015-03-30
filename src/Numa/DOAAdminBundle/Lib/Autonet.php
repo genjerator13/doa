@@ -72,11 +72,11 @@ class Autonet extends Curl {
         $id = (string) $xml1Vehicles->attributes()->id[0];
         $xml1Vehicles->addChild("id", $id);
 
-        //prices
-        if (!empty($xml1Vehicles->price) && $xml1Vehicles->price->children()) {
-            foreach ($xml1Vehicles->price->children() as $key => $price) {
-                $xml1Vehicles->addChild("price" . $key, $price);
-            }
+        //process elements with children
+        foreach ($xml1Vehicles->children() as $key => $elements) {                
+            foreach ($elements->children() as $keyInner => $innerElement) {
+                $xml1Vehicles->addChild($key."_".$keyInner, $innerElement);
+            }        
         }
 
         //replace photo element from vehicle XML
