@@ -1014,7 +1014,7 @@ class Item {
         if (is_array($optionsArray)) {
             $json = json_decode($optionsArray[0], true);
             //dump($json['option']);
-            if (is_array($json['option'])) {
+            if (!empty($json['option']) && is_array($json['option'])) {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
