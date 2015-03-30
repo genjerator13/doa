@@ -143,7 +143,7 @@ class searchParameters {
 
     public function setAll($params) {
         
-        if($params['category_id']==13 && !empty($params['typeString']))
+        if(!empty($params['category_id']) && $params['category_id']==13 && !empty($params['typeString']))
         {            
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
