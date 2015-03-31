@@ -46,7 +46,7 @@
         "endroid/qrcode-bundle": "dev-master",
         "twbs/bootstrap": "dev-master",
         "leaseweb/memcache-bundle": "*",
-        "leaseweb/guzzle-bundle": "*"
+        "leaseweb/api-caller-bundle": "*"
     },
     "scripts": {
         "post-install-cmd": [
