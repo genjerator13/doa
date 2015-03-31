@@ -113,28 +113,27 @@ class ItemRepository extends EntityRepository {
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery->getResult();
     }
-    
-    public function getItemBySubCats($cat,$subcatname) {
-                    
+
+    public function getItemBySubCats($cat, $subcatname) {
+
         $subcat = 'type'; //test
         $cat = intval($cat);
         if ($cat == 13) {
             $subcat = 'ag_application';
         }
-        
+
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->from('NumaDOAAdminBundle:Item', 'i')                
+                ->from('NumaDOAAdminBundle:Item', 'i')
                 ->where('i.category_id=:category')
-                ->andWhere('i.'.$subcat.' like :subcatname')                
+                ->andWhere('i.' . $subcat . ' like :subcatname')
                 ->setParameter('category', $cat)
                 ->setParameter('subcatname', "%" . $subcatname . "%");
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-
         //dump($itemsQuery->getSQL());
-       return $itemsQuery->getResult();
+        return $itemsQuery->getResult();
     }
 
     public function removeAllItemFields($item_id) {
@@ -164,7 +163,6 @@ class ItemRepository extends EntityRepository {
                     ->set('i.sold', 1);
             $q = $qb->getQuery();
             $q->execute();
-            
         }
     }
 
@@ -210,7 +208,7 @@ class ItemRepository extends EntityRepository {
         $persist = false;
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
-            
+
         if (!empty($uniqueField)) {
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $importItem[$uniqueField]);
@@ -238,13 +236,15 @@ class ItemRepository extends EntityRepository {
             $this->removeAllItemFields($item->getId());
         } else {
             if (!$this->itemFieldsDeleted) {
-                $this->removeAllItemFieldsByFeed($feed->getId());                           
+                $this->removeAllItemFieldsByFeed($feed->getId());
                 $this->itemFieldsDeleted = true;
             }
         }
 
         foreach ($mapping as $maprow) {
+
             $property = $maprow->getSid();
+
             $processed = false;
             $listingFields = $maprow->getListingFields();
             //check if there are predefined listing field in database (listing_field_lists)
@@ -329,7 +329,8 @@ class ItemRepository extends EntityRepository {
                     }
                 }
                 //connect with dealer
-                if (strtolower($property) == 'dealerid' || strtolower($property) == 'dealer') {
+                
+                if (stripos($property,'dealer') !== false) {
                     $dealerId = $stringValue;
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {

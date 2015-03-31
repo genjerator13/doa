@@ -1613,6 +1613,8 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'dealerID') {
+            $this->setDealerId($itemField->getFieldStringValue());
         }
     }
 
