@@ -28,7 +28,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        die("aaa");
+        //die("aaa");
         if (!$data || !$data->getId() || !$data->getProperty()) {
 
             //$feed = new XMLfeed($this->feed_sid)
