@@ -1014,7 +1014,7 @@ class Item {
         if (is_array($optionsArray)) {
             $json = json_decode($optionsArray[0], true);
             //dump($json['option']);
-            if (is_array($json['option'])) {
+            if (!empty($json['option']) && is_array($json['option'])) {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
@@ -1057,13 +1057,15 @@ class Item {
         unset($order);
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue=null) {
         $listingFields = $maprow->getListingFields();
 
         $localy = $feed->getPicturesSaveLocaly();
-
+        if(!empty($imageString['photo'])){
+            $imageString = $imageString['photo'];
+        }
         if (is_array($imageString)) {
-
+            
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
@@ -1073,9 +1075,8 @@ class Item {
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
-
-
-                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
+                
+                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy,$uniqueValue);
 
                 $this->addItemField($itemField);
                 $em->persist($itemField);
@@ -1111,7 +1112,7 @@ class Item {
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
-                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
                 //unset($itemField);
@@ -1613,6 +1614,10 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
+            $this->setMpgCity($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
+            $this->setMpgHighway($itemField->getFieldStringValue());
         }
     }
 

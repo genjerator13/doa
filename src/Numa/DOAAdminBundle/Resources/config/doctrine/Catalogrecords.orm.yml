@@ -64,7 +64,8 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             length: 255
             nullable: true
         dealer_id:
-            type: integer
+            type: string
+            length: 255
             nullable: true
         address2:
             type: string
