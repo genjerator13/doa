@@ -1,0 +1,9 @@
+feed_api_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:ExternalFeed:index" }
+feed_api_all_dealers:
+    pattern:  /alldealers
+    defaults: { _controller: "NumaDOAAdminBundle:ExternalFeed:allDealers" }
+feed_api_dealer:
+    pattern:  /{dealer_id}/dealer
+    defaults: { _controller: "NumaDOAAdminBundle:ExternalFeed:dealer" }

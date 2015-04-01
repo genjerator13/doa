@@ -56,14 +56,18 @@ class RemoteFeed extends ContainerAware {
      * 
      */
     public function fetchRemoteProperties() {       
+        
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
         if(self::URL == $this->entity->getImportMethod()){
             $upload_path="";
         }
+        
         if (empty($this->properties)) {
+            
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
+                
                 if (self::XML == $this->entity->getImportFormat()) {
-
+                    
                     $xml_obj = simplexml_load_file($upload_path . $this->source);
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {
@@ -144,23 +148,28 @@ class RemoteFeed extends ContainerAware {
         }
         if (self::XML == $this->entity->getImportFormat()) {
             $xml_obj = simplexml_load_file($sourceFile);
-
+            
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
                 $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
             }
+            
             if (empty($xmlSource)) {
                 $xmlSource = $xml_obj->children();
             }
+            
             $this->items = self::xml2array($xmlSource);
-
+            $rootNode = $this->entity->getRootNode();
+            
+            if(!empty($rootNode)){
+                //$this->items = $this->items[$rootNode];
+            }else
             if (!empty($this->items['item'])) {
                 $this->items = $this->items['item'];
             } elseif (!empty($this->items['inventor'])) {
                 $this->items = $this->items['inventor'];
             }
 
-            //dump($this->items);
             return $this->xml2array($this->items);
         }
         if (self::CSV == $this->entity->getImportFormat()) {
@@ -187,8 +196,7 @@ class RemoteFeed extends ContainerAware {
             } elseif (strtolower(substr($this->entity->getImportSource(), 0, 7)) == "http://") {
 
                 $ch = curl_init();
-                dump($handleSource);
-                dump($local_file);
+
                 curl_setopt($ch, CURLOPT_URL, $handleSource);
                 $fp = fopen($local_file, 'w');
                 curl_setopt($ch, CURLOPT_FILE, $fp);

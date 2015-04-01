@@ -130,6 +130,14 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            type: string
            length: 255
            nullable: true
+        username:                                                                                                      
+           type: string
+           length: 255
+           nullable: true
+        password:                                                                                                      
+           type: string
+           length: 255
+           nullable: true
     manyToOne:
         Category:
             targetEntity: Category

@@ -302,7 +302,7 @@ class ItemField {
             $json = json_decode($valueMapValues, true);
             if (!empty($json)) {
                 foreach ($json as $key => $mapValue) {
-                    if (strtolower($key) == strtolower($value)) {                        
+                    if (strtolower($key) == strtolower($value)) {
                         $value = $mapValue;
                     }
                 }
@@ -341,27 +341,31 @@ class ItemField {
         return $this->sort_order;
     }
 
-    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false) {
-        $url = $stringValue;        
+    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "") {
+        $url = trim(str_replace(array("\"", " ", "'"), "", $stringValue));
+
         $filename = pathinfo($url, PATHINFO_BASENAME);
         if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             $filename = $url->getClientOriginalName();
         }
-        
+
         $img_url = $url;
 
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //$feed_sid = $this->getItem()->getImportfeed()->getId();
-            $dir = $upload_path . "/" . $feed_sid;
+            $dir = $upload_path . "/" . $feed_sid->getId();
             if (!file_exists($dir)) {
                 mkdir($dir, 0777);
             }
-            $filename = strtolower(str_replace(" ", "-", $feed_sid)) . "_" . $filename;
-
+            $filename = $feed_sid->getId() . "_" . $uniqueValue . "_" . $filename;
             $filename = str_replace(array(" ", '%'), "-", $filename);
 
+            //chek if filename has extension
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+
             $img = $dir . "/" . $filename;
-            $img_url = $upload_url . "/" . $feed_sid . "/" . $filename;
+            $img_url = $upload_url . "/" . $feed_sid->getId() . "/" . $filename;
 
 
 
@@ -370,22 +374,55 @@ class ItemField {
 
                 $file = $url->move($dir, $filename);
             } else if (!file_exists($img)) {
+
                 $http = substr($url, 0, 4) == 'http';
+
+
                 if ($http) {
+
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
-                    curl_setopt($ch, CURLOPT_NOBODY, 1);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                    curl_exec($ch);
-                    $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
-                    curl_close($ch);
+                    //curl_setopt($ch, CURLOPT_NOBODY, 1);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
+                    $username = $feed_sid->getUsername();
+                    $password = $feed_sid->getPassword();
+
+                    if (!empty($username) && !empty($password)) {
+                        curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+                    }
+                    $return = curl_exec($ch);
+                    $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
                     if ($is200) {
                         //valid 
-                        file_put_contents($img, file_get_contents($url));
+                        if (empty($ext)) {
+                            $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
+                            switch ($content_type) {
+                                case "image/jpeg":
+                                    $ext = "jpg";
+                                    break;
+                                case "image/gif":
+                                    $ext = "gif";
+                                    break;
+                                case "image/png":
+                                    $ext = "png";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            $img = $img . "." . $ext;
+                            $img_url = $img_url . "." . $ext;
+                        }
+
+                        file_put_contents($img, $return);
+                        //$img_url = $imgfileName;
                     } else {
                         
                     }
+//                    dump($img);
+//                    dump($img_url);
+//                    die("asasa");
+                    curl_close($ch);
                 }
             }
         }

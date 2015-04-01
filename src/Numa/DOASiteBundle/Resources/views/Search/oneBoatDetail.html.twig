@@ -1,6 +1,6 @@
 {% block content %}
     {% set images = item.getImages()%}
-        {% set desc = item.getMake()~" "~item.getModel()%}
+        {% set desc = item.getMake()~" "~item.getModel()~" "%}
             {% if desc is empty %}
                 {% set desc = "test" %}
                     {% endif %}

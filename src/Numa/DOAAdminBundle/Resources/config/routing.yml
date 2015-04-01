@@ -25,3 +25,6 @@ NumaDOAAdminBundle_user:
 NumaDOAAdminBundle_user_group:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/usergroup.yml"
         prefix:   /user_group
+feed_api:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/feed_api.yml"
+        prefix:   /feed_api

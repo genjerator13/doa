@@ -220,7 +220,7 @@ class ImportmappingController extends Controller {
     }
 
     public function feedAction(Request $request = null, $id) {
-
+        $error = array();
         $em = $this->getDoctrine()->getManager();
         //get maping by feedid
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $id));
@@ -228,14 +228,13 @@ class ImportmappingController extends Controller {
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($id);
         //get listing field by universal category 0
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $feed->getListingType())), array('caption' => 'ASC'));
+
         $listingfields = array();
-        
+
         foreach ($fields as $field) {
             $listingfields['listing'][$field->getId()] = $field->getCaption();
         }
-        //$listingfields['preferredChoices'] = array('596');//????
-        //\Doctrine\Common\Util\Debug::dump($feed->getListingType());
-        //\Doctrine\Common\Util\Debug::dump($listingfields);
+
         $importmappingCollection = new Importmappings();
         if (!empty($entities)) {
             foreach ($entities as $entity) {
@@ -244,45 +243,50 @@ class ImportmappingController extends Controller {
             }
         } else {
             $remoteFeed = new RemoteFeed($id);
+
             $props = $remoteFeed->getRemoteProperties();
-            
-            foreach ($props as $prop) {
-                $im = new Importmapping();
-                $im->setDescription($prop);
-                $im->setSid($prop);
-                $im->setProperty($prop);
-                $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop, $feed->getListingType());
+            dump($props);
+            if (!empty($props)) {
+                foreach ($props as $prop) {
+                    $im = new Importmapping();
+                    $im->setDescription($prop);
+                    $im->setSid($prop);
+                    $im->setProperty($prop);
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop, $feed->getListingType());
 
-                if (!empty($test)) {
-                    $im->setListingFields($test);
+                    if (!empty($test)) {
+                        $im->setListingFields($test);
+                    }
+
+                    $importmappingCollection->addImportmappingRow($im);
                 }
-
-                $importmappingCollection->addImportmappingRow($im);
-            }
-            //$form->add('sid', 'choice', array('choices' => $props,'empty_value' => 'Choose an option','required'=>true));
-        }
-
-        $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
-        
-        $collection->add('feed_sid', 'hidden', array('data' => $id));
-        $collection->handleRequest($request);
-
-        if ($collection->isValid()) {
-
-            foreach ($collection->getData()->getImportmappingRow() as $entity) {
-                $entity->setFeedSid($id);
-                $em->persist($entity);
-            }
-            $em->flush();
-
-            if (!$request->isXmlHttpRequest()) {
-                return $this->redirect($this->generateUrl('importfeed'));
+            }else{
+                $error[] = "No Properties fetched from the feed";
             }
         }
         
+            $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
+            $collection->add('feed_sid', 'hidden', array('data' => $id));
+            $collection->handleRequest($request);
+
+            if ($collection->isValid()) {
+
+                foreach ($collection->getData()->getImportmappingRow() as $entity) {
+                    $entity->setFeedSid($id);
+                    $em->persist($entity);
+                }
+                $em->flush();
+
+                if (!$request->isXmlHttpRequest()) {
+                    return $this->redirect($this->generateUrl('importfeed'));
+                }
+            }
+        
+
         return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
                     'form' => $collection->createView(),
                     'feed' => $feed,
+                    'errors' => $error,
         ));
     }
 
@@ -298,6 +302,7 @@ class ImportmappingController extends Controller {
         //$uniqueField = $feed->getUniqueField();
         $remoteFeed = new Remotefeed($id);
         $items = $remoteFeed->getRemoteItems();
+        
         unset($remoteFeed);
         //get import feed by id
         //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -315,9 +320,9 @@ class ImportmappingController extends Controller {
         //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $count = 0;
 
-        foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em);
-
+        foreach ($items as $importItem) {            
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+            
             if (!empty($item)) {
                 $createdItems[] = $item;
             }
@@ -328,14 +333,8 @@ class ImportmappingController extends Controller {
                 $em->flush();
                 $em->clear();
             }
-//             if ($count  >= 500) {
-//                 $time = time() - $time;
-//                 echo $time."Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
-//                die();
-//             }
         }
 
-        //unset($feed);
         $em->flush();
         $em->clear();
         unset($items);

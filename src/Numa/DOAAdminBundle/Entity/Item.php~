@@ -16,11 +16,11 @@ class Item {
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
         array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-        array('Make' => 'make', 'model' => 'model', 'Ag Application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+        array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
 
     /**
@@ -770,8 +770,6 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-
-
         if (property_exists(get_class($this), $name)) {
             $name = strtolower($name);
             return $this->$name;
@@ -1016,7 +1014,7 @@ class Item {
         if (is_array($optionsArray)) {
             $json = json_decode($optionsArray[0], true);
             //dump($json['option']);
-            if (is_array($json['option'])) {
+            if (!empty($json['option']) && is_array($json['option'])) {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
@@ -1059,13 +1057,15 @@ class Item {
         unset($order);
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue=null) {
         $listingFields = $maprow->getListingFields();
 
         $localy = $feed->getPicturesSaveLocaly();
-
+        if(!empty($imageString['photo'])){
+            $imageString = $imageString['photo'];
+        }
         if (is_array($imageString)) {
-
+            
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
@@ -1075,9 +1075,8 @@ class Item {
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
-
-
-                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy);
+                
+                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy,$uniqueValue);
 
                 $this->addItemField($itemField);
                 $em->persist($itemField);
@@ -1113,7 +1112,7 @@ class Item {
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
-                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy);
+                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
                 //unset($itemField);
@@ -1607,14 +1606,18 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'speed reverse') {
             $this->setSpeedReverse($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'speed forward') {
-            $this->setSpeedForward($itemField->getFieldStringValue());        
+            $this->setSpeedForward($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'operator station') {
             $this->setOperatorStation($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
             $this->setStockNr($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'ag application') {
+        } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
+            $this->setMpgCity($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
+            $this->setMpgHighway($itemField->getFieldStringValue());
         }
     }
 
@@ -2927,6 +2930,60 @@ class Item {
      */
     public function getSteering() {
         return $this->steering;
+    }
+
+    /**
+     * @var float
+     */
+    private $mpgCity;
+
+    /**
+     * @var float
+     */
+    private $mpgHighway;
+
+    /**
+     * Set mpgCity
+     *
+     * @param float $mpgCity
+     *
+     * @return Item
+     */
+    public function setMpgCity($mpgCity) {
+        $this->mpgCity = $mpgCity;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgCity
+     *
+     * @return float
+     */
+    public function getMpgCity() {
+        return $this->mpgCity;
+    }
+
+    /**
+     * Set mpgHighway
+     *
+     * @param float $mpgHighway
+     *
+     * @return Item
+     */
+    public function setMpgHighway($mpgHighway) {
+        $this->mpgHighway = $mpgHighway;
+
+        return $this;
+    }
+
+    /**
+     * Get mpgHighway
+     *
+     * @return float
+     */
+    public function getMpgHighway() {
+        return $this->mpgHighway;
     }
 
 }
