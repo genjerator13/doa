@@ -6,6 +6,7 @@
             <tr>
                 <th>Id</th>
                 <th>Sid</th>
+                <th>Category</th>
                 <th>Description</th>
                 <th>Actions</th>
             </tr>
@@ -15,6 +16,7 @@
                 <tr>
                     <td><a href="{{ path('importfeed_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                     <td>{{ entity.sid }}</td>
+                    <td>{{ entity.category }}</td>
                     <td>{{ entity.description }}</td>
                     <td>
                         <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-default">edit</a>
