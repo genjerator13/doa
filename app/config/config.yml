@@ -43,7 +43,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: Peak Dealers Online
+        title: CJVR Dealers On Air
         subject: Email from 
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
