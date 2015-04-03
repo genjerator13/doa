@@ -201,16 +201,18 @@ class ItemRepository extends EntityRepository {
      */
     public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
-        $uniqueValue = $importItem[$uniqueField];
+        $uniqueValue = "";
+        if (!empty($importItem[$uniqueField])) {
+            $uniqueValue = $importItem[$uniqueField];
+        }
         if (!empty($uniqueField)) {
-            
+
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $uniqueValue);
             }
@@ -251,7 +253,7 @@ class ItemRepository extends EntityRepository {
             //check if there are predefined listing field in database (listing_field_lists)
 
             if (!empty($listingFields) && !empty($importItem[$property])) {
-                $stringValue = $importItem[$property];
+                $stringValue = trim($importItem[$property]);
                 $listingFieldsType = $listingFields->getType();
 
                 $itemField = new ItemField();
@@ -267,7 +269,7 @@ class ItemRepository extends EntityRepository {
                     //$itemField->setFieldName($listingFields->getCaption());
                     //$itemField->setFieldType($listingFields->getType());
                 }
-                $stringValue = $itemField->getFieldStringValue();
+                $stringValue = trim($itemField->getFieldStringValue());
 
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
@@ -296,8 +298,8 @@ class ItemRepository extends EntityRepository {
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     //check if string or array
                     $json = json_decode($stringValue, true);
-                    //dump($json);
-                    if (is_array($json)) {
+                   
+                    if (!empty($json) && is_array($json)) {
                         if (!empty($json['image']) && is_array($json['image'])) {
                             $temp = array();
                             foreach ($json['image'] as $key => $value) {
@@ -330,8 +332,8 @@ class ItemRepository extends EntityRepository {
                     }
                 }
                 //connect with dealer
-                
-                if (stripos($property,'dealer') !== false) {
+
+                if (stripos($property, 'dealer') !== false) {
                     $dealerId = $stringValue;
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {

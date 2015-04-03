@@ -210,12 +210,13 @@ class RemoteFeed extends ContainerAware {
                 if (empty($delimeter)) {
                     $delimeter = ',';
                 }
-
-                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE) {
+                
+                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row) && !empty($row[1])) {
                     //var_dump($row); // process the row.
+                    
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
-                            $tmp[$value] = $row[$key];
+                            $tmp[trim($value)] = $row[trim($key)];
                         }
                         $this->items[] = $tmp;
                     } else {
@@ -227,8 +228,6 @@ class RemoteFeed extends ContainerAware {
             }
         }
 
-
-        //\Doctrine\Common\Util\Debug::dump($this->items);
         return $this->items;
     }
 
