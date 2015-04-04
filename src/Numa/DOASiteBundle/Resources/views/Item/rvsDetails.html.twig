@@ -1,152 +1,152 @@
-
+{%set liclass="col-md-6 col-xs-6 col-sm-6 col-lg-6" %}
 <ul class="techData">
     {% if item.getStatus() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Status: </span>
             <span class="fieldValue fieldValue-status">{{item.getStatus()}}</span>
         </li>
     {% endif %}
     {% if item.getYear() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Year: </span>
             <span class="fieldValue fieldValue-status">{{item.getYear()}}</span>
         </li>
     {% endif %}
     {% if item.getMake() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Make Model: </span>
             <span class="fieldValue fieldValue-status">{{item.getMake()}}</span>
         </li>
     {% endif %}
     {% if item.getModel() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Model: </span>
             <span class="fieldValue fieldValue-status">{{item.getModel()}}</span>
         </li>            
     {% endif %}
     {% if item.getFloorPlan() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Floor Plan: </span>
             <span class="fieldValue fieldValue-status">{{item.getFloorPlan()}}</span>
         </li>
     {% endif %}    
     {% if item.getChassis() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Chassis: </span>
             <span class="fieldValue fieldValue-status">{{item.getChassis()}}</span>
         </li>
     {% endif %}    
     {% if item.getStockNr() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Stock Number: </span>
             <span class="fieldValue fieldValue-status">{{item.getStockNr()}}</span>
         </li>
     {% endif %}    
     {% if item.getMileage() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Mileage: </span>
             <span class="fieldValue fieldValue-status">{{item.getMileage()}}</span>
         </li>
     {% endif %}    
     {% if item.getPrice() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Price: </span>
             <span class="fieldValue fieldValue-status">$ {{item.getPrice()|number_format(0, '.',',')}}</span>
         </li>
     {% endif %}    
     {% if item.getExteriorColor() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Exterior Color: </span>
             <span class="fieldValue fieldValue-status">{{item.getExteriorColor()}}</span>
         </li>
     {% endif %}    
     {% if item.getInteriorColor() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Interior Color: </span>
             <span class="fieldValue fieldValue-status">{{item.getInteriorColor()}}</span>
         </li>
     {% endif %}    
     {% if item.getEngine() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Engine: </span>
             <span class="fieldValue fieldValue-status">{{item.getEngine()}}</span>
         </li>
     {% endif %}    
     {% if item.getFuelType() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Fuel Type: </span>
             <span class="fieldValue fieldValue-status">{{item.getFuelType()}}</span>
         </li>
     {% endif %}    
     {% if item.getTransmission() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Transmission: </span>
             <span class="fieldValue fieldValue-status">{{item.getTransmission()}}</span>
         </li>
     {% endif %}    
     {% if item.getDriveType() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Drive Type: </span>
             <span class="fieldValue fieldValue-status">{{item.getDriveType()}}</span>
         </li>
     {% endif %}    
     {% if item.getChassisType() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Chassis Type: </span>
             <span class="fieldValue fieldValue-status">{{item.getChassisType()}}</span>
         </li>
     {% endif %}    
     {% if item.getFuelType() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Fuel Type: </span>
             <span class="fieldValue fieldValue-status">{{item.getFuelType()}}</span>
         </li>    
     {% endif %}
     {% if item.getSleeps() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Sleeps: </span>
             <span class="fieldValue fieldValue-status">{{item.getSleeps()}}</span>
         </li>
     {% endif %}    
     {% if item.getSlideOuts() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Slide Outs: </span>
             <span class="fieldValue fieldValue-status">{{item.getSlideOuts()}}</span>
         </li>    
     {% endif %}
 
     {% if item.getLength() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Length (ft): </span>
             <span class="fieldValue fieldValue-status">{{item.getLength()}}</span>
         </li>
     {% endif %}    
     {% if item.getWeight() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Weight: </span>
             <span class="fieldValue fieldValue-status">{{item.getWeight()}}</span>
         </li>
     {% endif %}    
     {% if item.getFlooring() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">Flooring: </span>
             <span class="fieldValue fieldValue-status">{{item.getFlooring()}}</span>
         </li>    
     {% endif %}    
     {% if item.getMpgCity() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">MPG - City: </span>
             <span class="fieldValue fieldValue-status">{{item.getMpgCity()}}</span>
         </li>
     {% endif %}    
     {% if item.getMpgHighway() is not empty %}
-        <li class="col-md-6">
+        <li class="{{liclass}}">
             <span class="fieldCaption field-status">MPG - Highway: </span>
             <span class="fieldValue fieldValue-status">{{item.getMpgHighway()}}</span>
         </li>
     {% endif %}
     {% if item.getSellerComment() is not empty %}
-        <li class="col-md-12">
+        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="fieldCaption field" >Seller Comments: </div>
             <span class="fieldValue fieldValue">{{item.getSellerComment()}}</span>
         </li>
