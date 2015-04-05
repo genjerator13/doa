@@ -559,6 +559,10 @@ class ItemController extends Controller {
                 $return = $this->redirect($url);
             }
         }
+        $redirect = $request->query->get('redirect');
+        if($redirect=='item'){
+            $return = $this->redirectToRoute('items_edit',array('id'=>$id));
+        }
 
 
         $entity->setActive(1);
@@ -568,7 +572,7 @@ class ItemController extends Controller {
     }
 
     /**
-     * deactivate a Item entity.
+     * deactivate an Item entity.
      *
      */
     public function deactivateAction(Request $request, $id) {
@@ -579,7 +583,7 @@ class ItemController extends Controller {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
         //if business login and dealer listing
-        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
+        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));            
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
             if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
@@ -590,6 +594,11 @@ class ItemController extends Controller {
                 $url = $this->getRequest()->headers->get("referer");
                 $return = $this->redirect($url);
             }
+        }
+        //dump($redirect);die();
+        $redirect = $request->query->get('redirect');
+        if($redirect=='item'){
+            $return = $this->redirectToRoute('items_edit',array('id'=>$id));
         }
         $entity->setActive(0);
 
