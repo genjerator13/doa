@@ -34,3 +34,6 @@ importfeed_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Importfeed:delete" }
     requirements: { _method: post|delete }
+importfeed_items_delete:
+    pattern:  /{id}/delete_items
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:deleteItems" }

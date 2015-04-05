@@ -245,7 +245,7 @@ class ImportmappingController extends Controller {
             $remoteFeed = new RemoteFeed($id);
 
             $props = $remoteFeed->getRemoteProperties();
-            dump($props);
+            
             if (!empty($props)) {
                 foreach ($props as $prop) {
                     $im = new Importmapping();

@@ -37,28 +37,34 @@
                     </div>
                 </div>
             </div>
+            <div class="header-background" >
 
+            </div>
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12 header-image" >
-                        <div class="logo"><div class="logo-text">SEMO Auto Mall</div></div>
+                <div class="header-background-content" >
+                    <div class="header-image" >
+                        <div class="header-logo" >
+
+                        </div>
                     </div>
+
                 </div>
+
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2">
                         {{include('NumaDOASiteBundle::sidebarMenu.html.twig')}}
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
                         {% block content %}
                         {% endblock %}
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2">
                         {% block rightsidebar %}
                         {% endblock %}
                     </div>
                 </div>
                 <div class="row">
-                    <div class="footer col-md-12">
+                    <div class="footer col-md-12 col-xs-12 col-sm-12 col-lg-12">
                         <a class="footer-img"></a>
                         <p class="copyright">©Copyright 2014 All Rights Reserved. {{title}}</p>
                     </div>        

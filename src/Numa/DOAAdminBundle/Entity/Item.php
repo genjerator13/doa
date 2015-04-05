@@ -1059,11 +1059,13 @@ class Item {
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue=null) {
         $listingFields = $maprow->getListingFields();
-
+        
         $localy = $feed->getPicturesSaveLocaly();
-        if(!empty($imageString['photo'])){
+        
+        if(is_array($imageString) && !empty($imageString['photo'])){
             $imageString = $imageString['photo'];
         }
+        
         if (is_array($imageString)) {
             
             $order = 0;

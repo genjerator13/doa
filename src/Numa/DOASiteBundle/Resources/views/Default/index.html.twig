@@ -19,7 +19,7 @@
             <div class="row tab-pane {% if loop.first %}active{% endif %}" id="home_{{key|replace(" ","_")}}">
                 {% endif %}
                 {% for key2,item in tab %}
-                    <div class="col-md-4 imageouterbox">
+                    <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 imageouterbox">
                         <div class='imagebox'>
                             
                                 {% set words = item.ListingFieldListValue|split(' ', 2) %}
