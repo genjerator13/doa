@@ -24,21 +24,24 @@
                                 {%else%}
                                     <span class="">InActive</span>
                                 {%endif%}
+                                {% if (entity.id) %}
+                                    <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
+                                    | 
+                                    {% if entity.active %}
+                                        <a href="{{path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}" class="itemControls deactivate">Deactivate</a>
+                                    {%else%}
+                                        <a href="{{path('items_activate', {'id': entity.id,'redirect':'item'}) }}" class="itemControls deactivate">Activate</a>
+                                    {%endif%}
                                 
-                                <span class="fieldValue fieldValueModerationStatus approved">{{entity.moderationStatus}}</span>	
-                                | 
-                                {% if entity.active %}
-                                    <a href="{{path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}" class="itemControls deactivate">Deactivate</a>
-                                {%else%}
-                                    <a href="{{path('items_activate', {'id': entity.id,'redirect':'item'}) }}" class="itemControls deactivate">Activate</a>
-                                {%endif%}
                                 
                                 | <a target="_blank" href="{{detailUrl}}" class="itemControls view">View Listing</a>
+                                {%endif%}
                                 {% if entity.id is not empty %}
                                     | <a href="{{path('item_images',{id:entity.id})}}">Edit Pictures ({{entity.getCountImages()}})</a>
                                 {% else %}
                                     | <a href="#" id="addimages">Add Pictures</a>
                                 {% endif %}
+                                
                             </div>
                             <p>Fields marked with an asterisk (*) are mandatory.car</p>
                             <div class="form-group">
@@ -127,6 +130,7 @@
                             </div>
                             <ul>
                                 {% for field in form.Itemfield %}
+                                    
                                     <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
 
                                         <span>
@@ -143,7 +147,7 @@
                                         </span>
                                         <span>
                                             {{ form_row(field.field_name) }}
-                                            {{ field.vars.value.getFieldName }}
+                                            {{ field.vars.value.getFieldName() }}
                                         </span>
                                         {{ form_row(field.field_type) }}
                                     </li>

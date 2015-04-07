@@ -42,6 +42,27 @@ class ListingfieldRepository extends EntityRepository
         $res = $query->getResult(); //getOneOrNullResult();
         return $res;
     }
+    
+    public function findAllByType($type, $categories = array()) {
+        
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('lf')
+                ->from('NumaDOAAdminBundle:Listingfield', 'lf')
+                ->andWhere('lf.type like :type')
+                //->andWhere('lf.category_sid like :categories')                                
+                ->setParameter('type', "%" . $type . "%");
+        if(is_array($categories) && !empty($categories)){
+            
+                $qb->andWhere('lf.category_sid IN (:categories)')
+                ->setParameter(':categories', $categories);
+        ;
+        }
+        $query = $qb->getQuery();
+        
+        $res = $query->getResult(); //getOneOrNullResult();
+        return $res;
+    }
 
     public function findAllOrderedByName()
     {
