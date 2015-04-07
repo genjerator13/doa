@@ -181,21 +181,23 @@ ul.tmp{
 
 
 .header-logo{
-    /*background: url('/images/The-Peak-Logo-Transparent.gif') no-repeat;*/
+    background: url('/images/logo_semo_up2.png') no-repeat;
     
-    width: 165px;
+    width: 265px;
     height: 150px;
     position: absolute;
-    bottom: 0;
-    left: 415px;
-    border: 1px solid red;
+    bottom: 10px;
+    left: 370px;
+    
 }
 
 .logo-text {
     font-family: bauhaus93;
     color: #ED7D31;
     font-size: 24px;
-    margin-top: -40px;
+position: absolute;
+top: 130px;
+left: 405px;
 }
 
 .navbar{
