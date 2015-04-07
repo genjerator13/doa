@@ -258,7 +258,7 @@ class ItemController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-                        $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             //dump($resultCode);die();
@@ -361,7 +361,7 @@ class ItemController extends Controller {
 
         if ($form->isValid()) {
             $em->persist($entity);
-                        $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             $em->flush();
@@ -436,52 +436,56 @@ class ItemController extends Controller {
         $entity->setCategory($categoryEntity);
 
         $securityContext = $this->container->get('security.context');
-//        
-//        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findBy(array('category_sid' => array(0, $cat_id)));
-//
-//        if (!empty($fields)) {
-//            foreach ($fields as $key => $field) {
-//                //dump($field);
-//                $itemField = new ItemField();
-//                //check if item field has value for the listing_field if edit (exists)
-//
-//                if ($item_id != null) {
-//                    $qb = $item->createQueryBuilder('i')
-//                            ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
-//                            ->where('i.id = :iid')
-//                            ->join('i.ItemField', 'if')
-//                            ->join('if.Listingfield', 'ls')
-//                            ->andWhere('ls.id = :lsid')
-//                            ->setParameter('iid', $item_id)
-//                            ->setParameter('lsid', $field->getId());
-//                    $query = $qb->getQuery();
-//
-//                    $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
-//
-//                    if (!empty($listingField)) {
-//                        $itemField->setFieldStringValue($listingField['field_string_value']);
-//                        $itemField->setFieldIntegerValue($listingField['field_integer_value']);
-//                        $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
-//                    }
-//                }
-//                $itemField->setListingfield($field);
-//                $itemField->setFieldName($field->getCaption());
-//                $itemField->setFieldType($field->getType());
-//
-//                if (strtolower($field->getCaption()) != 'image list') {
-//                    $entity->addItemField($itemField);
-//                }
-//            }
-//            //die();
-//            //remove all existing item fields TO DO add this to ItemField repository            
-//            $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id, 'field_type' => 'boolean'));
-//            //dump($oldItemFields);die();
-//            foreach ($oldItemFields as $oldone) {
-//                $em->remove($oldone);
-//            }
-//            $em->flush();
-//        }
-        
+
+        $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllByType('boolean', array(0, $categoryEntity->getId()));
+        if (!empty($fields)) {
+            foreach ($fields as $key => $field) {
+
+                $itemField = new ItemField();
+                //check if item field has value for the listing_field if edit (exists)
+
+                if ($id != null) {
+
+                    $qb = $em->getRepository('NumaDOAAdminBundle:Item')->createQueryBuilder('i')
+                            ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
+                            ->where('i.id = :iid')
+                            ->join('i.ItemField', 'if')
+                            ->join('if.Listingfield', 'ls')
+                            ->andWhere('ls.id = :lsid')
+                            ->setParameter('iid', $id)
+                            ->setParameter('lsid', $field->getId());
+                    $query = $qb->getQuery();
+
+                    $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
+
+                    if (!empty($listingField)) {
+                        $itemField->setFieldStringValue($listingField['field_string_value']);
+                        $itemField->setFieldIntegerValue($listingField['field_integer_value']);
+                        $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
+                    }
+                }
+                $itemField->setListingfield($field);
+                $itemField->setFieldName($field->getCaption());
+                $itemField->setFieldType($field->getType());
+
+                if (strtolower($field->getCaption()) != 'image list') {
+                    //check if the listing field is already there
+
+                    $criteria = Criteria::create()
+                            ->where(Criteria::expr()->eq("fieldId", $listingField['field_id']))
+                            ->setFirstResult(0)
+                            ->setMaxResults(1)
+                    ;
+
+                    $itemFieldAlreadySet = $entity->getItemField()->matching($criteria);
+                    if ($itemFieldAlreadySet->isEmpty() || empty($listingField)) {
+                        
+                        $entity->addItemField($itemField);
+                    }
+                }
+            }
+        }
+
         $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
@@ -603,8 +607,8 @@ class ItemController extends Controller {
             }
         }
         $redirect = $request->query->get('redirect');
-        if($redirect=='item'){
-            $return = $this->redirectToRoute('items_edit',array('id'=>$id));
+        if ($redirect == 'item') {
+            $return = $this->redirectToRoute('items_edit', array('id' => $id));
         }
 
 
@@ -626,7 +630,7 @@ class ItemController extends Controller {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
         //if business login and dealer listing
-        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));            
+        $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
             if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
@@ -640,8 +644,8 @@ class ItemController extends Controller {
         }
         //dump($redirect);die();
         $redirect = $request->query->get('redirect');
-        if($redirect=='item'){
-            $return = $this->redirectToRoute('items_edit',array('id'=>$id));
+        if ($redirect == 'item') {
+            $return = $this->redirectToRoute('items_edit', array('id' => $id));
         }
         $entity->setActive(0);
 
