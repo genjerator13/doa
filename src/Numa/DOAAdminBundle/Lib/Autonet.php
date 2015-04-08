@@ -77,7 +77,7 @@ class Autonet extends Curl {
         //process elements with children
         foreach ($xml1Vehicles->children() as $key => $elements) {
             foreach ($elements->children() as $keyInner => $innerElement) {
-                if (strtolower($innerElement) != 'option') {
+                if (strtolower($keyInner) != 'option') {
                     $xml1Vehicles->addChild($key . "_" . $keyInner, $innerElement);
                 }
             }
@@ -134,9 +134,7 @@ class Autonet extends Curl {
         $optionsXml = "<options>";
         foreach ($options->option as $option) {
             $tempArray = (array)$option['id'];
-            //dump($tempArray[0]);
-            if(array_key_exists($tempArray[0], $this->options)){
-                
+            if(array_key_exists($tempArray[0], $this->options)){                
                 $optionsXml .="<option id='" . $tempArray[0] . "'>" . htmlentities($this->options[$tempArray[0]]) . "</option>";
             }
         }
@@ -156,9 +154,10 @@ class Autonet extends Curl {
                 foreach($class['option'] as $option){
                     //dump($option);
                     $id = $option['@attributes']['id'];
-                    $this->options[$id] = $option['desc'];
+                    $this->options[$id] = trim($option['desc']);
                 }
-            }            
+            }  
+            
         }
     }
 
