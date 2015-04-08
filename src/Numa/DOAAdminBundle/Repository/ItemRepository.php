@@ -253,7 +253,7 @@ class ItemRepository extends EntityRepository {
             //check if there are predefined listing field in database (listing_field_lists)
 
             if (!empty($listingFields) && !empty($importItem[$property])) {
-                $stringValue = trim($importItem[$property]);
+                $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
 
                 $itemField = new ItemField();
