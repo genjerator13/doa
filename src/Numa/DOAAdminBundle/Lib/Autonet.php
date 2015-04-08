@@ -96,7 +96,7 @@ class Autonet extends Curl {
         //replace option element from vehicle XML
         $xml1Options = simplexml_load_string($xml1Photos->asXML());
         $optionsReplacement = $this->processOptions($xml1Options->options);
-        dump($optionsReplacement);
+
         $xml2Options = simplexml_load_string($optionsReplacement);
         $domToChangeOptions = dom_import_simplexml($xml1Options->options);
 
