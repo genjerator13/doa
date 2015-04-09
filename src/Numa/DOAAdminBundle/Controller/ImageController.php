@@ -72,7 +72,6 @@ class ImageController extends Controller {
                 }
                 $em->flush();
             }
-            //die();
             return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
         }
 
