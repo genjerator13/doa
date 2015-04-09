@@ -24,16 +24,15 @@ use Doctrine\Common\Collections\Criteria;
  */
 class ImageController extends Controller {
 
-   
     public function showAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
-        
-        $item      = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $ImageList = $em->getRepository('NumaDOAAdminBundle:ListingField')->findOneBy(array('caption'=>'Image List'));
+
+        $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        $ImageList = $em->getRepository('NumaDOAAdminBundle:ListingField')->findOneBy(array('caption' => 'Image List'));
         //\Doctrine\Common\Util\Debug::dump($ImageList->getId());
         $criteria = Criteria::create()
                 ->where(Criteria::expr()->eq("fieldName", "Image List"))
-                ->orderBy(array('sortOrder'=>Criteria::ASC))
+                ->orderBy(array('sortOrder' => Criteria::ASC))
         ;
         $images = $item->getItemField()->matching($criteria);
         $order = 0;
@@ -54,50 +53,52 @@ class ImageController extends Controller {
             // If form is valid
             // Get file
             $files = $request->files->get('form');
-            
+
             foreach ($files as $file) {
+                
                 if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
-                       ($file->getMimeType() == 'image/jpeg' ||
+                        ($file->getMimeType() == 'image/jpeg' ||
                         $file->getMimeType() == 'image/png' ||
                         $file->getMimeType() == 'image/gif')) {
+                    
                     $upload_url = $this->container->getParameter('upload_url');
                     $upload_path = $this->container->getParameter('upload_path');
                     $itemField = new ItemField();
-                    $itemField->handleImage($file, $upload_path, $upload_url,$item->getFeedId(),0, false);
+                    $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, false);
+                    
                     $itemField->setItem($item);
                     $itemField->setListingfield($ImageList);
                     $em->persist($itemField);
                 }
                 $em->flush();
-
             }
-            return $this->redirect($this->generateUrl('item_images',array('id'=>$id)));
+            //die();
+            return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
         }
 
 
-            return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
-                        'item' => $item,
-                        'images' => $images,
-                        'addimages' => $uploadForm->createView(),
-            ));
-        }
-
-        public function createAddImagesForm($item_id) {
-            $data = array();
-            return $this->createFormBuilder($data)
-                            //->setAction($this->generateUrl('images_add', array('item_id' => $item_id)))
-                            ->add('Picture1', 'file', array('label' => 'Picture 1', 'required' => false))
-                            ->add('Picture2', 'file', array('label' => 'Picture 2', 'required' => false))
-                            ->add('Picture3', 'file', array('label' => 'Picture 3','required'=>false))
-                            ->add('Picture4', 'file', array('label' => 'Picture 4','required'=>false))
-                            ->add('Picture5', 'file', array('label' => 'Picture 5','required'=>false))
-                            ->add('Upload', 'submit', array('label' => 'Upload'))
-                            ->getForm();
-        }
-        
-        public function orderPlus(){
-            
-        }
-
+        return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
+                    'item' => $item,
+                    'images' => $images,
+                    'addimages' => $uploadForm->createView(),
+        ));
     }
-    
+
+    public function createAddImagesForm($item_id) {
+        $data = array();
+        return $this->createFormBuilder($data)
+                        //->setAction($this->generateUrl('images_add', array('item_id' => $item_id)))
+                        ->add('Picture1', 'file', array('label' => 'Picture 1', 'required' => false))
+                        ->add('Picture2', 'file', array('label' => 'Picture 2', 'required' => false))
+                        ->add('Picture3', 'file', array('label' => 'Picture 3', 'required' => false))
+                        ->add('Picture4', 'file', array('label' => 'Picture 4', 'required' => false))
+                        ->add('Picture5', 'file', array('label' => 'Picture 5', 'required' => false))
+                        ->add('Upload', 'submit', array('label' => 'Upload'))
+                        ->getForm();
+    }
+
+    public function orderPlus() {
+        
+    }
+
+}

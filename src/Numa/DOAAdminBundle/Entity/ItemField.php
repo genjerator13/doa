@@ -342,15 +342,18 @@ class ItemField {
     }
 
     public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "") {
-        $url = trim(str_replace(array("\"", " ", "'"), "", $stringValue));
 
+        $url = $stringValue;
         $filename = pathinfo($url, PATHINFO_BASENAME);
-        if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-            $filename = $url->getClientOriginalName();
+        if ($stringValue instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
+            $filename = $stringValue->getClientOriginalName();
+            
+        }else{
+            $url = trim(str_replace(array("\"", " ", "'"), "", $stringValue));
         }
 
         $img_url = $url;
-
+        
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //$feed_sid = $this->getItem()->getImportfeed()->getId();
             $dir = $upload_path . "/" . $feed_sid->getId();
@@ -359,7 +362,7 @@ class ItemField {
             }
             $filename = $feed_sid->getId() . "_" . $uniqueValue . "_" . $filename;
             $filename = str_replace(array(" ", '%'), "-", $filename);
-
+            
             //chek if filename has extension
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
