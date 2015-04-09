@@ -295,7 +295,7 @@ class ItemField {
         if (is_array($value)) {
             $value = json_encode($value, true);
         } else {
-            $value = (string) $value;
+            $value = (string) trim($value);
         }
 
         if (!empty($valueMapValues)) {
@@ -303,7 +303,7 @@ class ItemField {
             if (!empty($json)) {
                 foreach ($json as $key => $mapValue) {
                     if (strtolower($key) == strtolower($value)) {
-                        $value = $mapValue;
+                        $value = trim($mapValue);
                     }
                 }
             }

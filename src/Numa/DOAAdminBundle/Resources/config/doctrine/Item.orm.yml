@@ -323,7 +323,10 @@ Numa\DOAAdminBundle\Entity\Item:
         mpgHighway:
               type: float
               nullable: true
-
+        iw_no:
+              type: string
+              length: 255
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

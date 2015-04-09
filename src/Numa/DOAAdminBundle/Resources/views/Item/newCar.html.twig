@@ -111,6 +111,11 @@
             {{ form_widget(form.VIN, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
-
+    <div class="form-group">
+        {{ form_label(form.iwNo, 'IW_NO', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        <div class="col-sm-9">                            
+            {{ form_widget(form.iwNo, { 'attr': {'class': 'form-control'} }) }}  
+        </div>
+    </div>  
 
 {% endblock %}
