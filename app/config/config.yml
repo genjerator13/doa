@@ -44,7 +44,8 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         title: CJVR Dealers On Air
-        subject: Email from 
+        subject: Email from
+        upload_feed_path: /upload/feeds/
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
