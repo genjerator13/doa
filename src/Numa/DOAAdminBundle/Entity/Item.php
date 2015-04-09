@@ -1052,10 +1052,14 @@ class Item {
                 }
             }
         }
-        //dump($optionsArray);
-        //die();
+
         if (!$proccessed) {
+            
+            if(is_string($optionsArray)){
+                $optionsArray = array($optionsArray);
+            }
             foreach ($optionsArray as $key => $option) {
+                
                 $itemField = new ItemField();
                 $itemField->setAllValues(true);
                 $itemField->setFeedId($this->getFeedId());
@@ -1629,8 +1633,10 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'dealerID') {
+        } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {
             $this->setDealerId($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
+            $this->setIwNo($itemField->getFieldStringValue());
         }
     }
 
@@ -2999,4 +3005,32 @@ class Item {
         return $this->mpgHighway;
     }
 
+    /**
+     * @var string
+     */
+    private $iw_no;
+
+
+    /**
+     * Set iw_no
+     *
+     * @param string $iwNo
+     * @return Item
+     */
+    public function setIwNo($iwNo)
+    {
+        $this->iw_no = $iwNo;
+
+        return $this;
+    }
+
+    /**
+     * Get iw_no
+     *
+     * @return string 
+     */
+    public function getIwNo()
+    {
+        return $this->iw_no;
+    }
 }
