@@ -45,7 +45,6 @@ twig:
     globals:
         title: CJVR Dealers On Air
         subject: Email from
-        upload_feed_path: /upload/feeds/
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
