@@ -38,7 +38,11 @@ class ImportfeedType extends AbstractType {
                         'class' => 'form-control')
                 ))
                 ->add('import_method', 'choice', array('choices' => $this->getImportMethod(), 'expanded' => false, 'attr' => array('class' => 'form-control')))
-                ->add('import_source', null)
+                ->add('import_source', null, array(
+                    'attr' =>
+                    array(
+                        'class' => 'form-control')
+                ))
                 ->add('file_import_source', 'file', array('required' => false))
                 ->add('root_node', null, array(
                     'attr' =>

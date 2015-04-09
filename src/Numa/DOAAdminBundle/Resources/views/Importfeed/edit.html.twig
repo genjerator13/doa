@@ -1,6 +1,20 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
+{% form_theme edit_form _self  %}
+
+    {% block _numa_doaadminbundle_importfeed_import_source_widget %}
+    <div class="text_widget">  
+        {% set import_method = form.parent.children.import_method.vars.value %}
+        {% if (import_method=="upload-file") %}
+           
+            <a target="_blank" href="{{upload_feed_path}}{{form.vars.value}}">Download the source file {{form.vars.value}}</a>
+        {% endif %}
+        {{ block('form_widget_simple') }}        
+    </div>
+{% endblock %}
 {% block content %}
+    
+
     <h1>Importfeed edit</h1>
 
     {{ form(edit_form) }}
