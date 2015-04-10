@@ -1,0 +1,6 @@
+command_log_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:CommandLog:index" }
+command_log_detail:
+    pattern:  /details/{id}
+    defaults: { _controller: "NumaDOAAdminBundle:CommandLog:details" }

@@ -1,0 +1,37 @@
+Numa\DOAAdminBundle\Entity\CommandLog:
+    type: entity
+    table: command_log
+    repositoryClass: Numa\DOAAdminBundle\Repository\CommandLogRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        command:
+            type: string
+            length: 255
+            nullable: true
+        category:
+            type: string
+            length: 255
+            nullable: true
+        started_at:
+            type: datetime
+            nullable: true
+        ended_at:
+            type: datetime
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        full_details:
+            type: text
+            nullable: true;
+        full_details_object:
+            type: object
+            nullable: true;
+    lifecycleCallbacks:
+        prePersist: [ setStartedAtValue ]
+
+   

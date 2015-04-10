@@ -28,3 +28,6 @@ NumaDOAAdminBundle_user_group:
 feed_api:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/feed_api.yml"
         prefix:   /feed_api
+command_log:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/command_log.yml"
+        prefix:   /command_log        

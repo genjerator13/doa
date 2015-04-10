@@ -1,15 +1,13 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <h1>Catalogrecords creation</h1>
-
+    <h1>New Dealer</h1>
     {{ form(form) }}
-
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('catalogs') }}">
-            Back to the list
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('catalogs') }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
 {% endblock %}

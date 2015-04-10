@@ -15,6 +15,7 @@ use Numa\DOAAdminBundle\Entity\Importmappings;
 use Numa\DOAAdminBundle\Form\ImportmappingType;
 use Numa\DOAAdminBundle\Form\ImportmappingRowType;
 use Numa\DOAAdminBundle\Lib\RemoteFeed;
+use Numa\DOAAdminBundle\Entity\CommandLog;
 
 class DBUtilsCommand extends ContainerAwareCommand {
 
@@ -74,27 +75,26 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     public function fetchFeed($id, $em) {
-        //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         $time = time();
-        //$em = $this->getContainer()->get('doctrine')->getManager();
-
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $em->clear();
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('fetch');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand($this->getName()." fetchFeed ".$id);
+        $em->persist($commandLog);
+        $em->flush();
 
         $createdItems = array();
         $feed_id = $id;
-        //$uniqueField = $feed->getUniqueField();
         $remoteFeed = new Remotefeed($id);
         $items = $remoteFeed->getRemoteItems();
         unset($remoteFeed);
-        //get import feed by id
-        //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
-        //get mapping by feed id
+
         $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
         $sold = $em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
-        //get mold items by feed id
-        //$itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
-        //remove old items
-        //$em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);        
-        //walk trough XML feed
+
         $upload_url = $this->getContainer()->getParameter('upload_url');
         $upload_path = $this->getContainer()->getParameter('upload_path');
 
@@ -102,45 +102,53 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $count = 0;
 
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path,$em);
-            //echo "$importItem:::$mapping:::$feed_id:::\n";
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
             if (!empty($item)) {
                 $createdItems[] = $item;
-                //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-
-                echo $count . ":::Item: " . $item->getId() . ":" . count($item->getImages2()) . ":VIN:" . $item->getVin() . "\n";
-                //unset($item);
             }
-
+            unset($item);
+            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count++;
-            if ($count % 50 == 0) {
+            if ($count % 500 == 0) {
                 $em->flush();
                 $em->clear();
-
-                echo "flush and clear \n";
             }
-//             if ($count  >= 500) {
-//                 $time = time() - $time;
-//                 echo $time."Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
-//                die();
-//             }
         }
 
-        //unset($feed);
         $em->flush();
         $em->clear();
         unset($items);
         unset($mapping);
-        echo "flush and clear end \n";
         $time = time() - $time;
 
         //update hometabs
-        //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-        //$command->setContainer($this->container);
-        //$resultCode = $command->makeHomeTabs(false);
-        echo "time: " . $time . "::Count Items :" . count($createdItems);
-        //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
-        //return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
+        $resultCode = $this->makeHomeTabs(false);
+
+        $commandLog = $em->getRepository('NumaDOAAdminBundle:CommandLog')->find($commandLog->getId());
+        
+        $commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+
+        $em->flush();
+        dump($commandLog);
+
+    }
+
+    public function makeDetailsLog($createdItems) {
+        $output = "";
+        foreach ($createdItems as $key => $item) {
+            $output .= "<strong>".$key."</strong>";
+            $output .= "<br>";
+            foreach ($item->getItemFieldsArray() as $key2 => $field) {
+                $output .= "<div>" . $key2 . ":";
+                if (!empty($field['stringvalue'])) {
+                    $output .= $field['stringvalue'];
+                }
+                $output .="</div>";
+            }
+        }
+        return $output;
     }
 
     /**
@@ -162,23 +170,23 @@ class DBUtilsCommand extends ContainerAwareCommand {
         foreach ($categories as $cat) {
 
             $list = "";
-            if ($cat->getId() == 2 ) {
+            if ($cat->getId() == 2) {
                 //Marine
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByCaption('Boat Type');
                 if (!empty($subCat)) {
 
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
-                    
+
                     foreach ($list as $key => $value) {
-                        
+
                         //$items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
-                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'type'  =>$value->getValue()));
-                        
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category' => $cat, 'type' => $value->getValue()));
+
                         $count = count($items);
 
                         if ($echo) {
-                            
-                            echo $count.":" . $subCat->getId() . ":" . $value->getId().":".$value->getValue() . "\n";
+
+                            echo $count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n";
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();
@@ -196,18 +204,18 @@ class DBUtilsCommand extends ContainerAwareCommand {
                 //RV
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Type', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
-                    
+
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
-                    
+
                     foreach ($list as $key => $value) {
-                        
+
                         //$items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
-                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'type'  =>$value->getValue()));
-                        
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category' => $cat, 'type' => $value->getValue()));
+
                         $count = count($items);
                         if ($echo) {
                             print_r(count($items));
-                            echo $subCat->getCaption()." : " . $subCat->getId() . ":" . $value->getId() . " : ".$value->getValue()."\n";
+                            echo $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n";
                             //dump($echo);
                         }
                         //$count = $items->count();
@@ -224,14 +232,14 @@ class DBUtilsCommand extends ContainerAwareCommand {
                 }
             } else if ($cat->getId() == 1) {
                 //find subcategory of category(car and body style)
-                
+
                 $subCat = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Body Style', 'category_sid' => $cat->getId()));
                 if (!empty($subCat)) {
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     //list of all subcategoryes
                     foreach ($list as $key => $value) {
                         //count each and put to hometabs
-                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category'=>$cat,'body_style'  =>$value->getValue()));
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category' => $cat, 'body_style' => $value->getValue()));
                         $count = count($items);
                         if ($echo) {
                             print_r(count($items));
@@ -244,7 +252,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         $hometab->setListingFieldListValue($value->getValue());
                         $hometab->setCount($count);
                         $em->persist($hometab);
-
                     }
                     $em->flush();
                 }
@@ -257,11 +264,11 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                     foreach ($list as $key => $value) {
                         //$items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
-                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->getItemBySubCats($cat->getId(),$value->getValue());
-                        
+                        $items = $em->getRepository('NumaDOAAdminBundle:Item')->getItemBySubCats($cat->getId(), $value->getValue());
+
                         $count = count($items);
-                        if ($echo) {                            
-                            echo count($items).":" . $subCat->getId() . ":" . $value->getId()."::".$value->getValue() . "\n";
+                        if ($echo) {
+                            echo count($items) . ":" . $subCat->getId() . ":" . $value->getId() . "::" . $value->getValue() . "\n";
                         }
                         //$count = $items->count();
                         $hometab = new HomeTab();

@@ -27,7 +27,7 @@ class CatalogrecordsType extends AbstractType {
                 ->add('city')
                 ->add('zip')
                 ->add('state')
-                ->add('description', 'genemu_tinymce', array('attr' => array('class' => 'tinymce')))
+                ->add('description', 'ckeditor')
                 ->add('CatalogCategory')
                 ->add('file_import_source', 'file', array('required' => false, 'data_class' => null))
                 ->add('logo_url', 'text', array('required' => false))
