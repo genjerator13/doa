@@ -1,0 +1,236 @@
+<?php
+
+namespace Numa\DOAAdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * CommandLog
+ */
+class CommandLog
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $commande;
+
+    /**
+     * @var string
+     */
+    private $category;
+
+    /**
+     * @var \DateTime
+     */
+    private $started_at;
+
+    /**
+     * @var \DateTime
+     */
+    private $ended_at;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set commande
+     *
+     * @param string $commande
+     * @return CommandLog
+     */
+    public function setCommande($commande)
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Get commande
+     *
+     * @return string 
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * Set category
+     *
+     * @param string $category
+     * @return CommandLog
+     */
+    public function setCategory($category)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return string 
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * Set started_at
+     *
+     * @param \DateTime $startedAt
+     * @return CommandLog
+     */
+    public function setStartedAt($startedAt)
+    {
+        $this->started_at = $startedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get started_at
+     *
+     * @return \DateTime 
+     */
+    public function getStartedAt()
+    {
+        return $this->started_at;
+    }
+
+    /**
+     * Set ended_at
+     *
+     * @param \DateTime $endedAt
+     * @return CommandLog
+     */
+    public function setEndedAt($endedAt)
+    {
+        $this->ended_at = $endedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get ended_at
+     *
+     * @return \DateTime 
+     */
+    public function getEndedAt()
+    {
+        return $this->ended_at;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return CommandLog
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+     /**
+     * @ORM\PrePersist
+     */
+    public function setStartedAtValue() {
+        if (!$this->getStartedAt()) {
+            $this->started_at = new \DateTime();
+        }
+    }
+    /**
+     * @var string
+     */
+    private $full_details;
+
+    /**
+     * @var \stdClass
+     */
+    private $full_details_object;
+
+
+    /**
+     * Set full_details
+     *
+     * @param string $fullDetails
+     * @return CommandLog
+     */
+    public function setFullDetails($fullDetails)
+    {
+        $this->full_details = $fullDetails;
+
+        return $this;
+    }
+    
+    public function appendFullDetails($string){
+        $this->setFullDetails($this->getFullDetails()."\n".$string);
+    }
+
+    /**
+     * Get full_details
+     *
+     * @return string 
+     */
+    public function getFullDetails()
+    {
+        return $this->full_details;
+    }
+
+    /**
+     * Set full_details_object
+     *
+     * @param \stdClass $fullDetailsObject
+     * @return CommandLog
+     */
+    public function setFullDetailsObject($fullDetailsObject)
+    {
+        $this->full_details_object = $fullDetailsObject;
+
+        return $this;
+    }
+
+    /**
+     * Get full_details_object
+     *
+     * @return \stdClass 
+     */
+    public function getFullDetailsObject()
+    {
+        return $this->full_details_object;
+    }
+}

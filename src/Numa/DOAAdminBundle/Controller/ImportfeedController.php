@@ -118,7 +118,7 @@ class ImportfeedController extends Controller {
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-
+        
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -199,6 +199,26 @@ class ImportfeedController extends Controller {
             $em->remove($entity);
             $em->flush();
         }
+
+        return $this->redirect($this->generateUrl('importfeed'));
+    }
+    
+        /**
+     * Deletes all Importfeed listings.
+     *
+     */
+    public function deleteItemsAction(Request $request, $id) {
+
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Importfeed entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+
 
         return $this->redirect($this->generateUrl('importfeed'));
     }

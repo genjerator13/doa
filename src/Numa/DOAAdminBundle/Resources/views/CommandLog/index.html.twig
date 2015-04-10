@@ -1,0 +1,34 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% block content %}
+    <h1>Command Log</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Command</th>
+                <th>Time Start</th>
+                <th>Time end</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td>{{ entity.id }}</td>
+                    <td>{{ entity.command }}</td>
+                    <td>{{ entity.startedAt|date('Y-m-d H:i:s')}}</td>
+                    <td>{% if(entity.endedAt is not empty) %} 
+                        {{ entity.endedAt|date('Y-m-d H:i:s') }} 
+                        {% endif %}
+                     </td>
+                    <td>{{ entity.status }}</td>
+                    <td>
+                        <a href="{{path('command_log_detail',{'id':entity.id})}}" class="btn btn-primary {% if entity.status !="finished" %} disabled{% endif %}" >Show details</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>       
+{% endblock %}

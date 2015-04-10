@@ -730,5 +730,9 @@ class ItemController extends Controller {
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
         }
     }
+    
+    public function renderFetch($array){
+        
+    }
 
 }
