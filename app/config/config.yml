@@ -185,6 +185,11 @@ apy_data_grid:
         options:            #all options of pager fanta view constructor
            prev_message : «
            next_message : »        
+trsteel_ckeditor:
+    class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
+    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'links', '/',  'styles', 'tools']
+    toolbar_groups:
+        document: ['Source']           
 #braincrafted_bootstrap:
 #    output_dir:
 #    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap

@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Lsw\MemcacheBundle\LswMemcacheBundle(),
             //#new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Symfony\Bundle\DebugBundle\DebugBundle(),
+            new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
             //#new Lsw\ApiCallerBundle\LswApiCallerBundle(),
         );
 
