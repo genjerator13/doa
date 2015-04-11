@@ -143,7 +143,7 @@
     {% if item.getSellerComment() is not empty %}
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="fieldCaption field" >Seller Comments: </div>
-            <span class="fieldValue fieldValue">{{item.getSellerComment()}}</span>
+            <span class="fieldValue fieldValue">{{item.getSellerComment()|raw}}</span>
         </li>
     {% endif %}
 </ul>
