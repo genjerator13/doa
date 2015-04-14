@@ -245,7 +245,7 @@ class ImportmappingController extends Controller {
             $remoteFeed = new RemoteFeed($id);
 
             $props = $remoteFeed->getRemoteProperties();
-            
+
             if (!empty($props)) {
                 foreach ($props as $prop) {
                     $im = new Importmapping();
@@ -260,28 +260,28 @@ class ImportmappingController extends Controller {
 
                     $importmappingCollection->addImportmappingRow($im);
                 }
-            }else{
+            } else {
                 $error[] = "No Properties fetched from the feed";
             }
         }
-        
-            $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
-            $collection->add('feed_sid', 'hidden', array('data' => $id));
-            $collection->handleRequest($request);
 
-            if ($collection->isValid()) {
+        $collection = $this->createForm(new ImportmappingRowType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
+        $collection->add('feed_sid', 'hidden', array('data' => $id));
+        $collection->handleRequest($request);
 
-                foreach ($collection->getData()->getImportmappingRow() as $entity) {
-                    $entity->setFeedSid($id);
-                    $em->persist($entity);
-                }
-                $em->flush();
+        if ($collection->isValid()) {
 
-                if (!$request->isXmlHttpRequest()) {
-                    return $this->redirect($this->generateUrl('importfeed'));
-                }
+            foreach ($collection->getData()->getImportmappingRow() as $entity) {
+                $entity->setFeedSid($id);
+                $em->persist($entity);
             }
-        
+            $em->flush();
+
+            if (!$request->isXmlHttpRequest()) {
+                return $this->redirect($this->generateUrl('importfeed'));
+            }
+        }
+
 
         return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
                     'form' => $collection->createView(),
@@ -291,63 +291,25 @@ class ImportmappingController extends Controller {
     }
 
     public function fetchAction(Request $request = null, $id) {
-        //echo "Memory usage in fetchAction before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        $time = time();
+
         $em = $this->getDoctrine()->getManager();
 
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $em->clear();
-        $createdItems = array();
-        $feed_id = $id;
-        //$uniqueField = $feed->getUniqueField();
-        $remoteFeed = new Remotefeed($id);
-        $items = $remoteFeed->getRemoteItems();
+        //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+        //$command->setContainer($this->container);
+        //$resultCode = $command->fetchFeed($id, $em);
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil fetchFeed ' . $id;
         
-        unset($remoteFeed);
-        //get import feed by id
-        //$feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
-        //get mapping by feed id
-        $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
-        $sold = $em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
-        //get mold items by feed id
-        //$itemsOld = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $feed_id));
-        //remove old items
-        //$em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);        
-        //walk trough XML feed
-        $upload_url = $this->container->getParameter('upload_url');
-        $upload_path = $this->container->getParameter('upload_path');
-
-        //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        $count = 0;
-
-        foreach ($items as $importItem) {            
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
-            
-            if (!empty($item)) {
-                $createdItems[] = $item;
-            }
-            unset($item);
-            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-            $count++;
-            if ($count % 500 == 0) {
-                $em->flush();
-                $em->clear();
-            }
-        }
-
-        $em->flush();
-        $em->clear();
-        unset($items);
-        unset($mapping);
-        $time = time() - $time;
-
-        //update hometabs
-        $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-        $command->setContainer($this->container);
-        $resultCode = $command->makeHomeTabs(false);
-        echo $time . ":::" . count($createdItems);
-        //echo "Memory usage before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL;
-        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $createdItems));
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+        $request->getSession()->getFlashBag()
+            ->add('success', 'Fetching Feed Id '.$id.' started.'.'<a href="'.$this->generateUrl('command_log_home').'">Details</a>');
+    
+        return $this->redirectToRoute('importfeed');
+    }
+    
+    public function renderFetch($items){
+        //return "aaaa";
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig');
     }
 
     public function mapvaluesAction(Request $request = null) {

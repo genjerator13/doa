@@ -1,15 +1,15 @@
 {% extends is_granted('ROLE_BUSINES')
     ? 'NumaDOASiteBundle::home-layout.html.twig' 
     : 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+ {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <h1>Catalogrecords edit</h1>
+    <h1>Edit Dealer</h1>
 
     {{ form(edit_form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('catalogs') }}" class="btn">
+        <a href="{{ path('catalogs') }}"  class="btn btn-primary">
             Back to the list
         </a>
     </li>

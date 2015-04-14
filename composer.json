@@ -46,7 +46,8 @@
         "endroid/qrcode-bundle": "dev-master",
         "twbs/bootstrap": "dev-master",
         "leaseweb/memcache-bundle": "*",
-        "leaseweb/api-caller-bundle": "*"
+        "leaseweb/api-caller-bundle": "*",
+        "Trsteel/ckeditor-bundle": "~1.6"
     },
     "scripts": {
         "post-install-cmd": [
