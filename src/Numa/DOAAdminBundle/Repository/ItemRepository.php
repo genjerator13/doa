@@ -253,7 +253,7 @@ class ItemRepository extends EntityRepository {
             //check if there are predefined listing field in database (listing_field_lists)
 
             if (!empty($listingFields) && !empty($importItem[$property])) {
-                $stringValue = trim($importItem[$property]);
+                $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
 
                 $itemField = new ItemField();
@@ -349,15 +349,6 @@ class ItemRepository extends EntityRepository {
             unset($property);
         }//end mapping foreach
 
-
-
-        /*
-          $criteria = Criteria::create()
-          ->where(Criteria::expr()->eq("fieldName", "Image List"))
-          ;
-          $images = $item->getItemField()->matching($criteria);
-         * 
-         */
         $item->equalizeItemFields();
         if ($persist) {
             $em->persist($item);

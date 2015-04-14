@@ -1011,9 +1011,22 @@ class Item {
         $order = 1;
 
         $proccessed = false;
+        //ugly hack
+        if (is_string($stringvalue)) {
+            $test = json_decode($stringvalue, true);
+
+            if (is_array($test)) {
+                if(!empty($test['option'])){
+                    $optionsArray = $test['option'];
+                }
+                
+            }
+        }
+        
         if (is_array($optionsArray)) {
+
             $json = json_decode($optionsArray[0], true);
-            //dump($json['option']);
+
             if (!empty($json['option']) && is_array($json['option'])) {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
@@ -1039,10 +1052,14 @@ class Item {
                 }
             }
         }
-        //dump($optionsArray);
-        //die();
+
         if (!$proccessed) {
+            
+            if(is_string($optionsArray)){
+                $optionsArray = array($optionsArray);
+            }
             foreach ($optionsArray as $key => $option) {
+                
                 $itemField = new ItemField();
                 $itemField->setAllValues(true);
                 $itemField->setFeedId($this->getFeedId());
@@ -1057,15 +1074,17 @@ class Item {
         unset($order);
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue=null) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue = null) {
         $listingFields = $maprow->getListingFields();
 
         $localy = $feed->getPicturesSaveLocaly();
-        if(!empty($imageString['photo'])){
+
+        if (is_array($imageString) && !empty($imageString['photo'])) {
             $imageString = $imageString['photo'];
         }
+
         if (is_array($imageString)) {
-            
+
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
@@ -1075,8 +1094,8 @@ class Item {
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
-                
-                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy,$uniqueValue);
+
+                $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy, $uniqueValue);
 
                 $this->addItemField($itemField);
                 $em->persist($itemField);
@@ -1614,10 +1633,10 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
-            $this->setMpgCity($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
-            $this->setMpgHighway($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {
+            $this->setDealerId($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
+            $this->setIwNo($itemField->getFieldStringValue());
         }
     }
 
@@ -2986,4 +3005,32 @@ class Item {
         return $this->mpgHighway;
     }
 
+    /**
+     * @var string
+     */
+    private $iw_no;
+
+
+    /**
+     * Set iw_no
+     *
+     * @param string $iwNo
+     * @return Item
+     */
+    public function setIwNo($iwNo)
+    {
+        $this->iw_no = $iwNo;
+
+        return $this;
+    }
+
+    /**
+     * Get iw_no
+     *
+     * @return string 
+     */
+    public function getIwNo()
+    {
+        return $this->iw_no;
+    }
 }

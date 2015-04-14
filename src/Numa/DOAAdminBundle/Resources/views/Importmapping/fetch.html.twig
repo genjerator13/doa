@@ -1,6 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
-{% block content %}
+    aaa
+    {#{{items}}
     <p>{{items|length}} Items fetched</p>
     <a href="{{path("importfeed")}}">Back to the feed list</a>
     {% for key,item in items %}
@@ -13,8 +13,7 @@
         {% endfor %}
         
         {% for key,field in item.getImages2() %}
-            {#{{dump(field)}}#}
+
             <div>{{key}}: {{field.fieldStringValue}}</div>
         {% endfor %}
-    {% endfor %}
-{% endblock %}
+    {% endfor %}#}

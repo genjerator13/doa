@@ -88,7 +88,19 @@ class ItemType extends AbstractType
             ->add('feature_slideshow')
             ->add('feature_youtube')
             ->add('Importfeed')
-            ->add('seller_comment')
+            ->add('seller_comment','ckeditor'
+                    //, 
+//                    array(
+//                //'transformers'                 => array('html_purifier'),
+//                'toolbar'                      => array('document','basicstyles'),
+//                'toolbar_groups'               => array(
+//                    'document' => array('Source')
+//                ),
+//                //'ui_color'                     => '#fff',
+//                'startup_outline_blocks'       => false,
+                
+            //)
+                )
             ->add('User')
             ->add('length')
             ->add('beam')            
@@ -123,6 +135,7 @@ class ItemType extends AbstractType
             ->add('coolingSystem')
             ->add('mpgCity')
             ->add('mpgHighway')
+            ->add('iwNo')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;

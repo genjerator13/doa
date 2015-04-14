@@ -9,23 +9,12 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: postUpdate }
-
-#    access_listener:
-#        class: Numa\DOAAdminBundle\Listeners\AccessListener
-#        arguments: ['@security.context', '@session','@service_container', '@router']
-#        tags:
-#            - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
-#    
+  
     login_success_handler:
         class: Numa\DOAAdminBundle\Listeners\AccessListener
         arguments:  [@router, @security.context]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
-#    logout_success_handler:
-#        class:  %ccdn_user_security.component.authentication.handler.logout_success_handler.class%
-#        arguments:  [@service_container, @router]
-#        tags:
-#            - { name: 'monolog.logger', channel: 'security' }
-
-#    ItemField:
-#        class: Numa\DOAAdminBundle\Controller\ItemField
+    import_mapping:
+        class: Numa\DOAAdminBundle\Controller\ImportmappingController
+        

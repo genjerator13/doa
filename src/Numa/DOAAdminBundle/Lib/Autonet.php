@@ -18,6 +18,8 @@ use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
 class Autonet extends Curl {
 
+    public $options;
+
     //put your code here
     public function __construct() {
         $username = "MediaTech";
@@ -73,13 +75,16 @@ class Autonet extends Curl {
         $xml1Vehicles->addChild("id", $id);
 
         //process elements with children
-        foreach ($xml1Vehicles->children() as $key => $elements) {                
+        foreach ($xml1Vehicles->children() as $key => $elements) {
             foreach ($elements->children() as $keyInner => $innerElement) {
-                $xml1Vehicles->addChild($key."_".$keyInner, $innerElement);
-            }        
+                if (strtolower($keyInner) != 'option') {
+                    $xml1Vehicles->addChild($key . "_" . $keyInner, $innerElement);
+                }
+            }
         }
 
         //replace photo element from vehicle XML
+
         $photos = $this->getVehiclePhotos($dealer_id, $vehicle_id);
         $xml1Photos = $xml1Vehicles;
         $xml2Photos = simplexml_load_string($photos);
@@ -91,6 +96,7 @@ class Autonet extends Curl {
         //replace option element from vehicle XML
         $xml1Options = simplexml_load_string($xml1Photos->asXML());
         $optionsReplacement = $this->processOptions($xml1Options->options);
+
         $xml2Options = simplexml_load_string($optionsReplacement);
         $domToChangeOptions = dom_import_simplexml($xml1Options->options);
 
@@ -99,7 +105,6 @@ class Autonet extends Curl {
         $domToChangeOptions->parentNode->replaceChild($nodeImportOptions, $domToChangeOptions);
 
         $xml = str_replace('<?xml version="1.0"?>', "", $xml1Options->asXML());
-
         return $xml;
     }
 
@@ -125,13 +130,46 @@ class Autonet extends Curl {
     }
 
     public function processOptions($options) {
-
+        $this->mapOptions();
         $optionsXml = "<options>";
         foreach ($options->option as $option) {
-            $optionsXml .="<option id='" . $option['id'] . "'>" . $option['id'] . "</option>";
+            $tempArray = (array)$option['id'];
+            if(array_key_exists($tempArray[0], $this->options)){                
+                $optionsXml .="<option id='" . $tempArray[0] . "'>" . htmlentities($this->options[$tempArray[0]]) . "</option>";
+            }
         }
         $optionsXml .= "</options>";
         return $optionsXml;
+    }
+
+    public function mapOptions() {
+        if (empty($this->options)) {
+            $this->setUrlSuffix("assets/options");
+            $options = $this->call();
+            $optionsXml = new SimpleXMLElement($options);
+            $json = json_encode($optionsXml);
+            $array = json_decode($json, TRUE);
+            foreach($array['class'] as $class){
+                
+                foreach($class['option'] as $option){
+                    //dump($option);
+                    $id = $option['@attributes']['id'];
+                    $this->options[$id] = trim($option['desc']);
+                }
+            }  
+            
+        }
+    }
+
+    public function getOption($dealer_id, $vehicle_id, $photo_id) {
+        $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id . "/photos");
+        $photos = $this->call();
+
+        $photosXml = new SimpleXMLElement($photos);
+        $json = json_encode($photosXml);
+        $array = json_decode($json, TRUE);
+
+        return $array;
     }
 
     public function getPhoto($dealer_id, $vehicle_id, $photo_id) {
