@@ -376,6 +376,7 @@ class ItemField {
             $filename = str_replace(array(" ", '%'), "-", $filename);
             
             //chek if filename has extension
+            
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
             
             //full path to the uploaded image
