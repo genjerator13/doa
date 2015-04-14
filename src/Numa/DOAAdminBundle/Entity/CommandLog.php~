@@ -233,4 +233,32 @@ class CommandLog
     {
         return $this->full_details_object;
     }
+    /**
+     * @var string
+     */
+    private $command;
+
+
+    /**
+     * Set command
+     *
+     * @param string $command
+     * @return CommandLog
+     */
+    public function setCommand($command)
+    {
+        $this->command = $command;
+
+        return $this;
+    }
+
+    /**
+     * Get command
+     *
+     * @return string 
+     */
+    public function getCommand()
+    {
+        return $this->command;
+    }
 }

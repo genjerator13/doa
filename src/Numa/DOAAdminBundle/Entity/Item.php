@@ -1082,6 +1082,9 @@ class Item {
         if (is_array($imageString) && !empty($imageString['photo'])) {
             $imageString = $imageString['photo'];
         }
+        if (is_array($imageString) && !empty($imageString['imageurl'])) {
+            $imageString = $imageString['imageurl'];
+        }
 
         if (is_array($imageString)) {
 
