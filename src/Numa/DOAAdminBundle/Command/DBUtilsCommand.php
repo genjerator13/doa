@@ -137,8 +137,10 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     public function makeDetailsLog($createdItems) {
         $output = "";
+        
         foreach ($createdItems as $key => $item) {
-            $output .= "<strong>".$key."</strong>";
+            
+            $output .= "<strong>".$key.":".$item->getId()."</strong>";
             $output .= "<br>";
             foreach ($item->getItemFieldsArray() as $key2 => $field) {
                 $output .= "<div>" . $key2 . ":";

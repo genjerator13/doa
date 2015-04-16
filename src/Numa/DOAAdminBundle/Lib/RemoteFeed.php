@@ -61,14 +61,14 @@ class RemoteFeed extends ContainerAware {
         if(self::URL == $this->entity->getImportMethod()){
             $upload_path="";
         }
-        
         if (empty($this->properties)) {
             
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
                 
                 if (self::XML == $this->entity->getImportFormat()) {
-                    
-                    $xml_obj = simplexml_load_file($upload_path . $this->source);
+                    //$xml_obj = simplexml_load_file($upload_path . $this->source);
+                    $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
+                    //simplexml_load_file('url', null, LIBXML_NOERROR);
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {
                         $xmlSource = $xml_obj->xpath($this->entity->getRootNode());

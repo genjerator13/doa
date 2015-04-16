@@ -297,6 +297,7 @@ class ItemRepository extends EntityRepository {
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     //check if string or array
+                    
                     $json = json_decode($stringValue, true);
                    
                     if (!empty($json) && is_array($json)) {
@@ -349,15 +350,6 @@ class ItemRepository extends EntityRepository {
             unset($property);
         }//end mapping foreach
 
-
-
-        /*
-          $criteria = Criteria::create()
-          ->where(Criteria::expr()->eq("fieldName", "Image List"))
-          ;
-          $images = $item->getItemField()->matching($criteria);
-         * 
-         */
         $item->equalizeItemFields();
         if ($persist) {
             $em->persist($item);

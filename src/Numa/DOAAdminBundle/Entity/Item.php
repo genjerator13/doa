@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Criteria;
 class Item {
 
     public static $fields = array(1 =>
-        array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
+        array('body_description' => 'bodyDescription','doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
@@ -1078,14 +1078,18 @@ class Item {
         $listingFields = $maprow->getListingFields();
 
         $localy = $feed->getPicturesSaveLocaly();
-
+        
         if (is_array($imageString) && !empty($imageString['photo'])) {
             $imageString = $imageString['photo'];
         }
-
+        if (is_array($imageString) && !empty($imageString['imageurl'])) {
+            $imageString = $imageString['imageurl'];
+        }
+        
         if (is_array($imageString)) {
 
             $order = 0;
+            
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);
@@ -1094,7 +1098,7 @@ class Item {
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
-
+                
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy, $uniqueValue);
 
                 $this->addItemField($itemField);

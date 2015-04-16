@@ -341,6 +341,16 @@ class ItemField {
         return $this->sort_order;
     }
 
+    /**
+     * Downloads image from $stringValue which could be UploadedFile
+     * Function accepts p...
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile $stringValue or string
+     * @param type $upload_url 
+     * @param type $feed_sid
+     * @param type $order
+     * @param type $localy
+     * @param type $uniqueValue
+     */
     public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "") {
 
         $url = $stringValue;
@@ -355,34 +365,32 @@ class ItemField {
         $img_url = $url;
         
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-            //$feed_sid = $this->getItem()->getImportfeed()->getId();
+            //make a folder if not exists
             $dir = $upload_path . "/" . $feed_sid->getId();
             if (!file_exists($dir)) {
                 mkdir($dir, 0777);
             }
+            
+            //prepare filename for the image
             $filename = $feed_sid->getId() . "_" . $uniqueValue . "_" . $filename;
             $filename = str_replace(array(" ", '%'), "-", $filename);
             
             //chek if filename has extension
+            
             $ext = pathinfo($filename, PATHINFO_EXTENSION);
-
-
+            
+            //full path to the uploaded image
             $img = $dir . "/" . $filename;
             $img_url = $upload_url . "/" . $feed_sid->getId() . "/" . $filename;
-
-
-
+            
             if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
-                echo $dir . ":::" . $filename;
-
+                // move the file to upload folder
                 $file = $url->move($dir, $filename);
             } else if (!file_exists($img)) {
-
+                //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
-
-
                 if ($http) {
-
+                    //get image via curl
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
                     //curl_setopt($ch, CURLOPT_NOBODY, 1);
@@ -418,13 +426,11 @@ class ItemField {
                         }
 
                         file_put_contents($img, $return);
-                        //$img_url = $imgfileName;
+
                     } else {
                         
                     }
-//                    dump($img);
-//                    dump($img_url);
-//                    die("asasa");
+
                     curl_close($ch);
                 }
             }
@@ -434,6 +440,7 @@ class ItemField {
         $this->setFieldType('Array');
         $this->setAllValues($img_url);
         $this->setSortOrder($order);
+
     }
 
     /**
