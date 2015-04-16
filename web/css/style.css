@@ -1,3 +1,20 @@
+@media only print
+{
+    .navbar, .header-background,.panel, .right-sidebar , .header-background-content{
+        display:none;
+    }
+
+    .detailsContent .flexslider .slides img {
+        max-height: 200px;
+        width: auto;
+        border: 1px solid red;
+    }
+    #carousel{
+        
+        display:none;
+    }
+}
+
 @font-face {
     font-family: bauhaus93;
     src: url(bauhaus93.ttf);
