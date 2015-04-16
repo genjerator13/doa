@@ -440,6 +440,7 @@ class ItemField {
         $this->setFieldType('Array');
         $this->setAllValues($img_url);
         $this->setSortOrder($order);
+
     }
 
     /**

@@ -297,6 +297,7 @@ class ItemRepository extends EntityRepository {
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     //check if string or array
+                    
                     $json = json_decode($stringValue, true);
                    
                     if (!empty($json) && is_array($json)) {
