@@ -18,7 +18,7 @@ class Item {
         3 =>
         array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
-        array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
+        array('Make Model' => 'make', 'model' => 'model', 'Type' => 'type', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
         array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
@@ -1087,9 +1087,7 @@ class Item {
         }
         
         if (is_array($imageString)) {
-
-            $order = 0;
-            
+            $order = 0;            
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);
@@ -1135,7 +1133,7 @@ class Item {
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
-                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy, $uniqueValue);
+                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getImportfeed(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
                 //unset($itemField);

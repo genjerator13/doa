@@ -53,7 +53,7 @@ class AddItemSubscriber implements EventSubscriberInterface {
                 //dump($listingList );
                 $type = $listingList->getType();
                 
-                if (strtolower($type) == 'list') {
+                if (strtolower($type) == 'list') {                    
                     $selected = $item->getItemFieldByName($carFieldDB);
                     
                     $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));

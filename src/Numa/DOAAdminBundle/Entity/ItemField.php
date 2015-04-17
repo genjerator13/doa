@@ -387,6 +387,7 @@ class ItemField {
                 // move the file to upload folder
                 $file = $url->move($dir, $filename);
             } else if (!file_exists($img)) {
+                
                 //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
                 if ($http) {
@@ -424,7 +425,6 @@ class ItemField {
                             $img = $img . "." . $ext;
                             $img_url = $img_url . "." . $ext;
                         }
-
                         file_put_contents($img, $return);
 
                     } else {
