@@ -1087,9 +1087,7 @@ class Item {
         }
         
         if (is_array($imageString)) {
-
-            $order = 0;
-            
+            $order = 0;            
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);

@@ -119,8 +119,8 @@ class Autonet extends Curl {
         if (!empty($array['photo'])) {
 
             foreach ($array['photo'] as $key => $photo) {
-                $photosXml .= "<photo>\n";
-                $photosXml .= $this->getFullPath() . "/" . $key . "\n";
+                $photosXml .= "<photo>";
+                $photosXml .= $this->getFullPath() . "/" . $key;
                 $photosXml .= "</photo>\n";
             }
         }
