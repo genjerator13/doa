@@ -205,7 +205,7 @@ class ItemRepository extends EntityRepository {
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
-
+       
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
         if (!empty($importItem[$uniqueField])) {
@@ -299,7 +299,7 @@ class ItemRepository extends EntityRepository {
                     //check if string or array
                     
                     $json = json_decode($stringValue, true);
-                   
+                    
                     if (!empty($json) && is_array($json)) {
                         if (!empty($json['image']) && is_array($json['image'])) {
                             $temp = array();
