@@ -3035,4 +3035,14 @@ class Item {
     {
         return $this->iw_no;
     }
+    
+    public function setField($name,$value)
+    {
+        $methodName = "set".ucfirst($name);
+        if(method_exists($this, $methodName)){
+            call_user_method($methodName, $this, $value);
+            
+        }
+        
+    }
 }
