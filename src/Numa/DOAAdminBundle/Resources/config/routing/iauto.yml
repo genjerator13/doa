@@ -1,0 +1,6 @@
+iauto_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Iauto:index" }
+iauto_import:
+    pattern:  /{folder}/import
+    defaults: { _controller: "NumaDOAAdminBundle:Iauto:import" }    

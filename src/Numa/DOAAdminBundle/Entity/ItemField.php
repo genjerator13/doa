@@ -363,16 +363,21 @@ class ItemField {
         }
 
         $img_url = $url;
-        
+        $subfolder = "";
+        if($feed_sid instanceof Importfeed){
+            $subfolder = $feed_sid->getId();
+        }elseif(is_string($feed_sid)){
+            $subfolder = $feed_sid;
+        }
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //make a folder if not exists
-            $dir = $upload_path . "/" . $feed_sid->getId();
+            $dir = $upload_path . "/" . $subfolder;
             if (!file_exists($dir)) {
                 mkdir($dir, 0777);
             }
             
             //prepare filename for the image
-            $filename = $feed_sid->getId() . "_" . $uniqueValue . "_" . $filename;
+            $filename = $subfolder . "_" . $uniqueValue . "_" . $filename;
             $filename = str_replace(array(" ", '%'), "-", $filename);
             
             //chek if filename has extension
@@ -381,12 +386,14 @@ class ItemField {
             
             //full path to the uploaded image
             $img = $dir . "/" . $filename;
-            $img_url = $upload_url . "/" . $feed_sid->getId() . "/" . $filename;
+            $img_url = $upload_url . "/" . $subfolder . "/" . $filename;
             
             if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
                 // move the file to upload folder
                 $file = $url->move($dir, $filename);
-            } else if (!file_exists($img)) {
+            }elseif ((!empty($url) && $localy) && is_string($feed_sid)) {                
+                copy($stringValue, $img);            
+            }else if (!file_exists($img)) {
                 
                 //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
