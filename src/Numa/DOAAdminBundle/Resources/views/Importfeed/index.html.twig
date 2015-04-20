@@ -29,7 +29,8 @@
                         <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-default">edit</a>
                         <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-default">Mapping</a>
                         <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-default">fetch</a>
-                    </td>
+{#                        <a href="{{ path('importfeed_items_delete', { 'id': entity.id }) }}"  type="button" class="btn btn-danger" data-confirm="All the listings from the feed will be deleted.<br>Are you sure you want to delete?"><i class="glyphicon glyphicon-trash"></i>Delete All Items from the Feed</a>
+#}                    </td>
                 </tr>
             {% endfor %}
         </tbody>
@@ -41,4 +42,5 @@
             </a>
         </li>
     </ul>
+    {#{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}#}
 {% endblock %}
