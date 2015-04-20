@@ -1,19 +1,12 @@
 
-    aaa
-    {#{{items}}
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+
+{{items}}
     <p>{{items|length}} Items fetched</p>
     <a href="{{path("importfeed")}}">Back to the feed list</a>
     {% for key,item in items %}
-        </br>
-        </br>
-        <div><strong>{{key+1}}:{{item.id}}</strong></div>
-        </br>
-        {% for key,field in item.getItemFieldsArray() %}
-            <div>{{key}}: {%if field['stringvalue'] is defined %}{{field['stringvalue']}}{% endif %}</div>
-        {% endfor %}
-        
-        {% for key,field in item.getImages2() %}
-
-            <div>{{key}}: {{field.fieldStringValue}}</div>
-        {% endfor %}
-    {% endfor %}#}
+        {{dump(item)}}        
+    {% endfor %}
+{% endblock %}

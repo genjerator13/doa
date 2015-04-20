@@ -18,12 +18,11 @@ class IautoController extends Controller {
      * Lists all Importfeed entities.
      *
      */
-    public $map=array();
+    public $map = array();
+
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('NumaDOAAdminBundle:CommandLog')->findLastCommandLog(100);
-
         return $this->render('NumaDOAAdminBundle:CommandLog:index.html.twig', array(
                     'entities' => $entities,
         ));
@@ -36,10 +35,11 @@ class IautoController extends Controller {
         ///load file data_export.csv
         $upload_path = $this->container->getParameter('upload_path');
         $upload_url = $this->container->getParameter('upload_url');
-        $iautoFolder = $this->container->getParameter('iauto'). "/" . $folder;
+        $iautoFolder = $this->container->getParameter('iauto') . "/" . $folder;
         $iautoImagesFolder = $iautoFolder;
         $tmp = array();
         $res = array();
+        $importedItems = array();
         $filename = "export_data.csv";
         if (($handle = fopen($iautoFolder . "/" . $filename, "r")) !== FALSE) {
             $rowCount = 0;
@@ -56,40 +56,52 @@ class IautoController extends Controller {
                 }
                 $rowCount++;
             }
-        }                
-        
-        
+        }
+
+
 
         foreach ($res as $key => $value) {
-            
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneBy(array('sid'=>$value['id']));
-            if(!$item instanceof \Numa\DOAAdminBundle\Entity\Item){
+
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneBy(array('sid' => $value['id']));
+            if (!$item instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $item = new item();
                 $em->persist($item);
             }
-            
-            foreach ($value as $cellname=>$cell){
+
+            foreach ($value as $cellname => $cell) {
                 $mapValue = $map[$cellname];
-                if($mapValue=="category"){
-                    $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name'=>$value['category']));                    
-                    if($category instanceof \Numa\DOAAdminBundle\Entity\Category){
+                if ($mapValue == "category") {
+                    $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name' => $value['category']));
+                    if ($category instanceof \Numa\DOAAdminBundle\Entity\Category) {
                         $item->setCategory($category);
                     }
-                }elseif($mapValue=="pictures"){
+                } elseif ($mapValue == "pictures") {
                     $pictures = explode(";", $cell);
-                    foreach($pictures as $order=>$picture){
+                    foreach ($pictures as $order => $picture) {
                         $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
-                        $picture = $iautoImagesFolder."/".$picture;
-                        $itemField->handleImage($picture, $upload_path, $upload_url, "item".$item->getSid(), $order, true, $item->getSid());
+                        $picture = $iautoImagesFolder . "/" . $picture;
+                        $itemField->handleImage($picture, $upload_path, $upload_url, "item" . $item->getSid(), $order, true, $item->getSid());
                         $item->addItemField($itemField);
                     }
+                } elseif ($mapValue == "OptionsList") {
+                    $cell = strip_tags($cell, "<br>");
+                    $cell = str_replace("Features", "", $cell);
+                    $cell = trim(str_replace("Options (included)", "", $cell));
+                    $cell = preg_replace("/[\r\n]+/", "", $cell);
+                    $cell = preg_replace('/[\x00-\x1F\x7F]/', '', $cell);
+                    dump($cell);
+                    dump(explode("<br />",$cell));
+                    $item->proccessOptionsList($cell, "<br />");
                     
-                }else{
-                    $item->setField($mapValue,$cell );
+                } else {
+                    $item->setField($mapValue, $cell);
                 }
-            }                      
-        }    
-        $em->flush();  
+            }
+            $importedItems[] = $item;
+        }
+        $em->flush();
+        
+        return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $importedItems));
     }
 
     public function mapColumns($folder) {
@@ -97,7 +109,7 @@ class IautoController extends Controller {
 
         //load folder web/iauto/folder
         ///load file data_export.csv
-        
+
         $res = array();
         $filename = "iautomap.csv";
         if (($handle = fopen($this->container->getParameter('iauto') . "/" . $folder . "/" . $filename, "r")) !== FALSE) {
@@ -109,9 +121,8 @@ class IautoController extends Controller {
                 $this->map[$value] = $row2[$key];
             }
         }
-        
+
         return $this->map;
-        
     }
 
 }
