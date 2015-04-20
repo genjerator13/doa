@@ -2,8 +2,6 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-
-{{items}}
     <p>{{items|length}} Items fetched</p>
     <a href="{{path("importfeed")}}">Back to the feed list</a>
     {% for key,item in items %}
