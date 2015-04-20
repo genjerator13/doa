@@ -9,7 +9,7 @@ web/uploads/*
 web/bundles/*
 web/assetic/*
 web/media/*
-bin/*
+bin/doctrine/*
 composer.lock
 
 # Configuration files
