@@ -63,11 +63,14 @@ class IautoController extends Controller {
         foreach ($res as $key => $value) {
 
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneBy(array('sid' => $value['id']));
+            
             if (!$item instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $item = new item();
                 $em->persist($item);
             }
-
+            foreach ($item->getItemField() as $key => $itemField) {
+                $em->remove($itemField);
+            }
             foreach ($value as $cellname => $cell) {
                 $mapValue = $map[$cellname];
                 if ($mapValue == "category") {
