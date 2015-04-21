@@ -391,7 +391,7 @@ class ItemField {
             if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
                 // move the file to upload folder
                 $file = $url->move($dir, $filename);
-            }elseif ((!empty($url) && $localy) && is_string($feed_sid)) {                
+            }elseif ((!empty($url) && $localy) && is_string($feed_sid)) {
                 copy($stringValue, $img);            
             }else if (!file_exists($img)) {
                 
