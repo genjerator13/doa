@@ -3049,5 +3049,23 @@ class Item {
             dump($methodName);
         }
     }
+    
+    public function makeDetailsLog($createdItems) {
+        $output = "";
+
+        foreach ($createdItems as $key => $item) {
+
+            $output .= "<strong>" . $key . ":" . $item->getId() . "</strong>";
+            $output .= "<br>";
+            foreach ($item->getItemFieldsArray() as $key2 => $field) {
+                $output .= "<div>" . $key2 . ":";
+                if (!empty($field['stringvalue'])) {
+                    $output .= $field['stringvalue'];
+                }
+                $output .="</div>";
+            }
+        }
+        return $output;
+    }
 
 }

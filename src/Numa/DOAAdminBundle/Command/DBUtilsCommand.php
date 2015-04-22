@@ -21,6 +21,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     protected function configure() {
         //php app/console numa:DOA:users admin admin
+        //set_error_handler( array( $this, 'handler' ) );
         $this
                 ->setName('numa:dbutil')
                 ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
@@ -74,17 +75,61 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //die("aaaaa");
     }
 
+    function myErrorHandler($errno, $errstr, $errfile, $errline) {
+        echo "-----------------";
+//        if (!(error_reporting() & $errno)) {
+//            // This error code is not included in error_reporting
+//            return;
+//        }
+
+        switch ($errno) {
+            case E_USER_ERROR:
+
+                //$this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+                $this->commandLog->setStatus("ERROR");
+                dump($this->commandLog);
+                $this->em->flush();
+                $this->em->clear();
+                exit(1);
+                break;
+
+            case E_USER_WARNING:
+                echo "<b>My WARNING</b> [$errno] $errstr<br />\n";
+                break;
+
+            case E_USER_NOTICE:
+                echo "<b>My NOTICE</b> [$errno] $errstr<br />\n";
+                break;
+
+            default:
+                echo "Unknown error type: [$errno] $errstr<br />\n";
+                break;
+        }
+
+        /* Don't execute PHP internal error handler */
+        return true;
+    }
+
     public function fetchFeed($id, $em) {
+        try{
+        $this->em = $em;
+        $that = $this;
+//        set_error_handler(function() use ($that) {
+//            $that->customErrorHandler();
+//        });
+        set_error_handler(array($this, "myErrorHandler"));
+        //set_error_handler(&$this, "customErrorHandler");
         $time = time();
-        $em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $em->clear();
-        $commandLog = new CommandLog();
-        $commandLog->setCategory('fetch');
-        $commandLog->setStartedAt(new \DateTime());
-        $commandLog->setStatus('started');
-        $commandLog->setCommand($this->getName()." fetchFeed ".$id);
-        $em->persist($commandLog);
-        $em->flush();
+        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $this->em->clear();
+        $this->commandLog = new CommandLog();
+        $this->commandLog->setCategory('fetch');
+        $this->commandLog->setStartedAt(new \DateTime());
+        $this->commandLog->setStatus('started');
+
+        $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
+        $this->em->persist($this->commandLog);
+        $this->em->flush();
 
         $createdItems = array();
         $feed_id = $id;
@@ -92,8 +137,8 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $items = $remoteFeed->getRemoteItems();
         unset($remoteFeed);
 
-        $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
-        $sold = $em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
+        $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
+        $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
 
         $upload_url = $this->getContainer()->getParameter('upload_url');
         $upload_path = $this->getContainer()->getParameter('upload_path');
@@ -102,21 +147,24 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $count = 0;
 
         foreach ($items as $importItem) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+            $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
             if (!empty($item)) {
                 $createdItems[] = $item;
             }
+
             unset($item);
             //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count++;
             if ($count % 500 == 0) {
-                $em->flush();
-                $em->clear();
+                $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+                $this->em->flush();
+                $this->em->clear();                
             }
+            
         }
 
-        $em->flush();
-        $em->clear();
+        $this->em->flush();
+        $this->em->clear();
         unset($items);
         unset($mapping);
         $time = time() - $time;
@@ -124,30 +172,33 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //update hometabs
         $resultCode = $this->makeHomeTabs(false);
 
-        $commandLog = $em->getRepository('NumaDOAAdminBundle:CommandLog')->find($commandLog->getId());
-        
-        $commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-        $commandLog->setEndedAt(new \DateTime());
-        $commandLog->setStatus('finished');
+        $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
 
-        $em->flush();
-        dump($commandLog);
+        $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+        $this->commandLog->setEndedAt(new \DateTime());
+        $this->commandLog->setStatus('finished');
 
+        $this->em->flush();
+        dump($this->commandLog);
+        }  catch (Exception $ex){
+            trigger_error("ERROR",E_USER_ERROR);
+        }
     }
 
     public function makeDetailsLog($createdItems) {
         $output = "";
-        
-        foreach ($createdItems as $key => $item) {
-            
-            $output .= "<strong>".$key.":".$item->getId()."</strong>";
-            $output .= "<br>";
-            foreach ($item->getItemFieldsArray() as $key2 => $field) {
-                $output .= "<div>" . $key2 . ":";
-                if (!empty($field['stringvalue'])) {
-                    $output .= $field['stringvalue'];
+        if (!empty($createdItems)) {
+            foreach ($createdItems as $key => $item) {
+
+                $output .= "<strong>" . $key . ":" . $item->getId() . "</strong>";
+                $output .= "<br>";
+                foreach ($item->getItemFieldsArray() as $key2 => $field) {
+                    $output .= "<div>" . $key2 . ":";
+                    if (!empty($field['stringvalue'])) {
+                        $output .= $field['stringvalue'];
+                    }
+                    $output .="</div>";
                 }
-                $output .="</div>";
             }
         }
         return $output;

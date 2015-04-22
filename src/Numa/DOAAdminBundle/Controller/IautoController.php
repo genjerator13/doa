@@ -44,6 +44,7 @@ class IautoController extends Controller {
         if (($handle = fopen($iautoFolder . "/" . $filename, "r")) !== FALSE) {
             $rowCount = 0;
             $map = $this->mapColumns($folder);
+
             while (($row = fgetcsv($handle)) !== FALSE) {
                 //var_dump($row); // process the row.
                 if ($rowCount > 0) {
@@ -63,7 +64,7 @@ class IautoController extends Controller {
         foreach ($res as $key => $value) {
 
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneBy(array('sid' => $value['id']));
-            
+
             if (!$item instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $item = new item();
                 $em->persist($item);
@@ -73,7 +74,25 @@ class IautoController extends Controller {
             }
             foreach ($value as $cellname => $cell) {
                 $mapValue = $map[$cellname];
-                if ($mapValue == "category") {
+
+                if (stripos($mapValue, '(bool)') !== false) {
+                    //$map = str
+                    $fieldname = substr($mapValue, 6);
+                    if(!empty($fieldname) && !empty($mapValue)){
+                        $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
+                        $valuexxx=false;
+                        if($cell=="true"){
+                            $valuexxx=true;
+                        }
+                        $itemField->setFieldType('boolean');
+                        $itemField->setFieldName($fieldname);
+                        $itemField->setAllValues($valuexxx);
+
+                        $item->addItemField($itemField);
+
+                        unset($itemField);
+                    }
+                } elseif ($mapValue == "category") {
                     $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name' => $value['category']));
                     if ($category instanceof \Numa\DOAAdminBundle\Entity\Category) {
                         $item->setCategory($category);
@@ -81,10 +100,13 @@ class IautoController extends Controller {
                 } elseif ($mapValue == "pictures") {
                     $pictures = explode(";", $cell);
                     foreach ($pictures as $order => $picture) {
-                        $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
-                        $picture = $iautoImagesFolder . "/" . $picture;
-                        $itemField->handleImage($picture, $upload_path, $upload_url, "item" . $item->getSid(), $order, true, $item->getSid());
-                        $item->addItemField($itemField);
+                        if(!empty($picture)){
+                            $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
+                            $picture = $iautoImagesFolder . "/" . $picture;
+                            $itemField->handleImage($picture, $upload_path, $upload_url, "item" . $item->getSid(), $order, true, $item->getSid());
+                            $item->addItemField($itemField);
+                            unset($itemField);
+                        }
                     }
                 } elseif ($mapValue == "OptionsList") {
                     $cell = strip_tags($cell, "<br>");
@@ -92,18 +114,15 @@ class IautoController extends Controller {
                     $cell = trim(str_replace("Options (included)", "", $cell));
                     $cell = preg_replace("/[\r\n]+/", "", $cell);
                     $cell = preg_replace('/[\x00-\x1F\x7F]/', '', $cell);
-                    dump($cell);
-                    dump(explode("<br />",$cell));
                     $item->proccessOptionsList($cell, "<br />");
-                    
                 } else {
                     $item->setField($mapValue, $cell);
                 }
             }
-            $importedItems[] = $item;
+            $importedItems[] = $item;dump($item);die();
         }
         $em->flush();
-        
+
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig', array('items' => $importedItems));
     }
 
