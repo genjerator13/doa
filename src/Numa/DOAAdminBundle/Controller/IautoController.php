@@ -119,7 +119,7 @@ class IautoController extends Controller {
                     $item->setField($mapValue, $cell);
                 }
             }
-            $importedItems[] = $item;dump($item);die();
+            $importedItems[] = $item;
         }
         $em->flush();
 
