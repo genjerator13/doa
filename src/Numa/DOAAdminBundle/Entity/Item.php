@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Criteria;
 class Item {
 
     public static $fields = array(1 =>
-        array('body_description' => 'bodyDescription','doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
+        array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
@@ -627,7 +627,7 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
     public function removeAllItemField() {
-
+//as
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -1016,10 +1016,9 @@ class Item {
             $test = json_decode($stringvalue, true);
 
             if (is_array($test)) {
-                if(!empty($test['option'])){
+                if (!empty($test['option'])) {
                     $optionsArray = $test['option'];
                 }
-                
             }
         }
         
@@ -1031,6 +1030,7 @@ class Item {
                 $optionsArray = array();
                 foreach ($json['option'] as $key => $value) {
                     $itemField = new ItemField();
+                    
                     if (!empty($value['value'])) {
                         if (empty($value['label'])) {
                             //if label is not defined, set as true
@@ -1054,22 +1054,27 @@ class Item {
         }
 
         if (!$proccessed) {
-            
-            if(is_string($optionsArray)){
+
+            if (is_string($optionsArray)) {
                 $optionsArray = array($optionsArray);
             }
+            
             foreach ($optionsArray as $key => $option) {
-                
-                $itemField = new ItemField();
-                $itemField->setAllValues(true);
-                $itemField->setFeedId($this->getFeedId());
-                $itemField->setFieldName($option);
-                $itemField->setFieldType('boolean');
-                $itemField->setSortOrder($order);
-                $this->addItemField($itemField);
-                $order++;
+                $option = trim($option);
+                if(!empty($option)){
+                    $itemField = new ItemField();
+                    $itemField->setAllValues(true);
+                    $itemField->setFeedId($this->getFeedId());
+                    $itemField->setFieldName($option);
+                    $itemField->setFieldType('boolean');
+                    $itemField->setSortOrder($order);
+                    $this->addItemField($itemField);
+                    $order++;
+                }
             }
+            
         }
+        
         unset($optionsArray);
         unset($order);
     }
@@ -1078,16 +1083,16 @@ class Item {
         $listingFields = $maprow->getListingFields();
 
         $localy = $feed->getPicturesSaveLocaly();
-        
+
         if (is_array($imageString) && !empty($imageString['photo'])) {
             $imageString = $imageString['photo'];
         }
         if (is_array($imageString) && !empty($imageString['imageurl'])) {
             $imageString = $imageString['imageurl'];
         }
-        
+
         if (is_array($imageString)) {
-            $order = 0;            
+            $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);
@@ -1096,7 +1101,7 @@ class Item {
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
-                
+
                 $itemField->handleImage($value, $upload_path, $upload_url, $feed, $order, $localy, $uniqueValue);
 
                 $this->addItemField($itemField);
@@ -1637,7 +1642,7 @@ class Item {
             $this->setType($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {
             $this->setDealerId($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
+        } elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
             $this->setIwNo($itemField->getFieldStringValue());
         }
     }
@@ -3012,15 +3017,13 @@ class Item {
      */
     private $iw_no;
 
-
     /**
      * Set iw_no
      *
      * @param string $iwNo
      * @return Item
      */
-    public function setIwNo($iwNo)
-    {
+    public function setIwNo($iwNo) {
         $this->iw_no = $iwNo;
 
         return $this;
@@ -3031,18 +3034,40 @@ class Item {
      *
      * @return string 
      */
-    public function getIwNo()
-    {
+    public function getIwNo() {
         return $this->iw_no;
     }
-    
-    public function setField($name,$value)
-    {
-        $methodName = "set".ucfirst($name);
-        if(method_exists($this, $methodName)){
+
+    public function setField($name, $value) {
+        $methodName = "set" . ucfirst($name);
+        if (method_exists($this, $methodName)) {
+            $value = preg_replace("/[\r\n]+/", "", $value);                                   
+            $value = preg_replace('/[\x00-\x1F\x7F]/', '', $value);
+            $value = trim(preg_replace('/\s\s+/', '', $value));
+            //$value = str_replace(" </h4>", "aaaaaa", $value);
             call_user_method($methodName, $this, $value);
             
+        } else {
+            dump($methodName);
         }
-        
     }
+    
+    public function makeDetailsLog($createdItems) {
+        $output = "";
+
+        foreach ($createdItems as $key => $item) {
+
+            $output .= "<strong>" . $key . ":" . $item->getId() . "</strong>";
+            $output .= "<br>";
+            foreach ($item->getItemFieldsArray() as $key2 => $field) {
+                $output .= "<div>" . $key2 . ":";
+                if (!empty($field['stringvalue'])) {
+                    $output .= $field['stringvalue'];
+                }
+                $output .="</div>";
+            }
+        }
+        return $output;
+    }
+
 }

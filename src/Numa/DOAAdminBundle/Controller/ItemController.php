@@ -112,7 +112,7 @@ class ItemController extends Controller {
         //$grid->hideColumns('moderation_status');
         //$grid->hideColumns('views');
         //$grid->hideColumns('activation_date');
-
+//as
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
     }
 

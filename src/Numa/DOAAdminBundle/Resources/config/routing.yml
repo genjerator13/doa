@@ -31,3 +31,6 @@ feed_api:
 command_log:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/command_log.yml"
         prefix:   /command_log        
+iauto:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/iauto.yml"
+        prefix:   /iauto

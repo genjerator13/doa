@@ -1,0 +1,20 @@
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+web/assetic/*
+web/media/*
+bin/doctrine/*
+composer.lock
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+/nbproject/private/
+upload/
+

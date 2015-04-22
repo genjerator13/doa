@@ -201,6 +201,7 @@ class ItemRepository extends EntityRepository {
      */
     public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+        
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
@@ -245,13 +246,12 @@ class ItemRepository extends EntityRepository {
         }
 
         foreach ($mapping as $maprow) {
-
+            
             $property = $maprow->getSid();
 
             $processed = false;
             $listingFields = $maprow->getListingFields();
             //check if there are predefined listing field in database (listing_field_lists)
-
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingFields->getType();
@@ -335,10 +335,14 @@ class ItemRepository extends EntityRepository {
                 //connect with dealer
 
                 if (stripos($property, 'dealer') !== false) {
+                    
                     $dealerId = $stringValue;
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
+                    
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+                        
                         $item->setDealer($dealer);
+                        
                     }
                     unset($dealer);
                     unset($dealerId);

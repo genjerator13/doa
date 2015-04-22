@@ -8,9 +8,13 @@ vendor/*
 web/uploads/*
 web/bundles/*
 web/assetic/*
+web/media/*
+bin/*
+composer.lock
 
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
 /nbproject/private/
 upload/
+
