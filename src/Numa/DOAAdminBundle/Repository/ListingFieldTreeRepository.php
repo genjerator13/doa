@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class ListingFieldTreeRepository extends EntityRepository {
 
     public function getJsonTreeModels($fieldId, $root = 1, $deep = 2) {
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $query = $qb->select('tp')
                 ->from('NumaDOAAdminBundle:ListingFieldTree', 'tp')
