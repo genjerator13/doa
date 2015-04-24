@@ -18,7 +18,7 @@ class ListingFieldListsRepository extends EntityRepository {
                      l.listing_field_id = ' . $listing_field_id . ' AND
                      l.value like \'' . $propertyName . '\'  OR 
                      l.value like \'%' . $propertyName . '%\'     ';
-        $query = $this->getEntityManager()
+        $query = $this->getManager()
                         ->createQuery($q)->setMaxResults(1);
         $res = $query->getOneOrNullResult(); //getOneOrNullResult();
         return $res;
@@ -30,7 +30,7 @@ class ListingFieldListsRepository extends EntityRepository {
      * @return type
      */
     public function findAllBy($property, $cat = 0, $result = false) {
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
                 ->from('NumaDOAAdminBundle:ListingfieldLists', 'lfl')
@@ -71,7 +71,7 @@ class ListingFieldListsRepository extends EntityRepository {
     }
 
     public function getJsonListModels($fieldId) {
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $query = $qb->select('tp')
                 ->from('NumaDOAAdminBundle:ListingFieldLists', 'tp')

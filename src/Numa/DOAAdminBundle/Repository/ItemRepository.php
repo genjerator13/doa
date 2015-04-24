@@ -16,7 +16,7 @@ class ItemRepository extends EntityRepository {
     public function getItemFields($item_id) {
 
         $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
-        $query = $this->getEntityManager()
+        $query = $this->getManager()
                 ->createQuery($q);
         $res = $query->getResult();
         return $res;
@@ -29,7 +29,7 @@ class ItemRepository extends EntityRepository {
 
         $sql = " SELECT count(*) as count FROM item WHERE featured=1 AND active=1";
         $res2 = array();
-        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
         $stmt->execute();
         $res2 = $stmt->fetchAll();
         $count = intval($res2[0]['count']);
@@ -37,7 +37,7 @@ class ItemRepository extends EntityRepository {
 
         $sql = " SELECT model, make, id,year,price FROM item WHERE featured=1 AND active=1";
 
-        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt = $this->getManager()->getConnection()->prepare($sql);
         $stmt->execute();
         $res2 = $stmt->fetchAll();
         if (!empty($res2)) {
@@ -47,7 +47,7 @@ class ItemRepository extends EntityRepository {
                 $randResult[] = $res2[$key]['id'];
             }
 
-            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb = $this->getManager()->createQueryBuilder();
             $qb->select('i')
                     ->from('NumaDOAAdminBundle:Item', 'i')
                     //->andWhere('i.featured=1')
@@ -60,7 +60,7 @@ class ItemRepository extends EntityRepository {
             //              ->andWhere('r.winner IN (:ids)')
             //              ->setParameter('ids', $ids);
             //        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i WHERE i.featured = 1 AND i.active=1';
-            //        $query = $this->getEntityManager()->createQuery($q)->setMaxResults($max);
+            //        $query = $this->getManager()->createQuery($q)->setMaxResults($max);
             //        $res = $query->getResult(); //getOneOrNullResult();
             $res = $qb->getQuery()->getResult(); //->getResult();
             //        dump($qb->getQuery());
@@ -80,7 +80,7 @@ class ItemRepository extends EntityRepository {
     public function findSavedAds($user_id) {
         $user_id = intval($user_id);
 
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
                 ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItems ui')
@@ -101,7 +101,7 @@ class ItemRepository extends EntityRepository {
         if ($cat == 2) {
             $subcatname = 'boat subtype';
         }
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('if.field_string_value')->distinct()
                 ->from('NumaDOAAdminBundle:Item', 'i')
@@ -122,7 +122,7 @@ class ItemRepository extends EntityRepository {
             $subcat = 'ag_application';
         }
 
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
                 ->from('NumaDOAAdminBundle:Item', 'i')
@@ -140,7 +140,7 @@ class ItemRepository extends EntityRepository {
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
+            $q = $this->getManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -148,7 +148,7 @@ class ItemRepository extends EntityRepository {
     public function removeAllItemFieldsByFeed($feed_id) {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
+            $q = $this->getManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
             $numDeleted = $q->execute();
         }
     }
@@ -156,7 +156,7 @@ class ItemRepository extends EntityRepository {
     public function setSoldOnAllItemInFeed($feed_id) {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
-            $qb = $this->getEntityManager()->createQueryBuilder();
+            $qb = $this->getManager()->createQueryBuilder();
             $qb->update('NumaDOAAdminBundle:Item', 'i')
                     ->andWhere('i.feed_id = :ids')
                     ->setParameter('ids', $feed_id)
@@ -173,7 +173,7 @@ class ItemRepository extends EntityRepository {
             return false;
         }
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
-        $itemsQuery = $this->getEntityManager()
+        $itemsQuery = $this->getManager()
                         ->createQuery($q)->setMaxResults(1);
 
         //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
@@ -185,7 +185,7 @@ class ItemRepository extends EntityRepository {
 
     public function removeItemsByFeed($feed_id) {
         $feed_id = intval($feed_id);
-        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
+        $q = $this->getManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
         $numDeleted = $q->execute();
     }
 
