@@ -36,7 +36,7 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function getFeed() {
-        $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getEntityManager('default');
+        $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getManager('default');
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);
         ;
         $this->items = array();

@@ -18,7 +18,7 @@ class EntityListener {
 
     public function prePersist(LifecycleEventArgs $args) {
         $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        $entityManager = $args->getManager();
         //before save Item
 
         if ($entity instanceof Item) {
@@ -57,7 +57,7 @@ class EntityListener {
 
     public function preUpdate(PreUpdateEventArgs $args) {
         $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+        $entityManager = $args->getManager();
 
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);

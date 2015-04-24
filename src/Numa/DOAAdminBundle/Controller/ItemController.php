@@ -353,7 +353,7 @@ class ItemController extends Controller {
         $entity->setCategory($category);
 
         $securityContext = $this->container->get('security.context');
-        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser(), $category), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser(), $category), $entity, array(
             'method' => 'POST',
         ));
 
@@ -486,7 +486,7 @@ class ItemController extends Controller {
             }
         }
 
-        $form = $this->createForm(new ItemType($this->getDoctrine()->getEntityManager(), $securityContext, $this->getUser()), $entity, array(
+        $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
 

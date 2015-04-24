@@ -14,7 +14,7 @@ class ListingfieldRepository extends EntityRepository {
 
     public function findAllByCaption($caption, $categories = array()) {
 
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('lf')
                 ->from('NumaDOAAdminBundle:Listingfield', 'lf')
