@@ -13,7 +13,7 @@ class CommandLogRepository extends EntityRepository {
      */
     
     public function findLastCommandLog($limit) {
-        $qb = $this->getEntityManager()
+        $qb = $this->getManager()
                 ->createQueryBuilder();
         $qb->select('cl')->distinct()
                 ->add('from', 'NumaDOAAdminBundle:CommandLog cl')

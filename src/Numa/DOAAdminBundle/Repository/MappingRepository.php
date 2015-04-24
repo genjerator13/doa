@@ -16,7 +16,7 @@ class MappingRepository extends EntityRepository {
     
     public function findMapRow($feed_id,$remoteProperty) {
         $feed_id = intval($feed_id);
-        $qb = $this->getManager()
+        $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('m')->distinct()
                 ->add('from', 'NumaDOAAdminBundle:ImportMapping m')

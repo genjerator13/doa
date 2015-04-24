@@ -18,7 +18,7 @@ class ListingfieldRepository extends EntityRepository
                $q .=  ' OR  l.caption like \'%'.$propertyName.'%\'      ';
         }
               $q .=  ' AND l.category_sid IN ('.  implode(',', $categories).')';
-        $query =  $this->getManager()
+        $query =  $this->getEntityManager()
             ->createQuery($q)->setMaxResults(1) ;
         $res =$query->getOneOrNullResult();//getOneOrNullResult();
      
@@ -27,7 +27,7 @@ class ListingfieldRepository extends EntityRepository
     
     public function findAllByCaption($caption, $categories = array()) {
 
-        $qb = $this->getManager()
+        $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lf')
                 ->from('NumaDOAAdminBundle:Listingfield', 'lf')
@@ -45,7 +45,7 @@ class ListingfieldRepository extends EntityRepository
     
     public function findAllByType($type, $categories = array()) {
         
-        $qb = $this->getManager()
+        $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lf')
                 ->from('NumaDOAAdminBundle:Listingfield', 'lf')
@@ -66,7 +66,7 @@ class ListingfieldRepository extends EntityRepository
 
     public function findAllOrderedByName()
     {
-        return $this->getManager()
+        return $this->getEntityManager()
             ->createQuery(
                 'SELECT p FROM AcmeStoreBundle:Product p ORDER BY p.name ASC'
             )
