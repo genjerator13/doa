@@ -38,7 +38,7 @@ class ListingFieldTreeRepository extends EntityRepository {
     }
 
     public function findAllBy($fieldId) {
-        $qb = $this->getManager()
+        $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('t')
                 ->from('NumaDOAAdminBundle:ListingfieldTree', 't')
@@ -75,7 +75,7 @@ class ListingFieldTreeRepository extends EntityRepository {
                     ( t.listing_field_id = ' . $listing_field_id . ' AND
                     (t.name like \'' . $propertyName . '\'  OR 
                      t.name like \'%' . $propertyName . '%\'     )) ';
-        $query = $this->getManager()
+        $query = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
         $res = $query->getOneOrNullResult(); //getOneOrNullResult();
         return $res;
