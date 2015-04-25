@@ -179,7 +179,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $this->commandLog->setStatus('finished');
 
         $this->em->flush();
-        dump($this->commandLog);
         }  catch (Exception $ex){
             trigger_error("ERROR",E_USER_ERROR);
         }
