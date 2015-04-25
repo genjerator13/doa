@@ -187,9 +187,10 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     public function makeDetailsLog($createdItems) {
         $output = "";
+        $count = 0;
         if (!empty($createdItems)) {
             foreach ($createdItems as $key => $item) {
-
+                $count++;
                 $output .= "<strong>" . $key . ":" . $item->getId() . "</strong>";
                 $output .= "<br>";
                 foreach ($item->getItemFieldsArray() as $key2 => $field) {
@@ -198,6 +199,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         $output .= $field['stringvalue'];
                     }
                     $output .="</div>";
+                }
+                if($count>50){
+                    return $output;
                 }
             }
         }

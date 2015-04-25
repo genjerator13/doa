@@ -1641,7 +1641,8 @@ class Item {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {
-            $this->setDealerId($itemField->getFieldStringValue());
+            
+            //$this->setDealerId($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
             $this->setIwNo($itemField->getFieldStringValue());
         }
