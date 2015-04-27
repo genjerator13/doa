@@ -15,7 +15,7 @@
     RewriteRule ^upload/(.*)$ /web/upload/$1  [QSA,L]
     RewriteRule ^img/(.*)$ /web/img/$1  [QSA,L]
     RewriteRule ^jqueryUI/(.*)$ /web/jqueryUI/$1  [QSA,L]
-
+    RewriteRule ^flexSlider/(.*)$ /web/flexSlider/$1  [QSA,L]
 
     RewriteRule ^bundles/(.*)$ /web/bundles/$1  [QSA,L]
 
