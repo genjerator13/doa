@@ -38,7 +38,12 @@
                                                                     </a>                                    
                                                                 </h4>
 
-                                                                <div>Listing ID # {{item.id}} in the category "{{item.category}} "</div>
+                                                                <div>
+                                                                    {% if (item.StockNr) %}
+                                                                        Stock Number: {{item.StockNr}}; 
+                                                                    {% endif %}
+                                                                    Listing ID # {{item.id}} in the category "{{item.category}} "
+                                                                </div>
                                                                 <div>Posted by {{dealer}} </div>
 
 
