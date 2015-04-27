@@ -476,3 +476,7 @@ h4{
 .bx-wrapper, .flexslider {
     margin-bottom: 0;
 }
+
+div.detailsContent div.slideshow {
+    width: 600px;
+}

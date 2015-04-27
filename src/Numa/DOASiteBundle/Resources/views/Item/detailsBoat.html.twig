@@ -17,34 +17,22 @@
                 {% block content %}
                     <div class="detailsContent">
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
-                        {% if (images|length) >0 %}
-                            <div id="slider" class="flexslider">
-                                <ul class="slides">
-                                    {% for key,image in images %}    
-                                        {% if ('http' not in image.stringvalue) %}
-                                            <li><img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />    </li>
-                                            {% else %}
-                                            <li><img src="{{image.stringvalue}}" alt="image{{key}}" height="500px" />    </li>
-                                            {%endif%}
-                                        {% endfor %}
-                                </ul>
-                            </div>
-                        {%endif%}
-                        {% if (images|length) >0 %}
-                            <div id="carousel" class="flexslider">
-                                <ul class="slides">
+
+                        <div class="slideshow">
+                            
+                                <ul class="pgwSlideshow">
                                     {% for key,image in images %}    
                                         <li>
                                             {% if ('http' not in image.stringvalue) %}
-                                                <img src="{{image.stringvalue|imagine_filter('search_image')}}" alt="image{{key}}" />
+                                                <img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />
                                             {% else %}
-                                                <img src="{{image.stringvalue}}" alt="image{{key}}" height="90px" />
+                                                <img src="{{image.stringvalue}}" alt="image{{key}}" />
                                             {%endif%}
                                         </li>
                                     {% endfor %}
                                 </ul>
-                            </div>
-                        {%endif%}
+                          
+                        </div>
 
                         {% if item.getItemFieldByName('youtube video id') is not empty%}
                             <div class='row'>
@@ -369,6 +357,9 @@
                                                 slideshow: true,
                                                 sync: "#carousel"
                                             });
+
+
+                                            $('.pgwSlideshow').pgwSlideshow();
                                         });
                                     </script>
                                     {#{% javascripts '@savecompared_js' %}
