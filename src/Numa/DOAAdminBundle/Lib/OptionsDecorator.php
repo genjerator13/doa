@@ -20,6 +20,7 @@ class OptionsDecorator {
    }
    
    public function processOptionsFrom($source){
+       $optionsArray = array();
        if (is_string($source)) {
             $test = json_decode($source, true);
 
@@ -31,6 +32,7 @@ class OptionsDecorator {
                 
             }
         }
+        
         foreach ($optionsArray as $key => $value) {
             $option = new Option();
             $option->setName($value['name']);
