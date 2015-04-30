@@ -175,6 +175,7 @@ liip_imagine:
                 #thumbnail: { size: [210, 140], mode: outbound }
 parameters:
     upload_url: /upload/itemsimages
+    web_path: %kernel.root_dir%/../web
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
     iauto: %kernel.root_dir%/../web/iauto

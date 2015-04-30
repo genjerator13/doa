@@ -111,76 +111,75 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     public function fetchFeed($id, $em) {
-        try{
-        $this->em = $em;
-        $that = $this;
+        try {
+            $this->em = $em;
+            $that = $this;
 //        set_error_handler(function() use ($that) {
 //            $that->customErrorHandler();
 //        });
-        set_error_handler(array($this, "myErrorHandler"));
-        //set_error_handler(&$this, "customErrorHandler");
-        $time = time();
-        $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
-        $this->em->clear();
-        $this->commandLog = new CommandLog();
-        $this->commandLog->setCategory('fetch');
-        $this->commandLog->setStartedAt(new \DateTime());
-        $this->commandLog->setStatus('started');
+            set_error_handler(array($this, "myErrorHandler"));
+            //set_error_handler(&$this, "customErrorHandler");
+            $time = time();
+            $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
+            $this->em->clear();
+            $this->commandLog = new CommandLog();
+            $this->commandLog->setCategory('fetch');
+            $this->commandLog->setStartedAt(new \DateTime());
+            $this->commandLog->setStatus('started');
 
-        $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
-        $this->em->persist($this->commandLog);
-        $this->em->flush();
+            $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
+            $this->em->persist($this->commandLog);
+            $this->em->flush();
 
-        $createdItems = array();
-        $feed_id = $id;
-        $remoteFeed = new Remotefeed($id);
-        $items = $remoteFeed->getRemoteItems();
-        unset($remoteFeed);
+            $createdItems = array();
+            $feed_id = $id;
+            $remoteFeed = new Remotefeed($id);
+            $items = $remoteFeed->getRemoteItems();
+            unset($remoteFeed);
 
-        $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
-        $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
+            $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
+            $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
 
-        $upload_url = $this->getContainer()->getParameter('upload_url');
-        $upload_path = $this->getContainer()->getParameter('upload_path');
+            $upload_url = $this->getContainer()->getParameter('upload_url');
+            $upload_path = $this->getContainer()->getParameter('upload_path');
 
-        //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        $count = 0;
+            //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+            $count = 0;
 
-        foreach ($items as $importItem) {
-            $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
-            if (!empty($item)) {
-                $createdItems[] = $item;
+            foreach ($items as $importItem) {
+                $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+                if (!empty($item)) {
+                    $createdItems[] = $item;
+                }
+
+                unset($item);
+                //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
+                $count++;
+                if ($count % 500 == 0) {
+                    $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+                    $this->em->flush();
+                    $this->em->clear();
+                }
             }
 
-            unset($item);
-            //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-            $count++;
-            if ($count % 500 == 0) {
-                $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                $this->em->flush();
-                $this->em->clear();                
-            }
-            
-        }
+            $this->em->flush();
+            $this->em->clear();
+            unset($items);
+            unset($mapping);
+            $time = time() - $time;
 
-        $this->em->flush();
-        $this->em->clear();
-        unset($items);
-        unset($mapping);
-        $time = time() - $time;
+            //update hometabs
+            $resultCode = $this->makeHomeTabs(false);
 
-        //update hometabs
-        $resultCode = $this->makeHomeTabs(false);
+            $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
 
-        $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
+            $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+            $this->commandLog->setEndedAt(new \DateTime());
+            $this->commandLog->setStatus('finished');
 
-        $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-        $this->commandLog->setEndedAt(new \DateTime());
-        $this->commandLog->setStatus('finished');
-
-        $this->em->flush();
-        }  catch (Exception $ex){
-            trigger_error("ERROR",E_USER_ERROR);
+            $this->em->flush();
+        } catch (Exception $ex) {
+            trigger_error("ERROR", E_USER_ERROR);
         }
     }
 
@@ -199,7 +198,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     }
                     $output .="</div>";
                 }
-                if($count>50){
+                if ($count > 50) {
                     return $output;
                 }
             }

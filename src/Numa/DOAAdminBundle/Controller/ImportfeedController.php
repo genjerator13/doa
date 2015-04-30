@@ -109,16 +109,16 @@ class ImportfeedController extends Controller {
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
-        
+
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
-        
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        
+
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
@@ -164,10 +164,10 @@ class ImportfeedController extends Controller {
         if ($editForm->isValid()) {
             $is = $entity->getImportSourceFile();
             //if($is instanceof \Symfony\Component\HttpFoundation\File\UploadedFile  && $is->getImportSourceFile()!=$is->getClientOriginalName() ){
-                    //&& !file_exists($entity->getAbsolutePath())){
-                $entity->upload();
+            //&& !file_exists($entity->getAbsolutePath())){
+            $entity->upload();
             //}
-            
+
             $em->flush();
 
             return $this->redirect($this->generateUrl('importfeed_edit', array('id' => $id)));
@@ -202,24 +202,40 @@ class ImportfeedController extends Controller {
 
         return $this->redirect($this->generateUrl('importfeed'));
     }
-    
-        /**
+
+    /**
      * Deletes all Importfeed listings.
      *
      */
     public function deleteItemsAction(Request $request, $id) {
 
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Importfeed entity.');
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Importfeed entity.');
+        }
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id'=>$entity->getId()));
+        
+        foreach($items as $item) {
+            foreach($item->getItemField() as $itemField) {
+                if(stripos($itemField->getFieldType(),"array")!==false && stripos($itemField->getFieldStringValue(), "http")===false){
+                    $web_path = $this->container->getParameter('web_path');
+                    $filename = $web_path.$itemField->getFieldStringValue();
+                    if(file_exists($filename) && is_file($filename)){
+                        unlink($filename);                                                
+                    }
+                    $em->remove($itemField);
+                }            
             }
+            $em->remove($item);
+        }
+        //$em->remove($entity);
+        $em->flush();
 
-            $em->remove($entity);
-            $em->flush();
-
-
+        //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
+        $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed '.$id." are removed and the images are deleted.");
+    
         return $this->redirect($this->generateUrl('importfeed'));
     }
 

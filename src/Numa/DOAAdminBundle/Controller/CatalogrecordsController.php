@@ -307,8 +307,7 @@ class CatalogrecordsController extends Controller {
                         $new++;
                         $em->persist($newDealer);
                     }
-                }else{
-                    $this->addFlash('warning', 'CSV not correct format(no email in fields)');
+                }else{                    
                     return $this->redirectToRoute('catalogs');
                 }
             }
