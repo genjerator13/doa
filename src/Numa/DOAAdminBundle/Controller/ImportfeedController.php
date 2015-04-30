@@ -233,7 +233,9 @@ class ImportfeedController extends Controller {
         //$em->remove($entity);
         $em->flush();
 
-        die();
+        //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
+        $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed '.$id." are removed and the images are deleted.");
+    
         return $this->redirect($this->generateUrl('importfeed'));
     }
 
