@@ -320,8 +320,9 @@ class ItemRepository extends EntityRepository {
                 } else {
                     
                 }
-
+                
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
+                    
                     $processed = true;
                     $item->proccessOptionsList($stringValue, $feed->getOptionsSeparator());
                 }
