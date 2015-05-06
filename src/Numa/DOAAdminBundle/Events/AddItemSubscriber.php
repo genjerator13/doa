@@ -15,11 +15,11 @@ class AddItemSubscriber implements EventSubscriberInterface {
     protected $dealerID;
     protected $category;
 
-    public function __construct($em,$securityContext,$dealerID,$category) {
+    public function __construct($em, $securityContext, $dealerID, $category) {
         $this->em = $em;
         $this->dealerID = $dealerID;
         $this->category = $category;
-        
+
         $this->securityContext = $securityContext;
     }
 
@@ -42,34 +42,33 @@ class AddItemSubscriber implements EventSubscriberInterface {
         //$data->getDoors();
         //check all 
         $cat = $item->getCategoryId();
-        if($this->category instanceof \Numa\DOAAdminBundle\Entity\Category){
+        if ($this->category instanceof \Numa\DOAAdminBundle\Entity\Category) {
             $cat = $this->category->getId();
         }
-        
-        foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB=>$carFieldField) {
-            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB,$cat,true);
-            
+
+        foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB => $carFieldField) {
+            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
+
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 //dump($listingList );
                 $type = $listingList->getType();
-                
-                if (strtolower($type) == 'list') {                    
+
+                if (strtolower($type) == 'list') {
                     $selected = $item->getItemFieldByName($carFieldDB);
-                    
-                    $listingList = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
+
+                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
                     $values = array();
-                    foreach ($listingList as $key => $value) {
+                    foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
                     //make form name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
-                    
-                }elseif(strtolower($type) == 'tree') {
-                    
+                } elseif (strtolower($type) == 'tree') {
+
                     $selected = $item->getItemFieldByName($carFieldField);
-                    
-                    
-                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(),'level'=>1));
+
+
+                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(), 'level' => 1));
                     $values = array();
                     foreach ($listingTree as $key => $value) {
                         $values[$value->getName()] = $value->getName();
@@ -77,12 +76,10 @@ class AddItemSubscriber implements EventSubscriberInterface {
                     //dump($values);
                     //dump($selected);
                     //make form name from db name TODO function for that
-                    
-                    
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
-                    
-                }
 
+
+                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                }
             }
         }
         //die();
@@ -91,9 +88,9 @@ class AddItemSubscriber implements EventSubscriberInterface {
 
             $item->setDealer($this->dealerID);
             $form->remove('Dealer');
-            $form->add('dealer_id','hidden',array('data'=>$this->dealerID->getId()));                    
+            $form->add('dealer_id', 'hidden', array('data' => $this->dealerID->getId()));
         }
-        
+
         foreach ($item->getItemField() as $itemfield) {
             if ($itemfield->getFieldType() == 'boolean') {
                 
@@ -101,7 +98,6 @@ class AddItemSubscriber implements EventSubscriberInterface {
                 $item->removeItemField($itemfield);
             }
         }
-
     }
 
 }
