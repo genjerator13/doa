@@ -1631,7 +1631,7 @@ class Item {
             $this->setSlideOuts($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
             $this->setFlooring($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'floor plan') {
+        } elseif (strtolower($itemField->getFieldName()) == 'floor plan' || strtolower($itemField->getFieldName()) == 'floor plan model') {
             $this->setFloorPlan($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'class') {
             $this->setClass($itemField->getFieldStringValue());
