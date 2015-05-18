@@ -11,7 +11,8 @@ use Doctrine\Common\Collections\Criteria;
  */
 class Item {
 
-    public static $fields = array(1 =>
+    public static $fields = array(
+        1 =>
         array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
@@ -770,7 +771,9 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        if (property_exists(get_class($this), $name)) {
+        //FIX ME FIX ME FIX ME
+        if (property_exists(get_class($this), strtolower($name))) {
+            
             $name = strtolower($name);
             return $this->$name;
         } elseif ($name == 'image') {
