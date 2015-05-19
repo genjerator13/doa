@@ -95,7 +95,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
         $this->commandLog->setStatus("ERROR");
-        $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />\n");
+        $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />$errfile : $errline\n");
         $this->em->flush();
         $this->em->clear();
 
