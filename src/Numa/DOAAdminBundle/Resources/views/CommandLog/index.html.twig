@@ -35,7 +35,7 @@
                         {% endif %}
                         </td>
                         <td>{{ entity.status }}
-                        {% if (entity.status=='started' or entity.status=='finished' or entity.status=='ERROR')%} count({{entity.count}}),current:{{entity.current}}{% endif%}
+                        {% if (entity.status=='started' or entity.status=='finished' or entity.status=='ERROR' )%} count({{entity.count}}),current:{{entity.current}}{% endif%}
                         </td>
                         <td>
                             <a href="{{path('command_log_detail',{'id':entity.id})}}" class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}" >Show details</a>
