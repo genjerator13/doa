@@ -178,9 +178,8 @@ class RemoteFeed extends ContainerAware {
                     $this->items = $this->items['inventor'];
                 }
             }
-            if(is_array($this->items)){
-                return $this->items;
-            }
+
+            $arrayItem = $this->xml2array($this->items);
             
             return $this->xml2array($this->items);
         }

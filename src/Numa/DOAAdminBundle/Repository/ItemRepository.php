@@ -325,7 +325,7 @@ class ItemRepository extends EntityRepository {
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
                     
                     $processed = true;
-                    $item->proccessOptionsList($stringValue, $feed->getOptionsSeparator());
+                    $item->processOptionsList($stringValue, $feed->getOptionsSeparator());
                 }
 
                 if (!$processed) {

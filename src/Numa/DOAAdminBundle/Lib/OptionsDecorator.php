@@ -29,15 +29,38 @@ class OptionsDecorator {
                 if (!empty($test['attribute'])) {
                     $optionsArray = $test['attribute'];
                 }
-                
+                if (!empty($test['option'])) {
+                    $optionsArray = $test['option'];
+                }
             }
         }
         
-        foreach ($optionsArray as $key => $value) {
+        foreach ($optionsArray as $key => $optionXXX) {
             $option = new Option();
-            $option->setName($value['name']);
-            $option->setValue($value['value']);
-            $this->addOption($option);
+            $value = "";
+            $name =  "";  
+            if(!empty($optionXXX['name'])){
+                $name = $optionXXX['name'];
+            }
+            if(!empty($optionXXX['label'])){
+                $name = $optionXXX['label'];
+            }
+            if(!empty($optionXXX['value'])){
+                $value = $optionXXX['value'];
+            }
+            //$value = $option->getValue();
+            //$name = $option->getName();
+            if(empty($name)){
+                $name = $value;
+                $value = true;
+            }
+            if(!empty($name) && !empty($value)){
+                $option->setValue($value);
+                $option->setName($name);
+                $this->addOption($option);
+            }
+
         }
+        
    }
 }

@@ -915,7 +915,7 @@ class Item {
      * @ORM\PreUpdate
      */
     public function __toString() {
-        return "test";
+        return $this->getModel()." ".$this->getVIN();
     }
 
     /**
@@ -1006,7 +1006,7 @@ class Item {
         return $this->Dealer;
     }
 
-    public function proccessOptionsList($stringvalue, $separator) {
+    public function processOptionsList($stringvalue, $separator) {
 
         if (empty($separator)) {
             $separator = "|";
@@ -1016,8 +1016,10 @@ class Item {
 
         $proccessed = false;
         $optionsDecorator = new \Numa\DOAAdminBundle\Lib\OptionsDecorator();
+        
         $optionsDecorator->processOptionsFrom($stringvalue);
         $optionsList = $optionsDecorator->getOptions();
+        
         if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
             foreach ($optionsList as $key => $option) {
 
