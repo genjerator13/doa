@@ -94,7 +94,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
-        $this->commandLog->setStatus("ERRORxxx");
+        $this->commandLog->setStatus("ERROR");
         $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />\n");
         $this->em->flush();
         $this->em->clear();
@@ -123,6 +123,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $feed_id = $id;
             $remoteFeed = new Remotefeed($id);
             $items = $remoteFeed->getRemoteItems();
+            dump($items[0]);
             $sql = 'update command_log set count=' . count($items) . " where id=" . $this->commandLog->getId();
             $num_rows_effected = $conn->exec($sql);
 
