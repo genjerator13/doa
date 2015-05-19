@@ -163,8 +163,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
             }
             
             $this->em->flush();
-            $sql = 'update command_log set status="finished",full_details="'.$this->makeDetailsLog($createdItems).'", ended_at="'.date("Y-m-d H:i:s").'" where id=' . $this->commandLog->getId();
-            $num_rows_effected = $conn->exec($sql);
             $this->em->clear();
             unset($items);
             unset($mapping);
@@ -172,11 +170,11 @@ class DBUtilsCommand extends ContainerAwareCommand {
             //update hometabs
             //$resultCode = $this->makeHomeTabs(false);
 
-            //$this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
-            //$this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-            //$this->commandLog->setEndedAt(new \DateTime());
-            //$this->commandLog->setStatus('finished');
-
+            $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
+            $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
+            $this->commandLog->setEndedAt(new \DateTime());
+            $this->commandLog->setStatus('finished');
+            $this->em->flush();
         } catch (Exception $ex) {
             trigger_error("ERROR", E_USER_ERROR);
         }
