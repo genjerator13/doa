@@ -41,6 +41,20 @@ class CommandLogRepository extends EntityRepository {
         return $query->getResult();
     }
     
+    public function isInProgress() {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('cl')->distinct()
+                ->add('from', 'NumaDOAAdminBundle:CommandLog cl')
+                ->andWhere('cl.status like :status ')
+                ->andWhere('cl.count is not null ')
+                ->andWhere('cl.current is not null ')
+                ->setParameter('status', "%started%")
+                ->orderBy('cl.id', 'DESC');
+        $query = $qb->getQuery();
+        return $query->getOneOrNullResult();
+    }
+    
     public function getPendingCommands($limit=0){
         return $this->getCommandsByStatus('pending');
     }

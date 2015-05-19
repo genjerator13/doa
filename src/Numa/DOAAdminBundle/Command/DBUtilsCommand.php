@@ -94,7 +94,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
-        $this->getContainer()->get('memcache.default')->set('command_in_progress', 0);
         $this->commandLog->setStatus("ERRORxxx");
         $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />\n");
         $this->em->flush();
@@ -109,8 +108,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->em = $em;
             set_error_handler(array($this, "myErrorHandler"));
             $conn = $em->getConnection();
-
-
 
             $this->commandLog = new CommandLog();
             $this->commandLog->setCategory('fetch');
@@ -176,7 +173,6 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
-            $this->getContainer()->get('memcache.default')->set('command_in_progress', 0);
             $this->em->flush();
         } catch (Exception $ex) {
             trigger_error("ERROR", E_USER_ERROR);

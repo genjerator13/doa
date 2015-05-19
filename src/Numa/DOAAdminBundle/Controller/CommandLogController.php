@@ -47,10 +47,10 @@ class CommandLogController extends Controller {
 
     public function startAction(Request $request) {
         $force = $request->query->get('force');
-        $inProgress = $this->get('memcache.default')->get('command_in_progress');
+        $em = $this->getDoctrine()->getManager();
+        $inProgress = $em->getRepository('NumaDOAAdminBundle:CommandLog')->isInProgress();
+        
         if (empty($inProgress) || !empty($force)) {
-            $this->get('memcache.default')->set('command_in_progress', 1);
-            
             $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil startCommand';
             $process = new \Symfony\Component\Process\Process($command);
             $process->start();
@@ -64,6 +64,7 @@ class CommandLogController extends Controller {
 //            });
 //            die();
         }
+        sleep(2);
         return $this->redirectToRoute('command_log_home');
     }
 
