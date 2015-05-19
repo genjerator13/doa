@@ -165,8 +165,9 @@ class RemoteFeed extends ContainerAware {
             $rootNode = $this->entity->getRootNode();
 
             if (!empty($rootNode)) {
-                
-                //$this->items = $this->items[$rootNode];
+                if(!empty($this->items[$rootNode])){
+                   $this->items = $this->items[$rootNode];                
+                }
             } else {
                 if (!empty($this->items['item'])) {
                     $this->items = $this->items['item'];
