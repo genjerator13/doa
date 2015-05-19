@@ -165,6 +165,9 @@ class RemoteFeed extends ContainerAware {
             $rootNode = $this->entity->getRootNode();
 
             if (!empty($rootNode)) {
+                
+                //dump($this->items);
+                 
                 if(!empty($this->items[$rootNode])){
                    $this->items = $this->items[$rootNode];                
                 }
@@ -175,7 +178,10 @@ class RemoteFeed extends ContainerAware {
                     $this->items = $this->items['inventor'];
                 }
             }
-                            
+            if(is_array($this->items)){
+                return $this->items;
+            }
+            
             return $this->xml2array($this->items);
         }
         if (self::CSV == $this->entity->getImportFormat()) {
