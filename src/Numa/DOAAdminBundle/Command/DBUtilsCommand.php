@@ -52,6 +52,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
         $command = $input->getArgument('function');
         $feed_id = $input->getArgument('feed_id');
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em->getConnection()->getConfiguration()->setSQLLogger(null);
+        $em->clear();
         if ($command == 'makelistfromtemp') {
             $this->makeListingFromTemp();
         } elseif ($command == 'hometabs') {
@@ -59,11 +62,26 @@ class DBUtilsCommand extends ContainerAwareCommand {
         } elseif ($command == 'equalize') {
             $this->equalizeAllItems();
         } elseif ($command == 'fetchFeed') {
-            $em = $this->getContainer()->get('doctrine')->getManager();
-            $em->getConnection()->getConfiguration()->setSQLLogger(null);
-            $em->clear();
             $this->fetchFeed($feed_id, $em);
+        } elseif ($command == 'startCommand') {
+            $this->startCommand($em);
         }
+    }
+
+    public function startCommand($em) {
+        $emlog = $this->getContainer()->get('doctrine')->getManager();
+        $commands = $em->getRepository('NumaDOAAdminBundle:CommandLog')->findBy(array('status' => 'pending'));
+
+        foreach ($commands as $command) {
+            $commandSplit = explode(" ", $command->getCommand());
+            $feedId = end($commandSplit);
+            $commandDB = $emlog->getRepository('NumaDOAAdminBundle:CommandLog')->find($command->getId());
+            $commandDB->setStatus("Executed");
+            $emlog->flush();
+            $this->fetchFeed($feedId, $em);
+        }
+        //echo "aaaaa";
+        //die();
     }
 
     public function fetchFeed2($feed_id) {
@@ -76,52 +94,24 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
-        echo "-----------------";
-//        if (!(error_reporting() & $errno)) {
-//            // This error code is not included in error_reporting
-//            return;
-//        }
+        $this->getContainer()->get('memcache.default')->set('command_in_progress', 0);
+        $this->commandLog->setStatus("ERRORxxx");
+        $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />\n");
+        $this->em->flush();
+        $this->em->clear();
 
-        switch ($errno) {
-            case E_USER_ERROR:
-
-                //$this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                $this->commandLog->setStatus("ERROR");
-                dump($this->commandLog);
-                $this->em->flush();
-                $this->em->clear();
-                exit(1);
-                break;
-
-            case E_USER_WARNING:
-                echo "<b>My WARNING</b> [$errno] $errstr<br />\n";
-                break;
-
-            case E_USER_NOTICE:
-                echo "<b>My NOTICE</b> [$errno] $errstr<br />\n";
-                break;
-
-            default:
-                echo "Unknown error type: [$errno] $errstr<br />\n";
-                break;
-        }
-
-        /* Don't execute PHP internal error handler */
+        exit(1);
         return true;
     }
 
     public function fetchFeed($id, $em) {
         try {
             $this->em = $em;
-            $that = $this;
-//        set_error_handler(function() use ($that) {
-//            $that->customErrorHandler();
-//        });
             set_error_handler(array($this, "myErrorHandler"));
-            //set_error_handler(&$this, "customErrorHandler");
-            $time = time();
-            $this->em->getConnection()->getConfiguration()->setSQLLogger(null);
-            $this->em->clear();
+            $conn = $em->getConnection();
+
+
+
             $this->commandLog = new CommandLog();
             $this->commandLog->setCategory('fetch');
             $this->commandLog->setStartedAt(new \DateTime());
@@ -131,10 +121,18 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->em->persist($this->commandLog);
             $this->em->flush();
 
+
             $createdItems = array();
             $feed_id = $id;
             $remoteFeed = new Remotefeed($id);
             $items = $remoteFeed->getRemoteItems();
+            $sql = 'update command_log set count=' . count($items) . " where id=" . $this->commandLog->getId();
+            $num_rows_effected = $conn->exec($sql);
+
+            //print items
+            //
+
+            
             unset($remoteFeed);
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
@@ -147,6 +145,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $count = 0;
 
             foreach ($items as $importItem) {
+
                 $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
                 if (!empty($item)) {
                     $createdItems[] = $item;
@@ -160,23 +159,24 @@ class DBUtilsCommand extends ContainerAwareCommand {
                     $this->em->flush();
                     $this->em->clear();
                 }
+                $progresses[$id] = $count;
+                $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
+                $num_rows_effected = $conn->exec($sql);
             }
 
             $this->em->flush();
             $this->em->clear();
             unset($items);
             unset($mapping);
-            $time = time() - $time;
 
             //update hometabs
-            $resultCode = $this->makeHomeTabs(false);
+            //$resultCode = $this->makeHomeTabs(false);
 
             $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
-
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
-
+            $this->getContainer()->get('memcache.default')->set('command_in_progress', 0);
             $this->em->flush();
         } catch (Exception $ex) {
             trigger_error("ERROR", E_USER_ERROR);

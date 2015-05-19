@@ -128,8 +128,9 @@ class ItemRepository extends EntityRepository {
                 ->from('NumaDOAAdminBundle:Item', 'i')
                 ->where('i.category_id=:category')
                 ->andWhere('i.' . $subcat . ' like :subcatname')
+                ->setParameter('subcatname', "%" . $subcatname . "%")
                 ->setParameter('category', $cat)
-                ->setParameter('subcatname', "%" . $subcatname . "%");
+                ;
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //dump($itemsQuery->getSQL());

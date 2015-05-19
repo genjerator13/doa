@@ -11,14 +11,15 @@ use Doctrine\Common\Collections\Criteria;
  */
 class Item {
 
-    public static $fields = array(1 =>
-        array('doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
+    public static $fields = array(
+        1 =>
+        array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
         array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
         array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
-        array('Make Model' => 'make', 'model' => 'model', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
+        array('Make Model' => 'make', 'model' => 'model', 'Type' => 'type', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
         array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
@@ -627,7 +628,7 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
     public function removeAllItemField() {
-
+//as
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -770,7 +771,9 @@ class Item {
 
     public function getItemFieldByName($name) {
         $this->getItemFieldsArray();
-        if (property_exists(get_class($this), $name)) {
+        //FIX ME FIX ME FIX ME
+        if (property_exists(get_class($this), strtolower($name))) {
+            
             $name = strtolower($name);
             return $this->$name;
         } elseif ($name == 'image') {
@@ -1004,6 +1007,7 @@ class Item {
     }
 
     public function proccessOptionsList($stringvalue, $separator) {
+
         if (empty($separator)) {
             $separator = "|";
         }
@@ -1011,63 +1015,86 @@ class Item {
         $order = 1;
 
         $proccessed = false;
-        //ugly hack
-        if (is_string($stringvalue)) {
-            $test = json_decode($stringvalue, true);
+        $optionsDecorator = new \Numa\DOAAdminBundle\Lib\OptionsDecorator();
+        $optionsDecorator->processOptionsFrom($stringvalue);
+        $optionsList = $optionsDecorator->getOptions();
+        if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
+            foreach ($optionsList as $key => $option) {
 
-            if (is_array($test)) {
-                if(!empty($test['option'])){
-                    $optionsArray = $test['option'];
+                $itemField = new ItemField();
+                $itemField->setAllValues($option->getValue());
+                $itemField->setFieldType('boolean');
+                $itemField->setFieldName($option->getName());
+                if ($this->getImportfeed() instanceof Importfeed) {
+                    $itemField->setFeedId($this->getImportfeed()->getId());
                 }
-                
+                $itemField->setSortOrder($option->getOrder());
+                $this->addItemField($itemField);
+                $proccessed = true;
             }
-        }
-        
-        if (is_array($optionsArray)) {
+        } else {
 
-            $json = json_decode($optionsArray[0], true);
+            //ugly hack
+            if (is_string($stringvalue)) {
+                $test = json_decode($stringvalue, true);
 
-            if (!empty($json['option']) && is_array($json['option'])) {
-                $optionsArray = array();
-                foreach ($json['option'] as $key => $value) {
-                    $itemField = new ItemField();
-                    if (!empty($value['value'])) {
-                        if (empty($value['label'])) {
-                            //if label is not defined, set as true
-                            $itemField->setAllValues(true);
-                            $itemField->setFieldType('boolean');
-                            $itemField->setFieldName($value['value']);
-                        } else {
-                            $itemField->setAllValues($value['value']);
-                            $itemField->setFieldType('string');
-                            $itemField->setFieldName($value['label']);
-                        }
-
-                        $itemField->setFeedId($this->getFeedId());
-                        $itemField->setSortOrder($order);
-                        $this->addItemField($itemField);
-                        $order++;
-                        $proccessed = true;
+                if (is_array($test)) {
+                    if (!empty($test['option'])) {
+                        $optionsArray = $test['option'];
                     }
                 }
             }
-        }
 
-        if (!$proccessed) {
-            
-            if(is_string($optionsArray)){
-                $optionsArray = array($optionsArray);
+            if (is_array($optionsArray)) {
+
+                $json = json_decode($optionsArray[0], true);
+
+                if (!empty($json['option']) && is_array($json['option'])) {
+                    $optionsArray = array();
+                    foreach ($json['option'] as $key => $value) {
+                        $itemField = new ItemField();
+
+                        if (!empty($value['value'])) {
+                            if (empty($value['label'])) {
+                                //if label is not defined, set as true
+                                $itemField->setAllValues(true);
+                                $itemField->setFieldType('boolean');
+                                $itemField->setFieldName($value['value']);
+                            } else {
+                                $itemField->setAllValues($value['value']);
+                                $itemField->setFieldType('string');
+                                $itemField->setFieldName($value['label']);
+                            }
+
+                            $itemField->setFeedId($this->getFeedId());
+                            $itemField->setSortOrder($order);
+                            $this->addItemField($itemField);
+                            $order++;
+                            $proccessed = true;
+                        }
+                    }
+                }
             }
-            foreach ($optionsArray as $key => $option) {
-                
-                $itemField = new ItemField();
-                $itemField->setAllValues(true);
-                $itemField->setFeedId($this->getFeedId());
-                $itemField->setFieldName($option);
-                $itemField->setFieldType('boolean');
-                $itemField->setSortOrder($order);
-                $this->addItemField($itemField);
-                $order++;
+
+            if (!$proccessed) {
+
+                if (is_string($optionsArray)) {
+                    $optionsArray = array($optionsArray);
+                }
+
+                foreach ($optionsArray as $key => $option) {
+                    $option = trim($option);
+                    if (!empty($option)) {
+                        $itemField = new ItemField();
+                        $itemField->setAllValues(true);
+                        $itemField->setFeedId($this->getFeedId());
+                        $itemField->setFieldName($option);
+                        $itemField->setFieldType('boolean');
+                        $itemField->setSortOrder($order);
+                        $this->addItemField($itemField);
+                        $order++;
+                    }
+                }
             }
         }
         unset($optionsArray);
@@ -1082,9 +1109,11 @@ class Item {
         if (is_array($imageString) && !empty($imageString['photo'])) {
             $imageString = $imageString['photo'];
         }
+        if (is_array($imageString) && !empty($imageString['imageurl'])) {
+            $imageString = $imageString['imageurl'];
+        }
 
         if (is_array($imageString)) {
-
             $order = 0;
             foreach ($imageString as $key => $value) {
                 $itemField = new ItemField();
@@ -1131,7 +1160,7 @@ class Item {
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
-                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getFeedId(), $order, $localy, $uniqueValue);
+                $itemField->handleImage($picture, $upload_path, $upload_url, $this->getImportfeed(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
                 //unset($itemField);
@@ -1602,7 +1631,7 @@ class Item {
             $this->setSlideOuts($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
             $this->setFlooring($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'floor plan') {
+        } elseif (strtolower($itemField->getFieldName()) == 'floor plan' || strtolower($itemField->getFieldName()) == 'floor plan model') {
             $this->setFloorPlan($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'class') {
             $this->setClass($itemField->getFieldStringValue());
@@ -1633,13 +1662,10 @@ class Item {
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
-            $this->setMpgCity($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
-            $this->setMpgHighway($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'dealerid') {
-            $this->setDealerId($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
+
+            //$this->setDealerId($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
             $this->setIwNo($itemField->getFieldStringValue());
         }
     }
@@ -3014,15 +3040,13 @@ class Item {
      */
     private $iw_no;
 
-
     /**
      * Set iw_no
      *
      * @param string $iwNo
      * @return Item
      */
-    public function setIwNo($iwNo)
-    {
+    public function setIwNo($iwNo) {
         $this->iw_no = $iwNo;
 
         return $this;
@@ -3033,8 +3057,39 @@ class Item {
      *
      * @return string 
      */
-    public function getIwNo()
-    {
+    public function getIwNo() {
         return $this->iw_no;
     }
+
+    public function setField($name, $value) {
+        $methodName = "set" . ucfirst($name);
+        if (method_exists($this, $methodName)) {
+            $value = preg_replace("/[\r\n]+/", "", $value);
+            $value = preg_replace('/[\x00-\x1F\x7F]/', '', $value);
+            $value = trim(preg_replace('/\s\s+/', '', $value));
+            //$value = str_replace(" </h4>", "aaaaaa", $value);
+            call_user_method($methodName, $this, $value);
+        } else {
+            dump($methodName);
+        }
+    }
+
+    public function makeDetailsLog($createdItems) {
+        $output = "";
+
+        foreach ($createdItems as $key => $item) {
+
+            $output .= "<strong>" . $key . ":" . $item->getId() . "</strong>";
+            $output .= "<br>";
+            foreach ($item->getItemFieldsArray() as $key2 => $field) {
+                $output .= "<div>" . $key2 . ":";
+                if (!empty($field['stringvalue'])) {
+                    $output .= $field['stringvalue'];
+                }
+                $output .="</div>";
+            }
+        }
+        return $output;
+    }
+
 }
