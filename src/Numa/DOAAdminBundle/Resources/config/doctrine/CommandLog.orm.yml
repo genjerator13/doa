@@ -31,6 +31,12 @@ Numa\DOAAdminBundle\Entity\CommandLog:
         full_details_object:
             type: object
             nullable: true;
+        count:
+            type: integer
+            nullable: true
+        current:
+            type: integer
+            nullable: true
     lifecycleCallbacks:
         prePersist: [ setStartedAtValue ]
 

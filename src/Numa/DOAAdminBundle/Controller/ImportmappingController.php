@@ -297,17 +297,25 @@ class ImportmappingController extends Controller {
         //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
         //$command->setContainer($this->container);
         //$resultCode = $command->fetchFeed($id, $em);
-        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil fetchFeed ' . $id;
-        
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
+        $command = 'numa:dbutil fetchFeed ' . $id;
+        $commandLog = new \Numa\DOAAdminBundle\Entity\CommandLog();
+        $commandLog->setCommand($command);
+        $commandLog->setCategory('fetch');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('pending');
+
+        $commandLog->setCommand($command);
+        $em->persist($commandLog);
+        $em->flush();
+        //$process = new \Symfony\Component\Process\Process($command);
+        //$process->start();
         $request->getSession()->getFlashBag()
-            ->add('success', 'Fetching Feed Id '.$id.' started.'.'<a href="'.$this->generateUrl('command_log_home').'">Details</a>');
-    
+                ->add('success', 'Fetching Feed Id ' . $id . ' started.' . '<a href="' . $this->generateUrl('command_log_home') . '">Details</a>');
+
         return $this->redirectToRoute('importfeed');
     }
-    
-    public function renderFetch($items){
+
+    public function renderFetch($items) {
         //return "aaaa";
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig');
     }

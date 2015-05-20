@@ -32,13 +32,14 @@ class RemoteFeed extends ContainerAware {
 
     public function __construct($id) {
         $this->feedid = $id;
+        
         $this->getFeed();
     }
 
     public function getFeed() {
         $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getManager('default');
+        
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);
-        ;
         $this->items = array();
         $this->source = $this->entity->getImportSource();
         $this->category = $this->entity->getCategory();
@@ -55,16 +56,16 @@ class RemoteFeed extends ContainerAware {
      * fetches meta data from remote sources: columns from csv or nodes from XML
      * 
      */
-    public function fetchRemoteProperties() {       
-        
+    public function fetchRemoteProperties() {
+
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
-        if(self::URL == $this->entity->getImportMethod()){
-            $upload_path="";
+        if (self::URL == $this->entity->getImportMethod()) {
+            $upload_path = "";
         }
         if (empty($this->properties)) {
-            
+
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
-                
+
                 if (self::XML == $this->entity->getImportFormat()) {
                     //$xml_obj = simplexml_load_file($upload_path . $this->source);
                     $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
@@ -83,7 +84,6 @@ class RemoteFeed extends ContainerAware {
                         }
                         break;
                     }
-
                 } elseif (self::CSV == $this->entity->getImportFormat()) {
                     $handleSource = $this->entity->getImportSource();
 
@@ -106,6 +106,9 @@ class RemoteFeed extends ContainerAware {
                         curl_close($ch);
                         fclose($fp);
                         $filename = $local_file;
+                    }
+                    if (!file_exists($filename)) {
+                        trigger_error("Import source does not exists!!!", E_USER_ERROR);
                     }
                     if (($handle = fopen($filename, "r")) !== FALSE) {
                         $delimeter = $this->entity->getDelimiterx();
@@ -140,7 +143,7 @@ class RemoteFeed extends ContainerAware {
     }
 
     public function getRemoteItems() {
-        
+
         $sourceFile = $this->source;
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
         if (self::UPLOAD == $this->entity->getImportMethod()) {
@@ -148,28 +151,36 @@ class RemoteFeed extends ContainerAware {
         }
         if (self::XML == $this->entity->getImportFormat()) {
             $xml_obj = simplexml_load_file($sourceFile);
-            
+
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
                 $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
             }
-            
+
             if (empty($xmlSource)) {
                 $xmlSource = $xml_obj->children();
             }
-            
+
             $this->items = self::xml2array($xmlSource);
             $rootNode = $this->entity->getRootNode();
-            
-            if(!empty($rootNode)){
-                //$this->items = $this->items[$rootNode];
-            }else
-            if (!empty($this->items['item'])) {
-                $this->items = $this->items['item'];
-            } elseif (!empty($this->items['inventor'])) {
-                $this->items = $this->items['inventor'];
+
+            if (!empty($rootNode)) {
+                
+                //dump($this->items);
+                 
+                if(!empty($this->items[$rootNode])){
+                   $this->items = $this->items[$rootNode];                
+                }
+            } else {
+                if (!empty($this->items['item'])) {
+                    $this->items = $this->items['item'];
+                } elseif (!empty($this->items['inventor'])) {
+                    $this->items = $this->items['inventor'];
+                }
             }
 
+            $arrayItem = $this->xml2array($this->items);
+            
             return $this->xml2array($this->items);
         }
         if (self::CSV == $this->entity->getImportFormat()) {
@@ -196,7 +207,6 @@ class RemoteFeed extends ContainerAware {
             } elseif (strtolower(substr($this->entity->getImportSource(), 0, 7)) == "http://") {
 
                 $ch = curl_init();
-
                 curl_setopt($ch, CURLOPT_URL, $handleSource);
                 $fp = fopen($local_file, 'w');
                 curl_setopt($ch, CURLOPT_FILE, $fp);
@@ -205,15 +215,19 @@ class RemoteFeed extends ContainerAware {
                 fclose($fp);
                 $filename = $local_file;
             }
+            
+            if (!file_exists($filename)) {
+                trigger_error("Import source does not exists!!!", E_USER_ERROR);
+            }
             if (($handle = fopen($filename, "r")) !== FALSE) {
                 $delimeter = $this->entity->getDelimiterx();
                 if (empty($delimeter)) {
                     $delimeter = ',';
                 }
-                
+
                 while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row) && !empty($row[1])) {
                     //var_dump($row); // process the row.
-                    
+
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
                             $tmp[trim($value)] = $row[trim($key)];
