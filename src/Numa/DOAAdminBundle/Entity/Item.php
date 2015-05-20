@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
 /**
- * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 
@@ -1878,6 +1878,7 @@ class Item {
 
     /**
      * @var boolean
+     * @GRID\Column(type="boolean", field="sold", title="Sold", filterable=true, operatorsVisible=false)
      */
     private $sold;
 
