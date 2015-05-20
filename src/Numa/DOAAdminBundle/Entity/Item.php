@@ -7,7 +7,7 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
 /**
- * @GRID\Source(columns ="id,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  */
 class Item {
 
@@ -915,7 +915,7 @@ class Item {
      * @ORM\PreUpdate
      */
     public function __toString() {
-        return "test";
+        return $this->getModel()." ".$this->getVIN();
     }
 
     /**
@@ -1006,7 +1006,7 @@ class Item {
         return $this->Dealer;
     }
 
-    public function proccessOptionsList($stringvalue, $separator) {
+    public function processOptionsList($stringvalue, $separator) {
 
         if (empty($separator)) {
             $separator = "|";
@@ -1016,8 +1016,10 @@ class Item {
 
         $proccessed = false;
         $optionsDecorator = new \Numa\DOAAdminBundle\Lib\OptionsDecorator();
+        
         $optionsDecorator->processOptionsFrom($stringvalue);
         $optionsList = $optionsDecorator->getOptions();
+        
         if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
             foreach ($optionsList as $key => $option) {
 
@@ -1046,10 +1048,10 @@ class Item {
             }
 
             if (is_array($optionsArray)) {
-
-                $json = json_decode($optionsArray[0], true);
-
-                if (!empty($json['option']) && is_array($json['option'])) {
+                if(!empty($optionsArray[0])){
+                    $json = json_decode($optionsArray[0], true);
+                }
+                if (!empty($json) && !empty($json['option']) && is_array($json['option'])) {
                     $optionsArray = array();
                     foreach ($json['option'] as $key => $value) {
                         $itemField = new ItemField();
@@ -1876,6 +1878,7 @@ class Item {
 
     /**
      * @var boolean
+     * @GRID\Column(type="boolean", field="sold", title="Sold", filterable=true, operatorsVisible=false)
      */
     private $sold;
 

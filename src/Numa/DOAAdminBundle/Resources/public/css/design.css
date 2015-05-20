@@ -100,12 +100,6 @@ body.fullSize
     left:50%;
 }
 
-.leftmenu
-{
-    background: url('bg.png') 15px 0 repeat-y #ffffff;
-    min-height: 100%;
-    /* Left column background colour here */
-}
 
 /* --- for 2-column layout -- */
 .leftmenu .colright
