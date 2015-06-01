@@ -20,10 +20,11 @@ class OptionsDecorator {
    }
    
    public function processOptionsFrom($source){
+       
        $optionsArray = array();
        if (is_string($source)) {
             $test = json_decode($source, true);
-
+            
             if (is_array($test)) {
                 
                 if (!empty($test['attribute'])) {
@@ -34,7 +35,7 @@ class OptionsDecorator {
                 }
             }
         }
-        
+        //dump($optionsArray);
         foreach ($optionsArray as $key => $optionXXX) {
             $option = new Option();
             $value = "";
@@ -48,16 +49,24 @@ class OptionsDecorator {
             if(!empty($optionXXX['value'])){
                 $value = $optionXXX['value'];
             }
+            if(empty($value)){
+                $value=false;
+            }
             //$value = $option->getValue();
             //$name = $option->getName();
             if(empty($name)){
                 $name = $value;
                 $value = true;
             }
-            if(!empty($name) && !empty($value)){
+//            dump($name);
+//            echo ":::";
+//            dump($value);
+            if(!empty($name)){
+                
                 $option->setValue($value);
                 $option->setName($name);
                 $this->addOption($option);
+                //dump($option);
             }
 
         }
