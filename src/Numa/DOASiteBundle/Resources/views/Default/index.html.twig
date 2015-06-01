@@ -20,7 +20,7 @@
                 {% endif %}
                 {% for key2,item in tab %}
                     <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 imageouterbox">
-                        <div class='imagebox'>
+                        <div class='imagebox' >
                             
                                 {% set words = item.ListingFieldListValue|split(' ', 2) %}
                                       {% if key|lower=='vehicle' or key|lower=='car'  %}                                
@@ -35,9 +35,9 @@
                                 
                                     {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
                                         {% if file_existsx(imagefile) %}
-                                            <img style="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
+                                            <img class="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
                                         {% else %}
-                                            <img style="" alt="{{item.ListingFieldListValue|replace({'/': ''})}}" src="{{ asset('images/no_image_available_small.png') }}">
+                                            <img class="" alt="{{item.ListingFieldListValue|replace({'/': ''})}}" src="{{ asset('images/no_image_available_small.png') }}">
                                         {% endif %}
                                         <div class="hometab-text" >{{item.ListingFieldListValue}} ({{item.count}})</div>
                                     </a>

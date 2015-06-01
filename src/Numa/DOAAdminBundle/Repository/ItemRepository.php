@@ -322,15 +322,13 @@ class ItemRepository extends EntityRepository {
                     
                 }
                 
-                if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
-                    
+                if (!empty($listingFieldsType) && $listingFieldsType == 'options') {                    
                     $processed = true;
                     $item->processOptionsList($stringValue, $feed->getOptionsSeparator());
                 }
 
                 if (!$processed) {
                     if ($itemField instanceof \Numa\DOAAdminBundle\Entity\ItemField) {
-
                         $item->addItemField($itemField);
                     }
                 }

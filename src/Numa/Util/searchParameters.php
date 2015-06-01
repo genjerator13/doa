@@ -250,8 +250,9 @@ class searchParameters {
                 }
                 
                 //sort
+                $qb->addOrderBy("i.date_created",  "DESC");
                 if(!empty($this->sort_by)){
-                    $qb->orderBy("i.".$this->sort_by,  $this->sort_order);
+                    $qb->addOrderBy("i.".$this->sort_by,  $this->sort_order);
                 }
             }
         }
