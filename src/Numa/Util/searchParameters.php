@@ -46,6 +46,7 @@ class searchParameters {
             'postedFrom' => new SearchItem('date_created', 0, 'dateRangeFrom'),
             'postedTo' => new SearchItem('date_created', 0, 'dateRangeTo'),
             'zip' => new SearchItem('Postal', "", 'string'),
+            'stock' => new SearchItem('stock_nr', "", 'string'),
             'IW_NO' => new SearchItem('IW_NO', "", 'string'),
             'isSold' => new SearchItem('sold', 0, 'int'),
             'exteriorColor' => new SearchItem('exterior_color', 0, 'int'),
@@ -205,7 +206,7 @@ class searchParameters {
                         $value = $searchItem->getValue();
 
                         if ($dbName == 'all') {
-                            $qb->andWhere('i.model LIKE :text or i.make LIKe :text or i.type LIKE :text or i.body_style LIKE :text or i.year LIKE :text or i.VIN LIKE :text or i.transmission LIKE :text or i.floor_plan LIKE :text or i.keywords LIKE :text ');
+                            $qb->andWhere('i.model LIKE :text or i.make LIKe :text or i.type LIKE :text or i.body_style LIKE :text or i.year LIKE :text or i.VIN LIKE :text or i.transmission LIKE :text or i.floor_plan LIKE :text or i.keywords LIKE :text or i.stock_nr LIKE :text');
                             $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
 //                        } elseif ($type == 'category') {
 //                            $qb->andWhere('i.category_id=:cat');
@@ -249,8 +250,9 @@ class searchParameters {
                 }
                 
                 //sort
+                $qb->addOrderBy("i.date_created",  "DESC");
                 if(!empty($this->sort_by)){
-                    $qb->orderBy("i.".$this->sort_by,  $this->sort_order);
+                    $qb->addOrderBy("i.".$this->sort_by,  $this->sort_order);
                 }
             }
         }

@@ -685,7 +685,18 @@ class Item {
                 ->where(Criteria::expr()->eq("fieldName", "Image List"))
 
         ;
+        return $if->matching($criteria);
+    }
+    /**
+     * 
+     * @return typeget Attributes
+     */
+        public function getOptions() {
+        $if = $this->getItemField();
+        $criteria = Criteria::create()
+                ->where(Criteria::expr()->contains("fieldType", "boolean"))
 
+        ;
         return $if->matching($criteria);
     }
 

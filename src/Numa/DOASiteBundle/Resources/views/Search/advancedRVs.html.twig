@@ -1,11 +1,12 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
 
 {% block content %}
+    <h2>Advanced Search Rvs</h2>
     <div id="searchtags"></div>
     <div id="searchform">
         {{ form_start(form,{ 'attr': {'class': 'form-horizontal','role':'form','name':'advancedsearchrvs'}}) }}
         {{ form_errors(form) }}
-        <h3>Find Your RVs</h3>
+        
         <div class="row">
             {{ form_row(form.makeRvs,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
         </div>
