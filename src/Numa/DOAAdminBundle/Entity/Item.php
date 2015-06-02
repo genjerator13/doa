@@ -104,7 +104,7 @@ class Item {
 
     /**
      * @var \DateTime
-     * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
+     * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source",sortable=true, filterable=true, defaultOperator="btw",operatorsVisible=false)
      */
     private $date_created;
 
