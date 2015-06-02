@@ -48,7 +48,7 @@ class CommandLogRepository extends EntityRepository {
                 ->andWhere('cl.status like :status ')
                 ->andWhere('cl.count is not null ')
                 ->andWhere('cl.current is not null ')
-                ->setParameter('status', "%started%")
+                ->setParameter('status', "%pending%")
                 ->orderBy('cl.id', 'DESC');
         //$qb->getMaxResults(1);
         $query = $qb->getQuery();
