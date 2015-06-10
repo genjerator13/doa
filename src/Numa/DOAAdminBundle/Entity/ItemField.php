@@ -359,7 +359,11 @@ class ItemField {
             $filename = $stringValue->getClientOriginalName();
             
         }else{
-            $url = trim(str_replace(array("\"", " ", "'"), "", $stringValue));
+            if (stripos($stringValue, "http")===false){
+                //dump($stringValue);die();
+                //$url = trim(str_replace(array("\"", " ", "'"), "", $stringValue));
+                //TODO
+            }
         }
 
         $img_url = $url;
