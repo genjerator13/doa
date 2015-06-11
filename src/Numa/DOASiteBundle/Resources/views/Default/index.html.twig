@@ -7,7 +7,7 @@
             {% if key=='Car' %}   
                 {% set key = 'Vehicle' %}
             {% endif %}
-                <li><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab">{{key}}</a></li>
+                <li {% if key=='Vehicle' %}   class="active"{% endif %}><a href="#home_{{key|replace(" ","_")}}" data-toggle="tab" ><span class="icon_tab icon_{{key|replace(" ","_")}}" ></span><span class="tab_text">{{key}}</span></a></li>
             {%endfor%}
     </ul>
     <!-- Tab panes -->
@@ -44,19 +44,10 @@
                                 </div>
                                 </div>
                                 {%endfor%}
-                                </div>
-                                {%endfor%}
-                                </div>
-                                <h2>Search By Category</h2>
-                                <ul class="nav nav-tabs" id="categoryTab">                
-                                    <li><a href="#vehicle" data-toggle="tab">Vehicle</a></li>
-                                    <li><a href="#marine" data-toggle="tab">Marine</a></li>
-                                    <li><a href="#motorsport" data-toggle="tab">Motorsport</a></li>
-                                    <li><a href="#rvs" data-toggle="tab">RV's</a></li>
-                                    <li><a href="#ag" data-toggle="tab">Ag</a></li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
+                                    <div class="clear"></div>
+                                    <h2>Search By Category</h2>
+                                
+ {% if key|lower=='vehicle' or key|lower=='car'  %}  
                                     <div class="tab-pane active" id="vehicle">
                                         {% form_theme vehicleForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
                                         {{ form_start(vehicleForm, {'attr': {'class': 'form-horizontal'}}) }}
@@ -84,7 +75,8 @@
                                         </span>
                                         {{ form_end(vehicleForm) }}
                                     </div>
-                                    <div class="tab-pane" id="marine">
+                                    {%elseif key=='Marine' %}
+                                        <div class="tab-pane" id="marine">
                                         {% form_theme marineForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
                                         {{ form_start(marineForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(marineForm) }}
@@ -111,35 +103,8 @@
                                         </span>
                                         {{ form_end(marineForm) }}
                                     </div>
-                                    <div class="tab-pane" id="motorsport">
-                                        {% form_theme motorsportForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
-                                        {{ form_start(motorsportForm, {'attr': {'class': 'form-horizontal'}}) }}
-                                        {{ form_errors(motorsportForm) }}
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.Type,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
-                                        </div>
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>  
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
-                                        </div>
-                                                                             
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                                            {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                                        </div> 
-                                        <div class="row">
-                                            {{ form_row(motorsportForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                                            {{ form_row(motorsportForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
-                                        </div> 
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
-                                        </span>
-                                        {{ form_end(motorsportForm) }}                                    
-                                    </div>
-                                    <div class="tab-pane" id="rvs">
+                                    {%elseif key=='RVs'%}
+                                        <div class="tab-pane" id="rvs">
                                         {% form_theme rvsForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
                                         {{ form_start(rvsForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(rvsForm) }}
@@ -170,7 +135,37 @@
                                         </span>
                                         {{ form_end(rvsForm) }}    
                                     </div>
-                                    <div class="tab-pane" id="ag">
+                                    {%elseif  key|lower=='motorsport'%}
+                                        <div class="tab-pane" id="motorsport">
+                                        {% form_theme motorsportForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+                                        {{ form_start(motorsportForm, {'attr': {'class': 'form-horizontal'}}) }}
+                                        {{ form_errors(motorsportForm) }}
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.typeString,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
+                                        </div>
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>  
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                        </div>
+                                                                             
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                            {{ form_row(motorsportForm.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                        </div> 
+                                        <div class="row">
+                                            {{ form_row(motorsportForm.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                            {{ form_row(motorsportForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+                                        </div> 
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary">Find</button>
+                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                        </span>
+                                        {{ form_end(motorsportForm) }}                                    
+                                    </div>
+                                    {%elseif  key|lower=='ag'%}
+                                        <div class="tab-pane" id="ag">
                                         {% form_theme agForm 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
                                         {{ form_start(agForm, {'attr': {'class': 'form-horizontal'}}) }}
                                         {{ form_errors(agForm) }}
@@ -178,7 +173,7 @@
                                             {{ form_row(agForm.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}    
                                         </div>
                                         <div class="row">
-                                            {{ form_row(agForm.Make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+                                            {{ form_row(agForm.ag_applicationString,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
                                         </div>
                                         <div class="row">
                                             {{ form_row(agForm.Model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
@@ -200,6 +195,9 @@
                                         {{ form_end(agForm) }}                                    
 
                                     </div>
+                                    {% endif %}
+                                </div>
+                                {%endfor%}
                                 </div>
                                 <script>
                                 var treeDataCar = '{{jsonCar|raw }}';

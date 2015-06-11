@@ -125,12 +125,14 @@ class ItemController extends Controller {
         $source = new Entity('NumaDOAAdminBundle:Item');
 
         $grid = $this->get('grid');
+        //$grid->setDefaultOrder("date_created", "desc");
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
         $imageColumn->setTitle("Image");
         $grid->addColumn($imageColumn, 1);
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
+        
         $entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         //main column
 

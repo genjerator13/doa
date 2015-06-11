@@ -30,6 +30,7 @@ class ListingFieldListsRepository extends EntityRepository {
      * @return type
      */
     public function findAllBy($property, $cat = 0, $result = false) {
+        
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
@@ -42,10 +43,14 @@ class ListingFieldListsRepository extends EntityRepository {
                 ->setParameter('property', "%" . $property . "%");
         ;
         if ($cat > 0) {
+            
             $qb->andWhere('l.category_sid=:csid')
                     ->setParameter('csid', $cat);
+            
         }
+        
         $res = array();
+        
         if ($result) {
             $result = $qb->getQuery()->getResult();
             foreach ($result as $key => $value) {
@@ -53,9 +58,10 @@ class ListingFieldListsRepository extends EntityRepository {
             }
             return $res;
         }
+        
         //$res = $query; //->getResult();
         ;
-        //dump($qb->getQuery());die();
+        
         return $qb;
     }
 
