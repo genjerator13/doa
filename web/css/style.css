@@ -306,6 +306,26 @@ div.youtube-video {
     text-align:center;
 }
 
+ul#myTab .form-group {
+    margin-left:0px;
+    border: 1px solid red;
+}
+
+.tab-content {
+    padding:0;
+    width: 606px;
+}
+.tab-content .leftimage{
+    float:left;
+}
+
+.tab-content .rightimage{
+    float:right;
+}
+.home-middle {
+    padding-left: 24px;
+}
+
 .row .col-md-2 .panel .panel-body a {
     display: block;
     text-align: center;
