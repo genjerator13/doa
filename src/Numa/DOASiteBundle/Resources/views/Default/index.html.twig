@@ -92,7 +92,7 @@
                                             {{ form_row(marineForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                        <div class="clear"></div>
                                             <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced Search</a>
+                                            <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced Search</a>
                                         
                                         {{ form_end(marineForm) }}
                                     </div>
@@ -141,7 +141,7 @@
                                         <div class="clear"></div>
                                        
                                             <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                            <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced search</a>
                                        
                                         {{ form_end(motorsportForm) }}                                    
                                     </div>
@@ -164,7 +164,7 @@
                                             {{ form_row(agForm.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
                                         <div class="clear"></div>
                                             <button type="submit" class="btn btn-primary">Find</button>
-                                            <a href="#" class="btn btn-default">Advanced search</a>
+                                            <a href="{{ path('search_advanced') }}" class="btn btn-default">Advanced search</a>
                                         
 
                                         {{ form_end(agForm) }}                                    
