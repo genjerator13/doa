@@ -190,8 +190,6 @@ class ItemController extends Controller {
             $subject = $globals['subject'];
             $title = $globals['title'];
             $subject = $subject ." ".$title;
-            ;
-
 
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
@@ -199,17 +197,7 @@ class ItemController extends Controller {
                     ->setFrom($emailFrom)
                     ->setTo('e.medjesi@gmail.com')
                     ->setBody($emailTo.":".$emailBody);
-            /*
-             * If you also want to include a plaintext version of the message
-              ->addPart(
-              $this->renderView(
-              'Emails/registration.txt.twig',
-              array('name' => $name)
-              ),
-              'text/plain'
-              )
-             */
-            ;
+
             $ok = $mailer->send($message);
             $currentRoute = $request->attributes->get('_route');
             $currentRouteParams = $request->attributes->get('_route_params');
@@ -218,9 +206,7 @@ class ItemController extends Controller {
                      ->generate($currentRoute, $currentRouteParams, true);
 
             return $this->redirect($currentUrl);
-
         }
         return $form;
     }
-
 }
