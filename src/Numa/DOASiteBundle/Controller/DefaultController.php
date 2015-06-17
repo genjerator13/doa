@@ -189,7 +189,7 @@ class DefaultController extends Controller {
     public function categoriesAction() {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findAll();
-
+        
         return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories));
     }
 
@@ -199,7 +199,8 @@ class DefaultController extends Controller {
         $cat_name = $request->get('category_name');
         $category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
-        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs));
+        $emailForm = $this->emailDealerForm($request);
+        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs,'emailForm'=>$emailForm->createView()));
     }
 
     public function catalogAction(request $request) {
@@ -208,7 +209,10 @@ class DefaultController extends Controller {
         $cat_name = $request->get('catalog_name');
 
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($idCat);
-        return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer));
+        
+        
+        $emailForm = $this->emailDealerForm($request);
+        return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer,'emailForm'=>$emailForm->createView()));
     }
 
     public function searchAction(Request $request, $route = "") {
@@ -232,6 +236,48 @@ class DefaultController extends Controller {
 
     public function accessDeniedAction() {
         return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig');
+    }
+    
+    public function emailDealerForm($request) {
+        $data = array();
+        $form = $this->createFormBuilder($data)
+                ->add('comments', 'textarea')
+                ->add('first_name', 'text')
+                ->add('last_name', 'text')
+                ->add('email', 'email')
+                ->add('dealer', 'hidden')
+                ->getForm();
+
+        if ($request->isMethod('POST') ) {
+            $form->bind($request);
+
+            // $data is a simply array with your form fields 
+            // like "query" and "category" as defined above.
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id'=>$data['dealer']));
+        
+
+            $emailFrom = $data['email'];
+            $emailTo = $dealer->getEmail();
+            $emailBody = $data['comments'];
+            $twig = $this->container->get('twig');
+            $globals = $twig->getGlobals();
+            $subject = $globals['subject'];
+            $title = $globals['title'];
+            $subject = $subject ." ".$title;
+
+            $mailer = $this->get('mailer');
+            $message = $mailer->createMessage()
+                    ->setSubject('email from ')
+                    ->setFrom($emailFrom)
+                    ->setTo('e.medjesi@gmail.com')
+                    ->setBody($emailTo.":".$emailBody);
+
+            $ok = $mailer->send($message);
+
+        }
+        return $form;
     }
 
 }
