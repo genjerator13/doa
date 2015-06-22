@@ -73,7 +73,7 @@ item_print_details:
     defaults: { _controller: NumaDOASiteBundle:Item:details } 
 search_sellers:
     path:     /seller/search
-    defaults: { _controller: NumaDOASiteBundle:Seller:search } 
+    defaults: { _controller: NumaDOASiteBundle:Default:searchSeller } 
 
 search_dispatch:
     pattern:  /search

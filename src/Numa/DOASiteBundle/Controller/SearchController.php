@@ -50,7 +50,7 @@ class SearchController extends Controller {
         $this->searchParameters->setSort($parameters);
         //$sortParams =  $parameters['search_field'];
 
-        $this->searchParameters->setAll($parameters);
+        $this->searchParametsers->setAll($parameters);
     }
 
     public function searchAction(Request $request) {
