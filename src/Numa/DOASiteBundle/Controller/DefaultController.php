@@ -189,8 +189,13 @@ class DefaultController extends Controller {
     public function categoriesAction() {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findAll();
+        $dealers = array();
+        foreach($categories as $cat){
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id'=>$cat->getId()));
+            $dealers[$cat->getId()] = $dealer;
+        }
         
-        return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories));
+        return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories , 'dealers' => $dealers));
     }
 
     public function categoryAction(request $request) {
@@ -254,30 +259,64 @@ class DefaultController extends Controller {
             // $data is a simply array with your form fields 
             // like "query" and "category" as defined above.
             $data = $form->getData();
-            $em = $this->getDoctrine()->getManager();
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id'=>$data['dealer']));
-        
+            if(!empty($data['dealer'])){
+                $em = $this->getDoctrine()->getManager();
+                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id'=>$data['dealer']));
 
-            $emailFrom = $data['email'];
-            $emailTo = $dealer->getEmail();
-            $emailBody = $data['comments'];
-            $twig = $this->container->get('twig');
-            $globals = $twig->getGlobals();
-            $subject = $globals['subject'];
-            $title = $globals['title'];
-            $subject = $subject ." ".$title;
 
-            $mailer = $this->get('mailer');
-            $message = $mailer->createMessage()
-                    ->setSubject('email from ')
-                    ->setFrom($emailFrom)
-                    ->setTo('e.medjesi@gmail.com')
-                    ->setBody($emailTo.":".$emailBody);
+                $emailFrom = $data['email'];
+                $emailTo = $dealer->getEmail();
+                $emailBody = $data['comments'];
+                $twig = $this->container->get('twig');
+                $globals = $twig->getGlobals();
+                $subject = $globals['subject'];
+                $title = $globals['title'];
+                $subject = $subject ." ".$title;
 
-            $ok = $mailer->send($message);
+                $mailer = $this->get('mailer');
+                $message = $mailer->createMessage()
+                        ->setSubject('email from ')
+                        ->setFrom($emailFrom)
+                        ->setTo('e.medjesi@gmail.com')
+                        ->setBody($emailTo.":".$emailBody);
+
+                $ok = $mailer->send($message);
+            }
 
         }
         return $form;
     }
+    
+    public function searchSellerAction(Request $request) {
+        
+        $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                    'csrf_protection' => false,
+                ))
+                ->setAction($this->get('router')->generate('search_sellers'))
+                ->setAttributes(array('role' => 'search', 'name' => 'search'))
+                ->add('Name', 'text', array('label' => "Dealership Name", 'required' => false))
+                ->add('City', 'text', array('label' => "City", 'required' => false))
+                ->getForm();
+        $form->handleRequest($request);
+        $catalogs = array();
+        if ($form->isValid()) {
+            // data is an array with "name", "email", and "message" keys
+            $data = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+            $name = $request->get('Name');
+            $city = $request->get('City');
+            $catalogs = $em->createQuery("SELECT c FROM NumaDOAAdminBundle:Catalogrecords c WHERE c.name LIKE :name AND c.address LIKE :city")
+                    ->setParameter('name', '%' . $name . '%')
+                    ->setParameter('city', '%' . $city . '%')
+                    ->getResult();
+            
+            //$catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('name' => $name));
+            //return $this->render('NumaDOASiteBundle:Default:category.html.twig', array('catalogs' => $catalogs));
+        }
+        $emailForm = $this->emailDealerForm($request);
+        return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(),'catalogs' => $catalogs, 'emailForm'=>$emailForm->createView()));
+    }
+
 
 }
