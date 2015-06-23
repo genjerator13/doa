@@ -23,17 +23,25 @@ class DefaultController extends Controller {
         $vehCategory = 1;
         //$jsonCar ="";
         //$jsonRvs ="";
+        if ($this->container->has('memcache.default')) {
+            // service is loaded and usable
 
-        $jsonCar = $this->get('memcache.default')->get('jsonCar');
-        if (empty($jsonCar)) {
+            $jsonCar = $this->get('memcache.default')->get('jsonCar');
+            if (empty($jsonCar)) {
+                $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
+                $this->get('memcache.default')->set('jsonCar', $jsonCar);
+            }
+        } else {
             $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-            $this->get('memcache.default')->set('jsonCar', $jsonCar);
         }
-
-        $jsonRvs = $this->get('memcache.default')->get('jsonRvs');
-        if (empty($jsonCar)) {
+        if ($this->container->has('memcache.default')) {
+            $jsonRvs = $this->get('memcache.default')->get('jsonRvs');
+            if (empty($jsonCar)) {
+                $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
+                $this->get('memcache.default')->set('jsonRvs', $jsonRvs);
+            }
+        }else{
             $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
-            $this->get('memcache.default')->set('jsonRvs', $jsonRvs);
         }
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -44,24 +52,24 @@ class DefaultController extends Controller {
                 ->add('bodyStyle', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Body Style');
-            },
+                        return $er->findAllBy('Body Style');
+                    },
                     'empty_value' => 'Any Body Style',
                     'label' => "Body Style", "required" => false
                 ))
                 ->add('model', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Model', 1);
-            },
+                        return $er->findAllBy('Model', 1);
+                    },
                     'empty_value' => 'Any Model',
                     'label' => "Model", "required" => false
                 ))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy(614);
-            },
+                        return $er->findAllBy(614);
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
@@ -81,8 +89,8 @@ class DefaultController extends Controller {
                 ->add('boatType', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('Boat Type');
-            },
+                        return $er->findAllBy('Boat Type');
+                    },
                     'empty_value' => 'Any type',
                     'label' => "Type", "required" => false
                 ))
@@ -90,8 +98,8 @@ class DefaultController extends Controller {
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
 
-                return $er->findAllBy('Boat Make');
-            },
+                        return $er->findAllBy('Boat Make');
+                    },
                     'empty_value' => 'Any make',
                     'label' => "Make", "required" => false
                 ))
@@ -113,8 +121,8 @@ class DefaultController extends Controller {
                 ->add('makeRvs', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy(760, 4);
-            },
+                        return $er->findAllBy(760, 4);
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
@@ -123,8 +131,8 @@ class DefaultController extends Controller {
                 ->add('class', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('type', 4);
-            },
+                        return $er->findAllBy('type', 4);
+                    },
                     'empty_value' => 'Any class',
                     'required' => false,
                     'label' => "Class", "required" => false
@@ -140,20 +148,20 @@ class DefaultController extends Controller {
                 ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-                ->add('typeString', 'choice', array('label' => 'Type','choices'=>$em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 3, true),'empty_value' => 'Any Type'))
-                ->add('Model', 'text', array('label' => 'Model','required'=>false))
+                ->add('typeString', 'choice', array('label' => 'Type', 'choices' => $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 3, true), 'empty_value' => 'Any Type'))
+                ->add('Model', 'text', array('label' => 'Model', 'required' => false))
                 ->add('make', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldLists',
                     'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy('make', 3);
-            },
+                        return $er->findAllBy('make', 3);
+                    },
                     'empty_value' => 'Any Make',
                     'label' => "Make", "required" => false
                 ))
-                ->add('priceFrom', 'text', array('label' => 'Price from','required'=>false))
-                ->add('priceTo', 'text', array('label' => 'to','required'=>false))
-                ->add('yearFrom', 'choice', array('label' => 'Year from','required'=>false))
-                ->add('yearTo', 'choice', array('label' => 'to','required'=>false))
+                ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
+                ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
         $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
@@ -163,16 +171,14 @@ class DefaultController extends Controller {
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
                 //->add('agApplication', 'choice', array('label' => ''))
-                ->add('agApplication', 'choice', array('label' => 'Ag Application','choices'=>$em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Ag Application', 13, true),'empty_value' => 'Any Ag Application','required'=>false))
-                
-                ->add('Model', 'choice', array('label' => 'Model','required'=>false))
+                ->add('agApplication', 'choice', array('label' => 'Ag Application', 'choices' => $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Ag Application', 13, true), 'empty_value' => 'Any Ag Application', 'required' => false))
+                ->add('Model', 'choice', array('label' => 'Model', 'required' => false))
                 //->add('Make', 'choice', array('label' => 'Make','required'=>false))
-                ->add('ag_applicationString', 'choice', array('label' => 'Type','choices'=>$em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Make', 13, true),'empty_value' => 'Any Make','required'=>false))
-                
-                ->add('priceFrom', 'text', array('label' => 'Price from','required'=>false))
-                ->add('priceTo', 'text', array('label' => 'to','required'=>false))
-                ->add('yearFrom', 'choice', array('label' => 'Year from','required'=>false))
-                ->add('yearTo', 'choice', array('label' => 'to','required'=>false))
+                ->add('ag_applicationString', 'choice', array('label' => 'Type', 'choices' => $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Make', 13, true), 'empty_value' => 'Any Make', 'required' => false))
+                ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
+                ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->getForm();
 
         return $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
@@ -189,7 +195,7 @@ class DefaultController extends Controller {
     public function categoriesAction() {
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findAll();
-        
+
         return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories));
     }
 
@@ -200,7 +206,7 @@ class DefaultController extends Controller {
         $category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
         $emailForm = $this->emailDealerForm($request);
-        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs,'emailForm'=>$emailForm->createView()));
+        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
 
     public function catalogAction(request $request) {
@@ -209,10 +215,10 @@ class DefaultController extends Controller {
         $cat_name = $request->get('catalog_name');
 
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($idCat);
-        
-        
+
+
         $emailForm = $this->emailDealerForm($request);
-        return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer,'emailForm'=>$emailForm->createView()));
+        return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer, 'emailForm' => $emailForm->createView()));
     }
 
     public function searchAction(Request $request, $route = "") {
@@ -237,7 +243,7 @@ class DefaultController extends Controller {
     public function accessDeniedAction() {
         return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig');
     }
-    
+
     public function emailDealerForm($request) {
         $data = array();
         $form = $this->createFormBuilder($data)
@@ -248,15 +254,15 @@ class DefaultController extends Controller {
                 ->add('dealer', 'hidden')
                 ->getForm();
 
-        if ($request->isMethod('POST') ) {
+        if ($request->isMethod('POST')) {
             $form->bind($request);
 
             // $data is a simply array with your form fields 
             // like "query" and "category" as defined above.
             $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id'=>$data['dealer']));
-        
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('id' => $data['dealer']));
+
 
             $emailFrom = $data['email'];
             $emailTo = $dealer->getEmail();
@@ -265,17 +271,16 @@ class DefaultController extends Controller {
             $globals = $twig->getGlobals();
             $subject = $globals['subject'];
             $title = $globals['title'];
-            $subject = $subject ." ".$title;
+            $subject = $subject . " " . $title;
 
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
                     ->setSubject('email from ')
                     ->setFrom($emailFrom)
                     ->setTo('e.medjesi@gmail.com')
-                    ->setBody($emailTo.":".$emailBody);
+                    ->setBody($emailTo . ":" . $emailBody);
 
             $ok = $mailer->send($message);
-
         }
         return $form;
     }
