@@ -1,13 +1,13 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-lsw_memcache:
-    session:
-        client: default
-    clients:
-        default:
-            hosts:
-              - { dsn: localhost, port: 11211 }
+#lsw_memcache:
+#    session:
+#        client: default
+#    clients:
+#        default:
+#            hosts:
+#              - { dsn: localhost, port: 11211 }
 #lsw_guzzle:
 #    clients:
 #        test:
