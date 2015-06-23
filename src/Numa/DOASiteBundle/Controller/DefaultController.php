@@ -23,26 +23,33 @@ class DefaultController extends Controller {
         $vehCategory = 1;
         //$jsonCar ="";
         //$jsonRvs ="";
-        if ($this->container->has('memcache.default')) {
+        
+        //if ($this->container->has('memcache.default')) {
             // service is loaded and usable
 
-            $jsonCar = $this->get('memcache.default')->get('jsonCar');
-            if (empty($jsonCar)) {
+            //$jsonCar = $this->get('memcache.default')->get('jsonCar');
+            if (!apc_exists('jsonCar')) {
                 $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-                $this->get('memcache.default')->set('jsonCar', $jsonCar);
+                apc_store('jsonCar', $jsonCar);
+                //$this->get('memcache.default')->set('jsonCar', $jsonCar);
+            }else{
+                $jsonCar = apc_fetch('jsonCar');
             }
-        } else {
-            $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-        }
-        if ($this->container->has('memcache.default')) {
-            $jsonRvs = $this->get('memcache.default')->get('jsonRvs');
-            if (empty($jsonCar)) {
+        //} else {
+        //    $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
+       // }
+        //if ($this->container->has('memcache.default')) {
+            //$jsonRvs = $this->get('memcache.default')->get('jsonRvs');
+            if (!apc_exists('jsonRvs')) {
                 $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
-                $this->get('memcache.default')->set('jsonRvs', $jsonRvs);
+                //$this->get('memcache.default')->set('jsonRvs', $jsonRvs);
+                apc_store('jsonRvs', $jsonRvs);
+            }else{
+                $jsonRvs = apc_fetch('jsonRvs');
             }
-        }else{
-            $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
-        }
+        //}else{
+            //$jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
+        //}
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
