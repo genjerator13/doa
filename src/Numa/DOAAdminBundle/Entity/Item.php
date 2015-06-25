@@ -1590,6 +1590,8 @@ class Item {
             $this->setVin($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'body style') {
             $this->setBodyStyle($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'body description') {
+            $this->setBodyDescription($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'transmission') {
             $this->setTransmission($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'type' || strtolower($itemField->getFieldName()) == 'boat type') {
