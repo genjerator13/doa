@@ -118,7 +118,7 @@
 
                             {% block rightsidebar %}
 
-                                <ul class="righsidebar-block" data="{{item.id}}" url="{{path('item_compare')}}">
+                                <ul class="righsidebar-block" data="{{item.id}}">
                                     <li>
                                         <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
                                         <div id="fb-root"></div>
@@ -187,14 +187,14 @@
                                                 <li>
                                                     <div class="checkbox-inline">
                                                         <label>
-                                                            <input type="checkbox" class="compareAd" > Compare Ad
+                                                            <input type="checkbox" class="compareAd" data-itemid="{{item.id}}" data-url="{{path('item_compare')}}"> Compare Ad
                                                         </label>
                                                     </div>
                                                 </li>
                                                 <li>
                                                     <div class="checkbox-inline">
                                                         <label>
-                                                            <input type="checkbox" class="saveAd"> Save Ad
+                                                            <input type="checkbox" class="saveAd" data-itemid="{{item.id}}"> Save Ad
                                                         </label>
                                                     </div>
                                                 </li>
@@ -372,7 +372,7 @@
                                                 {% endjavascripts %}#}
                                                 <script>
                                                     $(".saveAd").on("click", function() {
-                                                        var itemId = $(this).closest('.item-row').attr("data");
+                                                        var itemId = $(this).data("itemid");
                                                         console.log(itemId);
                                                         var act = "add";
                                                         if (!$(this).prop('checked')) {
@@ -388,8 +388,8 @@
 
                                                     });
                                                     $(".compareAd").on("click", function() {
-                                                        var itemId = $(this).closest('.item-row').attr("data");
-                                                        var url = $(this).closest('.item-row').attr("url");
+                                                        var itemId = $(this).data("itemid");
+                                                        var url = $(this).data("url");
 
                                                         var act = "add";
                                                         if (!$(this).prop('checked')) {

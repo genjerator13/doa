@@ -23,15 +23,16 @@ class SearchController extends Controller {
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return type 
      */
-    public function initSearchParams(Request $request, $additionalParams = array()) {
+    public function initSearchParams(Request $request=null, $additionalParams = array()) {
         if (empty($this->searchParameters) || empty($this->searchParameters->init)) {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
-
-        $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
-        $parameters = $request->query->all();
-
-        $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+        $parameters=array();
+        if(!empty($request)){
+            $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
+            $parameters = $request->query->all();
+            $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+        }
         if (!empty($additionalParams)) {
             $parameters = array_merge($parameters, $additionalParams);
         }
@@ -51,6 +52,10 @@ class SearchController extends Controller {
         //$sortParams =  $parameters['search_field'];
 
         $this->searchParameters->setAll($parameters);
+    }
+    
+    public function getSearchParameters(){
+        return $this->searchParameters;
     }
 
     public function searchAction(Request $request) {
