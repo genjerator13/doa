@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
 #        client: default
@@ -181,11 +182,11 @@ parameters:
     iauto: %kernel.root_dir%/../web/iauto
     
 gregwar_image: ~  
-endroid_qr_code:
-    size: 100
-    padding: 10
-    extension: gif
-    error_correction_level: high
+#endroid_qr_code:
+#    size: 100
+#    padding: 10
+#    extension: gif
+#    error_correction_level: high
     
 apy_data_grid:
     pagerfanta:
