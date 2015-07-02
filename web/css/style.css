@@ -536,3 +536,15 @@ div.detailsContent div.slideshow {
 .nav-tabs {
     border: none;
 }
+
+.login-form a
+{
+    margin:0;
+}
+.login-form {
+    
+}
+.login-form .panel{
+    width: 300px;
+    margin:0 auto;
+}
