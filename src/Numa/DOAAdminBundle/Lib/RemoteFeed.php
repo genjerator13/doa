@@ -32,13 +32,13 @@ class RemoteFeed extends ContainerAware {
 
     public function __construct($id) {
         $this->feedid = $id;
-        
+
         $this->getFeed();
     }
 
     public function getFeed() {
         $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getManager('default');
-        
+
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);
         $this->items = array();
         $this->source = $this->entity->getImportSource();
@@ -131,7 +131,8 @@ class RemoteFeed extends ContainerAware {
         if (self::URL == $this->entity->getImportMethod()) {
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
-                $this->items = self::xml2array($xml_obj->children());
+                //$this->items = self::xml2array($xml_obj->children());
+                $this->items = json_decode(json_encode((array) $xml_obj), 1);
                 if (!empty($this->items['item'])) {
                     $this->items = $this->items['item'];
                 } elseif (!empty($this->items['inventor'])) {
@@ -146,30 +147,45 @@ class RemoteFeed extends ContainerAware {
 
         $sourceFile = $this->source;
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
+        $rootNode = $this->entity->getRootNode();
+        $root = explode("/", $rootNode);
+        
         if (self::UPLOAD == $this->entity->getImportMethod()) {
             $sourceFile = $upload_path . $sourceFile;
         }
         if (self::XML == $this->entity->getImportFormat()) {
-            $xml_obj = simplexml_load_file($sourceFile);
+            $xml_obj = simplexml_load_file($sourceFile,'SimpleXMLElement', LIBXML_NOCDATA);
 
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
-                $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
+                $xmlSource = $xml_obj->xpath($rootNode);
             }
 
             if (empty($xmlSource)) {
                 $xmlSource = $xml_obj->children();
             }
 
-            $this->items = self::xml2array($xmlSource);
-            $rootNode = $this->entity->getRootNode();
+            ///$this->items = self::xml2array($xmlSource);
+            
+            $this->items = json_decode(json_encode((array) $xml_obj), 1);
+           // dump($rootNode);
+           // dump($this->items);
 
             if (!empty($rootNode)) {
                 
-                //dump($this->items);
-                 
-                if(!empty($this->items[$rootNode])){
-                   $this->items = $this->items[$rootNode];                
+                $c=0;
+                $temp=$this->items;
+                foreach($root as $node){
+                    if(!empty($node)){
+                        dump($node);
+                        if($c>0){
+                            $temp = $temp[$node];                        }
+                        $c++;
+                    }                                        
+                }                                
+                //dump($temp);die();
+                if (!empty($temp)) {
+                    $this->items = $temp;
                 }
             } else {
                 if (!empty($this->items['item'])) {
@@ -179,9 +195,9 @@ class RemoteFeed extends ContainerAware {
                 }
             }
 
-            $arrayItem = $this->xml2array($this->items);
-            
-            return $this->xml2array($this->items);
+            //$arrayItem = $this->xml2array($this->items);
+            //dump($this->items);
+            return $this->items;
         }
         if (self::CSV == $this->entity->getImportFormat()) {
 
@@ -215,7 +231,7 @@ class RemoteFeed extends ContainerAware {
                 fclose($fp);
                 $filename = $local_file;
             }
-            
+
             if (!file_exists($filename)) {
                 trigger_error("Import source does not exists!!!", E_USER_ERROR);
             }
@@ -278,11 +294,25 @@ class RemoteFeed extends ContainerAware {
         return null;
     }
 
-    static function xml2array($xmlObject, $out = array()) {
+    static function xml2array1($xmlObject, $out = array()) {
         foreach ((array) $xmlObject as $index => $node)
             $out[$index] = (is_object($node)) ? self::xml2array($node) : $node;
 
         return $out;
+    }
+
+    static function xml2array($xml) {
+        $arr = array();
+        foreach ($xml as $element) {
+            $tag = $element->getName();
+            $e = get_object_vars($element);
+            if (!empty($e)) {
+                $arr[$tag] = $element instanceof SimpleXMLElement ? xml2array($element) : $e;
+            } else {
+                $arr[$tag] = trim($element);
+            }
+        }
+        return $arr;
     }
 
     public static function getValue($XMLvalue, $type = "string") {
