@@ -70,7 +70,6 @@
     },
     "config": {
         "bin-dir": "bin",
-        "vendor-dir": "/var/symfony2/vendors"
     },
     "minimum-stability": "dev",
     "extra": {
