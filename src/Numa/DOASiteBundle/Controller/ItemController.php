@@ -53,13 +53,17 @@ class ItemController extends Controller {
     }
 
     public function saveadAction(Request $request) {
+        
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
-        $itemid = intval($request->get('itemid'));
+        $itemid = intval($request->request->get('itemid'));
+        
+        
         $act = $request->get('act');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);
         $ret = array();
-        if ($item instanceof \Numa\DOAAdminBundle\Entity\Item && $user instanceof Numa\DOAAdminBundle\Entity\User) {
+            
+        if ($item instanceof \Numa\DOAAdminBundle\Entity\Item || $user instanceof Numa\DOAAdminBundle\Entity\User) {
 
             $userItem = $em->getRepository('NumaDOAAdminBundle:UserItem')
                     ->findOneBy(array('User' => $user,
@@ -68,11 +72,13 @@ class ItemController extends Controller {
                     ->findBy(array('User' => $user,
                 'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
             $userItemsCount = count($userItems);
+
             if ($act == 'add') {
                 $userItemExists = $em->getRepository('NumaDOAAdminBundle:UserItem')
                         ->findOneBy(array('User' => $user,
                     'Item' => $item,
                     'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
+                
                 if (empty($userItemExists)) {
                     $userItem = new \Numa\DOAAdminBundle\Entity\UserItem();
                     $userItem->setUser($user);

@@ -127,7 +127,9 @@ class UserController extends Controller {
         $param = array();
         if ($user instanceof User) {
             $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSavedAds($user->getId());
+            
             $searchController = $this->get('Numa.Controller.Search');
+            $searchController->initSearchParams();
             $param = $searchController->showItems($items);
             //\Doctrine\Common\Util\Debug::dump($param);die();
         }
