@@ -1,7 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-nelmio_api_doc: ~    
+    
+#        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
 #        client: default
@@ -38,6 +39,8 @@ framework:
     session:         ~
     fragments:       ~
     http_method_override: true
+    session:
+        handler_id: ~
 
 # Twig Configuration
 twig:

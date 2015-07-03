@@ -22,7 +22,7 @@
     
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.6.x",
+        "symfony/symfony": "2.7.x",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         
@@ -47,7 +47,10 @@
         "twbs/bootstrap": "dev-master",
         "leaseweb/memcache-bundle": "*",
         "leaseweb/api-caller-bundle": "*",
-        "Trsteel/ckeditor-bundle": "~1.6"
+        "Trsteel/ckeditor-bundle": "~1.6",
+        "jms/serializer-bundle": "^1.1@dev",
+        "friendsofsymfony/rest-bundle": "^1.8@dev",
+        "nelmio/api-doc-bundle": "^2.9@dev"
     },
     "scripts": {
         "post-install-cmd": [
@@ -66,7 +69,8 @@
         ]
     },
     "config": {
-        "bin-dir": "bin"
+        "bin-dir": "bin",
+        "vendor-dir": "/var/symfony2/vendors"
     },
     "minimum-stability": "dev",
     "extra": {
