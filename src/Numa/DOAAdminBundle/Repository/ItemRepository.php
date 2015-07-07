@@ -333,16 +333,15 @@ class ItemRepository extends EntityRepository {
                     }
                 }
                 //connect with dealer
-
-                if (stripos($property, 'dealer') !== false) {
+                
+                if (stripos($listingFields->getSid(), 'dealer') !== false) {
                     
                     $dealerId = $stringValue;
-                    $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
                     
-                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-                        
-                        $item->setDealer($dealer);
-                        
+                    $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
+                    dump($dealer);
+                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {                        
+                        $item->setDealer($dealer);                        
                     }
                     unset($dealer);
                     unset($dealerId);

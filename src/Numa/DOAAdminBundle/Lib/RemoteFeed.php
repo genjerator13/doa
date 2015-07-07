@@ -176,8 +176,7 @@ class RemoteFeed extends ContainerAware {
                 $c=0;
                 $temp=$this->items;
                 foreach($root as $node){
-                    if(!empty($node)){
-                        dump($node);
+                    if(!empty($node)){                        
                         if($c>0){
                             $temp = $temp[$node];                        }
                         $c++;
