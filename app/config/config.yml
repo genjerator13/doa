@@ -1,6 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    
+#        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
 #        client: default
@@ -33,10 +35,11 @@ framework:
         engines: ['twig']
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    trusted_proxies: ~
-    session:         ~
+    trusted_proxies: ~    
     fragments:       ~
     http_method_override: true
+    session:
+        handler_id: ~
 
 # Twig Configuration
 twig:
@@ -181,11 +184,11 @@ parameters:
     iauto: %kernel.root_dir%/../web/iauto
     
 gregwar_image: ~  
-endroid_qr_code:
-    size: 100
-    padding: 10
-    extension: gif
-    error_correction_level: high
+#endroid_qr_code:
+#    size: 100
+#    padding: 10
+#    extension: gif
+#    error_correction_level: high
     
 apy_data_grid:
     pagerfanta:

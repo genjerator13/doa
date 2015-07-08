@@ -32,7 +32,10 @@ class AppKernel extends Kernel {
             //#new Braincrafted\Bundle\BootstrapBundle\BraincraftedBootstrapBundle(),
             new Symfony\Bundle\DebugBundle\DebugBundle(),
             new Trsteel\CkeditorBundle\TrsteelCkeditorBundle(),
-                //#new Lsw\ApiCallerBundle\LswApiCallerBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            //#new Lsw\ApiCallerBundle\LswApiCallerBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
