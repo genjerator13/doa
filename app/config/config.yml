@@ -212,4 +212,4 @@ trsteel_ckeditor:
 #    customize:
 #        variables_file: ~
 #        #bootstrap_output: %kernel.root_dir%/Resources/less/bootstrap.less
-#        #bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig                
+#        #bootstrap_template: BraincraftedBootstrapBundle:Bootstrap:bootstrap.less.twig                   

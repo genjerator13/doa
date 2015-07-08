@@ -168,7 +168,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             unset($mapping);
 
             //update hometabs
-            //$resultCode = $this->makeHomeTabs(false);
+            $resultCode = $this->makeHomeTabs(false);
 
             $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
