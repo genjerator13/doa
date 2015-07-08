@@ -22,10 +22,9 @@ class EntityListener {
         //before save Item
 
         if ($entity instanceof Item) {
-            if ($this->container->get('security.context')->getToken()) {
-                $user = $this->container->get('security.context')->getToken()->getUser();
+            if ($this->container->get('security.token_storage')->getToken()) {
+                $user = $this->container->get('security.token_storage')->getToken()->getUser();
                 if ($user instanceof Numa\DOAAdminBundle\Entity\User) {
-                    //echo "Aaaaaassssss";
                     $entity->setUser($user);
                 }
             }
