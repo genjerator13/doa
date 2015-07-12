@@ -108,13 +108,19 @@ class IautoController extends Controller {
                             unset($itemField);
                         }
                     }
+                } elseif ($mapValue == "dealerId") {
+                    $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($cell);
+                    if($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords){
+                        $item->setDealer($dealer);
+                    }
+                    
                 } elseif ($mapValue == "OptionsList") {
                     $cell = strip_tags($cell, "<br>");
                     $cell = str_replace("Features", "", $cell);
                     $cell = trim(str_replace("Options (included)", "", $cell));
                     $cell = preg_replace("/[\r\n]+/", "", $cell);
                     $cell = preg_replace('/[\x00-\x1F\x7F]/', '', $cell);
-                    $item->proccessOptionsList($cell, "<br />");
+                    $item->processOptionsList($cell, "<br />");
                 } else {
                     $item->setField($mapValue, $cell);
                 }

@@ -24,98 +24,7 @@ use Doctrine\Common\Collections\Criteria;
  */
 class ItemController extends Controller {
 
-    public function index2Action() {
-        $source = new Entity('NumaDOAAdminBundle:Item');
-
-        $grid = $this->get('grid');
-        //$tableAlias = $source->getTableAlias();
-        $grid->setSource($source);
-
-        //main column
-        $maincolumn = new BlankColumn();
-        $grid->addColumn($maincolumn);
-        $controller = $this;
-        $maincolumn->manipulateRenderCell(
-                function($value, $row, $router) use ($controller) {
-            $res = array();
-
-            $id = $row->getField('id');
-            $em = $controller->getDoctrine()->getManager();
-
-            $fields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $id));
-
-            $res['id'] = $id;
-            $res['category'] = $row->getField('Category.name');
-            if (empty($res['category'])) {
-                
-            }
-            $res['username'] = $row->getField('User.username');
-            $res['dealer'] = $row->getField('Dealer.name');
-            $res['active'] = $row->getField('active');
-            $res['moderation_status'] = $row->getField('moderation_status');
-            $res['views'] = $row->getField('views');
-            $res['activation_date'] = $row->getField('activation_date');
-            // $res['date_created'] = $row->getField('date_created');
-
-            foreach ($fields as $field) {
-                if (strtolower($field->getFieldType()) == 'array') {
-                    $res[$field->getFieldName()][] = $field->getFieldStringValue();
-                } else {
-                    $res[$field->getFieldName()] = $field->getFieldStringValue();
-                }
-            }
-
-            if (empty($res['Image List'])) {
-                $res['Image List'] = "";
-            }
-            if (empty($res['Year'])) {
-                $res['Year'] = "";
-            }
-
-            if (empty($res['Make'])) {
-                $res['Make'] = "";
-            }
-
-            if (empty($res['activation_date'])) {
-                $res['activation_date'] = " ";
-            } else {
-                $res['activation_date'] = $res['activation_date']->format('Y-m-d');
-            }
-
-
-            echo $controller->renderView("NumaDOAAdminBundle:Item:itemDetailsGrid.html.twig", array("details" => $res));
-        }
-        );
-
-        //actions in row and mass actions
-        //$grid->addRowAction(new RowAction('Show', 'items'));
-        $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
-        $grid->addMassAction($yourMassAction);
-        $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
-        $grid->addMassAction($yourMassAction);
-
-        //$grid->isTitleSectionVisible = false;
-        //hide certain columns
-        //$grid->hideColumns('id');
-        //$grid->hideColumns('Category.name');
-        //$grid->hideColumns('User.UserGroup.name');
-        //$grid->hideColumns('User.username');
-        //$grid->hideColumns('active');
-        //$grid->hideColumns('moderation_status');
-        //$grid->hideColumns('views');
-        //$grid->hideColumns('activation_date');
-//as
-        return $grid->getGridResponse('NumaDOAAdminBundle:Item:index.html.twig');
-    }
-
+    
     /**
      * Lists all User entities.
      *
@@ -132,7 +41,7 @@ class ItemController extends Controller {
         $grid->addColumn($imageColumn, 1);
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
-        
+
         $entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         //main column
 
@@ -155,6 +64,8 @@ class ItemController extends Controller {
         $yourMassAction = new MassAction('Deactivate', 'NumaDOAAdminBundle:Item:massDeactivate');
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Approve', 'NumaDOAAdminBundle:Item:massApprove');
+        $grid->addMassAction($yourMassAction);
+        $yourMassAction = new MassAction('Make Featured', 'NumaDOAAdminBundle:Item:massFeature');
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Reject', 'NumaDOAAdminBundle:Item:massReject');
         $grid->addMassAction($yourMassAction);
@@ -198,6 +109,21 @@ class ItemController extends Controller {
 
             if ($entity) {
                 $entity->setModerationStatus(1);
+                $em->flush();
+            }
+        }
+
+        return $this->redirect($this->generateUrl('items'));
+    }
+
+    public function massFeatureAction($primaryKeys, $allPrimaryKeys) {
+        $em = $this->getDoctrine()->getManager();
+        foreach ($primaryKeys as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+
+            if ($entity) {
+                $entity->setActive(1);
+                $entity->setFeatured(1);
                 $em->flush();
             }
         }
@@ -481,7 +407,7 @@ class ItemController extends Controller {
 
                     $itemFieldAlreadySet = $entity->getItemField()->matching($criteria);
                     if ($itemFieldAlreadySet->isEmpty() || empty($listingField)) {
-                        
+
                         $entity->addItemField($itemField);
                     }
                 }
@@ -732,8 +658,8 @@ class ItemController extends Controller {
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
         }
     }
-    
-    public function renderFetch($array){
+
+    public function renderFetch($array) {
         
     }
 

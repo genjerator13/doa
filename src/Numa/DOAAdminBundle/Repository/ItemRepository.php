@@ -339,7 +339,7 @@ class ItemRepository extends EntityRepository {
                     $dealerId = $stringValue;
                     
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
-                    dump($dealer);
+                    
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {                        
                         $item->setDealer($dealer);                        
                     }
