@@ -33,10 +33,14 @@ class OptionsDecorator {
                 if (!empty($test['option'])) {
                     $optionsArray = $test['option'];
                 }
+                if (!empty($test['specification'])) {
+                    $optionsArray = $test['specification'];
+                }
             }
         }
-        //dump($optionsArray);
+        
         foreach ($optionsArray as $key => $optionXXX) {
+            
             $option = new Option();
             $value = "";
             $name =  "";  
@@ -49,24 +53,25 @@ class OptionsDecorator {
             if(!empty($optionXXX['value'])){
                 $value = $optionXXX['value'];
             }
+            if(!empty($optionXXX['specification-name'])){
+                $name = $optionXXX['specification-name'];
+            }
+            if(!empty($optionXXX['specification-value'])){
+                $value = $optionXXX['specification-value'];
+            }
             if(empty($value)){
                 $value=false;
             }
-            //$value = $option->getValue();
-            //$name = $option->getName();
+
             if(empty($name)){
                 $name = $value;
                 $value = true;
             }
-//            dump($name);
-//            echo ":::";
-//            dump($value);
-            if(!empty($name)){
-                
+
+            if(!empty($name)){                
                 $option->setValue($value);
                 $option->setName($name);
                 $this->addOption($option);
-                //dump($option);
             }
 
         }
