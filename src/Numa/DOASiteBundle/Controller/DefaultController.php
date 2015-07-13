@@ -312,6 +312,7 @@ class DefaultController extends Controller {
                 $temp['model'] = $item->getModel();
                 $temp['make'] = $item->getMake();
                 $temp['price'] = $item->getPrice();
+                $temp['images']=array();
                 if(!empty($item->getImages2())){
                     foreach($item->getImages2() as $image){
                         $temp['images']['id']=$image->getId();
