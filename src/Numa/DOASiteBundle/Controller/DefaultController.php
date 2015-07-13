@@ -17,7 +17,7 @@ class DefaultController extends Controller {
         if (!apc_exists('hometabs')) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
             apc_store('hometabs', $hometabs);
-            dump('hometabs');
+            //dump('hometabs');
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
         } else {
             $hometabs = apc_fetch('hometabs');
@@ -51,7 +51,7 @@ class DefaultController extends Controller {
         if (!apc_exists('vehicleBodyStyle')) {
             $vehicleChoices = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style', 1, true, true);
             apc_store('vehicleBodyStyle', $vehicleChoices);
-            dump('vehicleBodyStyle');
+            //dump('vehicleBodyStyle');
         } else {
             $vehicleChoices = apc_fetch('vehicleBodyStyle');
         }
@@ -59,7 +59,7 @@ class DefaultController extends Controller {
         if (!apc_exists('vehicleModel')) {
             $vehicleModel = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Model', 1, true, false);
             apc_store('vehicleModel', $vehicleModel);
-            dump('vehicleModel');
+            //dump('vehicleModel');
         } else {
             $vehicleModel = apc_fetch('vehicleModel');
         }
@@ -67,7 +67,7 @@ class DefaultController extends Controller {
         if (!apc_exists('vehicleMake')) {
             $vehicleMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findAllBy(614, 1, true, false);
             apc_store('vehicleMake', $vehicleMake);
-            dump('vehicleMake');
+            //dump('vehicleMake');
         } else {
             $vehicleMake = apc_fetch('vehicleMake');
         }
@@ -102,7 +102,7 @@ class DefaultController extends Controller {
         if (!apc_exists('marineBoatType')) {
             $marinaBoatType = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Boat Type', 2, true, true);
             apc_store('marineBoatType', $marinaBoatType);
-            dump('marineBoatType');
+            //dump('marineBoatType');
         } else {
             $marinaBoatType = apc_fetch('marineBoatType');
         }
@@ -110,7 +110,7 @@ class DefaultController extends Controller {
         if (!apc_exists('marineBoatMake')) {
             $marinaBoatMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Boat Make', 2, true, true);
             apc_store('marineBoatMake', $marinaBoatType);
-            dump('marineBoatMake');
+            //dump('marineBoatMake');
         } else {
             $marinaBoatMake = apc_fetch('marineBoatMake');
         }
@@ -142,7 +142,7 @@ class DefaultController extends Controller {
         if (!apc_exists('rvMake')) {
             $rvMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findAllBy(760, 4, true, true);
             apc_store('rvMake', $rvMake);
-            dump('rvMake');
+            //dump('rvMake');
         } else {
             $rvMake = apc_fetch('rvMake');
         }
@@ -150,7 +150,7 @@ class DefaultController extends Controller {
         if (!apc_exists('rvClasses')) {
             $rvClasses = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 4, true, true);
             apc_store('rvClasses', $rvClasses);
-            dump('rvClasses');
+            //dump('rvClasses');
         } else {
             $rvClasses = apc_fetch('rvClasses');
         }
@@ -183,7 +183,7 @@ class DefaultController extends Controller {
         if (!apc_exists('motoMake')) {
             $motoMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('make', 3, true, false);
             apc_store('motoMake', $motoMake);
-            dump('motoMake');
+            //dump('motoMake');
         } else {
             $motoMake = apc_fetch('motoMake');
         }
@@ -191,7 +191,7 @@ class DefaultController extends Controller {
         if (!apc_exists('motoType')) {
             $motoType = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 3, true, true);
             apc_store('motoType', $motoType);
-            dump('motoType');
+            //dump('motoType');
         } else {
             $motoType = apc_fetch('motoType');
         }
@@ -217,7 +217,7 @@ class DefaultController extends Controller {
         if (!apc_exists('agModel')) {
             $agModel = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Ag Application', 13, true);
             apc_store('agModel', $agModel);
-            dump('agModel');
+            //dump('agModel');
         } else {
             $agModel = apc_fetch('agModel');
         }
