@@ -9,12 +9,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: preUpdate }
             - { name: doctrine.event_listener, event: postUpdate }
-  
-    login_success_handler:
-        class: Numa\DOAAdminBundle\Listeners\AccessListener
-        arguments:  [@router, @security.context]
-        tags:
-            - { name: 'monolog.logger', channel: 'security' }
+ 
     import_mapping:
         class: Numa\DOAAdminBundle\Controller\ImportmappingController
         

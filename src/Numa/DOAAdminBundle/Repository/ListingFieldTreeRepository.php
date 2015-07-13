@@ -37,7 +37,7 @@ class ListingFieldTreeRepository extends EntityRepository {
         return json_encode($jsonArray);
     }
 
-    public function findAllBy($fieldId) {
+    public function findAllBy($fieldId,$result=false,$byid=true) {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('t')
@@ -49,15 +49,18 @@ class ListingFieldTreeRepository extends EntityRepository {
                 //->andWhere('t.caption like :property')
                 ->setParameter('fieldid', $fieldId);
         ;
-//        $res = array();
-//        if ($result) {
-//            $result = $qb->getQuery()->getResult();
-//            foreach ($result as $key => $value) {
-//                $res[$value->getName()] = $value->getName();
-//            }
-//
-//            return $res;
-//        }
+        $res = array();
+        if ($result) {
+            $result = $qb->getQuery()->getResult();
+            foreach ($result as $key => $value) {
+                if(!$byid){
+                    $res[$value->getName()] = $value->getName();
+                }else{
+                    $res[$value->getId()] = $value->getName();
+                }
+            }
+            return $res;
+        }
 //        ;
         //dump($qb->getQuery());die();
         return $qb;
