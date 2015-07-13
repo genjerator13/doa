@@ -300,7 +300,7 @@ class DefaultController extends Controller {
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
         if (!apc_exists('featured')) {
-            dump('featured3');
+
             $featured = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
             $items=array();
             $temp=array();
@@ -319,11 +319,9 @@ class DefaultController extends Controller {
                         $temp['images']['src']=$image->getFieldStringValue();
                     }                    
                 }
-                dump($temp);
-                //$temp['images2'] = $item->getImages2();
+
                 $items[] = $temp;
             }
-            //die();
             apc_store('featured', $items);
             
         } else {
