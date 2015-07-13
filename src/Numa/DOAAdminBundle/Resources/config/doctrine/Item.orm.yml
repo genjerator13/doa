@@ -199,10 +199,12 @@ Numa\DOAAdminBundle\Entity\Item:
               type: text
               nullable: true 
         length:
-              type: float
+              type: string
+              length: 255
               nullable: true
         weight:
-              type: float
+              type: string
+              length: 255
               nullable: true
         hull_design:
               type: string
@@ -316,7 +318,8 @@ Numa\DOAAdminBundle\Entity\Item:
               type: integer
               nullable: true
         width:
-              type: float
+              type: string
+              length: 255
               nullable: true
         mpgCity:
               type: float

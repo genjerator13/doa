@@ -1018,11 +1018,12 @@ class Item {
     }
 
     public function processOptionsList($stringvalue, $separator) {
-
+        
         if (empty($separator)) {
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
+        
         $order = 1;
 
         $proccessed = false;
