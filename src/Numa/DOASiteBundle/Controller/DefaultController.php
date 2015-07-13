@@ -322,7 +322,7 @@ class DefaultController extends Controller {
 
                 $items[] = $temp;
             }
-            apc_store('featured', $items);
+            apc_store('featured', $items,300);
             
         } else {
             $items = apc_fetch('featured');
