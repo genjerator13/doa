@@ -323,11 +323,11 @@ class DefaultController extends Controller {
 
                 $items[] = $temp;
             }
-            //apc_store('featured', $items,300);
+       //     apc_store('featured', $items,300);
             
-        //} else {
+       // } else {
         //    $items = apc_fetch('featured');
-        //}
+       // }
 
         return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
     }
