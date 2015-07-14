@@ -14,6 +14,7 @@ class DefaultController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $hometabs = '';
+        
         if (!apc_exists('hometabs')) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
             apc_store('hometabs', $hometabs);
@@ -299,7 +300,7 @@ class DefaultController extends Controller {
 
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
-        if (!apc_exists('featured')) {
+        //if (!apc_exists('featured')) {
 
             $featured = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
             $items=array();
@@ -322,11 +323,11 @@ class DefaultController extends Controller {
 
                 $items[] = $temp;
             }
-            apc_store('featured', $items,300);
+            //apc_store('featured', $items,300);
             
-        } else {
-            $items = apc_fetch('featured');
-        }
+        //} else {
+        //    $items = apc_fetch('featured');
+        //}
 
         return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
     }
