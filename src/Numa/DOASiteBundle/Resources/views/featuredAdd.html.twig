@@ -5,16 +5,16 @@
     </div>
     <div class="panel-body">
         {% for item in items %}
-            {% set images = item['images']%}
-            {% set desc = item['make']~item['model']~" "%}
-                <a  href="{{path('item_details', {'itemId': item['id'], 'description': desc}) }}">{{item['year']}} {{item['make']}} {{item['model']}}</br>
+            {% set images = item.getImages()%}
+            {% set desc = item.getMake()~item.getModel()~" "%}
+                <a  href="{{path('item_details', {'itemId': item.id, 'description': desc}) }}">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
 
                     
-                {% set image = images|first%}
+                {% set image = item.getImages2()|first%}
                 {% if images is empty  %}
                     <img class="thumbnail" alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
                 {% else %} 
-                    {% set image = images['src']%}
+                    {% set image = item.getImages()|first["stringvalue"]%}
                         {% if ('http' not in image) %}
                             <img class="thumbnail" alt="featured ad" src="{{image|imagine_filter('search_image')}}" />
                         {% else %}
@@ -22,7 +22,7 @@
                         {%endif%}
                    
                     {% endif %}                    
-                        <span class="text-center">{{price(item['price'])|raw}}</span>
+                        <span class="text-center">{{price(item.getItemFieldByName('price'))|raw}}</span>
                 </a>
         {% endfor %}
     </div>

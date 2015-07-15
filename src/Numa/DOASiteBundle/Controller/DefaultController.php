@@ -299,34 +299,7 @@ class DefaultController extends Controller {
 
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
-        //if (!apc_exists('featured')) {
-
-            $featured = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
-            $items=array();
-            $temp=array();
-            
-            foreach($featured as $item){
-                $temp=array();
-                $temp['id'] = $item->getId();
-                $temp['year'] = $item->getYear();
-                $temp['model'] = $item->getModel();
-                $temp['make'] = $item->getMake();
-                $temp['price'] = $item->getPrice();
-                $temp['images']=array();
-                if(!empty($item->getImages2())){
-                    foreach($item->getImages2() as $image){
-                        $temp['images']['id']=$image->getId();
-                        $temp['images']['src']=$image->getFieldStringValue();
-                    }                    
-                }
-
-                $items[] = $temp;
-            }
-       //     apc_store('featured', $items,300);
-            
-       // } else {
-        //    $items = apc_fetch('featured');
-       // }
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
 
         return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
     }
