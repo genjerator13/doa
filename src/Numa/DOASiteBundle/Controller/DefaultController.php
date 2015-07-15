@@ -14,6 +14,7 @@ class DefaultController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $hometabs = '';
+        
         if (!apc_exists('hometabs')) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
             apc_store('hometabs', $hometabs);
