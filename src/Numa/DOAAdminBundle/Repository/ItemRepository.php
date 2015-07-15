@@ -12,6 +12,11 @@ use Doctrine\Common\Collections\Criteria;
 class ItemRepository extends EntityRepository {
 
     protected $itemFieldsDeleted = false;
+    private $memcache;
+
+    public function setMemcached($memcachce) {
+        $this->memcache = $memcachce;
+    }
 
     public function getItemFields($item_id) {
 
@@ -27,47 +32,30 @@ class ItemRepository extends EntityRepository {
             $max = 5;
         }
         $em = $this->getEntityManager();
-        //$sql = " SELECT count(*) as count FROM item WHERE featured=1 AND active=1";
-        $q    = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
-        $query = $this->getEntityManager()
-                ->createQuery($q);
-        $query->useResultCache(true, 3600, 'featuredSelect');
-        $res2 = $query->getArrayResult();
+        $res2 = $this->memcache->get('featured');
+        if ($res2 === false) {
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
+            $query = $this->getEntityManager()
+                    ->createQuery($q);
+            $query->useResultCache(true, 3600, 'featuredSelect');
+            $res2 = $query->getArrayResult();
+            $this->memcache->get('featured',$res2);
+        }
 
-        ///$res2 = array();
-        //$stmt = $em->getConnection()->prepare($sql);
-        
-        //$stmt->execute();
-        //$res2 = $stmt->fetchAll();
         $count = count($res2);
-
         $maxOffset = $count - $max <= 0 ? $count : $max;
-
-//        $sql = " SELECT model, make, id,year,price FROM item WHERE featured=1 AND active=1";
-//        
-//        $stmt = $em->getConnection()->prepare($sql);
-//        
-//        $stmt->execute();
-//        $res2 = $stmt->fetchAll();
-        
-        
-//        $q    = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
-//        $query = $this->getEntityManager()
-//                ->createQuery($q);
-//        $query->useResultCache(true, 3600, 'my_custom_id');
-//        $res2 = $query->getArrayResult();
-        
         if (!empty($res2)) {
-            if (!apc_exists('randomFeaturedads')) {
+
+            //$randResult = $this->memcache->get('randomFeaturedads');
+            //if ($randResult===false) {
             $rand_keys = array_rand($res2, $maxOffset);
             $randResult = array();
             foreach ($rand_keys as $key) {
                 $randResult[] = $res2[$key]['id'];
             }
-            apc_store('randomFeaturedads', $randResult,3600);
-            }else{
-                $randResult = apc_fetch('randomFeaturedads');
-            }
+            //$this->memcache->set('randomFeaturedads',$randResult,false,3600);
+            // } 
+
 
             $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->select('i')
@@ -76,11 +64,12 @@ class ItemRepository extends EntityRepository {
                     ->andWhere('i.id IN (:ids)')
                     ->setParameter('ids', $randResult)
                     ->setMaxResults(10);
-                   ;
+            ;
 
             $query = $qb->getQuery();
             $query->useResultCache(true, 3600, 'featuredRandomSet');
-            $res=$query->getResult(); //->getResult();
+
+            $res = $query->getResult(); //->getResult();
 
             return $res;
         }
@@ -145,7 +134,7 @@ class ItemRepository extends EntityRepository {
                 ->andWhere('i.' . $subcat . ' like :subcatname')
                 ->setParameter('subcatname', "%" . $subcatname . "%")
                 ->setParameter('category', $cat)
-                ;
+        ;
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //dump($itemsQuery->getSQL());
@@ -217,12 +206,12 @@ class ItemRepository extends EntityRepository {
      */
     public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em) {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        
+
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
-       
+
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
         if (!empty($importItem[$uniqueField])) {
@@ -262,7 +251,7 @@ class ItemRepository extends EntityRepository {
         }
 
         foreach ($mapping as $maprow) {
-            
+
             $property = $maprow->getSid();
 
             $processed = false;
@@ -313,9 +302,9 @@ class ItemRepository extends EntityRepository {
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'array') {
                     //check if string or array
-                    
+
                     $json = json_decode($stringValue, true);
-                    
+
                     if (!empty($json) && is_array($json)) {
                         if (!empty($json['image']) && is_array($json['image'])) {
                             $temp = array();
@@ -336,8 +325,8 @@ class ItemRepository extends EntityRepository {
                 } else {
                     
                 }
-                
-                if (!empty($listingFieldsType) && $listingFieldsType == 'options') {                    
+
+                if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
                     $processed = true;
                     $item->processOptionsList($stringValue, $feed->getOptionsSeparator());
                 }
@@ -348,15 +337,15 @@ class ItemRepository extends EntityRepository {
                     }
                 }
                 //connect with dealer
-                
+
                 if (stripos($listingFields->getSid(), 'dealer') !== false) {
-                    
+
                     $dealerId = $stringValue;
-                    
+
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
-                    
-                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {                        
-                        $item->setDealer($dealer);                        
+
+                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+                        $item->setDealer($dealer);
                     }
                     unset($dealer);
                     unset($dealerId);

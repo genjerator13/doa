@@ -3,13 +3,13 @@ imports:
     - { resource: security.yml }
     
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
-#lsw_memcache:
-#    session:
-#        client: default
-#    clients:
-#        default:
-#            hosts:
-#              - { dsn: localhost, port: 11211 }
+lsw_memcache:
+    session:
+        pool: default
+    pools:
+        default:
+            servers:
+              - { host: localhost, tcp_port: 11212 }
 #lsw_guzzle:
 #    clients:
 #        test:
@@ -46,6 +46,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
+        site: DEV
         title: CJVR Dealers On Air
         subject: Email from
         upload_feed_path: /upload/feeds/
@@ -138,8 +139,8 @@ doctrine:
         # path:     %database_path%
 
     orm:
-        metadata_cache_driver: apc
-        query_cache_driver: apc 
+        metadata_cache_driver: memcache
+        query_cache_driver: memcache 
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         dql:
