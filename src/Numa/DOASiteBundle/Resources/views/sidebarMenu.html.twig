@@ -1,14 +1,3 @@
-{#<div class="list-group">
-    {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
-        <a class="list-group-item" href="{{path('buyer_login')}}"> Sign In | Register </a>
-    {% else %}
-        <a class="list-group-item" href="{{path('logout')}}"> Log Out </a>
-    {%endif %}
-
-    <a class="list-group-item" href="{{path('homepage_categories')}}">Business Directory</a>
-    <a class="list-group-item" href="{{path('search_sellers')}}">Search Sellers</a>
-#}
-
     {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
         <div class="list-group">
         <span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span>    

@@ -29,7 +29,7 @@ class ListingFieldListsRepository extends EntityRepository {
      * @param type $property
      * @return type
      */
-    public function findAllBy($property, $cat = 0, $result = false) {
+    public function findAllBy($property, $cat = 0, $result = false,$byid=false) {
         
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
@@ -54,7 +54,11 @@ class ListingFieldListsRepository extends EntityRepository {
         if ($result) {
             $result = $qb->getQuery()->getResult();
             foreach ($result as $key => $value) {
-                $res[$value->getValue()] = $value->getValue();
+                if(!$byid){
+                    $res[$value->getValue()] = $value->getValue();
+                }else{
+                    $res[$value->getId()] = $value->getValue();
+                }
             }
             return $res;
         }

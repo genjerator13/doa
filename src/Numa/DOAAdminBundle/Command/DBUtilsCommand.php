@@ -99,7 +99,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
         $this->em->flush();
         $this->em->clear();
 
-        exit(1);
+        //exit(1);
         return true;
     }
 

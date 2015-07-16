@@ -15,8 +15,8 @@ security:
             form_login:
                 login_path:  /user/login
                 check_path:  /login_check
-                default_target_path: /admin/dashboard
-                success_handler: login_success_handler
+                default_target_path: /admin
+               # success_handler: login_success_handler
             logout:
                 path:   /logout
                 target: /
