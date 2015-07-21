@@ -20,7 +20,7 @@ class CommandLogController extends Controller {
      */
     public function indexAction() {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NumaDOAAdminBundle:CommandLog')->findLastCommandLog(100);
+        $entities = $em->getRepository('NumaDOAAdminBundle:CommandLog')->findLastCommandLog(20);
         //$inProgress = $this->get('memcache.default')->get('progresses');
         $progresses = array();
         //$temp = $this->get('memcache.default')->get('progresses');
