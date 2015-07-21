@@ -188,25 +188,13 @@ ul.tmp{
 }
 
 .header-image {
-    background: url('/images/heder_fox.png') 50% bottom no-repeat;
-    width: 100%;
+    background: url("/images/header_car.jpg") no-repeat scroll 50% bottom #ffffff;
     height: 165px;
     padding: 0;
-    position : relative;
-
+    position: relative;
+    width: 100%;
 }
 
-
-.header-logo{
-    background: url('/images/logo_cjvr.png') no-repeat;
-    
-    width: 350px;
-    height: 100px;
-    position: absolute;
-    bottom: 0;
-    left: 335px;
-    
-}
 
 .logo-text {
     font-family: bauhaus93;
