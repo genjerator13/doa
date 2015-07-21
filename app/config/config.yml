@@ -46,7 +46,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: CJVR Dealers On Air
+        title: Colorado Auto Mal
         subject: Email from
         upload_feed_path: /upload/feeds/
 #    form:
@@ -186,11 +186,11 @@ parameters:
     iauto: %kernel.root_dir%/../web/iauto
     
 gregwar_image: ~  
-#endroid_qr_code:
-#    size: 100
-#    padding: 10
-#    extension: gif
-#    error_correction_level: high
+endroid_qr_code:
+    size: 100
+    padding: 10
+    extension: gif
+    error_correction_level: high
     
 apy_data_grid:
     pagerfanta:
