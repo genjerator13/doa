@@ -46,7 +46,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: Colorado Auto Mall
+        title: CJVR Dealers On Air
         subject: Email from
         upload_feed_path: /upload/feeds/
 #    form:
@@ -67,7 +67,7 @@ assetic:
     assets:
         bootstrap:
             inputs:
-               - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.css'        
+               - '%kernel.root_dir%/../web/bootstrap3/css/bootstrap.min.css'        
         bootstrap_select_css:
             inputs:
                - '%kernel.root_dir%/../web/bootstrap3/select/css/bootstrap-select.min.css'        
@@ -138,6 +138,8 @@ doctrine:
         # path:     %database_path%
 
     orm:
+        metadata_cache_driver: apc
+        query_cache_driver: apc 
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         dql:
