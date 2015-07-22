@@ -12,6 +12,8 @@
         {% if is_granted('ROLE_USER') %}
             <a class="list-group-item" href="{{path('profile')}}">My profile</a>
         {% endif %}
+        <a class="list-group-item" href="{{path('logout')}}">Logout </a>
+        
         </div>
     {% endif %}
 
