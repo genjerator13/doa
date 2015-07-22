@@ -24,7 +24,6 @@ use Doctrine\Common\Collections\Criteria;
  */
 class ItemController extends Controller {
 
-    
     /**
      * Lists all User entities.
      *
@@ -489,13 +488,19 @@ class ItemController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
         //if ($form->isValid()) {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-
+        $securityContext = $this->container->get('security.context');
+        if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId()) {
+                throw $this->createAccessDeniedException('You cannot delete this listing!');
+            }
+        }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
@@ -503,7 +508,11 @@ class ItemController extends Controller {
         $em->remove($entity);
         $em->flush();
         //}
+        if ($securityContext->isGranted('ROLE_BUSINES')) {
+            $referer = $request->headers->get('referer');  
 
+            return $this->redirect($referer);
+        }
         return $this->redirect($this->generateUrl('items'));
     }
 

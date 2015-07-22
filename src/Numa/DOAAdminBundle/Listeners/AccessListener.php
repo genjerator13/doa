@@ -45,7 +45,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
             // redirect the user to where they were before the login process begun.
             $response = new RedirectResponse($this->router->generate('homepage'));
         }
-            
+
         return $response;
     }
     

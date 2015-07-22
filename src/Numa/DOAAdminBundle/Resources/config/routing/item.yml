@@ -35,7 +35,7 @@ items_update:
 items_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:delete" }
-    requirements: { _method: post|delete }
+
 items_activate:
     pattern:  /{id}/activate
     defaults: { _controller: "NumaDOAAdminBundle:Item:activate" }
