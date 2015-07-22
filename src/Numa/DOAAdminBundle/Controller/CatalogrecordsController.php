@@ -159,7 +159,11 @@ class CatalogrecordsController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Catalogrecords $entity) {
-        $form = $this->createForm(new CatalogrecordsType(), $entity, array(
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new CatalogrecordsType();
+        $catalogForm->setSecurityContext($securityContext);
+        
+        $form = $this->createForm($catalogForm, $entity, array(
             'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
