@@ -12,6 +12,10 @@ class CatalogrecordsType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
+    public $securityContext;
+    public function setSecurityContext($securityContext){
+        $this->securityContext=$securityContext;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('name')
@@ -33,6 +37,9 @@ class CatalogrecordsType extends AbstractType {
                 ->add('logo_url', 'text', array('required' => false))
                 ->add('password', 'password', array('required' => false))
         ;
+        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_BUSINES')){
+            $builder->remove('logo_url');
+        }
     }
 
     /**
