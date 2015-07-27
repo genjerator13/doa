@@ -240,15 +240,19 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->getForm();
 
-        return $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
-                    'tabs' => $tabs,
-                    'jsonCar' => $jsonCar,
-                    'jsonRvs' => $jsonRvs,
-                    'vehicleForm' => $vehicleForm->createView(),
-                    'motorsportForm' => $motorsportForm->createView(),
-                    'rvsForm' => $rvsForm->createView(),
-                    'agForm' => $agForm->createView(),
-                    'marineForm' => $marineForm->createView()));
+        $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
+            'tabs' => $tabs,
+            'jsonCar' => $jsonCar,
+            'jsonRvs' => $jsonRvs,
+            'vehicleForm' => $vehicleForm->createView(),
+            'motorsportForm' => $motorsportForm->createView(),
+            'rvsForm' => $rvsForm->createView(),
+            'agForm' => $agForm->createView(),
+            'marineForm' => $marineForm->createView()));
+        $response->setPublic();
+        $response->setSharedMaxAge(600);
+        $response->setMaxAge(600);
+        return $response;
     }
 
     public function categoriesAction() {
@@ -301,7 +305,13 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
 
-        return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+
+        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+        $response->setPublic();
+        $response->setSharedMaxAge(600);
+        $response->setMaxAge(600);
+
+        return $response;
     }
 
     public function accessDeniedAction() {
