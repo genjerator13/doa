@@ -15,96 +15,6 @@ body
 .clear{
     clear:both;
 }
-body.fullSize
-{
-    min-width: 0;
-}
-
-/* START: Main layout */
-#SiteFrame
-{
-    width:100%;
-}
-
-/* column container */
-.colmask
-{
-    position:relative;	/* This fixes the IE7 overflow hidden bug and stops the layout jumping out of place */
-    clear:both;
-    float:left;
-    width:100%;			/* width of whole page */
-    overflow:hidden;	/* This chops off any overhanging divs */
-}
-
-/* --- for 2-column layout -- */
-.rightBack
-{
-    /* Right column background colour here */
-}
-
-.rightBack .mainBack
-{
-    float:left;
-    width:200%;
-    margin-left:-200px; /* Width of right column */
-    position:relative;
-    right:100%;
-    /* Centre column background colour here */
-}
-
-.rightBack .leftBack
-{
-    float:left;
-    width:100%;
-    margin-left:-50%;
-    position:relative;
-    left:400px;         /* Left column width + right column width */
-}
-
-.rightBack .leftSectionWrap
-{
-    float:left;
-    width:50%;
-    position:relative;
-    right:200px;        /* Width of left column */
-    padding-bottom:1em; /* Centre column bottom padding. Leave it out if it's zero */
-}
-
-.rightBack .mainContent
-{
-    margin:0 215px;     /* Centre column side padding:
-                        Left padding = left column width + centre column left padding width
-                        Right padding = right column width + centre column right padding width */
-    position:relative;
-    left:200%;
-    overflow: hidden;
-}
-
-.rightBack .leftSection
-{
-    float:left;
-    float:right;	/* This overrides the float:left above */
-    width:170px;        /* Width of left column content (left column width minus left and right padding) */
-    position:relative;
-    right:15px;         /* Width of the left-hand side padding on the left column */
-}
-
-.rightBack .rightBlock
-{
-    float:left;
-    float:right;	/* This overrides the float:left above */
-    width:170px;        /* Width of right column content (right column width minus left and right padding) */
-    margin-right:45px;  /* Width of right column right-hand padding + left column left and right padding */
-    position:relative;
-    left:50%;
-}
-
-.leftmenu
-{
-    background: url('bg.png') 15px 0 repeat-y #ffffff;
-    min-height: 100%;
-    /* Left column background colour here */
-}
 
 /* --- for 2-column layout -- */
 .leftmenu .colright
@@ -152,20 +62,6 @@ body.fullSize
     margin: 0 -22px 0 4px;
     line-height: 25px;
 }
-.leftMenu .caption
-{
-    height: 25px;
-    line-height: 25px;
-    font-weight: bold;
-    color: #1772DA;
-    background: url('menu_caption_arrow.png') left center no-repeat;
-    padding: 0 0 0 15px;
-    cursor: pointer;
-}
-.leftMenu .caption.active
-{
-    background: url('active_menu_caption_arrow.png') left center no-repeat;
-}
 
 .leftMenu a
 {
@@ -184,116 +80,13 @@ body.fullSize
     text-decoration: underline;
 }
 
-i {
-    float: right;
-}
 
-.leftMenu li.active
-{
-    padding: 0 14px 0 0;
-    background: url('active_menu_item_arrow.png') no-repeat right center;
-}
-.leftMenu a.active,
-.leftMenu a.active:hover
-{
-    background: url('active_menu_item_bg.png') repeat-x left;
-    color: #fff;
-    text-decoration: none;
-}
 
-.languageSelector select {
-    width: 100px;
-}
-
-div.grid_body {
-    width: 100%;
-}
-div.searchResults div.picture_detail {
-    float: left;
-    margin-right: 10px;
-    width: 120px;
-}
-
-div.searchResults input {
-    float: left;
-    margin-right: 10px;
-}
-div.searchResults li{
-    list-style: none;
-}
-div.searchResults li.itemdetailtitle{
-    font-size: 110%;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-div.searchResults ul.actionList li {
-    float:left;
-    margin-right: 10px;
-}
-
-div.searchResults div.middle_details {
-    width: 500px;
-    float: left;
-}
-
-div.searchResults div.right_details {
-    width: 200px;
-    float: left;
-}
-
-div.searchResults div.searchResultItem {
-    border-bottom: 1px solid #DEF9FA;
-}
-div.content form ul{
-    margin-left: 0px;
-}
-div.content form ul li{
-    list-style-type: none;
-}
-ul.record_actions li{
-    float: left;
-}
 
 .dashboard ul {
     list-style-type: none;
 }
 
-.mini-submenu{
-    display:none;  
-    background-color: rgba(0, 0, 0, 0);  
-    border: 1px solid rgba(0, 0, 0, 0.9);
-    border-radius: 4px;
-    padding: 9px;  
-    /*position: relative;*/
-    width: 42px;
-    margin-left: 20px;
-
-}
-
-.mini-submenu:hover{
-    cursor: pointer;
-}
-
-.mini-submenu .icon-bar {
-    border-radius: 1px;
-    display: block;
-    height: 2px;
-    width: 22px;
-    margin-top: 3px;
-}
-
-.mini-submenu .icon-bar {
-    background-color: #000;
-}
-
-#slide-submenu{
-    background: rgba(0, 0, 0, 0.45);
-    display: inline-block;
-    padding: 0 8px;
-    border-radius: 4px;
-    cursor: pointer;
-}
 .glyphicon { margin-right:10px; }
 .panel-body { padding:0px; }
 .panel-body table tr td { padding-left: 15px }
