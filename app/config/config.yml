@@ -46,7 +46,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: Colorado Auto Mal
+        title: CJVR Dealers On Air
         subject: Email from
         upload_feed_path: /upload/feeds/
 #    form:
@@ -63,7 +63,10 @@ assetic:
            node: /usr/local/bin/node
            node_paths: [/usr/local/lib/node_modules]
            apply_to: "\.less$"
-        
+        yui_css:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
+        yui_js:
+            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"   
     assets:
         bootstrap:
             inputs:
@@ -186,11 +189,11 @@ parameters:
     iauto: %kernel.root_dir%/../web/iauto
     
 gregwar_image: ~  
-endroid_qr_code:
-    size: 100
-    padding: 10
-    extension: gif
-    error_correction_level: high
+#endroid_qr_code:
+#    size: 100
+#    padding: 10
+#    extension: gif
+#    error_correction_level: high
     
 apy_data_grid:
     pagerfanta:
