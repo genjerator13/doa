@@ -3,10 +3,11 @@
 
 <h2>Business Directory</h2>
 <div class="list-group id="myTab">
-    {% for key,cat in categories %}
+    {% for cat in categories %}
         
         <a href="{{path('homepage_category', {'idcategory': cat.id,'category_name':cat.name})}}" class="list-group-item">
-            {{cat.name}}    ({{dealers[cat.id]|length}})</a>
+            {{cat.name}}    </a>
+
     {%endfor%}
         </div>
 {% endblock %}
