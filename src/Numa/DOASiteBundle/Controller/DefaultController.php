@@ -257,14 +257,20 @@ class DefaultController extends Controller {
     }
 
     public function categoriesAction() {
+        
+        //$stopwatch = new Stopwatch();
+//        $stopwatch->start('eventName');
+//        dump($stopwatch);
         $em = $this->getDoctrine()->getManager();
         $categories = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findAll();
         $dealers = array();
-        foreach ($categories as $cat) {
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $cat->getId()));
-            $dealers[$cat->getId()] = $dealer;
-        }
-
+//        foreach ($categories as $cat) {
+//            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $cat->getId()));
+//            $dealers[$cat->getId()] = $dealer;
+//        }
+//        
+//        $event = $stopwatch->stop('eventName');
+//        dump($stopwatch);
         return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories, 'dealers' => $dealers));
     }
 
@@ -272,10 +278,10 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcategory');
         $cat_name = $request->get('category_name');
-        $category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
+        //$category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
         $emailForm = $this->emailDealerForm($request);
-        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('category' => $category, 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
+        return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
 
     public function catalogAction(request $request) {
