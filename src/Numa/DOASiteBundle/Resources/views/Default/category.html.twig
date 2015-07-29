@@ -3,7 +3,7 @@
 
     {#<h2>{{category.name}}</h2>#}
     <div class="list-group id="myTab">
-         {% for key,item in catalogs %}
+         {% for item in catalogs %}
              <h2><a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="">{{item.name}}</a></h2>
              <div>{{item.description| raw}}
                  <dl class="captions businessCatalogCaptions">
