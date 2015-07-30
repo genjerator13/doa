@@ -237,16 +237,11 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
 
-//    public function featuredAddAction($max) {
-//
-//        $em = $this->getDoctrine()->getManager();
-//        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
-//        $itemrep->setMemcached($this->get('mymemcache'));
-//        $featured = $itemrep->findFeatured($max);
-//        dump($featured);die();
-//
-//        return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $featured));
-//    }
+public function sidebarMenuAction() {
+
+
+        return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
+    }
 
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
