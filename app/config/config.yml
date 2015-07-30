@@ -2,14 +2,23 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     
+parameters:
+    memcached.servers:
+      - { host: 127.0.0.1, port: 11211 }
+
+services:
+    memcached:
+        class: Memcached
+        calls:
+            - [ addServers, [ %memcached.servers% ]]
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
-#        client: default
-#    clients:
+#        pool: default
+#    pools:
 #        default:
-#            hosts:
-#              - { dsn: localhost, port: 11211 }
+#            servers:
+#              - { host: localhost, tcp_port: 11212 }
 #lsw_guzzle:
 #    clients:
 #        test:
@@ -22,7 +31,8 @@ imports:
 #                    CURLOPT_FOLLOWLOCATION: true
 #                    CURLOPT_SSLVERSION: 3              
 framework:
-    #esi:             ~
+    esi: { enabled: true }
+
     #translator:      { fallback: %locale% }
     secret:          %secret%
     router:
@@ -63,7 +73,10 @@ assetic:
            node: /usr/local/bin/node
            node_paths: [/usr/local/lib/node_modules]
            apply_to: "\.less$"
-        
+#        yui_css:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
+#        yui_js:
+#            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"   
     assets:
         bootstrap:
             inputs:
@@ -138,8 +151,8 @@ doctrine:
         # path:     %database_path%
 
     orm:
-        metadata_cache_driver: apc
-        query_cache_driver: apc 
+        metadata_cache_driver: memcache
+        query_cache_driver: memcache 
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         dql:

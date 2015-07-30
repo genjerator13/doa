@@ -249,14 +249,14 @@ class searchParameters {
                     }
                 }
                 
-                //sort
-                $qb->addOrderBy("i.date_created",  "DESC");
+                               
+            }
+        }
+        //sort 
+        $qb->addOrderBy("i.date_created",  "DESC");
                 if(!empty($this->sort_by)){
                     $qb->addOrderBy("i.".$this->sort_by,  $this->sort_order);
                 }
-            }
-        }
-        
 
         return $qb->getQuery();
     }
