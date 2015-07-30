@@ -12,16 +12,30 @@ class ListingFieldListsRepository extends EntityRepository {
      * @param type $listing_field_id
      * @return type
      */
+    private $memcache;
+
+ 
+    public function setMemcached($memcachce)
+    {
+        $this->memcache = $memcachce;
+    }
+    
     public function findOneByValue($propertyName, $listing_field_id) {
-        $propertyName = str_replace("'", "", $propertyName);
-        $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
+        $hash = sha1('findOneByValueList' . $propertyName . $listing_field_id);
+        $return = $this->memcache->get($hash);
+        if ($return === false) {
+            $propertyName = str_replace("'", "", $propertyName);
+            $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
                      l.listing_field_id = ' . $listing_field_id . ' AND
                      l.value like \'' . $propertyName . '\'  OR 
                      l.value like \'%' . $propertyName . '%\'     ';
-        $query = $this->getEntityManager()
-                        ->createQuery($q)->setMaxResults(1);
-        $res = $query->getOneOrNullResult(); //getOneOrNullResult();
-        return $res;
+            $query = $this->getEntityManager()
+                            ->createQuery($q)->setMaxResults(1);
+            $res = $query->getOneOrNullResult(); //getOneOrNullResult();
+            $this->memcache->set($hash, $res);
+            return $res;
+        }
+        return $return;
     }
 
     /**
@@ -29,8 +43,8 @@ class ListingFieldListsRepository extends EntityRepository {
      * @param type $property
      * @return type
      */
-    public function findAllBy($property, $cat = 0, $result = false,$byid=false) {
-        
+    public function findAllBy($property, $cat = 0, $result = false, $byid = false) {
+
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('lfl')
@@ -43,29 +57,34 @@ class ListingFieldListsRepository extends EntityRepository {
                 ->setParameter('property', "%" . $property . "%");
         ;
         if ($cat > 0) {
-            
+
             $qb->andWhere('l.category_sid=:csid')
                     ->setParameter('csid', $cat);
-            
         }
-        
+
         $res = array();
-        
+
         if ($result) {
-            $result = $qb->getQuery()->getResult();
-            foreach ($result as $key => $value) {
-                if(!$byid){
-                    $res[$value->getValue()] = $value->getValue();
-                }else{
-                    $res[$value->getId()] = $value->getValue();
+            $hash = sha1('findAllByList' . $property . $cat);
+            $return = $this->memcache->get($hash);
+            if ($return === false) {
+                $result = $qb->getQuery()->getResult();
+                foreach ($result as $key => $value) {
+                    if (!$byid) {
+                        $res[$value->getValue()] = $value->getValue();
+                    } else {
+                        $res[$value->getId()] = $value->getValue();
+                    }
                 }
+                $this->memcache->set($hash, $res);
+                return $res;
             }
-            return $res;
+            return $return;
         }
-        
+
         //$res = $query; //->getResult();
         ;
-        
+
         return $qb;
     }
 
@@ -86,7 +105,7 @@ class ListingFieldListsRepository extends EntityRepository {
         $query = $qb->select('tp')
                 ->from('NumaDOAAdminBundle:ListingFieldLists', 'tp')
                 ->where('tp.listing_field_id=:field_id')
-                ->setParameter('field_id', $fieldId)                
+                ->setParameter('field_id', $fieldId)
                 ->getQuery();
         ;
 
