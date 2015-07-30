@@ -13,66 +13,35 @@ class DefaultController extends Controller {
     public function indexAction() {
 
         $em = $this->getDoctrine()->getManager();
-        $hometabs = '';
-        
-        if (!apc_exists('hometabs')) {
+        $hometabs = $this->get('mymemcache')->get('hometabs');
+        if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-            apc_store('hometabs', $hometabs);
+            $this->get('mymemcache')->set('hometabs', $hometabs);
             //dump('hometabs');
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        } else {
-            $hometabs = apc_fetch('hometabs');
         }
 
-
         $tabs = array();
-
         foreach ($hometabs as $tab) {
             $cat = $tab->getCategoryName();
             $tabs[$cat][] = $tab;
         }
 
         $vehCategory = 1;
+        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
+        $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
+        $lftreec->setMemcached($this->get('mymemcache'));
+        $lflistc->setMemcached($this->get('mymemcache'));
 
-        if (!apc_exists('jsonCar')) {
-            $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-            apc_store('jsonCar', $jsonCar);
-            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        } else {
-            $jsonCar = apc_fetch('jsonCar');
-        }
+        $jsonCar = $lftreec->getJsonTreeModels(614);
 
-        if (!apc_exists('jsonRvs')) {
-            $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
-            //$this->get('memcache.default')->set('jsonRvs', $jsonRvs);
-            apc_store('jsonRvs', $jsonRvs);
-        } else {
-            $jsonRvs = apc_fetch('jsonRvs');
-        }
-        if (!apc_exists('vehicleBodyStyle')) {
-            $vehicleChoices = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style', 1, true, true);
-            apc_store('vehicleBodyStyle', $vehicleChoices);
-            //dump('vehicleBodyStyle');
-        } else {
-            $vehicleChoices = apc_fetch('vehicleBodyStyle');
-        }
+        $jsonRvs = $lftreec->getJsonTreeModels(760);
+        $vehicleChoices = $lflistc->findAllBy('Body Style', 1, true, true);
+        $vehicleModel = $lflistc->findAllBy('Model', 1, true, false);
+        $vehicleMake = $lftreec->findAllBy(614, 1, true, false);
 
-        if (!apc_exists('vehicleModel')) {
-            $vehicleModel = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Model', 1, true, false);
-            apc_store('vehicleModel', $vehicleModel);
-            //dump('vehicleModel');
-        } else {
-            $vehicleModel = apc_fetch('vehicleModel');
-        }
+        //die();
 
-        if (!apc_exists('vehicleMake')) {
-            $vehicleMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findAllBy(614, 1, true, false);
-            apc_store('vehicleMake', $vehicleMake);
-            //dump('vehicleMake');
-        } else {
-            $vehicleMake = apc_fetch('vehicleMake');
-        }
-        //dump($vehicleChoices);die();
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -100,21 +69,9 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax), "required" => false))
                 ->add('category_id', 'hidden', array('data' => 1))
                 ->getForm();
-        if (!apc_exists('marineBoatType')) {
-            $marinaBoatType = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Boat Type', 2, true, true);
-            apc_store('marineBoatType', $marinaBoatType);
-            //dump('marineBoatType');
-        } else {
-            $marinaBoatType = apc_fetch('marineBoatType');
-        }
 
-        if (!apc_exists('marineBoatMake')) {
-            $marinaBoatMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Boat Make', 2, true, true);
-            apc_store('marineBoatMake', $marinaBoatType);
-            //dump('marineBoatMake');
-        } else {
-            $marinaBoatMake = apc_fetch('marineBoatMake');
-        }
+        $marinaBoatType = $lflistc->findAllBy('Boat Type', 2, true, true);
+        $marinaBoatMake = $lflistc->findAllBy('Boat Make', 2, true, true);
 
         $marineForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -140,21 +97,10 @@ class DefaultController extends Controller {
                 ->add('category_id', 'hidden', array('data' => 2))
                 ->getForm();
 
-        if (!apc_exists('rvMake')) {
-            $rvMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findAllBy(760, 4, true, true);
-            apc_store('rvMake', $rvMake);
-            //dump('rvMake');
-        } else {
-            $rvMake = apc_fetch('rvMake');
-        }
 
-        if (!apc_exists('rvClasses')) {
-            $rvClasses = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 4, true, true);
-            apc_store('rvClasses', $rvClasses);
-            //dump('rvClasses');
-        } else {
-            $rvClasses = apc_fetch('rvClasses');
-        }
+        $rvMake = $lftreec->findAllBy(760, 4, true, true);
+        $rvClasses = $lflistc->findAllBy('type', 4, true, true);
+
 
         $rvsForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -181,21 +127,10 @@ class DefaultController extends Controller {
                 ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(), 'required' => false))
                 ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'required' => false, 'preferred_choices' => array(Util::yearMax)))
                 ->getForm();
-        if (!apc_exists('motoMake')) {
-            $motoMake = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('make', 3, true, false);
-            apc_store('motoMake', $motoMake);
-            //dump('motoMake');
-        } else {
-            $motoMake = apc_fetch('motoMake');
-        }
 
-        if (!apc_exists('motoType')) {
-            $motoType = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('type', 3, true, true);
-            apc_store('motoType', $motoType);
-            //dump('motoType');
-        } else {
-            $motoType = apc_fetch('motoType');
-        }
+        $motoMake = $lflistc->findAllBy('make', 3, true, false);
+        $motoType = $lflistc->findAllBy('type', 3, true, true);
+
         $motorsportForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -215,14 +150,8 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
-        if (!apc_exists('agModel')) {
-            $agModel = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Ag Application', 13, true);
-            apc_store('agModel', $agModel);
-            //dump('agModel');
-        } else {
-            $agModel = apc_fetch('agModel');
-        }
 
+        $agModel = $lflistc->findAllBy('Ag Application', 13, true);
 
         $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -257,7 +186,7 @@ class DefaultController extends Controller {
     }
 
     public function categoriesAction() {
-        
+
         //$stopwatch = new Stopwatch();
 //        $stopwatch->start('eventName');
 //        dump($stopwatch);
@@ -308,16 +237,28 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
 
+public function sidebarMenuAction() {
+
+
+        return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
+    }
+
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findFeatured($max);
+
+        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+
+        $itemrep->setMemcached($this->get('mymemcache'));
+        $featured = $itemrep->findFeatured($max);
+
+        $items = array();
+        $temp = array();
 
 
-        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $featured));
         $response->setPublic();
-        $response->setSharedMaxAge(600);
-        $response->setMaxAge(600);
-
+        $response->setSharedMaxAge(60);
+        $response->setMaxAge(60);
         return $response;
     }
 
@@ -400,3 +341,33 @@ class DefaultController extends Controller {
     }
 
 }
+
+//        
+//        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+//
+//        $itemrep->setMemcached($this->get('mymemcache'));
+//        $featured = $itemrep->findFeatured($max);
+//        $items = array();
+//        $temp = array();
+//
+//        foreach ($featured as $item) {
+//            $temp = array();
+//            $temp['id'] = $item->getId();
+//            $temp['year'] = $item->getYear();
+//            $temp['model'] = $item->getModel();
+//            $temp['make'] = $item->getMake();
+//            $temp['price'] = $item->getPrice();
+//            $temp['images'] = array();
+//            if (!empty($item->getImages2())) {
+//                foreach ($item->getImages2() as $image) {
+//                    $temp['images']['id'] = $image->getId();
+//                    $temp['images']['src'] = $image->getFieldStringValue();
+//                }
+//            }
+//
+//            $items[] = $temp;
+//        }
+//        //     apc_store('featured', $items,300);
+//        // } else {
+//        //    $items = apc_fetch('featured');
+//        // }

@@ -14,7 +14,7 @@
         {% block javascripts %}
             <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
             <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-            {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@flex_slider_js' '@pgw_slideshow_js'  %}
+            {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@flex_slider_js' '@pgw_slideshow_js'%}
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
@@ -46,22 +46,20 @@
                         <div class="header-logo" >
 
                         </div>
-                        <div class="logo-text" >
-                            SEMO Auto Mall
-                        </div>
                     </div>
 
                 </div>
 
                 <div class="row">
-                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2">
-                        {{include('NumaDOASiteBundle::sidebarMenu.html.twig')}}
+                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:sidebarMenu')) }} 
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }} 
                     </div>
                     <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
                         {% block content %}
                         {% endblock %}
                     </div>
-                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2  right-sidebar">
+                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 right-sidebar" >
                         {% block rightsidebar %}
                         {% endblock %}
                     </div>
