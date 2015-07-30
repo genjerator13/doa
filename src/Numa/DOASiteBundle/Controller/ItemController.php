@@ -20,6 +20,7 @@ class ItemController extends Controller {
         if ($routeName == 'item_print_details') {
             $print = true;
         }
+        //$memcached = $this->get('mymemcached');
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
         //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
@@ -29,40 +30,51 @@ class ItemController extends Controller {
         }
         //$itemfields = $item->getItemFieldsArray();
         //get dealer
-        $dealerid = $item->getItemFieldByName('dealer');
+        $dealer = $item->getDealer();
 
-        $dealer = "";
-        if (!empty($dealerid)) {
-            $dealer = $em->getRepository('NumaDOAAdminBundle:CatalogRecords')->find($dealerid);
-        }
         //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
         //add 1 more view
         $item->setViews($item->getViews() + 1);
+        $item->setDontUpdate();
         $em->flush();
-        $emailForm = $this->emailDealerForm($request,$item->getDealer());
-        
-        if($emailForm instanceof \Symfony\Component\Form\Form ){
-            return $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
-                        'dealer' => $dealer,
-                        'print' => $print,
-                        'searchQ' => $searchQ,
-                        'emailForm' => $emailForm->createView()));
-        }else{
+        $emailForm = $this->emailDealerForm($request, $item->getDealer());
+
+        if ($emailForm instanceof \Symfony\Component\Form\Form) {
+//            $response = new Response();
+//            $response->setETag($item->computeETag());
+//            $response->setLastModified($item->lastUpdated());
+//
+//            // Set response as public. Otherwise it will be private by default.
+//            $response->setPublic();
+//            ;
+//            if ($response->isNotModified($request)) {
+//
+//                return $response;
+//            }
+
+
+            $response = $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
+                'dealer' => $dealer,
+                'print' => $print,
+                'searchQ' => $searchQ,
+                'emailForm' => $emailForm->createView()));
+            return $response;
+        } else {
             return $emailForm;
         }
     }
 
     public function saveadAction(Request $request) {
-        
+
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $itemid = intval($request->request->get('itemid'));
-        
-        
+
+
         $act = $request->get('act');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);
         $ret = array();
-            
+
         if ($item instanceof \Numa\DOAAdminBundle\Entity\Item || $user instanceof Numa\DOAAdminBundle\Entity\User) {
 
             $userItem = $em->getRepository('NumaDOAAdminBundle:UserItem')
@@ -78,7 +90,7 @@ class ItemController extends Controller {
                         ->findOneBy(array('User' => $user,
                     'Item' => $item,
                     'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
-                
+
                 if (empty($userItemExists)) {
                     $userItem = new \Numa\DOAAdminBundle\Entity\UserItem();
                     $userItem->setUser($user);
@@ -172,7 +184,7 @@ class ItemController extends Controller {
         )));
     }
 
-    public function emailDealerForm($request,$dealer) {
+    public function emailDealerForm($request, $dealer) {
         $data = array();
         $form = $this->createFormBuilder($data)
                 ->add('comments', 'textarea')
@@ -195,24 +207,25 @@ class ItemController extends Controller {
             $globals = $twig->getGlobals();
             $subject = $globals['subject'];
             $title = $globals['title'];
-            $subject = $subject ." ".$title;
+            $subject = $subject . " " . $title;
 
             $mailer = $this->get('mailer');
             $message = $mailer->createMessage()
                     ->setSubject('email from ')
                     ->setFrom($emailFrom)
                     ->setTo('e.medjesi@gmail.com')
-                    ->setBody($emailTo.":".$emailBody);
+                    ->setBody($emailTo . ":" . $emailBody);
 
             $ok = $mailer->send($message);
             $currentRoute = $request->attributes->get('_route');
             $currentRouteParams = $request->attributes->get('_route_params');
-            
+
             $currentUrl = $this->get('router')
-                     ->generate($currentRoute, $currentRouteParams, true);
+                    ->generate($currentRoute, $currentRouteParams, true);
 
             return $this->redirect($currentUrl);
         }
         return $form;
     }
+
 }

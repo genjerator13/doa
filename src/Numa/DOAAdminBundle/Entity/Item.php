@@ -23,7 +23,7 @@ class Item {
         13 =>
         array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
-
+    
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -169,6 +169,13 @@ class Item {
     public function __construct() {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ItemFieldArray = array();
+        $this->dontupdate = false;
+    }
+    
+    private $dontupdate;
+    
+    public function setDontUpdate(){
+        $this->dontupdate=true;
     }
 
     /**
@@ -919,7 +926,10 @@ class Item {
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-        $this->date_updated = new \DateTime();
+        if(empty($this->dontupdate)){
+            
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -3108,5 +3118,25 @@ class Item {
         }
         return $output;
     }
-
+    public function computeETag(){
+        $etag = "listing:".$this->getId();
+        return $etag;
+    }
+    
+    public function lastUpdated(){
+        $updated = $this->getDateUpdated();
+        $created = $this->getDateCreated();
+        
+        if(!empty($updated)){
+            return $updated;
+            
+        }
+        if(!empty($created)){
+            return $created;
+        }
+        $date = new \DateTime();
+        $date->setDate(2000, 1, 1);
+        
+        return $date;
+    }
 }
