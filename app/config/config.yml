@@ -56,7 +56,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: CJVR Dealers On Air
+        title: Colorado Auto Mall
         subject: Email from
         upload_feed_path: /upload/feeds/
 #    form:
