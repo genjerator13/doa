@@ -2,14 +2,15 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     
-#        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
-#lsw_memcache:
-#    session:
-#        client: default
-#    clients:
-#        default:
-#            hosts:
-#              - { dsn: localhost, port: 11211 }
+parameters:
+    memcached.servers:
+      - { host: 127.0.0.1, port: 11211 }
+
+services:
+    memcached:
+        class: Memcached
+        calls:
+            - [ addServers, [ %memcached.servers% ]]
 #lsw_guzzle:
 #    clients:
 #        test:
@@ -22,7 +23,8 @@ imports:
 #                    CURLOPT_FOLLOWLOCATION: true
 #                    CURLOPT_SSLVERSION: 3              
 framework:
-    #esi:             ~
+    esi: { enabled: true }
+
     #translator:      { fallback: %locale% }
     secret:          %secret%
     router:
