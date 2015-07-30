@@ -14,15 +14,12 @@ class DefaultController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $hometabs = '';
-        if (!apc_exists('hometabs')) {
+        $memcached = $this->get('mymemcache');
+        $hometabs = $memcached->get('hometabs');
+        if (!$hometabs) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-            apc_store('hometabs', $hometabs);
-            //dump('hometabs');
-            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        } else {
-            $hometabs = apc_fetch('hometabs');
-        }
-
+            $memcached->set('hometabs', $hometabs);
+        } 
 
         $tabs = array();
 
@@ -32,22 +29,19 @@ class DefaultController extends Controller {
         }
 
         $vehCategory = 1;
-
-        if (!apc_exists('jsonCar')) {
+        $jsonCar = $memcached->get('jsonCar');
+        if (!$jsonCar) {
             $jsonCar = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(614);
-            apc_store('jsonCar', $jsonCar);
-            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        } else {
-            $jsonCar = apc_fetch('jsonCar');
+            $memcached->set('jsonCar',$jsonCar);            
         }
-
-        if (!apc_exists('jsonRvs')) {
+        
+        $jsonRvs = $memcached->get('jsonRvs');
+        if (!$jsonRvs) {
             $jsonRvs = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
             //$this->get('memcache.default')->set('jsonRvs', $jsonRvs);
-            apc_store('jsonRvs', $jsonRvs);
-        } else {
-            $jsonRvs = apc_fetch('jsonRvs');
-        }
+            $memcached->set('jsonRvs',$jsonRvs); 
+        } 
+        
         if (!apc_exists('vehicleBodyStyle')) {
             $vehicleChoices = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style', 1, true, true);
             apc_store('vehicleBodyStyle', $vehicleChoices);

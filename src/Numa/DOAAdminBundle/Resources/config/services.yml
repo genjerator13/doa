@@ -17,4 +17,6 @@ services:
             - { name: 'monolog.logger', channel: 'security' }
     import_mapping:
         class: Numa\DOAAdminBundle\Controller\ImportmappingController
-   
+    mymemcache:
+        class: Numa\DOAAdminBundle\Lib\MemcacheWrapper
+        arguments:  [@memcached,@service_container,@kernel]

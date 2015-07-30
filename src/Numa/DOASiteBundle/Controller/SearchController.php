@@ -12,6 +12,7 @@ use Pagerfanta\Pagerfanta,
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Doctrine\ORM\EntityRepository;
 use Numa\Util\searchParameters;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class SearchController extends Controller {
 
@@ -74,26 +75,30 @@ class SearchController extends Controller {
     }
 
     public function showItems($query, $page = 1, $number = 10) {
-
+//        $stopwatch = new Stopwatch();
+//        $stopwatch->start('eventName');
+//        dump($query);
         $items = $query->getResult();
-
-        //die($page);
+        
+        //$stopwatch->lap('eventName');
         $page = empty($page) ? 1 : $page;
         //pagination
-
+        //$stopwatch->lap('eventName');
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
         //$queryUrl = $this->searchParameters->makeUrlQuery();
-
+        //$stopwatch->lap('eventName');
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
+        //$stopwatch->lap('eventName');
         $this->queryUrl = $this->searchParameters->makeUrlQuery();
         $this->queryUrlNoSort = $this->searchParameters->makeUrlQuery(false);
-
+        //$stopwatch->stop('eventName');
+        //dump($stopwatch);die();
         return array('items' => $items,
             'pagerfanta' => $pagerfanta,
             'listing_per_page' => $number,
@@ -192,7 +197,8 @@ class SearchController extends Controller {
     }
 
     public function searchByDealerAction(Request $request) {
-
+        $stopwatch = new Stopwatch();
+        $stopwatch->start('eventName');
 
         $page = empty($page) ? 1 : $page;
 
@@ -202,9 +208,17 @@ class SearchController extends Controller {
 
         //create query        
         $query = $this->searchParameters->createSearchQuery();
+        if (!apc_exists('searchbydealer')) {
+            $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+            apc_store('searchbydealer', $param);
+            //dump('hometabs');
+            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
+        } else {
+            $param = apc_fetch('searchbydealer');
+        }
+        //$param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
 
-        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-
+        dump($stopwatch);die();
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
