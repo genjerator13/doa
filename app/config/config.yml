@@ -2,14 +2,23 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     
+parameters:
+    memcached.servers:
+      - { host: 127.0.0.1, port: 11211 }
+
+services:
+    memcached:
+        class: Memcached
+        calls:
+            - [ addServers, [ %memcached.servers% ]]
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
-#        client: default
-#    clients:
+#        pool: default
+#    pools:
 #        default:
-#            hosts:
-#              - { dsn: localhost, port: 11211 }
+#            servers:
+#              - { host: localhost, tcp_port: 11212 }
 #lsw_guzzle:
 #    clients:
 #        test:
@@ -22,7 +31,8 @@ imports:
 #                    CURLOPT_FOLLOWLOCATION: true
 #                    CURLOPT_SSLVERSION: 3              
 framework:
-    #esi:             ~
+    esi: { enabled: true }
+
     #translator:      { fallback: %locale% }
     secret:          %secret%
     router:
@@ -46,6 +56,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
+        site: DEV
         title: CJVR Dealers On Air
         subject: Email from
         upload_feed_path: /upload/feeds/
@@ -141,8 +152,8 @@ doctrine:
         # path:     %database_path%
 
     orm:
-        metadata_cache_driver: apc
-        query_cache_driver: apc 
+        metadata_cache_driver: memcache
+        query_cache_driver: memcache 
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
         dql:
