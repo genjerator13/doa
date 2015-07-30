@@ -33,17 +33,21 @@ class ItemRepository extends EntityRepository {
         }
         $em = $this->getEntityManager();
         $res2 = $this->memcache->get('featured');
-        if ($res2 === false) {
+        
+        if (!$res2) {
+            
             $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
             $query = $this->getEntityManager()
                     ->createQuery($q);
             $query->useResultCache(true, 3600, 'featuredSelect');
             $res2 = $query->getArrayResult();
             $this->memcache->get('featured',$res2);
+            
         }
-
+        
         $count = count($res2);
         $maxOffset = $count - $max <= 0 ? $count : $max;
+
         if (!empty($res2)) {
 
             //$randResult = $this->memcache->get('randomFeaturedads');
@@ -72,6 +76,7 @@ class ItemRepository extends EntityRepository {
             $res = $query->getResult(); //->getResult();
 
             return $res;
+            
         }
         return null;
     }

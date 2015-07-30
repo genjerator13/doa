@@ -13,10 +13,10 @@ class DefaultController extends Controller {
     public function indexAction() {
 
         $em = $this->getDoctrine()->getManager();
-        $hometabs = $this->get('memcache.default')->get('hometabs');
+        $hometabs = $this->get('mymemcache')->get('hometabs');
         if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-            $this->get('memcache.default')->set('hometabs',$hometabs);
+            $this->get('mymemcache')->set('hometabs', $hometabs);
             //dump('hometabs');
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
         }
@@ -30,18 +30,18 @@ class DefaultController extends Controller {
         $vehCategory = 1;
         $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
         $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
-        $lftreec->setMemcached($this->get('memcache.default'));
-        $lflistc->setMemcached($this->get('memcache.default'));
-        
-        $jsonCar =$lftreec->getJsonTreeModels(614);
-        
+        $lftreec->setMemcached($this->get('mymemcache'));
+        $lflistc->setMemcached($this->get('mymemcache'));
+
+        $jsonCar = $lftreec->getJsonTreeModels(614);
+
         $jsonRvs = $lftreec->getJsonTreeModels(760);
         $vehicleChoices = $lflistc->findAllBy('Body Style', 1, true, true);
         $vehicleModel = $lflistc->findAllBy('Model', 1, true, false);
         $vehicleMake = $lftreec->findAllBy(614, 1, true, false);
 
         //die();
-        
+
         $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -150,9 +150,9 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->add('category_id', 'hidden', array('data' => 3))
                 ->getForm();
-        
-            $agModel = $lflistc->findAllBy('Ag Application', 13, true);
-            
+
+        $agModel = $lflistc->findAllBy('Ag Application', 13, true);
+
         $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
@@ -186,7 +186,7 @@ class DefaultController extends Controller {
     }
 
     public function categoriesAction() {
-        
+
         //$stopwatch = new Stopwatch();
 //        $stopwatch->start('eventName');
 //        dump($stopwatch);
@@ -237,9 +237,33 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
 
+//    public function featuredAddAction($max) {
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+//        $itemrep->setMemcached($this->get('mymemcache'));
+//        $featured = $itemrep->findFeatured($max);
+//        dump($featured);die();
+//
+//        return $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $featured));
+//    }
+
     public function featuredAddAction($max) {
         $em = $this->getDoctrine()->getManager();
 
+        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+
+        $itemrep->setMemcached($this->get('mymemcache'));
+        $featured = $itemrep->findFeatured($max);
+
+        $items = array();
+        $temp = array();
+
+
+        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $featured));
+        $response->setPublic();
+        $response->setSharedMaxAge(60);
+        $response->setMaxAge(60);
         return $response;
     }
 
@@ -322,32 +346,33 @@ class DefaultController extends Controller {
     }
 
 }
-        
-        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
 
-        $itemrep->setMemcached($this->get('memcache.default'));
-        $featured = $itemrep->findFeatured($max);
-        $items = array();
-        $temp = array();
-
-        foreach ($featured as $item) {
-            $temp = array();
-            $temp['id'] = $item->getId();
-            $temp['year'] = $item->getYear();
-            $temp['model'] = $item->getModel();
-            $temp['make'] = $item->getMake();
-            $temp['price'] = $item->getPrice();
-            $temp['images'] = array();
-            if (!empty($item->getImages2())) {
-                foreach ($item->getImages2() as $image) {
-                    $temp['images']['id'] = $image->getId();
-                    $temp['images']['src'] = $image->getFieldStringValue();
-                }
-            }
-
-            $items[] = $temp;
-        }
-        //     apc_store('featured', $items,300);
-        // } else {
-        //    $items = apc_fetch('featured');
-        // }
+//        
+//        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+//
+//        $itemrep->setMemcached($this->get('mymemcache'));
+//        $featured = $itemrep->findFeatured($max);
+//        $items = array();
+//        $temp = array();
+//
+//        foreach ($featured as $item) {
+//            $temp = array();
+//            $temp['id'] = $item->getId();
+//            $temp['year'] = $item->getYear();
+//            $temp['model'] = $item->getModel();
+//            $temp['make'] = $item->getMake();
+//            $temp['price'] = $item->getPrice();
+//            $temp['images'] = array();
+//            if (!empty($item->getImages2())) {
+//                foreach ($item->getImages2() as $image) {
+//                    $temp['images']['id'] = $image->getId();
+//                    $temp['images']['src'] = $image->getFieldStringValue();
+//                }
+//            }
+//
+//            $items[] = $temp;
+//        }
+//        //     apc_store('featured', $items,300);
+//        // } else {
+//        //    $items = apc_fetch('featured');
+//        // }

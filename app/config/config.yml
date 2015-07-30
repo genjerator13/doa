@@ -12,13 +12,13 @@ services:
         calls:
             - [ addServers, [ %memcached.servers% ]]
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
-lsw_memcache:
-    session:
-        pool: default
-    pools:
-        default:
-            servers:
-              - { host: localhost, tcp_port: 11212 }
+#lsw_memcache:
+#    session:
+#        pool: default
+#    pools:
+#        default:
+#            servers:
+#              - { host: localhost, tcp_port: 11212 }
 #lsw_guzzle:
 #    clients:
 #        test:
