@@ -10,16 +10,13 @@ use Numa\Util\Util as Util;
 class SandboxController extends Controller {
 
     public function indexAction() {
-        $memcached = $this->get('memcached');
+        $memcache = $this->get('memcached');
         $mymemcached = $this->get('mymemcache');
+        $memcache->set("aaa", "sss");
+        $memcache->set("aaa", "xxx");
+        $memcache->set("aaa", "ccc");
+        dump($memcache->get("aaa"));die();
         
-        $test = $mymemcached->get("aaa");
-        if (!$test) {
-            $mymemcached->add("aaa","sss");
-            $test = "Aa";
-        }
-        
-        die();
     }
 
 }
