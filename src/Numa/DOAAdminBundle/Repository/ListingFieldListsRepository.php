@@ -22,7 +22,10 @@ class ListingFieldListsRepository extends EntityRepository {
     
     public function findOneByValue($propertyName, $listing_field_id) {
         $hash = sha1('findOneByValueList' . $propertyName . $listing_field_id);
-        $return = $this->memcache->get($hash);
+        $return=false;
+        if($this->memcache){
+            $return = $this->memcache->get($hash);
+        }
         if ($return === false) {
             $propertyName = str_replace("'", "", $propertyName);
             $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
@@ -32,7 +35,9 @@ class ListingFieldListsRepository extends EntityRepository {
             $query = $this->getEntityManager()
                             ->createQuery($q)->setMaxResults(1);
             $res = $query->getOneOrNullResult(); //getOneOrNullResult();
-            $this->memcache->set($hash, $res);
+            if($this->memcache){
+                $this->memcache->set($hash, $res);
+            }
             return $res;
         }
         return $return;
