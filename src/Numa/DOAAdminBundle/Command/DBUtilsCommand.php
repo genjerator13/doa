@@ -115,6 +115,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setStatus('started');
 
             $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
+            $memcache = $this->getContainer()->get('mymemcached');
             $this->em->persist($this->commandLog);
             $this->em->flush();
 
@@ -155,12 +156,14 @@ class DBUtilsCommand extends ContainerAwareCommand {
                 $count++;
                 if ($count % 200 == 0) {
                     $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                    $this->em->flush();
-                    $this->em->clear();
+                    //$this->em->flush();
+                    //$this->em->clear();
+                    //$memcache->set("feed:progress:".$feed_id, );
                 }
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
-                $num_rows_effected = $conn->exec($sql);
+                //$num_rows_effected = $conn->exec($sql);
+                $memcache->set("command:progress:".$this->commandLog->getId(),$count );
             }
             
             $this->em->flush();
@@ -176,6 +179,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
+            $this->commandLog->setCurrent($count);
             $this->em->flush();
         } catch (Exception $ex) {
             trigger_error("ERROR", E_USER_ERROR);

@@ -19,13 +19,21 @@ class NumaExtension extends \Twig_Extension {
             'showItemField' => new \Twig_Function_Method($this, 'showItemField'),
             'dumpFields' => new \Twig_Function_Method($this, 'dumpFields'),
             'price' => new \Twig_Function_Method($this, 'price'),
-            'file_existsx' => new \Twig_Function_Method($this,'file_existsx')
+            'file_existsx' => new \Twig_Function_Method($this,'file_existsx'),
+            'memcacheGet' => new \Twig_Function_Method($this,'memcacheGet')
         );
     }
     
     public function file_existsx($filename){
         //echo "\\var\\doa\\web\\".$filename;
         return file_exists(trim($filename,"/"));
+    }
+    
+    public function memcacheGet($key){
+        //$this->get('mymemcache')
+        $memcached = $this->container->get('mymemcache');
+        $value = $memcached->get('$key');
+        return $value;
     }
     
     public function showItemField($itemFields, $fieldname, $type = 'string') {
