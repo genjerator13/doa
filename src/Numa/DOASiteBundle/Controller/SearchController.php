@@ -208,17 +208,8 @@ class SearchController extends Controller {
 
         //create query        
         $query = $this->searchParameters->createSearchQuery();
-        if (!apc_exists('searchbydealer')) {
-            $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-            apc_store('searchbydealer', $param);
-            //dump('hometabs');
-            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        } else {
-            $param = apc_fetch('searchbydealer');
-        }
-        //$param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-
-        dump($stopwatch);die();
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+        
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
