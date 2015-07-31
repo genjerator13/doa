@@ -66,7 +66,10 @@ class ListingFieldListsRepository extends EntityRepository {
 
         if ($result) {
             $hash = sha1('findAllByList' . $property . $cat);
-            $return = $this->memcache->get($hash);
+            $return = false;
+            if($this->memcache){
+                $return = $this->memcache->get($hash);
+            }
             if ($return === false) {
                 $result = $qb->getQuery()->getResult();
                 foreach ($result as $key => $value) {
@@ -76,7 +79,9 @@ class ListingFieldListsRepository extends EntityRepository {
                         $res[$value->getId()] = $value->getValue();
                     }
                 }
-                $this->memcache->set($hash, $res);
+                if($this->memcache){
+                    $this->memcache->set($hash, $res);
+                }
                 return $res;
             }
             return $return;
