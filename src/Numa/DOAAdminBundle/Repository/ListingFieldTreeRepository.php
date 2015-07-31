@@ -24,7 +24,10 @@ class ListingFieldTreeRepository extends EntityRepository  {
     }
 
     public function getJsonTreeModels($fieldId, $root = 1, $deep = 2) {
-        $return = $this->memcache->get('getJsonTreeModels' . $fieldId);
+        $return = false;
+        if($this->memcache){
+            $return = $this->memcache->get('getJsonTreeModels' . $fieldId);
+        }
         if ($return === false) {
             $qb = $this->getEntityManager()
                     ->createQueryBuilder();
@@ -44,7 +47,9 @@ class ListingFieldTreeRepository extends EntityRepository  {
                     $jsonArray[$res->getId()][] = array($children->getId() => $name);
                 }
             }
-            $this->memcache->set('getJsonTreeModels' . $fieldId, json_encode($jsonArray));
+            if($this->memcache){
+                $this->memcache->set('getJsonTreeModels' . $fieldId, json_encode($jsonArray));
+            }
             return json_encode($jsonArray);
         }
         return $return;
@@ -65,7 +70,10 @@ class ListingFieldTreeRepository extends EntityRepository  {
         ;
         $res = array();
         if ($result) {
-            $return = $this->memcache->get('findAllByTree' . $fieldId);
+            $return = false;
+            if($this->memcache){
+                $return = $this->memcache->get('findAllByTree' . $fieldId);
+            }
             if ($return === false) {
                 $result = $qb->getQuery()->getResult();
                 foreach ($result as $key => $value) {
@@ -75,7 +83,9 @@ class ListingFieldTreeRepository extends EntityRepository  {
                         $res[$value->getId()] = $value->getName();
                     }
                 }
-                $this->memcache->set('findAllByTree' . $fieldId, $res);
+                if($this->memcache){
+                    $this->memcache->set('findAllByTree' . $fieldId, $res);
+                }
                 return $res;
             }
             return $return;

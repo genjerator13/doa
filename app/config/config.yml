@@ -2,10 +2,6 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     
-parameters:
-    memcached.servers:
-      - { host: 127.0.0.1, port: 11211 }
-
 services:
     memcached:
         class: Memcached
@@ -196,6 +192,9 @@ parameters:
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
     iauto: %kernel.root_dir%/../web/iauto
+    memcached.servers:
+      - { host: 127.0.0.1, port: 11211 }
+    
 gregwar_image: ~  
 endroid_qr_code:
     size: 100
