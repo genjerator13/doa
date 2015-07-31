@@ -105,7 +105,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
     public function fetchFeed($id, $em) {
         try {
-            $this->em = $em;
+            $this->em = $em;            
             set_error_handler(array($this, "myErrorHandler"));
             $conn = $em->getConnection();
 
@@ -134,6 +134,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             unset($remoteFeed);
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
+            $this->em->getConnection()->beginTransaction();
             $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
 
             $upload_url = $this->getContainer()->getParameter('upload_url');
@@ -163,6 +164,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             }
             
             $this->em->flush();
+            $this->em->getConnection()->commit();
             $this->em->clear();
             unset($items);
             unset($mapping);
