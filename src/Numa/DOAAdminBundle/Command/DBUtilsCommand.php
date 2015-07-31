@@ -115,7 +115,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setStatus('started');
 
             $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
-            $memcache = $this->getContainer()->get('mymemcached');
+            $memcache = $this->getContainer()->get('mymemcache');
             $this->em->persist($this->commandLog);
             $this->em->flush();
 
