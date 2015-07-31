@@ -26,13 +26,11 @@ class MemcacheWrapper {
         $this->memcached->set(md5($this->kernel->getRootDir()).":".$key,$value);
     }
     public function add($key, $value){
-        //dump(md5($this->kernel->getRootDir()));
-        //dump($key);die();
         $this->memcached->add(md5($this->kernel->getRootDir()).":".$key,$value);
     }
     
     public function get($key){ 
-        //dump(md5($this->kernel->getRootDir()).":".$key);
-        $this->memcached->get(md5($this->kernel->getRootDir()).":".$key);
+        
+        return $this->memcached->get(md5($this->kernel->getRootDir()).":".$key);
     }
 }
