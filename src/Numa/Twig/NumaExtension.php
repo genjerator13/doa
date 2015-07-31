@@ -32,7 +32,7 @@ class NumaExtension extends \Twig_Extension {
     public function memcacheGet($key){
         //$this->get('mymemcache')
         $memcached = $this->container->get('mymemcache');
-        $value = $memcached->get('$key');
+        $value = $memcached->get($key);
         return $value;
     }
     
