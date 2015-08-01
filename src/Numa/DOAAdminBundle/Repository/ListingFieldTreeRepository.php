@@ -103,7 +103,6 @@ class ListingFieldTreeRepository extends EntityRepository  {
      */
     public function findOneByValue($propertyName, $listing_field_id) {
         //$return = $this->get('memcache.default')->get('findOneByValueTreep' . $propertyName.:);
-        //dump("AAAAAAAAAAAAAAAAAAA");
         //if ($return === false) {
             $q = 'SELECT t FROM NumaDOAAdminBundle:ListingfieldTree t WHERE 
                     ( t.listing_field_id = ' . $listing_field_id . ' AND
