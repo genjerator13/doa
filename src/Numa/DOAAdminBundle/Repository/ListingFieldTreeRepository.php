@@ -103,7 +103,7 @@ class ListingFieldTreeRepository extends EntityRepository  {
      */
     public function findOneByValue($propertyName, $listing_field_id) {
         //$return = $this->get('memcache.default')->get('findOneByValueTreep' . $propertyName.:);
-        if ($return === false) {
+        //if ($return === false) {
             $q = 'SELECT t FROM NumaDOAAdminBundle:ListingfieldTree t WHERE 
                     ( t.listing_field_id = ' . $listing_field_id . ' AND
                     (t.name like \'' . $propertyName . '\'  OR 
@@ -112,7 +112,7 @@ class ListingFieldTreeRepository extends EntityRepository  {
                             ->createQuery($q)->setMaxResults(1);
             $res = $query->getOneOrNullResult(); //getOneOrNullResult();
             return $res;
-        }
+        //}
     }
 
 }
