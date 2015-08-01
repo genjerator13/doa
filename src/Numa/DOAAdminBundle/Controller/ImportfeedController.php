@@ -136,7 +136,7 @@ class ImportfeedController extends Controller {
     private function createEditForm(Importfeed $entity) {
         $form = $this->createForm(new ImportfeedType(), $entity, array(
             'action' => $this->generateUrl('importfeed_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
