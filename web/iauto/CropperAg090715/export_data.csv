@@ -1,5 +1,5 @@
 id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelType,Transmission,Price,Vin,AgApplication,Year,IW_NO,SellerComments,AgMake,AgModel,AgEngine,AgHorsepower,AgHours,AgDriveType,AgTransmission,OperatorStation,AgSteering,SpeedsForward,SpeedsReverse,AgTireSize,CuttingWidth,TireEquipment,AgType,balecounterincl,baletyperound,baleweight2200,balewidthin61,maxbalediameterin72,nobeltschainrollers8belts,pickupnooftines144,pickupwidth604,tiresstd14l161,weightlbs6095,yearsmade20032005,userdefined
-28394,Ag,croppermotors,,Used,,UEQ3579,false,,,,,,Harvest,2005,,"<ul><li>
+28394,Ag,9,,Used,,UEQ3579,false,,,,,,Harvest,2005,,"<ul><li>
 		c/w '03 MacDon 975 header @ 36'</li>
 	<li>
 		Gage wheels</li>
@@ -14,7 +14,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Split reel</li>
 </ul>",Prairie Star,4952i,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28396,Ag,croppermotors,,Used,,UEQ3569,false,,,,,,Harvest,1996,,"<ul><li>
+28396,Ag,9,,Used,,UEQ3569,false,,,,,,Harvest,1996,,"<ul><li>
 		c/w '96 MacDon 960 header @ 30'</li>
 	<li>
 		Turbo</li>
@@ -25,13 +25,13 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Gage wheels</li>
 </ul>",Premier,2900,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-3628,Ag,croppermotors,pictures/3628_1.jpg;pictures/3628_2.jpg;pictures/3628_3.jpg,,,UEQ3427,false,,,,,,Planting & Seeding,2002,,"<p>
+3628,Ag,9,pictures/3628_1.jpg;pictures/3628_2.jpg;pictures/3628_3.jpg,,,UEQ3427,false,,,,,,Planting & Seeding,2002,,"<p>
 	9.8"", 330 TRIP, DUAL CASTORS, mrb'S, DUAL SHOOT WITH NH3, VERTICAL OPENERS</p>",Bourgault,Airdrill 5710 at 47 FT,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-3633,Ag,croppermotors,pictures/3633_1.jpg;pictures/3633_2.jpg,,,UEQ3425,false,,,,,,Hay/Forage,1998,,"<p>
+3633,Ag,9,pictures/3633_1.jpg;pictures/3633_2.jpg,,,UEQ3425,false,,,,,,Hay/Forage,1998,,"<p>
 	NEW IDEA BALER 4865</p>",New Idea,Baler 4865,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-3634,Ag,croppermotors,pictures/3634_1.jpg;pictures/3634_2.jpg,,,UEQ2184,false,,,,,,Hay/Forage,2002,,"<p>
+3634,Ag,9,pictures/3634_1.jpg;pictures/3634_2.jpg,,,UEQ2184,false,,,,,,Hay/Forage,2002,,"<p>
 	W/O MESH; 540 PTO HAS A HYDRAULIC KICKER, 5x6 BALES</p>",Hesston,Baler 856,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-3749,Ag,croppermotors,pictures/3749_1.jpg;pictures/3749_2.jpg;pictures/3749_3.jpg;pictures/3749_4.jpg,,,UCO508,false,,,,,,Application,1990,,"<ul><li>
+3749,Ag,9,pictures/3749_1.jpg;pictures/3749_2.jpg;pictures/3749_3.jpg;pictures/3749_4.jpg,,,UCO508,false,,,,,,Application,1990,,"<ul><li>
 		21'</li>
 	<li>
 		Bat reel</li>
@@ -42,7 +42,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Reel drive</li>
 </ul>",Massey Ferguson,860 Header,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-21165,Ag,croppermotors,pictures/21165_1.jpg;pictures/21165_2.jpg;pictures/21165_3.jpg;pictures/21165_4.jpg,Used,,UTR1308,false,,,,,,Tractors,2012,,"<ul><li>
+21165,Ag,9,pictures/21165_1.jpg;pictures/21165_2.jpg;pictures/21165_3.jpg;pictures/21165_4.jpg,Used,,UTR1308,false,,,,,,Tractors,2012,,"<ul><li>
 		16 spd powershift</li>
 	<li>
 		710/72R42 duals</li>
@@ -57,7 +57,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		AM/FM/CD</li>
 </ul>",Versatile,435,,,,4WD,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-23232,Ag,croppermotors,pictures/23232_1.jpg;pictures/23232_2.jpg,USED,,UEQ3423,false,,,,,,Harvest,2010,,"<ul><li>
+23232,Ag,9,pictures/23232_1.jpg;pictures/23232_2.jpg,USED,,UEQ3423,false,,,,,,Harvest,2010,,"<ul><li>
 		Comes with '09 MacDon D60 header at 35'</li>
 	<li>
 		18.4 x 26 - 16.5-16.1</li>
@@ -76,14 +76,14 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		280 hours</li>
 </ul>",MacDon,M150,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-23236,Ag,croppermotors,pictures/23236_1.jpg;pictures/23236_2.jpg;pictures/23236_3.jpg;pictures/23236_4.jpg;pictures/23236_5.jpg;pictures/23236_6.jpg,USED,,UEQ3540,false,,,,,,Harvest,1998,,"<ul><li>
+23236,Ag,9,pictures/23236_1.jpg;pictures/23236_2.jpg;pictures/23236_3.jpg;pictures/23236_4.jpg;pictures/23236_5.jpg;pictures/23236_6.jpg,USED,,UEQ3540,false,,,,,,Harvest,1998,,"<ul><li>
 		30'</li>
 	<li>
 		Pickup reel</li>
 	<li>
 		Scheumacher knife drive</li>
 </ul>",Massey Ferguson,220,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28388,Ag,croppermotors,,Used,,UEQ3577,false,,,,,,Harvest,2013,,"<ul><li>
+28388,Ag,9,,Used,,UEQ3577,false,,,,,,Harvest,2013,,"<ul><li>
 		c/w JD 440D header @ 40'</li>
 	<li>
 		Double knife</li>
@@ -100,13 +100,13 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Beacons</li>
 </ul>",John Deere,W150,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28390,Ag,croppermotors,,Used,,UEQ3576,false,,,,,,Harvest,2011,,"<ul><li>
+28390,Ag,9,,Used,,UEQ3576,false,,,,,,Harvest,2011,,"<ul><li>
 		c/w MacDon D60 header</li>
 </ul>",MacDon,M150,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28391,Ag,croppermotors,,Used,,UEQ3570,false,,,,,,Harvest,2010,,"<ul><li>
+28391,Ag,9,,Used,,UEQ3570,false,,,,,,Harvest,2010,,"<ul><li>
 		c/w '10 MF 5200 header @ 30'</li>
 </ul>",Massey Ferguson,9220,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-27381,Ag,croppermotors,,USED,,UTR1317,false,,,,,,Tractors,2011,,"<ul><li>
+27381,Ag,9,,USED,,UTR1317,false,,,,,,Tractors,2011,,"<ul><li>
 		FWA</li>
 	<li>
 		Beacons</li>
@@ -117,7 +117,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		689 hrs</li>
 </ul>",New Holland,T6050,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-27125,Ag,croppermotors,,USED,,UEQ3536,false,,,,,,Planting & Seeding,2003,,"<ul><li>
+27125,Ag,9,,USED,,UEQ3536,false,,,,,,Planting & Seeding,2003,,"<ul><li>
 		3 tank metering</li>
 	<li>
 		CRA</li>
@@ -128,7 +128,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Single tires</li>
 </ul>",Bourgault,5350,,,,,,,,,,,,,Airseeder,false,false,false,false,false,false,false,false,false,false,false,false
-25646,Ag,croppermotors,pictures/25646_1.jpg;pictures/25646_2.jpg;pictures/25646_3.jpg;pictures/25646_4.jpg,USED,,UCO535,false,,,,,,Harvest,2005,,"<ul><li>
+25646,Ag,9,pictures/25646_1.jpg;pictures/25646_2.jpg;pictures/25646_3.jpg;pictures/25646_4.jpg,USED,,UCO535,false,,,,,,Harvest,2005,,"<ul><li>
 		16' pickup</li>
 	<li>
 		Chopper</li>
@@ -137,7 +137,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Fieldstar</li>
 </ul>",Massey Ferguson,9790,,,,,,,,,,,,,Combine,false,false,false,false,false,false,false,false,false,false,false,false
-25648,Ag,croppermotors,pictures/25648_1.jpg;pictures/25648_2.jpg;pictures/25648_3.jpg;pictures/25648_4.jpg;pictures/25648_5.jpg;pictures/25648_6.jpg,USED,,UEQ3550,false,,,,,,Harvest,2009,,"<ul><li>
+25648,Ag,9,pictures/25648_1.jpg;pictures/25648_2.jpg;pictures/25648_3.jpg;pictures/25648_4.jpg;pictures/25648_5.jpg;pictures/25648_6.jpg,USED,,UEQ3550,false,,,,,,Harvest,2009,,"<ul><li>
 		80' booms</li>
 	<li>
 		Deluxe seat</li>
@@ -152,7 +152,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Foam marker</li>
 </ul>",Spra-Coupe,4660,,,958,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-23576,Ag,croppermotors,pictures/23576_1.jpg;pictures/23576_2.jpg;pictures/23576_3.jpg;pictures/23576_4.jpg,USED,,UEQ3521,false,,,,,,Tillage,2010,,"<ul><li>
+23576,Ag,9,pictures/23576_1.jpg;pictures/23576_2.jpg;pictures/23576_3.jpg;pictures/23576_4.jpg,USED,,UEQ3521,false,,,,,,Tillage,2010,,"<ul><li>
 		82'</li>
 	<li>
 		9/16"" tines</li>
@@ -161,7 +161,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		21-22""</li>
 </ul>",Degelman,7000,,,,,,,,,,,,,Harrow,false,false,false,false,false,false,false,false,false,false,false,false
-23233,Ag,croppermotors,pictures/23233_1.jpg;pictures/23233_2.jpg;pictures/23233_3.jpg;pictures/23233_4.jpg;pictures/23233_5.jpg,USED,,UEQ3542,false,,,,,,Harvest,2004,,"<ul><li>
+23233,Ag,9,pictures/23233_1.jpg;pictures/23233_2.jpg;pictures/23233_3.jpg;pictures/23233_4.jpg;pictures/23233_5.jpg,USED,,UEQ3542,false,,,,,,Harvest,2004,,"<ul><li>
 		Comes with '04 MacDon 975 header at 36'</li>
 	<li>
 		Split reel</li>
@@ -178,7 +178,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Pull-type roller</li>
 </ul>",Premier,2952I,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-23572,Ag,croppermotors,pictures/23572_1.jpg;pictures/23572_2.jpg;pictures/23572_3.jpg;pictures/23572_4.jpg;pictures/23572_5.jpg;pictures/23572_6.jpg,USED,,UTR1313,false,,,,,,Tractors,2011,,"<ul><li>
+23572,Ag,9,pictures/23572_1.jpg;pictures/23572_2.jpg;pictures/23572_3.jpg;pictures/23572_4.jpg;pictures/23572_5.jpg;pictures/23572_6.jpg,USED,,UTR1313,false,,,,,,Tractors,2011,,"<ul><li>
 		FWD</li>
 	<li>
 		380/80R38 duals</li>
@@ -191,7 +191,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Dual PTO</li>
 </ul>",Versatile,280,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-24674,Ag,croppermotors,pictures/24674_1.jpg;pictures/24674_2.jpg;pictures/24674_3.jpg;pictures/24674_4.jpg;pictures/24674_5.jpg;pictures/24674_6.jpg;pictures/24674_7.jpg,USED,,UTR1314,false,,,,,,Tractors,2011,,"<ul><li>
+24674,Ag,9,pictures/24674_1.jpg;pictures/24674_2.jpg;pictures/24674_3.jpg;pictures/24674_4.jpg;pictures/24674_5.jpg;pictures/24674_6.jpg;pictures/24674_7.jpg,USED,,UTR1314,false,,,,,,Tractors,2011,,"<ul><li>
 		Joystick</li>
 	<li>
 		Loader ready</li>
@@ -204,7 +204,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		FWA</li>
 </ul>",Massey Ferguson,7480,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-21169,Ag,croppermotors,pictures/21169_1.jpg;pictures/21169_2.jpg,Used,,UEQ3449,false,,,,,,Tillage,2008,,"<ul><li>
+21169,Ag,9,pictures/21169_1.jpg;pictures/21169_2.jpg,Used,,UEQ3449,false,,,,,,Tillage,2008,,"<ul><li>
 		3 PT</li>
 	<li>
 		18"" blades</li>
@@ -213,22 +213,22 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		72"" wide</li>
 </ul>",Westward,"78"" DISC",,,,,,,,,,,,,DISC,false,false,false,false,false,false,false,false,false,false,false,false
-28987,Ag,croppermotors,,USED,,UTR1319,false,,,,,,Tractors,1997,,"<ul><li>
+28987,Ag,9,,USED,,UTR1319,false,,,,,,Tractors,1997,,"<ul><li>
 		FWA</li>
 </ul>",Massey Ferguson,6170,,,,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-23231,Ag,croppermotors,pictures/23231_1.jpg;pictures/23231_2.jpg;pictures/23231_3.jpg,USED,,UEQ3518,false,,,,,,Tillage,1999,,"<ul><li>
+23231,Ag,9,pictures/23231_1.jpg;pictures/23231_2.jpg;pictures/23231_3.jpg,USED,,UEQ3518,false,,,,,,Tillage,1999,,"<ul><li>
 		70'</li>
 	<li>
 		System 85</li>
 	<li>
 		16-18"" tines</li>
 </ul>",Flexi-Coil,585 Heavy Harrow,,,,,,,,,,,,,Harrow,false,false,false,false,false,false,false,false,false,false,false,false
-28392,Ag,croppermotors,,Used,,UEQ3571,false,,,,,,Harvest,2009,,"<ul><li>
+28392,Ag,9,,Used,,UEQ3571,false,,,,,,Harvest,2009,,"<ul><li>
 		c/w Massey Ferguson 5200 header @ 30'</li>
 	<li>
 		Swivel gage wheels</li>
 </ul>",Massey Ferguson,9220,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28393,Ag,croppermotors,pictures/28393_1.jpg;pictures/28393_2.jpg;pictures/28393_3.jpg;pictures/28393_4.jpg;pictures/28393_5.jpg,Used,,UEQ3568,false,,,,,,Harvest,2008,,"<ul><li>
+28393,Ag,9,pictures/28393_1.jpg;pictures/28393_2.jpg;pictures/28393_3.jpg;pictures/28393_4.jpg;pictures/28393_5.jpg,Used,,UEQ3568,false,,,,,,Harvest,2008,,"<ul><li>
 		c/w '10 Honeybee WS36 header @ 36'</li>
 	<li>
 		Double knife</li>
@@ -237,7 +237,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		Transport</li>
 </ul>",John Deere,4895,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-28989,Ag,croppermotors,,USED,,UEQ3581,false,,,,,,Harvest,2013,,"<ul><li>
+28989,Ag,9,,USED,,UEQ3581,false,,,,,,Harvest,2013,,"<ul><li>
 		Comes with MacDon D65 hdr @ 30'</li>
 	<li>
 		Gauge wheels</li>
@@ -248,7 +248,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 	<li>
 		16.5 - 16.1 rear</li>
 </ul>",MacDon,M105,,,,,,,,,,,,,Swather,false,false,false,false,false,false,false,false,false,false,false,false
-25642,Ag,croppermotors,pictures/25642_1.jpg;pictures/25642_2.jpg;pictures/25642_3.jpg;pictures/25642_4.jpg,USED,,UTR1309,false,,,,,,Tractors,2009,,"<ul><li>
+25642,Ag,9,pictures/25642_1.jpg;pictures/25642_2.jpg;pictures/25642_3.jpg;pictures/25642_4.jpg,USED,,UTR1309,false,,,,,,Tractors,2009,,"<ul><li>
 		3 point hitch</li>
 	<li>
 		Cab suspension</li>
@@ -270,7 +270,7 @@ id,category,username,pictures,Status,OptionsList,StockNumber,Sold,Mileage,FuelTy
 		20.8 - 38 rear</li>
 </ul><p>
 	\A0</p>",Massey Ferguson,7480,,,4922,,,,,,,,,,,false,false,false,false,false,false,false,false,false,false,false,false
-28386,Ag,croppermotors,,Used,,UEQ3573,false,,,,,,Planting & Seeding,2010,,"<ul><li>
+28386,Ag,9,,Used,,UEQ3573,false,,,,,,Planting & Seeding,2010,,"<ul><li>
 		@ 65' PHD</li>
 	<li>
 		4.8V packers</li>
