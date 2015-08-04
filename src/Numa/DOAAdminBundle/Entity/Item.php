@@ -1038,13 +1038,13 @@ class Item {
 
         $proccessed = false;
         $optionsDecorator = new \Numa\DOAAdminBundle\Lib\OptionsDecorator();
-        
+
         $optionsDecorator->processOptionsFrom($stringvalue);
         $optionsList = $optionsDecorator->getOptions();
-        
+
         if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
             foreach ($optionsList as $key => $option) {
-
+                
                 $itemField = new ItemField();
                 $itemField->setAllValues($option->getValue());
                 $itemField->setFieldType('boolean');
@@ -1068,7 +1068,7 @@ class Item {
                     }
                 }
             }
-
+            
             if (is_array($optionsArray)) {
                 if(!empty($optionsArray[0])){
                     $json = json_decode($optionsArray[0], true);
