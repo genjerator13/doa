@@ -26,8 +26,8 @@ class MemcacheWrapper {
         $this->kernel = $kernel;
     }
 
-    public function set($key, $value) {
-        $this->memcached->set($this->makeKey($key), $value);
+    public function set($key, $value,$time=0) {
+        $this->memcached->set($this->makeKey($key), $value,$time);
     }
 
     public function delete($key) {
