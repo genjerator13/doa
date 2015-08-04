@@ -22,9 +22,12 @@ class OptionsDecorator {
    public function processOptionsFrom($source){
        
        $optionsArray = array();
+       //dump($source);//
        if (is_string($source)) {
+           
             $test = json_decode($source, true);
-            
+            //dump(112);
+            //dump($test);
             if (is_array($test)) {
                 
                 if (!empty($test['attribute'])) {
@@ -38,9 +41,18 @@ class OptionsDecorator {
                 }
             }
         }
+        $optionsFinal = array();
         
-        foreach ($optionsArray as $key => $optionXXX) {
-            
+        if(!is_array($optionsArray)){
+            $optionsFinal[]=$optionsArray;
+        }else{
+             $optionsFinal = $optionsArray;
+        }
+       
+        //dump($optionsArray);
+        //dump(113);
+        foreach ($optionsFinal as $key => $optionXXX) {
+            //dump($optionXXX);
             $option = new Option();
             $value = "";
             $name =  "";  
@@ -59,6 +71,10 @@ class OptionsDecorator {
             if(!empty($optionXXX['specification-value'])){
                 $value = $optionXXX['specification-value'];
             }
+            if(is_string($optionXXX)){
+                $name = $optionXXX;
+                $value = true;
+            }
             if(empty($value)){
                 $value=false;
             }
@@ -73,8 +89,9 @@ class OptionsDecorator {
                 $option->setName($name);
                 $this->addOption($option);
             }
+            //dump($option);
 
         }
-        
+        //dump(114);
    }
 }
