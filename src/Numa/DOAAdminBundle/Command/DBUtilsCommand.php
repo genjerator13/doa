@@ -94,19 +94,24 @@ class DBUtilsCommand extends ContainerAwareCommand {
     }
 
     function myErrorHandler($errno, $errstr, $errfile, $errline) {
+        
+        $errorFullDetail = "Error: [$errno] $errstr<br />$errfile : $errline\n";
+        //dump($errorFullDetail);
         $this->commandLog->setStatus("ERROR");
-        $this->commandLog->setFullDetails("Error: [$errno] $errstr<br />$errfile : $errline\n");
+        $this->commandLog->setFullDetails($errorFullDetail);
         $this->em->flush();
         $this->em->clear();
-
+        //dump($errno);
         exit(1);
+        //}
         return true;
     }
 
     public function fetchFeed($id, $em) {
         try {
-            $this->em = $em;            
-            set_error_handler(array($this, "myErrorHandler"));
+            $this->em = $em; 
+            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+            set_error_handler(array($this, "myErrorHandler"),E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();
@@ -115,11 +120,12 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setStatus('started');
 
             $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
-            $memcache = $this->getContainer()->get('mymemcache');
+            
             $this->em->persist($this->commandLog);
+            //dump($this->commandLog);
             $this->em->flush();
-
-
+            
+$memcache = $this->getContainer()->get('mymemcache');
             $createdItems = array();
             $feed_id = $id;
             $remoteFeed = new Remotefeed($id);
@@ -130,7 +136,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
             //print items
             //
-
+            
             
             unset($remoteFeed);
 
@@ -143,10 +149,11 @@ class DBUtilsCommand extends ContainerAwareCommand {
 
             //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count = 0;
-
+            
             foreach ($items as $importItem) {
-
+                
                 $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+               
                 if (!empty($item)) {
                     $createdItems[] = $item;
                 }
@@ -182,6 +189,7 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setCurrent($count);
             $this->em->flush();
         } catch (Exception $ex) {
+            
             trigger_error("ERROR", E_USER_ERROR);
         }
     }
@@ -339,6 +347,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
                         //print_r($key);
                     }
                     $em->flush();
+                    $memcache = $this->getContainer()->get('mymemcache');
+                    $memcache->delete('hometabs');
+                    dump($memcache->get('hometabs'));
                 }
             }
         }

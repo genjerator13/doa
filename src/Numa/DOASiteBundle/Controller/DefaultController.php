@@ -11,13 +11,14 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class DefaultController extends Controller {
 
     public function indexAction() {
-
+        $nocache = false;
         $em = $this->getDoctrine()->getManager();
         $hometabs = $this->get('mymemcache')->get('hometabs');
+         
         if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
             $this->get('mymemcache')->set('hometabs', $hometabs);
-            //dump('hometabs');
+            $nocache = true;
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
         }
 
@@ -179,9 +180,11 @@ class DefaultController extends Controller {
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
             'marineForm' => $marineForm->createView()));
-        $response->setPublic();
-        $response->setSharedMaxAge(600);
-        $response->setMaxAge(600);
+        if (!$nocache) {
+            $response->setPublic();
+            $response->setSharedMaxAge(600);
+            $response->setMaxAge(600);
+        }
         return $response;
     }
 
@@ -237,7 +240,7 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
 
-public function sidebarMenuAction() {
+    public function sidebarMenuAction() {
 
 
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
