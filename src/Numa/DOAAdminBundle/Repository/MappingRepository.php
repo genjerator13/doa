@@ -19,7 +19,7 @@ class MappingRepository extends EntityRepository {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('m')->distinct()
-                ->add('from', 'NumaDOAAdminBundle:ImportMapping m')
+                ->add('from', 'NumaDOAAdminBundle:Importmapping m')
 
                 ->where('m.feed_sid=:feed_id')
                 ->andWhere('m.property like :property')
