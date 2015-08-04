@@ -246,19 +246,23 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
     }
 
-    public function featuredAddAction($max) {
+    public function featuredAddAction($max,$order=1) {
         $em = $this->getDoctrine()->getManager();
 
         $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
 
         $itemrep->setMemcached($this->get('mymemcache'));
-        $featured = $itemrep->findFeatured($max);
+        $featured = $itemrep->findFeatured($max*2);
 
         $items = array();
         $temp = array();
-
-
-        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $featured));
+        $items = array_slice($featured, $max);
+        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+        if($order==1){
+            $items = array_slice($featured, 0,$max);
+            $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+        }
+        
         $response->setPublic();
         $response->setSharedMaxAge(60);
         $response->setMaxAge(60);
