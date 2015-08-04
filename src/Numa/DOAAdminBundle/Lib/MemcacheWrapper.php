@@ -11,26 +11,40 @@
  *
  * @author genjerator
  */
+
 namespace Numa\DOAAdminBundle\Lib;
+
 class MemcacheWrapper {
-    private $memcached;
+
+    public $memcached;
     private $container;
     private $kernel;
-    
-    public function __construct($memcached,$container,$kernel){
-         $this->memcached = $memcached;            
-         $this->container = $container;            
-         $this->kernel = $kernel;            
+
+    public function __construct($memcached, $container, $kernel) {
+        $this->memcached = $memcached;
+        $this->container = $container;
+        $this->kernel = $kernel;
     }
-    public function set($key, $value){
-        $this->memcached->set(md5($this->kernel->getRootDir()).":".$key,$value);
+
+    public function set($key, $value) {
+        $this->memcached->set($this->makeKey($key), $value);
     }
-    public function add($key, $value){
-        $this->memcached->add(md5($this->kernel->getRootDir()).":".$key,$value);
+
+    public function delete($key) {
+        $this->memcached->delete($this->makeKey($key));
     }
-    
-    public function get($key){ 
-        
-        return $this->memcached->get(md5($this->kernel->getRootDir()).":".$key);
+
+    public function add($key, $value) {
+        $this->memcached->add($this->makeKey($key), $value);
     }
+
+    public function get($key) {
+
+        return $this->memcached->get($this->makeKey($key));
+    }
+
+    public function makeKey($key) {
+        return md5($this->kernel->getRootDir()) . ":" . $key;
+    }
+
 }
