@@ -60,7 +60,11 @@ class EntityListener {
 
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             $this->setPassword($entity);
-            $args->setNewValue('password', $entity->getPassword());
+            $pass = $entity->getPassword();
+            if(!empty($pass)){
+                $args->setNewValue('password', $entity->getPassword());
+            }
+            
         }
         if ($entity instanceof Item) {
             //$entity->equalizeItemFields();
