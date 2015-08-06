@@ -165,7 +165,7 @@ class CatalogrecordsController extends Controller {
         
         $form = $this->createForm($catalogForm, $entity, array(
             'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
@@ -191,9 +191,12 @@ class CatalogrecordsController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
-            $em->flush();
+            
             $entity->upload();
+            $em->flush();
             return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+        }else{
+            dump($editForm->getErrors(true));
         }
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
