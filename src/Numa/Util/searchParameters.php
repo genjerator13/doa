@@ -251,13 +251,15 @@ class searchParameters {
         //sort 
         //dump($this->sort_by);die();
 
-        
+
         if ($this->sort_by == 'date_created') {
-            
+
             $qb->addOrderBy("i.date_updated", $this->sort_order);
             $qb->addOrderBy("i.date_created", $this->sort_order);
-        }else{
-            $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
+        } else {
+            if (!empty($this->sort_by)) {
+                $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
+            }
         }
 
         return $qb->getQuery();
