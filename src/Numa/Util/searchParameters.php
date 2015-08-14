@@ -93,25 +93,27 @@ class searchParameters {
         }
         return $res;
     }
+
     /**
      * Returns url query based by the search parameters and by sorting fields and order
      * @return string
      */
-    public function makeUrlQuery($sort=true) {
+    public function makeUrlQuery($sort = true) {
         $params = $this->getParams(false);
         $aQuery = array();
         foreach ($params as $key => $value) {
             $aQuery[] = $key . "=" . $value->getValue();
         }
-        
-        if($sort){
+
+        if ($sort) {
             //add sort by field
-            if(!empty($this->sort_by)){
-                $aQuery[] =  "sort_by=" .$this->sort_by;
+            if (!empty($this->sort_by)) {
+
+                $aQuery[] = "sort_by=" . $this->sort_by;
             }
             //add sort order
-            if(!empty($this->sort_by)){
-                $aQuery[] =  "sort_order=" .$this->sort_order;
+            if (!empty($this->sort_by)) {
+                $aQuery[] = "sort_order=" . $this->sort_order;
             }
         }
         $query = implode("&", $aQuery);
@@ -144,20 +146,19 @@ class searchParameters {
     }
 
     public function setAll($params) {
-        
-        if(!empty($params['category_id']) && $params['category_id']==13 && !empty($params['typeString']))
-        {            
+
+        if (!empty($params['category_id']) && $params['category_id'] == 13 && !empty($params['typeString'])) {
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
         }
         foreach ($params as $key => $value) {
-            
+
             if ($this->isParamSet($key)) {
-                if(is_array($value)){                    
+                if (is_array($value)) {
                     $value = $value[0];
                 }
-                if(!empty($value)){                    
-                    $this->params[$key]->setValue(urldecode($value));                                    
+                if (!empty($value)) {
+                    $this->params[$key]->setValue(urldecode($value));
                 }
             }
         }
@@ -200,7 +201,7 @@ class searchParameters {
                 if ($searchItem instanceof \Numa\Util\SearchItem) {
 
                     if (!$searchItem->isValueEmpty()) {
-                        
+
                         $type = $searchItem->getType();
                         $dbName = $searchItem->getDbFieldName();
                         $value = $searchItem->getValue();
@@ -216,16 +217,14 @@ class searchParameters {
                             $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
                         } elseif ($type == 'int') {
                             $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
-                            
-                            $qb->setParameter($dbName,  $searchItem->getValue() );
-                            
+
+                            $qb->setParameter($dbName, $searchItem->getValue());
                         } elseif ($type == 'rangeFrom') {
-                            $qb->andWhere('i.' . $dbName . ' >= :' . $dbName."from");
-                            $qb->setParameter($dbName."from", floatval($searchItem->getValue()));
-                                                        
+                            $qb->andWhere('i.' . $dbName . ' >= :' . $dbName . "from");
+                            $qb->setParameter($dbName . "from", floatval($searchItem->getValue()));
                         } elseif ($type == 'rangeTo') {
-                            $qb->andWhere('i.' . $dbName . '<= :' . $dbName."to");
-                            $qb->setParameter($dbName."to", floatval($searchItem->getValue()));
+                            $qb->andWhere('i.' . $dbName . '<= :' . $dbName . "to");
+                            $qb->setParameter($dbName . "to", floatval($searchItem->getValue()));
                         } elseif ($type == 'dateRangeFrom') {
 //                            $qb->andWhere('i.date_created >= :dateFrom')
 //                            
@@ -237,26 +236,29 @@ class searchParameters {
                         } elseif ($type == 'list') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('id' => $searchItem->getValue()));
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                           
+
                             $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
-                            
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
-                            
+
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
                             $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
                         }
                     }
                 }
-                
-                               
             }
         }
         //sort 
-        $qb->addOrderBy("i.date_created",  "DESC");
-                if(!empty($this->sort_by)){
-                    $qb->addOrderBy("i.".$this->sort_by,  $this->sort_order);
-                }
+        //dump($this->sort_by);die();
+
+        
+        if ($this->sort_by == 'date_created') {
+            
+            $qb->addOrderBy("i.date_updated", $this->sort_order);
+            $qb->addOrderBy("i.date_created", $this->sort_order);
+        }else{
+            $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
+        }
 
         return $qb->getQuery();
     }
@@ -330,21 +332,20 @@ class searchParameters {
         if (!empty($sort['sort_by'])) {
             $this->sort_by = $sort['sort_by'];
         }
-        
+
         if (!empty($sort['sort_order'])) {
             $this->sort_order = $sort['sort_order'];
-            if(strtolower($sort['sort_order'])=='desc'){
+            if (strtolower($sort['sort_order']) == 'desc') {
                 $this->sort_order = 'desc';
             }
         }
     }
-    
-    public function getSortBy(){
+
+    public function getSortBy() {
         return $this->sort_by;
     }
-    
-    
-    public function getSortOrder(){
+
+    public function getSortOrder() {
         return $this->sort_order;
     }
 

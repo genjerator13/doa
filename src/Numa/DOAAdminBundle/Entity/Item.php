@@ -919,6 +919,7 @@ class Item {
     public function setCreatedAtValue() {
         if (!$this->getDateCreated()) {
             $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
         }
     }
 

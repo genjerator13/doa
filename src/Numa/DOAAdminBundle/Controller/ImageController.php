@@ -64,8 +64,9 @@ class ImageController extends Controller {
                     $upload_url = $this->container->getParameter('upload_url');
                     $upload_path = $this->container->getParameter('upload_path');
                     $itemField = new ItemField();
-                    $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, false);
                     
+                    $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId().'_'.time());
+                    $item->setDateUpdated(new \DateTime());
                     $itemField->setItem($item);
                     $itemField->setListingfield($ImageList);
                     $em->persist($itemField);
