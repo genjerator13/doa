@@ -216,7 +216,7 @@ class ItemController extends Controller {
                     ->setTo('e.medjesi@gmail.com')
                     ->setBody($emailTo . ":" . $emailBody);
 
-            $ok = $mailer->send($message);
+            //$ok = $mailer->send($message);
             $currentRoute = $request->attributes->get('_route');
             $currentRouteParams = $request->attributes->get('_route_params');
 
