@@ -310,7 +310,7 @@ class DefaultController extends Controller {
                         ->setTo('e.medjesi@gmail.com')
                         ->setBody($emailTo . ":" . $emailBody);
 
-                $ok = $mailer->send($message);
+                //$ok = $mailer->send($message);
             }
         }
         return $form;
