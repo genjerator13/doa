@@ -41,20 +41,18 @@ framework:
         engines: ['twig']
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
-    trusted_proxies: ~    
+    trusted_proxies: ~
+    session:         ~
     fragments:       ~
     http_method_override: true
-    session:
-        handler_id: ~
 
 # Twig Configuration
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        site: DEV
-        title: CJVR Dealers On Air
-        subject: Email from
+        title: Semo Auto Mall
+        subject: Email from 
         upload_feed_path: /upload/feeds/
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
@@ -198,11 +196,11 @@ parameters:
       - { host: 127.0.0.1, port: 11211 }
     
 gregwar_image: ~  
-#endroid_qr_code:
-#    size: 100
-#    padding: 10
-#    extension: gif
-#    error_correction_level: high
+endroid_qr_code:
+    size: 100
+    padding: 10
+    extension: gif
+    error_correction_level: high
     
 apy_data_grid:
     pagerfanta:

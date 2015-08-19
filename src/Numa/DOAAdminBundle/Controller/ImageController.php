@@ -35,6 +35,24 @@ class ImageController extends Controller {
                 ->orderBy(array('sortOrder' => Criteria::ASC))
         ;
         $images = $item->getItemField()->matching($criteria);
+        ///
+
+        foreach ($images as $image) {
+
+            $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                    $this->getRequest(), $image->getFieldStringValue(), 'item_detail_image'
+            );
+            $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                    $this->getRequest(), $image->getFieldStringValue(), 'search_image'
+            );
+        }
+
+
+        ///
         $order = 0;
         foreach ($images as $image) {
             $image->setSortOrder($order++);
@@ -55,12 +73,12 @@ class ImageController extends Controller {
             $files = $request->files->get('form');
 
             foreach ($files as $file) {
-                
+
                 if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
                         ($file->getMimeType() == 'image/jpeg' ||
                         $file->getMimeType() == 'image/png' ||
                         $file->getMimeType() == 'image/gif')) {
-                    
+
                     $upload_url = $this->container->getParameter('upload_url');
                     $upload_path = $this->container->getParameter('upload_path');
                     $itemField = new ItemField();
