@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Criteria;
 
 /**
  * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @ExclusionPolicy("all")
  */
 class Item {
 
@@ -695,7 +696,7 @@ class Item {
         return $if->matching($criteria);
     }
     /**
-     * 
+     *
      * @return typeget Attributes
      */
         public function getOptions() {
@@ -716,7 +717,7 @@ class Item {
 
     public function getImage($num = 0) {
         $images = $this->getImages();
-        //      
+        //
         if (!empty($images)) {
             $val = array_values($images);
             unset($val[0]['object']);
@@ -791,7 +792,7 @@ class Item {
         $this->getItemFieldsArray();
         //FIX ME FIX ME FIX ME
         if (property_exists(get_class($this), strtolower($name))) {
-            
+
             $name = strtolower($name);
             return $this->$name;
         } elseif ($name == 'image') {
@@ -820,7 +821,7 @@ class Item {
     /**
      * Get Category
      *
-     * @return \Numa\DOAAdminBundle\Entity\Category 
+     * @return \Numa\DOAAdminBundle\Entity\Category
      */
     public function getCategory() {
         return $this->Category;
@@ -886,7 +887,7 @@ class Item {
     /**
      * Get Importfeed
      *
-     * @return \Numa\DOAAdminBundle\Entity\Importfeed 
+     * @return \Numa\DOAAdminBundle\Entity\Importfeed
      */
     public function getImportfeed() {
         return $this->Importfeed;
@@ -907,7 +908,7 @@ class Item {
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\User 
+     * @return \Numa\DOAAdminBundle\Entity\User
      */
     public function getUser() {
         return $this->User;
@@ -928,7 +929,7 @@ class Item {
      */
     public function setUpdatedAtValue() {
         if(empty($this->dontupdate)){
-            
+
             $this->date_updated = new \DateTime();
         }
     }
@@ -969,7 +970,7 @@ class Item {
     /**
      * Get UserItems
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUserItems() {
         return $this->UserItems;
@@ -1001,7 +1002,7 @@ class Item {
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId() {
         return $this->dealer_id;
@@ -1022,19 +1023,19 @@ class Item {
     /**
      * Get Dealer
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getDealer() {
         return $this->Dealer;
     }
 
     public function processOptionsList($stringvalue, $separator) {
-        
+
         if (empty($separator)) {
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
-        
+
         $order = 1;
 
         $proccessed = false;
@@ -1045,7 +1046,7 @@ class Item {
 
         if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
             foreach ($optionsList as $key => $option) {
-                
+
                 $itemField = new ItemField();
                 $itemField->setAllValues($option->getValue());
                 $itemField->setFieldType('boolean');
@@ -1069,7 +1070,7 @@ class Item {
                     }
                 }
             }
-            
+
             if (is_array($optionsArray)) {
                 if(!empty($optionsArray[0])){
                     $json = json_decode($optionsArray[0], true);
@@ -1181,7 +1182,7 @@ class Item {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
 
                     $itemField->setListingfield($test);
-                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
+                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
