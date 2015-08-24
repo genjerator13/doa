@@ -16,6 +16,13 @@
             {% set dealer = item.getDealer() %}
                 {% block content %}
                     <div class="detailsContent">
+                        {% for label, flashes in app.session.flashbag.all %}
+                            {% for flash in flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ flash }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                         <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
 
                         <div class="slideshow">

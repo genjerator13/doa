@@ -8,3 +8,6 @@ services:
         class: Numa\DOASiteBundle\Controller\SearchController
     Numa.Controller.Item:
         class: Numa\DOASiteBundle\Controller\ItemController
+    Numa.Emailer:
+        class: Numa\Lib\Emailer
+        arguments: ["@service_container"]

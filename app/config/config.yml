@@ -52,8 +52,12 @@ twig:
     strict_variables: %kernel.debug%
     globals:
         title: Semo Auto Mall
-        subject: Email from 
+        subject: Received from
+        site: DEV
         upload_feed_path: /upload/feeds/
+    form:
+        resources:
+            - 'NumaDOASiteBundle:Form:fields.html.twig'
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
@@ -194,6 +198,9 @@ parameters:
     iauto: %kernel.root_dir%/../web/iauto
     memcached.servers:
       - { host: 127.0.0.1, port: 11211 }
+    antispam_button:
+        good: xuitybzerpidvfugvo
+        bad:  kuserhxvvkigyhsdsf
     
 gregwar_image: ~  
 endroid_qr_code:
@@ -213,7 +220,32 @@ trsteel_ckeditor:
     class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
     toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'links', '/',  'styles', 'tools']
     toolbar_groups:
-        document: ['Source']           
+        document: ['Source']
+genemu_form:
+    captcha:
+        enabled:          true
+        width:            100
+        height:           100
+        length:           4
+        format:           'png'
+        chars:            '0123456789'
+        font_size:        24
+        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
+        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        fonts:            [ 'whoobub.ttf']
+        background_color: 'DDDDDD'
+        border_color:     '000000'
+        grayscale:        false
+sensio_framework_extra:
+        view:    {annotations: false}
+        router:  {annotations: true}
+
+fos_rest:
+        view:
+             view_response_listener: true
+#        format_listener:
+#             prefer_extension: false
+
 #braincrafted_bootstrap:
 #    output_dir:
 #    assets_dir: %kernel.root_dir%/../vendor/twbs/bootstrap

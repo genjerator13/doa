@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Form\SendEmailType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -192,38 +193,29 @@ class ItemController extends Controller {
                 ->add('last_name', 'text')
                 ->add('email', 'email')
                 ->add('dealer', 'hidden')
+                ->add('captcha', 'genemu_captcha',array('mapped' => false,))
+                //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
                 ->getForm();
+        $form = $this->createForm(new SendEmailType($this->container), $data);
 
-        if ($request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
-            $form->bind($request);
+        $form->handleRequest($request);
+        if ($form->isValid() && $request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
+            $data= $form->getData();
+//            dump($form);
+//            dump($request);die();
+            $mymailer = $this->get('Numa.Emailer');
+            $messageParam = $mymailer->sendEmail($request,$data, $dealer);
+            if(empty($messageParam['errors'])){
+                $this->addFlash('success', "Email has been sent!");
+            }
 
-            // $data is a simply array with your form fields 
-            // like "query" and "category" as defined above.
-            $data = $form->getData();
-            $emailFrom = $data['email'];
-            $emailTo = $dealer->getEmail();
-            $emailBody = $data['comments'];
-            $twig = $this->container->get('twig');
-            $globals = $twig->getGlobals();
-            $subject = $globals['subject'];
-            $title = $globals['title'];
-            $subject = $subject . " " . $title;
+            return $this->redirect($messageParam['redirectto']);
+        }else{
 
-            $mailer = $this->get('mailer');
-            $message = $mailer->createMessage()
-                    ->setSubject('email from ')
-                    ->setFrom($emailFrom)
-                    ->setTo('e.medjesi@gmail.com')
-                    ->setBody($emailTo . ":" . $emailBody);
+            if(!empty($form->getErrors()->count())) {
+                $this->addFlash('danger', "Captcha code invalid, please try again to send email.");
+            }
 
-            //$ok = $mailer->send($message);
-            $currentRoute = $request->attributes->get('_route');
-            $currentRouteParams = $request->attributes->get('_route_params');
-
-            $currentUrl = $this->get('router')
-                    ->generate($currentRoute, $currentRouteParams, true);
-
-            return $this->redirect($currentUrl);
         }
         return $form;
     }
