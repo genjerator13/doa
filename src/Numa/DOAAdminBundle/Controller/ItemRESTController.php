@@ -38,7 +38,7 @@ class ItemRESTController extends Controller
      * @View
      */
     public function getListingDealerAction($id){
-        $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealer(5);
+        $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealer($id);
         //dump($items);die();
         return $items;
     }
