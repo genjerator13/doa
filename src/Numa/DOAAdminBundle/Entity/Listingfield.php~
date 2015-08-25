@@ -514,4 +514,10 @@ class Listingfield
     {
         return $this->ListingFieldLists;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Importmapping;
+
+
 }

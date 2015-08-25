@@ -40,9 +40,9 @@ Numa\DOAAdminBundle\Entity\Importmapping:
         type: text
         nullable: true
     manyToOne:
-        ListingFields:
+        Listingfield:
             targetEntity: Listingfield
-            inversedBy: ImportMapping
+            inversedBy: Importmapping
             joinColumn:
                 name: field_sid
                 referencedColumnName: id

@@ -391,51 +391,53 @@ class Category
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $CatalogRecords;
+
+    
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Catalogrecords;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->CatalogRecords = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Catalogrecords = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
-     * Add CatalogRecords
+     * Add catalogrecord
      *
-     * @param \Numa\DOAAdminBundle\Entity\Importfeed $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Importfeed $catalogrecord
+     *
      * @return Category
      */
-    public function addCatalogRecord(\Numa\DOAAdminBundle\Entity\Importfeed $catalogRecords)
+    public function addCatalogrecord(\Numa\DOAAdminBundle\Entity\Importfeed $catalogrecord)
     {
-        $this->CatalogRecords[] = $catalogRecords;
-    
+        $this->Catalogrecords[] = $catalogrecord;
+
         return $this;
     }
 
     /**
-     * Remove CatalogRecords
+     * Remove catalogrecord
      *
-     * @param \Numa\DOAAdminBundle\Entity\Importfeed $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Importfeed $catalogrecord
      */
-    public function removeCatalogRecord(\Numa\DOAAdminBundle\Entity\Importfeed $catalogRecords)
+    public function removeCatalogrecord(\Numa\DOAAdminBundle\Entity\Importfeed $catalogrecord)
     {
-        $this->CatalogRecords->removeElement($catalogRecords);
+        $this->Catalogrecords->removeElement($catalogrecord);
     }
 
     /**
-     * Get CatalogRecords
+     * Get catalogrecords
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCatalogRecords()
+    public function getCatalogrecords()
     {
-        return $this->CatalogRecords;
-    }
-    
-        public function __toString()
-    {
-        return $this->getName();
+        return $this->Catalogrecords;
     }
 }

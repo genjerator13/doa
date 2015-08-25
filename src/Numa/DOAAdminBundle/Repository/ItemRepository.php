@@ -92,7 +92,7 @@ class ItemRepository extends EntityRepository {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItems ui')
+                ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
                 //->from('NumaDOAAdminBundle:Item', 'i')
                 //->join('NumaDOAAdminBundle:UserItem', 'ui')
                 ->where('ui.user_id=:user_id')
@@ -143,6 +143,36 @@ class ItemRepository extends EntityRepository {
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //dump($itemsQuery->getSQL());
+        return $itemsQuery->getResult();
+    }
+
+    public function getItemByCat($cat=1) {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.category_id=:category')
+            ->setParameter('category', $cat)
+        ;
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        //dump($itemsQuery->getResult());die();
+        return $itemsQuery->getResult();
+    }
+
+    public function getItemByDealer($dealer_id) {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.dealer_id=:dealer')
+            ->setParameter('dealer', $dealer_id)
+        ;
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        //dump($itemsQuery->getResult());die();
         return $itemsQuery->getResult();
     }
 

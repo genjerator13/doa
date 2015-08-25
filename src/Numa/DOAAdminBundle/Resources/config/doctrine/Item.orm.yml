@@ -371,7 +371,7 @@ Numa\DOAAdminBundle\Entity\Item:
                 name: item_id
                 referencedColumnName: id
                 onDelete: cascade
-        UserItems:
+        UserItem:
             targetEntity: UserItem
             mappedBy: Item
             cascade: ["persist","remove"]

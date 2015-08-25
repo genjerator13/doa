@@ -13,8 +13,8 @@ Numa\DOAAdminBundle\Entity\Catalogcategory:
             type: string
             length: 255
     oneToMany:
-        CatalogRecords:
+        Catalogrecords:
             targetEntity: Catalogrecords
-            mappedBy: catalogcategories
+            mappedBy: Catalogcategory
             onDelete: CASCADE
             cascade: ["remove"]

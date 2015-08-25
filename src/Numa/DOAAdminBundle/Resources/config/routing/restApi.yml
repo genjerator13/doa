@@ -1,0 +1,4 @@
+listing:
+    type: rest
+    resource: Numa\DOAAdminBundle\Controller\ItemRESTController
+    defaults: {_format: xml}

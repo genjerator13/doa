@@ -45,6 +45,8 @@ framework:
     session:         ~
     fragments:       ~
     http_method_override: true
+    serializer:
+         enable_annotations: true
 
 # Twig Configuration
 twig:
@@ -164,7 +166,6 @@ swiftmailer:
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
-    spool:     { type: memory }
 
 genemu_form:
     tinymce: 
@@ -236,15 +237,24 @@ genemu_form:
         background_color: 'DDDDDD'
         border_color:     '000000'
         grayscale:        false
+
 sensio_framework_extra:
         view:    {annotations: false}
         router:  {annotations: true}
 
 fos_rest:
+#        format_listener:
+#             rules:
+#                - prefer_extension: false
         view:
              view_response_listener: true
-#        format_listener:
-#             prefer_extension: false
+jms_serializer:
+  metadata:
+    auto_detection: true
+
+
+
+
 
 #braincrafted_bootstrap:
 #    output_dir:

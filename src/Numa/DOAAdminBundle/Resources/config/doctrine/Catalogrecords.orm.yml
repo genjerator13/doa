@@ -97,9 +97,9 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             nullable: true    
 
     manyToOne:
-        CatalogCategory:
+        Catalogcategory:
             targetEntity: Catalogcategory
-            inversedBy: CatalogRecords
+            inversedBy: Catalogrecords
             joinColumn:
                 name: category_id
                 referencedColumnName: id

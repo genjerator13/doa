@@ -261,4 +261,60 @@ class CommandLog
     {
         return $this->command;
     }
+    /**
+     * @var integer
+     */
+    private $count;
+
+    /**
+     * @var integer
+     */
+    private $current;
+
+
+    /**
+     * Set count
+     *
+     * @param integer $count
+     * @return CommandLog
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return integer 
+     */
+    public function getCount()
+    {
+        return $this->count;
+    }
+
+    /**
+     * Set current
+     *
+     * @param integer $current
+     * @return CommandLog
+     */
+    public function setCurrent($current)
+    {
+        $this->current = $current;
+
+        return $this;
+    }
+
+    /**
+     * Get current
+     *
+     * @return integer 
+     */
+    public function getCurrent()
+    {
+        return $this->current;
+    }
 }

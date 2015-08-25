@@ -6,9 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
+
+
 /**
  * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
- * @ExclusionPolicy("all")
+ * @JMS\XmlRoot("listing")
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Item {
 
@@ -28,7 +35,10 @@ class Item {
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
+
+
     private $id;
 
     /**
@@ -111,7 +121,7 @@ class Item {
 
     /**
      * @var \DateTime
-     * 
+     * @JMS\Expose
      */
     private $date_updated;
 
@@ -941,40 +951,7 @@ class Item {
         return $this->getModel()." ".$this->getVIN();
     }
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $UserItems;
 
-    /**
-     * Add UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     * @return Item
-     */
-    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
-        $this->UserItems[] = $userItems;
-
-        return $this;
-    }
-
-    /**
-     * Remove UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     */
-    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
-        $this->UserItems->removeElement($userItems);
-    }
-
-    /**
-     * Get UserItems
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getUserItems() {
-        return $this->UserItems;
-    }
 
     /**
      * @var integer
@@ -1214,16 +1191,19 @@ class Item {
     /**
      * @var string
      * @GRID\Column(type="text", field="model", title="Model", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $model;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $price;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $year;
 
@@ -3140,5 +3120,44 @@ class Item {
         $date->setDate(2000, 1, 1);
         
         return $date;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItem;
+
+
+    /**
+     * Add userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     *
+     * @return Item
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem[] = $userItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem->removeElement($userItem);
+    }
+
+    /**
+     * Get userItem
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserItem()
+    {
+        return $this->UserItem;
     }
 }
