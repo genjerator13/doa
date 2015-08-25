@@ -48,7 +48,7 @@ class Emailer extends ContainerAware
         $emailFrom = $email;
         $emailTo = $dealer->getEmail();
 
-        $emailBody = $this->makeMessageBody($currentUrl, $data['comments'],$emailFrom);
+        $emailBody = $this->makeMessageBody($currentUrl, $data,$emailFrom);
 
         $twig = $this->container->get('twig');
         $globals = $twig->getGlobals();
@@ -61,8 +61,8 @@ class Emailer extends ContainerAware
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom('general@dealersonair.com')
-            ->setBcc('jim@dealersonair.com')
-            ->setBcc('e.medjesi@gmail.com')
+            ->addBcc('jim@dealersonair.com')
+            ->addBcc('e.medjesi@gmail.com')
             ->setCc($email)
              //->setTo($dealer->getEmail())
              ->setTo("genjerator@outlook.com")
@@ -81,11 +81,13 @@ class Emailer extends ContainerAware
         return $return;
     }
 
-    public function makeMessageBody($currentUrl,$userComment,$emailFrom){
+    public function makeMessageBody($currentUrl,$data,$emailFrom){
         $body = "";
+        //dump($data);die();
         $body .= "URL: ".$currentUrl." \n";
         $body .= "EMAIL FROM: ".$emailFrom." \n";
-        $body .= "User Comment: "." \n".$this->stripUserComment($userComment);
+        $body .= "Name: ".$this->stripUserComment($data['first_name'])." ".$this->stripUserComment($data['last_name'])." \n";
+        $body .= "User Comment: "." \n".$this->stripUserComment($data['comments']);
         return $body;
     }
 
