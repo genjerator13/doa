@@ -20,3 +20,14 @@ services:
     mymemcache:
         class: Numa\DOAAdminBundle\Lib\MemcacheWrapper
         arguments:  [@memcached,@service_container,@kernel]
+    listing_api:
+         class: Numa\DOAAdminBundle\Lib\listingApi
+         arguments: [@service_container]
+    xml:
+         class: Numa\DOAAdminBundle\Lib\xml
+         arguments: [@service_container]
+#         calls:
+#             - [setService, [@service_id]]
+#         tags:
+#            - { name: twig.extension }
+#            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException }

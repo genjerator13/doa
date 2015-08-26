@@ -34,4 +34,3 @@ command_log:
 iauto:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/iauto.yml"
         prefix:   /iauto
-

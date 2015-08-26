@@ -11,6 +11,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class ItemRESTController extends Controller
 {
@@ -23,14 +24,23 @@ class ItemRESTController extends Controller
         //dump($items);die();
         return $items;
     }
-    /**
-     * @return Item
-     * @View
-     */
-    public function getListingAction($id){
-        $item = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->find($id);
 
-        return $item;
+    public function listingAction($id){
+        $item = $this->get('listing_api')->prepareListing($id);
+        //dump($item);die();
+        $xml   = $this->get('xml')->createXML('listing',$item);
+        //dump($xml->saveXML());die();
+        $response = new Response($xml->saveXML());
+        return $response;
+    }
+
+    public function listingsByDealerAction($dealerid){
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid);
+        //dump($items);die();
+        $xml   = $this->get('xml')->createXML('listings',$items);
+        //dump($xml->saveXML());die();
+        $response = new Response($xml->saveXML());
+        return $response;
     }
 
     /**

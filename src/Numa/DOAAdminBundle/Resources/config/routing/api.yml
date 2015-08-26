@@ -1,0 +1,15 @@
+#listing:
+#    type: rest
+#    resource: Numa\DOAAdminBundle\Controller\ItemRESTController
+#    defaults: {_format: xml}
+listing:
+    pattern:  /listing/{id}.{_format}
+    defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listing",_format: "xml"}
+    requirements: { _method: get }
+    defaults: {_format: xml}
+
+listingByDealer:
+    pattern:  /listings/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listingsByDealer",_format: "xml"}
+    requirements: { _method: get }
+    defaults: {_format: xml}

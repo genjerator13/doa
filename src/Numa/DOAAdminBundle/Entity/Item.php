@@ -705,6 +705,18 @@ class Item {
         ;
         return $if->matching($criteria);
     }
+
+    public function getImagesForApi() {
+        $images = $this->getImages2();
+        $res = array();
+        foreach($images as $image){
+            if($image instanceof ItemField){
+                $res['image'][]=$image->getFieldStringValue();
+            }
+
+        }
+        return $res;
+    }
     /**
      *
      * @return typeget Attributes
@@ -716,6 +728,19 @@ class Item {
 
         ;
         return $if->matching($criteria);
+    }
+
+    public function getOptionsForApi() {
+        $images = $this->getOptions();
+        $res = array();
+        foreach($images as $image){
+            if($image instanceof ItemField){
+                //dump($image);
+                $res['option'][]=$image->getFieldName();
+            }
+
+        }
+        return $res;
     }
 
     public function getImage2($num = 0) {
@@ -3159,5 +3184,12 @@ class Item {
     public function getUserItem()
     {
         return $this->UserItem;
+    }
+
+    public function get($property){
+        $function = 'get'.ucfirst($property);
+        if(method_exists ($this, $function)){
+            return $this->{$function}();
+        }
     }
 }
