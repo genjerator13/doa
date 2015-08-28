@@ -3,25 +3,40 @@
 namespace Numa\DOAAdminBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Catalogrecords
+ * @JMS\XmlRoot("dealer")
+ * @JMS\ExclusionPolicy("ALL")
+ *
+ *
  */
 class Catalogrecords implements UserInterface {
 
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
+     * @JMS\SerializedName("name")
      */
     private $name;
 
     /**
      * @var string
+     * @Expose
+     * $Type("string")
+     *
      */
     private $url;
 

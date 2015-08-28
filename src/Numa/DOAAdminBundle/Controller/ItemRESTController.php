@@ -9,6 +9,7 @@
 namespace Numa\DOAAdminBundle\Controller;
 
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +22,16 @@ class ItemRESTController extends Controller
      */
     public function getListingsAction(){
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByCat(3);
-        //dump($items);die();
+
         return $items;
     }
 
     public function listingAction($id){
         $item = $this->get('listing_api')->prepareListing($id);
-        //dump($item);die();
+
+        if($item instanceof Item){
+            throw $this->createNotFoundException('The product does not exist');
+        }
         $xml   = $this->get('xml')->createXML('listing',$item);
         //dump($xml->saveXML());die();
         $response = new Response($xml->saveXML());
@@ -36,7 +40,9 @@ class ItemRESTController extends Controller
 
     public function listingsByDealerAction($dealerid){
         $items = $this->get('listing_api')->prepareListingByDealer($dealerid);
-        //dump($items);die();
+        if(!$items){
+            throw $this->createNotFoundException('The product does not exist');
+        }
         $xml   = $this->get('xml')->createXML('listings',$items);
         //dump($xml->saveXML());die();
         $response = new Response($xml->saveXML());

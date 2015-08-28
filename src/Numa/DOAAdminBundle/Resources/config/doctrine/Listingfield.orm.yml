@@ -52,6 +52,18 @@ Numa\DOAAdminBundle\Entity\Listingfield:
             type: string
             length: 255
             nullable: true
+      item_field_caption:
+            type: string
+            length: 255
+            nullable: true
+      api_caption:
+            type: string
+            length: 255
+            nullable: true
+      exclude_from_api:
+            type: boolean
+            nullable: true
+            default: false;
     oneToMany:
         Importmapping:
             targetEntity: Importmapping

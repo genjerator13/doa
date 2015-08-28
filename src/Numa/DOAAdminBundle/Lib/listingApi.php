@@ -15,6 +15,7 @@
 namespace Numa\DOAAdminBundle\Lib;
 
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\DependencyInjection\Container;
 
 class listingApi {
@@ -48,15 +49,43 @@ class listingApi {
         $res=array();
         $em = $this->container->get('doctrine');
         $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($itemid);
+        $listing = $em->getRepository("NumaDOAAdminBundle:Listingfield")->findByCategory($item->getCategoryId());
+
+
         $res = $this->prepareItem($item);
+
         return $res;
     }
 
     public function prepareItem(Item $item){
-        foreach($this->map as $name=>$map){
+        $em = $this->container->get('doctrine');
+        $res=array();
+        $map=array();
+        $listings = $em->getRepository("NumaDOAAdminBundle:Listingfield")->findByCategory($item->getCategoryId());
+        foreach($listings as $listing){
 
-            $res[$map]=$item->get($name);
+            if($listing instanceof Listingfield) {
+                $itemProperty = str_ireplace(array(' ', '-', "#", "(",")"), '', ucfirst($listing->getCaption()));
+                $apifield = str_ireplace(array(' ', '-', "#", "(",")"), '', ucfirst($listing->getCaption()));
+                if (!empty($listing->getItemFieldCaption())) {
+                    $itemProperty = $listing->getItemFieldCaption();
+                }
+
+                if (!empty($listing->getApiCaption())) {
+                    $apifield = $listing->getApiCaption();
+                }
+                if (!$listing->getExcludeFromApi()) {
+                    $map[$itemProperty] = $apifield;
+                }
+            }
         }
+        //dump($map);
+        foreach($map as $name=>$value){
+            $res[$value]=$item->get($name);
+        }
+
+        //dump($res);
+        //die();
         return $res;
     }
 

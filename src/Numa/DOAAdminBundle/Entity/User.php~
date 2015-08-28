@@ -1071,4 +1071,43 @@ class User implements UserInterface {
     {
         // Add your code here
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItem;
+
+
+    /**
+     * Add userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     *
+     * @return User
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem[] = $userItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem->removeElement($userItem);
+    }
+
+    /**
+     * Get userItem
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserItem()
+    {
+        return $this->UserItem;
+    }
 }
