@@ -89,10 +89,10 @@ class listingApi {
         return $res;
     }
 
-    public function prepareListingByDealer($dealerid){
+    public function prepareListingByDealer($dealerid,$category){
         $res=array();
         $em = $this->container->get('doctrine');
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealer($dealerid);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid,$category);
         foreach($items as $item){
             $res['listing'][]=$this->prepareItem($item);
         }

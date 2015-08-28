@@ -12,6 +12,7 @@ namespace Numa\DOAAdminBundle\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ItemRESTController extends Controller
@@ -26,26 +27,37 @@ class ItemRESTController extends Controller
         return $items;
     }
 
-    public function listingAction($id){
+    public function listingAction(Request $request,$id){
         $item = $this->get('listing_api')->prepareListing($id);
+
 
         if($item instanceof Item){
             throw $this->createNotFoundException('The product does not exist');
         }
-        $xml   = $this->get('xml')->createXML('listing',$item);
-        //dump($xml->saveXML());die();
-        $response = new Response($xml->saveXML());
+        $format = $request->attributes->get('_format');
+        if($format=='xml') {
+            $xml = $this->get('xml')->createXML('listing', $item);
+            $response = new Response($xml->saveXML());
+        }elseif($format=='json'){
+            $response = new Response(json_encode($item));
+        }
         return $response;
     }
 
-    public function listingsByDealerAction($dealerid){
-        $items = $this->get('listing_api')->prepareListingByDealer($dealerid);
+    public function listingsByDealerAction(Request $request,$dealerid){
+        $category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid,$category);
         if(!$items){
             throw $this->createNotFoundException('The product does not exist');
         }
-        $xml   = $this->get('xml')->createXML('listings',$items);
-        //dump($xml->saveXML());die();
-        $response = new Response($xml->saveXML());
+        $format = $request->attributes->get('_format');
+        if($format=='xml') {
+            $xml = $this->get('xml')->createXML('listings', $items);
+            $response = new Response($xml->saveXML());
+        }elseif($format=='json'){
+            $response = new Response(json_encode($items));
+        }
         return $response;
     }
 

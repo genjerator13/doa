@@ -161,7 +161,7 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
-    public function getItemByDealer($dealer_id) {
+    public function getItemByDealerAndCategory($dealer_id,$category=null) {
 
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
@@ -170,6 +170,22 @@ class ItemRepository extends EntityRepository {
             ->where('i.dealer_id=:dealer')
             ->setParameter('dealer', $dealer_id)
         ;
+        //dump(is_numeric($category));die();
+        if(!empty($category)) {
+            if(is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name",$category);
+            }elseif(is_string($category)){
+                $qb->join("NumaDOAAdminBundle:Category", "c");
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+
+
+            }else{
+                return false;
+            }
+        }
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //dump($itemsQuery->getResult());die();
