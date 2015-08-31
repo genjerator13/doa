@@ -176,11 +176,17 @@ class ItemRepository extends EntityRepository {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('i')->distinct()
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.dealer_id=:dealer')
-            ->setParameter('dealer', $dealer_id)
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if(is_numeric($dealer_id)) {
+            $qb->where('i.dealer_id=:dealer');
+            $qb->setParameter('dealer', $dealer_id);
+        }elseif(is_string($dealer_id)){
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d",'WITH','i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", "%" . $dealer_id . "%");
+        }
         ;
-        //dump(is_numeric($category));die();
+
         if(!empty($category)) {
             if(is_numeric($category)) {
 
