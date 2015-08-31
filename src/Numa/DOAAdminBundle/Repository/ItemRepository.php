@@ -177,7 +177,7 @@ class ItemRepository extends EntityRepository {
                 $qb->andWhere("i.category_id like :name");
                 $qb->setParameter("name",$category);
             }elseif(is_string($category)){
-                $qb->join("NumaDOAAdminBundle:Category", "c");
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
 
@@ -188,7 +188,8 @@ class ItemRepository extends EntityRepository {
         }
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getResult());die();
+        dump($itemsQuery->getResult());
+        dump($itemsQuery->getSQL());die();
         return $itemsQuery->getResult();
     }
 
