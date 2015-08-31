@@ -146,18 +146,28 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
-    public function getItemByCat($cat=1) {
-
+    public function getItemByCat($category) {
         $qb = $this->getEntityManager()
-            ->createQueryBuilder();
+                ->createQueryBuilder();
         $qb->select('i')->distinct()
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.category_id=:category')
-            ->setParameter('category', $cat)
+                ->from('NumaDOAAdminBundle:Item', 'i')
         ;
 
+        if(!empty($category)) {
+            if(is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name",$category);
+            }elseif(is_string($category)){
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            }else{
+                //return false;
+            }
+        }
+
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getResult());die();
         return $itemsQuery->getResult();
     }
 
@@ -180,8 +190,6 @@ class ItemRepository extends EntityRepository {
                 $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-
-
             }else{
                 return false;
             }

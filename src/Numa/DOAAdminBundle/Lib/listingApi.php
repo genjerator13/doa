@@ -99,5 +99,15 @@ class listingApi {
         return $res;
     }
 
+    public function prepareAll($category){
+        $res=array();
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByCat($category);
+        foreach($items as $item){
+            $res['listing'][]=$this->prepareItem($item);
+        }
+        return $res;
+    }
+
 
 }

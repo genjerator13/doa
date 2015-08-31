@@ -61,6 +61,23 @@ class ItemRESTController extends Controller
         return $response;
     }
 
+    public function listingsAllAction(Request $request,$category){
+        //$category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareAll($category);
+        if(!$items){
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        if($format=='xml') {
+            $xml = $this->get('xml')->createXML('listings', $items);
+            $response = new Response($xml->saveXML());
+        }elseif($format=='json'){
+            $response = new Response(json_encode($items));
+        }
+        return $response;
+    }
+
     /**
      * @return Array
      * @View

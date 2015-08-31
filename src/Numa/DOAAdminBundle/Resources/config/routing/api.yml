@@ -6,10 +6,13 @@ listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listing",_format: "xml"}
     requirements: { _method: get }
-    defaults: {_format: xml}
 
 listingByDealer:
     pattern:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listingsByDealer",_format: "xml"}
     requirements: { _method: get }
-    defaults: {_format: xml}
+
+listingsAll:
+    pattern:  /listings/{category}/category.{_format}
+    defaults: { _controller: "NumaDOAAdminBundle:ItemREST:listingsAll",_format: "xml"}
+    requirements: { _method: get }
