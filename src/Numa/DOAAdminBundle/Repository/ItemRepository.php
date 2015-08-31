@@ -302,10 +302,10 @@ class ItemRepository extends EntityRepository {
         //clear all item fields if not photo feed
 
         if (!$feed->getPhotoFeed()) {
-            $this->removeAllIImageItemFields($item->getId());
+            $this->removeAllItemFields($item->getId());
         } else {
             if (!$this->itemFieldsDeleted) {
-                $this->removeAllItemFieldsByFeed($feed->getId());
+                $this->removeAllIImageItemFields($feed->getId());
                 $this->itemFieldsDeleted = true;
             }
         }
