@@ -188,33 +188,19 @@ ul.tmp{
 }
 
 .header-image {
-    background: url('/images/heder_fox.png') 50% bottom no-repeat;
-    width: 100%;
+    background: url("/images/header_car.jpg") no-repeat scroll 50% bottom #ffffff;
     height: 165px;
     padding: 0;
-    position : relative;
-
+    position: relative;
+    width: 100%;
 }
 
-
-.header-logo{
-    background: url('/images/logo_semo_up2.png') no-repeat;
-    
-    width: 265px;
-    height: 150px;
-    position: absolute;
-    bottom: 10px;
-    left: 370px;
-    
-}
 
 .logo-text {
     font-family: bauhaus93;
     color: #ED7D31;
     font-size: 24px;
-position: absolute;
-top: 130px;
-left: 405px;
+    margin-top: -40px;
 }
 
 .navbar{
@@ -267,8 +253,8 @@ a.imageLink {
     text-align: center;
     left: -50%; 
     /*border: dotted red 1px;*/
-
-
+    
+    
 }
 
 div.imagebox {
@@ -280,11 +266,11 @@ div.imagebox {
 }
 
 div.imageouterbox {
-
+    
     margin-bottom: 20px;
     text-align: center;
     min-height: 120px;
-
+    
 }
 
 
@@ -342,26 +328,26 @@ a{
 
 /*Gallery Container*/
 .image-gallery{
-    float: left;
-    position:relative;  
-    margin: 20px 0 0 0;
-    width:500px;
-    border-radius:20px;  
+  float: left;
+  position:relative;  
+  margin: 20px 0 0 0;
+  width:500px;
+  border-radius:20px;  
 }
 /*Sets Big Image style*/
 .image-gallery .big-image{
-    width:500px;
-    height:260px;
-    margin:0 auto;  
-    position:relative;
+  width:500px;
+  height:260px;
+  margin:0 auto;  
+  position:relative;
 }
 .image-gallery .big-image img{
-    opacity:0;
-    position:absolute;left:0px;top:0px; 
-    width:500px;
-    margin:0 auto;
-    transition: opacity 350ms;
-    box-shadow:0 1px 20px 1px rgba(0,0,0,0.7);
+  opacity:0;
+  position:absolute;left:0px;top:0px; 
+  width:500px;
+  margin:0 auto;
+  transition: opacity 350ms;
+  box-shadow:0 1px 20px 1px rgba(0,0,0,0.7);
 }
 
 /*Selected image display*/
@@ -375,12 +361,12 @@ a{
 
 /***Button***/
 .image-gallery .button{
-    font-weight:bold;
-    font-size:30px;
-    display:inline-block;
-    transform:scale(1,2);
-    color:#222;
-    padding:0 10px;   
+  font-weight:bold;
+  font-size:30px;
+  display:inline-block;
+  transform:scale(1,2);
+  color:#222;
+  padding:0 10px;   
 }
 .image-gallery .button:hover{
     text-decoration: none;
@@ -398,33 +384,33 @@ a{
 
 /***move thumbs on click on buttons***/
 .image-gallery .prev:hover ~ .thumbs  ul{
-    transform:translateX(0%);
-    transition:2s all;
+  transform:translateX(0%);
+  transition:2s all;
 }
 .image-gallery  .next:hover ~ .thumbs  ul{
-    transform:translateX(-90%);
-    transition:9s all;  
+  transform:translateX(-90%);
+  transition:9s all;  
 }
-
+  
 /***thumbs***/
 .image-gallery .thumbs{
-    overflow:hidden; 
-    white-space:nowrap; 
-    margin: 45px;
-    margin-bottom: 11px;
+  overflow:hidden; 
+  white-space:nowrap; 
+  margin: 45px;
+  margin-bottom: 11px;
 }
 .image-gallery .thumbs ul{
-    float:left; 
-    transition:999999s all; 
-    transform:translateX(0);
+  float:left; 
+  transition:999999s all; 
+  transform:translateX(0);
 }
 .image-gallery .thumbs li a:hover{
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    -o-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+   -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
-
+                
 .image-gallery .thumbs li{display:inline-block; margin-right:3px;}
 .image-gallery .thumbs li a:hover{opacity:1;}
 .image-gallery .thumbs li a{opacity:0.55;}
@@ -442,11 +428,7 @@ ul,li{list-style:none;margin:0;padding:0;}
     height: 125px;
 }
 .footer-img {
-    display: block;    
-    height: 125px;
-    width: 100% ;
-    background: url('/images/semologo2.jpg') no-repeat;
-    margin-left: 15px;
+
 }
 .copyright{
     margin-left: 15px;
@@ -471,12 +453,8 @@ ul,li{list-style:none;margin:0;padding:0;}
 
 .container h2.section{
     margin-top: 0px;
-    display: block;
-    clear: both;
 }
-h4{
-    clear: both;
-}
+
 .nav-tabs > li > a {
     background: none repeat scroll 0 0 #f1f1f1;
 }
