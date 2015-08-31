@@ -188,8 +188,6 @@ class ItemRepository extends EntityRepository {
         }
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        dump($itemsQuery->getResult());
-        dump($itemsQuery->getSQL());die();
         return $itemsQuery->getResult();
     }
 
