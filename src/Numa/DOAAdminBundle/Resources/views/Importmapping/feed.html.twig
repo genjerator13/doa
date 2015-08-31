@@ -31,7 +31,7 @@
                     {{ form_label(form.ImportmappingRow[0].description) }}
                 </th>
                 <th>
-                    {{ form_label(form.ImportmappingRow[0].ListingFields) }}
+                    {{ form_label(form.ImportmappingRow[0].ListingField) }}
                 </th>
                 <th colspan='2'>
                     Actions
@@ -50,8 +50,8 @@
                         {{ form_widget(map.description) }}
                     </td>
                     <td>                    
-                        {{ form_errors(map.ListingFields) }}
-                        {{ form_widget(map.ListingFields) }}
+                        {{ form_errors(map.ListingField) }}
+                        {{ form_widget(map.ListingField) }}
                     </td>                   
 
                     <td>

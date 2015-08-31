@@ -201,6 +201,15 @@ class ItemRepository extends EntityRepository {
         }
     }
 
+    public function removeAllIImageItemFields($item_id) {
+        $item_id = intval($item_id);
+        if (!empty($item_id)) {
+
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id. " AND  if.field_name like 'Image List'");
+            $numDeleted = $q->execute();
+        }
+    }
+
     public function removeAllItemFieldsByFeed($feed_id) {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
@@ -270,8 +279,8 @@ class ItemRepository extends EntityRepository {
         }
         if (!empty($uniqueField)) {
 
-            if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $uniqueValue);
+            if (!empty($uniqueMapRow) && $uniqueMapRow->getListingField() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
+                $item = $this->findItemByUniqueField($uniqueMapRow->getListingField()->getCaption(), $uniqueValue);
             }
         }
         unset($uniqueMapRow);
@@ -293,7 +302,7 @@ class ItemRepository extends EntityRepository {
         //clear all item fields if not photo feed
 
         if (!$feed->getPhotoFeed()) {
-            $this->removeAllItemFields($item->getId());
+            $this->removeAllIImageItemFields($item->getId());
         } else {
             if (!$this->itemFieldsDeleted) {
                 $this->removeAllItemFieldsByFeed($feed->getId());
@@ -306,7 +315,7 @@ class ItemRepository extends EntityRepository {
             $property = $maprow->getSid();
 
             $processed = false;
-            $listingFields = $maprow->getListingFields();
+            $listingFields = $maprow->getListingField();
             //check if there are predefined listing field in database (listing_field_lists)
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
@@ -316,7 +325,7 @@ class ItemRepository extends EntityRepository {
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
                     if ($test instanceof Listingfield) {
 
                         $itemField->setListingfield($test);
@@ -334,7 +343,7 @@ class ItemRepository extends EntityRepository {
                     if (count($listValues) > 0) {
 
                         //get listingFieldlist by ID and stringValue
-                        $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                        $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingField()->getId());
                         if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
@@ -344,7 +353,7 @@ class ItemRepository extends EntityRepository {
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'tree') {
                     //get listingFieldlist by ID and stringValue
-                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingField()->getId());
                     //echo $stringValue.", ".$maprow->getListingFields()->getId();die(); {
                     if ($listingTree instanceof ListingFieldTree) {
                         $itemField->setFieldIntegerValue($listingTree->getId());
