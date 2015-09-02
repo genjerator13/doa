@@ -202,6 +202,7 @@ class ItemRepository extends EntityRepository {
         }
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+
         return $itemsQuery->getResult();
     }
 
