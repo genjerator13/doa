@@ -103,6 +103,11 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
+    oneToMany:
+        DealerCategories:
+            targetEntity: DealerCategories
+            mappedBy: Categories
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

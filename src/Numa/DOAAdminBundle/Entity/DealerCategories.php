@@ -1,0 +1,141 @@
+<?php
+
+namespace Numa\DOAAdminBundle\Entity;
+
+/**
+ * DealerCategories
+ */
+class DealerCategories
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var integer
+     */
+    private $category_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Catalogrecords;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Dcategory
+     */
+    private $Dcategory;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dealerId
+     *
+     * @param integer $dealerId
+     *
+     * @return DealerCategories
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return integer
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set categoryId
+     *
+     * @param integer $categoryId
+     *
+     * @return DealerCategories
+     */
+    public function setCategoryId($categoryId)
+    {
+        $this->category_id = $categoryId;
+
+        return $this;
+    }
+
+    /**
+     * Get categoryId
+     *
+     * @return integer
+     */
+    public function getCategoryId()
+    {
+        return $this->category_id;
+    }
+
+    /**
+     * Set catalogrecords
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords
+     *
+     * @return DealerCategories
+     */
+    public function setCatalogrecords(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null)
+    {
+        $this->Catalogrecords = $catalogrecords;
+
+        return $this;
+    }
+
+    /**
+     * Get catalogrecords
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getCatalogrecords()
+    {
+        return $this->Catalogrecords;
+    }
+
+    /**
+     * Set dcategory
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Dcategory $dcategory
+     *
+     * @return DealerCategories
+     */
+    public function setDcategory(\Numa\DOAAdminBundle\Entity\Dcategory $dcategory = null)
+    {
+        $this->Dcategory = $dcategory;
+
+        return $this;
+    }
+
+    /**
+     * Get dcategory
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Dcategory
+     */
+    public function getDcategory()
+    {
+        return $this->Dcategory;
+    }
+}

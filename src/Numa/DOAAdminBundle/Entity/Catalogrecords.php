@@ -788,18 +788,29 @@ class Catalogrecords implements UserInterface {
 
         return $this;
     }
-
-
+    
     /**
      * @var integer
      */
     private $category_id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Categories;
+
+    /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogcategory
      */
     private $Catalogcategory;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set categoryId
@@ -823,6 +834,40 @@ class Catalogrecords implements UserInterface {
     public function getCategoryId()
     {
         return $this->category_id;
+    }
+
+    /**
+     * Add category
+     *
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $category
+     *
+     * @return Catalogrecords
+     */
+    public function addCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $category)
+    {
+        $this->Categories[] = $category;
+
+        return $this;
+    }
+
+    /**
+     * Remove category
+     *
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $category
+     */
+    public function removeCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $category)
+    {
+        $this->Categories->removeElement($category);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCategories()
+    {
+        return $this->Categories;
     }
 
     /**

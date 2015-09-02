@@ -1,0 +1,19 @@
+Numa\DOAAdminBundle\Entity\Dcategory:
+    type: entity
+    table: dcategory
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        slug:
+            type: string
+            length: 255
+    oneToMany:
+        Catalogrecords:
+            targetEntity: DealerCategories
+            mappedBy: Catalogrecords
+            cascade: [persist]

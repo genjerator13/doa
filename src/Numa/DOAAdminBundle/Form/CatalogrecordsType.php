@@ -19,6 +19,7 @@ class CatalogrecordsType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('name')
+            //->add('Categories')
                 ->add('username')
                 ->add('url')
                 ->add('dealerId')
@@ -33,6 +34,7 @@ class CatalogrecordsType extends AbstractType {
                 ->add('state')
                 ->add('description', 'ckeditor')
                 ->add('Catalogcategory')
+
                 ->add('file_import_source', 'file', array('required' => false, 'data_class' => null))
                 ->add('logo_url', 'text', array('required' => false))
                 ->add('password', 'password', array('required' => false))
