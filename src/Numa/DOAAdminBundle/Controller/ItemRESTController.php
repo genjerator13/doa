@@ -21,6 +21,8 @@ class ItemRESTController extends Controller
      * @return array
      * @View
      */
+
+    const cacheMaxAge = 86400;
     public function getListingsAction(){
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByCat(3);
 
@@ -41,13 +43,16 @@ class ItemRESTController extends Controller
         }elseif($format=='json'){
             $response = new Response(json_encode($item));
         }
+
         return $response;
     }
 
     public function listingsByDealerAction(Request $request,$dealerid){
+
         $category = $request->query->get('category');
 
         $items = $this->get('listing_api')->prepareListingByDealer($dealerid,$category);
+
         if(!$items){
             throw $this->createNotFoundException('The product does not exist');
         }
@@ -57,6 +62,14 @@ class ItemRESTController extends Controller
             $response = new Response($xml->saveXML());
         }elseif($format=='json'){
             $response = new Response(json_encode($items));
+        }
+        $nocache=false;
+
+        if (!$nocache) {
+            $response->setPublic();
+            $response->setSharedMaxAge(self::cacheMaxAge);
+            $response->setMaxAge(self::cacheMaxAge);
+
         }
         return $response;
     }
@@ -75,17 +88,12 @@ class ItemRESTController extends Controller
         }elseif($format=='json'){
             $response = new Response(json_encode($items));
         }
+        $nocache=false;
+        if (!$nocache) {
+            $response->setPublic();
+            $response->setSharedMaxAge(self::cacheMaxAge);
+            $response->setMaxAge(self::cacheMaxAge);
+        }
         return $response;
     }
-
-    /**
-     * @return Array
-     * @View
-     */
-    public function getListingDealerAction($id){
-        $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealer($id);
-        //dump($items);die();
-        return $items;
-    }
-
 }
