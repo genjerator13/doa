@@ -64,11 +64,16 @@ class Importmapping
      */
     private $value_map_values;
 
-    /**
-     * @var \Numa\DOAAdminBundle\Entity\Listingfield
-     */
-    private $ListingFields;
 
+
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        $this->Listingfields = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
 
     /**
      * Get id
@@ -311,25 +316,32 @@ class Importmapping
     }
 
     /**
-     * Set ListingFields
+     * @var \Numa\DOAAdminBundle\Entity\Listingfield
+     */
+    private $Listingfield;
+
+
+    /**
+     * Set listingfield
      *
-     * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingFields
+     * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingfield
+     *
      * @return Importmapping
      */
-    public function setListingFields(\Numa\DOAAdminBundle\Entity\Listingfield $listingFields = null)
+    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
     {
-        $this->ListingFields = $listingFields;
-    
+        $this->Listingfield = $listingfield;
+
         return $this;
     }
 
     /**
-     * Get ListingFields
+     * Get listingfield
      *
-     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
+     * @return \Numa\DOAAdminBundle\Entity\Listingfield
      */
-    public function getListingFields()
+    public function getListingfield()
     {
-        return $this->ListingFields;
+        return $this->Listingfield;
     }
 }

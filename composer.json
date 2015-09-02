@@ -34,7 +34,6 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "sensio/generator-bundle": "2.3.*",
-        "incenteev/composer-parameter-handler": "~2.0",
         "braincrafted/bootstrap-bundle": "dev-master",
         "jquery/jquery": "1.9.*",
         "apy/datagrid-bundle": "dev-master",
@@ -51,6 +50,7 @@
         "jms/serializer-bundle": "^1.1@dev",
         "friendsofsymfony/rest-bundle": "^1.8@dev",
         "nelmio/api-doc-bundle": "^2.9@dev"
+
     },
     "scripts": {
         "post-install-cmd": [

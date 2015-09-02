@@ -171,7 +171,7 @@ class ImportfeedController extends Controller {
             $em->flush();
 
             return $this->redirect($this->generateUrl('importfeed_edit', array('id' => $id)));
-        }
+        } 
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
                     'entity' => $entity,
@@ -215,18 +215,18 @@ class ImportfeedController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id'=>$entity->getId()));
-        
-        foreach($items as $item) {
-            foreach($item->getItemField() as $itemField) {
-                if(stripos($itemField->getFieldType(),"array")!==false && stripos($itemField->getFieldStringValue(), "http")===false){
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $entity->getId()));
+
+        foreach ($items as $item) {
+            foreach ($item->getItemField() as $itemField) {
+                if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
                     $web_path = $this->container->getParameter('web_path');
-                    $filename = $web_path.$itemField->getFieldStringValue();
-                    if(file_exists($filename) && is_file($filename)){
-                        unlink($filename);                                                
+                    $filename = $web_path . $itemField->getFieldStringValue();
+                    if (file_exists($filename) && is_file($filename)) {
+                        unlink($filename);
                     }
                     $em->remove($itemField);
-                }            
+                }
             }
             $em->remove($item);
         }
@@ -234,8 +234,8 @@ class ImportfeedController extends Controller {
         $em->flush();
 
         //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
-        $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed '.$id." are removed and the images are deleted.");
-    
+        $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed ' . $id . " are removed and the images are deleted.");
+
         return $this->redirect($this->generateUrl('importfeed'));
     }
 

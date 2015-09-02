@@ -1016,44 +1016,7 @@ class User implements UserInterface {
     {
         return $this->Items;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $UserItems;
 
-
-    /**
-     * Add UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     * @return User
-     */
-    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
-    {
-        $this->UserItems[] = $userItems;
-    
-        return $this;
-    }
-
-    /**
-     * Remove UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     */
-    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems)
-    {
-        $this->UserItems->removeElement($userItems);
-    }
-
-    /**
-     * Get UserItems
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUserItems()
-    {
-        return $this->UserItems;
-    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -1107,5 +1070,44 @@ class User implements UserInterface {
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItem;
+
+
+    /**
+     * Add userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     *
+     * @return User
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem[] = $userItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem->removeElement($userItem);
+    }
+
+    /**
+     * Get userItem
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserItem()
+    {
+        return $this->UserItem;
     }
 }

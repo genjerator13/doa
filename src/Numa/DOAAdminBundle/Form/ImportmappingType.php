@@ -34,7 +34,7 @@ class ImportmappingType extends AbstractType
             ->add('sid')
             ->add('description', 'text', array('required' => false))
             //->add('field_sid', 'choice', array('choices' => $this->properties['listing'], 'preferred_choices' => $this->properties['preferredChoices'], 'empty_value' => 'Choose an option', 'required' => false))
-            ->add('ListingFields', 'entity',
+            ->add('ListingField', 'entity',
                 array(
                     'class' => 'NumaDOAAdminBundle:Listingfield',
                     'property' => 'caption',

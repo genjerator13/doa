@@ -72,4 +72,22 @@ class ListingfieldRepository extends EntityRepository
             )
             ->getResult();
     }
+
+
+    public function findByCategory($catId) {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('lf')
+            ->from('NumaDOAAdminBundle:Listingfield', 'lf')
+            ->andWhere('lf.category_sid in('.$catId.',0)')
+            ->andWhere('lf.type not like \'boolean\'');
+
+
+        $query = $qb->getQuery();
+
+        $res = $query->getResult(); //getOneOrNullResult();
+
+        return $res;
+    }
 }

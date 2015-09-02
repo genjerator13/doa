@@ -27,20 +27,20 @@ class Catalogcategory
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $CatalogRecords;
+    private $Catalogrecords;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->CatalogRecords = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Catalogrecords = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,14 +56,14 @@ class Catalogcategory
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -79,56 +79,59 @@ class Catalogcategory
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
+
         return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
         return $this->slug;
     }
 
+
+
+
+
     /**
-     * Add CatalogRecords
+     * Add catalogrecord
      *
-     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecord
+     *
      * @return Catalogcategory
      */
-    public function addCatalogRecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords)
+    public function addCatalogrecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecord)
     {
-        $this->CatalogRecords[] = $catalogRecords;
-    
+        $this->Catalogrecords[] = $catalogrecord;
+
         return $this;
     }
 
     /**
-     * Remove CatalogRecords
+     * Remove catalogrecord
      *
-     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecord
      */
-    public function removeCatalogRecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogRecords)
+    public function removeCatalogrecord(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecord)
     {
-        $this->CatalogRecords->removeElement($catalogRecords);
+        $this->Catalogrecords->removeElement($catalogrecord);
     }
 
     /**
-     * Get CatalogRecords
+     * Get catalogrecords
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCatalogRecords()
+    public function getCatalogrecords()
     {
-        return $this->CatalogRecords;
+        return $this->Catalogrecords;
     }
-    
-    public function __toString()
-    {
+
+    public function __toString(){
         return $this->getName();
     }
-    
 }

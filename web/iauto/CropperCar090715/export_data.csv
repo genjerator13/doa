@@ -1,0 +1,584 @@
+id,category,username,pictures,FuelType,Status,Sold,StockNumber,Vin,OptionsList,Price,Transmission,Mileage,Year,MakeModel[1],MakeModel[2],BodyStyle,IW_NO,SellerComments,AutoEngine,BodyDescription,Trim,ExteriorColor,InteriorColor,Doors,DriveType,DriverAirbag,PassengerAirbag,AntiLockBrakes,ChildSeat,CruiseControl,PowerSeats,AirConditioning,PowerWindows,RearWindowDefroster,TintedGlass,AmFmStereoTape,CompactDiscPlayer,PowerDoorLocks,Sunroof,PowerMirrors,LeatherSeats,Bluetooth,TowPackage,RemoteStart,NavigationSystem,TractionControl,ExtendedCab,CrewCab,ShortBox,BoxLiner,DualFrontAirbags,SideImpactAirbag,SatelliteRadio,KeylessEntry,PowerSeat,Spoiler,OnStar,ReversePark,StabilityControl,HeatedSeats,LeatherInterior,RunningBoards,RearSlidingWindow,HillAscentControl,RearWindowWiper,TractionControlSystem,ClimateControl,Auxiliary12VOutlet,AntiTheft,DualClimateControls,AutoDimmingMirrors,MemorySeats,RearViewCamera,PowerLiftGates,3rdRowSeating,HeatedMirrors,TiltTelescopicSteering,5thWheel,TrailerBrakeControl,AutoHeadlights,BedMat,BenchSeatsSplit,BucketSeats,CabStepsTubes,DualRearWheel,ElectricShift,DVDVHSRemote,FogLights,IntermittentWipers,OffRoadPackage,SideBedCaps,PowerPedals,TonneauCover,TowHooks,BackUpCam,OverheadAirbag,KneeAirbag,SecuritySystem,TripComputer,MP3Decoder,BrakeAssist,LuggageRack,GarageDoorOpener
+30692,Car,9,,,Used,false,UT103726,,,19550,,102171,2010,Ford,F150,Truck,,"<ul><li>
+		4W</li>
+	<li>
+		17"" wheels</li>
+	<li>
+		A/T/C/PW/PL</li>
+	<li>
+		145"" WB</li>
+	<li>
+		3.55 reg axle</li>
+</ul>",4.6L,SC,XLT,Blue,Grey,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28985,Car,9,pictures/28985_1.jpg;pictures/28985_2.jpg;pictures/28985_3.jpg;pictures/28985_4.jpg;pictures/28985_5.jpg;pictures/28985_6.jpg;pictures/28985_7.jpg,,USED,false,UT123691,,,36995,,72551,2012,Ford,F-150,Truck,,"<ul><li>
+		Lariat</li>
+	<li>
+		Leather</li>
+	<li>
+		Lariat Chrome Package</li>
+	<li>
+		Tailgate step</li>
+	<li>
+		Brake Control</li>
+	<li>
+		Rear Camera</li>
+</ul>",5.0L,,CR 4W,Golden Bronze,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28380,Car,9,pictures/28380_1.jpg;pictures/28380_2.jpg;pictures/28380_3.jpg;pictures/28380_4.jpg;pictures/28380_5.jpg;pictures/28380_6.jpg;pictures/28380_7.jpg,,DEMO,false,NC1386,,,13990,,25847,2011,Ford,Fiesta,Hatchback,,"<ul><li>
+		6 spd auto</li>
+	<li>
+		SYNC</li>
+	<li>
+		A/T/C/PW/PL</li>
+	<li>
+		AM/FM/CD</li>
+	<li>
+		Heated seats</li>
+	<li>
+		Sat. radio</li>
+	<li>
+		Keyless entry</li>
+	<li>
+		Ambient lighting</li>
+	<li>
+		7 air bags</li>
+</ul><p>
+	 </p>",1.6L,,SES,Red Candy,Black,4 doors,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30538,Car,9,,,Used,false,UT133727,,,36900,,71718,2013,Ford,F150,Truck,,"<ul><li>
+		4WD</li>
+	<li>
+		Lariat</li>
+	<li>
+		5.0L</li>
+	<li>
+		Leather</li>
+	<li>
+		157"" WB</li>
+	<li>
+		Dual temp.</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Navigation</li>
+	<li>
+		SYNC</li>
+	<li>
+		Rear camera</li>
+	<li>
+		Brake control</li>
+	<li>
+		3.5 e-lock</li>
+	<li>
+		Lariat chrome pkg</li>
+	<li>
+		18"" wheels</li>
+	<li>
+		Spray-in liner</li>
+	<li>
+		New tires</li>
+</ul>",,,CR,White Platinum,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+26776,Car,9,pictures/26776_1.jpg;pictures/26776_2.jpg;pictures/26776_3.jpg;pictures/26776_4.jpg;pictures/26776_5.jpg;pictures/26776_6.jpg;pictures/26776_7.jpg;pictures/26776_8.jpg,,USED,false,UC102224,,,16900,,91400,2010,Ford,Fusion,Sedan,,"<ul><li>
+		AWD</li>
+	<li>
+		Auto</li>
+	<li>
+		Leather</li>
+	<li>
+		Moonroof</li>
+	<li>
+		Rear spoiler</li>
+	<li>
+		Heated seats</li>
+</ul>",3.0L,,SEL,Tuxedo Black,Black,4 doors,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+9867,Car,9,pictures/9867_1.jpg;pictures/9867_2.jpg;pictures/9867_3.jpg;pictures/9867_4.jpg;pictures/9867_5.jpg;pictures/9867_6.jpg,,,false,UC102146,,,14900,,96826,2010,Ford,Fusion SEL,Sedan,,"<p>
+	5 pass, htd leather, smokestone, sat radio, a/t/c/pw/pl</p>",,,,Smokestone,,,AWD,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+29314,Car,9,pictures/29314_1.jpg;pictures/29314_2.jpg;pictures/29314_3.jpg;pictures/29314_4.jpg;pictures/29314_5.jpg;pictures/29314_6.jpg;pictures/29314_7.jpg,,USED,false,UC102134,,,18750,,62907,2010,Ford,Taurus,Sedan,,"<ul><li>
+		Heated Seats</li>
+	<li>
+		AWD</li>
+	<li>
+		5 passenger</li>
+	<li>
+		3.5L</li>
+	<li>
+		Sat. Radio</li>
+	<li>
+		Auto temp.</li>
+</ul>",3.5L,,SEL,Blue,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28984,Car,9,,,USED,false,UT133692,,,19995,,62547,2013,Ford,Escape,SUV,,"<ul><li>
+		EcoBoost</li>
+	<li>
+		SYNC</li>
+	<li>
+		Dual auto temp.</li>
+</ul>",1.6L,,SE,White,Charcoal,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+26775,Car,9,pictures/26775_1.jpg;pictures/26775_2.jpg;pictures/26775_3.jpg;pictures/26775_4.jpg;pictures/26775_5.jpg;pictures/26775_6.jpg,,USED,false,UC102226,,,13770,,109300,2010,Ford,Fusion,Sedan,,"<ul><li>
+		Leather</li>
+	<li>
+		Moonroof</li>
+	<li>
+		SYNC</li>
+	<li>
+		Auto temp.</li>
+	<li>
+		Remote start</li>
+	<li>
+		Rear spoiler</li>
+	<li>
+		Heated seats</li>
+	<li>
+		Rear camera</li>
+	<li>
+		BLIS</li>
+	<li>
+		Reverse sensing</li>
+	<li>
+		SONY stereo</li>
+	<li>
+		6 disc CD</li>
+</ul><p>
+	 </p>",3.0L,,SEL,Dark Green,Black,4 doors,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28385,Car,9,,,Used,false,UT073685,,,19495,,158434,2007,Ford,F150,Truck,,"<ul><li>
+		Leather</li>
+	<li>
+		Trailer Tow</li>
+	<li>
+		Lariat chrome package</li>
+	<li>
+		Power moonroof</li>
+	<li>
+		6 Disc CD</li>
+	<li>
+		18"" Chrome wheels</li>
+</ul><p>
+	 </p>",5.4L,,CR,Black,Tan,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+13228,Car,9,pictures/13228_1.jpg;pictures/13228_2.jpg;pictures/13228_3.jpg;pictures/13228_4.jpg;pictures/13228_5.jpg;pictures/13228_6.jpg;pictures/13228_7.jpg,,,false,UC132182,,,33500,,52410,2013,Ford,Edge LTD,Crossover,,"<ul><li>
+		5 pass.</li>
+	<li>
+		SYNC</li>
+	<li>
+		heated seats</li>
+	<li>
+		Park aid</li>
+	<li>
+		Reverse camera</li>
+	<li>
+		Dual temp.</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Power liftgate</li>
+</ul>",3.5L,,,White,,,AWD,false,false,false,false,true,false,true,true,false,false,false,true,true,true,false,false,false,false,false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30698,Car,9,,Diesel,Used,false,UT083719,,,24990,,97176,2008,Ford,F250,Truck,,"<ul><li>
+		Trailer tow</li>
+	<li>
+		Upgraded tailgate</li>
+	<li>
+		Telescopic Trailer Tow mirrors</li>
+	<li>
+		Brake control</li>
+	<li>
+		Chrome bumper and grill</li>
+</ul>",6.4L,CR,XLT,Oxford White,Stone,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30695,Car,9,pictures/30695_1.jpg;pictures/30695_2.jpg;pictures/30695_3.jpg;pictures/30695_4.jpg,,Used,false,UT103646,,,21900,,69344,2010,Ford,F150,Truck,,"<ul><li>
+		5.4L</li>
+	<li>
+		Power seat</li>
+	<li>
+		SYNC</li>
+	<li>
+		6 spd auto</li>
+	<li>
+		Skid plates</li>
+	<li>
+		Trailer tow</li>
+	<li>
+		Chrome bars</li>
+	<li>
+		3.55 LS</li>
+	<li>
+		17"" Wheels</li>
+</ul>",,S/C 4X4,XLT,Silver,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+27113,Car,9,pictures/27113_1.jpg;pictures/27113_2.jpg;pictures/27113_3.jpg;pictures/27113_4.jpg;pictures/27113_5.jpg;pictures/27113_6.jpg;pictures/27113_7.jpg,,USED,false,UT113664,,,39950,,39066,2011,Ford,F150,Truck,,"<ul><li>
+		King Ranch</li>
+	<li>
+		Leather captains chairs</li>
+	<li>
+		6 spd auto</li>
+	<li>
+		Tailgate step</li>
+</ul>",5.0L,,CR 4WD,White Platinum,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+27114,Car,9,pictures/27114_1.jpg;pictures/27114_2.jpg;pictures/27114_3.jpg;pictures/27114_4.jpg;pictures/27114_5.jpg;pictures/27114_6.jpg;pictures/27114_7.jpg,,USED,false,UT113661,,,19900,6 Speed Automatic,159389,2011,Ford,F250,Truck,,"<ul><li>
+		Lariat</li>
+	<li>
+		Leather</li>
+	<li>
+		Chrome tube cab step</li>
+	<li>
+		Remote start</li>
+</ul>",6.2L,,S/C,Ingot Silver,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30691,Car,9,,,Used,false,UT123714,,,24990,,48000,2012,Chevrolet,Silverado,Truck,,"<ul><li>
+		4x4</li>
+	<li>
+		LT</li>
+	<li>
+		Traction Control</li>
+	<li>
+		Grill inserts</li>
+	<li>
+		Fog lamps</li>
+	<li>
+		Keyless entry</li>
+	<li>
+		Remote start</li>
+	<li>
+		Tow package</li>
+	<li>
+		Bug deflector</li>
+	<li>
+		A/T/C/PW/PL</li>
+	<li>
+		8' Box</li>
+</ul>",,EXT CAB,Z71,Silver,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30539,Car,9,pictures/30539_1.jpg;pictures/30539_2.jpg;pictures/30539_3.jpg,,Used,false,UT123701,,,29750,,76182,2012,Ford,F150,Truck,,"<ul><li>
+		5.0L</li>
+	<li>
+		145"" WB</li>
+	<li>
+		6 speed auto</li>
+	<li>
+		Trailer tow pkg</li>
+	<li>
+		SYNC</li>
+	<li>
+		adj. pedals</li>
+	<li>
+		tailgate step</li>
+	<li>
+		Rear camera</li>
+	<li>
+		Spray-in liner</li>
+</ul>",,,CR,Red Candy,Grey,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30540,Car,9,,,Used,false,UT123716,,,36950,,90069,2012,Ford,F150,Truck,,"<ul><li>
+		4W</li>
+	<li>
+		Lariat</li>
+	<li>
+		3.5L EcoBoost</li>
+	<li>
+		Leather</li>
+	<li>
+		Reverse sensing</li>
+	<li>
+		SYNC</li>
+	<li>
+		e-lock axle</li>
+	<li>
+		Lariat chrome pkg</li>
+	<li>
+		Brake control</li>
+	<li>
+		Max trailer tow</li>
+	<li>
+		Navigation</li>
+	<li>
+		Rear camera</li>
+</ul>",,,CR,Tuxedo Black,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30541,Car,9,,,F150,false,UT123721,,,34900,,74800,2012,Ford,F150,Truck,,"<ul><li>
+		4W</li>
+	<li>
+		FX4</li>
+	<li>
+		3.5L EcoBoost</li>
+	<li>
+		Leather</li>
+	<li>
+		e-lock axle</li>
+</ul>",,,CR,Tuxedo Black,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+23571,Car,9,pictures/23571_1.jpg;pictures/23571_2.jpg;pictures/23571_3.jpg;pictures/23571_4.jpg;pictures/23571_5.jpg;pictures/23571_6.jpg,,USED,false,UT103646,,,23900,,69400,2010,Ford,F150 S/C XLT,Truck,,"<ul><li>
+		5.4L</li>
+	<li>
+		Power seat</li>
+	<li>
+		SYNC</li>
+	<li>
+		6 spd auto</li>
+	<li>
+		Skid plates</li>
+	<li>
+		Trailer tow</li>
+	<li>
+		Chrome bars</li>
+	<li>
+		3.55LS</li>
+	<li>
+		17"" wheels</li>
+</ul>",,,,Silver,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28384,Car,9,pictures/28384_1.jpg;pictures/28384_2.jpg;pictures/28384_3.jpg;pictures/28384_4.jpg;pictures/28384_5.jpg;pictures/28384_6.jpg;pictures/28384_7.jpg;pictures/28384_8.jpg,,Used,false,UT123686,,,38900,,47680,2012,Ford,F150 Lariat,Truck,,"<ul><li>
+		EcoBoost</li>
+	<li>
+		3.55 E-lock axle</li>
+	<li>
+		Lariat chrome package</li>
+	<li>
+		18"" wheels</li>
+	<li>
+		Rear camera</li>
+	<li>
+		Spray-in liner</li>
+	<li>
+		Leather</li>
+	<li>
+		Reverse sensing</li>
+	<li>
+		Power pedals</li>
+	<li>
+		SYNC</li>
+</ul>",3.5L,,CR,Red Candy,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30536,Car,9,pictures/30536_1.jpg;pictures/30536_2.jpg;pictures/30536_3.jpg,,Used,false,UT113710,,,19999,,48275,2011,Ford,Escape,Truck,,"<ul><li>
+		4WD</li>
+	<li>
+		3.0L</li>
+	<li>
+		Power seat</li>
+	<li>
+		Power heated mirrors</li>
+	<li>
+		Roof rails with cross bars</li>
+	<li>
+		A/T/C</li>
+	<li>
+		Trailer tow package</li>
+	<li>
+		Conv. pkg</li>
+	<li>
+		SYNC</li>
+</ul>",,,XLT,Steel Blue,Charcoal,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30696,Car,9,pictures/30696_1.jpg;pictures/30696_2.jpg;pictures/30696_3.jpg,,Used,false,UT103718,,,24790,,104723,2010,Chevrolet,Silverado 1500 Crew Cab,Truck,,"<ul><li>
+		4X4</li>
+	<li>
+		4.8L</li>
+	<li>
+		Chrome bug deflector</li>
+	<li>
+		Rails</li>
+	<li>
+		Undercoat</li>
+	<li>
+		Boxliner</li>
+</ul>",,,LT,Black,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+27790,Car,9,,,USED,false,UT093683,,,17500,,155716,2009,Ford,F150,Truck,,"<ul><li>
+		4X4</li>
+	<li>
+		Gold</li>
+	<li>
+		Tan interior</li>
+	<li>
+		5.4L</li>
+	<li>
+		6 spd auto</li>
+	<li>
+		A/T/C/PW/PL</li>
+	<li>
+		Power rear window</li>
+	<li>
+		Brake control</li>
+	<li>
+		Tailgate step</li>
+	<li>
+		Power driver's seat</li>
+	<li>
+		18"" chrome wheels</li>
+	<li>
+		Chrome running boards</li>
+	<li>
+		Rear camera</li>
+</ul><p>
+	 </p>",,CR XLT/XTR,,,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30534,Car,9,,,Used,false,UC132243,,,21900,,15384,2013,Ford,Focus Titanium,Hatchback,,"<ul><li>
+		5 door hatchback</li>
+	<li>
+		2.0L</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Navigation</li>
+	<li>
+		SYNC</li>
+	<li>
+		Heated front seats</li>
+	<li>
+		Ambient lighting</li>
+	<li>
+		SYNC</li>
+	<li>
+		Rear spoiler</li>
+	<li>
+		Power moonroof</li>
+	<li>
+		Interior style package</li>
+	<li>
+		Titan handling package</li>
+	<li>
+		Automated parking system</li>
+</ul>",,,,White Platinum,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+28983,Car,9,,,USED,false,UC102235,,,20995,,100283,2010,Ford,Edge,Crossover,,"<ul><li>
+		AWD</li>
+	<li>
+		Charcoal interior</li>
+	<li>
+		3.5L</li>
+	<li>
+		Auto</li>
+	<li>
+		Heated seats</li>
+	<li>
+		5 passenger</li>
+	<li>
+		6 disc CD</li>
+	<li>
+		Auto temp.</li>
+</ul>",,,SEL,Silver,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30537,Car,9,,,Used,false,UT103715,,,11950,,130533,2010,Ford,Escape,SUV,,"<ul><li>
+		2.5L</li>
+	<li>
+		a/t/c/pl/pw</li>
+	<li>
+		Fog lamps</li>
+	<li>
+		Conv. pkg</li>
+	<li>
+		New tires</li>
+</ul>",,,,Grey,Stone,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+29317,Car,9,pictures/29317_1.jpg;pictures/29317_2.jpg;pictures/29317_3.jpg;pictures/29317_4.jpg;pictures/29317_5.jpg;pictures/29317_6.jpg;pictures/29317_7.jpg,,USED,false,UT133647,,,21900,,42010,2013,Ford,Escape,SUV,,"<ul><li>
+		FWD</li>
+	<li>
+		1.6L EcoBoost</li>
+	<li>
+		6 Speed auto</li>
+	<li>
+		Tonneau cover</li>
+	<li>
+		Auto temp control</li>
+	<li>
+		SYNC</li>
+	<li>
+		Roof rails</li>
+</ul>",,,SE,Oxford White,Charcoal,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30532,Car,9,,,Used,false,UC142246,,,26500,,21527,2014,Ford,Fusion,Sedan,,"<ul><li>
+		Leather</li>
+	<li>
+		SYNC</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		SE Luxury pkg</li>
+	<li>
+		Heated front seats</li>
+	<li>
+		Moonroof</li>
+	<li>
+		SE tech pkg</li>
+	<li>
+		Rear camera</li>
+	<li>
+		Reverse Sensing</li>
+	<li>
+		Navigation</li>
+	<li>
+		18"" wheels</li>
+</ul>",,,SE,White Platinum,Black,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30535,Car,9,,,Used,false,UC132238,,,26990,,72045,2013,Ford,Edge,Crossover,,"<ul><li>
+		AWD</li>
+	<li>
+		SEL</li>
+	<li>
+		3.5L</li>
+	<li>
+		Power heated mirrors</li>
+	<li>
+		Heated front seats</li>
+	<li>
+		SYNC</li>
+	<li>
+		Reverse sensing</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Reverse camera</li>
+	<li>
+		Navigation</li>
+</ul>",,,SEL,Silver,Charcoal,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+27784,Car,9,,,USED,false,UC142230,,,42500,6 Speed Automatic,12855,2014,Ford,Flex,Crossover,,"<ul><li>
+		6 Cylinder</li>
+	<li>
+		303A pkg</li>
+	<li>
+		Leather</li>
+	<li>
+		Backup camera</li>
+	<li>
+		20"" tires</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Navigation</li>
+	<li>
+		SYNC</li>
+	<li>
+		Heated &amp; Cooled seats</li>
+	<li>
+		Panoramic roof</li>
+	<li>
+		Class III Trailer Tow</li>
+	<li>
+		Power 3rd row seats</li>
+	<li>
+		Power hatch</li>
+	<li>
+		Roof rails</li>
+	<li>
+		Adaptive cruise control with collision warning</li>
+	<li>
+		Memory seats</li>
+</ul>",3.5L,,LTD,Red,Black,4 doors,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30533,Car,9,,,Used,false,UC132239,,,30950,,43340,2013,Ford,Taurus,Sedan,,"<ul><li>
+		Leather</li>
+	<li>
+		3.5L</li>
+	<li>
+		6 spd auto</li>
+	<li>
+		Rain sensing wipers</li>
+	<li>
+		MyFord Touch</li>
+	<li>
+		Navigation</li>
+	<li>
+		SYNC</li>
+	<li>
+		Heated steering wheel</li>
+	<li>
+		heated seats</li>
+	<li>
+		4 new tires</li>
+</ul>",,,LTD,,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30699,Car,9,pictures/30699_1.jpg;pictures/30699_2.jpg;pictures/30699_3.jpg,,Used,false,UT083693,,,15500,,209138,2008,Ford,F250,Truck,,"<ul><li>
+		6.4L Diesel</li>
+	<li>
+		New tires</li>
+	<li>
+		Trailer tow</li>
+	<li>
+		Brake control</li>
+</ul>",,S/C 4X4,XLT,Red,,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false
+30697,Car,9,pictures/30697_1.jpg;pictures/30697_2.jpg;pictures/30697_3.jpg;pictures/30697_4.jpg;pictures/30697_5.jpg,Diesel,Used,false,UT083719,,,24990,,97176,2008,Ford,F250,Truck,,"<ul><li>
+		Trailer tow</li>
+	<li>
+		Upgraded tailgate</li>
+	<li>
+		Telescopic Trailer Tow mirrors</li>
+	<li>
+		Brake control</li>
+	<li>
+		Chrome bumper and grill</li>
+</ul>",6.4L,CR,XLT,Oxford White,Stone,,,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false

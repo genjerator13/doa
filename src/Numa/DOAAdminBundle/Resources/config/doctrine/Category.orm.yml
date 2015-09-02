@@ -48,6 +48,6 @@ Numa\DOAAdminBundle\Entity\Category:
             length: 255
             nullable: true
     oneToMany:
-        CatalogRecords:
+        Catalogrecords:
             targetEntity: Importfeed
-            mappedBy: categories
+            mappedBy: Category

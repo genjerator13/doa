@@ -255,7 +255,7 @@ class ImportmappingController extends Controller {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($prop, $feed->getListingType());
 
                     if (!empty($test)) {
-                        $im->setListingFields($test);
+                        $im->setListingField($test);
                     }
 
                     $importmappingCollection->addImportmappingRow($im);
@@ -348,7 +348,7 @@ class ImportmappingController extends Controller {
 
             $mapping = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($mapid);
             //\Doctrine\Common\Util\Debug::dump($mapping);
-            $listingField = $mapping->getListingFields();
+            $listingField = $mapping->getListingfield();
             //$type = $listingField->getType();
             $listingFieldList = $listingField->getListingFieldLists();
             $mapvalues = $mapping->getValueMapValues();

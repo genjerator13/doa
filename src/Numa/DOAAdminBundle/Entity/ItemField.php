@@ -59,6 +59,15 @@ class ItemField {
      */
     private $Listingfield;
 
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        //$this->Listingfield = new \Doctrine\Common\Collections\ArrayCollection();
+
+    }
+
     /**
      * Get id
      *

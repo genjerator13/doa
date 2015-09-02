@@ -11,14 +11,14 @@ class Importmappings {
      * @var \Doctrine\Common\Collections\Collection
      */
     protected $ImportmappingRow;
-    
+
     protected $feed_sid;
 
     public function __construct()
     {
         $this->ImportmappingRow = new ArrayCollection();
     }
-    
+
 
     /**
      * Add CatalogRecords
@@ -29,7 +29,7 @@ class Importmappings {
     public function addImportmappingRow(\Numa\DOAAdminBundle\Entity\Importmapping $if)
     {
         $this->ImportmappingRow->add($if);
-    
+
         return $this;
     }
 
@@ -46,23 +46,23 @@ class Importmappings {
     /**
      * Get CatalogRecords
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImportmappingRow()
     {
         return $this->ImportmappingRow;
     }
-    
+
     public function getFeedSid()
     {
         return $this->feed_sid;
     }
-    
+
     public function setFeedSid($test)
     {
         $this->feed_sid =$test;
     }
-    
+
     public function __toString()
     {
         return $this->getSid();

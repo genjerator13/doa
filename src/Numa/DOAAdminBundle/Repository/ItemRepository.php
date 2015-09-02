@@ -92,7 +92,7 @@ class ItemRepository extends EntityRepository {
         $qb = $this->getEntityManager()
                 ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItems ui')
+                ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
                 //->from('NumaDOAAdminBundle:Item', 'i')
                 //->join('NumaDOAAdminBundle:UserItem', 'ui')
                 ->where('ui.user_id=:user_id')
@@ -146,11 +146,80 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
+    public function getItemByCat($category) {
+        $qb = $this->getEntityManager()
+                ->createQueryBuilder();
+        $qb->select('i')->distinct()
+                ->from('NumaDOAAdminBundle:Item', 'i')
+        ;
+
+        if(!empty($category)) {
+            if(is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name",$category);
+            }elseif(is_string($category)){
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            }else{
+                //return false;
+            }
+        }
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        return $itemsQuery->getResult();
+    }
+
+    public function getItemByDealerAndCategory($dealer_id,$category=null) {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if(is_numeric($dealer_id)) {
+            $qb->where('i.dealer_id=:dealer');
+            $qb->setParameter('dealer', $dealer_id);
+        }elseif(is_string($dealer_id)){
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d",'WITH','i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", "%" . $dealer_id . "%");
+        }
+        ;
+
+        if(!empty($category)) {
+            if(is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name",$category);
+            }elseif(is_string($category)){
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            }else{
+                return false;
+            }
+        }
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+
+        return $itemsQuery->getResult();
+    }
+
     public function removeAllItemFields($item_id) {
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
+            $numDeleted = $q->execute();
+        }
+    }
+
+    public function removeAllIImageItemFields($item_id) {
+        $item_id = intval($item_id);
+        if (!empty($item_id)) {
+
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id. " AND  if.field_name like 'Image List'");
             $numDeleted = $q->execute();
         }
     }
@@ -224,8 +293,8 @@ class ItemRepository extends EntityRepository {
         }
         if (!empty($uniqueField)) {
 
-            if (!empty($uniqueMapRow) && $uniqueMapRow->getListingFields() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                $item = $this->findItemByUniqueField($uniqueMapRow->getListingFields()->getCaption(), $uniqueValue);
+            if (!empty($uniqueMapRow) && $uniqueMapRow->getListingField() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
+                $item = $this->findItemByUniqueField($uniqueMapRow->getListingField()->getCaption(), $uniqueValue);
             }
         }
         unset($uniqueMapRow);
@@ -250,7 +319,7 @@ class ItemRepository extends EntityRepository {
             $this->removeAllItemFields($item->getId());
         } else {
             if (!$this->itemFieldsDeleted) {
-                $this->removeAllItemFieldsByFeed($feed->getId());
+                $this->removeAllIImageItemFields($feed->getId());
                 $this->itemFieldsDeleted = true;
             }
         }
@@ -260,7 +329,7 @@ class ItemRepository extends EntityRepository {
             $property = $maprow->getSid();
 
             $processed = false;
-            $listingFields = $maprow->getListingFields();
+            $listingFields = $maprow->getListingField();
             //check if there are predefined listing field in database (listing_field_lists)
             if (!empty($listingFields) && !empty($importItem[$property])) {
                 $stringValue = $importItem[$property];
@@ -270,7 +339,7 @@ class ItemRepository extends EntityRepository {
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
                 if ($listingFields instanceof Listingfield) {
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
                     if ($test instanceof Listingfield) {
 
                         $itemField->setListingfield($test);
@@ -288,7 +357,7 @@ class ItemRepository extends EntityRepository {
                     if (count($listValues) > 0) {
 
                         //get listingFieldlist by ID and stringValue
-                        $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                        $listingList = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findOneByValue($stringValue, $maprow->getListingField()->getId());
                         if ($listingList instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
                             $itemField->setFieldIntegerValue($listingList->getId());
                         }
@@ -298,7 +367,7 @@ class ItemRepository extends EntityRepository {
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'tree') {
                     //get listingFieldlist by ID and stringValue
-                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingFields()->getId());
+                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingField()->getId());
                     //echo $stringValue.", ".$maprow->getListingFields()->getId();die(); {
                     if ($listingTree instanceof ListingFieldTree) {
                         $itemField->setFieldIntegerValue($listingTree->getId());

@@ -21,5 +21,11 @@ EndroidQrCodeBundle:
     resource:   "@EndroidQrCodeBundle/Controller/"
     type:       annotation
     prefix:     /qrcode
-
-
+genemu_base64:
+    resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
+#restApi:
+#        resource: "@NumaDOAAdminBundle/Resources/config/routing/restApi.yml"
+#        prefix:   /restApi
+api:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/api.yml"
+        prefix:   /api

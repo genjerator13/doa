@@ -6,8 +6,16 @@ use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Doctrine\Common\Collections\Criteria;
 
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
+
+
 /**
  * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @JMS\XmlRoot("listing")
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Item {
 
@@ -27,7 +35,10 @@ class Item {
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
+
+
     private $id;
 
     /**
@@ -110,7 +121,7 @@ class Item {
 
     /**
      * @var \DateTime
-     * 
+     * @JMS\Expose
      */
     private $date_updated;
 
@@ -694,8 +705,20 @@ class Item {
         ;
         return $if->matching($criteria);
     }
+
+    public function getImagesForApi() {
+        $images = $this->getImages2();
+        $res = array();
+        foreach($images as $image){
+            if($image instanceof ItemField){
+                $res['image'][]=$image->getFieldStringValue();
+            }
+
+        }
+        return $res;
+    }
     /**
-     * 
+     *
      * @return typeget Attributes
      */
         public function getOptions() {
@@ -707,6 +730,19 @@ class Item {
         return $if->matching($criteria);
     }
 
+    public function getOptionsForApi() {
+        $images = $this->getOptions();
+        $res = array();
+        foreach($images as $image){
+            if($image instanceof ItemField){
+                //dump($image);
+                $res['option'][]=$image->getFieldName();
+            }
+
+        }
+        return $res;
+    }
+
     public function getImage2($num = 0) {
         $images = $this->getImages2();
         foreach ($images as $image) {
@@ -716,7 +752,7 @@ class Item {
 
     public function getImage($num = 0) {
         $images = $this->getImages();
-        //      
+        //
         if (!empty($images)) {
             $val = array_values($images);
             unset($val[0]['object']);
@@ -791,7 +827,7 @@ class Item {
         $this->getItemFieldsArray();
         //FIX ME FIX ME FIX ME
         if (property_exists(get_class($this), strtolower($name))) {
-            
+
             $name = strtolower($name);
             return $this->$name;
         } elseif ($name == 'image') {
@@ -820,7 +856,7 @@ class Item {
     /**
      * Get Category
      *
-     * @return \Numa\DOAAdminBundle\Entity\Category 
+     * @return \Numa\DOAAdminBundle\Entity\Category
      */
     public function getCategory() {
         return $this->Category;
@@ -886,7 +922,7 @@ class Item {
     /**
      * Get Importfeed
      *
-     * @return \Numa\DOAAdminBundle\Entity\Importfeed 
+     * @return \Numa\DOAAdminBundle\Entity\Importfeed
      */
     public function getImportfeed() {
         return $this->Importfeed;
@@ -907,7 +943,7 @@ class Item {
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\User 
+     * @return \Numa\DOAAdminBundle\Entity\User
      */
     public function getUser() {
         return $this->User;
@@ -928,7 +964,7 @@ class Item {
      */
     public function setUpdatedAtValue() {
         if(empty($this->dontupdate)){
-            
+
             $this->date_updated = new \DateTime();
         }
     }
@@ -940,40 +976,7 @@ class Item {
         return $this->getModel()." ".$this->getVIN();
     }
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $UserItems;
 
-    /**
-     * Add UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     * @return Item
-     */
-    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
-        $this->UserItems[] = $userItems;
-
-        return $this;
-    }
-
-    /**
-     * Remove UserItems
-     *
-     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItems
-     */
-    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItems) {
-        $this->UserItems->removeElement($userItems);
-    }
-
-    /**
-     * Get UserItems
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getUserItems() {
-        return $this->UserItems;
-    }
 
     /**
      * @var integer
@@ -1001,7 +1004,7 @@ class Item {
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId() {
         return $this->dealer_id;
@@ -1022,19 +1025,19 @@ class Item {
     /**
      * Get Dealer
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getDealer() {
         return $this->Dealer;
     }
 
     public function processOptionsList($stringvalue, $separator) {
-        
+
         if (empty($separator)) {
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
-        
+
         $order = 1;
 
         $proccessed = false;
@@ -1045,7 +1048,7 @@ class Item {
 
         if ($optionsList instanceof \Doctrine\Common\Collections\ArrayCollection && !$optionsList->isEmpty()) {
             foreach ($optionsList as $key => $option) {
-                
+
                 $itemField = new ItemField();
                 $itemField->setAllValues($option->getValue());
                 $itemField->setFieldType('boolean');
@@ -1069,7 +1072,7 @@ class Item {
                     }
                 }
             }
-            
+
             if (is_array($optionsArray)) {
                 if(!empty($optionsArray[0])){
                     $json = json_decode($optionsArray[0], true);
@@ -1127,7 +1130,7 @@ class Item {
     }
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue = null) {
-        $listingFields = $maprow->getListingFields();
+        $listingFields = $maprow->getListingField();
 
         $localy = $feed->getPicturesSaveLocaly();
 
@@ -1144,7 +1147,7 @@ class Item {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
@@ -1178,10 +1181,10 @@ class Item {
 //                //$itemField->setListingfield($listingFields);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
 
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
 
                     $itemField->setListingfield($test);
-                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();  
+                    ///\Doctrine\Common\Util\Debug::dump($listingFields);die();
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
@@ -1213,16 +1216,19 @@ class Item {
     /**
      * @var string
      * @GRID\Column(type="text", field="model", title="Model", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $model;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $price;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $year;
 
@@ -3098,7 +3104,7 @@ class Item {
             //$value = str_replace(" </h4>", "aaaaaa", $value);
             call_user_method($methodName, $this, $value);
         } else {
-            dump($methodName);
+            //dump($methodName);
         }
     }
 
@@ -3139,5 +3145,51 @@ class Item {
         $date->setDate(2000, 1, 1);
         
         return $date;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $UserItem;
+
+
+    /**
+     * Add userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     *
+     * @return Item
+     */
+    public function addUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem[] = $userItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove userItem
+     *
+     * @param \Numa\DOAAdminBundle\Entity\UserItem $userItem
+     */
+    public function removeUserItem(\Numa\DOAAdminBundle\Entity\UserItem $userItem)
+    {
+        $this->UserItem->removeElement($userItem);
+    }
+
+    /**
+     * Get userItem
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserItem()
+    {
+        return $this->UserItem;
+    }
+
+    public function get($property){
+        $function = 'get'.str_ireplace(' ','',ucfirst($property));
+        if(method_exists ($this, $function)){
+            return $this->{$function}();
+        }
     }
 }

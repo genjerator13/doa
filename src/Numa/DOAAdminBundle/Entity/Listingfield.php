@@ -514,4 +514,97 @@ class Listingfield
     {
         return $this->ListingFieldLists;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Importmapping;
+
+
+    /**
+     * @var string
+     */
+    private $item_field_caption;
+
+    /**
+     * @var string
+     */
+    private $api_caption;
+
+
+    /**
+     * Set itemFieldCaption
+     *
+     * @param string $itemFieldCaption
+     *
+     * @return Listingfield
+     */
+    public function setItemFieldCaption($itemFieldCaption)
+    {
+        $this->item_field_caption = $itemFieldCaption;
+
+        return $this;
+    }
+
+    /**
+     * Get itemFieldCaption
+     *
+     * @return string
+     */
+    public function getItemFieldCaption()
+    {
+        return $this->item_field_caption;
+    }
+
+    /**
+     * Set apiCaption
+     *
+     * @param string $apiCaption
+     *
+     * @return Listingfield
+     */
+    public function setApiCaption($apiCaption)
+    {
+        $this->api_caption = $apiCaption;
+
+        return $this;
+    }
+
+    /**
+     * Get apiCaption
+     *
+     * @return string
+     */
+    public function getApiCaption()
+    {
+        return $this->api_caption;
+    }
+    /**
+     * @var boolean
+     */
+    private $exclude_from_api;
+
+
+    /**
+     * Set excludeFromApi
+     *
+     * @param boolean $excludeFromApi
+     *
+     * @return Listingfield
+     */
+    public function setExcludeFromApi($excludeFromApi)
+    {
+        $this->exclude_from_api = $excludeFromApi;
+
+        return $this;
+    }
+
+    /**
+     * Get excludeFromApi
+     *
+     * @return boolean
+     */
+    public function getExcludeFromApi()
+    {
+        return $this->exclude_from_api;
+    }
 }
