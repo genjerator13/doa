@@ -142,8 +142,8 @@ $memcache = $this->getContainer()->get('mymemcache');
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
             $this->em->getConnection()->beginTransaction();
-            $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->setSoldOnAllItemInFeed($feed_id);
-
+            $sold = $this->em->getRepository('NumaDOAAdminBundle:Item')->removeItemsByFeed($feed_id);
+            $this->em->flush();
             $upload_url = $this->getContainer()->getParameter('upload_url');
             $upload_path = $this->getContainer()->getParameter('upload_path');
 
