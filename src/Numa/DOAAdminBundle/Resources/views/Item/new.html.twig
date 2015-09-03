@@ -161,12 +161,13 @@
                                         Submit
                                     </button>
                                 </li>
+                                {% if(not is_granted('ROLE_BUSINES'))%}
                                 <li>
                                     <a href="{{ path('items') }}" class="btn btn-primary">
                                         Back to the list
                                     </a>
                                 </li>
-
+                                {% endif %}
                             </ul>
 
 

@@ -80,6 +80,13 @@ class listingApi {
             }
         }
         //dump($map);
+        $res['id']=$item->get('id');
+        $router=$this->container->get('router');
+        //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
+        $urldesription= $item->getMake()."-".$item->getModel();
+       // dump($item);die();
+        $res['url']= $router->generate('item_details',array('itemId' => $item->getId(),'description'=>$urldesription),true);
+
         foreach($map as $name=>$value){
             $res[$value]=$item->get($name);
         }
