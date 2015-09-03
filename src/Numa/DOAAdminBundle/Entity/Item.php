@@ -3192,4 +3192,9 @@ class Item {
             return $this->{$function}();
         }
     }
+
+    public function getUrl(){
+        $url ="";
+
+    }
 }
