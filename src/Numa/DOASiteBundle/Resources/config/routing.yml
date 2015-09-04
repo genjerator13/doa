@@ -46,7 +46,10 @@ buyer_update:
     defaults: { _controller: NumaDOASiteBundle:User:update }
 buyer_login:
     path:     /user/login
-    defaults: { _controller: NumaDOASiteBundle:User:login }    
+    defaults: { _controller: NumaDOASiteBundle:User:login }
+login_dealer:
+    path:     /user/logindealer/{username}
+    defaults: { _controller: NumaDOASiteBundle:User:logindDealer }
 buyer_saved_ads:
     path:     /user/savedads
     defaults: { _controller: NumaDOASiteBundle:User:showSaveAds }    
