@@ -37,6 +37,7 @@ class ItemRESTController extends Controller
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
+
         if($format=='xml') {
             $xml = $this->get('xml')->createXML('listing', $item);
             $response = new Response($xml->saveXML());
