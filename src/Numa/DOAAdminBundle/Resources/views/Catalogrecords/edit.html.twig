@@ -8,11 +8,13 @@
     {{ form(edit_form) }}
 
         <ul class="record_actions">
+            {% if(not is_granted('ROLE_BUSINES'))%}
     <li>
         <a href="{{ path('catalogs') }}"  class="btn btn-primary">
             Back to the list
         </a>
     </li>
+            {% endif %}
     <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
