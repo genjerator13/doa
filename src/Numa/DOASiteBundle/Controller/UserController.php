@@ -5,6 +5,9 @@ namespace Numa\DOASiteBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Form\UserRegistrationType;
 use Numa\DOAAdminBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
 use Pagerfanta\Pagerfanta,
@@ -103,6 +106,7 @@ class UserController extends Controller {
     }
 
     public function loginAction() {
+
         $request = $this->getRequest();
         $session = $request->getSession();
 
@@ -167,6 +171,53 @@ class UserController extends Controller {
         }
         //return $this->redirect($this->generateUrl('buyer_saved_searches'));
      
+    }
+
+    public function logindDealerAction(Request $request, $username)
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        $repository = $em->getRepository('NumaDOAAdminBundle:Catalogrecords');
+        $result = $repository->findOneBy(array('username' => $username));
+        if (!$result) {
+            throw $this->createNotFoundException("NOT FOUNd");
+        }
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+            'csrf_protection' => false,
+        ))
+            //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
+            //->setMethod('GET')
+            //->setAction($this->get('router')->generate('search_dispatch'))
+            ->add('pss', 'password', array(
+                'label' => 'pss',
+                "required" => true
+            ))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $pass= $this->getParameter('database_password');
+            sleep(2);
+            if($data['pss']!=$pass){
+                return $this->redirectToRoute('homepage');
+            }
+
+            $session = $this->get('session');
+
+            $firewall = 'secured_area';
+            $token = new UsernamePasswordToken($result, $result->getPassword(), $firewall, array('ROLE_BUSINES'));
+            $session->set('_security_' . $firewall, serialize($token));
+            $session->save();
+
+            $cookie = new Cookie($session->getName(), $session->getId());
+            $response = new Response();
+            $response->headers->setCookie($cookie);
+            //dump($token);die();
+            $this->get("security.token_storage")->setToken($token);
+
+            return $this->redirectToRoute('homepage');
+        }
+        $response = $this->render('NumaDOASiteBundle:User:dealerlogin.html.twig', array('form'=>$form->createView() ));
+        return $response;
     }
 
 }

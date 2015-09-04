@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * User
