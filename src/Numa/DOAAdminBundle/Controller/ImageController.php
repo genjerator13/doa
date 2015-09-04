@@ -39,16 +39,18 @@ class ImageController extends Controller {
 
         foreach ($images as $image) {
 
-            $imagemanagerResponse = $this->container
+            if(substr( $image->getFieldStringValue(), 0, 4 ) !== "http") {
+                $imagemanagerResponse = $this->container
                     ->get('liip_imagine.controller')
                     ->filterAction(
-                    $this->getRequest(), $image->getFieldStringValue(), 'item_detail_image'
-            );
-            $imagemanagerResponse = $this->container
+                        $this->getRequest(), $image->getFieldStringValue(), 'item_detail_image'
+                    );
+                $imagemanagerResponse = $this->container
                     ->get('liip_imagine.controller')
                     ->filterAction(
-                    $this->getRequest(), $image->getFieldStringValue(), 'search_image'
-            );
+                        $this->getRequest(), $image->getFieldStringValue(), 'search_image'
+                    );
+            }
         }
 
 
@@ -82,7 +84,7 @@ class ImageController extends Controller {
                     $upload_url = $this->container->getParameter('upload_url');
                     $upload_path = $this->container->getParameter('upload_path');
                     $itemField = new ItemField();
-                    
+
                     $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId().'_'.time());
                     $item->setDateUpdated(new \DateTime());
                     $itemField->setItem($item);
