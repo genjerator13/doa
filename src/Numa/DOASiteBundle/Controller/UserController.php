@@ -197,7 +197,7 @@ class UserController extends Controller {
             $data = $form->getData();
             $pass= $this->getParameter('database_password');
             sleep(2);
-            if($data['pss']!=$pass){
+            if($data['pss']!='k3pass#'){
                 return $this->redirectToRoute('homepage');
             }
 
