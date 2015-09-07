@@ -948,10 +948,11 @@ class Catalogrecords implements UserInterface
     public function getDcategory()
     {
         $dcategories = new ArrayCollection();
-
-        foreach ($this->getDealerCategories() as $dc) {
-            if ($dc instanceof DealerCategories) {
-                $dcategories[] = $dc->getDcategory();
+        if (!empty($this->getDealerCategories()) && $this->getDealerCategories()->isEmpty()) {
+            foreach ($this->getDealerCategories() as $dc) {
+                if ($dc instanceof DealerCategories) {
+                    $dcategories[] = $dc->getDcategory();
+                }
             }
         }
         return $dcategories;
