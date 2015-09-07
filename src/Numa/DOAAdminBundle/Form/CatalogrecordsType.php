@@ -37,7 +37,7 @@ class CatalogrecordsType extends AbstractType {
                 ->add('zip')
                 ->add('state')
                 ->add('description', 'ckeditor')
-                ->add('Catalogcategory')
+
 
                 ->add('file_import_source', 'file', array('required' => false, 'data_class' => null))
                 ->add('logo_url', 'text', array('required' => false))
