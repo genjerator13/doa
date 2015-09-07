@@ -261,7 +261,7 @@ class searchParameters {
                 $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
             }
         }
-
+        $qb->addOrderBy("i.sold", 'ASC');
         return $qb->getQuery();
     }
 

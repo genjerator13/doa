@@ -19,10 +19,10 @@
 
                 <td>
                     {% if  "http" not in image.getFieldStringValue() %}
-                        <img src="{{image.getFieldStringValue()|imagine_filter('search_image')}}" alt="image" />                            
+                        <img src="{{image.getFieldStringValue()|imagine_filter('search_image')}}" alt="image" />
                         {% else %}
-                        <img src="{{image.getFieldStringValue()}}" alt="image" width="120px"/>                          
-                        {%endif %} 
+                        <img src="{{image.getFieldStringValue()}}" alt="image" width="120px"/>
+                        {%endif %}
                 </td>
                 <td><a href="{{path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri })}}"><i class='glyphicon glyphicon-trash'></i></a></td>
             </tr>

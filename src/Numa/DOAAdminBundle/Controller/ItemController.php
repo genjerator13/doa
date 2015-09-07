@@ -29,6 +29,8 @@ class ItemController extends Controller {
      *
      */
     public function indexAction() {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
+
         $em = $this->getDoctrine()->getManager();
         $source = new Entity('NumaDOAAdminBundle:Item');
 

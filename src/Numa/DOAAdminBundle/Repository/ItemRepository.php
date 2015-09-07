@@ -146,18 +146,28 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
-    public function getItemByCat($cat=1) {
-
+    public function getItemByCat($category) {
         $qb = $this->getEntityManager()
-            ->createQueryBuilder();
+                ->createQueryBuilder();
         $qb->select('i')->distinct()
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.category_id=:category')
-            ->setParameter('category', $cat)
+                ->from('NumaDOAAdminBundle:Item', 'i')
         ;
 
+        if(!empty($category)) {
+            if(is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name",$category);
+            }elseif(is_string($category)){
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            }else{
+                //return false;
+            }
+        }
+
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getResult());die();
         return $itemsQuery->getResult();
     }
 
@@ -166,29 +176,33 @@ class ItemRepository extends EntityRepository {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('i')->distinct()
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.dealer_id=:dealer')
-            ->setParameter('dealer', $dealer_id)
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if(is_numeric($dealer_id)) {
+            $qb->where('i.dealer_id=:dealer');
+            $qb->setParameter('dealer', $dealer_id);
+        }elseif(is_string($dealer_id)){
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d",'WITH','i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", "%" . $dealer_id . "%");
+        }
         ;
-        //dump(is_numeric($category));die();
+
         if(!empty($category)) {
             if(is_numeric($category)) {
 
                 $qb->andWhere("i.category_id like :name");
                 $qb->setParameter("name",$category);
             }elseif(is_string($category)){
-                $qb->join("NumaDOAAdminBundle:Category", "c");
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-
-
             }else{
                 return false;
             }
         }
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getResult());die();
+
         return $itemsQuery->getResult();
     }
 
@@ -302,10 +316,10 @@ class ItemRepository extends EntityRepository {
         //clear all item fields if not photo feed
 
         if (!$feed->getPhotoFeed()) {
-            $this->removeAllIImageItemFields($item->getId());
+            $this->removeAllItemFields($item->getId());
         } else {
             if (!$this->itemFieldsDeleted) {
-                $this->removeAllItemFieldsByFeed($feed->getId());
+                $this->removeAllIImageItemFields($feed->getId());
                 $this->itemFieldsDeleted = true;
             }
         }

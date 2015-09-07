@@ -18,6 +18,8 @@ class CatalogrecordsController extends Controller {
      *
      */
     public function indexAction(Request $request) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
+
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();

@@ -81,7 +81,8 @@ class ListingfieldRepository extends EntityRepository
         $qb->select('lf')
             ->from('NumaDOAAdminBundle:Listingfield', 'lf')
             ->andWhere('lf.category_sid in('.$catId.',0)')
-            ->andWhere('lf.type not like \'boolean\'');
+            ->andWhere('lf.type not like \'boolean\'')
+            ->orderBy("lf.order");
 
 
         $query = $qb->getQuery();
