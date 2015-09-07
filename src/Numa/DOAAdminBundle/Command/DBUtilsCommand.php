@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Command;
 
+use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -376,12 +377,13 @@ $memcache = $this->getContainer()->get('mymemcache');
         foreach ($dealers as $dealer) {
             if($dealer instanceof Catalogrecords){
                 $onetoonecat = $dealer->getCatalogcategory();
-
-                $dc = new DealerCategories();
-                $dcategory = $em->getRepository('NumaDOAAdminBundle:Dcategory')->find($onetoonecat->getId());
-                $dc->setDcategory($dcategory);
-                $dc->setCatalogrecords($dealer);
-                $em->persist($dc);
+                if($onetoonecat instanceof Catalogcategory) {
+                    $dc = new DealerCategories();
+                    $dcategory = $em->getRepository('NumaDOAAdminBundle:Dcategory')->find($onetoonecat->getId());
+                    $dc->setDcategory($dcategory);
+                    $dc->setCatalogrecords($dealer);
+                    $em->persist($dc);
+                }
 
             }
         }
