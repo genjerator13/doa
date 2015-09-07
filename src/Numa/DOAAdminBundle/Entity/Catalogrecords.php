@@ -1,6 +1,8 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use JMS\Serializer\Annotation\SerializedName;
@@ -17,7 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  *
  *
  */
-class Catalogrecords implements UserInterface {
+class Catalogrecords implements UserInterface
+{
 
     /**
      * @var integer
@@ -42,29 +45,31 @@ class Catalogrecords implements UserInterface {
 
 
     public static $maping = array(
-            'DealerID' => 'DealerId',
-            'DealerName' => 'Name',
-            'Address1' => 'Address',
-            'Address2' => 'Address2',
-            'City' => 'City',
-            'State' => 'State',
-            'Zip' => 'Zip',
-            'Phone' => 'Phone',
-            'Fax' => 'Fax',
-            'Email' => 'Email',
-            'DealerContact' => 'Contact',
-            'DealerWebsite' => 'Url',
-            'ShowRoomHours' => 'ShowRoomHours',
-            'ServiceHours' => 'ServiceHours',
-            'PartsHours' => 'PartsHours',
-            'AdminHours' => 'AdminHours'
-);
+        'DealerID' => 'DealerId',
+        'DealerName' => 'Name',
+        'Address1' => 'Address',
+        'Address2' => 'Address2',
+        'City' => 'City',
+        'State' => 'State',
+        'Zip' => 'Zip',
+        'Phone' => 'Phone',
+        'Fax' => 'Fax',
+        'Email' => 'Email',
+        'DealerContact' => 'Contact',
+        'DealerWebsite' => 'Url',
+        'ShowRoomHours' => 'ShowRoomHours',
+        'ServiceHours' => 'ServiceHours',
+        'PartsHours' => 'PartsHours',
+        'AdminHours' => 'AdminHours'
+    );
+
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -74,7 +79,8 @@ class Catalogrecords implements UserInterface {
      * @param string $name
      * @return Catalogrecords
      */
-    public function setName($name) {
+    public function setName($name)
+    {
         $this->name = $name;
 
         return $this;
@@ -85,7 +91,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return $this->name;
     }
 
@@ -95,7 +102,8 @@ class Catalogrecords implements UserInterface {
      * @param string $url
      * @return Catalogrecords
      */
-    public function setUrl($url) {
+    public function setUrl($url)
+    {
         $this->url = $url;
 
         return $this;
@@ -106,7 +114,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getUrl() {
+    public function getUrl()
+    {
         return $this->url;
     }
 
@@ -114,14 +123,16 @@ class Catalogrecords implements UserInterface {
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue() {
+    public function setCreatedAtValue()
+    {
         // Add your code here
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue() {
+    public function setUpdatedAtValue()
+    {
         // Add your code here
     }
 
@@ -129,7 +140,8 @@ class Catalogrecords implements UserInterface {
     /**
      * @ORM\PreRemove
      */
-    public function doBeforeRemoved() {
+    public function doBeforeRemoved()
+    {
         die("sssss");
     }
 
@@ -145,7 +157,8 @@ class Catalogrecords implements UserInterface {
      * @param string $description
      * @return Catalogrecords
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -156,7 +169,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -191,7 +205,8 @@ class Catalogrecords implements UserInterface {
      * @param string $address
      * @return Catalogrecords
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
 
         return $this;
@@ -202,7 +217,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
@@ -212,7 +228,8 @@ class Catalogrecords implements UserInterface {
      * @param string $phone
      * @return Catalogrecords
      */
-    public function setPhone($phone) {
+    public function setPhone($phone)
+    {
         $this->phone = $phone;
 
         return $this;
@@ -223,7 +240,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getPhone() {
+    public function getPhone()
+    {
         return $this->phone;
     }
 
@@ -233,7 +251,8 @@ class Catalogrecords implements UserInterface {
      * @param string $location
      * @return Catalogrecords
      */
-    public function setLocation($location) {
+    public function setLocation($location)
+    {
         $this->location = $location;
 
         return $this;
@@ -244,7 +263,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getLocation() {
+    public function getLocation()
+    {
         return $this->location;
     }
 
@@ -254,7 +274,8 @@ class Catalogrecords implements UserInterface {
      * @param string $email
      * @return Catalogrecords
      */
-    public function setEmail($email) {
+    public function setEmail($email)
+    {
         $this->email = $email;
 
         return $this;
@@ -265,7 +286,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getEmail() {
+    public function getEmail()
+    {
         return $this->email;
     }
 
@@ -275,7 +297,8 @@ class Catalogrecords implements UserInterface {
      * @param string $full
      * @return Catalogrecords
      */
-    public function setFull($full) {
+    public function setFull($full)
+    {
         $this->full = $full;
 
         return $this;
@@ -286,7 +309,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getFull() {
+    public function getFull()
+    {
         return $this->full;
     }
 
@@ -301,7 +325,8 @@ class Catalogrecords implements UserInterface {
      * @param string $fax
      * @return Catalogrecords
      */
-    public function setFax($fax) {
+    public function setFax($fax)
+    {
         $this->fax = $fax;
 
         return $this;
@@ -312,11 +337,13 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getFax() {
+    public function getFax()
+    {
         return $this->fax;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getName();
     }
 
@@ -336,7 +363,8 @@ class Catalogrecords implements UserInterface {
      * @param string $logo
      * @return Catalogrecords
      */
-    public function setLogo($logo) {
+    public function setLogo($logo)
+    {
         $this->logo = $logo;
 
         return $this;
@@ -347,7 +375,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getLogo() {
+    public function getLogo()
+    {
         return $this->logo;
     }
 
@@ -357,7 +386,8 @@ class Catalogrecords implements UserInterface {
      * @param string $logoUrl
      * @return Catalogrecords
      */
-    public function setLogoUrl($logoUrl) {
+    public function setLogoUrl($logoUrl)
+    {
         $this->logo_url = $logoUrl;
 
         return $this;
@@ -368,7 +398,8 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getLogoUrl() {
+    public function getLogoUrl()
+    {
         return $this->logo_url;
     }
 
@@ -383,7 +414,8 @@ class Catalogrecords implements UserInterface {
      * @param string $password
      * @return Catalogrecords
      */
-    public function setPassword($password) {
+    public function setPassword($password)
+    {
         $this->password = $password;
 
         return $this;
@@ -394,45 +426,55 @@ class Catalogrecords implements UserInterface {
      *
      * @return string
      */
-    public function getPassword() {
+    public function getPassword()
+    {
         return $this->password;
     }
 
 
-    public function getRoles() {
+    public function getRoles()
+    {
 
         return array('ROLE_BUSINES');
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return null;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
 
     }
 
-    public function equals(User $user) {
+    public function equals(User $user)
+    {
         return $user->getUsername() == $this->getUsername();
     }
 
-        /**
+    /**
      * Get username
      *
      * @return string
      */
     private $username;
-    public function getUsername() {
+
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function setUserame($username){
+    public function setUserame($username)
+    {
         $this->username = $username;
     }
 
-    public function __sleep(){
-	   return array('id', 'name', 'email');
+    public function __sleep()
+    {
+        return array('id', 'name', 'email');
     }
+
     /**
      * @var integer
      */
@@ -685,6 +727,7 @@ class Catalogrecords implements UserInterface {
     {
         return $this->AdminHours;
     }
+
     /**
      * @var string
      */
@@ -714,24 +757,28 @@ class Catalogrecords implements UserInterface {
         return $this->contact;
     }
 
-    public function getAbsolutePath() {
+    public function getAbsolutePath()
+    {
         return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
     }
 
-    public function getLogoImage() {
-        return null === $this->logo ? null : '/'.$this->getUploadDir() . '/' . $this->logo;
+    public function getLogoImage()
+    {
+        return null === $this->logo ? null : '/' . $this->getUploadDir() . '/' . $this->logo;
     }
 
-    protected function getUploadRootDir() {
+    protected function getUploadRootDir()
+    {
         // the absolute directory path where uploaded
         // documents should be saved
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
-    protected function getUploadDir() {
+    protected function getUploadDir()
+    {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'upload/dealers/'.$this->getId();
+        return 'upload/dealers/' . $this->getId();
     }
 
     public $file_import_source;
@@ -741,7 +788,8 @@ class Catalogrecords implements UserInterface {
      *
      * @param UploadedFile $file
      */
-    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null) {
+    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null)
+    {
         $this->file_import_source = $file_import_source;
     }
 
@@ -750,11 +798,13 @@ class Catalogrecords implements UserInterface {
      *
      * @return UploadedFile
      */
-    public function getFileImportSource() {
+    public function getFileImportSource()
+    {
         return $this->file_import_source;
     }
 
-    public function upload() {
+    public function upload()
+    {
         // the file property can be empty if the field is not required
 
         if (null === $this->getFileImportSource()) {
@@ -766,11 +816,11 @@ class Catalogrecords implements UserInterface {
         // move takes the target directory and then the
         // target filename to move to
         $this->getFileImportSource()->move(
-                $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
+            $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
         );
 
         // set the path property to the filename where you've saved the file
-        $this->logo = $this->getUploadDir()."/".$this->getFileImportSource()->getClientOriginalName();
+        $this->logo = $this->getUploadDir() . "/" . $this->getFileImportSource()->getClientOriginalName();
 
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
@@ -789,17 +839,28 @@ class Catalogrecords implements UserInterface {
         return $this;
     }
 
-
     /**
      * @var integer
      */
     private $category_id;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $DealerCategories;
+
+    /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogcategory
      */
     private $Catalogcategory;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->DealerCategories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set categoryId
@@ -826,6 +887,40 @@ class Catalogrecords implements UserInterface {
     }
 
     /**
+     * Add dealerCategory
+     *
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory
+     *
+     * @return Catalogrecords
+     */
+    public function addDealerCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory)
+    {
+        $this->DealerCategories[] = $dealerCategory;
+
+        return $this;
+    }
+
+    /**
+     * Remove dealerCategory
+     *
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory
+     */
+    public function removeDealerCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory)
+    {
+        $this->DealerCategories->removeElement($dealerCategory);
+    }
+
+    /**
+     * Get dealerCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDealerCategories()
+    {
+        return $this->DealerCategories;
+    }
+
+    /**
      * Set catalogcategory
      *
      * @param \Numa\DOAAdminBundle\Entity\Catalogcategory $catalogcategory
@@ -847,5 +942,47 @@ class Catalogrecords implements UserInterface {
     public function getCatalogcategory()
     {
         return $this->Catalogcategory;
+    }
+
+    // Important
+    public function getDcategory()
+    {
+        $dcategories = new ArrayCollection();
+        if (!empty($this->getDealerCategories()) && !$this->getDealerCategories()->isEmpty()) {
+            foreach ($this->getDealerCategories() as $dc) {
+                if ($dc instanceof DealerCategories) {
+                    $dcategories[] = $dc->getDcategory();
+                }
+            }
+        }
+        return $dcategories;
+    }
+
+    // Important
+    public function setDcategory($dcategories)
+    {
+        foreach ($dcategories as $dcategory) {
+            $dc = new DealerCategories();
+
+            $dc->setCatalogrecords($this);
+            $dc->setDcategory($dcategory);
+
+            $this->addDealerCategory($dc);
+        }
+
+    }
+
+    public function getDcategoryNames()
+    {
+        $res = array();
+        if (!empty($this->getDealerCategories()) && !$this->getDealerCategories()->isEmpty()) {
+
+            foreach ($this->getDealerCategories() as $dc) {
+                if ($dc instanceof DealerCategories) {
+                    $res[] = $dc->getDcategory()->getName() . " ";
+                }
+            }
+        }
+        return implode(',', $res);
     }
 }

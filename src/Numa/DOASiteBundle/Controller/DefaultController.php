@@ -211,7 +211,11 @@ class DefaultController extends Controller {
         $idCat = $request->get('idcategory');
         $cat_name = $request->get('category_name');
         //$category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
-        $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $idCat));
+        $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->xfindByDCategory($idCat);
+
+        //$items = $em->getRepository('NumaDOAAdminBundle:Item')->($user->getId());
+        //dump($catalogs);//die();
+        //TODO
         $emailForm = $this->emailDealerForm($request);
         return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
@@ -276,11 +280,12 @@ class DefaultController extends Controller {
     public function emailDealerForm($request) {
         $data = array();
         $form = $this->createFormBuilder($data)
-                ->add('comments', 'textarea')
-                ->add('first_name', 'text')
-                ->add('last_name', 'text')
-                ->add('email', 'email')
-                ->add('dealer', 'hidden')
+            ->add('comments', 'textarea')
+            ->add('first_name', 'text')
+            ->add('last_name', 'text')
+            ->add('email', 'email')
+            ->add('dealer', 'hidden')
+            ->add('captcha', 'genemu_captcha',array('mapped' => false,))
                 ->getForm();
 
         if ($request->isMethod('POST')) {
@@ -310,7 +315,7 @@ class DefaultController extends Controller {
                         ->setTo('e.medjesi@gmail.com')
                         ->setBody($emailTo . ":" . $emailBody);
 
-                //$ok = $mailer->send($message);
+                $ok = $mailer->send($message);
             }
         }
         return $form;

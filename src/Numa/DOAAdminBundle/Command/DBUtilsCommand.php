@@ -2,6 +2,9 @@
 
 namespace Numa\DOAAdminBundle\Command;
 
+use Numa\DOAAdminBundle\Entity\Catalogcategory;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\DealerCategories;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -65,6 +68,8 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->fetchFeed($feed_id, $em);
         } elseif ($command == 'startCommand') {
             $this->startCommand($em);
+        }elseif ($command == 'dealerize') {
+            $this->dealerize();
         }
     }
 
@@ -364,6 +369,26 @@ $memcache = $this->getContainer()->get('mymemcache');
             }
         }
         $em->flush();
+    }
+
+    public function dealerize(){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
+        foreach ($dealers as $dealer) {
+            if($dealer instanceof Catalogrecords){
+                $onetoonecat = $dealer->getCatalogcategory();
+                if($onetoonecat instanceof Catalogcategory) {
+                    $dc = new DealerCategories();
+                    $dcategory = $em->getRepository('NumaDOAAdminBundle:Dcategory')->find($onetoonecat->getId());
+                    $dc->setDcategory($dcategory);
+                    $dc->setCatalogrecords($dealer);
+                    $em->persist($dc);
+                }
+
+            }
+        }
+        $em->flush();
+
     }
 
 }

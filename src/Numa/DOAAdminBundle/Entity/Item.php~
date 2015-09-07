@@ -1130,7 +1130,7 @@ class Item {
     }
 
     public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue = null) {
-        $listingFields = $maprow->getListingFields();
+        $listingFields = $maprow->getListingField();
 
         $localy = $feed->getPicturesSaveLocaly();
 
@@ -1147,7 +1147,7 @@ class Item {
                 $itemField = new ItemField();
                 $itemField->setAllValues($value);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
                     $itemField->setListingfield($test);
                 }
                 $itemField->setFeedId($feed->getId());
@@ -1181,7 +1181,7 @@ class Item {
 //                //$itemField->setListingfield($listingFields);
                 if ($listingFields instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
 
-                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingFields()->getId());
+                    $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
 
                     $itemField->setListingfield($test);
                     ///\Doctrine\Common\Util\Debug::dump($listingFields);die();
