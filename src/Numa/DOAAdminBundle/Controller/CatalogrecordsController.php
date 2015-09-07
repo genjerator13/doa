@@ -183,7 +183,7 @@ class CatalogrecordsController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
-
+        $oldDealersCategories = $entity->getDealerCategories();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
         }
@@ -193,10 +193,21 @@ class CatalogrecordsController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
-            
-            $entity->upload();
-            $em->flush();
-            return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+            if($entity instanceof Catalogrecords) {
+                if(!empty($oldDealersCategories)) {
+                    foreach ($oldDealersCategories as $oldDC) {
+                        $em->remove($oldDC);
+                    }
+                }
+
+                dump($oldDealersCategories);
+                dump($editForm->getData());
+                sleep(3);
+                $entity->upload();
+
+                $em->flush();
+                return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+            }
         }else{
             dump($editForm->getErrors(true));
         }

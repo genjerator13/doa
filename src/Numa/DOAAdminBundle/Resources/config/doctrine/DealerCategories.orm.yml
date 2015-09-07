@@ -1,0 +1,27 @@
+Numa\DOAAdminBundle\Entity\DealerCategories:
+    type: entity
+    table: dealer_categories
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+        category_id:
+            type: integer
+    manyToOne:
+        Catalogrecords:
+            targetEntity: Catalogrecords
+            cascade: [persist]
+            inversedBy: Dcategory
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Dcategory:
+            targetEntity: Dcategory
+            cascade: [persist]
+            inversedBy: Catelogrecords
+            joinColumn:
+                name: category_id
+                referencedColumnName: id

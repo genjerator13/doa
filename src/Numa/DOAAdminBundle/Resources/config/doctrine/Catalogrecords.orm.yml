@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\Catalogrecords:
     type: entity
     table: catalog_records
+    repositoryClass: Numa\DOAAdminBundle\Repository\CatalogrecordsRepository
     id:
         id:
             type: integer
@@ -103,6 +104,11 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
+    oneToMany:
+        DealerCategories:
+            targetEntity: DealerCategories
+            mappedBy: Catalogrecords
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

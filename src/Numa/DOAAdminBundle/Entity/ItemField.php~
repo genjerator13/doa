@@ -64,7 +64,7 @@ class ItemField {
      * Constructor
      */
     public function __construct() {
-        $this->Listingfield = new \Doctrine\Common\Collections\ArrayCollection();
+        //$this->Listingfield = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
 
