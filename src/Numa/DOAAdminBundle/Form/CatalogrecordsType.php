@@ -19,7 +19,11 @@ class CatalogrecordsType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('name')
-            //->add('Categories')
+                 ->add('Dcategory' , 'entity' , array(
+                'class'    => 'Numa\DOAAdminBundle\Entity\Dcategory' ,
+                'property' => 'name' ,
+                'expanded' => false ,
+                'multiple' => true , ))
                 ->add('username')
                 ->add('url')
                 ->add('dealerId')

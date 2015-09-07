@@ -139,4 +139,3 @@ class DealerCategories
         return $this->Dcategory;
     }
 }
-

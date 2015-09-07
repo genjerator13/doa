@@ -127,4 +127,3 @@ class Dcategory
         return $this->Catalogrecords;
     }
 }
-

@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 use JMS\Serializer\Annotation\SerializedName;
@@ -788,7 +789,6 @@ class Catalogrecords implements UserInterface {
 
         return $this;
     }
-    
     /**
      * @var integer
      */
@@ -797,7 +797,7 @@ class Catalogrecords implements UserInterface {
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $Categories;
+    private $DealerCategories;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogcategory
@@ -809,7 +809,7 @@ class Catalogrecords implements UserInterface {
      */
     public function __construct()
     {
-        $this->Categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->DealerCategories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -837,37 +837,37 @@ class Catalogrecords implements UserInterface {
     }
 
     /**
-     * Add category
+     * Add dealerCategory
      *
-     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $category
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory
      *
      * @return Catalogrecords
      */
-    public function addCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $category)
+    public function addDealerCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory)
     {
-        $this->Categories[] = $category;
+        $this->DealerCategories[] = $dealerCategory;
 
         return $this;
     }
 
     /**
-     * Remove category
+     * Remove dealerCategory
      *
-     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $category
+     * @param \Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory
      */
-    public function removeCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $category)
+    public function removeDealerCategory(\Numa\DOAAdminBundle\Entity\DealerCategories $dealerCategory)
     {
-        $this->Categories->removeElement($category);
+        $this->DealerCategories->removeElement($dealerCategory);
     }
 
     /**
-     * Get categories
+     * Get dealerCategories
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getCategories()
+    public function getDealerCategories()
     {
-        return $this->Categories;
+        return $this->DealerCategories;
     }
 
     /**
@@ -892,5 +892,42 @@ class Catalogrecords implements UserInterface {
     public function getCatalogcategory()
     {
         return $this->Catalogcategory;
+    }
+
+    // Important
+    public function getDcategory()
+    {
+        $dcategories = new ArrayCollection();
+
+        foreach($this->getDealerCategories() as $dc) {
+            if($dc instanceof DealerCategories){
+                $dcategories[] = $dc->getDcategory();
+            }
+        }
+        return $dcategories;
+    }
+    // Important
+    public function setDcategory($dcategories)
+    {
+        foreach($dcategories as $dcategory)
+        {
+            $dc = new DealerCategories();
+
+            $dc->setCatalogrecords($this);
+            $dc->setDcategory($dcategory);
+
+            $this->addDealerCategory($dc);
+        }
+
+    }
+
+    public function getDcategoryNames(){
+        $res=array();
+        foreach($this->getDealerCategories() as $dc) {
+            if($dc instanceof DealerCategories){
+                $res[]=$dc->getDcategory()->getName()." ";
+            }
+        }
+        return implode(',',$res);
     }
 }
