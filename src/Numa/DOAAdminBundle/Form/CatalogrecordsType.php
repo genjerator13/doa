@@ -22,7 +22,7 @@ class CatalogrecordsType extends AbstractType {
                  ->add('Dcategory' , 'entity' , array(
                 'class'    => 'Numa\DOAAdminBundle\Entity\Dcategory' ,
                 'property' => 'name' ,
-                'expanded' => false ,
+                'expanded' => true ,
                 'multiple' => true , ))
                 ->add('username')
                 ->add('url')

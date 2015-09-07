@@ -192,13 +192,15 @@ class CatalogrecordsController extends Controller {
 
         if ($editForm->isValid()) {            
             if($entity instanceof Catalogrecords) {
-                foreach ($oldDealersCategories as $oldDC) {
-                    $em->remove($oldDC);
+                if(!empty($oldDealersCategories)) {
+                    foreach ($oldDealersCategories as $oldDC) {
+                        $em->remove($oldDC);
+                    }
                 }
 
                 dump($oldDealersCategories);
                 dump($editForm->getData());
-                //die();
+                sleep(3);
                 $entity->upload();
 
                 $em->flush();
