@@ -16,7 +16,9 @@
             <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
             {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@flex_slider_js' '@pgw_slideshow_js'%}
             <script type="text/javascript" src="{{ asset_url }}"></script>
+
             {% endjavascripts %}
+            {% include 'NumaDOASiteBundle::ga.html.twig' %}
         {% endblock %}
     </head>
     <body class=" default ">
