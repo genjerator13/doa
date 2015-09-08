@@ -1,20 +1,32 @@
 {% extends is_granted('ROLE_BUSINES')
-    ? 'NumaDOASiteBundle::home-layout.html.twig' 
-    : 'NumaDOAAdminBundle::layout.html.twig' %}
+? 'NumaDOASiteBundle::home-layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>Edit Dealer</h1>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+            {{ form(edit_form) }}
 
-    {{ form(edit_form) }}
+            <ul class="record_actions">
+                {% if(not is_granted('ROLE_BUSINES')) %}
+                    <li>
+                        <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                            Back to the list
+                        </a>
+                    </li>
+                {% endif %}
+                <li>{{ form(delete_form) }}</li>
+            </ul>
+        </div>
+        <div id="coupons" class="tab-pane">
+            asasas
+            {{ form(coupons_form) }}
+        </div>
+    </div>
 
-        <ul class="record_actions">
-            {% if(not is_granted('ROLE_BUSINES'))%}
-    <li>
-        <a href="{{ path('catalogs') }}"  class="btn btn-primary">
-            Back to the list
-        </a>
-    </li>
-            {% endif %}
-    <li>{{ form(delete_form) }}</li>
-</ul>
 {% endblock %}

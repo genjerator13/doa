@@ -1,0 +1,32 @@
+Numa\DOAAdminBundle\Entity\Coupon:
+    type: entity
+    table: coupon
+    #repositoryClass: Numa\DOAAdminBundle\Repository\CouponRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        photo:
+            type: string
+            length: 255
+            nullable: true
+        discount:
+            type: float
+            nullable: true    
+        description:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: true
+        updatedAt:
+            type: datetime
+            nullable: true;
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

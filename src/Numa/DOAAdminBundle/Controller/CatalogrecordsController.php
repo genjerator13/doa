@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -144,13 +145,37 @@ class CatalogrecordsController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
+        $couponsForm = $this->createCouponsForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'coupons_form' => $couponsForm->createView(),
                     'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Creates a form to edit a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCouponsForm(Catalogrecords $entity) {
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new DealerCouponsType();
+        $catalogForm->setSecurityContext($securityContext);
+        
+        $form = $this->createForm($catalogForm, $entity, array(
+            'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+
+        return $form;
     }
 
     /**
@@ -164,7 +189,7 @@ class CatalogrecordsController extends Controller {
         $securityContext = $this->container->get('security.context');
         $catalogForm = new CatalogrecordsType();
         $catalogForm->setSecurityContext($securityContext);
-        
+
         $form = $this->createForm($catalogForm, $entity, array(
             'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
             'method' => 'POST',
