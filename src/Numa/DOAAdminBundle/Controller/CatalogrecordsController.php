@@ -174,7 +174,11 @@ class CatalogrecordsController extends Controller {
 
         //$catalogForm->setSecurityContext($securityContext);
         $limitCoupons=2;
-        $countCoupons = $entity->getCoupon()->count();
+        $countCoupons=0;
+        if(!empty($entity->getCoupon())){
+            $countCoupons = $entity->getCoupon()->count();
+        }
+
         if($countCoupons<= $limitCoupons){
 
             for ($i = 0; $i < $limitCoupons-$countCoupons; $i++) {
