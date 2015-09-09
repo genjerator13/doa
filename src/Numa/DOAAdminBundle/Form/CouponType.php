@@ -14,13 +14,16 @@ class CouponType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $myEntity = $builder->getForm()->getData();
+
         $builder
             ->add('name')
-            ->add('photo')
+            ->add('originalImage', 'file', array('required' => false, 'data_class' => null))
             ->add('discount')
-            ->add('description')
+            ->add('description',null,array('attr'=>array('maxlength'=>50)))
 
         ;
+
     }
     
     /**

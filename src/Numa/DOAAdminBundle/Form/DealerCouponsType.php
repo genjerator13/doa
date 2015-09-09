@@ -17,20 +17,9 @@ class DealerCouponsType extends AbstractType {
         $this->securityContext=$securityContext;
     }
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder
-                ->add('name')
-
-                ->add('city')
-                ->add('zip')
-                ->add('state')
-                ->add('description', 'ckeditor')
-            ->add('coupon', 'collection', array('type' => new CouponType()));
-
-
-        ;
-        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_BUSINES')){
-            $builder->remove('logo_url');
-        }
+        $builder->add('coupon', 'collection', array(
+            'type' => new CouponType())
+        );
     }
 
     /**
@@ -46,7 +35,7 @@ class DealerCouponsType extends AbstractType {
      * @return string
      */
     public function getName() {
-        return 'numa_doaadminbundle_catalogrecords';
+        return 'numa_doaadminbundle_catalogrecords_coupons';
     }
 
 }

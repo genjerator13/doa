@@ -2,6 +2,7 @@
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>Edit Dealer</h1>
     <ul class="nav nav-tabs">
@@ -24,8 +25,29 @@
             </ul>
         </div>
         <div id="coupons" class="tab-pane">
-            asasas
-            {{ form(coupons_form) }}
+
+            {{ form_start(coupons_form) }}
+            {# render the task's only field: description #}
+            {#{{ form_row(coupons_form.description) }}#}
+
+
+            <ul class="tags">
+                {# iterate over each existing tag and render its only field: name #}
+
+                {% for key,coupon in coupons_form.coupon %}
+
+                    <h4>Coupon {{ (key+1) }}</h4>
+                    <div>{{ form_row(coupon.name) }}</div>
+                    <div>{{ form_row(coupon.discount) }}</div>
+                    <div>{{ form_row(coupon.description) }}</div>
+                    <div>{{ form_row(coupon.originalImage) }}
+                        {% if coupon.vars.data.photo is not empty %}
+                            <img src="{{ asset(coupon.vars.data.photo) }}" width="300px"/>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </ul>
+            {{ form_end(coupons_form) }}
         </div>
     </div>
 

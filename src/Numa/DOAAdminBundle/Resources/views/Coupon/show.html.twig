@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content %}
     <h1>Coupon</h1>
 
     <table class="record_properties">
@@ -8,6 +8,10 @@
             <tr>
                 <th>Id</th>
                 <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Dealer_id</th>
+                <td>{{ entity.dealerid }}</td>
             </tr>
             <tr>
                 <th>Name</th>

@@ -7,11 +7,17 @@ Numa\DOAAdminBundle\Entity\Coupon:
             type: integer
             generator: { strategy: AUTO }
     fields:
+        dealer_id:
+            type: integer
         name:
             type: string
             length: 255
             nullable: true
         photo:
+            type: string
+            length: 255
+            nullable: true
+        originalImage:
             type: string
             length: 255
             nullable: true
@@ -27,6 +33,14 @@ Numa\DOAAdminBundle\Entity\Coupon:
         updatedAt:
             type: datetime
             nullable: true;
+    manyToOne:
+        Catalogrecords:
+            targetEntity: Catalogrecords
+            inversedBy: Coupon
+            cascade: ["persist"]
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

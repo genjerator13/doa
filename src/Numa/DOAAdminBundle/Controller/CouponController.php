@@ -80,7 +80,7 @@ class CouponController extends Controller
     {
         $entity = new Coupon();
         $form   = $this->createCreateForm($entity);
-
+    dump($entity);
         return $this->render('NumaDOAAdminBundle:Coupon:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),

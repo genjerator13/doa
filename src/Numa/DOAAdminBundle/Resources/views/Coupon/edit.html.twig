@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
-
-{% block body -%}
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
     <h1>Coupon edit</h1>
 
     {{ form(edit_form) }}

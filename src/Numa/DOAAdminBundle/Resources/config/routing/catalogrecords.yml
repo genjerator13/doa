@@ -32,3 +32,7 @@ catalog_import_csv:
     pattern:  /proccessCSV
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:proccessImportCSV" }
     requirements: { _method: post }
+coupons_update:
+    path:     /{id}/update_coupons
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateCoupons" }
+    requirements: { _method: post|put }
