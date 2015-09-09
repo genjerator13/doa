@@ -184,7 +184,8 @@ class CatalogrecordsController extends Controller {
             for ($i = 0; $i < $limitCoupons-$countCoupons; $i++) {
                 $coupon = new Coupon();
                 $coupon->setCatalogrecords($entity);
-                $entity->getCoupon()->add($coupon);
+
+                $entity->addCoupon($coupon);
             }
         }
         $form = $this->createForm($catalogForm, $entity, array(
