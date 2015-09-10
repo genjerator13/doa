@@ -526,3 +526,31 @@ div.detailsContent div.slideshow {
     width: 300px;
     margin:0 auto;
 }
+
+a.dealer-coupon-link {
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 120%;
+    margin-bottom: 20px;
+    display:block;
+}
+.dealer-name {
+    font-weight: bold;
+    white-space: nowrap;
+}
+.coupon-container {
+    clear: both;
+    float: left;
+}
+.coupon-container a{
+    display: block;
+}
+.coupon-image {
+    float: left;
+    clear: both;
+}
+
+.coupon-description {
+    float: left;
+    margin-left: 10px;
+}

@@ -1,0 +1,41 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+
+
+
+
+
+{% block content %}
+
+<h1>Coupons for </br>{{ dealer.name }}</h1>
+{% for coupon in coupons %}
+    <div class="coupon-container">
+        <div class="coupon-name"><h3>{{ coupon.name }}</h3></div>
+        <div class="coupon-image"><img id="coupon-image-{{ coupon.id }}"src="{{ asset(coupon.photo) }}" width="300px" /></div>
+        <div class="coupon-description">{{ coupon.description() }}
+            <a href="#" class="coupon-print">Print this coupon</a>
+            {#<a href="#">Email this coupon</a>#}
+        </div>
+
+    </div>
+
+{% endfor %}
+    <script type="text/javascript" src="{{ asset("js/printElement.js") }}"></script>
+    <script>
+
+        $( document ).ready(function() {
+
+            $(".coupon-print").click(function(event){
+                console.log( "ready!" );
+                image = $(this).parent().parent().find('.coupon-image img');
+                oldimage = image;
+                image.removeAttr('width');
+                image.printElement();
+                image.attr('width','300px');
+            });
+
+        });
+
+
+
+    </script>
+{% endblock %}

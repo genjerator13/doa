@@ -133,6 +133,9 @@ assetic:
         pgw_slideshow_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/pgwslideshow.js'
+        printElement:
+            inputs:
+                - '%kernel.root_dir%/../web/js/printElement.js'
 # Doctrine Configuration
 doctrine:
     dbal:

@@ -257,17 +257,21 @@
 
                                         {% if (dealer is defined and dealer is not empty) %}
                                             <h3>Dealer Info</h3>
+
+                                            {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
+                                                <a class="dealer-coupon-link" href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">Get free coupons for the {{ dealer.name }}</a>
+                                            {% endif %}
                                             {% if (dealer.logo is empty) %}
                                                 <img alt="logo" src="{{dealer.logoUrl}}" />
                                             {% else %}
                                                 <img alt="logo" src="{{asset(dealer.getLogoImage())}}" />
                                             {% endif %}
-                                            <p><strong>{{dealer.name}}<strong/></p>
-                                            <p>{{dealer.address}}</p>
-                                            <p>{{dealer.city}} {{dealer.zip}}</p>
-                                            <p>{{dealer.state}}</p>                                                                                        
-                                            <p>{{dealer.phone}}</p>
-                                            <p>{{dealer.location}}</p>
+                                            <p class="dealer-name">{{dealer.name}}</p>
+                                            <p>{{dealer.address}}</br>
+                                            {{dealer.city}} {{dealer.zip}}</br>
+                                            {{dealer.state}}</br>
+                                            {{dealer.phone}}</br>
+                                            {{dealer.location}}</p>
                                             <p><a href="{{dealer.url}}">Visit Our Website</a></p>
                                             <p>Send <a  data-toggle="modal" data-target="#myModal" >email</a>
 
@@ -292,7 +296,7 @@
                                                     </div><!-- /.modal-content -->
                                                 </div><!-- /.modal-dialog -->
                                             </div><!-- /.modal -->
-                                            <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
+                                            <p><a class="dealer-name" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                                             <p>
                                                 <span class="fieldCaption fieldCaptionId">Listing #</span>
                                                 <span class="fieldValue fieldValueId">{{item.id}}</span>
