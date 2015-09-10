@@ -194,7 +194,7 @@ class DefaultController extends Controller {
 //        $stopwatch->start('eventName');
 //        dump($stopwatch);
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findAll();
+        $categories = $em->getRepository('NumaDOAAdminBundle:Dcategory')->findAll();
         $dealers = array();
 //        foreach ($categories as $cat) {
 //            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $cat->getId()));

@@ -16,7 +16,6 @@ class CatalogrecordsRepository extends EntityRepository {
             ->andWhere("dc.category_id=".$dcatId);
         ;
         $query = $qb->getQuery();
-        //dump($query);
         return $query->getResult();
     }
 

@@ -24,8 +24,12 @@
                      <dt>Fax:</dt>
                      <dd>{{item.fax}}</dd>
                  </dl>
-                 <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': item.id,'dealername': item.name}) }}">See All Listings By This Dealer</a></p>
-                 <a data-target="#myModal" data-title = "Send email to {{item.name}}" data-toggle="modal" class="email_link" data-id="{{item.id}}">Send E-mail to {{item.name}}</a>
+                 <p>
+                 <a style="" href="{{ path('browse_by_dealer',{'dealer_id': item.id,'dealername': item.name}) }}">See All Listings By This Dealer</a></p>
+                 <p><a data-target="#myModal" data-title = "Send email to {{item.name}}" data-toggle="modal" class="email_link" data-id="{{item.id}}">Send E-mail to {{item.name}}</a></p>
+                 {% if(item.coupon|length>0) %}
+                    <p><a class="coupon-link" href="{{ path('dealer_coupons',{'dealername':item.username}) }}">View coupons for {{ item.name }}</a></p>
+                 {% endif %}
              </div>
 
 

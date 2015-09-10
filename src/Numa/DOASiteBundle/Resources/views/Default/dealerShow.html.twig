@@ -26,7 +26,9 @@
                  <a data-target="#myModal" data-toggle="modal" class="email_link" data-id="{{dealer.id}}">Send E-mail to {{dealer.name}}</a>
 
                  <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
-                                
+                 {% if(dealer.coupon|length>0) %}
+                    <p><a class="coupon-link" href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">View coupons for {{ dealer.name }}</a></p>
+                 {% endif %}
              </div>
          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
              <div class="modal-dialog">
