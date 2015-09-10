@@ -1,17 +1,16 @@
+{% extends app.request.attributes.get('_route')=='item_print_details'
+? 'NumaDOASiteBundle::print-layout.html.twig'
+: 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% extends app.request.attributes.get('_route')=='item_print_details' 
-    ? 'NumaDOASiteBundle::print-layout.html.twig' 
-    : 'NumaDOASiteBundle::listing-layout.html.twig' %}
-
-{% block title %}<title>{{title}}</title>{% endblock title %}
+{% block title %}<title>{{ title }}</title>{% endblock title %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@NumaDOASiteBundle/Resources/Public/css/jssor.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}" />
+    <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
-{% set images = item.getImages()%}    
-    {% set desc = item.getMake()~" "~item.getModel()~" "%}
+{% set images = item.getImages() %}
+    {% set desc = item.getMake()~" "~item.getModel()~" " %}
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
@@ -23,113 +22,125 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{item.getItemFieldByName('year')}} {{desc}} <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>{% if (item.getSold()==1)%}<span class="badge">Sold</span>{% endif%}</h2>
+                        <h2 class="section">{{ item.getItemFieldByName('year') }} {{ desc }} <span
+                                    classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
+                            <span class="badge">Sold</span>{% endif %}</h2>
 
                         <div class="slideshow">
 
                             <ul class="pgwSlideshow">
-                                {% for key,image in images %}    
+                                {% for key,image in images %}
                                     <li>
                                         {% if ('http' not in image.stringvalue) %}
-                                            <img src="{{image.stringvalue|imagine_filter('item_detail_image')}}" alt="image{{key}}" />
+                                            <img src="{{ image.stringvalue|imagine_filter('item_detail_image') }}"
+                                                 alt="image{{ key }}"/>
                                         {% else %}
-                                            <img src="{{image.stringvalue}}" alt="image{{key}}" />
-                                        {%endif%}
+                                            <img src="{{ image.stringvalue }}" alt="image{{ key }}"/>
+                                        {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
 
                         </div>
 
-                        {% if item.getItemFieldByName('youtube video id') is not empty%}
+                        {% if item.getItemFieldByName('youtube video id') is not empty %}
                             <div class='row'>
                                 <h4>Youtube video:</h4>
+
                                 <div class="youtube-video">
-                                    <iframe width="640" height="480" src="//www.youtube.com/embed/{{item.getItemFieldByName('youtube video id')}}" frameborder="0" allowfullscreen></iframe>
+                                    <iframe width="640" height="480"
+                                            src="//www.youtube.com/embed/{{ item.getItemFieldByName('youtube video id') }}"
+                                            frameborder="0" allowfullscreen></iframe>
                                 </div>
                             </div>
                         {% endif %}
 
                         <h4>Details:</h4>
+
                         <div class='row'>
 
                             {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
 
-                                {% if item.categoryId()==1%}
-                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}   
-                                {% elseif(item.categoryId()==2) %}
-                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}   
-                                {% elseif(item.categoryId()==3) %}
-                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}  
-                                {% elseif(item.categoryId()==4) %}
-                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}  
-                                {% elseif(item.categoryId()==13) %}
-                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}  
-                                {% else %}
+                            {% if item.categoryId()==1 %}
+                                {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+                            {% elseif(item.categoryId()==2) %}
+                                {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                            {% elseif(item.categoryId()==3) %}
+                                {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                            {% elseif(item.categoryId()==4) %}
+                                {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                            {% elseif(item.categoryId()==13) %}
+                                {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                            {% else %}
 
 
-                                    <ul class="techData">
-                                        {% for field in item.ItemField %}
+                                <ul class="techData">
+                                    {% for field in item.ItemField %}
 
-                                            {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                                <li class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
-                                                    <span class="fieldCaption field{{field.fieldName}}">{{field.fieldName}}: </span>
-                                                    {% if field.fieldName=="Price" %}
+                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                            <li class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                                                <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
+                                                    : </span>
+                                                {% if field.fieldName=="Price" %}
 
-                                                        <span classb="price">$ {{item.getItemFieldByName('price')|number_format(0, '.',',')}}</span>   
-                                                    {% elseif field.fieldName|lower=="make model" %}
-                                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                                    {% else %}
-                                                        <span class="fieldValue fieldValue{{field.fieldStringValue}}">{{field.fieldStringValue}}</span>
-                                                    {% endif %}
-                                                </li>
-                                            {% endif %}
-                                        {% endfor %}
-                                        {% if item.getItemFieldByName('seller comment') is not empty %}
-                                            <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                                <div class="fieldCaption field" >Seller Comments: </div>
-                                                <span class="fieldValue fieldValue">{{item.getItemFieldByName('seller comment')}}</span>
+                                                    <span classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>
+                                                {% elseif field.fieldName|lower=="make model" %}
+                                                    <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                                                {% else %}
+                                                    <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                                                {% endif %}
                                             </li>
                                         {% endif %}
-                                    </ul>
-                                {% endif %}
-                            </div>
-
-                            {% if (item.getOptions|length)>0 %}
-                                <div class='row'>
-                                    <h4>Options list:</h4>
-                                    <ul class='option-lists'>
-
-                                        {% for field in item.ItemField %}
-
-                                            {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
-
-                                                <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <i class="glyphicon glyphicon-check"></i> {{field.fieldName}}
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            {% endif %}
-
-                                        {% endfor %}
-                                    </ul>
-                                </div>
+                                    {% endfor %}
+                                    {% if item.getItemFieldByName('seller comment') is not empty %}
+                                        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                            <div class="fieldCaption field">Seller Comments:</div>
+                                            <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
+                                        </li>
+                                    {% endif %}
+                                </ul>
                             {% endif %}
-                            <h4>Map:</h4>
-                            <div id="map"> </div> 
-
                         </div>
-                        {% endblock %}
+
+                        {% if (item.getOptions|length)>0 %}
+                            <div class='row'>
+                                <h4>Options list:</h4>
+                                <ul class='option-lists'>
+
+                                    {% for field in item.ItemField %}
+
+                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
+
+                                            <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <i class="glyphicon glyphicon-check"></i> {{ field.fieldName }}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        <h4>Map:</h4>
+
+                        <div id="map"></div>
+
+                    </div>
+                {% endblock %}
 
                             {% block rightsidebar %}
 
-                                <ul class="righsidebar-block" data="{{item.id}}">
+                                <ul class="righsidebar-block" data="{{ item.id }}">
                                     <li>
-                                        <div class="fb-like" data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+                                        <div class="fb-like"
+                                             data-href="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"
+                                             data-layout="standard" data-action="like" data-show-faces="true"
+                                             data-share="true"></div>
                                         <div id="fb-root"></div>
-                                        <script>(function(d, s, id) {
+                                        <script>(function (d, s, id) {
                                                 var js, fjs = d.getElementsByTagName(s)[0];
                                                 if (d.getElementById(id))
                                                     return;
@@ -147,7 +158,7 @@
                                             Tweet
                                         </a>
                                         <script type="text/javascript">
-                                            window.twttr = (function(d, s, id) {
+                                            window.twttr = (function (d, s, id) {
                                                 var t, js, fjs = d.getElementsByTagName(s)[0];
                                                 if (d.getElementById(id)) {
                                                     return
@@ -156,264 +167,293 @@
                                                 js.id = id;
                                                 js.src = "https://platform.twitter.com/widgets.js";
                                                 fjs.parentNode.insertBefore(js, fjs);
-                                                return window.twttr || (t = {_e: [], ready: function(f) {
-                                                        t._e.push(f)
-                                                    }})
+                                                return window.twttr || (t = {
+                                                            _e: [], ready: function (f) {
+                                                                t._e.push(f)
+                                                            }
+                                                        })
                                             }(document, "script", "twitter-wjs"));
                                         </script>
                                     </li>
                                     <li>
-                                        <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}"><i class="glyphicon glyphicon-print"></i></a>
-                                        <a  target="_blank" href="{{path('item_print_details', {'itemId': item.id, 'description': desc}) }}">
+                                        <a target="_blank"
+                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': desc}) }}"><i
+                                                    class="glyphicon glyphicon-print"></i></a>
+                                        <a target="_blank"
+                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': desc}) }}">
                                             Print This Ad
                                         </a>
                                     </li>
 
                                     <li>
-                                        <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank"><i class="glyphicon glyphicon-qrcode"></i></a>
-                                        <a href="{{path('item_qrcode',{'link':currentPath})}}" target="_blank">QR Code</a>
+                                        <a href="{{ path('item_qrcode',{'link':currentPath}) }}" target="_blank"><i
+                                                    class="glyphicon glyphicon-qrcode"></i></a>
+                                        <a href="{{ path('item_qrcode',{'link':currentPath}) }}" target="_blank">QR
+                                            Code</a>
                                     </li>
                                     <li>
                                         {% if (dealer is defined and dealer is not empty) %}
                                             {% set addressMap = dealer.address~','~dealer.city %}
 
-                                                <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{addressMap|url_encode()}}{%endif%}" target="_blank"><i class="glyphicon glyphicon-arrow-right"></i></a>
-                                                <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{addressMap|url_encode()}}{%endif%}" target="_blank">Get Direction</a>
-                                                {% endif %}
-                                                </li>
-                                                <li>
-                                                    <a href="#" class="loan-calc" ><i class="glyphicon glyphicon-euro"></i></a>
-                                                    <a href="#" class="loan-calc">Loan Calculator</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{{path('compared_listings')}}" target="_blank"><i class="glyphicon glyphicon-th-list"></i></a>
-                                                    <a href="{{path('compared_listings')}}" target="_blank">Comparision Table</a>
-                                                </li>
+                                            <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{ addressMap|url_encode() }}{% endif %}"
+                                               target="_blank"><i class="glyphicon glyphicon-arrow-right"></i></a>
+                                            <a href="https://www.google.com/maps?daddr={% if (dealer is defined and dealer is not empty) %}{{ addressMap|url_encode() }}{% endif %}"
+                                               target="_blank">Get Direction</a>
+                                        {% endif %}
+                                    </li>
+                                    <li>
+                                        <a href="#" class="loan-calc"><i class="glyphicon glyphicon-euro"></i></a>
+                                        <a href="#" class="loan-calc">Loan Calculator</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('compared_listings') }}" target="_blank"><i
+                                                    class="glyphicon glyphicon-th-list"></i></a>
+                                        <a href="{{ path('compared_listings') }}" target="_blank">Comparision Table</a>
+                                    </li>
 
 
-                                                <li>
-                                                    <div class="checkbox-inline">
-                                                        <label>
-                                                            <input type="checkbox" class="compareAd" data-itemid="{{item.id}}" data-url="{{path('item_compare')}}"> Compare Ad
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                                <li>
-                                                    <div class="checkbox-inline">
-                                                        <label>
-                                                            <input type="checkbox" class="saveAd" data-itemid="{{item.id}}"> Save Ad
-                                                        </label>
-                                                    </div>
-                                                </li>
-                                            </ul> 
-                                            <div id="dialog" title="Loan Calculator">
-                                                <div class="col-sm-6">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox">Monthly payment
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox">Loan amounth
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="exampleInputEmail1">Term of Loan</label>
-                                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="interestrate">Interest rate</label>
-                                                    <input type="text" class="form-control" id="interestrate" placeholder="">
-                                                </div> 
-                                                <div class="form-group">
-                                                    <label for="loanamount">Loan Amount</label>
-                                                    <input type="text" class="form-control" id="loanamount" placeholder="">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="monthlypayment">Monthly payment</label>
-                                                    <input type="text" class="form-control" id="monthlypayment" placeholder="">
-                                                </div>
-                                            </tbody>
+                                    <li>
+                                        <div class="checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" class="compareAd" data-itemid="{{ item.id }}"
+                                                       data-url="{{ path('item_compare') }}"> Compare Ad
+                                            </label>
                                         </div>
+                                    </li>
+                                    <li>
+                                        <div class="checkbox-inline">
+                                            <label>
+                                                <input type="checkbox" class="saveAd" data-itemid="{{ item.id }}"> Save
+                                                Ad
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div id="dialog" title="Loan Calculator">
+                                    <div class="col-sm-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">Monthly payment
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox">Loan amounth
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Term of Loan</label>
+                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="interestrate">Interest rate</label>
+                                        <input type="text" class="form-control" id="interestrate" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="loanamount">Loan Amount</label>
+                                        <input type="text" class="form-control" id="loanamount" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="monthlypayment">Monthly payment</label>
+                                        <input type="text" class="form-control" id="monthlypayment" placeholder="">
+                                    </div>
+                                    </tbody>
+                                </div>
 
-                                        <script>
-                                            $(function() {
-                                                $("#dialog").dialog({
-                                                    autoOpen: false,
-                                                    width: 500,
-                                                    height: 500
-                                                });
-                                                $(".loan-calc").click(function() {
-                                                    $("#dialog").dialog("open");
-                                                });
-                                            });
-                                        </script> 
+                                <script>
+                                    $(function () {
+                                        $("#dialog").dialog({
+                                            autoOpen: false,
+                                            width: 500,
+                                            height: 500
+                                        });
+                                        $(".loan-calc").click(function () {
+                                            $("#dialog").dialog("open");
+                                        });
+                                    });
+                                </script>
 
-                                        <a href="{{app.request.headers.get('referer')}}">Back to search</a>
+                                <a href="{{ app.request.headers.get('referer') }}">Back to search</a>
 
+                                {% if (dealer is defined and dealer is not empty) %}
+                                <h3>Dealer Info</h3>
+
+
+                                {% if (dealer.logo is empty) %}
+                                    <img alt="logo" src="{{ dealer.logoUrl }}"/>
+                                {% else %}
+                                    <img alt="logo" src="{{ asset(dealer.getLogoImage()) }}"/>
+                                {% endif %}
+                                <p class="dealer-name">{{ dealer.name }}</p>
+                                {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
+                                    <a class="dealer-coupon-link"
+                                       href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">SAVINGS
+                                        CERTIFCATES From This Dealer</a>
+                                {% endif %}
+                                <p>{{ dealer.address }}</br>
+                                    {{ dealer.city }} {{ dealer.zip }}</br>
+                                    {{ dealer.state }}</br>
+                                    {{ dealer.phone }}</br>
+                                    {{ dealer.location }}</p>
+                                <p><a href="{{ dealer.url }}">Visit Our Website</a></p>
+                                <p>Send <a data-toggle="modal" data-target="#myModal">email</a>
+
+                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                     aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title">Send email to {{ dealer }}</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
+                                                <form action="" method="post" name="form">
+                                                    {{ form_rest(emailForm) }}
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" class="btn btn-primary">Send Email</button>
+
+                                            </div>
+                                            </form>
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                                <p><a class="dealer-name"
+                                      href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See
+                                        All Listings By This Dealer</a></p>
+                                <p>
+                                    <span class="fieldCaption fieldCaptionId">Listing #</span>
+                                    <span class="fieldValue fieldValueId">{{ item.id }}</span>
+                                </p>
+                                {% if app.user and app.user.getId()==dealer.id %}
+                                <p>Views ({{ item.views }})
+                                <p>
+                                    <a class="btn btn-primary" href="{{ path('items_edit',{'id':item.id}) }}">Edit this
+                                        listing</a>
+                                    {% if item.getActive() %}
+                                        <a class="btn btn-primary" href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a>
+                                    {% else %}
+                                        <a class="btn btn-primary" href="{{ path('items_activate',{'id':item.id}) }}">Activate</a>
+                                    {% endif %}
+                                    {% endif %}
+
+                                    {% endif %}
+                                    <script src="https://maps.googleapis.com/maps/api/js"></script>
+                                    <script>
+                                        var geocoder = new google.maps.Geocoder();
                                         {% if (dealer is defined and dealer is not empty) %}
-                                            <h3>Dealer Info</h3>
+                                        var address = "{{dealer.address}},{{dealer.city}}";
+                                        {% else %}
+                                        var address = "saskatoon";
+                                        {% endif %}
+                                        var latitude = 44.5403;
+                                        var longitude = -78.5463;
+                                        geocoder.geocode({'address': address}, function (results, status) {
+                                            console.log(status + ":::::" + address);
+                                            if (status == google.maps.GeocoderStatus.OK) {
+                                                latitude = results[0].geometry.location.lat();
+                                                longitude = results[0].geometry.location.lng();
 
-                                            {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
-                                                <a class="dealer-coupon-link" href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">Get free coupons for the {{ dealer.name }}</a>
-                                            {% endif %}
-                                            {% if (dealer.logo is empty) %}
-                                                <img alt="logo" src="{{dealer.logoUrl}}" />
-                                            {% else %}
-                                                <img alt="logo" src="{{asset(dealer.getLogoImage())}}" />
-                                            {% endif %}
-                                            <p class="dealer-name">{{dealer.name}}</p>
-                                            <p>{{dealer.address}}</br>
-                                            {{dealer.city}} {{dealer.zip}}</br>
-                                            {{dealer.state}}</br>
-                                            {{dealer.phone}}</br>
-                                            {{dealer.location}}</p>
-                                            <p><a href="{{dealer.url}}">Visit Our Website</a></p>
-                                            <p>Send <a  data-toggle="modal" data-target="#myModal" >email</a>
+                                            }
+                                        });
+                                        function initialize() {
+                                            var mapCanvas = document.getElementById('map');
+                                            var mapOptions = {
+                                                center: new google.maps.LatLng(latitude, longitude),
+                                                zoom: 13,
+                                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                                            }
 
-                                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                            <h4 class="modal-title">Send email to {{dealer}}</h4>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
-                                                            <form action="" method="post" name="form">
-                                                                {{form_rest(emailForm)}}
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                            <button type="submit" class="btn btn-primary">Send Email</button>
-
-                                                        </div>
-                                                        </form>
-                                                    </div><!-- /.modal-content -->
-                                                </div><!-- /.modal-dialog -->
-                                            </div><!-- /.modal -->
-                                            <p><a class="dealer-name" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
-                                            <p>
-                                                <span class="fieldCaption fieldCaptionId">Listing #</span>
-                                                <span class="fieldValue fieldValueId">{{item.id}}</span>
-                                            </p>
-                                            {% if app.user and app.user.getId()==dealer.id%}
-                                                <p>Views ({{item.views}})<p>
-                                                    <a class="btn btn-primary" href="{{path('items_edit',{'id':item.id})}}" >Edit this listing</a>
-                                                    {% if item.getActive() %}
-                                                        <a class="btn btn-primary" href="{{path('items_deactivate',{'id':item.id})}}">Deactivate</a>
-                                                    {% else %}
-                                                        <a  class="btn btn-primary" href="{{path('items_activate',{'id':item.id})}}">Activate</a>
-                                                    {% endif %}
+                                            var map = new google.maps.Map(mapCanvas, mapOptions)
+                                            var myLatlng = new google.maps.LatLng(latitude, longitude);
+                                            var marker = new google.maps.Marker({
+                                                position: myLatlng,
+                                                map: map, {% if (dealer is defined and dealer is not empty) %}
+                                                title: '{{dealer.name}}'
                                                 {% endif %}
+                                            });
 
-                                            {% endif %}
-                                            <script src="https://maps.googleapis.com/maps/api/js"></script>
-                                            <script>
-                                            var geocoder = new google.maps.Geocoder();
-                                                {% if (dealer is defined and dealer is not empty) %}
-                                                    var address = "{{dealer.address}},{{dealer.city}}";
-                                                {% else %}
-                                                    var address = "saskatoon";
-                                                {% endif %}
-                                                    var latitude = 44.5403;
-                                                    var longitude = -78.5463;
-                                                    geocoder.geocode({'address': address}, function(results, status) {
-                                                        console.log(status + ":::::" + address);
-                                                        if (status == google.maps.GeocoderStatus.OK) {
-                                                            latitude = results[0].geometry.location.lat();
-                                                            longitude = results[0].geometry.location.lng();
+                                        }
+                                        google.maps.event.addDomListener(window, 'load', initialize);
+                                    </script>
+                                    {% javascripts     '@jquery_jssor_js' output="filename.js" %}
+                                    <script src="{{ asset_url }}"></script>
+                                    {% endjavascripts %}
+                                    <script>
+                                        $(document).ready(function () {
+                                            // The slider being synced must be initialized first
+                                            $('#carousel').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                itemWidth: 120,
+                                                itemMargin: 10,
+                                                asNavFor: '#slider'
+                                            });
 
-                                                        }
-                                                    });
-                                                    function initialize() {
-                                                        var mapCanvas = document.getElementById('map');
-                                                        var mapOptions = {
-                                                            center: new google.maps.LatLng(latitude, longitude),
-                                                            zoom: 13,
-                                                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                                                        }
-
-                                                        var map = new google.maps.Map(mapCanvas, mapOptions)
-                                                        var myLatlng = new google.maps.LatLng(latitude, longitude);
-                                                        var marker = new google.maps.Marker({
-                                                            position: myLatlng,
-                                                            map: map,{% if (dealer is defined and dealer is not empty) %}
-                                                            title: '{{dealer.name}}'
-                                                {% endif %}
-                                                        });
-
-                                                    }
-                                                    google.maps.event.addDomListener(window, 'load', initialize);
-                                                </script>
-                                                {% javascripts     '@jquery_jssor_js' output="filename.js" %}
-                                                <script src="{{ asset_url }}"></script>
-                                                {% endjavascripts %}
-                                                <script>
-                                                    $(document).ready(function() {
-                                                        // The slider being synced must be initialized first
-                                                        $('#carousel').flexslider({
-                                                            animation: "slide",
-                                                            controlNav: false,
-                                                            animationLoop: false,
-                                                            slideshow: true,
-                                                            itemWidth: 120,
-                                                            itemMargin: 10,
-                                                            asNavFor: '#slider'
-                                                        });
-
-                                                        $('#slider').flexslider({
-                                                            animation: "slide",
-                                                            controlNav: false,
-                                                            animationLoop: false,
-                                                            slideshow: true,
-                                                            sync: "#carousel"
-                                                        });
+                                            $('#slider').flexslider({
+                                                animation: "slide",
+                                                controlNav: false,
+                                                animationLoop: false,
+                                                slideshow: true,
+                                                sync: "#carousel"
+                                            });
 
 
-                                                        $('.pgwSlideshow').pgwSlideshow();
-                                                    });
-                                                </script>
-                                                {#{% javascripts '@savecompared_js' %}
-                                                <script type="text/javascript" src="{{ asset_url }}"></script>
-                                                {% endjavascripts %}#}
-                                                <script>
-                                                    $(".saveAd").on("click", function() {
-                                                        var itemId = $(this).data("itemid");
-                                                        console.log(itemId);
-                                                        var act = "add";
-                                                        if (!$(this).prop('checked')) {
-                                                            act = "remove";
-                                                        }
-                                                        var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function(data) {
-                                                            htmlx = "";
-                                                            if (data.savedAds > 0) {
-                                                                htmlx = "(" + data.savedAds + ")";
-                                                            }
-                                                            $('.savedAds').html(htmlx);
-                                                        })
+                                            $('.pgwSlideshow').pgwSlideshow();
+                                        });
+                                    </script>
+                                    {#{% javascripts '@savecompared_js' %}
+                                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                                    {% endjavascripts %}#}
+                                    <script>
+                                        $(".saveAd").on("click", function () {
+                                            var itemId = $(this).data("itemid");
+                                            console.log(itemId);
+                                            var act = "add";
+                                            if (!$(this).prop('checked')) {
+                                                act = "remove";
+                                            }
+                                            var jqxhr = $.post("{{path('item_savead')}}", {
+                                                itemid: itemId,
+                                                act: act
+                                            }, function (data) {
+                                                htmlx = "";
+                                                if (data.savedAds > 0) {
+                                                    htmlx = "(" + data.savedAds + ")";
+                                                }
+                                                $('.savedAds').html(htmlx);
+                                            })
 
-                                                    });
-                                                    $(".compareAd").on("click", function() {
-                                                        var itemId = $(this).data("itemid");
-                                                        var url = $(this).data("url");
+                                        });
+                                        $(".compareAd").on("click", function () {
+                                            var itemId = $(this).data("itemid");
+                                            var url = $(this).data("url");
 
-                                                        var act = "add";
-                                                        if (!$(this).prop('checked')) {
-                                                            act = "remove";
-                                                        }
-                                                        var jqxhr = $.post(url, {itemid: itemId, act: act}, function(data) {
-                                                            htmlx = "";
-                                                            if (data.comparedItes > 0) {
-                                                                htmlx = "(" + data.comparedItes + ")";
-                                                            }
-                                                            $('.savedAds').html(htmlx);
-                                                        })
+                                            var act = "add";
+                                            if (!$(this).prop('checked')) {
+                                                act = "remove";
+                                            }
+                                            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                                                htmlx = "";
+                                                if (data.comparedItes > 0) {
+                                                    htmlx = "(" + data.comparedItes + ")";
+                                                }
+                                                $('.savedAds').html(htmlx);
+                                            })
 
-                                                    });
-                                                </script>
-                                                {% endblock %}
+                                        });
+                                    </script>
+                            {% endblock %}
