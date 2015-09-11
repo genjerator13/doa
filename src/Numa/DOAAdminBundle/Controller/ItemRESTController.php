@@ -30,6 +30,18 @@ class ItemRESTController extends Controller
     }
 
     public function listingAction(Request $request,$id){
+        //check if column separated ids
+        $columnSeparatedIds = explode(":",$id);
+
+        if(count($columnSeparatedIds)>0){
+            $id = array();
+            foreach($columnSeparatedIds as $cid){
+                $cid=intval($cid);
+                $id[]=$cid;
+            }
+        }
+
+
         $item = $this->get('listing_api')->prepareListing($id);
 
 
