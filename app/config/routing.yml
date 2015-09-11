@@ -25,12 +25,12 @@ genemu_base64:
     resource: "@GenemuFormBundle/Resources/config/routing/base64.xml"
 
 # Routes Bundles Tiers
-comur_image:
-    resource: "@ComurImageBundle/Resources/config/routing.yml"
-    prefix:   /
-
-fos_js_routing:
-    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
+#comur_image:
+#    resource: "@ComurImageBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#fos_js_routing:
+#    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
 
 #restApi:
