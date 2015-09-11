@@ -27,7 +27,7 @@
 
                  <p><a style="" href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See All Listings By This Dealer</a></p>
                  {% if(dealer.coupon|length>0) %}
-                    <p><a class="dealer-coupon-link" href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">Free Savings Certificates From {{ dealer.name }}</a></p>
+                    <p><a class="dealer-coupon-link" href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">Free Savings Coupons From {{ dealer.name }}</a></p>
                  {% endif %}
              </div>
          <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

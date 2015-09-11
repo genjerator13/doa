@@ -291,7 +291,7 @@
                                 {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
                                     <a class="dealer-coupon-link"
                                        href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">SAVINGS
-                                        CERTIFCATES From This Dealer</a>
+                                        COUPONS From This Dealer</a>
                                 {% endif %}
                                 <p>{{ dealer.address }}</br>
                                     {{ dealer.city }} {{ dealer.zip }}</br>
