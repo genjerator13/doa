@@ -16,6 +16,19 @@ class CatalogrecordsRepository extends EntityRepository {
             ->andWhere("dc.category_id=".$dcatId);
         ;
         $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    public function findByDealerUsername($username) {
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('d')->distinct()
+            ->add('from', 'NumaDOAAdminBundle:Catalogrecords d')
+
+            ->andWhere("d.username like :username")
+            ->setParameter("username","%".$username."%");
+        ;
+        $query = $qb->getQuery();
         //dump($query);
         return $query->getResult();
     }

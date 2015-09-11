@@ -48,12 +48,14 @@ class listingApi {
     public function prepareListing($itemid){
         $res=array();
         $em = $this->container->get('doctrine');
-        $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($itemid);
-        $listing = $em->getRepository("NumaDOAAdminBundle:Listingfield")->findByCategory($item->getCategoryId());
 
+        $item = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($itemid);
 
-        $res = $this->prepareItem($item);
-
+        if(count($item)==1) {
+            $res = $this->prepareItem($item[0]);
+        }elseif(count($item)>1){
+            $res = $this->prepareArrayItems($item);
+        }
         return $res;
     }
 
@@ -93,6 +95,14 @@ class listingApi {
 
         //dump($res);
         //die();
+        return $res;
+    }
+    public function prepareArrayItems($items){
+        $res=array();
+        $em = $this->container->get('doctrine');
+        foreach($items as $item){
+            $res['listing'][]=$this->prepareItem($item);
+        }
         return $res;
     }
 

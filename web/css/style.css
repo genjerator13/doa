@@ -538,3 +538,63 @@ div.detailsContent div.slideshow {
     width: 300px;
     margin:0 auto;
 }
+
+a.dealer-coupon-link {
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 120%;
+    margin-bottom: 20px;
+    display:block;
+    color: #0000B2;
+}
+.dealer-name {
+    font-weight: bold;
+    white-space: nowrap;
+}
+.coupon-container {
+    clear: both;
+    float: left;
+}
+.coupon-container a{
+    display: block;
+}
+.coupon-image {
+    float: left;
+    clear: both;
+}
+
+.coupon-description {
+    float: left;
+    margin-left: 10px;
+}
+
+/*dealers icons css sprite*/
+
+.sprite { background: url('/images/dealers-icons.png') no-repeat top left; width: 42px; height: 42px;display:block; float:left }
+.sprite.used-car-and-truck-dealers { background-position: 0 0; }
+.sprite.snowmobile-dealers { background-position: 0 -52px; }
+.sprite.rv-dealers { background-position: 0 -104px; }
+.sprite.quad-dealers { background-position: 0 -156px; }
+.sprite.motorcycle-dealers { background-position: 0 -208px; }
+.sprite.marine-dealers { background-position: 0 -260px; }
+.sprite.golf-cart-dealers { background-position: 0 -312px; }
+.sprite.boat-repair { background-position: 0 -364px; }
+.sprite.auto-wrecking { background-position: 0 -416px; }
+.sprite.auto-repair-shops { background-position: 0 -468px; }
+.sprite.auto-rentals { background-position: 0 -520px; }
+.sprite.auto-parts { background-position: 0 -572px; }
+.sprite.auto-insurance { background-position: 0 -624px; }
+.sprite.auto-glass { background-position: 0 -676px; }
+.sprite.auto-electric-service { background-position: 0 -728px; }
+.sprite.auto-dealers {background-position: 0 -780px;  }
+.sprite.auto-body-repair { background-position: 0 -832px; }
+.sprite.auto-accessories { background-position: 0 -884px; }
+.sprite.ag-dealers { background-position: 0 -936px; }
+.sprite.ag-accessories { background-position: 0 -988px; }
+
+.dealer-category-title {
+    float:left;
+    display: block;
+
+    margin: 10px 0 0 10px;
+}
