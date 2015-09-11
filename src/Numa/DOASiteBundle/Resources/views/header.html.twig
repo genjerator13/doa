@@ -1,7 +1,10 @@
 <head>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
-
+    {% block description %}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endblock description %}
+    {% block keyword %}
+        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+    {% endblock keyword %}
     {% block title %}<title>{{title}}</title>{% endblock title %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
