@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Coupon;
+use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -133,6 +135,7 @@ class CatalogrecordsController extends Controller {
      *
      */
     public function editAction($id) {
+        $limitCoupons = 2;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
         $securityContext = $this->container->get('security.context');
@@ -143,14 +146,57 @@ class CatalogrecordsController extends Controller {
             throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
         }
 
+
+
         $editForm = $this->createEditForm($entity);
+        $couponsForm = $this->createEditCouponsForm($entity);
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'coupons_form' => $couponsForm->createView(),
                     'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+    /**
+     * Creates a form to edit a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditCouponsForm(Catalogrecords $entity) {
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new DealerCouponsType();
+
+        //$catalogForm->setSecurityContext($securityContext);
+        $limitCoupons=2;
+        $countCoupons=0;
+        if(!empty($entity->getCoupon())){
+            $countCoupons = $entity->getCoupon()->count();
+        }
+
+        if($countCoupons<= $limitCoupons){
+
+            for ($i = 0; $i < $limitCoupons-$countCoupons; $i++) {
+                $coupon = new Coupon();
+                $coupon->setCatalogrecords($entity);
+
+                $entity->addCoupon($coupon);
+            }
+        }
+        $form = $this->createForm($catalogForm, $entity, array(
+            'action' => $this->generateUrl('coupons_update', array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+        //$form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+
+        return $form;
     }
 
     /**
@@ -164,7 +210,7 @@ class CatalogrecordsController extends Controller {
         $securityContext = $this->container->get('security.context');
         $catalogForm = new CatalogrecordsType();
         $catalogForm->setSecurityContext($securityContext);
-        
+
         $form = $this->createForm($catalogForm, $entity, array(
             'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
             'method' => 'POST',
@@ -200,9 +246,6 @@ class CatalogrecordsController extends Controller {
                     }
                 }
 
-                dump($oldDealersCategories);
-                dump($editForm->getData());
-                sleep(3);
                 $entity->upload();
 
                 $em->flush();
@@ -216,6 +259,43 @@ class CatalogrecordsController extends Controller {
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+        ));
+    }
+
+    /**
+     * Edits an existing Dealers Coupons
+     *
+     */
+    public function updateCouponsAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $deleteForm = $this->createDeleteForm($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+
+        $editForm = $this->createEditForm($entity);
+        $couponsForm = $this->createEditCouponsForm($entity);
+        $couponsForm->handleRequest($request);
+
+        if ($couponsForm->isValid()) {
+            if($entity instanceof Catalogrecords) {
+
+
+                foreach ($entity->getCoupon() as $coupon) {
+                    $coupon->upload();
+                }
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+            }
+        }else{
+            dump($couponsForm->getErrors(true));
+        }
+
+        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'coupons_form' => $couponsForm->createView(),
+
         ));
     }
 

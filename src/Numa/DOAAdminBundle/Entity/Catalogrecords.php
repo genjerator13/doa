@@ -860,6 +860,7 @@ class Catalogrecords implements UserInterface
     public function __construct()
     {
         $this->DealerCategories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Coupon = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -984,5 +985,44 @@ class Catalogrecords implements UserInterface
             }
         }
         return implode(',', $res);
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Coupon;
+
+
+    /**
+     * Add coupon
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Coupon $coupon
+     *
+     * @return Catalogrecords
+     */
+    public function addCoupon(\Numa\DOAAdminBundle\Entity\Coupon $coupon)
+    {
+        $this->Coupon[] = $coupon;
+
+        return $this;
+    }
+
+    /**
+     * Remove coupon
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Coupon $coupon
+     */
+    public function removeCoupon(\Numa\DOAAdminBundle\Entity\Coupon $coupon)
+    {
+        $this->Coupon->removeElement($coupon);
+    }
+
+    /**
+     * Get coupon
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCoupon()
+    {
+        return $this->Coupon;
     }
 }

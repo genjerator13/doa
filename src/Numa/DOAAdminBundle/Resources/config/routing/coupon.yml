@@ -1,0 +1,30 @@
+coupon:
+    path:     /
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:index" }
+
+coupon_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:show" }
+
+coupon_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:new" }
+
+coupon_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:create" }
+    requirements: { _method: post }
+
+coupon_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:edit" }
+
+coupon_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:update" }
+    requirements: { _method: post|put }
+
+coupon_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:delete" }
+    requirements: { _method: post|delete }

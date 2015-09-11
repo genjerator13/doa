@@ -49,7 +49,9 @@
         "Trsteel/ckeditor-bundle": "~1.6",
         "jms/serializer-bundle": "^1.1@dev",
         "friendsofsymfony/rest-bundle": "^1.8@dev",
-        "nelmio/api-doc-bundle": "^2.9@dev"
+        "nelmio/api-doc-bundle": "^2.9@dev",
+        "comur/image-bundle": "1.0.*@dev"
+
 
     },
     "scripts": {

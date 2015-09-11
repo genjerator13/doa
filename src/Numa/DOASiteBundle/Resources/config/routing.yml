@@ -99,4 +99,7 @@ search_save:
     defaults: { _controller: NumaDOASiteBundle:Search:saveSearch, _locale: en } 
 compared_listings:    
     pattern:  /compared-listing
-    defaults: { _controller: NumaDOASiteBundle:Item:comparedListing, _locale: en }    
+    defaults: { _controller: NumaDOASiteBundle:Item:comparedListing, _locale: en }
+dealer_coupons:
+    path:  /dealer/{dealername}/coupons
+    defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }

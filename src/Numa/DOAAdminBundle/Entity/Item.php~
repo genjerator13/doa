@@ -724,9 +724,11 @@ class Item {
         public function getOptions() {
         $if = $this->getItemField();
         $criteria = Criteria::create()
-                ->where(Criteria::expr()->contains("fieldType", "boolean"))
+                ->andWhere(Criteria::expr()->contains("fieldType", "boolean"))
+                ->andWhere(Criteria::expr()->contains("fieldBooleanValue", "1"))
 
         ;
+
         return $if->matching($criteria);
     }
 
@@ -3191,5 +3193,10 @@ class Item {
         if(method_exists ($this, $function)){
             return $this->{$function}();
         }
+    }
+
+    public function getUrl(){
+        $url ="";
+
     }
 }
