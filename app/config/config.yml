@@ -133,6 +133,9 @@ assetic:
         pgw_slideshow_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/pgwslideshow.js'
+        printElement:
+            inputs:
+                - '%kernel.root_dir%/../web/js/printElement.js'
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -166,7 +169,16 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
-        
+comur_image:
+    config:
+        cropped_image_dir: 'cropped'
+        thumbs_dir: 'thumbnails'
+        media_lib_thumb_size: 150
+        web_dirname: 'web'
+        translation_domain: 'ComurImageBundle'
+        gallery_thumb_size: 150
+        gallery_dir: 'gallery'
+
 liip_imagine:
     resolvers:
         default:

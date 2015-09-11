@@ -1,0 +1,46 @@
+Numa\DOAAdminBundle\Entity\Coupon:
+    type: entity
+    table: coupon
+    #repositoryClass: Numa\DOAAdminBundle\Repository\CouponRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+        name:
+            type: string
+            length: 255
+            nullable: true
+        photo:
+            type: string
+            length: 255
+            nullable: true
+        originalImage:
+            type: string
+            length: 255
+            nullable: true
+        discount:
+            type: float
+            nullable: true    
+        description:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+            nullable: true
+        updatedAt:
+            type: datetime
+            nullable: true;
+    manyToOne:
+        Catalogrecords:
+            targetEntity: Catalogrecords
+            inversedBy: Coupon
+            cascade: ["persist"]
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

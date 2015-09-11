@@ -109,6 +109,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             targetEntity: DealerCategories
             mappedBy: Catalogrecords
             cascade: [persist]
+        Coupon:
+            targetEntity: Coupon
+            mappedBy: Catalogrecords
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

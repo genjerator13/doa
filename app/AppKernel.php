@@ -37,6 +37,9 @@ class AppKernel extends Kernel {
             new FOS\RestBundle\FOSRestBundle(),
             //#new Lsw\ApiCallerBundle\LswApiCallerBundle(),
             //new Gregwar\CaptchaBundle\GregwarCaptchaBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
+            new Comur\ImageBundle\ComurImageBundle(),
 
         );
 
