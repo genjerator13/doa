@@ -3,8 +3,9 @@
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 {% include 'NumaDOAAdminBundle::header.html.twig' %}
-        <body class=" default ">
 
+        <body class=" default ">
+        {% include "ComurImageBundle:Form:croppable_image_modal.html.twig" with {'include_jquery': false, 'include_bootstrap': false} %}
             <div class="colmask leftmenu">
                 <div class="colright">
                     <div class="leftSectionWrap">

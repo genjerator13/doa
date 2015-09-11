@@ -35,4 +35,12 @@ class SellerController extends Controller {
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(),'catalogs' => $catalogs));
     }
 
+    public function couponsAction(Request $request,$dealername){
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('username'=>$dealername));
+        $coupons = $em->getRepository("NumaDOAAdminBundle:Coupon")->findBy(array('dealer_id'=>$dealer->getId()));
+
+        return $this->render('NumaDOASiteBundle:Seller:coupon.html.twig', array('dealer' => $dealer,'coupons'=>$coupons));
+    }
+
 }
