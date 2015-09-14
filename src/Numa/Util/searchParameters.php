@@ -207,8 +207,11 @@ class searchParameters {
                         $value = $searchItem->getValue();
 
                         if ($dbName == 'all') {
-                            $qb->andWhere('i.model LIKE :text or i.make LIKe :text or i.type LIKE :text or i.body_style LIKE :text or i.year LIKE :text or i.VIN LIKE :text or i.transmission LIKE :text or i.floor_plan LIKE :text or i.keywords LIKE :text or i.stock_nr LIKE :text');
-                            $qb->setParameter('text', "%" . $searchItem->getValue() . "%");
+
+                            $q = $this->createAllQuery($qb,$searchItem->getValue());
+
+                            //$qb->andWhere($q);
+                            //$qb->setParameter('text', "%" . $searchItem->getValue() . "%");
 //                        } elseif ($type == 'category') {
 //                            $qb->andWhere('i.category_id=:cat');
 //                            $qb->setParameter('cat', $searchItem->getValue());
@@ -263,6 +266,37 @@ class searchParameters {
         }
         $qb->addOrderBy("i.sold", 'ASC');
         return $qb->getQuery();
+    }
+
+    public function createAllQuery($qb,$string){
+        $param = "text";
+        $words = explode(" ",$string);
+
+        $q = $this->createSingleAllQuery($qb,$param);
+        $qb->setParameter($param,$string);
+        if(count($words)>1){
+            $c=2;
+            foreach($words as $word) {
+                $param = "text" .$c;
+                $v = " AND ";
+                if($c==2){
+                    $v = " OR ";
+                }
+                $q = $q . $v .$this->createSingleAllQuery($qb,$param) ;
+
+                $qb->setParameter($param,$word);
+                $c++;
+            }
+        }
+        $qb->andWhere($q);
+        //dump($qb);die();
+        return $q;
+
+    }
+
+    private function createSingleAllQuery($qb,$param){
+        $q = '(i.model LIKE :'.$param.' or i.make LIKe :'.$param.' or i.type LIKE :'.$param.' or i.body_style LIKE :'.$param.' or i.year LIKE :'.$param.' or i.VIN LIKE :'.$param.' or i.transmission LIKE :'.$param.' or i.floor_plan LIKE :text or i.keywords LIKE :'.$param.' or i.stock_nr LIKE :'.$param.')';
+        return $q;
     }
 
     public function getSearchText() {

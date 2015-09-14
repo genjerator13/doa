@@ -5,6 +5,7 @@
     {% block keyword %}
         {{ include("NumaDOASiteBundle::keywords.html.twig") }}
     {% endblock keyword %}
+
     {% block title %}<title>{{title}}</title>{% endblock title %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
@@ -18,4 +19,5 @@
     {% endjavascripts %}
         {% include 'NumaDOASiteBundle::ga.html.twig' %}
     {% endblock %}
+
 </head>
