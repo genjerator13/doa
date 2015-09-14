@@ -18,6 +18,7 @@
             <script type="text/javascript" src="{{ asset_url }}"></script>
             {% endjavascripts %}
         {% endblock %}
+        {% block canonical %}<link rel="canonical" href="{{ url }}" />{% endblock canonical %}
     </head>
     <body class=" default ">
         <!-- Static navbar -->
