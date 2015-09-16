@@ -42,7 +42,7 @@ security:
         main:
             entity: { class: Numa\DOAAdminBundle\Entity\User, property: email }
         busines:
-            entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords, property: username }
+            entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
  
     encoders:
         Numa\DOAAdminBundle\Entity\User: sha512

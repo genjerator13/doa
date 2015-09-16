@@ -194,13 +194,21 @@ class DefaultController extends Controller {
 //        $stopwatch->start('eventName');
 //        dump($stopwatch);
         $em = $this->getDoctrine()->getManager();
-        $categories = $em->getRepository('NumaDOAAdminBundle:Dcategory')->findAll();
-        $dealers = array();
-//        foreach ($categories as $cat) {
-//            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $cat->getId()));
-//            $dealers[$cat->getId()] = $dealer;
-//        }
-//        
+        $categories = $this->get('mymemcache')->get('dealer_categories');
+
+        if (empty($categories)) {
+            $categories = $em->getRepository('NumaDOAAdminBundle:Dcategory')->findAll();
+        }
+        $dealers = $this->get('mymemcache')->get('dealers_count');
+
+        if (empty($dealers)) {
+            $dealers=array();
+            foreach ($categories as $cat) {
+                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('category_id' => $cat->getId()));
+                $dealers[$cat->getId()] = $dealer;
+            }
+        }
+
 //        $event = $stopwatch->stop('eventName');
 //        dump($stopwatch);
         return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories, 'dealers' => $dealers));

@@ -3,6 +3,9 @@
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
 {% block title %}<title>{{ title }}: {{  item.getMake()~" "~item.getModel()~" "~item.getYear()}}</title>{% endblock title %}
+{% block canonical %}
+    <link rel="canonical" href="{{ url }}" />
+{% endblock canonical %}
 {% block stylesheets %}
     {{ parent() }}
     {% stylesheets '@NumaDOASiteBundle/Resources/Public/css/jssor.css' %}
