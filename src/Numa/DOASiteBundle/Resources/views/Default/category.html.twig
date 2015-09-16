@@ -1,11 +1,11 @@
 
 {% block content %}
 
-    {#<h2>{{category.name}}</h2>#}
+    {#<h1>{{category.name}}</h1>#}
     <div class="list-group id="myTab">
          {% for item in catalogs %}
-             <h2><a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="">{{item.name}}</a></h2>
-             <div>{{item.description| raw}}
+             <h2 class="{% if loop.first %}first{% endif %} dealer"><a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="">{{item.name}}</a></h2>
+             <div class="dealer-content">{{item.description| raw}}
                  <dl class="captions businessCatalogCaptions">
                      {% if (item.logo is empty) %}
                          <dt>Logo:</dt>
