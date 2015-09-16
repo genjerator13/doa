@@ -8,7 +8,7 @@
         <a href="{{path('homepage_category', {'idcategory': cat.id,'category_name':cat.name})}}" class="list-group-item col-md-12">
 <i class="sprite {{ cat.name|replace({' ': '-'})|lower }}"></i>
 
-            <span class="dealer-category-title">{{cat.name}}   {% if(dealers[cat.getId()]|length>0) %}({{ dealers[cat.getId()]|length }}){% endif %}</span>
+            <span class="dealer-category-title">{{cat.name}}</span>
             </a>
 
     {%endfor%}
