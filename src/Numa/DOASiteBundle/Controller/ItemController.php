@@ -21,40 +21,28 @@ class ItemController extends Controller {
         if ($routeName == 'item_print_details') {
             $print = true;
         }
-        //$memcached = $this->get('mymemcached');
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
-        //$test = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTree();
-        //
+        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
+
         if (empty($item)) {
             throw $this->createNotFoundException('message');
         }
-        //$itemfields = $item->getItemFieldsArray();
+
         //get dealer
         $dealer = $item->getDealer();
 
-        //\Doctrine\Common\Util\Debug::dump($item->getItemFieldsArray());
-        //add 1 more view
+
         $item->setViews($item->getViews() + 1);
         $item->setDontUpdate();
         $em->flush();
         $emailForm = $this->emailDealerForm($request, $item->getDealer());
 
         if ($emailForm instanceof \Symfony\Component\Form\Form) {
-//            $response = new Response();
-//            $response->setETag($item->computeETag());
-//            $response->setLastModified($item->lastUpdated());
-//
-//            // Set response as public. Otherwise it will be private by default.
-//            $response->setPublic();
-//            ;
-//            if ($response->isNotModified($request)) {
-//
-//                return $response;
-//            }
 
-
-            $response = $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array('item' => $item,
+            $response = $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array(
+                'item' => $item,
+                'url'  => $url,
                 'dealer' => $dealer,
                 'print' => $print,
                 'searchQ' => $searchQ,
