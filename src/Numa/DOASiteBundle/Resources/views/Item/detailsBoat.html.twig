@@ -2,7 +2,13 @@
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% block title %}<title>{{ title }}: {{  item.getMake()~" "~item.getModel()~" "~item.getYear()}}</title>{% endblock title %}
+{% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel() %}
+{% if(item.category.id==4) %}
+    {% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel()~" "~item.getFloorPlan() %}
+{% elseif(item.category.id==1)  %}
+    {% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel()~" "~item.getTrim() %}
+{% endif %}
+{% block title %}<title>{{ title }}: {{ desc }}</title>{% endblock title %}
 {% block canonical %}
     <link rel="canonical" href="{{ url }}" />
 {% endblock canonical %}
@@ -13,10 +19,11 @@
     {% endstylesheets %}
 {% endblock %}
 {% set images = item.getImages() %}
-    {% set desc = item.getMake()~" "~item.getModel()~" " %}
+
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
+                    {{ dump(item.category.id) }}
                     <div class="detailsContent">
                         {% for label, flashes in app.session.flashbag.all %}
                             {% for flash in flashes %}
