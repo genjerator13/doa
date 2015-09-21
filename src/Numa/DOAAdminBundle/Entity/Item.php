@@ -3194,9 +3194,17 @@ class Item {
             return $this->{$function}();
         }
     }
-
-    public function getUrl(){
-        $url ="";
+    public function getUrlDescription(){
+        return str_ireplace(" ","-",$this->getTitle());
+    }
+    public function getTitle(){
+        $desc=$this->getMake()." ".$this->getModel();
+        if($this->getCategoryId()==4){
+            $desc = $this->getMake()." ".$this->getModel()." ".$this->getFloorPlan();
+        }elseif($this->getCategoryId()==1){
+            $desc = $this->getMake()." ".$this->getModel()." ".$this->getTrim();
+        }
+        return $desc;
 
     }
 }

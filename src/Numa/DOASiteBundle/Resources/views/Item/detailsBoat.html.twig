@@ -2,13 +2,7 @@
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel() %}
-{% if(item.category.id==4) %}
-    {% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel()~" "~item.getFloorPlan() %}
-{% elseif(item.category.id==1)  %}
-    {% set desc = item.getMake()~" "~item.getModel()~" "~item.getModel()~" "~item.getTrim() %}
-{% endif %}
-{% block title %}<title>{{ title }}: {{ desc }}</title>{% endblock title %}
+{% block title %}<title>{{ title }}: {{item.getTitle()}}</title>{% endblock title %}
 {% block canonical %}
     <link rel="canonical" href="{{ url }}" />
 {% endblock canonical %}
@@ -23,7 +17,6 @@
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
-                    {{ dump(item.category.id) }}
                     <div class="detailsContent">
                         {% for label, flashes in app.session.flashbag.all %}
                             {% for flash in flashes %}
@@ -32,7 +25,7 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getItemFieldByName('year') }} {{ desc }} <span
+                        <h2 class="section">{{ item.getItemFieldByName('year') }} {{item.getTitle()}} <span
                                     classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
 
@@ -187,10 +180,10 @@
                                     </li>
                                     <li>
                                         <a target="_blank"
-                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': desc}) }}"><i
+                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': item.getUrlDescription()}) }}"><i
                                                     class="glyphicon glyphicon-print"></i></a>
                                         <a target="_blank"
-                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': desc}) }}">
+                                           href="{{ path('item_print_details', {'itemId': item.id, 'description': item.getUrlDescription()}) }}">
                                             Print This Ad
                                         </a>
                                     </li>
