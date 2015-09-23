@@ -3203,7 +3203,7 @@ class Item {
             $desc = $this->getMake()." ".$this->getModel()." ".$this->getFloorPlan();
         }elseif($this->getCategoryId()==1){
             $desc = $this->getMake()." ".$this->getModel();
-            if(!empty($this->getTrim())) {.
+            if(!empty($this->getTrim())) {
                 $desc .= " " . $this->getTrim();
             }
         }
