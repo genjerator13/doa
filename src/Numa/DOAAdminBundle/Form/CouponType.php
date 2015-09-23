@@ -20,7 +20,7 @@ class CouponType extends AbstractType
             ->add('name')
             ->add('originalImage', 'file', array('required' => false, 'data_class' => null))
             ->add('discount')
-            ->add('description',null,array('attr'=>array('maxlength'=>150)))
+            ->add('description',null,array('attr'=>array('maxlength'=>500)))
 
         ;
 
