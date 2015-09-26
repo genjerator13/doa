@@ -10,22 +10,13 @@ use Numa\Util\Util as Util;
 class SandboxController extends Controller {
 
     public function indexAction() {
-$memcache = $this->get('memcached');
-        $mymemcached = $this->get('mymemcache');
-//dump($memcache->getAllKeys());
-dump($memcache->get('0d171f6b05f0a877c193c76b55ef3fc7:command:progress:81'));
-$i=1;
-foreach($memcache->getAllKeys() as $key){
-  if($i>4){
-     die();  
-  }
-  $i++;
-  dump($key);
-  dump($memcache->get($key));
-}
-        $keys = $memcache->getVersion();
+        $data = array('key' => '16ab1a10-2daf-0130-dd76-005056be005f', 'password' => 'arkansas22');
 
-        die();
+        $url = "http://www.machinefinder.com/dealer_families/6926/machine_feed.xml";
+        $handle = curl_init($url);
+        curl_setopt($handle, CURLOPT_POST, true);
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+        curl_exec($handle);
     }
 
 }
