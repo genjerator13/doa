@@ -37,3 +37,6 @@ iauto:
 NumaDOAAdminBundle_coupon:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/coupon.yml"
         prefix:   /coupon
+NumaDOASettingsBundle_setting:
+        resource: "@NumaDOASettingsBundle/Resources/config/routing/setting.yml"
+        prefix:   /setting
