@@ -41,6 +41,7 @@ class AppKernel extends Kernel {
             //new JMS\TranslationBundle\JMSTranslationBundle(),
             //new Comur\ImageBundle\ComurImageBundle(),
 
+            new Numa\DOASettingsBundle\NumaDOASettingsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
