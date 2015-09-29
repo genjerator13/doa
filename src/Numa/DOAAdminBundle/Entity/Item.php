@@ -13,7 +13,7 @@ use JMS\Serializer\Annotation as JMS;
 
 
 /**
- * @GRID\Source(columns ="id,sold,Category.name,make,model,User.username, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,sold,Category.name,make,model,stock_nr, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  * @JMS\XmlRoot("listing")
  * @JMS\ExclusionPolicy("ALL")
  */
@@ -1271,6 +1271,7 @@ class Item {
 
     /**
      * @var string
+     * @GRID\Column(type="text", field="stock_nr", title="Stock #", filterable=true, operatorsVisible=false)
      */
     private $stock_nr;
 

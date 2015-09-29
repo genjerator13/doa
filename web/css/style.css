@@ -613,3 +613,7 @@ a.dealer-coupon-link {
 
     margin: 10px 0 0 10px;
 }
+
+.grid-filter-input-query-from{
+    min-width: 100px;
+}
