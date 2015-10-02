@@ -1,0 +1,59 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Setting list</h1>
+    <ul class="nav nav-tabs">
+
+        {% for section in sections %}
+
+            <li role="presentation" class="{% if loop.first %}active{% endif %}"><a data-toggle="tab"
+                                                      href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="tab-content">
+    {% for section in sections %}
+
+            <div id="{{ section.section|replace(" ","-") }}" class="tab-pane {% if loop.first %}active{% endif %}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Section</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for entity in settings[section.section] %}
+                        {% if section.section==entity.section %}
+                            <tr>
+                                <td>{{ entity.name }}</td>
+                                <td>{{ entity.value }}</td>
+                                <td>{{ entity.section }}</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
+                                               class="btn btn-primary">edit</a>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+    {% endfor %}
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('setting_new') }}" class="btn btn-success">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+{% endblock %}

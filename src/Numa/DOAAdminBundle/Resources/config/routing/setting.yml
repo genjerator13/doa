@@ -1,0 +1,30 @@
+setting:
+    path:     /
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:index" }
+
+setting_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:show" }
+
+setting_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:new" }
+
+setting_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:create" }
+    requirements: { _method: post }
+
+setting_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:edit" }
+
+setting_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:update" }
+    requirements: { _method: post|put }
+
+setting_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Setting:delete" }
+    requirements: { _method: post|delete }
