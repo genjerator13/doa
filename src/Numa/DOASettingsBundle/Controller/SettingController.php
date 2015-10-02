@@ -30,7 +30,7 @@ class SettingController extends Controller
         foreach($entities as $setting){
             $settings[$setting->getSection()][]=$setting;
         }
-        dump($settings);
+        
         return $this->render('NumaDOASettingsBundle:Setting:index.html.twig', array(
             'entities' => $entities,
             'sections' => $sections,
