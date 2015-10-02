@@ -290,12 +290,12 @@ class Coupon
     public function getUploadRootDir()
     {
         // absolute path to your directory where images must be saved
-        return __DIR__.'/../../../../../web/'.$this->getUploadDir();
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
     }
 
     public function getUploadDir()
     {
-        return 'uploads/myentity';
+        return 'upload/coupons';
     }
 
     public function getAbsolutePath()
@@ -308,4 +308,72 @@ class Coupon
         return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
     }
 
+    /**
+     * @var string
+     */
+    private $originalImage;
+
+
+    /**
+     * Set originalImage
+     *
+     * @param string $originalImage
+     *
+     * @return Coupon
+     */
+    public function setOriginalImage($originalImage)
+    {
+        $this->originalImage = $originalImage;
+
+        return $this;
+    }
+
+    /**
+     * Get originalImage
+     *
+     * @return string
+     */
+    public function getOriginalImage()
+    {
+        return $this->originalImage;
+    }
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFileImportSource()
+    {
+        return $this->originalImage;
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+
+        if (null === $this->getOriginalImage()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        dump($this->getUploadRootDir());
+        if(!file_exists($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId())){
+
+            mkdir($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(),0775,true);
+        }
+
+        $this->getOriginalImage()->move(
+            $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(), "coupon".$this->getId().".".$this->getOriginalImage()->getClientOriginalExtension()
+        );
+
+        // set the path property to the filename where you've saved the file
+
+        $this->photo = $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId()."/coupon".$this->getId().".".$this->getOriginalImage()->getClientOriginalExtension();
+
+        // clean up the file property as you won't need it anymore
+        $this->originalImage = null;
+    }
 }

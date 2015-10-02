@@ -4,6 +4,11 @@ services:
         tags:
            - { name: twig.extension } 
         arguments:  [@service_container]
+    Numa.Twig.Settings:
+        class: Numa\DOASettingsBundle\Twig\SettingsExtension
+        tags:
+           - { name: twig.extension }
+        arguments:  [@Numa.Settings]
     Numa.Controller.Search:
         class: Numa\DOASiteBundle\Controller\SearchController
     Numa.Controller.Item:
@@ -11,3 +16,9 @@ services:
     Numa.Emailer:
         class: Numa\Lib\Emailer
         arguments: ["@service_container"]
+    Numa.Emailer:
+        class: Numa\Lib\Emailer
+        arguments: ["@service_container"]
+    Numa.Settings:
+        class: Numa\DOASettingsBundle\Util\SettingsLib
+        arguments: ["@doctrine.orm.entity_manager"]

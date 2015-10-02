@@ -860,6 +860,7 @@ class Catalogrecords implements UserInterface
     public function __construct()
     {
         $this->DealerCategories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Coupon = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
