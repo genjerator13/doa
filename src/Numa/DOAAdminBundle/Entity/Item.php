@@ -657,8 +657,22 @@ class Item {
      */
     public function getItemField() {
         $this->getItemFieldsArray();
+
         return $this->ItemField;
     }
+
+    public function sortItemFieldsBy($order='fieldName',$by=Criteria::ASC){
+        if(!empty($order)){
+            $sort = Criteria::create();
+            $sort->orderBy(Array(
+                $order => $by
+            ));
+            $ordered = $this->getItemField()->matching($sort);
+            $this->ItemField = $ordered;
+        }
+    }
+
+
 
     /**
      * Get ItemFields

@@ -129,12 +129,11 @@
                                 <h3>Vehicle Features</h3>
                             </div>
                             <ul>
+
                                 {% for field in form.Itemfield %}
-                                    
+
                                     <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
-
                                         <span>
-
                                             {% if field.field_string_value is defined %}
                                                 {{ form_widget(field.field_string_value) }}
                                             {% endif %}

@@ -412,9 +412,13 @@ class ItemController extends Controller {
                         $entity->addItemField($itemField);
                     }
                 }
-            }
-        }
 
+            }
+
+        }
+        $entity->sortItemFieldsBy();
+        //dump($entity->getItemField());
+        //die();
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
