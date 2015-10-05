@@ -58,9 +58,11 @@ class ListingfieldRepository extends EntityRepository
                 ->setParameter(':categories', $categories);
         ;
         }
+        $qb->addOrderBy("lf.caption");
         $query = $qb->getQuery();
-        
+        //
         $res = $query->getResult(); //getOneOrNullResult();
+
         return $res;
     }
 
