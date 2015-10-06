@@ -152,7 +152,7 @@ class SettingController extends Controller
     {
         $form = $this->createForm(new SettingType(), $entity, array(
             'action' => $this->generateUrl('setting_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
