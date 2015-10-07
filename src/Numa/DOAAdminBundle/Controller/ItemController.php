@@ -279,9 +279,9 @@ class ItemController extends Controller {
             }
             $em->flush();
         }
-        
         $entity->setCategory($category);
-
+        $entity->sortItemFieldsBy();
+        
         $securityContext = $this->container->get('security.context');
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser(), $category), $entity, array(
             'method' => 'POST',
