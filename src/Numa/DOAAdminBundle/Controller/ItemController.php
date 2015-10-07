@@ -279,6 +279,7 @@ class ItemController extends Controller {
             }
             $em->flush();
         }
+        
         $entity->setCategory($category);
 
         $securityContext = $this->container->get('security.context');
