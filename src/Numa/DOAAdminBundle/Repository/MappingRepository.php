@@ -35,5 +35,20 @@ class MappingRepository extends EntityRepository {
         //\Doctrine\Common\Util\Debug::dump($itemsQuery->getSQL());die();
         return $itemsQuery->getOneOrNullResult();
     }
+
+    public function resetMappings($feedId){
+        $feedId = intval($feedId);
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->delete('m')
+            ->add('from', 'NumaDOAAdminBundle:Importmapping m')
+
+            ->where('m.feed_sid=:feed_id')
+            ->setParameter('feed_id', $feedId)
+        ;
+
+        $itemsQuery = $qb->getQuery();
+        $itemsQuery->execute();
+    }
 }
 

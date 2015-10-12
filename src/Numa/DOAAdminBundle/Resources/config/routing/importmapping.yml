@@ -28,6 +28,9 @@ import_mapping_delete:
     pattern:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Importmapping:delete" }
     requirements: { _method: post|delete }
+import_mapping_reset:
+    pattern:  /{id}/reset
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:reset" }
     
 import_mapping_feed:
     pattern:  /{id}/feed
