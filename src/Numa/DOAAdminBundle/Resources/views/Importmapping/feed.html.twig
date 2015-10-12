@@ -7,7 +7,7 @@
     {{ form_errors(form) }}
     {{ form_row (form._token) }}
     {{form(form)}}#}
-
+    <a class="btn btn-danger" href="{{ path('import_mapping_reset', { 'id': feed.id }) }}" data-confirm="Mapping fields will be reset. Are you sure you want to continue?">Reset Mapping</a>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_row (form._token) }}
@@ -85,6 +85,7 @@
                 </div>
             </div>
         </div>
+        {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
         <script>
             // Get the ul that holds the collection of tags
             var collectionHolder = $('table.table');

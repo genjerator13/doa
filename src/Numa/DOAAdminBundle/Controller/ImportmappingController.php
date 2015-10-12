@@ -359,4 +359,12 @@ class ImportmappingController extends Controller {
         return $this->render('NumaDOAAdminBundle:Importmapping:addMappingValue.html.twig', array('list' => $listingFieldList, 'mapvalues' => $mapvaluesJson, 'first' => $first));
     }
 
+    public function resetAction(Request $request = null,$id){
+
+        $feedId = intval($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->getRepository('NumaDOAAdminBundle:Importmapping')->resetMappings($feedId);
+        return $this->redirectToRoute("import_mapping_feed",array("id"=>$id));
+    }
+
 }
