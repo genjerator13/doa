@@ -354,7 +354,7 @@ $memcache = $this->getContainer()->get('mymemcache');
                     $em->flush();
                     $memcache = $this->getContainer()->get('mymemcache');
                     $memcache->delete('hometabs');
-                    dump($memcache->get('hometabs'));
+                    //dump($memcache->get('hometabs'));
                 }
             }
         }
