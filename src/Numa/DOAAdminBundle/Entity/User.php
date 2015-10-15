@@ -916,14 +916,16 @@ class User implements UserInterface {
     }
 
     public function getRoles() {
-        $groupName = strtolower($this->getUserGroup()->getName());
+        if(!empty($this->getUserGroup()->getName())) {
+            $groupName = strtolower($this->getUserGroup()->getName());
 
-        if($groupName=='admin') {
-            return array('ROLE_ADMIN');
-        }elseif($groupName=='regular_user'){
-            return array('ROLE_USER');
-        }elseif($groupName=='dealer_admin'){
-            return array('ROLE_DEALER_ADMIN');
+            if ($groupName == 'admin') {
+                return array('ROLE_ADMIN');
+            } elseif ($groupName == 'regular_user') {
+                return array('ROLE_USER');
+            } elseif ($groupName == 'dealer_admin') {
+                return array('ROLE_DEALER_ADMIN');
+            }
         }
         return array('ROLE_USER');
     }
