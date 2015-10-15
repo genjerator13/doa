@@ -2,41 +2,50 @@
 
 {% block content %}
     <h1>Compare listings</h1>
-    {%if(items|length>0) %}
+    {% if(items|length>0) %}
+
         <table class="table">
-            {%for field in fields %}
+
+            <tr>
+                <th>Property</th>
+                {{ dump(items) }}
+                {% for item in items %}
+                    <th>{{ item['item'].getTitle() }}</th>
+                {% endfor %}
+
+            </tr>
+            {% for field in fields %}
+
                 <tr>
-                    <td>{{field.name}}:</td>
+                    <td>{{ field['name'] }}</td>
                     {% for item in items %}
+                        {% if item['list'][field['id']] is defined %}
+                            {{ dump(item['list'][field['id']] ) }}
+                            {% if item['list'][field['id']]['type']=="image" %}
+                                <td><img src="{{ item['list'][field['id']]['value'].fieldStringValue }}" width="300px"></td>
+                                {% else %}
+                            <td>{{ item['list'][field['id']]['value'] }}</td>
+                                {% endif %}
+                        {% else %}
+                            <td>&nbsp;</td>
+                        {% endif %}
+                        {#&#123;&#35; image fix&#35;&#125;#}
+                        {#{% if (field['type']=='array') %}#}
+                            {#{{ dump(item.getImage2().fieldStringValue()) }}#}
+                            {#<td>#}
+                                {#{% if item.getImage2().fieldStringValue() is defined %}#}
+                                    {#<img src="{{ item.getImage2().fieldStringValue() }}">#}
+                                {#{% endif %}#}
+                            {#</td>#}
+                        {#{% else %}#}
+                            {#&#123;&#35;<td>{{ item.get(field['name']) }}</td>&#35;&#125;#}
+                        {#{% endif %}#}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
 
-                        {% set value = item.getItemFieldByName(field.name) %}
-                            {% if (field.type is defined and field.type=='image') %}
-                                {% if value['image'] is defined and value['image'] %}
-                                    <td><img alt=image" src="{{value['image']['stringvalue']}}"</td>    
-                                    {% endif %}
-                                {% elseif (field.type is defined and field.type=='date') %}
-                                <td>{{ value|date("m/d/Y") }}</td>
-                            {% elseif (field.name=='id') %}
-                                <td>
-                                    <a href="{{path('item_details', {'itemId': item.id, 'description': item.getMake()~" "~item.getModel()}) }}">
-                                        View details
-                                    </a>
-                                </td>
-                            {% else %}
-                                <td>{{value}}</td>       
-                            {% endif %}
-                            {% endfor %}
-                            </tr>
-
-                            {% endfor %}
-                                <tr>
-                                    <td><a href="{{path('item_compare',{'act':'removeall'})}}">Remove all listing</a></td>
-                                    {% for item in items %}
-                                        <td><a href="{{path('item_compare',{'act':'remove','itemid':item.id})}}">Remove this listing</a></td>
-                                    {% endfor%}
-                                </tr>
-                            </table>
-                            {%else%}
-                                <p>There are no listings to compare</p>
-                            {%endif%}
-                                {% endblock %}
+        </table>
+    {% else %}
+        <p>There are no listings to compare</p>
+    {% endif %}
+{% endblock %}

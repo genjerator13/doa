@@ -31,13 +31,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
     
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        $user = $this->tokenStorage->getToken()->getUser();
-        dump($this->checker->isGranted('ROLE_DEALER_ADMIN'));
-        dump($this->checker->isGranted('ROLE_SUPER_ADMIN'));
-        dump($this->checker->isGranted('ROLE_ADMIN'));
-        dump($this->checker->isGranted('ROLE_BUSINES'));
-        dump($this->checker->isGranted('ROLE_USER'));
-        //dump($this->tokenStorage->getToken());die();
+        //$user = $this->tokenStorage->getToken()->getUser();
         if ($this->checker->isGranted('ROLE_SUPER_ADMIN'))
         {
             $response = new RedirectResponse($this->router->generate('numa_doa_admin_homepage'));            

@@ -3204,7 +3204,8 @@ class Item {
     }
 
     public function get($property){
-        $function = 'get'.str_ireplace(' ','',ucfirst($property));
+        $function = 'get'.str_ireplace(array(" ","_"),'',ucfirst($property));
+
         if(method_exists ($this, $function)){
             return $this->{$function}();
         }
@@ -3224,5 +3225,9 @@ class Item {
         }
         return $desc;
 
+    }
+
+    public function getImageList(){
+        return $this->getImages2();
     }
 }
