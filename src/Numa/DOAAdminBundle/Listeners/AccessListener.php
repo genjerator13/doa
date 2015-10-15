@@ -32,6 +32,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         //$user = $this->tokenStorage->getToken()->getUser();
+        $response = new RedirectResponse($this->router->generate('homepage'));
         if ($this->checker->isGranted('ROLE_SUPER_ADMIN'))
         {
             $response = new RedirectResponse($this->router->generate('numa_doa_admin_homepage'));            
@@ -53,7 +54,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
             // redirect the user to where they were before the login process begun.
             $response = new RedirectResponse($this->router->generate('homepage'));
         }
-        $response = new RedirectResponse($this->router->generate('homepage'));
+
         return $response;
     }
     
