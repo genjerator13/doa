@@ -12,7 +12,7 @@ services:
  
     login_success_handler:
         class: Numa\DOAAdminBundle\Listeners\AccessListener
-        arguments:  [@router, @security.context]
+        arguments:  [@router, @security.token_storage, @security.authorization_checker]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
     import_mapping:

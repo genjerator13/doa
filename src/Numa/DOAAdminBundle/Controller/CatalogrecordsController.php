@@ -20,7 +20,7 @@ class CatalogrecordsController extends Controller {
      *
      */
     public function indexAction(Request $request) {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
+        $this->denyAccessUnlessGranted(array('ROLE_ADMIN','ROLE_DEALER_ADMIN'), null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
 
