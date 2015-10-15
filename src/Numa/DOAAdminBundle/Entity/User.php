@@ -916,7 +916,7 @@ class User implements UserInterface {
     }
 
     public function getRoles() {
-        if(!empty($this->getUserGroup()->getName())) {
+        if(!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
             if ($groupName == 'admin') {
