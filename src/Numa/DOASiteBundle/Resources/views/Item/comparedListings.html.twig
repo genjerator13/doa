@@ -8,7 +8,7 @@
 
             <tr>
                 <th>Property</th>
-                {{ dump(items) }}
+
                 {% for item in items %}
                     <th>{{ item['item'].getTitle() }}</th>
                 {% endfor %}
@@ -20,7 +20,7 @@
                     <td>{{ field['name'] }}</td>
                     {% for item in items %}
                         {% if item['list'][field['id']] is defined %}
-                            {{ dump(item['list'][field['id']] ) }}
+
                             {% if item['list'][field['id']]['type']=="image" %}
                                 <td><img src="{{ item['list'][field['id']]['value'].fieldStringValue }}" width="300px"></td>
                                 {% else %}
@@ -29,17 +29,6 @@
                         {% else %}
                             <td>&nbsp;</td>
                         {% endif %}
-                        {#&#123;&#35; image fix&#35;&#125;#}
-                        {#{% if (field['type']=='array') %}#}
-                            {#{{ dump(item.getImage2().fieldStringValue()) }}#}
-                            {#<td>#}
-                                {#{% if item.getImage2().fieldStringValue() is defined %}#}
-                                    {#<img src="{{ item.getImage2().fieldStringValue() }}">#}
-                                {#{% endif %}#}
-                            {#</td>#}
-                        {#{% else %}#}
-                            {#&#123;&#35;<td>{{ item.get(field['name']) }}</td>&#35;&#125;#}
-                        {#{% endif %}#}
                     {% endfor %}
                 </tr>
             {% endfor %}

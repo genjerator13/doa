@@ -146,24 +146,9 @@ class ItemController extends Controller {
 
         $listingFields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllOrderedBy('order');
 
-        $fields = array(
-            array('name' => 'id'),
-            array('name' => 'image', 'type' => 'image'),
-            array('name' => 'activation_date', 'type' => 'date', 'format' => 'yyyy mm dd'),
-            array('name' => 'year'),
-            array('name' => 'fuel_type'),
-            array('name' => 'status'),
-            array('name' => 'address'),
-            array('name' => 'province'),
-            array('name' => 'is_sold'),
-            array('name' => 'vin'),
-            array('name' => 'city'),
-            array('name' => 'postal code'),
-            array('name' => 'price', 'type' => 'price'),
-            array('name' => 'boat make'), //
-        );
+       
         $comparedItemsArray = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('id' => $comparedItems));
-        //dump($comparedItemsArray);die();
+
         $temp = array();
         $includedFields = array();
         $tempIncludedFields = array();
@@ -204,10 +189,7 @@ class ItemController extends Controller {
 
 
         }
-        dump($temp);
-        dump($tempIncludedFields);
-        //die();
-        //dump($tempIncludedFields);die();
+
         return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $tempIncludedFields, 'items' => $temp));
     }
 
