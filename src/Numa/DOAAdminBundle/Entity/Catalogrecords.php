@@ -435,6 +435,10 @@ class Catalogrecords implements UserInterface
     public function getRoles()
     {
 
+        if ($this->getAdmindealer()) {
+            return array('ROLE_DEALER_ADMIN', 'ROLE_BUSINES');
+        }
+
         return array('ROLE_BUSINES');
     }
 
@@ -986,6 +990,7 @@ class Catalogrecords implements UserInterface
         }
         return implode(',', $res);
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -1024,5 +1029,35 @@ class Catalogrecords implements UserInterface
     public function getCoupon()
     {
         return $this->Coupon;
+    }
+
+    /**
+     * @var bool
+     */
+    private $Admindealer;
+
+
+    /**
+     * Set admindealer
+     *
+     * @param bool $admindealer
+     *
+     * @return Catalogrecords
+     */
+    public function setAdmindealer($admindealer)
+    {
+        $this->Admindealer = $admindealer;
+
+        return $this;
+    }
+
+    /**
+     * Get admindealer
+     *
+     * @return bool
+     */
+    public function getAdmindealer()
+    {
+        return $this->Admindealer;
     }
 }

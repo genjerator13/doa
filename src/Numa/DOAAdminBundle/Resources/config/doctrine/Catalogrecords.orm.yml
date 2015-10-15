@@ -95,7 +95,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             nullable: true            
         AdminHours:
             type: text
-            nullable: true    
+            nullable: true
+        Admindealer:
+            type: boolean
+            nullable: true
 
     manyToOne:
         Catalogcategory:
