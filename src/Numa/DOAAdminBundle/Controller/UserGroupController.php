@@ -143,7 +143,7 @@ class UserGroupController extends Controller
     {
         $form = $this->createForm(new UserGroupType(), $entity, array(
             'action' => $this->generateUrl('user_group_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
