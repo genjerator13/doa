@@ -3,8 +3,9 @@ security:
     role_hierarchy:
         ROLE_USER:       ROLE_USER
         ROLE_BUSINES:    ROLE_BUSINES
+        ROLE_DEALER_ADMIN:    ROLE_DEALER_ADMIN
         ROLE_ADMIN:      ROLE_ADMIN
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES,ROLE_DEALER_ADMIN]
 
     firewalls:
         dev:
@@ -24,17 +25,23 @@ security:
  
     access_control:
 
-        - { path: ^/admin/items/additem/, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/itemsfield/[0-9]+/delete/, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/items/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES] }
-        - { path: ^/admin/items, roles: ROLE_ADMIN }
-        - { path: ^/admin/items/, roles: ROLE_ADMIN }
+        - { path: ^/admin/items/additem/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/itemsfield/[0-9]+/delete/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/feed_api, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/categories, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/user_group, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/command_log, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
+        - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
 
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/admin/, roles: ROLE_ADMIN }
 
 
     providers:
