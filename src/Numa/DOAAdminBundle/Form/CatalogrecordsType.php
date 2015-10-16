@@ -47,7 +47,7 @@ class CatalogrecordsType extends AbstractType {
             $builder->remove('logo_url');
         }
         if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_ADMIN')){
-            $builder->add('Admindealer');
+            $builder->add('Admindealer','checkbox');
         }
     }
 
