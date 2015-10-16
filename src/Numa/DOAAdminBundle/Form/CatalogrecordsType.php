@@ -46,7 +46,7 @@ class CatalogrecordsType extends AbstractType {
         if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_BUSINES')){
             $builder->remove('logo_url');
         }
-        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_ADMIN') || $this->securityContext->isGranted('ROLE_DEALER_ADMIN')){
+        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_ADMIN')){
             $builder->add('Admindealer');
         }
     }
