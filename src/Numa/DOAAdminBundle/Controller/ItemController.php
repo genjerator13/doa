@@ -29,7 +29,7 @@ class ItemController extends Controller {
      *
      */
     public function indexAction() {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
+        //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
         $source = new Entity('NumaDOAAdminBundle:Item');
@@ -503,8 +503,8 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
         $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN')) {
-            if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId()) {
+        if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN') ) {
+            if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId() && !$securityContext->isGranted('ROLE_DEALER_ADMIN') ) {
                 throw $this->createAccessDeniedException('You cannot delete this listing!');
             }
         }
@@ -541,8 +541,9 @@ class ItemController extends Controller {
         $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
-            if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
-                    $entity->getDealer()->getId() != $this->getUser()->getId()) {
+            if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+                    $entity->getDealer()->getId() != $this->getUser()->getId())) {
+
                 throw $this->createAccessDeniedException('You cannot access this page!');
             } else {
 
@@ -577,7 +578,7 @@ class ItemController extends Controller {
         $return = $this->redirect($this->generateUrl('items', array('id' => $id)));
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
-            if ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
+            if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && $entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
                     $entity->getDealer()->getId() != $this->getUser()->getId()) {
                 throw $this->createAccessDeniedException('You cannot access this page!');
             } else {
