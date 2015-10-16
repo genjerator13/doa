@@ -740,7 +740,7 @@ class Item {
         $criteria = Criteria::create()
                 ->andWhere(Criteria::expr()->contains("fieldType", "boolean"))
                 ->andWhere(Criteria::expr()->contains("fieldBooleanValue", "1"))
-
+                ->orderBy(array("fieldName"=>"ASC"))
         ;
 
         return $if->matching($criteria);

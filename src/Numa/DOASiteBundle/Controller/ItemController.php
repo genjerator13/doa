@@ -152,6 +152,9 @@ class ItemController extends Controller {
         $temp = array();
         $includedFields = array();
         $tempIncludedFields = array();
+        $options = array();
+        $optionsNames = array();
+
         foreach($comparedItemsArray as $item){
 
             foreach($listingFields as $field){
@@ -169,12 +172,26 @@ class ItemController extends Controller {
                         $t['value'] = $values->first();
                     }
                 }
+                $itemOptions = $item->getOptions();
+
+                if(!empty($itemOptions)) {
+
+                    foreach ($itemOptions as $option) {
+                        $optName = strtolower(str_replace(array(" ",")","("),"_",$option->getFieldName()));
+                        $tmpOption['name']=$option->getFieldName();
+                        $tmpOption['value']=true;
+                        $optionsNames[$optName]=$option->getFieldName();
+                        $options[$item->getId()][$optName] = $tmpOption;
+                    }
+                }
 
                 if(stripos(strtolower($field->getCaption()),'dealer')!==false){
                     $t['type'] = 'dealer';
                     $t['value'] = $item->getDealer()->getName();
                 }
+
                 if(!empty($t['value'])) {
+
                     $temp[$item->getId()]['list'][$field->getId()] = $t;
                     $temp[$item->getId()]['item'] = $item;
                 }
@@ -189,8 +206,13 @@ class ItemController extends Controller {
 
 
         }
-
-        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $tempIncludedFields, 'items' => $temp));
+//        dump($optionsNames);
+        //dump($options);die();
+        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $tempIncludedFields,
+                                                                                        'items' => $temp,
+                                                                                        'optionsNames'=> $optionsNames,
+                                                                                        'options'=> $options,
+                                                                                        ));
     }
 
     public function qrcodeAction(Request $request) {
