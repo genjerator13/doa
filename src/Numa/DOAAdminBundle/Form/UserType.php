@@ -27,7 +27,7 @@ class UserType extends AbstractType
             ->add('DealershipName')
             ->add('Address')
             ->add('City')
-            ->add('PostalCode',text,array('label' => "Zip / Postal", "required" => false))                
+            ->add('PostalCode','text',array('label' => "Zip / Postal", "required" => false))
             ->add('PhoneNumber')
             ->add('DealershipWebsite')
             ->add('DisplayEmail')

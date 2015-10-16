@@ -342,7 +342,7 @@
                                     <span class="fieldCaption fieldCaptionId">Listing #</span>
                                     <span class="fieldValue fieldValueId">{{ item.id }}</span>
                                 </p>
-                                {% if app.user and app.user.getId()==dealer.id %}
+                                {% if (app.user and app.user.getId()==dealer.id) or is_granted('ROLE_DEALER_ADMIN') %}
                                 <p>Views ({{ item.views }})
                                 <p>
                                     <a class="btn btn-primary" href="{{ path('items_edit',{'id':item.id}) }}">Edit this

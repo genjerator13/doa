@@ -434,7 +434,13 @@ class Catalogrecords implements UserInterface
 
     public function getRoles()
     {
+        if(!empty($this->getUserGroup())) {
+            $groupName = strtolower($this->getUserGroup()->getName());
 
+            if ($groupName == 'dealer_admin') {
+                return array('ROLE_DEALER_ADMIN', 'ROLE_BUSINES');
+            }
+        }
         return array('ROLE_BUSINES');
     }
 
