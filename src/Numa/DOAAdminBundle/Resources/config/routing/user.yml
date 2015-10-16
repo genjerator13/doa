@@ -22,7 +22,6 @@ user_edit:
 user_update:
     pattern:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:User:update" }
-    requirements: { _method: post|put }
 
 user_delete:
     pattern:  /{id}/delete

@@ -143,25 +143,54 @@ class ItemController extends Controller {
         $session = $this->getRequest()->getSession();
         $comparedItems = $session->get('comparedItem');
         $em = $this->getDoctrine()->getManager();
-        $fields = array(
-            array('name' => 'id'),
-            array('name' => 'image', 'type' => 'image'),
-            array('name' => 'activation_date', 'type' => 'date', 'format' => 'yyyy mm dd'),
-            array('name' => 'year'),
-            array('name' => 'fuel_type'),
-            array('name' => 'status'),
-            array('name' => 'address'),
-            array('name' => 'province'),
-            array('name' => 'is_sold'),
-            array('name' => 'vin'),
-            array('name' => 'city'),
-            array('name' => 'postal code'),
-            array('name' => 'price', 'type' => 'price'),
-            array('name' => 'boat make'), //
-        );
+
+        $listingFields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllOrderedBy('order');
+
+       
         $comparedItemsArray = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('id' => $comparedItems));
 
-        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $fields, 'items' => $comparedItemsArray));
+        $temp = array();
+        $includedFields = array();
+        $tempIncludedFields = array();
+        foreach($comparedItemsArray as $item){
+
+            foreach($listingFields as $field){
+                $t=array();
+                $t['name'] = $field->getCaption();
+                $t['type'] = $field->getType();
+                $t['value'] = $item->get($field->getCaption());
+
+                if($field->getType()=='date'){
+                    $t['format']='yyyy mm dd';
+                }elseif($field->getType()=='array'){
+                    $values = $item->get($field->getCaption());
+                    if(!empty($values->first())) {
+                        $t['type']  = 'image';
+                        $t['value'] = $values->first();
+                    }
+                }
+
+                if(stripos(strtolower($field->getCaption()),'dealer')!==false){
+                    $t['type'] = 'dealer';
+                    $t['value'] = $item->getDealer()->getName();
+                }
+                if(!empty($t['value'])) {
+                    $temp[$item->getId()]['list'][$field->getId()] = $t;
+                    $temp[$item->getId()]['item'] = $item;
+                }
+                $includedFields[$field->getId()]=false;
+                $includedFields[$field->getId()]=$includedFields[$field->getId()] || !empty($t['value']);
+                if($includedFields[$field->getId()]==true){
+
+                    $tempIncludedFields[$field->getId()]['id']=$field->getId();
+                    $tempIncludedFields[$field->getId()]['name']=$field->getCaption();
+                }
+            }
+
+
+        }
+
+        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $tempIncludedFields, 'items' => $temp));
     }
 
     public function qrcodeAction(Request $request) {

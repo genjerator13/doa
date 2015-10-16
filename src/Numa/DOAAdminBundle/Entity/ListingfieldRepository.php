@@ -75,6 +75,24 @@ class ListingfieldRepository extends EntityRepository
             ->getResult();
     }
 
+    public function findAllOrderedBy($name)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('lf')
+            ->from('NumaDOAAdminBundle:Listingfield', 'lf')
+            ->groupBy("lf.caption")
+            ->orderBy("lf.order");
+
+
+        $query = $qb->getQuery();
+
+        $res = $query->getResult(); //getOneOrNullResult();
+
+        return $res;
+    }
+
 
     public function findByCategory($catId) {
 
