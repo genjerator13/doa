@@ -12,6 +12,8 @@
  * @author genjerator
  */
 namespace Numa\Lib;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Emailer extends ContainerAware
@@ -94,6 +96,41 @@ class Emailer extends ContainerAware
     public function stripUserComment($userComment){
         $res = filter_var($userComment, FILTER_SANITIZE_STRING);
         return $res;
+    }
+
+    public function sendLostPassEmail($dealeruser,$emailto){
+        if($dealeruser instanceof Catalogrecords){
+            $name=$dealeruser->getName();
+        }elseif ($dealeruser instanceof User) {
+
+        }
+
+
+
+        $twig = $this->container->get('twig');
+        $settings = $this->container->get('numa.settings');//
+        $globals = $twig->getGlobals();
+
+        $subject = $settings->get('lost_password_subject',array('sitename'=>'test'));
+        $emailBody = $settings->get('Lost password Body');
+        $mailer = $this->container->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom('general@dealersonair.com')
+            ->addCc('jim@dealersonair.com')
+            ->addCc('e.medjesi@gmail.com')
+            ->setTo($emailto)
+            ->setBody($emailBody);
+        dump($subject);
+        die;
+        if(empty($errors)) {
+            $ok = $mailer->send($message);
+
+            //dump($emailFrom);
+            //dump($message);die();
+            //sleep(2);
+        }
+
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Form\UserRegistrationType;
 use Numa\DOAAdminBundle\Entity\User;
@@ -218,6 +219,61 @@ class UserController extends Controller {
         }
         $response = $this->render('NumaDOASiteBundle:User:dealerlogin.html.twig', array('form'=>$form->createView() ));
         return $response;
+    }
+
+    public function lostpassAction(Request $request){
+        $form = $this->createFormBuilder()
+            ->add('email', 'text')
+            ->add('submit', 'submit',array('attr'=>array('class'=>'btn btn-success')))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $data=$form->getData();
+            $email = $data['email'];
+            $em = $this->getDoctrine()->getEntityManager();
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneByUsernameOrEmail($email);
+            $dealeruser=null;
+            if($dealer instanceof Catalogrecords){
+                //generate new password
+                //send it to dealer email
+                dump($dealer);
+                $dealeruser=$dealer;
+            }else {
+                $user = $em->getRepository('NumaDOAAdminBundle:User')->findOneByUsernameOrEmail($email);
+                if ($user instanceof User) {
+                    //generate new password
+                    //send it to user email
+                    dump($user);
+                }
+                $dealeruser=$user;
+            }
+            $generatePass = $this->generatePass(6);
+
+
+            $this->get('numa.emailer')->sendLostPassEmail($dealeruser,$generatePass);
+
+            die();
+        }
+
+
+        $response = $this->render('NumaDOASiteBundle:User:lostpass.html.twig',array('form'=>$form->createView()));
+        return $response;
+    }
+
+    private function generatePass($length){
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $count = mb_strlen($chars);
+
+        for ($i = 0, $result = ''; $i < $length; $i++) {
+            $index = rand(0, $count - 1);
+            $result .= mb_substr($chars, $index, 1);
+        }
+
+        return $result;
+    }
+
+    private function sendLostPassEmail(){
+
     }
 
 }

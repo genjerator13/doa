@@ -53,7 +53,7 @@ class ImportmappingType extends AbstractType
             ->add('value_map_values','hidden', array('required' => false, 'label'=>' ', 'attr' =>array('class'=>'mapvalue')));
         ;//->add('feed_sid','hidden');
         ;
-        //$builder->addEventSubscriber(new AddFeedSourceSubscriber($this->feed_cid, $this->properties));
+
 
     }
 

@@ -50,6 +50,9 @@ buyer_login:
 login_dealer:
     path:     /user/logindealer/{username}
     defaults: { _controller: NumaDOASiteBundle:User:logindDealer }
+lostpassword:
+    path:     /user/lostpassw
+    defaults: { _controller: NumaDOASiteBundle:User:lostpass }
 buyer_saved_ads:
     path:     /user/savedads
     defaults: { _controller: NumaDOASiteBundle:User:showSaveAds }    
@@ -103,3 +106,7 @@ compared_listings:
 dealer_coupons:
     path:  /dealer/{dealername}/coupons
     defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }
+
+sandbox_test:
+    path:  /sandbox/test
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:test }

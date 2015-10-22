@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Numa\DOAAdminBundle\Events\AddFeedSourceSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -105,6 +106,9 @@ class ImportfeedType extends AbstractType {
                 ))
         ;
 
+       // $data = $this->get
+
+        //$builder->add('unique_field','choice',array('data'=>))
         //$builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
 //            $form = $event->getForm();
 //            $importFeed = $event->getData();
@@ -114,6 +118,7 @@ class ImportfeedType extends AbstractType {
 //            \Doctrine\Common\Util\Debug::dump($importFeed->getImportMethod());
         //die("aaaa");
         //});
+        $builder->addEventSubscriber(new AddFeedSourceSubscriber());
     }
 
     /**
@@ -142,6 +147,10 @@ class ImportfeedType extends AbstractType {
 
     function getImportMethod() {
         return array('0' => 'Select fimport method', 'local-file' => 'Local File', 'upload-file' => 'Upload File', 'Link-URL' => 'Link (URL)');
+    }
+
+    function getUniqueFields(){
+
     }
 
 }

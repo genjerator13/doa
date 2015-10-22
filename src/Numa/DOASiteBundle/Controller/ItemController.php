@@ -23,12 +23,12 @@ class ItemController extends Controller {
         }
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
-        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
+
 
         if (empty($item)) {
             throw $this->createNotFoundException('message');
         }
-
+        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
         //get dealer
         $dealer = $item->getDealer();
 
