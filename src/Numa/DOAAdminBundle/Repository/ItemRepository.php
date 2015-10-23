@@ -302,14 +302,14 @@ class ItemRepository extends EntityRepository {
 
         if (empty($item)) {
             if ($feed->getPhotoFeed()) {
-
                 return null;
             }
             $persist = true;
             $item = new Item();
-        }
-        if (!empty($feed_id)) {
 
+        }
+
+        if (!empty($feed_id)) {
             $item->setImportfeed($feed);
         }
         $item->setSold(0);

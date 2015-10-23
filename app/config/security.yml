@@ -49,7 +49,7 @@ security:
             chain:
                 providers: [main, busines]
         main:
-            entity: { class: Numa\DOAAdminBundle\Entity\User, property: email }
+            entity: { class: Numa\DOAAdminBundle\Entity\User }
         busines:
             entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
  

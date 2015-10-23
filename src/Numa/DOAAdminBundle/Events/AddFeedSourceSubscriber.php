@@ -7,7 +7,7 @@ namespace Numa\DOAAdminBundle\Events;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Numa\DOAAdminBundle\Lib\XMLfeed;
+use Numa\DOAAdminBundle\Lib\RemoteFeed;
 
 class AddFeedSourceSubscriber implements EventSubscriberInterface {
 
@@ -17,7 +17,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
         return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
-    function __construct($feed_sid,$properties)
+    function __construct($feed_sid=null,$properties=null)
     {
 
         $this->feed_sid = $feed_sid;
@@ -28,15 +28,18 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        //die("aaa");
-        if (!$data || !$data->getId() || !$data->getProperty()) {
+        dump($data);
+        if ($data && $data->getId()) {
 
-            //$feed = new XMLfeed($this->feed_sid)
-            //$props = $feed->getXMLproperties();
-            //$form->add('sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>true));
+            $feed = new RemoteFeed($data->getId());
+            $props = $feed->getRemoteProperties();
+            $uf = $form->get('unique_field');
+            //dump($uf);die();
+            $form->add('unique_field', 'choice', array('choices'=>$props,'empty_value' => 'Choose an option','required'=>true,'attr'=>array('class'=>'form-control')));
             //$entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')
             //$form->add('field_sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>false));
         }
+
     }
 
 }
