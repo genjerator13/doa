@@ -14,10 +14,10 @@
         {% endif %}
 
             {% if is_granted('ROLE_DEALER_ADMIN') %}
-                <a class="list-group-item" href="{{path('items')}}">Manage Dealers <span class="savedSearch"></span></a>
+                <a class="list-group-item"  href="{{path('catalogs')}}">Manage Dealers <span class="savedSearch"></span></a>
             {% endif %}
             {% if is_granted('ROLE_DEALER_ADMIN') %}
-                <a class="list-group-item" href="{{path('catalogs')}}">Manage All listings <span class="savedSearch"></span></a>
+                <a class="list-group-item" href="{{path('items')}}">Manage All Listings <span class="savedSearch"></span></a>
             {% endif %}
         <a class="list-group-item" href="{{path('logout')}}">Logout </a>
         
