@@ -177,7 +177,7 @@ $memcache = $this->getContainer()->get('mymemcache');
                 //$num_rows_effected = $conn->exec($sql);
                 $memcache->set("command:progress:".$this->commandLog->getId(),$count );
             }
-            
+
             $this->em->flush();
             $this->em->getConnection()->commit();
             $this->em->clear();

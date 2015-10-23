@@ -28,9 +28,9 @@ class UserRegistrationType extends AbstractType {
                  * 
                  */
                 ->add('email','email',array('label'=>'Email'))
-                ->add('FirstName','text',array('label'=>'First name'))
-                ->add('LastName','text',array('label'=>'Last name'))
-                ->add('PhoneNumber','text',array('label'=>'Phone number'))
+                ->add('FirstName','text',array('label'=>'First name','required'=>false))
+                ->add('LastName','text',array('label'=>'Last name','required'=>false))
+                ->add('PhoneNumber','text',array('label'=>'Phone number','required'=>false))
                 ->add('DisplayEmail','checkbox',array('label'=>'Display email','required'=>false))
                 ->add('Submit', 'button')
         ;

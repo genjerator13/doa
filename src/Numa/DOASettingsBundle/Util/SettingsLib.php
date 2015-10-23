@@ -30,7 +30,7 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function get($name)
+    public function get($name,$map=array())
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => $name,
@@ -38,7 +38,12 @@ class SettingsLib
         if ($setting === null) {
             return "";
         }
-        return $setting->getValue();
+
+        $value = $setting->getValue();
+        if(!empty($map)) {
+            $value = $this->replaceRealValues($value,$map);
+        }
+        return $value;
     }
 
     /**
@@ -140,4 +145,16 @@ class SettingsLib
             ->getQuery();
         return $q->getArrayResult();
     }
+
+    public function replaceRealValues($subject,$map=array()){
+
+        if(!empty($subject) && is_array($map) && !empty($map)){
+            foreach ($map as $search=>$replace){
+                $subject = str_ireplace("{{".$search."}}",$replace,$subject);
+            }
+        }
+        return $subject;
+    }
+
+
 }

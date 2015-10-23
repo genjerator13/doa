@@ -18,6 +18,14 @@ class SandboxController extends Controller {
         curl_exec($handle);
     }
 
+    public function testAction() {
+        $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
+
+        return $response;
+    }
+
+
+
 }
 
 

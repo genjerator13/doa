@@ -23,12 +23,12 @@ class ItemController extends Controller {
         }
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
-        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
+
 
         if (empty($item)) {
             throw $this->createNotFoundException('message');
         }
-
+        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
         //get dealer
         $dealer = $item->getDealer();
 
@@ -58,7 +58,8 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $itemid = intval($request->request->get('itemid'));
-
+        $em = $this->get('doctrine')->getManager();
+        $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->
 
         $act = $request->get('act');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);
