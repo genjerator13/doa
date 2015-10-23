@@ -222,8 +222,10 @@ class UserController extends Controller {
     }
 
     public function lostpassAction(Request $request){
+        $error = array();
+        $success=false;
         $form = $this->createFormBuilder()
-            ->add('email', 'text')
+            ->add('email', 'email')
             ->add('submit', 'submit',array('attr'=>array('class'=>'btn btn-success')))
             ->getForm();
         $form->handleRequest($request);
@@ -236,27 +238,35 @@ class UserController extends Controller {
             if($dealer instanceof Catalogrecords){
                 //generate new password
                 //send it to dealer email
-                dump($dealer);
+                //dump($dealer);
                 $dealeruser=$dealer;
             }else {
                 $user = $em->getRepository('NumaDOAAdminBundle:User')->findOneByUsernameOrEmail($email);
                 if ($user instanceof User) {
                     //generate new password
                     //send it to user email
-                    dump($user);
+                    //dump($user);
                 }
                 $dealeruser=$user;
             }
             $generatePass = $this->generatePass(6);
 
 
-            $this->get('numa.emailer')->sendLostPassEmail($dealeruser,$generatePass);
+            $ok = $this->get('numa.emailer')->sendLostPassEmail($dealeruser,$generatePass);
 
-            die();
+            if($ok) {
+                $this->addFlash('success', "Email with new password has been sent!");
+                $success=true;
+            }else{
+                $error = array("error"=>true);
+                $this->addFlash('danger', "Error sending new password!");
+            }
+
         }
 
+        //$uri = $this->get('router')->generate('buyer_register', array('' => $id);
 
-        $response = $this->render('NumaDOASiteBundle:User:lostpass.html.twig',array('form'=>$form->createView()));
+        $response = $this->render('NumaDOASiteBundle:User:lostpass.html.twig',array('form'=>$form->createView(),'error'=>$error,'success'=>$success));
         return $response;
     }
 

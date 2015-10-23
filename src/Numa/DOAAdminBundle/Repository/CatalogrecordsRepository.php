@@ -2,14 +2,23 @@
 
 namespace Numa\DOAAdminBundle\Repository;
 
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 
-class CatalogrecordsRepository extends EntityRepository implements UserProviderInterface{
-
+class CatalogrecordsRepository extends EntityRepository implements UserProviderInterface, ContainerAwareInterface{
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
 
     public function xfindByDCategory($dcatId) {
         $qb = $this->getEntityManager()
@@ -96,6 +105,22 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function updatePassword($user,$password){
+        $factory = $this->container->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($user);
+
+        $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
+
+        $qb=$this->createQueryBuilder('d')
+            ->update()
+            ->set('d.password',':pass')
+            ->where('d.id= :id')
+            ->setParameter('pass', $encodedPassword)
+            ->setParameter('id', $user->getId());
+
+        return $qb->getQuery()->execute();
     }
 
 

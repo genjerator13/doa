@@ -98,39 +98,69 @@ class Emailer extends ContainerAware
         return $res;
     }
 
-    public function sendLostPassEmail($dealeruser,$emailto){
+    public function sendLostPassEmail($dealeruser,$password){
+        $email = "";
         if($dealeruser instanceof Catalogrecords){
             $name=$dealeruser->getName();
+            $email = $dealeruser->getEmail();
+            $uri = $this->container->get('router')->generate('catalogs_edit', array('id' => $dealeruser->getId()),true);
         }elseif ($dealeruser instanceof User) {
-
+            $name=$dealeruser->getFirstName()." ".$dealeruser->getLastName();
+            $email = $dealeruser->getEmail();
+            $uri = $this->container->get('router')->generate('profile',array(),true);
         }
 
+        if (filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            // Sanitize the e-mail to be extra safe.
+            // I think Pear Mail will automatically do this for you
+            $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+        }else{
+            $errors[] = "Invalid email!";
+        }
+        $link = "<a href='".$uri."' >Edit profile</a>";
 
 
         $twig = $this->container->get('twig');
         $settings = $this->container->get('numa.settings');//
         $globals = $twig->getGlobals();
 
-        $subject = $settings->get('lost_password_subject',array('sitename'=>'test'));
-        $emailBody = $settings->get('Lost password Body');
+        $subject = $settings->get('lost_password_subject',array('sitename'=>$this->container->get('router')->getContext()->getHost()));
+
+        $emailBody = $settings->get('Lost password Body',array('customer.name'=>$name,'newpassword'=>$password,'profilepage'=>$link));
+
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom('general@dealersonair.com')
             ->addCc('jim@dealersonair.com')
             ->addCc('e.medjesi@gmail.com')
-            ->setTo($emailto)
-            ->setBody($emailBody);
-        dump($subject);
-        die;
+            ->setTo($email)
+            ->setBody($emailBody,'text/html');
+
         if(empty($errors)) {
             $ok = $mailer->send($message);
+            if($ok) {
+                $em = $this->container->get('doctrine')->getManager();
+                if ($dealeruser instanceof Catalogrecords) {
+                    $repo = $em->getRepository("NumaDOAAdminBundle:Catalogrecords");
+                    $repo->setContainer($this->container);
+                    $repo->updatePassword($dealeruser, $password);
 
-            //dump($emailFrom);
-            //dump($message);die();
-            //sleep(2);
+                } elseif ($dealeruser instanceof User) {
+                    $repo = $em->getRepository("NumaDOAAdminBundle:User");
+                    $repo->setContainer($this->container);
+                    $repo->updatePassword($dealeruser, $password);
+                }
+                return true;
+                //dump($message);die();
+
+                //dump($emailFrom);
+                //dump($message);die();
+                //sleep(2);
+            }
         }
-
+        return false;
     }
 
 }
