@@ -251,15 +251,18 @@ class UserController extends Controller {
             }
             $generatePass = $this->generatePass(6);
 
+            if($dealeruser instanceof User || $dealeruser instanceof Catalogrecords) {
+                $ok = $this->get('numa.emailer')->sendLostPassEmail($dealeruser, $generatePass);
 
-            $ok = $this->get('numa.emailer')->sendLostPassEmail($dealeruser,$generatePass);
-
-            if($ok) {
-                $this->addFlash('success', "Email with new password has been sent!");
-                $success=true;
+                if ($ok) {
+                    $this->addFlash('success', "Email with new password has been sent!");
+                    $success = true;
+                } else {
+                    $error = array("error" => true);
+                    $this->addFlash('danger', "Error sending new password!");
+                }
             }else{
-                $error = array("error"=>true);
-                $this->addFlash('danger', "Error sending new password!");
+                $this->addFlash('danger', "The email does not exist in our database");
             }
 
         }
