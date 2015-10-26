@@ -16,7 +16,7 @@ class SettingType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('value',"textarea")
+            ->add('value',"ckeditor")
             ->add('section')
         ;
     }

@@ -134,12 +134,25 @@
             <span class="fieldValue fieldValue-status">{{item.getCuttingWidth()}}</span>
         </li>
     {% endif %}
-    {% if item.getSellerComment() is not empty %}
-        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-            <div class="fieldCaption field" >Seller Comments: </div>
-            <span class="fieldValue fieldValue">{{item.getSellerComment()|raw}}</span>
+    {% if item.getExteriorColor() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field" >Exterior Color: </span>
+            <span class="fieldValue fieldValue">{{item.getExteriorColor()|raw}}</span>
         </li>
     {% endif %}
+    {% if item.getOther() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field" >Other: </span>
+            <span class="fieldValue fieldValue">{{item.getOther()|raw}}</span>
+        </li>
+    {% endif %}
+    {% if item.getSellerComment() is not empty %}
+        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+            <div class="fieldCaption field-status" >Seller Comments: </div>
+            <span class="fieldValue fieldValue-status">{{item.getSellerComment()|raw}}</span>
+        </li>
+    {% endif %}
+
 </ul>
 {#<h4>Details:</h4>
 <ul class="techData">
