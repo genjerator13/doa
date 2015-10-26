@@ -110,4 +110,3 @@ class Setting
         return $this->section;
     }
 }
-

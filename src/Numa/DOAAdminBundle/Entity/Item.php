@@ -1709,6 +1709,8 @@ class Item {
             $this->setOperatorStation($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'stock number') {
             $this->setStockNr($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'other details') {
+            $this->setOther($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'ag application') {
             $this->setAgApplication($itemField->getFieldStringValue());
             $this->setType($itemField->getFieldStringValue());
@@ -3229,5 +3231,34 @@ class Item {
 
     public function getImageList(){
         return $this->getImages2();
+    }
+    /**
+     * @var string
+     */
+    private $other;
+
+
+    /**
+     * Set other
+     *
+     * @param string $other
+     *
+     * @return Item
+     */
+    public function setOther($other)
+    {
+        $this->other = $other;
+
+        return $this;
+    }
+
+    /**
+     * Get other
+     *
+     * @return string
+     */
+    public function getOther()
+    {
+        return $this->other;
     }
 }
