@@ -28,7 +28,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
         $data = $event->getData();
         $form = $event->getForm();
 
-        dump($data);
+        
         if ($data && $data->getId()) {
 
             $feed = new RemoteFeed($data->getId());
