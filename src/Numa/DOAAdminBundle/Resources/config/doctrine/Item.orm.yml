@@ -195,7 +195,6 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true            
         seller_comment:
-              length: 65535
               type: text
               nullable: true 
         length:
@@ -330,6 +329,9 @@ Numa\DOAAdminBundle\Entity\Item:
         iw_no:
               type: string
               length: 255
+              nullable: true
+        other:
+              type: text
               nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
