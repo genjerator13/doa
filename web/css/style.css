@@ -278,11 +278,9 @@ div.imagebox {
 }
 
 div.imageouterbox {
-    
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     text-align: center;
-    min-height: 120px;
-    
+    min-height: 110px;
 }
 
 
@@ -313,6 +311,12 @@ ul#myTab .form-group {
     padding:0;
     width: 606px;
 }
+
+.tab-content h3 {
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+
 .tab-content .leftimage{
     float:left;
 }
@@ -616,4 +620,51 @@ a.dealer-coupon-link {
 
 .grid-filter-input-query-from{
     min-width: 100px;
+}
+
+div.featured-carousel {
+    margin: 20px 0 20px 0;
+}
+
+.fh-title{
+    min-height: 40px;
+    max-height: 40px;
+}
+
+div.featured-carousel-item {
+    /*border: 1px solid red;*/
+
+}
+
+.col-xs-15,
+.col-sm-15,
+.col-md-15,
+.col-lg-15 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-15 {
+    width: 20%;
+    float: left;
+}
+@media (min-width: 768px) {
+    .col-sm-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 992px) {
+    .col-md-15 {
+        width: 20%;
+        float: left;
+    }
+}
+@media (min-width: 1200px) {
+    .col-lg-15 {
+        width: 20%;
+        float: left;
+    }
 }
