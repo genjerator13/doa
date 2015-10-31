@@ -1,0 +1,27 @@
+{% if items is not empty  %}
+<div class="items featured-carousel">
+    {% for item in items %}
+        {% set images = item.getImages()%}
+        {% set desc = item.getMake()~item.getModel()~" "%}
+        <div class="featured-carousel-item  col-md-15 col-sm-3">
+            <div class="fh-title">{{ item.getTitle() }}</div>
+
+            {% set image = item.getImages2()|first%}
+            {% if images is empty  %}
+                <img class="thumbnail" alt="No photos" src="{{ asset('images/no_image_available_small.png') }}" />
+            {% else %}
+                {% set image = item.getImages()|first["stringvalue"]%}
+                {% if ('http' not in image) %}
+                    <img class="thumbnail" alt="{{ item.getMake()}} {{ item.getModel() }}" src="{{image|imagine_filter('search_image')}}" />
+                {% else %}
+                    <img class="thumbnail" alt="{{ item.getMake()}} {{ item.getModel() }}" src="{{image}}" width="120" height="90"/>
+                {%endif%}
+
+            {% endif %}
+            <div class="text-center">{{price(item.getItemFieldByName('price'))|raw}}</div>
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endif %}

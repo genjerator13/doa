@@ -281,6 +281,29 @@ class DefaultController extends Controller {
         return $response;
     }
 
+    public function featuredHosizontalAction($max,$order=1) {
+        $em = $this->getDoctrine()->getManager();
+
+        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+
+        $itemrep->setMemcached($this->get('mymemcache'));
+        $featured = $itemrep->findFeatured($max);
+
+        $items = array();
+        $temp = array();
+        $items = array_slice($featured, $max);
+        $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('items' => $items));
+        if($order==1){
+            $items = array_slice($featured, 0,$max);
+            $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('items' => $items));
+        }
+
+//        $response->setPublic();
+//        $response->setSharedMaxAge(60);
+//        $response->setMaxAge(60);
+        return $response;
+    }
+
     public function accessDeniedAction() {
         return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig');
     }
