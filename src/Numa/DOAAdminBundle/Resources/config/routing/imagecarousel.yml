@@ -1,0 +1,29 @@
+imagecarousel:
+    path:     /
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:index" }
+
+imagecarousel_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:show" }
+
+imagecarousel_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:new" }
+
+imagecarousel_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:create" }
+    requirements: { _method: post }
+
+imagecarousel_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:edit" }
+
+imagecarousel_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:update" }
+    requirements: { _method: post|put }
+
+imagecarousel_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:delete" }

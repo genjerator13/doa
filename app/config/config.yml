@@ -201,6 +201,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [150, 100], mode: inset }
                 background: { color: '#FFFFFF' }
+        carousel:
+            quality: 100
+            filters:
+                thumbnail: { size: [605, 450], mode: inset }
+                background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
 parameters:
     upload_url: /upload/itemsimages

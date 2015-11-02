@@ -281,22 +281,12 @@ class DefaultController extends Controller {
         return $response;
     }
 
-    public function featuredHosizontalAction($max,$order=1) {
+    public function carouselAction($max,$order=1) {
         $em = $this->getDoctrine()->getManager();
 
-        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
+        $carouselImages = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findBy(array("active"=>true));
 
-        $itemrep->setMemcached($this->get('mymemcache'));
-        $featured = $itemrep->findFeatured($max);
-
-        $items = array();
-        $temp = array();
-        $items = array_slice($featured, $max);
-        $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('items' => $items));
-        if($order==1){
-            $items = array_slice($featured, 0,$max);
-            $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('items' => $items));
-        }
+        $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('images' => $carouselImages));
 
 //        $response->setPublic();
 //        $response->setSharedMaxAge(60);
