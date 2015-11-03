@@ -15,7 +15,7 @@ class ImageCarouselType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file','file')
+            ->add('file', 'file')
             ->add('title')
             ->add('url')
 

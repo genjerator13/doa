@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -29,6 +30,7 @@ class ImageCarouselController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new ImageCarousel entity.
      *
@@ -41,16 +43,20 @@ class ImageCarouselController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
             $entity->upload();
             $em->persist($entity);
             $em->flush();
-            $this->addFlash("New image is added to carousel",'success');
+            $this->addFlash("New image is added to carousel", 'success');
             return $this->redirect($this->generateUrl('imagecarousel'));
+        } else {
+            dump($form);
         }
+        die();
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -80,11 +86,11 @@ class ImageCarouselController extends Controller
     public function newAction()
     {
         $entity = new ImageCarousel();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -105,7 +111,7 @@ class ImageCarouselController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -128,30 +134,32 @@ class ImageCarouselController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a ImageCarousel entity.
-    *
-    * @param ImageCarousel $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a ImageCarousel entity.
+     *
+     * @param ImageCarousel $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(ImageCarousel $entity)
     {
         $form = $this->createForm(new ImageCarouselType(), $entity, array(
             'action' => $this->generateUrl('imagecarousel_update', array('id' => $entity->getId())),
             'method' => 'PUT',
+            //'attr'=>array('class'=>'dropzone'),
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }
+
     /**
      * Edits an existing ImageCarousel entity.
      *
@@ -177,31 +185,47 @@ class ImageCarouselController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a ImageCarousel entity.
      *
      */
+    public function uploadAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()->getForm();
+        $form->handleRequest($request);
+        $file = $request->files->get('file');
+
+        if ($file instanceof UploadedFile && $file->isValid()) {
+            $imagecarousel = new ImageCarousel();
+            $imagecarousel->setTitle($file->getClientOriginalName());
+            $imagecarousel->setSrc($file->getClientOriginalName());
+            $em->persist($imagecarousel);
+            $em->flush();
+            $file->move($imagecarousel->getUploadRootDir(), $file->getClientOriginalName());
+        }
+        die();
+    }
+
+
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
+        $em->remove($entity);
+        $em->flush();
+
 
         return $this->redirect($this->generateUrl('imagecarousel'));
     }
@@ -219,8 +243,7 @@ class ImageCarouselController extends Controller
             ->setAction($this->generateUrl('imagecarousel_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 

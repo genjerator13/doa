@@ -27,3 +27,7 @@ imagecarousel_update:
 imagecarousel_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:delete" }
+
+imagecarousel_upload:
+    path:     /upload
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:upload" }

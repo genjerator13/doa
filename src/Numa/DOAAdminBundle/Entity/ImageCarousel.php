@@ -345,7 +345,7 @@ class ImageCarousel
             : $this->getUploadDir().'/'.$this->path;
     }
 
-    protected function getUploadRootDir()
+    public function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
