@@ -151,7 +151,7 @@ class ImageCarouselController extends Controller
     {
         $form = $this->createForm(new ImageCarouselType(), $entity, array(
             'action' => $this->generateUrl('imagecarousel_update', array('id' => $entity->getId())),
-            
+
             //'attr'=>array('class'=>'dropzone'),
         ));
         $form->add('submit', 'submit', array('label' => 'Update'));

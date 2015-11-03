@@ -18,10 +18,13 @@
         <div class="item {% if loop.first %}active{% endif %}">
             <img src="{{imagex|imagine_filter('carousel')}}" alt="aaaa">
             <div class="carousel-caption">
-                <p>{{ image.title }}</p>
-                {% if image.url is not empty %}
-                    <p><a class="carousel-link" href="{{ image.url }}">{{ image.url }}</a></p>
-                {% endif %}
+
+            </div>
+            <div class="carousel-text">
+            <div>{{ image.title }}</div>
+            {% if image.url is not empty %}
+                <div><a class="carousel-link" href="{{ image.url }}">{{ image.url }}</a></div>
+            {% endif %}
             </div>
         </div>
         {% endfor %}
