@@ -154,8 +154,7 @@ class ImageCarouselController extends Controller
             'method' => 'PUT',
             //'attr'=>array('class'=>'dropzone'),
         ));
-
-        //$form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }

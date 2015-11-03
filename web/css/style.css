@@ -430,6 +430,7 @@ ul,li{list-style:none;margin:0;padding:0;}
 /*FOOTER*/
 .footer {
     height: 125px;
+    margin-top: 20px;
 }
 .footer-img {
 
@@ -655,4 +656,16 @@ div.featured-carousel-item {
         width: 20%;
         float: left;
     }
+}
+h3.header-first{
+    margin-top: 20px;
+}
+#carousel{
+    margin-bottom: 20px;
+}
+.carousel-caption{
+    background-color: #000;
+    opacity: 0.4;
+    border: 1px solid #3e3e3e;
+
 }

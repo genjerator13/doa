@@ -15,7 +15,7 @@
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
-        <h3 class="">Search By Body Style</h3>
+        <h3 class="header header-first">Search By Body Style</h3>
         {% for key,tab in tabs %}
         {% if key|lower=='car' %}
         <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ "Vehicle"|replace(" ","_") }}">
@@ -62,7 +62,7 @@
                 <br/>
                 {{ render_esi(controller('NumaDOASiteBundle:Default:carousel', { 'max': 5,'order':1 })) }}
                 <div class="clear"></div>
-                <h3>Search By Category</h3>
+                <h3 class="header" >Search By Category</h3>
 
                 {% if key|lower=='vehicle' or key|lower=='car' %}
                     <div class="" id="vehicle">
