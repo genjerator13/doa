@@ -1,6 +1,7 @@
 <?php
 namespace Numa\DOASettingsBundle\Util;
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -154,6 +155,21 @@ class SettingsLib
             }
         }
         return $subject;
+    }
+
+    public function generateItemTitle(Item $item){
+        $titleTemplate = strip_tags($this->get('item_title'));
+
+        preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
+
+        $title = "";
+        $replaces = array();
+        foreach($matches[1] as $match){
+            $replace[] = $item->get($match);
+        }
+
+        $title =  str_replace($matches[0], $replace, $titleTemplate);
+        return $title;
     }
 
 

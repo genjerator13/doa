@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,11 +15,13 @@ class ItemType extends AbstractType
     protected $securityContext;
     protected $dealerID;
     protected $category;
-    public function __construct($em=null, $securityContext=null,$dealerID=null,$category=null) {
+    protected $container;
+    public function __construct($em=null, $securityContext=null,$dealerID=null,$category=null,$container=null) {
         $this->em = $em;
         $this->dealerID =$dealerID ;
         $this->securityContext = $securityContext;
         $this->category = $category;
+        $this->container = $container;
     }
         /**
      * @param FormBuilderInterface $builder
@@ -28,6 +31,8 @@ class ItemType extends AbstractType
     {
         $builder
             ->add('active')
+            ->add('Seo', new SeoType())
+
             ->add('sold')
             ->add('trim')
             ->add('bodyDescription')
@@ -141,9 +146,9 @@ class ItemType extends AbstractType
         ;
         
         $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID, $this->category));
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
-        $event->stopPropagation();
-    }, 900);
+//        $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
+//            $event->stopPropagation();
+//        }, 900);
     }
     
     /**

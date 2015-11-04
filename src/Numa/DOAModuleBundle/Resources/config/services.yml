@@ -1,0 +1,7 @@
+parameters:
+#    numa_doa_module.example.class: Numa\DOAModuleBundle\Example
+
+services:
+#    Numa.Module.:
+#        class: Numa\DOAModuleBundle\Util\ModuleLib
+#        arguments: ["@service_container"]

@@ -7,6 +7,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
+use Numa\DOAModuleBundle\Entity\Seo;
 
 class EntityListener {
 
@@ -68,7 +69,20 @@ class EntityListener {
         }
         if ($entity instanceof Item) {
             //$entity->equalizeItemFields();
+            $setting = $this->container->get("Numa.settings");
+            $title = $setting->generateItemTitle($entity);
+
+            $seo = $entity->getSeo();
+            dump($seo);die();
+            if($seo instanceof Seo && ($seo->isEmpty() || $seo->getAutogenerate())) {
+
+                $seo->setTitle($title);
+                $entity->setSeo($seo);
+
+            }
+
         }
+
     }
 
     public function postUpdate(LifecycleEventArgs $args) {
@@ -77,10 +91,15 @@ class EntityListener {
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
             //$this->setPassword($entity);
         } elseif ($entity instanceof Item) {
+
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             //$resultCode = $command->makeHomeTabs(false);
         }
+    }
+
+    public function postPersist(LifecycleEventArgs $args) {
+
     }
 
     public function postLoad(LifecycleEventArgs $args) {

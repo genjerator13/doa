@@ -1,49 +1,41 @@
 <?php
 
-namespace Numa\DOASettingsBundle\Controller;
+namespace Numa\DOAModuleBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOASettingsBundle\Entity\Setting;
-use Numa\DOASettingsBundle\Form\SettingType;
+use Numa\DOAModuleBundle\Entity\Seo;
+use Numa\DOAModuleBundle\Form\SeoType;
 
 /**
- * Setting controller.
+ * Seo controller.
  *
  */
-class SettingController extends Controller
+class SeoController extends Controller
 {
 
     /**
-     * Lists all Setting entities.
+     * Lists all Seo entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
-        $settingLib = $this->get("numa.settings");
-        $sections= $settingLib->getSections();
-        $settings = array();
-        foreach($entities as $setting){
-            $settings[$setting->getSection()][]=$setting;
-        }
-        
-        return $this->render('NumaDOASettingsBundle:Setting:index.html.twig', array(
+        $entities = $em->getRepository('NumaDOAModuleBundle:Seo')->findAll();
+
+        return $this->render('NumaDOAModuleBundle:Seo:index.html.twig', array(
             'entities' => $entities,
-            'sections' => $sections,
-            'settings' => $settings,
         ));
     }
     /**
-     * Creates a new Setting entity.
+     * Creates a new Seo entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Setting();
+        $entity = new Seo();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -51,27 +43,27 @@ class SettingController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $this->addFlash("Success","Setting added: ".$entity->getName());
-            return $this->redirect($this->generateUrl('setting'));
+
+            return $this->redirect($this->generateUrl('seo_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Seo:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Setting entity.
+     * Creates a form to create a Seo entity.
      *
-     * @param Setting $entity The entity
+     * @param Seo $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Setting $entity)
+    private function createCreateForm(Seo $entity)
     {
-        $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_create'),
+        $form = $this->createForm(new SeoType(), $entity, array(
+            'action' => $this->generateUrl('seo_create'),
             'method' => 'POST',
         ));
 
@@ -81,60 +73,60 @@ class SettingController extends Controller
     }
 
     /**
-     * Displays a form to create a new Setting entity.
+     * Displays a form to create a new Seo entity.
      *
      */
     public function newAction()
     {
-        $entity = new Setting();
+        $entity = new Seo();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Seo:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Setting entity.
+     * Finds and displays a Seo entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
+        $entity = $em->getRepository('NumaDOAModuleBundle:Seo')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Setting entity.');
+            throw $this->createNotFoundException('Unable to find Seo entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOASettingsBundle:Setting:show.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Seo:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Setting entity.
+     * Displays a form to edit an existing Seo entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
+        $entity = $em->getRepository('NumaDOAModuleBundle:Seo')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Setting entity.');
+            throw $this->createNotFoundException('Unable to find Seo entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Seo:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -142,17 +134,17 @@ class SettingController extends Controller
     }
 
     /**
-    * Creates a form to edit a Setting entity.
+    * Creates a form to edit a Seo entity.
     *
-    * @param Setting $entity The entity
+    * @param Seo $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Setting $entity)
+    private function createEditForm(Seo $entity)
     {
-        $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_update', array('id' => $entity->getId())),
-
+        $form = $this->createForm(new SeoType(), $entity, array(
+            'action' => $this->generateUrl('seo_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -160,17 +152,17 @@ class SettingController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Setting entity.
+     * Edits an existing Seo entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
+        $entity = $em->getRepository('NumaDOAModuleBundle:Seo')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Setting entity.');
+            throw $this->createNotFoundException('Unable to find Seo entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -180,17 +172,17 @@ class SettingController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('setting_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('seo_edit', array('id' => $id)));
         }
 
-        return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Seo:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Setting entity.
+     * Deletes a Seo entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -200,21 +192,21 @@ class SettingController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
+            $entity = $em->getRepository('NumaDOAModuleBundle:Seo')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Setting entity.');
+                throw $this->createNotFoundException('Unable to find Seo entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('seo'));
     }
 
     /**
-     * Creates a form to delete a Setting entity by id.
+     * Creates a form to delete a Seo entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -223,7 +215,7 @@ class SettingController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('setting_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('seo_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

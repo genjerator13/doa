@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOAModuleBundle\Entity\Seo;
+use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -208,7 +210,7 @@ class ItemController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Item $entity) {
-        $form = $this->createForm(new ItemType(), $entity, array(
+        $form = $this->createForm(new ItemType(null,null,null,null,$this->container), $entity, array(
             'action' => $this->generateUrl('items_create'),
             'method' => 'POST',
         ));
@@ -281,7 +283,9 @@ class ItemController extends Controller {
         }
         $entity->setCategory($category);
         $entity->sortItemFieldsBy();
-        
+        $seo = new Seo();
+
+        $entity->setSeo($seo);
         $securityContext = $this->container->get('security.context');
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser(), $category), $entity, array(
             'method' => 'POST',
@@ -446,7 +450,7 @@ class ItemController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createEditForm(Item $entity) {
-        $form = $this->createForm(new ItemType(), $entity, array(
+        $form = $this->createForm(new ItemType(null,null,null,null,$this->container), $entity, array(
             'action' => $this->generateUrl('items_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));

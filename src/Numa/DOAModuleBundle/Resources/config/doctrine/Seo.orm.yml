@@ -1,31 +1,33 @@
-Numa\DOAAdminBundle\Entity\ImageCarousel:
+Numa\DOAModuleBundle\Entity\Seo:
     type: entity
-    table: imiage_carousel
+    table: seo
     id:
         id:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        src:
+        description:
+            type: text
+            nullable: true
+        keywords:
             type: string
-            length: 255
+            length: 1024
             nullable: true
         title:
             type: string
-            length: 255
+            length: 512
             nullable: true
         url:
             type: string
-            length: 255
-            nullable: true
-        position:
-            type: integer
-            nullable: true
-        count:
-            type: integer
+            length: 512
             nullable: true
         is_public:
             type: boolean
+            nullable: true
+        autogenerate:
+            type: boolean
+            options:
+               default: true
             nullable: true
         active:
             type: boolean
