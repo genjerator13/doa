@@ -383,10 +383,10 @@ Numa\DOAAdminBundle\Entity\Item:
                 name: item_id
                 referencedColumnName: id
                 onDelete: cascade
-    oneToOne:
-        Seo:
-            targetEntity: Numa\DOAModuleBundle\Entity\Seo
-            cascade: ["persist","remove"]
-            joinColumn:
-                name: seo_id
-                referencedColumnName: id
+#    oneToOne:
+#        SeoItem:
+#            targetEntity: Numa\DOAModuleBundle\Entity\Seo
+#            cascade: ["persist","remove"]
+#            joinColumn:
+#                name: seo_id
+#                referencedColumnName: id

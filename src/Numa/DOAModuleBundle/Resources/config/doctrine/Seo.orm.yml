@@ -1,6 +1,7 @@
 Numa\DOAModuleBundle\Entity\Seo:
     type: entity
     table: seo
+    repositoryClass: Numa\DOAModuleBundle\Repository\SeoRepository
     id:
         id:
             type: integer
@@ -16,6 +17,13 @@ Numa\DOAModuleBundle\Entity\Seo:
         title:
             type: string
             length: 512
+            nullable: true
+        table_name:
+            type: string
+            length: 255
+            nullable: true
+        table_id:
+            type: integer
             nullable: true
         url:
             type: string
@@ -43,3 +51,10 @@ Numa\DOAModuleBundle\Entity\Seo:
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
+#    oneToOne:
+#        Seo:
+#            targetEntity: Numa\DOAModuleBundle\Entity\Seo
+#            cascade: ["persist","remove"]
+#            joinColumn:
+#                name: seo_id
+#                referencedColumnName: id

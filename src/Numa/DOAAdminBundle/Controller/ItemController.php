@@ -272,6 +272,7 @@ class ItemController extends Controller {
                     $entity->addItemField($itemField);
                 }
             }
+
             //die();
             //remove all existing item fields TO DO add this to ItemField repository            
             $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id, 'field_type' => 'boolean'));
@@ -279,17 +280,23 @@ class ItemController extends Controller {
             foreach ($oldItemFields as $oldone) {
                 $em->remove($oldone);
             }
+
             $em->flush();
         }
         $entity->setCategory($category);
         $entity->sortItemFieldsBy();
-        $seo = new Seo();
 
-        $entity->setSeo($seo);
         $securityContext = $this->container->get('security.context');
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser(), $category), $entity, array(
             'method' => 'POST',
         ));
+
+        $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+        $entity->setSeo($seo);
+        $seoForm = $this->createForm(new SeoType(),$seo, array(
+            'method' => 'POST',
+        ));
+        $seoFormView = $seoForm->createView();
 
         $form->handleRequest($request);
 
@@ -298,23 +305,28 @@ class ItemController extends Controller {
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
+            $seoPost =$request->get("numa_doamodulebundle_seo");
+            $seoService = $this->container->get("Numa.Seo");
+            $seo = $seoService->prepareSeo($entity,$seoPost);
             $em->flush();
             //dump($request->get("redirect"));die();
             if ($request->get("redirect") == "images") {
                 return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
             }
+
             return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
 
-        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category);
+        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category,$seoFormView);
     }
 
-    private function switchTemplateByCategory($cat_id, $entity, $form, $category) {
+    private function switchTemplateByCategory($cat_id, $entity, $form, $category,$seo=null) {
 
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
                     'category' => $category,
+                    'seo'=> $seo,
         ));
     }
 
@@ -424,6 +436,16 @@ class ItemController extends Controller {
         $entity->sortItemFieldsBy();
         //dump($entity->getItemField());
         //die();
+        //dump($entity);
+        $seo = new Seo();
+        if(!empty($entity->getId())) {
+            $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+            $entity->setSeo($seo);
+            $seoForm = $this->createForm(new SeoType(),$seo, array(
+                'method' => 'POST',
+            ));
+            $seoFormView = $seoForm->createView();
+        }
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
@@ -432,14 +454,21 @@ class ItemController extends Controller {
 
         if ($form->isValid()) {
             $em->persist($entity);
+            $seoPost =$request->get("numa_doamodulebundle_seo");
+            $seoService = $this->container->get("Numa.Seo");
+            $seo = $seoService->prepareSeo($entity,$seoPost);
+
+            //$seo->set
+            //die();
             //refresh tabs
-            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-            $command->setContainer($this->container);
-            $resultCode = $command->makeHomeTabs(false);
+//            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+//            $command->setContainer($this->container);
+//            $resultCode = $command->makeHomeTabs(false);
 
             $em->flush();
+            return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
         }
-        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory());
+        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
     }
 
     /**

@@ -1,3 +1,7 @@
+numa_doa_module:
+    resource: "@NumaDOAModuleBundle/Resources/config/routing.yml"
+    prefix:   /
+
 numa_doa_settings:
     resource: "@NumaDOASettingsBundle/Resources/config/routing.yml"
     prefix:   /

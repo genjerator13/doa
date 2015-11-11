@@ -310,4 +310,62 @@ class Seo
     }
 
 
+    /**
+     * @var string
+     */
+    private $table_name;
+
+    /**
+     * @var int
+     */
+    private $table_id;
+
+
+    /**
+     * Set tableName
+     *
+     * @param string $tableName
+     *
+     * @return Seo
+     */
+    public function setTableName($tableName)
+    {
+        $this->table_name = $tableName;
+
+        return $this;
+    }
+
+    /**
+     * Get tableName
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->table_name;
+    }
+
+    /**
+     * Set tableId
+     *
+     * @param int $tableId
+     *
+     * @return Seo
+     */
+    public function setTableId($tableId)
+    {
+        $this->table_id = $tableId;
+
+        return $this;
+    }
+
+    /**
+     * Get tableId
+     *
+     * @return int
+     */
+    public function getTableId()
+    {
+        return $this->table_id;
+    }
 }

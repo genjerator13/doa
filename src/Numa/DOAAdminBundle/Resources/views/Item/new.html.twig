@@ -1,7 +1,8 @@
 {% extends is_granted('ROLE_BUSINES')
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
-{#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     {% set action="Add new listing" %}
     {% if entity.id is not empty %}
@@ -71,25 +72,13 @@
                                 {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}
                             </div>
                         </div>
-                        <div class="form-group">
-                            {{ form_label(form.featured, 'Featured', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                            <div class="col-sm-9">
-                                {{ form_widget(form.featured, { 'attr': {'class': 'form-control'} }) }}
-                            </div>
-                        </div>
+                        {{ form_row(form.sold) }}
                     {% endif %}
-                    <div class="form-group">
-                        {{ form_label(form.active, 'Active', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.active, { 'attr': {'class': 'form-control'} }) }}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {{ form_label(form.sold, 'Sold', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.sold, { 'attr': {'class': 'form-control'} }) }}
-                        </div>
-                    </div>
+
+
+                            {{ form_row(form.active) }}
+
+                            {{ form_row(form.featured) }}
 
                     <div class="form-group">
                         {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -167,7 +156,9 @@
                     </ul>
             </div>
             <div id="SEO" class="tab-pane">
-                {{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}
+                {#{{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}#}
+                {#{{ dump(seo) }}#}
+                {{ form_widget(seo) }}
             </div>
 
         </div>

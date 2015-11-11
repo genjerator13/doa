@@ -3316,9 +3316,6 @@ class Item {
      */
     public function getSeo()
     {
-        if(empty($this->seo)){
-            $this->setSeo(new Seo());
-        }
         return $this->Seo;
     }
 }

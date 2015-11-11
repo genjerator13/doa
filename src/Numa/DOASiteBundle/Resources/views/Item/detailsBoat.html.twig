@@ -2,7 +2,14 @@
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% block title %}<title>{{ title }}: {{item.getTitle()}}</title>{% endblock title %}
+{% block title %}
+    {% if(seo is empty) %}
+        <title>{{ title }}: {{item.getTitle()}}</title>
+    {%  else  %}
+        <title>{{ seo.getTitle() }}</title>
+    {%  endif  %}
+{% endblock title %}
+
 {% block canonical %}
     <link rel="canonical" href="{{ url }}" />
 {% endblock canonical %}

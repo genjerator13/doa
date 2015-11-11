@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOAModuleBundle\Entity\Seo;
 
 
 /**
@@ -181,6 +182,7 @@ class Item {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ItemFieldArray = array();
         $this->dontupdate = false;
+
     }
     
     private $dontupdate;

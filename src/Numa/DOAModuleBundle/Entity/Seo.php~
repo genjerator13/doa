@@ -2,6 +2,8 @@
 
 namespace Numa\DOAModuleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\DependencyInjection\ContainerAware;
+
 /**
  * Seo
  */
@@ -272,5 +274,98 @@ class Seo
 
             $this->created_at = new \DateTime();
         }
+    }
+    /**
+     * @var bool
+     */
+    private $autogenerate = true;
+
+
+    /**
+     * Set autogenerate
+     *
+     * @param bool $autogenerate
+     *
+     * @return Seo
+     */
+    public function setAutogenerate($autogenerate)
+    {
+        $this->autogenerate = $autogenerate;
+
+        return $this;
+    }
+
+    /**
+     * Get autogenerate
+     *
+     * @return bool
+     */
+    public function getAutogenerate()
+    {
+        return $this->autogenerate;
+    }
+
+    public function isEmpty(){
+        return empty($this->getTitle() && empty($this->getDescription()));
+    }
+
+
+    /**
+     * @var string
+     */
+    private $table_name;
+
+    /**
+     * @var int
+     */
+    private $table_id;
+
+
+    /**
+     * Set tableName
+     *
+     * @param string $tableName
+     *
+     * @return Seo
+     */
+    public function setTableName($tableName)
+    {
+        $this->table_name = $tableName;
+
+        return $this;
+    }
+
+    /**
+     * Get tableName
+     *
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->table_name;
+    }
+
+    /**
+     * Set tableId
+     *
+     * @param int $tableId
+     *
+     * @return Seo
+     */
+    public function setTableId($tableId)
+    {
+        $this->table_id = $tableId;
+
+        return $this;
+    }
+
+    /**
+     * Get tableId
+     *
+     * @return int
+     */
+    public function getTableId()
+    {
+        return $this->table_id;
     }
 }
