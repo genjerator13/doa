@@ -16,6 +16,7 @@ class SandboxController extends Controller {
         curl_setopt($handle, CURLOPT_POST, true);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
         curl_exec($handle);
+        die();
     }
 
     public function testAction() {

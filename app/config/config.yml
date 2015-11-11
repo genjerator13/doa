@@ -99,6 +99,9 @@ assetic:
         pgw_slideshow_css:
             inputs:
                - '%kernel.root_dir%/../web/css/pgwslideshow.css'
+        dropzone_css:
+            inputs:
+               - '%kernel.root_dir%/../web/css/dropzone.css'
         #javascript
         bootstrapx_js:
             inputs:
@@ -136,6 +139,9 @@ assetic:
         printElement:
             inputs:
                 - '%kernel.root_dir%/../web/js/printElement.js'
+        dropzone_js:
+            inputs:
+                - '%kernel.root_dir%/../web/js/dropzone.js'
 # Doctrine Configuration
 doctrine:
     dbal:
@@ -200,6 +206,11 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [150, 100], mode: inset }
+                background: { color: '#FFFFFF' }
+        carousel:
+            quality: 100
+            filters:
+                thumbnail: { size: [605, 450], mode: inset }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
 parameters:

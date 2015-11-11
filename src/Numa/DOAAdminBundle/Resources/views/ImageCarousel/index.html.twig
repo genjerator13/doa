@@ -1,0 +1,53 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>ImageCarousel list</h1>
+    <ul>
+        <li>
+            <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
+                Add new images
+            </a>
+        </li>
+    </ul>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Src</th>
+                <th>Title</th>
+                <th>Url</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            {% set image=entity.getUploadDir()~"/"~entity.src %}
+            <tr>
+                <td><a href="{{ path('imagecarousel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="#"><img class="thumbnail" src="{{image|imagine_filter('search_image')}}" /></a></td>
+                <td>{{ entity.title }}</td>
+                <td>{{ entity.url }}</td>
+                <td>
+                <ul class="list-inline">
+                    {#<li>#}
+                        {#<a href="{{ path('imagecarousel_show', { 'id': entity.id }) }}">show</a>#}
+                    {#</li>#}
+                    <li>
+                        <a class="btn btn-primary" href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-warning" href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">disable</a>
+                    </li>
+                    <li>
+                        <a class="btn btn-danger" href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    {% endblock %}

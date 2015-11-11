@@ -985,9 +985,6 @@ class Item {
         }
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
     public function __toString() {
         return $this->getModel()." ".$this->getVIN();
     }
