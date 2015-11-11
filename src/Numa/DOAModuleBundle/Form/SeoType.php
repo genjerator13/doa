@@ -20,8 +20,12 @@ class SeoType extends AbstractType
             ->add('title')
             //->add('url')
             //->add('is_public')
-            ->add('active')
-            ->add('autogenerate')
+                ->add('active')
+                ->add('autogenerate')
+            //->add('active',null, array(
+            //    'attr'     => array('checked'   => 'checked')))
+            //->add('autogenerate',null, array(
+            //    'attr'     => array('checked'   => 'checked')))
             //->add('created_at')
             //->add('updated_at')
         ;

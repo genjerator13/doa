@@ -53,30 +53,32 @@ class EntityListener {
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-
-        foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            if($entity instanceof Item){
-                $seoPost =$request->get("numa_doamodulebundle_seo");
-                $seoService = $this->container->get("Numa.Seo");
-                $seo = $seoService->prepareSeo($entity,$seoPost);
-
-                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
-                $uow->computeChangeSet($classMetadata, $seo);
-            }
-        }
-
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-            if($entity instanceof Item){
-                $seoPost =$request->get("numa_doamodulebundle_seo");
-                $seoService = $this->container->get("Numa.Seo");
-                $seo = $seoService->prepareSeo($entity,$seoPost);
-
-                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
-                $uow->computeChangeSet($classMetadata, $seo);
-            }
-        }
+//        $em = $eventArgs->getEntityManager();
+//        $uow = $em->getUnitOfWork();
+//
+//        foreach ($uow->getScheduledEntityInsertions() as $entity) {
+//
+//            if($entity instanceof Item){
+//
+//                //$seoPost =$request->get("numa_doamodulebundle_seo");
+//                $seoService = $this->container->get("Numa.Seo");
+//                $seo = $seoService->prepareSeo($entity, array(), false);
+//                //dump($seo);die();
+//                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
+//                $uow->computeChangeSet($classMetadata, $seo);
+//            }
+//        }
+//
+//        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+////            if($entity instanceof Item){
+////                $seoPost =$request->get("numa_doamodulebundle_seo");
+////                $seoService = $this->container->get("Numa.Seo");
+////                $seo = $seoService->prepareSeo($entity,$seoPost);
+////
+////                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
+////                $uow->computeChangeSet($classMetadata, $seo);
+////            }
+//        }
 
     }
 
@@ -131,8 +133,8 @@ class EntityListener {
         }
         if ($entity instanceof Item) {
                 //$entity->equalizeItemFields();
-                $setting = $this->container->get("Numa.settings");
-                $title = $setting->generateItemTitle($entity);
+                //$setting = $this->container->get("Numa.settings");
+                //$title = $setting->generateItemTitle($entity);
                 //$entityManager = $this->container->get('doctrine');
 
 

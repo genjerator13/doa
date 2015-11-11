@@ -65,6 +65,12 @@ class Seo
         return $this->id;
     }
 
+    public function __construct()
+    {
+        $this->active=true;
+        $this->autogenerate =true;
+    }
+
     /**
      * Set description
      *

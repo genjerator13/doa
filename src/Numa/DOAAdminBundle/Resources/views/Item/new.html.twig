@@ -165,14 +165,14 @@
         <div class="clear"></div>
         <ul class="list-inline">
             <li>
-                <button class="btn btn-primary">
+                <button class="btn btn-success">
                     Submit
                 </button>
             </li>
             {% if(not is_granted('ROLE_BUSINES')) %}
                 <li>
-                    <a href="{{ path('items') }}" class="btn btn-primary">
-                        Back to the list
+                    <a href="{{ path('items') }}" class="btn btn-default">
+                        Back to the list without saving
                     </a>
                 </li>
             {% endif %}

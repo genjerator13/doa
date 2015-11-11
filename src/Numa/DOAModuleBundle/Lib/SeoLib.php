@@ -17,7 +17,7 @@ class SeoLib
         $this->container = $container;
     }
 
-    public function prepareSeo(Item $item, array $seoPosts=array()){
+    public function prepareSeo(Item $item, array $seoPosts=array(),$autogenerate=true,$flush=true){
         $em = $this->container->get('doctrine.orm.entity_manager');
 
 
@@ -26,6 +26,7 @@ class SeoLib
         $seo = $seoRep->findSeoByItem($item);
         if(empty($seo)){
             $seo = new Seo();
+
             $em->persist($seo);
 
         }
@@ -54,15 +55,44 @@ class SeoLib
             $seo->setTableId($item->getId());
         }
 
-        if($seo->getAutogenerate() || empty($seoPosts)){
-
+        if(!$autogenerate){
+            $seo->setTitle("");
+            $seo->setDescription("");
+            $seo->setKeywords("");
+        }elseif(($seo->getAutogenerate() || empty($seoPosts))){
             $setting = $this->container->get("Numa.settings");
             $title = $setting->generateItemTitle($item);
+            $description = $setting->generateItemDescription($item);
+            $keywords = $setting->getItemKeywords($item);
             $seo->setTitle($title);
+            $seo->setDescription($description);
+            $seo->setKeywords($keywords);
         }
-        $em->flush();
+        if($flush) {
+            $em->flush();
+        }
         return $seo;
 
+    }
+
+    public function generateSeoForFeed($feed_id){
+        $feed_id = intval($feed_id);
+
+        if(!empty($feed_id)){
+            $em = $this->container->get('doctrine.orm.entity_manager');
+
+
+            $feed = $em->getRepository("NumaDOAAdminBundle:Importfeed")->find($feed_id);
+            //if($feed->getAutogenerateSeo()) {
+                $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByFeedId($feed_id);;
+
+                foreach ($items as $item) {
+                    $seoService = $this->container->get("Numa.Seo");
+                    //dump($autogenerate);
+                    $seo = $seoService->prepareSeo($item,array(),$feed->getAutogenerateSeo());
+                }
+            //}
+        }
     }
 
 }

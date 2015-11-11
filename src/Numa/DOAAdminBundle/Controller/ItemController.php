@@ -291,7 +291,10 @@ class ItemController extends Controller {
             'method' => 'POST',
         ));
 
-        $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+        //$seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+        if(empty($seo)){
+            $seo = new Seo();
+        }
         $entity->setSeo($seo);
         $seoForm = $this->createForm(new SeoType(),$seo, array(
             'method' => 'POST',
@@ -437,10 +440,15 @@ class ItemController extends Controller {
         //dump($entity->getItemField());
         //die();
         //dump($entity);
-        $seo = new Seo();
+
+
         if(!empty($entity->getId())) {
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+            if(empty($seo)){
+                $seo = new Seo();
+            }
             $entity->setSeo($seo);
+
             $seoForm = $this->createForm(new SeoType(),$seo, array(
                 'method' => 'POST',
             ));

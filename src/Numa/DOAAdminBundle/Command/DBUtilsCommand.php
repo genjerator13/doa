@@ -20,20 +20,22 @@ use Numa\DOAAdminBundle\Form\ImportmappingRowType;
 use Numa\DOAAdminBundle\Lib\RemoteFeed;
 use Numa\DOAAdminBundle\Entity\CommandLog;
 
-class DBUtilsCommand extends ContainerAwareCommand {
+class DBUtilsCommand extends ContainerAwareCommand
+{
 
-    protected function configure() {
+    protected function configure()
+    {
         //php app/console numa:DOA:users admin admin
         //set_error_handler( array( $this, 'handler' ) );
         $this
-                ->setName('numa:dbutil')
-                ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
-                ->addArgument('feed_id', InputArgument::OPTIONAL, 'feed id')
-                ->setDescription('fix listing fields table')
-        ;
+            ->setName('numa:dbutil')
+            ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
+            ->addArgument('feed_id', InputArgument::OPTIONAL, 'feed id')
+            ->setDescription('fix listing fields table');
     }
 
-    function makeListingFromTemp() {
+    function makeListingFromTemp()
+    {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $custom = $em->getConnection()->prepare('SELECT * from listing_field_list_temp');
         $custom->execute();
@@ -52,7 +54,8 @@ class DBUtilsCommand extends ContainerAwareCommand {
         }
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) {
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
         $command = $input->getArgument('function');
         $feed_id = $input->getArgument('feed_id');
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -68,12 +71,13 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->fetchFeed($feed_id, $em);
         } elseif ($command == 'startCommand') {
             $this->startCommand($em);
-        }elseif ($command == 'dealerize') {
+        } elseif ($command == 'dealerize') {
             $this->dealerize();
         }
     }
 
-    public function startCommand($em) {
+    public function startCommand($em)
+    {
         $emlog = $this->getContainer()->get('doctrine')->getManager();
         $commands = $em->getRepository('NumaDOAAdminBundle:CommandLog')->findBy(array('status' => 'pending'));
 
@@ -89,7 +93,8 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //die();
     }
 
-    public function fetchFeed2($feed_id) {
+    public function fetchFeed2($feed_id)
+    {
 
         $Controller = new \Numa\DOAAdminBundle\Controller\ImportmappingController();
 
@@ -98,8 +103,9 @@ class DBUtilsCommand extends ContainerAwareCommand {
         //die("aaaaa");
     }
 
-    function myErrorHandler($errno, $errstr, $errfile, $errline) {
-        
+    function myErrorHandler($errno, $errstr, $errfile, $errline)
+    {
+
         $errorFullDetail = "Error: [$errno] $errstr<br />$errfile : $errline\n";
         //dump($errorFullDetail);
         $this->commandLog->setStatus("ERROR");
@@ -112,11 +118,12 @@ class DBUtilsCommand extends ContainerAwareCommand {
         return true;
     }
 
-    public function fetchFeed($id, $em) {
+    public function fetchFeed($id, $em)
+    {
         try {
-            $this->em = $em; 
+            $this->em = $em;
             error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-            set_error_handler(array($this, "myErrorHandler"),E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();
@@ -125,12 +132,12 @@ class DBUtilsCommand extends ContainerAwareCommand {
             $this->commandLog->setStatus('started');
 
             $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
-            
+
             $this->em->persist($this->commandLog);
             //dump($this->commandLog);
             $this->em->flush();
-            
-$memcache = $this->getContainer()->get('mymemcache');
+
+            $memcache = $this->getContainer()->get('mymemcache');
             $createdItems = array();
             $feed_id = $id;
             $remoteFeed = new Remotefeed($id);
@@ -141,8 +148,8 @@ $memcache = $this->getContainer()->get('mymemcache');
 
             //print items
             //
-            
-            
+
+
             unset($remoteFeed);
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
@@ -154,14 +161,16 @@ $memcache = $this->getContainer()->get('mymemcache');
 
             //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count = 0;
-            
+
             foreach ($items as $importItem) {
-                
+
                 $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
-               
-                if (!empty($item)) {
-                    $createdItems[] = $item;
-                }
+//                $seoService = $this->getContainer()->get("Numa.Seo");
+//
+//                $seo = $seoService->prepareSeo($item, array(), false);
+//                if (!empty($item)) {
+//                    $createdItems[] = $item;
+//                }
 
                 unset($item);
                 //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
@@ -175,7 +184,7 @@ $memcache = $this->getContainer()->get('mymemcache');
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
                 //$num_rows_effected = $conn->exec($sql);
-                $memcache->set("command:progress:".$this->commandLog->getId(),$count );
+                $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
             }
 
             $this->em->flush();
@@ -193,13 +202,18 @@ $memcache = $this->getContainer()->get('mymemcache');
             $this->commandLog->setStatus('finished');
             $this->commandLog->setCurrent($count);
             $this->em->flush();
+            //
+            $seoService = $this->getContainer()->get("Numa.Seo");
+            $seo = $seoService->generateSeoForFeed($feed_id);
+            //dump($feed_id);
         } catch (Exception $ex) {
-            
+
             trigger_error("ERROR", E_USER_ERROR);
         }
     }
 
-    public function makeDetailsLog($createdItems) {
+    public function makeDetailsLog($createdItems)
+    {
         $output = "";
         $count = 0;
         if (!empty($createdItems)) {
@@ -212,7 +226,7 @@ $memcache = $this->getContainer()->get('mymemcache');
                     if (!empty($field['stringvalue'])) {
                         $output .= $field['stringvalue'];
                     }
-                    $output .="</div>";
+                    $output .= "</div>";
                 }
                 if ($count > 50) {
                     return $output;
@@ -225,7 +239,8 @@ $memcache = $this->getContainer()->get('mymemcache');
     /**
      * Creates array for tabs on homepage
      */
-    function makeHomeTabs($echo = true) {
+    function makeHomeTabs($echo = true)
+    {
         if ($echo) {
             print_r("Making home tabs\n");
         }
@@ -360,7 +375,8 @@ $memcache = $this->getContainer()->get('mymemcache');
         }
     }
 
-    function equalizeAllItems() {
+    function equalizeAllItems()
+    {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         foreach ($items as $item) {
@@ -371,13 +387,14 @@ $memcache = $this->getContainer()->get('mymemcache');
         $em->flush();
     }
 
-    public function dealerize(){
+    public function dealerize()
+    {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
         foreach ($dealers as $dealer) {
-            if($dealer instanceof Catalogrecords){
+            if ($dealer instanceof Catalogrecords) {
                 $onetoonecat = $dealer->getCatalogcategory();
-                if($onetoonecat instanceof Catalogcategory) {
+                if ($onetoonecat instanceof Catalogcategory) {
                     $dc = new DealerCategories();
                     $dcategory = $em->getRepository('NumaDOAAdminBundle:Dcategory')->find($onetoonecat->getId());
                     $dc->setDcategory($dcategory);
