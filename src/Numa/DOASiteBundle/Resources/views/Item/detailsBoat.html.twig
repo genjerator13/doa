@@ -10,14 +10,24 @@
         <title>{{ title }}: {{ item.getTitle() }}</title>
     {% endif %}
 {% endblock title %}
-    {% block description %}
-        {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive())  %}
-            <meta name="description" content="{{ seo.getDescription() }}" />
-        {% else %}
-            {# default meta description #}
-            {{ include("NumaDOASiteBundle::description.html.twig") }}
-        {% endif %}
-    {% endblock description %}
+
+{% block description %}
+
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive())  %}
+        <meta name="description" content="{{ seo.getDescription() }}" />
+    {% else %}
+        {# default meta description #}
+       {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
+{% endblock description %}
+{% block keyword %}
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive())  %}
+       <meta name="keywords" content="{{ seo.getKeywords() }}" />
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
+{% endblock keyword %}
 {% block canonical %}
     <link rel="canonical" href="{{ url }}"/>
 {% endblock canonical %}
