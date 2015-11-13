@@ -178,41 +178,34 @@ class SettingsLib
     public function generateItemDescription(Item $item){
         $titleTemplate = strip_tags($this->get('item_description'));
 
-        preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
-
-        $title = "";
-        $replaces = array();
-        foreach($matches[1] as $match){
-            if($match=='sitename') {
-                $replace[] = $this->container->get('router')->getContext()->getBaseUrl();
-            }else{
-                $replace[] = $item->get($match);
-            }
-        }
-
-        $title =  str_replace($matches[0], $replace, $titleTemplate);
-        return $title;
+        return $this->parseStringFormula($item, $titleTemplate);
     }
 
     public function getItemKeywords(Item $item){
         $titleTemplate = strip_tags($this->get('item_keywords'));
 
-        preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
+        return $this->parseStringFormula($item, $titleTemplate);
+    }
+
+    public function parseStringFormula(Item $item, $stringFormula)
+    {
+        preg_match_all("/\{(.*?)\}/", $stringFormula, $matches);
 
         $title = "";
         $replace = array();
         foreach($matches[1] as $match){
             if($match=='sitename') {
-                $replace[] = $this->container->get('router')->getContext()->getBaseUrl();
+                $host = $this->container->get('router')->getContext()->getBaseUrl();
+                if(empty($host)) {
+                    $host = $this->container->get('router')->getContext()->getHost();
+                }
+                $replace[] = $host;
             }else{
                 $replace[] = $item->get($match);
             }
         }
-        //dump($this->container->get('request')->getBasePath());die();
 
-        $title =  str_replace($matches[0], $replace, $titleTemplate);
+        $title =  str_replace($matches[0], $replace, $stringFormula);
         return $title;
     }
-
-
 }
