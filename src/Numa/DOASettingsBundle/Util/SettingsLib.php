@@ -184,7 +184,7 @@ class SettingsLib
         $replaces = array();
         foreach($matches[1] as $match){
             if($match=='sitename') {
-                $replace[] = $this->container->get('router')->getContext()->getHost();
+                $replace[] = $this->container->get('router')->getContext()->getBaseUrl();
             }else{
                 $replace[] = $item->get($match);
             }
@@ -203,11 +203,12 @@ class SettingsLib
         $replace = array();
         foreach($matches[1] as $match){
             if($match=='sitename') {
-                $replace[] = $this->container->get('router')->getContext()->getHost();
+                $replace[] = $this->container->get('router')->getContext()->getBaseUrl();
             }else{
                 $replace[] = $item->get($match);
             }
         }
+        //dump($this->container->get('request')->getBasePath());die();
 
         $title =  str_replace($matches[0], $replace, $titleTemplate);
         return $title;
