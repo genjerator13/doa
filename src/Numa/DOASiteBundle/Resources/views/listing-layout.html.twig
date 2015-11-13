@@ -3,12 +3,11 @@
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta name="keywords" content="" />
         {% block description %}
             {{ include("NumaDOASiteBundle::description.html.twig") }}
         {% endblock description %}
         {% block keyword %}
-            {{ include("NumaDOASiteBundle::description.html.twig") }}
+            {{ include("NumaDOASiteBundle::keywords.html.twig.html.twig") }}
         {% endblock keyword %}
         {% block title %}<title>{{title}}</title>{% endblock title %}
         {% block stylesheets %}
