@@ -444,10 +444,10 @@ ul,li{list-style:none;margin:0;padding:0;}
 }
 .footer-img {
     background: url('/images/northeastohio_logo.png') no-repeat ;
-    height: 125px;
     display: block;
-    width: 100%;
-    margin-left: 15px;
+    height: 100px;
+    width: 615px;
+    margin-left:200px;
 }
 .copyright{
     margin-left: 15px;
