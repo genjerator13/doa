@@ -198,9 +198,9 @@ ul.tmp{
 
 
 .header-logo{
-    background: url('/images/NortheastOhioAutoMall.png') no-repeat;
-    width: 350px;
+    background: url('/images/NEOAutoMall-logo.png') no-repeat;
     height: 165px;
+    left: 400px;
     position: absolute;
     top: 0;
     left: 335px;
