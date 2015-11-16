@@ -1,0 +1,20 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+ {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+    <h1>Add new images to carousel</h1>
+    <form action="{{ path('imagecarousel_upload') }}" method="post" {{ form_enctype(form) }} class="dropzone">
+
+        {#{{ form_widget(form.file) }}#}
+
+        {#<input type="submit" value="Upload" />#}
+    </form>
+    {#{{ form(form) }}#}
+
+        <ul class="list-inline">
+    <li>
+        <a class="btn btn-primary" href="{{ path('imagecarousel') }}">
+            Back to the carousel
+        </a>
+    </li>
+</ul>
+{% endblock %}

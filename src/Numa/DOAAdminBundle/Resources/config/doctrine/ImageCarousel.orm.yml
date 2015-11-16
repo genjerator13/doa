@@ -1,0 +1,43 @@
+Numa\DOAAdminBundle\Entity\ImageCarousel:
+    type: entity
+    table: imiage_carousel
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        src:
+            type: string
+            length: 255
+            nullable: true
+        title:
+            type: string
+            length: 255
+            nullable: true
+        url:
+            type: string
+            length: 255
+            nullable: true
+        active:
+            type: boolean
+            options:
+               default: true
+            nullable: true
+        position:
+            type: integer
+            nullable: true
+        count:
+            type: integer
+            nullable: true
+        is_public:
+            type: boolean
+            nullable: true
+        created_at:
+            type: datetime
+            nullable: true
+        updated_at:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
