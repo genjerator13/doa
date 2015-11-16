@@ -40,3 +40,6 @@ NumaDOAAdminBundle_coupon:
 NumaDOASettingsBundle_setting:
         resource: "@NumaDOASettingsBundle/Resources/config/routing/setting.yml"
         prefix:   /setting
+NumaDOAAdminBundle_imagecarousel:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/imagecarousel.yml"
+        prefix:   /imagecarousel
