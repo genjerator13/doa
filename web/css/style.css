@@ -197,12 +197,12 @@ ul.tmp{
 
 
 .header-logo{
-    background: url('/images/ColoAutoMall_Logo2.png') no-repeat;    
+    background: url('/images/ColoAutoMall_Logo2.png') no-repeat;
     width: 170px;
     height: 101px;
     position: absolute;
     top: 20px;
-    left: 420px;    
+    left: 420px;
 }
 
 .logo-text {
@@ -629,8 +629,10 @@ div.featured-carousel {
     max-height: 40px;
 }
 
-div.featured-carousel-item {
+div.carousel-text a {
     /*border: 1px solid red;*/
+    color: #ffffff;
+    text-shadow: 1px 1px black;
 
 }
 
