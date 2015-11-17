@@ -44,7 +44,7 @@ class ItemType extends AbstractType
             ->add('moderation_status','choice',array('choices'=>array('APPROVED','NEW')))
             ->add('keywords')
             ->add('featured')
-            ->add('Category')
+            ->add('Category',null,array('label'=>'Category'))
             ->add('Dealer')
 
             ->add('price')
@@ -68,7 +68,7 @@ class ItemType extends AbstractType
             ->add('VIN')
             ->add('mileage')
             ->add('floorPlan')
-            ->add('stockNr')
+            ->add('stockNr',null,array("label"=>"Stock Number"))
             ->add('status')
             ->add('agApplication')
             ->add('activation_date','date',array(
