@@ -21,9 +21,9 @@
 
             </div>
             <div class="carousel-text">
-            <div>{{ image.title }}</div>
+
             {% if image.url is not empty %}
-                <div><a class="carousel-link" href="{{ image.url }}" target="_blank">{{ image.url }}</a></div>
+                <div><a class="carousel-link" href="{{ image.url }}" target="_blank">{{ image.title }}</a></div>
             {% endif %}
             </div>
         </div>
