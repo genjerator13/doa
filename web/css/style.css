@@ -195,7 +195,6 @@ ul.tmp{
     width: 100%;
 }
 
-
 .logo-text {
     font-family: bauhaus93;
     color: #ED7D31;
@@ -620,8 +619,10 @@ div.featured-carousel {
     max-height: 40px;
 }
 
-div.featured-carousel-item {
+div.carousel-text a {
     /*border: 1px solid red;*/
+    color: #ffffff;
+    text-shadow: 1px 1px black;
 
 }
 
