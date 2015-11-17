@@ -24,6 +24,7 @@ class ItemFieldType extends AbstractType {
                 ->add('field_name', 'hidden')
                 ->add('field_type', 'hidden')
                 ->add('field_string_value')
+                ->add('field_string_value',null,array('label'=>""))
         ;
         $builder->addEventSubscriber(new AddItemFieldSubscriber($this->em));        
     }
