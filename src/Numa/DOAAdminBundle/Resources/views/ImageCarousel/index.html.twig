@@ -1,7 +1,12 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-
+{% block javascripts %}
+    {{parent()}}
+    {% javascripts '@colorbox_js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 {% block content %}
-    <h1>ImageCarousel list</h1>
+    <h1>Image Carousel list</h1>
     <ul>
         <li>
             <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
@@ -13,7 +18,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Src</th>
                 <th>Title</th>
                 <th>Url</th>
@@ -24,8 +29,7 @@
         {% for entity in entities %}
             {% set image=entity.getUploadDir()~"/"~entity.src %}
             <tr>
-                <td><a href="{{ path('imagecarousel_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td><a href="#"><img class="thumbnail" src="{{image|imagine_filter('search_image')}}" /></a></td>
+                <td><a class="colorbox cimage" href="{{asset(image,null,true)}}" title="{{ entity.title }}"><img class="thumbnail" src="{{image|imagine_filter('search_image')}}" /></a></td>
                 <td>{{ entity.title }}</td>
                 <td>{{ entity.url }}</td>
                 <td>
@@ -49,5 +53,10 @@
         </tbody>
     </table>
 
+<script>
+    $( document ).ready(function() {
+        $('a.colorbox').colorbox({rel:'group1'});
+    });
 
+</script>
     {% endblock %}
