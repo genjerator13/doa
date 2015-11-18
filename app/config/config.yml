@@ -210,7 +210,9 @@ liip_imagine:
         carousel:
             quality: 100
             filters:
-                thumbnail: { size: [605, 450], mode: inset }
+#                thumbnail: { size: [605, 450], mode: inset }
+#
+                relative_resize: { widen: 606 }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
 parameters:
