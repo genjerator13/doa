@@ -102,7 +102,15 @@ assetic:
         dropzone_css:
             inputs:
                - '%kernel.root_dir%/../web/css/dropzone.css'
+        colorbox_css:
+            inputs:
+               - '%kernel.root_dir%/../web/css/colorbox.css'
+
+
         #javascript
+
+
+
         bootstrapx_js:
             inputs:
                 - '%kernel.root_dir%/../web/bootstrap3/js/bootstrap.min.js'
@@ -142,6 +150,9 @@ assetic:
         dropzone_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/dropzone.js'
+        colorbox_js:
+            inputs:
+                - '%kernel.root_dir%/../web/js/jquery.colorbox-min.js'
 # Doctrine Configuration
 doctrine:
     dbal:
