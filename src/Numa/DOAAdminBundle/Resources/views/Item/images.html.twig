@@ -19,29 +19,35 @@
     </form>
     <div id="item-images">
         <div>Images Total: {{ images|length }}</div>
-        <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
-              name="images-delete">
-            <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                    All</a><button id="delete-selected" href="#">Delete Selected</button></div>
-            <table class='table'>
-                {% for image in images %}
-                    <tr>
-                        <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id}}" class="image-checkbox"></td>
-                        <td>
-                            {% if  "http" not in image.getFieldStringValue() %}
-                                <img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                     alt="image"/>
-                            {% else %}
-                                <img src="{{ image.getFieldStringValue() }}" alt="image" width="120px"/>
-                            {% endif %}
-                        </td>
-                        <td><a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                        class='glyphicon glyphicon-trash'></i></a></td>
-                    </tr>
+        {% if(images|length>0) %}
+            <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
+                  name="images-delete">
+                <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
+                        All</a><a id="delete-selected" href=""
+                                  data-confirm="Are you sure you want to delete all the selected images?">Delete
+                        Selected</a></div>
+                <table class='table'>
+                    {% for image in images %}
+                        <tr>
+                            <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
+                                       class="image-checkbox"></td>
+                            <td>
+                                {% if  "http" not in image.getFieldStringValue() %}
+                                    <img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
+                                         alt="image"/>
+                                {% else %}
+                                    <img src="{{ image.getFieldStringValue() }}" alt="image" width="120px"/>
+                                {% endif %}
+                            </td>
+                            <td><a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
+                                            class='glyphicon glyphicon-trash'></i></a></td>
+                        </tr>
 
-                {% endfor %}
-            </table>
-        </form>
+                    {% endfor %}
+                </table>
+            </form>
+            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+        {% endif %}
     </div>
     <script>
         $(document).ready(function () {
@@ -62,6 +68,26 @@
         $("#deselect-all").click(function (e) {
             e.preventDefault();
             $(".image-checkbox").prop('checked', false);
+        });
+
+        $("#delete-selected").click(function (ev) {
+
+            var href = $(this).attr('href');
+            $('.modal-body').html("");
+            if (!$('#dataConfirmModal').length) {
+                $('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
+                //$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');
+
+                console.log("heree");
+            }
+
+            $('#dataConfirmOK').attr('href', href);
+            $("#dataConfirmOK").click(function (e) {
+                e.preventDefault();
+                $("form").submit();
+            });
+            $('#dataConfirmModal').modal({show: true});
+            return false;
         });
 
 
