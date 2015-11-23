@@ -143,6 +143,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $remoteFeed = new Remotefeed($id);
             $items = $remoteFeed->getRemoteItems();
 
+
             $sql = 'update command_log set count=' . count($items) . " where id=" . $this->commandLog->getId();
             $num_rows_effected = $conn->exec($sql);
 
@@ -168,9 +169,9 @@ class DBUtilsCommand extends ContainerAwareCommand
 //                $seoService = $this->getContainer()->get("Numa.Seo");
 //
 //                $seo = $seoService->prepareSeo($item, array(), false);
-//                if (!empty($item)) {
-//                    $createdItems[] = $item;
-//                }
+                  if (!empty($item)) {
+                      $createdItems[] = $item;
+                  }
 
                 unset($item);
                 //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
