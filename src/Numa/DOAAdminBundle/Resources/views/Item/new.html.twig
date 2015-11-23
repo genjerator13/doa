@@ -1,7 +1,7 @@
 {% extends is_granted('ROLE_BUSINES')
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
 {% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     {% set action="Add new listing" %}
@@ -10,7 +10,7 @@
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
     {% endif %}
-    <div class="new-listing new-car">
+    <div class="new-listing new-car" xmlns="http://www.w3.org/1999/html">
         <div class="page-header">
             <h1>{{ action|raw }}</h1>
         </div>
@@ -18,7 +18,9 @@
 
         <ul class="nav nav-tabs">
             <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
+
             <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
+
         </ul>
         <div class="tab-content">
             <div id="details" class="tab-pane active">
@@ -76,9 +78,9 @@
                     {% endif %}
 
 
-                            {{ form_row(form.active) }}
+                    {{ form_row(form.active) }}
 
-                            {{ form_row(form.featured) }}
+                    {{ form_row(form.featured) }}
 
                     <div class="form-group">
                         {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -154,29 +156,45 @@
 
                         {% endfor %}
                     </ul>
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn-success">
+                                Submit
+                            </button>
+                        </li>
+                        {% if(not is_granted('ROLE_BUSINES')) %}
+                            <li>
+                                <a href="{{ path('items') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
             </div>
             <div id="SEO" class="tab-pane">
                 {#{{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}#}
                 {#{{ dump(seo) }}#}
                 {{ form_widget(seo) }}
+                <ul class="list-inline">
+                    <li>
+                        <button class="btn btn-success">
+                            Submit
+                        </button>
+                    </li>
+                    {% if(not is_granted('ROLE_BUSINES')) %}
+                        <li>
+                            <a href="{{ path('items') }}" class="btn btn-default">
+                                Back to the list without saving
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
+            </form>
 
         </div>
         <div class="clear"></div>
-        <ul class="list-inline">
-            <li>
-                <button class="btn btn-success">
-                    Submit
-                </button>
-            </li>
-            {% if(not is_granted('ROLE_BUSINES')) %}
-                <li>
-                    <a href="{{ path('items') }}" class="btn btn-default">
-                        Back to the list without saving
-                    </a>
-                </li>
-            {% endif %}
-        </ul>
+
         {% if entity.id is not empty %}
             <script>
                 $(document).ready(function () {

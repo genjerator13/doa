@@ -65,61 +65,61 @@ class ImageController extends Controller {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
 
-        $uploadForm = $this->createAddImagesForm($item->getId());
-        $uploadForm->handleRequest($request);
-
-
-        if ($uploadForm->isValid()) {
-            // If form is valid
-            // Get file
-            $files = $request->files->get('form');
-
-            foreach ($files as $file) {
-
-                if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
-                        ($file->getMimeType() == 'image/jpeg' ||
-                        $file->getMimeType() == 'image/png' ||
-                        $file->getMimeType() == 'image/gif')) {
-
-                    $upload_url = $this->container->getParameter('upload_url');
-                    $upload_path = $this->container->getParameter('upload_path');
-                    $itemField = new ItemField();
-
-                    $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId().'_'.time());
-                    $item->setDateUpdated(new \DateTime());
-                    $itemField->setItem($item);
-                    $itemField->setListingfield($ImageList);
-                    $em->persist($itemField);
-                }
-                $em->flush();
-            }
-            return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
-        }
+//        $uploadForm = $this->createAddImagesForm($item->getId());
+//        $uploadForm->handleRequest($request);
+//
+//
+//        if ($uploadForm->isValid()) {
+//            // If form is valid
+//            // Get file
+//            $files = $request->files->get('form');
+//
+//            foreach ($files as $file) {
+//
+//                if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
+//                        ($file->getMimeType() == 'image/jpeg' ||
+//                        $file->getMimeType() == 'image/png' ||
+//                        $file->getMimeType() == 'image/gif')) {
+//
+//                    $upload_url = $this->container->getParameter('upload_url');
+//                    $upload_path = $this->container->getParameter('upload_path');
+//                    $itemField = new ItemField();
+//
+//                    $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId().'_'.time());
+//                    $item->setDateUpdated(new \DateTime());
+//                    $itemField->setItem($item);
+//                    $itemField->setListingfield($ImageList);
+//                    $em->persist($itemField);
+//                }
+//                $em->flush();
+//            }
+//            return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
+//        }
 
 
         return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
                     'item' => $item,
                     'images' => $images,
-                    'addimages' => $uploadForm->createView(),
+                    //'addimages' => $uploadForm->createView(),
         ));
     }
 
-    public function createAddImagesForm($item_id) {
-        $data = array();
-        return $this->createFormBuilder($data)
-                        //->setAction($this->generateUrl('images_add', array('item_id' => $item_id)))
-                        ->add('Picture1', 'file', array('label' => 'Picture 1', 'required' => false))
-                        ->add('Picture2', 'file', array('label' => 'Picture 2', 'required' => false))
-                        ->add('Picture3', 'file', array('label' => 'Picture 3', 'required' => false))
-                        ->add('Picture4', 'file', array('label' => 'Picture 4', 'required' => false))
-                        ->add('Picture5', 'file', array('label' => 'Picture 5', 'required' => false))
-                        ->add('Upload', 'submit', array('label' => 'Upload'))
-                        ->getForm();
-    }
+//    public function createAddImagesForm($item_id) {
+//        $data = array();
+//        return $this->createFormBuilder($data)
+//                        //->setAction($this->generateUrl('images_add', array('item_id' => $item_id)))
+//                        ->add('Picture1', 'file', array('label' => 'Picture 1', 'required' => false))
+//                        ->add('Picture2', 'file', array('label' => 'Picture 2', 'required' => false))
+//                        ->add('Picture3', 'file', array('label' => 'Picture 3', 'required' => false))
+//                        ->add('Picture4', 'file', array('label' => 'Picture 4', 'required' => false))
+//                        ->add('Picture5', 'file', array('label' => 'Picture 5', 'required' => false))
+//                        ->add('Upload', 'submit', array('label' => 'Upload'))
+//                        ->getForm();
+//    }
 
-    public function orderPlus() {
-        
-    }
+//    public function orderPlus() {
+//
+//    }
 
     public function uploadAction(Request $request,$id){
 

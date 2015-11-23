@@ -187,6 +187,7 @@ class ItemFieldController extends Controller {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+        dump($request->request->all());die();
         if ($form->isValid() || !empty($redirect)) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
