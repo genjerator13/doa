@@ -3,17 +3,25 @@
     : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme addimages 'bootstrap_3_layout.html.twig' %}
 {% block content %}
-    <a href="{{path('items_edit',{id:item.id})}}">Back to listing ({{item.id}})</a>
-    {{ form_start(addimages) }}
-    {{ form_errors(addimages) }}
-    <div class="file-upload">
-        {{ form_row(addimages.Picture1) }}
-    </div>
+    <h1>Listing Images Management for {{item.getTitle()}}</h1>
+    <a href="{{path('items_edit',{id:item.id})}}">Back to listing ({{item.getTitle()}} {{ item.id }})</a>
+    {#{{ form_start(addimages) }}#}
+    {#{{ form_errors(addimages) }}#}
+    {#<div class="file-upload">#}
+        {#{{ form_row(addimages.Picture1) }}#}
+    {#</div>#}
 
-    {{ form_end(addimages) }}
+    {#{{ form_end(addimages) }}#}
+    <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" {{ form_enctype(addimages) }} class="dropzone" id="drop">
 
+        {#{{ form_widget(form.file) }}#}
 
-    <table class='table'>
+        {#<input type="submit" value="Upload" />#}
+    </form>
+    <div id="item-images">
+    <div>Images Total: {{ images|length }}</div>
+
+    <table class='table' >
         {% for image in images %}
             <tr>
 
@@ -29,4 +37,18 @@
 
         {% endfor %}
     </table>
+    </div>
+    <script>
+        $( document ).ready(function() {
+            Dropzone.options.drop = {
+                init: function() {
+                    this.on("queuecomplete", function(file) {
+
+                    });
+                }
+            };
+        });
+
+
+    </script>
 {% endblock %}

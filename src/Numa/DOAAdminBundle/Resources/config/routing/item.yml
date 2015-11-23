@@ -51,3 +51,7 @@ items_approve:
 item_images:
     pattern: /{id}/images
     defaults: { _controller: "NumaDOAAdminBundle:Image:show" }
+item_images_upload:
+    pattern: /{id}/imagesupload
+    defaults: { _controller: "NumaDOAAdminBundle:Image:upload" }
+    requirements: { id: \d+ }
