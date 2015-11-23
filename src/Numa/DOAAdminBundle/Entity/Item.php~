@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOAModuleBundle\Entity\Seo;
 
 
 /**
@@ -181,6 +182,7 @@ class Item {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ItemFieldArray = array();
         $this->dontupdate = false;
+
     }
     
     private $dontupdate;
@@ -3257,5 +3259,63 @@ class Item {
     public function getOther()
     {
         return $this->other;
+    }
+    /**
+     * @var int
+     */
+    private $seo_id;
+
+    /**
+     * @var \Numa\DOAModuleBundle\Entity\Seo
+     */
+    private $Seo;
+
+
+    /**
+     * Set seoId
+     *
+     * @param int $seoId
+     *
+     * @return Item
+     */
+    public function setSeoId($seoId)
+    {
+        $this->seo_id = $seoId;
+
+        return $this;
+    }
+
+    /**
+     * Get seoId
+     *
+     * @return int
+     */
+    public function getSeoId()
+    {
+        return $this->seo_id;
+    }
+
+    /**
+     * Set seo
+     *
+     * @param \Numa\DOAModuleBundle\Entity\Seo $seo
+     *
+     * @return Item
+     */
+    public function setSeo(\Numa\DOAModuleBundle\Entity\Seo $seo = null)
+    {
+        $this->Seo = $seo;
+
+        return $this;
+    }
+
+    /**
+     * Get seo
+     *
+     * @return \Numa\DOAModuleBundle\Entity\Seo
+     */
+    public function getSeo()
+    {
+        return $this->Seo;
     }
 }

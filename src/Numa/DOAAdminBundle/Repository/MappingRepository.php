@@ -24,7 +24,7 @@ class MappingRepository extends EntityRepository {
                 ->where('m.feed_sid=:feed_id')
                 ->andWhere('m.property like :property')
                 ->setParameter('feed_id', $feed_id)
-                ->setParameter('property', "%" . $remoteProperty . "%")
+                ->setParameter('property', "" . $remoteProperty . "")
 
                 ->setMaxResults(1)
         ;

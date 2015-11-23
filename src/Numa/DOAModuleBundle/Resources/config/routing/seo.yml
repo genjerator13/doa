@@ -1,0 +1,30 @@
+seo:
+    path:     /
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:index" }
+
+seo_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:show" }
+
+seo_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:new" }
+
+seo_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:create" }
+    requirements: { _method: post }
+
+seo_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:edit" }
+
+seo_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:update" }
+    requirements: { _method: post|put }
+
+seo_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAModuleBundle:Seo:delete" }
+    requirements: { _method: post|delete }

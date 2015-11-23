@@ -1,0 +1,3 @@
+numa_doa_module_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: NumaDOAModuleBundle:Default:index }

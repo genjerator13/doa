@@ -42,6 +42,7 @@ class AppKernel extends Kernel {
             //new Comur\ImageBundle\ComurImageBundle(),
 
             new Numa\DOASettingsBundle\NumaDOASettingsBundle(),
+            new Numa\DOAModuleBundle\NumaDOAModuleBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
