@@ -23,6 +23,7 @@ class ItemController extends Controller {
         }
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemId);
+        $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findSeoByItem($item);
 
 
         if (empty($item)) {
@@ -42,6 +43,7 @@ class ItemController extends Controller {
 
             $response = $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array(
                 'item' => $item,
+                'seo'  => $seo,
                 'url'  => $url,
                 'dealer' => $dealer,
                 'print' => $print,

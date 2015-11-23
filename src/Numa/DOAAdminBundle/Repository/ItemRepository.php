@@ -254,11 +254,7 @@ class ItemRepository extends EntityRepository {
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
         $itemsQuery = $this->getEntityManager()
                         ->createQuery($q)->setMaxResults(1);
-
-        //$itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //print_r($value);echo "::::";
-        //print_r($uniqueField);echo "\n";
-        //
+        //dump($itemsQuery->getOneOrNullResult());
         return $itemsQuery->getOneOrNullResult();
     }
 
@@ -295,6 +291,8 @@ class ItemRepository extends EntityRepository {
 
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingField() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingField()->getCaption(), $uniqueValue);
+                //dump($uniqueMapRow->getListingField()->getCaption());
+                //dump($uniqueValue);
             }
         }
         unset($uniqueMapRow);
@@ -308,6 +306,9 @@ class ItemRepository extends EntityRepository {
             $item = new Item();
 
         }
+
+        //seo
+
 
         if (!empty($feed_id)) {
             $item->setImportfeed($feed);
@@ -440,6 +441,7 @@ class ItemRepository extends EntityRepository {
         return $item;
     }
 
+
     public function findByIds($ids){
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -453,5 +455,19 @@ class ItemRepository extends EntityRepository {
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+    public function findByFeedId($id){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.feed_id = :id')
+
+            ->setParameter('id', $id)
+        ;
+
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
 
 }

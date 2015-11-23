@@ -237,7 +237,9 @@ parameters:
     antispam_button:
         good: xuitybzerpidvfugvo
         bad:  kuserhxvvkigyhsdsf
-    
+    router.request_context.host: dev.dealersonair.com
+    router.request_context.scheme: https
+    #router.request_context.base_url: /
 gregwar_image: ~  
 endroid_qr_code:
     size: 100

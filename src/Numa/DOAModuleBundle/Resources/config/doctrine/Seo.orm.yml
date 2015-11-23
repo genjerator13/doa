@@ -1,0 +1,60 @@
+Numa\DOAModuleBundle\Entity\Seo:
+    type: entity
+    table: seo
+    repositoryClass: Numa\DOAModuleBundle\Repository\SeoRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        description:
+            type: text
+            nullable: true
+        keywords:
+            type: string
+            length: 1024
+            nullable: true
+        title:
+            type: string
+            length: 512
+            nullable: true
+        table_name:
+            type: string
+            length: 255
+            nullable: true
+        table_id:
+            type: integer
+            nullable: true
+        url:
+            type: string
+            length: 512
+            nullable: true
+        is_public:
+            type: boolean
+            nullable: true
+        autogenerate:
+            type: boolean
+            options:
+               default: true
+            nullable: true
+        active:
+            type: boolean
+            options:
+               default: true
+            nullable: true
+        created_at:
+            type: datetime
+            nullable: true
+        updated_at:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+#    oneToOne:
+#        Seo:
+#            targetEntity: Numa\DOAModuleBundle\Entity\Seo
+#            cascade: ["persist","remove"]
+#            joinColumn:
+#                name: seo_id
+#                referencedColumnName: id

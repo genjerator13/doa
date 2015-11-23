@@ -80,6 +80,7 @@ class ImportfeedType extends AbstractType {
                     array(
                         'class' => 'form-control')
                 ))
+                ->add('autogenerate_seo')
                 ->add('pictures_key')
                 ->add('pictures_separator')
                 ->add('pictures_save_localy')

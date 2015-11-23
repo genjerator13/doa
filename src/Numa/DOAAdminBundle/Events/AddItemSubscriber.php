@@ -4,6 +4,10 @@
 
 namespace Numa\DOAAdminBundle\Events;
 
+use Numa\DOAAdminBundle\Entity\Item;
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -14,30 +18,50 @@ class AddItemSubscriber implements EventSubscriberInterface {
     protected $securityContext;
     protected $dealerID;
     protected $category;
+    protected $container;
 
-    public function __construct($em, $securityContext, $dealerID, $category) {
+    public function __construct( $em, $securityContext, $dealerID, $category) {
         $this->em = $em;
         $this->dealerID = $dealerID;
         $this->category = $category;
 
         $this->securityContext = $securityContext;
+
     }
 
     public static function getSubscribedEvents() {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData',FormEvents::POST_SUBMIT => 'postSubmitData',);
     }
 
     public function preSubmitData(FormEvent $event) {
         
     }
 
+    public function postSubmitData(FormEvent $event) {
+        $item = $event->getData();
+        $form = $event->getForm();
+
+        if($item instanceof Item) {
+            $seo = $item->getSeo();
+            if($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()){
+
+            }else{
+
+                //$setting = $this->container->get("numa.settings");
+                //dump($seo);die();
+
+            }
+        }
+        //die();
+    }
+
     public function preSetData(FormEvent $event) {
 
         $item = $event->getData();
         $form = $event->getForm();
-        $formItemFields = $form->get('Itemfield');
+        //$formItemFields = $form->get('Itemfield');
         //$data->removeAllItemField();
         //$data->getDoors();
         //check all 
