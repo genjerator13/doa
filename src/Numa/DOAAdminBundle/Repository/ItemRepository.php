@@ -324,7 +324,7 @@ class ItemRepository extends EntityRepository {
                 $this->itemFieldsDeleted = true;
             }
         }
-
+        //dump($mapping);die();
         foreach ($mapping as $maprow) {
 
             $property = $maprow->getSid();
@@ -349,7 +349,11 @@ class ItemRepository extends EntityRepository {
                     //$itemField->setFieldName($listingFields->getCaption());
                     //$itemField->setFieldType($listingFields->getType());
                 }
+
                 $stringValue = trim($itemField->getFieldStringValue());
+                //dump($importItem);
+                //dump($property);
+                //die();
 
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {

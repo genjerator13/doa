@@ -16,7 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerAware;
  *
  * @author genjerator
  */
-class RemoteFeed extends ContainerAware {
+class RemoteFeed extends ContainerAware
+{
 
     const URL = "Link-URL";
     const XML = "XML";
@@ -30,13 +31,15 @@ class RemoteFeed extends ContainerAware {
     var $category;
     var $items;
 
-    public function __construct($id) {
+    public function __construct($id)
+    {
         $this->feedid = $id;
 
         $this->getFeed();
     }
 
-    public function getFeed() {
+    public function getFeed()
+    {
         $this->em = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->get('doctrine')->getManager('default');
 
         $this->entity = $this->em->getRepository('NumaDOAAdminBundle:Importfeed')->findOneById($this->feedid);
@@ -45,7 +48,8 @@ class RemoteFeed extends ContainerAware {
         $this->category = $this->entity->getCategory();
     }
 
-    public function getRemoteProperties() {
+    public function getRemoteProperties()
+    {
         if (empty($this->properties)) {
             $this->fetchRemoteProperties();
         }
@@ -54,9 +58,10 @@ class RemoteFeed extends ContainerAware {
 
     /**
      * fetches meta data from remote sources: columns from csv or nodes from XML
-     * 
+     *
      */
-    public function fetchRemoteProperties() {
+    public function fetchRemoteProperties()
+    {
 
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
         if (self::URL == $this->entity->getImportMethod()) {
@@ -79,11 +84,27 @@ class RemoteFeed extends ContainerAware {
                     }
 
                     foreach ($xmlSource as $child) {
+
+
                         foreach ($child->children() as $property) {
+                            if ($property instanceof \SimpleXMLElement) {
+                                //foreach($property->children() as $innerproperty){
+                                $array = json_decode(json_encode($property), TRUE);
+                                foreach ($array as $key => $prop) {
+                                    if (is_string($prop)) {
+                                        dump($property->getName() . "::" . $prop . ":::" . $key);
+                                        //dump($prop);
+                                        $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
+                                    }
+                                }
+
+                                //}
+                            }
                             $this->properties[$property->getName()] = $property->getName();
                         }
                         break;
                     }
+
                 } elseif (self::CSV == $this->entity->getImportFormat()) {
                     $handleSource = $this->entity->getImportSource();
 
@@ -127,12 +148,13 @@ class RemoteFeed extends ContainerAware {
         }
     }
 
-    public function getXMLItems() {
+    public function getXMLItems()
+    {
         if (self::URL == $this->entity->getImportMethod()) {
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
                 //$this->items = self::xml2array($xml_obj->children());
-                $this->items = json_decode(json_encode((array) $xml_obj), 1);
+                $this->items = json_decode(json_encode((array)$xml_obj), 1);
                 if (!empty($this->items['item'])) {
                     $this->items = $this->items['item'];
                 } elseif (!empty($this->items['inventor'])) {
@@ -143,18 +165,19 @@ class RemoteFeed extends ContainerAware {
         }
     }
 
-    public function getRemoteItems() {
+    public function getRemoteItems()
+    {
 
         $sourceFile = $this->source;
         $upload_path = \Numa\DOAAdminBundle\NumaDOAAdminBundle::getContainer()->getParameter('upload_feed');
         $rootNode = $this->entity->getRootNode();
         $root = explode("/", $rootNode);
-        
+
         if (self::UPLOAD == $this->entity->getImportMethod()) {
             $sourceFile = $upload_path . $sourceFile;
         }
         if (self::XML == $this->entity->getImportFormat()) {
-            $xml_obj = simplexml_load_file($sourceFile,'SimpleXMLElement', LIBXML_NOCDATA);
+            $xml_obj = simplexml_load_file($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
 
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
@@ -166,23 +189,25 @@ class RemoteFeed extends ContainerAware {
             }
 
             ///$this->items = self::xml2array($xmlSource);
-            
-            $this->items = json_decode(json_encode((array) $xml_obj), 1);
-           // dump($rootNode);
-           // dump($this->items);
+
+            $this->items = json_decode(json_encode((array)$xml_obj), 1);
+            // dump($rootNode);
+
 
             if (!empty($rootNode)) {
-                
-                $c=0;
-                $temp=$this->items;
-                foreach($root as $node){
-                    if(!empty($node)){                        
-                        if($c>0){
-                            $temp = $temp[$node];                        }
+
+                $c = 0;
+                $temp = $this->items;
+                foreach ($root as $node) {
+                    if (!empty($node)) {
+                        if ($c > 0) {
+                            $temp = $temp[$node];
+
+                        }
                         $c++;
-                    }                                        
-                }                                
-                //dump($temp);die();
+                    }
+                }
+                //die();
                 if (!empty($temp)) {
                     $this->items = $temp;
                 }
@@ -195,7 +220,25 @@ class RemoteFeed extends ContainerAware {
             }
 
             //$arrayItem = $this->xml2array($this->items);
-            //dump($this->items);
+            $temp = $this->items;
+            foreach ($temp as $itemkey=>$item) {
+                foreach ($item as $key => $prop) {
+
+                    if (is_array($prop)) {
+                        foreach ($prop as $keyvalue => $value) {
+                            if (is_string($value)) {
+
+                                //dump($key.":".$keyvalue . ":" . $value);
+                                $this->items[$itemkey][$key."_".$keyvalue] = $value;
+
+                            }
+                        }
+                    }
+                }
+
+            }
+
+
             return $this->items;
         }
         if (self::CSV == $this->entity->getImportFormat()) {
@@ -206,7 +249,6 @@ class RemoteFeed extends ContainerAware {
             $handleSource = $this->entity->getImportSource();
             $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-
 
 
                 if (!file_exists($upload_path . $this->entity->getID())) {
@@ -260,13 +302,15 @@ class RemoteFeed extends ContainerAware {
         return $this->items;
     }
 
-    public function createItems() {
+    public function createItems()
+    {
         foreach ($this->items as $item) {
             $item = new Item();
         }
     }
 
-    static function getFtpConnection($uri) {
+    static function getFtpConnection($uri)
+    {
         // Split FTP URI into:
         // $match[0] = ftp://username:password@sld.domain.tld/path1/path2/
         // $match[1] = ftp://
@@ -293,14 +337,16 @@ class RemoteFeed extends ContainerAware {
         return null;
     }
 
-    static function xml2array1($xmlObject, $out = array()) {
-        foreach ((array) $xmlObject as $index => $node)
+    static function xml2array1($xmlObject, $out = array())
+    {
+        foreach ((array)$xmlObject as $index => $node)
             $out[$index] = (is_object($node)) ? self::xml2array($node) : $node;
 
         return $out;
     }
 
-    static function xml2array($xml) {
+    static function xml2array($xml)
+    {
         $arr = array();
         foreach ($xml as $element) {
             $tag = $element->getName();
@@ -314,13 +360,14 @@ class RemoteFeed extends ContainerAware {
         return $arr;
     }
 
-    public static function getValue($XMLvalue, $type = "string") {
+    public static function getValue($XMLvalue, $type = "string")
+    {
         switch ($type) {
             case "string":
-                return (string) $XMLvalue;
+                return (string)$XMLvalue;
                 break;
             case "integer":
-                return intval((string) $XMLvalue);
+                return intval((string)$XMLvalue);
                 break;
             case "hhh":
                 echo "i equals 2";
