@@ -18,11 +18,6 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
             type: string
             length: 255
             nullable: true
-        active:
-            type: boolean
-            options:
-               default: true
-            nullable: true
         position:
             type: integer
             nullable: true
@@ -31,6 +26,11 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
             nullable: true
         is_public:
             type: boolean
+            nullable: true
+        active:
+            type: boolean
+            options:
+               default: true
             nullable: true
         created_at:
             type: datetime

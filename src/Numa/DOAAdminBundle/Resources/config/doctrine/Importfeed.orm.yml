@@ -138,6 +138,12 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            type: string
            length: 255
            nullable: true
+        autogenerate_seo:
+           type: boolean
+           default: 1
+           options:
+               default: true
+           nullable: true
     manyToOne:
         Category:
             targetEntity: Category

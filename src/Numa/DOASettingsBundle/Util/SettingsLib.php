@@ -1,9 +1,11 @@
 <?php
 namespace Numa\DOASettingsBundle\Util;
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\Container;
 
 class SettingsLib
 {
@@ -11,12 +13,14 @@ class SettingsLib
      * @var EntityManager
      */
     protected $em;
+    protected $container;
     /**
      * @var EntityRepository
      */
     protected $repo;
-    public function __construct(EntityManager $em){
+    public function __construct(EntityManager $em,Container $container){
         $this->em = $em;
+        $this->container = $container;
         $this->repo = null;
     }
     public function setEntityManager(EntityManager $em)
@@ -156,5 +160,52 @@ class SettingsLib
         return $subject;
     }
 
+    public function generateItemTitle(Item $item){
+        $titleTemplate = strip_tags($this->get('item_title'));
 
+        preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
+
+        $title = "";
+        $replaces = array();
+        foreach($matches[1] as $match){
+            $replace[] = $item->get($match);
+        }
+
+        $title =  str_replace($matches[0], $replace, $titleTemplate);
+        return $title;
+    }
+
+    public function generateItemDescription(Item $item){
+        $titleTemplate = strip_tags($this->get('item_description'));
+
+        return $this->parseStringFormula($item, $titleTemplate);
+    }
+
+    public function getItemKeywords(Item $item){
+        $titleTemplate = strip_tags($this->get('item_keywords'));
+
+        return $this->parseStringFormula($item, $titleTemplate);
+    }
+
+    public function parseStringFormula(Item $item, $stringFormula)
+    {
+        preg_match_all("/\{(.*?)\}/", $stringFormula, $matches);
+
+        $title = "";
+        $replace = array();
+        foreach($matches[1] as $match){
+            if($match=='sitename') {
+                $host = $this->container->get('router')->getContext()->getBaseUrl();
+                if(empty($host)) {
+                    $host = $this->container->get('router')->getContext()->getHost();
+                }
+                $replace[] = $host;
+            }else{
+                $replace[] = $item->get($match);
+            }
+        }
+
+        $title =  str_replace($matches[0], $replace, $stringFormula);
+        return $title;
+    }
 }

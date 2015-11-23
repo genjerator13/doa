@@ -3,8 +3,12 @@
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
-        <meta name="keywords" content="" />
-        <meta name="description" content="" />
+        {% block description %}
+            {{ include("NumaDOASiteBundle::description.html.twig") }}
+        {% endblock description %}
+        {% block keyword %}
+            {{ include("NumaDOASiteBundle::keywords.html.twig.html.twig") }}
+        {% endblock keyword %}
         {% block title %}<title>{{title}}</title>{% endblock title %}
         {% block stylesheets %}
             {% stylesheets '@bootstrap'  '@jquery_ui_css' '@flex_slider_css' '@pgw_slideshow_css' '@style' filter='cssrewrite' output='css/*.css' %}

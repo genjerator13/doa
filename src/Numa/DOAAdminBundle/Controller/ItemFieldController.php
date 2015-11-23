@@ -187,15 +187,29 @@ class ItemFieldController extends Controller {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
+
         if ($form->isValid() || !empty($redirect)) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find ItemField entity.');
+            $ids=array();
+            $rids=$request->request->all();
+            foreach($rids as $id){
+                $ids[]=$id;
             }
 
-            $em->remove($entity);
+
+            if(!empty($id)){
+                $ids[]=$id;
+            }
+            foreach($ids as $id) {
+                $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
+
+                if (!$entity) {
+                    throw $this->createNotFoundException('Unable to find ItemField entity.');
+                }
+
+                $em->remove($entity);
+            }
+
             $em->flush();
         }
         return $this->redirect($redirect);
