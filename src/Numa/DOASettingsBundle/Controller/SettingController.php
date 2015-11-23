@@ -51,8 +51,8 @@ class SettingController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('setting_show', array('id' => $entity->getId())));
+            $this->addFlash("Success","Setting added: ".$entity->getName());
+            return $this->redirect($this->generateUrl('setting'));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(

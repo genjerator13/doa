@@ -2,9 +2,34 @@
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
-{% block title %}<title>{{ title }}: {{item.getTitle()}}</title>{% endblock title %}
+{% block title %}
+    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive())  %}
+        <title>{{ seo.getTitle() }}</title>
+    {% else %}
+        {# default meta title #}
+        <title>{{ title }}: {{ item.getTitle() }}</title>
+    {% endif %}
+{% endblock title %}
+
+{% block description %}
+
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive())  %}
+        <meta name="description" content="{{ seo.getDescription() }}" />
+    {% else %}
+        {# default meta description #}
+       {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
+{% endblock description %}
+{% block keyword %}
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive())  %}
+       <meta name="keywords" content="{{ seo.getKeywords() }}" />
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::keywords.html.twig.html.twig") }}
+    {% endif %}
+{% endblock keyword %}
 {% block canonical %}
-    <link rel="canonical" href="{{ url }}" />
+    <link rel="canonical" href="{{ url }}"/>
 {% endblock canonical %}
 {% block stylesheets %}
     {{ parent() }}
@@ -25,7 +50,7 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getItemFieldByName('year') }} {{item.getTitle()}} <span
+                        <h2 class="section">{{ item.getItemFieldByName('year') }} {{ item.getTitle() }} <span
                                     classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
 

@@ -1129,4 +1129,33 @@ class Importfeed {
     {
         return $this->password;
     }
+    /**
+     * @var bool
+     */
+    private $autogenerate_seo = true;
+
+
+    /**
+     * Set autogenerateSeo
+     *
+     * @param bool $autogenerateSeo
+     *
+     * @return Importfeed
+     */
+    public function setAutogenerateSeo($autogenerateSeo)
+    {
+        $this->autogenerate_seo = $autogenerateSeo;
+
+        return $this;
+    }
+
+    /**
+     * Get autogenerateSeo
+     *
+     * @return bool
+     */
+    public function getAutogenerateSeo()
+    {
+        return $this->autogenerate_seo;
+    }
 }

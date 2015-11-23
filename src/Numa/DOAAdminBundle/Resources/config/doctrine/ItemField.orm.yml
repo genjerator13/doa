@@ -11,6 +11,7 @@ Numa\DOAAdminBundle\Entity\ItemField:
         field_name:
             type: string
             length: 255
+            nullable: true
         field_type:
             type: string
             length: 32

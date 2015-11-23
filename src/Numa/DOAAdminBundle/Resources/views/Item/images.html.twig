@@ -1,32 +1,69 @@
 {% extends is_granted('ROLE_BUSINES')
-    ? 'NumaDOASiteBundle::home-layout.html.twig' 
-    : 'NumaDOAAdminBundle::layout.html.twig' %}
-{% form_theme addimages 'bootstrap_3_layout.html.twig' %}
+? 'NumaDOASiteBundle::home-layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
-    <a href="{{path('items_edit',{id:item.id})}}">Back to listing ({{item.id}})</a>
-    {{ form_start(addimages) }}
-    {{ form_errors(addimages) }}
-    <div class="file-upload">
-        {{ form_row(addimages.Picture1) }}
+    <h1>Listing Images Management for {{ item.getTitle() }}</h1>
+    <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+    {#{{ form_start(addimages) }}#}
+    {#{{ form_errors(addimages) }}#}
+    {#<div class="file-upload">#}
+    {#{{ form_row(addimages.Picture1) }}#}
+    {#</div>#}
+
+    {#{{ form_end(addimages) }}#}
+    <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
+
+        {#{{ form_widget(form.file) }}#}
+
+        {#<input type="submit" value="Upload" />#}
+    </form>
+    <div id="item-images">
+        <div>Images Total: {{ images|length }}</div>
+        <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
+              name="images-delete">
+            <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
+                    All</a><button id="delete-selected" href="#">Delete Selected</button></div>
+            <table class='table'>
+                {% for image in images %}
+                    <tr>
+                        <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id}}" class="image-checkbox"></td>
+                        <td>
+                            {% if  "http" not in image.getFieldStringValue() %}
+                                <img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
+                                     alt="image"/>
+                            {% else %}
+                                <img src="{{ image.getFieldStringValue() }}" alt="image" width="120px"/>
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
+                                        class='glyphicon glyphicon-trash'></i></a></td>
+                    </tr>
+
+                {% endfor %}
+            </table>
+        </form>
     </div>
+    <script>
+        $(document).ready(function () {
+            Dropzone.options.drop = {
+                init: function () {
+                    this.on("queuecomplete", function (file) {
+                        location.reload();
+                    });
+                }
+            };
 
-    {{ form_end(addimages) }}
+
+        });
+        $("#select-all").click(function (e) {
+            e.preventDefault();
+            $(".image-checkbox").prop('checked', true);
+        });
+        $("#deselect-all").click(function (e) {
+            e.preventDefault();
+            $(".image-checkbox").prop('checked', false);
+        });
 
 
-    <table class='table'>
-        {% for image in images %}
-            <tr>
-
-                <td>
-                    {% if  "http" not in image.getFieldStringValue() %}
-                        <img src="{{image.getFieldStringValue()|imagine_filter('search_image')}}" alt="image" />
-                        {% else %}
-                        <img src="{{image.getFieldStringValue()}}" alt="image" width="120px"/>
-                        {%endif %}
-                </td>
-                <td><a href="{{path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri })}}"><i class='glyphicon glyphicon-trash'></i></a></td>
-            </tr>
-
-        {% endfor %}
-    </table>
+    </script>
 {% endblock %}
