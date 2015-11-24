@@ -1,4 +1,5 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+
 {% block content %}
         {% if app.session.flashBag.has('success') %}
         <div class="alert alert-success">
@@ -8,7 +9,12 @@
         </div>
     {% endif %}
     <h1>Importfeed list</h1>
-    <table class="table">
+
+            <a href="{{ path('importfeed_new') }}" class="btn btn-primary">
+                Create a new entry
+            </a>
+
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -25,22 +31,16 @@
                     <td>{{ entity.sid }}</td>
                     <td>{{ entity.category }}</td>
                     <td>{{ entity.description }}</td>
-                    <td>
-                        <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-default">edit</a>
-                        <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-default">Mapping</a>
-                        <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-default">fetch</a>
+                    <td class="nowrap">
+                        <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-success">Edit</a>
+                        <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-primary">Mapping</a>
+                        <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-danger">Fetch</a>
 {#                        <a href="{{ path('importfeed_items_delete', { 'id': entity.id }) }}"  type="button" class="btn btn-danger" data-confirm="All the listings from the feed will be deleted.<br>Are you sure you want to delete?"><i class="glyphicon glyphicon-trash"></i>Delete All Items from the Feed</a>
 #}                    </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <ul>
-        <li>
-            <a href="{{ path('importfeed_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+
     {#{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}#}
 {% endblock %}

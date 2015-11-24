@@ -169,8 +169,8 @@ class ImportfeedController extends Controller {
             //}
 
             $em->flush();
-
-            return $this->redirect($this->generateUrl('importfeed_edit', array('id' => $id)));
+            $this->addFlash("success",$entity->getSid()." is seccesfully updated.");
+            return $this->redirect($this->generateUrl('importfeed'));
         } 
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
