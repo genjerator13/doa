@@ -1,5 +1,5 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
+ {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>Category edit</h1>
 
@@ -7,10 +7,9 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('categories') }}">
+        <a href="{{ path('categories') }}" class="btn btn-default">
             Back to the list
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}
