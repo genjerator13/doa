@@ -34,7 +34,7 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
             $feed = new RemoteFeed($data->getId());
             $props = $feed->getRemoteProperties();
             $uf = $form->get('unique_field');
-            //dump($uf);die();
+
             $form->add('unique_field', 'choice', array('choices'=>$props,'empty_value' => 'Choose an option','required'=>true,'attr'=>array('class'=>'form-control')));
             //$entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')
             //$form->add('field_sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>false));
