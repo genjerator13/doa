@@ -687,3 +687,7 @@ h3.header-first{
 .carousel-text a{
     font-weight:bold;
 }
+
+.images-action a {
+    margin-right: 20px;
+}
