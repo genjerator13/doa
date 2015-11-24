@@ -33,10 +33,10 @@
                                        class="image-checkbox"></td>
                             <td>
                                 {% if  "http" not in image.getFieldStringValue() %}
-                                    <img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                         alt="image"/>
+                                    <a  class="colorbox" href="{{ asset(image.getFieldStringValue())}}"><img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}" class="thumbnail"
+                                         alt="image"/></a>
                                 {% else %}
-                                    <img src="{{ image.getFieldStringValue() }}" alt="image" width="120px"/>
+                                <a  class="colorbox" href="{{ asset(image.getFieldStringValue())}}"><img src="{{ image.getFieldStringValue() }}" alt="image" width="120px" class="thumbnail"/></a>
                                 {% endif %}
                             </td>
                             <td><a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
@@ -90,6 +90,9 @@
             return false;
         });
 
+        $( document ).ready(function() {
+            $('a.colorbox').colorbox({maxWidth:'95%', maxHeight:'95%',rel:'group1'});
+        });
 
     </script>
 {% endblock %}
