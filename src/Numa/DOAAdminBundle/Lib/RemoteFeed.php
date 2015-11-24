@@ -92,7 +92,7 @@ class RemoteFeed extends ContainerAware
                                 $array = json_decode(json_encode($property), TRUE);
                                 foreach ($array as $key => $prop) {
                                     if (is_string($prop)) {
-                                        dump($property->getName() . "::" . $prop . ":::" . $key);
+                                        //dump($property->getName() . "::" . $prop . ":::" . $key);
                                         //dump($prop);
                                         $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
                                     }
