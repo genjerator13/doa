@@ -107,3 +107,7 @@ nav .container {
 .images-action a {
     margin-right: 20px;
 }
+
+.thumbnail:hover {
+    border: 1px solid #0000B2;
+}
