@@ -111,3 +111,7 @@ nav .container {
 .thumbnail:hover {
     border: 1px solid #0000B2;
 }
+
+.nowrap{
+    white-space: nowrap;
+}
