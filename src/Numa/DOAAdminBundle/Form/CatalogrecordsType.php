@@ -19,7 +19,7 @@ class CatalogrecordsType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('name')
-                 ->add('Dcategory' , 'entity' , array(
+                 ->add('Dcategory' , 'entity' , array('label'=>'Dealer Category',
                 'class'    => 'Numa\DOAAdminBundle\Entity\Dcategory' ,
                 'property' => 'name' ,
                 'expanded' => true ,
@@ -39,8 +39,8 @@ class CatalogrecordsType extends AbstractType {
                 ->add('description', 'ckeditor')
 
 
-                ->add('file_import_source', 'file', array('required' => false, 'data_class' => null))
-                ->add('logo_url', 'text', array('required' => false))
+                ->add('file_import_source', 'file', array('label'=>'Logo Upload','required' => false, 'data_class' => null))
+                ->add('logo_url', 'text', array('label'=>'Logo Url','required' => false))
                 ->add('password', 'password', array('required' => false))
         ;
         if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_BUSINES')){

@@ -17,6 +17,10 @@
             </div>
         {% endfor %}
     {% endfor %}
+            <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
+                Create new Dealer
+            </a>
+
     <table class="records_list table">
         <thead>
             <tr>
@@ -34,11 +38,9 @@
                     <td>{{ entity.name }}</td>
                     <td>{{ entity.url }}</td>
                     <td>{{ entity.getDcategoryNames() }}</td>
-                    <td>
+                    <td class="nowrap">
                         <ul class="list-inline">
-                            <li>
-                                <a href="{{ path('catalogs_show', { 'id': entity.id }) }}" class="btn btn-primary">show</a>
-                            </li>
+
                             <li>
                                 <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
                             </li>
@@ -52,12 +54,6 @@
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+
             {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}
