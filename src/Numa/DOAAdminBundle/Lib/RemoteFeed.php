@@ -52,6 +52,7 @@ class RemoteFeed extends ContainerAware
     {
         if (empty($this->properties)) {
             $this->fetchRemoteProperties();
+
         }
         return $this->properties;
     }
@@ -84,9 +85,10 @@ class RemoteFeed extends ContainerAware
                     }
 
                     foreach ($xmlSource as $child) {
-
+                       // dump($xmlSource);
 
                         foreach ($child->children() as $property) {
+
                             if ($property instanceof \SimpleXMLElement) {
                                 //foreach($property->children() as $innerproperty){
                                 $array = json_decode(json_encode($property), TRUE);
@@ -94,14 +96,18 @@ class RemoteFeed extends ContainerAware
                                     if (is_string($prop)) {
                                         //dump($property->getName() . "::" . $prop . ":::" . $key);
                                         //dump($prop);
-                                        $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
+                                        if(!empty($key)) {
+                                            $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
+                                        }
                                     }
                                 }
 
                                 //}
                             }
                             $this->properties[$property->getName()] = $property->getName();
+
                         }
+                        //die();
                         break;
                     }
 
