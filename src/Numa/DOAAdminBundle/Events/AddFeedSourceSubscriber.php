@@ -25,20 +25,23 @@ class AddFeedSourceSubscriber implements EventSubscriberInterface {
     }
 
     public function preSetData(FormEvent $event) {
-        $data = $event->getData();
-        $form = $event->getForm();
-
-        
-        if ($data && $data->getId()) {
-
-            $feed = new RemoteFeed($data->getId());
-            $props = $feed->getRemoteProperties();
-            $uf = $form->get('unique_field');
-
-            $form->add('unique_field', 'choice', array('choices'=>$props,'empty_value' => 'Choose an option','required'=>true,'attr'=>array('class'=>'form-control')));
-            //$entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')
-            //$form->add('field_sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>false));
-        }
+//        $data = $event->getData();
+//        $form = $event->getForm();
+//
+//        //dump($data);die();
+//        if ($data && $data->getId()) {
+//
+//            $feed = new RemoteFeed($data->getId());
+//            $props = $feed->getRemoteProperties();
+////            //
+//            if(!empty($props)) {
+//                $uf = $form->get('unique_field');
+//
+//                $form->add('unique_field', 'choice', array('choices' => $props, 'empty_value' => 'Choose an option', 'required' => true, 'attr' => array('class' => 'form-control')));
+//            }
+//            //$entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')
+//            //$form->add('field_sid', 'choice', array('choices' => $this->properties,'empty_value' => 'Choose an option','required'=>false));
+//        }
 
     }
 
