@@ -10,13 +10,7 @@
     </div>
 
     {{ form_end(uploadForm) }}
-    {% for label, flashes in app.session.flashbag.all %}
-        {% for flash in flashes %}
-            <div class="alert alert-{{ label }}">
-                {{ flash }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
             <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
                 Create new Dealer
             </a>

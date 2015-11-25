@@ -387,7 +387,7 @@ class ItemField {
             //make a folder if not exists
             $dir = $upload_path . "/" . $subfolder;
             if (!file_exists($dir)) {
-                mkdir($dir, 0777);
+                mkdir($dir, 0777,true);
             }
 
             //prepare filename for the image

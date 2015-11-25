@@ -1158,4 +1158,33 @@ class Importfeed {
     {
         return $this->autogenerate_seo;
     }
+    /**
+     * @var bool
+     */
+    private $only_matched_dealers = false;
+
+
+    /**
+     * Set onlyMatchedDealers
+     *
+     * @param bool $onlyMatchedDealers
+     *
+     * @return Importfeed
+     */
+    public function setOnlyMatchedDealers($onlyMatchedDealers)
+    {
+        $this->only_matched_dealers = $onlyMatchedDealers;
+
+        return $this;
+    }
+
+    /**
+     * Get onlyMatchedDealers
+     *
+     * @return bool
+     */
+    public function getOnlyMatchedDealers()
+    {
+        return $this->only_matched_dealers;
+    }
 }

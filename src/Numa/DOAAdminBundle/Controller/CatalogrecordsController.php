@@ -249,7 +249,8 @@ class CatalogrecordsController extends Controller {
                 $entity->upload();
 
                 $em->flush();
-                return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+                $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
+                return $this->redirect($this->generateUrl('catalogs', array('id' => $id)));
             }
         }else{
             dump($editForm->getErrors(true));
