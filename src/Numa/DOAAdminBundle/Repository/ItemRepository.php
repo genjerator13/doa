@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Entity\Listingfield;
@@ -278,6 +279,10 @@ class ItemRepository extends EntityRepository {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
 
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
+        if($feed instanceof Importfeed){
+
+        }
+
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
@@ -425,6 +430,11 @@ class ItemRepository extends EntityRepository {
 
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
                         $item->setDealer($dealer);
+                    }else{
+                        if($feed->getOnlyMatchedDealers()){
+                            $persist = false;
+                            return null;
+                        }
                     }
                     unset($dealer);
                     unset($dealerId);

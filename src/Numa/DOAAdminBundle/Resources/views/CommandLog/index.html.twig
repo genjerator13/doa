@@ -2,16 +2,7 @@
 {% block content %}
     <h1>Command Log</h1>
 
-    {#<div class="alert alert-info">
-        {% if (inprogress) %}
-            <p>Command execution in progress</p>
-        {% else %}
-            <p>Command execution NOT in progress</p>
-        {% endif %}
-        {% if (pending|length>0) %}
-            <p>There are {{pending|length}} commands in queue</p>
-        {% endif %}
-    </div>#}
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <a href="{{path('command_log_start')}}" class="btn btn-primary">Start command queue</a>
     <table class="table">
         <thead>

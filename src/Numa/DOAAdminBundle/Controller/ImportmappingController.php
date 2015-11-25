@@ -310,9 +310,9 @@ class ImportmappingController extends Controller {
         //$process = new \Symfony\Component\Process\Process($command);
         //$process->start();
         $request->getSession()->getFlashBag()
-                ->add('success', 'Fetching Feed Id ' . $id . ' started.' . '<a href="' . $this->generateUrl('command_log_home') . '">Details</a>');
+                ->add('success', 'Feed' . $id . ' added to queue. Click on -Start command Queue- in order to start fetching the feed');
 
-        return $this->redirectToRoute('importfeed');
+        return $this->redirectToRoute('command_log_home');
     }
 
     public function renderFetch($items) {
