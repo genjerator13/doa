@@ -91,7 +91,7 @@ class ImportfeedType extends AbstractType {
                 ->add('unique_field',null,array('label'=>'Unique Field'))
 //                ->add('update_on_match',null,array('label'=>'Update on Match'))
                 ->add('expiration_after',null,array('label'=>'Expiration After'))
-                ->add('only_matched_dealers','checkbox',array('label'=>'Fetch Only Matched Dealers'))
+                ->add('only_matched_dealers','checkbox',array('label'=>'Fetch Only Matched Dealers','required' => false))
                 ->add('username', null, array(
                     'attr' =>
                     array(
