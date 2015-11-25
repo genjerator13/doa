@@ -144,6 +144,12 @@ Numa\DOAAdminBundle\Entity\Importfeed:
            options:
                default: true
            nullable: true
+        only_matched_dealers:
+           type: boolean
+           default: 0
+           options:
+               default: false
+           nullable: true
     manyToOne:
         Category:
             targetEntity: Category
