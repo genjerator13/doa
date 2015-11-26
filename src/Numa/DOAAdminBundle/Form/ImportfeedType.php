@@ -76,6 +76,7 @@ class ImportfeedType extends AbstractType {
 //                    array(
 //                        'class' => 'form-control')
 //                ))
+                ->add('autogenerate_seo','checkbox',array('label'=>'Autogenerate Seo','required' => false))
                 ->add('pictures_key',null,array('label'=>'Picture Key'))
                 ->add('pictures_separator',null,array('label'=>'Picture Separator'))
                 ->add('pictures_save_localy',null,array('label'=>'Save Picture Localy?'))
