@@ -89,7 +89,7 @@ class ImportfeedType extends AbstractType {
                 ->add('add_list_values',null,array('label'=>'Add List Values'))
                 ->add('add_tree_values',null,array('label'=>'Import Format'))
                 ->add('unique_field',null,array('label'=>'Unique Field'))
-//                ->add('update_on_match',null,array('label'=>'Update on Match'))
+//                ->add('update_on_match',null,array('label'=>'Update on Match'))aaa
                 ->add('expiration_after',null,array('label'=>'Expiration After'))
                 ->add('only_matched_dealers','checkbox',array('label'=>'Fetch Only Matched Dealers','required' => false))
                 ->add('username', null, array(
