@@ -1,8 +1,63 @@
 {% extends is_granted('ROLE_BUSINES')
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
-{#{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}#}
-{% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{#{% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}#}
+{% block checkbox_widget %}
+
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+
+{% endblock checkbox_widget %}
+{#{% block checkbox_widget -%}#}
+    {#{% set parent_label_class = parent_label_class|default('') -%}#}
+    {#{% if 'checkbox-inline' in parent_label_class %}#}
+        {#{{- form_label(form, null, { widget: parent() }) -}}#}
+    {#{% else -%}#}
+        {#<div class="checkbox">#}
+            {#{{- form_label(form, null, { widget: parent() }) -}}#}
+        {#</div>#}
+    {#{%- endif %}#}
+{#{%- endblock checkbox_widget %}#}
+{% block checkbox_label -%}
+    {{- block('checkbox_radio_label') -}}
+{%- endblock checkbox_label %}
+
+{% block checkbox_radio_label %}
+    {# Do not display the label if widget is not defined in order to prevent double label rendering #}
+
+
+    {% if required %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+    {% endif %}
+    {% if parent_label_class is defined %}
+        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+    {% endif %}
+    {% if label is not sameas(false) and label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    <div class="form-group">
+        <label class="col-sm-3 control-label">
+            aaa
+            {{- label is not sameas(false) ? (translation_domain is sameas(false) ? label : label|trans({}, translation_domain)) -}}
+        </label>
+    </div>
+
+{% endblock checkbox_radio_label %}
+
+{% block checkbox_row -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <div class="checkbox">
+                <label>{{- form_widget(form) -}} {{ name }}</label>
+                {{- form_errors(form) -}}
+
+            </div>
+        </div>
+    </div>
+{%- endblock checkbox_row %}
+
 {% block content %}
     {% set action="Add new listing" %}
     {% if entity.id is not empty %}
@@ -138,14 +193,16 @@
 
                                 <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
                                         <span>
-                                            {% if field.field_string_value is defined %}
-                                                {{ form_widget(field.field_string_value) }}
-                                            {% endif %}
-                                            {% if field.field_integer_value is defined %}
-                                                {{ form_widget(field.field_integer_value) }}
-                                            {% endif %}
+                                            {#{% if field.field_string_value is defined %}#}
+                                            {#{{ form_widget(field.field_string_value) }}#}
+                                            {#{% endif %}#}
+                                            {#{% if field.field_integer_value is defined %}#}
+                                            {#{{ form_widget(field.field_integer_value) }}#}
+                                            {#{% endif %}#}
                                             {% if field.field_boolean_value is defined %}
                                                 {{ form_widget(field.field_boolean_value) }}
+                                                {# {{ form_row(field.field_name) }} #}
+                                                {#{{ field.vars.value.getFieldName() }}#}
                                             {% endif %}
                                         </span>
                                         <span>
