@@ -229,4 +229,19 @@ class SettingController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Finds and displays a Setting entity.
+     *
+     */
+    public function clearCacheAction()
+    {
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil cacheclear';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
+
+
+        $this->addFlash('success',"Http cache is cleared.");
+        return $this->redirect($this->generateUrl('setting'));
+    }
 }
