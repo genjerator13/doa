@@ -2,6 +2,13 @@ Numa\DOAModuleBundle\Entity\Seo:
     type: entity
     table: seo
     repositoryClass: Numa\DOAModuleBundle\Repository\SeoRepository
+    indexes:
+        table_name:
+            columns: [ table_name ]
+        table_id:
+            columns: [ table_id ]
+        table_id:
+           columns: [ table_name,table_id ]
     id:
         id:
             type: integer
