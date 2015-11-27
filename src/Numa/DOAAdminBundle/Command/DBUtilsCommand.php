@@ -73,6 +73,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->startCommand($em);
         } elseif ($command == 'dealerize') {
             $this->dealerize();
+        } elseif ($command == 'cacheclear') {
+            $this->cacheClear();
         }
     }
 
@@ -407,6 +409,17 @@ class DBUtilsCommand extends ContainerAwareCommand
         }
         $em->flush();
 
+    }
+
+    public function cacheClear(){
+        $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
+        echo $process->getOutput();
+
+        $command =  'chmod -R 777 '.$this->getContainer()->get('kernel')->getRootDir().'/cache '.$this->getContainer()->get('kernel')->getRootDir().'/logs';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
     }
 
 }

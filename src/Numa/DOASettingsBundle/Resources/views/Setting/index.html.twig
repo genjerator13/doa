@@ -1,6 +1,7 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
+    {% include("NumaDOAAdminBundle::flashmsg.html.twig") %}
     <h1>Setting list</h1>
     <ul class="nav nav-tabs">
 
@@ -10,6 +11,9 @@
                                                       href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
             </li>
         {% endfor %}
+        <li role="presentation">
+            <a data-toggle="tab" href="#system">System</a>
+        </li>
     </ul>
     <div class="tab-content">
     {% for section in sections %}
@@ -45,15 +49,19 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <ul>
+                    <li>
+                        <a href="{{ path('setting_new') }}" class="btn btn-success">
+                            Create a new entry
+                        </a>
+                    </li>
+                </ul>
             </div>
 
     {% endfor %}
+        <div id="system" class="tab-pane">
+            <a class="btn btn-primary" href="{{ path('setting_cache_clear') }}">Clear http cache</a>
+        </div>
     </div>
-    <ul>
-        <li>
-            <a href="{{ path('setting_new') }}" class="btn btn-success">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+
 {% endblock %}
