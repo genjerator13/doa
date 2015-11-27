@@ -2,6 +2,13 @@ Numa\DOAAdminBundle\Entity\Item:
     type: entity
     table: item
     repositoryClass: Numa\DOAAdminBundle\Repository\ItemRepository
+    indexes:
+        featured:
+            columns: [ featured ]
+        active:
+            columns: [ active ]
+        activefeatured:
+            columns: [ featured,active ]
     id:
         id:
             type: integer
