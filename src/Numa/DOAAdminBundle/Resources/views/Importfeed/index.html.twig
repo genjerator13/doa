@@ -1,46 +1,58 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-        {% if app.session.flashBag.has('success') %}
+    {% if app.session.flashBag.has('success') %}
         <div class="alert alert-success">
             {% for msg in app.session.flashBag.get('success') %}
                 {{ msg|raw }}
             {% endfor %}
         </div>
     {% endif %}
-    <h1>Importfeed list</h1>
+    <div class="box box-default">
+        <h1>Importfeed list</h1>
 
-            <a href="{{ path('importfeed_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Sid</th>
-                <th>Category</th>
-                <th>Description</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
+
+        <div class="box-header">
+
+            <div class="box-tools">
+                <a href="{{ path('importfeed_new') }}" class="btn btn-primary">
+                    Create New Feed
+                </a>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td><a href="{{ path('importfeed_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.sid }}</td>
-                    <td>{{ entity.category }}</td>
-                    <td>{{ entity.description }}</td>
-                    <td class="nowrap">
-                        <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button" class="btn btn-success">Edit</a>
-                        <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}"  type="button" class="btn btn-primary">Mapping</a>
-                        <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}"  type="button" class="btn btn-danger">Fetch</a>
-{#                        <a href="{{ path('importfeed_items_delete', { 'id': entity.id }) }}"  type="button" class="btn btn-danger" data-confirm="All the listings from the feed will be deleted.<br>Are you sure you want to delete?"><i class="glyphicon glyphicon-trash"></i>Delete All Items from the Feed</a>
-#}                    </td>
+                    <th>Id</th>
+                    <th>Sid</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('importfeed_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.sid }}</td>
+                        <td>{{ entity.category }}</td>
+                        <td>{{ entity.description }}</td>
+                        <td class="nowrap">
+                            <a href="{{ path('importfeed_edit', { 'id': entity.id }) }}" type="button"
+                               class="btn btn-success">Edit</a>
+                            <a href="{{ path('import_mapping_feed', { 'id': entity.id }) }}" type="button"
+                               class="btn btn-primary">Mapping</a>
+                            <a href="{{ path('import_mapping_fetch', { 'id': entity.id }) }}" type="button"
+                               class="btn btn-danger">Fetch</a>
+                            {#                        <a href="{{ path('importfeed_items_delete', { 'id': entity.id }) }}"  type="button" class="btn btn-danger" data-confirm="All the listings from the feed will be deleted.<br>Are you sure you want to delete?"><i class="glyphicon glyphicon-trash"></i>Delete All Items from the Feed</a>
+                            #}                    </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
     {#{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}#}
 {% endblock %}

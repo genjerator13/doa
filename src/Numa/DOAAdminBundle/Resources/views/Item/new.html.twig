@@ -10,132 +10,133 @@
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
     {% endif %}
-    <div class="new-listing new-car" xmlns="http://www.w3.org/1999/html">
-        <div class="page-header">
-            <h1>{{ action|raw }}</h1>
-        </div>
-        {#{{ form_start(form) }}#}
+    <div class="box box-default">
+        <div class="new-listing new-car" xmlns="http://www.w3.org/1999/html">
+            <div class="page-header">
+                <h1>{{ action|raw }}</h1>
+            </div>
+            {#{{ form_start(form) }}#}
 
-        <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
 
-            <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
 
-        </ul>
-        <div class="tab-content">
-            <div id="details" class="tab-pane active">
+            </ul>
+            <div class="tab-content">
+                <div id="details" class="tab-pane active">
 
-                <form action="" method="post" name="numa_doaadminbundle_item" class="form-horizontal">
-                    {{ form_errors(form) }}
-                    {{ form_row (form._token) }}
-                    <div class="listingActions">
-                        This listing is
-                        {% if entity.active %}
-                            <span class="">Active</span>
-                        {% else %}
-                            <span class="">InActive</span>
-                        {% endif %}
-                        {% if (entity.id) %}
-                            <span class="fieldValue fieldValueModerationStatus approved">{{ entity.moderationStatus }}</span>
-                            |
+                    <form action="" method="post" name="numa_doaadminbundle_item" class="form-horizontal">
+                        {{ form_errors(form) }}
+                        {{ form_row (form._token) }}
+                        <div class="listingActions">
+                            This listing is
                             {% if entity.active %}
-                                <a href="{{ path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}"
-                                   class="itemControls deactivate">Deactivate</a>
+                                <span class="">Active</span>
                             {% else %}
-                                <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
-                                   class="itemControls deactivate">Activate</a>
+                                <span class="">InActive</span>
+                            {% endif %}
+                            {% if (entity.id) %}
+                                <span class="fieldValue fieldValueModerationStatus approved">{{ entity.moderationStatus }}</span>
+                                |
+                                {% if entity.active %}
+                                    <a href="{{ path('items_deactivate', {'id': entity.id,'redirect':'item'}) }}"
+                                       class="itemControls deactivate">Deactivate</a>
+                                {% else %}
+                                    <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
+                                       class="itemControls deactivate">Activate</a>
+                                {% endif %}
+
+
+                                | <a target="_blank" href="{{ detailUrl }}" class="itemControls view">View Listing</a>
+                            {% endif %}
+                            {% if entity.id is not empty %}
+                                | <a href="{{ path('item_images',{id:entity.id}) }}">Edit Pictures
+                                ({{ entity.getCountImages() }})</a>
+                            {% else %}
+                                | <a href="#" id="addimages">Add Pictures</a>
                             {% endif %}
 
-
-                            | <a target="_blank" href="{{ detailUrl }}" class="itemControls view">View Listing</a>
-                        {% endif %}
-                        {% if entity.id is not empty %}
-                            | <a href="{{ path('item_images',{id:entity.id}) }}">Edit Pictures
-                            ({{ entity.getCountImages() }})</a>
-                        {% else %}
-                            | <a href="#" id="addimages">Add Pictures</a>
-                        {% endif %}
-
-                    </div>
-                    <p>Fields marked with an asterisk (*) are mandatory.car</p>
-
-                    <div class="form-group">
-                        {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}
                         </div>
-                    </div>
-                    {% if(is_granted('ROLE_BUSINES')) %}
-                        {{ form_row(form.dealer_id) }}
-                    {% else %}
+                        <p>Fields marked with an asterisk (*) are mandatory.car</p>
+
                         <div class="form-group">
-                            {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
-                                {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}
+                                {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}
                             </div>
                         </div>
-                        {{ form_row(form.sold) }}
-                    {% endif %}
+                        {% if(is_granted('ROLE_BUSINES')) %}
+                            {{ form_row(form.dealer_id) }}
+                        {% else %}
+                            <div class="form-group">
+                                {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}
+                                </div>
+                            </div>
+                            {{ form_row(form.sold) }}
+                        {% endif %}
 
 
-                    {{ form_row(form.active) }}
+                        {{ form_row(form.active) }}
 
-                    {{ form_row(form.featured) }}
+                        {{ form_row(form.featured) }}
 
-                    <div class="form-group">
-                        {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="form-group">
+                            {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="form-group">
-                        {{ form_label(form.status, 'Status', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.status, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="form-group">
+                            {{ form_label(form.status, 'Status', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.status, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
                         </div>
-                    </div>
-                    {% if (category.getName()|lower=="car") %}
+                        {% if (category.getName()|lower=="car") %}
 
 
 
-                        {% include 'NumaDOAAdminBundle:Item:newCar.html.twig' %}
+                            {% include 'NumaDOAAdminBundle:Item:newCar.html.twig' %}
 
-                    {% elseif(category.getName()|lower=="marine") %}
+                        {% elseif(category.getName()|lower=="marine") %}
 
-                        {% include 'NumaDOAAdminBundle:Item:newMarine.html.twig' %}
+                            {% include 'NumaDOAAdminBundle:Item:newMarine.html.twig' %}
 
-                    {% elseif(category.getName()|lower=="motorsport") %}
+                        {% elseif(category.getName()|lower=="motorsport") %}
 
-                        {% include 'NumaDOAAdminBundle:Item:newMotor.html.twig' %}
-                    {% elseif(category.getName()|lower=="rvs") %}
+                            {% include 'NumaDOAAdminBundle:Item:newMotor.html.twig' %}
+                        {% elseif(category.getName()|lower=="rvs") %}
 
-                        {% include 'NumaDOAAdminBundle:Item:newRvs.html.twig' %}
-                    {% elseif(category.getName()|lower=="ag") %}
-                        {% include 'NumaDOAAdminBundle:Item:newAg.html.twig' %}
-                    {% endif %}
-                    <div class="form-group">
-                        {{ form_label(form.videoID, 'Video ID', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.videoID, { 'attr': {'class': 'form-control'} }) }}
+                            {% include 'NumaDOAAdminBundle:Item:newRvs.html.twig' %}
+                        {% elseif(category.getName()|lower=="ag") %}
+                            {% include 'NumaDOAAdminBundle:Item:newAg.html.twig' %}
+                        {% endif %}
+                        <div class="form-group">
+                            {{ form_label(form.videoID, 'Video ID', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.videoID, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        {{ form_label(form.seller_comment, 'Seller Comment', { 'label_attr': {'class': 'col-sm-3'} }) }}
-                        <div class="col-sm-9">
-                            {{ form_widget(form.seller_comment, { 'attr': {'class': 'form-control'} }) }}
+                        <div class="form-group">
+                            {{ form_label(form.seller_comment, 'Seller Comment', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.seller_comment, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
                         </div>
-                    </div>
-                    <div class="page-header">
-                        <h3>Vehicle Features</h3>
-                    </div>
-                    <ul>
+                        <div class="page-header">
+                            <h3>Vehicle Features</h3>
+                        </div>
+                        <ul>
 
-                        {% for field in form.Itemfield %}
+                            {% for field in form.Itemfield %}
 
-                            <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
+                                <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
                                         <span>
                                             {% if field.field_string_value is defined %}
                                                 {{ form_widget(field.field_string_value) }}
@@ -151,11 +152,30 @@
                                             {{ form_row(field.field_name) }}
                                             {{ field.vars.value.getFieldName() }}
                                         </span>
-                                {{ form_row(field.field_type) }}
-                            </li>
+                                    {{ form_row(field.field_type) }}
+                                </li>
 
-                        {% endfor %}
-                    </ul>
+                            {% endfor %}
+                        </ul>
+                        <ul class="list-inline">
+                            <li>
+                                <button class="btn btn-success">
+                                    Submit
+                                </button>
+                            </li>
+                            {% if(not is_granted('ROLE_BUSINES')) %}
+                                <li>
+                                    <a href="{{ path('items') }}" class="btn btn-default">
+                                        Back to the list without saving
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                </div>
+                <div id="SEO" class="tab-pane">
+                    {#{{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}#}
+                    {#{{ dump(seo) }}#}
+                    {{ form_widget(seo) }}
                     <ul class="list-inline">
                         <li>
                             <button class="btn btn-success">
@@ -170,57 +190,39 @@
                             </li>
                         {% endif %}
                     </ul>
-            </div>
-            <div id="SEO" class="tab-pane">
-                {#{{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}#}
-                {#{{ dump(seo) }}#}
-                {{ form_widget(seo) }}
-                <ul class="list-inline">
-                    <li>
-                        <button class="btn btn-success">
-                            Submit
-                        </button>
-                    </li>
-                    {% if(not is_granted('ROLE_BUSINES')) %}
-                        <li>
-                            <a href="{{ path('items') }}" class="btn btn-default">
-                                Back to the list without saving
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-            </form>
+                </div>
+                </form>
 
-        </div>
-        <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
 
-        {% if entity.id is not empty %}
-            <script>
-                $(document).ready(function () {
-                    $("#numa_doaadminbundle_item_Category").change(function (e) {
+            {% if entity.id is not empty %}
+                <script>
+                    $(document).ready(function () {
+                        $("#numa_doaadminbundle_item_Category").change(function (e) {
+                            var form = $(this).closest('form');
+
+                            form.attr('action', '{{path("item_category_change",{id:entity.id})}}');
+                            console.log(form.attr('action'));
+                            form.submit();
+
+                        });
+                    });
+                </script>
+            {% else %}
+                <script>
+                    $("#addimages").on("click", function (e) {
+                        e.preventDefault();
                         var form = $(this).closest('form');
 
-                        form.attr('action', '{{path("item_category_change",{id:entity.id})}}');
+                        //form.attr('action', '{{path("item_category_change",{id:0,redirect:'images'})}}');
+                        $("#redirect").val("images");
                         console.log(form.attr('action'));
                         form.submit();
-
                     });
-                });
-            </script>
-        {% else %}
-            <script>
-                $("#addimages").on("click", function (e) {
-                    e.preventDefault();
-                    var form = $(this).closest('form');
+                </script>
 
-                    //form.attr('action', '{{path("item_category_change",{id:0,redirect:'images'})}}');
-                    $("#redirect").val("images");
-                    console.log(form.attr('action'));
-                    form.submit();
-                });
-            </script>
-
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
