@@ -5,6 +5,9 @@ Numa\DOASettingsBundle\Entity\Setting:
         id:
             type: integer
             generator: { strategy: AUTO }
+    indexes:
+        name:
+            columns: [ name ]
     fields:
         name:
             type: string

@@ -9,6 +9,26 @@ Numa\DOAAdminBundle\Entity\Item:
             columns: [ active ]
         activefeatured:
             columns: [ featured,active ]
+        year:
+            columns: [ year ]
+        body_style:
+            columns: [ body_style ]
+        make:
+            columns: [ make ]
+        model:
+            columns: [ model ]
+        VIN:
+            columns: [ VIN ]
+        transmission:
+            columns: [ body_style ]
+        keywords:
+            columns: [ keywords ]
+        floor_plan:
+            columns: [ floor_plan ]
+        stock_nr:
+            columns: [ stock_nr ]
+        sold:
+            columns: [ sold ]
     id:
         id:
             type: integer
