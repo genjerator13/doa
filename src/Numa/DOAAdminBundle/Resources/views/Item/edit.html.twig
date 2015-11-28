@@ -1,12 +1,1 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
- 
-{% block content %}
-    <h1>Item edit</h1>
 
-    {{ form(edit_form) }}
-{% if(not is_granted('ROLE_BUSINES'))%}
-            <a href="{{ path('items') }}" class="btn btn-primary">
-                Back to the list
-            </a>
-{% endif %}
-{% endblock %}

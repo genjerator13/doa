@@ -1,8 +1,18 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>User list</h1>
 
+<div class="box box-default">
+    <h1>User list</h1>
+    <div class="box-header">
+
+        <div class="box-tools">
+            <a href="{{ path('user_new') }}" class="btn btn-primary">
+                Create a new entry
+            </a>
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
     <table class="table">
         <thead>
             <tr>
@@ -49,12 +59,6 @@
         {% endfor %}
         </tbody>
     </table>
-
-        <ul>
-        <li>
-            <a href="{{ path('user_new') }}" class="btn btn-primary">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
+</div>
+</div>
     {% endblock %}

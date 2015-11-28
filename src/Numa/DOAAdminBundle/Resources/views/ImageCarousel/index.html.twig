@@ -1,63 +1,73 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     {% javascripts '@colorbox_js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
 {% block content %}
     <h1>Image Carousel list</h1>
-    <ul>
-        <li>
-            <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
-                Add new images
-            </a>
-        </li>
-    </ul>
 
-    <table class="table">
-        <thead>
-            <tr>
+    <div class="box box-default">
 
-                <th>Src</th>
-                <th>Title</th>
-                <th>Url</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            {% set image=entity.getUploadDir()~"/"~entity.src %}
-            <tr>
-                <td><a class="colorbox cimage" href="{{asset(image,null,true)}}" title="{{ entity.title }}"><img class="thumbnail" src="{{image|imagine_filter('search_image')}}" /></a></td>
-                <td>{{ entity.title }}</td>
-                <td>{{ entity.url }}</td>
-                <td>
-                <ul class="list-inline">
-                    {#<li>#}
-                        {#<a href="{{ path('imagecarousel_show', { 'id': entity.id }) }}">show</a>#}
-                    {#</li>#}
-                    <li>
-                        <a class="btn btn-primary" href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-warning" href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">disable</a>
-                    </li>
-                    <li>
-                        <a class="btn btn-danger" href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-                    </li>
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="box-header">
+            <div class="box-tools">
+                <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
+                    Add new images
+                </a>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table">
+                <thead>
+                <tr>
 
-<script>
-    
-    $( document ).ready(function() {
-        $('a.colorbox').colorbox({maxWidth:'95%', maxHeight:'95%',rel:'group1'});
-    });
+                    <th>Src</th>
+                    <th>Title</th>
+                    <th>Url</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    {% set image=entity.getUploadDir()~"/"~entity.src %}
+                    <tr>
+                        <td><a class="colorbox cimage" href="{{ asset(image,null,true) }}"
+                               title="{{ entity.title }}"><img class="thumbnail"
+                                                               src="{{ image|imagine_filter('search_image') }}"/></a>
+                        </td>
+                        <td>{{ entity.title }}</td>
+                        <td>{{ entity.url }}</td>
+                        <td>
+                            <ul class="list-inline">
+                                {#<li>#}
+                                {#<a href="{{ path('imagecarousel_show', { 'id': entity.id }) }}">show</a>#}
+                                {#</li>#}
+                                <li>
+                                    <a class="btn btn-primary"
+                                       href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-warning"
+                                       href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">disable</a>
+                                </li>
+                                <li>
+                                    <a class="btn btn-danger"
+                                       href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
 
-</script>
-    {% endblock %}
+        $(document).ready(function () {
+            $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
+        });
+
+    </script>
+{% endblock %}

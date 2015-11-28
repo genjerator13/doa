@@ -1,7 +1,7 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>Business Directory</h1>
+    <h1></h1>
 
     {{ form_start(uploadForm) }}
     {{ form_errors(uploadForm) }}
@@ -11,43 +11,53 @@
 
     {{ form_end(uploadForm) }}
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-            <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
-                Create new Dealer
-            </a>
 
-    <table class="records_list table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Url</th>
-                <th>Category</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Business Directory</h3>
+            <div class="box-tools">
+                <a href="{{ path('catalogs_new') }}" class="btn btn-primary">
+                    Create new Dealer
+                </a>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <thead>
                 <tr>
-                    <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                    <td>{{ entity.name }}</td>
-                    <td>{{ entity.url }}</td>
-                    <td>{{ entity.getDcategoryNames() }}</td>
-                    <td class="nowrap">
-                        <ul class="list-inline">
-
-                            <li>
-                                <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('catalogs_delete', { 'id': entity.id }) }}" class="btn btn-danger"  data-confirm="All the listings <strong>{{entity.name}}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
-                            </li>
-                        </ul>
-                    </td>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Url</th>
+                    <th>Category</th>
+                    <th>Actions</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('catalogs_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.name }}</td>
+                        <td>{{ entity.url }}</td>
+                        <td>{{ entity.getDcategoryNames() }}</td>
+                        <td class="nowrap">
+                            <ul class="list-inline">
 
+                                <li>
+                                    <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}"
+                                       class="btn btn-primary">edit</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('catalogs_delete', { 'id': entity.id }) }}" class="btn btn-danger"
+                                       data-confirm="All the listings <strong>{{ entity.name }}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}

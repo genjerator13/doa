@@ -2,146 +2,242 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-{% include 'NumaDOAAdminBundle::header.html.twig' %}
+    {% include 'NumaDOAAdminBundle::header2.html.twig' %}
 
-        <body class=" default ">
+    <!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+    <body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
 
-            <div class="colmask leftmenu">
-                <div class="colright">
-                    <div class="leftSectionWrap">
-                        <div class="mainContent">
-                            <div class="dashboard">
-                                <div class="content">
-                   {% block content %}
-                   {% endblock %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="leftSection">
+        <!-- Main Header -->
+        <header class="main-header">
 
-                            <div class="leftBlock">
-                                <div class="adminInfo">
+            <!-- Logo -->
+            <a href="index2.html" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b>DOA</b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>Dealets on Air</b></span>
+            </a>
 
-                                    <div class="userManualAndLogoutWrapper">
-                                        <a target="_blank" href="{{ url('homepage') }}">View Site</a>
-                                        <br />
-                                        {#<a target="_blank" href="#">User Manual</a>
-                                        <br />#}
-                                        <a href="{{ path('logout') }}">Logout</a>
-                                    </div>
-                                </div>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <li class="dropdown messages-menu">
+                            <!-- Menu toggle button -->
+                            <a target="_blank" href="{{ url('homepage') }}">
+                                <i class="fa fa-link"></i>
+                                <span class="">Visit Site</span>
+                            </a>
 
-                                <div class="leftMenu">
-                                    <div class="section">
-                                        <ul class="nav nav-list bs-docs-sidenav">
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                            <li class="nav-header">Featured Import</li>  
-                                            <li class="">
-                                                <a href="{{ path('importfeed') }}"><i class="glyphicon glyphicon-chevron-right"></i>Feeds</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{ path('feed_api_home') }}"><i class="glyphicon glyphicon-chevron-right"></i>External Feeds</a>
-                                            </li>
-                                            {% endif %}
-                                            <li class="nav-header">Listing Management</li>
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                            <li class="">
-                                                <a href="{{ path('categories') }}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Categories</a>
-                                            </li>
-                                            {% endif %}
-                                            <li class="">
-                                                <a href="{{ path('additem') }}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Add Listing</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{ path('items') }}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Manage Listings</a>
-                                            </li>                                            
-{#                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Export Listings</a>
-                                            </li>#}
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                            <li class="nav-header">User Management</li>
-                                            {#<li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Membership Plans</a>
-                                            </li>#}
-                                            <li class="">
-                                                <a href="{{ path('user_group') }}" class=""><i class="glyphicon glyphicon-chevron-right"></i>User Groups</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{ path('user') }}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Manage Users</a>
-                                            </li>
-                                            {% endif %}
-                                            
-                                            {#<li class="nav-header">Site Layout</li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Site Pages</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Page Templates</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Function Templates</a>
-                                            </li>          
-                                            <li class="nav-header">Payment Management</li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Credit Transactions</a>
-                                            </li>#}
+                        </li><!-- /.messages-menu -->
+                        <li class="dropdown messages-menu">
+                            <!-- Menu toggle button -->
+                            <a target="_blank" href="{{ url('logout') }}">
+                                <i class="fa fa-sign-out"></i>
+                                <span class="">Logout</span>
+                            </a>
 
-                                            {#<li class="nav-header">System configuration</li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Admin Password</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>System Settings</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Geographic Locations</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Custom Settings</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>IP Blocklist Manager</a>
-                                            </li>#}
-                                            <li class="nav-header">Content Management</li>
-                                            <li class="">
-                                                <a href="{{path('catalogs')}}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Business Directory</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{path('imagecarousel')}}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Image Carousel</a>
-                                            </li>
-                                            {% if is_granted('ROLE_ADMIN') %}
-                                            <li class="">
-                                                <a href="{{path('command_log_home')}}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Command Queue</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="{{path('setting')}}" class=""><i class="glyphicon glyphicon-chevron-right"></i>Settings</a>
-                                            </li>
-                                            {% endif %}
-                                            {#<li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Online Polls</a>
-                                            </li>
-                                            <li class="">
-                                                <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Static Content</a>
-                                            </li>#}
-                                            
-                                        </ul>
-                                    </div>
-                                </div>
-
-</div>
-                                {#<div class="copyright">
-                                    &copy;2013&ndash;2015&nbsp;Genjerator
-                                </div>#}
-                            </div>
-
-                            <!-- /default:main:left_block.tpl -->
-                        
-                    </div>
+                        </li><!-- /.messages-menu -->
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                        </li>
+                    </ul>
                 </div>
-                {% include 'NumaDOAAdminBundle::footer.html.twig' %}
-            </body>
-        </html>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
 
-        <!-- /default:main:default.tpl -->
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+
+
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="treeview">Feeds</li>
+                        <li class="">
+                            <a href="{{ path('importfeed') }}"><i class="fa fa-clone"></i>Feeds</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('feed_api_home') }}"><i class="fa fa-code"></i>External Feeds</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-header">Listing Management</li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="">
+                            <a href="{{ path('categories') }}" class=""><i class="fa fa-database"></i>Categories</a>
+                        </li>
+                    {% endif %}
+                    <li class="">
+                        <a href="{{ path('additem') }}" class=""><i class="fa fa-truck"></i>Add Listing</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('items') }}" class=""><i class="fa fa-list-ol"></i>Manage Listings</a>
+                    </li>
+                    {#                                            <li class="">
+                                                                    <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Export Listings</a>
+                                                                </li>#}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-header">User Management</li>
+                        {#<li class="">
+                            <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Membership Plans</a>
+                        </li>#}
+                        <li class="">
+                            <a href="{{ path('user_group') }}" class=""><i class="fa fa-users"></i>User Groups</a>
+                        </li>
+                        <li class="">
+                            <a href="{{ path('user') }}" class=""><i class="fa fa-user"></i>Manage Users</a>
+                        </li>
+                    {% endif %}
+
+                    {#<li class="nav-header">Site Layout</li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Site Pages</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Page Templates</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Function Templates</a>
+                    </li>
+                    <li class="nav-header">Payment Management</li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Credit Transactions</a>
+                    </li>#}
+
+                    {#<li class="nav-header">System configuration</li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Admin Password</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>System Settings</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Geographic Locations</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Custom Settings</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>IP Blocklist Manager</a>
+                    </li>#}
+                    <li class="nav-header">Content Management</li>
+                    <li class="">
+                        <a href="{{path('catalogs')}}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
+                    </li>
+                    <li class="">
+                        <a href="{{path('imagecarousel')}}" class=""><i class="fa fa-file-image-o"></i>Image Carousel</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="">
+                            <a href="{{path('command_log_home')}}" class=""><i class="fa fa-navicon"></i>Command Queue</a>
+                        </li>
+                        <li class="">
+                            <a href="{{path('setting')}}" class=""><i class="fa fa-cog"></i>Settings</a>
+                        </li>
+                    {% endif %}
+                    {#<li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Online Polls</a>
+                    </li>
+                    <li class="">
+                        <a href="#" class=""><i class="glyphicon glyphicon-chevron-right"></i>Static Content</a>
+                    </li>#}
+                </ul><!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Dealers on Air
+                    <small>Admin Dashbard</small>
+                </h1>
+
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+                <!-- Your Page Content Here -->
+                    {% block content %}
+                    {% endblock %}
+
+
+            </section><!-- /.content -->
+        </div><!-- /.content-wrapper -->
+
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="pull-right hidden-xs">
+                DOA
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2015 <a href="#">Dealers On Air</a>.</strong> All rights reserved.
+        </footer>
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane active" id="control-sidebar-home-tab">
+
+
+                </div><!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+
+                </div><!-- /.tab-pane -->
+            </div>
+        </aside><!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div><!-- ./wrapper -->
+
+    </body>
+</html>
+
+<!-- /default:main:default.tpl -->
 

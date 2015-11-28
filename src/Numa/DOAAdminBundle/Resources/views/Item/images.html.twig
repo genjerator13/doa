@@ -2,6 +2,7 @@
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
+    <div class="box box-default">
     <h1>Listing Images Management for {{ item.getTitle() }}</h1>
     <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
     {#{{ form_start(addimages) }}#}
@@ -26,25 +27,35 @@
                         All</a><a id="delete-selected" href=""
                                   data-confirm="Are you sure you want to delete all the selected images?">Delete
                         Selected</a></div>
-                <table class='table'>
-                    {% for image in images %}
-                        <tr>
-                            <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
-                                       class="image-checkbox"></td>
-                            <td>
-                                {% if  "http" not in image.getFieldStringValue() %}
-                                    <a  class="colorbox" href="{{ asset(image.getFieldStringValue())}}"><img src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}" class="thumbnail"
-                                         alt="image"/></a>
-                                {% else %}
-                                <a  class="colorbox" href="{{ asset(image.getFieldStringValue())}}"><img src="{{ image.getFieldStringValue() }}" alt="image" width="120px" class="thumbnail"/></a>
-                                {% endif %}
-                            </td>
-                            <td><a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                            class='glyphicon glyphicon-trash'></i></a></td>
-                        </tr>
 
-                    {% endfor %}
-                </table>
+                <h1>Images list</h1>
+
+                <div class="box-body table-responsive no-padding">
+                    <table class='table table-hover'>
+                        {% for image in images %}
+                            <tr>
+                                <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
+                                           class="image-checkbox"></td>
+                                <td>
+                                    {% if  "http" not in image.getFieldStringValue() %}
+                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
+                                                    src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
+                                                    class="thumbnail"
+                                                    alt="image"/></a>
+                                    {% else %}
+                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
+                                                    src="{{ image.getFieldStringValue() }}" alt="image" width="120px"
+                                                    class="thumbnail"/></a>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
+                                                class='glyphicon glyphicon-trash'></i></a></td>
+                            </tr>
+
+                        {% endfor %}
+                    </table>
+                </div>
             </form>
             {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
         {% endif %}
@@ -90,8 +101,8 @@
             return false;
         });
 
-        $( document ).ready(function() {
-            $('a.colorbox').colorbox({maxWidth:'95%', maxHeight:'95%',rel:'group1'});
+        $(document).ready(function () {
+            $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
         });
 
     </script>
