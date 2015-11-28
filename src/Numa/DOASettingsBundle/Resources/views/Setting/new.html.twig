@@ -1,15 +1,17 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <h1>Setting creation</h1>
+    <div class="box box-default">
+        <h1>Setting creation</h1>
 
-    {{ form(form) }}
+        {{ form(form) }}
 
         <ul class="record_actions">
-    <li>
-        <a href="{{ path('setting') }}" class="btn btn-default" >
-            Back to the list
-        </a>
-    </li>
-</ul>
+            <li>
+                <a href="{{ path('setting') }}" class="btn btn-default">
+                    Back to the list
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

@@ -1,38 +1,48 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
-    <h1>Command Log</h1>
-
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-    <a href="{{path('command_log_start')}}" class="btn btn-primary">Start command queue</a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Command</th>
-                <th>Time Start</th>
-                <th>Time end</th>
-                <th>Status</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for entity in entities %}
-                <tr class="{% if (entity.status=="ERROR")%}danger{%elseif(entity.status=="finished")%}success{%endif%}">
-                    <td>{{ entity.id }}</td>
-                    <td>{{ entity.command }}</td>
-                    <td>{{ entity.startedAt|date('Y-m-d H:i:s')}}</td>
-                    <td>{% if(entity.endedAt is not empty) %} 
-                        {{ entity.endedAt|date('Y-m-d H:i:s') }} 
-                        {% endif %}
+    <div class="box box-default">
+        <h1 >Command Log</h1>
+        <div class="box-header">
+
+            <div class="box-tools">
+                <a href="{{ path('command_log_start') }}" class="btn btn-primary">Start command queue</a>
+            </div>
+        </div>
+        <div class="box-body table-responsive no-padding">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Command</th>
+                    <th>Time Start</th>
+                    <th>Time end</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr class="{% if (entity.status=="ERROR") %}danger{% elseif(entity.status=="finished") %}success{% endif %}">
+                        <td>{{ entity.id }}</td>
+                        <td>{{ entity.command }}</td>
+                        <td>{{ entity.startedAt|date('Y-m-d H:i:s') }}</td>
+                        <td>{% if(entity.endedAt is not empty) %}
+                                {{ entity.endedAt|date('Y-m-d H:i:s') }}
+                            {% endif %}
                         </td>
                         <td>{{ entity.status }}
-                        {% if (entity.status=='started' or entity.status=='finished' or entity.status=='ERROR' )%} count({{entity.count}}),current:({%if entity.status=='started'%} {{memcacheGet('command:progress:'~entity.id)}}{%else%}{{entity.current}}{% endif%}){% endif%}
+                            {% if (entity.status=='started' or entity.status=='finished' or entity.status=='ERROR' ) %} count({{ entity.count }}),current:({% if entity.status=='started' %} {{ memcacheGet('command:progress:'~entity.id) }}{% else %}{{ entity.current }}{% endif %}){% endif %}
                         </td>
                         <td>
-                            <a href="{{path('command_log_detail',{'id':entity.id})}}" class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}" >Show details</a>
+                            <a href="{{ path('command_log_detail',{'id':entity.id}) }}"
+                               class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}">Show
+                                details</a>
                         </td>
                     </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>       
-                {% endblock %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
