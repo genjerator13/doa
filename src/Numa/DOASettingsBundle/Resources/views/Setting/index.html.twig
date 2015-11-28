@@ -2,65 +2,71 @@
 
 {% block content %}
     {% include("NumaDOAAdminBundle::flashmsg.html.twig") %}
+    <div class="box box-default">
     <h1>Setting list</h1>
     <ul class="nav nav-tabs">
 
         {% for section in sections %}
 
             <li role="presentation" class="{% if loop.first %}active{% endif %}"><a data-toggle="tab"
-                                                      href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
+                                                                                    href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
             </li>
         {% endfor %}
         <li role="presentation">
             <a data-toggle="tab" href="#system">System</a>
         </li>
     </ul>
-    <div class="tab-content">
-    {% for section in sections %}
 
-            <div id="{{ section.section|replace(" ","-") }}" class="tab-pane {% if loop.first %}active{% endif %}">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Value</th>
-                        <th>Section</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <div class="nav-tabs-custom">
+            <div class="tab-content">
+                {% for section in sections %}
 
-                    {% for entity in settings[section.section] %}
-                        {% if section.section==entity.section %}
+                    <div id="{{ section.section|replace(" ","-") }}"
+                         class="tab-pane {% if loop.first %}active{% endif %}">
+                        <table class="table">
+                            <thead>
                             <tr>
-                                <td>{{ entity.name }}</td>
-                                <td>{{ entity.value }}</td>
-                                <td>{{ entity.section }}</td>
-                                <td>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
-                                               class="btn btn-primary">edit</a>
-                                        </li>
-                                    </ul>
-                                </td>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Section</th>
+                                <th>Actions</th>
                             </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <ul>
-                    <li>
-                        <a href="{{ path('setting_new') }}" class="btn btn-success">
-                            Create a new entry
-                        </a>
-                    </li>
-                </ul>
-            </div>
+                            </thead>
+                            <tbody>
 
-    {% endfor %}
-        <div id="system" class="tab-pane">
-            <a class="btn btn-primary" href="{{ path('setting_cache_clear') }}">Clear http cache</a>
+                            {% for entity in settings[section.section] %}
+                                {% if section.section==entity.section %}
+                                    <tr>
+                                        <td>{{ entity.name }}</td>
+                                        <td>{{ entity.value }}</td>
+                                        <td>{{ entity.section }}</td>
+                                        <td>
+                                            <ul>
+                                                <li>
+                                                    <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
+                                                       class="btn btn-primary">edit</a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <ul>
+                            <li>
+                                <a href="{{ path('setting_new') }}" class="btn btn-success">
+                                    Create a new entry
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                {% endfor %}
+                <div id="system" class="tab-pane">
+                    <a class="btn btn-primary" href="{{ path('setting_cache_clear') }}">Clear http cache</a>
+                </div>
+            </div>
         </div>
     </div>
 

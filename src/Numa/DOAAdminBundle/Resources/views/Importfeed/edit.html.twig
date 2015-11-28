@@ -14,14 +14,14 @@
 {% endblock %}
 {% block content %}
 
-
-    <h1>Importfeed edit</h1>
+<div class="box box-default">
+    <h1>Feed {{ entity.sid }} edit</h1>
 
     {{ form(edit_form) }}
 
             <a href="{{ path('importfeed') }}" class="btn btn-default">
                 Back to the list
             </a>
-
+</div>
 
 {% endblock %}

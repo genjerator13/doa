@@ -1,24 +1,29 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
+    <div class="box box-default">
+        <h3>Mapping {{ entity.sid }}</h3>
+        <a class="btn btn-danger">Reset Mapping</a>
+        <table class="table">
+            <tr>
+                <td>Property</td>
+                <td>Listing field</td>
+            </tr>
+            {% for prop in properties %}
+                <tr>
+                    <td></span>{{ prop }}</td>
+                    <td>
+                        <select>
 
-<h3>Mapping {{entity.sid}}</h3>
-    <a class="btn btn-danger">Reset Mapping</a>
-<table class="table" >
-    <tr ><td>Property</td><td>Listing field</td></tr>
-    {% for prop in properties %}
-    <tr><td></span>{{prop}}</td>
-        <td>
-            <select>
-
-                <option>Select mappin field</option>
-    {% for prop in dbProperties %}
-                <option>{{prop.sid}}</option>
-    {% endfor %}
-                </select>
-            </td></tr>
-    {% endfor %}
-    </table>
-
+                            <option>Select mappin field</option>
+                            {% for prop in dbProperties %}
+                                <option>{{ prop.sid }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}

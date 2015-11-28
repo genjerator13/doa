@@ -1,15 +1,12 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <h1>Category edit</h1>
+    <div class="box box-default">
+        <h1>Category edit</h1>
 
-    {{ form(edit_form) }}
-
-        <ul class="record_actions">
-    <li>
+        {{ form(edit_form) }}
         <a href="{{ path('categories') }}" class="btn btn-default">
             Back to the list
         </a>
-    </li>
-</ul>
+    </div>
 {% endblock %}
