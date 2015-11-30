@@ -188,11 +188,13 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
                 //$num_rows_effected = $conn->exec($sql);
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
+                if($count % 400 ==0) {
+                    $this->em->flush();
+                    $this->em->getConnection()->commit();
+                    $this->em->clear();
+                }
             }
 
-            $this->em->flush();
-            $this->em->getConnection()->commit();
-            $this->em->clear();
             unset($items);
             unset($mapping);
 
@@ -205,9 +207,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->commandLog->setStatus('finished');
             $this->commandLog->setCurrent($count);
             $this->em->flush();
+            $this->em->clear();
             //
             $seoService = $this->getContainer()->get("Numa.Seo");
             $seo = $seoService->generateSeoForFeed($feed_id);
+            die();
             //dump($feed_id);
         } catch (Exception $ex) {
 
