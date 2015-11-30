@@ -17,8 +17,10 @@ class SeoLib
         $this->container = $container;
     }
 
-    public function prepareSeo(Item $item, array $seoPosts=array(),$autogenerate=true,$flush=true){
-        $em = $this->container->get('doctrine.orm.entity_manager');
+    public function prepareSeo(Item $item, array $seoPosts=array(),$autogenerate=true,$flush=true,$em=null){
+        if($em==null) {
+            $em = $this->container->get('doctrine.orm.entity_manager');
+        }
 
 
         $seoRep = $em->getRepository("NumaDOAModuleBundle:Seo");
@@ -68,9 +70,7 @@ class SeoLib
             $seo->setDescription($description);
             $seo->setKeywords($keywords);
         }
-        if($flush) {
-            $em->flush();
-        }
+
         return $seo;
 
     }
@@ -89,8 +89,9 @@ class SeoLib
                 foreach ($items as $item) {
                     $seoService = $this->container->get("Numa.Seo");
                     //dump($autogenerate);
-                    $seo = $seoService->prepareSeo($item,array(),$feed->getAutogenerateSeo());
+                    $seo = $seoService->prepareSeo($item,array(),$feed->getAutogenerateSeo(),$em);
                 }
+                $em->flush();
             //}
         }
     }

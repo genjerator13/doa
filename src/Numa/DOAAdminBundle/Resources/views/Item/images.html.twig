@@ -3,62 +3,63 @@
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
     <div class="box box-default">
-    <h1>Listing Images Management for {{ item.getTitle() }}</h1>
-    <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
-    {#{{ form_start(addimages) }}#}
-    {#{{ form_errors(addimages) }}#}
-    {#<div class="file-upload">#}
-    {#{{ form_row(addimages.Picture1) }}#}
-    {#</div>#}
+        <h1>Listing Images Management for {{ item.getTitle() }}</h1>
+        <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {#{{ form_start(addimages) }}#}
+        {#{{ form_errors(addimages) }}#}
+        {#<div class="file-upload">#}
+        {#{{ form_row(addimages.Picture1) }}#}
+        {#</div>#}
 
-    {#{{ form_end(addimages) }}#}
-    <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
+        {#{{ form_end(addimages) }}#}
+        <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
 
-        {#{{ form_widget(form.file) }}#}
+            {#{{ form_widget(form.file) }}#}
 
-        {#<input type="submit" value="Upload" />#}
-    </form>
-    <div id="item-images">
-        <div>Images Total: {{ images|length }}</div>
-        {% if(images|length>0) %}
-            <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
-                  name="images-delete">
-                <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                        All</a><a id="delete-selected" href=""
-                                  data-confirm="Are you sure you want to delete all the selected images?">Delete
-                        Selected</a></div>
+            {#<input type="submit" value="Upload" />#}
+        </form>
+        <div id="item-images">
+            <div>Images Total: {{ images|length }}</div>
+            {% if(images|length>0) %}
+                <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
+                      name="images-delete">
+                    <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
+                            All</a><a id="delete-selected" href=""
+                                      data-confirm="Are you sure you want to delete all the selected images?">Delete
+                            Selected</a></div>
 
-                <h1>Images list</h1>
+                    <h1>Images list</h1>
 
-                <div class="box-body table-responsive no-padding">
-                    <table class='table table-hover'>
-                        {% for image in images %}
-                            <tr>
-                                <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
-                                           class="image-checkbox"></td>
-                                <td>
-                                    {% if  "http" not in image.getFieldStringValue() %}
-                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                    src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                                    class="thumbnail"
-                                                    alt="image"/></a>
-                                    {% else %}
-                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                    src="{{ image.getFieldStringValue() }}" alt="image" width="120px"
-                                                    class="thumbnail"/></a>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                                class='glyphicon glyphicon-trash'></i></a></td>
-                            </tr>
-
-                        {% endfor %}
-                    </table>
-                </div>
-            </form>
-            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
-        {% endif %}
+                    <div class="box-body table-responsive no-padding">
+                        <table class='table table-hover'>
+                            {% for image in images %}
+                                <tr>
+                                    <td><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
+                                               class="image-checkbox"></td>
+                                    <td>
+                                        {% if  "http" not in image.getFieldStringValue() %}
+                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
+                                                        src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
+                                                        class="thumbnail"
+                                                        alt="image"/></a>
+                                        {% else %}
+                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
+                                                        src="{{ image.getFieldStringValue() }}" alt="image"
+                                                        width="120px"
+                                                        class="thumbnail"/></a>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
+                                                    class='glyphicon glyphicon-trash'></i></a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </form>
+                {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+            {% endif %}
+        </div>
     </div>
     <script>
         $(document).ready(function () {
