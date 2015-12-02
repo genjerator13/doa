@@ -166,7 +166,7 @@ class SettingsLib
         preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
 
         $title = "";
-        $replaces = array();
+        $replace = array();
         foreach($matches[1] as $match){
             $replace[] = $item->get($match);
         }
