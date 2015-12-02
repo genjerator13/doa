@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Numa\DOAAdminBundle\Entity\Listingfield;
 use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\HttpFoundation\Request;
@@ -271,6 +273,9 @@ class ItemController extends Controller {
                 if (strtolower($field->getCaption()) != 'image list') {
                     $entity->addItemField($itemField);
                 }
+
+
+
             }
 
             //die();
@@ -363,10 +368,10 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-
-        if (!$entity) {
+        if (!$entity instanceof Item) {
             throw $this->createNotFoundException('Unable to find Item entity.');
         }
+
         $feed = $entity->getImportFeed();
 
         if (!empty($feed)) {
@@ -389,61 +394,66 @@ class ItemController extends Controller {
         $securityContext = $this->container->get('security.context');
 
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllByType('boolean', array(0, $categoryEntity->getId()));
-        if (!empty($fields)) {
-            foreach ($fields as $key => $field) {
+        //dump($fields);
 
-                $itemField = new ItemField();
+        if (!empty($fields)) {
+            //lop trough all the listing fields
+            foreach ($fields as $key => $field) {
+                if($field instanceof Listingfield){}
+
                 //check if item field has value for the listing_field if edit (exists)
 
                 if ($id != null) {
 
-                    $qb = $em->getRepository('NumaDOAAdminBundle:Item')->createQueryBuilder('i')
-                            ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
-                            ->where('i.id = :iid')
-                            ->join('i.ItemField', 'if')
-                            ->join('if.Listingfield', 'ls')
-                            ->andWhere('ls.id = :lsid')
+                    $qb = $em->getRepository('NumaDOAAdminBundle:ItemField')->createQueryBuilder('if')
+                            ->select('if')
+                            ->where('if.item_id = :iid')
+                            ->andWhere('if.field_id = :lsid')
                             ->setParameter('iid', $id)
                             ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
-                    $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
+                    $itemField = $query->setMaxResults(1)->getOneOrNullResult();
 
-                    if (!empty($listingField)) {
-                        $itemField->setFieldStringValue($listingField['field_string_value']);
-                        $itemField->setFieldIntegerValue($listingField['field_integer_value']);
-                        $itemField->setFieldBooleanValue($listingField['field_boolean_value']);
+                    if (! $itemField instanceof ItemField) {
+                        $itemField = new ItemField();
                     }
+                }else{
+                    $itemField = new ItemField();
                 }
+
                 $itemField->setListingfield($field);
                 $itemField->setFieldName($field->getCaption());
                 $itemField->setFieldType($field->getType());
+                $itemField->setFieldId($field->getId());
+                $itemField->setListingfield($field);
+                $itemField->setFeedId($entity->getFeedId());
 
                 if (strtolower($field->getCaption()) != 'image list') {
                     //check if the listing field is already there
-
-                    $criteria = Criteria::create()
-                            ->where(Criteria::expr()->eq("fieldId", $listingField['field_id']))
+                    $itemFieldAlreadySet= new ArrayCollection();
+                    if($itemField instanceof ItemField) {
+                        //dump($itemField->getFieldId());
+                        $criteria = Criteria::create()
+                            ->where(Criteria::expr()->eq("fieldId", $itemField->getFieldId()))
+                            ->orWhere(Criteria::expr()->eq("fieldName", $itemField->getFieldName()))
                             ->setFirstResult(0)
-                            ->setMaxResults(1)
-                    ;
+                            ->setMaxResults(1);
+                        $itemFieldAlreadySet = $entity->getItemField()->matching($criteria);
+                    }
 
-                    $itemFieldAlreadySet = $entity->getItemField()->matching($criteria);
-                    if ($itemFieldAlreadySet->isEmpty() || empty($listingField)) {
-
+                    if ($itemFieldAlreadySet->isEmpty() || empty($itemField)) {
                         $entity->addItemField($itemField);
                     }
                 }
 
             }
-
         }
         $entity->sortItemFieldsBy();
-        //dump($entity->getItemField());
-        //die();
-        //dump($entity);
 
 
+
+        //seo
         if(!empty($entity->getId())) {
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
             if(empty($seo)){
@@ -459,22 +469,23 @@ class ItemController extends Controller {
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
-
+        //dump($entity->getItemField());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em->persist($entity);
+
+            dump($entity->getItemField());
+            if(empty($id)) {
+                $em->persist($entity);
+            }
+
             $seoPost =$request->get("numa_doamodulebundle_seo");
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity,$seoPost);
+            //dump($entity->getItemField());
+           // die();
 
-            //$seo->set
             //die();
-            //refresh tabs
-//            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-//            $command->setContainer($this->container);
-//            $resultCode = $command->makeHomeTabs(false);
-
             $em->flush();
             return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
         }
