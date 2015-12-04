@@ -158,6 +158,9 @@ assetic:
         colorbox_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/jquery.colorbox-min.js'
+        sortable_js:
+            inputs:
+                - '%kernel.root_dir%/../web/js/Sortable.min.js'
         AdminLTE_js:
             inputs:
                 - '%kernel.root_dir%/../web/js/app.min.js'

@@ -55,3 +55,7 @@ item_images_upload:
     pattern: /{id}/imagesupload
     defaults: { _controller: "NumaDOAAdminBundle:Image:upload" }
     requirements: { id: \d+ }
+item_image_setorder:
+    pattern: /image_order
+    defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder" }
+    condition: "request.isXmlHttpRequest()"
