@@ -3,7 +3,7 @@
     <span class="fieldValue fieldValuePictures">
         <a href="#">
                 {% if details['Image List'] is defined or details['Image List'][0] is defined  %}
-                <img alt="No photos" src="http://www.cjvr.dealersonair.com/admin/../apps/adminPanel/templates/default/_files/no_image_available_small.png">
+                <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}">
                 {% else %} 
                 <img alt="{{details.Year}} {{details.Make}}" src="{{details['Image List'][0]}}" width="100" height="100">
                 {%endif%}

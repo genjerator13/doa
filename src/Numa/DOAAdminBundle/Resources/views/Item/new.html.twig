@@ -214,20 +214,25 @@
 
                             {% endfor %}
                         </ul>
-                        <ul class="list-inline">
-                            <li>
-                                <button class="btn btn-success">
-                                    Submit
-                                </button>
-                            </li>
-                            {% if(not is_granted('ROLE_BUSINES')) %}
-                                <li>
-                                    <a href="{{ path('items') }}" class="btn btn-default">
-                                        Back to the list without saving
-                                    </a>
-                                </li>
-                            {% endif %}
-                        </ul>
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <ul class="list-inline">
+                                    <li>
+                                        <button class="btn btn-success">
+                                            Submit
+                                        </button>
+                                    </li>
+                                    {% if(not is_granted('ROLE_BUSINES')) %}
+                                        <li>
+                                            <a href="{{ path('items') }}" class="btn btn-default">
+                                                Back to the list without saving
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
                 </div>
                 <div id="SEO" class="tab-pane">
                     {#{{ form_widget(form.Seo, { 'attr': {'class': ''} }) }}#}

@@ -18,21 +18,22 @@ use Numa\DOAModuleBundle\Entity\Seo;
  * @JMS\XmlRoot("listing")
  * @JMS\ExclusionPolicy("ALL")
  */
-class Item {
+class Item
+{
 
     public static $fields = array(
         1 =>
-        array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
+            array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
         2 =>
-        array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
+            array('Boat Type' => 'type', 'boat_weight' => 'weight', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel type' => 'fuelType', 'drive type' => 'driveType'),
         3 =>
-        array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
+            array('Cooling System' => 'coolingSystem', 'make' => 'make', 'Type' => 'type', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType'),
         4 =>
-        array('Make Model' => 'make', 'model' => 'model', 'Type' => 'type', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
+            array('Make Model' => 'make', 'model' => 'model', 'Type' => 'type', 'Chassis Type' => 'chassisType', 'sleeps' => 'sleeps', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType'),
         13 =>
-        array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
+            array('make' => 'make', 'model' => 'model', 'ag_application' => 'agApplication', 'steering' => 'steeringType', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'chassis_type' => 'ChassisType')
     );
-    
+
     /**
      * @var integer
      * @GRID\Column(type="text", field="id", title="Id", filterable=true, operatorsVisible=false)
@@ -65,14 +66,12 @@ class Item {
     /**
      * @var boolean
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
-
      */
     private $active;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="moderation_status", title="Status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
-
      */
     private $moderation_status;
 
@@ -152,7 +151,7 @@ class Item {
     private $last_user_ip;
 
     /**
-     * 
+     *
      */
     private $ItemField;
     public $ItemFieldArray;
@@ -178,25 +177,28 @@ class Item {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
         $this->ItemFieldArray = array();
         $this->dontupdate = false;
 
     }
-    
+
     private $dontupdate;
-    
-    public function setDontUpdate(){
-        $this->dontupdate=true;
+
+    public function setDontUpdate()
+    {
+        $this->dontupdate = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -206,7 +208,8 @@ class Item {
      * @param string $sid
      * @return Item
      */
-    public function setSid($sid) {
+    public function setSid($sid)
+    {
         $this->sid = $sid;
 
         return $this;
@@ -215,9 +218,10 @@ class Item {
     /**
      * Get sid
      *
-     * @return string 
+     * @return string
      */
-    public function getSid() {
+    public function getSid()
+    {
         return $this->sid;
     }
 
@@ -227,7 +231,8 @@ class Item {
      * @param integer $feedId
      * @return Item
      */
-    public function setFeedId($feedId) {
+    public function setFeedId($feedId)
+    {
         $this->feed_id = $feedId;
 
         return $this;
@@ -236,9 +241,10 @@ class Item {
     /**
      * Get feed_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getFeedId() {
+    public function getFeedId()
+    {
         return $this->feed_id;
     }
 
@@ -248,7 +254,8 @@ class Item {
      * @param integer $categoryId
      * @return Item
      */
-    public function setCategoryId($categoryId) {
+    public function setCategoryId($categoryId)
+    {
         $this->category_id = $categoryId;
 
         return $this;
@@ -257,9 +264,10 @@ class Item {
     /**
      * Get category_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getCategoryId() {
+    public function getCategoryId()
+    {
         return $this->category_id;
     }
 
@@ -269,7 +277,8 @@ class Item {
      * @param integer $userId
      * @return Item
      */
-    public function setUserId($userId) {
+    public function setUserId($userId)
+    {
         $this->user_id = $userId;
 
         return $this;
@@ -278,9 +287,10 @@ class Item {
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->user_id;
     }
 
@@ -290,7 +300,8 @@ class Item {
      * @param boolean $active
      * @return Item
      */
-    public function setActive($active) {
+    public function setActive($active)
+    {
         $this->active = $active;
 
         return $this;
@@ -299,9 +310,10 @@ class Item {
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getActive() {
+    public function getActive()
+    {
         return $this->active;
     }
 
@@ -311,7 +323,8 @@ class Item {
      * @param string $moderationStatus
      * @return Item
      */
-    public function setModerationStatus($moderationStatus) {
+    public function setModerationStatus($moderationStatus)
+    {
         $this->moderation_status = $moderationStatus;
 
         return $this;
@@ -320,9 +333,10 @@ class Item {
     /**
      * Get moderation_status
      *
-     * @return string 
+     * @return string
      */
-    public function getModerationStatus() {
+    public function getModerationStatus()
+    {
         return $this->moderation_status;
     }
 
@@ -332,7 +346,8 @@ class Item {
      * @param string $keywords
      * @return Item
      */
-    public function setKeywords($keywords) {
+    public function setKeywords($keywords)
+    {
         $this->keywords = $keywords;
 
         return $this;
@@ -341,9 +356,10 @@ class Item {
     /**
      * Get keywords
      *
-     * @return string 
+     * @return string
      */
-    public function getKeywords() {
+    public function getKeywords()
+    {
         return $this->keywords;
     }
 
@@ -353,7 +369,8 @@ class Item {
      * @param boolean $featured
      * @return Item
      */
-    public function setFeatured($featured) {
+    public function setFeatured($featured)
+    {
         $this->featured = $featured;
 
         return $this;
@@ -362,9 +379,10 @@ class Item {
     /**
      * Get featured
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getFeatured() {
+    public function getFeatured()
+    {
         return $this->featured;
     }
 
@@ -374,7 +392,8 @@ class Item {
      * @param integer $views
      * @return Item
      */
-    public function setViews($views) {
+    public function setViews($views)
+    {
         $this->views = $views;
 
         return $this;
@@ -383,9 +402,10 @@ class Item {
     /**
      * Get views
      *
-     * @return integer 
+     * @return integer
      */
-    public function getViews() {
+    public function getViews()
+    {
         return $this->views;
     }
 
@@ -395,7 +415,8 @@ class Item {
      * @param integer $pictures
      * @return Item
      */
-    public function setPictures($pictures) {
+    public function setPictures($pictures)
+    {
         $this->pictures = $pictures;
 
         return $this;
@@ -404,9 +425,10 @@ class Item {
     /**
      * Get pictures
      *
-     * @return integer 
+     * @return integer
      */
-    public function getPictures() {
+    public function getPictures()
+    {
         return $this->pictures;
     }
 
@@ -416,7 +438,8 @@ class Item {
      * @param \DateTime $activationDate
      * @return Item
      */
-    public function setActivationDate($activationDate) {
+    public function setActivationDate($activationDate)
+    {
         $this->activation_date = $activationDate;
 
         return $this;
@@ -425,9 +448,10 @@ class Item {
     /**
      * Get activation_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getActivationDate() {
+    public function getActivationDate()
+    {
         return $this->activation_date;
     }
 
@@ -437,7 +461,8 @@ class Item {
      * @param \DateTime $expirationDate
      * @return Item
      */
-    public function setExpirationDate($expirationDate) {
+    public function setExpirationDate($expirationDate)
+    {
         $this->expiration_date = $expirationDate;
 
         return $this;
@@ -446,9 +471,10 @@ class Item {
     /**
      * Get expiration_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getExpirationDate() {
+    public function getExpirationDate()
+    {
         return $this->expiration_date;
     }
 
@@ -458,7 +484,8 @@ class Item {
      * @param \DateTime $featuredLastShowed
      * @return Item
      */
-    public function setFeaturedLastShowed($featuredLastShowed) {
+    public function setFeaturedLastShowed($featuredLastShowed)
+    {
         $this->featured_last_showed = $featuredLastShowed;
 
         return $this;
@@ -467,9 +494,10 @@ class Item {
     /**
      * Get featured_last_showed
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getFeaturedLastShowed() {
+    public function getFeaturedLastShowed()
+    {
         return $this->featured_last_showed;
     }
 
@@ -479,7 +507,8 @@ class Item {
      * @param \DateTime $dateCreated
      * @return Item
      */
-    public function setDateCreated($dateCreated) {
+    public function setDateCreated($dateCreated)
+    {
         $this->date_created = $dateCreated;
 
         return $this;
@@ -488,9 +517,10 @@ class Item {
     /**
      * Get date_created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDateCreated() {
+    public function getDateCreated()
+    {
         return $this->date_created;
     }
 
@@ -500,7 +530,8 @@ class Item {
      * @param \DateTime $dateUpdated
      * @return Item
      */
-    public function setDateUpdated($dateUpdated) {
+    public function setDateUpdated($dateUpdated)
+    {
         $this->date_updated = $dateUpdated;
 
         return $this;
@@ -509,9 +540,10 @@ class Item {
     /**
      * Get date_updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getDateUpdated() {
+    public function getDateUpdated()
+    {
         return $this->date_updated;
     }
 
@@ -521,7 +553,8 @@ class Item {
      * @param integer $autoExtend
      * @return Item
      */
-    public function setAutoExtend($autoExtend) {
+    public function setAutoExtend($autoExtend)
+    {
         $this->auto_extend = $autoExtend;
 
         return $this;
@@ -530,9 +563,10 @@ class Item {
     /**
      * Get auto_extend
      *
-     * @return integer 
+     * @return integer
      */
-    public function getAutoExtend() {
+    public function getAutoExtend()
+    {
         return $this->auto_extend;
     }
 
@@ -542,7 +576,8 @@ class Item {
      * @param boolean $featureHighlighted
      * @return Item
      */
-    public function setFeatureHighlighted($featureHighlighted) {
+    public function setFeatureHighlighted($featureHighlighted)
+    {
         $this->feature_highlighted = $featureHighlighted;
 
         return $this;
@@ -551,9 +586,10 @@ class Item {
     /**
      * Get feature_highlighted
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getFeatureHighlighted() {
+    public function getFeatureHighlighted()
+    {
         return $this->feature_highlighted;
     }
 
@@ -563,7 +599,8 @@ class Item {
      * @param boolean $featureSlideshow
      * @return Item
      */
-    public function setFeatureSlideshow($featureSlideshow) {
+    public function setFeatureSlideshow($featureSlideshow)
+    {
         $this->feature_slideshow = $featureSlideshow;
 
         return $this;
@@ -572,9 +609,10 @@ class Item {
     /**
      * Get feature_slideshow
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getFeatureSlideshow() {
+    public function getFeatureSlideshow()
+    {
         return $this->feature_slideshow;
     }
 
@@ -584,7 +622,8 @@ class Item {
      * @param boolean $featureYoutube
      * @return Item
      */
-    public function setFeatureYoutube($featureYoutube) {
+    public function setFeatureYoutube($featureYoutube)
+    {
         $this->feature_youtube = $featureYoutube;
 
         return $this;
@@ -593,9 +632,10 @@ class Item {
     /**
      * Get feature_youtube
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getFeatureYoutube() {
+    public function getFeatureYoutube()
+    {
         return $this->feature_youtube;
     }
 
@@ -605,7 +645,8 @@ class Item {
      * @param string $lastUserIp
      * @return Item
      */
-    public function setLastUserIp($lastUserIp) {
+    public function setLastUserIp($lastUserIp)
+    {
         $this->last_user_ip = $lastUserIp;
 
         return $this;
@@ -614,9 +655,10 @@ class Item {
     /**
      * Get last_user_ip
      *
-     * @return string 
+     * @return string
      */
-    public function getLastUserIp() {
+    public function getLastUserIp()
+    {
         return $this->last_user_ip;
     }
 
@@ -626,7 +668,8 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      * @return Item
      */
-    public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
+    public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
+    {
         $this->ItemField->add($itemField);
         $itemField->setItem($this);
         //$this->equalizeItemField($itemField);
@@ -638,7 +681,8 @@ class Item {
      *
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
-    public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField) {
+    public function removeItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
+    {
         $this->ItemField->removeElement($itemField);
     }
 
@@ -647,7 +691,8 @@ class Item {
      *
      * @param \Numa\DOAAdminBundle\Entity\ItemField $itemField
      */
-    public function removeAllItemField() {
+    public function removeAllItemField()
+    {
 //as
         $this->ItemField = new \Doctrine\Common\Collections\ArrayCollection();
     }
@@ -655,16 +700,18 @@ class Item {
     /**
      * Get ItemField
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
-    public function getItemField() {
+    public function getItemField()
+    {
         $this->getItemFieldsArray();
 
         return $this->ItemField;
     }
 
-    public function sortItemFieldsBy($order='fieldName',$by=Criteria::ASC){
-        if(!empty($order)){
+    public function sortItemFieldsBy($order = 'fieldName', $by = Criteria::ASC)
+    {
+        if (!empty($order)) {
             $sort = Criteria::create();
             $sort->orderBy(Array(
                 $order => $by
@@ -675,13 +722,13 @@ class Item {
     }
 
 
-
     /**
      * Get ItemFields
      *
      * @return array
      */
-    public function getItemFieldsArray() {
+    public function getItemFieldsArray()
+    {
 
         if (empty($this->ItemFieldArray)) {
             foreach ($this->ItemField as $itemField) {
@@ -704,7 +751,8 @@ class Item {
         return $this->ItemFieldArray;
     }
 
-    public function dumpItemFields() {
+    public function dumpItemFields()
+    {
         $this->getItemFieldsArray();
         foreach ($this->ItemFieldArray as $key => $value) {
             if (!empty($value['stringvalue'])) {
@@ -713,62 +761,79 @@ class Item {
         }
     }
 
-    public function getImages2() {
+    public function getImages2()
+    {
         $if = $this->getItemField();
         $criteria = Criteria::create()
-                ->where(Criteria::expr()->eq("fieldName", "Image List"))
+            ->where(Criteria::expr()->eq("fieldName", "Image List"));
+        $images = $if->matching($criteria);
 
-        ;
-        return $if->matching($criteria);
+        // Collect an array iterator.
+        $iterator = $images->getIterator();
+
+// Do sort the new iterator.
+        $iterator->uasort(function ($a, $b) {
+            return ($a->getSortOrder() < $b->getSortOrder()) ? -1 : 1;
+        });
+
+// pass sorted array to a new ArrayCollection.
+        $imagesSorted = new \Doctrine\Common\Collections\ArrayCollection(iterator_to_array($iterator));
+
+        return $imagesSorted;
     }
 
-    public function getImagesForApi() {
+    public function getImagesForApi()
+    {
         $images = $this->getImages2();
         $res = array();
-        foreach($images as $image){
-            if($image instanceof ItemField){
-                $res['image'][]=$image->getFieldStringValue();
+        foreach ($images as $image) {
+            if ($image instanceof ItemField) {
+                $res['image'][] = $image->getFieldStringValue();
             }
 
         }
         return $res;
     }
+
     /**
      *
      * @return typeget Attributes
      */
-        public function getOptions() {
+    public function getOptions()
+    {
         $if = $this->getItemField();
         $criteria = Criteria::create()
-                ->andWhere(Criteria::expr()->contains("fieldType", "boolean"))
-                ->andWhere(Criteria::expr()->contains("fieldBooleanValue", "1"))
-                ->orderBy(array("fieldName"=>"ASC"))
-        ;
+            ->andWhere(Criteria::expr()->contains("fieldType", "boolean"))
+            ->andWhere(Criteria::expr()->contains("fieldBooleanValue", "1"))
+            ->orderBy(array("fieldName" => "ASC"));
 
         return $if->matching($criteria);
     }
 
-    public function getOptionsForApi() {
+    public function getOptionsForApi()
+    {
         $images = $this->getOptions();
         $res = array();
-        foreach($images as $image){
-            if($image instanceof ItemField){
+        foreach ($images as $image) {
+            if ($image instanceof ItemField) {
                 //dump($image);
-                $res['option'][]=$image->getFieldName();
+                $res['option'][] = $image->getFieldName();
             }
 
         }
         return $res;
     }
 
-    public function getImage2($num = 0) {
+    public function getImage2($num = 0)
+    {
         $images = $this->getImages2();
         foreach ($images as $image) {
             return $image;
         }
     }
 
-    public function getImage($num = 0) {
+    public function getImage($num = 0)
+    {
         $images = $this->getImages();
         //
         if (!empty($images)) {
@@ -781,7 +846,8 @@ class Item {
         return false;
     }
 
-    public function getImages() {
+    public function getImages()
+    {
         $this->getItemFieldsArray();
 
         if (!empty($this->ItemFieldArray['image list'])) {
@@ -790,7 +856,8 @@ class Item {
         return array();
     }
 
-    public function getCountImages() {
+    public function getCountImages()
+    {
         $this->getItemFieldsArray();
 
         if (!empty($this->ItemFieldArray['image list'])) {
@@ -799,7 +866,8 @@ class Item {
         return 0;
     }
 
-    public function getModel2() {
+    public function getModel2()
+    {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         //die();
@@ -820,7 +888,8 @@ class Item {
         return $model;
     }
 
-    public function getMake2() {
+    public function getMake2()
+    {
         $this->getItemFieldsArray();
         //\Doctrine\Common\Util\Debug::dump($this->ItemFieldArray);
         if ($this->Category instanceof \Numa\DOAAdminBundle\Entity\Category) {
@@ -841,7 +910,8 @@ class Item {
         return "";
     }
 
-    public function getItemFieldByName($name) {
+    public function getItemFieldByName($name)
+    {
         $this->getItemFieldsArray();
         //FIX ME FIX ME FIX ME
         if (property_exists(get_class($this), strtolower($name))) {
@@ -865,7 +935,8 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\Category $category
      * @return Item
      */
-    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null) {
+    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null)
+    {
         $this->Category = $category;
 
         return $this;
@@ -876,7 +947,8 @@ class Item {
      *
      * @return \Numa\DOAAdminBundle\Entity\Category
      */
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->Category;
     }
 
@@ -886,7 +958,8 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
      * @return Item
      */
-    public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null) {
+    public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
+    {
 
         if (!empty($importfeed)) {
             //die(get_class($importfeed));
@@ -942,7 +1015,8 @@ class Item {
      *
      * @return \Numa\DOAAdminBundle\Entity\Importfeed
      */
-    public function getImportfeed() {
+    public function getImportfeed()
+    {
         return $this->Importfeed;
     }
 
@@ -952,7 +1026,8 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\User $user
      * @return Item
      */
-    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null) {
+    public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
+    {
         $this->User = $user;
 
         return $this;
@@ -963,14 +1038,16 @@ class Item {
      *
      * @return \Numa\DOAAdminBundle\Entity\User
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->User;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue() {
+    public function setCreatedAtValue()
+    {
         if (!$this->getDateCreated()) {
             $this->date_created = new \DateTime();
             $this->date_updated = new \DateTime();
@@ -980,17 +1057,18 @@ class Item {
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue() {
-        if(empty($this->dontupdate)){
+    public function setUpdatedAtValue()
+    {
+        if (empty($this->dontupdate)) {
 
             $this->date_updated = new \DateTime();
         }
     }
 
-    public function __toString() {
-        return $this->getModel()." ".$this->getVIN();
+    public function __toString()
+    {
+        return $this->getModel() . " " . $this->getVIN();
     }
-
 
 
     /**
@@ -1010,7 +1088,8 @@ class Item {
      * @param integer $dealerId
      * @return Item
      */
-    public function setDealerId($dealerId) {
+    public function setDealerId($dealerId)
+    {
         $this->dealer_id = $dealerId;
 
         return $this;
@@ -1021,7 +1100,8 @@ class Item {
      *
      * @return integer
      */
-    public function getDealerId() {
+    public function getDealerId()
+    {
         return $this->dealer_id;
     }
 
@@ -1031,7 +1111,8 @@ class Item {
      * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
      * @return Item
      */
-    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null) {
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
         $this->Dealer = $dealer;
 
         return $this;
@@ -1042,11 +1123,13 @@ class Item {
      *
      * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
-    public function getDealer() {
+    public function getDealer()
+    {
         return $this->Dealer;
     }
 
-    public function processOptionsList($stringvalue, $separator) {
+    public function processOptionsList($stringvalue, $separator)
+    {
 
         if (empty($separator)) {
             $separator = "|";
@@ -1089,7 +1172,7 @@ class Item {
             }
 
             if (is_array($optionsArray)) {
-                if(!empty($optionsArray[0])){
+                if (!empty($optionsArray[0])) {
                     $json = json_decode($optionsArray[0], true);
                 }
                 if (!empty($json) && !empty($json['option']) && is_array($json['option'])) {
@@ -1144,7 +1227,8 @@ class Item {
         unset($order);
     }
 
-    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue = null) {
+    public function proccessImagesFromRemote($imageString, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue = null)
+    {
         $listingFields = $maprow->getListingField();
 
         $localy = $feed->getPicturesSaveLocaly();
@@ -1213,7 +1297,8 @@ class Item {
         }
     }
 
-    public function getItemFieldObjectByName($field_name) {
+    public function getItemFieldObjectByName($field_name)
+    {
 
         foreach ($this->getItemField() as $key => $itemfield) {
             if (strtolower($itemfield->getFieldName()) == strtolower($field_name)) {
@@ -1309,7 +1394,8 @@ class Item {
      * @param string $bodyStyle
      * @return Item
      */
-    public function setBodyStyle($bodyStyle) {
+    public function setBodyStyle($bodyStyle)
+    {
         $this->body_style = $bodyStyle;
 
         return $this;
@@ -1318,9 +1404,10 @@ class Item {
     /**
      * Get body_style
      *
-     * @return string 
+     * @return string
      */
-    public function getBodyStyle() {
+    public function getBodyStyle()
+    {
         return $this->body_style;
     }
 
@@ -1330,7 +1417,8 @@ class Item {
      * @param string $model
      * @return Item
      */
-    public function setModel($model) {
+    public function setModel($model)
+    {
         $this->model = $model;
 
         return $this;
@@ -1342,7 +1430,8 @@ class Item {
      * @param integer $price
      * @return Item
      */
-    public function setPrice($price) {
+    public function setPrice($price)
+    {
         $this->price = $price;
 
         return $this;
@@ -1351,9 +1440,10 @@ class Item {
     /**
      * Get price
      *
-     * @return integer 
+     * @return integer
      */
-    public function getPrice() {
+    public function getPrice()
+    {
         return $this->price;
     }
 
@@ -1363,7 +1453,8 @@ class Item {
      * @param integer $year
      * @return Item
      */
-    public function setYear($year) {
+    public function setYear($year)
+    {
         $this->year = $year;
 
         return $this;
@@ -1372,9 +1463,10 @@ class Item {
     /**
      * Get year
      *
-     * @return integer 
+     * @return integer
      */
-    public function getYear() {
+    public function getYear()
+    {
         return $this->year;
     }
 
@@ -1384,7 +1476,8 @@ class Item {
      * @param string $type
      * @return Item
      */
-    public function setType($type) {
+    public function setType($type)
+    {
         $this->type = $type;
 
         return $this;
@@ -1393,9 +1486,10 @@ class Item {
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
-    public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
@@ -1405,7 +1499,8 @@ class Item {
      * @param string $florPane
      * @return Item
      */
-    public function setFlorPane($florPane) {
+    public function setFlorPane($florPane)
+    {
         $this->flor_pane = $florPane;
 
         return $this;
@@ -1414,9 +1509,10 @@ class Item {
     /**
      * Get flor_pane
      *
-     * @return string 
+     * @return string
      */
-    public function getFlorPane() {
+    public function getFlorPane()
+    {
         return $this->flor_pane;
     }
 
@@ -1426,7 +1522,8 @@ class Item {
      * @param string $agApplication
      * @return Item
      */
-    public function setAgApplication($agApplication) {
+    public function setAgApplication($agApplication)
+    {
         $this->ag_application = $agApplication;
 
         return $this;
@@ -1435,9 +1532,10 @@ class Item {
     /**
      * Get ag_application
      *
-     * @return string 
+     * @return string
      */
-    public function getAgApplication() {
+    public function getAgApplication()
+    {
         return $this->ag_application;
     }
 
@@ -1447,7 +1545,8 @@ class Item {
      * @param string $postal
      * @return Item
      */
-    public function setPostal($postal) {
+    public function setPostal($postal)
+    {
         $this->postal = $postal;
 
         return $this;
@@ -1456,9 +1555,10 @@ class Item {
     /**
      * Get postal
      *
-     * @return string 
+     * @return string
      */
-    public function getPostal() {
+    public function getPostal()
+    {
         return $this->postal;
     }
 
@@ -1468,7 +1568,8 @@ class Item {
      * @param string $city
      * @return Item
      */
-    public function setCity($city) {
+    public function setCity($city)
+    {
         $this->city = $city;
 
         return $this;
@@ -1477,9 +1578,10 @@ class Item {
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
-    public function getCity() {
+    public function getCity()
+    {
         return $this->city;
     }
 
@@ -1489,7 +1591,8 @@ class Item {
      * @param string $address
      * @return Item
      */
-    public function setAddress($address) {
+    public function setAddress($address)
+    {
         $this->address = $address;
 
         return $this;
@@ -1498,9 +1601,10 @@ class Item {
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
-    public function getAddress() {
+    public function getAddress()
+    {
         return $this->address;
     }
 
@@ -1510,7 +1614,8 @@ class Item {
      * @param string $status
      * @return Item
      */
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
 
         return $this;
@@ -1519,9 +1624,10 @@ class Item {
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
@@ -1531,7 +1637,8 @@ class Item {
      * @param string $stockNr
      * @return Item
      */
-    public function setStockNr($stockNr) {
+    public function setStockNr($stockNr)
+    {
         $this->stock_nr = $stockNr;
 
         return $this;
@@ -1540,9 +1647,10 @@ class Item {
     /**
      * Get stock_nr
      *
-     * @return string 
+     * @return string
      */
-    public function getStockNr() {
+    public function getStockNr()
+    {
         return $this->stock_nr;
     }
 
@@ -1552,7 +1660,8 @@ class Item {
      * @param string $mileage
      * @return Item
      */
-    public function setMileage($mileage) {
+    public function setMileage($mileage)
+    {
         $this->mileage = $mileage;
 
         return $this;
@@ -1561,9 +1670,10 @@ class Item {
     /**
      * Get mileage
      *
-     * @return string 
+     * @return string
      */
-    public function getMileage() {
+    public function getMileage()
+    {
         return $this->mileage;
     }
 
@@ -1573,7 +1683,8 @@ class Item {
      * @param string $vIN
      * @return Item
      */
-    public function setVIN($vIN) {
+    public function setVIN($vIN)
+    {
         $this->VIN = $vIN;
 
         return $this;
@@ -1582,9 +1693,10 @@ class Item {
     /**
      * Get VIN
      *
-     * @return string 
+     * @return string
      */
-    public function getVIN() {
+    public function getVIN()
+    {
         return $this->VIN;
     }
 
@@ -1594,7 +1706,8 @@ class Item {
      * @param string $transmission
      * @return Item
      */
-    public function setTransmission($transmission) {
+    public function setTransmission($transmission)
+    {
         $this->transmission = $transmission;
 
         return $this;
@@ -1603,13 +1716,15 @@ class Item {
     /**
      * Get transmission
      *
-     * @return string 
+     * @return string
      */
-    public function getTransmission() {
+    public function getTransmission()
+    {
         return $this->transmission;
     }
 
-    public function equalizeItemField(ItemField $itemField) {
+    public function equalizeItemField(ItemField $itemField)
+    {
         if (strtolower($itemField->getFieldName()) == 'year') {
             $this->setYear($itemField->getFieldIntegerValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mileage') {
@@ -1721,7 +1836,8 @@ class Item {
         }
     }
 
-    public function equalizeItemFields() {
+    public function equalizeItemFields()
+    {
         foreach ($this->getItemField() as $key => $itemField) {
             if ($itemField instanceof ItemField) {
                 $this->equalizeItemField($itemField);
@@ -1747,7 +1863,8 @@ class Item {
      * @param integer $photos
      * @return Item
      */
-    public function setPhotos($photos) {
+    public function setPhotos($photos)
+    {
         $this->photos = $photos;
 
         return $this;
@@ -1756,9 +1873,10 @@ class Item {
     /**
      * Get photos
      *
-     * @return integer 
+     * @return integer
      */
-    public function getPhotos() {
+    public function getPhotos()
+    {
         return $this->photos;
     }
 
@@ -1768,7 +1886,8 @@ class Item {
      * @param string $make
      * @return Item
      */
-    public function setMake($make) {
+    public function setMake($make)
+    {
         $this->make = $make;
         return $this;
     }
@@ -1784,7 +1903,8 @@ class Item {
      * @param string $floorPlan
      * @return Item
      */
-    public function setFloorPlan($floorPlan) {
+    public function setFloorPlan($floorPlan)
+    {
         $this->floor_plan = $floorPlan;
 
         return $this;
@@ -1793,9 +1913,10 @@ class Item {
     /**
      * Get floor_plan
      *
-     * @return string 
+     * @return string
      */
-    public function getFloorPlan() {
+    public function getFloorPlan()
+    {
         return $this->floor_plan;
     }
 
@@ -1804,7 +1925,8 @@ class Item {
      *
      * @return string
      */
-    public function getModel() {
+    public function getModel()
+    {
         return $this->model;
     }
 
@@ -1813,7 +1935,8 @@ class Item {
      *
      * @return string
      */
-    public function getMake() {
+    public function getMake()
+    {
         return $this->make;
     }
 
@@ -1844,7 +1967,8 @@ class Item {
      *
      * @return Item
      */
-    public function setEngine($engine) {
+    public function setEngine($engine)
+    {
         $this->engine = $engine;
 
         return $this;
@@ -1855,7 +1979,8 @@ class Item {
      *
      * @return string
      */
-    public function getEngine() {
+    public function getEngine()
+    {
         return $this->engine;
     }
 
@@ -1866,7 +1991,8 @@ class Item {
      *
      * @return Item
      */
-    public function setFuelType($fuelType) {
+    public function setFuelType($fuelType)
+    {
         $this->fuel_type = $fuelType;
 
         return $this;
@@ -1877,7 +2003,8 @@ class Item {
      *
      * @return string
      */
-    public function getFuelType() {
+    public function getFuelType()
+    {
         return $this->fuel_type;
     }
 
@@ -1888,7 +2015,8 @@ class Item {
      *
      * @return Item
      */
-    public function setInteriorColor($interiorColor) {
+    public function setInteriorColor($interiorColor)
+    {
         $this->interior_color = $interiorColor;
 
         return $this;
@@ -1899,7 +2027,8 @@ class Item {
      *
      * @return string
      */
-    public function getInteriorColor() {
+    public function getInteriorColor()
+    {
         return $this->interior_color;
     }
 
@@ -1910,7 +2039,8 @@ class Item {
      *
      * @return Item
      */
-    public function setExteriorColor($exteriorColor) {
+    public function setExteriorColor($exteriorColor)
+    {
         $this->exterior_color = $exteriorColor;
 
         return $this;
@@ -1921,7 +2051,8 @@ class Item {
      *
      * @return string
      */
-    public function getExteriorColor() {
+    public function getExteriorColor()
+    {
         return $this->exterior_color;
     }
 
@@ -1948,7 +2079,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSold($sold) {
+    public function setSold($sold)
+    {
         $this->sold = $sold;
 
         return $this;
@@ -1959,7 +2091,8 @@ class Item {
      *
      * @return boolean
      */
-    public function getSold() {
+    public function getSold()
+    {
         return $this->sold;
     }
 
@@ -1970,7 +2103,8 @@ class Item {
      *
      * @return Item
      */
-    public function setBodyDescription($bodyDescription) {
+    public function setBodyDescription($bodyDescription)
+    {
         $this->body_description = $bodyDescription;
 
         return $this;
@@ -1981,7 +2115,8 @@ class Item {
      *
      * @return string
      */
-    public function getBodyDescription() {
+    public function getBodyDescription()
+    {
         return $this->body_description;
     }
 
@@ -1992,7 +2127,8 @@ class Item {
      *
      * @return Item
      */
-    public function setVideoId($videoId) {
+    public function setVideoId($videoId)
+    {
         $this->videoId = $videoId;
 
         return $this;
@@ -2003,7 +2139,8 @@ class Item {
      *
      * @return string
      */
-    public function getVideoId() {
+    public function getVideoId()
+    {
         return $this->videoId;
     }
 
@@ -2019,7 +2156,8 @@ class Item {
      *
      * @return Item
      */
-    public function setTrim($trim) {
+    public function setTrim($trim)
+    {
         $this->trim = $trim;
 
         return $this;
@@ -2030,7 +2168,8 @@ class Item {
      *
      * @return string
      */
-    public function getTrim() {
+    public function getTrim()
+    {
         return $this->trim;
     }
 
@@ -2046,7 +2185,8 @@ class Item {
      *
      * @return Item
      */
-    public function setDoors($doors) {
+    public function setDoors($doors)
+    {
         $this->doors = $doors;
 
         return $this;
@@ -2057,7 +2197,8 @@ class Item {
      *
      * @return string
      */
-    public function getDoors() {
+    public function getDoors()
+    {
         return $this->doors;
     }
 
@@ -2073,7 +2214,8 @@ class Item {
      *
      * @return Item
      */
-    public function setDriveType($driveType) {
+    public function setDriveType($driveType)
+    {
         $this->drive_type = $driveType;
 
         return $this;
@@ -2084,7 +2226,8 @@ class Item {
      *
      * @return string
      */
-    public function getDriveType() {
+    public function getDriveType()
+    {
         return $this->drive_type;
     }
 
@@ -2100,7 +2243,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSellerComment($sellerComment) {
+    public function setSellerComment($sellerComment)
+    {
         $this->seller_comment = $sellerComment;
 
         return $this;
@@ -2111,7 +2255,8 @@ class Item {
      *
      * @return string
      */
-    public function getSellerComment() {
+    public function getSellerComment()
+    {
         return $this->seller_comment;
     }
 
@@ -2172,7 +2317,8 @@ class Item {
      *
      * @return Item
      */
-    public function setLength($length) {
+    public function setLength($length)
+    {
         $this->length = $length;
 
         return $this;
@@ -2183,7 +2329,8 @@ class Item {
      *
      * @return float
      */
-    public function getLength() {
+    public function getLength()
+    {
         return $this->length;
     }
 
@@ -2194,7 +2341,8 @@ class Item {
      *
      * @return Item
      */
-    public function setBoatWeight($boatWeight) {
+    public function setBoatWeight($boatWeight)
+    {
         $this->boat_weight = $boatWeight;
 
         return $this;
@@ -2205,7 +2353,8 @@ class Item {
      *
      * @return float
      */
-    public function getBoatWeight() {
+    public function getBoatWeight()
+    {
         return $this->boat_weight;
     }
 
@@ -2216,7 +2365,8 @@ class Item {
      *
      * @return Item
      */
-    public function setHullDesign($hullDesign) {
+    public function setHullDesign($hullDesign)
+    {
         $this->hull_design = $hullDesign;
 
         return $this;
@@ -2227,7 +2377,8 @@ class Item {
      *
      * @return string
      */
-    public function getHullDesign() {
+    public function getHullDesign()
+    {
         return $this->hull_design;
     }
 
@@ -2238,7 +2389,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSteeringType($steeringType) {
+    public function setSteeringType($steeringType)
+    {
         $this->steering_type = $steeringType;
 
         return $this;
@@ -2249,7 +2401,8 @@ class Item {
      *
      * @return string
      */
-    public function getSteeringType() {
+    public function getSteeringType()
+    {
         return $this->steering_type;
     }
 
@@ -2260,7 +2413,8 @@ class Item {
      *
      * @return Item
      */
-    public function setOfHours($ofHours) {
+    public function setOfHours($ofHours)
+    {
         $this->of_hours = $ofHours;
 
         return $this;
@@ -2271,7 +2425,8 @@ class Item {
      *
      * @return string
      */
-    public function getOfHours() {
+    public function getOfHours()
+    {
         return $this->of_hours;
     }
 
@@ -2282,7 +2437,8 @@ class Item {
      *
      * @return Item
      */
-    public function setPassengers($passengers) {
+    public function setPassengers($passengers)
+    {
         $this->passengers = $passengers;
 
         return $this;
@@ -2293,7 +2449,8 @@ class Item {
      *
      * @return string
      */
-    public function getPassengers() {
+    public function getPassengers()
+    {
         return $this->passengers;
     }
 
@@ -2304,7 +2461,8 @@ class Item {
      *
      * @return Item
      */
-    public function setTrailer($trailer) {
+    public function setTrailer($trailer)
+    {
         $this->trailer = $trailer;
 
         return $this;
@@ -2315,7 +2473,8 @@ class Item {
      *
      * @return string
      */
-    public function getTrailer() {
+    public function getTrailer()
+    {
         return $this->trailer;
     }
 
@@ -2326,7 +2485,8 @@ class Item {
      *
      * @return Item
      */
-    public function setBattery($battery) {
+    public function setBattery($battery)
+    {
         $this->battery = $battery;
 
         return $this;
@@ -2337,7 +2497,8 @@ class Item {
      *
      * @return string
      */
-    public function getBattery() {
+    public function getBattery()
+    {
         return $this->battery;
     }
 
@@ -2348,7 +2509,8 @@ class Item {
      *
      * @return Item
      */
-    public function setFuelCapacity($fuelCapacity) {
+    public function setFuelCapacity($fuelCapacity)
+    {
         $this->fuel_capacity = $fuelCapacity;
 
         return $this;
@@ -2359,7 +2521,8 @@ class Item {
      *
      * @return string
      */
-    public function getFuelCapacity() {
+    public function getFuelCapacity()
+    {
         return $this->fuel_capacity;
     }
 
@@ -2370,7 +2533,8 @@ class Item {
      *
      * @return Item
      */
-    public function setHorsepower($horsepower) {
+    public function setHorsepower($horsepower)
+    {
         $this->horsepower = $horsepower;
 
         return $this;
@@ -2381,7 +2545,8 @@ class Item {
      *
      * @return integer
      */
-    public function getHorsepower() {
+    public function getHorsepower()
+    {
         return $this->horsepower;
     }
 
@@ -2397,7 +2562,8 @@ class Item {
      *
      * @return Item
      */
-    public function setBeam($beam) {
+    public function setBeam($beam)
+    {
         $this->beam = $beam;
 
         return $this;
@@ -2408,7 +2574,8 @@ class Item {
      *
      * @return string
      */
-    public function getBeam() {
+    public function getBeam()
+    {
         return $this->beam;
     }
 
@@ -2424,7 +2591,8 @@ class Item {
      *
      * @return Item
      */
-    public function setPassenger($passenger) {
+    public function setPassenger($passenger)
+    {
         $this->passenger = $passenger;
 
         return $this;
@@ -2435,7 +2603,8 @@ class Item {
      *
      * @return string
      */
-    public function getPassenger() {
+    public function getPassenger()
+    {
         return $this->passenger;
     }
 
@@ -2466,7 +2635,8 @@ class Item {
      *
      * @return Item
      */
-    public function setFuelSystem($fuelSystem) {
+    public function setFuelSystem($fuelSystem)
+    {
         $this->fuel_system = $fuelSystem;
 
         return $this;
@@ -2477,7 +2647,8 @@ class Item {
      *
      * @return string
      */
-    public function getFuelSystem() {
+    public function getFuelSystem()
+    {
         return $this->fuel_system;
     }
 
@@ -2488,7 +2659,8 @@ class Item {
      *
      * @return Item
      */
-    public function setIgnition($ignition) {
+    public function setIgnition($ignition)
+    {
         $this->ignition = $ignition;
 
         return $this;
@@ -2499,7 +2671,8 @@ class Item {
      *
      * @return string
      */
-    public function getIgnition() {
+    public function getIgnition()
+    {
         return $this->ignition;
     }
 
@@ -2510,7 +2683,8 @@ class Item {
      *
      * @return Item
      */
-    public function setGears($gears) {
+    public function setGears($gears)
+    {
         $this->gears = $gears;
 
         return $this;
@@ -2521,7 +2695,8 @@ class Item {
      *
      * @return string
      */
-    public function getGears() {
+    public function getGears()
+    {
         return $this->gears;
     }
 
@@ -2532,7 +2707,8 @@ class Item {
      *
      * @return Item
      */
-    public function setWidth($width) {
+    public function setWidth($width)
+    {
         $this->width = $width;
 
         return $this;
@@ -2543,7 +2719,8 @@ class Item {
      *
      * @return float
      */
-    public function getWidth() {
+    public function getWidth()
+    {
         return $this->width;
     }
 
@@ -2559,7 +2736,8 @@ class Item {
      *
      * @return Item
      */
-    public function setEngineType($engineType) {
+    public function setEngineType($engineType)
+    {
         $this->engine_type = $engineType;
 
         return $this;
@@ -2570,7 +2748,8 @@ class Item {
      *
      * @return string
      */
-    public function getEngineType() {
+    public function getEngineType()
+    {
         return $this->engine_type;
     }
 
@@ -2586,7 +2765,8 @@ class Item {
      *
      * @return Item
      */
-    public function setDisplacement($displacement) {
+    public function setDisplacement($displacement)
+    {
         $this->displacement = $displacement;
 
         return $this;
@@ -2597,7 +2777,8 @@ class Item {
      *
      * @return string
      */
-    public function getDisplacement() {
+    public function getDisplacement()
+    {
         return $this->displacement;
     }
 
@@ -2628,7 +2809,8 @@ class Item {
      *
      * @return Item
      */
-    public function setChassisType($chassisType) {
+    public function setChassisType($chassisType)
+    {
         $this->chassis_type = $chassisType;
 
         return $this;
@@ -2639,7 +2821,8 @@ class Item {
      *
      * @return string
      */
-    public function getChassisType() {
+    public function getChassisType()
+    {
         return $this->chassis_type;
     }
 
@@ -2650,7 +2833,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSleeps($sleeps) {
+    public function setSleeps($sleeps)
+    {
         $this->sleeps = $sleeps;
 
         return $this;
@@ -2661,7 +2845,8 @@ class Item {
      *
      * @return string
      */
-    public function getSleeps() {
+    public function getSleeps()
+    {
         return $this->sleeps;
     }
 
@@ -2672,7 +2857,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSlideOuts($slideOuts) {
+    public function setSlideOuts($slideOuts)
+    {
         $this->slide_outs = $slideOuts;
 
         return $this;
@@ -2683,7 +2869,8 @@ class Item {
      *
      * @return string
      */
-    public function getSlideOuts() {
+    public function getSlideOuts()
+    {
         return $this->slide_outs;
     }
 
@@ -2694,7 +2881,8 @@ class Item {
      *
      * @return Item
      */
-    public function setFlooring($flooring) {
+    public function setFlooring($flooring)
+    {
         $this->flooring = $flooring;
 
         return $this;
@@ -2705,7 +2893,8 @@ class Item {
      *
      * @return string
      */
-    public function getFlooring() {
+    public function getFlooring()
+    {
         return $this->flooring;
     }
 
@@ -2721,7 +2910,8 @@ class Item {
      *
      * @return Item
      */
-    public function setFlorPlan($florPlan) {
+    public function setFlorPlan($florPlan)
+    {
         $this->flor_plan = $florPlan;
 
         return $this;
@@ -2732,7 +2922,8 @@ class Item {
      *
      * @return string
      */
-    public function getFlorPlan() {
+    public function getFlorPlan()
+    {
         return $this->flor_plan;
     }
 
@@ -2748,7 +2939,8 @@ class Item {
      *
      * @return Item
      */
-    public function setClass($class) {
+    public function setClass($class)
+    {
         $this->class = $class;
 
         return $this;
@@ -2759,7 +2951,8 @@ class Item {
      *
      * @return string
      */
-    public function getClass() {
+    public function getClass()
+    {
         return $this->class;
     }
 
@@ -2775,7 +2968,8 @@ class Item {
      *
      * @return Item
      */
-    public function setWeight($weight) {
+    public function setWeight($weight)
+    {
         $this->weight = $weight;
 
         return $this;
@@ -2786,7 +2980,8 @@ class Item {
      *
      * @return float
      */
-    public function getWeight() {
+    public function getWeight()
+    {
         return $this->weight;
     }
 
@@ -2827,7 +3022,8 @@ class Item {
      *
      * @return Item
      */
-    public function setOperatorStation($operatorStation) {
+    public function setOperatorStation($operatorStation)
+    {
         $this->operator_station = $operatorStation;
 
         return $this;
@@ -2838,7 +3034,8 @@ class Item {
      *
      * @return string
      */
-    public function getOperatorStation() {
+    public function getOperatorStation()
+    {
         return $this->operator_station;
     }
 
@@ -2849,7 +3046,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSpeedForward($speedForward) {
+    public function setSpeedForward($speedForward)
+    {
         $this->speed_forward = $speedForward;
 
         return $this;
@@ -2860,7 +3058,8 @@ class Item {
      *
      * @return string
      */
-    public function getSpeedForward() {
+    public function getSpeedForward()
+    {
         return $this->speed_forward;
     }
 
@@ -2871,7 +3070,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSpeedReverse($speedReverse) {
+    public function setSpeedReverse($speedReverse)
+    {
         $this->speed_reverse = $speedReverse;
 
         return $this;
@@ -2882,7 +3082,8 @@ class Item {
      *
      * @return string
      */
-    public function getSpeedReverse() {
+    public function getSpeedReverse()
+    {
         return $this->speed_reverse;
     }
 
@@ -2893,7 +3094,8 @@ class Item {
      *
      * @return Item
      */
-    public function setTireSize($tireSize) {
+    public function setTireSize($tireSize)
+    {
         $this->tire_size = $tireSize;
 
         return $this;
@@ -2904,7 +3106,8 @@ class Item {
      *
      * @return string
      */
-    public function getTireSize() {
+    public function getTireSize()
+    {
         return $this->tire_size;
     }
 
@@ -2915,7 +3118,8 @@ class Item {
      *
      * @return Item
      */
-    public function setTireEquipment($tireEquipment) {
+    public function setTireEquipment($tireEquipment)
+    {
         $this->tire_equipment = $tireEquipment;
 
         return $this;
@@ -2926,7 +3130,8 @@ class Item {
      *
      * @return string
      */
-    public function getTireEquipment() {
+    public function getTireEquipment()
+    {
         return $this->tire_equipment;
     }
 
@@ -2937,7 +3142,8 @@ class Item {
      *
      * @return Item
      */
-    public function setCuttingWidth($cuttingWidth) {
+    public function setCuttingWidth($cuttingWidth)
+    {
         $this->cutting_width = $cuttingWidth;
 
         return $this;
@@ -2948,7 +3154,8 @@ class Item {
      *
      * @return string
      */
-    public function getCuttingWidth() {
+    public function getCuttingWidth()
+    {
         return $this->cutting_width;
     }
 
@@ -2964,7 +3171,8 @@ class Item {
      *
      * @return Item
      */
-    public function setCoolingSystem($coolingSystem) {
+    public function setCoolingSystem($coolingSystem)
+    {
         $this->cooling_system = $coolingSystem;
 
         return $this;
@@ -2975,7 +3183,8 @@ class Item {
      *
      * @return string
      */
-    public function getCoolingSystem() {
+    public function getCoolingSystem()
+    {
         return $this->cooling_system;
     }
 
@@ -2991,7 +3200,8 @@ class Item {
      *
      * @return Item
      */
-    public function setChassis($chassis) {
+    public function setChassis($chassis)
+    {
         $this->chassis = $chassis;
 
         return $this;
@@ -3002,7 +3212,8 @@ class Item {
      *
      * @return string
      */
-    public function getChassis() {
+    public function getChassis()
+    {
         return $this->chassis;
     }
 
@@ -3018,7 +3229,8 @@ class Item {
      *
      * @return Item
      */
-    public function setSteering($steering) {
+    public function setSteering($steering)
+    {
         $this->steering = $steering;
 
         return $this;
@@ -3029,7 +3241,8 @@ class Item {
      *
      * @return string
      */
-    public function getSteering() {
+    public function getSteering()
+    {
         return $this->steering;
     }
 
@@ -3050,7 +3263,8 @@ class Item {
      *
      * @return Item
      */
-    public function setMpgCity($mpgCity) {
+    public function setMpgCity($mpgCity)
+    {
         $this->mpgCity = $mpgCity;
 
         return $this;
@@ -3061,7 +3275,8 @@ class Item {
      *
      * @return float
      */
-    public function getMpgCity() {
+    public function getMpgCity()
+    {
         return $this->mpgCity;
     }
 
@@ -3072,7 +3287,8 @@ class Item {
      *
      * @return Item
      */
-    public function setMpgHighway($mpgHighway) {
+    public function setMpgHighway($mpgHighway)
+    {
         $this->mpgHighway = $mpgHighway;
 
         return $this;
@@ -3083,7 +3299,8 @@ class Item {
      *
      * @return float
      */
-    public function getMpgHighway() {
+    public function getMpgHighway()
+    {
         return $this->mpgHighway;
     }
 
@@ -3098,7 +3315,8 @@ class Item {
      * @param string $iwNo
      * @return Item
      */
-    public function setIwNo($iwNo) {
+    public function setIwNo($iwNo)
+    {
         $this->iw_no = $iwNo;
 
         return $this;
@@ -3107,13 +3325,15 @@ class Item {
     /**
      * Get iw_no
      *
-     * @return string 
+     * @return string
      */
-    public function getIwNo() {
+    public function getIwNo()
+    {
         return $this->iw_no;
     }
 
-    public function setField($name, $value) {
+    public function setField($name, $value)
+    {
         $methodName = "set" . ucfirst($name);
         if (method_exists($this, $methodName)) {
             $value = preg_replace("/[\r\n]+/", "", $value);
@@ -3126,7 +3346,8 @@ class Item {
         }
     }
 
-    public function makeDetailsLog($createdItems) {
+    public function makeDetailsLog($createdItems)
+    {
         $output = "";
 
         foreach ($createdItems as $key => $item) {
@@ -3138,32 +3359,36 @@ class Item {
                 if (!empty($field['stringvalue'])) {
                     $output .= $field['stringvalue'];
                 }
-                $output .="</div>";
+                $output .= "</div>";
             }
         }
         return $output;
     }
-    public function computeETag(){
-        $etag = "listing:".$this->getId();
+
+    public function computeETag()
+    {
+        $etag = "listing:" . $this->getId();
         return $etag;
     }
-    
-    public function lastUpdated(){
+
+    public function lastUpdated()
+    {
         $updated = $this->getDateUpdated();
         $created = $this->getDateCreated();
-        
-        if(!empty($updated)){
+
+        if (!empty($updated)) {
             return $updated;
-            
+
         }
-        if(!empty($created)){
+        if (!empty($created)) {
             return $created;
         }
         $date = new \DateTime();
         $date->setDate(2000, 1, 1);
-        
+
         return $date;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -3204,23 +3429,28 @@ class Item {
         return $this->UserItem;
     }
 
-    public function get($property){
-        $function = 'get'.str_ireplace(array(" ","_"),'',ucfirst($property));
+    public function get($property)
+    {
+        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
 
-        if(method_exists ($this, $function)){
+        if (method_exists($this, $function)) {
             return $this->{$function}();
         }
     }
-    public function getUrlDescription(){
-        return str_ireplace(" ","-",$this->getTitle());
+
+    public function getUrlDescription()
+    {
+        return str_ireplace(" ", "-", $this->getTitle());
     }
-    public function getTitle(){
-        $desc=$this->getMake()." ".$this->getModel();
-        if($this->getCategoryId()==4){
-            $desc = $this->getMake()." ".$this->getModel()." ".$this->getFloorPlan();
-        }elseif($this->getCategoryId()==1){
-            $desc = $this->getMake()." ".$this->getModel();
-            if(!empty($this->getTrim())) {
+
+    public function getTitle()
+    {
+        $desc = $this->getMake() . " " . $this->getModel();
+        if ($this->getCategoryId() == 4) {
+            $desc = $this->getMake() . " " . $this->getModel() . " " . $this->getFloorPlan();
+        } elseif ($this->getCategoryId() == 1) {
+            $desc = $this->getMake() . " " . $this->getModel();
+            if (!empty($this->getTrim())) {
                 $desc .= " " . $this->getTrim();
             }
         }
@@ -3228,9 +3458,11 @@ class Item {
 
     }
 
-    public function getImageList(){
+    public function getImageList()
+    {
         return $this->getImages2();
     }
+
     /**
      * @var string
      */
@@ -3260,6 +3492,7 @@ class Item {
     {
         return $this->other;
     }
+
     /**
      * @var int
      */
