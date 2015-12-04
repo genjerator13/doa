@@ -190,8 +190,8 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
                 if($count % 200 ==0) {
                     $this->em->flush();
-                    $this->em->getConnection()->commit();
-                    $this->em->clear();
+                    //$this->em->getConnection()->commit();
+                    //$this->em->clear();
                 }
             }
 
