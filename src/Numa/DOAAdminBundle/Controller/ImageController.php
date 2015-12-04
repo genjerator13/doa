@@ -41,18 +41,35 @@ class ImageController extends Controller
         foreach ($images as $image) {
 
             if (substr($image->getFieldStringValue(), 0, 4) !== "http") {
-                $imagemanagerResponse = $this->container
-                    ->get('liip_imagine.controller')
-                    ->filterAction(
-                        $this->getRequest(), $image->getFieldStringValue(), 'item_detail_image'
-                    );
-                $imagemanagerResponse = $this->container
-                    ->get('liip_imagine.controller')
-                    ->filterAction(
-                        $this->getRequest(), $image->getFieldStringValue(), 'search_image'
-                    );
+                $upload_path = $this->getParameter('web_path');
+
+                $imageSource = $image->getFieldStringValue();
+
+                //dump($upload_path);
+
+                if (!file_exists($upload_path . $imageSource)) {
+                    $imageSource = "/images/no_image_available_small.png";
+                }
+                dump($imageSource);
+//                    $upload_path = $this->getParameter('images_path');
+//
+//                    $imageSource = $upload_path."/no_image_available_small.png";
+//                    dump($upload_path.$imageSource."NNNNNN");
+//
+
+                    $imagemanagerResponse = $this->container
+                        ->get('liip_imagine.controller')
+                        ->filterAction(
+                            $this->getRequest(), $imageSource, 'item_detail_image'
+                        );
+                    $imagemanagerResponse = $this->container
+                        ->get('liip_imagine.controller')
+                        ->filterAction(
+                            $this->getRequest(), $imageSource, 'search_image'
+                        );
+                }
             }
-        }
+        //}
 
 
         ///
@@ -112,7 +129,7 @@ class ImageController extends Controller
         $ordersArray = json_decode($orders, true);
         $em = $this->getDoctrine()->getManager();
         foreach ($ordersArray as $key => $order) {
-            $id   = (intval($key));
+            $id = (intval($key));
             $order = (intval($order));
             $qb = $em->getRepository("NumaDOAAdminBundle:ItemField")->createQueryBuilder('if')
                 ->update()
