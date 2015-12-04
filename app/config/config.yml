@@ -240,6 +240,7 @@ liip_imagine:
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web
+    images_path: %kernel.root_dir%/../web/images
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
     iauto: %kernel.root_dir%/../web/iauto
