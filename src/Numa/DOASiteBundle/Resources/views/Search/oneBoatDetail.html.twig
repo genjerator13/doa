@@ -1,5 +1,5 @@
 {% block content %}
-    {% set images = item.getImages() %}
+    {% set images = item.getImages2() %}
     {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
     {% if searchQ is defined %}
         {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode(),'searchQ':searchQ}) %}
@@ -16,7 +16,7 @@
                     {% if images is empty %}
                         <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}"/>
                     {% else %}
-                        {% set image = item.getImages()|first["stringvalue"] %}
+                        {% set image = images|first.fieldStringValue %}
                         {% if ('http' not in image) %}
                             <img alt="{{ item.getItemFieldByName('year') }} {{ item.getTitle() }}"
                                  src="{{ image|imagine_filter('search_image') }}"/>

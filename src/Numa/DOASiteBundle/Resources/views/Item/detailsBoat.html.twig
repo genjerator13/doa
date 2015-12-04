@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="{{ asset_url }}"/>
     {% endstylesheets %}
 {% endblock %}
-{% set images = item.getImages() %}
+{% set images = item.getImages2() %}
 
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
@@ -58,12 +58,12 @@
 
                             <ul class="pgwSlideshow">
                                 {% for key,image in images %}
-                                    <li>
-                                        {% if ('http' not in image.stringvalue) %}
-                                            <img src="{{ image.stringvalue|imagine_filter('item_detail_image') }}"
+                                    <li data-order="{{ image.sortOrder }}">
+                                        {% if ('http' not in image.fieldStringValue) %}
+                                            <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
                                                  alt="image{{ key }}"/>
                                         {% else %}
-                                            <img src="{{ image.stringvalue }}" alt="image{{ key }}"/>
+                                            <img src="{{ image.fieldStringValue }}" alt="image{{ key }}"/>
                                         {% endif %}
                                     </li>
                                 {% endfor %}
