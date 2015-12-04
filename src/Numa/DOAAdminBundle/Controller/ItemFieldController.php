@@ -178,7 +178,7 @@ class ItemFieldController extends Controller {
      *
      */
     public function deleteAction(Request $request, $id) {
-        print_r($request->query->get('urlredirect'));
+
         $redirect = $request->query->get('urlredirect');
         if (empty($redirect)) {
             $redirect = $this->generateUrl('itemfield');
@@ -200,6 +200,7 @@ class ItemFieldController extends Controller {
             if(!empty($id)){
                 $ids[]=$id;
             }
+
             foreach($ids as $id) {
                 $entity = $em->getRepository('NumaDOAAdminBundle:ItemField')->find($id);
 

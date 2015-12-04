@@ -35,7 +35,7 @@
                             Selected</a></div>
 
                     <h1>Images list</h1>
-                    <a id="saveorder" class="btn btn-success">Save order</a>
+                    
                     <div class="box-body table-responsive no-padding">
                         <ul class='list' id="imagelist">
                             {% for image in images %}
@@ -103,20 +103,21 @@
 
         $("#delete-selected").click(function (ev) {
 
-            var href = $(this).attr('href');
+            var href = $("form").attr('action');
             $('.modal-body').html("");
+
             if (!$('#dataConfirmModal').length) {
                 $('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
                 //$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');
 
-                console.log("heree");
+
             }
 
-            $('#dataConfirmOK').attr('href', href);
-            $("#dataConfirmOK").click(function (e) {
-                e.preventDefault();
+            $( "a#dataConfirmOK" ).live( "click", function() {
+
                 $("form").submit();
             });
+
             $('#dataConfirmModal').modal({show: true});
             return false;
         });
