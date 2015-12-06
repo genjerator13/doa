@@ -22,3 +22,14 @@ services:
     Numa.Settings:
         class: Numa\DOASettingsBundle\Util\SettingsLib
         arguments: ["@doctrine.orm.entity_manager","@service_container"]
+    numa.dynamicRouter.listener:
+        class: Numa\DOASiteBundle\Services\ExtraLoader
+        tags:
+            - { name: routing.loader, priority: 33 }
+    listener.requestresponse:
+        class: Numa\DOASiteBundle\Services\ExtraListener
+        arguments: [ @service_container ]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
