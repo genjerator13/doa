@@ -1,0 +1,9 @@
+{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+    <h1>Page edit</h1>
+    {{ form(edit_form) }}
+    <a href="{{ path('page') }}" class="btn btn-default">
+        Back to the list
+    </a>
+{% endblock %}
