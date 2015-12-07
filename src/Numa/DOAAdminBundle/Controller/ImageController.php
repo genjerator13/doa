@@ -50,12 +50,7 @@ class ImageController extends Controller
                 if (!file_exists($upload_path . $imageSource)) {
                     $imageSource = "/images/no_image_available_small.png";
                 }
-                dump($imageSource);
-//                    $upload_path = $this->getParameter('images_path');
-//
-//                    $imageSource = $upload_path."/no_image_available_small.png";
-//                    dump($upload_path.$imageSource."NNNNNN");
-//
+
 
                     $imagemanagerResponse = $this->container
                         ->get('liip_imagine.controller')
