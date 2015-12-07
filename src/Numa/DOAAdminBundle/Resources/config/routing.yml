@@ -45,4 +45,4 @@ NumaDOAAdminBundle_imagecarousel:
         prefix:   /imagecarousel
 NumaDOAModuleBundle_page:
         resource: "@NumaDOAModuleBundle/Resources/config/routing/page.yml"
-        prefix:   /page
+        prefix:   /pages

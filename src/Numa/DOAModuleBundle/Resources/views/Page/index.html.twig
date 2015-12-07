@@ -2,6 +2,7 @@
 
 {% block content -%}
 <div class="box box-default">
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Pages list</h1>
     <a href="{{ path('page_new') }}" class="btn btn-default">
         Create a new entry
@@ -14,11 +15,7 @@
             <th>Keywords</th>
             <th>Title</th>
             <th>Url</th>
-            <th>Is_public</th>
-            <th>Autogenerate</th>
-            <th>Active</th>
-            <th>Created_at</th>
-            <th>Updated_at</th>
+            <th>Link</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -30,11 +27,9 @@
                 <td>{{ entity.keywords }}</td>
                 <td>{{ entity.title }}</td>
                 <td>{{ entity.url }}</td>
-                <td>{{ entity.ispublic }}</td>
-                <td>{{ entity.autogenerate }}</td>
-                <td>{{ entity.active }}</td>
-                <td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td><a href="{{ entity.url }}" targt="_blank">Link to page</a></td>
+                {#<td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>#}
+                {#<td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                 <td>
                     <a href="{{ path('page_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
                 </td>

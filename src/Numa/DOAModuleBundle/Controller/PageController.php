@@ -43,8 +43,8 @@ class PageController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('page_show', array('id' => $entity->getId())));
+            $this->addFlash("success","Page is successfully added. ");
+            return $this->redirect($this->generateUrl('page', array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
@@ -171,8 +171,8 @@ class PageController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('page_edit', array('id' => $id)));
+            $this->addFlash("success","Page ".$id." is successfully edited. ");
+            return $this->redirect($this->generateUrl('page', array('id' => $id)));
         }
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
