@@ -2,16 +2,18 @@ Numa\DOAModuleBundle\Entity\Page:
     type: entity
     table: page
     repositoryClass: Numa\DOAModuleBundle\Repository\PageRepository
-#    indexes:
-#        table_name:
-#            columns: [ table_name ]
+    indexes:
+        url:
+            columns: [ url ]
 #        table_id:
 #            columns: [ table_id ]
 #        table_id:
 #           columns: [ table_name,gittable_id ]
+
     id:
         id:
-            type: string
+            type: integer
+            generator: { strategy: AUTO }
     fields:
         description:
             type: text

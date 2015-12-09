@@ -29,11 +29,14 @@ class SearchController extends Controller {
             $this->searchParameters = new \Numa\Util\searchParameters($this->container);
         }
         $parameters=array();
+
         if(!empty($request)){
             $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
             $parameters = $request->query->all();
+
             $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
         }
+
         if (!empty($additionalParams)) {
             $parameters = array_merge($parameters, $additionalParams);
         }
@@ -192,7 +195,6 @@ class SearchController extends Controller {
         $query = $this->searchParameters->createSearchQuery();
 
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 

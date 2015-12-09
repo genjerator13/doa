@@ -15,16 +15,16 @@ class PageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('id')
+            //->add('id')
             ->add('description')
             ->add('keywords')
             ->add('title')
             ->add('url')
-            ->add('is_public')
-            ->add('autogenerate')
-            ->add('active')
-            ->add('created_at')
-            ->add('updated_at')
+            //->add('is_public')
+            //->add('autogenerate')
+            //->add('active')
+            //->add('created_at')
+            //->add('updated_at')
         ;
     }
     
