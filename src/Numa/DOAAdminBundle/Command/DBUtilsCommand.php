@@ -8,16 +8,10 @@ use Numa\DOAAdminBundle\Entity\DealerCategories;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOAAdminBundle\Entity\HomeTab;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importmapping;
-use Numa\DOAAdminBundle\Entity\Importmappings;
-use Numa\DOAAdminBundle\Form\ImportmappingType;
-use Numa\DOAAdminBundle\Form\ImportmappingRowType;
-use Numa\DOAAdminBundle\Lib\RemoteFeed;
 use Numa\DOAAdminBundle\Entity\CommandLog;
 
 class DBUtilsCommand extends ContainerAwareCommand
