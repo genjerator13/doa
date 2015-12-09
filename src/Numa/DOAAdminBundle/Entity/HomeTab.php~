@@ -378,4 +378,33 @@ class HomeTab
     {
         return $this->Category;
     }
+    /**
+     * @var string
+     */
+    private $listing_field_list_slug;
+
+
+    /**
+     * Set listingFieldListSlug
+     *
+     * @param string $listingFieldListSlug
+     *
+     * @return HomeTab
+     */
+    public function setListingFieldListSlug($listingFieldListSlug)
+    {
+        $this->listing_field_list_slug = $listingFieldListSlug;
+
+        return $this;
+    }
+
+    /**
+     * Get listingFieldListSlug
+     *
+     * @return string
+     */
+    public function getListingFieldListSlug()
+    {
+        return $this->listing_field_list_slug;
+    }
 }

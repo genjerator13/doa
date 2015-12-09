@@ -20,6 +20,10 @@ Numa\DOAAdminBundle\Entity\HomeTab:
             type: string
             length: 255
             nullable: true
+        listing_field_list_slug:
+            type: string
+            length: 255
+            nullable: true
         position:
             type: integer
             nullable: true

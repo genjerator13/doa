@@ -56,16 +56,20 @@ class searchParameters {
             'searchText' => new SearchItem('all', "", "text"),
             'boatType' => new SearchItem('type', 0, "list"),
             'typeString' => new SearchItem('type', 0, "string"),
+            'typeSlug' => new SearchItem('type', 0, "listSlug"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
+            'boatTypeSlug' => new SearchItem('type', 0, "listSlug"),
             'boatModel' => new SearchItem('model', "", "string"),
             'boatMake' => new SearchItem('make', 0, "list"),
             'modelRvs' => new SearchItem('model', "", "string"),
             'makeRvs' => new SearchItem('make', 0, "tree"),
             'rvsTypeString' => new SearchItem('type', 0, "string"),
+            'rvsTypeSlug' => new SearchItem('type', 0, "listSlug"),
             //cars
             'bodyStyle' => new SearchItem('body_style', "", 'list'),
             'bodyStyleString' => new SearchItem('body_style', "", 'string'),
+            'bodyStyleSlug' => new SearchItem('body_style', "", 'listSlug'),
             'make' => new SearchItem('make', "", 'tree'),
             'model' => new SearchItem('model', "", 'string'),
             'transmission' => new SearchItem('transmission', 0, 'list'),
@@ -247,6 +251,10 @@ class searchParameters {
                             $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
 
                             $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
+                        } elseif ($type == 'listSlug') {
+                                $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('slug' => $searchItem->getValue()));
+                                $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                                $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
 
@@ -257,8 +265,9 @@ class searchParameters {
                 }
             }
         }
-        //sort 
-        //dump($this->sort_by);die();
+        //sort
+        dump($this->params);
+        //die();
 
 
         if ($this->sort_by == 'date_created') {
