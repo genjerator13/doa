@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Command;
 use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
+use Proxies\__CG__\Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -69,6 +70,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->dealerize();
         } elseif ($command == 'cacheclear') {
             $this->cacheClear();
+        }elseif ($command == 'listingListSlug') {
+            $this->listingListSlug();
         }
     }
 
@@ -284,6 +287,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $hometab->setCategoryName($cat->getName());
                         $hometab->setListingFieldLists($value);
                         $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setListingFieldListSlug($value->getSlug());
                         $hometab->setCount($count);
                         $em->persist($hometab);
                         //print_r($key);
@@ -314,6 +318,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $hometab->setCategoryName($cat->getName());
                         $hometab->setListingFieldLists($value);
                         $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setListingFieldListSlug($value->getSlug());
                         $hometab->setCount($count);
                         $em->persist($hometab);
                         //print_r($key);
@@ -340,6 +345,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $hometab->setCategoryName($cat->getName());
                         $hometab->setListingFieldLists($value);
                         $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setListingFieldListSlug($value->getSlug());
                         $hometab->setCount($count);
                         $em->persist($hometab);
                     }
@@ -366,6 +372,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $hometab->setCategoryName($cat->getName());
                         $hometab->setListingFieldLists($value);
                         $hometab->setListingFieldListValue($value->getValue());
+                        $hometab->setListingFieldListSlug($value->getSlug());
                         $hometab->setCount($count);
                         $em->persist($hometab);
                         //print_r($key);
@@ -421,6 +428,27 @@ class DBUtilsCommand extends ContainerAwareCommand
         $command =  'chmod -R 777 '.$this->getContainer()->get('kernel')->getRootDir().'/cache '.$this->getContainer()->get('kernel')->getRootDir().'/logs';
         $process = new \Symfony\Component\Process\Process($command);
         $process->run();
+    }
+
+    public function listingListSlug(){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $listings = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAll();
+
+        foreach ($listings as $listing) {
+
+            if ($listing instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
+
+                $slug = strtolower($listing->getValue());
+                $slug = str_replace(" ","-",$slug);
+                $slug = str_replace("/","-",$slug);
+                $slug = str_replace("---","-",$slug);
+                $slug = str_replace("--","-",$slug);
+
+                $listing->setSlug($slug);
+                dump($slug);
+            }
+        }
+        $em->flush();
     }
 
 }
