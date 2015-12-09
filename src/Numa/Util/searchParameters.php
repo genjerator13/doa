@@ -151,6 +151,7 @@ class searchParameters {
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
         }
+
         foreach ($params as $key => $value) {
 
             if ($this->isParamSet($key)) {
@@ -162,6 +163,7 @@ class searchParameters {
                 }
             }
         }
+
     }
 
     public function set($key, $value) {
@@ -189,7 +191,11 @@ class searchParameters {
 
     public function createSearchQuery() {
         //create query
-        $qb = $this->container->get('doctrine')->getEntityManager()->createQueryBuilder();
+        $em = $this->container->get('doctrine')->getEntityManager();
+        $filters = $em->getFilters()
+            ->enable('active_filter');
+        $filters->setParameter('active', true);
+        $qb = $em->createQueryBuilder();
         $qb->select('i')
                 ->from('NumaDOAAdminBundle:Item', 'i');
 
