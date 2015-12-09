@@ -2,8 +2,6 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
-use Guzzle\Http\Client;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Lib\Autonet as Autonet;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +44,7 @@ class ExternalFeedController extends Controller {
         $response = new Response();
         $response->setContent($this->renderView('NumaDOAAdminBundle:ExternalFeeds:dealer.html.twig', array('XML' => $xml)));
         $response->headers->set('Content-Type', 'text/xml');
-        $response->headers->set('Content-Disposition', 'attachment; filename="dealerFeed'.$dealer_id.'.xml"');
+        $response->headers->set('Content-Disposition', 'attachment; filename="dealerFeed' . $dealer_id . '.xml"');
         return $response;
     }
 

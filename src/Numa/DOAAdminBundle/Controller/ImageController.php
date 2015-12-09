@@ -6,16 +6,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
-use Numa\DOAAdminBundle\Form\ItemType;
-use Symfony\Component\Yaml\Parser;
-use APY\DataGridBundle\Grid\Source\Entity;
-use APY\DataGridBundle\Grid\Column\ActionsColumn;
-use APY\DataGridBundle\Grid\Action\MassAction;
-use APY\DataGridBundle\Grid\Action\DeleteMassAction;
-use APY\DataGridBundle\Grid\Action\RowAction;
-use APY\DataGridBundle\Grid\Column\ArrayColumn;
-use APY\DataGridBundle\Grid\Column\TextColumn;
-use APY\DataGridBundle\Grid\Column\BlankColumn;
 use Doctrine\Common\Collections\Criteria;
 
 /**

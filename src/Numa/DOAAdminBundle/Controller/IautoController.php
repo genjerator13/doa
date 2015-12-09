@@ -78,11 +78,11 @@ class IautoController extends Controller {
                 if (stripos($mapValue, '(bool)') !== false) {
                     //$map = str
                     $fieldname = substr($mapValue, 6);
-                    if(!empty($fieldname) && !empty($mapValue)){
+                    if (!empty($fieldname) && !empty($mapValue)) {
                         $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
-                        $valuexxx=false;
-                        if($cell=="true"){
-                            $valuexxx=true;
+                        $valuexxx = false;
+                        if ($cell == "true") {
+                            $valuexxx = true;
                         }
                         $itemField->setFieldType('boolean');
                         $itemField->setFieldName($fieldname);
@@ -100,7 +100,7 @@ class IautoController extends Controller {
                 } elseif ($mapValue == "pictures") {
                     $pictures = explode(";", $cell);
                     foreach ($pictures as $order => $picture) {
-                        if(!empty($picture)){
+                        if (!empty($picture)) {
                             $itemField = new \Numa\DOAAdminBundle\Entity\ItemField();
                             $picture = $iautoImagesFolder . "/" . $picture;
                             $itemField->handleImage($picture, $upload_path, $upload_url, "item" . $item->getSid(), $order, true, $item->getSid());
@@ -110,7 +110,7 @@ class IautoController extends Controller {
                     }
                 } elseif ($mapValue == "dealerId") {
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($cell);
-                    if($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords){
+                    if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
                         $item->setDealer($dealer);
                     }
                     
