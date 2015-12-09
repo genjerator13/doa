@@ -2,6 +2,11 @@ Numa\DOAAdminBundle\Entity\ListingFieldLists:
     type: entity
     repositoryClass: Numa\DOAAdminBundle\Repository\ListingFieldListsRepository
     table: listing_field_list
+    indexes:
+        slug:
+            columns: [ slug ]
+        value:
+            columns: [ value ]
     id:
         id:
             type: integer
@@ -12,6 +17,10 @@ Numa\DOAAdminBundle\Entity\ListingFieldLists:
       order:
             type: integer
       value:                                     
+            type: string
+            length: 255
+            nullable: true
+      slug:
             type: string
             length: 255
             nullable: true

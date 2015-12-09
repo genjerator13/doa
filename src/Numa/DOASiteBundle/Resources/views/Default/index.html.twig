@@ -17,6 +17,7 @@
     <div class="tab-content">
         <h3 class="header header-first">Search By Body Style</h3>
         {% for key,tab in tabs %}
+        
         {% if key|lower=='car' %}
         <div class="tab-pane {% if loop.first %}active{% endif %}" id="home_{{ "Vehicle"|replace(" ","_") }}">
             {% else %}
@@ -29,19 +30,19 @@
                             {% set words = item.ListingFieldListValue|split(' ', 2) %}
                             {% if key|lower=='vehicle' or key|lower=='car' %}
                             <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
-                               href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleString': item.ListingFieldListValue|url_encode|lower}) }}">
+                               href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
                                 {% elseif key=='Marine' %}
                                 <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                    style=""
-                                   href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                   href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeSlug': item.ListingFieldListSlug|url_encode|lower}) }}" class='xxx'">
                                     {% elseif key=='RVs' %}
                                     <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                        style=""
-                                       href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                       href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
                                         {% elseif  key|lower=='motorsport' or key|lower=='ag' %}
                                         <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                            style=""
-                                           href="{{ path('search_by_type',{'category': key|url_encode|lower,'typeString': item.ListingFieldListValue|url_encode|lower}) }}">
+                                           href="{{ path('search_by_type',{'category': key|url_encode|lower,'typeSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
                                             {% endif %}
 
                                             {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
