@@ -8,8 +8,8 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 
 class SeoRepository extends EntityRepository {
-    public function findSeoByItem(Item $item){
-        if($item->getId()){
+    public function findSeoByItem($item){
+        if($item instanceof Item && $item->getId()){
             $qb = $this->getEntityManager()
                 ->createQueryBuilder();
             $qb->select('s')

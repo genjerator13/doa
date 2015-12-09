@@ -54,7 +54,9 @@ class ExtraListener
         $routeParams = $request->get('_route_params');
         $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('id'=>$routeName));
+        $currentUrl = $request->getRequestUri();
+        //dump($currentUrl);die();
+        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('url'=>$currentUrl));
         if($page instanceof Page) {
             $pageDescription = $page->getDescription();
             $pageTitle = $page->getTitle();
