@@ -183,6 +183,8 @@ doctrine:
         query_cache_driver: memcache 
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        filters:
+            active_filter: Numa\DOASiteBundle\Filters\ActiveFilter
         dql:
             string_functions:
                 GroupConcat: DoctrineExtensions\Query\Mysql\GroupConcat
