@@ -5,16 +5,16 @@ sandbox:
     path:  /sandbox
     defaults: { _controller: NumaDOASiteBundle:Sandbox:index }
 search_by_body_style:
-    path:  /browse_by_body_style_{category}/{bodyStyleString}
+    path:  /browse_by_body_style_{category}/{bodyStyleSlug}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
 search_by_boat_type:
-    path:  /browse_by_boat_type_{category}/{boatTypeString}
+    path:  /browse_by_boat_type_{category}/{boatTypeSlug}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }  
 search_by_rvs_type:
-    path:  /browse_by_rvs_type_{category}/{rvsTypeString}
+    path:  /browse_by_rvs_type_{category}/{rvsTypeSlug}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en } 
 search_by_type:
-    path:  /browse_by_type_{category}/{typeString}
+    path:  /browse_by_type_{category}/{typeSlug}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }     
 browse_by_dealer:
     path:  /browse_by_dealer/{dealer_id}/{dealername}
