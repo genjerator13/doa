@@ -5,7 +5,8 @@ namespace Numa\DOAAdminBundle\Command;
 use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
-use Proxies\__CG__\Numa\DOAAdminBundle\Entity\ListingFieldLists;
+use Numa\DOAAdminBundle\Lib\RemoteFeed;
+use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -139,7 +140,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $memcache = $this->getContainer()->get('mymemcache');
             $createdItems = array();
             $feed_id = $id;
-            $remoteFeed = new Remotefeed($id);
+            $remoteFeed = new RemoteFeed($id);
             $items = $remoteFeed->getRemoteItems();
 
 
