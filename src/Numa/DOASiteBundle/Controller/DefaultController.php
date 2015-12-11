@@ -17,6 +17,7 @@ class DefaultController extends Controller {
          
         if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
+
             $this->get('mymemcache')->set('hometabs', $hometabs);
             $nocache = true;
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
@@ -269,12 +270,15 @@ class DefaultController extends Controller {
         $items = array();
         $temp = array();
         $items = array_slice($featured, $max);
+        //dump($items);die();
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
+
         if($order==1){
             $items = array_slice($featured, 0,$max);
+
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         }
-        
+
         $response->setPublic();
         $response->setSharedMaxAge(60);
         $response->setMaxAge(60);

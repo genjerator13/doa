@@ -29,6 +29,8 @@ Numa\DOAAdminBundle\Entity\Item:
             columns: [ stock_nr ]
         sold:
             columns: [ sold ]
+        type:
+            columns: [ type ]
     id:
         id:
             type: integer

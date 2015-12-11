@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\HomeTab:
     type: entity
     table: home_tab
+    repositoryClass: Numa\DOAAdminBundle\Repository\HomeTabRepository
     id:
         id:
             type: integer
