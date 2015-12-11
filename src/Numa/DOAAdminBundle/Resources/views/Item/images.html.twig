@@ -3,7 +3,7 @@
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block javascripts %}
     {{ parent()}}
-    {% javascripts '@sortable_js'  %}
+    {% javascripts  '@dropzone_js'  '@colorbox_js' '@sortable_js'  %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
