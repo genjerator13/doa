@@ -92,6 +92,7 @@ class SeoLib
                     $seo = $seoService->prepareSeo($item,array(),$feed->getAutogenerateSeo(),$em);
                 }
                 $em->flush();
+                $em->clear();
             //}
         }
     }
