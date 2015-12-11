@@ -35,9 +35,8 @@ class ItemController extends Controller {
         $dealer = $item->getDealer();
 
 
-        $item->setViews($item->getViews() + 1);
-        $item->setDontUpdate();
-        $em->flush();
+        $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
+
         $emailForm = $this->emailDealerForm($request, $item->getDealer());
 
         if ($emailForm instanceof \Symfony\Component\Form\Form) {

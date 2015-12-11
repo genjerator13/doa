@@ -186,16 +186,17 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
                 //$num_rows_effected = $conn->exec($sql);
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
-                if($count % 200 ==0) {
+                if($count % 50 ==0) {
                     $this->em->flush();
                     //$this->em->getConnection()->commit();
-                    //$this->em->clear();
+                    $this->em->clear();
                 }
             }
 
             $this->em->flush();
             $this->em->getConnection()->commit();
             $this->em->clear();
+
             unset($items);
             unset($mapping);
 
@@ -207,11 +208,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
             $this->commandLog->setCurrent($count);
-            $this->em->flush();
-            $this->em->clear();
+
             //
             $seoService = $this->getContainer()->get("Numa.Seo");
             $seo = $seoService->generateSeoForFeed($feed_id);
+
             die();
             //dump($feed_id);
         } catch (Exception $ex) {
@@ -254,13 +255,14 @@ class DBUtilsCommand extends ContainerAwareCommand
         }
         $aCategories = array(1, 2, 3, 4, 13);
         $em = $this->getContainer()->get('doctrine')->getManager();
+        $filters = $em->getFilters()
+            ->enable('active_filter');
+        $filters->setParameter('active', true);
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
         $tabs = array();
         //remove old hometabs
-        $oldHometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-        foreach ($oldHometabs as $hometab) {
-            $em->remove($hometab);
-        }
+        $oldHometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->deleteAllHomeTabs();
+
         foreach ($categories as $cat) {
 
             $list = "";
@@ -293,7 +295,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $em->persist($hometab);
                         //print_r($key);
                     }
-                    $em->flush();
+                    //$em->flush();
                 }
             } else if ($cat->getId() == 4 || $cat->getId() == 3) {
                 //RV
@@ -324,7 +326,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $em->persist($hometab);
                         //print_r($key);
                     }
-                    $em->flush();
+                    //$em->flush();
                 }
             } else if ($cat->getId() == 1) {
                 //find subcategory of category(car and body style)
@@ -350,7 +352,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $hometab->setCount($count);
                         $em->persist($hometab);
                     }
-                    $em->flush();
+                    //$em->flush();
                 }
             } else if ($cat->getId() == 13) {
                 //Ag
@@ -378,12 +380,14 @@ class DBUtilsCommand extends ContainerAwareCommand
                         $em->persist($hometab);
                         //print_r($key);
                     }
-                    $em->flush();
-                    $memcache = $this->getContainer()->get('mymemcache');
-                    $memcache->delete('hometabs');
-                    //dump($memcache->get('hometabs'));
+
                 }
             }
+            $em->flush();
+            $em->clear();
+            $memcache = $this->getContainer()->get('mymemcache');
+            $memcache->delete('hometabs');
+            //dump($memcache->get('hometabs'));
         }
     }
 

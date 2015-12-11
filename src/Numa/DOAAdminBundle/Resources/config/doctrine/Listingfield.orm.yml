@@ -2,6 +2,13 @@ Numa\DOAAdminBundle\Entity\Listingfield:
     type: entity
     repositoryClass: Numa\DOAAdminBundle\Entity\ListingfieldRepository
     table: listing_field
+    indexes:
+        caption:
+            columns: [ caption ]
+        type:
+            columns: [ type ]
+        category_sid:
+            columns: [ category_sid ]
     id:
         id:
             type: integer

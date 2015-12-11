@@ -41,8 +41,8 @@ class ImportfeedController extends Controller {
             $entity->upload();
             $em->persist($entity);
             $em->flush();
-
-            return $this->redirect($this->generateUrl('importfeed_show', array('id' => $entity->getId())));
+            $this->addFlash("success","Feed #".$entity->getId()." successfully created.");
+            return $this->redirect($this->generateUrl('importfeed'));
         }
 
         return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
