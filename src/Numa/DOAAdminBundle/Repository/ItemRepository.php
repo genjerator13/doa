@@ -10,42 +10,46 @@ use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 
-class ItemRepository extends EntityRepository {
+class ItemRepository extends EntityRepository
+{
 
     protected $itemFieldsDeleted = false;
     private $memcache;
 
-    public function setMemcached($memcachce) {
+    public function setMemcached($memcachce)
+    {
         $this->memcache = $memcachce;
     }
 
-    public function getItemFields($item_id) {
+    public function getItemFields($item_id)
+    {
 
         $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
         $query = $this->getEntityManager()
-                ->createQuery($q);
+            ->createQuery($q);
         $res = $query->getResult();
         return $res;
     }
 
-    public function findFeatured($max = 5) {
+    public function findFeatured($max = 5)
+    {
         if (empty($max)) {
             $max = 5;
         }
         $em = $this->getEntityManager();
         $res2 = $this->memcache->get('featured');
-        
+
         if (!$res2) {
-            
+
             $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
             $query = $this->getEntityManager()
-                    ->createQuery($q);
+                ->createQuery($q);
             $query->useResultCache(true, 3600, 'featuredSelect');
             $res2 = $query->getArrayResult();
-            $this->memcache->get('featured',$res2);
-            
+            $this->memcache->set('featured', $res2);
+
         }
-        
+
         $count = count($res2);
         $maxOffset = $count - $max <= 0 ? $count : $max;
 
@@ -77,7 +81,7 @@ class ItemRepository extends EntityRepository {
             $res = $query->getResult(); //->getResult();
 
             return $res;
-            
+
         }
         return null;
     }
@@ -87,44 +91,45 @@ class ItemRepository extends EntityRepository {
      * @param integer $user_id
      * @return \Numa\DOAAdminBundle\Entity\Item
      */
-    public function findSavedAds($user_id) {
+    public function findSavedAds($user_id)
+    {
         $user_id = intval($user_id);
 
         $qb = $this->getEntityManager()
-                ->createQueryBuilder();
+            ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
-                //->from('NumaDOAAdminBundle:Item', 'i')
-                //->join('NumaDOAAdminBundle:UserItem', 'ui')
-                ->where('ui.user_id=:user_id')
-                ->andWhere('ui.item_type= :item_type')
-                ->setParameter('item_type', \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD)
-                ->setParameter('user_id', $user_id)
-        ;
+            ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
+            //->from('NumaDOAAdminBundle:Item', 'i')
+            //->join('NumaDOAAdminBundle:UserItem', 'ui')
+            ->where('ui.user_id=:user_id')
+            ->andWhere('ui.item_type= :item_type')
+            ->setParameter('item_type', \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD)
+            ->setParameter('user_id', $user_id);
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery;
     }
 
-    public function getItemFieldSubCats($cat) {
+    public function getItemFieldSubCats($cat)
+    {
         $subcatname = 'boat subtype'; //test
         if ($cat == 2) {
             $subcatname = 'boat subtype';
         }
         $qb = $this->getEntityManager()
-                ->createQueryBuilder();
+            ->createQueryBuilder();
         $qb->select('if.field_string_value')->distinct()
-                ->from('NumaDOAAdminBundle:Item', 'i')
-                ->join('NumaDOAAdminBundle:ItemField', 'if')
-                ->where('if.field_name=:subcatname')
-                ->setParameter('subcatname', $subcatname)
-        ;
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->join('NumaDOAAdminBundle:ItemField', 'if')
+            ->where('if.field_name=:subcatname')
+            ->setParameter('subcatname', $subcatname);
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         return $itemsQuery->getResult();
     }
 
-    public function getItemBySubCats($cat, $subcatname) {
+    public function getItemBySubCats($cat, $subcatname)
+    {
 
         $subcat = 'type'; //test
         $cat = intval($cat);
@@ -133,37 +138,36 @@ class ItemRepository extends EntityRepository {
         }
 
         $qb = $this->getEntityManager()
-                ->createQueryBuilder();
+            ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->from('NumaDOAAdminBundle:Item', 'i')
-                ->where('i.category_id=:category')
-                ->andWhere('i.' . $subcat . ' like :subcatname')
-                ->setParameter('subcatname', "%" . $subcatname . "%")
-                ->setParameter('category', $cat)
-        ;
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.category_id=:category')
+            ->andWhere('i.' . $subcat . ' like :subcatname')
+            ->setParameter('subcatname', "%" . $subcatname . "%")
+            ->setParameter('category', $cat);
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //dump($itemsQuery->getSQL());
         return $itemsQuery->getResult();
     }
 
-    public function getItemByCat($category) {
+    public function getItemByCat($category)
+    {
         $qb = $this->getEntityManager()
-                ->createQueryBuilder();
+            ->createQueryBuilder();
         $qb->select('i')->distinct()
-                ->from('NumaDOAAdminBundle:Item', 'i')
-        ;
+            ->from('NumaDOAAdminBundle:Item', 'i');
 
-        if(!empty($category)) {
-            if(is_numeric($category)) {
+        if (!empty($category)) {
+            if (is_numeric($category)) {
 
                 $qb->andWhere("i.category_id like :name");
-                $qb->setParameter("name",$category);
-            }elseif(is_string($category)){
-                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->setParameter("name", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-            }else{
+            } else {
                 //return false;
             }
         }
@@ -172,32 +176,32 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
-    public function getItemByDealerAndCategory($dealer_id,$category=null) {
+    public function getItemByDealerAndCategory($dealer_id, $category = null)
+    {
 
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->from('NumaDOAAdminBundle:Item', 'i');
-        if(is_numeric($dealer_id)) {
+        if (is_numeric($dealer_id)) {
             $qb->where('i.dealer_id=:dealer');
             $qb->setParameter('dealer', $dealer_id);
-        }elseif(is_string($dealer_id)){
-            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d",'WITH','i.dealer_id=d.id');
+        } elseif (is_string($dealer_id)) {
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
             $qb->andWhere("d.username like :dealer");
             $qb->setParameter("dealer", "%" . $dealer_id . "%");
-        }
-        ;
+        };
 
-        if(!empty($category)) {
-            if(is_numeric($category)) {
+        if (!empty($category)) {
+            if (is_numeric($category)) {
 
                 $qb->andWhere("i.category_id like :name");
-                $qb->setParameter("name",$category);
-            }elseif(is_string($category)){
-                $qb->innerJoin("NumaDOAAdminBundle:Category", "c",'WITH','i.category_id=c.id');
+                $qb->setParameter("name", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-            }else{
+            } else {
                 return false;
             }
         }
@@ -207,7 +211,8 @@ class ItemRepository extends EntityRepository {
         return $itemsQuery->getResult();
     }
 
-    public function removeAllItemFields($item_id) {
+    public function removeAllItemFields($item_id)
+    {
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
@@ -216,16 +221,18 @@ class ItemRepository extends EntityRepository {
         }
     }
 
-    public function removeAllIImageItemFields($item_id) {
+    public function removeAllIImageItemFields($item_id)
+    {
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id. " AND  if.field_name like 'Image List'");
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id . " AND  if.field_name like 'Image List'");
             $numDeleted = $q->execute();
         }
     }
 
-    public function removeAllItemFieldsByFeed($feed_id) {
+    public function removeAllItemFieldsByFeed($feed_id)
+    {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
@@ -233,20 +240,33 @@ class ItemRepository extends EntityRepository {
         }
     }
 
-    public function setSoldOnAllItemInFeed($feed_id) {
+    public function setSoldOnAllItemInFeed($feed_id)
+    {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
             $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->update('NumaDOAAdminBundle:Item', 'i')
-                    ->andWhere('i.feed_id = :ids')
-                    ->setParameter('ids', $feed_id)
-                    ->set('i.sold', 1);
+                ->andWhere('i.feed_id = :ids')
+                ->setParameter('ids', $feed_id)
+                ->set('i.sold', 1);
             $q = $qb->getQuery();
             $q->execute();
         }
     }
 
-    public function findItemByUniqueField($uniqueField, $value) {
+    public function addView($itemId)
+    {
+        $sql = "
+        UPDATE item
+        SET views=views+1
+        WHERE id=".$itemId;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+    }
+
+    public function findItemByUniqueField($uniqueField, $value)
+    {
 
 
         if (is_array($value)) {
@@ -254,12 +274,13 @@ class ItemRepository extends EntityRepository {
         }
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
         $itemsQuery = $this->getEntityManager()
-                        ->createQuery($q)->setMaxResults(1);
+            ->createQuery($q)->setMaxResults(1);
         //dump($itemsQuery->getOneOrNullResult());
         return $itemsQuery->getOneOrNullResult();
     }
 
-    public function removeItemsByFeed($feed_id) {
+    public function removeItemsByFeed($feed_id)
+    {
         $feed_id = intval($feed_id);
         $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
         $numDeleted = $q->execute();
@@ -270,16 +291,17 @@ class ItemRepository extends EntityRepository {
      * @param type $importItem (array remote Item)
      * @param type $mapping (mapping row)
      * @param type $feed_id (id of the feed
-     * @param type $upload_url 
+     * @param type $upload_url
      * @param type $upload_path
      * @param type $em
      * @return \Numa\DOAAdminBundle\Entity\Item|null
      */
-    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em) {
+    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em)
+    {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
 
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
-        if($feed instanceof Importfeed){
+        if ($feed instanceof Importfeed) {
 
         }
 
@@ -407,7 +429,7 @@ class ItemRepository extends EntityRepository {
                     }
                     $processed = true;
                 } else {
-                    
+
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
@@ -430,8 +452,8 @@ class ItemRepository extends EntityRepository {
 
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
                         $item->setDealer($dealer);
-                    }else{
-                        if($feed->getOnlyMatchedDealers()){
+                    } else {
+                        if ($feed->getOnlyMatchedDealers()) {
                             $persist = false;
                             return null;
                         }
@@ -456,27 +478,27 @@ class ItemRepository extends EntityRepository {
     }
 
 
-    public function findByIds($ids){
+    public function findByIds($ids)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->andWhere('i.id IN (:ids)')
             ->where("i.id IN(:ids)")
-            ->setParameter('ids', array_values($ids))
-        ;
+            ->setParameter('ids', array_values($ids));
 
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
         return $res;
     }
-    public function findByFeedId($id){
+
+    public function findByFeedId($id)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->where('i.feed_id = :id')
-
-            ->setParameter('id', $id)
-        ;
+            ->setParameter('id', $id);
 
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
