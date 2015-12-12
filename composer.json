@@ -22,7 +22,7 @@
     
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.7.3",
+        "symfony/symfony": "2.8.0",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         
@@ -48,7 +48,7 @@
         "leaseweb/api-caller-bundle": "*",
         "Trsteel/ckeditor-bundle": "~1.6",
         "jms/serializer-bundle": "^1.1@dev",
-        "friendsofsymfony/rest-bundle": "^1.8@dev",
+        "friendsofsymfony/rest-bundle": "dev-master",
         "nelmio/api-doc-bundle": "^2.9@dev",
         "comur/image-bundle": "1.0.*@dev"
 
