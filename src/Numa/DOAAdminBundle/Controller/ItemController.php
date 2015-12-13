@@ -39,6 +39,7 @@ class ItemController extends Controller {
         $source = new Entity('NumaDOAAdminBundle:Item');
 
         $grid = $this->get('grid');
+
         //$grid->setDefaultOrder("date_created", "desc");
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
@@ -62,6 +63,7 @@ class ItemController extends Controller {
             echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
         }
         );
+
         $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Activate', 'NumaDOAAdminBundle:Item:massActivate');
@@ -76,7 +78,9 @@ class ItemController extends Controller {
         $grid->addMassAction($yourMassAction);
         $yourMassAction = new MassAction('Assign Package', 'Numa\DOAAdminBundle\Controller\ItemController::additemAction');
         $grid->addMassAction($yourMassAction);
+
         return $grid->getGridResponse('NumaDOAAdminBundle:Item:indexGrid.html.twig');
+
     }
 
     public function massActivateAction($primaryKeys, $allPrimaryKeys) {
