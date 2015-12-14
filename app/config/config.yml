@@ -53,7 +53,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: Northeast Ohio Auto Mall
+        title: FISH Auto Mile
         subject: Email from
         upload_feed_path: /upload/feeds/
 #    form:
