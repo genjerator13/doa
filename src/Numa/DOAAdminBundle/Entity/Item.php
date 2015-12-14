@@ -14,7 +14,7 @@ use Numa\DOAModuleBundle\Entity\Seo;
 
 
 /**
- * @GRID\Source(columns ="id,sold,make,model,stock_nr,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
+ * @GRID\Source(columns ="id,sold,Category.name,make,model,stock_nr, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created" ,groupBy="id")
  * @JMS\XmlRoot("listing")
  * @JMS\ExclusionPolicy("ALL")
  */
