@@ -266,7 +266,6 @@ class searchParameters {
             }
         }
         //sort
-        dump($this->params);
         //die();
 
 
