@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -10,9 +10,9 @@
         {{ include("NumaDOASiteBundle::keywords.html.twig") }}
     {% endblock keyword %}
 
-    {% block title %}<title>{{title}}</title>{% endblock title %}
+    {% block title %}<title>{{ title }}</title>{% endblock title %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -25,65 +25,66 @@
     {% endblock %}
 
 </head>
-    <body class=" default ">
+<body class=" default ">
 
-        <!-- Static navbar -->
-        <div class="navbar navbar-default navbar-static-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">         
-                    {% set route = app.request.get('_route') %}
-                        {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
-                    </div><!--/.nav-collapse -->
-                </div>
+<!-- Static navbar -->
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            {% set route = app.request.get('_route') %}
+            {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+
+<div class="header-background">
+
+</div>
+<div class="container">
+    <div class="header-background-content">
+        <div class="header-image">
+            <div class="header-logo">
+
             </div>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+            {{ render_esi(controller('NumaDOASiteBundle:Default:sidebarMenu')) }}
+            {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }}
+        </div>
 
 
-            <div class="header-background" >
-
-            </div>
-            <div class="container">
-                <div class="header-background-content" >
-                    <div class="header-image" >
-                        <div class="header-logo" >
-
-                        </div>
-                </div>
-                <div class="row">
-
-                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">                        
-                        {{ render_esi(controller('NumaDOASiteBundle:Default:sidebarMenu')) }} 
-                        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }} 
-                    </div>
+        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
 
 
-                    <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 right-sidebar">
+            {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':2 })) }}
+            {% block rightsidebar %}
+            {% endblock %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="footer col-md-12 col-xs-12 col-sm-12 col-lg-12">
+            <a class="footer-img"></a>
+            {% include 'NumaDOASiteBundle::copyright.html.twig' %}
+        </div>
+    </div>
+</div> <!-- /container -->
+</html>
 
-
-                        {% block content %}
-                        {% endblock %}
-                    </div>
-                    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 right-sidebar">
-                        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':2 })) }}       
-                        {% block rightsidebar %}
-                        {% endblock %}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="footer col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                        <a class="footer-img"></a>
-                        {% include 'NumaDOASiteBundle::copyright.html.twig' %}
-                    </div>        
-                </div>          
-            </div> <!-- /container -->
-    </html>
-
-    <!-- /default:main:default.tpl -->
+<!-- /default:main:default.tpl -->
 
