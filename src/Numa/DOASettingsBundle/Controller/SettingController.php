@@ -231,7 +231,7 @@ class SettingController extends Controller
     }
 
     /**
-     * Finds and displays a Setting entity.
+     * Clear http and memcache
      *
      */
     public function clearCacheAction()
@@ -240,8 +240,26 @@ class SettingController extends Controller
         $process = new \Symfony\Component\Process\Process($command);
         $process->run();
 
+        $command = 'echo \'flush_all\' | nc localhost 11211';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
+
 
         $this->addFlash('success',"Http cache is cleared.");
+        return $this->redirect($this->generateUrl('setting'));
+    }
+
+    /**
+     * Finds and displays a Setting entity.
+     *
+     */
+    public function refreshHometabsAction()
+    {
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil hometabs';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
+
+        $this->addFlash('success',"Tabs on homepage refreshed.");
         return $this->redirect($this->generateUrl('setting'));
     }
 }

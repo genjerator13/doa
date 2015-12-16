@@ -3440,16 +3440,19 @@ class Item
 
     public function getUrlDescription()
     {
-        return str_ireplace(" ", "-", $this->getTitle());
+        $url = str_ireplace(" ", "-", $this->getTitle());
+        $url = str_ireplace("--", "-", $url);
+        $url = trim($url," -");
+        return $url;
     }
+
 
     public function getTitle()
     {
-        $desc = $this->getMake() . " " . $this->getModel();
+        $desc = $this->getYear() . " ".$this->getMake() . " " . $this->getModel();
         if ($this->getCategoryId() == 4) {
-            $desc = $this->getMake() . " " . $this->getModel() . " " . $this->getFloorPlan();
+            $desc = $desc . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
-            $desc = $this->getMake() . " " . $this->getModel();
             if (!empty($this->getTrim())) {
                 $desc .= " " . $this->getTrim();
             }
