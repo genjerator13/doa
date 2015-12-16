@@ -254,10 +254,12 @@ class DBUtilsCommand extends ContainerAwareCommand
             print_r("Making home tabs\n");
         }
         $aCategories = array(1, 2, 3, 4, 13);
-        $em = $this->getContainer()->get('doctrine')->getManager();
+        $em = $this->getContainer()->get('doctrine')->getEntityManager();
         $filters = $em->getFilters()
             ->enable('active_filter');
         $filters->setParameter('active', true);
+
+
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
         $tabs = array();
         //remove old hometabs
