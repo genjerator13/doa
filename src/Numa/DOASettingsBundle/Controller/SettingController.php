@@ -25,18 +25,19 @@ class SettingController extends Controller
 
         $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
         $settingLib = $this->get("numa.settings");
-        $sections= $settingLib->getSections();
+        $sections = $settingLib->getSections();
         $settings = array();
-        foreach($entities as $setting){
-            $settings[$setting->getSection()][]=$setting;
+        foreach ($entities as $setting) {
+            $settings[$setting->getSection()][] = $setting;
         }
-        
+
         return $this->render('NumaDOASettingsBundle:Setting:index.html.twig', array(
             'entities' => $entities,
             'sections' => $sections,
             'settings' => $settings,
         ));
     }
+
     /**
      * Creates a new Setting entity.
      *
@@ -51,13 +52,13 @@ class SettingController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            $this->addFlash("Success","Setting added: ".$entity->getName());
+            $this->addFlash("Success", "Setting added: " . $entity->getName());
             return $this->redirect($this->generateUrl('setting'));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -87,11 +88,11 @@ class SettingController extends Controller
     public function newAction()
     {
         $entity = new Setting();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -112,7 +113,7 @@ class SettingController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOASettingsBundle:Setting:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -135,19 +136,19 @@ class SettingController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Setting entity.
-    *
-    * @param Setting $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Setting entity.
+     *
+     * @param Setting $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Setting $entity)
     {
         $form = $this->createForm(new SettingType(), $entity, array(
@@ -159,6 +160,7 @@ class SettingController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Setting entity.
      *
@@ -184,11 +186,12 @@ class SettingController extends Controller
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Setting entity.
      *
@@ -226,8 +229,7 @@ class SettingController extends Controller
             ->setAction($this->generateUrl('setting_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
@@ -238,14 +240,14 @@ class SettingController extends Controller
     {
         $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil cacheclear';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
+        $process->start();
 
         $command = 'echo \'flush_all\' | nc localhost 11211';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
+        $process->start();
 
 
-        $this->addFlash('success',"Http cache is cleared.");
+        $this->addFlash('success', "Http cache is cleared.");
         return $this->redirect($this->generateUrl('setting'));
     }
 
@@ -259,7 +261,7 @@ class SettingController extends Controller
         $process = new \Symfony\Component\Process\Process($command);
         $process->run();
 
-        $this->addFlash('success',"Tabs on homepage refreshed.");
+        $this->addFlash('success', "Tabs on homepage refreshed.");
         return $this->redirect($this->generateUrl('setting'));
     }
 }
