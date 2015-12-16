@@ -18,10 +18,10 @@
                     {% else %}
                         {% set image = images|first.fieldStringValue %}
                         {% if ('http' not in image) %}
-                            <img alt="{{ item.getItemFieldByName('year') }} {{ item.getTitle() }}"
+                            <img alt="{{ item.getTitle() }}"
                                  src="{{ image|imagine_filter('search_image') }}"/>
                         {% else %}
-                            <img alt="{{ item.getItemFieldByName('year') }} {{ item.getTitle() }}" src="{{ image }}"
+                            <img alt="{{ item.getTitle() }}" src="{{ image }}"
                                  width="120" height="90"/>
                         {% endif %}
 
@@ -32,7 +32,7 @@
             <div class="shortDetails">
                 <h4>
                     <a href="{{ detailUrl }}">
-                        {{ item.getItemFieldByName('year') }} {{ item.getTitle() }} {% if (item.getSold()==1) %}<span
+                        {{ item.getTitle() }} {% if (item.getSold()==1) %}<span
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>

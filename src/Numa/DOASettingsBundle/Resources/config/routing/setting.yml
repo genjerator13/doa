@@ -32,3 +32,6 @@ setting_delete:
 setting_cache_clear:
     path:     /cache_clear
     defaults: { _controller: "NumaDOASettingsBundle:Setting:clearCache" }
+setting_hometabs_refresh:
+    path:     /hometabs_refresh
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }
