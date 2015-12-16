@@ -70,7 +70,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->dealerize();
         } elseif ($command == 'cacheclear') {
             $this->cacheClear();
-        }elseif ($command == 'listingListSlug') {
+        } elseif ($command == 'listingListSlug') {
             $this->listingListSlug();
         }
     }
@@ -122,7 +122,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         try {
             $this->em = $em;
             //error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED );
+            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();
@@ -168,9 +168,9 @@ class DBUtilsCommand extends ContainerAwareCommand
 //                $seoService = $this->getContainer()->get("Numa.Seo");
 //
 //                $seo = $seoService->prepareSeo($item, array(), false);
-                  if (!empty($item)) {
-                      $createdItems[] = $item;
-                  }
+                if (!empty($item)) {
+                    $createdItems[] = $item;
+                }
 
                 unset($item);
                 //echo "Memory usage in fetchAction inloop: " . $count . "::" . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
@@ -185,7 +185,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
 
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
-                if($count % 50 ==0) {
+                if ($count % 50 == 0) {
                     $this->em->flush();
                     //$this->em->getConnection()->commit();
                     $this->em->clear();
@@ -202,7 +202,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             //update hometabs
             $this->makeHomeTabs(false);
             $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
-            
+
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
@@ -425,17 +425,19 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     }
 
-    public function cacheClear(){
+    public function cacheClear()
+    {
         $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
-        
-        $command =  'chmod -R 777 '.$this->getContainer()->get('kernel')->getRootDir().'/cache '.$this->getContainer()->get('kernel')->getRootDir().'/logs';
+
+        $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
     }
 
-    public function listingListSlug(){
+    public function listingListSlug()
+    {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $listings = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAll();
 
@@ -444,10 +446,10 @@ class DBUtilsCommand extends ContainerAwareCommand
             if ($listing instanceof \Numa\DOAAdminBundle\Entity\ListingFieldLists) {
 
                 $slug = strtolower($listing->getValue());
-                $slug = str_replace(" ","-",$slug);
-                $slug = str_replace("/","-",$slug);
-                $slug = str_replace("---","-",$slug);
-                $slug = str_replace("--","-",$slug);
+                $slug = str_replace(" ", "-", $slug);
+                $slug = str_replace("/", "-", $slug);
+                $slug = str_replace("---", "-", $slug);
+                $slug = str_replace("--", "-", $slug);
 
                 $listing->setSlug($slug);
                 dump($slug);
