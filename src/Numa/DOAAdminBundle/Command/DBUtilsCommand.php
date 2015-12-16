@@ -21,8 +21,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        //php app/console numa:DOA:users admin admin
-        //set_error_handler( array( $this, 'handler' ) );
+        //set_error_handler( array( $this, 'myErrorHandler' ) );
         $this
             ->setName('numa:dbutil')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
@@ -112,7 +111,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $this->commandLog->setFullDetails($errorFullDetail);
         $this->em->flush();
         $this->em->clear();
-        //dump($errno);
+        dump($errorFullDetail);
         exit(1);
         //}
         return true;
@@ -123,7 +122,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         try {
             $this->em = $em;
             error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT );
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();
@@ -184,7 +183,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                 }
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
-                //$num_rows_effected = $conn->exec($sql);
+
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
                 if($count % 50 ==0) {
                     $this->em->flush();
@@ -192,18 +191,19 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $this->em->clear();
                 }
             }
-
+            dump("1");
             $this->em->flush();
             $this->em->getConnection()->commit();
             $this->em->clear();
-
+            dump("2");
             unset($items);
             unset($mapping);
-
+            dump("3");
             //update hometabs
-            $resultCode = $this->makeHomeTabs(false);
-
+            $this->makeHomeTabs(false);
+            dump("4");
             $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
+            dump("5");
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
@@ -214,7 +214,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $seo = $seoService->generateSeoForFeed($feed_id);
 
             die();
-            //dump($feed_id);
+
         } catch (Exception $ex) {
 
             trigger_error("ERROR", E_USER_ERROR);
@@ -254,16 +254,16 @@ class DBUtilsCommand extends ContainerAwareCommand
             print_r("Making home tabs\n");
         }
         $aCategories = array(1, 2, 3, 4, 13);
-        $em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $filters = $em->getFilters()
             ->enable('active_filter');
         $filters->setParameter('active', true);
 
 
         $categories = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
-        $tabs = array();
+
         //remove old hometabs
-        $oldHometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->deleteAllHomeTabs();
+        $em->getRepository('NumaDOAAdminBundle:HomeTab')->deleteAllHomeTabs();
 
         foreach ($categories as $cat) {
 
