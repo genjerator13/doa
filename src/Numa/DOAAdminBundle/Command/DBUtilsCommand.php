@@ -428,12 +428,11 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function cacheClear(){
         $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
-        echo $process->getOutput();
-
+        $process->start();
+        
         $command =  'chmod -R 777 '.$this->getContainer()->get('kernel')->getRootDir().'/cache '.$this->getContainer()->get('kernel')->getRootDir().'/logs';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
+        $process->start();
     }
 
     public function listingListSlug(){
