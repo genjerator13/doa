@@ -191,19 +191,18 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $this->em->clear();
                 }
             }
-            dump("1");
+
             $this->em->flush();
             $this->em->getConnection()->commit();
             $this->em->clear();
-            dump("2");
+
             unset($items);
             unset($mapping);
-            dump("3");
+
             //update hometabs
             $this->makeHomeTabs(false);
-            dump("4");
             $this->commandLog = $this->em->getRepository('NumaDOAAdminBundle:CommandLog')->find($this->commandLog->getId());
-            dump("5");
+            
             $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
             $this->commandLog->setEndedAt(new \DateTime());
             $this->commandLog->setStatus('finished');
