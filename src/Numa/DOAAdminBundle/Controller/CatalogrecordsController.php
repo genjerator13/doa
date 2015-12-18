@@ -20,7 +20,7 @@ class CatalogrecordsController extends Controller {
      *
      */
     public function indexAction(Request $request) {
-        $this->denyAccessUnlessGranted(array('ROLE_ADMIN','ROLE_DEALER_ADMIN'), null, 'Access Denied!');
+        $this->denyAccessUnlessGranted(array('ROLE_ADMIN', 'ROLE_DEALER_ADMIN'), null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
 
@@ -81,7 +81,6 @@ class CatalogrecordsController extends Controller {
     /**
      * Creates a form to create a Catalogrecords entity.
      *
-     * @param Catalogrecords $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -173,15 +172,15 @@ class CatalogrecordsController extends Controller {
         $catalogForm = new DealerCouponsType();
 
         //$catalogForm->setSecurityContext($securityContext);
-        $limitCoupons=2;
-        $countCoupons=0;
-        if(!empty($entity->getCoupon())){
+        $limitCoupons = 2;
+        $countCoupons = 0;
+        if (!empty($entity->getCoupon())) {
             $countCoupons = $entity->getCoupon()->count();
         }
 
-        if($countCoupons<= $limitCoupons){
+        if ($countCoupons <= $limitCoupons) {
 
-            for ($i = 0; $i < $limitCoupons-$countCoupons; $i++) {
+            for ($i = 0; $i < $limitCoupons - $countCoupons; $i++) {
                 $coupon = new Coupon();
                 $coupon->setCatalogrecords($entity);
 
@@ -239,8 +238,8 @@ class CatalogrecordsController extends Controller {
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
-            if($entity instanceof Catalogrecords) {
-                if(!empty($oldDealersCategories)) {
+            if ($entity instanceof Catalogrecords) {
+                if (!empty($oldDealersCategories)) {
                     foreach ($oldDealersCategories as $oldDC) {
                         $em->remove($oldDC);
                     }
@@ -249,10 +248,10 @@ class CatalogrecordsController extends Controller {
                 $entity->upload();
 
                 $em->flush();
-                $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
+                $this->addFlash("success", "Dealer: " . $entity->getName() . " successfully updated.");
                 return $this->redirect($this->generateUrl('catalogs', array('id' => $id)));
             }
-        }else{
+        } else {
             dump($editForm->getErrors(true));
         }
 
@@ -277,7 +276,7 @@ class CatalogrecordsController extends Controller {
         $couponsForm->handleRequest($request);
 
         if ($couponsForm->isValid()) {
-            if($entity instanceof Catalogrecords) {
+            if ($entity instanceof Catalogrecords) {
 
 
                 foreach ($entity->getCoupon() as $coupon) {
@@ -287,7 +286,7 @@ class CatalogrecordsController extends Controller {
 
                 return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
             }
-        }else{
+        } else {
             dump($couponsForm->getErrors(true));
         }
 
@@ -387,28 +386,28 @@ class CatalogrecordsController extends Controller {
             }
 
             $em = $this->getDoctrine()->getManager();
-            $updated =0;
-            $new =0;
+            $updated = 0;
+            $new = 0;
             foreach ($res as $key => $row) {
                 $fields = Catalogrecords::$maping;
                 $newDealer = new Catalogrecords();
                 foreach ($fields as $key => $fieldDB) {
                     $fn = 'set' . $fieldDB;
                     //var_dump($fn);
-                    if(is_callable(array($newDealer,$fn)) && !empty($row[$key])){
+                    if (is_callable(array($newDealer, $fn)) && !empty($row[$key])) {
                         $newDealer->$fn($row[$key]);
                     }
                 }
-                if($newDealer->getEmail()){
+                if ($newDealer->getEmail()) {
                     $existing = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('email'=>$newDealer->getEmail()));
-                    if(!empty($existing)){
+                    if (!empty($existing)) {
                         $existing = $newDealer;
                         $updated++;
-                    }else{
+                    } else {
                         $new++;
                         $em->persist($newDealer);
                     }
-                }else{                    
+                } else {                    
                     return $this->redirectToRoute('catalogs');
                 }
             }
@@ -417,7 +416,7 @@ class CatalogrecordsController extends Controller {
 
            
         }
-        $this->addFlash('success', 'CSV imported: '.$updated.' :updated   '.$new.' :new');
+        $this->addFlash('success', 'CSV imported: ' . $updated . ' :updated   ' . $new . ' :new');
         return $this->redirectToRoute('catalogs');
     }
 
