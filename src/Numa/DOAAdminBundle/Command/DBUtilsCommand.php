@@ -121,8 +121,8 @@ class DBUtilsCommand extends ContainerAwareCommand
     {
         try {
             $this->em = $em;
-            //error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-            set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+            error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
+            //set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();

@@ -48,7 +48,6 @@ class ItemController extends Controller {
         //$tableAlias = $source->getTableAlias();
         $grid->setSource($source);
 
-        $entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         //main column
 
         $controller = $this;
@@ -262,7 +261,7 @@ class ItemController extends Controller {
                             ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
-                    $listingField = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
+                    $listingField = $query->setMaxResults(1)->getOneOrNullResult();
 
                     if (!empty($listingField)) {
                         $itemField->setFieldStringValue($listingField['field_string_value']);
