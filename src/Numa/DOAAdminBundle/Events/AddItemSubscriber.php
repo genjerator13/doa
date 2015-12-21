@@ -92,7 +92,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
                     $selected = $item->getItemFieldByName($carFieldField);
 
 
-                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(), 'level' => 1));
+                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(), 'level' => 1),
+                        array('name' => 'ASC'));
                     $values = array();
                     foreach ($listingTree as $key => $value) {
                         $values[$value->getName()] = $value->getName();
