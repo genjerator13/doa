@@ -38,6 +38,17 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $source = new Entity('NumaDOAAdminBundle:Item');
 
+        $source->manipulateRow(
+            function ($row)
+            {
+                dump($row);
+                if($row->getField('active') && $row->getField('featured')){
+                    $row->setClass('featured');
+                }
+                return $row;
+            }
+        );
+
         $grid = $this->get('grid');
 
         //$grid->setDefaultOrder("date_created", "desc");
