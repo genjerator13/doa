@@ -41,7 +41,7 @@ class ItemController extends Controller {
         $source->manipulateRow(
             function ($row)
             {
-                dump($row);
+
                 if($row->getField('active') && $row->getField('featured')){
                     $row->setClass('featured');
                 }
@@ -488,7 +488,6 @@ class ItemController extends Controller {
 
         if ($form->isValid()) {
 
-            dump($entity->getItemField());
             if(empty($id)) {
                 $em->persist($entity);
             }
