@@ -353,25 +353,37 @@ class ItemRepository extends EntityRepository
         }
         //dump($mapping);die();
         foreach ($mapping as $maprow) {
-
+            //dump($maprow->getId());
             $property = $maprow->getSid();
 
             $processed = false;
-            $listingFields = $maprow->getListingField();
-            //check if there are predefined listing field in database (listing_field_lists)
-            if (!empty($listingFields) && !empty($importItem[$property])) {
-                $stringValue = $importItem[$property];
-                $listingFieldsType = $listingFields->getType();
+            $listingField = false;
+            if(!empty($maprow->getFieldSid())) {
+                $listingField = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('id' => $maprow->getFieldSid()));
 
+            }
+            //dump($listingField);
+            //check if there are predefine
+                //d listing field in database (listing_field_lists)
+            if (!empty($listingField) && !empty($importItem[$property])) {
+
+                $stringValue = $importItem[$property];
+                $listingFieldsType = $listingField->getType();
+//
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
-                if ($listingFields instanceof Listingfield) {
+
+                
+                if ($listingField instanceof Listingfield && !empty($listingField->getId())) {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
+
+
                     if ($test instanceof Listingfield) {
 
                         $itemField->setListingfield($test);
                     }
+
                     //$itemField->setListingfield($listingFields); //will set caption and type by listing field
                     //$itemField->setFieldName($listingFields->getCaption());
                     //$itemField->setFieldType($listingFields->getType());
@@ -384,7 +396,7 @@ class ItemRepository extends EntityRepository
 
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {
-                    $listValues = $listingFields->getListingFieldLists();
+                    $listValues = $listingField->getListingFieldLists();
 
                     if (count($listValues) > 0) {
 
@@ -444,24 +456,30 @@ class ItemRepository extends EntityRepository
                 }
                 //connect with dealer
 
-                if (stripos($listingFields->getSid(), 'dealer') !== false) {
+                if (stripos($listingField->getSid(), 'dealer') !== false) {
 
                     $dealerId = $stringValue;
 
                     $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('dealer_id' => $dealerId));
 
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+
                         $item->setDealer($dealer);
+                        //dump($dealer);
                     } else {
                         if ($feed->getOnlyMatchedDealers()) {
                             $persist = false;
                             return null;
                         }
                     }
+                    //dump("xxxxxxx");
                     unset($dealer);
                     unset($dealerId);
                 }
+                //dump("maprow".$maprow->getListingField()->getId().": ".$stringValue);
             }
+
+            //dump($uniqueValue);
             unset($itemField);
             unset($stringValue);
             unset($listingFieldsType);
@@ -469,6 +487,7 @@ class ItemRepository extends EntityRepository
         }//end mapping foreach
 
         $item->equalizeItemFields();
+
         if ($persist) {
             $em->persist($item);
         }
