@@ -246,7 +246,6 @@ class ItemController extends Controller {
         $em = $this->getDoctrine()->getManager();
         //get category by request parameter
         $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($cat_id);
-
         //get edited item
         if ($item_id != null) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item'); //->findOneById(1347);
@@ -736,11 +735,11 @@ class ItemController extends Controller {
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em->flush();
 
             return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
-        }
+        //}
     }
 
     public function renderFetch($array) {
