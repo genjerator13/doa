@@ -256,13 +256,15 @@ class ItemRepository extends EntityRepository
 
     public function addView($itemId)
     {
+
         $sql = "
         UPDATE item
-        SET views=views+1
+        SET views=COALESCE(views, 0 )+1
         WHERE id=".$itemId;
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
+
     }
 
     public function findItemByUniqueField($uniqueField, $value)
@@ -465,21 +467,21 @@ class ItemRepository extends EntityRepository
                     if ($dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
 
                         $item->setDealer($dealer);
-                        //dump($dealer);
                     } else {
+
                         if ($feed->getOnlyMatchedDealers()) {
                             $persist = false;
                             return null;
                         }
                     }
-                    //dump("xxxxxxx");
+
                     unset($dealer);
                     unset($dealerId);
                 }
-                //dump("maprow".$maprow->getListingField()->getId().": ".$stringValue);
+
             }
 
-            //dump($uniqueValue);
+
             unset($itemField);
             unset($stringValue);
             unset($listingFieldsType);
