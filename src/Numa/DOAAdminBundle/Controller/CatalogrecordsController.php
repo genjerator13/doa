@@ -250,6 +250,10 @@ class CatalogrecordsController extends Controller {
 
                 $em->flush();
                 $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
+                $securityContext = $this->container->get('security.context');
+                if ($securityContext->isGranted('ROLE_DEALER_ADMIN') || $securityContext->isGranted('ROLE_BUSINES') ) {
+                    return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+                }
                 return $this->redirect($this->generateUrl('catalogs', array('id' => $id)));
             }
         }else{
