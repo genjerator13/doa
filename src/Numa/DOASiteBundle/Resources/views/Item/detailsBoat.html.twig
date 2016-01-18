@@ -3,7 +3,7 @@
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
 
 {% block title %}
-    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive())  %}
+    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
         <title>{{ seo.getTitle() }}</title>
     {% else %}
         {# default meta title #}
@@ -13,16 +13,16 @@
 
 {% block description %}
 
-    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive())  %}
-        <meta name="description" content="{{ seo.getDescription() }}" />
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
+        <meta name="description" content="{{ seo.getDescription() }}"/>
     {% else %}
         {# default meta description #}
-       {{ include("NumaDOASiteBundle::description.html.twig") }}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
     {% endif %}
 {% endblock description %}
 {% block keyword %}
-    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive())  %}
-       <meta name="keywords" content="{{ seo.getKeywords() }}" />
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
+        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
     {% else %}
         {# default meta description #}
         {{ include("NumaDOASiteBundle::keywords.html.twig") }}
@@ -150,6 +150,14 @@
 
                                     {% endfor %}
                                 </ul>
+                            </div>
+                        {% endif %}
+
+                        {% if(item.videoId is not empty) %}
+                            <h4>Video:</h4>
+                            <div id="video">
+                                <iframe width="600" height="400" src="https://www.youtube.com/embed/{{ item.videoId }}"
+                                        frameborder="0" allowfullscreen></iframe>
                             </div>
                         {% endif %}
                         <h4>Map:</h4>
