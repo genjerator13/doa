@@ -1837,7 +1837,7 @@ class Item
         }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
             $this->setMpgCity($itemField->getFieldStringValue());
         }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
-            $this->setMpgCity($itemField->getFieldStringValue());
+            $this->setMpgHighway($itemField->getFieldStringValue());
         }
 
     }
