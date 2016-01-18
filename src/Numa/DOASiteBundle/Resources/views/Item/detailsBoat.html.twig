@@ -324,7 +324,13 @@
                                 {% if (dealer.logo is empty) %}
                                     <img alt="logo" src="{{ dealer.logoUrl }}"/>
                                 {% else %}
-                                    <img alt="logo" src="{{ asset(dealer.getLogoImage()) }}"/>
+                                    {% if ('http' not in dealer.logo) %}
+                                        <img class="thumbnail" alt="{{ dealer.name }}"
+                                             src="{{ dealer.logo|imagine_filter('search_image') }}"/>
+                                    {% else %}
+                                        <img class="thumbnail" alt="{{ dealer.name }}" src="{{ dealer.logo }}" width="120"
+                                             height="90"/>
+                                    {% endif %}
                                 {% endif %}
                                 <p class="dealer-name">{{ dealer.name }}</p>
                                 {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
