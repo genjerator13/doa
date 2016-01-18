@@ -1834,7 +1834,12 @@ class Item
             //$this->setDealerId($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
             $this->setIwNo($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
+            $this->setMpgCity($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
+            $this->setMpgCity($itemField->getFieldStringValue());
         }
+
     }
 
     public function equalizeItemFields()

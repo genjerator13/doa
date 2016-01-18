@@ -376,7 +376,7 @@ class ItemRepository extends EntityRepository
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
 
-                
+
                 if ($listingField instanceof Listingfield && !empty($listingField->getId())) {
                     $test = $em->getRepository('NumaDOAAdminBundle:Listingfield')->find($maprow->getListingField()->getId());
 
