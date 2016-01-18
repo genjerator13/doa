@@ -90,6 +90,12 @@
                 <span class="fieldValue fieldValue-status">{{item.getDoors()}}</span>
             </li>
         {% endif %}
+        {% if item.getTransmission() is not empty %}
+            <li class="{{liclass}}">
+                <span class="fieldCaption field-status">Transmission: </span>
+                <span class="fieldValue fieldValue-status">{{item.getTransmission()}}</span>
+            </li>
+        {% endif %}
         {% if item.getFuelType() is not empty %}
             <li class="{{liclass}}">
                 <span class="fieldCaption field-status">Fuel Type: </span>
