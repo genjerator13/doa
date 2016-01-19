@@ -7,19 +7,9 @@
              <h2 class="{% if loop.first %}first{% endif %} dealer"><a href="{{path('homepage_catalog', {'idcatalog': item.id,'catalog_name':item.name})}}" class="">{{item.name}}</a></h2>
              <div class="dealer-content">{{item.description| raw}}
                  <dl class="captions businessCatalogCaptions">
-                     {% if (item.logo is empty) %}
-                         <dt>Logo:</dt>
-                         <dd><img alt="logo" src="{{item.logoUrl}}" /></dd>
-                     {% else %}
+                 <dt>Logo:</dt>
+                  <dd>{% include "NumaDOASiteBundle::logo.html.twig" with {'item': item} %}</dd>
 
-        {% if ('http' not in item.logo) %}
-            <img class="thumbnail" alt="{{ item.name }}"
-                 src="{{ item.logo|imagine_filter('search_image') }}"/>
-        {% else %}
-            <img class="thumbnail" alt="{{ item.name }}" src="{{ item.logo }}" width="120"
-                 height="90"/>
-        {% endif %}
-                     {% endif %}
                      <dt>Address:</dt>
                      <dd>{{item.address}}</dd>
                      <dt>City:</dt>
