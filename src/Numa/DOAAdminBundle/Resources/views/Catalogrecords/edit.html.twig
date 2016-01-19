@@ -7,15 +7,7 @@
     <h1>Edit Dealer</h1>
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
 
-    {% if(entity.logo is not empty) %}
-        {% if ('http' not in entity.logo) %}
-            <img class="thumbnail" alt="{{ entity.name }}"
-                 src="{{ entity.logo|imagine_filter('search_image') }}"/>
-        {% else %}
-            <img class="thumbnail" alt="{{ entity.name }}" src="{{ entity.logo }}" width="120"
-                 height="90"/>
-        {% endif %}
-    {% endif %}
+    {% include "NumaDOASiteBundle::logo.html.twig" with {'item': entity} %}
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
