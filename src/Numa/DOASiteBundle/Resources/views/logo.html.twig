@@ -1,0 +1,11 @@
+{% if (item.logo is empty) %}
+    <img alt="logo" src="{{item.logoUrl}}" />
+{% else %}
+    {% if ('http' not in item.logo) %}
+        <img class="thumbnail" alt="{{ item.name }}"
+             src="{{ item.logo|imagine_filter('logo_image') }}"/>
+    {% else %}
+        <img class="thumbnail" alt="{{ item.name }}" src="{{ item.logo }}" width="120"
+             height="90"/>
+    {% endif %}
+{% endif %}

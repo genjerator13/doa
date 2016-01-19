@@ -4,18 +4,10 @@
     {#<h2>{{category.name}}</h2>#}
     <div class="list-group id="myTab">
 
-         <h2><a href="" >{{dealer.name}}</a></h2>
-        {% if (dealer.logo is empty) %}
-            <img alt="logo" src="{{dealer.logoUrl}}" />
-        {% else %}
-        {% if ('http' not in dealer.logo) %}
-            <img class="thumbnail" alt="{{ dealer.name }}"
-                 src="{{ dealer.logo|imagine_filter('search_image') }}"/>
-        {% else %}
-            <img class="thumbnail" alt="{{ dealer.name }}" src="{{ dealer.logo }}" width="120"
-                 height="90"/>
-        {% endif %}
-        {% endif %}
+        <h2><a href="" >{{dealer.name}}</a></h2>
+
+        {% include "NumaDOASiteBundle::logo.html.twig" with {'item': item} %}
+
         <div>{{dealer.description| raw}}
                  <dl class="captions businessCatalogCaptions">
                      <dt>Address:</dt>
