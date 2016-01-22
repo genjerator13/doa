@@ -774,21 +774,29 @@ class SearchController extends Controller {
 
     public function searchAdvancedRVs(Request $request) {
         $em = $this->getDoctrine()->getManager();
-        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);        
+        $json = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->getJsonTreeModels(760);
+
+        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
+        $rvMake = $lftreec->findAllBy(760, 4, true, true);
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
                 ))
                 //->setAttributes(array("class" => "form-horizontal", 'role' => 'form', 'name' => 'search'))
                 ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
-                ->add('makeRvs', 'entity', array(
-                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
-                    'query_builder' => function(EntityRepository $er) {
-                return $er->findAllBy(760, 4);
-            },
-                    'empty_value' => 'Any Make',
-                    'label' => "Make", "required" => false
-                ))
+            ->add('makeRvs', 'choice', array(
+                'choices' => $rvMake,
+                'empty_value' => 'Any Make',
+                'label' => "Make", "required" => false
+            ))
+//                ->add('makeRvs', 'entity', array(
+//                    'class' => 'NumaDOAAdminBundle:ListingFieldTree',
+//                    'query_builder' => function(EntityRepository $er) {
+//                return $er->findAllBy(760, 4);
+//            },
+//                    'empty_value' => 'Any Make',
+//                    'label' => "Make", "required" => false
+//                ))
                 ->add('classs', 'entity', array(
                     'class' => 'NumaDOAAdminBundle:ListingFieldTree',
                     'query_builder' => function(EntityRepository $er) {
