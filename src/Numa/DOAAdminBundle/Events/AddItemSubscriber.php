@@ -57,6 +57,11 @@ class AddItemSubscriber implements EventSubscriberInterface {
         //die();
     }
 
+    /**
+     * @param FormEvent $event
+     * Based by the type of the each field in the form (item)
+     * Fills the select  or other fields
+     */
     public function preSetData(FormEvent $event) {
 
         $item = $event->getData();
@@ -80,7 +85,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
                 if (strtolower($type) == 'list') {
                     $selected = $item->getItemFieldByName($carFieldDB);
 
-                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $listingList->getId()));
+                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(),"ASC");
+                    //dump($listingLists);die();
                     $values = array();
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
