@@ -115,3 +115,11 @@ nav .container {
 .nowrap{
     white-space: nowrap;
 }
+
+input[type="file"] {
+    border: 1px solid #d2d6de;
+    display: block;
+    padding: 4px;
+    width: 100%;
+}
+
