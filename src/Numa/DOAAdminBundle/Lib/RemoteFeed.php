@@ -227,6 +227,7 @@ class RemoteFeed extends ContainerAware
 
             //$arrayItem = $this->xml2array($this->items);
             $temp = $this->items;
+
             foreach ($temp as $itemkey=>$item) {
                 foreach ($item as $key => $prop) {
 
@@ -288,12 +289,14 @@ class RemoteFeed extends ContainerAware
                     $delimeter = ',';
                 }
 
-                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row) && !empty($row[1])) {
+                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row) ) {
                     //var_dump($row); // process the row.
 
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
+
                             $tmp[trim($value)] = $row[trim($key)];
+
                         }
                         $this->items[] = $tmp;
                     } else {
@@ -304,7 +307,7 @@ class RemoteFeed extends ContainerAware
                 }
             }
         }
-
+        
         return $this->items;
     }
 
