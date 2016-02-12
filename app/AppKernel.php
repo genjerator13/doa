@@ -47,12 +47,20 @@ class AppKernel extends Kernel {
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
-            //$bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
+            $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
         }
 
         return $bundles;
     }
+
+//    // Add this to app/AppKernel.php
+//    public function init()
+//    {
+//        ini_set('display_errors', 0);
+//    }
+
+
 
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
