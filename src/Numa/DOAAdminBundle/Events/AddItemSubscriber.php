@@ -79,18 +79,24 @@ class AddItemSubscriber implements EventSubscriberInterface {
             $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
 
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
-                //dump($listingList );
+
                 $type = $listingList->getType();
 
                 if (strtolower($type) == 'list') {
-                    $selected = $item->getItemFieldByName($carFieldDB);
 
+
+
+                    $selected = $item->get($carFieldDB);
+                    if(empty($selected)){
+                        $selected = $item->getItemFieldByName($carFieldDB);
+                    }
                     $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(),"ASC");
-                    //dump($listingLists);die();
+
                     $values = array();
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
+                    
                     //make form name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
