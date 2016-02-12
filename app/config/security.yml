@@ -30,6 +30,8 @@ security:
         - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/itemsfield/[0-9]+/delete/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+/update/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+/update, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
