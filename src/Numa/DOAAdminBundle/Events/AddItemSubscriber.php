@@ -12,7 +12,8 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class AddItemSubscriber implements EventSubscriberInterface {
+class AddItemSubscriber implements EventSubscriberInterface
+{
 
     protected $em;
     protected $securityContext;
@@ -20,7 +21,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
     protected $category;
     protected $container;
 
-    public function __construct( $em, $securityContext, $dealerID, $category) {
+    public function __construct($em, $securityContext, $dealerID, $category)
+    {
         $this->em = $em;
         $this->dealerID = $dealerID;
         $this->category = $category;
@@ -29,25 +31,28 @@ class AddItemSubscriber implements EventSubscriberInterface {
 
     }
 
-    public static function getSubscribedEvents() {
+    public static function getSubscribedEvents()
+    {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData',FormEvents::POST_SUBMIT => 'postSubmitData',);
+        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData', FormEvents::POST_SUBMIT => 'postSubmitData',);
     }
 
-    public function preSubmitData(FormEvent $event) {
-        
+    public function preSubmitData(FormEvent $event)
+    {
+
     }
 
-    public function postSubmitData(FormEvent $event) {
+    public function postSubmitData(FormEvent $event)
+    {
         $item = $event->getData();
         $form = $event->getForm();
 
-        if($item instanceof Item) {
+        if ($item instanceof Item) {
             $seo = $item->getSeo();
-            if($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()){
+            if ($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()) {
 
-            }else{
+            } else {
 
                 //$setting = $this->container->get("numa.settings");
                 //dump($seo);die();
@@ -62,7 +67,8 @@ class AddItemSubscriber implements EventSubscriberInterface {
      * Based by the type of the each field in the form (item)
      * Fills the select  or other fields
      */
-    public function preSetData(FormEvent $event) {
+    public function preSetData(FormEvent $event)
+    {
 
         $item = $event->getData();
         $form = $event->getForm();
@@ -85,18 +91,17 @@ class AddItemSubscriber implements EventSubscriberInterface {
                 if (strtolower($type) == 'list') {
 
 
-
                     $selected = $item->get($carFieldDB);
-                    if(empty($selected)){
+                    if (empty($selected)) {
                         $selected = $item->getItemFieldByName($carFieldDB);
                     }
-                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(),"ASC");
+                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(), "ASC");
 
                     $values = array();
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
-                    
+
                     //make form name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
@@ -130,7 +135,7 @@ class AddItemSubscriber implements EventSubscriberInterface {
 
         foreach ($item->getItemField() as $itemfield) {
             if ($itemfield->getFieldType() == 'boolean') {
-                
+
             } else {
                 $item->removeItemField($itemfield);
             }

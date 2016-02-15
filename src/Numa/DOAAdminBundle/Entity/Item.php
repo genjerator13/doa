@@ -1834,9 +1834,9 @@ class Item
             //$this->setDealerId($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'iw_no') {
             $this->setIwNo($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
+        } elseif (strtolower($itemField->getFieldName()) == 'mpg - city') {
             $this->setMpgCity($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
+        } elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
             $this->setMpgHighway($itemField->getFieldStringValue());
         }
 
@@ -3438,7 +3438,7 @@ class Item
     public function get($property)
     {
         $mappedProperty = self::$fields[$this->category_id][$property];
-        if(!empty($mappedProperty)){
+        if (!empty($mappedProperty)) {
             $property = $mappedProperty;
         }
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
@@ -3452,16 +3452,16 @@ class Item
     {
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
-        $url = trim($url," -");
+        $url = trim($url, " -");
         return $url;
     }
 
 
     public function getTitle()
     {
-        $desc = $this->getYear() . " ".$this->getMake() . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
-            $desc = $desc . " ".$this->getFloorPlan();
+            $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
             if (!empty($this->getTrim())) {
                 $desc .= " " . $this->slug($this->getTrim());
