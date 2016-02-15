@@ -236,6 +236,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [150, 100], mode: inset }
                 background: { color: '#FFFFFF' }
+        ad_300x200:
+            quality: 100
+            filters:
+                thumbnail: { size: [300, 200], mode: inset }
+                background: { color: '#FFFFFF' }
         carousel:
             quality: 100
             filters:

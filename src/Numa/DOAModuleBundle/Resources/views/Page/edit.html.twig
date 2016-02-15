@@ -1,9 +1,55 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <h1>Page edit</h1>
-    {{ form(edit_form) }}
+    <div class="container">
+        <h1>Page edit</h1>
+        {{ form(edit_form) }}
+
+
+        <div class="panel-group">
+            {% for ad in entity.getAds() %}
+                <div class="well col-lg-4">
+                    <div class="heading">{{ ad.title }}</div>
+
+                    {% if(ad.photo is not empty) %}
+                        <div class="image">
+
+                            <p>
+                                <img src="{{ ad.photo|imagine_filter('ad_300x200') }}" alt="ad image">
+                            </p>
+                        </div>
+                        <div class="body">
+                            <p>{{ ad.body }}</p>
+                        </div>
+                    {% endif %}
+                    <a href="#" class="ad-close" id="ad-{{ ad.id }}"><i class="glyphicon glyphicon-remove"></i></a>
+                </div>
+
+            {% endfor %}
+            <div class="well col-lg-2">
+                <a href="#" class="ad-close" id="addnew"><i class="glyphicon glyphicon-plus"></i>ADD NEW AD</a>
+
+            </div>
+        </div>
+
+    </div>
     <a href="{{ path('page') }}" class="btn btn-default">
         Back to the list
     </a>
+    <script>
+
+        $(function() {
+
+            $(".ad-close").click(function(e){
+                e.preventDefault();
+                console.log($(this).closest(".well"));
+                $(this).closest(".well").remove();
+            })
+
+            $( "form" ).submit(function(e) {
+                e.preventDefault();
+                alert("aaa");
+            });
+        });
+    </script>
 {% endblock %}

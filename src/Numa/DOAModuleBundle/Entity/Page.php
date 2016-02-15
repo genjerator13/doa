@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Page
  */
@@ -315,5 +316,78 @@ class Page
 
             $this->created_at = new \DateTime();
         }
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $PageAds;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->PageAds = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add PageAds
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageAds $pageAds
+     * @return Page
+     */
+    public function addPageAd(\Numa\DOAModuleBundle\Entity\PageAds $pageAds)
+    {
+        $this->PageAds[] = $pageAds;
+
+        return $this;
+    }
+
+    /**
+     * Remove PageAds
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageAds $pageAds
+     */
+    public function removePageAd(\Numa\DOAModuleBundle\Entity\PageAds $pageAds)
+    {
+        $this->PageAds->removeElement($pageAds);
+    }
+
+    /**
+     * Get PageAds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPageAds()
+    {
+        return $this->PageAds;
+    }
+
+    // Important
+    public function getAds()
+    {
+        $ads = new ArrayCollection();
+        if (!empty($this->getPageAds()) && !$this->getPageAds()->isEmpty()) {
+            foreach ($this->getPageAds() as $pa) {
+                if ($pa instanceof PageAds) {
+                    $ads[] = $pa->getAd();
+                }
+            }
+        }
+        return $ads;
+    }
+
+    // Important
+    public function setAds($pageAds)
+    {
+        foreach ($pageAds as $pageAd) {
+            $pa = new PageAds();
+
+            $pa->setPage($this);
+            $pa->setAd($pageAd);
+
+            $this->addPageAd($pa);
+        }
+
     }
 }

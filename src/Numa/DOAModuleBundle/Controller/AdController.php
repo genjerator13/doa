@@ -5,66 +5,67 @@ namespace Numa\DOAModuleBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOAModuleBundle\Entity\Page;
-use Numa\DOAModuleBundle\Form\PageType;
-
+use Numa\DOAModuleBundle\Entity\Ad;
+use Numa\DOAModuleBundle\Form\AdType;
 
 /**
- * Page controller.
+ * Ad controller.
  *
  */
-class PageController extends Controller
+class AdController extends Controller
 {
 
     /**
-     * Lists all Page entities.
+     * Lists all Ad entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
+        $entities = $em->getRepository('NumaDOAModuleBundle:Ad')->findAll();
 
-        return $this->render('NumaDOAModuleBundle:Page:index.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Page entity.
+     * Creates a new Ad entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Page();
+        $entity = new Ad();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload();
             $em->persist($entity);
+
             $em->flush();
-            $this->addFlash("success","Page is successfully added. ");
-            return $this->redirect($this->generateUrl('page', array('id' => $entity->getId())));
+
+            return $this->redirect($this->generateUrl('ad_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Page entity.
+     * Creates a form to create a Ad entity.
      *
-     * @param Page $entity The entity
+     * @param Ad $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Page $entity)
+    private function createCreateForm(Ad $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_create'),
+        $form = $this->createForm(new AdType(), $entity, array(
+            'action' => $this->generateUrl('ad_create'),
             'method' => 'POST',
         ));
 
@@ -74,60 +75,60 @@ class PageController extends Controller
     }
 
     /**
-     * Displays a form to create a new Page entity.
+     * Displays a form to create a new Ad entity.
      *
      */
     public function newAction()
     {
-        $entity = new Page();
+        $entity = new Ad();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Page entity.
+     * Finds and displays a Ad entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+        $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Ad entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOAModuleBundle:Page:show.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Page entity.
+     * Displays a form to edit an existing Ad entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+        $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Ad entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -135,16 +136,16 @@ class PageController extends Controller
     }
 
     /**
-    * Creates a form to edit a Page entity.
+    * Creates a form to edit a Ad entity.
     *
-    * @param Page $entity The entity
+    * @param Ad $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Page $entity)
+    private function createEditForm(Ad $entity)
     {
-        $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new AdType(), $entity, array(
+            'action' => $this->generateUrl('ad_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -153,17 +154,17 @@ class PageController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Page entity.
+     * Edits an existing Ad entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
-        $oldAds = $em->getRepository('NumaDOAModuleBundle:PageAds')->findBy(array('Page'=>$entity));
+        $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
+
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
+            throw $this->createNotFoundException('Unable to find Ad entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,26 +172,20 @@ class PageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            if(!empty($oldAds)) {
-
-                foreach ($oldAds as $oldPA) {
-                    $em->remove($oldPA);
-                }
-            }
-
+            $entity->upload();
             $em->flush();
-            $this->addFlash("success","Page ".$id." is successfully edited. ");
-            return $this->redirect($this->generateUrl('page', array('id' => $id)));
+
+            return $this->redirect($this->generateUrl('ad_edit', array('id' => $id)));
         }
 
-        return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
+        return $this->render('NumaDOAModuleBundle:Ad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Page entity.
+     * Deletes a Ad entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -200,21 +195,21 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+            $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
+                throw $this->createNotFoundException('Unable to find Ad entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('page'));
+        return $this->redirect($this->generateUrl('ad'));
     }
 
     /**
-     * Creates a form to delete a Page entity by id.
+     * Creates a form to delete a Ad entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -223,7 +218,7 @@ class PageController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('page_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('ad_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
