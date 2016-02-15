@@ -6,7 +6,7 @@
     <div class="panel-body">
         {% for item in items %}
             {% set images = item.getImages()%}
-            {% set desc = item.getMake()~item.getModel()~" "%}
+            {% set desc = item.getUrlDescription()%}
                 <a  href="{{path('item_details', {'itemId': item.id, 'description': desc}) }}">{{item.getItemFieldByName('year')}} {{item.getMake()}} {{item.getModel()}}</br>
 
 

@@ -129,7 +129,7 @@ class searchParameters {
             $value = $this->params[$key];
             return $value;
         }
-        return $false;
+        return false;
     }
 
     public function dump() {
@@ -254,7 +254,9 @@ class searchParameters {
                         } elseif ($type == 'listSlug') {
                                 $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('slug' => $searchItem->getValue()));
                                 $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                                $qb->orWhere('i.ag_application' . ' LIKE :' . $dbName);
                                 $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
+
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
 
