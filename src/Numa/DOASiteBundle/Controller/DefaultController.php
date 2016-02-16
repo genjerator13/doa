@@ -185,11 +185,11 @@ class DefaultController extends Controller {
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
             'marineForm' => $marineForm->createView()));
-//        if (!$nocache) {
-//            $response->setPublic();
-//            $response->setSharedMaxAge(600);
-//            $response->setMaxAge(600);
-//        }
+        if (!$nocache) {
+            $response->setPublic();
+            $response->setSharedMaxAge(600);
+            $response->setMaxAge(600);
+        }
         return $response;
     }
 
