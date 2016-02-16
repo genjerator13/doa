@@ -3,6 +3,7 @@
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     {% include 'NumaDOASiteBundle::header.html.twig'  %}
+
     <body class=" default ">
         <!-- Static navbar -->
         <div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -15,7 +16,7 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-                <div class="navbar-collapse collapse">         
+                <div class="navbar-collapse collapse">
                     {% set route = app.request.get('_route') %}
                         {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
                     </div><!--/.nav-collapse -->
@@ -48,8 +49,8 @@
                     <div class="footer col-md-12 col-xs-12 col-sm-12 col-lg-12">
                         <a class="footer-img"></a>
                         {% include 'NumaDOASiteBundle::copyright.html.twig' %}
-                    </div>        
-                </div>                      
+                    </div>
+                </div>
             </div> <!-- /container -->
         </body>
 </html>

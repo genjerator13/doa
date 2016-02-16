@@ -3437,7 +3437,10 @@ class Item
 
     public function get($property)
     {
-        $mappedProperty = self::$fields[$this->category_id][$property];
+        $mappedProperty="";
+        if(!empty(self::$fields[$this->category_id][$property])) {
+            $mappedProperty = self::$fields[$this->category_id][$property];
+        }
         if (!empty($mappedProperty)) {
             $property = $mappedProperty;
         }
