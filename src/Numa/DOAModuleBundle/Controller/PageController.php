@@ -145,7 +145,7 @@ class PageController extends Controller
     {
         $form = $this->createForm(new PageType(), $entity, array(
             'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));

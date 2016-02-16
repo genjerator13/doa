@@ -172,7 +172,11 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->getForm();
 
+        $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>"/"));
+
+
         $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
+            'webpage' => $webpage,
             'tabs' => $tabs,
             'jsonCar' => $jsonCar,
             'jsonRvs' => $jsonRvs,
