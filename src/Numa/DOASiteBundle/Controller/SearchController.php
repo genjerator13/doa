@@ -181,7 +181,8 @@ class SearchController extends Controller {
     }
 
     public function searchByCategoryModelAction(Request $request) {
-        $model = urldecode($request->get('model'));
+        //$model = urldecode($request->get('model'));
+        $em = $this->container->get('doctrine.orm.entity_manager');
         $category = $request->get('category');
 
         $cat = $this->getDoctrine()->getManager()->getRepository('NumaDOAAdminBundle:Category')->findOneBy(array('name' => $category));
@@ -189,12 +190,17 @@ class SearchController extends Controller {
         $this->initSearchParams($request, array('category_id' => $cat->getId()));
 
         $page = $request->get('page');
-        $number = intval($request->get('listings_per_page'));
+        //$number = intval($request->get('listings_per_page'));
 
         //create query        
         $query = $this->searchParameters->createSearchQuery();
 
+        //read data from page Page
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+        $currentUrl = $request->getPathInfo();
+        $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>$currentUrl));
+        $param['webpage'] = $webpage;
+
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
