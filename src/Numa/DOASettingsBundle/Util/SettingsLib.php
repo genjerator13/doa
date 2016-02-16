@@ -163,6 +163,9 @@ class SettingsLib
     public function generateItemTitle(Item $item){
         $titleTemplate = strip_tags($this->get('item_title'));
 
+        if(empty($titleTemplate)){
+            $titleTemplate = strip_tags($item->getTitle());
+        }
         preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
 
         $title = "";
@@ -177,7 +180,9 @@ class SettingsLib
 
     public function generateItemDescription(Item $item){
         $titleTemplate = strip_tags($this->get('item_description'));
-
+        if(empty($titleTemplate)){
+            $titleTemplate = strip_tags($item->getUrlDescription());
+        }
         return $this->parseStringFormula($item, $titleTemplate);
     }
 
