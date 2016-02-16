@@ -22,14 +22,15 @@ class SeoLib
             $em = $this->container->get('doctrine.orm.entity_manager');
         }
 
-
+        $persists = false;
         $seoRep = $em->getRepository("NumaDOAModuleBundle:Seo");
 
         $seo = $seoRep->findSeoByItem($item);
+
         if(empty($seo)){
             $seo = new Seo();
-
-            $em->persist($seo);
+            $persists = true;
+            //$em->persist($seo);
 
         }
         if($seo instanceof Seo) {
@@ -55,13 +56,15 @@ class SeoLib
             }
             $seo->setTableName('item');
             $seo->setTableId($item->getId());
+
         }
+
 
         if(!$autogenerate){
             $seo->setTitle("");
             $seo->setDescription("");
             $seo->setKeywords("");
-        }elseif(($seo->getAutogenerate() || empty($seoPosts))){
+        }elseif(($seo->getAutogenerate()  && empty($seoPosts))){
             $setting = $this->container->get("Numa.settings");
             $title = $setting->generateItemTitle($item);
             $description = $setting->generateItemDescription($item);
@@ -70,7 +73,9 @@ class SeoLib
             $seo->setDescription($description);
             $seo->setKeywords($keywords);
         }
-
+        if($persists && !$seo->isEmpty()){
+            $em->persist($seo);
+        }
         return $seo;
 
     }
@@ -83,18 +88,25 @@ class SeoLib
 
 
             $feed = $em->getRepository("NumaDOAAdminBundle:Importfeed")->find($feed_id);
-            //if($feed->getAutogenerateSeo()) {
+            if($feed->getAutogenerateSeo()) {
                 $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByFeedId($feed_id);;
 
                 foreach ($items as $item) {
-                    $seoService = $this->container->get("Numa.Seo");
-                    //dump($autogenerate);
-                    $seo = $seoService->prepareSeo($item,array(),$feed->getAutogenerateSeo(),$em);
+                    //$seoService = $this->container->get("Numa.Seo");
+
+                    $seo = $this->prepareSeo($item,array(),$feed->getAutogenerateSeo(),$em);
+
                 }
                 $em->flush();
+
                 $em->clear();
-            //}
+            }
         }
+    }
+
+    function generateSeoForPage($pageUrl){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
     }
 
 }
