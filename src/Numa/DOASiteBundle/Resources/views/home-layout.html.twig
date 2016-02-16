@@ -1,18 +1,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
+    {% block title %}
+
+        {% if(webpage is defined and webpage is not empty) %}
+            <title >{{ webpage.title }}</title>
+        {% else %}
+            <title >{{ title }}</title>
+        {% endif %}
+    {% endblock title %}
     {% block description %}
-        {{ include("NumaDOASiteBundle::description.html.twig") }}
+        {% if(webpage is defined and webpage is not empty) %}
+
+            {% include "NumaDOASiteBundle::description.html.twig" with {'description': webpage.description} %}
+        {% else %}
+            {% include "NumaDOASiteBundle::description.html.twig" with {'description' :numa_settings('description')} %}
+        {% endif %}
+
     {% endblock description %}
     {% block keyword %}
-        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+        {% if(webpage is defined and webpage is not empty) %}
+            <meta name="keywords"  content="{{ webpage.keywords }}" />
+        {% else %}
+            <meta name="keywords" content="{{ numa_settings('keywords') }}" />
+        {% endif %}
     {% endblock keyword %}
 
-    {% block title %}<title>{{ title }}</title>{% endblock title %}
+    {% block title %}<title>{{title}}</title>{% endblock title %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
     {% endstylesheets %}
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -25,25 +43,25 @@
     {% endblock %}
 
 </head>
-<body class=" default ">
+    <body class=" default ">
 
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            {% set route = app.request.get('_route') %}
-            {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
-        </div><!--/.nav-collapse -->
-    </div>
-</div>
+        <!-- Static navbar -->
+        <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse">         
+                    {% set route = app.request.get('_route') %}
+                        {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
+                    </div><!--/.nav-collapse -->
+                </div>
+            </div>
 
 
 <div class="header-background">
@@ -86,5 +104,5 @@
 </div> <!-- /container -->
 </html>
 
-<!-- /default:main:default.tpl -->
+    <!-- /default:main:default.tpl -->
 

@@ -172,7 +172,11 @@ class DefaultController extends Controller {
                 ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
                 ->getForm();
 
+        $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>"/"));
+
+
         $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
+            'webpage' => $webpage,
             'tabs' => $tabs,
             'jsonCar' => $jsonCar,
             'jsonRvs' => $jsonRvs,
@@ -181,11 +185,11 @@ class DefaultController extends Controller {
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
             'marineForm' => $marineForm->createView()));
-        if (!$nocache) {
-            $response->setPublic();
-            $response->setSharedMaxAge(600);
-            $response->setMaxAge(600);
-        }
+//        if (!$nocache) {
+//            $response->setPublic();
+//            $response->setSharedMaxAge(600);
+//            $response->setMaxAge(600);
+//        }
         return $response;
     }
 
