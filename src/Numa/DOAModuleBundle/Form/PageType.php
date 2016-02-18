@@ -32,7 +32,7 @@ class PageType extends AbstractType
             //->add('created_at')
             //->add('updated_at')
         ;
-            $builder->addEventSubscriber(new AdsEventSubscriber());
+            //$builder->addEventSubscriber(new AdsEventSubscriber());
 //
 
     }
