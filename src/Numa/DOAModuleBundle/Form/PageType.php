@@ -21,11 +21,11 @@ class PageType extends AbstractType
             ->add('keywords')
             ->add('title')
             ->add('url')
-            ->add('Ads' , 'entity' , array('label'=>'Ads',
-                'class'    => 'Numa\DOAModuleBundle\Entity\Ad' ,
-                'property' => 'name' ,
-                'expanded' => true ,
-                'multiple' => true , ))
+//            ->add('Ads' , 'entity' , array('label'=>'Ads',
+//                'class'    => 'Numa\DOAModuleBundle\Entity\Ad' ,
+//                'property' => 'name' ,
+//                'expanded' => true ,
+//                'multiple' => true , ))
             //->add('is_public')
             //->add('autogenerate')
             //->add('active')

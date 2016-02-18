@@ -229,4 +229,18 @@ class PageController extends Controller
             ->getForm()
         ;
     }
+
+    public function loadAdsAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        return $this->render('NumaDOAModuleBundle:Page:pageAds.html.twig', array(
+            'entity'      => $entity,
+        ));
+    }
 }

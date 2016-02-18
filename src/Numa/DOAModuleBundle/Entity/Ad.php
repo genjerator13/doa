@@ -371,6 +371,16 @@ class Ad
         return $this->PageAds;
     }
 
+    /**
+     * Get PageAds
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function removePageAds()
+    {
+        $this->PageAds = array();
+    }
+
 
     //UPLOAD
 
@@ -441,5 +451,33 @@ class Ad
 
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
+    }
+    /**
+     * @var string
+     */
+    private $size;
+
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return Ad
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 }

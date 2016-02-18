@@ -23,6 +23,10 @@ Numa\DOAModuleBundle\Entity\Ad:
             type: string
             length: 255
             nullable: true
+        size:
+            type: string
+            length: 255
+            nullable: true
         photo:
             type: string
             length: 255
