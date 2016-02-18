@@ -19,20 +19,20 @@ class AdType extends AbstractType
             ->add('name')
             ->add('title')
            // ->add('position','choice',)
-            ->add('position', ChoiceType::class, array(
+            ->add('position', 'choice', array(
                 'choices'  => array(
                     'Left Side' => 'Left Side',
                     'Content' => 'Content',
                     'Right Side' => 'Right Side',
                 )))
             ->add('status')
-            ->add('status', ChoiceType::class, array(
+            ->add('status', 'choice', array(
                 'choices'  => array(
                     'Enabled' => 'enabled',
                     'Disabled' => 'disabled',
 
                 )))
-            ->add('size', ChoiceType::class, array(
+            ->add('size', 'choice', array(
                 'choices'  => array(
                     'Size 1' => 'size1',
                     'Size 2' => 'size2',
