@@ -43,6 +43,8 @@ class AppKernel extends Kernel {
 
             new Numa\DOASettingsBundle\NumaDOASettingsBundle(),
             new Numa\DOAModuleBundle\NumaDOAModuleBundle(),
+            //new Numa\DOAApiBundle\NumaDOAApiBundle(),
+            //new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOAApiBundle\NumaDOAApiBundle(),
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
         );
