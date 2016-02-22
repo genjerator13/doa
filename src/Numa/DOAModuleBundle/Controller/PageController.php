@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAModuleBundle\Entity\Page;
 use Numa\DOAModuleBundle\Form\PageType;
 
+
 /**
  * Page controller.
  *
@@ -160,7 +161,7 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
-
+        $oldAds = $em->getRepository('NumaDOAModuleBundle:PageAds')->findBy(array('Page'=>$entity));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
@@ -170,6 +171,13 @@ class PageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            if(!empty($oldAds)) {
+
+                foreach ($oldAds as $oldPA) {
+                    $em->remove($oldPA);
+                }
+            }
+
             $em->flush();
             $this->addFlash("success","Page ".$id." is successfully edited. ");
             return $this->redirect($this->generateUrl('page', array('id' => $id)));
@@ -220,5 +228,19 @@ class PageController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    public function loadAdsAction($id){
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        return $this->render('NumaDOAModuleBundle:Page:pageAds.html.twig', array(
+            'entity'      => $entity,
+        ));
     }
 }

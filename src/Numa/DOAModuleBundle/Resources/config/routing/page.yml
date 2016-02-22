@@ -19,6 +19,11 @@ page_edit:
     path:     /{id}/edit
     defaults: { _controller: "NumaDOAModuleBundle:Page:edit" }
 
+page_load_ads:
+    path:     /{id}/load_ads
+    defaults: { _controller: "NumaDOAModuleBundle:Page:loadAds" }
+
+
 page_update:
     path:     /{id}/update
     defaults: { _controller: "NumaDOAModuleBundle:Page:update" }

@@ -423,8 +423,12 @@ class ItemField {
 
                     if (!empty($username) && !empty($password)) {
                         curl_setopt($ch, CURLOPT_USERPWD, $username . ":" . $password);
+
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
                     }
                     $return = curl_exec($ch);
+                    //dump($return);die();
                     $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
                     if ($is200) {
                         //valid 
