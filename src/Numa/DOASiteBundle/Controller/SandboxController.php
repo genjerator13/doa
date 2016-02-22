@@ -3,10 +3,13 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Numa\Util\Util as Util;
-
+//use Guzzle
+use Guzzle\Http\Client;
+use Lsw\GuzzleBundle\LswGuzzleBundle;
 class SandboxController extends Controller {
 
     public function indexAction() {
@@ -21,10 +24,21 @@ class SandboxController extends Controller {
     }
 
     public function testAction() {
+        $client = new Client();
+
+        $req = $client->get($this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost().'/api/ads/all.json');
+        $response = $req->send();
+        //dump($response->json());
+        return new JsonResponse($response->json());
         $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
 
-        return $response;
     }
+
+//    public function testAction() {
+//        $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
+//
+//        return $response;
+//    }
 
 
 

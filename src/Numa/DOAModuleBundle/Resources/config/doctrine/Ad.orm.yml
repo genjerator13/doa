@@ -1,6 +1,7 @@
 Numa\DOAModuleBundle\Entity\Ad:
     type: entity
     table: ad
+    exclusion_policy: all
     #repositoryClass: Numa\DOAAdminBundle\Repository\AdRepository
     id:
         id:

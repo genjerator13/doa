@@ -3,44 +3,56 @@
 namespace Numa\DOAModuleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 
 /**
- * Ad
+ * @ExclusionPolicy("all")
  */
 class Ad
 {
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var integer
+     * @Expose
      */
     private $page_id;
 
     /**
      * @var string
+     * @Expose
      */
     private $name;
 
     /**
      * @var string
+     * @Expose
      */
     private $title;
 
     /**
      * @var string
+     * @Expose
      */
     private $position;
 
     /**
      * @var string
+     * @Expose
      */
     private $status;
 
     /**
      * @var string
+     * @Expose
      */
     private $photo;
 
@@ -51,6 +63,7 @@ class Ad
 
     /**
      * @var string
+     * @Expose
      */
     private $body;
 
