@@ -1,0 +1,4 @@
+numa_doa_module_ad:
+    resource: "@NumaDOAModuleBundle/Resources/config/routing/ad.yml"
+    prefix:   /ad
+

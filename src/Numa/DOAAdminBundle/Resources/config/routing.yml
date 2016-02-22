@@ -46,3 +46,6 @@ NumaDOAAdminBundle_imagecarousel:
 NumaDOAModuleBundle_page:
         resource: "@NumaDOAModuleBundle/Resources/config/routing/page.yml"
         prefix:   /pages
+ads:
+        resource: "@NumaDOAModuleBundle/Resources/config/routing/ad.yml"
+        prefix:   /ads

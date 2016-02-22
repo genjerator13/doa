@@ -1,0 +1,38 @@
+ad:
+    path:     /
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:index" }
+
+ad_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:show" }
+
+ad_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:new" }
+
+ad_newAjax:
+    path:     /newAjax/{pageid}
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:newAjax" }
+
+ad_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:create" }
+    requirements: { _method: post }
+
+ad_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:edit" }
+
+ad_editAjax:
+    path:     /{id}/editAjax
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:editAjax" }
+
+ad_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:update" }
+    requirements: { _method: post|put }
+
+ad_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:delete" }
+
