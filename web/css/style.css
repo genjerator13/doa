@@ -695,10 +695,15 @@ h3.header-first{
     position: relative;
 }
 .page_ads {
-    border: 1px solid red;
+
     width: 130px;
-    height: 130px;
+
     position: absolute;
     right: -160px;
     top: 0px;
+}
+
+iframe body{
+    padding: 0;
+    margin: 0;
 }
