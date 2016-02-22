@@ -1,0 +1,27 @@
+Numa\DOAModuleBundle\Entity\PageAds:
+    type: entity
+    table: page_ads
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        page_id:
+            type: integer
+        ad_id:
+            type: integer
+    manyToOne:
+        Page:
+            targetEntity: Page
+            cascade: [persist]
+            inversedBy: Ad
+            joinColumn:
+                name: page_id
+                referencedColumnName: id
+        Ad:
+            targetEntity: Ad
+            cascade: [persist]
+            inversedBy: Page
+            joinColumn:
+                name: ad_id
+                referencedColumnName: id

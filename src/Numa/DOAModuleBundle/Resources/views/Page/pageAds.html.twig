@@ -1,0 +1,28 @@
+<div class="panel-group">
+    {% for ad in entity.getAds() %}
+        <div class="well col-lg-4" data-adid="{{ ad.id }}">
+            <div class="heading">{{ ad.title }}</div>
+
+            {% if(ad.photo is not empty) %}
+                <div class="image">
+
+                    <p>
+                        <img src="{{ ad.photo|imagine_filter('ad_300x200') }}" alt="ad image">
+                    </p>
+                </div>
+            {% endif %}
+            <div class="body">
+                <p>{{ ad.body }}</p>
+            </div>
+            <a href="#" class="ad-close" id="ad-remove-{{ ad.id }}"><i class="glyphicon glyphicon-remove"></i></a>
+            <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_editAjax',{"id":ad.id}) }}" data-target="#myModal" class="ad-edit" id="ad-edit-{{ ad.id }}"><i class="glyphicon glyphicon-edit"></i></a>
+        </div>
+
+    {% endfor %}
+    <div class="well col-lg-2">
+        <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_newAjax',{"pageid":entity.id}) }}" data-target="#myModal" role="button"  >
+            <i class="glyphicon glyphicon-plus"></i>ADD NEW AD
+        </a>
+
+    </div>
+</div>

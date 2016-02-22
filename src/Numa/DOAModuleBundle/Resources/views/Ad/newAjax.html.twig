@@ -1,0 +1,11 @@
+
+{% block content %}
+
+    <div class="form_error"></div>
+    <form method="POST" class="ajaxForm" action="{{path('ad_create')}}" {{ form_enctype(form) }}>
+        <div id="form_body">
+            {% include 'NumaDOAModuleBundle:Ad:adForm.html.twig' with {'form': form} %}
+        </div>
+        {{form_rest(form)}}
+    </form>
+{% endblock %}

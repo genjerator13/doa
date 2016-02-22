@@ -204,9 +204,12 @@
             </p>
             <div class="row">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-
                 </div>
             </div>
+            <div id="listing-content">
+                {#<div class="page_ads">#}
+                    {#asdasd#}
+                {#</div>#}
             {% for item in pagerfanta %}
                 {#
                         {%if item.getCategory().getName()=='Marine'%}
@@ -221,12 +224,16 @@
                         {% if item.getCategory().getName()=='RVs' %}
                             <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
                         {% endif %}#}
+
+
                 {% if queryUrl is defined %}
                     {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl}) }}
                 {% else %}
                     {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item}) }}
                 {% endif %}
+
             {% endfor %}
+            </div>
             {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
         </div>
         <script type="text/javascript">

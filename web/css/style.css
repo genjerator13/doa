@@ -704,3 +704,14 @@ h3.header-first{
 .images-action a {
     margin-right: 20px;
 }
+#listing-content {
+    position: relative;
+}
+.page_ads {
+    border: 1px solid red;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    right: -160px;
+    top: 0px;
+}

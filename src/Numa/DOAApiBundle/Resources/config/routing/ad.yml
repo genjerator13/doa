@@ -1,0 +1,8 @@
+ads_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:AdREST:all",_format: "xml"}
+    requirements: { _method: get }
+ads_by_page:
+    path:     /{pageid}/page.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:AdREST:byPage",_format: "xml"}
+    requirements: { _method: get }

@@ -29,6 +29,7 @@ class SeoController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Seo entity.
      *
@@ -49,7 +50,7 @@ class SeoController extends Controller
 
         return $this->render('NumaDOAModuleBundle:Seo:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -79,11 +80,11 @@ class SeoController extends Controller
     public function newAction()
     {
         $entity = new Seo();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAModuleBundle:Seo:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -104,7 +105,7 @@ class SeoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAModuleBundle:Seo:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -127,19 +128,19 @@ class SeoController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAModuleBundle:Seo:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Seo entity.
-    *
-    * @param Seo $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Seo entity.
+     *
+     * @param Seo $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Seo $entity)
     {
         $form = $this->createForm(new SeoType(), $entity, array(
@@ -151,6 +152,7 @@ class SeoController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Seo entity.
      *
@@ -176,11 +178,12 @@ class SeoController extends Controller
         }
 
         return $this->render('NumaDOAModuleBundle:Seo:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Seo entity.
      *
@@ -218,7 +221,6 @@ class SeoController extends Controller
             ->setAction($this->generateUrl('seo_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }
