@@ -201,7 +201,8 @@ class SearchController extends Controller {
         $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>$currentUrl));
         //
         $ads = $webpage->getAds();
-
+        //$pages = $em->getRepository("NumaDOAModuleBundle:Ad")->findPageByUrl($webpage->getId());
+        //dump($pages);die();
         $param['ads'] = $ads;
         $param['webpage'] = $webpage;
 

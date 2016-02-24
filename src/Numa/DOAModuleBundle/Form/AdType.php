@@ -17,7 +17,9 @@ class AdType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('title')
+            ->add('url')
+            ->add('start_date','date')
+            ->add('end_date','date')
            // ->add('position','choice',)
             ->add('position', 'choice', array(
                 'choices'  => array(

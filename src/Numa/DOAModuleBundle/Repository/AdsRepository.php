@@ -3,26 +3,25 @@
 namespace Numa\DOAModuleBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\Validator\Constraints\DateTime;
 
-class PageRepository extends EntityRepository
+class AdsRepository extends EntityRepository
 {
-    public function findPageByUrl($url)
+    public function findPageByUrl($pageid)
     {
         $current_date = new \DateTime();;
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('ad')
             ->add('from', 'NumaDOAModuleBundle:Ad ad')
-            ->join('ad.PageAds pa')
-            ->join('pa.Page p')
-            ->where('p.url=:url')
+            ->join("ad.Pages pa")
+            ->where("pa.page_id=:pageid")
             ->andWhere('ad.start_date <= :start_date')
             ->andWhere('ad.end_date  >=  :end_date')
-            ->setParameter('url', $url)
+
+            ->setParameter('pageid', $pageid)
             ->setParameter('start_date', $current_date)
             ->setParameter('end_date', $current_date);
 

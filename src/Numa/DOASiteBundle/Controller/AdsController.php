@@ -25,6 +25,7 @@ class AdsController extends Controller
 
     public function rightsidebarAction($id)
     {
+
         $em = $this->getDoctrine()->getManager();
         $ad = $em->getRepository("NumaDOAModuleBundle:Ad")->find($id);
         $response = $this->render('NumaDOASiteBundle:Ads:right-sidebar.html.twig',

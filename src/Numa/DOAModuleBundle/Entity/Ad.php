@@ -83,6 +83,8 @@ class Ad
     public function __construct()
     {
         //$this->pa = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->start_date = new \DateTime();
+        $this->end_date = new \DateTime();
     }
 
     /**

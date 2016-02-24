@@ -9,6 +9,7 @@
         width: 130px;
         margin-bottom: 22px;;
         overflow: hidden;
+        display: block;
     }
 
     .size2{
@@ -23,12 +24,12 @@
 <div class="right-side-ads">
 
     {% for ad in ads %}
-        <div class="right-side-ad {{ ad.size }}">
-            <div class="ad-title">{{ ad.title }}</div>
+        <a class="right-side-ad {{ ad.size }}"  href="{{ ad.url }}">
+            <div class="ad-title">{{ ad.name }}</div>
             <div class="ad-body">{{ ad.body }}</div>
             {% if(ad.photo is not empty) %}
-                <img src="{{ ad.photo|imagine_filter('ad_130x130') }}"/>
+                <img src="{{ ad.photo|imagine_filter('ad_130x130') }}" alt="{{ ad.name }}"/>
             {% endif %}
-        </div>
+        </a>
     {% endfor %}
 </div>
