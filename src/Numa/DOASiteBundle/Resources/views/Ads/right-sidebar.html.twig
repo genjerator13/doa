@@ -25,10 +25,8 @@
 
     {% for ad in ads %}
         <a class="right-side-ad {{ ad.size }}"  href="{{ ad.url }}">
-            <div class="ad-title">{{ ad.name }}</div>
-            <div class="ad-body">{{ ad.body }}</div>
             {% if(ad.photo is not empty) %}
-                <img src="{{ ad.photo|imagine_filter('ad_130x130') }}" alt="{{ ad.name }}"/>
+                <img src="{{ asset(ad.photo) }}" alt="{{ ad.name }}"/>
             {% endif %}
         </a>
     {% endfor %}
