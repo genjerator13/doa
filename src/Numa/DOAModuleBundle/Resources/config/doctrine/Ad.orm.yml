@@ -36,7 +36,7 @@ Numa\DOAModuleBundle\Entity\Ad:
             type: string
             length: 255
             nullable: true
-        order:
+        adorder:
             type: integer
             nullable: true
         discount:

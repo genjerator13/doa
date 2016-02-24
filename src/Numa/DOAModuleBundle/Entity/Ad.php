@@ -607,4 +607,32 @@ class Ad
     {
         return $this->end_date;
     }
+    /**
+     * @var integer
+     */
+    private $adorder;
+
+
+    /**
+     * Set adorder
+     *
+     * @param integer $adorder
+     * @return Ad
+     */
+    public function setAdorder($adorder)
+    {
+        $this->adorder = $adorder;
+
+        return $this;
+    }
+
+    /**
+     * Get adorder
+     *
+     * @return integer 
+     */
+    public function getAdorder()
+    {
+        return $this->adorder;
+    }
 }
