@@ -199,6 +199,12 @@ class SearchController extends Controller {
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
         $currentUrl = $request->getPathInfo();
         $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>$currentUrl));
+
+        $ads = $webpage->getActiveAds();
+
+
+
+        $param['ads'] = $ads;
         $param['webpage'] = $webpage;
 
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);

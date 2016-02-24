@@ -17,25 +17,27 @@ class AdType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('title')
+            ->add('url')
+            ->add('start_date','date')
+            ->add('end_date','date')
            // ->add('position','choice',)
             ->add('position', 'choice', array(
                 'choices'  => array(
-                    'Left Side' => 'Left Side',
-                    'Content' => 'Content',
-                    'Right Side' => 'Right Side',
+                    'leftside_ad' => 'Left Side',
+                    'content_ad' => 'Content',
+                    'rightside_ad' => 'Right Side',
                 )))
             ->add('status')
             ->add('status', 'choice', array(
                 'choices'  => array(
-                    'Enabled' => 'enabled',
-                    'Disabled' => 'disabled',
+                    'enabled' => 'Enabled',
+                    'disabled' => 'Disabled',
 
                 )))
             ->add('size', 'choice', array(
                 'choices'  => array(
-                    'Size 1' => 'size1',
-                    'Size 2' => 'size2',
+                    'size1' => 'Size 1',
+                    'size2' => 'Size 2',
 
                 )))
             ->add('file_import_source','file', array('label'=>'Photo Upload','required' => false, 'data_class' => null))

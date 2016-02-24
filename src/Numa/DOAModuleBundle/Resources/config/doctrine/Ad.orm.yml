@@ -2,7 +2,7 @@ Numa\DOAModuleBundle\Entity\Ad:
     type: entity
     table: ad
     exclusion_policy: all
-    #repositoryClass: Numa\DOAAdminBundle\Repository\AdRepository
+    repositoryClass: Numa\DOAModuleBundle\Repository\AdsRepository
     id:
         id:
             type: integer
@@ -32,12 +32,25 @@ Numa\DOAModuleBundle\Entity\Ad:
             type: string
             length: 255
             nullable: true
+        url:
+            type: string
+            length: 255
+            nullable: true
+        adorder:
+            type: integer
+            nullable: true
         discount:
             type: float
             nullable: true    
         body:
             type: text
             nullable: true
+        start_date:
+            type: datetime
+            nullable: true;
+        end_date:
+            type: datetime
+            nullable: true;
         createdAt:
             type: datetime
             nullable: true

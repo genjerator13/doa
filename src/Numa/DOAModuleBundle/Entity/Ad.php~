@@ -3,44 +3,56 @@
 namespace Numa\DOAModuleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
+
 
 /**
- * Ad
+ * @ExclusionPolicy("all")
  */
 class Ad
 {
     /**
      * @var integer
+     * @Expose
      */
     private $id;
 
     /**
      * @var integer
+     * @Expose
      */
     private $page_id;
 
     /**
      * @var string
+     * @Expose
      */
     private $name;
 
     /**
      * @var string
+     * @Expose
      */
     private $title;
 
     /**
      * @var string
+     * @Expose
      */
     private $position;
 
     /**
      * @var string
+     * @Expose
      */
     private $status;
 
     /**
      * @var string
+     * @Expose
      */
     private $photo;
 
@@ -51,6 +63,7 @@ class Ad
 
     /**
      * @var string
+     * @Expose
      */
     private $body;
 
@@ -70,6 +83,8 @@ class Ad
     public function __construct()
     {
         //$this->pa = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->start_date = new \DateTime();
+        $this->end_date = new \DateTime();
     }
 
     /**
@@ -451,5 +466,145 @@ class Ad
 
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
+    }
+    /**
+     * @var string
+     */
+    private $size;
+
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return Ad
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+    /**
+     * @var string
+     */
+    private $url;
+
+    /**
+     * @var integer
+     */
+    private $order;
+
+    /**
+     * @var \DateTime
+     */
+    private $start_date;
+
+    /**
+     * @var \DateTime
+     */
+    private $end_date;
+
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Ad
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return Ad
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer 
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set start_date
+     *
+     * @param \DateTime $startDate
+     * @return Ad
+     */
+    public function setStartDate($startDate)
+    {
+        $this->start_date = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Get start_date
+     *
+     * @return \DateTime 
+     */
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
+    /**
+     * Set end_date
+     *
+     * @param \DateTime $endDate
+     * @return Ad
+     */
+    public function setEndDate($endDate)
+    {
+        $this->end_date = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get end_date
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->end_date;
     }
 }
