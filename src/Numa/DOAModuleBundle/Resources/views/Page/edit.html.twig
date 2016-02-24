@@ -44,7 +44,6 @@
             $('body').on('submit', '.ajaxForm', function (e) {
                 e.preventDefault();
                 var formData = new FormData($('form')[1]);
-                alert("xxx");
                 $.ajax({
                             type: $(this).attr('method'),
                             url: $(this).attr('action'),
@@ -59,7 +58,6 @@
                         .done(function (data) {
 
                             if (typeof data.message !== 'undefined') {
-                                alert("aaaa");
                                 $('#myModal').modal('hide')
                                 reloadAds();
                             }
