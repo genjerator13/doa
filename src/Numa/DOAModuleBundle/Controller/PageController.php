@@ -117,7 +117,6 @@ class PageController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
 
         if (!$entity) {
@@ -161,7 +160,7 @@ class PageController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
-        $oldAds = $em->getRepository('NumaDOAModuleBundle:PageAds')->findBy(array('Page'=>$entity));
+        //$oldAds = $em->getRepository('NumaDOAModuleBundle:PageAds')->findBy(array('Page'=>$entity));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
@@ -171,12 +170,12 @@ class PageController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            if(!empty($oldAds)) {
-
-                foreach ($oldAds as $oldPA) {
-                    $em->remove($oldPA);
-                }
-            }
+//            if(!empty($oldAds)) {
+//
+//                foreach ($oldAds as $oldPA) {
+//                    $em->remove($oldPA);
+//                }
+//            }
 
             $em->flush();
             $this->addFlash("success","Page ".$id." is successfully edited. ");

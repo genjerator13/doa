@@ -1,28 +1,60 @@
 <div class="panel-group">
     {% for ad in entity.getAds() %}
         <div class="well col-lg-4" data-adid="{{ ad.id }}">
+                <div class="row">
+                <div class="col-md-6">
             <div class="heading">{{ ad.title }}</div>
-
             {% if(ad.photo is not empty) %}
                 <div class="image">
-
                     <p>
-                        <img src="{{ ad.photo|imagine_filter('ad_300x200') }}" alt="ad image">
+                        <img src="{{ ad.photo|imagine_filter('ad_130x130') }}" alt="ad image">
                     </p>
                 </div>
             {% endif %}
-            <div class="body">
-                <p>{{ ad.body }}</p>
+                    </div>
+            <div class="col-md-6">
+            <div class="name">
+                <p>Name: {{ ad.name }}</p>
             </div>
+            <div class="url">
+                <p>Url: {{ ad.url }}</p>
+            </div>
+            <div class="startDate">
+                <p>Start date: {{ ad.startDate|date("m/d/Y") }}</p>
+            </div>
+            <div class="endDate">
+                <p>End date: {{ ad.endDate|date("m/d/Y") }}</p>
+            </div>
+            <div class="position">
+                 <p>Position: {{ ad.position }}</p>
+            </div>
+            <div class="status">
+                 <p>Status: {{ ad.status }}</p>
+            </div>
+            <div class="body">
+                <p>Body: {{ ad.body }}</p>
+            </div>
+            <div class="clicks">
+                <p>Clicks: {{ ad.clicks }}</p>
+            </div>
+            <div class="views">
+                <p>Views: {{ ad.views }}</p>
+            </div>
+            <div class="ratio">
+                <p>Ratio: {{ ad.ratio }}</p>
+            </div>
+             </div>
+               </div>
             <a href="#" class="ad-close" id="ad-remove-{{ ad.id }}"><i class="glyphicon glyphicon-remove"></i></a>
-            <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_editAjax',{"id":ad.id}) }}" data-target="#myModal" class="ad-edit" id="ad-edit-{{ ad.id }}"><i class="glyphicon glyphicon-edit"></i></a>
+            <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_editAjax',{"id":ad.id}) }}" data-target="#myModal"
+               class="ad-edit" id="ad-edit-{{ ad.id }}"><i class="glyphicon glyphicon-edit"></i></a>
         </div>
-
     {% endfor %}
-    {#<div class="well col-lg-2">#}
-        {#<a data-toggle="modal" href="#" hrefxxx="{{ path('ad_newAjax',{"pageid":entity.id}) }}" data-target="#myModal" role="button"  >#}
-            {#<i class="glyphicon glyphicon-plus"></i>ADD NEW AD#}
-        {#</a>#}
+    <div class="well col-lg-2">
+        <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_newAjax',{"pageid":entity.id}) }}" data-target="#myModal"
+           role="button">
+            <i class="glyphicon glyphicon-plus"></i>ADD NEW AD
+        </a>
 
-    {#</div>#}
+    </div>
 </div>
