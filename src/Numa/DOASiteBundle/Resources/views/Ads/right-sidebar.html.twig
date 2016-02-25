@@ -12,7 +12,7 @@
         display: block;
     }
 
-    .size2{
+    .size2 {
         height: 282px;
     }
 
@@ -21,15 +21,34 @@
     }
 
 </style>
+
 <div class="right-side-ads">
 
     {% for ad in ads %}
-        <a class="right-side-ad {{ ad.size }}"  href="{{ ad.url }}">
-            <div class="ad-title">{{ ad.name }}</div>
-            <div class="ad-body">{{ ad.body }}</div>
+        <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
             {% if(ad.photo is not empty) %}
-                <img src="{{ ad.photo|imagine_filter('ad_130x130') }}" alt="{{ ad.name }}"/>
+                <img src="{{ asset(ad.photo) }}" alt="{{ ad.name }}"/>
             {% endif %}
         </a>
     {% endfor %}
 </div>
+
+<script>
+    $(function () {
+
+        $(".right-side-ad").click(function (e) {
+
+            $.ajax({
+                        type: 'POST',
+                        url: '/ads/'+$(this).data("adid")+'/click',
+                        //data:
+                    })
+                    .done(function (data) {
+                        $('#ads').html(data);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+
+                    });
+        });
+    });
+</script>

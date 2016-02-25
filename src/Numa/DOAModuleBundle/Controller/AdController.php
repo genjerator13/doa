@@ -235,20 +235,36 @@ class AdController extends Controller
 
 
         $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
+        $previousCollections = $entity->getPageAds();
 
+        $editForm->handleRequest($request);
+        foreach ($previousCollections as $po) {
+
+            $entity->removePageAds($po);
+        }
+        //dump($previousCollections);die();
         if ($editForm->isValid() || $request->isXmlHttpRequest()) {
-            $entity->upload();
-            $em->flush();
+
 
             if ($request->isXmlHttpRequest()) {
-
+                $entity->upload();
+                $em->flush();
                 $response = new JsonResponse(
                     array(
                         'message' => 'Success',
                         400));
 
                 return $response;
+            } else {
+
+//                foreach($previousCollections as $po)
+//                {
+//
+//                    $entity->removePageAds($po);
+//                }
+
+                $entity->upload();
+                $em->flush();
             }
             return $this->redirect($this->generateUrl('ad_edit', array('id' => $id)));
         } else {
@@ -312,5 +328,33 @@ class AdController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
+    }
+
+    /**
+     * Increase click on the ad.
+     *
+     */
+    public function clickAjaxAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
+        $entity instanceof Ad;
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Ad entity.');
+        }
+
+
+        if ($request->isXmlHttpRequest()) {
+            $entity->setClicks($entity->getClicks()+1);
+            $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'message' => 'Success',
+                    400));
+
+            return $response;
+        }
+        throw $this->createAccessDeniedException('ERROR');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -82,7 +83,7 @@ class Ad
      */
     public function __construct()
     {
-        //$this->pa = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->PageAds = new \Doctrine\Common\Collections\ArrayCollection();
         $this->start_date = new \DateTime();
         $this->end_date = new \DateTime();
     }
@@ -634,5 +635,90 @@ class Ad
     public function getAdorder()
     {
         return $this->adorder;
+    }
+
+    // Important
+    public function getPages()
+    {
+        $pages = new ArrayCollection();
+        if (!empty($this->getPageAds()) ) {
+            foreach ($this->getPageAds() as $pa) {
+                if ($pa instanceof PageAds) {
+                    $pages[] = $pa->getPage();
+                }
+            }
+        }
+        return $pages;
+    }
+
+
+    // Important
+    public function setPages($pageAds)
+    {
+        foreach ($pageAds as $pageAd) {
+            $pa = new PageAds();
+
+            $pa->setPage($pageAd);
+            $pa->setAd($this);
+
+            $this->addPageAd($pa);
+        }
+
+    }
+    /**
+     * @var integer
+     */
+    private $clicks;
+
+    /**
+     * @var integer
+     */
+    private $views;
+
+
+    /**
+     * Set clicks
+     *
+     * @param integer $clicks
+     * @return Ad
+     */
+    public function setClicks($clicks)
+    {
+        $this->clicks = $clicks;
+
+        return $this;
+    }
+
+    /**
+     * Get clicks
+     *
+     * @return integer 
+     */
+    public function getClicks()
+    {
+        return $this->clicks;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Ad
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 }
