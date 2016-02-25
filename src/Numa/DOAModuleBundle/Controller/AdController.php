@@ -228,20 +228,15 @@ class AdController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
-
+        $oldAds = $em->getRepository('NumaDOAModuleBundle:PageAds')->findBy(array('Ad' => $entity));
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Ad entity.');
         }
 
 
         $editForm = $this->createEditForm($entity);
-        $previousCollections = $entity->getPageAds();
-
         $editForm->handleRequest($request);
-        foreach ($previousCollections as $po) {
 
-            $entity->removePageAds($po);
-        }
         //dump($previousCollections);die();
         if ($editForm->isValid() || $request->isXmlHttpRequest()) {
 
@@ -256,13 +251,13 @@ class AdController extends Controller
 
                 return $response;
             } else {
-
-//                foreach($previousCollections as $po)
-//                {
-//
-//                    $entity->removePageAds($po);
-//                }
-
+                dump($oldAds);
+                //die();
+                if (!empty($oldAds)) {
+                    foreach ($oldAds as $oldPA) {
+                        $em->remove($oldPA);
+                    }
+                }
                 $entity->upload();
                 $em->flush();
             }
@@ -346,7 +341,7 @@ class AdController extends Controller
 
 
         if ($request->isXmlHttpRequest()) {
-            $entity->setClicks($entity->getClicks()+1);
+            $entity->setClicks($entity->getClicks() + 1);
             $em->flush();
             $response = new JsonResponse(
                 array(
