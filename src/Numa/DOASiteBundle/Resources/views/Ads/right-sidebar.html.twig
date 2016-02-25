@@ -35,9 +35,7 @@
 
 <script>
     $(function () {
-
         $(".right-side-ad").click(function (e) {
-
             $.ajax({
                         type: 'POST',
                         url: '/ads/'+$(this).data("adid")+'/click',
@@ -47,7 +45,6 @@
                         $('#ads').html(data);
                     })
                     .fail(function (jqXHR, textStatus, errorThrown) {
-
                     });
         });
     });
