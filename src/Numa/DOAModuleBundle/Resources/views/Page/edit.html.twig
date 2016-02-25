@@ -42,15 +42,8 @@
         function initAjaxForm()
         {
             $('body').on('submit', '.ajaxForm', function (e) {
-
                 e.preventDefault();
-                console.log($(this));
-                //alert($(this).serialize());
-                //alert($(this).html());
-                //alert($(this));
                 var formData = new FormData($('form')[1]);
-                //formData.append('title')
-                //console.log(formData);
                 $.ajax({
                             type: $(this).attr('method'),
                             url: $(this).attr('action'),
@@ -65,7 +58,6 @@
                         .done(function (data) {
 
                             if (typeof data.message !== 'undefined') {
-
                                 $('#myModal').modal('hide')
                                 reloadAds();
                             }
@@ -123,11 +115,7 @@
                         .fail(function (jqXHR, textStatus, errorThrown) {
 
                         });
-
-
             })
-
-
         });
     </script>
 {% endblock %}
