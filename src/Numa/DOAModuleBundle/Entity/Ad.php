@@ -724,7 +724,7 @@ class Ad
     public function getRatio()
     {
         $ratio = 0;
-        if (!$this->clicks == 0 || !$this->views == 0)
+        if (!$this->clicks == 0 && !$this->views == 0)
         $ratio = $this->views / $this->clicks;
         return $ratio;
     }
