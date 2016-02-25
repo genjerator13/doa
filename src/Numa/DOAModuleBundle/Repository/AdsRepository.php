@@ -31,6 +31,7 @@ class AdsRepository extends EntityRepository
 
     public function addView($ads)
     {
+
         $ids = array();
         if (!empty($ads)) {
             foreach ($ads as $ad) {
