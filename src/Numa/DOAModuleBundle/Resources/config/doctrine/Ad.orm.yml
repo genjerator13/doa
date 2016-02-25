@@ -41,7 +41,17 @@ Numa\DOAModuleBundle\Entity\Ad:
             nullable: true
         discount:
             type: float
-            nullable: true    
+            nullable: true
+        clicks:
+            type: integer
+            nullable: true
+            options:
+                default: 0
+        views:
+            type: integer
+            nullable: true
+            options:
+                default: 0
         body:
             type: text
             nullable: true

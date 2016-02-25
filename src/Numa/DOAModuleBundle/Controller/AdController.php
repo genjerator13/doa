@@ -238,11 +238,10 @@ class AdController extends Controller
         $previousCollections = $entity->getPageAds();
 
         $editForm->handleRequest($request);
-        foreach($previousCollections as $po)
-                {
+        foreach ($previousCollections as $po) {
 
-                    $entity->removePageAds($po);
-                }
+            $entity->removePageAds($po);
+        }
         //dump($previousCollections);die();
         if ($editForm->isValid() || $request->isXmlHttpRequest()) {
 
@@ -256,7 +255,7 @@ class AdController extends Controller
                         400));
 
                 return $response;
-            }else{
+            } else {
 
 //                foreach($previousCollections as $po)
 //                {
@@ -329,5 +328,33 @@ class AdController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
+    }
+
+    /**
+     * Increase click on the ad.
+     *
+     */
+    public function clickAjaxAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entity = $em->getRepository('NumaDOAModuleBundle:Ad')->find($id);
+        $entity instanceof Ad;
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Ad entity.');
+        }
+
+
+        if ($request->isXmlHttpRequest()) {
+            $entity->setClicks($entity->getClicks()+1);
+            $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'message' => 'Success',
+                    400));
+
+            return $response;
+        }
+        throw $this->createAccessDeniedException('ERROR');
     }
 }

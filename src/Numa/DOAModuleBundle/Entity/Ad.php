@@ -665,4 +665,60 @@ class Ad
         }
 
     }
+    /**
+     * @var integer
+     */
+    private $clicks;
+
+    /**
+     * @var integer
+     */
+    private $views;
+
+
+    /**
+     * Set clicks
+     *
+     * @param integer $clicks
+     * @return Ad
+     */
+    public function setClicks($clicks)
+    {
+        $this->clicks = $clicks;
+
+        return $this;
+    }
+
+    /**
+     * Get clicks
+     *
+     * @return integer 
+     */
+    public function getClicks()
+    {
+        return $this->clicks;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Ad
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
 }

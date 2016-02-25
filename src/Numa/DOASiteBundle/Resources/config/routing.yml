@@ -113,3 +113,7 @@ sandbox_test:
 ads_page:
     path:  /ads/{id}
     defaults: { _controller: NumaDOASiteBundle:Ads:index }
+
+ad_increase_click:
+    path:     /ads/{id}/click
+    defaults: { _controller: "NumaDOAModuleBundle:Ad:clickAjax" }
