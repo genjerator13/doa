@@ -43,6 +43,11 @@ class AdType extends AbstractType
             ->add('file_import_source','file', array('label'=>'Photo Upload','required' => false, 'data_class' => null))
             ->add('page_id','hidden')
             ->add('body')
+            ->add('Pages' , 'entity' , array('label'=>'Pages',
+                'class'    => 'Numa\DOAModuleBundle\Entity\Page' ,
+                'property' => 'title' ,
+                'expanded' => true ,
+                'multiple' => true , ))
 
 
         ;

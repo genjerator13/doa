@@ -117,7 +117,6 @@ class PageController extends Controller
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-
         $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
 
         if (!$entity) {

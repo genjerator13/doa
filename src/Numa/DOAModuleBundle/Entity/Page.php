@@ -379,6 +379,22 @@ class Page
         return $ads;
     }
 
+
+    // Important
+    public function setAds($pageAds)
+    {
+        foreach ($pageAds as $pageAd) {
+            $pa = new PageAds();
+
+            $pa->setPage($this);
+            $pa->setAd($pageAd);
+
+            $this->addPageAd($pa);
+        }
+
+    }
+
+
     public function getActiveAds()
     {
         $currentDate = new \DateTime();
@@ -394,17 +410,9 @@ class Page
         //return $ads;
     }
 
-    // Important
-    public function setAds($pageAds)
+    public function __toString()
     {
-        foreach ($pageAds as $pageAd) {
-            $pa = new PageAds();
-
-            $pa->setPage($this);
-            $pa->setAd($pageAd);
-
-            $this->addPageAd($pa);
-        }
-
+        // TODO: Implement __toString() method.
+        return $this->getUrl();
     }
 }

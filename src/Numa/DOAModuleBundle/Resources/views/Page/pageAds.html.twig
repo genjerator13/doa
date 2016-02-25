@@ -12,6 +12,9 @@
             <div class="body">
                 <p>{{ ad.body }}</p>
             </div>
+            <div class="start_date">
+                <p>{{ ad.startDate|date("m/d/Y") }}</p>
+            </div>
             <a href="#" class="ad-close" id="ad-remove-{{ ad.id }}"><i class="glyphicon glyphicon-remove"></i></a>
             <a data-toggle="modal" href="#" hrefxxx="{{ path('ad_editAjax',{"id":ad.id}) }}" data-target="#myModal"
                class="ad-edit" id="ad-edit-{{ ad.id }}"><i class="glyphicon glyphicon-edit"></i></a>

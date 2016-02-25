@@ -60,7 +60,7 @@ Numa\DOAModuleBundle\Entity\Ad:
     oneToMany:
         PageAds:
             targetEntity: PageAds
-            mappedBy: Pages
+            mappedBy: Ad
             cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
