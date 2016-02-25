@@ -212,7 +212,7 @@ class SearchController extends Controller
         if ($webpage instanceof Page) {
 
             $ads = $webpage->getActiveAds();
-            $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
+            //$em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
         }
 
         $param['ads'] = $ads;
