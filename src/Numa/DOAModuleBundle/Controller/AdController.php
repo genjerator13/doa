@@ -251,8 +251,7 @@ class AdController extends Controller
 
                 return $response;
             } else {
-                dump($oldAds);
-                //die();
+                
                 if (!empty($oldAds)) {
                     foreach ($oldAds as $oldPA) {
                         $em->remove($oldPA);
