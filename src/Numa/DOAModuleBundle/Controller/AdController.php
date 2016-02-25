@@ -305,7 +305,7 @@ class AdController extends Controller
         // }
         dump("aaaa");
         die();
-        return $this->redirect($this->generateUrl('ad'));
+        return $this->redirect($this->generateUrl('ad_index'));
     }
 
     /**
