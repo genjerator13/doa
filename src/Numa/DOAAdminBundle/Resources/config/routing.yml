@@ -53,3 +53,7 @@ ads:
 dms:
         resource: "@NumaDOAAdminBundle/Resources/config/routing/dms.yml"
         prefix:   /dms
+
+NumaDOAAdminBundle_customer:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/customer.yml"
+        prefix:   /customer

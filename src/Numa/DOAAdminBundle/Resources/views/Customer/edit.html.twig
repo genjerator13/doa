@@ -1,0 +1,29 @@
+{% extends is_granted('ROLE_BUSINES')
+? 'NumaDOASiteBundle::home-layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
+ {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+    <h1>Edit Customer</h1>
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+    {% include "NumaDOASiteBundle::logo.html.twig" with {'item': entity} %}
+<ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+    <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
+</ul>
+<div class="nav-tabs-custom">
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+            {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('customer') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+        </div>
+{% endblock %}
