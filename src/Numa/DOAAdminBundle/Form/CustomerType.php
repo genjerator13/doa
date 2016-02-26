@@ -27,10 +27,6 @@ class CustomerType extends AbstractType
             ->add('fax')
             ->add('email')
             ->add('notes')
-            ->add('date_created')
-            ->add('date_updated')
-            ->add('dealer_id')
-            ->add('Catalogrecords')
         ;
     }
     

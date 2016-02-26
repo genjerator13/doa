@@ -57,15 +57,16 @@
                 <td>{{ entity.dealerid }}</td>
                 <td>
                 <ul>
+                    <li>
+                        <a href="{{ path('customer_edit', { 'id': entity.id }) }}"
+                           class="btn btn-primary">edit</a>
+                    </li>
                     {#
                     <li>
                         <a href="{{ path('customer_delete', { 'id': entity.id }) }}" class="btn btn-danger"
                            data-confirm="All the listings <strong>{{ entity.name }}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
                     </li>
                     #}
-                    <li>
-                        <a href="{{ path('customer_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
                 </ul>
                 </td>
             </tr>

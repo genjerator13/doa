@@ -44,7 +44,7 @@ class CustomerController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('customer_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('customer', array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAAdminBundle:Customer:new.html.twig', array(
@@ -144,7 +144,7 @@ class CustomerController extends Controller
     {
         $form = $this->createForm(new CustomerType(), $entity, array(
             'action' => $this->generateUrl('customer_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
+            'method' => 'POST',
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update'));
@@ -171,8 +171,8 @@ class CustomerController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('customer_edit', array('id' => $id)));
+            $this->addFlash("success","Customer: ".$entity->getName()." successfully updated.");
+            return $this->redirect($this->generateUrl('customer', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Customer:edit.html.twig', array(
