@@ -1,0 +1,6 @@
+dms_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Dms:index" }
+dms_activate:
+    pattern:  /activate
+    defaults: { _controller: "NumaDOAAdminBundle:Dms:activate" }
