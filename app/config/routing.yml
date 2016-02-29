@@ -1,3 +1,7 @@
+numa_doadms:
+    resource: "@NumaDOADMSBundle/Resources/config/routing.yml"
+    prefix:   /dms
+
 numa_doa_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
     prefix:   /
