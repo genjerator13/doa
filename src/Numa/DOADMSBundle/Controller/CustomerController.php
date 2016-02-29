@@ -1,12 +1,12 @@
 <?php
 
-namespace Numa\DOAAdminBundle\Controller;
+namespace Numa\DOADMSBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOAAdminBundle\Entity\Customer;
-use Numa\DOAAdminBundle\Form\CustomerType;
+use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Form\CustomerType;
 
 /**
  * Customer controller.
@@ -23,9 +23,9 @@ class CustomerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOAAdminBundle:Customer')->findAll();
+        $entities = $em->getRepository('NumaDOADMSBundle:Customer')->findAll();
 
-        return $this->render('NumaDOAAdminBundle:Customer:index.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -47,7 +47,7 @@ class CustomerController extends Controller
             return $this->redirect($this->generateUrl('customer', array('id' => $entity->getId())));
         }
 
-        return $this->render('NumaDOAAdminBundle:Customer:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class CustomerController extends Controller
         $entity = new Customer();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOAAdminBundle:Customer:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -95,7 +95,7 @@ class CustomerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Customer')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');
@@ -117,7 +117,7 @@ class CustomerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Customer')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');
@@ -126,7 +126,7 @@ class CustomerController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOAAdminBundle:Customer:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -159,7 +159,7 @@ class CustomerController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOAAdminBundle:Customer')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');
@@ -192,7 +192,7 @@ class CustomerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:Customer')->find($id);
+            $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Customer entity.');

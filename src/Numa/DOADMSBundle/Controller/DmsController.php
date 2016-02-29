@@ -2,11 +2,10 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Numa\DOAAdminBundle\Entity\Importfeed;
-use Numa\DOAAdminBundle\Form\ImportfeedType;
-use Numa\DOAAdminBundle\Entity\Item;
+
 
 /**
  * Dms controller.
@@ -26,9 +25,12 @@ class DmsController extends Controller {
         //get the dealer
         //get the site
         //send email to dms@dealersonair.com
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+
         $host = $this->get('router')->getContext()->getHost();
         $mailer = $this->get('Numa.Emailer');
-        $ok = $mailer->sendDmsActivateEmail($host);
+        $ok = $mailer->sendDmsActivateEmail($host,$user);
         $message = "Thank-you for your request, someone will be in contact with you shortly.";
 
         if(!$ok){
@@ -37,6 +39,13 @@ class DmsController extends Controller {
 
         return $this->render('NumaDOADMSBundle:Dms:index.html.twig', array(
             'message'=>$message
+        ));
+    }
+
+    public function customersAction() {
+
+        return $this->render('NumaDOAAdminBundle:Dms:index.html.twig', array(
+
         ));
     }
 

@@ -1,30 +1,30 @@
 customer:
     path:     /
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:index" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:index" }
 
 customer_show:
     path:     /{id}/show
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:show" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:show" }
 
 customer_new:
     path:     /new
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:new" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:new" }
 
 customer_create:
     path:     /create
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:create" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:create" }
     requirements: { _method: post }
 
 customer_edit:
     path:     /{id}/edit
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:edit" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:edit" }
 
 customer_update:
     path:     /{id}/update
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:update" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:update" }
     requirements: { _method: post|put }
 
 customer_delete:
     path:     /{id}/delete
-    defaults: { _controller: "NumaDOAAdminBundle:Customer:delete" }
+    defaults: { _controller: "NumaDOADMSBundle:Customer:delete" }
     requirements: { _method: post|delete }

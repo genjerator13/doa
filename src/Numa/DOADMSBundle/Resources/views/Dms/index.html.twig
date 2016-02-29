@@ -1,4 +1,7 @@
-{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends is_granted('ROLE_DMS_USER') or is_granted('ROLE_DMS_USER')
+? 'NumaDOASiteBundle::home-layout.html.twig'
+: 'NumaDOADMSBundle::layout.html.twig' %}
+
 {% block content %}
 {{ message }}
 {% endblock %}
