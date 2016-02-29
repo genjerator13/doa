@@ -1,0 +1,9 @@
+dms_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOADMSBundle:Default:index" }
+dms_activate:
+    pattern:  /activate
+    defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
+dms_user:
+    pattern:  /users
+    defaults: { _controller: "NumaDOADMSBundle:Dms:users" }

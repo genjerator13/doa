@@ -12,6 +12,7 @@
  * @author genjerator
  */
 namespace Numa\Lib;
+
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -26,8 +27,8 @@ class Emailer extends ContainerAware
     }
 
 
-
-    public function sendEmail($request, $data, $dealer){
+    public function sendEmail($request, $data, $dealer)
+    {
         $errors = array();
         $return = array();
         $currentRoute = $request->attributes->get('_route');
@@ -38,19 +39,18 @@ class Emailer extends ContainerAware
 
         // $data is a simply array with your form fields
         // like "query" and "category" as defined above.
-        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL))
-        {
+        if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             // Sanitize the e-mail to be extra safe.
             // I think Pear Mail will automatically do this for you
             $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        }else{
+        } else {
             $errors[] = "Invalid email!";
         }
 
         $emailFrom = $email;
         $emailTo = $dealer->getEmail();
 
-        $emailBody = $this->makeMessageBody($currentUrl, $data,$emailFrom);
+        $emailBody = $this->makeMessageBody($currentUrl, $data, $emailFrom);
 
         $twig = $this->container->get('twig');
         $globals = $twig->getGlobals();
@@ -69,7 +69,7 @@ class Emailer extends ContainerAware
             ->setTo($dealer->getEmail())
             //->setTo("genjerator@outlook.com")
             ->setBody($emailBody);
-        if(empty($errors)) {
+        if (empty($errors)) {
             $ok = $mailer->send($message);
 
             //dump($emailFrom);
@@ -77,57 +77,59 @@ class Emailer extends ContainerAware
             sleep(2);
         }
 
-        $return['errors']=$errors;
-        $return['redirectto']=$currentUrl;
+        $return['errors'] = $errors;
+        $return['redirectto'] = $currentUrl;
 
         return $return;
     }
 
-    public function makeMessageBody($currentUrl,$data,$emailFrom){
+    public function makeMessageBody($currentUrl, $data, $emailFrom)
+    {
         $body = "";
         //dump($data);die();
-        $body .= "URL: ".$currentUrl." \n";
-        $body .= "EMAIL FROM: ".$emailFrom." \n";
-        $body .= "Name: ".$this->stripUserComment($data['first_name'])." ".$this->stripUserComment($data['last_name'])." \n";
-        $body .= "User Comment: "." \n".$this->stripUserComment($data['comments']);
+        $body .= "URL: " . $currentUrl . " \n";
+        $body .= "EMAIL FROM: " . $emailFrom . " \n";
+        $body .= "Name: " . $this->stripUserComment($data['first_name']) . " " . $this->stripUserComment($data['last_name']) . " \n";
+        $body .= "User Comment: " . " \n" . $this->stripUserComment($data['comments']);
         return $body;
     }
 
-    public function stripUserComment($userComment){
+    public function stripUserComment($userComment)
+    {
         $res = filter_var($userComment, FILTER_SANITIZE_STRING);
         return $res;
     }
 
-    public function sendLostPassEmail($dealeruser,$password){
+    public function sendLostPassEmail($dealeruser, $password)
+    {
         $email = "";
-        if($dealeruser instanceof Catalogrecords){
-            $name=$dealeruser->getName();
+        if ($dealeruser instanceof Catalogrecords) {
+            $name = $dealeruser->getName();
             $email = $dealeruser->getEmail();
-            $uri = $this->container->get('router')->generate('catalogs_edit', array('id' => $dealeruser->getId()),true);
-        }elseif ($dealeruser instanceof User) {
-            $name=$dealeruser->getFirstName()." ".$dealeruser->getLastName();
+            $uri = $this->container->get('router')->generate('catalogs_edit', array('id' => $dealeruser->getId()), true);
+        } elseif ($dealeruser instanceof User) {
+            $name = $dealeruser->getFirstName() . " " . $dealeruser->getLastName();
             $email = $dealeruser->getEmail();
-            $uri = $this->container->get('router')->generate('profile',array(),true);
+            $uri = $this->container->get('router')->generate('profile', array(), true);
         }
 
-        if (filter_var($email, FILTER_VALIDATE_EMAIL))
-        {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // Sanitize the e-mail to be extra safe.
             // I think Pear Mail will automatically do this for you
             $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-        }else{
+        } else {
             $errors[] = "Invalid email!";
         }
-        $link = "<a href='".$uri."' >Edit profile</a>";
+        $link = "<a href='" . $uri . "' >Edit profile</a>";
 
 
         $twig = $this->container->get('twig');
         $settings = $this->container->get('numa.settings');//
         $globals = $twig->getGlobals();
 
-        $subject = $settings->get('lost_password_subject',array('sitename'=>$this->container->get('router')->getContext()->getHost()));
+        $subject = $settings->get('lost_password_subject', array('sitename' => $this->container->get('router')->getContext()->getHost()));
 
-        $emailBody = $settings->get('Lost password Body',array('customer.name'=>$name,'newpassword'=>$password,'profilepage'=>$link));
+        $emailBody = $settings->get('Lost password Body', array('customer.name' => $name, 'newpassword' => $password, 'profilepage' => $link));
 
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
@@ -136,11 +138,11 @@ class Emailer extends ContainerAware
             ->addCc('jim@dealersonair.com')
             ->addCc('e.medjesi@gmail.com')
             ->setTo($email)
-            ->setBody($emailBody,'text/html');
+            ->setBody($emailBody, 'text/html');
 
-        if(empty($errors)) {
+        if (empty($errors)) {
             $ok = $mailer->send($message);
-            if($ok) {
+            if ($ok) {
                 $em = $this->container->get('doctrine')->getManager();
                 if ($dealeruser instanceof Catalogrecords) {
                     $repo = $em->getRepository("NumaDOAAdminBundle:Catalogrecords");
@@ -163,5 +165,31 @@ class Emailer extends ContainerAware
         return false;
     }
 
+    public function sendDmsActivateEmail($host, $dealer="")
+    {
+        $em = $this->container->get('doctrine')->getManager();
+
+        $subject = "DMS activation request";
+        $emailBody = "text";
+        $mailer = $this->container->get('mailer');
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom('general@dealersonair.com')
+            //->addCc('jim@dealersonair.com')
+            //->addCc('e.medjesi@gmail.com')
+            ->addTo('e.medjesi@gmail.com')
+            //->setTo('dms@dealersonair.com')
+            ->setBody($emailBody, 'text/html');
+
+
+        $ok = $mailer->send($message);
+        if ($ok) {
+
+            return true;
+
+        }
+
+        return false;
+    }
 }
 

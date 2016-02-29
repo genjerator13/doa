@@ -1,6 +1,6 @@
 <?php
 
-namespace Numa\DOAAdminBundle\Controller;
+namespace Numa\DOADMSBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,10 +30,12 @@ class DmsController extends Controller {
         $mailer = $this->get('Numa.Emailer');
         $ok = $mailer->sendDmsActivateEmail($host);
         $message = "Thank-you for your request, someone will be in contact with you shortly.";
+
         if(!$ok){
             $message = "Error";
         }
-        return $this->render('NumaDOAAdminBundle:Dms:index.html.twig', array(
+
+        return $this->render('NumaDOADMSBundle:Dms:index.html.twig', array(
             'message'=>$message
         ));
     }
