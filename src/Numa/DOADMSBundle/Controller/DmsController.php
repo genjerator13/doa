@@ -26,18 +26,28 @@ class DmsController extends Controller {
         //get the site
         //send email to dms@dealersonair.com
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        if($user instanceof Catalogrecords){
 
+            $em = $this->getDoctrine()->getManager();
+            $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->updateDmsStatus($user->getId(),'pending');
+
+        }
 
         $host = $this->get('router')->getContext()->getHost();
         $mailer = $this->get('Numa.Emailer');
         $ok = $mailer->sendDmsActivateEmail($host,$user);
-        $message = "Thank-you for your request, someone will be in contact with you shortly.";
 
         if(!$ok){
             $message = "Error";
         }
+        return $this->redirectToRoute('dms_activate_success');
 
-        return $this->render('NumaDOADMSBundle:Dms:index.html.twig', array(
+    }
+
+    public function activateSuccessAction(){
+        $message = "Thank-you for your request, someone will be in contact with you shortly.";
+
+        return $this->render('NumaDOADMSBundle:Dms:activate_success.html.twig', array(
             'message'=>$message
         ));
     }
