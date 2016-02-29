@@ -1,3 +1,9 @@
+dms_activate:
+    path:  /dms_activate
+    defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
+dms_activate_success:
+    path:  /dms_activate_success
+    defaults: { _controller: "NumaDOADMSBundle:Dms:activateSuccess" }
 numa_doadms:
     resource: "@NumaDOADMSBundle/Resources/config/routing.yml"
     prefix:   /dms
