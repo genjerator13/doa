@@ -168,14 +168,20 @@ class Emailer extends ContainerAware
     public function sendDmsActivateEmail($host, $dealer="")
     {
         $em = $this->container->get('doctrine')->getManager();
-
+        $text = "";
+        if($dealer instanceof Catalogrecords){
+            $name = $dealer->getName();
+            $text = " by ".$name;
+        }
         $subject = "DMS activation request";
-        $emailBody = "text";
+
+        $emailBody ="DMS activation request".$text." for the site:".$host;;
+
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom('general@dealersonair.com')
-            //->addCc('jim@dealersonair.com')
+            ->addCc('jim@dealersonair.com')
             //->addCc('e.medjesi@gmail.com')
             ->addTo('e.medjesi@gmail.com')
             //->setTo('dms@dealersonair.com')
