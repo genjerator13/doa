@@ -49,3 +49,7 @@ NumaDOAModuleBundle_page:
 ads:
         resource: "@NumaDOAModuleBundle/Resources/config/routing/ad.yml"
         prefix:   /ads
+
+dms:
+        resource: "@NumaDOAAdminBundle/Resources/config/routing/dms.yml"
+        prefix:   /dms
