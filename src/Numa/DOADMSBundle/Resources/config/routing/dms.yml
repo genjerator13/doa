@@ -16,3 +16,7 @@ dms_customer:
 dms_user:
     path:  /users
     defaults: { _controller: "NumaDOADMSBundle:Dms:users" }
+
+NumaDOADMSBundle_client:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
+    prefix:   /client

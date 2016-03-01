@@ -1,12 +1,23 @@
 {% block extends %}
-{{ "{% extends '::base.html.twig' %}" }}
+    {{ "{% extends 'NumaDOADMSBundle::layout.html.twig' %}" }}
 {% endblock extends %}
 
 {% block body %}
-{{ "{% block body -%}" }}
-    <h1>{{ entity }} list</h1>
+{{ "{% block content -%}" }}
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{ entity }} list</h3>
+        <div class="box-tools">
+            {% if 'new' in actions %}
 
-    <table class="records_list">
+                        <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}" class="btn btn-primary">
+                            Create a new {{ entity }}
+                        </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
         <thead>
             <tr>
             {%- for field, metadata in fields %}
@@ -50,15 +61,7 @@
         {{ '{% endfor %}' }}
         </tbody>
     </table>
+</div>
 
-    {% if 'new' in actions %}
-    <ul>
-        <li>
-            <a href="{{ "{{ path('" ~ route_name_prefix ~ "_new') }}" }}">
-                Create a new entry
-            </a>
-        </li>
-    </ul>
-    {% endif %}
 {{ "{% endblock %}" }}
 {% endblock body %}

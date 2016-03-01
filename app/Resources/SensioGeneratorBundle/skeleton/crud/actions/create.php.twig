@@ -24,12 +24,7 @@
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            //testtest
-            {% if 'show' in actions -%}
-                return $this->redirect($this->generateUrl('{{ route_name_prefix }}_show', array('id' => $entity->getId())));
-            {%- else -%}
-                return $this->redirect($this->generateUrl('{{ route_name_prefix }}'));
-            {%- endif %}
+            return $this->redirect($this->generateUrl('{{ route_name_prefix }}'));
 
         }
 {% endblock method_body %}
