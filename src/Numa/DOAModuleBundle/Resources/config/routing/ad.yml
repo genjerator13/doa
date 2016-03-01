@@ -1,4 +1,4 @@
-ad:
+ad_index:
     path:     /
     defaults: { _controller: "NumaDOAModuleBundle:Ad:index" }
 

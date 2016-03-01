@@ -1,3 +1,7 @@
+numa_doa_api:
+    resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
 numa_doa_module:
     resource: "@NumaDOAModuleBundle/Resources/config/routing.yml"
     prefix:   /
@@ -45,5 +49,8 @@ genemu_base64:
 #        resource: "@NumaDOAAdminBundle/Resources/config/routing/restApi.yml"
 #        prefix:   /restApi
 api:
-        resource: "@NumaDOAAdminBundle/Resources/config/routing/api.yml"
+        resource: "@NumaDOAApiBundle/Resources/config/routing/api.yml"
         prefix:   /api
+DOASiteBundle:
+    resource: .
+    type: extra
