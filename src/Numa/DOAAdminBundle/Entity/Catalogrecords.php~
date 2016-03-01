@@ -1091,4 +1091,11 @@ class Catalogrecords implements UserInterface
         return $this->dms_status;
     }
 
+    public function isActivatedLinkAvailable(){
+        $dontShowLink =
+                    strtolower($this->getDmsStatus())=='activated';
+
+        return $dontShowLink;
+    }
+
 }
