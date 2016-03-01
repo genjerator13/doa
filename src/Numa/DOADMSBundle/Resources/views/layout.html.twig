@@ -1,14 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" ng-app="app">
+<head >
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <title>Dealers on Air Admin Panel </title>
-    {% stylesheets  '@bootstrap' '@jquery_ui_css' '@admin' '@dropzone_css' '@colorbox_css' '@AdminLTE_css' '@DMS_red_skin_css' filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
-    {% endstylesheets %}
+    {% block stylesheets %}
+        {% stylesheets  '@bootstrap' '@jquery_ui_css' '@admin' '@dropzone_css' '@colorbox_css' '@AdminLTE_css' '@DMS_red_skin_css' filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+    {% endblock %}
+
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

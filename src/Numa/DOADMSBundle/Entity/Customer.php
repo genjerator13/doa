@@ -3,44 +3,57 @@
 namespace Numa\DOADMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Customer
+ * @JMS\XmlRoot("customer")
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Customer
 {
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $first_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $last_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $city;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $state;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $zip;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $country;
 
