@@ -5,8 +5,8 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
     <style>
         .grid {
-            width: 500px;
-            height: 250px;
+            width: 100%;
+            height: 550px;
         }
     </style>
 {% endblock stylesheets %}
@@ -21,12 +21,7 @@
 
 {% endblock javascripts %}
 {% block content %}
-    <div ng-controller="MainCtrl">
-        <strong>Data Length:</strong>
-        <br>
-        <br>
-        <div id="grid1" ui-grid="gridOptions" class="grid"></div>
-    </div>
+
 
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <div class="box">
@@ -39,72 +34,9 @@
         </div>
     </div>
     <div class="box-body table-responsive no-padding">
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>First_name</th>
-                <th>Last_name</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip</th>
-                <th>Country</th>
-                <th>Home_phone</th>
-                <th>Work_phone</th>
-                <th>Mobile_phone</th>
-                <th>Fax</th>
-                <th>Email</th>
-                <th>Notes</th>
-                <th>Date_created</th>
-                <th>Date_updated</th>
-                <th>Dealer_id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('customer_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.firstname }}</td>
-                <td>{{ entity.lastname }}</td>
-                <td>{{ entity.city }}</td>
-                <td>{{ entity.state }}</td>
-                <td>{{ entity.zip }}</td>
-                <td>{{ entity.country }}</td>
-                <td>{{ entity.homephone }}</td>
-                <td>{{ entity.workphone }}</td>
-                <td>{{ entity.mobilephone }}</td>
-                <td>{{ entity.fax }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.notes }}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.dealerid }}</td>
-                <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('customer_edit', { 'id': entity.id }) }}"
-                           class="btn btn-primary">edit</a>
-                    </li>
-                    {#
-                    <li>
-                        <a href="{{ path('customer_delete', { 'id': entity.id }) }}" class="btn btn-danger"
-                           data-confirm="All the listings <strong>{{ entity.name }}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
-                    </li>
-                    #}
-                </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div ng-controller="MainCtrl">
+        <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+    </div>
 
-        <ul>
-        <li>
-            <a href="{{ path('customer_new') }}" class="btn btn-primary">
-                Create a new customer
-            </a>
-        </li>
-    </ul>
 {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}
