@@ -1,10 +1,12 @@
 {% block extends %}
-{{ "{% extends '::base.html.twig' %}" }}
+{{ "{% extends 'NumaDOADMSBundle::layout.html.twig' %}" }}
+
+{{ "{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}" }}
 {% endblock extends %}
 
 {% block body %}
-{{ "{% block body -%}" }}
-    <h1>{{ entity }} creationXXXXX12341243XXXXXXXXXXXXXXXX</h1>
+{{ "{% block content %}" }}
+    <h1>{{ entity }} creation</h1>
 
     {{ '{{ form(form) }}' }}
 

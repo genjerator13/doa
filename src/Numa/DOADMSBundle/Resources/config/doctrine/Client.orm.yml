@@ -1,16 +1,12 @@
-Numa\DOADMSBundle\Entity\Customer:
+Numa\DOADMSBundle\Entity\Client:
     type: entity
-    table: customer
-    repositoryClass: Numa\DOADMSBundle\Repository\CustomerRepository
+    table: client
+
     id:
         id:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        name:
-            type: string
-            length: 255
-            nullable: true
         first_name:
             type: string
             length: 255
@@ -58,9 +54,6 @@ Numa\DOADMSBundle\Entity\Customer:
         notes:
              type: text
              nullable: true
-        followup_date:
-             type: datetime
-             nullable: true
         date_created:
              type: datetime
              nullable: true
@@ -73,7 +66,7 @@ Numa\DOADMSBundle\Entity\Customer:
     manyToOne:
         Catalogrecords:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
-            inversedBy: Customer
+            inversedBy: Client
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
