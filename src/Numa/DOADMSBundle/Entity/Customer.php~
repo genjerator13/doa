@@ -502,36 +502,7 @@ class Customer
     {
         // Add your code here
     }
-    /**
-     * @var \DateTime
-     * @JMS\Expose
 
-     */
-    private $folowup_date;
-
-
-    /**
-     * Set folowup_date
-     *
-     * @param \DateTime $folowupDate
-     * @return Customer
-     */
-    public function setFolowupDate($folowupDate)
-    {
-        $this->folowup_date = $folowupDate;
-
-        return $this;
-    }
-
-    /**
-     * Get folowup_date
-     *
-     * @return \DateTime
-     */
-    public function getFolowupDate()
-    {
-        return $this->folowup_date;
-    }
     /**
      * @var string
      */
@@ -559,5 +530,34 @@ class Customer
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $followup_date;
+
+
+    /**
+     * Set followup_date
+     *
+     * @param \DateTime $followupDate
+     * @return Customer
+     */
+    public function setFollowupDate($followupDate)
+    {
+        $this->followup_date = $followupDate;
+
+        return $this;
+    }
+
+    /**
+     * Get followup_date
+     *
+     * @return \DateTime 
+     */
+    public function getFollowupDate()
+    {
+        return $this->followup_date;
     }
 }
