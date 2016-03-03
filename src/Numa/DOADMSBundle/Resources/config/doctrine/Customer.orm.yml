@@ -7,6 +7,10 @@ Numa\DOADMSBundle\Entity\Customer:
             type: integer
             generator: { strategy: AUTO }
     fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
         first_name:
             type: string
             length: 255
@@ -53,6 +57,9 @@ Numa\DOADMSBundle\Entity\Customer:
              nullable: true
         notes:
              type: text
+             nullable: true
+        followup_date:
+             type: datetime
              nullable: true
         date_created:
              type: datetime

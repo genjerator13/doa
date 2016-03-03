@@ -27,6 +27,7 @@ class CustomerType extends AbstractType
             ->add('fax')
             ->add('email')
             ->add('notes')
+            ->add('followup_date','date')
         ;
     }
     

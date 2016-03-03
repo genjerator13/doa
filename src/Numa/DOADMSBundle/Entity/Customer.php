@@ -84,11 +84,13 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $notes;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -499,5 +501,63 @@ class Customer
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+
+    /**
+     * @var string
+     */
+    private $name;
+
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Customer
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+    /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $followup_date;
+
+
+    /**
+     * Set followup_date
+     *
+     * @param \DateTime $followupDate
+     * @return Customer
+     */
+    public function setFollowupDate($followupDate)
+    {
+        $this->followup_date = $followupDate;
+
+        return $this;
+    }
+
+    /**
+     * Get followup_date
+     *
+     * @return \DateTime 
+     */
+    public function getFollowupDate()
+    {
+        return $this->followup_date;
     }
 }
