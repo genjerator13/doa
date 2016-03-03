@@ -21,17 +21,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'state'},
         {name:'zip'},
         {name:'country'},
+        {name:'followup_date',displayName: 'Follow up Date',type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'notes'},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {name:'Actions',enableFiltering: false,cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a>'}
 
     ];
-    //$scope.gridOptions.data.forEach( function( row, index){
-    //    row.sequence = index;
-    //});
-
     $scope.doSomething = function(row) {
         console.log(row.entity.id);
-        //$window.location.href = '/dms/customer/'+row.entity.id+'/edit';
     }
 
     var canceler = $q.defer();
