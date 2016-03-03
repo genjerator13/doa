@@ -20,3 +20,7 @@ dms_user:
 NumaDOADMSBundle_client:
     resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
     prefix:   /client
+
+NumaDOADMSBundle_note:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/note.yml"
+    prefix:   /note
