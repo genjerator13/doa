@@ -99,7 +99,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         Admindealer:
             type: boolean
             nullable: true
-
+        dms_status:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
