@@ -17,7 +17,7 @@
                 <p>Name: {{ ad.name }}</p>
             </div>
             <div class="url">
-                <p>Url: {{ ad.url }}</p>
+                <p>Url: <a href="{{ ad.url }}">Link</a></p>
             </div>
             <div class="startDate">
                 <p>Start date: {{ ad.startDate|date("m/d/Y") }}</p>
