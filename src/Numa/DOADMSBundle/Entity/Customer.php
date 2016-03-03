@@ -505,6 +505,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $name;
 

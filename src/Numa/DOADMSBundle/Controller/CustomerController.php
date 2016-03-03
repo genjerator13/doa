@@ -190,7 +190,7 @@ class CustomerController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if (count($form->getErrors(true)==0)) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
@@ -200,8 +200,15 @@ class CustomerController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
 
+        }else{
+
+            foreach($form->getErrors(true) as $error){
+                dump($error->getMessage());
+            }
+
+        }
+        die();
         return $this->redirect($this->generateUrl('customer'));
     }
 
