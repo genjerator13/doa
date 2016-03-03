@@ -88,7 +88,7 @@ class AdController extends Controller
             'action' => $this->generateUrl('ad_create'),
             'method' => 'POST',
         ));
-
+        $form->remove('Pages');
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -213,7 +213,7 @@ class AdController extends Controller
             'method' => 'POST',
             'csrf_protection' => false,
         ));
-
+        $form->remove('Pages');
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
