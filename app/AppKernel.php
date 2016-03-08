@@ -47,6 +47,7 @@ class AppKernel extends Kernel {
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOAApiBundle\NumaDOAApiBundle(),
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
+            new Numa\DOADMSBundle\NumaDOADMSBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

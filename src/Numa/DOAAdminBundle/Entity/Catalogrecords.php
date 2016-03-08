@@ -434,7 +434,9 @@ class Catalogrecords implements UserInterface
 
     public function getRoles()
     {
-
+        if (strtolower($this->getDmsStatus())=='activated') {
+            return array('ROLE_DMS_USER', 'ROLE_BUSINES');
+        }
         if ($this->getAdmindealer()) {
             return array('ROLE_DEALER_ADMIN', 'ROLE_BUSINES');
         }
@@ -1082,10 +1084,12 @@ class Catalogrecords implements UserInterface
     /**
      * Get dms_status
      *
-     * @return string 
+     * @return string
      */
     public function getDmsStatus()
     {
         return $this->dms_status;
     }
+
+
 }

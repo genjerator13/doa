@@ -1,0 +1,21 @@
+{% block extends %}
+{{ "{% extends 'NumaDOADMSBundle::layout.html.twig' %}" }}
+{{ "{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}" }}
+{% endblock extends %}
+
+{% block body %}
+{{ "{% block content %}" }}
+
+    <h1>{{ entity }} edit</h1>
+<div class="nav-tabs-custom">
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+    {{ '{{ form(edit_form) }}' }}
+
+    {% set hide_edit, hide_delete = true, false %}
+    {% include 'crud/views/others/record_actions.html.twig.twig' %}
+         </div>
+    </div>
+</div>
+{{ "{% endblock %}" }}
+{% endblock body %}
