@@ -1,0 +1,23 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+    <h1>Customer edit</h1>
+
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form(edit_form) }}
+
+                <ul class="record_actions">
+                    {% if(not is_granted('ROLE_BUSINES')) %}
+                        <li>
+                            <a href="{{ path('customer') }}" class="btn btn-primary">
+                                Back to the list
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+{% endblock %}

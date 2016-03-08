@@ -1,25 +1,38 @@
-    {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
-        <div class="list-group">
-        {% if(app.user.username is defined) %}<span class="list-group-item"><strong>Welcome, {{ app.user.username }}</strong></span> {% endif %}
+{% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') %}
+    <div class="list-group">
+        {% if(app.user.username is defined) %}<span class="list-group-item">
+            <strong>Welcome, {{ app.user.username }}</strong></span> {% endif %}
         {% if is_granted('ROLE_BUSINES') and app.user.username is defined %}
-            <a class="list-group-item" href="{{path('additem')}}">Add new listing</a>
+            <a class="list-group-item" href="{{ path('additem') }}">Add new listing</a>
             <a class="list-group-item" href="#">Supscriptions</a>
-            <a class="list-group-item" href="{{ path('browse_by_dealer',{'dealer_id': app.user.id,'dealername': app.user.username}) }}">My listings</a>
-            <a class="list-group-item" href="{{path('catalogs_edit',{'id':app.user.id})}}">My profile</a>
+            <a class="list-group-item"
+               href="{{ path('browse_by_dealer',{'dealer_id': app.user.id,'dealername': app.user.username}) }}">My
+                listings</a>
+            <a class="list-group-item" href="{{ path('catalogs_edit',{'id':app.user.id}) }}">My profile</a>
+            {% if(app.user.getDmsStatus() == "activated") %}
+
+            {% elseif((app.user.getDmsStatus()) == "pending") %}
+                <a class="list-group-item" href="#">Pending DMS activation</a>
+            {% else %}
+                <a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>
+            {% endif %}
         {% endif %}
-        <a class="list-group-item" href="{{path('buyer_saved_ads')}}">Saved Listings <span class="savedAds"></span></a>
-        <a class="list-group-item" href="{{path('buyer_saved_searches')}}">Saved Searches <span class="savedSearch"></span></a>
+        <a class="list-group-item" href="{{ path('buyer_saved_ads') }}">Saved Listings <span
+                    class="savedAds"></span></a>
+        <a class="list-group-item" href="{{ path('buyer_saved_searches') }}">Saved Searches <span
+                    class="savedSearch"></span></a>
         {% if is_granted('ROLE_USER') %}
-            <a class="list-group-item" href="{{path('profile')}}">My profile</a>
+            <a class="list-group-item" href="{{ path('profile') }}">My profile</a>
         {% endif %}
 
-            {% if is_granted('ROLE_DEALER_ADMIN') %}
-                <a class="list-group-item"  href="{{path('catalogs')}}">Manage Dealers <span class="savedSearch"></span></a>
-            {% endif %}
-            {% if is_granted('ROLE_DEALER_ADMIN') %}
-                <a class="list-group-item" href="{{path('items')}}">Manage All Listings <span class="savedSearch"></span></a>
-            {% endif %}
-        <a class="list-group-item" href="{{path('logout')}}">Logout </a>
-        
-        </div>
-    {% endif %}
+        {% if is_granted('ROLE_DEALER_ADMIN') %}
+            <a class="list-group-item" href="{{ path('catalogs') }}">Manage Dealers <span
+                        class="savedSearch"></span></a>
+        {% endif %}
+        {% if is_granted('ROLE_DEALER_ADMIN') %}
+            <a class="list-group-item" href="{{ path('items') }}">Manage All Listings <span class="savedSearch"></span></a>
+        {% endif %}
+        <a class="list-group-item" href="{{ path('logout') }}">Logout </a>
+
+    </div>
+{% endif %}

@@ -72,6 +72,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->cacheClear();
         } elseif ($command == 'listingListSlug') {
             $this->listingListSlug();
+        }elseif ($command == 'test') {
+            $this->test();
         }
     }
 
@@ -455,6 +457,13 @@ class DBUtilsCommand extends ContainerAwareCommand
             }
         }
         $em->flush();
+    }
+
+    public function test(){
+        $seoService = $this->getContainer()->get("Numa.Seo");
+        $seo = $seoService->generateSeoForFeed(1);
+
+        die();
     }
 
 }

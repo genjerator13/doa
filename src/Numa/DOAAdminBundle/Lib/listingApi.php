@@ -16,6 +16,8 @@ namespace Numa\DOAAdminBundle\Lib;
 
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\Container;
 
 class listingApi {
@@ -85,7 +87,7 @@ class listingApi {
         $res['id']=$item->get('id');
         $router=$this->container->get('router');
         //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
-        $urldesription= $item->getMake()."-".$item->getModel();
+        $urldesription= $item->getUrlDescription();
        // dump($item);die();
         $res['url']= $router->generate('item_details',array('itemId' => $item->getId(),'description'=>$urldesription),true);
 
@@ -126,5 +128,66 @@ class listingApi {
         return $res;
     }
 
+    public function formatResponse($items,$format){
+        if($format=='xml') {
+            $xml = $this->container->get('xml')->createXML('listing', $items);
+            $response = new Response($xml->saveXML());
+        }elseif($format=='json'){
+            $response = new Response(json_encode($items));
+        }elseif($format=='csv'){
+            $csv ="";
+            $headers = array();
+            $values = array();
+            if(array_key_exists('id',$items))
+            {
+                foreach($items as $key=>$value){
+                    $headers[]=$key;
+                    $values[]=$value;
+                }
+                $headerCsv = implode(',',$headers);
+                $valuesCsv = implode(',',$values);
+                $csv = $headerCsv."\n".$valuesCsv;
+                $response = new Response($csv);
+                $response->setStatusCode(200);
+                $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+                return $response;
+            }elseif(array_key_exists('listing',$items)) {
 
+                $maxHeaders = array();
+                $max=0;
+                foreach ($items['listing'] as $itemkey=>$item) {
+                    $headers = array();
+                    foreach($item as $key=>$value){
+
+                        $headers[$key]=$key;
+                        $values[$itemkey][$key]=self::clearValueForCsv($value);
+                    }
+
+                }
+                //dump($values);
+                //dump($headers);die();
+                $csv=array();
+                $headerCsv = implode(',',$headers);
+                $valuesCsv="";
+                foreach($values as $itemkey=>$item){
+
+                    foreach($headers as $key=>$value){
+                        $csv[$itemkey][$key]=$item[$key];
+                    }
+                    $valuesCsv .= implode(',',$csv[$itemkey])."\n";
+                }
+                $csv = $headerCsv."\n".$valuesCsv;
+            }
+
+            $response = new Response($csv);
+            $response->setStatusCode(200);
+            $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+
+        }
+        return $response;
+    }
+
+    public static function clearValueForCsv($value){
+        return str_replace("\n","-",$value);
+    }
 }

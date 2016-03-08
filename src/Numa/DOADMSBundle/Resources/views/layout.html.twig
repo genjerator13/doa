@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- default:main:default.tpl -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" ng-app="app">
+<head >
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title>Dealers on Air Admin Panel </title>
+    {% block stylesheets %}
+        {% stylesheets  '@bootstrap' '@jquery_ui_css' '@admin' '@dropzone_css' '@colorbox_css' '@AdminLTE_css' '@DMS_red_skin_css' filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.5 -->
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        {% javascripts '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="#" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>DOA</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Dealers Management System</b></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('dms_activate') }}">
+                            <i class="fa fa-rocket"></i>
+                            <span class="">Activate DMS</span>
+                        </a>
+
+                    </li><!-- /.messages-menu -->
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('homepage') }}">
+                            <i class="fa fa-link"></i>
+                            <span class="">Visit Site</span>
+                        </a>
+
+                    </li><!-- /.messages-menu -->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('logout') }}">
+                            <i class="fa fa-sign-out"></i>
+                            <span class="">Logout</span>
+                        </a>
+
+                    </li><!-- /.messages-menu -->
+                    <!-- Control Sidebar Toggle Button -->
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="">
+                    <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>
+                </li>
+                <li class="">
+                    <a href="#{#{{ path('setting') }}#}" class=""><i class="fa fa-user"></i>Users</a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Dealers on Air
+                <small>Dealers Management System Dashbard</small>
+            </h1>
+
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            {% block content %}
+            {% endblock %}
+
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            DMS
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2015 <a href="#">Dealers On Air</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+
+
+            </div><!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+
+            </div><!-- /.tab-pane -->
+        </div>
+    </aside><!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+</body>
+</html>
+
+<!-- /default:main:default.tpl -->
+
