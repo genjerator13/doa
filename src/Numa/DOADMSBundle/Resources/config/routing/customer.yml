@@ -28,3 +28,11 @@ customer_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Customer:delete" }
     requirements: { _method: post|delete }
+
+customer_addnote:
+    path:     /{id}/addnote
+    defaults: { _controller: "NumaDOADMSBundle:Note:new" }
+
+customer_addnote:
+    path:     /{id}/shownote
+    defaults: { _controller: "NumaDOADMSBundle:Note:index" }

@@ -24,7 +24,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'followup_date',displayName: 'Follow up Date',type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
         {name:'notes'},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
-        {name:'Actions',enableColumnMenu: false,enableSorting:false, enableFiltering: false,cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" >Delete</a>'}
+        {name:'Actions', width: 300, enableColumnMenu: false,enableSorting:false, enableFiltering: false,cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" >Delete</a><a href="/dms/customers/{{row.entity.id}}/addnote" class="btn btn-primary">Add Note</a><a href="/dms/customers/{{row.entity.id}}/addnote" class="btn btn-primary">Add Note</a><a href="/dms/customers/{{row.entity.id}}/shownote" class="btn btn-primary">Show Note</a>'}
 
     ];
 
