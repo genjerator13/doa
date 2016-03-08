@@ -16,7 +16,8 @@ class NoteType extends AbstractType
     {
         $builder
             ->add('subject')
-            ->add('notes')
+            ->add('notes','textarea', array('attr' => array('rows' => '10')))
+            ->add('customer_id','hidden')
             ->add('date_remind','date')
         ;
     }

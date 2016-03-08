@@ -39,8 +39,13 @@ class NoteController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
+
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+            $entity->setCustomer($customer);
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('note'));
@@ -76,9 +81,14 @@ class NoteController extends Controller
      * Displays a form to create a new Note entity.
      *
      */
-    public function newAction()
+    public function newAction($id)
     {
+
+
         $entity = new Note();
+        $entity->setCustomerId($id);
+
+
         $form   = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:Note:new.html.twig', array(
