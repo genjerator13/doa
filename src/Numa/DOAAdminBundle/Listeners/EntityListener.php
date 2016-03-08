@@ -128,9 +128,11 @@ class EntityListener {
             $this->setPassword($entity);
             $pass = $entity->getPassword();
             if(!empty($pass)){
+
                 $args->setNewValue('password', $entity->getPassword());
             }
         }
+
         if ($entity instanceof Item) {
                 //$entity->equalizeItemFields();
                 //$setting = $this->container->get("Numa.settings");

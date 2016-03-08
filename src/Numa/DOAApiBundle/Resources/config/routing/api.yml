@@ -5,6 +5,9 @@
 ads_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/ad.yml"
         prefix:   /ads
+customer_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/customer.yml"
+        prefix:   /customer
 listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}

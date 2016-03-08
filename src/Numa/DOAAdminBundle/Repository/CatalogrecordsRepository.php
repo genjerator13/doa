@@ -10,45 +10,46 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 
-class CatalogrecordsRepository extends EntityRepository implements UserProviderInterface, ContainerAwareInterface{
+class CatalogrecordsRepository extends EntityRepository implements UserProviderInterface, ContainerAwareInterface
+{
     /**
      * @var ContainerInterface
      */
     private $container;
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
 
-    public function xfindByDCategory($dcatId) {
+    public function xfindByDCategory($dcatId)
+    {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('d')->distinct()
             ->add('from', 'NumaDOAAdminBundle:Catalogrecords d')
-            ->innerJoin('NumaDOAAdminBundle:DealerCategories','dc',"WITH","d.id=dc.dealer_id")
-            ->andWhere("dc.category_id=".$dcatId);
-        ;
+            ->innerJoin('NumaDOAAdminBundle:DealerCategories', 'dc', "WITH", "d.id=dc.dealer_id")
+            ->andWhere("dc.category_id=" . $dcatId);;
         $query = $qb->getQuery();
         return $query->getResult();
     }
 
-    public function findByDealerUsername($username) {
+    public function findByDealerUsername($username)
+    {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('d')->distinct()
             ->add('from', 'NumaDOAAdminBundle:Catalogrecords d')
-
             ->andWhere("d.username like :username")
-            ->setParameter("username","%".$username."%");
-        ;
+            ->setParameter("username", "%" . $username . "%");;
         $query = $qb->getQuery();
         //dump($query);
         return $query->getResult();
     }
 
 
-
-    public function isInProgress() {
+    public function isInProgress()
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('cl')->distinct()
             ->add('from', 'NumaDOAAdminBundle:CommandLog cl')
@@ -68,7 +69,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $user = $this->findOneByUsernameOrEmail($username);
 
         if (!$user) {
-            throw new UsernameNotFoundException('No user found for username '.$username);
+            throw new UsernameNotFoundException('No user found for username ' . $username);
         }
 
         return $user;
@@ -107,20 +108,32 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             ->getOneOrNullResult();
     }
 
-    public function updatePassword($user,$password){
+    public function updatePassword($user, $password)
+    {
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user);
 
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
 
-        $qb=$this->createQueryBuilder('d')
+        $qb = $this->createQueryBuilder('d')
             ->update()
-            ->set('d.password',':pass')
+            ->set('d.password', ':pass')
             ->where('d.id= :id')
             ->setParameter('pass', $encodedPassword)
             ->setParameter('id', $user->getId());
 
         return $qb->getQuery()->execute();
+    }
+    public function updateDmsStatus($dealer_id, $status)
+    {
+        $sql = "
+        UPDATE catalog_records
+        SET dms_status='".$status."'
+        WHERE id=".$dealer_id;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+
     }
 
 
