@@ -1,0 +1,4 @@
+dms:
+        resource: "@NumaDOADMSBundle/Resources/config/routing/dms.yml"
+        prefix:   /
+

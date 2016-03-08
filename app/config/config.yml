@@ -63,7 +63,7 @@ twig:
 assetic:
     debug: %kernel.debug%
     use_controller: false
-    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle' ]
+    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle' ]
     filters:
         cssrewrite: ~
         less:
@@ -111,7 +111,12 @@ assetic:
         AdminLTE_blue_skin_css:
             inputs:
                - '%kernel.root_dir%/../web/css/skins/skin-blue.css'
-
+        DMS_green_skin_css:
+            inputs:
+               - '%kernel.root_dir%/../web/css/skins/skin-green.css'
+        DMS_red_skin_css:
+            inputs:
+               - '%kernel.root_dir%/../web/css/skins/skin-red.css'
         #javascript
 
 

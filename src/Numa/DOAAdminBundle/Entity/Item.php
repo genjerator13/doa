@@ -3456,6 +3456,9 @@ class Item
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
         $url = trim($url, " -");
+        if(empty($url)){
+            $url="details";
+        }
         return $url;
     }
 
