@@ -1090,40 +1090,6 @@ class Catalogrecords implements UserInterface
     {
         return $this->dms_status;
     }
-    /**
-     * @var string
-     */
-    private $dms_status;
 
-
-    /**
-     * Set dms_status
-     *
-     * @param string $dmsStatus
-     * @return Catalogrecords
-     */
-    public function setDmsStatus($dmsStatus)
-    {
-        $this->dms_status = $dmsStatus;
-
-        return $this;
-    }
-
-    /**
-     * Get dms_status
-     *
-     * @return string
-     */
-    public function getDmsStatus()
-    {
-        return $this->dms_status;
-    }
-
-    public function isActivatedLinkAvailable(){
-        $dontShowLink =
-                    strtolower($this->getDmsStatus())=='activated';
-
-        return $dontShowLink;
-    }
 
 }
