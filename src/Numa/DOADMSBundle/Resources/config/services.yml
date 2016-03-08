@@ -1,0 +1,7 @@
+parameters:
+#    numa_doadms.example.class: Numa\DOADMSBundle\Example
+
+services:
+#    numa_doadms.example:
+#        class: %numa_doadms.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

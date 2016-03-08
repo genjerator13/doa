@@ -51,7 +51,7 @@ class CatalogrecordsController extends Controller {
             $em->flush();
             $entity->upload();
             $em->flush();
-            return $this->redirect($this->generateUrl('catalogs_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('catalogs', array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:new.html.twig', array(

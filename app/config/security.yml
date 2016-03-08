@@ -4,8 +4,9 @@ security:
         ROLE_USER:       ROLE_USER
         ROLE_BUSINES:    ROLE_BUSINES
         ROLE_DEALER_ADMIN:    ROLE_DEALER_ADMIN
+        ROLE_DMS_USER:      ROLE_DMS_USER
         ROLE_ADMIN:      ROLE_ADMIN
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES,ROLE_DEALER_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER]
 
     firewalls:
         dev:
@@ -44,6 +45,7 @@ security:
         - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
         - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER] }
 
 
 
