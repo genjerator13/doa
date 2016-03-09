@@ -231,4 +231,19 @@ class NoteController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * Lists all Notes entities.
+     *
+     */
+    public function notesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Note')->findAll();
+
+        return $this->render('NumaDOADMSBundle:Customer:notes.html.twig', array(
+            'entities' => $entities,
+        ));
+    }
 }

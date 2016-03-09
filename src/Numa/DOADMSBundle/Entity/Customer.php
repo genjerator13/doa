@@ -567,4 +567,78 @@ class Customer
         // TODO: Implement __toString() method.
         return $this->getName()."";
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @JMS\Expose
+     */
+    private $Note;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add Note
+     *
+     * @param \Numa\DOADMSBundle\Entity\Note $note
+     * @return Customer
+     */
+    public function addNote(\Numa\DOADMSBundle\Entity\Note $note)
+    {
+        $this->Note[] = $note;
+
+        return $this;
+    }
+
+    /**
+     * Remove Note
+     *
+     * @param \Numa\DOADMSBundle\Entity\Note $note
+     */
+    public function removeNote(\Numa\DOADMSBundle\Entity\Note $note)
+    {
+        $this->Note->removeElement($note);
+    }
+
+    /**
+     * Get Note
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNote()
+    {
+        return $this->Note;
+    }
+    /**
+     * @var string
+     */
+    private $anotes;
+
+
+    /**
+     * Set anotes
+     *
+     * @param string $anotes
+     * @return Customer
+     */
+    public function setAnotes($anotes)
+    {
+        $this->anotes = $anotes;
+
+        return $this;
+    }
+
+    /**
+     * Get anotes
+     *
+     * @return string 
+     */
+    public function getAnotes()
+    {
+        return $this->anotes;
+    }
 }

@@ -55,7 +55,7 @@ Numa\DOADMSBundle\Entity\Customer:
              type: string
              length: 255
              nullable: true
-        notes:
+        anotes:
              type: text
              nullable: true
         followup_date:
@@ -77,6 +77,11 @@ Numa\DOADMSBundle\Entity\Customer:
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
+    oneToMany:
+        Note:
+            targetEntity: Note
+            mappedBy: Customer
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

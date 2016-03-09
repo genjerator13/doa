@@ -40,7 +40,11 @@
         </div>
     </div>
     <div class="box-body table-responsive no-padding">
+
     <div ng-controller="MainCtrl">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+        </script>
         <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
                 <h3 class="modal-title">Please confirm</h3>
@@ -51,7 +55,8 @@
                 <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
             </div>
         </script>
-        <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+
+        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning class="grid"></div>
     </div>
 
 {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}

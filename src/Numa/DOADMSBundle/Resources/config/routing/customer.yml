@@ -36,3 +36,7 @@ customer_addnote:
 customer_shownote:
     path:     /{id}/shownote
     defaults: { _controller: "NumaDOADMSBundle:Note:index" }
+
+customer_notes:
+    path:     /notes.html
+    defaults: { _controller: "NumaDOADMSBundle:Note:notes" }

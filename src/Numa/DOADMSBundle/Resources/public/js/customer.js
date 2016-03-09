@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngTouch','ngAnimate', 'ui.grid','ui.grid.moveColumns','ui.grid.resizeColumns','ui.grid.selection','ui.bootstrap']);
+var app = angular.module('app', ['ngTouch','ngAnimate', 'ui.grid','ui.grid.moveColumns','ui.grid.resizeColumns','ui.grid.selection','ui.grid.expandable','ui.bootstrap', 'ui.grid.pinning']);
 
 app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants','$q','$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants,$q,$uibModal) {
     $scope.gridOptions = {
@@ -10,7 +10,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         selectionRowHeaderWidth: 35,
         rowHeight: 35,
         enableColumnResizing: true,
-       // rowTemplate: '<div ng-click="grid.appScope.doSomething(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.uid" class="ui-grid-cell" ng-class="col.colIndex()" ui-grid-cell></div>',
+        expandableRowTemplate: 'notes.html',
+        expandableRowHeight: 150,
+        //subGridVariable will be available in subGrid scope
+        expandableRowScope: {
+            subGridVariable: 'subGridScopeVariable'
+        }
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
@@ -24,7 +29,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'followup_date',displayName: 'Follow up Date',type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
         {name:'notes'},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
-        {name:'Actions', width: 300, enableColumnMenu: false,enableSorting:false, enableFiltering: false,cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" >Delete</a><a href="/dms/customers/{{row.entity.id}}/addnote" class="btn btn-primary">Add Note</a><a href="/dms/customers/{{row.entity.id}}/shownote" class="btn btn-primary">Show Note</a>'}
+        {name:'Actions',
+            width: 300,
+            enableColumnMenu: false,
+            enableSorting:false,
+            enableFiltering: false,
+            cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" >Delete</a><a href="/dms/customers/{{row.entity.id}}/addnote" class="btn btn-link">Add Note</a>'}
 
     ];
 
@@ -64,7 +74,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     var canceler = $q.defer();
     $http.get('/api/customer/all', {timeout: canceler.promise})
         .success(function(data) {
-            console.log(data);
+            for(i = 0; i < data.length; i++){
+                data[i].subGridOptions = {
+                    columnDefs: [ {name:"subject", field:"subject"},{name:"notes", field:"notes"},{name:"date_remind", field:"date_remind"} ],
+                    data: data[i]._note
+                }
+
+            }
+            //console.log(data);
+            //$scope.gridOptions.data = data;
             $scope.gridOptions.data = data;
 
         });
