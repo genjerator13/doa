@@ -30,7 +30,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'notes'},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {name:'Actions',
-            width: 300,
+            width: 200,
             enableColumnMenu: false,
             enableSorting:false,
             enableFiltering: false,
@@ -76,7 +76,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         .success(function(data) {
             for(i = 0; i < data.length; i++){
                 data[i].subGridOptions = {
-                    columnDefs: [ {name:"subject", field:"subject"},{name:"notes", field:"notes"},{name:"date_remind", field:"date_remind"} ],
+                    columnDefs: [
+                        {name:"subject", field:"subject", width:"150"},
+                        {name:"notes", field:"notes"},
+                        {name:"date_remind", field:"date_remind", type:"date", cellFilter:"date:\'yyyy-MM-dd\'", width:"150"} ],
                     data: data[i]._note
                 }
 

@@ -48,7 +48,7 @@ class NoteController extends Controller
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('note'));
+            return $this->redirect($this->generateUrl('customer'));
 
         }
 
