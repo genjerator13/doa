@@ -580,7 +580,7 @@ class Customer
      */
     public function __construct()
     {
-
+        $this->followup_date = new \DateTime();
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
