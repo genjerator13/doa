@@ -7,25 +7,29 @@
     <meta name="description" content=""/>
     <title>Dealers on Air Admin Panel </title>
     {% block stylesheets %}
-        {% stylesheets  '@bootstrap' '@jquery_ui_css' '@admin' '@dropzone_css' '@colorbox_css' '@AdminLTE_css' '@DMS_red_skin_css' filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets  '@bootstrap'
+                        '@jquery_ui_css'
+                        '@admin'
+                        '@dropzone_css'
+                        '@colorbox_css'
+                        '@AdminLTE_css'
+                        '@DMS_red_skin_css'
+                        'css/font-awesome.min.css'
+                        'css/ionicons.min.css'
+                        filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
     {% endblock %}
 
     {% block javascripts %}
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        <!-- Tell the browser to be responsive to screen width -->
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-        <!-- Ionicons -->
-        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-        {% javascripts '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
+        {% javascripts 'js/jquery/jquery.1.11.0.min.js' 'js/jquery/jquery.1.11.0.min.js' '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
     {% endblock %}
 </head>
 <body class="hold-transition skin-red sidebar-mini">

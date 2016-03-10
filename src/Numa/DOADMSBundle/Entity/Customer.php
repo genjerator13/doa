@@ -35,30 +35,31 @@ class Customer
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $city;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $state;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $zip;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $country;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $home_phone;
 
@@ -69,6 +70,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $mobile_phone;
 
@@ -640,5 +642,67 @@ class Customer
     public function getAnotes()
     {
         return $this->anotes;
+    }
+
+    /**
+     * @var string
+     * @JMS\Type("DateTime<'Y-m-d'>")
+     * @JMS\expose
+     */
+    private $lastnoteadded;
+
+
+    /**
+     * Set anotes
+     *
+     * @param string $lastnoteadded
+     * @return Customer
+     */
+    public function setLastnoteadded($lastnoteadded)
+    {
+        $this->lastnoteadded = $lastnoteadded;
+
+        return $this;
+    }
+
+    /**
+     * Get $lastnoteadded
+     *
+     * @return string
+     */
+    public function getLastnoteadded()
+    {
+        return $this->lastnoteadded;
+    }
+
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $sales_person;
+
+
+    /**
+     * Set sales_person
+     *
+     * @param string $salesPerson
+     * @return Customer
+     */
+    public function setSalesPerson($salesPerson)
+    {
+        $this->sales_person = $salesPerson;
+
+        return $this;
+    }
+
+    /**
+     * Get sales_person
+     *
+     * @return string 
+     */
+    public function getSalesPerson()
+    {
+        return $this->sales_person;
     }
 }

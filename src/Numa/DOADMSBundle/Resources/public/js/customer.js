@@ -21,13 +21,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.gridOptions.columnDefs = [
         {name:'id', enableColumnResizing: true,width: 50},
         {name:'name',enableColumnResizing: true},
-        
-        {name:'city'},
-        {name:'state'},
-        {name:'zip'},
-        {name:'country'},
+        {name:'home_phone'},
+        {name:'mobile_phone'},
+        {name:'email'},
+        {name:'sales_person'},
         {name:'followup_date',displayName: 'Follow up Date',type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'notes'},
+        {name:'lastnoteadded'},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {name:'Actions',
             width: 200,

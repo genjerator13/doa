@@ -2,7 +2,7 @@
 {% block stylesheets %}
 {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css" rel="stylesheet"/>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
     <style>
         .grid {
             width: 100%;
@@ -12,22 +12,27 @@
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-
     {% javascripts
-    '@NumaDOADMSBundle/Resources/public/js/customer.js' 'js/angular/angular-confirm.min.js' 'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+    'js/angular/vfs-fonts.js'
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    '@NumaDOADMSBundle/Resources/public/js/customer.js'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
 {% endblock javascripts %}
 
 
 {% block content %}
-
+    {#'js/angular/angular-touch143.min.js'#}
+    {#'js/angular/angular-animate143.min.js'#}
+    {#'js/angular/vfs-fonts.js'#}
+    {#'js/angular/ui-grid.min.js'#}
 
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <div class="box">

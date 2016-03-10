@@ -35,30 +35,31 @@ class Customer
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $city;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $state;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $zip;
 
     /**
      * @var string
-     * @JMS\Expose
+     *
      */
     private $country;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $home_phone;
 
@@ -69,6 +70,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $mobile_phone;
 
@@ -569,6 +571,7 @@ class Customer
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @JMS\Expose
      */
     private $Note;
 
@@ -611,5 +614,33 @@ class Customer
     public function getNote()
     {
         return $this->Note;
+    }
+    /**
+     * @var string
+     */
+    private $anotes;
+
+
+    /**
+     * Set anotes
+     *
+     * @param string $anotes
+     * @return Customer
+     */
+    public function setAnotes($anotes)
+    {
+        $this->anotes = $anotes;
+
+        return $this;
+    }
+
+    /**
+     * Get anotes
+     *
+     * @return string 
+     */
+    public function getAnotes()
+    {
+        return $this->anotes;
     }
 }
