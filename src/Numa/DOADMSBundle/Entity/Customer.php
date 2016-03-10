@@ -580,6 +580,7 @@ class Customer
      */
     public function __construct()
     {
+
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

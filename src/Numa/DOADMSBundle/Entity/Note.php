@@ -271,4 +271,13 @@ class Note
     {
         // Add your code here
     }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->date_remind = new \DateTime();
+
+    }
 }
