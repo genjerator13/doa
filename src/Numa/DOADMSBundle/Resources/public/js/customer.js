@@ -26,7 +26,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'email'},
         {name:'sales_person'},
         {name:'followup_date',displayName: 'Follow up Date',type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'lastnoteadded',displayName: 'Notes'},
+        {name:'lastnoteadded',displayName: 'Last Note Added',cellFilter: 'date:\'yyyy-MM-dd\''},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {name:'Actions',
             width: 200,

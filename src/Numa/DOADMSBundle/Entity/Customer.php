@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Entity;
 
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
@@ -582,6 +583,7 @@ class Customer
     {
         $this->followup_date = new \DateTime();
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->getLastnoteadded();
     }
 
     /**
@@ -618,6 +620,7 @@ class Customer
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $anotes;
 
@@ -642,19 +645,30 @@ class Customer
      */
     public function getAnotes()
     {
+        $criteria = Criteria::create()
+
+            ->orderBy(array("date_remind" => "DESC"));
+
+        $lastnoteadded = $this->getNote()->matching($criteria);
+        $this->lastnoteadded = "";
+        if(!empty($lastnoteadded->first())) {
+            $this->anotes = $lastnoteadded->first()->getDateRemind();
+        }
+
+        return $this->anotes;
         return $this->anotes;
     }
 
     /**
      * @var string
-     * @JMS\Type("DateTime<'Y-m-d'>")
-     * @JMS\expose
+     * @JMS\Expose
+     * @JMS\Accessor(getter="getLastnoteadded",setter="setLastnoteadded")
      */
     private $lastnoteadded;
 
 
     /**
-     * Set anotes
+     * Set lastnoteadded
      *
      * @param string $lastnoteadded
      * @return Customer
@@ -670,10 +684,24 @@ class Customer
      * Get $lastnoteadded
      *
      * @return string
+     * @JMS\VirtualProperty
      */
     public function getLastnoteadded()
     {
+
+        $criteria = Criteria::create()
+
+            ->orderBy(array("date_remind" => "DESC"));
+
+        $lastnoteadded = $this->getNote()->matching($criteria);
+        $this->lastnoteadded = "No notes";
+        if(!empty($lastnoteadded->first())) {
+            $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
+        }
+
         return $this->lastnoteadded;
+
+
     }
 
 
