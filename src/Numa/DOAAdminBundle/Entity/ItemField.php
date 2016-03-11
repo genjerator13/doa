@@ -315,7 +315,6 @@ class ItemField {
                     $key = trim($key);
 
                     if (strtolower($key) == strtolower($value)) {
-                        
                         $value = trim($mapValue);
                     }
                 }
