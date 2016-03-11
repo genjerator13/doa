@@ -21,9 +21,8 @@
     }
 
 </style>
-
+{% if(ads is defined and ads is empty) %}
 <div class="right-side-ads">
-
     {% for ad in ads %}
         <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
             {% if(ad.photo is not empty) %}
@@ -32,7 +31,7 @@
         </a>
     {% endfor %}
 </div>
-
+{% endif %}
 <script>
     $(function () {
         $(".right-side-ad").click(function (e) {
