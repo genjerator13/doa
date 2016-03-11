@@ -561,7 +561,7 @@ class Customer
     {
         return $this->followup_date;
     }
-    private function __toString()
+    public function __toString()
     {
         // TODO: Implement __toString() method.
         return $this->getName()."";
