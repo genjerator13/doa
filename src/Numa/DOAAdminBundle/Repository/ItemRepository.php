@@ -371,7 +371,7 @@ class ItemRepository extends EntityRepository
 
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingField->getType();
-//
+
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
