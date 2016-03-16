@@ -334,8 +334,8 @@ class Ad
      */
     public function setCreatedAtValue() {
         if (!$this->getCreatedAt()) {
-            $this->created_at = new \DateTime();
-            $this->updated_at = new \DateTime();
+            $this->createdAt = new \DateTime();
+            $this->updatedAt = new \DateTime();
         }
     }
 
@@ -343,10 +343,7 @@ class Ad
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-        if(empty($this->dontupdate)){
-
-            $this->created_at = new \DateTime();
-        }
+            $this->createdAt = new \DateTime();
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
