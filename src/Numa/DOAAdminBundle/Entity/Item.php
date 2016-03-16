@@ -1136,7 +1136,7 @@ class Item
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
-        if($separator="/r/n") {
+        if(strtolower($separator)=="{newline}") {
             $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
         }
 
