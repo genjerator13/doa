@@ -307,10 +307,13 @@ class ItemField {
             $value = (string) trim($value);
         }
 
+        //process mapvalues map values
         if (!empty($valueMapValues)) {
             $json = json_decode($valueMapValues, true);
             if (!empty($json)) {
                 foreach ($json as $key => $mapValue) {
+                    $key = trim($key);
+
                     if (strtolower($key) == strtolower($value)) {
                         $value = trim($mapValue);
                     }

@@ -36,25 +36,25 @@ class Customer
 
     /**
      * @var string
-     *
+     * @JMS\Expose
      */
     private $city;
 
     /**
      * @var string
-     *
+     * @JMS\Expose
      */
     private $state;
 
     /**
      * @var string
-     *
+     * @JMS\Expose
      */
     private $zip;
 
     /**
      * @var string
-     *
+     * @JMS\Expose
      */
     private $country;
 
@@ -564,7 +564,7 @@ class Customer
     {
         return $this->followup_date;
     }
-    
+
     public function __toString()
     {
         // TODO: Implement __toString() method.
@@ -612,7 +612,7 @@ class Customer
     /**
      * Get Note
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getNote()
     {
@@ -641,7 +641,7 @@ class Customer
     /**
      * Get anotes
      *
-     * @return string 
+     * @return string
      */
     public function getAnotes()
     {
@@ -728,7 +728,7 @@ class Customer
     /**
      * Get sales_person
      *
-     * @return string 
+     * @return string
      */
     public function getSalesPerson()
     {

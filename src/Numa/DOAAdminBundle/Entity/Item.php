@@ -1136,6 +1136,9 @@ class Item
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
+        if(strtolower($separator)=="{newline}") {
+            $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
+        }
 
         $order = 1;
 
@@ -3456,6 +3459,9 @@ class Item
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
         $url = trim($url, " -");
+        if(empty($url)){
+            $url="details";
+        }
         return $url;
     }
 
