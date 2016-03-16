@@ -1136,6 +1136,9 @@ class Item
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
+        if($separator="/r/n") {
+            $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
+        }
 
         $order = 1;
 
