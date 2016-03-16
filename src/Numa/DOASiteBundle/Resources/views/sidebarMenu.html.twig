@@ -9,13 +9,13 @@
                href="{{ path('browse_by_dealer',{'dealer_id': app.user.id,'dealername': app.user.username}) }}">My
                 listings</a>
             <a class="list-group-item" href="{{ path('catalogs_edit',{'id':app.user.id}) }}">My profile</a>
-            {% if(app.user.getDmsStatus() == "activated") %}
+            {#{% if(app.user.getDmsStatus() == "activated") %}#}
 
-            {% elseif((app.user.getDmsStatus()) == "pending") %}
-                <a class="list-group-item" href="#">Pending DMS activation</a>
-            {% else %}
-                <a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>
-            {% endif %}
+            {#{% elseif((app.user.getDmsStatus()) == "pending") %}#}
+                {#<a class="list-group-item" href="#">Pending DMS activation</a>#}
+            {#{% else %}#}
+                {#<a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>#}
+            {#{% endif %}#}
         {% endif %}
         <a class="list-group-item" href="{{ path('buyer_saved_ads') }}">Saved Listings <span
                     class="savedAds"></span></a>
