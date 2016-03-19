@@ -3,11 +3,10 @@
 namespace Numa\DOADMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
 /**
- * Note
+ * Billing
  */
-class Note
+class Billing
 {
     /**
      * @var int
@@ -18,21 +17,6 @@ class Note
      * @var int
      */
     private $customer_id;
-
-    /**
-     * @var string
-     */
-    private $subject;
-
-    /**
-     * @var string
-     */
-    private $notes;
-
-    /**
-     * @var \DateTime
-     */
-    private $date_remind;
 
     /**
      * @var \DateTime
@@ -48,6 +32,16 @@ class Note
      * @var string
      */
     private $status;
+
+    /**
+     * @var string
+     */
+    private $totalAMT;
+
+    /**
+     * @var string
+     */
+    private $comments;
 
     /**
      * @var \Numa\DOADMSBundle\Entity\Customer
@@ -70,7 +64,7 @@ class Note
      *
      * @param int $customerId
      *
-     * @return Note
+     * @return Billing
      */
     public function setCustomerId($customerId)
     {
@@ -90,83 +84,11 @@ class Note
     }
 
     /**
-     * Set subject
-     *
-     * @param string $subject
-     *
-     * @return Note
-     */
-    public function setSubject($subject)
-    {
-        $this->subject = $subject;
-
-        return $this;
-    }
-
-    /**
-     * Get subject
-     *
-     * @return string
-     */
-    public function getSubject()
-    {
-        return $this->subject;
-    }
-
-    /**
-     * Set notes
-     *
-     * @param string $notes
-     *
-     * @return Note
-     */
-    public function setNotes($notes)
-    {
-        $this->notes = $notes;
-
-        return $this;
-    }
-
-    /**
-     * Get notes
-     *
-     * @return string
-     */
-    public function getNotes()
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Set dateRemind
-     *
-     * @param \DateTime $dateRemind
-     *
-     * @return Note
-     */
-    public function setDateRemind($dateRemind)
-    {
-        $this->date_remind = $dateRemind;
-
-        return $this;
-    }
-
-    /**
-     * Get dateRemind
-     *
-     * @return \DateTime
-     */
-    public function getDateRemind()
-    {
-        return $this->date_remind;
-    }
-
-    /**
      * Set dateCreated
      *
      * @param \DateTime $dateCreated
      *
-     * @return Note
+     * @return Billing
      */
     public function setDateCreated($dateCreated)
     {
@@ -190,7 +112,7 @@ class Note
      *
      * @param \DateTime $dateUpdated
      *
-     * @return Note
+     * @return Billing
      */
     public function setDateUpdated($dateUpdated)
     {
@@ -214,7 +136,7 @@ class Note
      *
      * @param string $status
      *
-     * @return Note
+     * @return Billing
      */
     public function setStatus($status)
     {
@@ -234,11 +156,59 @@ class Note
     }
 
     /**
+     * Set totalAMT
+     *
+     * @param string $totalAMT
+     *
+     * @return Billing
+     */
+    public function setTotalAMT($totalAMT)
+    {
+        $this->totalAMT = $totalAMT;
+
+        return $this;
+    }
+
+    /**
+     * Get totalAMT
+     *
+     * @return string
+     */
+    public function getTotalAMT()
+    {
+        return $this->totalAMT;
+    }
+
+    /**
+     * Set comments
+     *
+     * @param string $comments
+     *
+     * @return Billing
+     */
+    public function setComments($comments)
+    {
+        $this->comments = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return string
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
      * Set customer
      *
      * @param \Numa\DOADMSBundle\Entity\Customer $customer
      *
-     * @return Note
+     * @return Billing
      */
     public function setCustomer(\Numa\DOADMSBundle\Entity\Customer $customer = null)
     {
@@ -271,13 +241,5 @@ class Note
     {
         // Add your code here
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->date_remind = new \DateTime();
-
-    }
 }
+

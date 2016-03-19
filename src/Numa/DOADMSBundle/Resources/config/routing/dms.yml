@@ -24,3 +24,6 @@ NumaDOADMSBundle_client:
 NumaDOADMSBundle_note:
     resource: "@NumaDOADMSBundle/Resources/config/routing/note.yml"
     prefix:   /note
+NumaDOADMSBundle_billing:
+        resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
+        prefix:   /billing
