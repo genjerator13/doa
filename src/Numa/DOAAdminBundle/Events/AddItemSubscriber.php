@@ -14,7 +14,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class AddItemSubscriber implements EventSubscriberInterface
 {
-
     protected $em;
     protected $securityContext;
     protected $dealerID;
@@ -26,9 +25,7 @@ class AddItemSubscriber implements EventSubscriberInterface
         $this->em = $em;
         $this->dealerID = $dealerID;
         $this->category = $category;
-
         $this->securityContext = $securityContext;
-
     }
 
     public static function getSubscribedEvents()
@@ -45,21 +42,7 @@ class AddItemSubscriber implements EventSubscriberInterface
 
     public function postSubmitData(FormEvent $event)
     {
-        $item = $event->getData();
-        $form = $event->getForm();
 
-        if ($item instanceof Item) {
-            $seo = $item->getSeo();
-            if ($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()) {
-
-            } else {
-
-                //$setting = $this->container->get("numa.settings");
-                //dump($seo);die();
-
-            }
-        }
-        //die();
     }
 
     /**
@@ -72,9 +55,6 @@ class AddItemSubscriber implements EventSubscriberInterface
 
         $item = $event->getData();
         $form = $event->getForm();
-        //$formItemFields = $form->get('Itemfield');
-        //$data->removeAllItemField();
-        //$data->getDoors();
         //check all 
         $cat = $item->getCategoryId();
         if ($this->category instanceof \Numa\DOAAdminBundle\Entity\Category) {
@@ -104,12 +84,10 @@ class AddItemSubscriber implements EventSubscriberInterface
                     }
                     //if the value is not in the list addi it
 
-                    if(!in_array($selected, $values)) {
+                    if (!in_array($selected, $values)) {
                         $values[$selected] = $selected;
-//                        dump($selected);
-//                        dump($values);
                     }
-                    
+
                     //make form     name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
@@ -123,16 +101,11 @@ class AddItemSubscriber implements EventSubscriberInterface
                     foreach ($listingTree as $key => $value) {
                         $values[$value->getName()] = $value->getName();
                     }
-                    //dump($values);
-                    //dump($selected);
                     //make form name from db name TODO function for that
-
-
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                 }
             }
         }
-        //die();
 
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
 
