@@ -3468,7 +3468,7 @@ class Item
 
     public function getTitle()
     {
-        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " .  $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
@@ -3476,12 +3476,15 @@ class Item
                 $desc .= " " . $this->slug($this->getTrim());
             }
         }
+
         return $desc;
 
     }
 
     function Slug($string)
     {
+        $string = str_replace('/','',$string);
+
         return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
 
