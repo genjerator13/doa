@@ -92,6 +92,7 @@ class AddItemSubscriber implements EventSubscriberInterface
 
 
                     $selected = $item->get($carFieldDB);
+
                     if (empty($selected)) {
                         $selected = $item->getItemFieldByName($carFieldDB);
                     }
@@ -101,8 +102,15 @@ class AddItemSubscriber implements EventSubscriberInterface
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
+                    //if the value is not in the list addi it
 
-                    //make form name from db name TODO function for that
+                    if(!in_array($selected, $values)) {
+                        $values[$selected] = $selected;
+//                        dump($selected);
+//                        dump($values);
+                    }
+                    
+                    //make form     name from db name TODO function for that
                     $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
 
