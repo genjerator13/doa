@@ -1,0 +1,39 @@
+Numa\DOADMSBundle\Entity\Billing:
+    type: entity
+    table: billing
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        customer_id:
+            type: integer
+            nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+        totalAMT:
+            type: string
+            length: 255
+            nullable: true
+        comments:
+            type: text
+            nullable: true
+    manyToOne:
+        Customer:
+            targetEntity: Customer
+            inversedBy: Billing
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

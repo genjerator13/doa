@@ -1,0 +1,30 @@
+billing:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Billing:index" }
+
+billing_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Billing:show" }
+
+billing_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+
+billing_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Billing:create" }
+    requirements: { _method: post }
+
+billing_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Billing:edit" }
+
+billing_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Billing:update" }
+    requirements: { _method: post|put }
+
+billing_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Billing:delete" }
+    requirements: { _method: post|delete }

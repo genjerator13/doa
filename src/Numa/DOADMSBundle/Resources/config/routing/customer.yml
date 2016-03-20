@@ -40,3 +40,7 @@ customer_shownote:
 customer_notes:
     path:     /notes.html
     defaults: { _controller: "NumaDOADMSBundle:Note:notes" }
+
+customer_addbilling:
+    path:     /{id}/addbilling
+    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }

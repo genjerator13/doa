@@ -1,0 +1,66 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+    <h1>Billing creation</h1>
+
+    {#{{ form(form) }}
+
+    {{ dump(customer) }}
+
+        <a href="{{ path('customer') }}" class="btn btn-primary" >
+            Back to the list
+        </a>#}
+
+    <div class="col-md-8">
+    <ul>
+        <li>Name of company</li>
+        <li>Address</li>
+        <li>City, Prov/state, Zio/postal</li>
+        <li>Phone, email</li>
+    </ul>
+    </div>
+    <div class="col-md-4">
+        Date: {{ entity.datecreated|date('Y-m-d') }}
+
+        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <link rel="stylesheet" href="/resources/demos/style.css">-->
+        <script>
+            $(function() {
+                $( "#datepicker" ).datepicker(({ dateFormat: 'yy-mm-dd' }));
+            });
+        </script>
+        <p>Date: <input type="text" id="datepicker"></p>
+
+        Invoice #: {{ entity.id }}
+    </div>
+
+    <h2>Customer</h2>
+    <table class="record_properties">
+        <tbody>
+        <tr>
+            <th>Name: </th>
+            <td>{{ customer.firstName }}  {{ customer.lastName }}</td>
+        </tr>
+        <tr>
+            <th>Address: </th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>State/Prov.: </th>
+            <td>{{ customer.state }}</td>
+        </tr>
+        <tr>
+            <th>Zip/Postal: </th>
+            <td>{{ customer.zip }}</td>
+        </tr>
+        <tr>
+            <th>Phone: </th>
+            <td>{{ customer.homePhone }}, {{ customer.mobilePhone }}, {{ customer.workPhone }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
