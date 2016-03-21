@@ -83,7 +83,12 @@ Numa\DOADMSBundle\Entity\Customer:
                 referencedColumnName: id
     oneToMany:
         Note:
-            targetEntity: Note
+            targetEntity: Numa\DOADMSBundle\Entity\Note
+            mappedBy: Customer
+            cascade: [persist]
+    oneToMany:
+        Billing:
+            targetEntity: Numa\DOADMSBundle\Entity\Billing
             mappedBy: Customer
             cascade: [persist]
     lifecycleCallbacks:

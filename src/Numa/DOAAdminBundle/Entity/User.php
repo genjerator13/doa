@@ -6,23 +6,28 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * User
- */
-
-/**
+ * @JMS\XmlRoot("user")
+ * @JMS\ExclusionPolicy("ALL")
  * @GRID\Source(columns ="id,UserGroup.name,username,email")
  */
 class User implements UserInterface {
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     protected $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $username;
 
@@ -33,6 +38,7 @@ class User implements UserInterface {
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
@@ -48,6 +54,7 @@ class User implements UserInterface {
 
     /**
      * @var boolean
+     * @JMS\Expose
      */
     private $active;
 
@@ -73,11 +80,13 @@ class User implements UserInterface {
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $FirstName;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $LastName;
 
@@ -88,21 +97,25 @@ class User implements UserInterface {
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $Address;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $City;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $PostalCode;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $PhoneNumber;
 
@@ -118,6 +131,7 @@ class User implements UserInterface {
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $State;
 

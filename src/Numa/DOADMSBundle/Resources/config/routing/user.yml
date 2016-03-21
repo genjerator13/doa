@@ -1,0 +1,4 @@
+dms_users:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:UserDms:index" }
+

@@ -1,3 +1,32 @@
-numa_doa_api_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: NumaDOAApiBundle:Default:index }
+#listing:
+#    type: rest
+#    resource: Numa\DOAAdminBundle\Controller\ItemRESTController
+#    defaults: {_format: xml}
+ads_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/ad.yml"
+        prefix:   /ads
+customer_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/customer.yml"
+        prefix:   /customer
+user_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+listing:
+    pattern:  /listing/{id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}
+    requirements: { _method: get }
+
+listingByDealer:
+    pattern:  /listings/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
+    requirements: { _method: get }
+
+listingsAll:
+    pattern:  /listings/{category}/category.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
+    requirements: { _method: get }
+
+listingsAll:
+    pattern:  /listings/{category}/category.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
+    requirements: { _method: get }

@@ -5,37 +5,37 @@ namespace Numa\DOADMSBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOADMSBundle\Entity\Billing;
-use Numa\DOADMSBundle\Form\BillingType;
+use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Form\CustomerType;
 
 /**
- * Billing controller.
+ * UserDms controller.
  *
  */
-class BillingController extends Controller
+class UserDmsController extends Controller
 {
 
     /**
-     * Lists all Billing entities.
+     * Lists all Customer entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findAll();
+        $entities = $em->getRepository('NumaDOAAdminBundle:User')->findAll();
 
-        return $this->render('NumaDOADMSBundle:Billing:index.html.twig', array(
+        return $this->render('NumaDOADMSBundle:User:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Billing entity.
+     * Creates a new Customer entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Billing();
+        $entity = new Customer();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -43,27 +43,27 @@ class BillingController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('billing'));
 
+            return $this->redirect($this->generateUrl('customer', array('id' => $entity->getId())));
         }
 
-        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Billing entity.
+     * Creates a form to create a Customer entity.
      *
-     * @param Billing $entity The entity
+     * @param Customer $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Billing $entity)
+    private function createCreateForm(Customer $entity)
     {
-        $form = $this->createForm(new BillingType(), $entity, array(
-            'action' => $this->generateUrl('billing_create'),
+        $form = $this->createForm(new CustomerType(), $entity, array(
+            'action' => $this->generateUrl('customer_create'),
             'method' => 'POST',
         ));
 
@@ -73,66 +73,60 @@ class BillingController extends Controller
     }
 
     /**
-     * Displays a form to create a new Billing entity.
+     * Displays a form to create a new Customer entity.
      *
      */
-    public function newAction($id)
+    public function newAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $entity = new Billing();
-
-        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
-        $entity->setCustomerId($id);
+        $entity = new Customer();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
-            'customer' => $customer,
             'form'   => $form->createView(),
-
         ));
     }
 
     /**
-     * Finds and displays a Billing entity.
+     * Finds and displays a Customer entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Billing entity.');
+            throw $this->createNotFoundException('Unable to find Customer entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOADMSBundle:Billing:show.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Customer:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Billing entity.
+     * Displays a form to edit an existing Customer entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Billing entity.');
+            throw $this->createNotFoundException('Unable to find Customer entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOADMSBundle:Billing:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Customer:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -140,16 +134,16 @@ class BillingController extends Controller
     }
 
     /**
-    * Creates a form to edit a Billing entity.
+    * Creates a form to edit a Customer entity.
     *
-    * @param Billing $entity The entity
+    * @param Customer $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Billing $entity)
+    private function createEditForm(Customer $entity)
     {
-        $form = $this->createForm(new BillingType(), $entity, array(
-            'action' => $this->generateUrl('billing_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new CustomerType(), $entity, array(
+            'action' => $this->generateUrl('customer_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -158,17 +152,17 @@ class BillingController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Billing entity.
+     * Edits an existing Customer entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Billing entity.');
+            throw $this->createNotFoundException('Unable to find Customer entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -177,18 +171,18 @@ class BillingController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
+            $this->addFlash("success","Customer: ".$entity->getName()." successfully updated.");
+            return $this->redirect($this->generateUrl('customer', array('id' => $id)));
         }
 
-        return $this->render('NumaDOADMSBundle:Billing:edit.html.twig', array(
+        return $this->render('NumaDOAAdminBundle:Customer:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Billing entity.
+     * Deletes a Customer entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -196,23 +190,30 @@ class BillingController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if (count($form->getErrors(true)==0)) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+            $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Billing entity.');
+                throw $this->createNotFoundException('Unable to find Customer entity.');
             }
 
             $em->remove($entity);
             $em->flush();
-        }
 
-        return $this->redirect($this->generateUrl('billing'));
+        }else{
+
+            foreach($form->getErrors(true) as $error){
+                dump($error->getMessage());
+            }
+
+        }
+        die();
+        return $this->redirect($this->generateUrl('customer'));
     }
 
     /**
-     * Creates a form to delete a Billing entity by id.
+     * Creates a form to delete a Customer entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -221,10 +222,11 @@ class BillingController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('billing_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('customer_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }
+
 }

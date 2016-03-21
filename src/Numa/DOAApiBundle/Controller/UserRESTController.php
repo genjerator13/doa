@@ -11,7 +11,7 @@ namespace Numa\DOAApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
-class CustomerRESTController extends Controller
+class UserRESTController extends Controller
 {
 
     /**
@@ -19,9 +19,9 @@ class CustomerRESTController extends Controller
      */
     public function allAction()
     {
-        $ads = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findAll();
-
-        return $ads;
+        $users = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:User')->findAll();
+        //dump($users);die();
+        return $users;
     }
 
 }

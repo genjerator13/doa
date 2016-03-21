@@ -1136,9 +1136,9 @@ class Item
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
-//        if(strtolower($separator)=="{newline}") {
-//            $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
-//        }
+        if(strtolower($separator)=="{newline}") {
+            $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
+        }
 
         $order = 1;
 
@@ -3440,8 +3440,8 @@ class Item
 
     public function get($property)
     {
-        $mappedProperty="";
-        if(!empty(self::$fields[$this->category_id][$property])) {
+        $mappedProperty = "";
+        if (!empty(self::$fields[$this->category_id][$property])) {
             $mappedProperty = self::$fields[$this->category_id][$property];
         }
         if (!empty($mappedProperty)) {
@@ -3459,8 +3459,8 @@ class Item
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
         $url = trim($url, " -");
-        if(empty($url)){
-            $url="details";
+        if (empty($url)) {
+            $url = "details";
         }
         return $url;
     }

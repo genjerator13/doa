@@ -1,0 +1,4 @@
+user_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:UserREST:all",_format: "json"}
+    requirements: { _method: get }

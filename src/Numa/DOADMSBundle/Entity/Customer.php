@@ -116,7 +116,7 @@ class Customer
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -139,7 +139,7 @@ class Customer
     /**
      * Get first_name
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -162,7 +162,7 @@ class Customer
     /**
      * Get last_name
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -185,7 +185,7 @@ class Customer
     /**
      * Get city
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -208,7 +208,7 @@ class Customer
     /**
      * Get state
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -231,7 +231,7 @@ class Customer
     /**
      * Get zip
      *
-     * @return string 
+     * @return string
      */
     public function getZip()
     {
@@ -254,7 +254,7 @@ class Customer
     /**
      * Get country
      *
-     * @return string 
+     * @return string
      */
     public function getCountry()
     {
@@ -277,7 +277,7 @@ class Customer
     /**
      * Get home_phone
      *
-     * @return string 
+     * @return string
      */
     public function getHomePhone()
     {
@@ -300,7 +300,7 @@ class Customer
     /**
      * Get work_phone
      *
-     * @return string 
+     * @return string
      */
     public function getWorkPhone()
     {
@@ -323,7 +323,7 @@ class Customer
     /**
      * Get mobile_phone
      *
-     * @return string 
+     * @return string
      */
     public function getMobilePhone()
     {
@@ -346,7 +346,7 @@ class Customer
     /**
      * Get fax
      *
-     * @return string 
+     * @return string
      */
     public function getFax()
     {
@@ -369,7 +369,7 @@ class Customer
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -392,7 +392,7 @@ class Customer
     /**
      * Get notes
      *
-     * @return string 
+     * @return string
      */
     public function getNotes()
     {
@@ -415,7 +415,7 @@ class Customer
     /**
      * Get date_created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -438,7 +438,7 @@ class Customer
     /**
      * Get date_updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateUpdated()
     {
@@ -461,7 +461,7 @@ class Customer
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId()
     {
@@ -529,7 +529,7 @@ class Customer
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -558,7 +558,7 @@ class Customer
     /**
      * Get followup_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getFollowupDate()
     {
@@ -618,6 +618,48 @@ class Customer
     {
         return $this->Note;
     }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @JMS\Expose
+     */
+    private $Billing;
+
+
+
+    /**
+     * Add Billing
+     *
+     * @param \Numa\DOADMSBundle\Entity\Billing $Billing
+     * @return Customer
+     */
+    public function addBilling(\Numa\DOADMSBundle\Entity\Billing $billing)
+    {
+        $this->Billing[] = $billing;
+
+        return $this;
+    }
+
+    /**
+     * Remove Billing
+     *
+     * @param \Numa\DOADMSBundle\Entity\Billing $billing
+     */
+    public function removeBilling(\Numa\DOADMSBundle\Entity\Billing $billing)
+    {
+        $this->Billing->removeElement($billing);
+    }
+
+    /**
+     * Get Billing
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBilling()
+    {
+        return $this->Billing;
+    }
+
     /**
      * @var string
      * @JMS\Expose

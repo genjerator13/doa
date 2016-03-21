@@ -1,0 +1,88 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Customer</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>First_name</th>
+                <td>{{ entity.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Last_name</th>
+                <td>{{ entity.lastname }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ entity.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ entity.state }}</td>
+            </tr>
+            <tr>
+                <th>Zip</th>
+                <td>{{ entity.zip }}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{ entity.country }}</td>
+            </tr>
+            <tr>
+                <th>Home_phone</th>
+                <td>{{ entity.homephone }}</td>
+            </tr>
+            <tr>
+                <th>Work_phone</th>
+                <td>{{ entity.workphone }}</td>
+            </tr>
+            <tr>
+                <th>Mobile_phone</th>
+                <td>{{ entity.mobilephone }}</td>
+            </tr>
+            <tr>
+                <th>Fax</th>
+                <td>{{ entity.fax }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>{{ entity.notes }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Dealer_id</th>
+                <td>{{ entity.dealerid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('customer') }}" class="btn">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('customer_edit', { 'id': entity.id }) }}" class="btn">
+            Edit
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}
