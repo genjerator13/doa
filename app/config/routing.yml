@@ -59,7 +59,7 @@ genemu_base64:
 #        resource: "@NumaDOAAdminBundle/Resources/config/routing/restApi.yml"
 #        prefix:   /restApi
 api:
-        resource: "@NumaDOAApiBundle/Resources/config/routing/api.yml"
+        resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
         prefix:   /api
 DOASiteBundle:
     resource: .
