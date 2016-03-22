@@ -66,6 +66,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $work_phone;
 
@@ -77,17 +78,18 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fax;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
-     * @JMS\Expose
      */
     private $notes;
 
@@ -572,7 +574,7 @@ class Customer
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getNote",setter="setNote")
      */
     private $Note;
 
@@ -601,7 +603,7 @@ class Customer
 
     /**
      * Remove Note
-     *
+
      * @param \Numa\DOADMSBundle\Entity\Note $note
      */
     public function removeNote(\Numa\DOADMSBundle\Entity\Note $note)
@@ -613,10 +615,18 @@ class Customer
      * Get Note
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
      */
     public function getNote()
     {
-        return $this->Note;
+        $criteria = Criteria::create()
+
+            ->orderBy(array("date_remind" => "DESC"));
+        $notes=null;
+        if($this->Note) {
+            $notes = $this->Note->matching($criteria);
+        }
+        return $notes;
     }
 
     /**
@@ -662,7 +672,7 @@ class Customer
 
     /**
      * @var string
-     * @JMS\Expose
+
      */
     private $anotes;
 
@@ -702,8 +712,9 @@ class Customer
     }
 
     /**
-     * @var string
+     * @var DateTime
      * @JMS\Expose
+     * @JMS\Type("DateTime")
      * @JMS\Accessor(getter="getLastnoteadded",setter="setLastnoteadded")
      */
     private $lastnoteadded;
@@ -736,7 +747,7 @@ class Customer
             ->orderBy(array("date_remind" => "DESC"));
 
         $lastnoteadded = $this->getNote()->matching($criteria);
-        $this->lastnoteadded = "No notes";
+        $this->lastnoteadded = null;
         if(!empty($lastnoteadded->first())) {
             $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
         }
@@ -769,7 +780,6 @@ class Customer
 
     /**
      * Get sales_person
-     *
      * @return string
      */
     public function getSalesPerson()
@@ -778,6 +788,7 @@ class Customer
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $logo;
 

@@ -25,11 +25,15 @@ class SandboxController extends Controller {
     }
 
     public function test2Action() {
-        $client = new Client();
+        $client = new Client($this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost());
 
-        $req = $client->get($this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost().'/api/ads/all.json');
+        $req = $client->get('/api/customer/all.json');
         $response = $req->send();
-        //dump($response->json());
+        //dump($this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost());
+        $restClient = $this->container->get('circle.restclient');
+
+        $test = $restClient->get($this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost().'/api/ads/all.json');
+        //$test->;
         return new JsonResponse($response->json());
         $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
 

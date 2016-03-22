@@ -16,9 +16,9 @@ dms_user:
 #dms_activate_success:
 #    path:  /dms_activate_success
 #    defaults: { _controller: "NumaDOADMSBundle:Dms:activateSuccess" }
-dms_user:
-    path:  /users
-    defaults: { _controller: "NumaDOADMSBundle:Dms:users" }
+dms_user_group:
+        resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
+        prefix:   /users_groups
 
 NumaDOADMSBundle_client:
     resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
