@@ -16,13 +16,18 @@ class BillingType extends AbstractType
     {
         $builder
 
-            ->add('customer_id')
-            ->add('date_created')
-            ->add('date_updated')
-            ->add('status')
+            ->add('customer_id','hidden')
+            ->add('date_created','hidden')
+            ->add('date_updated', 'hidden')
+            ->add('date_billing','date',array(
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => array('class' => 'dateBilling')
+            ))
+            ->add('status','hidden')
+            ->add('comments','textarea', array('attr' => array('rows' => '10', 'cols' => '2')))
             ->add('totalAMT')
-            ->add('comments')
-            ->add('Customer')
+            ->add('Customer','hidden')
         ;
     }
     

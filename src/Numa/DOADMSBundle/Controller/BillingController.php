@@ -41,6 +41,9 @@ class BillingController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+            $entity->setCustomer($customer);
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('billing'));
@@ -83,6 +86,7 @@ class BillingController extends Controller
 
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
         $entity->setCustomerId($id);
+
         $form   = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
