@@ -74,6 +74,10 @@ Numa\DOADMSBundle\Entity\Customer:
         dealer_id:
              type: integer
              nullable: true
+        logo:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogrecords:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords

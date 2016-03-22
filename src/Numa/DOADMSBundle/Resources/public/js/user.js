@@ -15,25 +15,26 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.gridOptions.columnDefs = [
         {name:'id', enableColumnResizing: true,width: 50},
         {name:'username',enableColumnResizing: true},
+        {name:'_first_name',enableColumnResizing: true},
+        {name:'_last_name',enableColumnResizing: true},
+        {name:'group_name',enableColumnResizing: true},
         {name:'Actions',
-            width: 300,
+            width: 100,
             enableColumnMenu: false,
             enableSorting:false,
             enableFiltering: false,
-            cellTemplate:'<a href="/dms/customers/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" >Delete</a>'}
-
+            cellTemplate:'<a href="/dms/users/{{row.entity.id}}/edit" class="btn btn-primary">Edit</a>'}
     ];
-
 
     $scope.animationsEnabled = true;
 
-
-
-
     var canceler = $q.defer();
-    $http.get('/api/user/all', {timeout: canceler.promise})
+    $http.get('/api/user/alldms', {timeout: canceler.promise})
         .success(function(data) {
             $scope.gridOptions.data = data;
+            for(i = 0; i < data.length; i++){
+                data[i].group_name = data[i]._user_group.name;
+            }
         });
 
     $scope.$on('$destroy', function(){

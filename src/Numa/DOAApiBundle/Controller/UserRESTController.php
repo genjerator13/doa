@@ -24,4 +24,12 @@ class UserRESTController extends Controller
         return $users;
     }
 
+    /**
+     * @Rest\View
+     */
+    public function allDmsAction()
+    {
+        $users = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:User')->findBy(array('user_group_id'=>array(1,3,4)));
+        return $users;
+    }
 }

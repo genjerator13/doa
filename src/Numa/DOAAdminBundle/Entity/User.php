@@ -198,6 +198,7 @@ class User implements UserInterface {
     /**
      * @var \Numa\DOAAdminBundle\Entity\UserGroup
      * @GRID\Column(type="text", field="UserGroup.name", title="usergroup", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
+     * @JMS\Expose
      */
     
     protected $UserGroup;

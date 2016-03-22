@@ -170,6 +170,7 @@ class CustomerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->upload();
             $em->flush();
             $this->addFlash("success","Customer: ".$entity->getName()." successfully updated.");
             return $this->redirect($this->generateUrl('customer', array('id' => $id)));
