@@ -66,6 +66,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $work_phone;
 
@@ -77,17 +78,18 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fax;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
-     * @JMS\Expose
      */
     private $notes;
 
@@ -572,7 +574,9 @@ class Customer
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getNote",setter="setNote")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Note>")
+     * @JMS\EXPOSE
      */
     private $Note;
 
@@ -601,7 +605,7 @@ class Customer
 
     /**
      * Remove Note
-     *
+
      * @param \Numa\DOADMSBundle\Entity\Note $note
      */
     public function removeNote(\Numa\DOADMSBundle\Entity\Note $note)
@@ -613,15 +617,33 @@ class Customer
      * Get Note
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
      */
     public function getNote()
     {
-        return $this->Note;
+        $criteria = Criteria::create()
+
+            ->orderBy(array("date_remind" => "DESC"));
+        $notes=null;
+        if($this->Note) {
+            $notes = $this->Note->matching($criteria);
+        }
+        return $notes;
     }
+
+    public function setNote($note)
+    {
+        $this->Note = $note;
+
+        return $this;
+    }
+
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getBilling",setter="setBilling")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Billing>")
+     * @JMS\EXPOSE
      */
     private $Billing;
 
@@ -654,15 +676,22 @@ class Customer
      * Get Billing
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
+
      */
     public function getBilling()
     {
         return $this->Billing;
     }
 
+    public function setBilling($billing)
+    {
+        $this->Billing=$billing;
+    }
+
     /**
      * @var string
-     * @JMS\Expose
+
      */
     private $anotes;
 
@@ -698,12 +727,13 @@ class Customer
         }
 
         return $this->anotes;
-        return $this->anotes;
+
     }
 
     /**
-     * @var string
+     * @var DateTime
      * @JMS\Expose
+     * @JMS\Type("DateTime")
      * @JMS\Accessor(getter="getLastnoteadded",setter="setLastnoteadded")
      */
     private $lastnoteadded;
@@ -736,7 +766,7 @@ class Customer
             ->orderBy(array("date_remind" => "DESC"));
 
         $lastnoteadded = $this->getNote()->matching($criteria);
-        $this->lastnoteadded = "No notes";
+        $this->lastnoteadded = null;
         if(!empty($lastnoteadded->first())) {
             $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
         }
@@ -769,11 +799,109 @@ class Customer
 
     /**
      * Get sales_person
-     *
      * @return string
      */
     public function getSalesPerson()
     {
         return $this->sales_person;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $logo;
+
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     * @return Customer
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string 
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->logo ? null : $this->getUploadRootDir() . '/' . $this->logo;
+    }
+
+    public function getLogoImage()
+    {
+        return null === $this->logo ? null : '/' . $this->getUploadDir() . '/' . $this->logo;
+    }
+
+    protected function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'upload/customer/' . $this->getId();
+    }
+
+    public $file_import_source;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null)
+    {
+        $this->file_import_source = $file_import_source;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFileImportSource()
+    {
+        return $this->file_import_source;
+    }
+
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+
+        if (null === $this->getFileImportSource()) {
+            return;
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFileImportSource()->move(
+            $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
+        );
+
+        // set the path property to the filename where you've saved the file
+        $this->logo = $this->getUploadDir() . "/" . $this->getFileImportSource()->getClientOriginalName();
+
+        // clean up the file property as you won't need it anymore
+        $this->file_import_source = null;
+    }
+
 }

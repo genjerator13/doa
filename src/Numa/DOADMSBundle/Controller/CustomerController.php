@@ -126,7 +126,10 @@ class CustomerController extends Controller
 
         //deserialize response
         $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
+        $em = $this->getDoctrine()->getManager();
+        //$entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
+        //dump($entity);die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');

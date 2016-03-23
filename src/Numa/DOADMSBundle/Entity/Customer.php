@@ -572,9 +572,13 @@ class Customer
         // TODO: Implement __toString() method.
         return $this->getName()."";
     }
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @JMS\Accessor(getter="getNote",setter="setNote")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Note>")
+     * @JMS\EXPOSE
      */
     private $Note;
 
@@ -585,6 +589,7 @@ class Customer
     {
         $this->followup_date = new \DateTime();
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Billing = new \Doctrine\Common\Collections\ArrayCollection();
         $this->getLastnoteadded();
     }
 
@@ -629,9 +634,19 @@ class Customer
         return $notes;
     }
 
+    public function setNote($note)
+    {
+        $this->Note = $note;
+
+        return $this;
+    }
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getBilling",setter="setBilling")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Billing>")
+     * @JMS\EXPOSE
      */
     private $Billing;
 
@@ -664,10 +679,16 @@ class Customer
      * Get Billing
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
      */
     public function getBilling()
     {
         return $this->Billing;
+    }
+
+    public function setBilling($billing)
+    {
+        $this->Billing=$billing;
     }
 
     /**
@@ -708,7 +729,7 @@ class Customer
         }
 
         return $this->anotes;
-        return $this->anotes;
+
     }
 
     /**
