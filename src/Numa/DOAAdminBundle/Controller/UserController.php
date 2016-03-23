@@ -54,13 +54,13 @@ class UserController extends Controller {
         $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('users', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('dms_users'));
         }
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
@@ -186,8 +186,8 @@ class UserController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            $this->addFlash("success","User: ".$entity->getUsername()." successfully updated.");
+            return $this->redirect($this->generateUrl('user', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(

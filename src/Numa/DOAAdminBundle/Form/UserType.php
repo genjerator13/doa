@@ -32,6 +32,7 @@ class UserType extends AbstractType
             ->add('DealershipWebsite')
             ->add('DisplayEmail')
             ->add('State')
+
             ->add('DealershipLogo')
             ->add('third_party_id')
             ->add('UserGroup')
