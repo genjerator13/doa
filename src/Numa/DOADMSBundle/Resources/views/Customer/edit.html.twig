@@ -1,6 +1,6 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
-
 {% block content %}
 
     <h1>{{ entity.name }}</h1>
@@ -13,14 +13,8 @@
     <div class="tab-content">
         <div id="details" class="tab-pane active">
             <div class="box">
-                {% if (entity.logo is not empty) %}
-                    {% if ('http' not in entity.logo) %}
-                        <img class="thumbnail" alt="{{ entity.name }}"
-                             src="{{ entity.logo|imagine_filter('search_image') }}"/>
-                    {% else %}
-                        <img class="thumbnail" alt="{{ entity.name }}" src="{{ entity.logo }}" width="120" height="90"/>
-                    {% endif %}
-                {% endif %}
+
+                {{ component.image(entity.logo, entity.name, 'thumbnail', 'search_image',90, 120) }}
                 {{ form(edit_form) }}
             </div>
         </div>

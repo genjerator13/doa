@@ -19,11 +19,14 @@
     'js/angular/ui-grid.js'
     'js/angular/angular-confirm.min.js'
     'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    '@NumaDOADMSBundle/Resources/public/js/customer.js'
+
     %}
+    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
+    <script>
+        {% include 'NumaDOADMSBundle:Customer:customer.js.twig' %}
+    </script>
 {% endblock javascripts %}
 
 

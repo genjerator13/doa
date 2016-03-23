@@ -1,0 +1,19 @@
+{% macro image(src, alt, class, filter,height, width) %}
+    {% if(height is not defined or height is empty) %}
+        {% set height=90 %}
+    {% endif %}
+    {% if(width is not defined or width is empty) %}
+        {% set width=90 %}
+    {% endif %}
+    {% if (src is empty) %}
+        <img alt="{{ alt }}" src="{{item.logoUrl}}" />
+    {% else %}
+        {% if ('http' not in src) %}
+            <img class="{{ class }}" alt="{{ alt }}"
+                 src="{{ src|imagine_filter(filter) }}"/>
+        {% else %}
+            <img class="{{ class }}" alt="{{ alt }}" src="{{ src }}" width="{{ height }}"
+                 height="{{ height }}"/>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
