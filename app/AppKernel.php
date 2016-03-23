@@ -46,8 +46,9 @@ class AppKernel extends Kernel {
             //new Numa\DOAApiBundle\NumaDOAApiBundle(),
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOAApiBundle\NumaDOAApiBundle(),
-            //new Lsw\GuzzleBundle\LswGuzzleBundle(),
+            new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOADMSBundle\NumaDOADMSBundle(),
+            //new Circle\RestClientBundle\CircleRestClientBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -58,15 +59,6 @@ class AppKernel extends Kernel {
 
         return $bundles;
     }
-
-//    // Add this to app/AppKernel.php
-//    public function init()
-//    {
-//        ini_set('display_errors', 0);
-//    }
-
-
-
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
