@@ -79,8 +79,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         {name:"subject", field:"subject", width:"150"},
                         {name:"notes", field:"notes"},
                         {name:"date_remind", field:"date_remind", type:"date", cellFilter:"date:\'yyyy-MM-dd\'", width:"150"} ],
-                    data: data[i]._note
+                    data: data[i].note
                 }
+
             }
             //console.log(data);
             //$scope.gridOptions.data = data;

@@ -110,6 +110,9 @@ dealer_coupons:
 sandbox_test:
     path:  /sandbox/test
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test }
+sandbox_test2:
+    path:  /sandbox/test2
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:test2 }
 ads_page:
     path:  /ads/{id}
     defaults: { _controller: NumaDOASiteBundle:Ads:index }

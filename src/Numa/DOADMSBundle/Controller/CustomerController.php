@@ -4,9 +4,9 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Form\CustomerType;
+use Guzzle\Http\Client;
 
 /**
  * Customer controller.
@@ -115,9 +115,18 @@ class CustomerController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        //getserializer
+        $serializer = $this->get('jms_serializer');
+        //create api client
+        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
+        $client = new Client($baseurl);
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
+        //getResponse
+        $response = $client->get('/api/customer/'.$id)->send();
+
+        //deserialize response
+        $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
+
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');

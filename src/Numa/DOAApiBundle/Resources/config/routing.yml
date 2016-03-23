@@ -11,6 +11,9 @@ customer_api:
 user_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/user.yml"
         prefix:   /user
+note_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/note.yml"
+        prefix:   /note
 listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}

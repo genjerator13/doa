@@ -1,5 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
 
     <div class="box box-default">
@@ -25,16 +26,23 @@
                 <tbody>
                 {% for entity in entities %}
                     <tr>
-                        <td><a href="{{ path('user_group_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('dms_user_group_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            {% else %}
+                                <a href="{{ path('user_group_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            {% endif %}
+                        </td>
                         <td>{{ entity.name }}</td>
                         <td>{{ entity.regformtemplate }}</td>
                         <td>{{ entity.description }}</td>
                         <td>
-                            <ul>
-                                <li>
-                                    <a href="{{ path('user_group_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
-                                </li>
-                            </ul>
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('dms_user_group_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+                            {% else %}
+                                <a href="{{ path('user_group_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+                            {% endif %}
+
                         </td>
                     </tr>
                 {% endfor %}

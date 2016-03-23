@@ -1,0 +1,11 @@
+dms_user_groups:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:UserGroup:index",_dashboard: "DMS" }
+
+dms_user_group_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:UserGroup:new",_dashboard: "DMS"  }
+
+dms_user_group_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:UserGroup:edit",_dashboard: "DMS"  }
