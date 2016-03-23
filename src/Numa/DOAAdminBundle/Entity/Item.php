@@ -14,9 +14,10 @@ use Numa\DOAModuleBundle\Entity\Seo;
 
 
 /**
+ * Item
+ * @JMS\ExclusionPolicy("ALL")
  * @GRID\Source(columns ="id,sold,Category.name,make,model,stock_nr, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created,featured" ,groupBy="id")
  * @JMS\XmlRoot("listing")
- * @JMS\ExclusionPolicy("ALL")
  */
 class Item
 {
@@ -66,12 +67,14 @@ class Item
     /**
      * @var boolean
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $active;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="moderation_status", title="Status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $moderation_status;
 
@@ -89,6 +92,7 @@ class Item
     /**
      * @var integer
      * @GRID\Column(type="text", field="views", title="Views", filterable=false, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $views;
 
@@ -100,12 +104,14 @@ class Item
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="activation_date", title="activation_date", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $activation_date;
 
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="expiration_date", title="expiration_date", filterable=true, operatorsVisible=false, defaultOperator="btw")
+     * @JMS\Expose
      */
     private $expiration_date;
 
@@ -117,6 +123,7 @@ class Item
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source",sortable=true, filterable=true, defaultOperator="btw",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -160,6 +167,7 @@ class Item
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
      * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
+     * @JMS\Expose
      */
     private $Category;
 
@@ -1080,6 +1088,7 @@ class Item
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      * @GRID\Column(type="text", field="Dealer.name", title="Dealer", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
+     * @JMS\Expose
      */
     private $Dealer;
 
@@ -1314,6 +1323,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $body_style;
 
@@ -1338,57 +1348,68 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flor_pane;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $ag_application;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $postal;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $city;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $address;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $status;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="stock_nr", title="Stock #", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $stock_nr;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $mileage;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $VIN;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $transmission;
 
@@ -1863,6 +1884,7 @@ class Item
     /**
      * @var string
      * @GRID\Column(type="text", field="make", title="Make")
+     * @JMS\Expose*
      */
     private $make;
 
@@ -1903,6 +1925,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $floor_plan;
 
@@ -1951,21 +1974,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $engine;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $interior_color;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $exterior_color;
 
@@ -2068,16 +2095,19 @@ class Item
     /**
      * @var boolean
      * @GRID\Column(type="boolean", field="sold", title="Sold", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $sold;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $body_description;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $videoId;
 
@@ -2155,6 +2185,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $trim;
 
@@ -2184,6 +2215,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $doors;
 
@@ -2213,6 +2245,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $drive_type;
 
@@ -2242,6 +2275,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $seller_comment;
 
@@ -2271,51 +2305,61 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $length;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $boat_weight;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $hull_design;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $steering_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $of_hours;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $passengers;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $trailer;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $battery;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_capacity;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $horsepower;
 
@@ -2337,6 +2381,7 @@ class Item
      * Get length
      *
      * @return float
+     *
      */
     public function getLength()
     {
@@ -2561,6 +2606,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $beam;
 
@@ -2590,6 +2636,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $passenger;
 
@@ -2619,21 +2666,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_system;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $ignition;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $gears;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $width;
 
@@ -2735,6 +2786,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $engine_type;
 
@@ -2764,6 +2816,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $displacement;
 
@@ -2793,21 +2846,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $chassis_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $sleeps;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $slide_outs;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flooring;
 
@@ -2909,6 +2966,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flor_plan;
 
@@ -2938,6 +2996,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $class;
 
@@ -2967,6 +3026,7 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $weight;
 
@@ -2996,31 +3056,37 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $operator_station;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $speed_forward;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $speed_reverse;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tire_size;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tire_equipment;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cutting_width;
 
@@ -3170,6 +3236,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cooling_system;
 
@@ -3199,6 +3266,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $chassis;
 
@@ -3228,6 +3296,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $steering;
 
@@ -3257,11 +3326,13 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $mpgCity;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $mpgHighway;
 
@@ -3315,6 +3386,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $iw_no;
 
@@ -3492,6 +3564,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $other;
 

@@ -14,14 +14,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ItemRESTController extends Controller
 {
-    /**
-     * @return array
-     * @View
-     */
-
     const cacheMaxAge = 86400;
     public function getListingsAction(){
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByCat(3);
@@ -77,5 +73,33 @@ class ItemRESTController extends Controller
         }
         $format = $request->attributes->get('_format');
         return $this->get('listing_api')->formatResponse($items,$format);
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function listingsByDealer2Action(Request $request,$dealerid)
+    {
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealerAndCategory($dealerid);
+        return $customers;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function allListingsAction()
+    {
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        return $customers;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function listing2Action($id)
+    {
+
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        return $customers;
     }
 }

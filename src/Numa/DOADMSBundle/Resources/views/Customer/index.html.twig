@@ -1,7 +1,8 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% block stylesheets %}
-{{ parent() }}
-    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css" rel="stylesheet"/>
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
     <style>
         .grid {
             width: 100%;
@@ -12,15 +13,14 @@
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
+    '@colorbox_js'
     'js/angular/angular143.min.js'
     'js/angular/angular-touch143.min.js'
     'js/angular/angular-animate143.min.js'
     'js/angular/vfs-fonts.js'
     'js/angular/ui-grid.js'
     'js/angular/angular-confirm.min.js'
-    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-
-    %}
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js' %}
     {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -40,6 +40,7 @@
     <div class="box">
     <div class="box-header">
         <h3 class="box-title">Customer list</h3>
+
         <div class="box-tools">
             <a href="{{ path('customer_new') }}" class="btn btn-primary">
                 Create new Customer
@@ -65,6 +66,10 @@
 
         <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning class="grid"></div>
     </div>
-
-{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+    <script>
+        $(document).ready(function () {
+            $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
+        });
+    </script>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}

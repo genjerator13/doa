@@ -1,0 +1,46 @@
+inventory:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:index" }
+#
+#inventory_new:
+#    path:     /new
+#    defaults: { _controller: "NumaDOADMSBundle:Inventory:new" }
+#
+#customer_create:
+#    path:     /create
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:create" }
+#    requirements: { _method: post }
+#
+#customer_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:edit" }
+#
+#customer_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:update" }
+#    requirements: { _method: post|put }
+#
+#customer_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:delete" }
+#    requirements: { _method: post|delete }
+#
+#customer_addnote:
+#    path:     /{id}/addnote
+#    defaults: { _controller: "NumaDOADMSBundle:Note:new" }
+#
+#customer_addbilling:
+#    path:     /{id}/addbilling
+#    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+#
+#customer_shownote:
+#    path:     /{id}/shownote
+#    defaults: { _controller: "NumaDOADMSBundle:Note:index" }
+#
+#customer_notes:
+#    path:     /notes.html
+#    defaults: { _controller: "NumaDOADMSBundle:Note:notes" }
+#
+#customer_addbilling:
+#    path:     /{id}/addbilling
+#    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }

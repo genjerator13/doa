@@ -7,15 +7,9 @@ dms_customer:
 dms_user:
         resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
         prefix:   /users
-#dms_customer:
-#    defaults: { _controller: "NumaDOADMSBundle:Dms:customers" }
-#    path:   /customers
-#dms_activate:
-#    path:  /dms_activate
-#    defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
-#dms_activate_success:
-#    path:  /dms_activate_success
-#    defaults: { _controller: "NumaDOADMSBundle:Dms:activateSuccess" }
+dms_inventry:
+        resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
+        prefix:   /inventory
 dms_user_group:
         resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
         prefix:   /users_groups
