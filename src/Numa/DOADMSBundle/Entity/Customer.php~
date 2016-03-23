@@ -66,6 +66,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $work_phone;
 
@@ -77,17 +78,18 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fax;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
-     * @JMS\Expose
      */
     private $notes;
 
@@ -570,9 +572,13 @@ class Customer
         // TODO: Implement __toString() method.
         return $this->getName()."";
     }
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getNote",setter="setNote")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Note>")
+     * @JMS\EXPOSE
      */
     private $Note;
 
@@ -583,6 +589,7 @@ class Customer
     {
         $this->followup_date = new \DateTime();
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Billing = new \Doctrine\Common\Collections\ArrayCollection();
         $this->getLastnoteadded();
     }
 
@@ -601,7 +608,7 @@ class Customer
 
     /**
      * Remove Note
-     *
+
      * @param \Numa\DOADMSBundle\Entity\Note $note
      */
     public function removeNote(\Numa\DOADMSBundle\Entity\Note $note)
@@ -613,15 +620,33 @@ class Customer
      * Get Note
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
      */
     public function getNote()
     {
-        return $this->Note;
+        $criteria = Criteria::create()
+
+            ->orderBy(array("date_remind" => "DESC"));
+        $notes=null;
+        if($this->Note) {
+            $notes = $this->Note->matching($criteria);
+        }
+        return $notes;
     }
+
+    public function setNote($note)
+    {
+        $this->Note = $note;
+
+        return $this;
+    }
+
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Expose
+     * @JMS\Accessor(getter="getBilling",setter="setBilling")
+     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Billing>")
+     * @JMS\EXPOSE
      */
     private $Billing;
 
@@ -654,15 +679,21 @@ class Customer
      * Get Billing
      *
      * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
      */
     public function getBilling()
     {
         return $this->Billing;
     }
 
+    public function setBilling($billing)
+    {
+        $this->Billing=$billing;
+    }
+
     /**
      * @var string
-     * @JMS\Expose
+
      */
     private $anotes;
 
@@ -698,12 +729,13 @@ class Customer
         }
 
         return $this->anotes;
-        return $this->anotes;
+
     }
 
     /**
-     * @var string
+     * @var DateTime
      * @JMS\Expose
+     * @JMS\Type("DateTime")
      * @JMS\Accessor(getter="getLastnoteadded",setter="setLastnoteadded")
      */
     private $lastnoteadded;
@@ -718,7 +750,7 @@ class Customer
     public function setLastnoteadded($lastnoteadded)
     {
         $this->lastnoteadded = $lastnoteadded;
-
+        //
         return $this;
     }
 
@@ -736,7 +768,7 @@ class Customer
             ->orderBy(array("date_remind" => "DESC"));
 
         $lastnoteadded = $this->getNote()->matching($criteria);
-        $this->lastnoteadded = "No notes";
+        $this->lastnoteadded = null;
         if(!empty($lastnoteadded->first())) {
             $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
         }
@@ -769,7 +801,6 @@ class Customer
 
     /**
      * Get sales_person
-     *
      * @return string
      */
     public function getSalesPerson()
@@ -778,6 +809,7 @@ class Customer
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $logo;
 

@@ -4,43 +4,55 @@ namespace Numa\DOADMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 /**
  * Note
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Note
 {
     /**
      * @var int
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $subject;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $notes;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
-    private $date_remind;
+    public $date_remind;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_updated;
 
