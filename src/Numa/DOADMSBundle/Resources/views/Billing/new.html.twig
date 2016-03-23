@@ -1,4 +1,5 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
@@ -8,14 +9,7 @@
     {{ form_start(form) }}
     <div class="col-md-2">
         <div id="details" class="tab-pane active">
-                {% if (customer.logo is not empty) %}
-                    {% if ('http' not in customer.logo) %}
-                        <img class="thumbnail" alt="{{ customer.name }}"
-                             src="{{ customer.logo|imagine_filter('search_image') }}"/>
-                    {% else %}
-                        <img class="thumbnail" src="{{ entity.logo }}" width="120" height="90"/>
-                    {% endif %}
-                {% endif %}
+            {{ component.image(customer.logo, customer.name, 'thumbnail', 'search_image','120px', '90px') }}
         </div>
     </div>
     <div class="col-md-8">

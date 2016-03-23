@@ -1,4 +1,5 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
 
     {#<h2>{{category.name}}</h2>#}
@@ -6,7 +7,7 @@
 
         <h2><a href="" >{{dealer.name}}</a></h2>
 
-        {% include "NumaDOASiteBundle::logo.html.twig" with {'item': item} %}
+    {{ component.image(dealer.logoUrl, dealer.name, '', 'search_image') }}
 
         <div>{{dealer.description| raw}}
                  <dl class="captions businessCatalogCaptions">
