@@ -6,8 +6,19 @@
     <h1>Billing creation</h1>
 
     {{ form_start(form) }}
-
-    <div class="col-md-10">
+    <div class="col-md-2">
+        <div id="details" class="tab-pane active">
+                {% if (customer.logo is not empty) %}
+                    {% if ('http' not in customer.logo) %}
+                        <img class="thumbnail" alt="{{ customer.name }}"
+                             src="{{ customer.logo|imagine_filter('search_image') }}"/>
+                    {% else %}
+                        <img class="thumbnail" src="{{ entity.logo }}" width="120" height="90"/>
+                    {% endif %}
+                {% endif %}
+        </div>
+    </div>
+    <div class="col-md-8">
     <ul>
         <li>{{ customer.firstName }}  {{ customer.lastName }}</li>
         <li>Address</li>
@@ -16,7 +27,7 @@
     </ul>
     </div>
     <div class="col-md-2">
-        <p>Date: {{ form_widget(form.date_billing) }}</p>
+        Date: {{ form_widget(form.date_billing) }}
         <script>
             $(function() {
                 $('.dateBilling').datepicker({

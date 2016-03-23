@@ -278,7 +278,7 @@ class Seo
     public function setUpdatedAtValue() {
         if(empty($this->dontupdate)){
 
-            $this->created_at = new \DateTime();
+            $this->updated_at = new \DateTime();
         }
     }
     /**

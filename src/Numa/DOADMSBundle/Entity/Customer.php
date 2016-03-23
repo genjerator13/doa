@@ -497,7 +497,10 @@ class Customer
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -505,7 +508,10 @@ class Customer
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -750,7 +756,7 @@ class Customer
     public function setLastnoteadded($lastnoteadded)
     {
         $this->lastnoteadded = $lastnoteadded;
-
+        //
         return $this;
     }
 

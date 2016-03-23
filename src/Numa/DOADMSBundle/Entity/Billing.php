@@ -135,7 +135,6 @@ class Billing
     {
         return $this->date_updated;
     }
-
     /**
      * Set status
      *
@@ -236,7 +235,10 @@ class Billing
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -244,7 +246,10 @@ class Billing
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
 
 
