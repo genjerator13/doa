@@ -90,6 +90,7 @@ class listingApi
         }
         //dump($map);
         $res['id'] = $item->get('id');
+        $res['category'] = $item->getCategory()->getName();
         $router = $this->container->get('router');
         //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
         $urldesription = $item->getUrlDescription();
@@ -121,6 +122,7 @@ class listingApi
         $em = $this->container->get('doctrine');
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, $category);
         foreach ($items as $item) {
+
             $res['listing'][] = $this->prepareItem($item);
         }
         return $res;
