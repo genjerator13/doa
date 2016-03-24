@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -41,6 +42,16 @@ class CustomerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+
+            //get loged user
+
+            $securityContext = $this->get('security.token_storage');
+            $token = $securityContext->getToken();
+            $user = $token->getUser();
+            if($user instanceof Catalogrecords){
+                $entity->setCatalogrecords($user);
+            }
+            //
             $em->persist($entity);
             $em->flush();
 

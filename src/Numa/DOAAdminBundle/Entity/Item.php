@@ -841,19 +841,18 @@ class Item
      */
     public function getPhoto($num = 0)
     {
-        $images = $this->getImages2();
+        $if = $this->getItemField();
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("fieldName", "Image List"))
+            ->setMaxResults(1);
+        $images = $if->matching($criteria);
         if(!empty($images) && $images->first() instanceof ItemField) {
 
             return $images->first()->getFieldStringValue();
         }
         return null;
     }
-    /**
-     * @param int $num
-     * @return mixed|null
-     * @JMS\VirtualProperty
-     * returns first image of the listing
-     */
+
     public function getPhotos()
     {
         $images = $this->getImages2();
