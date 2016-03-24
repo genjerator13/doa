@@ -832,13 +832,42 @@ class Item
         }
         return $res;
     }
-
-    public function getImage2($num = 0)
+    //private $photo;
+    /**
+     * @param int $num
+     * @return mixed|null
+     * @JMS\VirtualProperty
+     * returns first image of the listing
+     */
+    public function getPhoto($num = 0)
     {
         $images = $this->getImages2();
-        foreach ($images as $image) {
-            return $image;
+        if(!empty($images) && $images->first() instanceof ItemField) {
+
+            return $images->first()->getFieldStringValue();
         }
+        return null;
+    }
+    /**
+     * @param int $num
+     * @return mixed|null
+     * @JMS\VirtualProperty
+     * returns first image of the listing
+     */
+    public function getPhotos()
+    {
+        $images = $this->getImages2();
+        $res = array();
+        foreach ($images as $image) {
+            if ($image instanceof ItemField) {
+                $res[] = $image->getFieldStringValue();
+            }
+        }
+        return $res;
+    }
+
+    public function setImage2($photo){
+        $this->photo =  $photo;
     }
 
     public function getImage($num = 0)
@@ -1876,10 +1905,6 @@ class Item
         return $this;
     }
 
-    /**
-     * @var integer
-     */
-    private $photos;
 
     /**
      * @var string
@@ -1887,29 +1912,6 @@ class Item
      * @JMS\Expose*
      */
     private $make;
-
-    /**
-     * Set photos
-     *
-     * @param integer $photos
-     * @return Item
-     */
-    public function setPhotos($photos)
-    {
-        $this->photos = $photos;
-
-        return $this;
-    }
-
-    /**
-     * Get photos
-     *
-     * @return integer
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
 
     /**
      * Set make
