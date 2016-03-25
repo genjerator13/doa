@@ -28,9 +28,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {
+            enableSorting: false,
+            enableFiltering: false,
             name:'photo',
             enableColumnResizing: true,width: 150,
-            cellTemplate: '<img src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="150px" width="150px">'
+            cellTemplate: '<img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" >'
         },
         {name:'id', enableColumnResizing: true,width: 50},
         {name:'body_style', displayName: 'Body Style / Type',enableColumnResizing: true,width: 90},
