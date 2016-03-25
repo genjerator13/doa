@@ -1,12 +1,19 @@
+{# get the loged dealer #}
+{% set apicall="/api/listings2/2/dealer.json" %}
+{% if is_granted('ROLE_BUSINES') %}
+    {% set user= app.security.getToken().getUser().getId() %}
+    {% set apicall="/api/listings2/"~user~"/dealer.json" %}
+{% endif %}
+
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
-var app = angular.module('app', ['angular-loading-bar','ngTouch','ngAnimate', 'ui.grid','ui.grid.moveColumns','ui.grid.resizeColumns','ui.grid.selection','ui.grid.expandable','ui.bootstrap', 'ui.grid.pinning']);
+var app = angular.module('app', ['ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
 
-app.config(function($interpolateProvider){
+app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants','$q','$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants,$q,$uibModal) {
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
     $scope.gridOptions = {
         enableSorting: true,
         showGridFooter: true,
@@ -59,7 +66,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $scope.animationsEnabled = true;
 
-    $scope.delete = function(row) {
+    $scope.delete = function (row) {
         console.log(row.entity.id);
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -76,8 +83,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         modalInstance.result.then(function (selectedItem) {
             //ok
 
-            $http.delete('/dms/customers/'+row.entity.id+"/delete", {timeout: canceler.promise})
-                    .success(function(data) {
+            $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
+                    .success(function (data) {
                         var index = $scope.gridOptions.data.indexOf(row.entity);
                         $scope.gridOptions.data.splice(index, 1);
                     });
@@ -90,25 +97,25 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     var canceler = $q.defer();
     $http.get('/api/listings2/2/dealer.json', {timeout: canceler.promise})
-            .success(function(data) {
+            .success(function (data) {
 
                 $scope.gridOptions.data = data;
 
             });
 
-    $scope.$on('$destroy', function(){
+    $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
     });
 
-    $scope.gridOptions.onRegisterApi = function(gridApi){
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
         //set gridApi on scope
         $scope.gridApi = gridApi;
-        gridApi.selection.on.rowSelectionChanged($scope,function(row){
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
             var msg = 'row selected ' + row.isSelected;
             $log.log(msg);
         });
 
-        gridApi.selection.on.rowSelectionChangedBatch($scope,function(rows){
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             var msg = 'rows changed ' + rows.length;
             $log.log(msg);
         });
