@@ -572,6 +572,8 @@ class Customer
         // TODO: Implement __toString() method.
         return $this->getName()."";
     }
+
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      * @JMS\Accessor(getter="getNote",setter="setNote")
@@ -587,6 +589,7 @@ class Customer
     {
         $this->followup_date = new \DateTime();
         $this->Note = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->Billing = new \Doctrine\Common\Collections\ArrayCollection();
         $this->getLastnoteadded();
     }
 
@@ -677,7 +680,6 @@ class Customer
      *
      * @return \Doctrine\Common\Collections\Collection
      * @JMS\VirtualProperty
-
      */
     public function getBilling()
     {
@@ -748,7 +750,7 @@ class Customer
     public function setLastnoteadded($lastnoteadded)
     {
         $this->lastnoteadded = $lastnoteadded;
-
+        //
         return $this;
     }
 

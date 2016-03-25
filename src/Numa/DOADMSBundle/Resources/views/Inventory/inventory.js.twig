@@ -6,7 +6,7 @@
 {% endif %}
 
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
-var app = angular.module('app', ['ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
 
 app.config(function ($interpolateProvider) {
@@ -21,24 +21,44 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         enableRowSelection: true,
         enableSelectAll: true,
         selectionRowHeaderWidth: 35,
-        rowHeight: 35,
+        rowHeight: 150,
         enableColumnResizing: true,
 
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
-        {name: 'id', enableColumnResizing: true, width: 50},
-        {name: 'sold', enableColumnResizing: true, width: 50},
-        {name: '_category.name', displayName: 'Category', enableColumnResizing: true, width: 90},
-        {name: 'make'},
-        {name: 'model'},
-        {name: 'stock_nr', enableColumnResizing: true, width: 90},
-        {name: 'active', enableColumnResizing: true, width: 60},
-        {name: 'status', enableColumnResizing: true, width: 60},
-        {name: 'views', enableColumnResizing: true, width: 60},
-        {name: 'activation_date', enableColumnResizing: true, type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name: 'expiration_date', enableColumnResizing: true, type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name: '_dealer.name', displayName: 'Dealer'},
+        {
+            name:'photo',
+            enableColumnResizing: true,width: 150,
+            cellTemplate: '<img src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="150px" width="150px">'
+        },
+        {name:'id', enableColumnResizing: true,width: 50},
+        {name:'body_style', displayName: 'Body Style / Type',enableColumnResizing: true,width: 90},
+        {name:'year', displayName: 'Year',enableColumnResizing: true,width: 80},
+        {name:'make'},
+        {name:'model'},
+        {name:'stock_nr',enableColumnResizing: true,width: 80},
+        {
+            name:'status',
+            enableColumnResizing: true,width: 60,
+            cellTemplate: '<span ng-if="row.entity.status == \'N\'">New</span><span ng-if="row.entity.status == \'U\'">Used</span>',
+        },
+
+        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
+        {name:'views',enableColumnResizing: true,width: 60},
+        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'_dealer.name',displayName:'Dealer'},
+        {
+            name:'sold',
+            enableColumnResizing: true,width: 50,
+            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },
+        {
+            name:'active',
+            enableColumnResizing: true,width: 60,
+            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },#}
 
     ];
 

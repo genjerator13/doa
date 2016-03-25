@@ -1,39 +1,38 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block content %}
     <h1>Billing creation</h1>
 
-    {#{{ form(form) }}
-
-    {{ dump(customer) }}
-
-        <a href="{{ path('customer') }}" class="btn btn-primary" >
-            Back to the list
-        </a>#}
-
+    {{ form_start(form) }}
+    <div class="col-md-2">
+        <div id="details" class="tab-pane active">
+            {{ component.image(customer.logo, customer.name, 'thumbnail', 'search_image','120px', '90px') }}
+        </div>
+    </div>
     <div class="col-md-8">
     <ul>
-        <li>Name of company</li>
+        <li>{{ customer.firstName }}  {{ customer.lastName }}</li>
         <li>Address</li>
-        <li>City, Prov/state, Zio/postal</li>
-        <li>Phone, email</li>
+        <li>{{ customer.city }}, {{ customer.state }}, {{ customer.zip }}</li>
+        <li>{{ customer.homePhone }}, {{ customer.mobilePhone }}, {{ customer.workPhone }}, {{ customer.email }}</li>
     </ul>
     </div>
-    <div class="col-md-4">
-        Date: {{ entity.datecreated|date('Y-m-d') }}
-
+    <div class="col-md-2">
+        Date: {{ form_widget(form.date_billing) }}
         <script>
             $(function() {
-                $( "#datepicker" ).datepicker(({ dateFormat: 'yy-mm-dd' }));
+                $('.dateBilling').datepicker({
+                    dateFormat: 'dd-mm-yy',
+                });
             });
         </script>
-        <p>Date: <input type="text" id="datepicker"></p>
 
         Invoice #: {{ entity.id }}
     </div>
-
+    <div class="col-md-12">
     <h2>Customer</h2>
     <table class="record_properties">
         <tbody>
@@ -44,6 +43,10 @@
         <tr>
             <th>Address: </th>
             <td></td>
+        </tr>
+        <tr>
+            <th>City: </th>
+            <td>{{ customer.city }}</td>
         </tr>
         <tr>
             <th>State/Prov.: </th>
@@ -59,4 +62,20 @@
         </tr>
         </tbody>
     </table>
+    </div>
+    <div>
+        <div class="col-md-6">
+            {{ form_label(form.comments) }}
+            {{ form_widget(form.comments) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_label(form.totalAMT) }}
+            {{ form_widget(form.totalAMT) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+    <a href="{{ path('customer') }}" class="btn btn-primary" >
+        Back to the list
+    </a>
 {% endblock %}

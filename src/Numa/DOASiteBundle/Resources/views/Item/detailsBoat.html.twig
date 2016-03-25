@@ -1,7 +1,7 @@
 {% extends app.request.attributes.get('_route')=='item_print_details'
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
-
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block title %}
     {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
         <title>{{ seo.getTitle() }}</title>
@@ -320,8 +320,7 @@
                                 {% if (dealer is defined and dealer is not empty) %}
                                 <h3>Dealer Info</h3>
 
-                                {% include "NumaDOASiteBundle::logo.html.twig" with {'item': dealer} %}
-
+                                {{ component.image(dealer.logoUrl, dealer.name, '', 'search_image') }}
                                 <p class="dealer-name">{{ dealer.name }}</p>
                                 {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
                                     <a class="dealer-coupon-link"

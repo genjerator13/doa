@@ -71,6 +71,7 @@ class ItemController extends Controller {
             $image = $item->getImage2();
 
             echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
         }
         );
 

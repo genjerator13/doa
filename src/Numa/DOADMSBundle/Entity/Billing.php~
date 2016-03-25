@@ -48,6 +48,11 @@ class Billing
      */
     private $Customer;
 
+    /**
+     * @var \DateTime
+     */
+    private $date_billing;
+
 
     /**
      * Get id
@@ -240,5 +245,30 @@ class Billing
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+
+
+    /**
+     * Set dateBilling
+     *
+     * @param \DateTime $dateBilling
+     *
+     * @return Billing
+     */
+    public function setDateBilling($dateBilling)
+    {
+        $this->date_billing = $dateBilling;
+
+        return $this;
+    }
+
+    /**
+     * Get dateBilling
+     *
+     * @return \DateTime
+     */
+    public function getDateBilling()
+    {
+        return $this->date_billing;
     }
 }

@@ -1,4 +1,4 @@
-
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
 
     {#<h1>{{category.name}}</h1>#}
@@ -8,7 +8,7 @@
              <div class="dealer-content">{{item.description| raw}}
                  <dl class="captions businessCatalogCaptions">
                  <dt>Logo:</dt>
-                  <dd>{% include "NumaDOASiteBundle::logo.html.twig" with {'item': item} %}</dd>
+                  <dd>{{ component.image(item.logoUrl, item.name, '', 'search_image') }}</dd>
 
                      <dt>Address:</dt>
                      <dd>{{item.address}}</dd>

@@ -48,6 +48,11 @@ class Billing
      */
     private $Customer;
 
+    /**
+     * @var \DateTime
+     */
+    private $date_billing;
+
 
     /**
      * Get id
@@ -130,7 +135,6 @@ class Billing
     {
         return $this->date_updated;
     }
-
     /**
      * Set status
      *
@@ -231,7 +235,10 @@ class Billing
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -239,6 +246,34 @@ class Billing
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
+    }
+
+
+    /**
+     * Set dateBilling
+     *
+     * @param \DateTime $dateBilling
+     *
+     * @return Billing
+     */
+    public function setDateBilling($dateBilling)
+    {
+        $this->date_billing = $dateBilling;
+
+        return $this;
+    }
+
+    /**
+     * Get dateBilling
+     *
+     * @return \DateTime
+     */
+    public function getDateBilling()
+    {
+        return $this->date_billing;
     }
 }
