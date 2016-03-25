@@ -76,11 +76,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     }
 
     var canceler = $q.defer();
-    $http.get('/api/listings2/2/dealer.json', {timeout: canceler.promise})
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
-
                 $scope.gridOptions.data = data;
-
             });
 
     $scope.$on('$destroy', function () {
