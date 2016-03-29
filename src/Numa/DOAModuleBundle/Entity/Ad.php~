@@ -343,7 +343,7 @@ class Ad
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-            $this->createdAt = new \DateTime();
+            $this->updatedAt = new \DateTime();
     }
     /**
      * @var \Doctrine\Common\Collections\Collection

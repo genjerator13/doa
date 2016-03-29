@@ -8,7 +8,11 @@
 
         <div class="box-header">
             <div class="box-tools">
-                <a href="{{ path('user_group_new') }}" class="btn btn-primary">
+                {% set new='user_group_new' %}
+                {% if dashboard=="DMS" %}
+                    {% set new='dms_user_group_new' %}
+                {% endif %}
+                <a href="{{ path(new) }}" class="btn btn-primary">
                     Create a new entry
                 </a>
             </div>
@@ -34,13 +38,14 @@
                             {% endif %}
                         </td>
                         <td>{{ entity.name }}</td>
-                        <td>{{ entity.regformtemplate }}</td>
                         <td>{{ entity.description }}</td>
                         <td>
                             {% if(app.request.get('_dashboard')=='DMS') %}
-                                <a href="{{ path('dms_user_group_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ path('dms_user_group_edit', { 'id': entity.id }) }}"
+                                   class="btn btn-primary">Edit</a>
                             {% else %}
-                                <a href="{{ path('user_group_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+                                <a href="{{ path('user_group_edit', { 'id': entity.id }) }}"
+                                   class="btn btn-primary">Edit</a>
                             {% endif %}
 
                         </td>

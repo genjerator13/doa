@@ -102,12 +102,16 @@
                 <li class="">
                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
                 </li>
+                {% if not is_granted('ROLE_ACCOUNTING') %}
                 <li class="">
-                    <a href="{{ path('dms_users') }}" class=""><i class="fa fa-user"></i>Users</a>
+                    <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>
                 </li>
+                {% endif %}
+                {% if not is_granted('ROLE_ACCOUNTING') %}
                 <li class="">
                     <a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>
                 </li>
+                {% endif %}
             </ul>
         </section>
         <!-- /.sidebar -->

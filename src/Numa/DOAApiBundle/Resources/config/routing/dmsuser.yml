@@ -1,0 +1,12 @@
+dmsuser_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:DMSUserREST:all",_format: "json"}
+    requirements: { _method: get }
+dmsuser_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:DMSUserREST:allDms",_format: "json"}
+    requirements: { _method: get }
+dmsuser_api_bydealer:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:DMSUserREST:byDealer",_format: "json"}
+    requirements: { _method: get }

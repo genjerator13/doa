@@ -1,7 +1,7 @@
-#listing:
+#dms_user_api:
 #    type: rest
-#    resource: Numa\DOAAdminBundle\Controller\ItemRESTController
-#    defaults: {_format: xml}
+#    resource: Numa/DOADMSBundle/Controller/DMSUserRESTController
+#    defaults: {_format: json}
 ads_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/ad.yml"
         prefix:   /ads
@@ -11,6 +11,9 @@ customer_api:
 user_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/user.yml"
         prefix:   /user
+dmsuser_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/dmsuser.yml"
+        prefix:   /dmsuser
 note_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/note.yml"
         prefix:   /note

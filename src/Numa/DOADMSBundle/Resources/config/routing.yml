@@ -2,17 +2,17 @@ dms_home:
     path:  /
     defaults: { _controller: "NumaDOADMSBundle:Default:index" }
 dms_customer:
-        resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
-        prefix:   /customers
+    resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
+    prefix:   /customers
 dms_user:
-        resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
-        prefix:   /users
+    resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
+    prefix:   /users
 dms_inventry:
-        resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
-        prefix:   /inventory
+    resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
+    prefix:   /inventory
 dms_user_group:
-        resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
-        prefix:   /users_groups
+    resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
+    prefix:   /users_groups
 
 NumaDOADMSBundle_client:
     resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
@@ -22,5 +22,8 @@ NumaDOADMSBundle_note:
     resource: "@NumaDOADMSBundle/Resources/config/routing/note.yml"
     prefix:   /note
 NumaDOADMSBundle_billing:
-        resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
-        prefix:   /billing
+    resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
+    prefix:   /billing
+NumaDOADMSBundle_dmsuser:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
+    prefix:   /dmsuser
