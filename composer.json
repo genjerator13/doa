@@ -31,7 +31,7 @@
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0.12",
-        "sensio/framework-extra-bundle": "~3.0",
+
         "incenteev/composer-parameter-handler": "~2.0",
         "sensio/generator-bundle": "2.3.*",
         "braincrafted/bootstrap-bundle": "dev-master",
@@ -50,9 +50,12 @@
         "jms/serializer-bundle": "^1.1@dev",
         "friendsofsymfony/rest-bundle": "dev-master",
         "nelmio/api-doc-bundle": "^2.9@dev",
-        "comur/image-bundle": "1.0.*@dev"
-
-
+        "comur/image-bundle": "1.0.*@dev",
+        "misd/guzzle-bundle": "dev-master",
+        "eightpoints/guzzle-bundle": "^4.4",
+        "leaseweb/guzzle-bundle": "*",
+        "ci/restclientbundle": "^1.0",
+        "guzzle/guzzle": "~3.9"
     },
     "scripts": {
         "post-install-cmd": [
