@@ -45,19 +45,24 @@ security:
         - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
         - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
-        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER] }
+        - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
+        - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_BUSINES,ROLE_ACCOUNTING] }
 
 
 
     providers:
         chain_provider:
             chain:
-                providers: [main, busines]
+                providers: [main, busines,dms]
         main:
             entity: { class: Numa\DOAAdminBundle\Entity\User }
         busines:
             entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
+        dms:
+            entity: { class: Numa\DOADMSBundle\Entity\DMSUser, property: username}
  
     encoders:
         Numa\DOAAdminBundle\Entity\User: sha512
         Numa\DOAAdminBundle\Entity\Catalogrecords: sha512
+        Numa\DOADMSBundle\Entity\DMSUser: sha512
