@@ -25,7 +25,7 @@ services:
 #                    CURLOPT_SSL_VERIFYPEER: false
 #                    CURLOPT_USERAGENT: "LeaseWeb API Caller"
 #                    CURLOPT_FOLLOWLOCATION: true
-#                    CURLOPT_SSLVERSION: 3              
+#                    CURLOPT_SSLVERSION: 3
 framework:
     esi: { enabled: true }
 
@@ -56,6 +56,8 @@ twig:
         title: Peak Dealers Online
         subject: Email from
         upload_feed_path: /upload/feeds/
+    form_themes:
+        - 'views/Form/fields.html.twig'
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
@@ -204,6 +206,7 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
+    date: ~
 #comur_image:
 #    config:
 #        cropped_image_dir: 'cropped'
@@ -314,15 +317,15 @@ genemu_form:
         grayscale:        false
 
 sensio_framework_extra:
-        view:    {annotations: false}
+        view:    {annotations: true}
         router:  {annotations: true}
 
 fos_rest:
-#        format_listener:
-#             rules:
-#                - prefer_extension: false
-        view:
-             view_response_listener: true
+    param_fetcher_listener: true
+    body_listener: true
+    format_listener: true
+    view:
+        view_response_listener: 'force'
 jms_serializer:
   metadata:
     auto_detection: true
