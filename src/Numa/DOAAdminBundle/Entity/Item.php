@@ -790,7 +790,13 @@ class Item
 
         return $imagesSorted;
     }
-
+    public function getImage2($num = 0)
+    {
+        $images = $this->getImages2();
+        foreach ($images as $image) {
+            return $image;
+        }
+    }
     public function getImagesForApi()
     {
         $images = $this->getImages2();

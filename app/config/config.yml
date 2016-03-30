@@ -58,6 +58,8 @@ twig:
         title: Peak Dealers Online
         subject: Email from
         upload_feed_path: /upload/feeds/
+    form_themes:
+        - 'views/Form/fields.html.twig'
 #    form:
 #        resources: ['bootstrap_3_horizontal_layout.html.twig']
 
@@ -207,6 +209,7 @@ genemu_form:
     tinymce: 
         theme:   advanced
     date: ~
+    autocomplete: ~
 #comur_image:
 #    config:
 #        cropped_image_dir: 'cropped'

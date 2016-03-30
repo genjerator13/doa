@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Numa\Form\AutocompleteType;
 
 class AddItemSubscriber implements EventSubscriberInterface
 {
@@ -103,7 +104,10 @@ class AddItemSubscriber implements EventSubscriberInterface
                     }
 
                     //make form name from db name TODO function for that
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+
+                    //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
 
                     $selected = $item->getItemFieldByName($carFieldField);
@@ -120,7 +124,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                     //make form name from db name TODO function for that
 
 
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 }
             }
         }
