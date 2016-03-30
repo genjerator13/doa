@@ -1,0 +1,22 @@
+{% block autocomplete_widget %}
+    {% spaceless %}
+        {% set type = 'autocomplete' %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' autocomplete')|trim}) %}
+
+
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        <script>
+            $(function() {
+                var {{ id }} = [
+{% for choice in choices %}
+"{{ choice }}"
+{% if not loop.last %},{% endif %}
+{% endfor %}
+                ];
+                $( "#{{ id }}" ).autocomplete({
+                    source: {{ id }}
+                });
+            });
+        </script>
+    {% endspaceless %}
+{% endblock %}
