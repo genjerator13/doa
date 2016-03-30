@@ -11,9 +11,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Numa\Form\AutocompleteType;
 
 class AddItemSubscriber implements EventSubscriberInterface
 {
+
     protected $em;
     protected $securityContext;
     protected $dealerID;
@@ -42,7 +44,21 @@ class AddItemSubscriber implements EventSubscriberInterface
 
     public function postSubmitData(FormEvent $event)
     {
+        $item = $event->getData();
+        $form = $event->getForm();
 
+        if ($item instanceof Item) {
+            $seo = $item->getSeo();
+            if ($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()) {
+
+            } else {
+
+                //$setting = $this->container->get("numa.settings");
+                //dump($seo);die();
+
+            }
+        }
+        //die();
     }
 
     /**
@@ -72,7 +88,6 @@ class AddItemSubscriber implements EventSubscriberInterface
 
 
                     $selected = $item->get($carFieldDB);
-
                     if (empty($selected)) {
                         $selected = $item->getItemFieldByName($carFieldDB);
                     }
@@ -88,8 +103,11 @@ class AddItemSubscriber implements EventSubscriberInterface
                         $values[$selected] = $selected;
                     }
 
-                    //make form     name from db name TODO function for that
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    //make form name from db name TODO function for that
+
+                    //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
 
                     $selected = $item->getItemFieldByName($carFieldField);
@@ -102,10 +120,13 @@ class AddItemSubscriber implements EventSubscriberInterface
                         $values[$value->getName()] = $value->getName();
                     }
                     //make form name from db name TODO function for that
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+
+
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 }
             }
         }
+        //die();
 
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
 
