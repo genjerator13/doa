@@ -55,7 +55,8 @@
         "eightpoints/guzzle-bundle": "^4.4",
         "leaseweb/guzzle-bundle": "*",
         "ci/restclientbundle": "^1.0",
-        "guzzle/guzzle": "~3.9"
+        "guzzle/guzzle": "~3.9",
+        "pugx/autocompleter-bundle": "^1.2"
     },
     "scripts": {
         "post-install-cmd": [
