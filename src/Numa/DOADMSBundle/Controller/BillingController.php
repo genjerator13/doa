@@ -85,6 +85,7 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
+        $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
 
         $form   = $this->createCreateForm($entity);
@@ -92,6 +93,7 @@ class BillingController extends Controller
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
             'customer' => $customer,
+            'dealer' => $dealer,
             'form'   => $form->createView(),
 
         ));

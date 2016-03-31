@@ -19,6 +19,10 @@ Numa\DOADMSBundle\Entity\Customer:
             type: string
             length: 255
             nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
         city:
             type: string
             length: 255

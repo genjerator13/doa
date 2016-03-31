@@ -45,9 +45,7 @@ class CustomerController extends Controller
 
             //get loged user
 
-            $securityContext = $this->get('security.token_storage');
-            $token = $securityContext->getToken();
-            $user = $token->getUser();
+            $user = $this->get('security.token_storage')->getToken()->getUser();
             if($user instanceof Catalogrecords){
                 $entity->setCatalogrecords($user);
             }

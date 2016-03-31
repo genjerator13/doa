@@ -171,6 +171,8 @@ class Customer
         return $this->last_name;
     }
 
+
+
     /**
      * Set city
      *
@@ -492,6 +494,10 @@ class Customer
     {
         return $this->Catalogrecords;
     }
+
+    public function getDealer(){
+        return $this->getCatalogrecords();
+    }
     /**
      * @ORM\PrePersist
      */
@@ -542,6 +548,7 @@ class Customer
     public function getName()
     {
         return $this->name;
+        //return $this->first_name." ".$this->last_name;
     }
     /**
      * @var \DateTime
@@ -912,4 +919,32 @@ class Customer
         $this->file_import_source = null;
     }
 
+    /**
+     * @var string
+     */
+    private $address;
+
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     * @return Customer
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string 
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
 }

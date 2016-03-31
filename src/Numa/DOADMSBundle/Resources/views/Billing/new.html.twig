@@ -4,78 +4,927 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% block content %}
-    <h1>Billing creation</h1>
+    <div class="box">
+        <div class="box-header">
 
-    {{ form_start(form) }}
-    <div class="col-md-2">
-        <div id="details" class="tab-pane active">
-            {{ component.image(customer.logo, customer.name, 'thumbnail', 'search_image','120px', '90px') }}
-        </div>
-    </div>
-    <div class="col-md-8">
-    <ul>
-        <li>{{ customer.firstName }}  {{ customer.lastName }}</li>
-        <li>Address</li>
-        <li>{{ customer.city }}, {{ customer.state }}, {{ customer.zip }}</li>
-        <li>{{ customer.homePhone }}, {{ customer.mobilePhone }}, {{ customer.workPhone }}, {{ customer.email }}</li>
-    </ul>
-    </div>
-    <div class="col-md-2">
-        Date: {{ form_widget(form.date_billing) }}
-        <script>
-            $(function() {
-                $('.dateBilling').datepicker({
-                    dateFormat: 'dd-mm-yy',
-                });
-            });
-        </script>
+            {#<div class="row">#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">#}
+            {#<ul>#}
+            {#<li>{{ component.image(dealer.logo, dealer.name, 'thumbnail', 'search_image','120px', '90px') }}</li>#}
+            {#<li>{{ dealer.name }}</li>#}
+            {#<li>{{ dealer.address }}</li>#}
+            {#<li>{{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</li>#}
+            {#<li>Phone: {{  dealer.phone }}, Fax: {{ dealer.fax }}</li>#}
+            {#</ul>#}
+            {#</div>#}
+            {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-1">#}
+            {#<h1>PURCHASE INVOICE</h1>#}
 
-        Invoice #: {{ entity.id }}
-    </div>
-    <div class="col-md-12">
-    <h2>Customer</h2>
-    <table class="record_properties">
-        <tbody>
-        <tr>
-            <th>Name: </th>
-            <td>{{ customer.firstName }}  {{ customer.lastName }}</td>
-        </tr>
-        <tr>
-            <th>Address: </th>
-            <td></td>
-        </tr>
-        <tr>
-            <th>City: </th>
-            <td>{{ customer.city }}</td>
-        </tr>
-        <tr>
-            <th>State/Prov.: </th>
-            <td>{{ customer.state }}</td>
-        </tr>
-        <tr>
-            <th>Zip/Postal: </th>
-            <td>{{ customer.zip }}</td>
-        </tr>
-        <tr>
-            <th>Phone: </th>
-            <td>{{ customer.homePhone }}, {{ customer.mobilePhone }}, {{ customer.workPhone }}</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-    <div>
-        <div class="col-md-6">
-            {{ form_label(form.comments) }}
-            {{ form_widget(form.comments) }}
+            {#<div>GST #</div>#}
+            {#</div>#}
+            {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">#}
+            {#<div class="row">#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
+            {#</div>#}
+            {#<div class="row">#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Dealer #</div>#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
+            {#</div>#}
+            {#<div class="row">#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4" >DATE</div>#}
+            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
+            {#</div>#}
+            {#</div>#}
+            {#</div>#}
         </div>
-        <div class="col-md-6">
-            {{ form_label(form.totalAMT) }}
-            {{ form_widget(form.totalAMT) }}
-        </div>
-    </div>
+        {#<div class="box-body table-responsive no-padding">#}
+        {#<div class="row">#}
+        {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-5">PURCHASER</div>#}
+        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">ADDRESS</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">APT. NO.</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-5">{{ customer.name() }}</div>#}
+        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">{{ customer.address }}</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">APT. NO.</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">CITY</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">STATE / PROV</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">ZIP / POSTAL</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">BUYERS PHONE</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">BUYERS FAX #</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">{{ customer.city }}</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.state }}</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.zip }}</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.homePhone }}</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.fax }}</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">OPT.</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3  col-xs-3">OPTIONAL EQUIPMENT</div>#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">NEW</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2  col-xs-2">YEAR</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">MAKE</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">MODEL</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Used</div>#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">auto fill</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">make</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">model</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3  col-xs-3">Type</div>#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">COLOR</div>#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">auto fill</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">VIN</div>#}
+        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">type or auto fill</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">ODOMETER READING</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">NEW WARRANTY</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">type</div>#}
+        {#</div>#}
+        {#<div class="row">#}
+        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
+        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">auto fill</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">USED WARRANTY</div>#}
+        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">type</div>#}
+        {#</div>#}
+        {#</div>#}
 
-    {{ form_end(form) }}
-    <a href="{{ path('customer') }}" class="btn btn-primary" >
-        Back to the list
-    </a>
+
+        <table cellspacing="0" border="0">
+            <colgroup span="3" width="80"></colgroup>
+            <colgroup width="56"></colgroup>
+            <colgroup width="69"></colgroup>
+            <colgroup width="77"></colgroup>
+            <colgroup width="141"></colgroup>
+            <colgroup span="3" width="80"></colgroup>
+            <colgroup width="68"></colgroup>
+            <colgroup span="3" width="80"></colgroup>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=4 rowspan=4
+                    height="80" align="center" valign=bottom><br>
+                        {{ component.image(dealer.logo, dealer.name, 'thumbnail', 'search_image','120px', '90px') }}
+                    </td>
+                <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom bgcolor="#E7E6E6">
+                    <b><u>PURCHASE INVOICE</u></b></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#FFFFFF"><b> </b></td>
+                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#FFF2CC">Type or auto fill</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4 align="center"
+                    valign=bottom bgcolor="#FBE5D6"> GST # - </td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#E7E6E6"><b>Dealer #</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7">type</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
+                                                                                                        <br>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=4 height="20" align="center" valign=bottom bgcolor="#E2F0D9">{{ dealer.address }}</td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>DATE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdnum="1033;1033;[$-409]MMMM D, YYYY;@">typexxxx
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                    bgcolor="#E2F0D9">{{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
+                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                    bgcolor="#E2F0D9">Phone: {{  dealer.phone }}, Fax: {{ dealer.fax }}</td>
+                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" height="20" align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom></td>
+                <td style="border-bottom: 1px solid #000000" align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="left" valign=bottom
+                    bgcolor="#E7E6E6"><b>PURCHASER</b></td>
+                <td align="left" valign=bottom bgcolor="#E7E6E6"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=4 align="left"
+                    valign=bottom bgcolor="#E7E6E6"><b>ADDRESS</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom bgcolor="#E7E6E6"><b>APT. NO.</b></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000" colspan=5 height="20" align="center" valign=bottom
+                    bgcolor="#FFF2CC">{{ customer.name }}</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=4 align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.address }}</td>
+                <td style="border-bottom: 1px solid #000000" colspan=2 align="center" valign=bottom bgcolor="#FFF2CC">
+                    type or auto fill</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" colspan=4 height="20"
+                    align="left" valign=bottom bgcolor="#D9D9D9"><b>CITY</b></td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#D9D9D9">
+                    <b>STATE / PROV</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#D9D9D9"><b>ZIP / POSTAL</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom bgcolor="#D9D9D9"><b>BUYERS PHONE #</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom bgcolor="#D9D9D9"><b>BUYERS FAX #</b></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=4 height="20"
+                    align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.city }}</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.state }}</td>
+                <td style="border-left: 1px solid #000000" align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.zip }}</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#FFF2CC">{{ customer.homePhone }}</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#FFF2CC">{{ customer.fax }}</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="center" valign=bottom bgcolor="#E7E6E6">OPT.
+                </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#E7E6E6">OPTIONAL EQUIPMENT</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>NEW</b></td>
+                <td align="center" valign=bottom bgcolor="#F2F2F2">auto fill</td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>YEAR</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>MAKE</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom bgcolor="#E7E6E6"><b>MODEL</b></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="center" valign=bottom bgcolor="#DEEBF7">Type
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">Type
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>USED</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=bottom
+                    bgcolor="#F2F2F2">auto fill</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="center" valign=bottom bgcolor="#F2F2F2">auto fill</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">auto
+                        fill</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#F2F2F2">auto fill</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>COLOR</b></td>
+                <td align="center" valign=bottom bgcolor="#F2F2F2">auto fill</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="center" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="center"
+                    valign=bottom bgcolor="#FFF2CC">type or auto fill</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                    </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"> </td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#E7E6E6"><b>ODOMETER
+                            READING</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#E7E6E6"><b>NEW
+                            WARRANTY</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7">type</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">auto
+                        fill</td>
+                <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom bgcolor="#E7E6E6">
+                    <b>USED WARRANTY</b></td>
+                <td colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">type
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>TRIM</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">auto
+                        fill</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="center"
+                    valign=bottom bgcolor="#AFABAB"><b>TERMS OF SETTLEMENT</b></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#AFABAB"><b>TRADE-IN
+                            DESCRIPTION </b></td>
+                <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>SALE
+                            PRICE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom bgcolor="#E7E6E6"><b>ADMIN FEE</b></td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom> </td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>MAKE</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#E7E6E6"><b>MODEL</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>WARRANTY</b>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#DEEBF7">type </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7">type</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PROTECTION
+                            PKG</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>YEAR</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#E7E6E6"><b>MILEAGE</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#E7E6E6"><b>KM</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b>
+                </td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="center" valign=bottom bgcolor="#DEEBF7">type</td>
+                <td style="border-left: 1px solid #000000" align="center" valign=bottom bgcolor="#DEEBF7">
+                                                                                                                type
+                </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center"
+                    valign=bottom bgcolor="#DEEBF7">type</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS TRADE
+                            IN</b></td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom bgcolor="#DEEBF7"
+                    sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">type</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>DIFFERENCE
+                            PAYABLE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom>I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND
+                        OWNER-</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>TAX 1</b>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                                                                                                      SHIP
+                        IN THE ABOVE TRADE-IN AND I DECLARE I AM THE SOLE OWNER</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>TAX 2</b>
+                </td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom>AND POSSESSOR OF SAME AND THAT THERE IS NO LIEN,
+                        MORTGAGE, </td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#FBE5D6">
+                    <b>TAX 3</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                                                                                                      NOTE
+                        OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
+                            MISC</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                                                                                                      OF,
+                        UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
+                            MISC</b></td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                                                                                                      
+                        BELOW.</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TAXES PAID
+                            TOTAL</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                    </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                                                                                                      <br>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LIEN ON
+                            TRADE-IN </b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom><br></td>
+                <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL
+                            DUE</b></td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom><b> </b></td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#E7E6E6">
+                    <b>LESS TRADE-IN TAX</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom bgcolor="#FFFFFF"><b>__________________________________________</b>
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS
+                            DEPOSIT</b></td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=middle><b>SIGNATURE X</b></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#E7E6E6"></td>
+                <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"
+                    valign=bottom></td>
+                <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
+                            DELEIVERY</b></td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
+                            FINANCE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" colspan=2 height="20" align="center" valign=bottom
+                    bgcolor="#E7E6E6"><b>TOTAL</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="center"
+                    valign=bottom bgcolor="#DEEBF7">type</td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
+                                                                                    INSURANCE</b>
+                </td>
+                <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 height="20"
+                    align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
+                </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                    valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#E7E6E6"><b>BANK REGISTRATION FEE</b></td>
+                <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
+                                                                                                  OPTIONS
+                            TOTAL COST</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
+                    sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00</td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">type
+                </td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
+                <td align="left" valign=bottom bgcolor="#DEEBF7" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                            <br>
+                </td>
+                <td align="left" valign=bottom bgcolor="#DEEBF7" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                            <br>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>AMOUNT</b></td>
+                <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL BALANCE
+                            DUE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
+                    valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                                                                                                         $0.00
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="left" valign=bottom
+                    bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDISITONS</b></td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=7 height="20" align="left" valign=bottom>THE PURCHASER
+                        ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td style="border-right: 1px solid #000000" colspan=7 height="20" align="left" valign=bottom> IS IN FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE</td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=4 align="center"
+                    valign=bottom bgcolor="#E7E6E6"><b>SALESPERSON'S NAME</b></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td style="border-right: 1px solid #000000" align="left" valign=bottom>
+                </td>
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=4 align="center"
+                    valign=bottom bgcolor="#DEEBF7">Type</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
+                                                                                                  PURCHASERS
+                            SIGNATURE X</b></td>
+                <td style="border-right: 1px solid #000000" colspan=5 align="center" valign=bottom>_____________________________________________</td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                    align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+            <tr>
+                <td height="20" align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+            </tr>
+        </table>
+    </div>
 {% endblock %}

@@ -1,13 +1,15 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\User\UserLoaderInterface;
 
 /**
  * DMSUser
  */
-class DMSUser
+class DMSUser  implements UserInterface
 {
     /**
      * @var integer
@@ -125,7 +127,7 @@ class DMSUser
     private $date_updated;
 
     /**
-     * @var \Numa\DOADMSBundle\Entity\UserGroup
+     * @var \Numa\DOAAdminBundle\Entity\UserGroup
      */
     private $UserGroup;
 
@@ -654,10 +656,10 @@ class DMSUser
     /**
      * Set UserGroup
      *
-     * @param \Numa\DOADMSBundle\Entity\UserGroup $userGroup
+     * @param \Numa\DOAAdminBundle\Entity\UserGroup $userGroup
      * @return DMSUser
      */
-    public function setUserGroup(\Numa\DOADMSBundle\Entity\UserGroup $userGroup = null)
+    public function setUserGroup(\Numa\DOAAdminBundle\Entity\UserGroup $userGroup = null)
     {
         $this->UserGroup = $userGroup;
 
@@ -694,7 +696,7 @@ class DMSUser
     private $dealer_id;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\Catalogrecord
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     private $Dealer;
 
@@ -725,10 +727,10 @@ class DMSUser
     /**
      * Set Dealer
      *
-     * @param \Numa\DOAAdminBundle\Entity\Catalogrecord $dealer
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
      * @return DMSUser
      */
-    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecord $dealer = null)
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
     {
         $this->Dealer = $dealer;
 
@@ -738,10 +740,45 @@ class DMSUser
     /**
      * Get Dealer
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecord 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getDealer()
     {
         return $this->Dealer;
+    }
+
+    public function __toString() {
+        return $this->getUsername();
+    }
+
+    public function getRoles() {
+        if(!empty($this->getUserGroup())) {
+            $groupName = strtolower($this->getUserGroup()->getName());
+
+            if ($groupName == 'accounting') {
+                return array('ROLE_ACCOUNTING');
+            } elseif ($groupName == 'sales_user') {
+                return array('ROLE_SALES');
+            } elseif ($groupName == 'manager') {
+                return array('ROLE_MANAGER');
+            }
+        }
+        return array('ROLE_USER');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+
+    }
+
+    public function equals(User $user) {
+        return $user->getEmail() == $this->getEmail();
+    }
+
+    public function __sleep(){
+        return array('id', 'username', 'email');
     }
 }
