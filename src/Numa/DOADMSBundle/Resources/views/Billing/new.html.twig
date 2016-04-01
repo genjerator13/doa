@@ -1,109 +1,48 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
-
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    <style>
+        .grid {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+    {% stylesheets
+    'css/loading-bar.min.css'
+    'css/image-angular.css'
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+    'js/angular/vfs-fonts.js'
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js'
+    %}
+    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Billing:billing.js.twig' %}
+    </script>
+{% endblock javascripts %}
 {% block content %}
     <div class="box">
         <div class="box-header">
 
-            {#<div class="row">#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">#}
-            {#<ul>#}
-            {#<li>{{ component.image(dealer.logo, dealer.name, 'thumbnail', 'search_image','120px', '90px') }}</li>#}
-            {#<li>{{ dealer.name }}</li>#}
-            {#<li>{{ dealer.address }}</li>#}
-            {#<li>{{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</li>#}
-            {#<li>Phone: {{  dealer.phone }}, Fax: {{ dealer.fax }}</li>#}
-            {#</ul>#}
-            {#</div>#}
-            {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-1">#}
-            {#<h1>PURCHASE INVOICE</h1>#}
-
-            {#<div>GST #</div>#}
-            {#</div>#}
-            {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">#}
-            {#<div class="row">#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
-            {#</div>#}
-            {#<div class="row">#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Dealer #</div>#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
-            {#</div>#}
-            {#<div class="row">#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4" >DATE</div>#}
-            {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">Stock #</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
         </div>
-        {#<div class="box-body table-responsive no-padding">#}
-        {#<div class="row">#}
-        {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-5">PURCHASER</div>#}
-        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">ADDRESS</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">APT. NO.</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-5 col-sm-5 col-lg-5 col-xs-5">{{ customer.name() }}</div>#}
-        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">{{ customer.address }}</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">APT. NO.</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">CITY</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">STATE / PROV</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">ZIP / POSTAL</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">BUYERS PHONE</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">BUYERS FAX #</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">{{ customer.city }}</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.state }}</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.zip }}</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.homePhone }}</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">{{ customer.fax }}</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">OPT.</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3  col-xs-3">OPTIONAL EQUIPMENT</div>#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">NEW</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2  col-xs-2">YEAR</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">MAKE</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">MODEL</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Used</div>#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">auto fill</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">make</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">model</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3  col-xs-3">Type</div>#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">COLOR</div>#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">auto fill</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">VIN</div>#}
-        {#<div class="col-md-4 col-sm-4 col-lg-4 col-xs-4">type or auto fill</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">ODOMETER READING</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">NEW WARRANTY</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">type</div>#}
-        {#</div>#}
-        {#<div class="row">#}
-        {#<div class="col-md-1 col-sm-1 col-lg-1 col-xs-1">Type</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">Type</div>#}
-        {#<div class="col-md-2 col-sm-2 col-lg-2 col-xs-2">auto fill</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">USED WARRANTY</div>#}
-        {#<div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">type</div>#}
-        {#</div>#}
-        {#</div>#}
-
-
         <table cellspacing="0" border="0">
             <colgroup span="3" width="80"></colgroup>
             <colgroup width="56"></colgroup>
@@ -136,7 +75,12 @@
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2 align="center"
-                    valign=bottom bgcolor="#FFF2CC">Type or auto fill</td>
+                    valign=bottom bgcolor="#FFF2CC">
+                    <div ng-app="myApp" >
+                        <p>Name : <input type="text" ng-model="name"></p>
+                        <span>Hello {[{name}]}</span>
+                    </div>
+                </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -331,7 +275,11 @@
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     align="center" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4 align="center"
-                    valign=bottom bgcolor="#FFF2CC">type or auto fill</td>
+                    valign=bottom bgcolor="#FFF2CC">
+                    <div ng-app="">
+                        <p>Name : <input type="text" ng-model="VIN"></p>
+                    </div>
+                </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>

@@ -76,6 +76,23 @@ class BillingController extends Controller
     }
 
     /**
+     * Creates a form to get listing by VIN or Stock #
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function tttt()
+    {
+        $form = $this->createForm(new BillingType(), $entity, array(
+            'action' => $this->generateUrl('billing_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
      * Displays a form to create a new Billing entity.
      *
      */
