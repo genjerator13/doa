@@ -1795,7 +1795,7 @@ class Item
             $this->setDisplacement($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'chassis type') {
             $this->setChassisType($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'slide outs') {
+        } elseif (strtolower($itemField->getFieldName()) == 'slide outs' || strtolower($itemField->getFieldName()) == 'slideouts') {
             $this->setSlideOuts($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
             $this->setFlooring($itemField->getFieldStringValue());
@@ -1804,6 +1804,8 @@ class Item
         } elseif (strtolower($itemField->getFieldName()) == 'class') {
             $this->setClass($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'weight') {
+            $this->setWeight($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'boat weight') {
             $this->setWeight($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'engine type') {
             $this->setEngineType($itemField->getFieldStringValue());
@@ -1841,7 +1843,12 @@ class Item
             $this->setMpgCity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
             $this->setMpgHighway($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'awnings') {
+            $this->setAwnings($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
+            $this->setSleeps($itemField->getFieldStringValue());
         }
+
 
     }
 
@@ -3580,5 +3587,33 @@ class Item
     public function getSeo()
     {
         return $this->Seo;
+    }
+    /**
+     * @var string
+     */
+    private $awnings;
+
+
+    /**
+     * Set awnings
+     *
+     * @param string $awnings
+     * @return Item
+     */
+    public function setAwnings($awnings)
+    {
+        $this->awnings = $awnings;
+
+        return $this;
+    }
+
+    /**
+     * Get awnings
+     *
+     * @return string 
+     */
+    public function getAwnings()
+    {
+        return $this->awnings;
     }
 }
