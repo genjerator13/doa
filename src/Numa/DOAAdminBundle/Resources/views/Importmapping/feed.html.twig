@@ -21,7 +21,7 @@
             </div>
         {% endfor %}
     {% else %}
-        <table class='table'>
+        <table class='table' data-prototype="{{ form_widget(form.ImportmappingRow.vars.prototype)|e }}">
             {# iterate over each existing tag and render its only field: name #}
             <tr>
                 <th>
