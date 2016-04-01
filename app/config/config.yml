@@ -208,8 +208,6 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
-    date: ~
-    autocomplete: ~
 #comur_image:
 #    config:
 #        cropped_image_dir: 'cropped'
@@ -320,7 +318,7 @@ genemu_form:
         grayscale:        false
 
 sensio_framework_extra:
-        view:    {annotations: true}
+        view:    {annotations: false}
         router:  {annotations: true}
 
 fos_rest:

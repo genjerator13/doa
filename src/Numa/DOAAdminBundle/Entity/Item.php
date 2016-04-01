@@ -1850,7 +1850,7 @@ class Item
             $this->setDisplacement($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'chassis type') {
             $this->setChassisType($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'slide outs') {
+        } elseif (strtolower($itemField->getFieldName()) == 'slide outs' || strtolower($itemField->getFieldName()) == 'slideouts') {
             $this->setSlideOuts($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
             $this->setFlooring($itemField->getFieldStringValue());
@@ -1859,6 +1859,8 @@ class Item
         } elseif (strtolower($itemField->getFieldName()) == 'class') {
             $this->setClass($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'weight') {
+            $this->setWeight($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'boat weight') {
             $this->setWeight($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'engine type') {
             $this->setEngineType($itemField->getFieldStringValue());
@@ -1896,7 +1898,12 @@ class Item
             $this->setMpgCity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
             $this->setMpgHighway($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'awnings') {
+            $this->setAwnings($itemField->getFieldStringValue());
+        }elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
+            $this->setSleeps($itemField->getFieldStringValue());
         }
+
 
     }
 
@@ -3547,7 +3554,7 @@ class Item
 
     public function getTitle()
     {
-        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " .  $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
@@ -3555,12 +3562,15 @@ class Item
                 $desc .= " " . $this->slug($this->getTrim());
             }
         }
+
         return $desc;
 
     }
 
     function Slug($string)
     {
+        $string = str_replace('/','',$string);
+
         return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
 
@@ -3657,5 +3667,33 @@ class Item
     public function getSeo()
     {
         return $this->Seo;
+    }
+    /**
+     * @var string
+     */
+    private $awnings;
+
+
+    /**
+     * Set awnings
+     *
+     * @param string $awnings
+     * @return Item
+     */
+    public function setAwnings($awnings)
+    {
+        $this->awnings = $awnings;
+
+        return $this;
+    }
+
+    /**
+     * Get awnings
+     *
+     * @return string 
+     */
+    public function getAwnings()
+    {
+        return $this->awnings;
     }
 }

@@ -30,7 +30,7 @@ class ItemController extends Controller {
         }
         $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findSeoByItem($item);
 
-        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
+        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>$item->getUrlDescription()),true);
         //get dealer
         $dealer = $item->getDealer();
 

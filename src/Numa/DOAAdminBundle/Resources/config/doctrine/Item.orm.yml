@@ -347,6 +347,10 @@ Numa\DOAAdminBundle\Entity\Item:
         horsepower:
               type: integer
               nullable: true
+        awnings:
+              type: string
+              length: 255
+              nullable: true
         width:
               type: string
               length: 255
