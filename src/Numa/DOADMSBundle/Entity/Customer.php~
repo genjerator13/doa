@@ -105,7 +105,7 @@ class Customer
     private $dealer_id;
 
     /**
-     * @var \Numa\DOADMSBundle\Entity\Catalogrecords
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     private $Catalogrecords;
 
@@ -468,10 +468,10 @@ class Customer
     /**
      * Set Catalogrecords
      *
-     * @param \Numa\DOADMSBundle\Entity\Catalogrecords $catalogrecords
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords
      * @return Customer
      */
-    public function setCatalogrecords(\Numa\DOADMSBundle\Entity\Catalogrecords $catalogrecords = null)
+    public function setCatalogrecords(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null)
     {
         $this->Catalogrecords = $catalogrecords;
 
@@ -481,7 +481,7 @@ class Customer
     /**
      * Get Catalogrecords
      *
-     * @return \Numa\DOADMSBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getCatalogrecords()
     {
@@ -505,6 +505,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $name;
 
@@ -559,5 +560,10 @@ class Customer
     public function getFollowupDate()
     {
         return $this->followup_date;
+    }
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getName()."";
     }
 }

@@ -79,10 +79,22 @@
             <span class="fieldValue fieldValue-status">{{item.getEngineType()}}</span>
         </li>
     {% endif %}
+    {% if item.getEngine() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field-status">Engine Type: </span>
+            <span class="fieldValue fieldValue-status">{{item.getEngine()}}</span>
+        </li>
+    {% endif %}
     {% if item.getHorsepower() is not empty %}
         <li class="{{liclass}}">
             <span class="fieldCaption field-status">Horsepower: </span>
             <span class="fieldValue fieldValue-status">{{item.getHorsepower()}}</span>
+        </li>
+    {% endif %}
+    {% if item.getDisplacement() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field-status">Displacement: </span>
+            <span class="fieldValue fieldValue-status">{{item.getDisplacement()}}</span>
         </li>
     {% endif %}
     {% if item.getFuelType() is not empty %}
@@ -127,6 +139,12 @@
             <span class="fieldValue fieldValue-status">{{item.getPassengers()}}</span>
         </li>    
     {% endif %}
+    {% if item.getSleeps() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field-status">Sleeps: </span>
+            <span class="fieldValue fieldValue-status">{{item.getSleeps()}}</span>
+        </li>
+    {% endif %}
     {% if item.getTrailer() is not empty %}
         <li class="{{liclass}}">
             <span class="fieldCaption field-status">Trailer</span>
@@ -135,9 +153,15 @@
     {% endif %}
     {% if item.getInteriorColor() is not empty %}
         <li class="{{liclass}}">
-            <span class="fieldCaption field-status">Battery: </span>
+            <span class="fieldCaption field-status">Interior Color: </span>
             <span class="fieldValue fieldValue-status">{{item.getInteriorColor()}}</span>
         </li>    
+    {% endif %}
+    {% if item.getAwnings() is not empty %}
+        <li class="{{liclass}}">
+            <span class="fieldCaption field-status">Awnings: </span>
+            <span class="fieldValue fieldValue-status">{{item.getAwnings()}}</span>
+        </li>
     {% endif %}
     {% if item.getOther() is not empty %}
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
