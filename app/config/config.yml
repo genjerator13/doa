@@ -318,7 +318,7 @@ genemu_form:
         grayscale:        false
 
 sensio_framework_extra:
-        view:    {annotations: false}
+        view:    {annotations: true}
         router:  {annotations: true}
 
 fos_rest:
