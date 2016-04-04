@@ -281,6 +281,24 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getOneOrNullResult();
     }
 
+    /**
+     * @return bool|mixed
+     * Finds items by stock# and VIn
+     */
+    public function findItemsBy($find)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.stock_nr like :find')
+            ->orWhere('i.VIN like :find')
+            ->setParameter("find", "%" . $find . "%");
+
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
     public function removeItemsByFeed($feed_id)
     {
         $feed_id = intval($feed_id);

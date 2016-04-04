@@ -1,3 +1,70 @@
 var app = angular.module('myApp', []);
+var names = [];
+
+app.controller('myCtrl', function ($scope, $http, $element) {
+    $scope.stock = "";
+
+    $scope.change = function (field) {
+        console.log(field);
+        $scope.find = $scope.stock;
+        if(field=='vin'){
+            $scope.find = $scope.VIN;
+        }
+        if ($scope.find.length > 2) {
+            $http.get("/api/listings/" + $scope.find + "/uniques.json")
+                    .then(function (response) {
+                        //$scope.stock = response.data;
+
+                        names = [];
+                        for (i = 0; i < response.data.length; i++) {
+                            //names[i]=response.data[i].stock_nr;
+                            name = response.data[i].stock_nr;
+                            if(field=='vin'){
+                                name = response.data[i]._v_i_n;
+                            }
+                            names.push(name);
+                            console.log(names);
+                        }
 
 
+                        $("#stock-autocomplete").autocomplete({
+                            source: names
+                        });
+                        $scope.stockcount = response.data.length;
+                        if(response.data.length==1){
+                            $scope.listingyear=response.data[0].year;
+                            $scope.listingmake=response.data[0].make;
+                            $scope.listingmodel=response.data[0].model;
+                            $scope.listingmileage=response.data[0].mileage;
+                            $scope.listingtrim=response.data[0].trim;
+                            $scope.VIN = response.data[0]._v_i_n;
+                            $scope.stock = response.data[0].stock_nr;
+                        }
+                    });
+
+        }
+    }
+
+});
+
+
+
+{#app.directive('autoComplete', function ($timeout) {#}
+{#return function (scope, iElement, iAttrs) {#}
+{#console.log(scope.names);#}
+{#iElement.autocomplete({#}
+{#source: names,#}
+{#select: function () {#}
+{#$timeout(function () {#}
+{#iElement.trigger('input');#}
+{#}, 0);#}
+{#},#}
+{#minLength: 3#}
+{#});#}
+{#};#}
+{#});#}
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});

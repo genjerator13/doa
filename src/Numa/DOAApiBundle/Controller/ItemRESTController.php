@@ -102,4 +102,13 @@ class ItemRESTController extends Controller
         $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->find($id);
         return $customers;
     }
+
+    /**
+     * @Rest\View
+     */
+    public function listingByUniquesAction($id)
+    {
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsBy($id);
+        return $customers;
+    }
 }
