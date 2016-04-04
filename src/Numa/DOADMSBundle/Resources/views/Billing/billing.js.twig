@@ -25,8 +25,6 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             names.push(name);
                             console.log(names);
                         }
-
-
                         $("#stock-autocomplete").autocomplete({
                             source: names
                         });
@@ -47,24 +45,10 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
 });
 
-
-
-{#app.directive('autoComplete', function ($timeout) {#}
-{#return function (scope, iElement, iAttrs) {#}
-{#console.log(scope.names);#}
-{#iElement.autocomplete({#}
-{#source: names,#}
-{#select: function () {#}
-{#$timeout(function () {#}
-{#iElement.trigger('input');#}
-{#}, 0);#}
-{#},#}
-{#minLength: 3#}
-{#});#}
-{#};#}
-{#});#}
-
-
 app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+$(function() {
+    $( ".datepicker" ).datepicker();
 });
