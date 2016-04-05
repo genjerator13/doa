@@ -3,15 +3,8 @@
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
           rel="stylesheet"/>
-    <style>
-        .grid {
-            width: 100%;
-            height: auto;
-        }
-    </style>
     {% stylesheets
     'css/loading-bar.min.css'
-    'css/image-angular.css'
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
