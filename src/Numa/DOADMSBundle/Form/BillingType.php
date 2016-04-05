@@ -15,19 +15,10 @@ class BillingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
-            ->add('customer_id','hidden')
-            ->add('date_created','hidden')
-            ->add('date_updated', 'hidden')
+            -add('')
             ->add('date_billing','date',array(
-                'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
-                'attr' => array('class' => 'dateBilling')
+                'attr' => array('class' => 'datepicker')
             ))
-            ->add('status','hidden')
-            ->add('comments','textarea', array('attr' => array('rows' => '10', 'cols' => '2')))
-            ->add('totalAMT')
-            ->add('Customer','hidden')
         ;
     }
     
