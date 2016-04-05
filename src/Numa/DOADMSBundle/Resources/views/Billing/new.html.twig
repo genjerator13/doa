@@ -33,7 +33,7 @@
 {% block content %}
     <div class="box" ng-app="myApp">
         <div ng-controller="myCtrl">
-            <form>
+            {{ form_start(form) }}
                 <div class="box-header">
 
                 </div>
@@ -93,7 +93,7 @@
                             bgcolor="#E7E6E6"><b>Dealer #</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="dealernr" id="dealernr" />
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.dealer_nr) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -123,7 +123,7 @@
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>DATE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdnum="1033;1033;[$-409]MMMM D, YYYY;@"><input name="date" id="date" class="datepicker" />
+                            valign=bottom bgcolor="#DEEBF7" sdnum="1033;1033;[$-409]MMMM D, YYYY;@">{{ form_row(form.date_billing) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
