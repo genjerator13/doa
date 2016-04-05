@@ -67,16 +67,16 @@
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
+                        <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3
                             align="center"
                             valign=bottom bgcolor="#FFF2CC">
 
-                            <input id="stock-autocomplete" auto-complete ui-items="names" type="text" ng-model="stock"
+                            <input id="stock-autocomplete" auto-complete ui-items="names" type="text" size="35" maxlength="50" ng-model="stock"
                                    ng-change="change('stock')" class="changeable"/>
                         </td>
                         <td align="left" valign=bottom></td>
@@ -375,8 +375,8 @@
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>SALE
                                 PRICE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                            align="center">
+                            <input type="text" name="saleprice"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -394,8 +394,9 @@
                             valign=bottom></td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
                             valign=bottom bgcolor="#E7E6E6"><b>ADMIN FEE</b></td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="adminfee"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -416,8 +417,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>WARRANTY</b>
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                            align="center">
+                            <input type="text" name="warranty"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -439,9 +440,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PROTECTION
                                 PKG</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="protectionpkg"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -462,8 +462,9 @@
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b>
                         </td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="total"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -487,9 +488,9 @@
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS TRADE
                                 IN</b></td>
-                        <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom
-                            bgcolor="#DEEBF7"
-                            sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="lesstradein"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -511,9 +512,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>DIFFERENCE
                                 PAYABLE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="differencepayable"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -530,12 +530,9 @@
                             OWNER-
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>TAX 1</b>
-                        </td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            colspan=4 align="left" bgcolor="#FBE5D6">
+                            <input type="text" value="tax1"/>
+                            <input type="text" value="TAX1"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -553,10 +550,9 @@
                             IN THE ABOVE TRADE-IN AND I DECLARE I AM THE SOLE OWNER
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>TAX 2</b>
-                        </td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                            colspan=4 align="left" bgcolor="#FBE5D6">
+                            <input type="text" value="tax2"/>
+                            <input type="text" value="TAX2"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -573,13 +569,10 @@
                             valign=bottom>AND POSSESSOR OF SAME AND THAT THERE IS NO LIEN,
                             MORTGAGE,
                         </td>
-                        <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom
-                            bgcolor="#FBE5D6">
-                            <b>TAX 3</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                            colspan=4 align="left" bgcolor="#FBE5D6">
+                            <input type="text" value="tax3"/>
+                            <input type="text" value="TAX3"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -600,9 +593,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
                                 MISC</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="othermisc"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -621,8 +613,9 @@
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
                                 MISC</b></td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="othermisc1"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -642,9 +635,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TAXES PAID
                                 TOTAL</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="taxespaidtotal"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -663,9 +655,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LIEN ON
                                 TRADE-IN </b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="lienontradein" />
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -681,8 +672,9 @@
                             valign=bottom><br></td>
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL
                                 DUE</b></td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="totaldue"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -699,9 +691,8 @@
                             bgcolor="#E7E6E6">
                             <b>LESS TRADE-IN TAX</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="lesstradeintax"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -720,8 +711,9 @@
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS
                                 DEPOSIT</b></td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="lessdeposit" />
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -757,8 +749,9 @@
                             valign=bottom></td>
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
                                 DELEIVERY</b></td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="payableondelivery"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -775,9 +768,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
                                 FINANCE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="balancetofinance"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -786,9 +778,9 @@
                     <tr>
                         <td style="border-top: 1px solid #000000" colspan=2 height="20" align="center" valign=bottom
                             bgcolor="#E7E6E6"><b>TOTAL</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="total1"/>
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
                             align="center"
@@ -798,8 +790,9 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
                                 INSURANCE</b>
                         </td>
-                        <td colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="insurance"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -810,10 +803,9 @@
                             height="20"
                             align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
                         </td>
-                        <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="lessdiscount" />
                         </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
                             valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
@@ -822,9 +814,8 @@
                             bgcolor="#E7E6E6"><b>BANK REGISTRATION FEE</b></td>
                         <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="bankregistrationfee"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -835,12 +826,12 @@
                             colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
                                 OPTIONS
                                 TOTAL COST</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="center" valign=bottom bgcolor="#DEEBF7" sdval="0"
-                            sdnum="1033;0;&quot;$&quot;#,##0.00">$0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center">
+                            <input type="text" name="optionstotalcost" />
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="tidaddress" id="tidaddress" />
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="tidaddress" id="tidaddress" size="50"/>
                         </td>
                         <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
                         <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
@@ -870,9 +861,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL BALANCE
                                 DUE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                            align="center">
+                            <input type="text" name="totalbalancedue"/>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
