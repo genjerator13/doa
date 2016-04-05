@@ -19,6 +19,10 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        dealer_nr:
+            type: string
+            length: 255
+            nullable: true
         trim:
             type: string
             length: 255

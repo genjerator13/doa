@@ -2096,4 +2096,32 @@ class Billing
     {
         return $this->Item;
     }
+    /**
+     * @var string
+     */
+    private $dealer_nr;
+
+
+    /**
+     * Set dealer_nr
+     *
+     * @param string $dealerNr
+     * @return Billing
+     */
+    public function setDealerNr($dealerNr)
+    {
+        $this->dealer_nr = $dealerNr;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer_nr
+     *
+     * @return string 
+     */
+    public function getDealerNr()
+    {
+        return $this->dealer_nr;
+    }
 }
