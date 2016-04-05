@@ -87,64 +87,84 @@ Numa\DOADMSBundle\Entity\Billing:
             type: datetime
             nullable: true
         opt1:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq1:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt2:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq2:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt3:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq3:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt4:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq4:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt5:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq5:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt6:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq6:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt7:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq7:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt8:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq8:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt9:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq9:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opt10:
-            type: text
+             type: string
+             length: 255
             nullable: true
         opteq10:
-            type: text
+             type: string
+             length: 255
             nullable: true
         sale_price:
             type: float
@@ -182,15 +202,15 @@ Numa\DOADMSBundle\Entity\Billing:
         other_misc2:
             type: float
             nullable: true
-        text1_name:
+        taxt1_name:
             type: text
             length: 255
             nullable: true
-        text2_name:
+        taxt2_name:
             type: text
             length: 255
             nullable: true
-        text3_name:
+        taxt3_name:
             type: text
             length: 255
             nullable: true
