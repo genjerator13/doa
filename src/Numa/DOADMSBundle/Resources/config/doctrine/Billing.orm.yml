@@ -71,15 +71,15 @@ Numa\DOADMSBundle\Entity\Billing:
             type: float
             nullable: true
         date_created:
-             type: datetime
-             nullable: true
+            type: datetime
+            nullable: true
         date_updated:
-             type: datetime
-             nullable: true
+            type: datetime
+            nullable: true
         status:
-             type: string
-             length: 255
-             nullable: true
+            type: string
+            length: 255
+            nullable: true
         comments:
             type: text
             nullable: true
@@ -87,84 +87,84 @@ Numa\DOADMSBundle\Entity\Billing:
             type: datetime
             nullable: true
         opt1:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq1:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt2:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq2:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt3:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq3:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt4:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq4:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt5:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq5:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt6:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq6:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt7:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq7:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt8:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq8:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt9:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq9:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opt10:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         opteq10:
-             type: string
-             length: 255
+            type: string
+            length: 255
             nullable: true
         sale_price:
             type: float
