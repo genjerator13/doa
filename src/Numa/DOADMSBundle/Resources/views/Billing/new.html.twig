@@ -260,10 +260,12 @@
                     </tr>
                     <tr>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                            height="20" align="center" valign=bottom bgcolor="#DEEBF7"><input name="opt[0]" id="opt0" class="col-md-6" />
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq1, {'attr': {'class': 'col-md-6'} }) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="opteq[0]" id="opteq0" class="col-md-6" />
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt1, {'attr':{'class': 'col-md-6'}}) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>USED</b></td>
@@ -287,9 +289,13 @@
                     </tr>
                     <tr>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                            height="20" align="left" valign=bottom bgcolor="#DEEBF7"><input name="opt[1]" id="opt1" class="col-md-6"/></td>
-                        <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="opteq[1]" id="opteq1"  class="col-md-6"/></td>
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq2, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt2, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>COLOR</b></td>
                         <td align="center" valign=bottom bgcolor="#F2F2F2">auto fill</td>
@@ -307,11 +313,14 @@
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-right: 1px solid #000000" height="20" align="left" valign=bottom
-                            bgcolor="#DEEBF7">
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq3, {'attr': {'class': 'col-md-6'} }) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt3, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             colspan=2 align="center" valign=bottom bgcolor="#E7E6E6"><b>ODOMETER
                                 READING</b></td>
@@ -327,12 +336,14 @@
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
-                            align="left"
-                            valign=bottom bgcolor="#DEEBF7"></td>
-                        <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq4, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt4, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">{[{listingmileage}]}
                         </td>
@@ -346,11 +357,14 @@
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
-                            align="left"
-                            valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq5, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt5, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>TRIM</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
@@ -364,50 +378,58 @@
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
-                            align="left"
-                            valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq6, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt6, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             colspan=3 align="center" valign=bottom bgcolor="#AFABAB"><b>TRADE-IN
                                 DESCRIPTION </b></td>
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>SALE
                                 PRICE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="saleprice"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.sale_price) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
-                            align="left"
-                            valign=bottom bgcolor="#DEEBF7"></td>
-                        <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq7, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt7, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3
                             align="center"
                             valign=bottom></td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
                             valign=bottom bgcolor="#E7E6E6"><b>ADMIN FEE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="adminfee"/>
+                            align="center"  bgcolor="#DEEBF7">
+                            {{ form_row(form.admin_fee) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
-                            align="left"
-                            valign=bottom bgcolor="#DEEBF7"></td>
-                        <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq8, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt8, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>MAKE</b></td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2
@@ -417,8 +439,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>WARRANTY</b>
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="warranty"/>
+                            align="center"  bgcolor="#DEEBF7">
+                            {{ form_row(form.warranty) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -426,9 +448,13 @@
                     </tr>
                     <tr>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                            height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
-                        <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq9, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt9, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#DEEBF7"><input name="tidmake" id="tidmake" />
                         </td>
@@ -440,17 +466,23 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PROTECTION
                                 PKG</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="protectionpkg"/>
+                            align="center"  bgcolor="#DEEBF7">
+                            {{ form_row(form.protection_pkg) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
-                        <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                            height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opteq10, {'attr': {'class': 'col-md-6'} }) }}
+                        </td>
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.opt10, {'attr':{'class': 'col-md-6'}}) }}
+                        </td>
+                        </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>YEAR</b></td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
@@ -463,8 +495,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b>
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="total"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.tos_total) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -489,8 +521,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS TRADE
                                 IN</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="lesstradein"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.less_trade_in) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -512,8 +544,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>DIFFERENCE
                                 PAYABLE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="differencepayable"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.difference_payable) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -531,8 +563,12 @@
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=4 align="left" bgcolor="#FBE5D6">
-                            <input type="text" value="tax1"/>
-                            <input type="text" value="TAX1"/>
+                            <div class="col-xs-6">
+                                {{ form_row(form.text1_name, {'attr': {'value': 'TAX1'} }) }}
+                            </div>
+                            <div class="col-xs-6">
+                                {{ form_row(form.tax1) }}
+                            </div>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -551,8 +587,12 @@
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=4 align="left" bgcolor="#FBE5D6">
-                            <input type="text" value="tax2"/>
-                            <input type="text" value="TAX2"/>
+                            <div class="col-xs-6">
+                                {{ form_row(form.text2_name, {'attr': {'value': 'TAX2'} }) }}
+                            </div>
+                            <div class="col-xs-6">
+                                {{ form_row(form.tax2) }}
+                            </div>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -571,8 +611,12 @@
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=4 align="left" bgcolor="#FBE5D6">
-                            <input type="text" value="tax3"/>
-                            <input type="text" value="TAX3"/>
+                            <div class="col-xs-6">
+                            {{ form_row(form.text3_name, {'attr': {'value': 'TAX3'} }) }}
+                            </div>
+                            <div class="col-xs-6">
+                            {{ form_row(form.tax3) }}
+                            </div>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -590,11 +634,13 @@
                             OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
-                                MISC</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="othermisc"/>
+                            colspan=4 align="left" bgcolor="#FBE5D6">
+                            <div class="col-xs-6">
+                                {{ form_row(form.other_misc1_name, {'attr': {'value': 'misc1'} }) }}
+                            </div>
+                            <div class="col-xs-6">
+                                {{ form_row(form.other_misc1) }}
+                            </div>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -611,11 +657,13 @@
                             UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                            colspan=2 align="left" valign=bottom bgcolor="#FBE5D6"><b>OTHER
-                                MISC</b></td>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="othermisc1"/>
+                            colspan=4 align="left" bgcolor="#FBE5D6">
+                            <div class="col-xs-6">
+                                {{ form_row(form.other_misc2_name, {'attr': {'value': 'misc2'} }) }}
+                            </div>
+                            <div class="col-xs-6">
+                                {{ form_row(form.other_misc2) }}
+                            </div>
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -635,8 +683,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TAXES PAID
                                 TOTAL</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="taxespaidtotal"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.taxes_paid_total) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -655,8 +703,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LIEN ON
                                 TRADE-IN </b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="lienontradein" />
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.lien_on_trade_in) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -673,8 +721,8 @@
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL
                                 DUE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="totaldue"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.total_due) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -691,8 +739,8 @@
                             bgcolor="#E7E6E6">
                             <b>LESS TRADE-IN TAX</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="lesstradeintax"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.less_trade_in_tax) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -712,8 +760,8 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS
                                 DEPOSIT</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="lessdeposit" />
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.less_deposit) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -750,8 +798,8 @@
                         <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
                                 DELEIVERY</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="payableondelivery"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.payable_on_delivery) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -768,19 +816,20 @@
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
                                 FINANCE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="balancetofinance"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.balance_to_finance) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000" colspan=2 height="20" align="center" valign=bottom
-                            bgcolor="#E7E6E6"><b>TOTAL</b></td>
+                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000"; border-bottom: 1px solid #000000" colspan=2
+                        height="20"
+                        align="center" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="total1"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.total) }}
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
                             align="center"
@@ -791,21 +840,21 @@
                                 INSURANCE</b>
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="insurance"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.insurance) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
                     </tr>
                     <tr>
-                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        <td style="border-top: 1px solid #000000; border-right: 1px solid #000000"; border-bottom: 1px solid #000000" colspan=2
                             height="20"
                             align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="lessdiscount" />
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.less_discount) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
                             valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
@@ -814,8 +863,8 @@
                             bgcolor="#E7E6E6"><b>BANK REGISTRATION FEE</b></td>
                         <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="bankregistrationfee"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.bank_registration_fee) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -827,11 +876,11 @@
                                 OPTIONS
                                 TOTAL COST</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="optionstotalcost" />
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.options_total_cost) }}
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="tidaddress" id="tidaddress" size="50"/>
+                            colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.address, {'attr': {'class': 'col-md-12'} }) }}
                         </td>
                         <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
                         <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
@@ -852,17 +901,16 @@
                         <td align="left" valign=bottom></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>AMOUNT</b></td>
-                        <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2
-                            align="center"
-                            valign=bottom bgcolor="#DEEBF7" sdval="0" sdnum="1033;0;&quot;$&quot;#,##0.00">
-                            $0.00
+                        <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.amount) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL BALANCE
                                 DUE</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
-                            align="center">
-                            <input type="text" name="totalbalancedue"/>
+                            align="center" bgcolor="#DEEBF7">
+                            {{ form_row(form.total_balance_due) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -923,7 +971,7 @@
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=4
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="salesperson" id="salesperson" />
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.sales_person) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
