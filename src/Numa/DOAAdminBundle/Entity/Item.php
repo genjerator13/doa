@@ -1687,6 +1687,11 @@ class Item
      */
     public function getStatus()
     {
+        if(strtolower($this->status)=='n' or strtolower($this->status)=='new'){
+            $this->status="New";
+        }elseif(strtolower($this->status)=='u' or strtolower($this->status)=='used' or strtolower($this->status)=='use'){
+            $this->status="Used";
+        }
         return $this->status;
     }
 
