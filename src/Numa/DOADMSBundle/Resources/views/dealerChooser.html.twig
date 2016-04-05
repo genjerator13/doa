@@ -1,0 +1,11 @@
+{% if dealers is defined and dealers is not empty %}
+    <form action="{{ path('dms_customer_switch') }}">
+    <form action="{{ path('dms_customer_switch') }}">
+        <select name="dealer">
+            {% for dealer in dealers %}
+                <option value="{{ dealer.id }}">{{ dealer.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="btn btn-primary" type="submit" value="Switch dealer"/>
+    </form>
+{% endif %}

@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -42,12 +43,14 @@ class BillingController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            if($user instanceof Catalogrecords){
+                $entity->setDealer($user);
+            }
             $entity->setCustomer($customer);
-
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('billing'));
-
+            return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
         }
 
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
@@ -147,6 +150,8 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+        $dealer = $customer->getDealer();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
@@ -155,10 +160,11 @@ class BillingController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOADMSBundle:Billing:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'customer'    => $customer,
+            'dealer'    => $dealer,
+            'form'   => $editForm->createView(),
         ));
     }
 
