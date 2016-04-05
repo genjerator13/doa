@@ -5,7 +5,7 @@
     {% set apicall="/api/listings2/"~user~"/dealer.json" %}
 {% endif %}
 {% if is_granted('ROLE_ADMIN') and app.session.get('dealer') %}
-    {% set user= app.session.get('dealer') %}
+    {% set user= app.session.get('dealer').getId() %}
     {% set apicall="/api/customer/dealer/"~user %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
