@@ -2124,4 +2124,91 @@ class Billing
     {
         return $this->dealer_nr;
     }
+    /**
+     * @var string
+     */
+    private $taxt1_name;
+
+    /**
+     * @var string
+     */
+    private $taxt2_name;
+
+    /**
+     * @var string
+     */
+    private $taxt3_name;
+
+
+    /**
+     * Set taxt1Name
+     *
+     * @param string $taxt1Name
+     *
+     * @return Billing
+     */
+    public function setTaxt1Name($taxt1Name)
+    {
+        $this->taxt1_name = $taxt1Name;
+
+        return $this;
+    }
+
+    /**
+     * Get taxt1Name
+     *
+     * @return string
+     */
+    public function getTaxt1Name()
+    {
+        return $this->taxt1_name;
+    }
+
+    /**
+     * Set taxt2Name
+     *
+     * @param string $taxt2Name
+     *
+     * @return Billing
+     */
+    public function setTaxt2Name($taxt2Name)
+    {
+        $this->taxt2_name = $taxt2Name;
+
+        return $this;
+    }
+
+    /**
+     * Get taxt2Name
+     *
+     * @return string
+     */
+    public function getTaxt2Name()
+    {
+        return $this->taxt2_name;
+    }
+
+    /**
+     * Set taxt3Name
+     *
+     * @param string $taxt3Name
+     *
+     * @return Billing
+     */
+    public function setTaxt3Name($taxt3Name)
+    {
+        $this->taxt3_name = $taxt3Name;
+
+        return $this;
+    }
+
+    /**
+     * Get taxt3Name
+     *
+     * @return string
+     */
+    public function getTaxt3Name()
+    {
+        return $this->taxt3_name;
+    }
 }
