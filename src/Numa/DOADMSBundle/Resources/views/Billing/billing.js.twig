@@ -37,6 +37,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             $scope.listingtrim=response.data[0].trim;
                             $scope.VIN = response.data[0]._v_i_n;
                             $scope.stock = response.data[0].stock_nr;
+                            $scope.item_id = response.data[0].id;
                         }
                     });
 
