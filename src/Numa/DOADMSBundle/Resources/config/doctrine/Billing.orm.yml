@@ -203,23 +203,23 @@ Numa\DOADMSBundle\Entity\Billing:
             type: float
             nullable: true
         taxt1_name:
-            type: text
+            type: string
             length: 255
             nullable: true
         taxt2_name:
-            type: text
+            type: string
             length: 255
             nullable: true
         taxt3_name:
-            type: text
+            type: string
             length: 255
             nullable: true
         other_misc1_name:
-            type: text
+            type: string
             length: 255
             nullable: true
         other_misc2_name:
-            type: text
+            type: string
             length: 255
             nullable: true
         taxes_paid_total:
