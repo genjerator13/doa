@@ -15,9 +15,9 @@ class BillingType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('customer_id')
+            ->add('customer_id','hidden')
             ->add('dealer_id')
-            ->add('item_id')
+            ->add('item_id','hidden')
             ->add('dealer_nr', null, array('label' => false))
             ->add('sales_person', null, array('label' => false))
             ->add('trim', null, array('label' => false))
@@ -37,7 +37,18 @@ class BillingType extends AbstractType
             ->add('date_updated', null, array('label' => false))
             ->add('status', null, array('label' => false))
             ->add('comments', null, array('label' => false))
-            ->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
+//            ->add('date_billing','date', array( 'label' => false,
+//                                                'attr'=>array('class'=>'datepicker'),
+//                                                'widget' => 'single_text',
+//                                                'format' => 'dd-MM-yyyy'
+//                                                ))
+            ->add('date_billing','date',array(
+                'label' => false,
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => array('class' => 'datepicker')
+            ))
+            //->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
             ->add('opt1', null, array('label' => false))
             ->add('opteq1', null, array('label' => false))
             ->add('opt2', null, array('label' => false))

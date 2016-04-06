@@ -47,6 +47,7 @@ class BillingController extends Controller
             if($user instanceof Catalogrecords){
                 $entity->setDealer($user);
             }
+
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
@@ -204,16 +205,24 @@ class BillingController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+        $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
+
+        $dealer = $customer->getDealer();
+
         if ($editForm->isValid()) {
             $em->flush();
-
+            //return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
 
-        return $this->render('NumaDOADMSBundle:Billing:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+            'customer'      => $customer,
+            'dealer'      => $dealer,
+            'item'      => $item,
+            'form'   => $editForm->createView(),
+
         ));
     }
     /**
