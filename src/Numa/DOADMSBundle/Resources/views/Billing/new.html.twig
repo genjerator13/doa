@@ -459,11 +459,11 @@
                             {{ form_row(form.opt9, {'attr':{'class': 'col-md-6'}}) }}
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            align="left" valign=bottom bgcolor="#DEEBF7"><input name="tidmake" id="tidmake" />
+                            align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_make) }}
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="tidmodel" id="tidmodel" />
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_model) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PROTECTION
@@ -512,13 +512,14 @@
                         <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                             colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                            align="center" valign=bottom bgcolor="#DEEBF7"><input name="tidyear" id="tidyear" />
+                            align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.tid_year) }}
                         </td>
                         <td style="border-left: 1px solid #000000" align="center" valign=bottom bgcolor="#DEEBF7">
-                            <input name="tidmileage" id="tidmileage" />
+                            {{ form_row(form.tid_milleage) }}
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="tidkm" id="tidkm" />
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_km) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS TRADE
@@ -541,7 +542,7 @@
                             align="left" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
                         <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom
                             bgcolor="#DEEBF7">
-                            <input name="tidvin" id="tidvin" />
+                            {{ form_row(form.tid_vin) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>DIFFERENCE
