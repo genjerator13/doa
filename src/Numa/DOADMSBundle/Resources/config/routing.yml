@@ -4,6 +4,9 @@ dms_home:
 dms_customer:
     resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
     prefix:   /customers
+dms_customer_switch:
+    defaults: { _controller: "NumaDOADMSBundle:Default:dealerChooser" }
+    path:   /customers_switch
 dms_user:
     resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
     prefix:   /users

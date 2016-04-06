@@ -5,7 +5,10 @@
     {% set user= app.security.getToken().getUser().getId() %}
     {% set apicall="/api/dmsuser/"~user~"/dealer" %}
 {% endif %}
-
+{% if is_granted('ROLE_ADMIN') and app.session.get('dealer') %}
+    {% set user= app.session.get('dealer').getId() %}
+    {% set apicall="/api/dmsuser/"~user~"/dealer" %}
+{% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
