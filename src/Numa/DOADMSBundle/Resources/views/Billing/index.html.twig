@@ -22,7 +22,7 @@
                 <th>Date_created</th>
                 <th>Date_updated</th>
                 <th>Status</th>
-                <th>Totalamt</th>
+
                 <th>Comments</th>
                 <th>Actions</th>
             </tr>
@@ -34,7 +34,7 @@
                     <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ entity.status }}</td>
-                    <td>{{ entity.totalAMT }}</td>
+
                     <td>{{ entity.comments }}</td>
                     <td>
                         <a href="{{ path('billing_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>

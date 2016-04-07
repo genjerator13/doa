@@ -17,6 +17,9 @@ dmsuser_api:
 note_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/note.yml"
         prefix:   /note
+billing_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/billing.yml"
+        prefix:   /billing
 listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}

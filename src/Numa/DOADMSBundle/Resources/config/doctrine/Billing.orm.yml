@@ -175,6 +175,14 @@ Numa\DOADMSBundle\Entity\Billing:
         warranty:
             type: float
             nullable: true
+        new_warranty:
+            type: string
+            length: 255
+            nullable: true
+        used_warranty:
+            type: string
+            length: 255
+            nullable: true
         protection_pkg:
             type: float
             nullable: true

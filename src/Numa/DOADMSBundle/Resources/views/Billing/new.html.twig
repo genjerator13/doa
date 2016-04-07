@@ -35,7 +35,9 @@
         <div ng-controller="myCtrl">
             {{ form_start(form) }}
             {{ form_row(form.customer_id) }}
-            {{ form_row(form.item_id, {'attr': {'ng-value': 'item_id'} }) }}
+            {{ form_row(form.dealer_id) }}
+            {{ form_row(form.item_id) }}
+            {#{{ form_row(form.item_id, {'attr': {'ng-value': 'item_id'} }) }}#}
 
                 <div class="box-header">
 
@@ -53,7 +55,10 @@
                         <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=4
                             rowspan=4
                             height="80" align="center" valign=bottom><br>
+
+                            {% if dealer is defined and dealer is not empty and dealer.logo is defined %}
                             {{ component.image(dealer.logo, dealer.name, 'thumbnail', 'search_image','120px', '90px') }}
+                            {% endif %}
                         </td>
                         <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom
                             bgcolor="#E7E6E6">
@@ -80,7 +85,7 @@
                             valign=bottom bgcolor="#FFF2CC">
 
                             <input id="stock-autocomplete" auto-complete ui-items="names" type="text" size="35" maxlength="50" ng-model="stock"
-                                   ng-change="change('stock')" class="changeable"/>
+                                   ng-change="change('stock')" class="changeable" />
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -96,7 +101,7 @@
                             bgcolor="#E7E6E6"><b>Dealer #</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.dealer_nr) }}
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.dealer_nr,{'attr':{'ng-model':'dealer_nr'}}) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -134,7 +139,10 @@
                     </tr>
                     <tr>
                         <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
-                            bgcolor="#E2F0D9">{{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
+                            bgcolor="#E2F0D9">
+                            {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined%}
+                                {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
+                            {%  endif %}
                         <td style="border-left: 1px solid #000000" align="left" valign=bottom>
                         </td>
                         <td align="left" valign=bottom></td>
@@ -149,7 +157,11 @@
                     </tr>
                     <tr>
                         <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
-                            bgcolor="#E2F0D9">Phone: {{ dealer.phone }}, Fax: {{ dealer.fax }}</td>
+                            bgcolor="#E2F0D9">
+                            {% if dealer is defined and dealer is not empty and dealer.phone is defined and dealer.fax is defined%}
+                            Phone: {{ dealer.phone }}, Fax: {{ dealer.fax }}
+                            {%  endif %}
+                        </td>
                         <td style="border-left: 1px solid #000000" align="left" valign=bottom>
                         </td>
                         <td align="left" valign=bottom></td>
@@ -332,7 +344,7 @@
                                 WARRANTY</b></td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="newwarranty" id="newwarranty"  />
+                            valign=bottom bgcolor="#DEEBF7"> {{ form_row(form.new_warranty) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -353,7 +365,8 @@
                         <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom
                             bgcolor="#E7E6E6">
                             <b>USED WARRANTY</b></td>
-                        <td colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"><input name="usedwarranty" id="usedwarranty"  />
+                        <td colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                            {{ form_row(form.used_warranty) }}
                         </td>
                         <td align="left" valign=bottom></td>
                         <td align="left" valign=bottom></td>
@@ -837,7 +850,7 @@
                         </td>
                         <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
                             align="center"
-                            valign=bottom bgcolor="#DEEBF7"><input name="tidpayableto" id="tidpayableto" />
+                            valign=bottom bgcolor="#DEEBF7">{{ form_row(form.payableto) }}
                         </td>
                         <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                             colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
