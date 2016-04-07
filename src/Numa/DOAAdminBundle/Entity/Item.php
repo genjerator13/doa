@@ -1419,6 +1419,7 @@ class Item
     /**
      * @var string
      * @JMS\Expose
+     * @JMS\Accessor(getter="getStatus",setter="setStatus")
      */
     private $status;
 
@@ -1684,6 +1685,7 @@ class Item
      * Get status
      *
      * @return string
+     * @JMS\VirtualProperty
      */
     public function getStatus()
     {

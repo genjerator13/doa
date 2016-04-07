@@ -3,7 +3,86 @@ var names = [];
 
 app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.stock = "";
+    {% if id is defined and id is not empty %}
+    $http.get("/api/billing/{{ id }}/single")
+            .then(function (response) {
+                console.log(response.data);
+                if(response.data._item) {
+                    $scope.VIN = response.data._item._v_i_n;
+                    $scope.stock = response.data._item.stock_nr;
+                }
+                $scope.billing_date = response.data.billing_date;
+                $scope.sales_person = response.data.sales_person;
+                $scope.trim = response.data.trim;
+                $scope.dealer_nr = response.data.dealer_nr;
+                $scope.tid_make = response.data.tid_make;
+                $scope.tid_model = response.data.tid_model;
+                $scope.tid_year = response.data.tid_year;
+                $scope.tid_km = response.data.tid_km;
+                $scope.tid_vin = response.data.tid_vin;
+                $scope.tid_milleage = response.data.tid_milleage;
+                $scope.payableto = response.data.payableto;
+                $scope.address = response.data.address;
+                $scope.amount = response.data.amount;
+                $scope.total = response.data.total;
+                $scope.less_discount = response.data.less_discount;
+                $scope.options_total_cost = response.data.options_total_cost;
+                $scope.sale_price = response.data.sale_price;
+                $scope.admin_fee = response.data.admin_fee;
+                $scope.warranty = response.data.warranty;
+                $scope.new_warranty = response.data.new_warranty;
+                $scope.used_warranty = response.data.used_warranty;
+                $scope.protection_pkg = response.data.protection_pkg;
+                $scope.tos_total = response.data.tos_total;
+                $scope.less_trade_in = response.data.less_trade_in;
+                $scope.difference_payabl = response.data.difference_payabl;
+                $scope.tax1 = response.data.tax1;
+                $scope.tax2 = response.data.tax2;
+                $scope.tax3 = response.data.tax3;
+                $scope.taxt1_name = response.data.taxt1_name;
+                $scope.taxt2_name = response.data.taxt2_name;
+                $scope.taxt3_name = response.data.taxt3_name;
 
+                $scope.other_misc1 = response.data.other_misc1;
+                $scope.other_misc2 = response.data.other_misc2;
+                $scope.other_misc1_name = response.data.other_misc1_name;
+                $scope.other_misc2_name = response.data.other_misc2_name;
+                $scope.taxes_paid_total = response.data.taxes_paid_total;
+                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
+                $scope.total_due = response.data.total_due;
+                $scope.less_trade_in_tax = response.data.less_trade_in_tax;
+                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
+                $scope.less_deposit = response.data.less_deposit;
+                $scope.payable_on_delivery = response.data.payable_on_delivery;
+                $scope.balance_to_finance = response.data.balance_to_finance;
+                $scope.insurance = response.data.insurance;
+                $scope.total_balance_due = response.data.total_balance_due;
+                $scope.bank_registration_fee = response.data.bank_registration_fee;
+
+                $scope.opt1 = response.data.opt1;
+                $scope.opt2 = response.data.opt2
+                $scope.opt3 = response.data.opt3;
+                $scope.opt4 = response.data.opt4;
+                $scope.opt5 = response.data.opt5;
+                $scope.opt6 = response.data.opt6;
+                $scope.opt7 = response.data.opt7;
+                $scope.opt8 = response.data.opt8;
+                $scope.opt9 = response.data.opt9;
+                $scope.opt10 = response.data.opt10;
+
+                $scope.opteq1 = response.data.opteq1;
+                $scope.opteq2 = response.data.opteq2
+                $scope.opteq3 = response.data.opteq3;
+                $scope.opteq4 = response.data.opteq4;
+                $scope.opteq5 = response.data.opteq5;
+                $scope.opteq6 = response.data.opteq6;
+                $scope.opteq7 = response.data.opteq7;
+                $scope.opteq8 = response.data.opteq8;
+                $scope.opteq9 = response.data.opteq9;
+                $scope.opteq10 = response.data.opteq10;
+                console.log($scope);
+            });
+    {% endif %}
     $scope.change = function (field) {
         console.log(field);
         $scope.find = $scope.stock;

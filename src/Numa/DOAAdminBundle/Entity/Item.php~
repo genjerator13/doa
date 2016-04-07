@@ -21,7 +21,7 @@ use Numa\DOAModuleBundle\Entity\Seo;
  */
 class Item
 {
-
+    //
     public static $fields = array(
         1 =>
             array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
@@ -1419,6 +1419,7 @@ class Item
     /**
      * @var string
      * @JMS\Expose
+     * @JMS\Accessor(getter="getStatus",setter="setStatus")
      */
     private $status;
 
@@ -1684,6 +1685,7 @@ class Item
      * Get status
      *
      * @return string
+     * @JMS\VirtualProperty
      */
     public function getStatus()
     {

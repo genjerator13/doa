@@ -3,53 +3,62 @@
 namespace Numa\DOADMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 /**
  * Billing
+ * @JMS\XmlRoot("billing")
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Billing
 {
     /**
      * @var int
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_updated;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $status;
 
     /**
      * @var string
-     */
-    private $totalAMT;
-
-    /**
-     * @var string
+     * @JMS\Expose
      */
     private $comments;
 
     /**
      * @var \Numa\DOADMSBundle\Entity\Customer
+     * @JMS\Expose
      */
     private $Customer;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_billing;
 
@@ -159,29 +168,7 @@ class Billing
         return $this->status;
     }
 
-    /**
-     * Set totalAMT
-     *
-     * @param string $totalAMT
-     *
-     * @return Billing
-     */
-    public function setTotalAMT($totalAMT)
-    {
-        $this->totalAMT = $totalAMT;
 
-        return $this;
-    }
-
-    /**
-     * Get totalAMT
-     *
-     * @return string
-     */
-    public function getTotalAMT()
-    {
-        return $this->totalAMT;
-    }
 
     /**
      * Set comments
@@ -278,326 +265,392 @@ class Billing
     }
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $dealer_id;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $item_id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $sales_person;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $trim;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tid_make;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tid_model;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $tid_year;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tid_milleage;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tid_km;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tid_vin;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $payableto;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $address;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $amount;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $total;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $less_discount;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $options_total_cost;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt1;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq1;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt2;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq2;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt3;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq3;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt4;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq4;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt5;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq5;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt6;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq6;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt7;
 
     /**
      * @var string
+     * @JMS\Expose
+     *
      */
     private $opteq7;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt8;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq8;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt9;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq9;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opt10;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $opteq10;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $sale_price;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $admin_fee;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $warranty;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $protection_pkg;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $tos_total;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $less_trade_in;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $difference_payable;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $tax1;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $tax2;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $tax3;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $other_misc1;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $other_misc2;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $text1_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $text2_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $text3_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $other_misc1_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $other_misc2_name;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $taxes_paid_total;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $lien_on_trade_in;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $total_due;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $less_trade_in_tax;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $less_deposit;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $payable_on_delivery;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $balance_to_finance;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $insurance;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $bank_registration_fee;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $total_balance_due;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     * @JMS\Expose
      */
     private $Dealer;
 
     /**
      * @var \Numa\DOAAdminBundle\Entity\Item
+     * @JMS\Expose
      */
     private $Item;
 
@@ -2044,7 +2097,7 @@ class Billing
     /**
      * Get total_balance_due
      *
-     * @return float 
+     * @return float
      */
     public function getTotalBalanceDue()
     {
@@ -2098,6 +2151,7 @@ class Billing
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $dealer_nr;
 
@@ -2118,7 +2172,7 @@ class Billing
     /**
      * Get dealer_nr
      *
-     * @return string 
+     * @return string
      */
     public function getDealerNr()
     {
@@ -2126,16 +2180,19 @@ class Billing
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $taxt1_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $taxt2_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $taxt3_name;
 
@@ -2210,5 +2267,63 @@ class Billing
     public function getTaxt3Name()
     {
         return $this->taxt3_name;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $new_warranty;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $used_warranty;
+
+
+    /**
+     * Set new_warranty
+     *
+     * @param string $newWarranty
+     * @return Billing
+     */
+    public function setNewWarranty($newWarranty)
+    {
+        $this->new_warranty = $newWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get new_warranty
+     *
+     * @return string 
+     */
+    public function getNewWarranty()
+    {
+        return $this->new_warranty;
+    }
+
+    /**
+     * Set used_warranty
+     *
+     * @param string $usedWarranty
+     * @return Billing
+     */
+    public function setUsedWarranty($usedWarranty)
+    {
+        $this->used_warranty = $usedWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get used_warranty
+     *
+     * @return string 
+     */
+    public function getUsedWarranty()
+    {
+        return $this->used_warranty;
     }
 }
