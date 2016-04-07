@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
@@ -542,6 +543,34 @@ class ItemRepository extends EntityRepository
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
         return $res;
+    }
+
+    public function countAllListings($active=1,$sold=0,$dealer=false){
+        $suffix = "";
+        if($dealer instanceof Catalogrecords){
+            $suffix = " and i.dealer_id=".$dealer->getId();
+        }
+        $sql = "select count(*) as count from item i WHERE i.active=$active and i.sold=$sold".$suffix;
+dump($dealer);
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        return $res['count'];
+
+    }
+
+    public function countAllViews($active=1,$sold=0,$dealer=false){
+        $suffix = "";
+        if($dealer instanceof Catalogrecords){
+            $suffix = " and i.dealer_id=".$dealer->getId();
+        }
+        $sql = "select sum(i.views) as count from item i WHERE i.active=$active and i.sold=$sold".$suffix;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        return $res['count'];
+
     }
 
 

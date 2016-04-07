@@ -638,6 +638,7 @@ class Billing
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $total_balance_due;
 
@@ -2096,7 +2097,7 @@ class Billing
     /**
      * Get total_balance_due
      *
-     * @return float 
+     * @return float
      */
     public function getTotalBalanceDue()
     {
@@ -2266,5 +2267,63 @@ class Billing
     public function getTaxt3Name()
     {
         return $this->taxt3_name;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $new_warranty;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $used_warranty;
+
+
+    /**
+     * Set new_warranty
+     *
+     * @param string $newWarranty
+     * @return Billing
+     */
+    public function setNewWarranty($newWarranty)
+    {
+        $this->new_warranty = $newWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get new_warranty
+     *
+     * @return string 
+     */
+    public function getNewWarranty()
+    {
+        return $this->new_warranty;
+    }
+
+    /**
+     * Set used_warranty
+     *
+     * @param string $usedWarranty
+     * @return Billing
+     */
+    public function setUsedWarranty($usedWarranty)
+    {
+        $this->used_warranty = $usedWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get used_warranty
+     *
+     * @return string 
+     */
+    public function getUsedWarranty()
+    {
+        return $this->used_warranty;
     }
 }
