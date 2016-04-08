@@ -4,4 +4,21 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
+    <div class="row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-eye"></i></span>
+
+                <div class="info-box-content">
+                    <span class="info-box-text">Total listings: <strong>{{ totalListings }}</strong></span>
+                </div>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total views: <strong>{{ totalViews }}</strong></span>
+                </div>
+                <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+        </div>
+        <!-- /.col -->
+    </div>
 {% endblock %}
