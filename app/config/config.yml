@@ -330,7 +330,11 @@ fos_rest:
 jms_serializer:
   metadata:
     auto_detection: true
-
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     /usr/local/bin/wkhtmltopdf
+        options:    []
 #lsw_guzzle:
 #    clients:
 #        test:
