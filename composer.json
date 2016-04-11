@@ -56,7 +56,8 @@
         "leaseweb/guzzle-bundle": "*",
         "ci/restclientbundle": "^1.0",
         "guzzle/guzzle": "~3.9",
-        "pugx/autocompleter-bundle": "^1.2"
+        "pugx/autocompleter-bundle": "^1.2",
+        "knplabs/knp-snappy-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
