@@ -545,13 +545,15 @@ class ItemRepository extends EntityRepository
         return $res;
     }
 
-    public function countAllListings($active=1,$sold=0,$dealer=false){
+    public function countAllListings($active=1,$sold=0,$category=0,$dealer=false){
         $suffix = "";
         if($dealer instanceof Catalogrecords){
-            $suffix = " and i.dealer_id=".$dealer->getId();
+            $suffix .= " and i.dealer_id=".$dealer->getId();
+        }
+        if(!empty($category)){
+            $suffix .= " and i.category_id=".$category;
         }
         $sql = "select count(*) as count from item i WHERE i.active=$active and i.sold=$sold".$suffix;
-dump($dealer);
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $res = $stmt->execute();
         $res = $stmt->fetch();
@@ -559,10 +561,13 @@ dump($dealer);
 
     }
 
-    public function countAllViews($active=1,$sold=0,$dealer=false){
+    public function countAllViews($active=1,$sold=0,$category=0,$dealer=false){
         $suffix = "";
         if($dealer instanceof Catalogrecords){
             $suffix = " and i.dealer_id=".$dealer->getId();
+        }
+        if(!empty($category)){
+            $suffix .= " and i.category_id=".$category;
         }
         $sql = "select sum(i.views) as count from item i WHERE i.active=$active and i.sold=$sold".$suffix;
 
