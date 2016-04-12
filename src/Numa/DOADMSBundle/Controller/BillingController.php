@@ -208,17 +208,6 @@ class BillingController extends Controller
         $editForm->handleRequest($request);
         $customer = null;
 
-//        if (!empty($entity->getCustomerId())) {
-//            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
-//            $dealer = $customer->getDealer();
-//        }
-//        $item = null;
-//
-//        if (!empty($entity->getItemId())) {
-//            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
-//        }
-
-
 
         if ($editForm->isValid()) {
             $em->flush();
@@ -233,7 +222,6 @@ class BillingController extends Controller
             'dealer' => $entity->getDealer(),
             'item' => $entity->getItem(),
             'form' => $editForm->createView(),
-
         ));
     }
 

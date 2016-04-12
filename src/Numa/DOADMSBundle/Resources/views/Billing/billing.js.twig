@@ -3,13 +3,15 @@ var names = [];
 
 app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.stock = "";
+
     {% if id is defined and id is not empty %}
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
                 console.log(response.data);
-                if(response.data._item) {
+                if (response.data._item) {
                     $scope.VIN = response.data._item._v_i_n;
                     $scope.stock = response.data._item.stock_nr;
+                    $scope.item_id=response.data._item.id
                 }
                 $scope.billing_date = response.data.billing_date;
                 $scope.sales_person = response.data.sales_person;
@@ -86,7 +88,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.change = function (field) {
         console.log(field);
         $scope.find = $scope.stock;
-        if(field=='vin'){
+        if (field == 'vin') {
             $scope.find = $scope.VIN;
         }
         if ($scope.find.length > 2) {
@@ -98,7 +100,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                         for (i = 0; i < response.data.length; i++) {
                             //names[i]=response.data[i].stock_nr;
                             name = response.data[i].stock_nr;
-                            if(field=='vin'){
+                            if (field == 'vin') {
                                 name = response.data[i]._v_i_n;
                             }
                             names.push(name);
@@ -108,12 +110,12 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             source: names
                         });
                         $scope.stockcount = response.data.length;
-                        if(response.data.length==1){
-                            $scope.listingyear=response.data[0].year;
-                            $scope.listingmake=response.data[0].make;
-                            $scope.listingmodel=response.data[0].model;
-                            $scope.listingmileage=response.data[0].mileage;
-                            $scope.listingtrim=response.data[0].trim;
+                        if (response.data.length == 1) {
+                            $scope.listingyear = response.data[0].year;
+                            $scope.listingmake = response.data[0].make;
+                            $scope.listingmodel = response.data[0].model;
+                            $scope.listingmileage = response.data[0].mileage;
+                            $scope.listingtrim = response.data[0].trim;
                             $scope.VIN = response.data[0]._v_i_n;
                             $scope.stock = response.data[0].stock_nr;
                             $scope.item_id = response.data[0].id;
@@ -129,6 +131,6 @@ app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-$(function() {
-    $( ".datepicker" ).datepicker();
+$(function () {
+    $(".datepicker").datepicker();
 });

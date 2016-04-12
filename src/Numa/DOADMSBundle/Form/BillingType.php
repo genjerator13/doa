@@ -18,6 +18,7 @@ class BillingType extends AbstractType
             ->add('customer_id','hidden')
             ->add('dealer_id','hidden')
             ->add('item_id','hidden', array('label' => false,'attr'=>array('ng-value'=>'item_id')))
+            //->add('item_id','hidden')
             ->add('dealer_nr', null, array('label' => false,'attr'=>array('ng-model'=>'dealer_nr')))
             ->add('sales_person', null, array('label' => false,'attr'=>array('ng-model'=>'sales_person')))
             ->add('trim', null, array('label' => false,'attr'=>array('ng-model'=>'trim')))
@@ -33,8 +34,6 @@ class BillingType extends AbstractType
             ->add('total', null, array('label' => false,'attr'=>array('ng-model'=>'total')))
             ->add('less_discount', null, array('label' => false,'attr'=>array('ng-model'=>'less_discount')))
             ->add('options_total_cost', null, array('label' => false,'attr'=>array('ng-model'=>'options_total_cost')))
-            ->add('date_created', null, array('label' => false,'attr'=>array('ng-model'=>'date_created')))
-            ->add('date_updated', null, array('label' => false,'attr'=>array('ng-model'=>'date_updated')))
             ->add('status', null, array('label' => false,'attr'=>array('ng-model'=>'status')))
             ->add('comments', null, array('label' => false,'attr'=>array('ng-model'=>'comments')))
 //            ->add('date_billing','date', array( 'label' => false,

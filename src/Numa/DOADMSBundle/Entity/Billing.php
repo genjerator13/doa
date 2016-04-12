@@ -233,10 +233,7 @@ class Billing
      */
     public function setUpdatedAtValue()
     {
-        if(empty($this->dontupdate)){
-
-            $this->date_updated = new \DateTime();
-        }
+        $this->date_updated = new \DateTime();
     }
 
 
