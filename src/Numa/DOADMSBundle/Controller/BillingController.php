@@ -60,6 +60,9 @@ class BillingController extends Controller
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
+            if($editForm->getClickedButton()->getName()=="submitAndPrint"){
+                return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
+            }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
 
