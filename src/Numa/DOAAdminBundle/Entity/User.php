@@ -1153,7 +1153,7 @@ class User implements UserInterface {
     /**
      * Get logo
      *
-     * @return string 
+     * @return string
      */
     public function getLogo()
     {
@@ -1167,4 +1167,5 @@ class User implements UserInterface {
         }
         return $name;
     }
+
 }
