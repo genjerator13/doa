@@ -50,6 +50,7 @@ class AppKernel extends Kernel {
             new Numa\DOADMSBundle\NumaDOADMSBundle(),
             //new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             //new Circle\RestClientBundle\CircleRestClientBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

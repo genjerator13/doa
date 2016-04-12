@@ -4,21 +4,75 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
-    <div class="row">
-        <div class="col-md-3 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-eye"></i></span>
 
-                <div class="info-box-content">
-                    <span class="info-box-text">Total listings: <strong>{{ totalListings }}</strong></span>
-                </div>
-                <div class="info-box-content">
-                    <span class="info-box-text">Total views: <strong>{{ totalViews }}</strong></span>
-                </div>
-                <!-- /.info-box-content -->
+    <div class="row">
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalListings }}</h5>
+                <span class="description-text">TOTAL LISTINGS</span>
             </div>
-            <!-- /.info-box -->
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalViews }}</h5>
+                <span class="description-text">TOTAL VIEWS</span>
+            </div>
         </div>
-        <!-- /.col -->
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalCarListings }}</h5>
+                <span class="description-text">TOTAL CAR LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalCarViews }}</h5>
+                <span class="description-text">TOTAL CAR VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMotoListings }}</h5>
+                <span class="description-text">TOTAL MOTO LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMotoViews }}</h5>
+                <span class="description-text">TOTAL MOTO VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMarineListings }}</h5>
+                <span class="description-text">TOTAL MARINE LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMarineViews }}</h5>
+                <span class="description-text">TOTAL MARINE VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalAgsListings }}</h5>
+                <span class="description-text">TOTAL AG LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalAgsViews }}</h5>
+                <span class="description-text">TOTAL AG VIEWS</span>
+            </div>
+        </div>
+
+
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalRvsListings }}</h5>
+                <span class="description-text">TOTAL RVs LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalRvsViews }}</h5>
+                <span class="description-text">TOTAL Rvs VIEWS</span>
+            </div>
+        </div>
+
+
     </div>
 {% endblock %}

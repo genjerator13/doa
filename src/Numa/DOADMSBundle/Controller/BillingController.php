@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Form\BillingType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Billing controller.
@@ -256,8 +257,35 @@ class BillingController extends Controller
             $em->remove($entity);
             $em->flush();
         }
-
         return $this->redirect($this->generateUrl('billing'));
+    }
+
+    /**
+     * Deletes a Billing entity.
+     *
+     */
+    public function printAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $html = $this->renderView(
+            'NumaDOADMSBundle:Billing:view.html.twig',
+            array('billing'=>$billing,
+                'id' => $billing->getId(),
+                'customer' => $billing->getCustomer(),
+                'dealer' => $billing->getDealer(),
+                'item' => $billing->getItem())
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="file.pdf"'
+            )
+        );
     }
 
     /**

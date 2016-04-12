@@ -37,7 +37,8 @@
 
                     <td>{{ entity.comments }}</td>
                     <td>
-                        <a href="{{ path('billing_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                        <a href="{{ path('billing_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
+                        <a href="{{ path('billing_print', { 'id': entity.id }) }}" class="btn btn-primary">Pdf</a>
                     </td>
                 </tr>
             {% endfor %}
