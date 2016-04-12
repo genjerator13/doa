@@ -1116,4 +1116,40 @@ class User implements UserInterface {
     {
         return $this->UserItem;
     }
+    /**
+     * @var string
+     */
+    private $logo;
+
+
+    /**
+     * Set logo
+     *
+     * @param string $logo
+     * @return User
+     */
+    public function setLogo($logo)
+    {
+        $this->logo = $logo;
+
+        return $this;
+    }
+
+    /**
+     * Get logo
+     *
+     * @return string
+     */
+    public function getLogo()
+    {
+        return $this->logo;
+    }
+
+    public function getName(){
+        $name= $this->getFirstName()." ".$this->getLastName();
+        if(empty(trim($name))){
+            $name = $this->getUsername();
+        }
+        return $name;
+    }
 }
