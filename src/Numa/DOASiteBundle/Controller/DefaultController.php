@@ -381,34 +381,11 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(), 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
 
+    public function statisticsAction(Request $request) {
+        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        $stats['site'] = true;
+        return $this->render('NumaDOASiteBundle:Default:statistics.html.twig',$stats);
+    }
+
 }
 
-//        
-//        $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
-//
-//        $itemrep->setMemcached($this->get('mymemcache'));
-//        $featured = $itemrep->findFeatured($max);
-//        $items = array();
-//        $temp = array();
-//
-//        foreach ($featured as $item) {
-//            $temp = array();
-//            $temp['id'] = $item->getId();
-//            $temp['year'] = $item->getYear();
-//            $temp['model'] = $item->getModel();
-//            $temp['make'] = $item->getMake();
-//            $temp['price'] = $item->getPrice();
-//            $temp['images'] = array();
-//            if (!empty($item->getImages2())) {
-//                foreach ($item->getImages2() as $image) {
-//                    $temp['images']['id'] = $image->getId();
-//                    $temp['images']['src'] = $image->getFieldStringValue();
-//                }
-//            }
-//
-//            $items[] = $temp;
-//        }
-//        //     apc_store('featured', $items,300);
-//        // } else {
-//        //    $items = apc_fetch('featured');
-//        // }
