@@ -48,6 +48,7 @@ class BillingController extends Controller
         }
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+
         if ($form->isValid()) {
 
             if(!empty($entity->getItemId())) {
@@ -203,7 +204,7 @@ class BillingController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
         }
-        //dump($entity);die();
+
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
         $customer = null;
@@ -212,6 +213,10 @@ class BillingController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             //return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
+
+            if($editForm->getClickedButton()->getName()=="submitAndPrint"){
+                return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
+            }
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
 
@@ -274,6 +279,35 @@ class BillingController extends Controller
                 'Content-Disposition'   => 'attachment; filename="file.pdf"'
             )
         );
+    }
+
+    /**
+     * Deletes a Billing entity.
+     *
+     */
+    public function printInsideAction(Request $request, $id)
+    {
+
+        $em = $this->getDoctrine()->getManager();
+        $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $html = $this->renderView(
+            'NumaDOADMSBundle:Billing:view.html.twig',
+            array('billing'=>$billing,
+                'id' => $billing->getId(),
+                'customer' => $billing->getCustomer(),
+                'dealer' => $billing->getDealer(),
+                'item' => $billing->getItem())
+        );
+
+        $response = new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+            )
+        );
+        $response->headers->set('Content-Type', 'application/pdf');
+        return $response;
     }
 
     /**
