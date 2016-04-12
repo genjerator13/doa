@@ -1,9 +1,11 @@
 # Bootstrap
 app/bootstrap*
 .htaccess
+.idea*/*.*
 
 # Symfony directories
 vendor/*
+vendor*/*
 */logs/*
 */cache/*
 web/uploads/*
