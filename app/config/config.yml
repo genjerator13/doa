@@ -333,7 +333,7 @@ jms_serializer:
 knp_snappy:
     pdf:
         enabled:    true
-        binary:     /usr/local/bin/wkhtmltopdf
+        binary:     xvfb-run wkhtmltopdf
         options:    []
 #lsw_guzzle:
 #    clients:
