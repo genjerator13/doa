@@ -17,6 +17,7 @@
                         '@DMS_red_skin_css'
                         'css/font-awesome.min.css'
                         'css/ionicons.min.css'
+
                         filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
@@ -81,15 +82,49 @@
                         </a>
 
                     </li><!-- /.messages-menu -->
-                    <li class="dropdown messages-menu">
+                    {#<li class="dropdown messages-menu">#}
+                        {#<!-- Menu toggle button -->#}
+                        {#<a target="_blank" href="{{ url('logout') }}">#}
+                            {#<i class="fa fa-sign-out"></i>#}
+                            {#<span class="">Logout</span>#}
+                        {#</a>#}
+
+                    {#</li><!-- /.messages-menu -->#}
+                    <!-- Control Sidebar Toggle Button -->
+                    {% if not is_granted('ROLE_ADMIN') %}
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="hidden-xs">{{ app.user.name}}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                <p>
+                                    {{ app.user.name }}
+                                    <small><a href="{{ app.user.url }}"><i class="glyphicon glyphicon-link"></i>Site</a></small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a class="btn btn-default btn-flat" href="{{ path('catalogs_edit', {'id': app.user.id}) }}"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a class="btn btn-default btn-flat" target="_self" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span class="">Logout</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                        <li class="dropdown messages-menu">
                         <!-- Menu toggle button -->
-                        <a target="_blank" href="{{ url('logout') }}">
+                        <a target="_self" href="{{ url('logout') }}">
                             <i class="fa fa-sign-out"></i>
                             <span class="">Logout</span>
                         </a>
 
-                    </li><!-- /.messages-menu -->
-                    <!-- Control Sidebar Toggle Button -->
+                    </li>
+                    {% endif %}
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                     </li>
