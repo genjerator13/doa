@@ -33,8 +33,8 @@ class DefaultController extends Controller
         $totalRvsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,4,$dealer);
         $totalRvsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,4,$dealer);
 
-        $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,1,13,$dealer);
-        $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,1,13,$dealer);
+        $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,13,$dealer);
+        $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
 
         return $this->render('NumaDOADMSBundle:Default:index.html.twig',
             array(
