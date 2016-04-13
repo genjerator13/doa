@@ -380,4 +380,12 @@ class DefaultController extends Controller {
         $emailForm = $this->emailDealerForm($request);
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(), 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
+
+    public function statisticsAction(Request $request) {
+        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        $stats['site'] = true;
+        return $this->render('NumaDOASiteBundle:Default:statistics.html.twig',$stats);
+    }
+
 }
+
