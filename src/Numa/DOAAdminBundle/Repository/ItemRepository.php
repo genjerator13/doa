@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
