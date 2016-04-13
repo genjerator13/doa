@@ -16,8 +16,8 @@ services:
     Numa.Emailer:
         class: Numa\Lib\Emailer
         arguments: ["@service_container"]
-    Numa.Emailer:
-        class: Numa\Lib\Emailer
+    Numa.Dashboard.Stats:
+        class: Numa\Lib\Stats
         arguments: ["@service_container"]
     Numa.Settings:
         class: Numa\DOASettingsBundle\Util\SettingsLib

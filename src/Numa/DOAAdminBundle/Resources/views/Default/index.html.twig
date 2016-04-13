@@ -1,7 +1,10 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
  
 {% block content %}
-<div class="page-header">
-  <h1>Dashboard</h1>
-</div>
+    <div class="page-header">
+        <h1>Dashboard</h1>
+    </div>
+    <div class="row">
+        {% include 'NumaDOAAdminBundle:Default:stats.html.twig' %}
+    </div>
 {% endblock %}

@@ -718,3 +718,15 @@ iframe body{
     padding: 0;
     margin: 0;
 }
+
+.box{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.description-block > .description-header {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
