@@ -176,6 +176,7 @@ class UserController extends Controller {
 
     public function logindDealerAction(Request $request, $username)
     {
+
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $em->getRepository('NumaDOAAdminBundle:Catalogrecords');
         $result = $repository->findOneBy(array('username' => $username));
@@ -194,6 +195,7 @@ class UserController extends Controller {
             ))
             ->getForm();
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $data = $form->getData();
             $pass= $this->getParameter('database_password');
