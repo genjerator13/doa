@@ -1,5 +1,5 @@
 {% set class="col-sm-2 col-xs-3" %}
-{% if(site) %}
+{% if(site is defined and stats) %}
     {% set class="col-sm-4 col-xs-4 box" %}
 {% endif %}
 
