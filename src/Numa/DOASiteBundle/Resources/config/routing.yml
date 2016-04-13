@@ -120,3 +120,7 @@ ads_page:
 ad_increase_click:
     path:     /ads/{id}/click
     defaults: { _controller: "NumaDOAModuleBundle:Ad:clickAjax" }
+
+statistics:
+    path:     /stats
+    defaults: { _controller: "NumaDOASiteBundle:Default:statistics" }
