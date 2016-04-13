@@ -9,7 +9,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('NumaDOAAdminBundle:Default:index.html.twig');
+        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        return $this->render('NumaDOAAdminBundle:Default:index.html.twig',
+            $stats);
     }
 
     public function loginAction()

@@ -75,7 +75,7 @@ class AdController extends Controller
 
                 return $response;
             }
-            return $this->redirect($this->generateUrl('ad_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('ad_index', array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAModuleBundle:Ad:new.html.twig', array(
@@ -318,10 +318,8 @@ class AdController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        // }
-        dump("aaaa");
-        die();
-        return $this->redirect($this->generateUrl('ad'));
+
+        return $this->redirect($this->generateUrl('ad_index'));
     }
 
     /**
