@@ -87,11 +87,15 @@
                     {% if not is_granted('ROLE_ADMIN') %}
                     <li class="dropdown user user-menu">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="hidden-xs"><i class="glyphicon glyphicon-user"></i> {{ app.user.name}}</span>
+                            <span class="hidden-xs"><i class="glyphicon glyphicon-user"></i> {{ app.user.name }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="user-header">
+                                {% if app.user.logoUrl is empty %}
                                 {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                {% else %}
+                                {{ component.image(app.user.logoUrl, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                {% endif %}
                                 <p>
                                     {{ app.user.name }}
                                     <small><a href="{{ app.user.url }}"><i class="glyphicon glyphicon-link"></i>Site</a></small>
@@ -129,15 +133,6 @@
     <aside class="main-sidebar">
 
         <!-- sidebar: style can be found in sidebar.less -->
-        <div class="user-panel">
-            <div class="pull-left image">
-                {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
-            </div>
-            <div class="pull-left info">
-                <p>{{ app.user.name}}</p>
-                <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
-            </div>
-        </div>
         <section class="sidebar">
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
