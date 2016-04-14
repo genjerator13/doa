@@ -150,6 +150,9 @@
                 <li class="">
                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
                 </li>
+                <li class="">
+                    <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-car"></i>Add New Inventory</a>
+                </li>
                 {% if not is_granted('ROLE_ACCOUNTING') %}
                 <li class="">
                     <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>

@@ -10,7 +10,7 @@ dms_customer_switch:
 dms_user:
     resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
     prefix:   /users
-dms_inventry:
+dms_inventory:
     resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
     prefix:   /inventory
 dms_user_group:

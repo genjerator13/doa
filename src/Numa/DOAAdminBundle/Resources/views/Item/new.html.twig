@@ -1,5 +1,5 @@
 {% extends is_granted('ROLE_BUSINES')
-? 'NumaDOASiteBundle::home-layout.html.twig'
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}

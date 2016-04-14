@@ -1,6 +1,13 @@
 inventory:
     path:     /
     defaults: { _controller: "NumaDOADMSBundle:Inventory:index" }
+dms_additem:
+    pattern:  /additem
+    defaults: { _controller: "NumaDOAAdminBundle:Item:additem",_dashboard: "DMS" }
+dms_items_new:
+    pattern:  /{cat_id}/new
+    defaults: { _controller: "NumaDOAAdminBundle:Item:new",_dashboard: "DMS" }
+
 #
 #inventory_new:
 #    path:     /new

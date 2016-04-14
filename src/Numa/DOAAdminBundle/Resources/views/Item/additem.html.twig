@@ -1,6 +1,11 @@
 {% extends is_granted('ROLE_BUSINES')
-? 'NumaDOASiteBundle::home-layout.html.twig'
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 : 'NumaDOAAdminBundle::layout.html.twig' %}
+
+{%  set routePrefix="" %}
+{% if(dashboard is defined and dashboard is not empty) %}
+    {% set routePrefix=dashboard|lower~"_" %}
+{% endif %}
 {% block content %}
     <div class="box box-default">
         <h1>Add Listing</h1>
@@ -11,7 +16,7 @@
         </div>
         <ul class="">
             {% for entity in entities %}
-                <li><a href="{{ path('items_new', { 'cat_id': entity.id }) }}">{{ entity.name }}</a></li>
+                <li><a href="{{ path(routePrefix~'items_new', { 'cat_id': entity.id }) }}">{{ entity.name }}</a></li>
             {% endfor %}
         </ul>
     </div>

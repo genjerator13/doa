@@ -1,4 +1,3 @@
-
 {% extends is_granted('ROLE_BUSINES')
 ? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 : 'NumaDOAAdminBundle::layout.html.twig' %}
