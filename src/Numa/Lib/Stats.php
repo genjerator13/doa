@@ -9,6 +9,8 @@
 namespace Numa\Lib;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+
 class Stats
 {
     protected $container;
@@ -24,7 +26,6 @@ class Stats
 
         if ($user instanceof Catalogrecords) {
             $dealer = $user;
-
         }
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,0,$dealer);
         $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,0,$dealer);

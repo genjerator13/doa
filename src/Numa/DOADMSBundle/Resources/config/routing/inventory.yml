@@ -7,6 +7,9 @@ dms_additem:
 dms_items_new:
     pattern:  /{cat_id}/new
     defaults: { _controller: "NumaDOAAdminBundle:Item:new",_dashboard: "DMS" }
+dms_items_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Item:edit",_dashboard: "DMS" }
 
 #
 #inventory_new:
