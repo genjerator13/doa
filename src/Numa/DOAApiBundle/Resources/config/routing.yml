@@ -20,6 +20,7 @@ note_api:
 billing_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/billing.yml"
         prefix:   /billing
+
 listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}

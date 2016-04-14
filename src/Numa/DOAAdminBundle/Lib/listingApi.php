@@ -70,6 +70,8 @@ class listingApi
         $em = $this->container->get('doctrine');
         $res = array();
         $map = array();
+
+        //check the item category, and find its listing fields
         $listings = $em->getRepository("NumaDOAAdminBundle:Listingfield")->findByCategory($item->getCategoryId());
         foreach ($listings as $listing) {
 
@@ -88,9 +90,14 @@ class listingApi
                 }
             }
         }
-        //dump($map);
+
+
+
+
+        //dump($map);die();
         $res['id'] = $item->get('id');
         $res['category'] = $item->getCategory()->getName();
+        $res['featured'] = $item->getFeatured();
         $router = $this->container->get('router');
         //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
         $urldesription = $item->getUrlDescription();
