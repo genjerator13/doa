@@ -183,13 +183,14 @@ class ItemController extends Controller {
      * Lists all Item entities.
      *
      */
-    public function additemAction() {
+    public function additemAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Item:additem.html.twig', array(
                     'entities' => $entities,
+                    'dashboard' => $dashboard,
         ));
     }
 
@@ -244,6 +245,7 @@ class ItemController extends Controller {
     public function newAction(Request $request, $cat_id, $item_id = null) {
 
         $entity = new Item();
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
         //get category by request parameter
         $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($cat_id);
@@ -338,18 +340,20 @@ class ItemController extends Controller {
 
             return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
-
-        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category,$seoFormView);
+        //'dashboard' =>$dashboard,
+        $params = array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'category' => $category,
+            'seo'=> $seoFormView,
+            'dashboard' =>$dashboard,
+        );
+        return $this->switchTemplateByCategory($cat_id, $params);
     }
 
-    private function switchTemplateByCategory($cat_id, $entity, $form, $category,$seo=null) {
+    private function switchTemplateByCategory($cat_id, $params) {
 
-        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'category' => $category,
-                    'seo'=> $seo,
-        ));
+        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', $params);
     }
 
     /**
@@ -377,6 +381,7 @@ class ItemController extends Controller {
      *
      */
     public function editAction(Request $request, $id) {
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -500,7 +505,16 @@ class ItemController extends Controller {
             $em->flush();
             return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
         }
-        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
+        $params = array(
+            'entity' => $entity,
+            'form' => $form,
+            'category' => $entity->getCategory(),
+            'seo'=> $seoFormView,
+            'dashboard' =>$dashboard,
+        );
+        return $this->switchTemplateByCategory($category, $params);
+
+        //return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
     }
 
     /**
