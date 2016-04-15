@@ -21,14 +21,20 @@ class HomeTabRepository extends EntityRepository {
     }
 
     public function deleteAllHomeTabs(){
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder();
-        $qb->delete('ht')
-            ->add('from', 'NumaDOAAdminBundle:HomeTab')
-        ;
+//        $qb = $this->getEntityManager()
+//            ->createQueryBuilder();
+//        $qb->delete('')
+//            ->add('from', 'NumaDOAAdminBundle:HomeTab')
+//        ;
+//
+//        $itemsQuery = $qb->getQuery();
+//        $itemsQuery->execute();
+//
 
-        $itemsQuery = $qb->getQuery();
-        $itemsQuery->execute();
+        $sql = "DELETE FROM home_tab";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
     }
 
 }
