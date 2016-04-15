@@ -51,7 +51,7 @@
                             {% endfor %}
                         {% endfor %}
                         <h2 class="section">{{ item.getTitle() }} <span
-                                    classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
+                                    classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
 
                         <div class="slideshow">
@@ -111,7 +111,7 @@
                                                     : </span>
                                                 {% if field.fieldName=="Price" %}
 
-                                                    <span classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>
+                                                    <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
                                                 {% else %}
