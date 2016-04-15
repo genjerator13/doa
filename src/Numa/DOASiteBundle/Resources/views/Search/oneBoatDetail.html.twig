@@ -41,7 +41,9 @@
                     {% if (item.StockNr) %}
                         Stock Number: {{ item.StockNr }};
                     {% endif %}
-                    Listing ID # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %} "
+                    Listing ID
+                    # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}
+                    "
                 </div>
                 <div>Posted by {{ dealer }} </div>
 
