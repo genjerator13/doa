@@ -50,9 +50,15 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getTitle() }} <span
-                                    classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
-                            <span class="badge">Sold</span>{% endif %}</h2>
+                        <h2 class="section">{{ item.getTitle() }}
+                            <span classb="price">
+                                {% if item.getItemFieldByName('price') != 0 %}
+                                    $ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}
+                                {% endif %}
+                            </span>
+                            {% if (item.getSold()==1) %}
+                            <span class="badge">Sold</span>
+                            {% endif %}</h2>
 
                         <div class="slideshow">
 
