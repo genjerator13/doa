@@ -78,7 +78,7 @@
                 <ul class="list-inline">
                     <li>{{ item.getItemFieldByName('mileage')|number_format(0, '.',',') }}
 
-                    <li><span class="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>
+                    <li><span class="price">{{ item.getPriceString() }}</span>
                     </li>
                     <li>{{ item.lastUpdated()|date('Y-m-d') }}</li>
                 </ul>

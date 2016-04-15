@@ -73,8 +73,30 @@ class RemoteFeed extends ContainerAware
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
 
                 if (self::XML == $this->entity->getImportFormat()) {
-                    //$xml_obj = simplexml_load_file($upload_path . $this->source);
-                    $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
+
+                    if(self::URL == $this->entity->getImportMethod()) {
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL,$upload_path . $this->source);
+
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+
+                        $local_file = curl_exec($ch);
+                        if($local_file === false)
+                        {
+                            echo 'Curl error: ' . curl_error($ch);
+                        }
+                        curl_close($ch);
+
+                        // dump($local_file);die();
+                        $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
+                    }else {
+                        $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
+                    }
+
+
+
                     //simplexml_load_file('url', null, LIBXML_NOERROR);
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {
@@ -183,8 +205,26 @@ class RemoteFeed extends ContainerAware
             $sourceFile = $upload_path . $sourceFile;
         }
         if (self::XML == $this->entity->getImportFormat()) {
-            $xml_obj = simplexml_load_file($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
+            if(self::URL == $this->entity->getImportMethod()) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $sourceFile);
 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+
+                $local_file = curl_exec($ch);
+                if($local_file === false)
+                {
+                    echo 'Curl error: ' . curl_error($ch);
+                }
+                curl_close($ch);
+
+               // dump($local_file);die();
+                $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
+            }else {
+                $xml_obj = simplexml_load_string($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
+            }
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
                 $xmlSource = $xml_obj->xpath($rootNode);

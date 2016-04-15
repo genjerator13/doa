@@ -22,7 +22,7 @@
                         {%endif%}
 
                     {% endif %}
-                        <span class="text-center">{{price(item.getItemFieldByName('price'))|raw}}</span>
+                        <span class="text-center">{{ item.getPriceString() }}</span>
                 </a>
         {% endfor %}
     </div>

@@ -90,6 +90,9 @@ class listingApi
         }
         //dump($map);
         $res['id'] = $item->get('id');
+        $res['category'] = $item->getCategory()->getName();
+        $res['category_id'] = $item->getCategoryId();
+        $res['featured'] = $item->getFeatured();
         $router = $this->container->get('router');
         //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
         $urldesription = $item->getUrlDescription();
@@ -120,9 +123,12 @@ class listingApi
         $res = array();
         $em = $this->container->get('doctrine');
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, $category);
+
         foreach ($items as $item) {
+
             $res['listing'][] = $this->prepareItem($item);
         }
+        //dump($res);die();
         return $res;
     }
 
@@ -139,6 +145,7 @@ class listingApi
 
     public function formatResponse($items, $format)
     {
+        //dump($items);die();
         if ($format == 'xml') {
             $xml = $this->container->get('xml')->createXML('listing', $items);
             $response = new Response($xml->saveXML());
@@ -168,7 +175,9 @@ class listingApi
                     $headers = array();
                     foreach ($item as $key => $value) {
                         //if the value is array implode it to value|value2|value3...
-                        if (is_array($value)) {
+
+                        if (is_array($value) && !empty($value)) {
+
                             $value = implode("|", reset($value));
                         }
 
@@ -178,15 +187,20 @@ class listingApi
                     }
 
                 }
-                //dump($values);
-                //dump($headers);die();
+
                 $csv = array();
                 $headerCsv = implode(',', $headers);
                 $valuesCsv = "";
                 foreach ($values as $itemkey => $item) {
 
                     foreach ($headers as $key => $value) {
+                        dump($headers);die();
+                        if(!empty($item[$key])) {
+
+                            dump(Item::$fields[$item['category_id']]);
+                        }
                         $csv[$itemkey][$key] = $item[$key];
+
                     }
                     $valuesCsv .= implode(',', $csv[$itemkey]) . "\n";
                 }
