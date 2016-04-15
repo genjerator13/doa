@@ -88,30 +88,23 @@ class listingApi
                 }
             }
         }
-        //dump($map);
         $res['id'] = $item->get('id');
         $res['category'] = $item->getCategory()->getName();
         $res['category_id'] = $item->getCategoryId();
         $res['featured'] = $item->getFeatured();
         $router = $this->container->get('router');
-        //path('item_details', {'itemId': item.id, 'description': desc|url_encode(),'searchQ':searchQ});
         $urldesription = $item->getUrlDescription();
-        // dump($item);die();
         $res['url'] = $router->generate('item_details', array('itemId' => $item->getId(), 'description' => $urldesription), true);
 
         foreach ($map as $name => $value) {
             $res[$value] = $item->get($name);
         }
-
-        //dump($res);
-        //die();
         return $res;
     }
 
     public function prepareArrayItems($items)
     {
         $res = array();
-        $em = $this->container->get('doctrine');
         foreach ($items as $item) {
             $res['listing'][] = $this->prepareItem($item);
         }
@@ -128,7 +121,7 @@ class listingApi
 
             $res['listing'][] = $this->prepareItem($item);
         }
-        //dump($res);die();
+
         return $res;
     }
 
@@ -145,14 +138,13 @@ class listingApi
 
     public function formatResponse($items, $format)
     {
-        //dump($items);die();
+
         if ($format == 'xml') {
             $xml = $this->container->get('xml')->createXML('listing', $items);
             $response = new Response($xml->saveXML());
         } elseif ($format == 'json') {
             $response = new Response(json_encode($items));
         } elseif ($format == 'csv') {
-            $csv = "";
             $headers = array();
             $values = array();
             if (array_key_exists('id', $items)) {
@@ -169,10 +161,9 @@ class listingApi
                 return $response;
             } elseif (array_key_exists('listing', $items)) {
 
-                $maxHeaders = array();
-                $max = 0;
+                $headers = array();
                 foreach ($items['listing'] as $itemkey => $item) {
-                    $headers = array();
+
                     foreach ($item as $key => $value) {
                         //if the value is array implode it to value|value2|value3...
 
@@ -180,8 +171,6 @@ class listingApi
 
                             $value = implode("|", reset($value));
                         }
-
-
                         $headers[$key] = $key;
                         $values[$itemkey][$key] = self::clearValueForCsv($value);
                     }
@@ -191,26 +180,32 @@ class listingApi
                 $csv = array();
                 $headerCsv = implode(',', $headers);
                 $valuesCsv = "";
+
+
                 foreach ($values as $itemkey => $item) {
 
                     foreach ($headers as $key => $value) {
-                        dump($headers);die();
-                        if(!empty($item[$key])) {
 
-                            dump(Item::$fields[$item['category_id']]);
+                        $csv[$itemkey][$key] = "";
+                        if (!empty($values[$itemkey][$key])) {
+                            $csv[$itemkey][$key] = $values[$itemkey][$key];
                         }
-                        $csv[$itemkey][$key] = $item[$key];
+
 
                     }
                     $valuesCsv .= implode(',', $csv[$itemkey]) . "\n";
                 }
-                $csv = $headerCsv . "\n" . $valuesCsv;
-            }
 
-            $response = new Response($csv);
+
+            }
+            $fp = fopen('file.csv', 'w');
+
+            $res = $headerCsv . "\n" . $valuesCsv;
+
+            $response = new Response($res);
             $response->setStatusCode(200);
             $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
-
+            $response->headers->set('Content-Disposition', 'attachment;filename=feed.csv');
         }
         return $response;
     }
