@@ -1452,6 +1452,20 @@ class Item
     }
 
     /**
+     * Get price string
+     *
+     * @return string
+     */
+    public function getPriceString()
+    {
+        $res = "";
+        if(!empty($this->getPrice())){
+            $res = "$ ".number_format($this->getPrice(), 0, ',', ' ');
+        }
+        return $res;
+    }
+
+    /**
      * Set year
      *
      * @param integer $year
