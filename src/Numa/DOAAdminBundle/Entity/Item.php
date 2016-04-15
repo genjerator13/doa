@@ -1459,8 +1459,8 @@ class Item
     public function getPriceString()
     {
         $res = "";
-        if(!empty($this->getPrice())){
-            $res = "$ ".number_format($this->getPrice(), 0, ',', ' ');
+        if (!empty($this->getPrice())) {
+            $res = "$ " . number_format($this->getPrice(), 0, ',', ' ');
         }
         return $res;
     }
@@ -1857,9 +1857,9 @@ class Item
             $this->setMpgCity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
             $this->setMpgHighway($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'awnings') {
+        } elseif (strtolower($itemField->getFieldName()) == 'awnings') {
             $this->setAwnings($itemField->getFieldStringValue());
-        }elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
+        } elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
             $this->setSleeps($itemField->getFieldStringValue());
         }
 
@@ -3461,8 +3461,8 @@ class Item
 
     public function get($property)
     {
-        $mappedProperty="";
-        if(!empty(self::$fields[$this->category_id][$property])) {
+        $mappedProperty = "";
+        if (!empty(self::$fields[$this->category_id][$property])) {
             $mappedProperty = self::$fields[$this->category_id][$property];
         }
         if (!empty($mappedProperty)) {
@@ -3480,8 +3480,8 @@ class Item
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
         $url = trim($url, " -");
-        if(empty($url)){
-            $url="details";
+        if (empty($url)) {
+            $url = "details";
         }
         return $url;
     }
@@ -3489,7 +3489,7 @@ class Item
 
     public function getTitle()
     {
-        $desc = $this->getYear() . " " .  $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
@@ -3504,7 +3504,7 @@ class Item
 
     function Slug($string)
     {
-        $string = str_replace('/','',$string);
+        $string = str_replace('/', '', $string);
 
         return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
@@ -3602,6 +3602,7 @@ class Item
     {
         return $this->Seo;
     }
+
     /**
      * @var string
      */
@@ -3624,7 +3625,7 @@ class Item
     /**
      * Get awnings
      *
-     * @return string 
+     * @return string
      */
     public function getAwnings()
     {
