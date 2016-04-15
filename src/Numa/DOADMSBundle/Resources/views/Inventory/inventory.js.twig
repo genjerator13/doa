@@ -26,7 +26,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         selectionRowHeaderWidth: 35,
         rowHeight: 150,
         enableColumnResizing: true,
-
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
@@ -37,18 +36,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true, width: 150,
             cellTemplate: '<a href="{[{row.entity.id}]}/edit"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></a>'
         },
-        {name: 'id', enableColumnResizing: true, width: 50},
-        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50},
+        {name: 'id', enableColumnResizing: true, width: 50, cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>'},
+        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 60},
         {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50},
         {name: 'make', enableColumnResizing: true, width: 80},
         {name: 'model', enableColumnResizing: true, width: 100},
         {name: 'stock_nr', enableColumnResizing: true, width: 80},
-        {name: 'status'},
+        {name: 'status', enableColumnResizing: true, width: 60},
         {name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 70},
-        {name: 'active'},
-        {name: 'views'},
+        {name: 'active', enableColumnResizing: true, width: 60},
         {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
-        {name: 'sold'},
+        {name: 'sold', enableColumnResizing: true, width: 50},
         {name: 'featured'},
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
         {name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},

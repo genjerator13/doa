@@ -507,7 +507,7 @@ class ItemController extends Controller {
         }
         $params = array(
             'entity' => $entity,
-            'form' => $form,
+            'form' => $form->createView(),
             'category' => $entity->getCategory(),
             'seo'=> $seoFormView,
             'dashboard' =>$dashboard,
