@@ -153,7 +153,7 @@
                     <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>
                 </li>
                 {% endif %}
-                {% if not is_granted('ROLE_ACCOUNTING') %}
+                {% if is_granted('ROLE_ADMIN')  %}
                 <li class="">
                     <a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>
                 </li>
