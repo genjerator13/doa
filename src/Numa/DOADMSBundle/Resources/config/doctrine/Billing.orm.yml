@@ -1,6 +1,7 @@
 Numa\DOADMSBundle\Entity\Billing:
     type: entity
     table: billing
+    repositoryClass: Numa\DOADMSBundle\Repository\BillingRepository
     id:
         id:
             type: integer

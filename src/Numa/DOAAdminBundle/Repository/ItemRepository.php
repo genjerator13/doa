@@ -286,14 +286,18 @@ class ItemRepository extends EntityRepository
      * @return bool|mixed
      * Finds items by stock# and VIn
      */
-    public function findItemsBy($find)
+    public function findItemsBy($find,$field='vin')
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.stock_nr like :find')
-            ->orWhere('i.VIN like :find')
-            ->setParameter("find", "%" . $find . "%");
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if($field=='vin'){
+            $qb->Where('i.VIN like :find');
+        }else {
+            $qb->where('i.stock_nr like :find');
+        }
+
+        $qb->setParameter("find", "%" . $find . "%");
 
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();

@@ -7,7 +7,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     {% if id is defined and id is not empty %}
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
-                console.log(response.data);
+
                 if (response.data._item) {
                     $scope.VIN = response.data._item._v_i_n;
                     $scope.stock = response.data._item.stock_nr;
@@ -82,21 +82,26 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.opteq8 = response.data.opteq8;
                 $scope.opteq9 = response.data.opteq9;
                 $scope.opteq10 = response.data.opteq10;
-                console.log($scope);
+
             });
     {% endif %}
     $scope.change = function (field) {
-        console.log(field);
+
         $scope.find = $scope.stock;
+
         if (field == 'vin') {
             $scope.find = $scope.VIN;
         }
+
+
         if ($scope.find.length > 2) {
-            $http.get("/api/listings/" + $scope.find + "/uniques.json")
+
+            $http.get("/api/listings/" + $scope.find + "/uniques.json?field="+field)
                     .then(function (response) {
                         //$scope.stock = response.data;
 
                         names = [];
+
                         for (i = 0; i < response.data.length; i++) {
                             //names[i]=response.data[i].stock_nr;
                             name = response.data[i].stock_nr;
@@ -104,13 +109,20 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                                 name = response.data[i]._v_i_n;
                             }
                             names.push(name);
-                            console.log(names);
+
                         }
+
+                        var uniqueNames = [];
+                        $.each(names, function(i, el){
+                            if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+                        });
+                        console.log(uniqueNames);
+                        console.log(names);
                         $("#stock-autocomplete").autocomplete({
                             source: names
                         });
                         $scope.stockcount = response.data.length;
-                        if (response.data.length == 1) {
+                        if (uniqueNames.length == 1) {
                             $scope.listingyear = response.data[0].year;
                             $scope.listingmake = response.data[0].make;
                             $scope.listingmodel = response.data[0].model;
