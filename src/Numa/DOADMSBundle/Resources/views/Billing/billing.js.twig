@@ -14,6 +14,14 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                     $scope.item_id=response.data._item.id;
 
                     $scope.color=response.data._item.exterior_color;
+                    $scope.new = "";
+                    $scope.used = "";
+                    if(response.data._item.status=='Used'){
+
+                        $scope.used = "X";
+                    }else{
+                        $scope.new = "X";
+                    }
                 }
                 $scope.billing_date = response.data.billing_date;
                 $scope.sales_person = response.data.sales_person;
@@ -135,7 +143,15 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             $scope.item_id = response.data[0].id;
 
                             $scope.color=response.data[0].exterior_color;
-                            console.log ($scope.color);
+                            $scope.new = "";
+                            $scope.used = "";
+                            if(response.data[0].status=='Used'){
+
+                                $scope.used = "X";
+                            }else{
+                                $scope.new = "X";
+                            }
+
                         }
                     });
 
