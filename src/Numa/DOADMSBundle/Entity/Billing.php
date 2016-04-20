@@ -2323,4 +2323,874 @@ class Billing
     {
         return $this->used_warranty;
     }
+    /**
+     * @var string
+     */
+    private $opt11;
+
+    /**
+     * @var string
+     */
+    private $opteq11;
+
+    /**
+     * @var string
+     */
+    private $opt12;
+
+    /**
+     * @var string
+     */
+    private $opteq12;
+
+    /**
+     * @var string
+     */
+    private $opt13;
+
+    /**
+     * @var string
+     */
+    private $opteq13;
+
+    /**
+     * @var string
+     */
+    private $opt14;
+
+    /**
+     * @var string
+     */
+    private $opteq14;
+
+    /**
+     * @var string
+     */
+    private $opt15;
+
+    /**
+     * @var string
+     */
+    private $opteq15;
+
+    /**
+     * @var string
+     */
+    private $opt16;
+
+    /**
+     * @var string
+     */
+    private $opteq16;
+
+    /**
+     * @var string
+     */
+    private $opt17;
+
+    /**
+     * @var string
+     */
+    private $opteq17;
+
+    /**
+     * @var string
+     */
+    private $opt18;
+
+    /**
+     * @var string
+     */
+    private $opteq18;
+
+    /**
+     * @var string
+     */
+    private $opt19;
+
+    /**
+     * @var string
+     */
+    private $opteq19;
+
+    /**
+     * @var string
+     */
+    private $opt20;
+
+    /**
+     * @var string
+     */
+    private $opteq20;
+
+    /**
+     * @var string
+     */
+    private $opt21;
+
+    /**
+     * @var string
+     */
+    private $opteq21;
+
+    /**
+     * @var string
+     */
+    private $opt22;
+
+    /**
+     * @var string
+     */
+    private $opteq22;
+
+    /**
+     * @var string
+     */
+    private $opt23;
+
+    /**
+     * @var string
+     */
+    private $opteq23;
+
+    /**
+     * @var string
+     */
+    private $opt24;
+
+    /**
+     * @var string
+     */
+    private $opteq24;
+
+    /**
+     * @var string
+     */
+    private $opt25;
+
+    /**
+     * @var string
+     */
+    private $opteq25;
+
+
+    /**
+     * Set opt11
+     *
+     * @param string $opt11
+     *
+     * @return Billing
+     */
+    public function setOpt11($opt11)
+    {
+        $this->opt11 = $opt11;
+
+        return $this;
+    }
+
+    /**
+     * Get opt11
+     *
+     * @return string
+     */
+    public function getOpt11()
+    {
+        return $this->opt11;
+    }
+
+    /**
+     * Set opteq11
+     *
+     * @param string $opteq11
+     *
+     * @return Billing
+     */
+    public function setOpteq11($opteq11)
+    {
+        $this->opteq11 = $opteq11;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq11
+     *
+     * @return string
+     */
+    public function getOpteq11()
+    {
+        return $this->opteq11;
+    }
+
+    /**
+     * Set opt12
+     *
+     * @param string $opt12
+     *
+     * @return Billing
+     */
+    public function setOpt12($opt12)
+    {
+        $this->opt12 = $opt12;
+
+        return $this;
+    }
+
+    /**
+     * Get opt12
+     *
+     * @return string
+     */
+    public function getOpt12()
+    {
+        return $this->opt12;
+    }
+
+    /**
+     * Set opteq12
+     *
+     * @param string $opteq12
+     *
+     * @return Billing
+     */
+    public function setOpteq12($opteq12)
+    {
+        $this->opteq12 = $opteq12;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq12
+     *
+     * @return string
+     */
+    public function getOpteq12()
+    {
+        return $this->opteq12;
+    }
+
+    /**
+     * Set opt13
+     *
+     * @param string $opt13
+     *
+     * @return Billing
+     */
+    public function setOpt13($opt13)
+    {
+        $this->opt13 = $opt13;
+
+        return $this;
+    }
+
+    /**
+     * Get opt13
+     *
+     * @return string
+     */
+    public function getOpt13()
+    {
+        return $this->opt13;
+    }
+
+    /**
+     * Set opteq13
+     *
+     * @param string $opteq13
+     *
+     * @return Billing
+     */
+    public function setOpteq13($opteq13)
+    {
+        $this->opteq13 = $opteq13;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq13
+     *
+     * @return string
+     */
+    public function getOpteq13()
+    {
+        return $this->opteq13;
+    }
+
+    /**
+     * Set opt14
+     *
+     * @param string $opt14
+     *
+     * @return Billing
+     */
+    public function setOpt14($opt14)
+    {
+        $this->opt14 = $opt14;
+
+        return $this;
+    }
+
+    /**
+     * Get opt14
+     *
+     * @return string
+     */
+    public function getOpt14()
+    {
+        return $this->opt14;
+    }
+
+    /**
+     * Set opteq14
+     *
+     * @param string $opteq14
+     *
+     * @return Billing
+     */
+    public function setOpteq14($opteq14)
+    {
+        $this->opteq14 = $opteq14;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq14
+     *
+     * @return string
+     */
+    public function getOpteq14()
+    {
+        return $this->opteq14;
+    }
+
+    /**
+     * Set opt15
+     *
+     * @param string $opt15
+     *
+     * @return Billing
+     */
+    public function setOpt15($opt15)
+    {
+        $this->opt15 = $opt15;
+
+        return $this;
+    }
+
+    /**
+     * Get opt15
+     *
+     * @return string
+     */
+    public function getOpt15()
+    {
+        return $this->opt15;
+    }
+
+    /**
+     * Set opteq15
+     *
+     * @param string $opteq15
+     *
+     * @return Billing
+     */
+    public function setOpteq15($opteq15)
+    {
+        $this->opteq15 = $opteq15;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq15
+     *
+     * @return string
+     */
+    public function getOpteq15()
+    {
+        return $this->opteq15;
+    }
+
+    /**
+     * Set opt16
+     *
+     * @param string $opt16
+     *
+     * @return Billing
+     */
+    public function setOpt16($opt16)
+    {
+        $this->opt16 = $opt16;
+
+        return $this;
+    }
+
+    /**
+     * Get opt16
+     *
+     * @return string
+     */
+    public function getOpt16()
+    {
+        return $this->opt16;
+    }
+
+    /**
+     * Set opteq16
+     *
+     * @param string $opteq16
+     *
+     * @return Billing
+     */
+    public function setOpteq16($opteq16)
+    {
+        $this->opteq16 = $opteq16;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq16
+     *
+     * @return string
+     */
+    public function getOpteq16()
+    {
+        return $this->opteq16;
+    }
+
+    /**
+     * Set opt17
+     *
+     * @param string $opt17
+     *
+     * @return Billing
+     */
+    public function setOpt17($opt17)
+    {
+        $this->opt17 = $opt17;
+
+        return $this;
+    }
+
+    /**
+     * Get opt17
+     *
+     * @return string
+     */
+    public function getOpt17()
+    {
+        return $this->opt17;
+    }
+
+    /**
+     * Set opteq17
+     *
+     * @param string $opteq17
+     *
+     * @return Billing
+     */
+    public function setOpteq17($opteq17)
+    {
+        $this->opteq17 = $opteq17;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq17
+     *
+     * @return string
+     */
+    public function getOpteq17()
+    {
+        return $this->opteq17;
+    }
+
+    /**
+     * Set opt18
+     *
+     * @param string $opt18
+     *
+     * @return Billing
+     */
+    public function setOpt18($opt18)
+    {
+        $this->opt18 = $opt18;
+
+        return $this;
+    }
+
+    /**
+     * Get opt18
+     *
+     * @return string
+     */
+    public function getOpt18()
+    {
+        return $this->opt18;
+    }
+
+    /**
+     * Set opteq18
+     *
+     * @param string $opteq18
+     *
+     * @return Billing
+     */
+    public function setOpteq18($opteq18)
+    {
+        $this->opteq18 = $opteq18;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq18
+     *
+     * @return string
+     */
+    public function getOpteq18()
+    {
+        return $this->opteq18;
+    }
+
+    /**
+     * Set opt19
+     *
+     * @param string $opt19
+     *
+     * @return Billing
+     */
+    public function setOpt19($opt19)
+    {
+        $this->opt19 = $opt19;
+
+        return $this;
+    }
+
+    /**
+     * Get opt19
+     *
+     * @return string
+     */
+    public function getOpt19()
+    {
+        return $this->opt19;
+    }
+
+    /**
+     * Set opteq19
+     *
+     * @param string $opteq19
+     *
+     * @return Billing
+     */
+    public function setOpteq19($opteq19)
+    {
+        $this->opteq19 = $opteq19;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq19
+     *
+     * @return string
+     */
+    public function getOpteq19()
+    {
+        return $this->opteq19;
+    }
+
+    /**
+     * Set opt20
+     *
+     * @param string $opt20
+     *
+     * @return Billing
+     */
+    public function setOpt20($opt20)
+    {
+        $this->opt20 = $opt20;
+
+        return $this;
+    }
+
+    /**
+     * Get opt20
+     *
+     * @return string
+     */
+    public function getOpt20()
+    {
+        return $this->opt20;
+    }
+
+    /**
+     * Set opteq20
+     *
+     * @param string $opteq20
+     *
+     * @return Billing
+     */
+    public function setOpteq20($opteq20)
+    {
+        $this->opteq20 = $opteq20;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq20
+     *
+     * @return string
+     */
+    public function getOpteq20()
+    {
+        return $this->opteq20;
+    }
+
+    /**
+     * Set opt21
+     *
+     * @param string $opt21
+     *
+     * @return Billing
+     */
+    public function setOpt21($opt21)
+    {
+        $this->opt21 = $opt21;
+
+        return $this;
+    }
+
+    /**
+     * Get opt21
+     *
+     * @return string
+     */
+    public function getOpt21()
+    {
+        return $this->opt21;
+    }
+
+    /**
+     * Set opteq21
+     *
+     * @param string $opteq21
+     *
+     * @return Billing
+     */
+    public function setOpteq21($opteq21)
+    {
+        $this->opteq21 = $opteq21;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq21
+     *
+     * @return string
+     */
+    public function getOpteq21()
+    {
+        return $this->opteq21;
+    }
+
+    /**
+     * Set opt22
+     *
+     * @param string $opt22
+     *
+     * @return Billing
+     */
+    public function setOpt22($opt22)
+    {
+        $this->opt22 = $opt22;
+
+        return $this;
+    }
+
+    /**
+     * Get opt22
+     *
+     * @return string
+     */
+    public function getOpt22()
+    {
+        return $this->opt22;
+    }
+
+    /**
+     * Set opteq22
+     *
+     * @param string $opteq22
+     *
+     * @return Billing
+     */
+    public function setOpteq22($opteq22)
+    {
+        $this->opteq22 = $opteq22;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq22
+     *
+     * @return string
+     */
+    public function getOpteq22()
+    {
+        return $this->opteq22;
+    }
+
+    /**
+     * Set opt23
+     *
+     * @param string $opt23
+     *
+     * @return Billing
+     */
+    public function setOpt23($opt23)
+    {
+        $this->opt23 = $opt23;
+
+        return $this;
+    }
+
+    /**
+     * Get opt23
+     *
+     * @return string
+     */
+    public function getOpt23()
+    {
+        return $this->opt23;
+    }
+
+    /**
+     * Set opteq23
+     *
+     * @param string $opteq23
+     *
+     * @return Billing
+     */
+    public function setOpteq23($opteq23)
+    {
+        $this->opteq23 = $opteq23;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq23
+     *
+     * @return string
+     */
+    public function getOpteq23()
+    {
+        return $this->opteq23;
+    }
+
+    /**
+     * Set opt24
+     *
+     * @param string $opt24
+     *
+     * @return Billing
+     */
+    public function setOpt24($opt24)
+    {
+        $this->opt24 = $opt24;
+
+        return $this;
+    }
+
+    /**
+     * Get opt24
+     *
+     * @return string
+     */
+    public function getOpt24()
+    {
+        return $this->opt24;
+    }
+
+    /**
+     * Set opteq24
+     *
+     * @param string $opteq24
+     *
+     * @return Billing
+     */
+    public function setOpteq24($opteq24)
+    {
+        $this->opteq24 = $opteq24;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq24
+     *
+     * @return string
+     */
+    public function getOpteq24()
+    {
+        return $this->opteq24;
+    }
+
+    /**
+     * Set opt25
+     *
+     * @param string $opt25
+     *
+     * @return Billing
+     */
+    public function setOpt25($opt25)
+    {
+        $this->opt25 = $opt25;
+
+        return $this;
+    }
+
+    /**
+     * Get opt25
+     *
+     * @return string
+     */
+    public function getOpt25()
+    {
+        return $this->opt25;
+    }
+
+    /**
+     * Set opteq25
+     *
+     * @param string $opteq25
+     *
+     * @return Billing
+     */
+    public function setOpteq25($opteq25)
+    {
+        $this->opteq25 = $opteq25;
+
+        return $this;
+    }
+
+    /**
+     * Get opteq25
+     *
+     * @return string
+     */
+    public function getOpteq25()
+    {
+        return $this->opteq25;
+    }
 }

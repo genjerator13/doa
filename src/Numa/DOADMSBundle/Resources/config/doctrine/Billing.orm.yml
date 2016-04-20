@@ -167,6 +167,126 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        opt11:
+            type: string
+            length: 255
+            nullable: true
+        opteq11:
+            type: string
+            length: 255
+            nullable: true
+        opt12:
+            type: string
+            length: 255
+            nullable: true
+        opteq12:
+            type: string
+            length: 255
+            nullable: true
+        opt13:
+            type: string
+            length: 255
+            nullable: true
+        opteq13:
+            type: string
+            length: 255
+            nullable: true
+        opt14:
+            type: string
+            length: 255
+            nullable: true
+        opteq14:
+            type: string
+            length: 255
+            nullable: true
+        opt15:
+            type: string
+            length: 255
+            nullable: true
+        opteq15:
+            type: string
+            length: 255
+            nullable: true
+        opt16:
+            type: string
+            length: 255
+            nullable: true
+        opteq16:
+            type: string
+            length: 255
+            nullable: true
+        opt17:
+            type: string
+            length: 255
+            nullable: true
+        opteq17:
+            type: string
+            length: 255
+            nullable: true
+        opt18:
+            type: string
+            length: 255
+            nullable: true
+        opteq18:
+            type: string
+            length: 255
+            nullable: true
+        opt19:
+            type: string
+            length: 255
+            nullable: true
+        opteq19:
+            type: string
+            length: 255
+            nullable: true
+        opt20:
+            type: string
+            length: 255
+            nullable: true
+        opteq20:
+            type: string
+            length: 255
+            nullable: true
+        opt21:
+            type: string
+            length: 255
+            nullable: true
+        opteq21:
+            type: string
+            length: 255
+            nullable: true
+        opt22:
+            type: string
+            length: 255
+            nullable: true
+        opteq22:
+            type: string
+            length: 255
+            nullable: true
+        opt23:
+            type: string
+            length: 255
+            nullable: true
+        opteq23:
+            type: string
+            length: 255
+            nullable: true
+        opt24:
+            type: string
+            length: 255
+            nullable: true
+        opteq24:
+            type: string
+            length: 255
+            nullable: true
+        opt25:
+            type: string
+            length: 255
+            nullable: true
+        opteq25:
+            type: string
+            length: 255
+            nullable: true
         sale_price:
             type: float
             nullable: true
