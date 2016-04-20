@@ -27,6 +27,7 @@ class Stats
         if ($user instanceof Catalogrecords) {
             $dealer = $user;
         }
+
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,0,$dealer);
         $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,0,$dealer);
 
@@ -45,7 +46,7 @@ class Stats
         $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,13,$dealer);
         $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
 
-        return
+        $stats =
             array(
                 'totalListings' => $totalListings,
                 'totalViews' => $totalViews,
@@ -60,5 +61,6 @@ class Stats
                 'totalAgsListings'=>$totalAgsListings,
                 'totalAgsViews'=>$totalAgsViews,
             );
+        return $stats;
     }
 }

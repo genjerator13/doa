@@ -9,6 +9,11 @@
     'css/loading-bar.min.css'
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    <style>
+        td.opeq input{
+            width: 100%;
+        }
+    </style>
     {% endstylesheets %}
 {% endblock stylesheets %}
 {% block javascripts %}
@@ -275,11 +280,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq1) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt1) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
@@ -304,11 +309,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq2) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"  class="opeq" >
                         {{ form_row(form.opt2) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
@@ -330,11 +335,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq3) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"  class="opeq" >
                         {{ form_row(form.opt3) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -353,11 +358,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq4) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"  class="opeq" >
                         {{ form_row(form.opt4) }}
                     </td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -375,11 +380,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq5) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt5) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
@@ -396,11 +401,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq6) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt6) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -418,11 +423,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq7) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt7) }}
                     </td>
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3
@@ -440,11 +445,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq8) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt8) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -465,11 +470,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq9) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq" >
                         {{ form_row(form.opt9) }}
                     </td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -492,11 +497,11 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.opteq10) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=2 align="center" valign=bottom bgcolor="#DEEBF7">
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"  class="opeq" >
                         {{ form_row(form.opt10) }}
                     </td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
@@ -523,7 +528,7 @@
                         align="left"
                         valign=bottom bgcolor="#DEEBF7"></td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
-                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"  class="opeq" ></td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         align="center" valign=bottom bgcolor="#DEEBF7">
                         {{ form_row(form.tid_year) }}
