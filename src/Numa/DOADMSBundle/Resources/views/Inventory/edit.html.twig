@@ -1,0 +1,12 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+
+    <h1>{{ entity.name }}</h1>
+
+    <a href="{{ path('inventory') }}" class="btn btn-primary">
+        Back to the list
+    </a>
+
+{% endblock %}
