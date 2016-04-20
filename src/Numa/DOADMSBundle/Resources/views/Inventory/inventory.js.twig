@@ -37,7 +37,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true, width: 150,
             cellTemplate: '<a href="{[{row.entity.id}]}/edit"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></a>'
         },
-        {name: 'id', enableColumnResizing: true, width: 50},
+        {
+            name: 'id',
+            enableColumnResizing: true,
+            width: 50,
+            cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+        },
         {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50},
         {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50},
         {name: 'make', enableColumnResizing: true, width: 80},
