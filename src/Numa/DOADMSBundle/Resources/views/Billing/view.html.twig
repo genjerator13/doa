@@ -86,7 +86,11 @@
             </tr>
             <tr>
                 <td colspan=4 height="20" align="center" valign=bottom
-                    bgcolor="#ffffff">{{ dealer.address }}</td>
+                    bgcolor="#ffffff">
+                    {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                        {{ dealer.address }}
+                    {% endif %}
+                </td>
                 <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
                 </td>
                 <td align="left" valign=bottom></td>

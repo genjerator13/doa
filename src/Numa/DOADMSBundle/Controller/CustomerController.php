@@ -44,7 +44,7 @@ class CustomerController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             //get loged user
-
+            $entity->upload();
             $user = $this->get('security.token_storage')->getToken()->getUser();
             if($user instanceof Catalogrecords){
                 $entity->setCatalogrecords($user);

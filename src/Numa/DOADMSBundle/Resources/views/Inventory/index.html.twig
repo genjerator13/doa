@@ -38,8 +38,15 @@
 
     <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Inventory list</h3>
+        <div class="box-header">
+            <h3 class="box-title">Inventory list</h3>
 
+            <div class="box-tools">
+                <a href="{{ path('customer_new') }}" class="btn btn-primary">
+                    Create new Inventory
+                </a>
+            </div>
+        </div>
     </div>
     <div class="box-body table-responsive no-padding" ng-app="app">
 

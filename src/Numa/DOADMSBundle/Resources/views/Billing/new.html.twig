@@ -128,7 +128,11 @@
                 </tr>
                 <tr>
                     <td colspan=4 height="20" align="center" valign=bottom
-                        bgcolor="#E2F0D9">{{ dealer.address }}</td>
+                        bgcolor="#E2F0D9">
+                        {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                            {{ dealer.address }}
+                        {% endif %}
+                    </td>
                     <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
                     </td>
                     <td align="left" valign=bottom></td>
@@ -146,8 +150,9 @@
                     <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
                         bgcolor="#E2F0D9">
                         {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
-                        {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
-                    {% endif %}
+                        {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+                        {% endif %}
+                    </td>
                     <td style="border-left: 1px solid #000000" align="left" valign=bottom>
                     </td>
                     <td align="left" valign=bottom></td>
