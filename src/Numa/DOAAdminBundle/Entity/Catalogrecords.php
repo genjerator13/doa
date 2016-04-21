@@ -416,7 +416,9 @@ class Catalogrecords implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        if (!empty($password)) {
+            $this->password = $password;
+        }
 
         return $this;
     }
