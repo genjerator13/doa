@@ -4,6 +4,9 @@ dms_home:
 dms_profile_edit:
     pattern:  /profile/{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit" }
+dms_inventory_feeds:
+    pattern:  /feeds
+    defaults: { _controller: "NumaDOADMSBundle:Default:feeds" }
 dms_customer:
     resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
     prefix:   /customers

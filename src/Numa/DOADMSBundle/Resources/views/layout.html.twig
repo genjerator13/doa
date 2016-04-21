@@ -146,6 +146,9 @@
                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
                 </li>
                 <li class="">
+                    <a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-angellist"></i>Inventory Feeds</a>
+                </li>
+                <li class="">
                     <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-automobile"></i>Add New Inventory</a>
                 </li>
                 {% if not is_granted('ROLE_ACCOUNTING') %}
