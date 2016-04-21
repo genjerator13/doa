@@ -1,6 +1,9 @@
 dms_home:
     path:  /
     defaults: { _controller: "NumaDOADMSBundle:Default:index" }
+dms_profile_edit:
+    pattern:  /profile/{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit" }
 dms_customer:
     resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
     prefix:   /customers
