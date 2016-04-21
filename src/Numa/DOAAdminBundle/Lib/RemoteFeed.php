@@ -217,10 +217,11 @@ class RemoteFeed extends ContainerAware
                 }
                 curl_close($ch);
 
-                // dump($local_file);die();
+
                 $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
             } else {
-                $xml_obj = simplexml_load_string($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
+
+                $xml_obj = simplexml_load_file($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
             }
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
