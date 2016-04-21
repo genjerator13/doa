@@ -1092,4 +1092,34 @@ class Catalogrecords implements UserInterface
     }
 
 
+    /**
+     * @var string
+     * @Expose
+     */
+    private $gst;
+
+
+    /**
+     * Set gst
+     *
+     * @param string $gst
+     *
+     * @return Catalogrecords
+     */
+    public function setGst($gst)
+    {
+        $this->gst = $gst;
+
+        return $this;
+    }
+
+    /**
+     * Get gst
+     *
+     * @return string
+     */
+    public function getGst()
+    {
+        return $this->gst;
+    }
 }

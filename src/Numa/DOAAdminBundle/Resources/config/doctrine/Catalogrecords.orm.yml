@@ -103,6 +103,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        gst:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory

@@ -36,6 +36,7 @@ class CatalogrecordsType extends AbstractType {
                 ->add('city')
                 ->add('zip')
                 ->add('state')
+                ->add('gst')
                 ->add('description', 'ckeditor')
 
 
