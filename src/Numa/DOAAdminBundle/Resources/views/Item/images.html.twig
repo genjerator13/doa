@@ -2,8 +2,8 @@
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block javascripts %}
-    {{ parent()}}
-    {% javascripts  '@dropzone_js'  '@colorbox_js' '@sortable_js'  %}
+    {{ parent() }}
+    {% javascripts  '@dropzone_js'  '@colorbox_js' '@sortable_js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
@@ -11,70 +11,80 @@
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
         <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
-        {#{{ form_start(addimages) }}#}
-        {#{{ form_errors(addimages) }}#}
-        {#<div class="file-upload">#}
-        {#{{ form_row(addimages.Picture1) }}#}
-        {#</div>#}
 
-        {#{{ form_end(addimages) }}#}
-        <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
-
-            {#{{ form_widget(form.file) }}#}
-
-            {#<input type="submit" value="Upload" />#}
-        </form>
+        <div class="row">
+            {{ form(addVideoForm) }}
+        </div>
         <div id="item-images">
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
-                <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
-                      name="images-delete">
-                    <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                            All</a><a id="delete-selected" href=""
-                                      data-confirm="Are you sure you want to delete all the selected images?">Delete
-                            Selected</a></div>
+            <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
+                  name="images-delete">
+                <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
+                        All</a><a id="delete-selected" href=""
+                                  data-confirm="Are you sure you want to delete all the selected images?">Delete
+                        Selected</a></div>
 
-                    <h1>Images list</h1>
-                        <h3><small>To rearrange your photos, just drag and drop</small></h3>
+                <h1>Images list</h1>
+
+                <h3>
+                    <small>To rearrange your photos, just drag and drop</small>
+                </h3>
 
 
-                    <div class="box-body table-responsive no-padding">
-                        <ul class='list' id="imagelist">
-                            {% for image in images %}
+                <div class="box-body table-responsive no-padding">
+                    <ul class='list' id="imagelist">
+                        {% for image in images %}
 
-                                <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}" data-order="{{ image.sortOrder }}">
-                                    <div class="col-md-2 imageindex">
-                                        {% if(loop.first) %}
-                                            Cover Image:
-                                        {% else %}
-                                            {{image.sortOrder  }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
-                                               class="image-checkbox">
-                                    </div>
-                                    <div class="col-md-2">
-                                        {% if  "http" not in image.getFieldStringValue() %}
-                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                        src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                                        class="thumbnail"
-                                                        alt="image"/></a>
-                                        {% else %}
-                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                        src="{{ image.getFieldStringValue() }}" alt="image"
-                                                        width="120px"
-                                                        class="thumbnail"/></a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                                    class='glyphicon glyphicon-trash'></i></a></div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </form>
-                {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+                        <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}"
+                            data-order="{{ image.sortOrder }}">
+                            <div class="col-md-2 imageindex">
+                                {% if(loop.first) %}
+                                    Cover Image:
+                                {% else %}
+                                    {{ image.sortOrder }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}"
+                                                         value="{{ image.id }}"
+                                                         class="image-checkbox">
+                            </div>
+                            <div class="col-md-2">
+                                {% if  "http" not in image.getFieldStringValue() %}{
+                                    <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
+                                        <img
+                                                src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
+                                                class="thumbnail"
+                                                alt="image"/>
+                                    </a>
+                                {% else %}
+                                    {% if  "youtube" in image.getFieldStringValue() %}
+                                        <a class="colorbox" href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
+                                            <img
+                                                    src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
+                                                    alt="image"
+                                                    width="120px"
+                                                    class="thumbnail"/>
+                                        </a>
+                                    {% else %}
+                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
+                                            <img
+                                                    src="{{ image.getFieldStringValue() }}" alt="image"
+                                                    width="120px"
+                                                    class="thumbnail"/>
+                                        </a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
+                                            class='glyphicon glyphicon-trash'></i></a></div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </form>
+            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
             {% endif %}
         </div>
     </div>
@@ -88,10 +98,12 @@
                 }
             };
             var list = document.getElementById("imagelist");
-            Sortable.create(list,{onEnd: function (/**Event*/evt) {
+            Sortable.create(list, {
+                onEnd: function (/**Event*/evt) {
 
-                updateImages();
-            },}); // That's all.
+                    updateImages();
+                },
+            }); // That's all.
 
         });
         $("#select-all").click(function (e) {
@@ -115,7 +127,7 @@
 
             }
 
-            $( "a#dataConfirmOK" ).live( "click", function() {
+            $("a#dataConfirmOK").live("click", function () {
 
                 $("form").submit();
             });
@@ -133,21 +145,21 @@
             $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
         });
 
-        var updateImages = function() {
+        var updateImages = function () {
             var imagelist = $("#imagelist");
             var orders = {};
             var images_id = [];
             $("#imagelist li").each(function (index) {
                 //console.log( index + ": " + $( this ).text() );
 
-                if(index==0){
+                if (index == 0) {
                     index = "Cover Image:";
                 }
                 $(this).find(".imageindex").html(index);
                 console.log($(this).find(".imageindex").html());
-                id_image = $(this).data("id")+" ";
+                id_image = $(this).data("id") + " ";
                 order = index;
-                orders[id_image]=order;
+                orders[id_image] = order;
                 //images_id.push(id_image);
                 //setImageOrder(id_image,order);
 
@@ -156,19 +168,17 @@
             setImageOrder(orders);
             //console.log(images_id);
         };
-        var setImageOrder = function(orders) {
+        var setImageOrder = function (orders) {
             console.log(JSON.stringify(orders));
             $.ajax(
                     {
                         url: "{{ path('item_image_setorder') }}",
                         type: "POST",
-                        data: { "orders":JSON.stringify(orders) },
-                        success: function(data, textStatus, jqXHR)
-                        {
+                        data: {"orders": JSON.stringify(orders)},
+                        success: function (data, textStatus, jqXHR) {
                             //data: return data from server
                         },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
+                        error: function (jqXHR, textStatus, errorThrown) {
                             //if fails
                         }
                     });
