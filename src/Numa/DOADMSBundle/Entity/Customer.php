@@ -775,14 +775,15 @@ class Customer
      */
     public function getLastnoteadded()
     {
-
+        $lastnoteadded="";
         $criteria = Criteria::create()
 
             ->orderBy(array("date_remind" => "DESC"));
-
-        $lastnoteadded = $this->getNote()->matching($criteria);
+        if($this->getNote()) {
+            $lastnoteadded = $this->getNote()->matching($criteria);
+        }
         $this->lastnoteadded = null;
-        if(!empty($lastnoteadded->first())) {
+        if(!empty($lastnoteadded) && !empty($lastnoteadded->first())) {
             $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
         }
 
