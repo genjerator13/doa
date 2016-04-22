@@ -153,10 +153,7 @@ class ImageController extends Controller
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
-            dump($itemField);
         }
-
-        die();
         return $this->redirect($this->generateUrl('items'));
     }
 

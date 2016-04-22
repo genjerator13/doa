@@ -40,7 +40,14 @@ class DefaultController extends Controller
      */
     public function feedsAction()
     {
-
-        return $this->render('NumaDOADMSBundle:Default:feeds.html.twig');
+        $session = $this->get('session');
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $dealer=null;
+        if($user instanceof Catalogrecords){
+            $dealer = $user;
+        }elseif($session->get('dealer') instanceof Catalogrecords){
+            $dealer =$session->get('dealer');
+        }
+        return $this->render('NumaDOADMSBundle:Default:feeds.html.twig',array('dealer'=>$dealer));
     }
 }

@@ -1,6 +1,10 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
  
 {% block content %}
+    {% set dealerid = 0 %}
+    {% if(dealer is defined and dealer is not empty) %}
+        {% set dealerid = dealer.id %}
+    {%  endif %}
     <div class="box box-default">
         <h4>Attention (Dealer Name):</h4>
         <p>
@@ -16,27 +20,27 @@
         </p>
         <h4>XML Format</h4>
         <ul>
-            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'car'}) }}</a></li>
-            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'rvs'}) }}</a></li>
-            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'motorsport'}) }}</a></li>
-            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'marine'}) }}</a></li>
-            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'xml', 'category': 'Ag'}) }}</a></li>
+            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'car'}) }}</a></li>
+            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'rvs'}) }}</a></li>
+            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'motorsport'}) }}</a></li>
+            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'marine'}) }}</a></li>
+            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'xml', 'category': 'Ag'}) }}</a></li>
         </ul>
         <h4>CSV Format</h4>
         <ul>
-            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'car'}) }}</a></li>
-            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'rvs'}) }}</a></li>
-            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'motorsport'}) }}</a></li>
-            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'marine'}) }}</a></li>
-            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'csv', 'category': 'Ag'}) }}</a></li>
+            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'car'}) }}</a></li>
+            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'rvs'}) }}</a></li>
+            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'motorsport'}) }}</a></li>
+            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'marine'}) }}</a></li>
+            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'csv', 'category': 'Ag'}) }}</a></li>
         </ul>
         <h4>JSON Format</h4>
         <ul>
-            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'car'}) }}</a></li>
-            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'rvs'}) }}</a></li>
-            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'motorsport'}) }}</a></li>
-            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'marine'}) }}</a></li>
-            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': 2, '_format': 'json', 'category': 'Ag'}) }}</a></li>
+            <li>Car Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'car'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'car'}) }}</a></li>
+            <li>RV Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'rvs'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'rvs'}) }}</a></li>
+            <li>Motorsport Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'motorsport'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'motorsport'}) }}</a></li>
+            <li>Marine Category: <a href="{{ path('listingByDealer', {'dealerid':dealerid, '_format': 'json', 'category': 'marine'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'marine'}) }}</a></li>
+            <li>Ag Category: <a href="{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealer', {'dealerid': dealerid, '_format': 'json', 'category': 'Ag'}) }}</a></li>
         </ul>
     </div>
 {% endblock %}
