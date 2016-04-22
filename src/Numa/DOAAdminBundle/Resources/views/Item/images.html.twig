@@ -50,7 +50,7 @@
                                                          class="image-checkbox">
                             </div>
                             <div class="col-md-2">
-                                {% if  "http" not in image.getFieldStringValue() %}{
+                                {% if  "http" not in image.getFieldStringValue() %}
                                     <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
                                         <img
                                                 src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
