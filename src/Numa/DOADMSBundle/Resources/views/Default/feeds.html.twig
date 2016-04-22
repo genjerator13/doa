@@ -1,0 +1,43 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+ 
+{% block content %}
+    <div>
+        <h4>Attention (Dealer Name):</h4>
+        <p>
+            If you require an inventory feed to a third party site, your DMS-Lite system is capable of providing a link for the website you wish to participate with so they can pull your listings into their system.  Simply provide them with the xml, csv or jason format they require:
+        </p>
+        <ul>
+            <li>XML Format:  ____________________________</li>
+            <li>CSV Format:  ____________________________</li>
+            <li>JSON Format: ____________________________</li>
+        </ul>
+        <p>
+        If they require individual category feeds, then you may use these url links:
+        </p>
+        <h4>XML Format</h4>
+        <ul>
+            <li>Car Category: 		http://cjvr.dealersonair.com/api/listings/9/dealer?category=car</li>
+            <li>RV Category: 		http://cjvr.dealersonair.com/api/listings/9/dealer?category=rvs</li>
+            <li>Motorsport Category:</li>
+            <li>Marine Category:</li>
+            <li>Ag Category:</li>
+        </ul>
+        <h4>CSV Format</h4>
+        <ul>
+
+            <li>Car Category: http://cjvr.dealersonair.com/api/listings/9/dealer.csv?category=car</li>
+            <li>RV Category:</li>
+            <li>Motorsport Category:</li>
+            <li>Marine Category:</li>
+            <li>Ag Category:</li>
+        </ul>
+        <h4>JSON Format</h4>
+        <ul>
+            <li>Car Category: http://cjvr.dealersonair.com/api/listings/9/dealer.json?category=car</li>
+            <li>RV Category:</li>
+            <li>Motorsport Category:</li>
+            <li>Marine Category:</li>
+            <li>Ag Category:</li>
+        </ul>
+    </div>
+{% endblock %}

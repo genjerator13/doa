@@ -103,7 +103,7 @@
                             </li>
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a class="btn btn-default btn-flat" href="{{ path('catalogs_edit', {'id': app.user.id}) }}"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                    <a class="btn btn-default btn-flat" href="{{ path('dms_profile_edit', {'id': app.user.id}) }}"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
                                 </div>
                                 <div class="pull-right">
                                     <a class="btn btn-default btn-flat" target="_self" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span class="">Logout</span>
@@ -144,6 +144,9 @@
                 </li>
                 <li class="">
                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-angellist"></i>Inventory Feeds</a>
                 </li>
                 <li class="">
                     <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-automobile"></i>Add New Inventory</a>

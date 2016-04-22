@@ -921,6 +921,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $address;
 
@@ -946,5 +947,35 @@ class Customer
     public function getAddress()
     {
         return $this->address;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $address2;
+
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     *
+     * @return Customer
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
     }
 }

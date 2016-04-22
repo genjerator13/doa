@@ -33,4 +33,14 @@ class DefaultController extends Controller
         }
         return $this->render('NumaDOADMSBundle::dealerChooser.html.twig');
     }
+
+    /**
+     * Show the page with all feeds api
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function feedsAction()
+    {
+
+        return $this->render('NumaDOADMSBundle:Default:feeds.html.twig');
+    }
 }
