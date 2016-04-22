@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -82,6 +84,7 @@ class ImageController extends Controller
         return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
             'item' => $item,
             'images' => $images,
+            'addVideoForm' => $this->addVideoForm($id)->createView()
             //'addimages' => $uploadForm->createView(),
         ));
     }
@@ -93,7 +96,7 @@ class ImageController extends Controller
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
-        dump($file);
+
 
 
         if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
@@ -116,6 +119,45 @@ class ImageController extends Controller
         }
 
         die();
+    }
+
+    public function addVideoForm($item_id){
+
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('item_images_add_video',array('id'=>$item_id)))
+            ->add('url', TextType::class,array('label'=>'Youtube video URL','attr'=>array('class'=>'col-md-6')))
+            ->add('send', SubmitType::class,array('label'=>'Add'))
+            ->getForm();
+        return $form;
+
+    }
+
+    public function addVideoAction(Request $request,$id){
+
+        $form = $this->addVideoForm($id);
+        $form->handleRequest($request);
+
+        if($form->isValid()){
+            $data=$form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+            $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
+
+            $itemField = new ItemField();
+            $itemField->setFieldBooleanValue(true);
+            $itemField->setFieldStringValue($data['url']);
+
+            $item->setDateUpdated(new \DateTime());
+            $itemField->setItem($item);
+            $itemField->setListingfield($ImageList);
+            $em->persist($itemField);
+            $em->flush();
+            dump($itemField);
+        }
+
+        die();
+        return $this->redirect($this->generateUrl('items'));
     }
 
     public function setImageOrderAction(Request $request)
