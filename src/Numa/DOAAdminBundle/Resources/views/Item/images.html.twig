@@ -11,10 +11,16 @@
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
         <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {#{{ form_end(addimages) }}#}
+        <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
 
-        <div class="row">
-            {{ form(addVideoForm) }}
-        </div>
+            {#{{ form_widget(form.file) }}#}
+
+            {#<input type="submit" value="Upload" />#}
+        </form>
+        {#<div class="row">#}
+            {#{{ form(addVideoForm) }}#}
+        {#</div>#}
         <div id="item-images">
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
