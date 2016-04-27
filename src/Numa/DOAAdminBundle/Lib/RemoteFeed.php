@@ -147,6 +147,11 @@ class RemoteFeed extends ContainerAware
 
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_URL, $handleSource);
+                        $dir = dirname($local_file);
+                        if (!is_dir($dir))
+                        {
+                            mkdir($dir, 0755, true);
+                        }
                         $fp = fopen($local_file, 'w');
                         curl_setopt($ch, CURLOPT_FILE, $fp);
                         curl_exec($ch);
@@ -292,6 +297,7 @@ class RemoteFeed extends ContainerAware
             $rowCount = 0;
 
             $handleSource = $this->entity->getImportSource();
+
             $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
 
@@ -310,12 +316,19 @@ class RemoteFeed extends ContainerAware
 
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $handleSource);
+                $dir = dirname($local_file);
+                if (!is_dir($dir))
+                {
+                    mkdir($dir, 0755, true);
+                }
                 $fp = fopen($local_file, 'w');
+                
                 curl_setopt($ch, CURLOPT_FILE, $fp);
                 curl_exec($ch);
                 curl_close($ch);
                 fclose($fp);
                 $filename = $local_file;
+
             }
 
             if (!file_exists($filename)) {

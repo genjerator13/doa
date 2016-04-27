@@ -59,3 +59,7 @@ item_image_setorder:
     pattern: /image_order
     defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder" }
     condition: "request.isXmlHttpRequest()"
+item_images_add_video:
+    pattern: /{id}/addvideo
+    defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo" }
+    requirements: { id: \d+ }
