@@ -3,31 +3,31 @@
  *
  * Copyright 2014, Jonathan M. Piat
  * http://pgwjs.com - http://pagawa.com
- * 
+ *
  * Released under the GNU GPLv3 license - http://opensource.org/licenses/gpl-3.0
  */
-;(function($){
-    $.fn.pgwSlideshow = function(options) {
+;(function ($) {
+    $.fn.pgwSlideshow = function (options) {
 
         var defaults = {
-            mainClassName : 'pgwSlideshow',
-            transitionEffect : 'sliding',
-            displayList : true,
-            displayControls : true,
-            touchControls : true,
-            autoSlide : false,
-            beforeSlide : false,
-            afterSlide : false,
-            maxHeight : null,
-            adaptiveDuration : 200,
-            transitionDuration : 500,
-            intervalDuration : 3000
+            mainClassName: 'pgwSlideshow',
+            transitionEffect: 'sliding',
+            displayList: true,
+            displayControls: true,
+            touchControls: true,
+            autoSlide: false,
+            beforeSlide: false,
+            afterSlide: false,
+            maxHeight: null,
+            adaptiveDuration: 200,
+            transitionDuration: 500,
+            intervalDuration: 3000
         };
 
         if (this.length == 0) {
             return this;
-        } else if(this.length > 1) {
-            this.each(function() {
+        } else if (this.length > 1) {
+            this.each(function () {
                 $(this).pgwSlideshow(options);
             });
             return this;
@@ -46,7 +46,7 @@
         pgwSlideshow.window = $(window);
 
         // Init
-        var init = function() {
+        var init = function () {
 
             // Merge user options with the default configuration
             pgwSlideshow.config = $.extend({}, defaults, options);
@@ -60,9 +60,9 @@
             }
 
             // Resize trigger
-            pgwSlideshow.window.resize(function() {
+            pgwSlideshow.window.resize(function () {
                 clearTimeout(pgwSlideshow.resizeEvent);
-                pgwSlideshow.resizeEvent = setTimeout(function() {
+                pgwSlideshow.resizeEvent = setTimeout(function () {
                     setSizeClass();
 
                     var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_' + pgwSlideshow.currentSlide + ' img').height();
@@ -84,7 +84,7 @@
         };
 
         // Update the current height
-        var updateHeight = function(height, animate) {
+        var updateHeight = function (height, animate) {
 
             // Check maxHeight
             if (pgwSlideshow.config.maxHeight) {
@@ -96,14 +96,14 @@
             if (typeof pgwSlideshow.plugin.find('.ps-current').animate == 'function') {
                 pgwSlideshow.plugin.find('.ps-current').stop().animate({
                     height: height
-                }, pgwSlideshow.config.adaptiveDuration, function() {
+                }, pgwSlideshow.config.adaptiveDuration, function () {
                     if (pgwSlideshow.config.maxHeight) {
                         pgwSlideshow.plugin.find('.ps-current > ul > li img').css('max-height', height + 'px');
                     }
                 });
             } else {
                 pgwSlideshow.plugin.find('.ps-current').css('height', height);
-                
+
                 if (pgwSlideshow.config.maxHeight) {
                     pgwSlideshow.plugin.find('.ps-current > ul > li img').css('max-height', height + 'px');
                 }
@@ -113,13 +113,13 @@
         };
 
         // Set list width
-        var setListWidth = function() {
+        var setListWidth = function () {
             var listWidth = 0;
-            
+
             // The plugin must be visible for a correct calculation
             pgwSlideshow.plugin.show();
 
-            pgwSlideshow.plugin.find('.ps-list > ul > li').show().each(function() {
+            pgwSlideshow.plugin.find('.ps-list > ul > li').show().each(function () {
                 listWidth += $(this).width();
             });
 
@@ -128,7 +128,7 @@
         }
 
         // Set size class
-        var setSizeClass = function() {
+        var setSizeClass = function () {
             if (pgwSlideshow.plugin.width() <= 480) {
                 pgwSlideshow.plugin.addClass('narrow').removeClass('wide');
             } else {
@@ -139,7 +139,7 @@
         };
 
         // Setup
-        var setup = function() {
+        var setup = function () {
 
             // Create container
             pgwSlideshow.plugin.removeClass('pgwSlideshow').removeClass(pgwSlideshow.config.mainClassName);
@@ -164,10 +164,10 @@
                 if (pgwSlideshow.config.displayControls) {
                     pgwSlideshow.plugin.find('.ps-current').prepend('<span class="ps-prev"><span class="ps-prevIcon"></span></span>');
                     pgwSlideshow.plugin.find('.ps-current').append('<span class="ps-next"><span class="ps-nextIcon"></span></span>');
-                    pgwSlideshow.plugin.find('.ps-current .ps-prev').click(function() {
+                    pgwSlideshow.plugin.find('.ps-current .ps-prev').click(function () {
                         pgwSlideshow.previousSlide();
                     });
-                    pgwSlideshow.plugin.find('.ps-current .ps-next').click(function() {
+                    pgwSlideshow.plugin.find('.ps-current .ps-next').click(function () {
                         pgwSlideshow.nextSlide();
                     });
                 }
@@ -175,17 +175,17 @@
                 // Touch controls for current image
                 if (pgwSlideshow.config.touchControls) {
 
-                    pgwSlideshow.plugin.find('.ps-current').on('touchstart', function(e) {
+                    pgwSlideshow.plugin.find('.ps-current').on('touchstart', function (e) {
                         try {
                             if (e.originalEvent.touches[0].clientX && pgwSlideshow.touchFirstPosition == null) {
                                 pgwSlideshow.touchFirstPosition = e.originalEvent.touches[0].clientX;
                             }
-                        } catch(e) {
+                        } catch (e) {
                             pgwSlideshow.touchFirstPosition = null;
                         }
                     });
 
-                    pgwSlideshow.plugin.find('.ps-current').on('touchmove', function(e) {
+                    pgwSlideshow.plugin.find('.ps-current').on('touchmove', function (e) {
                         try {
                             if (e.originalEvent.touches[0].clientX && pgwSlideshow.touchFirstPosition != null) {
                                 if (e.originalEvent.touches[0].clientX > (pgwSlideshow.touchFirstPosition + 50)) {
@@ -196,12 +196,12 @@
                                     pgwSlideshow.nextSlide();
                                 }
                             }
-                        } catch(e) {
+                        } catch (e) {
                             pgwSlideshow.touchFirstPosition = null;
                         }
                     });
 
-                    pgwSlideshow.plugin.find('.ps-current').on('touchend', function(e) {
+                    pgwSlideshow.plugin.find('.ps-current').on('touchend', function (e) {
                         pgwSlideshow.touchFirstPosition = null;
                     });
                 }
@@ -209,18 +209,19 @@
 
             // Get slideshow elements
             var elementId = 1;
-            pgwSlideshow.plugin.find('.ps-list > ul > li').each(function() {
+            pgwSlideshow.plugin.find('.ps-list > ul > li').each(function () {
                 var element = getElement($(this));
                 element.id = elementId;
                 pgwSlideshow.data.push(element);
 
                 $(this).addClass('elt_' + element.id);
                 $(this).wrapInner('<span class="ps-item' + (elementId == 1 ? ' ps-selected' : '') + '"></span>');
-                
+
                 // Set element in the current list
                 var currentElement = $('<li class="elt_' + elementId + '"></li>');
-
-                if (element.image) {
+                if (element.video) {
+                    currentElement.html('<div style="height:360px"><iframe width="640" height="360" src="https://www.youtube.com/embed/' + element.video + '" frameborder="0" allowfullscreen></iframe></div>');
+                } else if (element.image) {
                     currentElement.html('<img src="' + element.image + '" alt="' + (element.title ? element.title : '') + '">');
                 } else if (element.thumbnail) {
                     currentElement.html('<img src="' + element.thumbnail + '" alt="' + (element.title ? element.title : '') + '">');
@@ -232,7 +233,7 @@
 
                 pgwSlideshow.plugin.find('.ps-current > ul').append(currentElement);
 
-                $(this).css('cursor', 'pointer').click(function(event) {
+                $(this).css('cursor', 'pointer').click(function (event) {
                     event.preventDefault();
                     displayElement(element.id);
                 });
@@ -253,10 +254,10 @@
 
             // Attach slide events
             if (pgwSlideshow.config.autoSlide) {
-                pgwSlideshow.plugin.on('mouseenter', function() {
+                pgwSlideshow.plugin.on('mouseenter', function () {
                     clearInterval(pgwSlideshow.intervalEvent);
                     pgwSlideshow.intervalEvent = null;
-                }).on('mouseleave', function() {
+                }).on('mouseleave', function () {
                     activateInterval();
                 });
             }
@@ -268,7 +269,7 @@
             displayElement(1);
 
             // Set the first height
-            pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').on('load', function() {
+            pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').on('load', function () {
                 setSizeClass();
 
                 var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').height();
@@ -283,7 +284,7 @@
         };
 
         // Get element
-        var getElement = function(obj) {
+        var getElement = function (obj) {
             var element = {};
 
             // Get link
@@ -307,12 +308,17 @@
                 element.image = elementImage;
             }
 
+            var elementVideo = obj.find('img').attr('data-video');
+            if ((typeof elementVideo != 'undefined') && (elementImage != '')) {
+                element.video = elementVideo;
+            }
+
             // Get title 
             var elementTitle = obj.find('img').attr('alt');
             if ((typeof elementTitle != 'undefined') && (elementTitle != '')) {
                 element.title = elementTitle;
             }
-            
+
             // Get description
             var elementDescription = obj.find('img').attr('data-description');
             if ((typeof elementDescription != 'undefined') && (elementDescription != '')) {
@@ -323,7 +329,7 @@
         };
 
         // Finish element
-        var finishElement = function(element) {
+        var finishElement = function (element) {
 
             // Element caption
             var elementText = '';
@@ -376,16 +382,21 @@
 
             // Set the container height
             var maxHeight = pgwSlideshow.plugin.find('.ps-current .elt_' + element.id + ' img').height();
-            updateHeight(maxHeight, true);
+            var maxHeightVideo = pgwSlideshow.plugin.find('.ps-current .elt_' + element.id + ' iframe').height();
+            console.log(maxHeightVideo);
 
+            updateHeight(maxHeight, true);
+            if (maxHeightVideo) {
+                updateHeight(maxHeightVideo, true);
+            }
             return true;
         }
 
         // Fade an element
-        var fadeElement = function(element) {
+        var fadeElement = function (element) {
             var elementContainer = pgwSlideshow.plugin.find('.ps-current > ul');
 
-            elementContainer.find('li').not('.elt_' + pgwSlideshow.currentSlide).not('.elt_' + element.id).each(function(){
+            elementContainer.find('li').not('.elt_' + pgwSlideshow.currentSlide).not('.elt_' + element.id).each(function () {
                 if (typeof $(this).stop == 'function') {
                     $(this).stop();
                 }
@@ -397,7 +408,7 @@
                 var currentElement = elementContainer.find('.elt_' + pgwSlideshow.currentSlide);
 
                 if (typeof currentElement.animate != 'function') {
-                    currentElement.animate = function(css, duration, callback) {
+                    currentElement.animate = function (css, duration, callback) {
                         currentElement.css(css);
                         if (callback) {
                             callback();
@@ -410,8 +421,8 @@
                 }
 
                 currentElement.css('position', 'absolute').animate({
-                    opacity : 0,
-                }, pgwSlideshow.config.transitionDuration, function() {
+                    opacity: 0,
+                }, pgwSlideshow.config.transitionDuration, function () {
                     currentElement.css('position', '').css('z-index', 1).hide();
                 });
             }
@@ -423,7 +434,7 @@
             var nextElement = elementContainer.find('.elt_' + element.id);
 
             if (typeof nextElement.animate != 'function') {
-                nextElement.animate = function(css, duration, callback) {
+                nextElement.animate = function (css, duration, callback) {
                     nextElement.css(css);
                     if (callback) {
                         callback();
@@ -436,8 +447,8 @@
             }
 
             nextElement.css('position', 'absolute').show().animate({
-                opacity : 1,
-            }, pgwSlideshow.config.transitionDuration, function() {
+                opacity: 1,
+            }, pgwSlideshow.config.transitionDuration, function () {
                 nextElement.css('position', '').css('z-index', 2).css('display', 'block');
                 finishElement(element);
             });
@@ -446,7 +457,7 @@
         }
 
         // Slide an element
-        var slideElement = function(element, direction) {
+        var slideElement = function (element, direction) {
             var elementContainer = pgwSlideshow.plugin.find('.ps-current > ul');
 
             if (typeof direction == 'undefined') {
@@ -455,10 +466,10 @@
 
             if (pgwSlideshow.currentSlide == 0) {
                 elementContainer.find('.elt_1').css({
-                    position : '',
-                    left : '',
-                    opacity : 1,
-                    'z-index' : 2
+                    position: '',
+                    left: '',
+                    opacity: 1,
+                    'z-index': 2
                 }).show();
                 pgwSlideshow.plugin.find('.ps-list > li.elt_1').css('opacity', '1');
                 finishElement(element);
@@ -485,7 +496,7 @@
                 var currentElement = elementContainer.find('.elt_' + pgwSlideshow.currentSlide);
 
                 if (typeof currentElement.animate != 'function') {
-                    currentElement.animate = function(css, duration, callback) {
+                    currentElement.animate = function (css, duration, callback) {
                         currentElement.css(css);
                         if (callback) {
                             callback();
@@ -494,8 +505,8 @@
                 }
 
                 currentElement.css('position', 'absolute').animate({
-                    left : elementDest,
-                }, pgwSlideshow.config.transitionDuration, function() {
+                    left: elementDest,
+                }, pgwSlideshow.config.transitionDuration, function () {
                     currentElement.css('position', '').css('z-index', 1).css('left', '').css('opacity', 0).hide();
                 });
 
@@ -503,7 +514,7 @@
                 var nextElement = elementContainer.find('.elt_' + element.id);
 
                 if (typeof nextElement.animate != 'function') {
-                    nextElement.animate = function(css, duration, callback) {
+                    nextElement.animate = function (css, duration, callback) {
                         nextElement.css(css);
                         if (callback) {
                             callback();
@@ -512,8 +523,8 @@
                 }
 
                 nextElement.css('position', 'absolute').css('left', nextOrigin).css('opacity', 1).show().animate({
-                    left : 0,
-                }, pgwSlideshow.config.transitionDuration, function() {
+                    left: 0,
+                }, pgwSlideshow.config.transitionDuration, function () {
                     nextElement.css('position', '').css('left', '').css('z-index', 2).show();
                     pgwSlideshow.transitionInProgress = false;
                     finishElement(element);
@@ -527,7 +538,7 @@
         }
 
         // Display current element
-        var displayElement = function(elementId, apiController, direction) {
+        var displayElement = function (elementId, apiController, direction) {
 
             if (elementId == pgwSlideshow.currentSlide) {
                 return false;
@@ -571,11 +582,11 @@
         };
 
         // Activate interval
-        var activateInterval = function() {
+        var activateInterval = function () {
             clearInterval(pgwSlideshow.intervalEvent);
 
             if (pgwSlideshow.slideCount > 1 && pgwSlideshow.config.autoSlide) {
-                pgwSlideshow.intervalEvent = setInterval(function() {
+                pgwSlideshow.intervalEvent = setInterval(function () {
                     if (pgwSlideshow.currentSlide + 1 <= pgwSlideshow.slideCount) {
                         var nextItem = pgwSlideshow.currentSlide + 1;
                     } else {
@@ -589,8 +600,8 @@
         };
 
         // Check slide list
-        var checkList = function() {
-            if (! pgwSlideshow.config.displayList) return false;
+        var checkList = function () {
+            if (!pgwSlideshow.config.displayList) return false;
 
             // Refresh list width
             setListWidth();
@@ -608,7 +619,7 @@
                 containerWidth -= (marginLeft + marginRight);
 
                 // Left button
-                containerObject.find('.ps-prev').show().unbind('click').click(function() {
+                containerObject.find('.ps-prev').show().unbind('click').click(function () {
                     var oldPosition = parseInt(listObject.css('left'));
                     var newPosition = oldPosition + containerWidth;
 
@@ -628,7 +639,7 @@
                 });
 
                 // Right button
-                containerObject.find('.ps-next').show().unbind('click').click(function() {
+                containerObject.find('.ps-next').show().unbind('click').click(function () {
                     var oldPosition = parseInt(listObject.css('left'));
                     var newPosition = oldPosition - containerWidth;
                     var maxPosition = -(listWidth - containerWidth);
@@ -651,7 +662,7 @@
                 // Touch controls for the list
                 if (pgwSlideshow.config.touchControls) {
 
-                    pgwSlideshow.plugin.find('.ps-list > ul').on('touchmove', function(e) {
+                    pgwSlideshow.plugin.find('.ps-list > ul').on('touchmove', function (e) {
                         try {
                             if (e.originalEvent.touches[0].clientX) {
                                 var lastPosition = (pgwSlideshow.touchListLastPosition == false ? 0 : pgwSlideshow.touchListLastPosition);
@@ -693,12 +704,12 @@
                                 }
                             }
 
-                        } catch(e) {
+                        } catch (e) {
                             pgwSlideshow.touchListLastPosition = false;
                         }
                     });
 
-                    pgwSlideshow.plugin.find('.ps-list > ul').on('touchend', function(e) {
+                    pgwSlideshow.plugin.find('.ps-list > ul').on('touchend', function (e) {
                         pgwSlideshow.touchListLastPosition = false;
                     });
                 }
@@ -715,10 +726,10 @@
         };
 
         // Check the visibility of the selected item
-        var checkSelectedItem = function() {
+        var checkSelectedItem = function () {
             var containerWidth = pgwSlideshow.plugin.find('.ps-list').width();
             var listObject = pgwSlideshow.plugin.find('.ps-list > ul');
-            var listWidth = listObject.width();  
+            var listWidth = listObject.width();
 
             var marginLeft = parseInt(listObject.css('margin-left'));
             var marginRight = parseInt(listObject.css('margin-right'));
@@ -743,37 +754,37 @@
         };
 
         // Start auto slide
-        pgwSlideshow.startSlide = function() {
+        pgwSlideshow.startSlide = function () {
             pgwSlideshow.config.autoSlide = true;
             activateInterval();
             return true;
         };
 
         // Stop auto slide
-        pgwSlideshow.stopSlide = function() {
+        pgwSlideshow.stopSlide = function () {
             pgwSlideshow.config.autoSlide = false;
             clearInterval(pgwSlideshow.intervalEvent);
             return true;
         };
 
         // Get current slide
-        pgwSlideshow.getCurrentSlide = function() {
+        pgwSlideshow.getCurrentSlide = function () {
             return pgwSlideshow.currentSlide;
         };
 
         // Get slide count
-        pgwSlideshow.getSlideCount = function() {
+        pgwSlideshow.getSlideCount = function () {
             return pgwSlideshow.slideCount;
         };
 
         // Display slide
-        pgwSlideshow.displaySlide = function(itemId) {
+        pgwSlideshow.displaySlide = function (itemId) {
             displayElement(itemId, true);
             return true;
         };
 
         // Next slide
-        pgwSlideshow.nextSlide = function() {
+        pgwSlideshow.nextSlide = function () {
             if (pgwSlideshow.currentSlide + 1 <= pgwSlideshow.slideCount) {
                 var nextItem = pgwSlideshow.currentSlide + 1;
             } else {
@@ -784,7 +795,7 @@
         };
 
         // Previous slide
-        pgwSlideshow.previousSlide = function() {
+        pgwSlideshow.previousSlide = function () {
             if (pgwSlideshow.currentSlide - 1 >= 1) {
                 var previousItem = pgwSlideshow.currentSlide - 1;
             } else {
@@ -795,11 +806,11 @@
         };
 
         // Destroy slider
-        pgwSlideshow.destroy = function(soft) {
+        pgwSlideshow.destroy = function (soft) {
             clearInterval(pgwSlideshow.intervalEvent);
 
             if (typeof soft != 'undefined') {
-                pgwSlideshow.plugin.find('.ps-list > ul > li').each(function() {
+                pgwSlideshow.plugin.find('.ps-list > ul > li').each(function () {
                     $(this).attr('style', null).removeClass().unbind('click');
                     $(this).html($(this).find('span').html());
                 });
@@ -828,7 +839,7 @@
         };
 
         // Reload slider
-        pgwSlideshow.reload = function(newOptions) {
+        pgwSlideshow.reload = function (newOptions) {
             pgwSlideshow.destroy(true);
 
             pgwSlideshow = this;
@@ -843,9 +854,9 @@
             setup();
 
             // Resize listener
-            pgwSlideshow.window.resize(function() {
+            pgwSlideshow.window.resize(function () {
                 clearTimeout(pgwSlideshow.resizeEvent);
-                pgwSlideshow.resizeEvent = setTimeout(function() {
+                pgwSlideshow.resizeEvent = setTimeout(function () {
                     setSizeClass();
 
                     var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_' + pgwSlideshow.currentSlide + ' img').css('max-height', '').height();
