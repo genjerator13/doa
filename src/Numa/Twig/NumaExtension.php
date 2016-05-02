@@ -25,7 +25,8 @@ class NumaExtension extends \Twig_Extension
             'file_existsx' => new \Twig_Function_Method($this, 'file_existsx'),
             'memcacheGet' => new \Twig_Function_Method($this, 'memcacheGet'),
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
-            'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb')
+            'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
+            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed')
         );
     }
 
@@ -97,6 +98,12 @@ class NumaExtension extends \Twig_Extension
     public function getYoutubeThumb($id)
     {
         return "http://img.youtube.com/vi/" . $id . "/0.jpg";
+    }
+
+    public function getYoutubeEmbed($id)
+    {
+        //https://www.youtube.com/embed/xH01UCfId0A
+        return "https://www.youtube.com/embed/".$id;
     }
 
 }
