@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,6 +30,7 @@ class ImageCarouselController extends Controller
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:index.html.twig', array(
             'entities' => $entities,
+            'addVideoForm' => $this->addVideoForm()->createView()
         ));
     }
 
@@ -243,6 +246,41 @@ class ImageCarouselController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
+    }
+
+
+    public function addVideoForm()
+    {
+
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('imagecarousel_add_video'))
+            ->add('url', TextType::class, array('label' => 'Youtube video URL', 'attr' => array('class' => 'col-md-6')))
+            ->add('send', SubmitType::class, array('label' => 'Add'))
+            ->getForm();
+        return $form;
+
+    }
+
+    public function addVideoAction(Request $request)
+    {
+
+        $form = $this->addVideoForm();
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+
+            $em = $this->getDoctrine()->getManager();
+
+            $imageCarousel = new ImageCarousel();
+            $imageCarousel->setActive(true);
+            $imageCarousel->setSrc($data['url']);
+            $imageCarousel->setUrl($data['url']);
+
+            $em->persist($imageCarousel);
+            $em->flush();
+        }
+        return $this->redirect($this->generateUrl('imagecarousel'));
     }
 
 
