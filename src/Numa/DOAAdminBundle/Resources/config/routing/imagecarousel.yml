@@ -31,3 +31,7 @@ imagecarousel_delete:
 imagecarousel_upload:
     path:     /upload
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:upload" }
+
+imagecarousel_add_video:
+    path:     /addvideo
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:addVideo" }
