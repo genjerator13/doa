@@ -39,14 +39,11 @@
                     <tr>
                         <td>
                             {% if  "youtube" in entity.src %}
-                                <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(entity.src)) }}"
-                                   title="{{ entity.title }}">
-                                    <img
-                                            src="{{ getYoutubeThumb(getYoutubeId(entity.src)) }}"
-                                            alt="image"
-                                            width="120px"
-                                            class="thumbnail"/>
-                                </a>
+                                <div class="youtube-video">
+                                    <iframe width="606" height="400"
+                                            src="{{getYoutubeEmbed(getYoutubeId(image.src)) }}"
+                                            frameborder="0" allowfullscreen></iframe>
+                                </div>
                             {% else %}
                                 <a class="colorbox cimage" href="{{ asset(image,null,true) }}"
                                    title="{{ entity.title }}">
