@@ -775,14 +775,15 @@ class Customer
      */
     public function getLastnoteadded()
     {
-
+        $lastnoteadded="";
         $criteria = Criteria::create()
 
             ->orderBy(array("date_remind" => "DESC"));
-
-        $lastnoteadded = $this->getNote()->matching($criteria);
+        if($this->getNote()) {
+            $lastnoteadded = $this->getNote()->matching($criteria);
+        }
         $this->lastnoteadded = null;
-        if(!empty($lastnoteadded->first())) {
+        if(!empty($lastnoteadded) && !empty($lastnoteadded->first())) {
             $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
         }
 
@@ -921,6 +922,7 @@ class Customer
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $address;
 
@@ -946,5 +948,35 @@ class Customer
     public function getAddress()
     {
         return $this->address;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $address2;
+
+
+    /**
+     * Set address2
+     *
+     * @param string $address2
+     *
+     * @return Customer
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+
+        return $this;
+    }
+
+    /**
+     * Get address2
+     *
+     * @return string
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
     }
 }

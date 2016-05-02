@@ -69,12 +69,19 @@
                     <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom
                         bgcolor="#E7E6E6">
                         <b><u>PURCHASE INVOICE</u></b></td>
-                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
-                        valign=bottom>
-                    </td>
-                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>Invoice #</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center"
-                        valign=bottom bgcolor="#FFFFFF"><b> </b></td>
+                        valign=bottom bgcolor="#DEEBF7">
+                        {% if max_invoive_nr is defined %}
+                            {{ form_row(form.invoice_nr, {'value' : max_invoive_nr}) }}
+                        {% else %}
+                            {{ form_row(form.invoice_nr) }}
+                        {% endif %}
+                    </td>
+
                     <td style="border-left: 1px solid #000000" align="left" valign=bottom>
                     </td>
                     <td align="left" valign=bottom></td>

@@ -3,7 +3,9 @@ var names = [];
 
 app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.stock = "";
-
+    {% if  max_invoive_nr is defined %}
+    $scope.invoice_nr = "{{ max_invoive_nr }}";
+    {% endif %}
     {% if id is defined and id is not empty %}
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
@@ -11,15 +13,15 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 if (response.data._item) {
                     $scope.VIN = response.data._item._v_i_n;
                     $scope.stock = response.data._item.stock_nr;
-                    $scope.item_id=response.data._item.id;
+                    $scope.item_id = response.data._item.id;
 
-                    $scope.color=response.data._item.exterior_color;
+                    $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
                     $scope.used = "";
-                    if(response.data._item.status=='Used'){
+                    if (response.data._item.status == 'Used') {
 
                         $scope.used = "X";
-                    }else{
+                    } else {
                         $scope.new = "X";
                     }
                 }
@@ -27,6 +29,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.sales_person = response.data.sales_person;
                 $scope.trim = response.data.trim;
                 $scope.dealer_nr = response.data.dealer_nr;
+                $scope.invoice_nr = response.data.invoice_nr;
                 $scope.tid_make = response.data.tid_make;
                 $scope.tid_model = response.data.tid_model;
                 $scope.tid_year = response.data.tid_year;
@@ -107,7 +110,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
         if ($scope.find.length > 2) {
 
-            $http.get("/api/listings/" + $scope.find + "/uniques.json?field="+field)
+            $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
                     .then(function (response) {
                         //$scope.stock = response.data;
 
@@ -124,8 +127,8 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                         }
 
                         var uniqueNames = [];
-                        $.each(names, function(i, el){
-                            if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+                        $.each(names, function (i, el) {
+                            if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
                         });
                         console.log(uniqueNames);
                         console.log(names);
@@ -143,13 +146,13 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             $scope.stock = response.data[0].stock_nr;
                             $scope.item_id = response.data[0].id;
 
-                            $scope.color=response.data[0].exterior_color;
+                            $scope.color = response.data[0].exterior_color;
                             $scope.new = "";
                             $scope.used = "";
-                            if(response.data[0].status=='Used'){
+                            if (response.data[0].status == 'Used') {
 
                                 $scope.used = "X";
-                            }else{
+                            } else {
                                 $scope.new = "X";
                             }
 
