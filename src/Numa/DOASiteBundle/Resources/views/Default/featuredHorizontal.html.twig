@@ -16,7 +16,12 @@
         {% set imagex=image.getUploadDir()~"/"~image.src %}
 
         <div class="item {% if loop.first %}active{% endif %}">
-            <img src="{{imagex|imagine_filter('carousel')}}" alt="carousel image">
+            {% if  "youtube" in image.getFieldStringValue() %}
+                <img data-video="{{ getYoutubeId(image.getFieldStringValue()) }}" src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue()) }}" alt="image{{ key }}"/>
+            {% else %}
+                <img src="{{imagex|imagine_filter('carousel')}}" alt="carousel image">
+            {% endif %}
+
             <div class="carousel-text">
 
             {% if image.url is not empty %}
@@ -37,6 +42,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+
 </div>
 
 {% endif %}
