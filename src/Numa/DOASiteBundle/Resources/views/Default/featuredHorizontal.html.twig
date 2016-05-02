@@ -18,7 +18,7 @@
                     
                     {% if  "youtube" in image.src %}
                         <img data-video="{{ getYoutubeId(image.src) }}"
-                             src="{{ getYoutubeThumb(getYoutubeId(image.src)) }}" alt="image{{ key }}" width="606px"/>
+                             src="{{ getYoutubeThumb(getYoutubeId(image.src)) }}" alt="image{{ key }}" width="606px" />
                     {% else %}
                         <img src="{{ imagex|imagine_filter('carousel') }}" alt="carousel image">
                     {% endif %}
