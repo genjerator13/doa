@@ -17,8 +17,11 @@
                 <div class="item {% if loop.first %}active{% endif %}">
 
                     {% if  "youtube" in image.src %}
-                        <img data-video="{{ getYoutubeId(image.src) }}"
-                             src="{{ getYoutubeThumb(getYoutubeId(image.src)) }}" alt="image{{ key }}" width="606px" />
+                        <div class="youtube-video">
+                            <iframe width="606" height="400"
+                                    src="{{getYoutubeEmbed(getYoutubeId(image.src)) }}"
+                                    frameborder="0" allowfullscreen></iframe>
+                        </div>
                     {% else %}
                         <img src="{{ imagex|imagine_filter('carousel') }}" alt="carousel image">
                     {% endif %}
