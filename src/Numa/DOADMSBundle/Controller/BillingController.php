@@ -122,7 +122,7 @@ class BillingController extends Controller
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
         $dealer = $this->get('security.token_storage')->getToken()->getUser();
         $entity->setCustomerId($id);
-        $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getCustomerId());
+        $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
 
         if($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);

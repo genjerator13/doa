@@ -12,9 +12,13 @@ use Doctrine\ORM\EntityRepository;
 
 class BillingRepository extends EntityRepository
 {
-    public function maxInvoiceNr($customer_id)
+    public function maxInvoiceNr($dealer_id)
     {
-        $sql = "SELECT MAX( invoice_nr )+1 FROM billing where customer_id=$customer_id";
+        $prefix ="";
+        if(!empty($dealer_id)){
+            $prefix= "where dealer_id=$dealer_id";
+        }
+        $sql = "SELECT MAX( invoice_nr )+1 FROM billing".$prefix;
         $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
         if (!empty($res[0])) {
             return $res[0];
