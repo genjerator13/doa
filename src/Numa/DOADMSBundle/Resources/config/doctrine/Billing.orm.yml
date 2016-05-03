@@ -16,6 +16,10 @@ Numa\DOADMSBundle\Entity\Billing:
         item_id:
             type: integer
             nullable: true
+        invoice_nr:
+            type: string
+            length: 255
+            nullable: true
         sales_person:
             type: string
             length: 255

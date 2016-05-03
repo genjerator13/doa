@@ -54,18 +54,18 @@ class ImageController extends Controller
                 }
 
 
-                    $imagemanagerResponse = $this->container
-                        ->get('liip_imagine.controller')
-                        ->filterAction(
-                            $this->getRequest(), $imageSource, 'item_detail_image'
-                        );
-                    $imagemanagerResponse = $this->container
-                        ->get('liip_imagine.controller')
-                        ->filterAction(
-                            $this->getRequest(), $imageSource, 'search_image'
-                        );
-                }
+                $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $this->getRequest(), $imageSource, 'item_detail_image'
+                    );
+                $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $this->getRequest(), $imageSource, 'search_image'
+                    );
             }
+        }
         //}
 
 
@@ -98,7 +98,6 @@ class ImageController extends Controller
         $file = $request->files->get('file');
 
 
-
         if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
             ($file->getMimeType() == 'image/jpeg' ||
                 $file->getMimeType() == 'image/png' ||
@@ -121,24 +120,26 @@ class ImageController extends Controller
         die();
     }
 
-    public function addVideoForm($item_id){
+    public function addVideoForm($item_id)
+    {
 
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('item_images_add_video',array('id'=>$item_id)))
-            ->add('url', TextType::class,array('label'=>'Youtube video URL','attr'=>array('class'=>'col-md-6')))
-            ->add('send', SubmitType::class,array('label'=>'Add'))
+            ->setAction($this->generateUrl('item_images_add_video', array('id' => $item_id)))
+            ->add('url', TextType::class, array('label' => 'Youtube video URL', 'attr' => array('class' => 'col-md-6')))
+            ->add('send', SubmitType::class, array('label' => 'Add'))
             ->getForm();
         return $form;
 
     }
 
-    public function addVideoAction(Request $request,$id){
+    public function addVideoAction(Request $request, $id)
+    {
 
         $form = $this->addVideoForm($id);
         $form->handleRequest($request);
 
-        if($form->isValid()){
-            $data=$form->getData();
+        if ($form->isValid()) {
+            $data = $form->getData();
             $em = $this->getDoctrine()->getManager();
 
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -154,7 +155,7 @@ class ImageController extends Controller
             $em->persist($itemField);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('items'));
+        return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
     }
 
     public function setImageOrderAction(Request $request)
@@ -169,7 +170,6 @@ class ImageController extends Controller
                 ->update()
                 ->set('if.sort_order', $order)
                 ->where('if.id=' . $id);
-            dump($qb);
             $qb->getQuery()->execute();
         }
         die();

@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+
 /**
  * Billing
  * @JMS\XmlRoot("billing")
@@ -144,6 +145,7 @@ class Billing
     {
         return $this->date_updated;
     }
+
     /**
      * Set status
      *
@@ -167,7 +169,6 @@ class Billing
     {
         return $this->status;
     }
-
 
 
     /**
@@ -217,6 +218,7 @@ class Billing
     {
         return $this->Customer;
     }
+
     /**
      * @ORM\PrePersist
      */
@@ -260,6 +262,7 @@ class Billing
     {
         return $this->date_billing;
     }
+
     /**
      * @var integer
      * @JMS\Expose
@@ -668,7 +671,7 @@ class Billing
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId()
     {
@@ -691,7 +694,7 @@ class Billing
     /**
      * Get item_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getItemId()
     {
@@ -714,7 +717,7 @@ class Billing
     /**
      * Get sales_person
      *
-     * @return string 
+     * @return string
      */
     public function getSalesPerson()
     {
@@ -737,7 +740,7 @@ class Billing
     /**
      * Get trim
      *
-     * @return string 
+     * @return string
      */
     public function getTrim()
     {
@@ -760,7 +763,7 @@ class Billing
     /**
      * Get tid_make
      *
-     * @return string 
+     * @return string
      */
     public function getTidMake()
     {
@@ -783,7 +786,7 @@ class Billing
     /**
      * Get tid_model
      *
-     * @return string 
+     * @return string
      */
     public function getTidModel()
     {
@@ -806,7 +809,7 @@ class Billing
     /**
      * Get tid_year
      *
-     * @return integer 
+     * @return integer
      */
     public function getTidYear()
     {
@@ -829,7 +832,7 @@ class Billing
     /**
      * Get tid_milleage
      *
-     * @return string 
+     * @return string
      */
     public function getTidMilleage()
     {
@@ -852,7 +855,7 @@ class Billing
     /**
      * Get tid_km
      *
-     * @return string 
+     * @return string
      */
     public function getTidKm()
     {
@@ -875,7 +878,7 @@ class Billing
     /**
      * Get tid_vin
      *
-     * @return string 
+     * @return string
      */
     public function getTidVin()
     {
@@ -898,7 +901,7 @@ class Billing
     /**
      * Get payableto
      *
-     * @return string 
+     * @return string
      */
     public function getPayableto()
     {
@@ -921,7 +924,7 @@ class Billing
     /**
      * Get address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -944,7 +947,7 @@ class Billing
     /**
      * Get amount
      *
-     * @return float 
+     * @return float
      */
     public function getAmount()
     {
@@ -967,7 +970,7 @@ class Billing
     /**
      * Get total
      *
-     * @return float 
+     * @return float
      */
     public function getTotal()
     {
@@ -990,7 +993,7 @@ class Billing
     /**
      * Get less_discount
      *
-     * @return float 
+     * @return float
      */
     public function getLessDiscount()
     {
@@ -1013,7 +1016,7 @@ class Billing
     /**
      * Get options_total_cost
      *
-     * @return float 
+     * @return float
      */
     public function getOptionsTotalCost()
     {
@@ -1036,7 +1039,7 @@ class Billing
     /**
      * Get opt1
      *
-     * @return string 
+     * @return string
      */
     public function getOpt1()
     {
@@ -1059,7 +1062,7 @@ class Billing
     /**
      * Get opteq1
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq1()
     {
@@ -1082,7 +1085,7 @@ class Billing
     /**
      * Get opt2
      *
-     * @return string 
+     * @return string
      */
     public function getOpt2()
     {
@@ -1105,7 +1108,7 @@ class Billing
     /**
      * Get opteq2
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq2()
     {
@@ -1128,7 +1131,7 @@ class Billing
     /**
      * Get opt3
      *
-     * @return string 
+     * @return string
      */
     public function getOpt3()
     {
@@ -1151,7 +1154,7 @@ class Billing
     /**
      * Get opteq3
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq3()
     {
@@ -1174,7 +1177,7 @@ class Billing
     /**
      * Get opt4
      *
-     * @return string 
+     * @return string
      */
     public function getOpt4()
     {
@@ -1197,7 +1200,7 @@ class Billing
     /**
      * Get opteq4
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq4()
     {
@@ -1220,7 +1223,7 @@ class Billing
     /**
      * Get opt5
      *
-     * @return string 
+     * @return string
      */
     public function getOpt5()
     {
@@ -1243,7 +1246,7 @@ class Billing
     /**
      * Get opteq5
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq5()
     {
@@ -1266,7 +1269,7 @@ class Billing
     /**
      * Get opt6
      *
-     * @return string 
+     * @return string
      */
     public function getOpt6()
     {
@@ -1289,7 +1292,7 @@ class Billing
     /**
      * Get opteq6
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq6()
     {
@@ -1312,7 +1315,7 @@ class Billing
     /**
      * Get opt7
      *
-     * @return string 
+     * @return string
      */
     public function getOpt7()
     {
@@ -1335,7 +1338,7 @@ class Billing
     /**
      * Get opteq7
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq7()
     {
@@ -1358,7 +1361,7 @@ class Billing
     /**
      * Get opt8
      *
-     * @return string 
+     * @return string
      */
     public function getOpt8()
     {
@@ -1381,7 +1384,7 @@ class Billing
     /**
      * Get opteq8
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq8()
     {
@@ -1404,7 +1407,7 @@ class Billing
     /**
      * Get opt9
      *
-     * @return string 
+     * @return string
      */
     public function getOpt9()
     {
@@ -1427,7 +1430,7 @@ class Billing
     /**
      * Get opteq9
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq9()
     {
@@ -1450,7 +1453,7 @@ class Billing
     /**
      * Get opt10
      *
-     * @return string 
+     * @return string
      */
     public function getOpt10()
     {
@@ -1473,7 +1476,7 @@ class Billing
     /**
      * Get opteq10
      *
-     * @return string 
+     * @return string
      */
     public function getOpteq10()
     {
@@ -1496,7 +1499,7 @@ class Billing
     /**
      * Get sale_price
      *
-     * @return float 
+     * @return float
      */
     public function getSalePrice()
     {
@@ -1519,7 +1522,7 @@ class Billing
     /**
      * Get admin_fee
      *
-     * @return float 
+     * @return float
      */
     public function getAdminFee()
     {
@@ -1542,7 +1545,7 @@ class Billing
     /**
      * Get warranty
      *
-     * @return float 
+     * @return float
      */
     public function getWarranty()
     {
@@ -1565,7 +1568,7 @@ class Billing
     /**
      * Get protection_pkg
      *
-     * @return float 
+     * @return float
      */
     public function getProtectionPkg()
     {
@@ -1588,7 +1591,7 @@ class Billing
     /**
      * Get tos_total
      *
-     * @return float 
+     * @return float
      */
     public function getTosTotal()
     {
@@ -1611,7 +1614,7 @@ class Billing
     /**
      * Get less_trade_in
      *
-     * @return float 
+     * @return float
      */
     public function getLessTradeIn()
     {
@@ -1634,7 +1637,7 @@ class Billing
     /**
      * Get difference_payable
      *
-     * @return float 
+     * @return float
      */
     public function getDifferencePayable()
     {
@@ -1657,7 +1660,7 @@ class Billing
     /**
      * Get tax1
      *
-     * @return float 
+     * @return float
      */
     public function getTax1()
     {
@@ -1680,7 +1683,7 @@ class Billing
     /**
      * Get tax2
      *
-     * @return float 
+     * @return float
      */
     public function getTax2()
     {
@@ -1703,7 +1706,7 @@ class Billing
     /**
      * Get tax3
      *
-     * @return float 
+     * @return float
      */
     public function getTax3()
     {
@@ -1726,7 +1729,7 @@ class Billing
     /**
      * Get other_misc1
      *
-     * @return float 
+     * @return float
      */
     public function getOtherMisc1()
     {
@@ -1749,7 +1752,7 @@ class Billing
     /**
      * Get other_misc2
      *
-     * @return float 
+     * @return float
      */
     public function getOtherMisc2()
     {
@@ -1772,7 +1775,7 @@ class Billing
     /**
      * Get text1_name
      *
-     * @return string 
+     * @return string
      */
     public function getText1Name()
     {
@@ -1795,7 +1798,7 @@ class Billing
     /**
      * Get text2_name
      *
-     * @return string 
+     * @return string
      */
     public function getText2Name()
     {
@@ -1818,7 +1821,7 @@ class Billing
     /**
      * Get text3_name
      *
-     * @return string 
+     * @return string
      */
     public function getText3Name()
     {
@@ -1841,7 +1844,7 @@ class Billing
     /**
      * Get other_misc1_name
      *
-     * @return string 
+     * @return string
      */
     public function getOtherMisc1Name()
     {
@@ -1864,7 +1867,7 @@ class Billing
     /**
      * Get other_misc2_name
      *
-     * @return string 
+     * @return string
      */
     public function getOtherMisc2Name()
     {
@@ -1887,7 +1890,7 @@ class Billing
     /**
      * Get taxes_paid_total
      *
-     * @return float 
+     * @return float
      */
     public function getTaxesPaidTotal()
     {
@@ -1910,7 +1913,7 @@ class Billing
     /**
      * Get lien_on_trade_in
      *
-     * @return float 
+     * @return float
      */
     public function getLienOnTradeIn()
     {
@@ -1933,7 +1936,7 @@ class Billing
     /**
      * Get total_due
      *
-     * @return float 
+     * @return float
      */
     public function getTotalDue()
     {
@@ -1956,7 +1959,7 @@ class Billing
     /**
      * Get less_trade_in_tax
      *
-     * @return float 
+     * @return float
      */
     public function getLessTradeInTax()
     {
@@ -1979,7 +1982,7 @@ class Billing
     /**
      * Get less_deposit
      *
-     * @return float 
+     * @return float
      */
     public function getLessDeposit()
     {
@@ -2002,7 +2005,7 @@ class Billing
     /**
      * Get payable_on_delivery
      *
-     * @return float 
+     * @return float
      */
     public function getPayableOnDelivery()
     {
@@ -2025,7 +2028,7 @@ class Billing
     /**
      * Get balance_to_finance
      *
-     * @return float 
+     * @return float
      */
     public function getBalanceToFinance()
     {
@@ -2048,7 +2051,7 @@ class Billing
     /**
      * Get insurance
      *
-     * @return float 
+     * @return float
      */
     public function getInsurance()
     {
@@ -2071,7 +2074,7 @@ class Billing
     /**
      * Get bank_registration_fee
      *
-     * @return float 
+     * @return float
      */
     public function getBankRegistrationFee()
     {
@@ -2117,7 +2120,7 @@ class Billing
     /**
      * Get Dealer
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getDealer()
     {
@@ -2140,12 +2143,13 @@ class Billing
     /**
      * Get Item
      *
-     * @return \Numa\DOAAdminBundle\Entity\Item 
+     * @return \Numa\DOAAdminBundle\Entity\Item
      */
     public function getItem()
     {
         return $this->Item;
     }
+
     /**
      * @var string
      * @JMS\Expose
@@ -2175,6 +2179,7 @@ class Billing
     {
         return $this->dealer_nr;
     }
+
     /**
      * @var string
      * @JMS\Expose
@@ -2265,6 +2270,7 @@ class Billing
     {
         return $this->taxt3_name;
     }
+
     /**
      * @var string
      * @JMS\Expose
@@ -2294,7 +2300,7 @@ class Billing
     /**
      * Get new_warranty
      *
-     * @return string 
+     * @return string
      */
     public function getNewWarranty()
     {
@@ -2317,12 +2323,13 @@ class Billing
     /**
      * Get used_warranty
      *
-     * @return string 
+     * @return string
      */
     public function getUsedWarranty()
     {
         return $this->used_warranty;
     }
+
     /**
      * @var string
      */
@@ -3192,5 +3199,36 @@ class Billing
     public function getOpteq25()
     {
         return $this->opteq25;
+    }
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $invoice_nr;
+
+
+    /**
+     * Set invoiceNr
+     *
+     * @param string $invoiceNr
+     *
+     * @return Billing
+     */
+    public function setInvoiceNr($invoiceNr)
+    {
+        $this->invoice_nr = $invoiceNr;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNr
+     *
+     * @return string
+     */
+    public function getInvoiceNr()
+    {
+        return $this->invoice_nr;
     }
 }
