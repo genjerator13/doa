@@ -126,7 +126,7 @@ class ImageController extends Controller
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('item_images_add_video', array('id' => $item_id)))
             ->add('url', TextType::class, array('label' => 'Youtube video URL:', 'attr' => array('class' => 'col-md-6')))
-            ->add('send', SubmitType::class, array('label' => 'Add'))
+            ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
         return $form;
 
