@@ -41,7 +41,9 @@
                     {% if (item.StockNr) %}
                         Stock Number: {{ item.StockNr }};
                     {% endif %}
-                    Listing ID # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %} "
+                    Listing ID
+                    # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}
+                    "
                 </div>
                 <div>Posted by {{ dealer }} </div>
 
@@ -78,12 +80,7 @@
                 <ul class="list-inline">
                     <li>{{ item.getItemFieldByName('mileage')|number_format(0, '.',',') }}
 
-                    <li>
-                        <span class="price">
-                            {% if item.getItemFieldByName('price') != 0 %}
-                                $ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}
-                            {% endif %}
-                        </span>
+                    <li><span class="price">{{ item.getPriceString() }}</span>
                     </li>
                     <li>{{ item.lastUpdated()|date('Y-m-d') }}</li>
                 </ul>

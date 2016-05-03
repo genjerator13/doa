@@ -467,6 +467,12 @@ ul,li{list-style:none;margin:0;padding:0;}
     margin-bottom: 0;
 }
 
+
+.picture-detail .thumbnail {
+    max-height: 110px;
+    overflow: hidden;
+}
+
 .panel-body a {
     margin-bottom: 20px;
 }

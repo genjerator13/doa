@@ -50,15 +50,9 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getTitle() }}
-                            <span classb="price">
-                                {% if item.getItemFieldByName('price') != 0 %}
-                                    $ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}
-                                {% endif %}
-                            </span>
-                            {% if (item.getSold()==1) %}
-                            <span class="badge">Sold</span>
-                            {% endif %}</h2>
+                        <h2 class="section">{{ item.getTitle() }} <span
+                                    classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
+                            <span class="badge">Sold</span>{% endif %}</h2>
 
                         <div class="slideshow">
 
@@ -69,7 +63,15 @@
                                             <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
                                                  alt="image{{ key }}"/>
                                         {% else %}
-                                            <img src="{{ image.fieldStringValue }}" alt="image{{ key }}"/>
+                                            {% set videoid="" %}
+                                            {% set img=image.fieldStringValue %}
+                                            {% if ('youtube' in image.fieldStringValue) %}
+                                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                {% set img=getYoutubeThumb(videoid) %}
+                                            {% endif %}
+                                            <img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>
+
+
                                         {% endif %}
                                     </li>
                                 {% endfor %}
@@ -117,7 +119,7 @@
                                                     : </span>
                                                 {% if field.fieldName=="Price" %}
 
-                                                    <span classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>
+                                                    <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
                                                 {% else %}
