@@ -134,7 +134,8 @@ input[type="file"] {
     top: 10px;
     right: 30px;
 }
-.input-group{
+
+#item-images .form-control{
     margin-top: 10px;
     margin-bottom: 10px;
 }
