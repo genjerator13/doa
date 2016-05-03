@@ -17,11 +17,19 @@
                     Add new images
                 </a>
             </div>
+            <div class="row">
+            <div class="col-lg-6">
+                <div class="input-group">
+                    {{ form_widget(addVideoForm.url) }}
+                    <span class="input-group-btn">
+                        {{ form_widget(addVideoForm.send) }}
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            </div>
         </div>
+
         <div class="box-body table-responsive no-padding">
-            {{ form_label(addVideoForm.url) }}<br>
-            {{ form_widget(addVideoForm.url) }}
-            {{ form_widget(addVideoForm.send) }}<br><br>
             <table class="table">
                 <thead>
                 <tr>
