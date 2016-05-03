@@ -17,12 +17,11 @@
                     Add new images
                 </a>
             </div>
-            <div class="row">
-                {{ form(addVideoForm) }}
-            </div>
         </div>
-
         <div class="box-body table-responsive no-padding">
+            {{ form_label(addVideoForm.url) }}<br>
+            {{ form_widget(addVideoForm.url) }}
+            {{ form_widget(addVideoForm.send) }}<br><br>
             <table class="table">
                 <thead>
                 <tr>
