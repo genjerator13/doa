@@ -18,7 +18,14 @@
                 </a>
             </div>
             <div class="row">
-                {{ form(addVideoForm) }}
+            <div class="col-lg-6">
+                <div class="input-group">
+                    {{ form_widget(addVideoForm.url) }}
+                    <span class="input-group-btn">
+                        {{ form_widget(addVideoForm.send) }}
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
             </div>
         </div>
 
