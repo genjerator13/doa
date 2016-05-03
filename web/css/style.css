@@ -721,7 +721,7 @@ iframe body{
     margin: 0;
     padding: 0;
 }
-.input-group{
+#item-images .form-control{
     margin-top: 10px;
     margin-bottom: 10px;
 }
