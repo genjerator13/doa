@@ -3,10 +3,10 @@
     <div class="box-header">
         <h3 class="box-title">Reminder list</h3>
         <div class="box-tools">
-            
-                        <a href="{{ path('reminder_new') }}" class="btn btn-primary">
-                            Create a new Reminder
-                        </a>
+
+            <a href="{{ path('customer_addreminder',{'id':customer_id}) }}" class="btn btn-primary">
+                Create a new Reminder
+            </a>
         </div>
     </div>
     {% if entities is empty %}

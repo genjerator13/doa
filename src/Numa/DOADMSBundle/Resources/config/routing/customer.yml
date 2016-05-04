@@ -44,3 +44,7 @@ customer_notes:
 customer_addbilling:
     path:     /{id}/addbilling
     defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+
+customer_addreminder:
+    path:     /{id}/addreminder
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:new" }

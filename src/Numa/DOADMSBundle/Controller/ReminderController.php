@@ -22,7 +22,6 @@ class ReminderController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('NumaDOADMSBundle:Reminder')->findAll();
 
         return $this->render('NumaDOADMSBundle:Reminder:index.html.twig', array(
@@ -41,6 +40,9 @@ class ReminderController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
+            $entity->setCustomer($customer);
+
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('reminder'));
@@ -76,9 +78,12 @@ class ReminderController extends Controller
      * Displays a form to create a new Reminder entity.
      *
      */
-    public function newAction()
+    public function newAction($id)
     {
         $entity = new Reminder();
+        $entity->setCustomerId($id);
+
+
         $form   = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:Reminder:new.html.twig', array(
