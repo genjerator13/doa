@@ -31,6 +31,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             subGridVariable: 'subGridScopeVariable'
         }
     };
+
+    var today = new Date();
+    var tdd = new Date(today.getFullYear(),today.getMonth(),today.getDate());
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {name: 'id', enableColumnResizing: true, width: 50},
@@ -44,7 +47,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'mobile_phone'},
         {name: 'email'},
         {name: 'sales_person'},
-        {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                console.log(tdd.getTime());
+                fd = new Date(grid.getCellValue(row,col));
+
+                if (tdd.getTime() === fd.getTime()) {
+                    return 'red';
+                }
+            }},
         {name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
