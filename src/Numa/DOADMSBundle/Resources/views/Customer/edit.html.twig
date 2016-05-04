@@ -8,6 +8,7 @@
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#billings">Billings</a></li>
         <li role="presentation"><a data-toggle="tab" href="#notes">Notes</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#reminder">Reminder</a></li>
     </ul>
 
     <div class="tab-content">
@@ -22,6 +23,9 @@
         </div>
         <div id="billings" class="tab-pane">
             {% include 'NumaDOADMSBundle:Billing:index.html.twig' with {'entities': entity.billing,'customer_id':entity.id} %}
+        </div>
+        <div id="reminder" class="tab-pane">
+            {% include 'NumaDOADMSBundle:Reminder:index.html.twig' with {'entities': entity.reminder,'customer_id':entity.id} %}
         </div>
     </div>
     <a href="{{ path('customer') }}" class="btn btn-primary">

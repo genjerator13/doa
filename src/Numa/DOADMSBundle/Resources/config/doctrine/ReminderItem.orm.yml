@@ -1,0 +1,34 @@
+Numa\DOADMSBundle\Entity\ReminderItem:
+    type: entity
+    table: reminderItem
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        reminder_id:
+            type: integer
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        Reminder:
+            targetEntity: Reminder
+            inversedBy: ReminderItem
+            joinColumn:
+                name: reminder_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

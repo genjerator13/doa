@@ -1,0 +1,50 @@
+{% block content -%}
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Reminder list</h3>
+        <div class="box-tools">
+            
+                        <a href="{{ path('reminder_new') }}" class="btn btn-primary">
+                            Create a new Reminder
+                        </a>
+        </div>
+    </div>
+    {% if entities is empty %}
+    <div>No Reminders</div>
+    {% else %}
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Customer_id</th>
+                <th>Date</th>
+                <th>Date_created</th>
+                <th>Date_updated</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('reminder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.customerid }}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.status }}</td>
+                <td><ul>
+        <li>
+            <a href="{{ path('reminder_edit', { 'id': entity.id }) }}">edit</a>
+        </li>
+</ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    {%  endif %}
+</div>
+{% endblock %}

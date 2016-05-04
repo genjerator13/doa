@@ -6,7 +6,12 @@
         {% set dealerid = dealer.id %}
     {%  endif %}
     <div class="box box-default">
-        <h4>Attention (Dealer Name):</h4>
+        <h4>Attention
+            {% if(dealer is defined and dealer is not empty) %}
+                {{ dealer.name }}
+                {% else %}
+                Admin
+            {%  endif %}:</h4>
         <p>
             If you require an inventory feed to a third party site, your DMS-Lite system is capable of providing a link for the website you wish to participate with so they can pull your listings into their system.  Simply provide them with the xml, csv or jason format they require:
         </p>
