@@ -16,13 +16,20 @@
             {#{{ form_widget(form.file) }}#}
             {#<input type="submit" value="Upload" />#}
         </form>
-        <div class="row">
-            {{ form(addVideoForm) }}
-        </div>
         {#<div class="row">#}
             {#{{ form(addVideoForm) }}#}
         {#</div>#}
         <div id="item-images">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="input-group">
+                        {{ form_widget(addVideoForm.url) }}
+                        <span class="input-group-btn">
+                        {{ form_widget(addVideoForm.send) }}
+                    </span>
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
             <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"

@@ -254,8 +254,8 @@ class ImageCarouselController extends Controller
 
         $form = $this->createFormBuilder()
             ->setAction($this->generateUrl('imagecarousel_add_video'))
-            ->add('url', TextType::class, array('label' => 'Youtube video URL', 'attr' => array('class' => 'col-md-6')))
-            ->add('send', SubmitType::class, array('label' => 'Add'))
+            ->add('url', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
+            ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
         return $form;
 
