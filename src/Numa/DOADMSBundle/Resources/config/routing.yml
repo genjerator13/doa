@@ -22,6 +22,9 @@ dms_inventory:
 dms_user_group:
     resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
     prefix:   /users_groups
+NumaDOADMSBundle_partrequest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
+    prefix:   /partrequest
 
 NumaDOADMSBundle_client:
     resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"

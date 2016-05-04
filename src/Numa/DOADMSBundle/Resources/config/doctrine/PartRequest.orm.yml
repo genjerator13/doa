@@ -1,0 +1,74 @@
+Numa\DOADMSBundle\Entity\PartRequest:
+    type: entity
+    table: part_request
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        cust_name:
+            type: string
+            length: 255
+            nullable: true
+        cust_last_name:
+            type: string
+            length: 255
+            nullable: true
+        contact_by:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        phone:
+            type: string
+            length: 255
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year:
+            type: integer
+            nullable: true
+        vin:
+            type: string
+            length: 255
+            nullable: true
+        part_num:
+            type: string
+            length: 255
+            nullable: true
+        part_desc:
+            type: text
+            nullable: true
+        comment:
+            type: text
+            nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Customer
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
