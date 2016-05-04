@@ -17,11 +17,14 @@
                 <div class="item {% if loop.first %}active{% endif %}">
                     
                     {% if  "youtube" in image.src %}
-                        <div class="youtube-video">
-                            <iframe width="606" height="400"
-                                    src="{{getYoutubeEmbed(getYoutubeId(image.src)) }}"
-                                    frameborder="0" allowfullscreen></iframe>
-                        </div>
+
+                        <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(image.src)) }}" >
+                            <img
+                                    src="{{ getYoutubeThumb(getYoutubeId(image.src)) }}"
+                                    alt="image"
+                                    width="606px"
+                                    class="thumbnail"/>
+                        </a>
                     {% else %}
                         <img src="{{ imagex|imagine_filter('carousel') }}" alt="carousel image">
                     {% endif %}
@@ -49,5 +52,11 @@
         </a>
 
     </div>
+    <script>
 
+        $(document).ready(function () {
+            $("a.colorbox_youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+        });
+
+    </script>
 {% endif %}
