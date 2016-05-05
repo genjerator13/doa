@@ -102,6 +102,10 @@ Numa\DOADMSBundle\Entity\Customer:
             targetEntity: Numa\DOADMSBundle\Entity\Billing
             mappedBy: Customer
             cascade: [persist]
+        Reminder:
+            targetEntity: Numa\DOADMSBundle\Entity\Reminder
+            mappedBy: Customer
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

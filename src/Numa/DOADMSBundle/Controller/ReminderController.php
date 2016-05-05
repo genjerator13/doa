@@ -5,41 +5,38 @@ namespace Numa\DOADMSBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Numa\DOADMSBundle\Entity\Note;
-use Numa\DOADMSBundle\Form\NoteType;
+use Numa\DOADMSBundle\Entity\Reminder;
+use Numa\DOADMSBundle\Form\ReminderType;
 
 /**
- * Note controller.
+ * Reminder controller.
  *
  */
-class NoteController extends Controller
+class ReminderController extends Controller
 {
 
     /**
-     * Lists all Note entities.
+     * Lists all Reminder entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('NumaDOADMSBundle:Reminder')->findAll();
 
-        $entities = $em->getRepository('NumaDOADMSBundle:Note')->findAll();
-
-        return $this->render('NumaDOADMSBundle:Note:index.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Note entity.
+     * Creates a new Reminder entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Note();
+        $entity = new Reminder();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
-
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -52,23 +49,23 @@ class NoteController extends Controller
 
         }
 
-        return $this->render('NumaDOADMSBundle:Note:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Creates a form to create a Note entity.
+     * Creates a form to create a Reminder entity.
      *
-     * @param Note $entity The entity
+     * @param Reminder $entity The entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Note $entity)
+    private function createCreateForm(Reminder $entity)
     {
-        $form = $this->createForm(new NoteType(), $entity, array(
-            'action' => $this->generateUrl('note_create'),
+        $form = $this->createForm(new ReminderType(), $entity, array(
+            'action' => $this->generateUrl('reminder_create'),
             'method' => 'POST',
         ));
 
@@ -78,65 +75,63 @@ class NoteController extends Controller
     }
 
     /**
-     * Displays a form to create a new Note entity.
+     * Displays a form to create a new Reminder entity.
      *
      */
     public function newAction($id)
     {
-
-
-        $entity = new Note();
+        $entity = new Reminder();
         $entity->setCustomerId($id);
 
 
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOADMSBundle:Note:new.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Note entity.
+     * Finds and displays a Reminder entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Note')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Note entity.');
+            throw $this->createNotFoundException('Unable to find Reminder entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOADMSBundle:Note:show.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Note entity.
+     * Displays a form to edit an existing Reminder entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Note')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Note entity.');
+            throw $this->createNotFoundException('Unable to find Reminder entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('NumaDOADMSBundle:Note:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -144,16 +139,16 @@ class NoteController extends Controller
     }
 
     /**
-    * Creates a form to edit a Note entity.
+    * Creates a form to edit a Reminder entity.
     *
-    * @param Note $entity The entity
+    * @param Reminder $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Note $entity)
+    private function createEditForm(Reminder $entity)
     {
-        $form = $this->createForm(new NoteType(), $entity, array(
-            'action' => $this->generateUrl('note_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ReminderType(), $entity, array(
+            'action' => $this->generateUrl('reminder_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -162,17 +157,17 @@ class NoteController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Note entity.
+     * Edits an existing Reminder entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Note')->find($id);
+        $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Note entity.');
+            throw $this->createNotFoundException('Unable to find Reminder entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -182,17 +177,17 @@ class NoteController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('note_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('reminder_edit', array('id' => $id)));
         }
 
-        return $this->render('NumaDOADMSBundle:Note:edit.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Note entity.
+     * Deletes a Reminder entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -202,21 +197,21 @@ class NoteController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:Note')->find($id);
+            $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Note entity.');
+                throw $this->createNotFoundException('Unable to find Reminder entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('note'));
+        return $this->redirect($this->generateUrl('reminder'));
     }
 
     /**
-     * Creates a form to delete a Note entity by id.
+     * Creates a form to delete a Reminder entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -225,25 +220,10 @@ class NoteController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('note_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('reminder_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
-    }
-
-    /**
-     * Lists all Notes entities.
-     *
-     */
-    public function notesAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Note')->findAll();
-
-        return $this->render('NumaDOADMSBundle:Customer:notes.html.twig', array(
-            'entities' => $entities,
-        ));
     }
 }

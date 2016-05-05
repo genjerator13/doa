@@ -979,4 +979,54 @@ class Customer
     {
         return $this->address2;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     * @JMS\Expose
+     */
+    private $Reminder;
+
+
+    /**
+     * Add reminder
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminder
+     *
+     * @return Customer
+     */
+    public function addReminder(\Numa\DOADMSBundle\Entity\Reminder $reminder)
+    {
+        $this->Reminder[] = $reminder;
+
+        return $this;
+    }
+
+    /**
+     * Remove reminder
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminder
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReminder(\Numa\DOADMSBundle\Entity\Reminder $reminder)
+    {
+        return $this->Reminder->removeElement($reminder);
+    }
+
+    /**
+     * Get reminder
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReminder()
+    {
+        return $this->Reminder;
+    }
+
+    public function setReminder($reminder)
+    {
+        $this->Reminder = $reminder;
+
+        return $this;
+    }
+
 }

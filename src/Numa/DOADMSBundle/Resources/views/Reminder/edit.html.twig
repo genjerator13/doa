@@ -3,14 +3,14 @@
 
 {% block content %}
 
-    <h1>Note edit</h1>
+    <h1>Reminder edit</h1>
 <div class="nav-tabs-custom">
     <div class="tab-content">
         <div id="details" class="tab-pane active">
     {{ form(edit_form) }}
 
-
-            <a href="{{ path('customer_edit', {'id': entity.customerId}) }}" class="btn btn-primary" >
+        
+        <a href="{{ path('customer_edit', {'id': entity.customerId}) }}" class="btn btn-primary" >
             Back to the list
         </a>
 
