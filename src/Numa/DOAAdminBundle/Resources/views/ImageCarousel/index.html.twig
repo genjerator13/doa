@@ -18,14 +18,17 @@
                 </a>
             </div>
             <div class="row">
-            <div class="col-lg-6">
-                <div class="input-group">
-                    {{ form_widget(addVideoForm.url) }}
-                    <span class="input-group-btn">
-                        {{ form_widget(addVideoForm.send) }}
-                    </span>
-                </div><!-- /input-group -->
-            </div><!-- /.col-lg-6 -->
+                {{ form_start(addVideoForm) }}
+                <div class="col-lg-6">
+                    <div class="input-group">
+
+                        {{ form_widget(addVideoForm.url) }}
+                        <span class="input-group-btn">
+                            {{ form_widget(addVideoForm.send) }}
+                        </span>
+                    </div>
+                </div>
+                {{ form_end(addVideoForm) }}
             </div>
         </div>
 
@@ -89,7 +92,7 @@
 
         $(document).ready(function () {
             $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
-            $("a.colorbox_youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
+            $("a.colorbox_youtube").colorbox({iframe: true, innerWidth: 640, innerHeight: 390});
         });
 
     </script>
