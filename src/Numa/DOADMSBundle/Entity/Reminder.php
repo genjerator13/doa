@@ -10,21 +10,25 @@ use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
 /**
  * Reminder
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Reminder
 {
     /**
      * @var int
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date;
 
