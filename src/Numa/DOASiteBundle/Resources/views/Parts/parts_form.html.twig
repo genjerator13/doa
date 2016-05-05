@@ -1,1 +1,23 @@
-aaasdasd asd ad ad a
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+<h4>Contact Information*</h4>
+    {{ form_row(form.cust_name) }}
+    {{ form_row(form.cust_last_name) }}
+    {{ form_row(form.contact_by) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.phone) }}
+    <h4>Vehicle Information*</h4>
+    {{ form_row(form.year) }}
+    {{ form_row(form.make) }}
+    {{ form_row(form.model) }}
+    {{ form_row(form.vin) }}
+
+    <h4>What parts do you need?*</h4>
+    {{ form_row(form.part_num) }}
+    {{ form_row(form.part_desc) }}
+    {{ form_end(form) }}
+{% endblock %}

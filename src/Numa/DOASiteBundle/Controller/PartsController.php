@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Form\PartRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,20 +13,21 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class PartsController extends Controller {
 
     public function partAction() {
-        $form = $this->
+
+        $form= $this->CreateCreateForm();//TODO
         return $this->render('NumaDOASiteBundle:Parts:parts_form.html.twig', array('form' => $form->createView())
         );
     }
 
-    private function CreateForm($entity) {
+    public function CreateCreateForm() {
         //$action = $this->generateUrl('part_request');
 
-        $form = $this->createForm(new PartRequestType(), $entity, array(
+        $form = $this->createForm(new PartRequestType(), new PartRequest(), array(
             //'action' => $action,
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Request','attr'=>array('class'=>"btn btn-primary")));
 
         return $form;
     }
