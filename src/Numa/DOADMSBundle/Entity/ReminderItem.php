@@ -182,4 +182,52 @@ class ReminderItem
     {
         // Add your code here
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $ReminderItem;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->ReminderItem = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add reminderItem
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminderItem
+     *
+     * @return ReminderItem
+     */
+    public function addReminderItem(\Numa\DOADMSBundle\Entity\Reminder $reminderItem)
+    {
+        $this->ReminderItem[] = $reminderItem;
+
+        return $this;
+    }
+
+    /**
+     * Remove reminderItem
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminderItem
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReminderItem(\Numa\DOADMSBundle\Entity\Reminder $reminderItem)
+    {
+        return $this->ReminderItem->removeElement($reminderItem);
+    }
+
+    /**
+     * Get reminderItem
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReminderItem()
+    {
+        return $this->ReminderItem;
+    }
 }

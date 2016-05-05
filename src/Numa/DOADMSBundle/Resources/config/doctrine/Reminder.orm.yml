@@ -10,6 +10,9 @@ Numa\DOADMSBundle\Entity\Reminder:
         customer_id:
             type: integer
             nullable: true
+        reminderItem_id:
+            type: integer
+            nullable: true
         date:
             type: datetime
             nullable: true
@@ -29,6 +32,13 @@ Numa\DOADMSBundle\Entity\Reminder:
             inversedBy: Reminder
             joinColumn:
                 name: customer_id
+                referencedColumnName: id
+    manyToOne:
+        Reminder:
+            targetEntity: ReminderItem
+            inversedBy: Reminder
+            joinColumn:
+                name: reminderItem_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

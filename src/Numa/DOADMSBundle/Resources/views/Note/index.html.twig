@@ -23,7 +23,6 @@
                 <th>Subject</th>
                 <th>Notes</th>
                 <th>Date_remind</th>
-                <th>Status</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -34,12 +33,11 @@
                     <td>{{ entity.subject }}</td>
                     <td>{{ entity.notes }}</td>
                     <td>{% if entity.dateremind %}{{ entity.dateremind|date('Y-m-d') }}{% endif %}</td>
-                    <td>{{ entity.status }}</td>
                     <td>
                         <ul>
 
                             <li>
-                                <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                                <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
                             </li>
                         </ul>
                     </td>

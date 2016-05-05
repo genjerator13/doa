@@ -15,12 +15,8 @@ class ReminderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('customer_id', 'hidden')
-            ->add('date')
-            ->add('date_created', 'hidden')
-            ->add('date_updated', 'hidden')
-            ->add('status', 'hidden')
-            ->add('Customer', 'hidden')
+            ->add('customer_id','hidden')
+            ->add('date','date')
         ;
     }
     

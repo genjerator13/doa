@@ -17,10 +17,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Customer_id</th>
                 <th>Date</th>
-                <th>Date_created</th>
-                <th>Date_updated</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -29,14 +26,11 @@
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('reminder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.customerid }}</td>
-                <td>{% if entity.date %}{{ entity.date|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ entity.status }}</td>
                 <td><ul>
         <li>
-            <a href="{{ path('reminder_edit', { 'id': entity.id }) }}">edit</a>
+            <a href="{{ path('reminder_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>
         </li>
 </ul>
                 </td>

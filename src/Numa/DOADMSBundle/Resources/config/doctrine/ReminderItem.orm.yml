@@ -7,9 +7,6 @@ Numa\DOADMSBundle\Entity\ReminderItem:
             type: integer
             generator: { strategy: AUTO }
     fields:
-        reminder_id:
-            type: integer
-            nullable: true
         name:
             type: string
             length: 255
@@ -22,13 +19,11 @@ Numa\DOADMSBundle\Entity\ReminderItem:
             type: string
             length: 255
             nullable: true
-    manyToOne:
-        Reminder:
-            targetEntity: Reminder
-            inversedBy: ReminderItem
-            joinColumn:
-                name: reminder_id
-                referencedColumnName: id
+    oneToMany:
+        ReminderItem:
+            targetEntity: Numa\DOADMSBundle\Entity\Reminder
+            mappedBy: ReminderItem
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

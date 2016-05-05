@@ -981,6 +981,7 @@ class Customer
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @JMS\Expose
      */
     private $Reminder;
 

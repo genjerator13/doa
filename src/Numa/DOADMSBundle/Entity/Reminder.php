@@ -223,4 +223,33 @@ class Reminder
             $this->date_updated = new \DateTime();
         }
     }
+    /**
+     * @var int
+     */
+    private $reminderItem_id;
+
+
+    /**
+     * Set reminderItemId
+     *
+     * @param int $reminderItemId
+     *
+     * @return Reminder
+     */
+    public function setReminderItemId($reminderItemId)
+    {
+        $this->reminderItem_id = $reminderItemId;
+
+        return $this;
+    }
+
+    /**
+     * Get reminderItemId
+     *
+     * @return int
+     */
+    public function getReminderItemId()
+    {
+        return $this->reminderItem_id;
+    }
 }
