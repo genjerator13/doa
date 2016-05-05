@@ -45,7 +45,7 @@ class ReminderController extends Controller
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('customer'));
+            return $this->redirect($this->generateUrl('customer_edit', array('id'=>$entity->getCustomerId())));
 
         }
 

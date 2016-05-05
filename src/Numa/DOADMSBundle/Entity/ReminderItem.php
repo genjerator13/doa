@@ -230,4 +230,36 @@ class ReminderItem
     {
         return $this->ReminderItem;
     }
+
+    /**
+     * Add reminder
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminder
+     *
+     * @return ReminderItem
+     */
+    public function addReminder(\Numa\DOADMSBundle\Entity\Reminder $reminder)
+    {
+        $this->Reminder[] = $reminder;
+
+        return $this;
+    }
+
+    /**
+     * Remove reminder
+     *
+     * @param \Numa\DOADMSBundle\Entity\Reminder $reminder
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeReminder(\Numa\DOADMSBundle\Entity\Reminder $reminder)
+    {
+        return $this->Reminder->removeElement($reminder);
+    }
+
+    public function __toString()
+    {
+        return $this->getName();
+        // TODO: Implement __toString() method.
+    }
 }

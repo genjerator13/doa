@@ -20,7 +20,7 @@ Numa\DOADMSBundle\Entity\ReminderItem:
             length: 255
             nullable: true
     oneToMany:
-        ReminderItem:
+        Reminder:
             targetEntity: Numa\DOADMSBundle\Entity\Reminder
             mappedBy: ReminderItem
             cascade: [persist]

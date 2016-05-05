@@ -33,8 +33,7 @@ Numa\DOADMSBundle\Entity\Reminder:
             joinColumn:
                 name: customer_id
                 referencedColumnName: id
-    manyToOne:
-        Reminder:
+        ReminderItem:
             targetEntity: ReminderItem
             inversedBy: Reminder
             joinColumn:

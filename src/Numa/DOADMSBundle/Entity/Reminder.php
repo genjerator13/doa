@@ -223,6 +223,7 @@ class Reminder
             $this->date_updated = new \DateTime();
         }
     }
+
     /**
      * @var int
      */
@@ -251,5 +252,34 @@ class Reminder
     public function getReminderItemId()
     {
         return $this->reminderItem_id;
+    }
+    /**
+     * @var \Numa\DOADMSBundle\Entity\ReminderItem
+     */
+    private $ReminderItem;
+
+
+    /**
+     * Set reminderItem
+     *
+     * @param \Numa\DOADMSBundle\Entity\ReminderItem $reminderItem
+     *
+     * @return Reminder
+     */
+    public function setReminderItem(\Numa\DOADMSBundle\Entity\ReminderItem $reminderItem = null)
+    {
+        $this->ReminderItem = $reminderItem;
+
+        return $this;
+    }
+
+    /**
+     * Get reminderItem
+     *
+     * @return \Numa\DOADMSBundle\Entity\ReminderItem
+     */
+    public function getReminderItem()
+    {
+        return $this->ReminderItem;
     }
 }
