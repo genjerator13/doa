@@ -23,4 +23,13 @@ class PartRequestRESTController extends Controller
         return $partRequest;
     }
 
+    /**
+     * @Rest\View
+     */
+    public function byDealerAction($dealer_id)
+    {
+        $partRequest = $this->getDoctrine()->getRepository('NumaDOADMSBundle:PartRequest')->findBy(array('dealer_id'=>$dealer_id));
+        return $partRequest;
+    }
+
 }

@@ -502,6 +502,7 @@ class PartRequest
     }
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     * @JMS\Expose
      */
     private $Dealer;
 
@@ -529,4 +530,34 @@ class PartRequest
     {
         return $this->Dealer;
     }
+    /**
+     * @var int
+     */
+    private $dealer_id;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return PartRequest
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
 }

@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Form\PartRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,9 +19,19 @@ class PartsController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $session = $request->getSession();
+            $dealer_id = $session->get('dealer_id');
+            if(!empty($dealer_id)){
+
+                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+                $entity->setDealer($dealer);
+                dump($dealer);
+            }
+
+
             $em->persist($entity);
             $em->flush();
-            $request->getSession()
+            $session
                 ->getFlashBag()
                 ->add('success', 'Success!');
 
@@ -36,25 +47,25 @@ class PartsController extends Controller {
 
 
 
-    public function createAction(Request $request)
-    {
-        $entity = new PartRequest();
-        $form = $this->createCreateForm($entity);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-            return $this->redirect($this->generateUrl('partrequest'));
-
-        }
-
-        return $this->render('NumaDOADMSBundle:PartRequest:new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
+//    public function createAction(Request $request)
+//    {
+//        $entity = new PartRequest();
+//        $form = $this->createCreateForm($entity);
+//        $form->handleRequest($request);
+//
+//        if ($form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($entity);
+//            $em->flush();
+//            return $this->redirect($this->generateUrl('partrequest'));
+//
+//        }
+//
+//        return $this->render('NumaDOADMSBundle:PartRequest:new.html.twig', array(
+//            'entity' => $entity,
+//            'form'   => $form->createView(),
+//        ));
+//    }
 
     /**
      * Creates a form to create a PartRequest entity.

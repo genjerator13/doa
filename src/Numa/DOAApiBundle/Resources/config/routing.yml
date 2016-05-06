@@ -20,6 +20,9 @@ note_api:
 billing_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/billing.yml"
         prefix:   /billing
+part_request_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/part_request.yml"
+        prefix:   /part_request
 
 listing:
     pattern:  /listing/{id}.{_format}

@@ -529,4 +529,62 @@ class PartRequest
     {
         return $this->Dealer;
     }
+    /**
+     * @var int
+     */
+    private $dealer_id;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return PartRequest
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+    /**
+     * @var string
+     */
+    private $status2;
+
+
+    /**
+     * Set status2
+     *
+     * @param string $status2
+     *
+     * @return PartRequest
+     */
+    public function setStatus2($status2)
+    {
+        $this->status2 = $status2;
+
+        return $this;
+    }
+
+    /**
+     * Get status2
+     *
+     * @return string
+     */
+    public function getStatus2()
+    {
+        return $this->status2;
+    }
 }

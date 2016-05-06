@@ -62,6 +62,9 @@ Numa\DOADMSBundle\Entity\PartRequest:
              type: string
              length: 255
              nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
