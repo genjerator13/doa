@@ -275,6 +275,7 @@ class DefaultController extends Controller {
         $temp = array();
         $items = array_slice($featured, $max);
         //dump($items);die();
+
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
 
         if($order==1){
@@ -286,6 +287,7 @@ class DefaultController extends Controller {
         $response->setPublic();
         $response->setSharedMaxAge(60);
         $response->setMaxAge(60);
+        $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         return $response;
     }
 

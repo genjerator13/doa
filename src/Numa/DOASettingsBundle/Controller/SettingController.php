@@ -48,13 +48,19 @@ class SettingController extends Controller
         $entity = new Setting();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $dashboard = $request->get('_dashboard');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
             $this->addFlash("Success", "Setting added: " . $entity->getName());
-            return $this->redirect($this->generateUrl('setting'));
+            $redirect = 'settings';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_settings';
+            }
+
+            return $this->redirect($this->generateUrl($redirect));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
@@ -70,10 +76,14 @@ class SettingController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Setting $entity)
+    private function createCreateForm(Setting $entity,$dashboard = "")
     {
+        $action = 'setting_create';
+        if(!empty($dashboard)){
+            $action = 'dms_setting_create';
+        }
         $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_create'),
+            'action' => $this->generateUrl($action),
             'method' => 'POST',
         ));
 
@@ -86,10 +96,11 @@ class SettingController extends Controller
      * Displays a form to create a new Setting entity.
      *
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $entity = new Setting();
-        $form = $this->createCreateForm($entity);
+        $dashboard = $request->get('_dashboard');
+        $form = $this->createCreateForm($entity,$dashboard);
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
             'entity' => $entity,

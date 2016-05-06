@@ -56,9 +56,16 @@
                         </table>
                         <ul>
                             <li>
-                                <a href="{{ path('setting_new') }}" class="btn btn-success">
-                                    Create a new entry
-                                </a>
+
+                                {% if(app.request.get('_dashboard')=='DMS') %}
+                                    <a href="{{ path('dms_setting_new') }}" class="btn btn-success">
+                                        Create a new entry
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('setting_new') }}" class="btn btn-success">
+                                        Create a new entry
+                                    </a>
+                                {% endif %}
                             </li>
                         </ul>
                     </div>

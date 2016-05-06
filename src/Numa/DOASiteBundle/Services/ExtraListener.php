@@ -26,21 +26,19 @@ class ExtraListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $kernel    = $event->getKernel();
-        $request   = $event->getRequest();
-        $container = $this->container;
-        //$controller = $event->getController();
-        //$request->set
-        $routeName = $request->get('route');
-        //$container->set("seo")="TESTTEST";
-        //dump($routeName);
-        //dump($event);
-        //die();
+        $session = $event->getRequest()->getSession();
+        if(!empty($session->get('dealer_id'))){
+            $this->container->set('dealer_id',"sdfsdfsd");
+            $session->set('dealer_id',"sdfsdfsd");
+        }
+
+
     }
 
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
+        //$controller->set
         //dump($controller);die();
     }
 
