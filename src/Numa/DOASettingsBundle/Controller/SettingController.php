@@ -55,7 +55,7 @@ class SettingController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->addFlash("Success", "Setting added: " . $entity->getName());
-            $redirect = 'settings';
+            $redirect = 'setting';
             if($dashboard =='DMS'){
                 $redirect = 'dms_settings';
             }
@@ -134,10 +134,10 @@ class SettingController extends Controller
      * Displays a form to edit an existing Setting entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
 
         if (!$entity) {
@@ -151,6 +151,7 @@ class SettingController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -161,10 +162,15 @@ class SettingController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Setting $entity)
+    private function createEditForm(Setting $entity,$dashboard = "")
     {
+        $action = 'setting_update';
+        if(!empty($dashboard)){
+            $action = 'dms_setting_update';
+        }
+
         $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
 
         ));
 
@@ -180,7 +186,7 @@ class SettingController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
 
         if (!$entity) {
@@ -193,14 +199,18 @@ class SettingController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('setting_edit', array('id' => $id)));
+            $redirect = 'setting_edit';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_setting_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 

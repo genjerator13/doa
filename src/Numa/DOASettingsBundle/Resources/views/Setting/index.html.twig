@@ -43,10 +43,17 @@
                                         <td>{{ entity.section }}</td>
                                         <td>
                                             <ul>
+                                                {% if(app.request.get('_dashboard')=='DMS') %}
+                                                <li>
+                                                    <a href="{{ path('dms_setting_edit', { 'id': entity.id }) }}"
+                                                       class="btn btn-primary">edit</a>
+                                                </li>
+                                                {% else %}
                                                 <li>
                                                     <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
                                                        class="btn btn-primary">edit</a>
                                                 </li>
+                                                {% endif %}
                                             </ul>
                                         </td>
                                     </tr>
