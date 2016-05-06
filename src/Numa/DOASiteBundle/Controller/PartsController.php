@@ -25,7 +25,6 @@ class PartsController extends Controller {
 
                 $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
                 $entity->setDealer($dealer);
-                dump($dealer);
             }
 
 
