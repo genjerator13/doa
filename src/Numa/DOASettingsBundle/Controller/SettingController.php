@@ -144,7 +144,7 @@ class SettingController extends Controller
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity,$dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
@@ -165,6 +165,7 @@ class SettingController extends Controller
     private function createEditForm(Setting $entity,$dashboard = "")
     {
         $action = 'setting_update';
+
         if(!empty($dashboard)){
             $action = 'dms_setting_update';
         }
