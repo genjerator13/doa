@@ -64,7 +64,7 @@ class SettingController extends Controller
             $this->addFlash("Success", "Setting added: " . $entity->getName());
             $redirect = 'setting';
             if($dashboard =='DMS'){
-                $redirect = 'dms_settings';
+                $redirect = 'dms_setting';
             }
 
             return $this->redirect($this->generateUrl($redirect));
