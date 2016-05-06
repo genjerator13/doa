@@ -19,10 +19,10 @@ class SettingController extends Controller
      * Lists all Setting entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
         $settingLib = $this->get("numa.settings");
         $sections = $settingLib->getSections();
@@ -35,6 +35,7 @@ class SettingController extends Controller
             'entities' => $entities,
             'sections' => $sections,
             'settings' => $settings,
+            'dashboard' => $dashboard,
         ));
     }
 
