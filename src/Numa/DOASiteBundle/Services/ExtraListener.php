@@ -38,7 +38,7 @@ class ExtraListener
 
 //            dump($host);
 //            dump(strip_tags($request->getHost()));
-            if(trim($host)==trim(strip_tags($request->getHost()))){
+            if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
                 $dealer = $setting->getDealerForHost(trim($host));
 //                dump($dealer);
                 $this->container->set('dealer',$dealer);

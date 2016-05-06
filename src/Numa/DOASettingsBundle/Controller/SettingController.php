@@ -59,6 +59,10 @@ class SettingController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if(strtoupper($dashboard)=="DMS") {
+                $dealer = $this->get('security.token_storage')->getToken()->getUser();
+                $entity->setDealer($dealer);
+            }
             $em->persist($entity);
             $em->flush();
             $this->addFlash("Success", "Setting added: " . $entity->getName());
