@@ -50,6 +50,17 @@ class SettingsLib
         return $value;
     }
 
+    public function getDealerForHost($host)
+    {
+        $setting = $this->getRepo()->findOneBy(array(
+            'name' => 'host','value'=>$host
+        ));
+
+        $dealer = $setting->getDealer();
+
+        return $dealer;
+    }
+
     /**
      * @param string $name Name of the setting to update.
      * @param string|null $value New value for the setting.

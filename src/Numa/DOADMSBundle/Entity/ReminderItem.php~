@@ -256,4 +256,10 @@ class ReminderItem
     {
         return $this->Reminder->removeElement($reminder);
     }
+
+    public function __toString()
+    {
+        return $this->getName();
+        // TODO: Implement __toString() method.
+    }
 }

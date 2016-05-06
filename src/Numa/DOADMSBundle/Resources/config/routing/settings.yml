@@ -1,4 +1,4 @@
-dms_settings:
+dms_setting:
     path:     /
     defaults: { _controller: "NumaDOASettingsBundle:Setting:index",_dashboard:"DMS" }
 #

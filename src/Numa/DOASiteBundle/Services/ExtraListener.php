@@ -26,11 +26,50 @@ class ExtraListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $session = $event->getRequest()->getSession();
-        if(!empty($session->get('dealer_id'))){
-            $this->container->set('dealer_id',"sdfsdfsd");
-            $session->set('dealer_id',"sdfsdfsd");
+        $request = $event->getRequest();
+        $session = $request->getSession();
+        $params = $request->get('_route_params');
+        $dashboard="";
+        $session->clear();//'dealer_id')
+        if(empty($session->get('dealer_id'))){
+            //get from host from settings
+            $setting = $this->container->get("Numa.settings");
+            $host = $setting->get('host');
+
+//            dump($host);
+//            dump(strip_tags($request->getHost()));
+            if(trim($host)==trim(strip_tags($request->getHost()))){
+                $dealer = $setting->getDealerForHost(trim($host));
+//                dump($dealer);
+                $this->container->set('dealer',$dealer);
+                $session->set('dealer_id',$dealer->getId());
+            }
+
+
         }
+
+//        die($session->get('dealer_id'));
+
+//        $this->container->set('dashboard_route_prefix',"");
+//        $session->set('dashboard_route_prefix',"");
+//        if (strpos($request->getPathInfo(), '/dms') !== false) {
+//
+//            $dashboard='DMS';
+//            if (empty($session->get('dashboard'))) {
+//
+//                $this->container->set('dashboard', $dashboard);
+//                $session->set('dashboard', $dashboard);
+//            }
+//
+//            if (empty($session->get('dashboard_route_prefix'))) {
+//                $drp = strtolower($dashboard) . "_";
+//                $this->container->set('dashboard_route_prefix', $drp);
+//                $session->set('dashboard_route_prefix', $drp);
+//                $this->container->set('is_dms', strtolower($dashboard) == 'dms');
+//                $session->set('is_dms', strtolower($dashboard) == 'dms');
+//            }
+//        }
+        //dump($session->get('dashboard_route_prefix'));die();
 
 
     }
