@@ -15,14 +15,14 @@ dms_setting_create:
     defaults: { _controller: "NumaDOASettingsBundle:Setting:create",_dashboard:"DMS" }
     requirements: { _method: post }
 #
-#setting_edit:
-#    path:     /{id}/edit
-#    defaults: { _controller: "NumaDOAAdminBundle:Setting:edit" }
+dms_setting_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:edit",_dashboard:"DMS" }
 #
-#setting_update:
-#    path:     /{id}/update
-#    defaults: { _controller: "NumaDOAAdminBundle:Setting:update" }
-#    requirements: { _method: post|put }
+dms_setting_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
 #
 #setting_delete:
 #    path:     /{id}/delete
