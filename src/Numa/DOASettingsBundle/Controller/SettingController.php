@@ -26,10 +26,17 @@ class SettingController extends Controller
         $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
         $settingLib = $this->get("numa.settings");
         $sections = $settingLib->getSections();
+        if(strtoupper($dashboard)=="DMS"){
+            $dealer = $this->get('security.token_storage')->getToken()->getUser();
+            $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findBy(array('Dealer'=>$dealer));
+            $sections = $settingLib->getSections($dealer);
+        }
+
         $settings = array();
         foreach ($entities as $setting) {
             $settings[$setting->getSection()][] = $setting;
         }
+
 
         return $this->render('NumaDOASettingsBundle:Setting:index.html.twig', array(
             'entities' => $entities,

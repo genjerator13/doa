@@ -152,13 +152,17 @@ class SettingsLib
         return new \RuntimeException(sprintf('Setting "%s" couldn\'t be found.', $name));
     }
 
-    public function getSections(){
-        $q = $this->em->createQueryBuilder()
-            ->select('s.section')
+    public function getSections($dealer=null){
+        $q = $this->em->createQueryBuilder();
+        $q->select('s.section')
             ->distinct()
-            ->from('NumaDOASettingsBundle:Setting', 's')
-            ->getQuery();
-        return $q->getArrayResult();
+            ->from('NumaDOASettingsBundle:Setting', 's');
+        if(!empty($dealer)){
+            $q->where('s.dealer_id=:dealer_id');
+            $q->setParameter('dealer_id',$dealer->getId());
+        }
+        $res=$q->getQuery();
+        return $res->getArrayResult();
     }
 
     public function replaceRealValues($subject,$map=array()){
