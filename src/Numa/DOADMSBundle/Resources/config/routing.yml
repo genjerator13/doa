@@ -45,5 +45,8 @@ NumaDOADMSBundle_reminder:
 dms_settings:
     resource: "@NumaDOADMSBundle/Resources/config/routing/settings.yml"
     prefix:   /settings
+part_reguest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
+    prefix:   /partreguest
 #    pattern:  /settings
 #    defaults: { _controller: "NumaDOASettingsBundle:Setting:index",_dashboard:"DMS" }
