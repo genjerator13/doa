@@ -1459,8 +1459,11 @@ class Item
     public function getPriceString()
     {
         $res = "";
+        if($this->getPrice()==0){
+            return "";
+        }
         if (!empty($this->getPrice())) {
-            $res = "$ " . number_format($this->getPrice(), 0, ',', ' ');
+            $res = "$ " . number_format($this->getPrice(), 0, '.', ',');
         }
         return $res;
     }
