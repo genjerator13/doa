@@ -7,12 +7,13 @@
     {% set dealer = item.getDealer() %}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
-
+        {{ dump(images) }}
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="picture-detail">
                 <a href="{{ detailUrl }}" class="thumbnail">
+
                     {% if images is empty %}
                         <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}"/>
                     {% else %}
@@ -32,7 +33,7 @@
             <div class="shortDetails">
                 <h4>
                     <a href="{{ detailUrl }}">
-                        {{ item.getTitle() }} {% if (item.getSold()==1) %}<span
+                        {{ item.getListingTitle() }} {% if (item.getSold()==1) %}<span
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>
