@@ -10,6 +10,22 @@
                 <a href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
 
 
+                    {% set image = item.getImages2()|first %}
+                    {% if images is empty %}
+                        <img class="thumbnail" alt="No photos"
+                             src="{{ asset('images/no_image_available_small.png') }}"/>
+                    {% else %}
+                        {% set image = item.getImages()|first["stringvalue"] %}
+                        {% if ('http' not in image) %}
+                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
+                                 src="{{ image|imagine_filter('search_image') }}"/>
+                        {% else %}
+                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
+                                 width="120" height="90"/>
+                        {% endif %}
+
+                    {% endif %}
+                    <span class="text-center price">{{ item.getPriceString() }}</span>
                 </a>
             {% endfor %}
         </div>
