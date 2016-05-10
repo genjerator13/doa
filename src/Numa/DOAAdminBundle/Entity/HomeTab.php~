@@ -407,4 +407,91 @@ class HomeTab
     {
         return $this->listing_field_list_slug;
     }
+    /**
+     * @var int
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return HomeTab
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return HomeTab
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Catalogrecords;
+
+
+    /**
+     * Set catalogrecords
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords
+     *
+     * @return HomeTab
+     */
+    public function setCatalogrecords(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null)
+    {
+        $this->Catalogrecords = $catalogrecords;
+
+        return $this;
+    }
+
+    /**
+     * Get catalogrecords
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getCatalogrecords()
+    {
+        return $this->Catalogrecords;
+    }
 }

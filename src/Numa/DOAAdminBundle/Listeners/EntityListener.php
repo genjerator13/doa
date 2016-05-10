@@ -22,6 +22,7 @@ class EntityListener {
 
     public function preFlush(PreFlushEventArgs $args)
     {
+
 //        $em  = $args->getEntityManager();
 //        $uow = $em->getUnitOfWork();
 //        dump($uow->getScheduledEntityUpdates());
@@ -54,6 +55,7 @@ class EntityListener {
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
+        dump("preupdateXXXX");
 //        $em = $eventArgs->getEntityManager();
 //        $uow = $em->getUnitOfWork();
 //
@@ -123,6 +125,7 @@ class EntityListener {
 
     public function preUpdate(PreUpdateEventArgs $args) {
 
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
@@ -153,6 +156,7 @@ class EntityListener {
     }
 
     public function postUpdate(LifecycleEventArgs $args) {
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {

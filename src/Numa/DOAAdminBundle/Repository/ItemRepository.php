@@ -582,5 +582,33 @@ class ItemRepository extends EntityRepository
 
     }
 
+    public function getByCategoryTypeDealer($cat,$type,$dealer=null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.category_id=:category_id');
+
+        if($cat==1){
+            $qb->andWhere('i.body_style like :body_style');
+            $qb->setParameter('body_style', $type );
+        }else {
+            $qb->andWhere('i.type like :type');
+            $qb->setParameter('type',  $type );
+
+        }
+        $qb->setParameter('category_id', $cat);
+        if($dealer instanceof Catalogrecords) {
+            $qb->andWhere('i.dealer_id=:dealer_id');
+            $qb->setParameter('dealer_id', $dealer->getId());
+        }
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        //dump($itemsQuery);
+        return $itemsQuery->getResult();
+    }
+
 
 }

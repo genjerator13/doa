@@ -31,6 +31,7 @@ class ExtraListener
         $params = $request->get('_route_params');
         $dashboard="";
         //$session->clear();//'dealer_id')
+
         if(empty($session->get('dealer_id'))){
             //get from host from settings
             $setting = $this->container->get("Numa.settings");
