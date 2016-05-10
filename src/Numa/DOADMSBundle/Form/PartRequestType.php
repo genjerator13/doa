@@ -24,7 +24,7 @@ class PartRequestType extends AbstractType
             ->add('model')
             ->add('year')
             ->add('vin')
-            ->add('part_num',null,array('label'=>'Part Number #'))
+            ->add('part_num',null,array('label'=>'Part Number #', 'attr'=>array("data-role"=>"tagsinput")))
             ->add('part_desc',null,array('label'=>'Part Description'))
             ->add('comment')
             //->add('date_created')
