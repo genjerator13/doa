@@ -2,6 +2,18 @@
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
 
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
+    <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+
+    <style type="text/css">
+        .bootstrap-tagsinput {
+            width: 100%;
+        }
+        .label {
+            line-height: 2 !important;
+        }
+    </style>
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {% if app.session.flashBag.has('success') %}
@@ -22,9 +34,15 @@
     {{ form_row(form.make) }}
     {{ form_row(form.model) }}
     {{ form_row(form.vin) }}
+    {{ form_row(form.vin) }}
 
     <h4>What parts do you need?*</h4>
     {{ form_row(form.part_num) }}
     {{ form_row(form.part_desc) }}
     {{ form_end(form) }}
+
+
+
+
+
 {% endblock %}
