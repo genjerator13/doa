@@ -26,7 +26,7 @@ class Catalogrecords implements UserInterface
      * @var integer
      * @Expose
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -1123,5 +1123,46 @@ class Catalogrecords implements UserInterface
     public function getGst()
     {
         return $this->gst;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $HomeTab;
+
+
+    /**
+     * Add homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return Catalogrecords
+     */
+    public function addHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        $this->HomeTab[] = $homeTab;
+
+        return $this;
+    }
+
+    /**
+     * Remove homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        return $this->HomeTab->removeElement($homeTab);
+    }
+
+    /**
+     * Get homeTab
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHomeTab()
+    {
+        return $this->HomeTab;
     }
 }

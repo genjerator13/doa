@@ -1,6 +1,7 @@
 Numa\DOASettingsBundle\Entity\Setting:
     type: entity
     table: setting
+    repositoryClass: Numa\DOASettingsBundle\Repository\SettingRepository
     id:
         id:
             type: integer

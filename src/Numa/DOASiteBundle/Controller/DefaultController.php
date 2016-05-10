@@ -13,21 +13,33 @@ class DefaultController extends Controller {
     public function indexAction() {
         $nocache = false;
         $em = $this->getDoctrine()->getManager();
-        $hometabs = $this->get('mymemcache')->get('hometabs');
+        $session = $this->get('session');
+        $dealer_id = $session->get('dealer_id');
+        $hometabs_key = "hometabs_".$dealer_id;
+        //dump($hometabs_key);
+        $hometabs = $this->get('mymemcache')->get($hometabs_key);
          
-        if (empty($hometabs)) {
-            $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findAll();
-
-            $this->get('mymemcache')->set('hometabs', $hometabs);
+        //if (empty($hometabs)) {
+            $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findByDealer($dealer_id);
+            //dump($hometabs);die();
+            $this->get('mymemcache')->set($hometabs_key, $hometabs);
             $nocache = true;
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        }
+        //}
 
         $tabs = array();
+        $session = $this->get('session');
+        $dealer_id = $session->get('dealer_id');
+        //dump($dealer_id);
         foreach ($hometabs as $tab) {
             $cat = $tab->getCategoryName();
+//            if(){
+//
+//            }
             $tabs[$cat][] = $tab;
         }
+
+        //dump($tabs);//die();
 
         $vehCategory = 1;
         $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
