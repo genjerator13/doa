@@ -54,6 +54,12 @@ class SearchController extends Controller
             $this->searchParameters->setAll($parameters);
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
+        //dump($parameters);die();
+        $session = $this->get('session');
+        $dealer_id = $session->get('dealer_id');
+        if(!empty($dealer_id)){
+            $parameters['dealer_id'] = $dealer_id;
+        }
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
         //$sortParams =  $parameters['search_field'];
