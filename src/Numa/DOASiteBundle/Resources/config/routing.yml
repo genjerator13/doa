@@ -127,3 +127,6 @@ statistics:
 part_form:
     path:     /parts
     defaults: { _controller: "NumaDOASiteBundle:Parts:part" }
+part_success:
+    path:  /part_success
+    defaults: { _controller: "NumaDOASiteBundle:Parts:success" }

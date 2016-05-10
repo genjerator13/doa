@@ -18,23 +18,36 @@ class PartsController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em = $this->getDoctrine()->getManager();
             $session = $request->getSession();
             $dealer_id = $session->get('dealer_id');
+            $parts = explode(",",$entity->getPartNum());
+            $entities = array();
+            if($parts>1){
+                $c=0;
+                foreach ($parts as $part){
+                    $entities[$c] = clone $entity;
+                    $entities[$c]->setPartNum($part);
+                    if(!empty($dealer_id)){
+                        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+                        $entities[$c]->setDealer($dealer);
+                    }
+                    $em->persist($entities[$c]);
+                    $c++;
+                }
+            }
             if(!empty($dealer_id)){
-
                 $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
                 $entity->setDealer($dealer);
             }
 
-
-            $em->persist($entity);
+            if(empty($entities)) {
+                $em->persist($entity);
+            }
             $em->flush();
-            $session
-                ->getFlashBag()
-                ->add('success', 'Success!');
 
-            return $this->redirect($this->generateUrl('part_form'));
+            return $this->redirectToRoute('part_success');
 
         }
 
@@ -84,6 +97,12 @@ class PartsController extends Controller {
 
         return $form;
     }
+    public function successAction(){
+        $message = "Success";
 
+        return $this->render('NumaDOASiteBundle:Parts:parts_success.html.twig', array(
+            'message'=>$message
+        ));
+    }
 }
 
