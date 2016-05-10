@@ -113,7 +113,6 @@ class SearchController extends Controller
         $this->queryUrl = $this->searchParameters->makeUrlQuery();
         $this->queryUrlNoSort = $this->searchParameters->makeUrlQuery(false);
         //$stopwatch->stop('eventName');
-        //dump($stopwatch);die();
         return array('items' => $items,
             'pagerfanta' => $pagerfanta,
             'listing_per_page' => $number,

@@ -21,16 +21,17 @@
         {#</div>#}
         <div id="item-images">
             <div class="row">
+                {{ form_start(addVideoForm) }}
                 <div class="col-lg-6">
                     <div class="input-group">
-                        {{ form_start(addVideoForm) }}
+
                         {{ form_widget(addVideoForm.url) }}
                         <span class="input-group-btn">
-                        {{ form_widget(addVideoForm.send) }}
-                            {{ form_end(addVideoForm) }}
-                    </span>
-                    </div><!-- /input-group -->
-                </div><!-- /.col-lg-6 -->
+                            {{ form_widget(addVideoForm.send) }}
+                        </span>
+                    </div>
+                </div>
+                {{ form_end(addVideoForm) }}
             </div>
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
