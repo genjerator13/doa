@@ -443,7 +443,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
 
         $em->clear();
-        
+
 
         //dump($memcache->get('hometabs'));
     }
