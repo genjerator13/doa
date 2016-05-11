@@ -439,11 +439,11 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             }
         }
-        dump("333");
+
         $em->flush();
-        dump("444");
+
         $em->clear();
-        dump("555");
+
 
         //dump($memcache->get('hometabs'));
     }
