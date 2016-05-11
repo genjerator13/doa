@@ -48,5 +48,6 @@ dms_settings:
 part_reguest:
     resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
     prefix:   /partreguest
-#    pattern:  /settings
-#    defaults: { _controller: "NumaDOASettingsBundle:Setting:index",_dashboard:"DMS" }
+dms_imageCarousel:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/imageCarousel.yml"
+    prefix:   /imagecarousel
