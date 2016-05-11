@@ -22,13 +22,7 @@ class CustomerController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Customer')->findAll();
-
-        return $this->render('NumaDOADMSBundle:Customer:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render('NumaDOADMSBundle:Customer:index.html.twig');
     }
     /**
      * Creates a new Customer entity.
@@ -42,14 +36,11 @@ class CustomerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-
-            //get loged user
             $entity->upload();
-            $user = $this->get('security.token_storage')->getToken()->getUser();
-            if($user instanceof Catalogrecords){
-                $entity->setCatalogrecords($user);
-            }
-            //
+
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $entity->setCatalogrecords($dealer);
+
             $em->persist($entity);
             $em->flush();
 

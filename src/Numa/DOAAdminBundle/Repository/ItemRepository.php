@@ -32,49 +32,52 @@ class ItemRepository extends EntityRepository
         return $res;
     }
 
-    public function findFeatured($max = 5)
+    public function findFeatured($dealer_id="",$max = 5)
     {
         if (empty($max)) {
             $max = 5;
         }
-        $em = $this->getEntityManager();
-        $res2 = $this->memcache->get('featured');
+        $dealer_id = empty($dealer_id)?"":$dealer_id;
+
+        $res2 = $this->memcache->get('featured_'.$dealer_id);
 
         if (!$res2) {
 
             $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
+            if(!empty($dealer_id)){
+                $q = $q." AND i.dealer_id=".intval($dealer_id);
+            }
+
             $query = $this->getEntityManager()
                 ->createQuery($q);
-            $query->useResultCache(true, 3600, 'featuredSelect');
+            // $query->useResultCache(true, 3600, 'featuredSelect_'.$dealer_id);
+            //dump($query);die();
             $res2 = $query->getArrayResult();
-            $this->memcache->set('featured', $res2);
+            $this->memcache->set('featured_'.$dealer_id, $res2);
 
         }
 
         $count = count($res2);
         $maxOffset = $count - $max <= 0 ? $count : $max;
-
         if (!empty($res2)) {
 
-            //$randResult = $this->memcache->get('randomFeaturedads');
-            //if ($randResult===false) {
             $rand_keys = array_rand($res2, $maxOffset);
             $randResult = array();
             foreach ($rand_keys as $key) {
                 $randResult[] = $res2[$key]['id'];
             }
-            //$this->memcache->set('randomFeaturedads',$randResult,false,3600);
-            // } 
-
 
             $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->select('i')
                     ->from('NumaDOAAdminBundle:Item', 'i')
-                    //->join('i.ItemField', 'if')
                     ->andWhere('i.id IN (:ids)')
                     ->setParameter('ids', $randResult)
                     ->setMaxResults(10);
             ;
+            if(!empty($dealer_id)){
+                $qb->andWhere('i.dealer_id=:dealer_id');
+                $qb->setParameter('dealer_id',intval($dealer_id));
+            }
 
             $query = $qb->getQuery();
             $query->useResultCache(true, 3600, 'featuredRandomSet');
@@ -100,8 +103,6 @@ class ItemRepository extends EntityRepository
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
-            //->from('NumaDOAAdminBundle:Item', 'i')
-            //->join('NumaDOAAdminBundle:UserItem', 'ui')
             ->where('ui.user_id=:user_id')
             ->andWhere('ui.item_type= :item_type')
             ->setParameter('item_type', \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD)
@@ -148,7 +149,6 @@ class ItemRepository extends EntityRepository
             ->setParameter('category', $cat);
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getSQL());
         return $itemsQuery->getResult();
     }
 

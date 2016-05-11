@@ -7,7 +7,7 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav col-md-9 col-xs-9 col-sm-9 col-lg-9">
             <li class="{% if route=='homepage' %}active{% endif %}"><a href="{{ path('homepage') }}">Home</a></li>
             <li class="{% if route=='buyer_login' %}active{% endif %}"><a href="{{ path('buyer_login') }}">Dealer
                     login</a></li>
@@ -15,10 +15,12 @@
                     Search</a></li>
 
             <li class="{% if route=='buyer_register' %}active{% endif %}">
-                {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
-                    <a href="{{ path('buyer_register') }}">Buyer Registration / Sign In</a>
-                {% else %}
-                    <a class="" href="{{ path('logout') }}"> Log Out </a>
+                {% if(app.session.get('dealer_id') is not defined or app.session.get('dealer_id') is empty) %}
+                    {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
+                        <a href="{{ path('buyer_register') }}">Buyer Registration / Sign In</a>
+                    {% else %}
+                        <a class="" href="{{ path('logout') }}"> Log Out </a>
+                    {% endif %}
                 {% endif %}
             </li>
             {% if app.session.get('dealer_id') is not defined or app.session.get('dealer_id') is empty %}

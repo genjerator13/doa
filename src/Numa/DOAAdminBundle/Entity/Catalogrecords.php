@@ -478,11 +478,6 @@ class Catalogrecords implements UserInterface
         $this->username = $username;
     }
 
-    public function __sleep()
-    {
-        return array('id', 'name', 'email');
-    }
-
     /**
      * @var integer
      */
@@ -1164,5 +1159,36 @@ class Catalogrecords implements UserInterface
     public function getHomeTab()
     {
         return $this->HomeTab;
+    }
+
+    public function __sleep() {
+
+        // these are field names to be serialized, others will be excluded
+        // but note that you have to fill other field values by your own
+        return array('id',
+            'category_id',
+            'name',
+            'description',
+            'url',
+            'address',
+            'phone',
+            'location',
+            'email',
+            'fax',
+            'full',
+            'logo',
+            'logo_url',
+            'password',
+            'contact',
+            'dealer_id',
+            'address2',
+            'city',
+            'zip',
+            'state',
+            'username',
+            'Admindealer',
+            'dms_status',
+            'gst',
+        );
     }
 }

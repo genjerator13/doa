@@ -5,8 +5,8 @@
     {% set user= app.security.getToken().getUser().getId() %}
     {% set apicall="/api/dmsuser/"~user~"/dealer" %}
 {% endif %}
-{% if is_granted('ROLE_ADMIN') and app.session.get('dealer') %}
-    {% set user= app.session.get('dealer').getId() %}
+{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
+    {% set user= app.session.get('dms_dealer_id') %}
     {% set apicall="/api/dmsuser/"~user~"/dealer" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}

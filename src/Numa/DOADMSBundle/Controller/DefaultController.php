@@ -22,8 +22,12 @@ class DefaultController extends Controller
         if (!empty($dealer_id)) {
             $dealer = $this->get('doctrine.orm.entity_manager')->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
             $session = $this->get('session');
-            $session->set('dealer', $dealer);
-
+            $session->remove('dms_dealer_id');
+            $session->remove('dms_dealer_name');
+            if ($dealer instanceof Catalogrecords) {
+                $session->set('dms_dealer_id', $dealer->getId());
+                $session->set('dms_dealer_name', $dealer->getName());
+            }
             return $this->redirectToRoute('dms_home');
 
         }
@@ -42,12 +46,14 @@ class DefaultController extends Controller
     {
         $session = $this->get('session');
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $dealer=null;
-        if($user instanceof Catalogrecords){
+        $dealer = null;
+        if ($user instanceof Catalogrecords) {
             $dealer = $user;
-        }elseif($session->get('dealer') instanceof Catalogrecords){
-            $dealer =$session->get('dealer');
+        } elseif (!empty($session->get('dms_dealer_id'))) {
+            $dealer_id = $session->get('dms_dealer_id');
+            $em = $this->getDoctrine()->getManager();
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
         }
-        return $this->render('NumaDOADMSBundle:Default:feeds.html.twig',array('dealer'=>$dealer));
+        return $this->render('NumaDOADMSBundle:Default:feeds.html.twig', array('dealer' => $dealer));
     }
 }

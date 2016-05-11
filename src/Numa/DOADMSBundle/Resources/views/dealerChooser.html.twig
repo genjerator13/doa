@@ -8,8 +8,8 @@
         </select>
         <input class="btn btn-primary" type="submit" value="Switch dealer"/>
     </form>
-    {% set dealer = app.session.get('dealer') %}
+    {% set dealer = app.session.get('dms_dealer_id') %}
     {% if(dealer is defined and dealer is not empty) %}
-        Logged Dealer: {{ dealer.name }}
+        Logged Dealer: {{ app.session.get('dms_dealer_name') }}
     {% endif %}
 {% endif %}

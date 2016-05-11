@@ -21,13 +21,7 @@ class PartRequestController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:PartRequest')->findAll();
-
-        return $this->render('NumaDOADMSBundle:PartRequest:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render('NumaDOADMSBundle:PartRequest:index.html.twig');
     }
     /**
      * Creates a new PartRequest entity.

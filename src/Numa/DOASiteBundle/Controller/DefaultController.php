@@ -281,7 +281,9 @@ class DefaultController extends Controller {
         $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
 
         $itemrep->setMemcached($this->get('mymemcache'));
-        $featured = $itemrep->findFeatured($max*2);
+        $session = $this->get('session');
+        $dealer_id = $session->get('dealer_id');
+        $featured = $itemrep->findFeatured($dealer_id,$max*2);
 
         $items = array();
         $temp = array();

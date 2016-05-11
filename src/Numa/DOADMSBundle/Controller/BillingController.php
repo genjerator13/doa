@@ -41,11 +41,10 @@ class BillingController extends Controller
         $entity = new Billing();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $dealer = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($dealer instanceof Catalogrecords) {
-            $entity->setDealer($dealer);
-        }
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $entity->setCatalogrecords($dealer);
+
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
 

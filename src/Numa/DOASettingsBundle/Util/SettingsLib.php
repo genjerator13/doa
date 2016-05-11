@@ -1,6 +1,7 @@
 <?php
 namespace Numa\DOASettingsBundle\Util;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
@@ -157,7 +158,7 @@ class SettingsLib
         $q->select('s.section')
             ->distinct()
             ->from('NumaDOASettingsBundle:Setting', 's');
-        if(!empty($dealer)){
+        if($dealer instanceof Catalogrecords){
             $q->where('s.dealer_id=:dealer_id');
             $q->setParameter('dealer_id',$dealer->getId());
         }

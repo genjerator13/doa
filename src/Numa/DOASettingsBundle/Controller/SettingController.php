@@ -2,6 +2,7 @@
 
 namespace Numa\DOASettingsBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -21,22 +22,18 @@ class SettingController extends Controller
      */
     public function indexAction(Request $request)
     {
+
         $em = $this->getDoctrine()->getManager();
         $dashboard = $request->get('_dashboard');
-        $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
         $settingLib = $this->get("numa.settings");
-        $sections = $settingLib->getSections();
-        if(strtoupper($dashboard)=="DMS"){
-            $dealer = $this->get('security.token_storage')->getToken()->getUser();
-            $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findBy(array('Dealer'=>$dealer));
-            $sections = $settingLib->getSections($dealer);
-        }
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser();
+        $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->getSettingsForUser($dealer);
+        $sections = $settingLib->getSections($dealer);
 
         $settings = array();
         foreach ($entities as $setting) {
             $settings[$setting->getSection()][] = $setting;
         }
-
 
         return $this->render('NumaDOASettingsBundle:Setting:index.html.twig', array(
             'entities' => $entities,
@@ -60,7 +57,7 @@ class SettingController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             if(strtoupper($dashboard)=="DMS") {
-                $dealer = $this->get('security.token_storage')->getToken()->getUser();
+                $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
                 $entity->setDealer($dealer);
             }
             $em->persist($entity);

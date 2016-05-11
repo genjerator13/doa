@@ -1,5 +1,11 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
-{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
 {% block content %}
 
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css" />
@@ -34,10 +40,11 @@
     {{ form_row(form.make) }}
     {{ form_row(form.model) }}
     {{ form_row(form.vin) }}
-    {{ form_row(form.vin) }}
 
     <h4>What parts do you need?*</h4>
     {{ form_row(form.part_num) }}
+    <p class="help-block">Separate parts numbers by comma (",") in order to order more than one part </p>
+
     {{ form_row(form.part_desc) }}
     {{ form_end(form) }}
 
