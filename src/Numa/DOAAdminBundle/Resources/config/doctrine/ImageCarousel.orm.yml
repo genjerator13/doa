@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\ImageCarousel:
     type: entity
     table: imiage_carousel
+    repositoryClass: Numa\DOAAdminBundle\Repository\ImageCarouselRepository
     id:
         id:
             type: integer
@@ -38,6 +39,15 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
         updated_at:
             type: datetime
             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

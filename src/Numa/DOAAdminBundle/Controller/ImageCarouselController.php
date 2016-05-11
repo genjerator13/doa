@@ -26,7 +26,9 @@ class ImageCarouselController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dashboard = $request->get('_dashboard');
-        $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+
+        $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealers($dealer);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:index.html.twig', array(
             'entities' => $entities,
@@ -50,6 +52,7 @@ class ImageCarouselController extends Controller
             $em = $this->getDoctrine()->getManager();
 
             $entity->upload();
+
             $em->persist($entity);
             $em->flush();
             $this->addFlash("New image is added to carousel", 'success');
@@ -59,10 +62,7 @@ class ImageCarouselController extends Controller
             }
 
             return $this->redirect($this->generateUrl($redirect));
-        } else {
-            dump($form);
         }
-        die();
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:new.html.twig', array(
             'entity' => $entity,
@@ -228,6 +228,9 @@ class ImageCarouselController extends Controller
             $imagecarousel->setTitle($file->getClientOriginalName());
             $imagecarousel->setSrc($file->getClientOriginalName());
             $em->persist($imagecarousel);
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $imagecarousel->setDealer($dealer);
+
             $em->flush();
             $file->move($imagecarousel->getUploadRootDir(), $file->getClientOriginalName());
         }
