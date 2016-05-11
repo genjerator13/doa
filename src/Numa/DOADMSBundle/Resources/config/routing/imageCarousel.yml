@@ -1,0 +1,37 @@
+dms_imagecarousel:
+    path:     /
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:index",_dashboard:"DMS" }
+
+dms_imagecarousel_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:show",_dashboard:"DMS" }
+
+dms_imagecarousel_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:new",_dashboard:"DMS" }
+
+dms_imagecarousel_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:create",_dashboard:"DMS" }
+    requirements: { _method: post }
+
+dms_imagecarousel_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:edit",_dashboard:"DMS" }
+
+dms_imagecarousel_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+
+dms_imagecarousel_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:delete",_dashboard:"DMS" }
+
+dms_imagecarousel_upload:
+    path:     /upload
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:upload",_dashboard:"DMS" }
+
+dms_imagecarousel_add_video:
+    path:     /addvideo
+    defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:addVideo",_dashboard:"DMS" }
