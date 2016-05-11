@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
     {% javascripts '@colorbox_js' %}
@@ -13,9 +15,15 @@
 
         <div class="box-header">
             <div class="box-tools">
-                <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
-                    Add new images
-                </a>
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a class="btn btn-primary" href="{{ path('dms_imagecarousel_new') }}">
+                        Add new images
+                    </a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ path('imagecarousel_new') }}">
+                        Add new images
+                    </a>
+                {% endif %}
             </div>
             <div class="row">
                 {{ form_start(addVideoForm) }}
@@ -68,18 +76,25 @@
                         <td>{{ entity.url }}</td>
                         <td>
                             <ul class="list-inline">
+                                {% if(app.request.get('_dashboard')=='DMS') %}
+                                <li>
+                                    <a class="btn btn-primary"
+                                       href="{{ path('dms_imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
+                                </li>
+                                    <li>
+                                        <a class="btn btn-danger"
+                                           href="{{ path('dms_imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
+                                    </li>
+                                {% else %}
                                 <li>
                                     <a class="btn btn-primary"
                                        href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
                                 </li>
-                                <li>
-                                    <a class="btn btn-warning"
-                                       href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">disable</a>
-                                </li>
-                                <li>
-                                    <a class="btn btn-danger"
-                                       href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-                                </li>
+                                    <li>
+                                        <a class="btn btn-danger"
+                                           href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </td>
                     </tr>

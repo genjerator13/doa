@@ -22,15 +22,16 @@ class ImageCarouselController extends Controller
      * Lists all ImageCarousel entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findAll();
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:index.html.twig', array(
             'entities' => $entities,
-            'addVideoForm' => $this->addVideoForm()->createView()
+            'addVideoForm' => $this->addVideoForm($dashboard)->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -43,6 +44,7 @@ class ImageCarouselController extends Controller
         $entity = new ImageCarousel();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $dashboard = $request->get('_dashboard');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -51,7 +53,12 @@ class ImageCarouselController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->addFlash("New image is added to carousel", 'success');
-            return $this->redirect($this->generateUrl('imagecarousel'));
+            $redirect = 'imagecarousel';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_imagecarousel';
+            }
+
+            return $this->redirect($this->generateUrl($redirect));
         } else {
             dump($form);
         }
@@ -123,23 +130,24 @@ class ImageCarouselController extends Controller
      * Displays a form to edit an existing ImageCarousel entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity,$dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -150,13 +158,20 @@ class ImageCarouselController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ImageCarousel $entity)
+    private function createEditForm(ImageCarousel $entity,$dashboard = "")
     {
+        $action = 'imagecarousel_update';
+
+        if(!empty($dashboard)){
+            $action = 'dms_imagecarousel_update';
+        }
+
         $form = $this->createForm(new ImageCarouselType(), $entity, array(
-            'action' => $this->generateUrl('imagecarousel_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
 
             //'attr'=>array('class'=>'dropzone'),
         ));
+
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
@@ -169,7 +184,7 @@ class ImageCarouselController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
 
         if (!$entity) {
@@ -182,14 +197,18 @@ class ImageCarouselController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('imagecarousel_edit', array('id' => $id)));
+            $redirect = 'imagecarousel_edit';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_imagecarousel_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -221,15 +240,18 @@ class ImageCarouselController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
+        $dashboard = $request->get('_dashboard');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
         $em->remove($entity);
         $em->flush();
-
-
-        return $this->redirect($this->generateUrl('imagecarousel'));
+        $redirect = 'imagecarousel';
+        if($dashboard =='DMS'){
+            $redirect = 'dms_imagecarousel';
+        }
+        return $this->redirect($this->generateUrl($redirect));
     }
 
     /**
@@ -241,19 +263,26 @@ class ImageCarouselController extends Controller
      */
     private function createDeleteForm($id)
     {
+
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('imagecarousel_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('dms_imagecarousel_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
     }
 
 
-    public function addVideoForm()
+    public function addVideoForm($dashboard="")
     {
+        $action = 'imagecarousel_add_video';
+
+        if(!empty($dashboard)){
+            $action = 'dms_imagecarousel_add_video';
+        }
 
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('imagecarousel_add_video'))
+
+            ->setAction($this->generateUrl($action))
             ->add('url', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
             ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
@@ -264,9 +293,9 @@ class ImageCarouselController extends Controller
     public function addVideoAction(Request $request)
     {
 
-        $form = $this->addVideoForm();
+        $dashboard = $request->get('_dashboard');
+        $form = $this->addVideoForm($dashboard);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $data = $form->getData();
 
@@ -280,7 +309,13 @@ class ImageCarouselController extends Controller
             $em->persist($imageCarousel);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('imagecarousel'));
+
+        $redirect = 'imagecarousel';
+        if($dashboard =='DMS'){
+            $redirect = 'dms_imagecarousel';
+        }
+
+        return $this->redirect($this->generateUrl($redirect));
     }
 
 
