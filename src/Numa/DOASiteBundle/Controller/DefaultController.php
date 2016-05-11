@@ -306,13 +306,16 @@ class DefaultController extends Controller {
     }
 
     public function carouselAction($max,$order=1) {
+
         $em = $this->getDoctrine()->getManager();
         $session = $this->get('session');
         $dealer_id = $session->get('dealer_id');
-        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
-
+        $dealer =null;
+        if(!empty($dealer_id)) {
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+        }
         $carouselImages = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealers($dealer);
-
+        
         $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('images' => $carouselImages));
 
 //        $response->setPublic();
