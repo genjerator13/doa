@@ -34,10 +34,12 @@ class ItemController extends Controller {
         //get dealer
         $dealer = $item->getDealer();
 
-
+        //increase views and insert log
         $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
+        //insert log
+        $em->getRepository('NumaDOAStatsBundle:Stats')->insertLog($item);
 
-        $emailForm = $this->emailDealerForm($request, $item->getDealer());
+        $emailForm = $this->emailDealerForm($request, $dealer);
 
         if ($emailForm instanceof \Symfony\Component\Form\Form) {
 
