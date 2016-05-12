@@ -1,0 +1,85 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>ServiceRequest</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Cust_name</th>
+                <td>{{ entity.custname }}</td>
+            </tr>
+            <tr>
+                <th>Cust_last_name</th>
+                <td>{{ entity.custlastname }}</td>
+            </tr>
+            <tr>
+                <th>Contact_by</th>
+                <td>{{ entity.contactby }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ entity.phone }}</td>
+            </tr>
+            <tr>
+                <th>Date_appointment</th>
+                <td>{{ entity.dateappointment|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Time_appointment</th>
+                <td>{{ entity.timeappointment|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <td>{{ entity.make }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ entity.model }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.year }}</td>
+            </tr>
+            <tr>
+                <th>Comment</th>
+                <td>{{ entity.comment }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+            <tr>
+                <th>Dealer_id</th>
+                <td>{{ entity.dealerid }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+        <a href="{{ path('servicerequest') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+
+        <a href="{{ path('servicerequest_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            Edit
+        </a>
+
+{% endblock %}

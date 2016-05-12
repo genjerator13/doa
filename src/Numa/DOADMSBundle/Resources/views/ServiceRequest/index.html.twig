@@ -1,0 +1,61 @@
+    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content -%}
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">ServiceRequest list</h3>
+        <div class="box-tools">
+            
+                        <a href="{{ path('servicerequest_new') }}" class="btn btn-primary">
+                            Create a new ServiceRequest
+                        </a>
+                    </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cust_name</th>
+                <th>Cust_last_name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Date_appointment</th>
+                <th>Time_appointment</th>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Comment</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('servicerequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.custname }}</td>
+                <td>{{ entity.custlastname }}</td>
+                <td>{{ entity.email }}</td>
+                <td>{{ entity.phone }}</td>
+                <td>{% if entity.dateappointment %}{{ entity.dateappointment|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if entity.timeappointment %}{{ entity.timeappointment|date('H:i') }}{% endif %}</td>
+                <td>{{ entity.make }}</td>
+                <td>{{ entity.model }}</td>
+                <td>{{ entity.year }}</td>
+                <td>{{ entity.comment }}</td>
+                <td><ul>
+        <li>
+            <a href="{{ path('servicerequest_delete', { 'id': entity.id }) }}">delete</a>
+        </li>
+        <li>
+            <a href="{{ path('servicerequest_edit', { 'id': entity.id }) }}">edit</a>
+        </li>
+</ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

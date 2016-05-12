@@ -128,5 +128,11 @@ part_form:
     path:     /parts
     defaults: { _controller: "NumaDOASiteBundle:Parts:part" }
 part_success:
-    path:  /part_success
+    path:  /partSuccess
     defaults: { _controller: "NumaDOASiteBundle:Parts:success" }
+service_form:
+    path:     /service
+    defaults: { _controller: "NumaDOASiteBundle:Service:service" }
+service_success:
+    path:  /serviceSuccess
+    defaults: { _controller: "NumaDOASiteBundle:Service:success" }
