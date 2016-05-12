@@ -51,3 +51,6 @@ part_reguest:
 dms_imageCarousel:
     resource: "@NumaDOADMSBundle/Resources/config/routing/imageCarousel.yml"
     prefix:   /imagecarousel
+NumaDOADMSBundle_servicerequest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/servicerequest.yml"
+    prefix:   /servicerequest
