@@ -63,6 +63,15 @@ class AppKernel extends Kernel {
         return $bundles;
     }
 
+//    // Add this to app/AppKernel.php
+//    public function init()
+//    {
+//        ini_set('display_errors', 0);
+//    }
+
+
+
+
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');
     }

@@ -1,0 +1,7 @@
+parameters:
+#    numa_doa_stats.example.class: Numa\DOAStatsBundle\Example
+
+services:
+#    numa_doa_stats.example:
+#        class: %numa_doa_stats.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
