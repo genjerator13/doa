@@ -51,6 +51,7 @@ class AppKernel extends Kernel {
             //new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
             //new Circle\RestClientBundle\CircleRestClientBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Numa\DOAStatsBundle\NumaDOAStatsBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -61,6 +62,15 @@ class AppKernel extends Kernel {
 
         return $bundles;
     }
+
+//    // Add this to app/AppKernel.php
+//    public function init()
+//    {
+//        ini_set('display_errors', 0);
+//    }
+
+
+
 
     public function registerContainerConfiguration(LoaderInterface $loader) {
         $loader->load(__DIR__ . '/config/config_' . $this->getEnvironment() . '.yml');

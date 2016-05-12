@@ -1,3 +1,7 @@
+numa_doa_stats:
+    resource: "@NumaDOAStatsBundle/Resources/config/routing.yml"
+    prefix:   /
+
 dms_activate:
     path:  /dms_activate
     defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
@@ -23,7 +27,9 @@ numa_doa_settings:
 numa_doa_site:
     resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
     prefix:   /
-
+#numa_doa_site2:
+#    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
+#    prefix:   /d
 numa_doa_admin:
     resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
