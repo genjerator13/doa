@@ -315,7 +315,7 @@ class DefaultController extends Controller {
             $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
         }
         $carouselImages = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealers($dealer);
-        
+
         $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('images' => $carouselImages));
 
 //        $response->setPublic();

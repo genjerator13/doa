@@ -390,4 +390,62 @@ class ImageCarousel
         // clean up the file property as you won't need it anymore
         $this->file = null;
     }
+    /**
+     * @var int
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return ImageCarousel
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return ImageCarousel
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
 }
