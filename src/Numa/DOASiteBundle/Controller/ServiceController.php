@@ -25,7 +25,6 @@ class ServiceController extends Controller {
             if(!empty($dealer_id)){
                 $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
                 $entity->setDealer($dealer);
-dump($dealer_id);die();
             }
 
             if(empty($entities)) {

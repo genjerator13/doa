@@ -93,7 +93,7 @@ class PartsController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
     }

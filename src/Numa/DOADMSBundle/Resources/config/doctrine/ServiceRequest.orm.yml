@@ -28,10 +28,10 @@ Numa\DOADMSBundle\Entity\ServiceRequest:
             length: 255
             nullable: true
         date_appointment:
-            type: datetime
+            type: date
             nullable: true
         time_appointment:
-            type: datetime
+            type: time
             nullable: true
         make:
             type: string
