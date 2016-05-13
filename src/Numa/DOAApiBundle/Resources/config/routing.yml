@@ -23,6 +23,9 @@ billing_api:
 part_request_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/part_request.yml"
         prefix:   /part_request
+service_request_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/service_request.yml"
+        prefix:   /service_request
 
 listing:
     pattern:  /listing/{id}.{_format}

@@ -527,4 +527,9 @@ class ServiceRequest
             $this->date_updated = new \DateTime();
         }
     }
+    public function __construct()
+    {
+        $this->date_appointment = new \DateTime();
+    }
+
 }

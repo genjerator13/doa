@@ -1,12 +1,12 @@
 {# get the loged dealer #}
-{% set apicall="/api/part_request/all" %}
+{% set apicall="/api/service_request/all" %}
 {% if is_granted('ROLE_BUSINES') %}
 {% set user= app.security.getToken().getUser().getId() %}
-{% set apicall="/api/part_request/"~user~"/dealer" %}
+{% set apicall="/api/service_request/"~user~"/dealer" %}
 {% endif %}
 {% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
 {% set user= app.session.get('dms_dealer_id') %}
-{% set apicall="/api/part_request/"~user~"/dealer" %}
+{% set apicall="/api/service_request/"~user~"/dealer" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -36,17 +36,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
 
         },
-        {name: 'cust_name', displayName: 'Name', enableColumnResizing: true, width: 100},
-        {name: 'cust_last_name', displayName: 'Surname', enableColumnResizing: true, width: 100},
-        {name: 'email', enableColumnResizing: true, width: 100},
-        {name: 'phone', enableColumnResizing: true, width: 100},
-        {name: 'make', enableColumnResizing: true, width: 100},
-        {name: 'model', enableColumnResizing: true, width: 100},
+        {name: 'cust_name', displayName: 'Name', enableColumnResizing: true},
+        {name: 'cust_last_name', displayName: 'Surname', enableColumnResizing: true},
+        {
+            name:'contact_by',
+            enableColumnResizing: true, width: 60,
+            cellTemplate: '<span ng-if="row.entity.contact_by == \'0\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'1\'" class="glyphicon glyphicon-phone"></span>',
+        },
+        {name: 'email', enableColumnResizing: true},
+        {name: 'phone', enableColumnResizing: true},
+        {name: 'date_appointment', enableColumnResizing: true, width: 100, cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name: 'time_appointment', enableColumnResizing: true, width: 100, cellFilter: 'date:\'HH:mm\''},
+        {name: 'make', enableColumnResizing: true},
+        {name: 'model', enableColumnResizing: true},
         {name: 'year', enableColumnResizing: true, width: 55},
-        {name: 'vin', enableColumnResizing: true, width: 100},
-        {name: 'part_num', enableColumnResizing: true, width: 100},
-        {name: 'part_desc', enableColumnResizing: true, width: 100},
-        {name: 'comment', enableColumnResizing: true, width: 100},
+        {name: 'comment', enableColumnResizing: true},
 
         {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
         {name:'views',enableColumnResizing: true,width: 60},
