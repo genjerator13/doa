@@ -17,7 +17,6 @@ class DefaultController extends Controller
 
     public function dealerChooserAction(Request $request)
     {
-        $dealers = array();
         $dealer_id = $request->get('dealer');
         if (!empty($dealer_id)) {
             $dealer = $this->get('doctrine.orm.entity_manager')->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
@@ -36,6 +35,22 @@ class DefaultController extends Controller
             return $this->render('NumaDOADMSBundle::dealerChooser.html.twig', array('dealers' => $dealers));
         }
         return $this->render('NumaDOADMSBundle::dealerChooser.html.twig');
+    }
+
+    public function themesAction(Request $request){
+        $theme = $request->get('theme');
+        $settings = $this->get("Numa.Settings");
+        $ctheme="Default";
+        $t = $settings->get("theme");
+        if(!empty($t)){
+            $ctheme = $t;
+        }
+        if (!empty($theme)) {
+
+            $settings->set('theme',$theme,'site');
+
+        }
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
     }
 
     /**

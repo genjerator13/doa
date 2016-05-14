@@ -67,15 +67,22 @@ class SettingsLib
      * @param string|null $value New value for the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function set($name, $value)
+    public function set($name, $value,$section="")
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => $name,
         ));
         if ($setting === null) {
-            throw $this->createNotFoundException($name);
+            $setting= new Setting();
+            $setting->setName($name);
+            $setting->setValue($value);
+            $setting->setSection($section);
+            $this->em->persist($setting);
+
         }
         $setting->setValue($value);
+        $setting->setSection($section);
+
         $this->em->flush($setting);
     }
 

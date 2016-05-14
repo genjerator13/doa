@@ -165,11 +165,15 @@
                     <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
                 </li>
                 <li class="">
+                    <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-"></i>Themes</a>
+                </li>
+                <li class="">
                     <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
                 </li>
                 <li class="">
                     <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>
                 </li>
+
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -188,12 +192,9 @@
 
         <!-- Main content -->
         <section class="content">
-
             <!-- Your Page Content Here -->
             {% block content %}
             {% endblock %}
-
-
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
@@ -238,5 +239,4 @@
 </body>
 </html>
 
-<!-- /default:main:default.tpl -->
 

@@ -52,6 +52,7 @@ class AppKernel extends Kernel {
             //new Circle\RestClientBundle\CircleRestClientBundle(),
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Numa\DOAStatsBundle\NumaDOAStatsBundle(),
+            new Liip\ThemeBundle\LiipThemeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

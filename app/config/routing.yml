@@ -70,3 +70,6 @@ api:
 DOASiteBundle:
     resource: .
     type: extra
+liip_theme:
+    resource: "@LiipThemeBundle/Resources/config/routing.xml"
+    prefix: /theme

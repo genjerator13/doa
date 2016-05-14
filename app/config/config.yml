@@ -335,6 +335,10 @@ knp_snappy:
         enabled:    true
         binary:     xvfb-run wkhtmltopdf
         options:    []
+liip_theme:
+    themes: ['Default', 'Sea', 'weekend']
+    active_theme: 'Default'
+    assetic_integration: true
 #lsw_guzzle:
 #    clients:
 #        test:

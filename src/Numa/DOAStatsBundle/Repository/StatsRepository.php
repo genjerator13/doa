@@ -10,8 +10,7 @@ use Numa\DOAStatsBundle\Entity\Stats;
 
 class StatsRepository extends EntityRepository {
     public function insertLog($entity){
-
-
+        
         $referer = "";
         if(!empty($_SERVER['HTTP_REFERER'])) {
             $referer = $_SERVER['HTTP_REFERER'];
