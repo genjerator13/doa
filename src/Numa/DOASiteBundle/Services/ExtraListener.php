@@ -28,23 +28,29 @@ class ExtraListener
     {
         $request = $event->getRequest();
         $session = $request->getSession();
-        if(empty($session->get('dealer_id'))){
+
+        //if(empty($session->get('dealer_id'))){
             //get from host from settings
             $setting = $this->container->get("Numa.settings");
             $host = $setting->get('host');
 
             if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
                 $dealer = $setting->getDealerForHost(trim($host));
-                $this->container->set('dealer',$dealer);
-                $session->set('dealer_id',$dealer->getId());
+
+                if(!empty($dealer)) {
+                    $this->container->set('dealer', $dealer);
+                    $session->set('dealer_id', $dealer->getId());
+                    $setting->activateTheme($host);
+
+                }
             }
-        }
+        //}
         $settings = $this->container->get("Numa.Settings");
 
-        $theme = $settings->get('theme');
-        $activeTheme = $this->container->get('liip_theme.active_theme');
+
+        //$activeTheme = $this->container->get('liip_theme.active_theme');
         //echo $activeTheme->getName();
-        $activeTheme->setName($theme);
+        //$activeTheme->setName($theme);
     }
 
     public function onKernelController(FilterControllerEvent $event)

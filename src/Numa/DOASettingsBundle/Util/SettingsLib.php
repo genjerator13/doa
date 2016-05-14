@@ -51,15 +51,27 @@ class SettingsLib
         return $value;
     }
 
+    public function getSetting($name,$section="",$dealer=null){
+
+    }
+
     public function getDealerForHost($host)
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => 'host','value'=>$host
         ));
-
         $dealer = $setting->getDealer();
-
         return $dealer;
+    }
+
+    public function activateTheme($host){
+        $dealer = $this->getDealerForHost($host);
+        $theme = $this->getRepo()->getSingle('theme','site',$dealer);
+        $activeTheme = $this->container->get('liip_theme.active_theme');
+
+        $activeTheme->setName($theme->getValue());
+
+        return $theme;
     }
 
     /**
@@ -67,23 +79,26 @@ class SettingsLib
      * @param string|null $value New value for the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function set($name, $value,$section="")
+    public function set($name, $value,$section="",$dealer_id=null)
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => $name,
         ));
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
         if ($setting === null) {
             $setting= new Setting();
             $setting->setName($name);
             $setting->setValue($value);
+            $setting->setDealer($dealer);
             $setting->setSection($section);
             $this->em->persist($setting);
 
         }
+        $setting->setDealer($dealer);
         $setting->setValue($value);
         $setting->setSection($section);
 
-        $this->em->flush($setting);
+        $this->em->flush();
     }
 
     /**

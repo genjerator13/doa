@@ -1,0 +1,4 @@
+{% if description is not defined %}
+    {% set description= numa_settings('description')  %}
+{% endif %}
+<meta name="description" content="{{ description }} " />

@@ -1,0 +1,23 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% form_theme form 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+{% block content %}
+<h1 class="headline">Search Sellers</h1>
+    {{ form_start(form, {'attr': {'class': 'form-inline','role':'search'}}) }}
+    {{ form_errors(form) }}
+    <div class="row">
+    {{ form_row(form.Name,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-12','class':'input-group  input-group-sm'}) }}
+    </div>  
+    <br/>
+    <div class="row">
+    {{ form_row(form.City,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-12','class':'input-group  input-group-sm'}) }}
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-2">
+            <button class="btn btn-primary" type="submit">Search</button>
+        </div>
+    </div>
+    <br/>    
+{{ form_end(form) }}
+{{include("NumaDOASiteBundle:Default:category.html.twig")}}
+{% endblock %}

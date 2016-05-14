@@ -1,0 +1,41 @@
+<head>
+    {% block title %}
+
+        {% if(webpage is defined and webpage is not empty) %}
+            <title >{{ webpage.title }}</title>
+        {% else %}
+            <title >{{ title }}</title>
+        {% endif %}
+    {% endblock title %}
+    {% block description %}
+        {% if(webpage is defined and webpage is not empty) %}
+
+            {% include "NumaDOASiteBundle::description.html.twig" with {'description': webpage.description} %}
+        {% else %}
+            {% include "NumaDOASiteBundle::description.html.twig" with {'description' :numa_settings('description')} %}
+        {% endif %}
+
+    {% endblock description %}
+    {% block keyword %}
+        {% if(webpage is defined and webpage is not empty) %}
+            <meta name="keywords"  content="{{ webpage.keywords }}" />
+        {% else %}
+            <meta name="keywords" content="{{ numa_settings('keywords') }}" />
+        {% endif %}
+    {% endblock keyword %}
+
+
+    {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@colorbox_js' '@dropzone_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+
+        {% endjavascripts %}
+        {% include 'NumaDOASiteBundle::ga.html.twig' %}
+    {% endblock %}
+
+</head>

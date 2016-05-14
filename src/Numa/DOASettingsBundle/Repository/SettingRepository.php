@@ -35,4 +35,31 @@ class SettingRepository extends EntityRepository {
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+
+    public function getSingle($name,$section="",$dealer=null){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('s')
+            ->from('NumaDOASettingsBundle:Setting', 's');
+        if($dealer instanceof Catalogrecords){
+            $qb->andWhere('s.dealer_id like :dealer_id');
+            $qb->setParameter("dealer_id", $dealer->getId());
+        }else{
+            $qb->andWhere('s.dealer_id like :dealer_id');
+            $qb->setParameter("dealer_id", null);
+        }
+
+        if(!empty($name)){
+            $qb->andWhere('s.name like :name');
+            $qb->setParameter("name", $name);
+        }
+
+        if(!empty($section)){
+            $qb->andWhere('s.section like :section');
+            $qb->setParameter("section", $section);
+        }
+
+        $query = $qb->getQuery();
+        $res = $query->setMaxResults(1)->getOneOrNullResult(); //->getResult();
+        return $res;
+    }
 }
