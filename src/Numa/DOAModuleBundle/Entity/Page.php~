@@ -415,4 +415,45 @@ class Page
         // TODO: Implement __toString() method.
         return $this->getUrl();
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $PageComponent;
+
+
+    /**
+     * Add pageComponent
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
+     *
+     * @return Page
+     */
+    public function addPageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
+    {
+        $this->PageComponent[] = $pageComponent;
+
+        return $this;
+    }
+
+    /**
+     * Remove pageComponent
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
+    {
+        return $this->PageComponent->removeElement($pageComponent);
+    }
+
+    /**
+     * Get pageComponent
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPageComponent()
+    {
+        return $this->PageComponent;
+    }
 }

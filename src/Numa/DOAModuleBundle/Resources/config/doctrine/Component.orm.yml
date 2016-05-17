@@ -1,6 +1,6 @@
 Numa\DOAModuleBundle\Entity\Component:
     type: entity
-    table: component
+    table: componentx
 
     id:
         id:

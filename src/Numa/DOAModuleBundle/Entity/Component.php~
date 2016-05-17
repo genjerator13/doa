@@ -1,6 +1,6 @@
 <?php
 
-namespace Numa\DOADMSBundle\Entity;
+namespace Numa\DOAModuleBundle\Entity;
 
 /**
  * Component
@@ -53,10 +53,17 @@ class Component
     private $status;
 
     /**
-     * @var \Numa\DOAModuleBundle\Entity\Page
+     * @var \Doctrine\Common\Collections\Collection
      */
-    private $Page;
+    private $PageComponent;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->PageComponent = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -261,27 +268,39 @@ class Component
     }
 
     /**
-     * Set page
+     * Add pageComponent
      *
-     * @param \Numa\DOAModuleBundle\Entity\Page $page
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
      *
      * @return Component
      */
-    public function setPage(\Numa\DOAModuleBundle\Entity\Page $page = null)
+    public function addPageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
     {
-        $this->Page = $page;
+        $this->PageComponent[] = $pageComponent;
 
         return $this;
     }
 
     /**
-     * Get page
+     * Remove pageComponent
      *
-     * @return \Numa\DOAModuleBundle\Entity\Page
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function getPage()
+    public function removePageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
     {
-        return $this->Page;
+        return $this->PageComponent->removeElement($pageComponent);
+    }
+
+    /**
+     * Get pageComponent
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPageComponent()
+    {
+        return $this->PageComponent;
     }
     /**
      * @ORM\PrePersist
@@ -299,3 +318,4 @@ class Component
         // Add your code here
     }
 }
+
