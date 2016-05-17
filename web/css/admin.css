@@ -150,3 +150,7 @@ input[type="file"] {
 .changeable {
     border-color: #aa3333;
 }
+
+.new-listing{
+    padding: 10px;
+}

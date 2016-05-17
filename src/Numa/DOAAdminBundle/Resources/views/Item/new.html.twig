@@ -114,7 +114,9 @@
 
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.car</p>
-
+                        <div class="page-header">
+                            <h3>Vehicle Data</h3>
+                        </div>
                         <div class="form-group">
                             {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
@@ -177,7 +179,6 @@
                                 {{ form_widget(form.videoID, { 'attr': {'class': 'form-control'} }) }}
                             </div>
                         </div>
-
                         <div class="form-group">
                             {{ form_label(form.seller_comment, 'Seller Comment', { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
