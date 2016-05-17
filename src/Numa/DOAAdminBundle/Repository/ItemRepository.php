@@ -610,5 +610,19 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
+    public function isItemFieldExists($item_id,$fieldName){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:ItemField', 'i')
+            ->andWhere('i.field_name=:field_name')
+            ->andwhere('i.item_id=:item_id');
+        $qb->setParameter('field_name', $fieldName);
+        $qb->setParameter('item_id', $item_id);
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+
+        return $itemsQuery->getOneOrNullResult();
+    }
+
 
 }

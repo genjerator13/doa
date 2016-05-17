@@ -63,3 +63,8 @@ listingsByUniques:
     pattern:  /listings/{id}/uniques.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingByUniques",_format: "xml"}
     requirements: { _method: get }
+
+listing_add_feature:
+    pattern:  /listings/addfeature
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:addFeature"}
+    requirements: { _method: post }

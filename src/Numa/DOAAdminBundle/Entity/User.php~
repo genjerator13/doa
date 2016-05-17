@@ -1167,8 +1167,5 @@ class User implements UserInterface {
         }
         return $name;
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> develop
 }

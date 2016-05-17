@@ -1,7 +1,39 @@
 {% extends is_granted('ROLE_BUSINES')
 ? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 : 'NumaDOAAdminBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js' %}
+    <script src="{{ asset_url }}"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.config(function ($interpolateProvider) {
+            $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+        });
+        app.controller('myCtrl', function($scope, $http, $element) {
+            $scope.count=0;
+            $scope.addFeatured = function(e) {
 
+                $scope.count++;
+                var data = {
+                    item_id: {{ entity.id }},
+                    name: $scope.name,
+                };
+                console.log(data);
+                $http.post("{{ path('listing_add_feature') }}",data)
+                        .then(function (response) {
+                            alert(response.data.message);
+                        });
+            }
+
+
+
+        });
+    </script>
+    {% endjavascripts %}
+{% endblock javascripts %}
 {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
 {% form_theme seo 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block checkbox_widget %}
@@ -65,7 +97,7 @@
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
     {% endif %}
-    <div class="box box-default">
+    <div class="box box-default" ng-app="myApp" ng-controller="myCtrl">
         <div class="new-listing new-car" xmlns="http://www.w3.org/1999/html">
             <div class="page-header">
                 <h1>{{ action|raw }}</h1>
@@ -114,6 +146,7 @@
 
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.car</p>
+
                         <div class="page-header">
                             <h3>Vehicle Data</h3>
                         </div>
@@ -179,6 +212,40 @@
                                 {{ form_widget(form.videoID, { 'attr': {'class': 'form-control'} }) }}
                             </div>
                         </div>
+                        <div class="page-header">
+                            <h3>Purchase Invoice Data</h3>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.invoice_nr, '', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.invoice_nr, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            {{ form_label(form.invoice_date, '', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.invoice_date, { 'attr': {'class': 'datepicker form-control'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.invoice_amount, '', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.invoice_amount, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.discount1, '', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.discount2, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.sale_amount, '', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            <div class="col-sm-9">
+                                {{ form_widget(form.sale_amount, { 'attr': {'class': 'form-control'} }) }}
+                            </div>
+                        </div>
                         <div class="form-group">
                             {{ form_label(form.seller_comment, 'Seller Comment', { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
@@ -212,8 +279,19 @@
                                         </span>
                                     {{ form_row(field.field_type) }}
                                 </li>
-
                             {% endfor %}
+                            <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
+                                 <div class="col-lg-12">
+                                    <div class="input-group">
+                                        <input id="form_url" class="form-control" type="text" ng-model="name">
+                                        <span class="input-group-btn">
+                                            <button type='button' id="form_send" class="btn btn-primary" ng-click="addFeatured()" type="submit">Add Feature
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </li>
+
                         </ul>
 
                         <div class="row">
@@ -288,4 +366,11 @@
             {% endif %}
         </div>
     </div>
+    <script>
+
+        $(function () {
+            $(".datepicker").datepicker();
+        });
+    </script>
+
 {% endblock %}

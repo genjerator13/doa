@@ -142,6 +142,18 @@ class ItemType extends AbstractType
             ->add('mpgCity')
             ->add('mpgHighway')
             ->add('iwNo')
+            ->add('invoice_nr')
+            ->add('invoice_date', 'date', array(
+                'label' => false,
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => array('class' => 'datepicker')
+            ))
+            ->add('invoice_amount')
+            ->add('discount1')
+            ->add('discount2')
+            ->add('sale_amount')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            
         ;

@@ -458,4 +458,3 @@ class Stats
         return $this->request_time;
     }
 }
-

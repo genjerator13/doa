@@ -58,10 +58,7 @@ Numa\DOAModuleBundle\Entity\Page:
             targetEntity: PageAds
             mappedBy: Page
             cascade: [persist]
-#    oneToOne:
-#        Seo:
-#            targetEntity: Numa\DOAModuleBundle\Entity\Seo
-#            cascade: ["persist","remove"]
-#            joinColumn:
-#                name: seo_id
-#                referencedColumnName: id
+        PageComponent:
+            targetEntity: PageComponent
+            mappedBy: Page
+            cascade: [persist]

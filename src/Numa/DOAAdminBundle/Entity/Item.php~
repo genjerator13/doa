@@ -3732,4 +3732,178 @@ class Item
     {
         return $this->awnings;
     }
+    /**
+     * @var string
+     */
+    private $invoice_nr;
+
+    /**
+     * @var \DateTime
+     */
+    private $invoice_date;
+
+    /**
+     * @var float
+     */
+    private $invoice_amount;
+
+    /**
+     * @var float
+     */
+    private $discount1;
+
+    /**
+     * @var float
+     */
+    private $discount2;
+
+    /**
+     * @var float
+     */
+    private $sale_amount;
+
+
+    /**
+     * Set invoiceNr
+     *
+     * @param string $invoiceNr
+     *
+     * @return Item
+     */
+    public function setInvoiceNr($invoiceNr)
+    {
+        $this->invoice_nr = $invoiceNr;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNr
+     *
+     * @return string
+     */
+    public function getInvoiceNr()
+    {
+        return $this->invoice_nr;
+    }
+
+    /**
+     * Set invoiceDate
+     *
+     * @param \DateTime $invoiceDate
+     *
+     * @return Item
+     */
+    public function setInvoiceDate($invoiceDate)
+    {
+        $this->invoice_date = $invoiceDate;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime
+     */
+    public function getInvoiceDate()
+    {
+        return $this->invoice_date;
+    }
+
+    /**
+     * Set invoiceAmount
+     *
+     * @param float $invoiceAmount
+     *
+     * @return Item
+     */
+    public function setInvoiceAmount($invoiceAmount)
+    {
+        $this->invoice_amount = $invoiceAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceAmount
+     *
+     * @return float
+     */
+    public function getInvoiceAmount()
+    {
+        return $this->invoice_amount;
+    }
+
+    /**
+     * Set discount1
+     *
+     * @param float $discount1
+     *
+     * @return Item
+     */
+    public function setDiscount1($discount1)
+    {
+        $this->discount1 = $discount1;
+
+        return $this;
+    }
+
+    /**
+     * Get discount1
+     *
+     * @return float
+     */
+    public function getDiscount1()
+    {
+        return $this->discount1;
+    }
+
+    /**
+     * Set discount2
+     *
+     * @param float $discount2
+     *
+     * @return Item
+     */
+    public function setDiscount2($discount2)
+    {
+        $this->discount2 = $discount2;
+
+        return $this;
+    }
+
+    /**
+     * Get discount2
+     *
+     * @return float
+     */
+    public function getDiscount2()
+    {
+        return $this->discount2;
+    }
+
+    /**
+     * Set saleAmount
+     *
+     * @param float $saleAmount
+     *
+     * @return Item
+     */
+    public function setSaleAmount($saleAmount)
+    {
+        $this->sale_amount = $saleAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get saleAmount
+     *
+     * @return float
+     */
+    public function getSaleAmount()
+    {
+        return $this->sale_amount;
+    }
 }

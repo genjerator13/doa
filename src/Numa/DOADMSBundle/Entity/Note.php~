@@ -289,7 +289,6 @@ class Note
             $this->date_updated = new \DateTime();
         }
     }
-<<<<<<< HEAD
 
     /**
      * Constructor
@@ -299,6 +298,4 @@ class Note
         $this->date_remind = new \DateTime();
 
     }
-=======
->>>>>>> develop
 }

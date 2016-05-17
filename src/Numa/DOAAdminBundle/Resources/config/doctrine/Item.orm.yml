@@ -368,6 +368,25 @@ Numa\DOAAdminBundle\Entity\Item:
         other:
               type: text
               nullable: true
+        invoice_nr:
+              type: string
+              length: 255
+              nullable: true
+        invoice_date:
+              type: datetime
+              nullable: true
+        invoice_amount:
+              type: float
+              nullable: true
+        discount1:
+              type: float
+              nullable: true
+        discount2:
+              type: float
+              nullable: true
+        sale_amount:
+              type: float
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
