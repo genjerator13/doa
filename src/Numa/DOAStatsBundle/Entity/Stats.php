@@ -1,9 +1,16 @@
 <?php
 
 namespace Numa\DOAStatsBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Stats
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Stats
 {
@@ -84,6 +91,7 @@ class Stats
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $request_time;
 

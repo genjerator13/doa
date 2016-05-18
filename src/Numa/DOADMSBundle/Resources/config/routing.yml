@@ -54,3 +54,6 @@ dms_imageCarousel:
 NumaDOADMSBundle_servicerequest:
     resource: "@NumaDOADMSBundle/Resources/config/routing/servicerequest.yml"
     prefix:   /servicerequest
+dms_finance:
+    pattern:  /finance
+    defaults: { _controller: "NumaDOADMSBundle:Finance:new" }

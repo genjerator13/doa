@@ -26,6 +26,9 @@ part_request_api:
 service_request_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/service_request.yml"
         prefix:   /service_request
+stats_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/stats.yml"
+        prefix:   /stats
 
 listing:
     pattern:  /listing/{id}.{_format}
