@@ -65,12 +65,21 @@ Numa\DOADMSBundle\Entity\PartRequest:
         dealer_id:
             type: integer
             nullable: true
+        customer_id:
+            type: integer
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
-            inversedBy: Customer
+            inversedBy: PartRequest
             joinColumn:
                 name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: PartRequest
+            joinColumn:
+                name: customer_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Form\ServiceRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +23,29 @@ class ServiceController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $session = $request->getSession();
             $dealer_id = $session->get('dealer_id');
+
+            //check if customer exists based by its email
+            $data = $form->getData();
+            $email = $data->getEmail();
+
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$dealer_id));
+
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+            if(empty($customer)){
+                $customer = new Customer();
+                $customer->setFirstName($data->getCustName());
+                $customer->setLastName($data->getCustLastName());
+                $customer->setEmail($email);
+                $customer->setCatalogrecords($dealer);
+                $customer->setHomePhone($data->getPhone());
+                $em->persist($customer);
+
+            }
+
+            $entity->setCustomer($customer);
+
+
+
             if(!empty($dealer_id)){
                 $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
                 $entity->setDealer($dealer);

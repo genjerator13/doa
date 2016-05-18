@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Form\PartRequestType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +24,22 @@ class PartsController extends Controller {
             $session = $request->getSession();
             $dealer_id = $session->get('dealer_id');
             $parts = explode(",",$entity->getPartNum());
+            //check if customer exists based by its email
+            $data = $form->getData();
+            $email = $data->getEmail();
+
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$dealer_id));
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+            if(empty($customer)){
+                $customer = new Customer();
+                $customer->setFirstName($data->getCustName());
+                $customer->setLastName($data->getCustLastName());
+                $customer->setEmail($email);
+                $customer->setCatalogrecords($dealer);
+                $customer->setHomePhone($data->getPhone());
+                $em->persist($customer);
+
+            }
             $entities = array();
             if($parts>1){
                 $c=0;
@@ -30,9 +47,10 @@ class PartsController extends Controller {
                     $entities[$c] = clone $entity;
                     $entities[$c]->setPartNum($part);
                     if(!empty($dealer_id)){
-                        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+
                         $entities[$c]->setDealer($dealer);
                     }
+                    $entities[$c]->setCustomer($customer);
                     $em->persist($entities[$c]);
                     $c++;
                 }
@@ -43,8 +61,10 @@ class PartsController extends Controller {
             }
 
             if(empty($entities)) {
+                $entity->setCustomer($customer);
                 $em->persist($entity);
             }
+
             $em->flush();
 
             return $this->redirectToRoute('part_success');

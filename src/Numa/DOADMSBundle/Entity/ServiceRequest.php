@@ -527,4 +527,62 @@ class ServiceRequest
             $this->date_updated = new \DateTime();
         }
     }
+    /**
+     * @var int
+     */
+    private $customer_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Customer
+     */
+    private $Customer;
+
+
+    /**
+     * Set customerId
+     *
+     * @param int $customerId
+     *
+     * @return ServiceRequest
+     */
+    public function setCustomerId($customerId)
+    {
+        $this->customer_id = $customerId;
+
+        return $this;
+    }
+
+    /**
+     * Get customerId
+     *
+     * @return int
+     */
+    public function getCustomerId()
+    {
+        return $this->customer_id;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Numa\DOADMSBundle\Entity\Customer $customer
+     *
+     * @return ServiceRequest
+     */
+    public function setCustomer(\Numa\DOADMSBundle\Entity\Customer $customer = null)
+    {
+        $this->Customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Numa\DOADMSBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->Customer;
+    }
 }

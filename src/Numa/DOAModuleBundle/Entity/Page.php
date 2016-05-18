@@ -391,6 +391,35 @@ class Page
 
             $this->addPageAd($pa);
         }
+    }
+
+    // Important
+    public function getComponent()
+    {
+        $components = new ArrayCollection();
+        if (!empty($this->getPageComponent()) && !$this->getPageComponent()->isEmpty()) {
+
+            foreach ($this->getPageComponent() as $pc) {
+                if ($pc instanceof PageComponent) {
+                    $components[] = $pc->getComponent();
+                }
+            }
+        }
+        return $components;
+    }
+
+
+    // Important
+    public function setComponent($pageComponents)
+    {
+        foreach ($pageComponents as $pageComponent) {
+            $pa = new PageComponent();
+
+            $pa->setPage($this);
+            $pa->setComponent($pageComponent);
+
+            $this->addPageComponent($pa);
+        }
 
     }
 

@@ -1,46 +1,59 @@
 {% extends 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <div class="container">
-        <h1>Page edit</h1>
-        {{ form(edit_form) }}
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
+    </ul>
 
-
-        <div id="ads">
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+            <h1>Page edit</h1>
+            {{ form(edit_form) }}
+        </div>
+        <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
         </div>
-        <!-- Button trigger modal -->
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Modal title</h4>
-
-                    </div>
-                    <div class="modal-body"><div class="te"></div></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+        <div id="web-content" class="tab-pane">
+            {% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}
         </div>
-        <!-- /.modal -->
-        <div class="clear"></div>
+    </div>
+
+
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modal title</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="te"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="clear"></div>
     <a href="{{ path('page') }}" class="btn btn-default" class="btn btn-primary">
         Back to the list
     </a>
     <script>
         initAjaxForm();
-        function initAjaxForm()
-        {
+        function initAjaxForm() {
             $('body').on('submit', '.ajaxForm', function (e) {
                 e.preventDefault();
                 var formData = new FormData($('form')[1]);
@@ -79,7 +92,7 @@
             });
         }
 
-        function reloadAds(){
+        function reloadAds() {
             $.ajax({
                         type: 'POST',
                         url: '{{ path('page_load_ads',{'id':entity.id}) }}',
@@ -92,20 +105,20 @@
 
                     });
         }
-        $("#myModal").on("show.bs.modal", function(e) {
+        $("#myModal").on("show.bs.modal", function (e) {
             var link = $(e.relatedTarget);
             console.log(link.attr("hrefxxx"));
             $(this).find(".modal-body").load(link.attr("hrefxxx"));
         });
-        $(function() {
+        $(function () {
 
 
-            $(".ad-close").click(function(e){
+            $(".ad-close").click(function (e) {
                 e.preventDefault();
                 console.log($(this).closest(".well").data("adid"));
                 $.ajax({
                             type: 'POST',
-                            url: '/admin/ads/'+$(this).closest(".well").data("adid")+'/delete',
+                            url: '/admin/ads/' + $(this).closest(".well").data("adid") + '/delete',
                             //data:
                         })
                         .done(function (data) {
@@ -118,4 +131,4 @@
             })
         });
     </script>
-{% endblock %}
+    {% endblock %}

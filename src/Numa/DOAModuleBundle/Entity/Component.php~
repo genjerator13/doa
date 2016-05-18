@@ -318,4 +318,3 @@ class Component
         // Add your code here
     }
 }
-

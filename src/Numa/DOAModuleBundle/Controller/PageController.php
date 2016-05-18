@@ -2,6 +2,8 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOAModuleBundle\Form\ComponentType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -23,9 +25,7 @@ class PageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
         $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
-
         return $this->render('NumaDOAModuleBundle:Page:index.html.twig', array(
             'entities' => $entities,
         ));
@@ -125,6 +125,22 @@ class PageController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $component = $entity->getComponent();
+
+//        $form = $this->createForm(new ComponentType(), $entity, array(
+//            'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
+//            'method' => 'POST',
+//        ));
+
+//        $editForm->add('component', CollectionType::class, array(
+//            // each entry in the array will be an "email" field
+//            'entry_type'   => ComponentType::class,
+//            // these options are passed to each "email" type
+//            'entry_options'  => array(
+//                'attr'      => array('class' => 'email-box')
+//            ),
+//        ));
+
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
@@ -132,6 +148,46 @@ class PageController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
+
+    public function feedAction(Request $request = null, $id) {
+        $error = array();
+        $em = $this->getDoctrine()->getManager();
+        //get maping by feedid
+        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+        $component = $entity->getComponent();
+        dump($component);
+        die();
+
+
+
+        $collection = $this->createForm(new ComponentType($feed->getListingType(), $listingfields, $em), $importmappingCollection);
+        $collection->add('feed_sid', 'hidden', array('data' => $id));
+        $collection->handleRequest($request);
+
+        if ($collection->isValid()) {
+
+            foreach ($collection->getData()->getImportmappingRow() as $entity) {
+                $entity->setFeedSid($id);
+                $em->persist($entity);
+            }
+            $em->flush();
+
+            if (!$request->isXmlHttpRequest()) {
+                return $this->redirect($this->generateUrl('importfeed'));
+            }
+        }
+
+
+        return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
+            'form' => $collection->createView(),
+            'feed' => $feed,
+            'errors' => $error,
+        ));
+    }
+
+
+
 
     /**
     * Creates a form to edit a Page entity.

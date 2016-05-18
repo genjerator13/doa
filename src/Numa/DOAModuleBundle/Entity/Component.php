@@ -1,7 +1,7 @@
 <?php
 
 namespace Numa\DOAModuleBundle\Entity;
-
+use Doctrine\ORM\Mapping as ORM;
 /**
  * Component
  */
@@ -316,5 +316,32 @@ class Component
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+
+    // Important manytomany
+    public function getPages()
+    {
+        $pages = new ArrayCollection();
+        if (!empty($this->getPageComponent()) ) {
+            foreach ($this->getPageComponent() as $pa) {
+                if ($pa instanceof PageAds) {
+                    $pages[] = $pa->getPage();
+                }
+            }
+        }
+        return $pages;
+    }
+
+
+    // Important
+    public function setPages($pageAds)
+    {
+        foreach ($pageAds as $pageAd) {
+            $pa = new PageComponent();
+            $pa->setPage($pageAd);
+            $pa->setComponent($this);
+            $this->addPageComponent($pa);
+        }
+
     }
 }

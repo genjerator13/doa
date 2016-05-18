@@ -634,7 +634,7 @@ class Ad
         return $this->adorder;
     }
 
-    // Important
+    // Important manytomany
     public function getPages()
     {
         $pages = new ArrayCollection();
@@ -649,7 +649,7 @@ class Ad
     }
 
 
-    // Important
+    // Important manytomany
     public function setPages($pageAds)
     {
         foreach ($pageAds as $pageAd) {
@@ -662,6 +662,8 @@ class Ad
         }
 
     }
+
+
     /**
      * @var integer
      */
