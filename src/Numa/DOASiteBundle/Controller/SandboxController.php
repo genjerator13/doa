@@ -41,14 +41,26 @@ class SandboxController extends Controller {
 
     public function testAction() {
 
-//        $em=$this->getDoctrine()->getManager();
-//        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find(7);
+        $em=$this->getDoctrine()->getManager();
+        $customer = $em->getRepository('NumaDOAStatsBundle:Stats')->find(7);
 //        dump($customer->getLastnoteadded());die();
         $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
 
         return $response;
     }
+    public function test3Action() {
 
+        $em=$this->getDoctrine()->getManager();
+        $date = date("Y-m-d h:i:sa");
+        $day10 = strtotime($date . ' -1 day');
+
+        $timestamp = strtotime($date);
+        $customer = $em->getRepository('NumaDOAStatsBundle:Stats')->getVisitors($day10, $timestamp);
+
+        dump($customer);die();
+        $response = $this->render('NumaDOAStatsBundle:Default:index.html.twig', array());
+        return $response;
+    }
 
 
 }

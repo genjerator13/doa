@@ -106,7 +106,9 @@ compared_listings:
 dealer_coupons:
     path:  /dealer/{dealername}/coupons
     defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }
-
+sandbox_test3:
+    path:  /sandbox/test3
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:test3 }
 sandbox_test:
     path:  /sandbox/test
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test }
@@ -136,3 +138,6 @@ service_form:
 service_success:
     path:  /serviceSuccess
     defaults: { _controller: "NumaDOASiteBundle:Service:success" }
+finance_form:
+    path:     /finance
+    defaults: { _controller: "NumaDOASiteBundle:Finance:new" }
