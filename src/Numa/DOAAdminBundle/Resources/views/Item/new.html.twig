@@ -12,9 +12,9 @@
         app.config(function ($interpolateProvider) {
             $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
         });
-        app.controller('myCtrl', function($scope, $http, $element) {
-            $scope.count=0;
-            $scope.addFeatured = function(e) {
+        app.controller('myCtrl', function ($scope, $http, $element) {
+            $scope.count = 0;
+            $scope.addFeatured = function (e) {
 
                 $scope.count++;
                 var data = {
@@ -22,12 +22,12 @@
                     name: $scope.name,
                 };
                 console.log(data);
-                $http.post("{{ path('listing_add_feature') }}",data)
+                $http.post("{{ path('listing_add_feature') }}", data)
                         .then(function (response) {
                             alert(response.data.message);
+
                         });
             }
-
 
 
         });
@@ -255,18 +255,14 @@
                         <div class="page-header">
                             <h3>Vehicle Features</h3>
                         </div>
-                        <ul>
+                        <div class="form-group">
+                            <ul class="features">
 
-                            {% for field in form.Itemfield %}
+                                {% for field in form.Itemfield %}
 
-                                <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
+                                    <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12 feature-item" >
                                         <span>
-                                            {#{% if field.field_string_value is defined %}#}
-                                            {#{{ form_widget(field.field_string_value) }}#}
-                                            {#{% endif %}#}
-                                            {#{% if field.field_integer_value is defined %}#}
-                                            {#{{ form_widget(field.field_integer_value) }}#}
-                                            {#{% endif %}#}
+
                                             {% if field.field_boolean_value is defined %}
                                                 {{ form_widget(field.field_boolean_value) }}
                                                 {# {{ form_row(field.field_name) }} #}
@@ -277,23 +273,24 @@
                                             {{ form_row(field.field_name) }}
                                             {{ field.vars.value.getFieldName() }}
                                         </span>
-                                    {{ form_row(field.field_type) }}
-                                </li>
-                            {% endfor %}
-                            <li class="col-md-6 col-sm-6 col-lg-4 col-xs-12">
-                                 <div class="col-lg-12">
-                                    <div class="input-group">
-                                        <input id="form_url" class="form-control" type="text" ng-model="name">
+                                        {{ form_row(field.field_type) }}
+                                    </li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                        <div class="row addfeature">
+                            <div class="col-lg-4">
+                                <div class="input-group">
+                                    <input id="form_url" class="form-control" type="text" ng-model="name">
                                         <span class="input-group-btn">
-                                            <button type='button' id="form_send" class="btn btn-primary" ng-click="addFeatured()" type="submit">Add Feature
+                                            <button type='button' id="form_send" class="btn btn-primary"
+                                                    ng-click="addFeatured()" type="submit">Add Feature
                                             </button>
                                         </span>
-                                    </div>
                                 </div>
-                            </li>
-
-                        </ul>
-
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-lg-12">
                                 <ul class="list-inline">

@@ -128,7 +128,11 @@ class ItemRESTController extends Controller
         $em = $this->getDoctrine()->getManager();
         //check if already inserted
         $exists = $em->getRepository('NumaDOAAdminBundle:Item')->isItemFieldExists($item_id, $feature_name);
-
+        $response = new JsonResponse(
+            array(
+                'message' => 'Success',
+                'action' => '',
+                400));
         if (empty($exists)) {
 
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item_id);
@@ -143,11 +147,13 @@ class ItemRESTController extends Controller
             $em->persist($itemfield);
             $item->addItemField($itemfield);
             $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'message' => 'Success',
+                    'action' => 'refresh',
+                    400));
         }
-        $response = new JsonResponse(
-            array(
-                'message' => 'Success',
-                400));
+
 
         return $response;
 
