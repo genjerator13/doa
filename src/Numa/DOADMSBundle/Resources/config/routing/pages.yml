@@ -2,10 +2,10 @@ dms_page:
     path:     /
     defaults: { _controller: "NumaDOAModuleBundle:Page:index",_dashboard:"DMS" }
 
-dms_page_show:
-    path:     /{id}/show
-    defaults: { _controller: "NumaDOAModuleBundle:Page:show",_dashboard:"DMS" }
-
+#dms_page_show:
+#    path:     /{id}/show
+#    defaults: { _controller: "NumaDOAModuleBundle:Page:show",_dashboard:"DMS" }
+#
 dms_page_new:
     path:     /new
     defaults: { _controller: "NumaDOAModuleBundle:Page:new",_dashboard:"DMS" }

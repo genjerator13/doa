@@ -10,9 +10,15 @@
 
         <ul class="record_actions">
             <li>
-                <a href="{{ path('setting') }}" class="btn btn-default">
-                    Back to the list
-                </a>
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a href="{{ path('dms_setting') }}" class="btn btn-default">
+                        Back to the list
+                    </a>
+                {% else %}
+                    <a href="{{ path('setting') }}" class="btn btn-default">
+                        Back to the list
+                    </a>
+                {% endif %}
             </li>
         </ul>
     </div>

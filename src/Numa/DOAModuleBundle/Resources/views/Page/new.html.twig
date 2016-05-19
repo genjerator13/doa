@@ -7,8 +7,14 @@
 
     {{ form(form) }}
 
-    <a href="{{ path('page') }}" class="btn btn-default">
-        Back to the list
-    </a>
+    {% if(app.request.get('_dashboard')=='DMS') %}
+        <a href="{{ path('dms_page') }}" class="btn btn-default">
+            Back to the list
+        </a>
+    {% else %}
+        <a href="{{ path('page') }}" class="btn btn-default">
+            Back to the list
+        </a>
+    {% endif %}
 
 {% endblock %}
