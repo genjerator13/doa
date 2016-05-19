@@ -1,0 +1,35 @@
+dms_page:
+    path:     /
+    defaults: { _controller: "NumaDOAModuleBundle:Page:index",_dashboard:"DMS" }
+
+dms_page_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOAModuleBundle:Page:show",_dashboard:"DMS" }
+
+dms_page_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAModuleBundle:Page:new",_dashboard:"DMS" }
+
+dms_page_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAModuleBundle:Page:create",_dashboard:"DMS" }
+    requirements: { _method: post }
+
+dms_page_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAModuleBundle:Page:edit",_dashboard:"DMS" }
+
+dms_page_load_ads:
+    path:     /{id}/load_ads
+    defaults: { _controller: "NumaDOAModuleBundle:Page:loadAds",_dashboard:"DMS" }
+
+
+dms_page_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAModuleBundle:Page:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+
+dms_page_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOAModuleBundle:Page:delete",_dashboard:"DMS" }
+    requirements: { _method: post|delete }

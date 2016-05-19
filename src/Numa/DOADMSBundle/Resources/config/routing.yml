@@ -54,3 +54,6 @@ dms_imageCarousel:
 NumaDOADMSBundle_servicerequest:
     resource: "@NumaDOADMSBundle/Resources/config/routing/servicerequest.yml"
     prefix:   /servicerequest
+dms_page:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/pages.yml"
+    prefix:   /pages

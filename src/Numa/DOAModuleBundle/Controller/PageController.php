@@ -23,11 +23,13 @@ class PageController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $dashboard = $request->get('_dashboard');
 
         $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
 
         return $this->render('NumaDOAModuleBundle:Page:index.html.twig', array(
             'entities' => $entities,
+            'dashboard' => $dashboard,
         ));
     }
     /**
