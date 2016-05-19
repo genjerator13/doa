@@ -1,57 +1,53 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
 
     <title>Dealers on Air</title>
 
 
     {% stylesheets '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css' %}
 
-    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css"/>
     {% endstylesheets %}
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
     <script type="text/javascript">
-        jQuery(document).ready(function(){
-            jQuery(".mobile-menu ul ul").hide(); /* hide sublinks */
-            jQuery(".separator").click(function(){
-                jQuery(this).next().slideToggle(300); /* display sublinks */
+        jQuery(document).ready(function () {
+            jQuery(".mobile-menu ul ul").hide();
+            /* hide sublinks */
+            jQuery(".separator").click(function () {
+                jQuery(this).next().slideToggle(300);
+                /* display sublinks */
             });
         });
-
     </script>
-
 </head>
 
 <body>
+{% block headline %}
+    <div class="header">
 
-<div class="header">
+        <a class="logo" href="">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
 
-    <a class="logo" href="">
-        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-        <img src="{{ asset_url }}" alt="Example" />
-        {% endimage %}
+        <div class="contact-info">
+            <div class="address">1234 Fake Street &middot; Saskatoon, SK &middot; S7B 2K4</div>
+            <a class="map-and-hours" href="">Map &amp; Hours</a>
 
-    </a>
-
-    <div class="contact-info">
-
-        <div class="address">1234 Fake Street &middot; Saskatoon, SK &middot; S7B 2K4</div>
-
-        <a class="map-and-hours" href="">Map &amp; Hours</a>
-
-        <div class="phone">306.555.1234</div>
-
+            <div class="phone">306.555.1234</div>
+        </div>
     </div>
-
-</div>
-
+{% endblock %}
+{% block mainmenu %}
 <div class="main-menu">
-
     <ul>
         <li><a href="">Home</a></li>
         <li><a href="">About Us</a></li>
@@ -67,11 +63,11 @@
         <li><a href="">Gallery</a></li>
         <li><a href="">Contact Us</a></li>
     </ul>
-
 </div>
+{% endblock %}
 
 <div class="mobile-menu">
-
+    {% block mobilemenu %}
     <ul class="menu">
         <li><span class="separator">Menu</span>
             <ul>
@@ -91,19 +87,20 @@
             </ul>
         </li>
     </ul>
-
+    {% endblock %}
 </div>
-
+{% block banner %}
 <div class="banner">
 
     <div class="image">
         {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/banner.jpg' %}
-        <img src="{{ asset_url }}" alt="Example" />
+        <img src="{{ asset_url }}" alt="Example"/>
         {% endimage %}
     </div>
 
 </div>
-
+{% endblock %}
+{% block buttons %}
 <div class="buttons">
 
     <ul>
@@ -111,7 +108,7 @@
             <a href="">
                 <div class="left-arrow">
                     {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                        <img src="{{ asset_url }}" />
+                    <img src="{{ asset_url }}"/>
                     {% endimage %}
                 </div>
                 <div class="button-title"><span>New</span> Showroom</div>
@@ -122,7 +119,7 @@
             <a href="">
                 <div class="left-arrow">
                     {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}" />
+                    <img src="{{ asset_url }}"/>
                     {% endimage %}
                 </div>
                 <div class="button-title"><span>Used</span> Showroom</div>
@@ -133,7 +130,7 @@
             <a href="">
                 <div class="left-arrow">
                     {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}" />
+                    <img src="{{ asset_url }}"/>
                     {% endimage %}
                 </div>
                 <div class="button-title"><span>Get</span> Financed</div>
@@ -144,7 +141,7 @@
             <a href="">
                 <div class="left-arrow">
                     {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}" />
+                    <img src="{{ asset_url }}"/>
                     {% endimage %}
                 </div>
                 <div class="button-title"><span>Service</span> Department</div>
@@ -154,7 +151,8 @@
     </ul>
 
 </div>
-
+{% endblock %}
+{% block links %}
 <div class="links">
 
     <ul>
@@ -171,128 +169,140 @@
             </a>
         </li>
     </ul>
-
 </div>
-
+{% endblock %}
+{% block featuredads %}
 <div class="company-logos">
 
     <a href="">
         {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}
     </a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company2.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company3.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company4.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company5.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
     <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company6.png' %}
-        <img src="{{ asset_url }}" />
+        <img src="{{ asset_url }}"/>
         {% endimage %}</a>
 
 </div>
-{#{% block content %}#}
-{#{% endblock %}#}
-<div class="content">
+{% endblock %}
+{% block content %}
 
-    <h1>Welcome to Generic Company</h1>
+    <div class="content">
 
-    <p>Lorem ipsum dolor sit amet, <a href="">consectetur adipiscing</a> elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <h1>Welcome to Generic Company</h1>
 
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+        <p>Lorem ipsum dolor sit amet, <a href="">consectetur adipiscing</a> elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+            dolore eu
+            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+            mollit
+            anim id est laborum.</p>
 
-    <p><a class="read-more" href="">Read More</a></p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+            Nemo
+            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+            eos
+            qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam
+            aliquam
+            quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+            laboriosam,
+            nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit
+            esse
+            quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
 
-</div>
-
-<div class="info">
-
-    <ul>
-        <li>{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-            <img src="{{ asset_url }}" />
-            {% endimage %}</li>
-        <li>
-            <h2>Generic Company Name</h2>
-            <div class="address">
-                1234 Fake Street<br />
-                Saskatoon, SK &middot; S7B 2K4
-            </div>
-            <div class="phone">
-                <span>Phone:</span> 306.555.1234<br />
-                <span>Toll Free:</span> 1.888.123.4567<br />
-                <span>Fax:</span> 306.555.1235
-            </div>
-        </li>
-        <li>
-            <h2>Hours of Operation</h2>
-            <p>Mon-Fri: 9am-5pm<br />
-                Sat: 9am-4pm<br />
-                Sun: Closed</p>
-        </li>
-        <li>
-            <h2>Quick Links</h2>
-            <ul>
-                <li><a href="">New Showroom</a></li>
-                <li><a href="">Used Showroom</a></li>
-                <li><a href="">Get Financed</a></li>
-                <li><a href="">Service Department</a></li>
-                <li><a href="">Upcoming Events</a></li>
-            </ul>
-        </li>
-    </ul>
-
-</div>
-
-<div class="map">
-
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2448.5928114513176!2d-106.63057858397597!3d52.14172807194543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5304f6a4ad311519%3A0x420813d125cfbbde!2sInnovation+Place!5e0!3m2!1sen!2sus!4v1453755757046" width="100%" height="260" frameborder="0" style="border:0" allowfullscreen></iframe>
-
-</div>
-
-<div class="footer-wrapper">
-
-    <div class="footer">
-
-        <div class="bottom-menu">
-
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About Us</a></li>
-                <li><a href="">Products</a></li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Gallery</a></li>
-                <li><a href="">Contact Us</a></li>
-            </ul>
-
-        </div>
-
-        <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
-
-        <div class="extra-menu">
-
-            <ul>
-                <li><a href="">Policy</a></li>
-                <li><a href="">Privacy</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="">Sitemap</a></li>
-            </ul>
-
-        </div>
+        <p><a class="read-more" href="">Read More</a></p>
 
     </div>
+{% endblock %}
+{% block info %}
+    <div class="info">
+        <ul>
+            <li>{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
+                <img src="{{ asset_url }}"/>
+                {% endimage %}</li>
+            <li>
+                <h2>Generic Company Name</h2>
 
-</div>
+                <div class="address">
+                    1234 Fake Street<br/>
+                    Saskatoon, SK &middot; S7B 2K4
+                </div>
+                <div class="phone">
+                    <span>Phone:</span> 306.555.1234<br/>
+                    <span>Toll Free:</span> 1.888.123.4567<br/>
+                    <span>Fax:</span> 306.555.1235
+                </div>
+            </li>
+            <li>
+                <h2>Hours of Operation</h2>
 
+                <p>Mon-Fri: 9am-5pm<br/>
+                    Sat: 9am-4pm<br/>
+                    Sun: Closed</p>
+            </li>
+            <li>
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="">New Showroom</a></li>
+                    <li><a href="">Used Showroom</a></li>
+                    <li><a href="">Get Financed</a></li>
+                    <li><a href="">Service Department</a></li>
+                    <li><a href="">Upcoming Events</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block map %}
+    <div class="map">
+
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2448.5928114513176!2d-106.63057858397597!3d52.14172807194543!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5304f6a4ad311519%3A0x420813d125cfbbde!2sInnovation+Place!5e0!3m2!1sen!2sus!4v1453755757046"
+                width="100%" height="260" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+    </div>
+{% endblock %}
+{% block footer %}
+    <div class="footer-wrapper">
+        <div class="footer">
+            <div class="bottom-menu">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
+            <div class="extra-menu">
+                <ul>
+                    <li><a href="">Policy</a></li>
+                    <li><a href="">Privacy</a></li>
+                    <li><a href="">Terms</a></li>
+                    <li><a href="">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 </body>
-
 </html>

@@ -19,17 +19,15 @@ class DefaultController extends Controller {
         //dump($hometabs_key);
         $hometabs = $this->get('mymemcache')->get($hometabs_key);
          
-        //if (empty($hometabs)) {
+        if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findByDealer($dealer_id);
             //dump($hometabs);die();
             $this->get('mymemcache')->set($hometabs_key, $hometabs);
             $nocache = true;
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        //}
+        }
 
         $tabs = array();
-        $session = $this->get('session');
-        $dealer_id = $session->get('dealer_id');
         //dump($dealer_id);
         foreach ($hometabs as $tab) {
             $cat = $tab->getCategoryName();
@@ -185,7 +183,9 @@ class DefaultController extends Controller {
                 ->getForm();
 
         $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>"/"));
+        $components = $this->get('Numa.WebComponent')->getComponentsForPage("/");
 
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
 
         $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
             'webpage' => $webpage,
@@ -196,6 +196,8 @@ class DefaultController extends Controller {
             'motorsportForm' => $motorsportForm->createView(),
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
+            'components' => $components,
+            'dealer'=>$dealer,
             'marineForm' => $marineForm->createView()));
         if (!$nocache) {
             $response->setPublic();

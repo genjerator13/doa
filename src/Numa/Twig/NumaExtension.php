@@ -4,6 +4,8 @@
 
 namespace Numa\Twig;
 
+use Doctrine\Common\Collections\Criteria;
+use Numa\DOADMSBundle\Entity\Component;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class NumaExtension extends \Twig_Extension
@@ -26,7 +28,8 @@ class NumaExtension extends \Twig_Extension
             'memcacheGet' => new \Twig_Function_Method($this, 'memcacheGet'),
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
-            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed')
+            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
+            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent')
         );
     }
 
@@ -104,6 +107,22 @@ class NumaExtension extends \Twig_Extension
     {
         //https://www.youtube.com/embed/xH01UCfId0A
         return "https://www.youtube.com/embed/".$id;
+    }
+
+    public function displayComponent($components,$name)
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("name", $name))
+            ;//->getMaxResults(1);
+
+        $componentsArray = $components->matching($criteria);
+
+        if(!empty($componentsArray) and $componentsArray->count()>0){
+
+            return $componentsArray->first()->getValue();
+        }
+
+        return "c not f";
     }
 
 }

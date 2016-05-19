@@ -5,7 +5,9 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
-        <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
+        {%  if(edit_form.component is not empty) %}
+            <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
+        {% endif %}
     </ul>
     {{ form_start(edit_form) }}
     <div class="tab-content">
@@ -22,6 +24,7 @@
         <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
         </div>
+        {%  if(edit_form.component is not empty) %}
         <div id="web-content" class="tab-pane">
 
             {% for component in edit_form.component %}
@@ -31,7 +34,7 @@
             {% endfor %}
             {#{% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}#}
         </div>
-
+        {% endif %}
     </div>
 
     </form>

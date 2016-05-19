@@ -136,5 +136,16 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
     }
 
+    public function getDealerById($dealer_id=null){
+        $qb=$this->createQueryBuilder('d');
+        if(empty($dealer_id)){
+            $qb->andWhere('d.id is null');
+        }else {
+            $qb->andWhere('d.id=:dealer_id');
+            $qb->setParameter('dealer_id', $dealer_id);
+        }
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 
 }
