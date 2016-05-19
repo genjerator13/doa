@@ -7,23 +7,34 @@
         <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
         <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
     </ul>
-
+    {{ form_start(edit_form) }}
     <div class="tab-content">
+
         <div id="details" class="tab-pane active">
             <h1>Page edit</h1>
-            {{ form(edit_form) }}
+            {{ form_start(edit_form) }}
+            {{ form_row(edit_form.title) }}
+            {{ form_row(edit_form.description) }}
+            {{ form_row(edit_form.keywords) }}
+            {{ form_row(edit_form.url) }}
+
         </div>
         <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
         </div>
         <div id="web-content" class="tab-pane">
-            {% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}
+
+            {% for component in edit_form.component %}
+                {{ form_row(component.name) }}
+                {{ form_row(component.type) }}
+                {{ form_row(component.value) }}
+            {% endfor %}
+            {#{% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}#}
         </div>
+
     </div>
 
-
-    <!-- Button trigger modal -->
-
+    </form>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

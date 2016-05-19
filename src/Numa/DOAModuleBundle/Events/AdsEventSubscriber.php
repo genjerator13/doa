@@ -4,6 +4,7 @@
 
 namespace Numa\DOAModuleBundle\Events;
 
+use Numa\DOAModuleBundle\Entity\Component;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -11,11 +12,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class AdsEventSubscriber implements EventSubscriberInterface
 {
 
-    protected $em;
+    //protected $em;
 
-    public function __construct($em)
+    public function __construct()
     {
-        $this->em = $em;
+        //$this->em = $em;
     }
 
     public static function getSubscribedEvents()
@@ -32,11 +33,18 @@ class AdsEventSubscriber implements EventSubscriberInterface
 
     public function preSetData(FormEvent $event)
     {
-
         $data = $event->getData();
         $form = $event->getForm();
 
-        //dump($data->getAds());die();
+
+        if ($data instanceof Component) {
+            $type = $data->getType();
+            if (!empty($data->getType())) {
+                if (strtolower($type) == "text") {
+                    $form->add('value', 'textarea');
+                }
+            }
+        }
     }
 
 }

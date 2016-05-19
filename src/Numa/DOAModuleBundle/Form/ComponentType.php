@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Form;
 
+use Numa\DOAModuleBundle\Events\AdsEventSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,12 +16,13 @@ class ComponentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('page_id')
+
             ->add('name')
-            ->add('type')
+            ->add('type','choice',array('choices'=>array('text'=>'text','string'=>'string','image'=>'image','carousel'=>'carousel')))
             ->add('value')
 
         ;
+        $builder->addEventSubscriber(new AdsEventSubscriber());
     }
     
     /**
