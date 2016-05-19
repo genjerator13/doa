@@ -28,11 +28,9 @@ dms_user_group:
 NumaDOADMSBundle_partrequest:
     resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
     prefix:   /partrequest
-
 NumaDOADMSBundle_client:
     resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
     prefix:   /client
-
 NumaDOADMSBundle_note:
     resource: "@NumaDOADMSBundle/Resources/config/routing/note.yml"
     prefix:   /note
@@ -57,3 +55,6 @@ dms_imageCarousel:
 NumaDOADMSBundle_servicerequest:
     resource: "@NumaDOADMSBundle/Resources/config/routing/servicerequest.yml"
     prefix:   /servicerequest
+dms_pages:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/pages.yml"
+    prefix:   /pages

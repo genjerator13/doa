@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
 <div class="container">
@@ -65,6 +67,23 @@
     <a href="{{ path('page') }}" class="btn btn-default" class="btn btn-primary">
         Back to the list
     </a>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <div class="clear"></div>
+        {% if(app.request.get('_dashboard')=='DMS') %}
+            <a href="{{ path('dms_page') }}" class="btn btn-default">
+                Back to the list
+            </a>
+        {% else %}
+            <a href="{{ path('page') }}" class="btn btn-default">
+                Back to the list
+            </a>
+        {% endif %}
     <script>
         initAjaxForm();
         function initAjaxForm() {

@@ -177,6 +177,9 @@
                     <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>
                 </li>
 
+                <li class="">
+                    <a href="{{ path('dms_page') }}" class=""><i class="fa fa-picture-o"></i>Pages</a>
+                </li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -195,9 +198,12 @@
 
         <!-- Main content -->
         <section class="content">
+
             <!-- Your Page Content Here -->
             {% block content %}
             {% endblock %}
+
+
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
 
@@ -242,4 +248,5 @@
 </body>
 </html>
 
+<!-- /default:main:default.tpl -->
 
