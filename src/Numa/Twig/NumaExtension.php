@@ -114,14 +114,14 @@ class NumaExtension extends \Twig_Extension
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name))
             ;//->getMaxResults(1);
+        if(!empty($components)) {
+            $componentsArray = $components->matching($criteria);
 
-        $componentsArray = $components->matching($criteria);
+            if (!empty($componentsArray) and $componentsArray->count() > 0) {
 
-        if(!empty($componentsArray) and $componentsArray->count()>0){
-
-            return $componentsArray->first()->getValue();
+                return $componentsArray->first()->getValue();
+            }
         }
-
         return "c not f";
     }
 
