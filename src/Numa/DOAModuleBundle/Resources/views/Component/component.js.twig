@@ -1,12 +1,4 @@
-{% set apicall="/api/page/all" %}
-{% if is_granted('ROLE_BUSINES') %}
-{% set user= app.security.getToken().getUser().getId() %}
-{% set apicall="/api/page/"~user~"/dealer" %}
-{% endif %}
-{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
-{% set user= app.session.get('dms_dealer_id') %}
-{% set apicall="/api/page/"~user~"/dealer" %}
-{% endif %}
+{% set apicall="/api/component/all" %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
 app.config(function ($interpolateProvider) {
@@ -26,18 +18,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
-        {name: 'id', enableColumnResizing: true, width: 30},
-        {name: 'description', enableColumnResizing: true, width: 100},
-        {name: 'keywords', enableColumnResizing: true, width: 100},
-        {name: 'title', enableColumnResizing: true, width: 250},
-        {name: 'url', enableColumnResizing: true, width: 350},
-        {
-            name: 'Link',
-            enableColumnResizing: true,
-            enableFiltering: false,
-            width: 50,
-            cellTemplate: '<a href="{[{row.entity.url}]}">Link to page</a>'
-        },
+        {name: 'name', enableColumnResizing: true, width: 150},
+        {name: 'type', enableColumnResizing: true, width: 200},
+        {name: 'value', enableColumnResizing: true, width: 400},
 
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
@@ -46,7 +29,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/pages/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            cellTemplate: '<a href="/dms/component/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
         }
 
     ];

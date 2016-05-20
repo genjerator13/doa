@@ -32,6 +32,9 @@ stats_api:
 page_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/page.yml"
         prefix:   /page
+component_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/component.yml"
+        prefix:   /component
 
 listing:
     pattern:  /listing/{id}.{_format}

@@ -503,6 +503,7 @@ class Page
     private $dealer_id;
 
     /**
+     * @JMS\Expose
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     private $Dealer;

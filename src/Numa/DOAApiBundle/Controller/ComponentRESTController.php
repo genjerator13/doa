@@ -11,7 +11,7 @@ namespace Numa\DOAApiBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
-class PageRESTController extends Controller
+class ComponentRESTController extends Controller
 {
 
     /**
@@ -19,16 +19,16 @@ class PageRESTController extends Controller
      */
     public function allAction()
     {
-        $page = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->findAll();
-        return $page;
+        $component = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Component')->findAll();
+        return $component;
     }
     /**
      * @Rest\View
      */
     public function byDealerAction($dealer_id)
     {
-        $page = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id'=>$dealer_id));
-        return $page;
+        $component = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Component')->findBy(array('dealer_id'=>$dealer_id));
+        return $component;
     }
 
 }

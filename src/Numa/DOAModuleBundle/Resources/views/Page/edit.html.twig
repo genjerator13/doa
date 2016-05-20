@@ -21,7 +21,6 @@
             {{ form_row(edit_form.description) }}
             {{ form_row(edit_form.keywords) }}
             {{ form_row(edit_form.url) }}
-
         </div>
         <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
@@ -29,11 +28,88 @@
         {%  if(edit_form.component is not empty) %}
         <div id="web-content" class="tab-pane">
 
-            {% for component in edit_form.component %}
-                {{ form_row(component.name) }}
-                {{ form_row(component.type) }}
-                {{ form_row(component.value) }}
-            {% endfor %}
+
+
+            {% block stylesheets %}
+                {{ parent() }}
+                <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+                      rel="stylesheet"/>
+                {% stylesheets
+                'css/loading-bar.min.css'
+
+                filter='cssrewrite' output='css/*.css' %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+                {% endstylesheets %}
+            {% endblock stylesheets %}
+            {% block javascripts %}
+                {{ parent() }}
+                {% javascripts
+                '@colorbox_js'
+                'js/angular/angular143.min.js'
+                'js/angular/angular-touch143.min.js'
+                'js/angular/angular-animate143.min.js'
+                'js/angular/vfs-fonts.js'
+                'js/angular/ui-grid.js'
+                'js/angular/angular-confirm.min.js'
+                'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+                'js/loading-bar.min.js' %}
+
+                <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+                <script>
+                    {% include 'NumaDOAModuleBundle:Component:component.js.twig' %}
+                </script>
+            {% endblock javascripts %}
+
+
+
+
+            {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+            <div class="box">
+                {#<div class="box-header">#}
+                    {#<div class="box-header">#}
+                        {#<h3 class="box-title">Pages list</h3>#}
+                        {#<div class="box-tools">#}
+                            {#<a href="{{ path('dms_page_new') }}" class="btn btn-primary">#}
+                                {#Create new Page#}
+                            {#</a>#}
+                        {#</div>#}
+
+                    {#</div>#}
+                {#</div>#}
+                <div class="box-body table-responsive no-padding" ng-app="app">
+
+                    <div ng-controller="MainCtrl">
+                        <script type="text/ng-template" id="myModalContent.html">
+                            <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+                        </script>
+                        <script type="text/ng-template" id="myModalContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Please confirm</h3>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </script>
+
+                        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+                    </div>
+                </div>
+
+                {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+
+
+
+
+
+            {#{% for component in edit_form.component %}#}
+                {#{{ form_row(component.name) }}#}
+                {#{{ form_row(component.type) }}#}
+                {#{{ form_row(component.value) }}#}
+            {#{% endfor %}#}
             {#{% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}#}
         </div>
         {% endif %}
@@ -74,7 +150,7 @@
             Back to the list
         </a>
     {% endif %}
-</div>
+    </div>
     <script>
         initAjaxForm();
         function initAjaxForm() {
