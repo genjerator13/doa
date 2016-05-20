@@ -24,14 +24,14 @@ class PageType extends AbstractType
             ->add('title')
             ->add('url')
 
-            ->add('component', CollectionType::class, array(
-                // each entry in the array will be an "email" field
-                'entry_type'   => ComponentType::class,
-                // these options are passed to each "email" type
-                'entry_options'  => array(
-                    'attr'      => array('class' => 'component-box')
-                ),
-            ));
+//            ->add('component', CollectionType::class, array(
+//                // each entry in the array will be an "email" field
+//                'entry_type'   => ComponentType::class,
+//                // these options are passed to each "email" type
+//                'entry_options'  => array(
+//                    'attr'      => array('class' => 'component-box')
+//                ),
+//            ));
 
 //            ->add('Ads' , 'entity' , array('label'=>'Ads',
 //                'class'    => 'Numa\DOAModuleBundle\Entity\Ad' ,

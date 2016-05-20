@@ -17,14 +17,14 @@
 #
 component_edit:
     path:     /{id}/edit
-    defaults: { _controller: "NumaDOAModuleBundle:Component:edit" }
+    defaults: { _controller: "NumaDOAModuleBundle:Component:edit",_dashboard:"DMS" }
 
 component_update:
     path:     /{id}/update
-    defaults: { _controller: "NumaDOAModuleBundle:Component:update" }
+    defaults: { _controller: "NumaDOAModuleBundle:Component:update",_dashboard:"DMS" }
     requirements: { _method: post|put }
 
 component_delete:
     path:     /{id}/delete
-    defaults: { _controller: "NumaDOAModuleBundle:Component:delete" }
+    defaults: { _controller: "NumaDOAModuleBundle:Component:delete",_dashboard:"DMS" }
     requirements: { _method: post|delete }
