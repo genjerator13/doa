@@ -6,15 +6,9 @@
 <div class="box box-default">
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Pages list</h1>
-    {% if(app.request.get('_dashboard')=='DMS') %}
-        <a href="{{ path('dms_page_new') }}" class="btn btn-success">
-            Create a new entry
-        </a>
-    {% else %}
         <a href="{{ path('page_new') }}" class="btn btn-success">
             Create a new entry
         </a>
-    {% endif %}
     <table class="table table-striped">
         <thead>
         <tr>

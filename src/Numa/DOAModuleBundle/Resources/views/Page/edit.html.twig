@@ -7,7 +7,7 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
-        {%  if(edit_form.component is not empty) %}
+        {%  if(edit_form.component is not empty and edit_form.component) %}
             <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
         {% endif %}
     </ul>
@@ -58,6 +58,7 @@
         </div>
         {% endif %}
     </div>
+    {{ form_end(edit_form) }}
 
     </form>
 
@@ -84,26 +85,16 @@
     </div>
     <!-- /.modal -->
     <div class="clear"></div>
-    <a href="{{ path('page') }}" class="btn btn-default" class="btn btn-primary">
-        Back to the list
-    </a>
-                    </div>
-                </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
-        <div class="clear"></div>
-        {% if(app.request.get('_dashboard')=='DMS') %}
-            <a href="{{ path('dms_page') }}" class="btn btn-default">
-                Back to the list
-            </a>
-        {% else %}
-            <a href="{{ path('page') }}" class="btn btn-default">
-                Back to the list
-            </a>
-        {% endif %}
+    {% if(app.request.get('_dashboard')=='DMS') %}
+        <a href="{{ path('dms_page') }}" class="btn btn-primary">
+            Back to the list
+        </a>
+    {% else %}
+        <a href="{{ path('page') }}" class="btn btn-primary">
+            Back to the list
+        </a>
+    {% endif %}
+</div>
     <script>
         initAjaxForm();
         function initAjaxForm() {
