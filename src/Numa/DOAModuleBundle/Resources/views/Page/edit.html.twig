@@ -30,9 +30,29 @@
         <div id="web-content" class="tab-pane">
 
             {% for component in edit_form.component %}
-                {{ form_row(component.name) }}
-                {{ form_row(component.type) }}
-                {{ form_row(component.value) }}
+            <div class="page-component well">
+                {#{{ form_row(component.name,{'attr':{'class':'col-md-3'}}) }}               #}
+                {#{{ form_row(component.type) }}#}
+                {#{{ form_row(component.value) }}#}
+                <div class="row page-component-row">
+                    {{ form_label(component.name,'Name', { 'label_attr': {'class': 'col-sm-2'} }) }}
+                    {{ form_errors(component.name) }}
+                    <div class="col-sm-2">
+                        {{ form_widget(component.name, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                    {{ form_label(component.type,'Type', { 'label_attr': {'class': 'col-sm-2'} }) }}
+                    {{ form_errors(component.type) }}
+                    <div class="col-sm-2">
+                        {{ form_widget(component.type, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </div>
+                <div class="row">
+                {{ form_errors(component.value) }}
+                <div class="col-sm-12">
+                    {{ form_widget(component.value, { 'attr': {'class': 'form-control'} }) }}
+                </div>
+                </div>
+            </div>
             {% endfor %}
             {#{% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}#}
         </div>

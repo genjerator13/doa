@@ -40,8 +40,11 @@ class AdsEventSubscriber implements EventSubscriberInterface
         if ($data instanceof Component) {
             $type = $data->getType();
             if (!empty($data->getType())) {
+                $form->add('value', null);
                 if (strtolower($type) == "text") {
                     $form->add('value', 'textarea');
+                }elseif(strtolower($type) == "html"){
+                    $form->add('value', 'ckeditor');
                 }
             }
         }

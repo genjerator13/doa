@@ -259,6 +259,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 125 }    # Transforms 50x40 to 32x26
+        sea_logo_home:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 75 }    # Transforms 50x40 to 32x26
         carousel:
             quality: 100
             filters:

@@ -16,11 +16,9 @@ class ComponentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('name')
-            ->add('type','choice',array('choices'=>array('text'=>'text','string'=>'string','image'=>'image','carousel'=>'carousel')))
+            ->add('type','choice',array('choices'=>array('HTML'=>'HTML','Text'=>'Text','String'=>'String','Image'=>'Image','Carousel'=>'Carousel')))
             ->add('value')
-
         ;
         $builder->addEventSubscriber(new AdsEventSubscriber());
     }

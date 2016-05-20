@@ -1,4 +1,19 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block headline %}
+    <div class="header">
+        <a class="logo" href="">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+        <div class="contact-info">
+            <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4</div>
+            <a class="map-and-hours" href="">Map &amp; Hours</a>
+
+            <div class="phone">{{ dealer.phone }}</div>
+        </div>
+    </div>
+{% endblock %}
+
 {% block content %}
     <div class="content">
         {{ displayComponent(components,'welcome_text')|raw }}
@@ -7,9 +22,8 @@
 
 {% block info %}
     <div class="info">
-
         <ul>
-            <li><img src="{{ asset(dealer.logoUrl) }}"></li>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
             <li>
                 <h2>{{ dealer.name }}</h2>
                 <div class="address">
@@ -18,8 +32,6 @@
                 </div>
                 <div class="phone">
                     <span>Phone:</span> {{ dealer.phone }}<br>
-                    {#<span>Toll Free:</span> 1.888.123.4567<br>#}
-                    {#<span>Fax:</span> 306.555.1235#}
                 </div>
             </li>
             <li>
@@ -31,3 +43,9 @@
         </ul>
     </div>
 {%  endblock %}
+
+
+
+{% block featuredads %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
+{% endblock %}
