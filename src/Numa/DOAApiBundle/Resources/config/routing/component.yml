@@ -3,6 +3,6 @@ component_api_all:
     defaults: { _controller: "NumaDOAApiBundle:ComponentREST:all",_format: "json"}
     requirements: { _method: get }
 component_by_dealer_api:
-    path:     /{dealer_id}/dealer.{_format}
-    defaults: { _controller: "NumaDOAApiBundle:ComponentREST:byDealer",_format: "json"}
+    path:     /{page_id}/page.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ComponentREST:byPage",_format: "json"}
     requirements: { _method: get }
