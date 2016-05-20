@@ -29,7 +29,8 @@ class NumaExtension extends \Twig_Extension
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
             'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
-            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent')
+            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
+            'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
         );
     }
 
@@ -123,6 +124,14 @@ class NumaExtension extends \Twig_Extension
             }
         }
         return "c not f";
+    }
+
+    public function getDealer(){
+        $session   = $this->container->get('session');
+        $dealer_id = $session->get('dealer_id');
+        $em        = $this->container->get('doctrine.orm.entity_manager');
+        $dealer    = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
+        return $dealer;
     }
 
 }

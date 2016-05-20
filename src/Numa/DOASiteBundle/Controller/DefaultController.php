@@ -411,5 +411,11 @@ class DefaultController extends Controller {
         return $this->render('NumaDOASiteBundle:Default:statistics.html.twig',$stats);
     }
 
+    public function aboutusAction(Request $request){
+
+        $components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig',array('components'=>$components));
+    }
+
 }
 

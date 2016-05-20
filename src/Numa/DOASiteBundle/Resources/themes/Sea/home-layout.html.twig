@@ -1,3 +1,4 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,38 +32,10 @@
 
 <body>
 {% block headline %}
-    <div class="header">
-        <a class="logo" href="">
-            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-            <img src="{{ asset_url }}" alt="Example"/>
-            {% endimage %}
-        </a>
-        <div class="contact-info">
-            <div class="address">1234 Fake Street &middot; Saskatoon, SK &middot; S7B 2K4</div>
-            <a class="map-and-hours" href="">Map &amp; Hours</a>
-
-            <div class="phone">306.555.1234</div>
-        </div>
-    </div>
+    {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
 {% block mainmenu %}
-<div class="main-menu">
-    <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">About Us</a></li>
-        <li><a href="">Products</a>
-            <ul>
-                <li><a href="">Online Shopping</a></li>
-                <li><a href="">Parts List</a></li>
-                <li><a href="">Showroom</a></li>
-                <li><a href="">Get a Quote</a></li>
-            </ul>
-        </li>
-        <li><a href="">Services</a></li>
-        <li><a href="">Gallery</a></li>
-        <li><a href="">Contact Us</a></li>
-    </ul>
-</div>
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
 {% endblock %}
 
 <div class="mobile-menu">
@@ -162,7 +135,7 @@
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="{{ path('part_form') }}">
                 <div class="link-title"><span>Parts</span> Department</div>
                 <div class="click-here">Click Here</div>
             </a>
@@ -203,73 +176,31 @@
 
     <div class="content">
 
-        <h1>Welcome to Generic Company</h1>
-
-        <p>Lorem ipsum dolor sit amet, <a href="">consectetur adipiscing</a> elit, sed do eiusmod tempor incididunt ut
-            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
-            dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit
-            anim id est laborum.</p>
-
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-            aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            Nemo
-            enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
-            eos
-            qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
-            consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam
-            aliquam
-            quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
-            laboriosam,
-            nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit
-            esse
-            quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-
-        <p><a class="read-more" href="">Read More</a></p>
-
     </div>
 {% endblock %}
 {% block info %}
     <div class="info">
         <ul>
-            <li>{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-                <img src="{{ asset_url }}"/>
-                {% endimage %}</li>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
             <li>
-                <h2>Generic Company Name</h2>
-
+                <h2>{{ dealer.name }}</h2>
                 <div class="address">
-                    1234 Fake Street<br/>
-                    Saskatoon, SK &middot; S7B 2K4
+                    {{ dealer.address }}<br>
+                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
                 </div>
                 <div class="phone">
-                    <span>Phone:</span> 306.555.1234<br/>
-                    <span>Toll Free:</span> 1.888.123.4567<br/>
-                    <span>Fax:</span> 306.555.1235
+                    <span>Phone:</span> {{ dealer.phone }}<br>
                 </div>
             </li>
             <li>
-                <h2>Hours of Operation</h2>
-
-                <p>Mon-Fri: 9am-5pm<br/>
-                    Sat: 9am-4pm<br/>
-                    Sun: Closed</p>
+                {{ displayComponent(components,'hours_of_operation')|raw }}
             </li>
             <li>
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="">New Showroom</a></li>
-                    <li><a href="">Used Showroom</a></li>
-                    <li><a href="">Get Financed</a></li>
-                    <li><a href="">Service Department</a></li>
-                    <li><a href="">Upcoming Events</a></li>
-                </ul>
+                {{ displayComponent(components,'quick_links')|raw }}
             </li>
         </ul>
     </div>
-{% endblock %}
+{%  endblock %}
 
 
 {% block map %}

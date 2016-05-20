@@ -141,3 +141,6 @@ service_success:
 finance_form:
     path:     /finance
     defaults: { _controller: "NumaDOASiteBundle:Finance:new" }
+about_us:
+    path:     /about_us
+    defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }

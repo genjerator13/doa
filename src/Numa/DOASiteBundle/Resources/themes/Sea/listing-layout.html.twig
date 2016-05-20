@@ -1,3 +1,4 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,38 +33,10 @@
 
 <body>
 {% block headline %}
-    <div class="header">
-        <a class="logo" href="">
-            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-            <img src="{{ asset_url }}" alt="Example"/>
-            {% endimage %}
-        </a>
-        <div class="contact-info">
-            <div class="address">1234 Fake Street &middot; Saskatoon, SK &middot; S7B 2K4</div>
-            <a class="map-and-hours" href="">Map &amp; Hours</a>
-
-            <div class="phone">306.555.1234</div>
-        </div>
-    </div>
+    {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
 {% block mainmenu %}
-    <div class="main-menu">
-        <ul>
-            <li><a href="">Home</a></li>
-            <li><a href="">About Us</a></li>
-            <li><a href="">Products</a>
-                <ul>
-                    <li><a href="">Online Shopping</a></li>
-                    <li><a href="">Parts List</a></li>
-                    <li><a href="">Showroom</a></li>
-                    <li><a href="">Get a Quote</a></li>
-                </ul>
-            </li>
-            <li><a href="">Services</a></li>
-            <li><a href="">Gallery</a></li>
-            <li><a href="">Contact Us</a></li>
-        </ul>
-    </div>
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
 {% endblock %}
 
 <div class="mobile-menu">
@@ -91,50 +64,39 @@
 </div>
 <div class="content">
 {% block content %}
+<div class="content">
 
-
-
+</div>
 {% endblock %}
 </div>
 {% block info %}
+    {% set dealer=getDealer() %}
     <div class="info">
         <ul>
-            <li>{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
-                <img src="{{ asset_url }}"/>
-                {% endimage %}</li>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
             <li>
-                <h2>Generic Company Name</h2>
-
+                <h2>{{ dealer.name }}</h2>
                 <div class="address">
-                    1234 Fake Street<br/>
-                    Saskatoon, SK &middot; S7B 2K4
+                    {{ dealer.address }}<br>
+                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
                 </div>
                 <div class="phone">
-                    <span>Phone:</span> 306.555.1234<br/>
-                    <span>Toll Free:</span> 1.888.123.4567<br/>
-                    <span>Fax:</span> 306.555.1235
+                    <span>Phone:</span> {{ dealer.phone }}<br>
                 </div>
             </li>
             <li>
-                <h2>Hours of Operation</h2>
-
-                <p>Mon-Fri: 9am-5pm<br/>
-                    Sat: 9am-4pm<br/>
-                    Sun: Closed</p>
+                {% if(components is defined and components is not empty) %}
+                    {{ displayComponent(components,'hours_of_operation')|raw }}
+                {% endif %}
             </li>
             <li>
-                <h2>Quick Links</h2>
-                <ul>
-                    <li><a href="">New Showroom</a></li>
-                    <li><a href="">Used Showroom</a></li>
-                    <li><a href="">Get Financed</a></li>
-                    <li><a href="">Service Department</a></li>
-                    <li><a href="">Upcoming Events</a></li>
-                </ul>
+                {% if(components is defined and components is not empty) %}
+                    {{ displayComponent(components,'quick_links')|raw }}
+                {% endif %}
             </li>
         </ul>
     </div>
-{% endblock %}
+{%  endblock %}
 
 
 {% block map %}

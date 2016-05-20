@@ -43,19 +43,21 @@ class PageRepository extends EntityRepository
             ->add('from', 'NumaDOAModuleBundle:page p')
             ->join('p.PageComponent', 'pc')
             ->join('pc.Component','c')
-            ->where('p.url=:url');
-
+            ->where('p.url like :url');
+        $qb->setParameter('url', $url);
         if(empty($dealer_id)){
             $qb->where('p.dealer_id is null');
         }else{
-            $qb->where('p.dealer_id= :dealer_id');
+            $qb->andWhere('p.dealer_id= :dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
 
         $page = $qb->getQuery()->getOneOrNullResult();
         if($page instanceof Page) {
+
             return $page->getComponent();
         }
+
         return null;
     }
 }
