@@ -60,4 +60,26 @@ class PageRepository extends EntityRepository
 
         return null;
     }
+
+    public function findPageComponentByPageId($page_id)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->select('p')
+            ->add('from', 'NumaDOAModuleBundle:page p')
+            ->join('p.PageComponent', 'pc')
+            ->join('pc.Component','c')
+            ->where('p.id like :page_id');
+        $qb->setParameter('page_id', $page_id);
+
+
+        $page = $qb->getQuery()->getOneOrNullResult();
+        if($page instanceof Page) {
+            return $page->getComponent();
+        }
+
+        return null;
+    }
 }
