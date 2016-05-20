@@ -3,38 +3,50 @@
 namespace Numa\DOAModuleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 /**
  * Page
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Page
 {
     /**
      * @var string
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $description;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $keywords;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $title;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $url;
 
     /**
      * @var bool
+     * @JMS\Expose
      */
     private $is_public;
 

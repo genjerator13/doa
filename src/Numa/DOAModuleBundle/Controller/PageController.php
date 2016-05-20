@@ -29,7 +29,11 @@ class PageController extends Controller
 
         $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
 
-        return $this->render('NumaDOAModuleBundle:Page:index.html.twig', array(
+        $render = 'NumaDOAModuleBundle:Page:index.html.twig';
+        if($dashboard =='DMS'){
+            $render = 'NumaDOAModuleBundle:Page:DMSindex.html.twig';
+        }
+        return $this->render($render, array(
             'entities' => $entities,
             'dashboard' => $dashboard,
         ));

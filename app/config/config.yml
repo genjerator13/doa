@@ -67,7 +67,7 @@ twig:
 assetic:
     debug: %kernel.debug%
     use_controller: false
-    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle' ]
+    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle','NumaDOAModuleBundle']
     filters:
         cssrewrite: ~
         less:
