@@ -58,3 +58,7 @@ NumaDOADMSBundle_servicerequest:
 dms_pages:
     resource: "@NumaDOADMSBundle/Resources/config/routing/pages.yml"
     prefix:   /pages
+dms_component:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/component.yml"
+    prefix:   /component
+
