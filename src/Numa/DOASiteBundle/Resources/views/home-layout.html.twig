@@ -25,9 +25,11 @@
             <meta name="keywords" content="{{ numa_settings('keywords') }}"/>
         {% endif %}
     {% endblock keyword %}
+    {% block stylesheets %}
     {% stylesheets '@bootstrap'  '@jquery_ui_css'  '@style' '@colorbox_css' '@dropzone_css' filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
+    {% endblock %}
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>

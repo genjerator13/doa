@@ -1,83 +1,172 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- default:main:default.tpl -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    {% block description %}
-        {{ include("NumaDOASiteBundle::description.html.twig") }}
-    {% endblock description %}
-    {% block keyword %}
-        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
-    {% endblock keyword %}
-    {% block title %}<title>{{ title }}</title>{% endblock title %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+
     {% block stylesheets %}
-        {% stylesheets '@bootstrap'  '@jquery_ui_css' '@flex_slider_css' '@pgw_slideshow_css' '@style' filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
-    {% endblock %}
-    {% block javascripts %}
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' '@jquery_ui_js' '@common_js' '@flex_slider_js' '@pgw_slideshow_js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
-        {% endjavascripts %}
-        {% include 'NumaDOASiteBundle::ga.html.twig' %}
     {% endblock %}
-    {% block canonical %}
-        <link rel="canonical" href="{{ url }}" />{% endblock canonical %}
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery(".mobile-menu ul ul").hide();
+            /* hide sublinks */
+            jQuery(".separator").click(function () {
+                jQuery(this).next().slideToggle(300);
+                /* display sublinks */
+            });
+        });
+    </script>
 </head>
-<body class=" default ">
-<!-- Static navbar -->
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            {% set route = app.request.get('_route') %}
-            {#{{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}#}
+
+<body>
+{% block headline %}
+    <div class="header">
+        <a class="logo" href="">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+        <div class="contact-info">
+            <div class="address">1234 Fake Street &middot; Saskatoon, SK &middot; S7B 2K4</div>
+            <a class="map-and-hours" href="">Map &amp; Hours</a>
+
+            <div class="phone">306.555.1234</div>
         </div>
     </div>
-</div>
-<div class="header-background">
+{% endblock %}
+{% block mainmenu %}
+    <div class="main-menu">
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="">About Us</a></li>
+            <li><a href="">Products</a>
+                <ul>
+                    <li><a href="">Online Shopping</a></li>
+                    <li><a href="">Parts List</a></li>
+                    <li><a href="">Showroom</a></li>
+                    <li><a href="">Get a Quote</a></li>
+                </ul>
+            </li>
+            <li><a href="">Services</a></li>
+            <li><a href="">Gallery</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+    </div>
+{% endblock %}
 
+<div class="mobile-menu">
+    {% block mobilemenu %}
+        <ul class="menu">
+            <li><span class="separator">Menu</span>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><span class="separator">Products</span>
+                        <ul>
+                            <li><a href="">Online Shopping</a></li>
+                            <li><a href="">Parts List</a></li>
+                            <li><a href="">Showroom</a></li>
+                            <li><a href="">Get a Quote</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </li>
+        </ul>
+    {% endblock %}
 </div>
-<div class="container">
-    <div class="header-background-content">
-        <div class="header-image">
-            <div class="header-logo">
+<div class="content">
+{% block content %}
 
+
+
+{% endblock %}
+</div>
+{% block info %}
+    <div class="info">
+        <ul>
+            <li>{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/logo.png' %}
+                <img src="{{ asset_url }}"/>
+                {% endimage %}</li>
+            <li>
+                <h2>Generic Company Name</h2>
+
+                <div class="address">
+                    1234 Fake Street<br/>
+                    Saskatoon, SK &middot; S7B 2K4
+                </div>
+                <div class="phone">
+                    <span>Phone:</span> 306.555.1234<br/>
+                    <span>Toll Free:</span> 1.888.123.4567<br/>
+                    <span>Fax:</span> 306.555.1235
+                </div>
+            </li>
+            <li>
+                <h2>Hours of Operation</h2>
+
+                <p>Mon-Fri: 9am-5pm<br/>
+                    Sat: 9am-4pm<br/>
+                    Sun: Closed</p>
+            </li>
+            <li>
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="">New Showroom</a></li>
+                    <li><a href="">Used Showroom</a></li>
+                    <li><a href="">Get Financed</a></li>
+                    <li><a href="">Service Department</a></li>
+                    <li><a href="">Upcoming Events</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block map %}
+
+    {% include '@NumaDOASite/map.html.twig' %}
+{% endblock %}
+
+
+{% block footer %}
+    <div class="footer-wrapper">
+        <div class="footer">
+            <div class="bottom-menu">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
+            <div class="extra-menu">
+                <ul>
+                    <li><a href="">Policy</a></li>
+                    <li><a href="">Privacy</a></li>
+                    <li><a href="">Terms</a></li>
+                    <li><a href="">Sitemap</a></li>
+                </ul>
             </div>
         </div>
-
     </div>
-
-    <div class="row">
-        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
-            {#{{ render_esi(controller('NumaDOASiteBundle:Default:sidebarMenu')) }} #}
-            {#{{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5 })) }}#}
-        </div>
-        <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 right-sidebar">
-            {% block rightsidebar %}
-            {% endblock %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="footer col-md-12 col-xs-12 col-sm-12 col-lg-12">
-            <a class="footer-img"></a>
-            {% include 'NumaDOASiteBundle::copyright.html.twig' %}
-        </div>
-    </div>
-</div> <!-- /container -->
+{% endblock %}
 </body>
 </html>

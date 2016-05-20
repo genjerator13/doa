@@ -19,6 +19,7 @@ body {
     margin: 0 auto;
     max-width: 1020px;
     padding: 0 20px;
+    height: 105px;
 }
 
 .logo {
@@ -403,6 +404,16 @@ body {
 .footer .extra-menu li:first-child {
     border-left: none;
     padding-left: 0;
+}
+
+#map {
+    height: 260px;
+    width: 100%;
+}
+
+h2.section {
+    background-color: #111111;
+    color: #f78f1e;
 }
 
 @media only screen
