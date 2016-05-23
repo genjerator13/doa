@@ -6,7 +6,9 @@
 {% block form_group_class -%}
     col-sm-9
 {%- endblock form_group_class %}
+
 {% block content %}
+
     <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css"/>
     <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
     <style type="text/css">
@@ -17,6 +19,11 @@
             line-height: 2 !important;
         }
     </style>
+
+    {% if(components is defined) %}
+        {{ displayComponent(components,'page_content') }}
+    {% endif %}
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {% if app.session.flashBag.has('success') %}

@@ -55,7 +55,7 @@ class SandboxController extends Controller {
         $day10 = strtotime($date . ' -1 day');
 
         $timestamp = strtotime($date);
-        $customer = $em->getRepository('NumaDOAStatsBundle:Stats')->getVisitors($day10, $timestamp);
+        $customer = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByPageId(5);
 
         dump($customer);die();
         $response = $this->render('NumaDOAStatsBundle:Default:index.html.twig', array());

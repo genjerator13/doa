@@ -17,6 +17,11 @@
             line-height: 2 !important;
         }
     </style>
+
+    {% if(components is defined) %}
+        {{ displayComponent(components,'page_content') }}
+    {% endif %}
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {% if app.session.flashBag.has('success') %}

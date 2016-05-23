@@ -6,36 +6,46 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Form\PartRequestType;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class PartsController extends Controller {
+class PartsController extends Controller implements DealerSiteControllerInterface{
 
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+    }
     public function partAction(Request $request) {
 
         $entity = new PartRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $components = $this->get('Numa.WebComponent')->getComponentsForPage("/parts");
 
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
-            $session = $request->getSession();
-            $dealer_id = $session->get('dealer_id');
+
             $parts = explode(",",$entity->getPartNum());
             //check if customer exists based by its email
             $data = $form->getData();
             $email = $data->getEmail();
 
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$dealer_id));
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
+
             if(empty($customer)){
                 $customer = new Customer();
                 $customer->setFirstName($data->getCustName());
                 $customer->setLastName($data->getCustLastName());
                 $customer->setEmail($email);
-                $customer->setCatalogrecords($dealer);
+                $customer->setCatalogrecords($this->dealer);
                 $customer->setHomePhone($data->getPhone());
                 $em->persist($customer);
 
@@ -46,19 +56,17 @@ class PartsController extends Controller {
                 foreach ($parts as $part){
                     $entities[$c] = clone $entity;
                     $entities[$c]->setPartNum($part);
-                    if(!empty($dealer_id)){
 
-                        $entities[$c]->setDealer($dealer);
-                    }
+                        $entities[$c]->setDealer($this->dealer);
+
                     $entities[$c]->setCustomer($customer);
                     $em->persist($entities[$c]);
                     $c++;
                 }
             }
-            if(!empty($dealer_id)){
-                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
-                $entity->setDealer($dealer);
-            }
+
+                $entity->setDealer($this->dealer);
+
 
             if(empty($entities)) {
                 $entity->setCustomer($customer);
@@ -73,6 +81,8 @@ class PartsController extends Controller {
 
         return $this->render('NumaDOASiteBundle:Parts:parts_form.html.twig', array(
             'entity' => $entity,
+            'components' => $this->components,
+            'dealer' => $this->dealer,
             'form'   => $form->createView(),
         ));
     }

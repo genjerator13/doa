@@ -9,7 +9,9 @@
 namespace Numa\DOASiteBundle\Services;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -41,11 +43,10 @@ class ExtraListener
                     $this->container->set('dealer', $dealer);
                     $session->set('dealer_id', $dealer->getId());
                     $setting->activateTheme($host);
-
                 }
             }
         //}
-        $settings = $this->container->get("Numa.Settings");
+        //$settings = $this->container->get("Numa.Settings");
 
 
         //$activeTheme = $this->container->get('liip_theme.active_theme');
@@ -56,9 +57,55 @@ class ExtraListener
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
-        //$controller->set
-        //dump($controller);die();
+
+        if (!is_array($controller)) {
+            // not a object but a different kind of callable. Do nothing
+            return;
+        }
+
+        $controllerObject = $controller[0];
+
+        // skip initializing for exceptions
+        if ($controllerObject instanceof ExceptionController) {
+            return;
+        }
+
+        if ($controllerObject instanceof DealerSiteControllerInterface) {
+            // this method is the one that is part of the interface.
+
+
+            $setting = $this->container->get("Numa.settings");
+
+            $host = $setting->get('host');
+            $request = $event->getRequest();
+            $session = $request->getSession();
+            if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
+                $dealer = $setting->getDealerForHost(trim($host));
+                if($dealer instanceof Catalogrecords) {
+                    $this->container->set('dealer', $dealer);
+                    //$session->set('dealer_id', $dealer->getId());
+                    $setting->activateTheme($host);
+                    $controllerObject->initializeDealer($dealer);
+                }
+                $request = $event->getRequest();
+                $pathinfo=$request->getPathInfo();
+                //$router = $this->container->get('router');
+
+
+                //$pathinfo = str_replace("/d","");
+                if(substr( $pathinfo, 0, 2 ) === "/d"){
+                    $pathinfo = substr($pathinfo,2,strlen($pathinfo)-1);
+                }
+
+                $components = $this->container->get('Numa.WebComponent')->getComponentsForPage($pathinfo);
+
+                $controllerObject->initializePageComponents($components);
+            }
+
+        }
     }
+
+
 
     public function onKernelResponse(FilterResponseEvent $event)
     {

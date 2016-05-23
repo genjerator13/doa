@@ -6,62 +6,64 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Form\ServiceRequestType;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ServiceController extends Controller {
+
+class ServiceController extends Controller implements DealerSiteControllerInterface{
+
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+
+    }
 
     public function serviceAction(Request $request) {
-
         $entity = new ServiceRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
-            $session = $request->getSession();
-            $dealer_id = $session->get('dealer_id');
-
             //check if customer exists based by its email
             $data = $form->getData();
             $email = $data->getEmail();
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$dealer_id));
-
-            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
             if(empty($customer)){
                 $customer = new Customer();
                 $customer->setFirstName($data->getCustName());
                 $customer->setLastName($data->getCustLastName());
                 $customer->setEmail($email);
-                $customer->setCatalogrecords($dealer);
+                $customer->setCatalogrecords($this->dealer);
                 $customer->setHomePhone($data->getPhone());
                 $em->persist($customer);
-
             }
-
             $entity->setCustomer($customer);
-
-
-
-            if(!empty($dealer_id)){
-                $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
-                $entity->setDealer($dealer);
-            }
+            //if($this->dealer instanceof Catalogrecords){
+                $entity->setDealer($this->dealer);
+            //}
 
             if(empty($entities)) {
                 $em->persist($entity);
             }
-            $em->flush();
 
+            $em->flush();
             return $this->redirectToRoute('service_success');
 
         }
 
         return $this->render('NumaDOASiteBundle:Service:service_form.html.twig', array(
             'entity' => $entity,
+            'dealer' => $this->dealer,
+            'components'=>$this->components,
             'form'   => $form->createView(),
         ));
     }

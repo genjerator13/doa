@@ -46,13 +46,13 @@ class PageRepository extends EntityRepository
             ->where('p.url like :url');
         $qb->setParameter('url', $url);
         if(empty($dealer_id)){
-            $qb->where('p.dealer_id is null');
+            $qb->andWhere('p.dealer_id is null');
         }else{
             $qb->andWhere('p.dealer_id= :dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
 
-        $page = $qb->getQuery()->getOneOrNullResult();
+        $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
         if($page instanceof Page) {
 
             return $page->getComponent();
