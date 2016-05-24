@@ -213,7 +213,7 @@ class ImageCarouselController extends Controller
     }
 
     /**
-     * Deletes a ImageCarousel entity.
+     * uploads images and store  a ImageCarousel entity.
      *
      */
     public function uploadAction(Request $request)

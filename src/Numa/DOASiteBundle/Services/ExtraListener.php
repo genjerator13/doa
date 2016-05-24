@@ -10,6 +10,7 @@ namespace Numa\DOASiteBundle\Services;
 
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Page;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -28,30 +29,7 @@ class ExtraListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        $session = $request->getSession();
 
-        //if(empty($session->get('dealer_id'))){
-            //get from host from settings
-            $setting = $this->container->get("Numa.settings");
-            $host = $setting->get('host');
-
-            if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
-                $dealer = $setting->getDealerForHost(trim($host));
-
-                if(!empty($dealer)) {
-                    $this->container->set('dealer', $dealer);
-                    $session->set('dealer_id', $dealer->getId());
-                    $setting->activateTheme($host);
-                }
-            }
-        //}
-        //$settings = $this->container->get("Numa.Settings");
-
-
-        //$activeTheme = $this->container->get('liip_theme.active_theme');
-        //echo $activeTheme->getName();
-        //$activeTheme->setName($theme);
     }
 
     public function onKernelController(FilterControllerEvent $event)
@@ -78,7 +56,7 @@ class ExtraListener
 
             $host = $setting->get('host');
             $request = $event->getRequest();
-            $session = $request->getSession();
+            //$session = $request->getSession();
             if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
                 $dealer = $setting->getDealerForHost(trim($host));
                 if($dealer instanceof Catalogrecords) {
@@ -97,11 +75,20 @@ class ExtraListener
                     $pathinfo = substr($pathinfo,2,strlen($pathinfo)-1);
                 }
 
-                $components = $this->container->get('Numa.WebComponent')->getComponentsForPage($pathinfo);
+                $em = $this->container->get('doctrine.orm.entity_manager');
+                $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo,$dealer->getId());
 
                 $controllerObject->initializePageComponents($components);
             }
 
+        }elseif($controllerObject instanceof DashboardDMSControllerInterface){
+            $request = $event->getRequest();
+            $route = $request->get('_route');
+            if(strtolower(substr( $route, 0, 3 )) === "dms"){
+                $dashboard = "DMS";
+
+            }
+            $controllerObject->initializeDashboard($dashboard);
         }
     }
 

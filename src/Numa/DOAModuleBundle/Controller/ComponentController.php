@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -144,6 +145,7 @@ class ComponentController extends Controller
     {
         $form = $this->createForm(new ComponentType(), $entity, array(
             'action' => $this->generateUrl('component_update', array('id' => $entity->getId())),
+            'attr'   => array('class'=>'','id'=>'my-awesome-dropzone'),
             'method' => 'POST',
         ));
 
@@ -220,5 +222,35 @@ class ComponentController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * uploads images and store  a ImageCarousel entity.
+     *
+     */
+    public function uploadAction(Request $request,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()->getForm();
+        $form->handleRequest($request);
+        $file = $request->files->get('file');
+
+        if ($file instanceof UploadedFile && $file->isValid()) {
+            //upload to
+            $upload =$this->container->getParameter('upload_component').$id;
+            $upload_path = $this->container->getParameter('upload_component');
+            if(!is_dir($this->container->getParameter('upload_component'))){
+                mkdir($this->container->getParameter('upload_component'));
+                if(!is_dir($upload)){
+                    mkdir($upload);
+                }
+                
+                $file->move($upload."/".$file->getClientOriginalName());
+            }
+            dump($upload_path);die();
+            //$file->move($imagecarousel->getUploadRootDir(), $file->getClientOriginalName());
+        }
+        die();
+
     }
 }

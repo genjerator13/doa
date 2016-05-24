@@ -13,7 +13,18 @@
         </div>
     </div>
 {% endblock %}
+{% block banner %}
+    <div class="banner">
 
+        <div class="image">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/banner.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+            {{ displayComponent(components,'carousel_homepage')|raw }}
+        </div>
+
+    </div>
+{% endblock %}
 {% block content %}
     <div class="content">
         {{ displayComponent(components,'welcome_text')|raw }}

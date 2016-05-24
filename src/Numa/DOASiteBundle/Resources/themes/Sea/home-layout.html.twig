@@ -9,25 +9,31 @@
     <title>Dealers on Air</title>
 
     {% block stylesheets %}
-        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css' filter='cssrewrite' output='css/*.css' %}
+
+        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
     {% endblock %}
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    {% block javascripts %}
+        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 
-    <script type="text/javascript">
-        jQuery(document).ready(function () {
-            jQuery(".mobile-menu ul ul").hide();
-            /* hide sublinks */
-            jQuery(".separator").click(function () {
-                jQuery(this).next().slideToggle(300);
-                /* display sublinks */
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery(".mobile-menu ul ul").hide();
+                /* hide sublinks */
+                jQuery(".separator").click(function () {
+                    jQuery(this).next().slideToggle(300);
+                    /* display sublinks */
+                });
             });
-        });
-    </script>
+        </script>
+    {% endblock %}
 </head>
 
 <body>
@@ -40,137 +46,137 @@
 
 <div class="mobile-menu">
     {% block mobilemenu %}
-    <ul class="menu">
-        <li><span class="separator">Menu</span>
-            <ul>
-                <li><a href="">Home</a></li>
-                <li><a href="">About Us</a></li>
-                <li><span class="separator">Products</span>
-                    <ul>
-                        <li><a href="">Online Shopping</a></li>
-                        <li><a href="">Parts List</a></li>
-                        <li><a href="">Showroom</a></li>
-                        <li><a href="">Get a Quote</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Services</a></li>
-                <li><a href="">Gallery</a></li>
-                <li><a href="">Contact Us</a></li>
-            </ul>
-        </li>
-    </ul>
+        <ul class="menu">
+            <li><span class="separator">Menu</span>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><span class="separator">Products</span>
+                        <ul>
+                            <li><a href="">Online Shopping</a></li>
+                            <li><a href="">Parts List</a></li>
+                            <li><a href="">Showroom</a></li>
+                            <li><a href="">Get a Quote</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </li>
+        </ul>
     {% endblock %}
 </div>
 {% block banner %}
-<div class="banner">
+    <div class="banner">
 
-    <div class="image">
-        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/banner.jpg' %}
-        <img src="{{ asset_url }}" alt="Example"/>
-        {% endimage %}
+        <div class="image">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/banner.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </div>
+
     </div>
-
-</div>
 {% endblock %}
 {% block buttons %}
-<div class="buttons">
+    <div class="buttons">
 
-    <ul>
-        <li>
-            <a href="">
-                <div class="left-arrow">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}"/>
-                    {% endimage %}
-                </div>
-                <div class="button-title"><span>New</span> Showroom</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <div class="left-arrow">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}"/>
-                    {% endimage %}
-                </div>
-                <div class="button-title"><span>Used</span> Showroom</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <div class="left-arrow">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}"/>
-                    {% endimage %}
-                </div>
-                <div class="button-title"><span>Get</span> Financed</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <div class="left-arrow">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                    <img src="{{ asset_url }}"/>
-                    {% endimage %}
-                </div>
-                <div class="button-title"><span>Service</span> Department</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>New</span> Showroom</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Used</span> Showroom</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Get</span> Financed</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Service</span> Department</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+        </ul>
 
-</div>
+    </div>
 {% endblock %}
 {% block links %}
-<div class="links">
+    <div class="links">
 
-    <ul>
-        <li>
-            <a href="">
-                <div class="link-title"><span>Upcoming</span> Events</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-        <li>
-            <a href="{{ path('part_form') }}">
-                <div class="link-title"><span>Parts</span> Department</div>
-                <div class="click-here">Click Here</div>
-            </a>
-        </li>
-    </ul>
-</div>
+        <ul>
+            <li>
+                <a href="">
+                    <div class="link-title"><span>Upcoming</span> Events</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('part_form') }}">
+                    <div class="link-title"><span>Parts</span> Department</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}
 {% block featuredads %}
-<div class="company-logos">
+    <div class="company-logos">
 
-    <a href="">
-        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}
-    </a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company2.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company3.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company4.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company5.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
-    <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company6.png' %}
-        <img src="{{ asset_url }}"/>
-        {% endimage %}</a>
+        <a href="">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}
+        </a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company1.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company2.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company3.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company4.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company5.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
+        <a href="">{% image '@NumaDOASiteBundle/Resources/Public/Sea/images/company6.png' %}
+            <img src="{{ asset_url }}"/>
+            {% endimage %}</a>
 
-</div>
+    </div>
 {% endblock %}
 {% block content %}
 
@@ -184,6 +190,7 @@
             <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
             <li>
                 <h2>{{ dealer.name }}</h2>
+
                 <div class="address">
                     {{ dealer.address }}<br>
                     {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
@@ -200,7 +207,7 @@
             </li>
         </ul>
     </div>
-{%  endblock %}
+{% endblock %}
 
 
 {% block map %}

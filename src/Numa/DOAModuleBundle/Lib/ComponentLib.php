@@ -19,11 +19,8 @@ class ComponentLib
         $this->container = $container;
     }
 
-    function getComponentsForPage($pageUrl){
+    function getComponentsForPage($pageUrl,$dealer_id){
         $em = $this->container->get('doctrine.orm.entity_manager');
-        //get page entity by page url and by delaerid
-        $session = $this->container->get('session');
-        $dealer_id = $session->get('dealer_id');
         $component = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pageUrl,$dealer_id);
         return $component;
     }

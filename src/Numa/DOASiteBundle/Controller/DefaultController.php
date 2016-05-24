@@ -2,26 +2,42 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityRepository;
 use Numa\Util\Util as Util;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class DefaultController extends Controller {
+class DefaultController extends Controller implements DealerSiteControllerInterface{
+
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+        //dump($components);
+    }
 
     public function indexAction() {
         $nocache = false;
+
         $em = $this->getDoctrine()->getManager();
-        $session = $this->get('session');
-        $dealer_id = $session->get('dealer_id');
-        $hometabs_key = "hometabs_".$dealer_id;
+        $hometabs_key = "hometabs_";
+        $dealer_id=null;
+        if(!empty($this->dealer)) {
+            $dealer_id=$this->dealer->getId();
+            $hometabs_key = "hometabs_" . $this->dealer->getId();
+        }
         //dump($hometabs_key);
         $hometabs = $this->get('mymemcache')->get($hometabs_key);
          
         if (empty($hometabs)) {
             $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findByDealer($dealer_id);
-            //dump($hometabs);die();
+
             $this->get('mymemcache')->set($hometabs_key, $hometabs);
             $nocache = true;
             //$this->get('memcache.default')->set('jsonCar', $jsonCar);
@@ -183,9 +199,6 @@ class DefaultController extends Controller {
                 ->getForm();
 
         $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url'=>"/"));
-        $components = $this->get('Numa.WebComponent')->getComponentsForPage("/");
-
-        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
 
         $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
             'webpage' => $webpage,
@@ -196,8 +209,8 @@ class DefaultController extends Controller {
             'motorsportForm' => $motorsportForm->createView(),
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
-            'components' => $components,
-            'dealer'=>$dealer,
+            'components' => $this->components,
+            'dealer'=>$this->dealer,
             'marineForm' => $marineForm->createView()));
         if (!$nocache) {
             $response->setPublic();

@@ -45,6 +45,7 @@
                 {{ parent() }}
                 {% javascripts
                 '@colorbox_js'
+                '@dropzone_js'
                 'js/angular/angular143.min.js'
                 'js/angular/angular-touch143.min.js'
                 'js/angular/angular-animate143.min.js'
@@ -52,7 +53,9 @@
                 'js/angular/ui-grid.js'
                 'js/angular/angular-confirm.min.js'
                 'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-                'js/loading-bar.min.js' %}
+                'js/loading-bar.min.js'
+
+                %}
 
                 <script src="{{ asset_url }}"></script>
                 {% endjavascripts %}
@@ -67,17 +70,7 @@
             {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
 
             <div class="box">
-                {#<div class="box-header">#}
-                    {#<div class="box-header">#}
-                        {#<h3 class="box-title">Pages list</h3>#}
-                        {#<div class="box-tools">#}
-                            {#<a href="{{ path('dms_page_new') }}" class="btn btn-primary">#}
-                                {#Create new Page#}
-                            {#</a>#}
-                        {#</div>#}
 
-                    {#</div>#}
-                {#</div>#}
                 <div class="box-body table-responsive no-padding" ng-app="app">
 
                     <div ng-controller="MainCtrl">
@@ -98,19 +91,7 @@
                         <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
                     </div>
                 </div>
-
                 {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
-
-
-
-
-
-            {#{% for component in edit_form.component %}#}
-                {#{{ form_row(component.name) }}#}
-                {#{{ form_row(component.type) }}#}
-                {#{{ form_row(component.value) }}#}
-            {#{% endfor %}#}
-            {#{% include 'NumaDOAModuleBundle:Page:pageContent.html.twig' %}#}
         </div>
 
     </div>

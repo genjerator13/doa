@@ -28,3 +28,7 @@ component_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAModuleBundle:Component:delete",_dashboard:"DMS" }
     requirements: { _method: post|delete }
+
+component_upload:
+    path:     /upload/{id}/carousel
+    defaults: { _controller: "NumaDOAModuleBundle:Component:upload" }
