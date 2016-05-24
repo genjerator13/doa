@@ -19,7 +19,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function initializePageComponents($components){
         $this->components = $components;
-        //dump($components);
     }
 
     public function indexAction() {

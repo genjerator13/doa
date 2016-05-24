@@ -1,7 +1,10 @@
 Numa\DOAModuleBundle\Entity\Component:
     type: entity
     table: componentx
-
+    repositoryClass: Numa\DOAModuleBundle\Repository\ComponentRepository
+    indexes:
+        url:
+            columns: [ name ]
     id:
         id:
             type: integer

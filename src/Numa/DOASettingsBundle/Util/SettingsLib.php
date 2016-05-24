@@ -251,4 +251,29 @@ class SettingsLib
         $title =  str_replace($matches[0], $replace, $stringFormula);
         return $title;
     }
+
+    public function createDealerUploadFolders($dealer_id){
+        //upload to
+        $upload =$this->container->getParameter('upload_dealer').$dealer_id;
+        if(!is_dir($upload)) {
+
+            if (!is_dir($this->container->getParameter('upload_dealer'))) {
+                mkdir($this->container->getParameter('upload_dealer'),777,true);
+
+            }
+            mkdir($upload,777,true);
+        }
+    }
+
+    public function createDealerComponentUploadFolders($dealer_id,$component_id){
+        //$this->createDealerUploadFolders($dealer_id);
+        $upload =$this->container->getParameter('upload_dealer').$dealer_id."/component".$component_id;
+        if(!is_dir($this->container->getParameter('upload_dealer').$dealer_id."/component")){
+            mkdir($this->container->getParameter('upload_dealer').$dealer_id."/component",777,true);
+            if(!is_dir($upload)){
+               // mkdir($upload,777,true);
+            }
+
+        }
+    }
 }

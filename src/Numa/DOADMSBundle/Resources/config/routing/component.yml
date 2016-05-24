@@ -32,3 +32,6 @@ component_delete:
 component_upload:
     path:     /upload/{id}/carousel
     defaults: { _controller: "NumaDOAModuleBundle:Component:upload" }
+component_carousel_refresh:
+    path:     /{id}/carousel
+    defaults: { _controller: "NumaDOAModuleBundle:Component:refreshCarousel" }

@@ -13,10 +13,6 @@
 
                 {{ form_end(edit_form) }}
 
-                <form action="{{ path('component_upload',{'id':entity.id}) }}" method="post" class="dropzone" id="drop">
-                    {#{{ form_widget(form.file) }}#}
-                    {#<input type="submit" value="Upload" />#}
-                </form>
                 {% if(app.request.get('_dashboard')=='DMS') %}
                     <a href="{{ path('dms_page') }}" class="btn btn-primary">
                         Back to the list

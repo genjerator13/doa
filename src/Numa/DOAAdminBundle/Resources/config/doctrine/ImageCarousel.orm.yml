@@ -42,11 +42,19 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
         dealer_id:
             type: integer
             nullable: true
+        component_id:
+            type: integer
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
             joinColumn:
                 name: dealer_id
+                referencedColumnName: id
+        Component:
+            targetEntity: Numa\DOAModuleBundle\Entity\Component
+            joinColumn:
+                name: component_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

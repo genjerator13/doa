@@ -27,7 +27,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
         $entity = new PartRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $components = $this->get('Numa.WebComponent')->getComponentsForPage("/parts");
 
         if ($form->isValid()) {
 

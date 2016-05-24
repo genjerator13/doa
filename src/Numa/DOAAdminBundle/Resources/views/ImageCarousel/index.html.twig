@@ -41,66 +41,7 @@
         </div>
 
         <div class="box-body table-responsive no-padding">
-            <table class="table">
-                <thead>
-                <tr>
-
-                    <th>Src</th>
-                    <th>Title</th>
-                    <th>Url</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for entity in entities %}
-                    {% set image=entity.getUploadDir()~"/"~entity.src %}
-                    <tr>
-                        <td>
-                            {% if  "youtube" in entity.src %}
-                                <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(entity.src)) }}"
-                                   title="{{ entity.title }}">
-                                    <img
-                                            src="{{ getYoutubeThumb(getYoutubeId(entity.src)) }}"
-                                            alt="image"
-                                            width="120px"
-                                            class="thumbnail"/>
-                                </a>
-                            {% else %}
-                                <a class="colorbox cimage" href="{{ asset(image,null,true) }}"
-                                   title="{{ entity.title }}">
-                                    <img class="thumbnail" src="{{ image|imagine_filter('search_image') }}"/>
-                                </a>
-                            {% endif %}
-                        </td>
-                        <td>{{ entity.title }}</td>
-                        <td>{{ entity.url }}</td>
-                        <td>
-                            <ul class="list-inline">
-                                {% if(app.request.get('_dashboard')=='DMS') %}
-                                <li>
-                                    <a class="btn btn-primary"
-                                       href="{{ path('dms_imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
-                                    <li>
-                                        <a class="btn btn-danger"
-                                           href="{{ path('dms_imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-                                    </li>
-                                {% else %}
-                                <li>
-                                    <a class="btn btn-primary"
-                                       href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
-                                </li>
-                                    <li>
-                                        <a class="btn btn-danger"
-                                           href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            {% include "NumaDOAAdminBundle:ImageCarousel:carousel_list.html.twig" %}
         </div>
     </div>
     <script>

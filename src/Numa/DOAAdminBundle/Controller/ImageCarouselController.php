@@ -2,6 +2,8 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Numa\DOAModuleBundle\Entity\Component;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -15,9 +17,13 @@ use Numa\DOAAdminBundle\Form\ImageCarouselType;
  * ImageCarousel controller.
  *
  */
-class ImageCarouselController extends Controller
+class ImageCarouselController extends Controller implements DashboardDMSControllerInterface
 {
-
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
     /**
      * Lists all ImageCarousel entities.
      *
@@ -25,15 +31,16 @@ class ImageCarouselController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dashboard = $request->get('_dashboard');
+
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealers($dealer);
-
+        $uploadDir = ImageCarousel::getUploadDir();
         return $this->render('NumaDOAAdminBundle:ImageCarousel:index.html.twig', array(
+            'uploadDir' => $uploadDir,
             'entities' => $entities,
-            'addVideoForm' => $this->addVideoForm($dashboard)->createView(),
-            'dashboard' => $dashboard,
+            'addVideoForm' => $this->addVideoForm($this->dashboard)->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -46,8 +53,6 @@ class ImageCarouselController extends Controller
         $entity = new ImageCarousel();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-        $dashboard = $request->get('_dashboard');
-
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
@@ -57,7 +62,7 @@ class ImageCarouselController extends Controller
             $em->flush();
             $this->addFlash("New image is added to carousel", 'success');
             $redirect = 'imagecarousel';
-            if($dashboard =='DMS'){
+            if($this->dashboard =='DMS'){
                 $redirect = 'dms_imagecarousel';
             }
 
@@ -133,21 +138,21 @@ class ImageCarouselController extends Controller
     public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
-
+        $uploadDir = ImageCarousel::getUploadDir();
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
 
-        $editForm = $this->createEditForm($entity,$dashboard);
+        $editForm = $this->createEditForm($entity,$this->dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
+            'uploadDir' => $uploadDir,
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'dashboard' => $dashboard,
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -162,7 +167,7 @@ class ImageCarouselController extends Controller
     {
         $action = 'imagecarousel_update';
 
-        if(!empty($dashboard)){
+        if(strtoupper($this->dashboard) =='DMS'){
             $action = 'dms_imagecarousel_update';
         }
 
@@ -184,7 +189,6 @@ class ImageCarouselController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
 
         if (!$entity) {
@@ -198,7 +202,7 @@ class ImageCarouselController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
             $redirect = 'imagecarousel_edit';
-            if($dashboard =='DMS'){
+            if(strtoupper($this->dashboard) =='DMS'){
                 $redirect = 'dms_imagecarousel_edit';
             }
             return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
@@ -208,7 +212,7 @@ class ImageCarouselController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'dashboard' => $dashboard,
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -243,7 +247,6 @@ class ImageCarouselController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
-        $dashboard = $request->get('_dashboard');
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
@@ -251,8 +254,11 @@ class ImageCarouselController extends Controller
         $em->remove($entity);
         $em->flush();
         $redirect = 'imagecarousel';
-        if($dashboard =='DMS'){
+        if(strtoupper($this->dashboard) =='DMS'){
             $redirect = 'dms_imagecarousel';
+            if($entity->getComponent() instanceof Component){
+                return $this->redirect($this->generateUrl("component_edit",array("id"=>$entity->getComponentId())));
+            }
         }
         return $this->redirect($this->generateUrl($redirect));
     }
@@ -275,11 +281,11 @@ class ImageCarouselController extends Controller
     }
 
 
-    public function addVideoForm($dashboard="")
+    public function addVideoForm()
     {
         $action = 'imagecarousel_add_video';
 
-        if(!empty($dashboard)){
+        if(strtoupper($this->dashboard) =='DMS'){
             $action = 'dms_imagecarousel_add_video';
         }
 
@@ -295,9 +301,7 @@ class ImageCarouselController extends Controller
 
     public function addVideoAction(Request $request)
     {
-
-        $dashboard = $request->get('_dashboard');
-        $form = $this->addVideoForm($dashboard);
+        $form = $this->addVideoForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
             $data = $form->getData();
@@ -314,7 +318,7 @@ class ImageCarouselController extends Controller
         }
 
         $redirect = 'imagecarousel';
-        if($dashboard =='DMS'){
+        if(strtoupper($this->dashboard) =='DMS'){
             $redirect = 'dms_imagecarousel';
         }
 

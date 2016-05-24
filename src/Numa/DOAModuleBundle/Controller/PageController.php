@@ -18,16 +18,16 @@ use Numa\DOAModuleBundle\Form\PageType;
  */
 class PageController extends Controller implements DashboardDMSControllerInterface
 {
-
-    /**
-     * Lists all Page entities.
-     *
-     */
     public $dashboard;
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+    /**
+     * Lists all Page entities.
+     *
+     */
+
 
     public function indexAction(Request $request)
     {
@@ -150,8 +150,6 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         $component = $entity->getComponent();
-
-
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
             'entity'      => $entity,

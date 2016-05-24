@@ -67,10 +67,7 @@ class ExtraListener
                 }
                 $request = $event->getRequest();
                 $pathinfo=$request->getPathInfo();
-                //$router = $this->container->get('router');
 
-
-                //$pathinfo = str_replace("/d","");
                 if(substr( $pathinfo, 0, 2 ) === "/d"){
                     $pathinfo = substr($pathinfo,2,strlen($pathinfo)-1);
                 }

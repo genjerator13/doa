@@ -2,7 +2,9 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Proxies\__CG__\Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -30,6 +32,7 @@ class ComponentController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Component entity.
      *
@@ -50,7 +53,7 @@ class ComponentController extends Controller
 
         return $this->render('NumaDOAModuleBundle:Component:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -80,11 +83,11 @@ class ComponentController extends Controller
     public function newAction()
     {
         $entity = new Component();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAModuleBundle:Component:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -105,7 +108,7 @@ class ComponentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAModuleBundle:Component:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -126,26 +129,38 @@ class ComponentController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($id);
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
+        $uploadDir = Component::getUploadDir($dealer->getId(),$id);
+        if(strtolower($entity->getType())=="carousel"){
+            return $this->render('NumaDOAModuleBundle:Component:carousel_edit.html.twig', array(
+                'uploadDir' => $uploadDir,
+                'entity' => $entity,
+                'entities' => $entities,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
         return $this->render('NumaDOAModuleBundle:Component:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Component entity.
-    *
-    * @param Component $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Component entity.
+     *
+     * @param Component $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Component $entity)
     {
         $form = $this->createForm(new ComponentType(), $entity, array(
             'action' => $this->generateUrl('component_update', array('id' => $entity->getId())),
-            'attr'   => array('class'=>'','id'=>'my-awesome-dropzone'),
+            'attr' => array('class' => '', 'id' => 'my-awesome-dropzone'),
             'method' => 'POST',
         ));
 
@@ -153,6 +168,7 @@ class ComponentController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Component entity.
      *
@@ -178,11 +194,12 @@ class ComponentController extends Controller
         }
 
         return $this->render('NumaDOAModuleBundle:Component:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Component entity.
      *
@@ -220,37 +237,56 @@ class ComponentController extends Controller
             ->setAction($this->generateUrl('component_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
     /**
      * uploads images and store  a ImageCarousel entity.
      *
      */
-    public function uploadAction(Request $request,$id)
+    public function uploadAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $path   = $dealer->getId() . "/component/" . $id;
+        $upload = $this->container->getParameter('upload_dealer') . $path;
 
         if ($file instanceof UploadedFile && $file->isValid()) {
-            //upload to
-            $upload =$this->container->getParameter('upload_component').$id;
-            $upload_path = $this->container->getParameter('upload_component');
-            if(!is_dir($this->container->getParameter('upload_component'))){
-                mkdir($this->container->getParameter('upload_component'));
-                if(!is_dir($upload)){
-                    mkdir($upload);
-                }
-                
-                $file->move($upload."/".$file->getClientOriginalName());
-            }
-            dump($upload_path);die();
-            //$file->move($imagecarousel->getUploadRootDir(), $file->getClientOriginalName());
+            $this->get("Numa.Settings")->createDealerComponentUploadFolders($dealer->getId(),$id);
+            $file->move($upload,$file->getClientOriginalName() );
+            $component = $em->getRepository("NumaDOAModuleBundle:Component")->find($id);
+            $set = $component->getSettings();
+            $setJson = json_decode($set,true);
+            $imageCarousel = new ImageCarousel();
+            $imageCarousel->setDealer($dealer);
+            $imageCarousel->setComponent($component);
+            $imageCarousel->setSrc($path."/".$file->getClientOriginalName());
+            $imageCarousel->setActive(true);
+            $imageCarousel->setTitle($file->getClientOriginalName());
+            //$setJson[] = $path."/".$file->getClientOriginalName();
+            //$component->setSettings(json_encode($setJson));
+            $em->persist($imageCarousel);
+            $em->flush();
+
         }
-        die();
+        $res = array("message"=>"success");
+        return new JsonResponse($res);
+
+    }
+
+    public function refreshCarouselAction(Request $request,$id){
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        //get component by dealer and component id
+        $em = $this->getDoctrine()->getManager();
+        $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByComponent($id);
+        $uploadDir = Component::getUploadDir($dealer->getId(),$id);
+        return $this->render('NumaDOAAdminBundle:ImageCarousel:carousel_list.html.twig', array(
+            'entities' => $entities,
+            'uploadDir'=> $uploadDir
+        ));
 
     }
 }
