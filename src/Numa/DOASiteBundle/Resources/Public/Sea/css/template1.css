@@ -415,7 +415,9 @@ h2.section {
     background-color: #111111;
     color: #f78f1e;
 }
-
+.bs-example{
+    margin-top: -10px;
+}
 @media only screen
 and (max-width : 1023px) {
 
