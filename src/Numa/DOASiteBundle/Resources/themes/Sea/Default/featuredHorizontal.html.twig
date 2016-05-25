@@ -1,5 +1,4 @@
 {% if images is not empty %}
-    <h3 class="header">Featured Listing of the Week</h3>
     <div id="carousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -16,18 +15,7 @@
 
                 <div class="item {% if loop.first %}active{% endif %}">
 
-                    {% if  "youtube" in image.src %}
-                        <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(image.src)) }}" >
-                            <img
-                                    src="{{ getYoutubeThumb(getYoutubeId(image.src)) }}"
-                                    alt="image"
-                                    width="606px"
-                                    class="thumbnail"/>
-                            <div class="youtube_play"></div>
-                        </a>
-                    {% else %}
                         <img src="{{ imagex|imagine_filter('carousel') }}" alt="carousel image">
-                    {% endif %}
 
                     <div class="carousel-text">
 
@@ -52,11 +40,4 @@
         </a>
 
     </div>
-    <script>
-
-        $(document).ready(function () {
-            $("a.colorbox_youtube").colorbox({iframe:true, innerWidth:640, innerHeight:390});
-        });
-
-    </script>
 {% endif %}
