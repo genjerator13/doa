@@ -1,6 +1,4 @@
-{% extends app.request.attributes.get('_route')=='item_print_details'
-? 'NumaDOASiteBundle::print-layout.html.twig'
-: 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block title %}
     {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
