@@ -19,6 +19,9 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
             type: string
             length: 255
             nullable: true
+        carousel_text:
+            type: text
+            nullable: true
         position:
             type: integer
             nullable: true

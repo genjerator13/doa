@@ -424,6 +424,14 @@ h2.section {
     display: block;
 }
 
+#myCarousel .text_widget {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    border: 1px solid red;
+
+}
+
 
 
 

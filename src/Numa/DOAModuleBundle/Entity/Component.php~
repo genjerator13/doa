@@ -357,4 +357,9 @@ class Component
         }
 
     }
+
+    public static function getUploadDir($dealer_id, $component_id){
+        $uploadDir = "upload/dealers";
+        return $uploadDir;
+    }
 }
