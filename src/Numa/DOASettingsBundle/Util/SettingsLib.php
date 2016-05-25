@@ -272,7 +272,7 @@ class SettingsLib
         if(!is_dir($this->container->getParameter('upload_dealer').$dealer_id."/component")){
             mkdir($this->container->getParameter('upload_dealer').$dealer_id."/component",0777,true);
             if(!is_dir($upload)){
-                mkdir($upload,/777,true);
+                mkdir($upload,0777,true);
             }
 
         }
