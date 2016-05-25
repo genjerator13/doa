@@ -30,6 +30,7 @@ class NumaExtension extends \Twig_Extension
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
             'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
             'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
+            'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
         );
     }
@@ -124,6 +125,26 @@ class NumaExtension extends \Twig_Extension
             }
         }
         return "c not f";
+    }
+
+    public function displayCarouselComponent($components){
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
+
+        if(!empty($components)) {
+            $componentsArray = $components->matching($criteria);
+
+            if (!empty($componentsArray) and $componentsArray->count() > 0) {
+
+                $component =  $componentsArray->first();
+
+                $em        = $this->container->get('doctrine.orm.entity_manager');
+                $images    = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+
+                return $images;
+            }
+        }
+        return null;
     }
 
     public function getDealer(){

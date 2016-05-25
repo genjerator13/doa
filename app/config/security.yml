@@ -35,6 +35,7 @@ security:
         - { path: ^/admin/catalogs/[0-9]+/update, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/imagecarousel/upload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
