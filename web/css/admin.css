@@ -154,3 +154,15 @@ input[type="file"] {
 .new-listing{
     padding: 10px;
 }
+
+.addfeature{
+    margin: 20px;
+}
+
+.page-component {
+    padding: 10px;
+}
+
+.page-component-row {
+    padding: 10px;
+}
