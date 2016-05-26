@@ -73,7 +73,7 @@
         </li>
     {% endif %}
     {% if item.getExteriorColor() is not empty %}
-        <li>
+        <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Exterior Color: </span>
             <span class="fieldValue fieldValue-status">{{ item.getExteriorColor() }}</span>
         </li>
