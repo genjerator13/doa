@@ -230,6 +230,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
                 background: { color: '#FFFFFF' }
+        search_image_sea:
+            quality: 100
+            filters:
+                thumbnail: { size: [350, 250], mode: outbound }
+                background: { color: '#FFFFFF' }
         logo_image:
             quality: 100
             filters:
