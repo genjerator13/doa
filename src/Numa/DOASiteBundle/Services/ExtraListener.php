@@ -73,6 +73,7 @@ class ExtraListener
                 }
 
                 $em = $this->container->get('doctrine.orm.entity_manager');
+
                 $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo,$dealer->getId());
 
                 $controllerObject->initializePageComponents($components);

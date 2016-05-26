@@ -5,8 +5,7 @@
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="col-md-2" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
-
+                <a class="col-md-2 featured-ads-item" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}

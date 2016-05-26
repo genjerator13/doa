@@ -342,14 +342,14 @@ class ImageCarousel
     {
         return null === $this->path
             ? null
-            : $this->getUploadDir().'/'.$this->path;
+            : self::getUploadDir().'/'.$this->path;
     }
 
     public function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        $folder = __DIR__.'/../../../../web/'.$this->getUploadDir();
+        $folder = __DIR__.'/../../../../web/'.self::getUploadDir();
 //        if(!file_exists($folder)){
 //            mkdir($folder,777,true);
 //        }
@@ -360,7 +360,7 @@ class ImageCarousel
         return $this->getUploadRootDir()."/".$this->getSrc();
     }
 
-    public function getUploadDir()
+    public static function getUploadDir()
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
@@ -447,5 +447,63 @@ class ImageCarousel
     public function getDealer()
     {
         return $this->Dealer;
+    }
+    /**
+     * @var int
+     */
+    private $component_id;
+
+    /**
+     * @var \Numa\DOAModuleBundle\Entity\Component
+     */
+    private $Component;
+
+
+    /**
+     * Set componentId
+     *
+     * @param int $componentId
+     *
+     * @return ImageCarousel
+     */
+    public function setComponentId($componentId)
+    {
+        $this->component_id = $componentId;
+
+        return $this;
+    }
+
+    /**
+     * Get componentId
+     *
+     * @return int
+     */
+    public function getComponentId()
+    {
+        return $this->component_id;
+    }
+
+    /**
+     * Set component
+     *
+     * @param \Numa\DOAModuleBundle\Entity\Component $component
+     *
+     * @return ImageCarousel
+     */
+    public function setComponent(\Numa\DOAModuleBundle\Entity\Component $component = null)
+    {
+        $this->Component = $component;
+
+        return $this;
+    }
+
+    /**
+     * Get component
+     *
+     * @return \Numa\DOAModuleBundle\Entity\Component
+     */
+    public function getComponent()
+    {
+        return $this->Component;
     }
 }

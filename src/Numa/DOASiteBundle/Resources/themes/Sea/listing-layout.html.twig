@@ -41,25 +41,7 @@
 
 <div class="mobile-menu">
     {% block mobilemenu %}
-        <ul class="menu">
-            <li><span class="separator">Menu</span>
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><span class="separator">Products</span>
-                        <ul>
-                            <li><a href="">Online Shopping</a></li>
-                            <li><a href="">Parts List</a></li>
-                            <li><a href="">Showroom</a></li>
-                            <li><a href="">Get a Quote</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="">Contact Us</a></li>
-                </ul>
-            </li>
-        </ul>
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
     {% endblock %}
 </div>
 <div class="content">
