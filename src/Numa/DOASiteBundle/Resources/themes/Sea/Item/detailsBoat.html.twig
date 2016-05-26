@@ -48,51 +48,50 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getListingTitle() }} <span
-                                    classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
-                            <span class="badge">Sold</span>{% endif %}</h2>
+                        <h1 class="title">{{ item.getListingTitle() }} {% if (item.getSold()==1) %}
+                            <span class="badge">Sold</span>{% endif %}</h1>
 
-                        <div class="slideshow">
+                        {#<div class="slideshow">#}
 
-                            <ul class="pgwSlideshow">
-                                {% for key,image in images %}
-                                    <li data-order="{{ image.sortOrder }}">
-                                        {% if ('http' not in image.fieldStringValue) %}
-                                            <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
-                                                 alt="image{{ key }}"/>
-                                        {% else %}
-                                            {% set videoid="" %}
-                                            {% set img=image.fieldStringValue %}
-                                            {% if ('youtube' in image.fieldStringValue) %}
-                                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                                {% set img=getYoutubeThumb(videoid) %}
-                                            {% endif %}
-                                            <img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>
+                            {#<ul class="pgwSlideshow">#}
+                                {#{% for key,image in images %}#}
+                                    {#<li data-order="{{ image.sortOrder }}">#}
+                                        {#{% if ('http' not in image.fieldStringValue) %}#}
+                                            {#<img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"#}
+                                                 {#alt="image{{ key }}"/>#}
+                                        {#{% else %}#}
+                                            {#{% set videoid="" %}#}
+                                            {#{% set img=image.fieldStringValue %}#}
+                                            {#{% if ('youtube' in image.fieldStringValue) %}#}
+                                                {#{% set videoid=getYoutubeId(image.fieldStringValue) %}#}
+                                                {#{% set img=getYoutubeThumb(videoid) %}#}
+                                            {#{% endif %}#}
+                                            {#<img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>#}
 
 
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
+                                        {#{% endif %}#}
+                                    {#</li>#}
+                                {#{% endfor %}#}
+                            {#</ul>#}
 
+                        {#</div>#}
+
+                        {#{% if item.getItemFieldByName('youtube video id') is not empty %}#}
+                            {#<div class='row'>#}
+                                {#<h4>Youtube video:</h4>#}
+
+                                {#<div class="youtube-video">#}
+                                    {#<iframe width="640" height="480"#}
+                                            {#src="//www.youtube.com/embed/{{ item.getItemFieldByName('youtube video id') }}"#}
+                                            {#frameborder="0" allowfullscreen></iframe>#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#{% endif %}#}
+                        <div class="left col-md-6">
+                            <h1>test</h1>
                         </div>
-
-                        {% if item.getItemFieldByName('youtube video id') is not empty %}
-                            <div class='row'>
-                                <h4>Youtube video:</h4>
-
-                                <div class="youtube-video">
-                                    <iframe width="640" height="480"
-                                            src="//www.youtube.com/embed/{{ item.getItemFieldByName('youtube video id') }}"
-                                            frameborder="0" allowfullscreen></iframe>
-                                </div>
-                            </div>
-                        {% endif %}
-
-                        <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
-
-                        <div class='row'>
-
+                        <div class='right col-md-6'>
+                            <h2>Selling Price: {{ item.getPriceString() }}</h2>
                             {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
 
                             {% if item.categoryId()==1 %}
@@ -107,16 +106,15 @@
                                 {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
                             {% else %}
 
-
-                                <ul class="techData">
+                            <div class="col-md-6">
+                                <ul>
                                     {% for field in item.ItemField %}
 
                                         {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                            <li class="col-md-6 col-xs-6 col-sm-6 col-lg-6">
+                                            <li>
                                                 <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
                                                     : </span>
                                                 {% if field.fieldName=="Price" %}
-
                                                     <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
@@ -133,12 +131,29 @@
                                         </li>
                                     {% endif %}
                                 </ul>
+                            </div>
                             {% endif %}
+                            <div class="rightf col-md-6">
+                                <button type="button" class="btn btn-success btn-md">Vehicle Video</button>
+                                <button type="button" class="btn btn-warning btn-md">Request More Information</button>
+                            </div>
+                            <div class="pic col-md-3"><p>picture</p></div>
+                            <div class="pic col-md-3"><p>picture</p></div>
+                            <div class="pic col-md-3"><p>picture</p></div>
+                            <div class="pic col-md-3"><p>picture</p></div>
                         </div>
-
+                        <div class='row'>
+                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
+                            <p>
+                                {{ item.getSellerComment() }}
+                            </p>
+                        </div>
+                        <div class='row'>
+                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+                        </div>
                         {% if (item.getOptions|length)>0 %}
                             <div class='row'>
-                                <h4>Options list:</h4>
+                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
                                 <ul class='option-lists'>
 
                                     {% for field in item.ItemField %}
@@ -148,7 +163,7 @@
                                             <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
                                                 <div class="checkbox">
                                                     <label>
-                                                        <i class="glyphicon glyphicon-check"></i> {{ field.fieldName }}
+                                                        {{ field.fieldName }}
                                                     </label>
                                                 </div>
                                             </li>
