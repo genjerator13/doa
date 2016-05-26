@@ -14,7 +14,9 @@ body {
 /* ==========================================================================
    Header
    ========================================================================== */
-
+.clear {
+    clear: both;
+}
 .header {
     margin: 0 auto;
     max-width: 1020px;
@@ -287,7 +289,7 @@ body {
     font-weight: 300;
     margin: 40px auto 20px auto;
     max-width: 1020px;
-    padding: 0 20px 20px 20px;
+    /*padding: 0 20px 20px 20px;*/
 }
 
 .content h1 {
@@ -312,46 +314,62 @@ body {
     padding-right: 20px;
     text-decoration: none;
 }
-.detailsContent .option-lists li{
+.option-lists li{
     color: orange;
 }
-.detailsContent .checkbox{
+.checkbox{
     color: black;
 }
+/*.row{*/
+    /*padding-top: -50px;*/
+    /*padding-left: 50px;*/
+    /*border: 1px solid lightslategray;*/
+    /*clear: both;*/
+/*}*/
+.detailsContent .row p{
+    padding: 10px;
+}
+
+
 .detailsContent .row{
-    padding-top: -50px;
-    padding-left: 50px;
+    margin: 0px;
     border: 1px solid lightslategray;
-    clear: both;
 }
-.detailsContent .row{
-    padding: 0px;
-}
+
+
 
 .detailsContent .option-lists{
     margin-left: 50px;
 }
-.detailsContent h2{
+.detailsContent h2.section{
     margin: 0px;
-    font-size: 18px;
+    font-size: 130%;
     padding: 5px;
+    background-color: #111111;
+    color: #f78f1e;
 }
-.detailsContent .title{
+
+.detailsContent .row {
+    margin-bottom: 20px;
+}
+
+.title{
     color: black;
 }
-.detailsContent .left{
-    width: 50%;
-    height: 300px;
-    background-color: red;
+.detailsContent  .left{
+    min-height: 300px;
+    padding:0;
 }
-.detailsContent .right{
-    width: 50%;
+.detailsContent .row{
+
+}
+.right{
     height: 300px;
 }
-.detailsContent .right > ul > li{
+.right > ul > li{
     list-style-type: none;
 }
-.detailsContent .rightb{
+.rightf{
     float: right;
 }
 /* ==========================================================================
@@ -452,10 +470,7 @@ body {
     width: 100%;
 }
 
-h2.section {
-    background-color: #111111;
-    color: #f78f1e;
-}
+
 .bs-example{
     margin-top: -10px;
 }
@@ -469,10 +484,13 @@ h2.section {
     position: absolute;
     top: 10px;
     left: 10px;
-
-
+    width: 100%;
+}
+.techData .fieldCaption {
+    font-weight: bold;
 }
 
+.detailsContent
 
 
 

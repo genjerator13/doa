@@ -26,17 +26,8 @@
         {{ include("NumaDOASiteBundle::keywords.html.twig") }}
     {% endif %}
 {% endblock keyword %}
-{% block canonical %}
-    <link rel="canonical" href="{{ url }}"/>
-{% endblock canonical %}
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets '@NumaDOASiteBundle/Resources/Public/css/jssor.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
-{% endblock %}
-{% set images = item.getImages2() %}
 
+{% set images = item.getImages2() %}
         {% set currentPath = app.request.uri %}
             {% set dealer = item.getDealer() %}
                 {% block content %}
@@ -49,110 +40,102 @@
                             {% endfor %}
                         {% endfor %}
                         <h1 class="title">{{ item.getListingTitle() }} {% if (item.getSold()==1) %}
-                            <span class="badge">Sold</span>{% endif %}</h1>
+                                <span class="badge">Sold</span>{% endif %}
+                        </h1>
 
-                        {#<div class="slideshow">#}
-
-                            {#<ul class="pgwSlideshow">#}
-                                {#{% for key,image in images %}#}
-                                    {#<li data-order="{{ image.sortOrder }}">#}
-                                        {#{% if ('http' not in image.fieldStringValue) %}#}
-                                            {#<img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"#}
-                                                 {#alt="image{{ key }}"/>#}
-                                        {#{% else %}#}
-                                            {#{% set videoid="" %}#}
-                                            {#{% set img=image.fieldStringValue %}#}
-                                            {#{% if ('youtube' in image.fieldStringValue) %}#}
-                                                {#{% set videoid=getYoutubeId(image.fieldStringValue) %}#}
-                                                {#{% set img=getYoutubeThumb(videoid) %}#}
-                                            {#{% endif %}#}
-                                            {#<img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>#}
-
-
-                                        {#{% endif %}#}
-                                    {#</li>#}
-                                {#{% endfor %}#}
-                            {#</ul>#}
-
-                        {#</div>#}
-
-                        {#{% if item.getItemFieldByName('youtube video id') is not empty %}#}
-                            {#<div class='row'>#}
-                                {#<h4>Youtube video:</h4>#}
-
-                                {#<div class="youtube-video">#}
-                                    {#<iframe width="640" height="480"#}
-                                            {#src="//www.youtube.com/embed/{{ item.getItemFieldByName('youtube video id') }}"#}
-                                            {#frameborder="0" allowfullscreen></iframe>#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#{% endif %}#}
-                        <div class="left col-md-6">
-                            <h1>test</h1>
-                        </div>
-                        <div class='right col-md-6'>
-                            <h2>Selling Price: {{ item.getPriceString() }}</h2>
-                            {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
-
-                            {% if item.categoryId()==1 %}
-                                {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
-                            {% elseif(item.categoryId()==2) %}
-                                {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
-                            {% elseif(item.categoryId()==3) %}
-                                {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
-                            {% elseif(item.categoryId()==4) %}
-                                {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
-                            {% elseif(item.categoryId()==13) %}
-                                {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
-                            {% else %}
-
-                            <div class="col-md-6">
-                                <ul>
-                                    {% for field in item.ItemField %}
-
-                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                            <li>
-                                                <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
-                                                    : </span>
-                                                {% if field.fieldName=="Price" %}
-                                                    <span classb="price">{{ item.getPriceString() }}</span>
-                                                {% elseif field.fieldName|lower=="make model" %}
-                                                    <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                        <div class="listing-images row">
+                            <div class="left col-md-6">
+                                <div class="slideshow">
+                                    <ul class="pgwSlideshow">
+                                        {% for key,image in images %}
+                                            <li data-order="{{ image.sortOrder }}">
+                                                {% if ('http' not in image.fieldStringValue) %}
+                                                    <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
+                                                         alt="image{{ key }}"/>
                                                 {% else %}
-                                                    <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                                                    {% set videoid="" %}
+                                                    {% set img=image.fieldStringValue %}
+                                                    {% if ('youtube' in image.fieldStringValue) %}
+                                                        {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                        {% set img=getYoutubeThumb(videoid) %}
+                                                    {% endif %}
+                                                    <img data-video="{{ videoid }}" src="{{ img }}"
+                                                         alt="image{{ key }}"/>
+
                                                 {% endif %}
                                             </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if item.getItemFieldByName('seller comment') is not empty %}
-                                        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                            <div class="fieldCaption field">Seller Comments:</div>
-                                            <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
-                                        </li>
-                                    {% endif %}
-                                </ul>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="clear"></div>
                             </div>
-                            {% endif %}
-                            <div class="rightb col-md-6">
-                                <button type="button" class="btn btn-success btn-md">Vehicle Video</button>
-                                <button type="button" class="btn btn-warning btn-md">Request More Information</button>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.pgwSlideshow').pgwSlideshow();
+                                });
+                            </script>
+                            <div class='right col-md-6'>
+                                <h2>Selling Price: {{ item.getPriceString() }}</h2>
+                                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
+
+                                {% if item.categoryId()==1 %}
+                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+                                {% elseif(item.categoryId()==2) %}
+                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                                {% elseif(item.categoryId()==3) %}
+                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                                {% elseif(item.categoryId()==4) %}
+                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                                {% elseif(item.categoryId()==13) %}
+                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                                {% else %}
+
+                                    <div class="col-md-6">
+                                        <ul>
+                                            {% for field in item.ItemField %}
+
+                                                {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                                    <li>
+                                                <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
+                                                    : </span>
+                                                        {% if field.fieldName=="Price" %}
+                                                            <span classb="price">{{ item.getPriceString() }}</span>
+                                                        {% elseif field.fieldName|lower=="make model" %}
+                                                            <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                                                        {% else %}
+                                                            <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
+                                                        {% endif %}
+                                                    </li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            {% if item.getItemFieldByName('seller comment') is not empty %}
+                                                <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+                                                    <div class="fieldCaption field">Seller Comments:</div>
+                                                    <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                                <div class="rightf col-md-6">
+                                    <button type="button" class="btn btn-success btn-md">Vehicle Video</button>
+                                    <button type="button" class="btn btn-warning btn-md">Request More Information
+                                    </button>
+                                </div>
                             </div>
-                            <div class="pic col-md-3"><p>picture</p></div>
-                            <div class="pic col-md-3"><p>picture</p></div>
-                            <div class="pic col-md-3"><p>picture</p></div>
-                            <div class="pic col-md-3"><p>picture</p></div>
                         </div>
-                        <div class='row'>
+                        <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
+
                             <p>
                                 {{ item.getSellerComment() }}
                             </p>
                         </div>
-                        <div class='row'>
-                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+                        <div class="row">
+                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
                         </div>
                         {% if (item.getOptions|length)>0 %}
-                            <div class='row'>
+                            <div class="row">
                                 <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
                                 <ul class='option-lists'>
 
@@ -408,23 +391,6 @@
                                     <script>
                                         $(document).ready(function () {
                                             // The slider being synced must be initialized first
-                                            $('#carousel').flexslider({
-                                                animation: "slide",
-                                                controlNav: false,
-                                                animationLoop: false,
-                                                slideshow: true,
-                                                itemWidth: 120,
-                                                itemMargin: 10,
-                                                asNavFor: '#slider'
-                                            });
-
-                                            $('#slider').flexslider({
-                                                animation: "slide",
-                                                controlNav: false,
-                                                animationLoop: false,
-                                                slideshow: true,
-                                                sync: "#carousel"
-                                            });
 
 
                                             $('.pgwSlideshow').pgwSlideshow();
