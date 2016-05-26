@@ -14,9 +14,9 @@
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="picture-detail col-md-4">
                 <a href="{{ detailUrl }}" class="thumbnail">
-
+                    {% if item.getImage2() is defined and item.getImage2() is not empty %}
                     {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
-
+                    {% endif %}
                 </a>
             </div>
             <div class="shortDetails col-md-6">
