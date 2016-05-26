@@ -312,13 +312,13 @@ body {
     padding-right: 20px;
     text-decoration: none;
 }
-.option-lists li{
+.detailsContent .option-lists li{
     color: orange;
 }
-.checkbox{
+.detailsContent .checkbox{
     color: black;
 }
-.row{
+.detailsContent .row{
     padding-top: -50px;
     padding-left: 50px;
     border: 1px solid lightslategray;
@@ -333,25 +333,25 @@ body {
 }
 .detailsContent h2{
     margin: 0px;
-    font-size: 26px;
+    font-size: 18px;
     padding: 5px;
 }
-.title{
+.detailsContent .title{
     color: black;
 }
-.left{
+.detailsContent .left{
     width: 50%;
     height: 300px;
     background-color: red;
 }
-.right{
+.detailsContent .right{
     width: 50%;
     height: 300px;
 }
-.right > ul > li{
+.detailsContent .right > ul > li{
     list-style-type: none;
 }
-.rightf{
+.detailsContent .rightb{
     float: right;
 }
 /* ==========================================================================
