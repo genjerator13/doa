@@ -52,6 +52,7 @@ class ItemType extends AbstractType
             ->add('Category',null,array('label'=>'Category'))
             ->add('Dealer')
 
+            ->add('retail_price')
             ->add('price')
             ->add('year')
             ->add('bodyStyle', 'choice', array(

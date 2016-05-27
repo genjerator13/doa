@@ -304,6 +304,10 @@ body {
     color: #f78f1e;
     text-decoration: none;
 }
+.content a span{
+     color: black;
+     text-decoration: none;
+ }
 
 .content a:hover { text-decoration: underline; }
 
@@ -376,7 +380,7 @@ body {
 .right h3.section{
     color: red;
 }
-.right span.section{
+.right .section{
     color: red;
     text-decoration-line: line-through;
 }

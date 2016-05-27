@@ -3946,4 +3946,12 @@ class Item
         }
         return $res;
     }
+    public function getRetailPriceCompared()
+    {
+        if($this->getRetailPrice() > $this->getPrice())
+        {
+            return "<h3 class='section'>Retail Price: <span class='section'>".$this->getRetailPriceString()."</span></h3>";
+
+        }
+    }
 }
