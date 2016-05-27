@@ -47,7 +47,7 @@
                             <div class="left col-md-6">
 
                                 {% if images|length==1 %}
-                                {% set image = images[0] %}
+                                {% set image = images|first %}
                                 {% if ('http' not in image.fieldStringValue) %}
                                     {{ component.image(image.fieldStringValue, image1, '', 'search_image') }}
                                 {% else %}
