@@ -96,11 +96,7 @@
 
 
                             <div class='right col-md-6'>
-                                {% if item.getRetailPriceString is defined and item.getRetailPriceString is not null and item.getRetailPrice() >= item.getPrice() %}
-                                    <h3 class="section">Retail Price: <span
-                                                class="section">{{ item.getRetailPriceString() }}</span></h3>
-                                {% endif %}
-
+                                {{ item.getRetailPriceCompared()|raw }}
                                 <h2>Selling Price: {{ item.getPriceString() }}</h2>
                                 {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
 
