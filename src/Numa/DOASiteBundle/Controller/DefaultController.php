@@ -18,6 +18,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
+
     }
 
     public function initializePageComponents($components)
@@ -446,8 +447,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function uploadImageAction(Request $request)
     {
-        dump($_FILES);
-        die();
         //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
         //return $this->render('NumaDOASiteBundle::upload.html.twig');
 
@@ -483,12 +482,13 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         if (isset($_FILES['upload'])) {
             $dealer_id=0;
+
             if(!empty( $this->dealer)) {
                 $dealer_id = $this->dealer->getId();
             }
             $filen = $_FILES['upload']['tmp_name'];
             $upload_path = $this->getParameter('upload_dealer');
-            $dir = $upload_path.$dealer_id;
+            $dir = $upload_path.$dealer_id."/images";
             if(!is_dir($dir)){
                 mkdir($dir,0777,true);
             }
@@ -496,7 +496,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
             move_uploaded_file($filen, $con_images);
 
-            $url = "http://".$request->getHost() . '/upload/dealers/'.$dealer_id."/".$_FILES['upload']['name'];
+            $url = "http://".$request->getHost() . '/upload/dealers/'.$dealer_id."/images/".$_FILES['upload']['name'];
 
             $funcNum = $_GET['CKEditorFuncNum'];
             // Optional: instance name (might be used to load a specific configuration file or anything else).
