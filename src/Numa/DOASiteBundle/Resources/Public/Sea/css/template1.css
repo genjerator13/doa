@@ -373,6 +373,13 @@ body {
 .rightf{
     float: right;
 }
+.right h3.section{
+    color: red;
+}
+.right span.section{
+    color: red;
+    text-decoration-line: line-through;
+}
 /* ==========================================================================
    Info
    ========================================================================== */

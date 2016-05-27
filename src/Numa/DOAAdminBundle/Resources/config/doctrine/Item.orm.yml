@@ -178,6 +178,9 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        retail_price:
+              type: float
+              nullable: true
         price:
               type: float
               nullable: true

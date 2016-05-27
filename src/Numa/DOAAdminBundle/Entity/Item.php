@@ -3906,4 +3906,44 @@ class Item
     {
         return $this->sale_amount;
     }
+    /**
+     * @var float
+     */
+    private $retail_price;
+
+
+    /**
+     * Set retailPrice
+     *
+     * @param float $retailPrice
+     *
+     * @return Item
+     */
+    public function setRetailPrice($retailPrice)
+    {
+        $this->retail_price = $retailPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get retailPrice
+     *
+     * @return float
+     */
+    public function getRetailPrice()
+    {
+        return $this->retail_price;
+    }
+    public function getRetailPriceString()
+    {
+        $res = "";
+        if ($this->getRetailPrice() == 0) {
+            return "";
+        }
+        if (!empty($this->getRetailPrice())) {
+            $res = "$" . number_format($this->getRetailPrice(), 0, '.', ',');
+        }
+        return $res;
+    }
 }
