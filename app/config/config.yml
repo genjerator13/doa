@@ -315,15 +315,25 @@ apy_data_grid:
            next_message : »        
 trsteel_ckeditor:
     class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
-    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'links', '/',  'styles', 'tools']
+    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'insert', '/',  'styles', 'tools']
     toolbar_groups:
-        document: ['Source']
         document: ['Source']
         clipboard: ['Cut','Copy','Paste','PasteText','-','Undo','Redo']
         editing: ['Find','Replace','-','SelectAll']
         basicstyles: ['Font','FontSize','TextColor','BGColor','Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
         paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
-
+        insert: ['Image','Table','HorizontalRule']
+    filebrowser_upload_url:
+        #url: /browser/browse.php
+        #url: //uploader/upload.php
+        route: image_browse
+        route_parameters:
+          type: image
+    filebrowser_image_browse_url:
+        #url: /uploader/upload.php
+        route: image_upload
+        route_parameters:
+            type: image
 genemu_form:
     captcha:
         enabled:          true
@@ -362,6 +372,7 @@ liip_theme:
     themes: ['Default', 'Sea', 'weekend']
     active_theme: 'Default'
     assetic_integration: true
+
 #lsw_guzzle:
 #    clients:
 #        test:
