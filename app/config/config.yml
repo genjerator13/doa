@@ -245,6 +245,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [666, 480], mode: outbound }
                 background: { color: '#FFFFFF' }
+        item_detail_image_single:
+            quality: 100
+            filters:
+                thumbnail: { size: [510, 480], mode: outbound }
+                background: { color: '#FFFFFF' }
         home_tab:
             quality: 100
             filters:
