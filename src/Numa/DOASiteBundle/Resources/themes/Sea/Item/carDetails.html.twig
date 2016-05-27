@@ -66,6 +66,12 @@
             <span class="fieldValue fieldValue-status">{{ item.getPriceString() }}</span>
         </li>
     {% endif %}
+    {% if item.getRetailPrice() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Retail Price: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getRetailPriceString() }}</span>
+        </li>
+    {% endif %}
     {% if item.getEngine() is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Engine: </span>

@@ -321,21 +321,22 @@ body {
     color: black;
 }
 /*.row{*/
-    /*padding-top: -50px;*/
-    /*padding-left: 50px;*/
-    /*border: 1px solid lightslategray;*/
-    /*clear: both;*/
+/*padding-top: -50px;*/
+/*padding-left: 50px;*/
+/*border: 1px solid lightslategray;*/
+/*clear: both;*/
 /*}*/
 .detailsContent .row p{
     padding: 10px;
 }
 
-
-.detailsContent .row{
+.row{
     margin: 0px;
     border: 1px solid lightslategray;
 }
-
+.row .items{
+    padding: 15px 0 0 0;
+}
 
 
 .detailsContent .option-lists{
@@ -371,6 +372,13 @@ body {
 }
 .rightf{
     float: right;
+}
+.right h3.section{
+    color: red;
+}
+.right span.section{
+    color: red;
+    text-decoration-line: line-through;
 }
 /* ==========================================================================
    Info
