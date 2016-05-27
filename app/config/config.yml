@@ -329,11 +329,11 @@ trsteel_ckeditor:
         route: image_browse
         route_parameters:
           type: image
-    filebrowser_image_browse_url:
-        #url: /uploader/upload.php
-        route: image_upload
-        route_parameters:
-            type: image
+#    filebrowser_image_browse_url:
+#        #url: /uploader/upload.php
+#        route: image_upload
+#        route_parameters:
+#            type: image
 genemu_form:
     captcha:
         enabled:          true
