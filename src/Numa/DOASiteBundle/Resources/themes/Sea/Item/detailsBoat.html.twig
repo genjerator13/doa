@@ -45,6 +45,22 @@
 
                         <div class="listing-images row">
                             <div class="left col-md-6">
+
+                                {% if images|length==1 %}
+                                {% set image = images[0] %}
+                                {% if ('http' not in image.fieldStringValue) %}
+                                    {{ component.image(image.fieldStringValue, image1, '', 'search_image') }}
+                                {% else %}
+                                    {% set videoid="" %}
+                                    {% set img=image.fieldStringValue %}
+                                    {% if ('youtube' in image.fieldStringValue) %}
+                                        {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                        {% set img=getYoutubeThumb(videoid) %}
+                                    {% endif %}
+
+                                    {{ component.image(img, img, '', 'search_image','510px') }}
+                                {% endif %}
+                                {% else %}
                                 <div class="slideshow">
                                     <ul class="pgwSlideshow">
                                         {% for key,image in images %}
@@ -65,18 +81,24 @@
                                                 {% endif %}
                                             </li>
                                         {% endfor %}
+
+
                                     </ul>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.pgwSlideshow').pgwSlideshow();
+                                        });
+                                    </script>
                                 </div>
+                                {% endif %}
                                 <div class="clear"></div>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    $('.pgwSlideshow').pgwSlideshow();
-                                });
-                            </script>
+
+
                             <div class='right col-md-6'>
                                 {% if item.getRetailPriceString is defined and item.getRetailPriceString is not null and item.getRetailPrice() >= item.getPrice() %}
-                                <h3 class="section">Retail Price: <span class="section">{{ item.getRetailPriceString() }}</span></h3>
+                                    <h3 class="section">Retail Price: <span
+                                                class="section">{{ item.getRetailPriceString() }}</span></h3>
                                 {% endif %}
 
                                 <h2>Selling Price: {{ item.getPriceString() }}</h2>
@@ -103,20 +125,22 @@
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
+
                             <p>
                                 {{ item.getSellerComment()|raw }}
                             </p>
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
-                                <ul class='option-lists'>
-                                    {% for field in item.ItemField %}
-                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                            <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
-                                                <div class="checkbox">
-                                                    <label>
-                                                <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}: </span>
-                                                    </label>
+                            <ul class='option-lists'>
+                                {% for field in item.ItemField %}
+                                    {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                        <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
+                                                        : </span>
+                                                </label>
                                                 {% if field.fieldName=="Price" %}
                                                     <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
@@ -124,11 +148,11 @@
                                                 {% else %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
                                                 {% endif %}
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                </ul>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
                         </div>
                         {% if (item.getOptions|length)>0 %}
                             <div class="row">
