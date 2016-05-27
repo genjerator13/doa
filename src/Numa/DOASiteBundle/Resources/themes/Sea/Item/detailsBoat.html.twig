@@ -103,16 +103,14 @@
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
-
                             <p>
-                                {{ item.getSellerComment() }}
+                                {{ item.getSellerComment()|raw }}
                             </p>
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
                                 <ul class='option-lists'>
                                     {% for field in item.ItemField %}
-
                                         {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                             <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
                                                 <div class="checkbox">
@@ -130,20 +128,11 @@
                                             </li>
                                         {% endif %}
                                     {% endfor %}
-                                    {% if item.getItemFieldByName('seller comment') is not empty %}
-                                        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                            <div class="fieldCaption field">Seller Comments:</div>
-                                            <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
-                                        </li>
-                                    {% endif %}
                                 </ul>
-                        </div>
-                        <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
                         </div>
                         {% if (item.getOptions|length)>0 %}
                             <div class="row">
-                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
+                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
                                 <ul class='option-lists'>
 
                                     {% for field in item.ItemField %}
