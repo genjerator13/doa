@@ -88,22 +88,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $form;
     }
 
-    /**
-     * Creates a form to create a ListingForm entity.
-     *
-     * @param ListingForm $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createCreateDriveForm(ListingForm $entity)
-    {
-        $form = $this->createForm(new ListingFormDriveType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_drive'),
-            'method' => 'POST',
-        ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
-        return $form;
-    }
+    
 
     public function saveadAction(Request $request) {
 
