@@ -61,4 +61,7 @@ dms_pages:
 dms_component:
     resource: "@NumaDOADMSBundle/Resources/config/routing/component.yml"
     prefix:   /component
+NumaDOADMSBundle_listingform:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/listingform.yml"
+    prefix:   /listingform
 
