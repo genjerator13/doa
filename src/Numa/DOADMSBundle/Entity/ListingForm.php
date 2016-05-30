@@ -88,7 +88,6 @@ class ListingForm
 
     /**
      * @var \DateTime
-     * @JMS\Expose
      */
     private $date_created;
 
@@ -558,6 +557,7 @@ class ListingForm
     }
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_drive;
 

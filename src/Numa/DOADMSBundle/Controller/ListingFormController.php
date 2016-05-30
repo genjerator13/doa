@@ -56,6 +56,7 @@ class ListingFormController extends Controller
             }
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
+
 //            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 //
 //            if(empty($customer)){
