@@ -1,0 +1,41 @@
+listingform:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:index" }
+
+listingform_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:show" }
+
+listingform_new_drive:
+    path:     /new_drive
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:newDrive" }
+
+listingform_new_offer:
+    path:     /new_offer
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:newOffer" }
+
+listingform_new_eprice:
+    path:     /new_eprice
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:newEprice" }
+listingform_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:create" }
+    requirements: { _method: post }
+listingform_create_drive:
+    path:     /create_drive
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:create" }
+    requirements: { _method: post }
+
+listingform_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:edit" }
+
+listingform_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:update" }
+    requirements: { _method: post|put }
+
+listingform_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:delete" }
+    requirements: { _method: post|delete }
