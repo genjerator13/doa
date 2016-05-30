@@ -608,7 +608,7 @@ and (max-width : 767px) {
     background: #fff;
 }
 .slideshow .pgwSlideshow .ps-list {
-    left: 510px;
+    left: 509px;
     bottom: 147px;
 }
 .listing-images {
@@ -617,11 +617,16 @@ and (max-width : 767px) {
 .listing-bottom-buttons {
     position: absolute;
     bottom: 0px;
-    left: 0;
+    left: 509px;
+    z-index: 1000000;
+    width: 100%;
 }
 
 .listing-upper-buttons {
     position: absolute;
     bottom: 147px;
     left: 0;
+    z-index: 1000000;
+    left: 509px;
+    width: 100%;
 }
