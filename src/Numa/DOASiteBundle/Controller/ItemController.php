@@ -3,6 +3,8 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Form\SendEmailType;
+use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -61,11 +63,46 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'dealer' => $dealer,
                 'print' => $print,
                 'searchQ' => $searchQ,
+                'driveForm' => $this->createCreateDriveForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
             return $response;
         } else {
             return $emailForm;
         }
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateDriveForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormDriveType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_drive'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateDriveForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormDriveType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_drive'),
+            'method' => 'POST',
+        ));
+        $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
     }
 
     public function saveadAction(Request $request) {
