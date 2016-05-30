@@ -369,7 +369,8 @@ body {
 
 }
 .right{
-    height: 300px;
+    height: 100%;
+    position: relative;
 }
 .right > ul > li{
     list-style-type: none;
@@ -600,4 +601,27 @@ and (max-width : 767px) {
 
     .bottom-menu { display: none; }
 
+}
+
+/*pgwslider */
+.slideshow .pgwSlideshow{
+    background: #fff;
+}
+.slideshow .pgwSlideshow .ps-list {
+    left: 510px;
+    bottom: 147px;
+}
+.listing-images {
+    position: relative;
+}
+.listing-bottom-buttons {
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+}
+
+.listing-upper-buttons {
+    position: absolute;
+    bottom: 147px;
+    left: 0;
 }

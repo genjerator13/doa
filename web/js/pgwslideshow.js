@@ -274,6 +274,10 @@
 
                 var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').height();
                 updateHeight(maxHeight);
+                $(".pgwSlideshow").height(maxHeight);
+                $(".right").height(maxHeight);
+                $(".right").css('z-index','-1');
+                $(".ps-list").css('z-index','10000');
             });
 
             // Enable slideshow

@@ -47,49 +47,52 @@
                             <div class="left col-md-6">
 
                                 {% if images|length==1 %}
-                                {% set image = images|first %}
-                                {% if ('http' not in image.fieldStringValue) %}
-                                    {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
-                                {% else %}
-                                    {% set videoid="" %}
-                                    {% set img=image.fieldStringValue %}
-                                    {% if ('youtube' in image.fieldStringValue) %}
-                                        {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                        {% set img=getYoutubeThumb(videoid) %}
+                                    {% set image = images|first %}
+                                    {% if ('http' not in image.fieldStringValue) %}
+                                        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+                                    {% else %}
+                                        {% set videoid="" %}
+                                        {% set img=image.fieldStringValue %}
+                                        {% if ('youtube' in image.fieldStringValue) %}
+                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                            {% set img=getYoutubeThumb(videoid) %}
+                                        {% endif %}
+
+                                        {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
                                     {% endif %}
-
-                                    {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
-                                {% endif %}
                                 {% else %}
-                                <div class="slideshow">
-                                    <ul class="pgwSlideshow">
-                                        {% for key,image in images %}
-                                            <li data-order="{{ image.sortOrder }}">
-                                                {% if ('http' not in image.fieldStringValue) %}
-                                                    <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
-                                                         alt="image{{ key }}"/>
-                                                {% else %}
-                                                    {% set videoid="" %}
-                                                    {% set img=image.fieldStringValue %}
-                                                    {% if ('youtube' in image.fieldStringValue) %}
-                                                        {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                                        {% set img=getYoutubeThumb(videoid) %}
+                                    <div class="slideshow">
+                                        <ul class="pgwSlideshow">
+                                            {% for key,image in images %}
+                                                <li data-order="{{ image.sortOrder }}">
+                                                    {% if ('http' not in image.fieldStringValue) %}
+                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
+                                                             alt="image{{ key }}"/>
+                                                    {% else %}
+                                                        {% set videoid="" %}
+                                                        {% set img=image.fieldStringValue %}
+                                                        {% if ('youtube' in image.fieldStringValue) %}
+                                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                            {% set img=getYoutubeThumb(videoid) %}
+                                                        {% endif %}
+                                                        <img data-video="{{ videoid }}" src="{{ img }}"
+                                                             alt="image{{ key }}"/>
+
                                                     {% endif %}
-                                                    <img data-video="{{ videoid }}" src="{{ img }}"
-                                                         alt="image{{ key }}"/>
-
-                                                {% endif %}
-                                            </li>
-                                        {% endfor %}
+                                                </li>
+                                            {% endfor %}
 
 
-                                    </ul>
-                                    <script>
-                                        $(document).ready(function () {
-                                            $('.pgwSlideshow').pgwSlideshow();
-                                        });
-                                    </script>
-                                </div>
+                                        </ul>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('.pgwSlideshow').pgwSlideshow();
+
+                                            });
+
+
+                                        </script>
+                                    </div>
                                 {% endif %}
                                 <div class="clear"></div>
                             </div>
@@ -112,12 +115,17 @@
                                     {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
                                 {% else %}
                                 {% endif %}
-                                <div class="rightf col-md-6">
-                                    <button type="button" class="btn btn-success btn-md">Vehicle Video</button>
-                                    <button type="button" class="btn btn-warning btn-md">Request More Information
-                                    </button>
+                                <div class="listing-upper-buttons">
+                                    <button type="button" class="btn btn-success btn-md">ePrice</button>
+                                    <button type="button" class="btn btn-warning btn-md">Apply for Financing</button>
+                                </div>
+                                <div class="listing-bottom-buttons">
+                                    <button type="button" class="btn btn-success btn-md">Make an Offer</button>
+                                    <button type="button" class="btn btn-success btn-md">Payment Calculator</button>
+                                    <button type="button" class="btn btn-success btn-md">Schedule a Test Drive</button>
                                 </div>
                             </div>
+
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
@@ -404,14 +412,7 @@
                                     {% javascripts     '@jquery_jssor_js' output="filename.js" %}
                                     <script src="{{ asset_url }}"></script>
                                     {% endjavascripts %}
-                                    <script>
-                                        $(document).ready(function () {
-                                            // The slider being synced must be initialized first
 
-
-                                            $('.pgwSlideshow').pgwSlideshow();
-                                        });
-                                    </script>
                                     {#{% javascripts '@savecompared_js' %}
                                     <script type="text/javascript" src="{{ asset_url }}"></script>
                                     {% endjavascripts %}#}
@@ -452,5 +453,9 @@
                                             })
 
                                         });
+
+
+
+
                                     </script>
                             {% endblock %}
