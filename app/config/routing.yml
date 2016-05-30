@@ -73,3 +73,11 @@ DOASiteBundle:
 liip_theme:
     resource: "@LiipThemeBundle/Resources/config/routing.xml"
     prefix: /theme
+
+image_upload:
+    pattern:   /upload_image
+    defaults:  { _controller: NumaDOASiteBundle:Default:uploadImage }
+
+image_browse:
+    pattern:   /browse_image
+    defaults:  { _controller: NumaDOASiteBundle:Default:browseImage }

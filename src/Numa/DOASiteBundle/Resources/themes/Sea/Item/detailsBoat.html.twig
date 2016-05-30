@@ -45,6 +45,22 @@
 
                         <div class="listing-images row">
                             <div class="left col-md-6">
+
+                                {% if images|length==1 %}
+                                {% set image = images|first %}
+                                {% if ('http' not in image.fieldStringValue) %}
+                                    {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+                                {% else %}
+                                    {% set videoid="" %}
+                                    {% set img=image.fieldStringValue %}
+                                    {% if ('youtube' in image.fieldStringValue) %}
+                                        {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                        {% set img=getYoutubeThumb(videoid) %}
+                                    {% endif %}
+
+                                    {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+                                {% endif %}
+                                {% else %}
                                 <div class="slideshow">
                                     <ul class="pgwSlideshow">
                                         {% for key,image in images %}
@@ -65,15 +81,20 @@
                                                 {% endif %}
                                             </li>
                                         {% endfor %}
+
+
                                     </ul>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $('.pgwSlideshow').pgwSlideshow();
+                                        });
+                                    </script>
                                 </div>
+                                {% endif %}
                                 <div class="clear"></div>
                             </div>
-                            <script>
-                                $(document).ready(function () {
-                                    $('.pgwSlideshow').pgwSlideshow();
-                                });
-                            </script>
+
+
                             <div class='right col-md-6'>
                                 {{ item.getRetailPriceCompared()|raw }}
                                 <h2>Selling Price: {{ item.getPriceString() }}</h2>
@@ -102,20 +123,20 @@
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
 
                             <p>
-                                {{ item.getSellerComment() }}
+                                {{ item.getSellerComment()|raw }}
                             </p>
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
-                                <ul class='option-lists'>
-                                    {% for field in item.ItemField %}
-
-                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                            <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
-                                                <div class="checkbox">
-                                                    <label>
-                                                <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}: </span>
-                                                    </label>
+                            <ul class='option-lists'>
+                                {% for field in item.ItemField %}
+                                    {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
+                                        <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
+                                                        : </span>
+                                                </label>
                                                 {% if field.fieldName=="Price" %}
                                                     <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
@@ -123,24 +144,15 @@
                                                 {% else %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
                                                 {% endif %}
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if item.getItemFieldByName('seller comment') is not empty %}
-                                        <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
-                                            <div class="fieldCaption field">Seller Comments:</div>
-                                            <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
+                                            </div>
                                         </li>
                                     {% endif %}
-                                </ul>
-                        </div>
-                        <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+                                {% endfor %}
+                            </ul>
                         </div>
                         {% if (item.getOptions|length)>0 %}
                             <div class="row">
-                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
+                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
                                 <ul class='option-lists'>
 
                                     {% for field in item.ItemField %}
