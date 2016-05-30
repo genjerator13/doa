@@ -45,12 +45,15 @@ class ListingFormController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $routeName = $request->get('_route');
-            dump($routeName);die();
             if($routeName == 'listingform_create_drive'){
                 $entity->setType('drive');
             }
-            elseif($routeName == 'listingform_create_eprice')
-            $entity->setType('drive');
+            elseif($routeName == 'listingform_create_eprice') {
+                $entity->setType('eprice');
+            }
+            else{
+                $entity->setType('offer');
+            }
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
 //            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
@@ -140,7 +143,7 @@ class ListingFormController extends Controller
     private function createCreateOfferForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormOfferType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create'),
+            'action' => $this->generateUrl('listingform_create_offer'),
             'method' => 'POST',
         ));
 
@@ -174,7 +177,7 @@ class ListingFormController extends Controller
     private function createCreateEpriceForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create'),
+            'action' => $this->generateUrl('listingform_create_eprice'),
             'method' => 'POST',
         ));
 

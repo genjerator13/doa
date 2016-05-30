@@ -10,71 +10,85 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * ListingForm
+ * @JMS\ExclusionPolicy("ALL")
  */
 class ListingForm
 {
     /**
      * @var int
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_last_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_officer;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $contact_by;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $phone;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $comment;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $dealer_id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $item_id;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -573,6 +587,7 @@ class ListingForm
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $type;
 

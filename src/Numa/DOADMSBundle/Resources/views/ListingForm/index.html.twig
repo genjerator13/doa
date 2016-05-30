@@ -1,69 +1,68 @@
-    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
 
-{% block content -%}
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+    'js/angular/vfs-fonts.js'
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:ListingForm:listingForm.js.twig' %}
+    </script>
+{% endblock javascripts %}
+
+
+{% block content %}
+
+
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
 <div class="box">
     <div class="box-header">
-        <h3 class="box-title">ListingForm list</h3>
-        <div class="box-tools">
-            
-                        <a href="{{ path('listingform_new') }}" class="btn btn-primary">
-                            Create a new ListingForm
-                        </a>
-                    </div>
-    </div>
-    <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Cust_name</th>
-                <th>Cust_last_name</th>
-                <th>Cust_officer</th>
-                <th>Contact_by</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Date_drive</th>
-                <th>Comment</th>
-                <th>Dealer_id</th>
-                <th>Customer_id</th>
-                <th>Item_id</th>
-                <th>Date_created</th>
-                <th>Date_updated</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.custname }}</td>
-                <td>{{ entity.custlastname }}</td>
-                <td>{{ entity.custofficer }}</td>
-                <td>{{ entity.contactby }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.phone }}</td>
-                <td>{% if entity.datedrive %}{{ entity.datedrive|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.comment }}</td>
-                <td>{{ entity.dealerid }}</td>
-                <td>{{ entity.customerid }}</td>
-                <td>{{ entity.itemid }}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
-                <td><ul>
-        <li>
-            <a href="{{ path('listingform_show', { 'id': entity.id }) }}">show</a>
-        </li>
-        <li>
-            <a href="{{ path('listingform_edit', { 'id': entity.id }) }}">edit</a>
-        </li>
-</ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <div class="box-header">
+            <h3 class="box-title">EPrice, Test Drive, Offer list</h3>
 
-{% endblock %}
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding" ng-app="app">
+
+        <div ng-controller="MainCtrl">
+            <script type="text/ng-template" id="myModalContent.html">
+                <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+            </script>
+            <script type="text/ng-template" id="myModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Please confirm</h3>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+        </div>
+    </div>
+
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+    {% endblock %}

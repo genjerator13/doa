@@ -35,7 +35,9 @@ page_api:
 component_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/component.yml"
         prefix:   /component
-
+listing_form_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
+        prefix:   /listing_form
 listing:
     pattern:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}
