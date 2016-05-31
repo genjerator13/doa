@@ -53,20 +53,25 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
         $post = $request->getContent();
         $postD = json_decode($post);
         $data =$request->request->get('numa_doadmsbundle_listingform');
-
+        $em=$this->getDoctrine()->getManager();
         $type = "";
         if($request->query->get('form')=='offer' || $request->query->get('form')=='drive' || $request->query->get('form')=='eprice'){
             $type = $request->query->get('form');
         }
+        $item_id = intval($request->query->get('amp;item_id'));
+
         //get customer by email ($data['email']
         //if the customer is not found create new one based by data
         //create new listingform
         //set type test drive
         $listingForm = new ListingForm();
         $listingForm->setType($type);
+        $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item_id);
+        //dump($item);die();
+        $listingForm->setItem($item);
 
         $email = $data['email'];
-        $em=$this->getDoctrine()->getManager();
+
         //$dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
