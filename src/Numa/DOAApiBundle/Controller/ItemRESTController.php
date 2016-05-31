@@ -153,10 +153,6 @@ class ItemRESTController extends Controller
                     'action' => 'refresh',
                     400));
         }
-
-
         return $response;
-
-
     }
 }
