@@ -44,7 +44,7 @@ class ListingFormRESTController extends Controller
         //if the customer is not found create new one based by data
         //create new listingform
         //set type test drive
-        
+
         $em = $this->getDoctrine()->getManager();
         //check if already inserted
         $response = new JsonResponse(

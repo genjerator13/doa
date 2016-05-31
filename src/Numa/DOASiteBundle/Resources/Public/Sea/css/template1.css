@@ -618,7 +618,7 @@ and (max-width : 767px) {
     position: absolute;
     bottom: 0px;
     left: 509px;
-    z-index: 1000000;
+    z-index: 900;
     width: 100%;
 }
 
@@ -626,7 +626,7 @@ and (max-width : 767px) {
     position: absolute;
     bottom: 147px;
     left: 0;
-    z-index: 1000000;
+    z-index: 900;
     left: 509px;
     width: 100%;
 }
