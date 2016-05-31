@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,13 @@ use Doctrine\Common\Collections\Criteria;
  * Item controller.
  *
  */
-class ItemController extends Controller {
+class ItemController extends Controller  implements DashboardDMSControllerInterface
+{
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all User entities.
@@ -510,7 +517,7 @@ class ItemController extends Controller {
             'form' => $form->createView(),
             'category' => $entity->getCategory(),
             'seo'=> $seoFormView,
-            'dashboard' =>$dashboard,
+            'dashboard' =>$this->dashboard,
         );
         return $this->switchTemplateByCategory($category, $params);
 

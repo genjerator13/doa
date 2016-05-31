@@ -32,8 +32,19 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {
             name: 'id',
             enableColumnResizing: true,
-            width: 30,
             cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+
+        },
+        {
+            name: 'customer_id',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="/dms/customers/{[{row.entity.customer_id}]}/edit">{[{row.entity.customer_id}]}</a>',
+
+        },
+        {
+            name: 'item_id',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="/dms/inventory/{[{row.entity.item_id}]}/edit">{[{row.entity.item_id}]}</a>',
 
         },
         {name: 'cust_name', displayName: 'Name', enableColumnResizing: true},
@@ -46,7 +57,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         },
         {name: 'email', enableColumnResizing: true},
         {name: 'phone', enableColumnResizing: true},
-        {name: 'date_drive', enableColumnResizing: true, width: 100, cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
         {name: 'comment', enableColumnResizing: true},
         {name: 'type', enableColumnResizing: true},
 

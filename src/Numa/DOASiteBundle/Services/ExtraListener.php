@@ -85,6 +85,7 @@ class ExtraListener
         }elseif($controllerObject instanceof DashboardDMSControllerInterface){
             $request = $event->getRequest();
             $route = $request->get('_route');
+            $dashboard="";
             if(strtolower(substr( $route, 0, 3 )) === "dms"){
                 $dashboard = "DMS";
 
