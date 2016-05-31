@@ -8,14 +8,27 @@
 
 namespace Numa\DOAApiBundle\Controller;
 
+use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ListingFormRESTController extends Controller
-{
+class ListingFormRESTController extends Controller implements DealerSiteControllerInterface{
+
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+    }
+
 
     /**
      * @Rest\View
@@ -40,54 +53,54 @@ class ListingFormRESTController extends Controller
         $post = $request->getContent();
         $postD = json_decode($post);
         $data =$request->request->get('numa_doadmsbundle_listingform');
+
+        $type = "";
+        if($request->query->get('form')=='offer' || $request->query->get('form')=='drive' || $request->query->get('form')=='eprice'){
+            $type = $request->query->get('form');
+        }
         //get customer by email ($data['email']
         //if the customer is not found create new one based by data
         //create new listingform
         //set type test drive
-        $entity->setType('drive');
-        $data = $form->getData();
-        $email = $data->getEmail();
+        $listingForm = new ListingForm();
+        $listingForm->setType($type);
+
+        $email = $data['email'];
+        $em=$this->getDoctrine()->getManager();
+        //$dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
         if(empty($customer)){
             $customer = new Customer();
-            $customer->setFirstName($data->getCustName());
-            $customer->setLastName($data->getCustLastName());
+            $customer->setFirstName($data['cust_name']);
+            $customer->setLastName($data['cust_last_name']);
             $customer->setEmail($email);
             $customer->setCatalogrecords($this->dealer);
-            $customer->setHomePhone($data->getPhone());
+            $customer->setHomePhone($data['phone']);
             $em->persist($customer);
         }
-        $entity->setCustomer($customer);
+        if(!empty($data['date_drive'])) {
+            $date = new \DateTime($data['date_drive']['year'] . "-" . $data['date_drive']['month'] . "-" . $data['date_drive']['day']);
+            $listingForm->setDateDrive($date);
+        }
+        $listingForm->setCustName($data['cust_name']);
+        $listingForm->setCustLastName($data['cust_last_name']);
+        $listingForm->setEmail($data['email']);
+        if(!empty($data['contact_by'])) {
+            $listingForm->setContactBy($data['contact_by']);
+        }
 
-        $em = $this->getDoctrine()->getManager();
+        $listingForm->setDealer($this->dealer);
+        $listingForm->setCustomer($customer);
+        $em->persist($listingForm);
+        $em->flush();
+
         //check if already inserted
         $response = new JsonResponse(
             array(
                 'message' => 'Success',
                 'action' => '',
                 400));
-
-
-
         return $response;
-/*
- * array:7 [
-  "cust_name" => ""
-  "cust_last_name" => ""
-  "contact_by" => "0"
-  "email" => ""
-  "phone" => ""
-  "date_drive" => array:3 [
-    "month" => "1"
-    "day" => "1"
-    "year" => "2011"
-  ]
-  "_token" => "BwQm4mcdOjWbZvSf9FHt9XXdzJyZsOqUzyRAI40PGeI"
-]
-
- */
-
     }
-
 }

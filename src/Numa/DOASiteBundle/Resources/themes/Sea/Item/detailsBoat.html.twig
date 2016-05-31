@@ -1,5 +1,12 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
 {% block title %}
     {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
         <title>{{ seo.getTitle() }}</title>
@@ -216,7 +223,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary"  id="submit_eprice">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +242,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary"  id="submit_financing">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -254,7 +261,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary"  id="submit_offer">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -274,7 +281,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                    <button type="button" class="btn btn-primary" id="submit_calculator">Save changes</button>
                                 </div>
                             </div>
                         </div>
@@ -304,15 +311,32 @@
                         $(document).ready(function () {
                             $('#submit_testdrive').click(function (e) {
                                 e.preventDefault();
-                                alert("aaa");
                                 var form = $('#test_drive_form').serializeArray();
-
                                 $.ajax({
                                     type: "POST",
                                     data: form,
-                                    url: '{{ path("listting_form_post") }}',
+                                    url: '{{ path("listting_form_post",{"form":'drive'}) }}',
                                 });
+                            })
 
+                            {#$('#submit_calculator').click(function (e) {#}
+                                {#e.preventDefault();#}
+                                {#var form = $('#test_drive_form').serializeArray();#}
+                                {#$.ajax({#}
+                                    {#type: "POST",#}
+                                    {#data: form,#}
+                                    {#url: '{{ path("listting_form_post",{"form":'calcul'}) }}',#}
+                                {#});#}
+                            {#})#}
+
+                            $('#submit_offer').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#offer_form').serializeArray();
+                                $.ajax({
+                                    type: "POST",
+                                    data: form,
+                                    url: '{{ path("listting_form_post",{"form":'offer'}) }}',
+                                });
                             })
 
                         });

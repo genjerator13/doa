@@ -89,7 +89,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'method' => 'POST',
             'attr' => array('id'=>"test_drive_form")
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
@@ -107,7 +107,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'method' => 'POST',
             'attr' => array('id'=>"offer_form")
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+       // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
@@ -125,7 +125,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'method' => 'POST',
             'attr' => array('id'=>"eprice_form")
         ));
-        $form->add('submit', 'submit', array('label' => 'Create'));
+       // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 

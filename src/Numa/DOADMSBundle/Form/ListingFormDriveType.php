@@ -17,7 +17,7 @@ class ListingFormDriveType extends AbstractType
         $builder
             ->add('cust_name',null,array('label'=>'First Name *', 'required'=>true))
             ->add('cust_last_name',null,array('label'=>'Last Name *', 'required'=>true))
-            ->add('contact_by','choice',array('label'=>'Contact Me By *','choices'=>array('Email','Phone')))
+            ->add('contact_by','choice',array('label'=>'Contact Me By *','choices'=>array('Email'=>'Email','Phone'=>'Phone')))
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')
             ->add('date_drive', null, array('label'=>'Best Date *', 'required' => true))
