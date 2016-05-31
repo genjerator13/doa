@@ -56,19 +56,20 @@ class ListingFormController extends Controller
             }
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $entity->setDealer($dealer);
+            $data = $form->getData();
+            $email = $data->getEmail();
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
-//            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
-//
-//            if(empty($customer)){
-//                $customer = new Customer();
-//                $customer->setFirstName($data->getCustName());
-//                $customer->setLastName($data->getCustLastName());
-//                $customer->setEmail($email);
-//                $customer->setCatalogrecords($this->dealer);
-//                $customer->setHomePhone($data->getPhone());
-//                $em->persist($customer);
-//            }
-//            $entity->setCustomer($customer);
+            if(empty($customer)){
+                $customer = new Customer();
+                $customer->setFirstName($data->getCustName());
+                $customer->setLastName($data->getCustLastName());
+                $customer->setEmail($email);
+                $customer->setCatalogrecords($this->dealer);
+                $customer->setHomePhone($data->getPhone());
+                $em->persist($customer);
+            }
+            $entity->setCustomer($customer);
 
             $em->persist($entity);
             $em->flush();

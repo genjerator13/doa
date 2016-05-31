@@ -212,7 +212,7 @@
                                     <h4 class="modal-title" id="myModalLabel">Get ePrice</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(epriceForm) }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -250,7 +250,7 @@
                                     <h4 class="modal-title" id="myModalLabel">Make an Offer</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(offerForm) }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -316,8 +316,6 @@
                             })
 
                         });
-
-
                     </script>
                 {% endblock %}
 

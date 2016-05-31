@@ -44,6 +44,21 @@ class ListingFormRESTController extends Controller
         //if the customer is not found create new one based by data
         //create new listingform
         //set type test drive
+        $entity->setType('drive');
+        $data = $form->getData();
+        $email = $data->getEmail();
+        $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
+
+        if(empty($customer)){
+            $customer = new Customer();
+            $customer->setFirstName($data->getCustName());
+            $customer->setLastName($data->getCustLastName());
+            $customer->setEmail($email);
+            $customer->setCatalogrecords($this->dealer);
+            $customer->setHomePhone($data->getPhone());
+            $em->persist($customer);
+        }
+        $entity->setCustomer($customer);
 
         $em = $this->getDoctrine()->getManager();
         //check if already inserted
