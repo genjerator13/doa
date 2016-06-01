@@ -154,7 +154,7 @@
                         {% elseif(sort_by=='pictures' and sort_order=='desc') %}
                             <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
                         {% endif %}
-                        Photos
+                        Photos,
                     </a>
                     <a href="{{ sortYearUrl }}">
                         {% if sort_by=='year' and sort_order=='asc' %}
@@ -162,7 +162,7 @@
                         {% elseif(sort_by=='year' and sort_order=='desc') %}
                             <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
                         {% endif %}
-                        Year
+                        Year,
                     </a>
                     <a href="{{ sortMakeUrl }}">
                         {% if sort_by=='make' and sort_order=='asc' %}
@@ -170,37 +170,32 @@
                         {% elseif(sort_by=='make' and sort_order=='desc') %}
                             <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
                         {% endif %}
-                        Make / Model
-                    </a></span><span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
-            <div class="titles-details">
-                <ul class="list-inline">
-                    <li>
-                        <a href="{{ sortMileageUrl }}">
-                            {% if sort_by=='mileage' and sort_order=='asc' %}
-                                <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                            {% elseif(sort_by=='mileage' and sort_order=='desc') %}
-                                <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                            {% endif %}
-                            Mileage
-                        </a>
-
-                    <li>
-                        <a href="{{ sortPriceUrl }}">
-                            {% if sort_by=='price' and sort_order=='asc' %}
-                                <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                            {% elseif(sort_by=='price' and sort_order=='desc') %}
-                                <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                            {% endif %}
-                            Price</a></li>
-                    <li><a href="{{ sortDateUrl }}">{% if sort_by=='date_created' and sort_order=='asc' %}
+                        Make / Model,
+                    </a>
+                    <a href="{{ sortMileageUrl }}">
+                        {% if sort_by=='mileage' and sort_order=='asc' %}
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                        {% elseif(sort_by=='mileage' and sort_order=='desc') %}
+                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                        {% endif %}
+                        Mileage,
+                    </a>
+                    <a href="{{ sortPriceUrl }}">
+                        {% if sort_by=='price' and sort_order=='asc' %}
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                        {% elseif(sort_by=='price' and sort_order=='desc') %}
+                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                        {% endif %}
+                        Price,</a>
+                    <a href="{{ sortDateUrl }}">
+                        {% if sort_by=='date_created' and sort_order=='asc' %}
                             <i class="glyphicon glyphicon-sort-by-attributes"></i>
                         {% elseif(sort_by=='date_created' and sort_order=='desc') %}
                             <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                            {% endif %}Date</a></li>
-                </ul>
-
-            </div>
-
+                        {% endif %}Date
+                    </a>
+                </span>
+                <span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
             </p>
             <div class="row">
                 <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
