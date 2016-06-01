@@ -339,6 +339,16 @@
                                 });
                             })
 
+                            $('#submit_eprice').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#eprice_form').serializeArray();
+                                $.ajax({
+                                    type: "POST",
+                                    data: form,
+                                    url: '{{ path("listting_form_post",{"form":'eprice',"item_id": item.id }) }}',
+                                });
+                            })
+
                         });
                     </script>
                 {% endblock %}
