@@ -82,20 +82,10 @@
 
             </div>
             <div class="btn-group-vertical col-md-2">
-                <button type="button" class="btn btn-success"><i class="fa fa-money" style="font-size:24px"></i> Get ePrice</button>
+                <button type="button" class="btn btn-success eprice"  data-itemid="{{ item.id }}"><i class="fa fa-money"></i> Get ePrice</button>
                 <button type="button" class="btn btn-default">Save This Car</button>
                 <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
             </div>
-            {#<div class="main-details">#}
-                {#<ul class="list-inline">#}
-                    {#<li>#}
-
-                    {#<li><span class="price"></span>#}
-                    {#</li>#}
-                    {#<li>{{ item.lastUpdated()|date('Y-m-d') }}</li>#}
-                {#</ul>#}
-            {#</div>#}
-
         </div>
     </div>
     <br>

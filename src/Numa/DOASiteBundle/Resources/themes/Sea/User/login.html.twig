@@ -1,11 +1,10 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% block content %}
+    <div class="row">
     <div class="col-md-4 col-md-offset-4">
-    <div class="login-form">
-        
         <form action="{{ path('login_check') }}" method="post">
             <div class="panel panel-info">
-                <div class="panel-heading" style="background-color: black; color: #f78f1e; font-weight: 600;">
+                <div class="panel-heading">
                     <div class="panel-title">Sign In</div>
                     {#<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
                #} </div>

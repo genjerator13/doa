@@ -51,15 +51,21 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
     public function postListingFormAction(Request $request)
     {
         $post = $request->getContent();
+
         $postD = json_decode($post);
         $data =$request->request->get('numa_doadmsbundle_listingform');
+
         $em=$this->getDoctrine()->getManager();
         $type = "";
         if($request->query->get('form')=='offer' || $request->query->get('form')=='drive' || $request->query->get('form')=='eprice'){
             $type = $request->query->get('form');
         }
-        $item_id = intval($request->query->get('amp;item_id'));
 
+        $item_id = $data['item_id'];
+
+        if(empty($item_id)){
+            $item_id = intval($request->query->get('amp;item_id'));
+        }
         //get customer by email ($data['email']
         //if the customer is not found create new one based by data
         //create new listingform
