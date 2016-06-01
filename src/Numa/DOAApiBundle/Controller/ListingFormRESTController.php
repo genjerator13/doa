@@ -69,7 +69,6 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item_id);
         //dump($item);die();
         $listingForm->setItem($item);
-
         $email = $data['email'];
 
         //$dealer = $this->get("Numa.Dms.User")->getSignedDealer();
@@ -90,11 +89,17 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
         }
         $listingForm->setCustName($data['cust_name']);
         $listingForm->setCustLastName($data['cust_last_name']);
+        if(!empty($data['cust_officer'])) {
+            $listingForm->setCustOfficer($data['cust_officer']);
+        }
         $listingForm->setEmail($data['email']);
+        $listingForm->setPhone($data['phone']);
+        if(!empty($data['comment'])) {
+            $listingForm->setComment($data['comment']);
+        }
         if(!empty($data['contact_by'])) {
             $listingForm->setContactBy($data['contact_by']);
         }
-
         $listingForm->setDealer($this->dealer);
         $listingForm->setCustomer($customer);
         $em->persist($listingForm);

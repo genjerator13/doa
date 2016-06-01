@@ -53,7 +53,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {
             name:'contact_by',
             enableColumnResizing: true, width: 60,
-            cellTemplate: '<span ng-if="row.entity.contact_by == \'0\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'1\'" class="glyphicon glyphicon-phone"></span>',
+            cellTemplate: '<span ng-if="row.entity.contact_by == \'Email\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'Phone\'" class="glyphicon glyphicon-phone"></span>',
         },
         {name: 'email', enableColumnResizing: true},
         {name: 'phone', enableColumnResizing: true},
