@@ -442,7 +442,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function aboutusAction(Request $request)
     {
-        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('components' => $this->components));
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
     }
 
     public function uploadImageAction(Request $request)
