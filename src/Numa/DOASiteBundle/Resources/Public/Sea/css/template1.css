@@ -630,3 +630,13 @@ and (max-width : 767px) {
     left: 509px;
     width: 100%;
 }
+
+.btn-sea {
+    background-color: #111;
+    color: #f78f1e;
+}
+
+.btn-sea:hover {
+    background-color: #111222;
+    color: #f78f77;
+}

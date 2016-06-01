@@ -393,6 +393,10 @@
             if (maxHeightVideo) {
                 updateHeight(maxHeightVideo, true);
             }
+            $(".pgwSlideshow").height(maxHeight);
+            $(".right").height(maxHeight);
+            $(".right").css('z-index','-1');
+            $(".ps-list").css('z-index','900');
             return true;
         }
 
