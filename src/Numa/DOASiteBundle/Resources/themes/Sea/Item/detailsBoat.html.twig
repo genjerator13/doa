@@ -295,6 +295,7 @@
                             $('#submit_testdrive').click(function (e) {
                                 e.preventDefault();
                                 var form = $('#test_drive_form').serializeArray();
+                                alert("Success");
                                 $.ajax({
                                     type: "POST",
                                     data: form,
@@ -315,6 +316,7 @@
                             $('#submit_offer').click(function (e) {
                                 e.preventDefault();
                                 var form = $('#offer_form').serializeArray();
+                                alert("Success");
                                 $.ajax({
                                     type: "POST",
                                     data: form,
@@ -325,6 +327,7 @@
                             $('#submit_eprice').click(function (e) {
                                 e.preventDefault();
                                 var form = $('#eprice_form').serializeArray();
+                                alert("Success");
                                 $.ajax({
                                     type: "POST",
                                     data: form,
