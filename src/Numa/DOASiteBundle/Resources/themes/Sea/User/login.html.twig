@@ -5,22 +5,22 @@
         
         <form action="{{ path('login_check') }}" method="post">
             <div class="panel panel-info">
-                <div class="panel-heading" style="background-color: black; color: #f78f1e; font-weight: 600;">
+                <div class="panel-heading">
                     <div class="panel-title">Sign In</div>
                     {#<div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Forgot password?</a></div>
                #} </div>
 
-                <div class="panel-body" style="padding-top:30px">
+                <div class="panel-body">
                     {% if error %}
                         <div class="">{{ error.message }}</div>
                     {% endif %}
 
-                    <div class="input-group" style="margin-bottom: 25px">
+                    <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input type="text" id="username" name="_username"  class="form-control" type="text" placeholder="Email or username" value="{{ last_username }}" />
                     </div>
 
-                    <div class="input-group" style="margin-bottom: 25px">
+                    <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
                         <input type="password" id="password" name="_password" class="form-control" placeholder="Password"/>                            
                     </div>

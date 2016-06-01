@@ -283,7 +283,17 @@ body {
 /* ==========================================================================
    Content
    ========================================================================== */
-
+.content .panel-heading{
+    background-color: black;
+    color: #f78f1e;
+    font-weight: 600;
+}
+.content .panel-body{
+    padding-top:30px
+}
+.content .input-group{
+    margin-bottom: 25px
+}
 .content {
     border-bottom: 1px dotted #959595;
     color: #535353;
