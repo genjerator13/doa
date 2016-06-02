@@ -3742,31 +3742,37 @@ class Item
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $invoice_nr;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $invoice_date;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $invoice_amount;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $discount1;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $discount2;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $sale_amount;
 

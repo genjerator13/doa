@@ -128,8 +128,8 @@ class ItemType extends AbstractType
             ->add('tireEquipment')
             ->add('cuttingWidth')
             ->add('coolingSystem')
-            ->add('mpgCity')
-            ->add('mpgHighway')
+            ->add('mpgCity',null,array('label'=>'Fuel Economy City'))
+            ->add('mpgHighway',null,array('label'=>'Fuel Economy Highway'))
             ->add('iwNo')
             ->add('invoice_nr',null,array("label"=>"Invoice #"))
             ->add('invoice_date', 'date', array(

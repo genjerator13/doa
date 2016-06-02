@@ -43,7 +43,7 @@ class BillingController extends Controller
         $form->handleRequest($request);
 
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $entity->setCatalogrecords($dealer);
+        $entity->setDealer($dealer);
 
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
