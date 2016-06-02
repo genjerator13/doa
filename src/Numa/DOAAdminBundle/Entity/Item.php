@@ -1695,6 +1695,14 @@ class Item
     {
         $this->status = $status;
 
+        if(strtolower($status)=="new" || strtolower($status)=="n"){
+            $this->status = "New";
+        }
+
+        if(strtolower($status)=="used" || strtolower($status)=="u" || strtolower($status)=="use"){
+            $this->status = "Used";
+        }
+
         return $this;
     }
 

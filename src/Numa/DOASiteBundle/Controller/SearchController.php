@@ -50,6 +50,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             $parameters = $request->query->all();
 
             $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+
         }
 
         if (!empty($additionalParams)) {
@@ -1118,5 +1119,20 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
     }
 
 
+    public function searchByStatusAction(Request $request)
+    {
+        $page = empty($page) ? 1 : $page;
+
+        $this->initSearchParams($request);
+        $page = $request->get('page');
+
+        $number = intval($request->get('listings_per_page'));
+
+        //create query
+        $query = $this->searchParameters->createSearchQuery();
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+    }
 
 }

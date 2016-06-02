@@ -86,7 +86,7 @@
 
         <ul>
             <li>
-                <a href="">
+                <a href="{{ path("search_used_vehicle") }}">
                     <div class="left-arrow">
                         {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
                         <img src="{{ asset_url }}"/>
@@ -97,7 +97,7 @@
                 </a>
             </li>
             <li>
-                <a href="">
+                <a href="{{ path("search_new_vehicle") }}">
                     <div class="left-arrow">
                         {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
                         <img src="{{ asset_url }}"/>
@@ -203,7 +203,7 @@
                 </div>
             </li>
             <li>
-                {{ displayComponent(components,'hours_of_operation')|raw }}
+                {{ dealer.ServiceHours }}
             </li>
             <li>
                 {{ displayComponent(components,'quick_links')|raw }}
