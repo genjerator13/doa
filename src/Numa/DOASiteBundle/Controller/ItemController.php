@@ -4,6 +4,7 @@ namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Form\SendEmailType;
 use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
 use Numa\DOADMSBundle\Form\ListingFormOfferType;
@@ -68,6 +69,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'driveForm' => $this->createCreateDriveForm(new ListingForm())->createView(),
                 'offerForm' => $this->createCreateOfferForm(new ListingForm())->createView(),
                 'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
+                'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
             return $response;
         } else {
@@ -126,6 +128,25 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'attr' => array('id'=>"eprice_form")
         ));
        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateContactForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormContactType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_contact'),
+            'method' => 'POST',
+            'attr' => array('id'=>"contact_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
