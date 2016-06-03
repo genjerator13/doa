@@ -55,12 +55,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'sold', enableColumnResizing: true, width: 50},
         {name: 'featured', enableColumnResizing: true, width: 50},
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
-        {name: 'nvoice_nr', enableColumnResizing: true, width: 50},
-        {name: 'invoice_date', enableColumnResizing: true, width: 50},
-        {name: 'invoice_amt', enableColumnResizing: true, width: 50},
-        {name: 'discount1', enableColumnResizing: true, width: 50},
-        {name: 'discount2', enableColumnResizing: true, width: 50},
-        {name: 'sale_amount', enableColumnResizing: true, width: 50},
+        {name: 'invoice_nr', enableColumnResizing: true, width: 90,displayName:'Invoice #'},
+        {name: 'invoice_date', enableColumnResizing: true, width: 90},
+        {name: 'invoice_amt', enableColumnResizing: true, width: 90},
+        {name: 'discount1', enableColumnResizing: true, width: 90},
+        {name: 'discount2', enableColumnResizing: true, width: 90},
+        {name: 'sale_amount', enableColumnResizing: true, width: 90},
         {#{name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
 
         {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},

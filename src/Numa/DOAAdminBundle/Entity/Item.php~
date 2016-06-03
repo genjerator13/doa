@@ -1695,6 +1695,14 @@ class Item
     {
         $this->status = $status;
 
+        if(strtolower($status)=="new" || strtolower($status)=="n"){
+            $this->status = "New";
+        }
+
+        if(strtolower($status)=="used" || strtolower($status)=="u" || strtolower($status)=="use"){
+            $this->status = "Used";
+        }
+
         return $this;
     }
 
@@ -3734,31 +3742,37 @@ class Item
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $invoice_nr;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $invoice_date;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $invoice_amount;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $discount1;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $discount2;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $sale_amount;
 
@@ -3905,5 +3919,53 @@ class Item
     public function getSaleAmount()
     {
         return $this->sale_amount;
+    }
+    /**
+     * @var float
+     */
+    private $retail_price;
+
+
+    /**
+     * Set retailPrice
+     *
+     * @param float $retailPrice
+     *
+     * @return Item
+     */
+    public function setRetailPrice($retailPrice)
+    {
+        $this->retail_price = $retailPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get retailPrice
+     *
+     * @return float
+     */
+    public function getRetailPrice()
+    {
+        return $this->retail_price;
+    }
+    public function getRetailPriceString()
+    {
+        $res = "";
+        if ($this->getRetailPrice() == 0) {
+            return "";
+        }
+        if (!empty($this->getRetailPrice())) {
+            $res = "$" . number_format($this->getRetailPrice(), 0, '.', ',');
+        }
+        return $res;
+    }
+    public function getRetailPriceCompared()
+    {
+        if($this->getRetailPrice() > $this->getPrice())
+        {
+            return "<h3 class='section'>Retail Price: <span class='section'>".$this->getRetailPriceString()."</span></h3>";
+
+        }
     }
 }

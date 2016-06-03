@@ -11,6 +11,19 @@ body {
     position: relative;
 }
 
+/*@font-face {*/
+    /*font-family: 'Fjalla One';*/
+    /*src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2");*/
+/*}*/
+
+@font-face {
+    font-family: "Fjalla One";
+    font-style: normal;
+    font-weight: 400;
+    src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2") format("woff2");
+
+}
+
 /* ==========================================================================
    Header
    ========================================================================== */
@@ -297,6 +310,7 @@ body {
     color: #000;
     font-size: 26px;
     margin-bottom: 0.5em;
+    font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
 .content p { margin: 1em 0; }
@@ -325,12 +339,7 @@ body {
 .checkbox{
     color: black;
 }
-/*.row{*/
-/*padding-top: -50px;*/
-/*padding-left: 50px;*/
-/*border: 1px solid lightslategray;*/
-/*clear: both;*/
-/*}*/
+/* listing detail */
 .detailsContent .row {
     margin: 0px;
     border: 1px solid lightslategray;
@@ -339,6 +348,31 @@ body {
     padding: 10px;
 }
 
+.listing-buttons {
+    padding: 0px;
+    text-align: right;
+    z-index:1000;
+    position: absolute;
+    top: 0px;
+    right:0px;
+}
+
+.listing-buttons button{
+    text-align: right;
+    background-color: transparent;
+    color: #f78f1e;
+    font-weight: bold;
+    border: none;
+}
+
+.listing-box-top {
+    background-color: #fefeef;
+    min-height: 200px;
+}
+
+
+
+
 #listing-content .row{
     margin: 0px;
     border: 1px solid lightslategray;
@@ -346,7 +380,6 @@ body {
 .row .items{
     padding: 15px 0 0 0;
 }
-
 
 .detailsContent .option-lists{
     margin-left: 50px;
@@ -357,11 +390,22 @@ body {
     padding: 5px;
     background-color: #111111;
     color: #f78f1e;
+    font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
 .detailsContent .row {
     margin-bottom: 20px;
 }
+.detailsContent .retail_price {
+    color: #f78f1e;
+    text-decoration-line: line-through;
+    font-size: 130%;
+}
+.detailsContent .price {
+    font-size: 160%;
+    font-weight: bold;
+}
+
 
 .title{
     color: black;
@@ -377,25 +421,14 @@ body {
     height: 100%;
     position: relative;
     min-height: 400px;
+    padding-right: 0;
+    background: #FEFEEF;
 }
 
 .ps-current {
     min-height: 400px;
 }
 
-.right > ul > li{
-    list-style-type: none;
-}
-.rightf{
-    float: right;
-}
-.right h3.section{
-    color: red;
-}
-.right .section{
-    color: red;
-    text-decoration-line: line-through;
-}
 /* ==========================================================================
    Info
    ========================================================================== */
@@ -423,6 +456,7 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
     text-transform: uppercase;
+    font-family:"Fjalla One",'Open Sans', sans-serif;
 }
 
 .info a {
@@ -430,6 +464,7 @@ body {
     color: #f78f1e;
     padding-left: 8px;
     text-decoration: none;
+    font-family:"Fjalla One",'Open Sans', sans-serif;
 }
 
 .info a:hover { text-decoration: underline; }
@@ -517,8 +552,14 @@ body {
 .techData .fieldCaption {
     font-weight: bold;
 }
+ul.techData{
+    margin:20px 0 0 0;
+}
 
-.detailsContent
+ul.techData li {
+    margin:0;
+    padding: 0px;
+}
 
 
 
@@ -629,22 +670,8 @@ and (max-width : 767px) {
 .listing-images {
     position: relative;
 }
-.listing-bottom-buttons {
-    position: absolute;
-    bottom: 0px;
-    left: 509px;
-    z-index: 900;
-    width: 100%;
-}
 
-.listing-upper-buttons {
-    position: absolute;
-    bottom: 147px;
-    left: 0;
-    z-index: 900;
-    left: 509px;
-    width: 100%;
-}
+
 
 .btn-sea {
     background-color: #111;
