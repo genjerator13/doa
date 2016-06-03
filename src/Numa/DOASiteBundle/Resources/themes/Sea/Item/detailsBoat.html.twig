@@ -73,8 +73,7 @@
                                             {% for key,image in images %}
                                                 <li data-order="{{ image.sortOrder }}">
                                                     {% if ('http' not in image.fieldStringValue) %}
-                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
-                                                             alt="image{{ key }}"/>
+                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}" />
                                                     {% else %}
                                                         {% set videoid="" %}
                                                         {% set img=image.fieldStringValue %}
@@ -82,8 +81,7 @@
                                                             {% set videoid=getYoutubeId(image.fieldStringValue) %}
                                                             {% set img=getYoutubeThumb(videoid) %}
                                                         {% endif %}
-                                                        <img data-video="{{ videoid }}" src="{{ img }}"
-                                                             alt="image{{ key }}"/>
+                                                        <img data-video="{{ videoid }}" src="{{ img }}" />
 
                                                     {% endif %}
                                                 </li>
@@ -302,16 +300,6 @@
                                     url: '{{ path("listting_form_post",{"form":'drive',"item_id": item.id}) }}',
                                 });
                             })
-
-                            {#$('#submit_calculator').click(function (e) {#}
-                                {#e.preventDefault();#}
-                                {#var form = $('#test_drive_form').serializeArray();#}
-                                {#$.ajax({#}
-                                    {#type: "POST",#}
-                                    {#data: form,#}
-                                    {#url: '{{ path("listting_form_post",{"form":'calcul'}) }}',#}
-                                {#});#}
-                            {#})#}
 
                             $('#submit_offer').click(function (e) {
                                 e.preventDefault();

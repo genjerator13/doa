@@ -1,10 +1,5 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
-{% block javascripts %}
-    {{ parent() }}
-{% endblock %}
-
 {% block content %}
-
     {% if pagerfanta is empty %}
         No results
     {% else %}
@@ -211,22 +206,7 @@
                     {% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}
                 </div>
             {% for item in pagerfanta %}
-                {#
-                        {%if item.getCategory().getName()=='Marine'%}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {%endif%}
-                        {% if item.getCategory().getName()=='Car' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}
-                        {% if item.getCategory().getName()=='Motosport' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}
-                        {% if item.getCategory().getName()=='RVs' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}#}
-
-
-                {% if queryUrl is defined %}
+                               {% if queryUrl is defined %}
                     {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl}) }}
                 {% else %}
                     {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item}) }}
@@ -236,6 +216,52 @@
             </div>
             {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
         </div>
+        <!-- Modal -->
+        <div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Get ePrice</h4>
+
+                    </div>
+                    <div class="modal-body"><div class="te">Loading...</div></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="submit_eprice">Save changes</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+        <script>
+            $( document ).ready(function() {
+
+
+                $(".eprice").on('click', function () {
+
+                    var modal = $('#eprice_modal');
+                    var itemid = $(this).data('itemid');
+                    console.log(itemid);
+                    modal.on('show.bs.modal', function () {
+                        $('#eprice_modal .modal-body').load('/d/item/'+itemid+'/eprice');
+                    }).modal();
+                });
+
+                $('#submit_eprice').click(function (e) {
+                    e.preventDefault();
+                    var form = $('#eprice_form').serializeArray();
+                    $.ajax({
+                        type: "POST",
+                        data: form,
+                        url: '{{ path("listting_form_post",{"form":'eprice' }) }}',
+                    });
+                })
+            });
+
+        </script>
         <script type="text/javascript">
             num = 10;
             {%if listing_per_page is defined %}

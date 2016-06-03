@@ -1,19 +1,35 @@
-<!-- Modal -->
-<div class="modal fade" id="eprice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Get ePrice</h4>
-            </div>
-            <div class="modal-body">
-                {{ form(epriceForm) }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary"  id="submit_eprice">Save changes</button>
-            </div>
-        </div>
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+
+{{ form_start(epriceForm) }}
+<div class="form-group">
+    {{ form_label(epriceForm.cust_name,'First Name',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(epriceForm.cust_name) }}
     </div>
 </div>
+<div class="form-group">
+    {{ form_label(epriceForm.cust_last_name,'Last Name',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(epriceForm.cust_last_name) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(epriceForm.email,'Email',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(epriceForm.email) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(epriceForm.phone,'Phone',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(epriceForm.phone) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(epriceForm.comment,'Comment',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(epriceForm.comment) }}
+    </div>
+</div>
+{{ form_rest(epriceForm) }}

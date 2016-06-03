@@ -336,4 +336,12 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $form;
     }
 
+    public function epriceAction($itemid){
+        $listingForm = new ListingForm();
+        $listingForm->setItemId(intval($itemid));
+        $epriceForm = $this->createCreateEpriceForm($listingForm);
+        $epriceForm->add("item_id","hidden");
+        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('epriceForm' => $epriceForm->createView() ));
+    }
+
 }

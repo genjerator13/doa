@@ -17,7 +17,7 @@ class ListingFormType extends AbstractType
         $builder
             ->add('cust_name',null,array('label'=>'First Name *', 'required'=>true))
             ->add('cust_last_name',null,array('label'=>'Last Name *', 'required'=>true))
-            ->add('cust_officer', null, array('label'=>'Your Officer *'))
+            ->add('cust_officer', null, array('label'=>'Sales Person'))
             ->add('contact_by','choice',array('label'=>'Contact Me By *','choices'=>array('Email','Phone')))
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')

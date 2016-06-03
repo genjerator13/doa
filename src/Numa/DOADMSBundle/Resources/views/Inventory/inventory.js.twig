@@ -51,11 +51,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 70},
         {name: 'active', enableColumnResizing: true, width: 50},
         {name: 'views', enableColumnResizing: true, width: 50},
-        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
+        {#{name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
         {name: 'sold', enableColumnResizing: true, width: 50},
         {name: 'featured', enableColumnResizing: true, width: 50},
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
-        {name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
+        {name: 'nvoice_nr', enableColumnResizing: true, width: 50},
+        {name: 'invoice_date', enableColumnResizing: true, width: 50},
+        {name: 'invoice_amt', enableColumnResizing: true, width: 50},
+        {name: 'discount1', enableColumnResizing: true, width: 50},
+        {name: 'discount2', enableColumnResizing: true, width: 50},
+        {name: 'sale_amount', enableColumnResizing: true, width: 50},
+        {#{name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
 
         {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
         {name:'views',enableColumnResizing: true,width: 60},

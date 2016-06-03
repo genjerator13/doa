@@ -52,8 +52,8 @@ class ItemType extends AbstractType
             ->add('Category',null,array('label'=>'Category'))
             ->add('Dealer')
 
-            ->add('retail_price')
-            ->add('price')
+            ->add('retail_price',null,array('label'=>'Retail Price'))
+            ->add('price',null,array('label'=>'Selling Price'))
             ->add('year')
             ->add('bodyStyle', 'choice', array(
                     'choices'   => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style',0,true),
@@ -76,7 +76,7 @@ class ItemType extends AbstractType
             ->add('mileage')
             ->add('floorPlan')
             ->add('stockNr',null,array("label"=>"Stock Number"))
-            ->add('status')
+            ->add('status','choice',array('choices'=>array('New'=>'New',"Used"=>"Used")))
             ->add('agApplication')
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',
@@ -95,19 +95,7 @@ class ItemType extends AbstractType
             ->add('feature_slideshow')
             ->add('feature_youtube')
             ->add('Importfeed')
-            ->add('seller_comment','ckeditor'
-                    //, 
-//                    array(
-//                //'transformers'                 => array('html_purifier'),
-//                'toolbar'                      => array('document','basicstyles'),
-//                'toolbar_groups'               => array(
-//                    'document' => array('Source')
-//                ),
-//                //'ui_color'                     => '#fff',
-//                'startup_outline_blocks'       => false,
-                
-            //)
-                )
+            ->add('seller_comment','ckeditor')
             ->add('User')
             ->add('length')
             ->add('beam')            
@@ -140,20 +128,20 @@ class ItemType extends AbstractType
             ->add('tireEquipment')
             ->add('cuttingWidth')
             ->add('coolingSystem')
-            ->add('mpgCity')
-            ->add('mpgHighway')
+            ->add('mpgCity',null,array('label'=>'Fuel Economy City'))
+            ->add('mpgHighway',null,array('label'=>'Fuel Economy Highway'))
             ->add('iwNo')
-            ->add('invoice_nr')
+            ->add('invoice_nr',null,array("label"=>"Invoice #"))
             ->add('invoice_date', 'date', array(
-                'label' => false,
+                'label' => "Invoice Date",
                 'required' => false,
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'datepicker')
             ))
             ->add('invoice_amount')
-            ->add('discount1')
-            ->add('discount2')
+            ->add('discount1',null,array("label"=>"Discount 1"))
+            ->add('discount2',null,array("label"=>"Discount 2"))
             ->add('sale_amount')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))            

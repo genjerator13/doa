@@ -86,8 +86,8 @@ class ItemRESTController extends Controller
      */
     public function listingsByDealer2Action(Request $request, $dealerid)
     {
-        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealerAndCategory($dealerid);
-        return $customers;
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealerAndCategory($dealerid);
+        return $listings;
     }
 
     /**
