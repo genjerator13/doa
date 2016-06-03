@@ -151,7 +151,7 @@
                             <h3>Vehicle Data</h3>
                         </div>
                         <div class="form-group">
-                            {{ form_label(form.Category, 'category', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            {{ form_label(form.Category, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
                                 {{ form_widget(form.Category, { 'attr': {'class': 'form-control'} }) }}
                             </div>
@@ -160,7 +160,7 @@
                             {{ form_row(form.dealer_id) }}
                         {% else %}
                             <div class="form-group">
-                                {{ form_label(form.Dealer, 'Dealer', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                                {{ form_label(form.Dealer, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
                                     {{ form_widget(form.Dealer, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
@@ -168,13 +168,12 @@
                             {{ form_row(form.sold) }}
                         {% endif %}
 
-
+                        {{ form_row(form.sold) }}
                         {{ form_row(form.active) }}
-
                         {{ form_row(form.featured) }}
 
                         <div class="form-group">
-                            {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            {{ form_label(form.year, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
                                 {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}
                             </div>
@@ -182,7 +181,7 @@
 
 
                         <div class="form-group">
-                            {{ form_label(form.status, 'Status', { 'label_attr': {'class': 'col-sm-3'} }) }}
+                            {{ form_label(form.status, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                             <div class="col-sm-9">
                                 {{ form_widget(form.status, { 'attr': {'class': 'form-control'} }) }}
                             </div>
