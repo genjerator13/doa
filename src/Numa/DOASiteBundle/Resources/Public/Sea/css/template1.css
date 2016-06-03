@@ -369,10 +369,8 @@ body {
 
 .listing-buttons button{
     text-align: right;
-    background-color: transparent;
-    color: #f78f1e;
     font-weight: bold;
-    border: none;
+
 }
 
 .listing-box-top {
