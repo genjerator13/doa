@@ -10,6 +10,9 @@ Numa\DOADMSBundle\Entity\Component:
         page_id:
             type: integer
             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
         name:
             type: string
             length: 255
@@ -40,6 +43,12 @@ Numa\DOADMSBundle\Entity\Component:
             inversedBy: Component
             joinColumn:
                 name: page_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Component
+            joinColumn:
+                name: dealer_id
                 referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

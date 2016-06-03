@@ -276,7 +276,7 @@
                 updateHeight(maxHeight);
                 $(".pgwSlideshow").height(maxHeight);
                 $(".right").height(maxHeight);
-                $(".right").css('z-index','-1');
+                $(".right").css('z-index','50');
                 $(".ps-list").css('z-index','900');
             });
 
@@ -395,7 +395,7 @@
             }
             $(".pgwSlideshow").height(maxHeight);
             $(".right").height(maxHeight);
-            $(".right").css('z-index','-1');
+            $(".right").css('z-index','50');
             $(".ps-list").css('z-index','900');
             return true;
         }

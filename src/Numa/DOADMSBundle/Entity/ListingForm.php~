@@ -10,66 +10,79 @@ use JMS\Serializer\Annotation as JMS;
 
 /**
  * ListingForm
+ * @JMS\ExclusionPolicy("ALL")
  */
 class ListingForm
 {
     /**
      * @var int
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_last_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_officer;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $contact_by;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $phone;
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $comment;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $dealer_id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var int
+     * @JMS\Expose
      */
     private $item_id;
 
@@ -544,6 +557,7 @@ class ListingForm
     }
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_drive;
 
@@ -570,5 +584,35 @@ class ListingForm
     public function getDateDrive()
     {
         return $this->date_drive;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $type;
+
+
+    /**
+     * Set type
+     *
+     * @param string $type
+     *
+     * @return ListingForm
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

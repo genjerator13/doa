@@ -3964,7 +3964,7 @@ class Item
     {
         if($this->getRetailPrice() > $this->getPrice())
         {
-            return "<h3 class='section'>Retail Price: <span class='section'>".$this->getRetailPriceString()."</span></h3>";
+            return "<div class='retail_price'>Retail Price: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
 
         }
     }

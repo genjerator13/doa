@@ -506,4 +506,33 @@ class ImageCarousel
     {
         return $this->Component;
     }
+    /**
+     * @var string
+     */
+    private $carousel_text;
+
+
+    /**
+     * Set carouselText
+     *
+     * @param string $carouselText
+     *
+     * @return ImageCarousel
+     */
+    public function setCarouselText($carouselText)
+    {
+        $this->carousel_text = $carouselText;
+
+        return $this;
+    }
+
+    /**
+     * Get carouselText
+     *
+     * @return string
+     */
+    public function getCarouselText()
+    {
+        return $this->carousel_text;
+    }
 }
