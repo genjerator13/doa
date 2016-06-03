@@ -1,32 +1,32 @@
 {% block content %}
     <div class="form-group">
-        {{ form_label(form.make, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.make) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.make) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.model, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.model) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.model) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.retail_price, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.retail_price) }}
         <div class="col-sm-9">
-            {{ form_widget(form.retail_price, { 'attr': {'class': 'form-control'} }) }}
+            {{ form_widget(form.retail_price) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.price, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.price) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.price, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.price) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.stockNr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.stockNr) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.stockNr, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.stockNr) }}
         </div>
     </div>
     <div class="form-group">
@@ -38,13 +38,13 @@
     <div class="form-group">
         {{ form_label(form.length) }}
         <div class="col-sm-9">
-            {{ form_widget(form.length, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.length) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.beam, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.beam) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.beam, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.beam) }}
         </div>
     </div>
 
@@ -55,9 +55,9 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.hullDesign, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.hullDesign) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.hullDesign, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.hullDesign) }}
         </div>
     </div>
     <div class="form-group">
@@ -73,9 +73,9 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.horsepower, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.horsepower) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.horsepower, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.horsepower) }}
         </div>
     </div>
     <div class="form-group">
@@ -87,13 +87,13 @@
     <div class="form-group">
         {{ form_label(form.transmission, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.exteriorColor) }}
+        {{ form_label(form.exteriorColor, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.exteriorColor) }}
+            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
@@ -103,15 +103,15 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.passengers, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.passengers) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.passengers, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.passengers) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.trailer, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.trailer) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.trailer, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.trailer) }}
         </div>
     </div>
 {% endblock %}
