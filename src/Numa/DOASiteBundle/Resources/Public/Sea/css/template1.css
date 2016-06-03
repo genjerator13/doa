@@ -376,7 +376,6 @@ body {
 }
 
 .listing-box-top {
-    background-color: #fefeef;
     min-height: 200px;
 }
 
@@ -432,7 +431,7 @@ body {
     position: relative;
     min-height: 400px;
     padding-right: 0;
-    background: #FEFEEF;
+
 }
 
 .ps-current {

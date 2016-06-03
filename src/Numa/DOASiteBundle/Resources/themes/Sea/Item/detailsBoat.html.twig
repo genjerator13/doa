@@ -109,19 +109,20 @@
 
 
                                         {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
-
-                                        {% if item.categoryId()==1 %}
-                                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                                        {% elseif(item.categoryId()==2) %}
-                                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                                        {% elseif(item.categoryId()==3) %}
-                                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                                        {% elseif(item.categoryId()==4) %}
-                                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                                        {% elseif(item.categoryId()==13) %}
-                                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                                        {% else %}
-                                        {% endif %}
+                                        <ul class="techData list-unstyled">
+                                            {% if item.categoryId()==1 %}
+                                                {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==2) %}
+                                                {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==3) %}
+                                                {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==4) %}
+                                                {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==13) %}
+                                                {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                                            {% else %}
+                                            {% endif %}
+                                        </ul>
                                     </div>
                                     <div class="listing-buttons col-md-6">
                                         <div class="btn-group-vertical">

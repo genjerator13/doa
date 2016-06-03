@@ -5,54 +5,58 @@
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <h1>Edit Dealer</h1>
-    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-    {{ component.image(entity.logoUrl, entity.name, '', 'search_image') }}
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
-        <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
-    </ul>
-    <div class="nav-tabs-custom">
-        <div class="tab-content">
-            <div id="details" class="tab-pane active">
-                {{ form(edit_form) }}
+    <section class="content">
+        <h1>Edit Dealer</h1>
+        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+        {{ component.image(entity.logoUrl, entity.name, '', 'search_image') }}
+        <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs ">
+                <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
+            </ul>
+            <div class="nav-tabs-custom">
+                <div class="tab-content">
+                    <div id="details" class="tab-pane active">
+                        {{ form(edit_form) }}
 
-                <ul class="record_actions">
-                    {% if(not is_granted('ROLE_BUSINES')) %}
-                        <li>
-                            <a href="{{ path('catalogs') }}" class="btn btn-primary">
-                                Back to the list
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
-            <div id="coupons" class="tab-pane">
-
-                {{ form_start(coupons_form) }}
-                {# render the task's only field: description #}
-                {#{{ form_row(coupons_form.description) }}#}
-
-
-                <ul class="tags">
-                    {# iterate over each existing tag and render its only field: name #}
-
-                    {% for key,coupon in coupons_form.coupon %}
-
-                        <h4>Coupon {{ (key+1) }}</h4>
-                        <div>{{ form_row(coupon.name) }}</div>
-                        <div>{{ form_row(coupon.discount) }}</div>
-                        <div>{{ form_row(coupon.description) }}</div>
-                        <div>{{ form_row(coupon.originalImage) }}
-                            {% if coupon.vars.data.photo is not empty %}
-                                <img src="{{ asset(coupon.vars.data.photo) }}" width="300px"/>
+                        <ul class="record_actions">
+                            {% if(not is_granted('ROLE_BUSINES')) %}
+                                <li>
+                                    <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                                        Back to the list
+                                    </a>
+                                </li>
                             {% endif %}
-                        </div>
-                    {% endfor %}
-                </ul>
-                {{ form_end(coupons_form) }}
+                        </ul>
+                    </div>
+                    <div id="coupons" class="tab-pane">
+
+                        {{ form_start(coupons_form) }}
+                        {# render the task's only field: description #}
+                        {#{{ form_row(coupons_form.description) }}#}
+
+
+                        <ul class="tags">
+                            {# iterate over each existing tag and render its only field: name #}
+
+                            {% for key,coupon in coupons_form.coupon %}
+
+                                <h4>Coupon {{ (key+1) }}</h4>
+                                <div>{{ form_row(coupon.name) }}</div>
+                                <div>{{ form_row(coupon.discount) }}</div>
+                                <div>{{ form_row(coupon.description) }}</div>
+                                <div>{{ form_row(coupon.originalImage) }}
+                                    {% if coupon.vars.data.photo is not empty %}
+                                        <img src="{{ asset(coupon.vars.data.photo) }}" width="300px"/>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </ul>
+                        {{ form_end(coupons_form) }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
 {% endblock %}

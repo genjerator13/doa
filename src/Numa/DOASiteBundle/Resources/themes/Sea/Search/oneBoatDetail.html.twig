@@ -15,7 +15,7 @@
             <div class="picture-detail col-md-4">
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if item.getImage2() is defined and item.getImage2() is not empty %}
-                    {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
+                        {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
                     {% endif %}
                 </a>
             </div>
@@ -27,9 +27,9 @@
                     </a>
                 </h4>
 
-                    {% if item.bodyStyle is defined and item.StockNr is defined and item.exteriorColor is defined and item.getItemFieldByName('mileage') is defined %}
-                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
-
+                {% if item.bodyStyle is defined and item.StockNr is defined and item.exteriorColor is defined and item.getItemFieldByName('mileage') is defined %}
+                    {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
+                    <ul class="techData  list-unstyled">
                         {% if item.categoryId()==1 %}
                             {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
                         {% elseif(item.categoryId()==2) %}
@@ -42,26 +42,26 @@
                             {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
                         {% else %}
                         {% endif %}
-
-                    {% endif %}
-                    {#{% if (item.StockNr) %}#}
-                        {#Stock Number: {{ item.StockNr }};#}
-                    {#{% endif %}#}
-                    {#Listing ID#}
-                    {## {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}#}
-                    {#"#}
+                    </ul>
+                {% endif %}
+                {#{% if (item.StockNr) %}#}
+                {#Stock Number: {{ item.StockNr }};#}
+                {#{% endif %}#}
+                {#Listing ID#}
+                {## {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}#}
+                {#"#}
                 {#<div>Posted by {{ dealer }} </div>#}
 
 
                 {#<span class="glyphicon glyphicon-earphone">{% if dealer %}{{ dealer.phone }}{% endif %}</span>#}
 
                 {#<a href="{{ detailUrl }}">View#}
-                    {#Details {% if dealer and app.user and app.user.getId()==dealer.id %}({{ item.views }} views){% endif %}</a>#}
+                {#Details {% if dealer and app.user and app.user.getId()==dealer.id %}({{ item.views }} views){% endif %}</a>#}
 
                 {#<div class="checkbox-inline">#}
-                    {#<label>#}
-                        {#<input type="checkbox" class="saveAd"> Save Ad#}
-                    {#</label>#}
+                {#<label>#}
+                {#<input type="checkbox" class="saveAd"> Save Ad#}
+                {#</label>#}
                 {#</div>#}
                 <div class="checkbox-inline">
                     <label>
@@ -82,7 +82,9 @@
 
             </div>
             <div class="btn-group-vertical col-md-2">
-                <button type="button" class="btn btn-success eprice"  data-itemid="{{ item.id }}"><i class="fa fa-money"></i> Get ePrice</button>
+                <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
+                            class="fa fa-money"></i> Get ePrice
+                </button>
                 <button type="button" class="btn btn-default">Save This Car</button>
                 <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
             </div>
