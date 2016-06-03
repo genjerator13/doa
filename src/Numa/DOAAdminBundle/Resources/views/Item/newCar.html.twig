@@ -9,55 +9,55 @@
     <div class="form-group">
         {{ form_label(form.make, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.model, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.model) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.model) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.retail_price, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.retail_price) }}
         <div class="col-sm-9">
-            {{ form_widget(form.retail_price, { 'attr': {'class': 'form-control'} }) }}
+            {{ form_widget(form.retail_price) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.price, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.price) }}
         <div class="col-sm-9">
-            {{ form_widget(form.price, { 'attr': {'class': 'form-control'} }) }}
+            {{ form_widget(form.price) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.mileage, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.mileage) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.mileage, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.mileage) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.trim, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.trim) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.trim, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.trim) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.bodyStyle, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.bodyStyle) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.bodyStyle, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.bodyStyle) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.bodyDescription, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.bodyDescription) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.bodyDescription, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.bodyDescription) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.exteriorColor) }}
+        {{ form_label(form.exteriorColor, 'Exterior Color', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.exteriorColor}) }}
+            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
@@ -69,19 +69,19 @@
     <div class="form-group">
         {{ form_label(form.doors, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.doors, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.doors, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
         {{ form_label(form.engine, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
         {{ form_label(form.transmission, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
@@ -97,27 +97,27 @@
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.mpgCity, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.mpgCity) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.mpgCity, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.mpgCity) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.mpgHighway, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.mpgHighway) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.mpgHighway, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.mpgHighway) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.VIN, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.VIN) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.VIN, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.VIN) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.iwNo, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.iwNo) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.iwNo, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.iwNo) }}
         </div>
     </div>
 {% endblock %}

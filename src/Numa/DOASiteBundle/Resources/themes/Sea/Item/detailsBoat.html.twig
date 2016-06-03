@@ -267,11 +267,11 @@
                                     <h4 class="modal-title" id="myModalLabel">Contact Us</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(contactForm) }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="submit_financing">Save changes
+                                    <button type="button" class="btn btn-primary" id="submit_contact">Save changes
                                     </button>
                                 </div>
                             </div>
@@ -352,6 +352,17 @@
                                     type: "POST",
                                     data: form,
                                     url: '{{ path("listting_form_post",{"form":'eprice',"item_id": item.id }) }}',
+                                });
+                            })
+
+                            $('#submit_contact').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#contact_form').serializeArray();
+                                alert("Success");
+                                $.ajax({
+                                    type: "POST",
+                                    data: form,
+                                    url: '{{ path("listting_form_post",{"form":'contact',"item_id": item.id }) }}',
                                 });
                             })
 
