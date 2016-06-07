@@ -3968,4 +3968,468 @@ class Item
 
         }
     }
+    /**
+     * @var int
+     */
+    private $pto_horsepower;
+
+    /**
+     * @var int
+     */
+    private $DBR_horsepower;
+
+    /**
+     * @var string
+     */
+    private $height;
+
+    /**
+     * @var string
+     */
+    private $torque;
+
+    /**
+     * @var string
+     */
+    private $brakes;
+
+    /**
+     * @var string
+     */
+    private $wheels;
+
+    /**
+     * @var float
+     */
+    private $compression_ratio;
+
+    /**
+     * @var string
+     */
+    private $frame;
+
+    /**
+     * @var string
+     */
+    private $suspension;
+
+    /**
+     * @var string
+     */
+    private $ground_clereance;
+
+    /**
+     * @var int
+     */
+    private $fresh_water_capacity;
+
+    /**
+     * @var int
+     */
+    private $black_water_capacity;
+
+    /**
+     * @var int
+     */
+    private $gray_water_capacity;
+
+    /**
+     * @var float
+     */
+    private $hitch_weight;
+
+    /**
+     * @var string
+     */
+    private $remotes;
+
+
+    /**
+     * Set ptoHorsepower
+     *
+     * @param int $ptoHorsepower
+     *
+     * @return Item
+     */
+    public function setPtoHorsepower($ptoHorsepower)
+    {
+        $this->pto_horsepower = $ptoHorsepower;
+
+        return $this;
+    }
+
+    /**
+     * Get ptoHorsepower
+     *
+     * @return int
+     */
+    public function getPtoHorsepower()
+    {
+        return $this->pto_horsepower;
+    }
+
+    /**
+     * Set dBRHorsepower
+     *
+     * @param int $dBRHorsepower
+     *
+     * @return Item
+     */
+    public function setDBRHorsepower($dBRHorsepower)
+    {
+        $this->DBR_horsepower = $dBRHorsepower;
+
+        return $this;
+    }
+
+    /**
+     * Get dBRHorsepower
+     *
+     * @return int
+     */
+    public function getDBRHorsepower()
+    {
+        return $this->DBR_horsepower;
+    }
+
+    /**
+     * Set height
+     *
+     * @param string $height
+     *
+     * @return Item
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return string
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set torque
+     *
+     * @param string $torque
+     *
+     * @return Item
+     */
+    public function setTorque($torque)
+    {
+        $this->torque = $torque;
+
+        return $this;
+    }
+
+    /**
+     * Get torque
+     *
+     * @return string
+     */
+    public function getTorque()
+    {
+        return $this->torque;
+    }
+
+    /**
+     * Set brakes
+     *
+     * @param string $brakes
+     *
+     * @return Item
+     */
+    public function setBrakes($brakes)
+    {
+        $this->brakes = $brakes;
+
+        return $this;
+    }
+
+    /**
+     * Get brakes
+     *
+     * @return string
+     */
+    public function getBrakes()
+    {
+        return $this->brakes;
+    }
+
+    /**
+     * Set wheels
+     *
+     * @param string $wheels
+     *
+     * @return Item
+     */
+    public function setWheels($wheels)
+    {
+        $this->wheels = $wheels;
+
+        return $this;
+    }
+
+    /**
+     * Get wheels
+     *
+     * @return string
+     */
+    public function getWheels()
+    {
+        return $this->wheels;
+    }
+
+    /**
+     * Set compressionRatio
+     *
+     * @param float $compressionRatio
+     *
+     * @return Item
+     */
+    public function setCompressionRatio($compressionRatio)
+    {
+        $this->compression_ratio = $compressionRatio;
+
+        return $this;
+    }
+
+    /**
+     * Get compressionRatio
+     *
+     * @return float
+     */
+    public function getCompressionRatio()
+    {
+        return $this->compression_ratio;
+    }
+
+    /**
+     * Set frame
+     *
+     * @param string $frame
+     *
+     * @return Item
+     */
+    public function setFrame($frame)
+    {
+        $this->frame = $frame;
+
+        return $this;
+    }
+
+    /**
+     * Get frame
+     *
+     * @return string
+     */
+    public function getFrame()
+    {
+        return $this->frame;
+    }
+
+    /**
+     * Set suspension
+     *
+     * @param string $suspension
+     *
+     * @return Item
+     */
+    public function setSuspension($suspension)
+    {
+        $this->suspension = $suspension;
+
+        return $this;
+    }
+
+    /**
+     * Get suspension
+     *
+     * @return string
+     */
+    public function getSuspension()
+    {
+        return $this->suspension;
+    }
+
+    /**
+     * Set groundClereance
+     *
+     * @param string $groundClereance
+     *
+     * @return Item
+     */
+    public function setGroundClereance($groundClereance)
+    {
+        $this->ground_clereance = $groundClereance;
+
+        return $this;
+    }
+
+    /**
+     * Get groundClereance
+     *
+     * @return string
+     */
+    public function getGroundClereance()
+    {
+        return $this->ground_clereance;
+    }
+
+    /**
+     * Set freshWaterCapacity
+     *
+     * @param int $freshWaterCapacity
+     *
+     * @return Item
+     */
+    public function setFreshWaterCapacity($freshWaterCapacity)
+    {
+        $this->fresh_water_capacity = $freshWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get freshWaterCapacity
+     *
+     * @return int
+     */
+    public function getFreshWaterCapacity()
+    {
+        return $this->fresh_water_capacity;
+    }
+
+    /**
+     * Set blackWaterCapacity
+     *
+     * @param int $blackWaterCapacity
+     *
+     * @return Item
+     */
+    public function setBlackWaterCapacity($blackWaterCapacity)
+    {
+        $this->black_water_capacity = $blackWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get blackWaterCapacity
+     *
+     * @return int
+     */
+    public function getBlackWaterCapacity()
+    {
+        return $this->black_water_capacity;
+    }
+
+    /**
+     * Set grayWaterCapacity
+     *
+     * @param int $grayWaterCapacity
+     *
+     * @return Item
+     */
+    public function setGrayWaterCapacity($grayWaterCapacity)
+    {
+        $this->gray_water_capacity = $grayWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get grayWaterCapacity
+     *
+     * @return int
+     */
+    public function getGrayWaterCapacity()
+    {
+        return $this->gray_water_capacity;
+    }
+
+    /**
+     * Set hitchWeight
+     *
+     * @param float $hitchWeight
+     *
+     * @return Item
+     */
+    public function setHitchWeight($hitchWeight)
+    {
+        $this->hitch_weight = $hitchWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get hitchWeight
+     *
+     * @return float
+     */
+    public function getHitchWeight()
+    {
+        return $this->hitch_weight;
+    }
+
+    /**
+     * Set remotes
+     *
+     * @param string $remotes
+     *
+     * @return Item
+     */
+    public function setRemotes($remotes)
+    {
+        $this->remotes = $remotes;
+
+        return $this;
+    }
+
+    /**
+     * Get remotes
+     *
+     * @return string
+     */
+    public function getRemotes()
+    {
+        return $this->remotes;
+    }
+    /**
+     * @var int
+     */
+    private $grey_water_capacity;
+
+
+    /**
+     * Set greyWaterCapacity
+     *
+     * @param int $greyWaterCapacity
+     *
+     * @return Item
+     */
+    public function setGreyWaterCapacity($greyWaterCapacity)
+    {
+        $this->grey_water_capacity = $greyWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get greyWaterCapacity
+     *
+     * @return int
+     */
+    public function getGreyWaterCapacity()
+    {
+        return $this->grey_water_capacity;
+    }
 }

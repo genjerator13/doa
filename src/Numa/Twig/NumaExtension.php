@@ -32,6 +32,7 @@ class NumaExtension extends \Twig_Extension
             'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
             'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
+            'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
         );
     }
 
@@ -153,6 +154,23 @@ class NumaExtension extends \Twig_Extension
         $em        = $this->container->get('doctrine.orm.entity_manager');
         $dealer    = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
         return $dealer;
+    }
+
+    public function shortWord($str,$chars){
+        $pieces = explode(" ", $str);
+        $pieces = preg_split("/[-;, ]+/", $str);
+        $len = 0;
+        $ret="";
+        foreach($pieces as $word){
+            $len = $len + strlen($word);
+
+            if($len>$chars){
+                return $ret;
+            }
+            $ret = $ret." ".$word;
+        }
+        return $ret;
+
     }
 
 }

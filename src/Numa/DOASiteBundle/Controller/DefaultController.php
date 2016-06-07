@@ -445,6 +445,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
     }
 
+    public function newsAction(Request $request)
+    {
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
+    }
+
     public function uploadImageAction(Request $request)
     {
         //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded

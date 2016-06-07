@@ -69,6 +69,18 @@
         </div>
     </div>
     <div class="form-group">
+        {{ form_label(form.torque) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.torque) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.compression_ratio) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.compression_ratio) }}
+        </div>
+    </div>
+    <div class="form-group">
         {{ form_label(form.ofHours) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.ofHours) }}
@@ -104,7 +116,42 @@
             {{ form_widget(form.gears) }}
         </div>
     </div>
-
+    <div class="form-group">
+        {{ form_label(form.brakes) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.brakes) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.wheels) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.wheels) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.tire_size,"Tires") }}
+        <div class="col-sm-9">
+            {{ form_widget(form.tire_size) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.frame) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.frame) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.suspension) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.suspension) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.ground_clereance) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.ground_clereance) }}
+        </div>
+    </div>
     <div class="form-group">
         {{ form_label(form.passengers) }}
         <div class="col-sm-9">                            

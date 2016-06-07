@@ -112,17 +112,48 @@
         </div>
     </div>
     <div class="form-group">
+        {{ form_label(form.fresh_water_capacity) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.fresh_water_capacity) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.fresh_water_capacity) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.fresh_water_capacity) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.black_water_capacity) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.black_water_capacity) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.gray_water_capacity) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.gray_water_capacity) }}
+        </div>
+    </div>
+    <div class="form-group">
         {{ form_label(form.length) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.length) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.weight) }}
+        {{ form_label(form.weight,'Dry Weight') }}
         <div class="col-sm-9">                            
             {{ form_widget(form.weight) }}
         </div>
     </div>
+    <div class="form-group">
+        {{ form_label(form.height) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.height) }}
+        </div>
+    </div>
+
     <div class="form-group">
         {{ form_label(form.flooring) }}
         <div class="col-sm-9">                            

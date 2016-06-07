@@ -17,9 +17,15 @@
         <div class="col-sm-9">                            
             {{ form_widget(form.stockNr) }}
         </div>
-    </div>        
+    </div>
     <div class="form-group">
-        {{ form_label(form.agApplication, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.VIN,"Serial #") }}
+        <div class="col-sm-9">
+            {{ form_widget(form.VIN) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.agApplication) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.agApplication, { 'attr': {'class': 'form-control'} }) }}
         </div>
@@ -70,6 +76,24 @@
         {{ form_label(form.ofHours) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.ofHours) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.pto_horsepower) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.pto_horsepower) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.dbrhorsepower) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.dbrhorsepower) }}
+        </div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.remotes) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.remotes) }}
         </div>
     </div>
     <div class="form-group">
@@ -126,12 +150,7 @@
             {{ form_widget(form.cuttingWidth) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.VIN) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.VIN) }}
-        </div>
-    </div>
+
     <div class="form-group">
         {{ form_label(form.iwNo) }}
         <div class="col-sm-9">                            

@@ -153,3 +153,6 @@ finance_form:
 about_us:
     path:     /about_us
     defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }
+news:
+    path:     /news
+    defaults: { _controller: "NumaDOASiteBundle:Default:news" }

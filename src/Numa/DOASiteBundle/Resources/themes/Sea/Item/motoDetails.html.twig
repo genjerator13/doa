@@ -42,16 +42,16 @@
             <span class="fieldValue fieldValue-status">{{ item.getStockNr() }}</span>
         </li>
     {% endif %}
-    {% if item.getMileage() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Mileage: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
-        </li>
-    {% endif %}
     {% if item.getPrice() is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Price: </span>
             <span class="fieldValue fieldValue-status">{{ item.getPriceString() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getMileage() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Mileage: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
         </li>
     {% endif %}
     {% if item.getEngine() is not empty %}
@@ -70,6 +70,18 @@
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Displacement: </span>
             <span class="fieldValue fieldValue-status">{{ item.getDisplacement() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getTorque() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Torque: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getTorque() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getCompressionRatio() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Compression Ratio: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getCompressionRatio() }}</span>
         </li>
     {% endif %}
     {% if item.getOfHours() is not empty %}
@@ -106,6 +118,18 @@
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Gears: </span>
             <span class="fieldValue fieldValue-status">{{ item.getGears() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getBrakes() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Brakes: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getBrakes() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getBrakes() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Brakes: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getBrakes() }}</span>
         </li>
     {% endif %}
     {% if item.getPassengers() is not empty %}

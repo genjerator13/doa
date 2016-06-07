@@ -142,7 +142,24 @@ class ItemType extends AbstractType
             ->add('discount2',null,array("label"=>"Discount 2"))
             ->add('sale_amount')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
-        'by_reference' => false,))            
+        'by_reference' => false,))
+            ->add('torque')
+            ->add('compression_ratio')
+            ->add('brakes')
+            ->add('wheels')
+            ->add('frame')
+            ->add('suspension')
+            ->add('ground_clereance')
+            ->add('fresh_water_capacity')
+            ->add('black_water_capacity')
+            ->add('gray_water_capacity')
+            ->add('hitch_weight')
+            ->add('height')
+            ->add('pto_horsepower')
+            ->add('dbrhorsepower')
+            ->add('remotes')
+            ->add('tire_size')
+
         ;
         
         $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID, $this->category));
