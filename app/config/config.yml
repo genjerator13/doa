@@ -327,7 +327,7 @@ trsteel_ckeditor:
         editing: ['Find','Replace','-','SelectAll']
         basicstyles: ['Font','FontSize','TextColor','BGColor','Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
         paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
-        insert: ['Image','Table','HorizontalRule']
+        insert: ['Image','Table','HorizontalRule','Link']
     filebrowser_upload_url:
         #url: /browser/browse.php
         #url: //uploader/upload.php
