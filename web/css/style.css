@@ -725,3 +725,12 @@ iframe body{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.youtube_play{
+    background: url('/images/YouTube-icon-dark.png') 50% bottom no-repeat;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: 150px;
+    left: 250px;
+}
