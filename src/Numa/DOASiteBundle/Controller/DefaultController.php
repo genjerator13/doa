@@ -273,13 +273,16 @@ class DefaultController extends Controller {
 
         $items = array();
         $temp = array();
-        $items = array_slice($featured, $max);
-        //dump($items);die();
+        if(!empty($featured)) {
+            $items = array_slice($featured, $max);
+        }
+
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
 
         if($order==1){
-            $items = array_slice($featured, 0,$max);
-
+            if(!empty($featured)) {
+                $items = array_slice($featured, 0, $max);
+            }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         }
 
