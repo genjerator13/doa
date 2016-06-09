@@ -1,0 +1,156 @@
+{# get the loged dealer #}
+{% set apicall="/api/listings2/2/dealer.json" %}
+{% if is_granted('ROLE_BUSINES') %}
+    {% set user= app.security.getToken().getUser().getId() %}
+    {% set apicall="/api/listings2/"~user~"/dealer.json" %}
+{% endif %}
+{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
+    {% set user= app.session.get('dms_dealer_id') %}
+{% set apicall="/api/listings2/"~user~"/dealer.json" %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 150,
+        enableColumnResizing: true,
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {
+            enableSorting: false,
+            enableFiltering: false,
+            name: 'photo',
+            enableColumnResizing: true, width: 150,
+            cellTemplate: '<a href="{[{row.entity.id}]}/edit"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></a>'
+        },
+        {
+            name: 'id',
+            enableColumnResizing: true,
+            width: 50,
+            cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+        },
+        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50},
+        {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50},
+        {name: 'make', enableColumnResizing: true, width: 80},
+        {name: 'model', enableColumnResizing: true, width: 100},
+        {name: 'stock_nr', enableColumnResizing: true, width: 80},
+        {name: 'status', enableColumnResizing: true, width: 50},
+        {name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 70},
+        {name: 'active', enableColumnResizing: true, width: 50},
+        {name: 'views', enableColumnResizing: true, width: 50},
+        {#{name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
+        {name: 'sold', enableColumnResizing: true, width: 50},
+        {name: 'featured', enableColumnResizing: true, width: 50},
+        {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
+        {name: 'invoice_nr', enableColumnResizing: true, width: 90,displayName:'Invoice #'},
+        {name: 'invoice_date', enableColumnResizing: true, width: 90},
+        {name: 'invoice_amt', enableColumnResizing: true, width: 90},
+        {name: 'discount1', enableColumnResizing: true, width: 90},
+        {name: 'discount2', enableColumnResizing: true, width: 90},
+        {name: 'sale_amount', enableColumnResizing: true, width: 90},
+        {#{name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
+
+        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
+        {name:'views',enableColumnResizing: true,width: 60},
+        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'_dealer.name',displayName:'Dealer'},
+        {
+            name:'sold',
+            enableColumnResizing: true,width: 50,
+            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },
+        {
+            name:'active',
+            enableColumnResizing: true,width: 60,
+            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },#}
+
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.delete = function (row) {
+        console.log(row.entity.id);
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+
+            $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
+                    .success(function (data) {
+                        var index = $scope.gridOptions.data.indexOf(row.entity);
+                        $scope.gridOptions.data.splice(index, 1);
+                    });
+        }, function () {
+            //cancel
+        });
+
+
+    }
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                $scope.gridOptions.data = data;
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            var msg = 'rows changed ' + rows.length;
+            $log.log(msg);
+        });
+    };
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

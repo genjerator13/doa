@@ -1,4 +1,6 @@
 dms:
         resource: "@NumaDOADMSBundle/Resources/config/routing/dms.yml"
         prefix:   /
-
+dms_inventory:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
+    prefix:   /inventory
