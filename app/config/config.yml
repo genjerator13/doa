@@ -26,6 +26,8 @@ services:
 #                    CURLOPT_USERAGENT: "LeaseWeb API Caller"
 #                    CURLOPT_FOLLOWLOCATION: true
 #                    CURLOPT_SSLVERSION: 3
+#            description:
+#                    baseUrl: "http://doa.local/api/"
 framework:
     esi: { enabled: true }
 
@@ -65,7 +67,7 @@ twig:
 assetic:
     debug: %kernel.debug%
     use_controller: false
-    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle' ]
+    bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle','NumaDOAModuleBundle']
     filters:
         cssrewrite: ~
         less:
@@ -206,7 +208,6 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
-    date: ~
 #comur_image:
 #    config:
 #        cropped_image_dir: 'cropped'
@@ -229,6 +230,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [120, 90], mode: outbound }
                 background: { color: '#FFFFFF' }
+        search_image_sea:
+            quality: 100
+            filters:
+                thumbnail: { size: [350, 250], mode: outbound }
+                background: { color: '#FFFFFF' }
         logo_image:
             quality: 100
             filters:
@@ -238,6 +244,11 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [666, 480], mode: outbound }
+                background: { color: '#FFFFFF' }
+        item_detail_image_single:
+            quality: 100
+            filters:
+                thumbnail: { size: [510, 480], mode: outbound }
                 background: { color: '#FFFFFF' }
         home_tab:
             quality: 100
@@ -258,6 +269,10 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 125 }    # Transforms 50x40 to 32x26
+        sea_logo_home:
+            quality: 100
+            filters:
+                relative_resize: { heighten: 75 }    # Transforms 50x40 to 32x26
         carousel:
             quality: 100
             filters:
@@ -266,12 +281,20 @@ liip_imagine:
                 relative_resize: { widen: 606 }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
+        carousel_wide:
+            quality: 100
+            filters:
+                relative_resize: { widen: 1920 }
+                background: { color: '#FFFFFF' }
+                #thumbnail: { size: [210, 140], mode: outbound }
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web
     images_path: %kernel.root_dir%/../web/images
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
+    upload_dealer: %kernel.root_dir%/../web/upload/dealers/
+    upload_component: %kernel.root_dir%/../web/upload/component/
     iauto: %kernel.root_dir%/../web/iauto
     memcached.servers:
       - { host: 127.0.0.1, port: 11211 }
@@ -297,9 +320,25 @@ apy_data_grid:
            next_message : »        
 trsteel_ckeditor:
     class: Trsteel\CkeditorBundle\Form\Type\CkeditorType
-    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'links', '/',  'styles', 'tools']
+    toolbar: ['document', 'clipboard', 'editing', '/', 'basicstyles', 'paragraph', 'insert', '/',  'styles', 'tools']
     toolbar_groups:
         document: ['Source']
+        clipboard: ['Cut','Copy','Paste','PasteText','-','Undo','Redo']
+        editing: ['Find','Replace','-','SelectAll']
+        basicstyles: ['Font','FontSize','TextColor','BGColor','Bold','Italic','Underline','Strike','Subscript','Superscript','-','RemoveFormat']
+        paragraph: ['NumberedList','BulletedList','-','Outdent','Indent','-','JustifyLeft', 'JustifyCenter','JustifyRight','JustifyBlock']
+        insert: ['Image','Table','HorizontalRule','Link']
+    filebrowser_upload_url:
+        #url: /browser/browse.php
+        #url: //uploader/upload.php
+        route: image_browse
+        route_parameters:
+          type: image
+#    filebrowser_image_browse_url:
+#        #url: /uploader/upload.php
+#        route: image_upload
+#        route_parameters:
+#            type: image
 genemu_form:
     captcha:
         enabled:          true
@@ -329,6 +368,15 @@ fos_rest:
 jms_serializer:
   metadata:
     auto_detection: true
+knp_snappy:
+    pdf:
+        enabled:    true
+        binary:     xvfb-run wkhtmltopdf
+        options:    []
+liip_theme:
+    themes: ['Default', 'Sea', 'weekend']
+    active_theme: 'Default'
+    assetic_integration: true
 
 #lsw_guzzle:
 #    clients:

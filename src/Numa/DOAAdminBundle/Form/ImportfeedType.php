@@ -116,7 +116,7 @@ class ImportfeedType extends AbstractType {
 //            \Doctrine\Common\Util\Debug::dump($importFeed->getImportMethod());
         //die("aaaa");
         //});
-        $builder->addEventSubscriber(new AddFeedSourceSubscriber());
+        //$builder->addEventSubscriber(new AddFeedSourceSubscriber());
     }
 
     /**

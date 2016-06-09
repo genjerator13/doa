@@ -2,6 +2,9 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Numa\DOAModuleBundle\Form\ComponentType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -13,21 +16,34 @@ use Numa\DOAModuleBundle\Form\PageType;
  * Page controller.
  *
  */
-class PageController extends Controller
+class PageController extends Controller implements DashboardDMSControllerInterface
 {
-
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
     /**
      * Lists all Page entities.
      *
      */
-    public function indexAction()
+
+
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
+
         $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
 
-        return $this->render('NumaDOAModuleBundle:Page:index.html.twig', array(
+        $render = 'NumaDOAModuleBundle:Page:index.html.twig';
+        if($this->dashboard =='DMS'){
+            $render = 'NumaDOAModuleBundle:Page:DMSindex.html.twig';
+        }
+
+        return $this->render($render, array(
             'entities' => $entities,
+            'dashboard' => $this->dashboard,
         ));
     }
     /**
@@ -45,7 +61,11 @@ class PageController extends Controller
             $em->persist($entity);
             $em->flush();
             $this->addFlash("success","Page is successfully added. ");
-            return $this->redirect($this->generateUrl('page', array('id' => $entity->getId())));
+            $redirect = 'page';
+            if($this->dashboard =='DMS'){
+                $redirect = 'dms_page';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
@@ -63,8 +83,12 @@ class PageController extends Controller
      */
     private function createCreateForm(Page $entity)
     {
+        $action = 'page_create';
+        if(!empty($this->dashboard)){
+            $action = 'dms_page_create';
+        }
         $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_create'),
+            'action' => $this->generateUrl($action),
             'method' => 'POST',
         ));
 
@@ -77,7 +101,7 @@ class PageController extends Controller
      * Displays a form to create a new Page entity.
      *
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $entity = new Page();
         $form   = $this->createCreateForm($entity);
@@ -114,7 +138,7 @@ class PageController extends Controller
      * Displays a form to edit an existing Page entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
@@ -125,11 +149,13 @@ class PageController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
+        $component = $entity->getComponent();
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -142,8 +168,13 @@ class PageController extends Controller
     */
     private function createEditForm(Page $entity)
     {
+        $action = 'page_update';
+
+        if(!empty($this->dashboard)){
+            $action = 'dms_page_update';
+        }
         $form = $this->createForm(new PageType(), $entity, array(
-            'action' => $this->generateUrl('page_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -179,13 +210,18 @@ class PageController extends Controller
 
             $em->flush();
             $this->addFlash("success","Page ".$id." is successfully edited. ");
-            return $this->redirect($this->generateUrl('page', array('id' => $id)));
+            $redirect = 'page';
+            if($this->dashboard =='DMS'){
+                $redirect = 'dms_page';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
     /**

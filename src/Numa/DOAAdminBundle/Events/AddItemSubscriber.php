@@ -27,7 +27,9 @@ class AddItemSubscriber implements EventSubscriberInterface
         $this->em = $em;
         $this->dealerID = $dealerID;
         $this->category = $category;
+
         $this->securityContext = $securityContext;
+
     }
 
     public static function getSubscribedEvents()

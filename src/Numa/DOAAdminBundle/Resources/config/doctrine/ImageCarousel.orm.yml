@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\ImageCarousel:
     type: entity
     table: imiage_carousel
+    repositoryClass: Numa\DOAAdminBundle\Repository\ImageCarouselRepository
     id:
         id:
             type: integer
@@ -17,6 +18,9 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
         url:
             type: string
             length: 255
+            nullable: true
+        carousel_text:
+            type: text
             nullable: true
         position:
             type: integer
@@ -38,6 +42,23 @@ Numa\DOAAdminBundle\Entity\ImageCarousel:
         updated_at:
             type: datetime
             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+        component_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Component:
+            targetEntity: Numa\DOAModuleBundle\Entity\Component
+            joinColumn:
+                name: component_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

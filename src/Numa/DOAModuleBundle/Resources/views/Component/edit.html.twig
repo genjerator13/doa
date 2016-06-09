@@ -1,0 +1,28 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Component edit</h1>
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form_start(edit_form) }}
+                {{ form_row(edit_form.name) }}
+                {{ form_row(edit_form.type) }}
+
+                {{ form_end(edit_form) }}
+
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a href="{{ path('dms_page') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+                {% else %}
+                    <a href="{{ path('page') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

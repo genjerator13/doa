@@ -26,7 +26,6 @@ class Stats
 
         if ($user instanceof Catalogrecords) {
             $dealer = $user;
-
         }
 
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,0,$dealer);

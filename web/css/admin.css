@@ -140,6 +140,29 @@ input[type="file"] {
     margin-bottom: 10px;
 }
 
+.grid {
+    width: 100%;
+    height: auto;
+}
+
+.image-angular{padding: 10px;}.image-angular2{padding: 10px 0px 0px 10px;}
+
+.changeable {
+    border-color: #aa3333;
+}
+
 .new-listing{
+    padding: 10px;
+}
+
+.addfeature{
+    margin: 20px;
+}
+
+.page-component {
+    padding: 10px;
+}
+
+.page-component-row {
     padding: 10px;
 }

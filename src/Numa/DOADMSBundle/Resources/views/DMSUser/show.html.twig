@@ -1,0 +1,113 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>DMSUser</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ entity.username }}</td>
+            </tr>
+            <tr>
+                <th>Password</th>
+                <td>{{ entity.password }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>User_group_id</th>
+                <td>{{ entity.usergroupid }}</td>
+            </tr>
+            <tr>
+                <th>Registration_date</th>
+                <td>{{ entity.registrationdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ entity.active }}</td>
+            </tr>
+            <tr>
+                <th>Contract_id</th>
+                <td>{{ entity.contractid }}</td>
+            </tr>
+            <tr>
+                <th>Activation_key</th>
+                <td>{{ entity.activationkey }}</td>
+            </tr>
+            <tr>
+                <th>Verification_key</th>
+                <td>{{ entity.verificationkey }}</td>
+            </tr>
+            <tr>
+                <th>Trusted_user</th>
+                <td>{{ entity.trusteduser }}</td>
+            </tr>
+            <tr>
+                <th>Balance</th>
+                <td>{{ entity.balance }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ entity.FirstName }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ entity.LastName }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.Address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ entity.City }}</td>
+            </tr>
+            <tr>
+                <th>Postalcode</th>
+                <td>{{ entity.PostalCode }}</td>
+            </tr>
+            <tr>
+                <th>Phonenumber</th>
+                <td>{{ entity.PhoneNumber }}</td>
+            </tr>
+            <tr>
+                <th>Displayemail</th>
+                <td>{{ entity.DisplayEmail }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ entity.State }}</td>
+            </tr>
+            <tr>
+                <th>Dealershiplogo</th>
+                <td>{{ entity.DealershipLogo }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+        <a href="{{ path('dmsuser') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+
+        <a href="{{ path('dmsuser_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            Edit
+        </a>
+
+{% endblock %}

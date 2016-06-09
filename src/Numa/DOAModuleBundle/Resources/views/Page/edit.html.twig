@@ -1,46 +1,140 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
-    <div class="container">
-        <h1>Page edit</h1>
-        {{ form(edit_form) }}
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Details</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
 
+            <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
 
-        <div id="ads">
+    </ul>
+    {{ form_start(edit_form) }}
+    <div class="tab-content">
+
+        <div id="details" class="tab-pane active">
+            <h1>Page edit</h1>
+            {{ form_start(edit_form) }}
+            {{ form_row(edit_form.title) }}
+            {{ form_row(edit_form.description) }}
+            {{ form_row(edit_form.keywords) }}
+            {{ form_row(edit_form.url) }}
+        </div>
+        <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
         </div>
-        <!-- Button trigger modal -->
+
+        <div id="web-content" class="tab-pane">
 
 
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">Modal title</h4>
+            {% block stylesheets %}
+                {{ parent() }}
+                <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+                      rel="stylesheet"/>
+                {% stylesheets
+                'css/loading-bar.min.css'
 
-                    </div>
-                    <div class="modal-body"><div class="te"></div></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                filter='cssrewrite' output='css/*.css' %}
+                <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+                {% endstylesheets %}
+            {% endblock stylesheets %}
+            {% block javascripts %}
+                {{ parent() }}
+                {% javascripts
+                '@colorbox_js'
+                '@dropzone_js'
+                'js/angular/angular143.min.js'
+                'js/angular/angular-touch143.min.js'
+                'js/angular/angular-animate143.min.js'
+                'js/angular/vfs-fonts.js'
+                'js/angular/ui-grid.js'
+                'js/angular/angular-confirm.min.js'
+                'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+                'js/loading-bar.min.js'
 
+                %}
+
+                <script src="{{ asset_url }}"></script>
+                {% endjavascripts %}
+                <script>
+                    {% include 'NumaDOAModuleBundle:Component:component.js.twig' %}
+                </script>
+            {% endblock javascripts %}
+
+
+
+
+            {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+            <div class="box">
+
+                <div class="box-body table-responsive no-padding" ng-app="app">
+
+                    <div ng-controller="MainCtrl">
+                        <script type="text/ng-template" id="myModalContent.html">
+                            <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+                        </script>
+                        <script type="text/ng-template" id="myModalContent.html">
+                            <div class="modal-header">
+                                <h3 class="modal-title">Please confirm</h3>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                            </div>
+                        </script>
+
+                        <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
                     </div>
                 </div>
-                <!-- /.modal-content -->
-            </div>
-            <!-- /.modal-dialog -->
+                {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
         </div>
-        <!-- /.modal -->
-        <div class="clear"></div>
-    <a href="{{ path('page') }}" class="btn btn-default" class="btn btn-primary">
-        Back to the list
-    </a>
+
+    </div>
+    {{ form_end(edit_form) }}
+
+    </form>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Modal title</h4>
+
+                </div>
+                <div class="modal-body">
+                    <div class="te"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="clear"></div>
+    {% if(app.request.get('_dashboard')=='DMS') %}
+        <a href="{{ path('dms_page') }}" class="btn btn-primary">
+            Back to the list
+        </a>
+    {% else %}
+        <a href="{{ path('page') }}" class="btn btn-primary">
+            Back to the list
+        </a>
+    {% endif %}
+    </div>
     <script>
         initAjaxForm();
-        function initAjaxForm()
-        {
+        function initAjaxForm() {
             $('body').on('submit', '.ajaxForm', function (e) {
                 e.preventDefault();
                 var formData = new FormData($('form')[1]);
@@ -79,7 +173,7 @@
             });
         }
 
-        function reloadAds(){
+        function reloadAds() {
             $.ajax({
                         type: 'POST',
                         url: '{{ path('page_load_ads',{'id':entity.id}) }}',
@@ -92,20 +186,20 @@
 
                     });
         }
-        $("#myModal").on("show.bs.modal", function(e) {
+        $("#myModal").on("show.bs.modal", function (e) {
             var link = $(e.relatedTarget);
             console.log(link.attr("hrefxxx"));
             $(this).find(".modal-body").load(link.attr("hrefxxx"));
         });
-        $(function() {
+        $(function () {
 
 
-            $(".ad-close").click(function(e){
+            $(".ad-close").click(function (e) {
                 e.preventDefault();
                 console.log($(this).closest(".well").data("adid"));
                 $.ajax({
                             type: 'POST',
-                            url: '/admin/ads/'+$(this).closest(".well").data("adid")+'/delete',
+                            url: '/admin/ads/' + $(this).closest(".well").data("adid") + '/delete',
                             //data:
                         })
                         .done(function (data) {
@@ -118,4 +212,4 @@
             })
         });
     </script>
-{% endblock %}
+    {% endblock %}

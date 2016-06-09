@@ -1,0 +1,17 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% block content %}
+
+<h2>Business Directory</h2>
+<div class="list-group id="myTab">
+    {% for key,cat in categories %}
+        
+        <a href="{{path('homepage_category', {'idcategory': cat.id,'category_name':cat.name})}}" class="list-group-item col-md-12">
+<i class="sprite {{ cat.name|replace({' ': '-'})|lower }}"></i>
+
+            <span class="dealer-category-title">{{cat.name}}</span>
+            </a>
+
+    {%endfor%}
+        </div>
+{% endblock %}
+
