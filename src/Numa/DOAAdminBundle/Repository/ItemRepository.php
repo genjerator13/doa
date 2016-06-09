@@ -217,7 +217,13 @@ class ItemRepository extends EntityRepository
 
 
     public function getAllListings(){
-        $sql = "SELECT * FROM item";
+        //$sql = "SELECT * FROM item";
+        $sql = "SELECT DISTINCT f.sort_order, i. * , f.field_string_value as photo
+FROM item AS i
+RIGHT JOIN item_field AS f ON i.id = f.item_id
+WHERE i.active =1
+GROUP BY i.id
+ORDER BY i.id,f.sort_order ASC";
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         //$rows = $stmt->fetchAll();
