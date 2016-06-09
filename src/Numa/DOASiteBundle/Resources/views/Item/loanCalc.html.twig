@@ -1,83 +1,86 @@
-<div id="dialog" title="Loan Calculator">
+<!-- Modal -->
+<div class="modal fade" id="loancalc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Loan Calculator</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Term of Loan</label>
 
-    <div class="form-group">
-        <label for="exampleInputEmail1">Term of Loan</label>
+                    <div class="form-group">
 
-        <div class="form-group">
-
-            <select class="form-control" id="loanTerms">
-                <option value="3">3 month</option>
-                <option value="6">6 month</option>
-                <option value="9">9 month</option>
-                <option value="12">12 month (1 year)</option>
-                <option value="18">18 month</option>
-                <option value="24">24 month (2 year)</option>
-                <option value="36">36 month (3 year)</option>
-                <option value="48">48 month (4 year)</option>
-            </select>
+                        <select class="form-control" id="loanTerms">
+                            <option value="3">3 month</option>
+                            <option value="6">6 month</option>
+                            <option value="9">9 month</option>
+                            <option value="12">12 month (1 year)</option>
+                            <option value="18">18 month</option>
+                            <option value="24">24 month (2 year)</option>
+                            <option value="36">36 month (3 year)</option>
+                            <option value="48">48 month (4 year)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="interestrate">Interest rate ( % )</label>
+                    <input type="text" class="form-control" id="interestrate" placeholder="" onfocusout="calculateLoan()">
+                </div>
+                <div class="form-group">
+                    <label for="loanamount">Loan Amount ( $ )</label>
+                    <input type="text" class="form-control" id="loanamount" placeholder="" value="{{ item.price }}"  onfocusout="calculateLoan()">
+                </div>
+                <div class="form-group">
+                    <label for="monthlypayment">Monthly payment</label>
+                    <input type="text" class="form-control" id="monthlypayment" placeholder="">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary"  id="calculateLoan">Calculate</button>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="interestrate">Interest rate ( % )</label>
-        <input type="text" class="form-control" id="interestrate" placeholder="" onfocusout="calculateLoan()">
-    </div>
-    <div class="form-group">
-        <label for="loanamount">Loan Amount ( $ )</label>
-        <input type="text" class="form-control" id="loanamount" placeholder="" value="{{ item.price }}"  onfocusout="calculateLoan()">
-    </div>
-    <div class="form-group">
-        <label for="monthlypayment">Monthly payment</label>
-        <input type="text" class="form-control" id="monthlypayment" placeholder="">
-    </div>
-    <button id="calculateLoan" class="btn btn-success">Calculate</button>
-    <button id="close" class="btn right">Close</button>
-    </tbody>
 </div>
+
+
 
 <script>
     $(function () {
-        $("#dialog").dialog({
-            autoOpen: false,
-            width: 500,
-            height: 500
-        });
-        $(".loan-calc").click(function () {
-            $("#dialog").dialog("open");
-        });
 
-        $("#close").click(function () {
-            $("#dialog").dialog("close");
-        });
         $("#calculateLoan").click(function () {
             calculateLoan();
         });
 
 
-        $("#loanTerms").change(function(){
+        $("#loanTerms").change(function () {
             calculateLoan()
         });
 
 
-
     });
-    function calculateLoan(){
+    function calculateLoan() {
         var months = $("#loanTerms").val();
         var interest = $("#interestrate").val();
-        if(interest==""){
+        if (interest == "") {
             $("#interestrate").parent().addClass("has-error");
             return;
         }
         var loanamount = $("#loanamount").val();
-        if(loanamount==""){
+        if (loanamount == "") {
             $("#loanamount").parent().addClass("has-error");
             return;
         }
-        interest  = parseFloat(interest)
-        var percent = interest/100;
-        var formulaup = loanamount*percent;
-        var formulasquares = Math.pow(1/(1+percent), months);;
+        interest = parseFloat(interest)
+        var percent = interest / 100;
+        var formulaup = loanamount * percent;
+        var formulasquares = Math.pow(1 / (1 + percent), months);
+        ;
         var formuladown = 1 - formulasquares;
-        formula = formulaup/formuladown;
+        formula = formulaup / formuladown;
         console.log(months);
         console.log(percent);
         console.log(loanamount);

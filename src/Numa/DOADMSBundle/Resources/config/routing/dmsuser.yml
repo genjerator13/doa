@@ -1,0 +1,30 @@
+dmsuser:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:index" }
+
+dmsuser_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:show" }
+
+dmsuser_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:new" }
+
+dmsuser_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:create" }
+    requirements: { _method: post }
+
+dmsuser_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:edit" }
+
+dmsuser_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:update" }
+    requirements: { _method: post|put }
+
+dmsuser_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:delete" }
+    requirements: { _method: post|delete }

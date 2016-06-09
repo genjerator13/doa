@@ -2,6 +2,7 @@
 
 namespace Numa\DOASettingsBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -19,13 +20,16 @@ class SettingController extends Controller
      * Lists all Setting entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $dashboard = $request->get('_dashboard');
         $settingLib = $this->get("numa.settings");
-        $sections = $settingLib->getSections();
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser();
+        $entities = $em->getRepository('NumaDOASettingsBundle:Setting')->getSettingsForUser($dealer);
+        $sections = $settingLib->getSections($dealer);
+
         $settings = array();
         foreach ($entities as $setting) {
             $settings[$setting->getSection()][] = $setting;
@@ -35,6 +39,7 @@ class SettingController extends Controller
             'entities' => $entities,
             'sections' => $sections,
             'settings' => $settings,
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -47,13 +52,23 @@ class SettingController extends Controller
         $entity = new Setting();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $dashboard = $request->get('_dashboard');
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            if(strtoupper($dashboard)=="DMS") {
+                $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+                $entity->setDealer($dealer);
+            }
             $em->persist($entity);
             $em->flush();
             $this->addFlash("Success", "Setting added: " . $entity->getName());
-            return $this->redirect($this->generateUrl('setting'));
+            $redirect = 'setting';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_setting';
+            }
+
+            return $this->redirect($this->generateUrl($redirect));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
@@ -69,10 +84,14 @@ class SettingController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Setting $entity)
+    private function createCreateForm(Setting $entity,$dashboard = "")
     {
+        $action = 'setting_create';
+        if(!empty($dashboard)){
+            $action = 'dms_setting_create';
+        }
         $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_create'),
+            'action' => $this->generateUrl($action),
             'method' => 'POST',
         ));
 
@@ -85,10 +104,11 @@ class SettingController extends Controller
      * Displays a form to create a new Setting entity.
      *
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $entity = new Setting();
-        $form = $this->createCreateForm($entity);
+        $dashboard = $request->get('_dashboard');
+        $form = $this->createCreateForm($entity,$dashboard);
 
         return $this->render('NumaDOASettingsBundle:Setting:new.html.twig', array(
             'entity' => $entity,
@@ -122,23 +142,24 @@ class SettingController extends Controller
      * Displays a form to edit an existing Setting entity.
      *
      */
-    public function editAction($id)
+    public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Setting entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity,$dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -149,10 +170,16 @@ class SettingController extends Controller
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Setting $entity)
+    private function createEditForm(Setting $entity,$dashboard = "")
     {
+        $action = 'setting_update';
+
+        if(!empty($dashboard)){
+            $action = 'dms_setting_update';
+        }
+
         $form = $this->createForm(new SettingType(), $entity, array(
-            'action' => $this->generateUrl('setting_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
 
         ));
 
@@ -168,7 +195,7 @@ class SettingController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entity = $em->getRepository('NumaDOASettingsBundle:Setting')->find($id);
 
         if (!$entity) {
@@ -181,14 +208,18 @@ class SettingController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('setting_edit', array('id' => $id)));
+            $redirect = 'setting_edit';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_setting_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOASettingsBundle:Setting:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 

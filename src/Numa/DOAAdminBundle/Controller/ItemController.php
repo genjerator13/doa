@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,13 @@ use Doctrine\Common\Collections\Criteria;
  * Item controller.
  *
  */
-class ItemController extends Controller {
+class ItemController extends Controller  implements DashboardDMSControllerInterface
+{
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all User entities.
@@ -70,6 +77,7 @@ class ItemController extends Controller {
 
             $image = $item->getImage2();
 
+            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
             echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
         }
         );
@@ -182,13 +190,14 @@ class ItemController extends Controller {
      * Lists all Item entities.
      *
      */
-    public function additemAction() {
+    public function additemAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Item:additem.html.twig', array(
                     'entities' => $entities,
+                    'dashboard' => $dashboard,
         ));
     }
 
@@ -243,6 +252,7 @@ class ItemController extends Controller {
     public function newAction(Request $request, $cat_id, $item_id = null) {
 
         $entity = new Item();
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
         //get category by request parameter
         $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($cat_id);
@@ -339,18 +349,20 @@ class ItemController extends Controller {
 
             return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
         }
-
-        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category,$seoFormView);
+        //'dashboard' =>$dashboard,
+        $params = array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'category' => $category,
+            'seo'=> $seoFormView,
+            'dashboard' =>$dashboard,
+        );
+        return $this->switchTemplateByCategory($cat_id, $params);
     }
 
-    private function switchTemplateByCategory($cat_id, $entity, $form, $category,$seo=null) {
+    private function switchTemplateByCategory($cat_id, $params) {
 
-        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'category' => $category,
-                    'seo'=> $seo,
-        ));
+        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', $params);
     }
 
     /**
@@ -378,6 +390,7 @@ class ItemController extends Controller {
      *
      */
     public function editAction(Request $request, $id) {
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -501,7 +514,16 @@ class ItemController extends Controller {
             $em->flush();
             return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
         }
-        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
+        $params = array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'category' => $entity->getCategory(),
+            'seo'=> $seoFormView,
+            'dashboard' =>$this->dashboard,
+        );
+        return $this->switchTemplateByCategory($category, $params);
+
+        //return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
     }
 
     /**

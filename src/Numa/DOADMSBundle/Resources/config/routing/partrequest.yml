@@ -1,0 +1,30 @@
+partrequest:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:index" }
+
+partrequest_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:show" }
+
+partrequest_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:new" }
+
+partrequest_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:create" }
+    requirements: { _method: post }
+
+partrequest_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:edit" }
+
+partrequest_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:update" }
+    requirements: { _method: post|put }
+
+partrequest_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:delete" }
+    requirements: { _method: post|delete }

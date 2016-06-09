@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Form\UserRegistrationType;
 use Numa\DOAAdminBundle\Entity\User;
@@ -15,7 +16,22 @@ use Pagerfanta\Pagerfanta,
     Pagerfanta\Adapter\DoctrineORMAdapter,
     Pagerfanta\Exception\NotValidCurrentPageException;
 
-class UserController extends Controller {
+class UserController extends Controller  implements DealerSiteControllerInterface
+{
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
 
     public function registerAction(Request $request) {
         $user = new User();
@@ -123,6 +139,8 @@ class UserController extends Controller {
                     // last username entered by the user
                     'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                     'error' => $error,
+            'dealer'=>$this->dealer,
+            'components'=>$this->components,
         ));
     }
 
@@ -176,6 +194,7 @@ class UserController extends Controller {
 
     public function logindDealerAction(Request $request, $username)
     {
+
         $em = $this->getDoctrine()->getEntityManager();
         $repository = $em->getRepository('NumaDOAAdminBundle:Catalogrecords');
         $result = $repository->findOneBy(array('username' => $username));
@@ -194,6 +213,7 @@ class UserController extends Controller {
             ))
             ->getForm();
         $form->handleRequest($request);
+
         if ($form->isValid()) {
             $data = $form->getData();
             $pass= $this->getParameter('database_password');

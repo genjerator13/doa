@@ -19,14 +19,17 @@ class UserGroupController extends Controller
      * Lists all UserGroup entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        $dashboard = $request->get('_dashboard');
 
         $entities = $em->getRepository('NumaDOAAdminBundle:UserGroup')->findAll();
 
         return $this->render('NumaDOAAdminBundle:UserGroup:index.html.twig', array(
             'entities' => $entities,
+            'dashboard' => $dashboard,
+
         ));
     }
     /**
@@ -60,10 +63,15 @@ class UserGroupController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(UserGroup $entity)
+    private function createCreateForm(UserGroup $entity,$dashboard="")
     {
+        $action    = $this->generateUrl('user_group_create');
+        if($dashboard=='DMS'){
+            $action    = $this->generateUrl('dms_user_group_create');
+        }
+
         $form = $this->createForm(new UserGroupType(), $entity, array(
-            'action' => $this->generateUrl('user_group_create'),
+            'action' => $action,
             'method' => 'POST',
         ));
 
@@ -76,7 +84,7 @@ class UserGroupController extends Controller
      * Displays a form to create a new UserGroup entity.
      *
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
         $entity = new UserGroup();
         $form   = $this->createCreateForm($entity);
@@ -112,9 +120,10 @@ class UserGroupController extends Controller
      * Displays a form to edit an existing UserGroup entity.
      *
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $dashboard = $request->get('_dashboard');
 
         $entity = $em->getRepository('NumaDOAAdminBundle:UserGroup')->find($id);
 
@@ -122,7 +131,7 @@ class UserGroupController extends Controller
             throw $this->createNotFoundException('Unable to find UserGroup entity.');
         }
 
-        $editForm = $this->createEditForm($entity);
+        $editForm = $this->createEditForm($entity, $dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:UserGroup:edit.html.twig', array(
@@ -139,10 +148,15 @@ class UserGroupController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(UserGroup $entity)
+    private function createEditForm(UserGroup $entity,$dashboard="")
     {
+        $action = $this->generateUrl('user_group_update', array('id' => $entity->getId()));
+        if($dashboard=='DMS'){
+            $action = $this->generateUrl('dms_user_group_update', array('id' => $entity->getId()));
+        }
+        dump($action);die();
         $form = $this->createForm(new UserGroupType(), $entity, array(
-            'action' => $this->generateUrl('user_group_update', array('id' => $entity->getId())),
+            'action' => $action,
             'method' => 'POST',
         ));
 
@@ -157,7 +171,9 @@ class UserGroupController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $dashboard = $request->get('_dashboard');
 
+        //dump($dashboard);die();
         $entity = $em->getRepository('NumaDOAAdminBundle:UserGroup')->find($id);
 
         if (!$entity) {
@@ -168,6 +184,11 @@ class UserGroupController extends Controller
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
+        $redirect = $this->redirect($this->generateUrl('user_group_edit', array('id' => $id)));
+        if($dashboard="DMS"){
+            $redirect = $this->redirect($this->generateUrl('dms_user_group_edit', array('id' => $id)));
+        }
+
         if ($editForm->isValid()) {
             $em->flush();
 
@@ -176,6 +197,7 @@ class UserGroupController extends Controller
 
         return $this->render('NumaDOAAdminBundle:UserGroup:edit.html.twig', array(
             'entity'      => $entity,
+            'dashboard'   => $dashboard,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));

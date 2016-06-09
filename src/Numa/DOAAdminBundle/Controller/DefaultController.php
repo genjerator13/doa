@@ -7,11 +7,6 @@ use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
-//    public function indexAction()
-//    {
-//        return $this->render('NumaDOAAdminBundle:Default:index.html.twig');
-//    }
-
     public function indexAction()
     {
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();

@@ -178,6 +178,9 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        retail_price:
+              type: float
+              nullable: true
         price:
               type: float
               nullable: true
@@ -347,11 +350,21 @@ Numa\DOAAdminBundle\Entity\Item:
         horsepower:
               type: integer
               nullable: true
+        pto_horsepower:
+              type: integer
+              nullable: true
+        DBR_horsepower:
+              type: integer
+              nullable: true
         awnings:
               type: string
               length: 255
               nullable: true
         width:
+              type: string
+              length: 255
+              nullable: true
+        height:
               type: string
               length: 255
               nullable: true
@@ -367,6 +380,68 @@ Numa\DOAAdminBundle\Entity\Item:
               nullable: true
         other:
               type: text
+              nullable: true
+        invoice_nr:
+              type: string
+              length: 255
+              nullable: true
+        invoice_date:
+              type: datetime
+              nullable: true
+        invoice_amount:
+              type: float
+              nullable: true
+        discount1:
+              type: float
+              nullable: true
+        discount2:
+              type: float
+              nullable: true
+        sale_amount:
+              type: float
+              nullable: true
+        torque:
+              type: string
+              length: 255
+              nullable: true
+        brakes:
+              type: string
+              length: 255
+              nullable: true
+        wheels:
+              type: string
+              length: 255
+              nullable: true
+        compression_ratio:
+              type: float
+              nullable: true
+        frame:
+              type: string
+              length: 255
+              nullable: true
+        suspension:
+              type: string
+              length: 255
+              nullable: true
+        ground_clereance:
+              type: string
+              length: 255
+              nullable: true
+        fresh_water_capacity:
+              type: integer
+              nullable: true
+        black_water_capacity:
+              type: integer
+              nullable: true
+        grey_water_capacity:
+              type: integer
+              nullable: true
+        hitch_weight:
+              type: float
+              nullable: true
+        remotes:
+              type: string
+              length: 255
               nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

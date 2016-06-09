@@ -9,7 +9,10 @@
 namespace Numa\DOASiteBundle\Services;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
@@ -26,23 +29,72 @@ class ExtraListener
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $kernel    = $event->getKernel();
-        $request   = $event->getRequest();
-        $container = $this->container;
-        //$controller = $event->getController();
-        //$request->set
-        $routeName = $request->get('route');
-        //$container->set("seo")="TESTTEST";
-        //dump($routeName);
-        //dump($event);
-        //die();
+
     }
 
     public function onKernelController(FilterControllerEvent $event)
     {
         $controller = $event->getController();
-        //dump($controller);die();
+
+        if (!is_array($controller)) {
+            // not a object but a different kind of callable. Do nothing
+            return;
+        }
+
+        $controllerObject = $controller[0];
+
+        // skip initializing for exceptions
+        if ($controllerObject instanceof ExceptionController) {
+            return;
+        }
+
+        if ($controllerObject instanceof DealerSiteControllerInterface) {
+            // this method is the one that is part of the interface.
+
+
+            $setting = $this->container->get("Numa.settings");
+
+            $host = $setting->get('host');
+            $request = $event->getRequest();
+            //$session = $request->getSession();
+            if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
+                $dealer = $setting->getDealerForHost(trim($host));
+                if($dealer instanceof Catalogrecords) {
+                    $this->container->set('dealer', $dealer);
+                    //$session->set('dealer_id', $dealer->getId());
+                    $setting->activateTheme($host);
+                    $controllerObject->initializeDealer($dealer);
+                }
+                $request = $event->getRequest();
+                $pathinfo=$request->getPathInfo();
+
+                if(substr( $pathinfo, 0, 2 ) === "/d"){
+                    $pathinfo = substr($pathinfo,2,strlen($pathinfo)-1);
+                }
+
+                $em = $this->container->get('doctrine.orm.entity_manager');
+                $dealer_id = null;
+                $components = null;
+                if($dealer instanceof Catalogrecords) {
+                    $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+                }
+
+                $controllerObject->initializePageComponents($components);
+            }
+
+        }elseif($controllerObject instanceof DashboardDMSControllerInterface){
+            $request = $event->getRequest();
+            $route = $request->get('_route');
+            $dashboard="";
+            if(strtolower(substr( $route, 0, 3 )) === "dms"){
+                $dashboard = "DMS";
+
+            }
+            $controllerObject->initializeDashboard($dashboard);
+        }
     }
+
+
 
     public function onKernelResponse(FilterResponseEvent $event)
     {

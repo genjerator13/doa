@@ -1,0 +1,410 @@
+Numa\DOADMSBundle\Entity\Billing:
+    type: entity
+    table: billing
+    repositoryClass: Numa\DOADMSBundle\Repository\BillingRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        customer_id:
+            type: integer
+            nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+        item_id:
+            type: integer
+            nullable: true
+        invoice_nr:
+            type: string
+            length: 255
+            nullable: true
+        sales_person:
+            type: string
+            length: 255
+            nullable: true
+        dealer_nr:
+            type: string
+            length: 255
+            nullable: true
+        trim:
+            type: string
+            length: 255
+            nullable: true
+        tid_make:
+            type: string
+            length: 255
+            nullable: true
+        tid_model:
+            type: string
+            length: 255
+            nullable: true
+        tid_year:
+            type: integer
+            nullable: true
+        tid_milleage:
+            type: string
+            length: 255
+            nullable: true
+        tid_km:
+            type: string
+            length: 255
+            nullable: true
+        tid_vin:
+            type: string
+            length: 255
+            nullable: true
+        payableto:
+            type: string
+            length: 255
+            nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
+        amount:
+            type: float
+            nullable: true
+        total:
+            type: float
+            nullable: true
+        less_discount:
+            type: float
+            nullable: true
+        options_total_cost:
+            type: float
+            nullable: true
+        date_created:
+            type: datetime
+            nullable: true
+        date_updated:
+            type: datetime
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        comments:
+            type: text
+            nullable: true
+        date_billing:
+            type: datetime
+            nullable: true
+        opt1:
+            type: string
+            length: 255
+            nullable: true
+        opteq1:
+            type: string
+            length: 255
+            nullable: true
+        opt2:
+            type: string
+            length: 255
+            nullable: true
+        opteq2:
+            type: string
+            length: 255
+            nullable: true
+        opt3:
+            type: string
+            length: 255
+            nullable: true
+        opteq3:
+            type: string
+            length: 255
+            nullable: true
+        opt4:
+            type: string
+            length: 255
+            nullable: true
+        opteq4:
+            type: string
+            length: 255
+            nullable: true
+        opt5:
+            type: string
+            length: 255
+            nullable: true
+        opteq5:
+            type: string
+            length: 255
+            nullable: true
+        opt6:
+            type: string
+            length: 255
+            nullable: true
+        opteq6:
+            type: string
+            length: 255
+            nullable: true
+        opt7:
+            type: string
+            length: 255
+            nullable: true
+        opteq7:
+            type: string
+            length: 255
+            nullable: true
+        opt8:
+            type: string
+            length: 255
+            nullable: true
+        opteq8:
+            type: string
+            length: 255
+            nullable: true
+        opt9:
+            type: string
+            length: 255
+            nullable: true
+        opteq9:
+            type: string
+            length: 255
+            nullable: true
+        opt10:
+            type: string
+            length: 255
+            nullable: true
+        opteq10:
+            type: string
+            length: 255
+            nullable: true
+        opt11:
+            type: string
+            length: 255
+            nullable: true
+        opteq11:
+            type: string
+            length: 255
+            nullable: true
+        opt12:
+            type: string
+            length: 255
+            nullable: true
+        opteq12:
+            type: string
+            length: 255
+            nullable: true
+        opt13:
+            type: string
+            length: 255
+            nullable: true
+        opteq13:
+            type: string
+            length: 255
+            nullable: true
+        opt14:
+            type: string
+            length: 255
+            nullable: true
+        opteq14:
+            type: string
+            length: 255
+            nullable: true
+        opt15:
+            type: string
+            length: 255
+            nullable: true
+        opteq15:
+            type: string
+            length: 255
+            nullable: true
+        opt16:
+            type: string
+            length: 255
+            nullable: true
+        opteq16:
+            type: string
+            length: 255
+            nullable: true
+        opt17:
+            type: string
+            length: 255
+            nullable: true
+        opteq17:
+            type: string
+            length: 255
+            nullable: true
+        opt18:
+            type: string
+            length: 255
+            nullable: true
+        opteq18:
+            type: string
+            length: 255
+            nullable: true
+        opt19:
+            type: string
+            length: 255
+            nullable: true
+        opteq19:
+            type: string
+            length: 255
+            nullable: true
+        opt20:
+            type: string
+            length: 255
+            nullable: true
+        opteq20:
+            type: string
+            length: 255
+            nullable: true
+        opt21:
+            type: string
+            length: 255
+            nullable: true
+        opteq21:
+            type: string
+            length: 255
+            nullable: true
+        opt22:
+            type: string
+            length: 255
+            nullable: true
+        opteq22:
+            type: string
+            length: 255
+            nullable: true
+        opt23:
+            type: string
+            length: 255
+            nullable: true
+        opteq23:
+            type: string
+            length: 255
+            nullable: true
+        opt24:
+            type: string
+            length: 255
+            nullable: true
+        opteq24:
+            type: string
+            length: 255
+            nullable: true
+        opt25:
+            type: string
+            length: 255
+            nullable: true
+        opteq25:
+            type: string
+            length: 255
+            nullable: true
+        sale_price:
+            type: float
+            nullable: true
+        admin_fee:
+            type: float
+            nullable: true
+        warranty:
+            type: float
+            nullable: true
+        new_warranty:
+            type: string
+            length: 255
+            nullable: true
+        used_warranty:
+            type: string
+            length: 255
+            nullable: true
+        protection_pkg:
+            type: float
+            nullable: true
+        tos_total:
+            type: float
+            nullable: true
+        less_trade_in:
+            type: float
+            nullable: true
+        difference_payable:
+            type: float
+            nullable: true
+        tax1:
+            type: float
+            nullable: true
+        tax2:
+            type: float
+            nullable: true
+        tax3:
+            type: float
+            nullable: true
+        other_misc1:
+            type: float
+            nullable: true
+        other_misc2:
+            type: float
+            nullable: true
+        taxt1_name:
+            type: string
+            length: 255
+            nullable: true
+        taxt2_name:
+            type: string
+            length: 255
+            nullable: true
+        taxt3_name:
+            type: string
+            length: 255
+            nullable: true
+        other_misc1_name:
+            type: string
+            length: 255
+            nullable: true
+        other_misc2_name:
+            type: string
+            length: 255
+            nullable: true
+        taxes_paid_total:
+            type: float
+            nullable: true
+        lien_on_trade_in:
+            type: float
+            nullable: true
+        total_due:
+            type: float
+            nullable: true
+        less_trade_in_tax:
+            type: float
+            nullable: true
+        less_deposit:
+            type: float
+            nullable: true
+        payable_on_delivery:
+            type: float
+            nullable: true
+        balance_to_finance:
+            type: float
+            nullable: true
+        insurance:
+            type: float
+            nullable: true
+        bank_registration_fee:
+            type: float
+            nullable: true
+        total_balance_due:
+            type: float
+            nullable: true
+
+    manyToOne:
+        Customer:
+            targetEntity: Customer
+            inversedBy: Billing
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Billing
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Item:
+            targetEntity: Numa\DOAAdminBundle\Entity\Item
+            inversedBy: Billing
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

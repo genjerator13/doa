@@ -4,6 +4,8 @@
 
 namespace Numa\Twig;
 
+use Doctrine\Common\Collections\Criteria;
+use Numa\DOADMSBundle\Entity\Component;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class NumaExtension extends \Twig_Extension
@@ -26,7 +28,11 @@ class NumaExtension extends \Twig_Extension
             'memcacheGet' => new \Twig_Function_Method($this, 'memcacheGet'),
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
-            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed')
+            'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
+            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
+            'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
+            'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
+            'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
         );
     }
 
@@ -104,6 +110,67 @@ class NumaExtension extends \Twig_Extension
     {
         //https://www.youtube.com/embed/xH01UCfId0A
         return "https://www.youtube.com/embed/".$id;
+    }
+
+    public function displayComponent($components,$name)
+    {
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("name", $name))
+            ;//->getMaxResults(1);
+        if(!empty($components)) {
+            $componentsArray = $components->matching($criteria);
+
+            if (!empty($componentsArray) and $componentsArray->count() > 0) {
+
+                return $componentsArray->first()->getValue();
+            }
+        }
+        return "c not f";
+    }
+
+    public function displayCarouselComponent($components){
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
+
+        if(!empty($components)) {
+            $componentsArray = $components->matching($criteria);
+
+            if (!empty($componentsArray) and $componentsArray->count() > 0) {
+
+                $component =  $componentsArray->first();
+
+                $em        = $this->container->get('doctrine.orm.entity_manager');
+                $images    = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+
+                return $images;
+            }
+        }
+        return null;
+    }
+
+    public function getDealer(){
+        $session   = $this->container->get('session');
+        $dealer_id = $session->get('dealer_id');
+        $em        = $this->container->get('doctrine.orm.entity_manager');
+        $dealer    = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
+        return $dealer;
+    }
+
+    public function shortWord($str,$chars){
+        $pieces = explode(" ", $str);
+        $pieces = preg_split("/[-;, ]+/", $str);
+        $len = 0;
+        $ret="";
+        foreach($pieces as $word){
+            $len = $len + strlen($word);
+
+            if($len>$chars){
+                return $ret;
+            }
+            $ret = $ret." ".$word;
+        }
+        return $ret;
+
     }
 
 }

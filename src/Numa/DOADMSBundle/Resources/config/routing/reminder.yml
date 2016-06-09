@@ -1,0 +1,30 @@
+reminder:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:index" }
+
+reminder_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:show" }
+
+reminder_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:new" }
+
+reminder_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:create" }
+    requirements: { _method: post }
+
+reminder_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:edit" }
+
+reminder_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:update" }
+    requirements: { _method: post|put }
+
+reminder_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:delete" }
+    requirements: { _method: post|delete }

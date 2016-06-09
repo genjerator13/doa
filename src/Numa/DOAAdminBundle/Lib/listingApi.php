@@ -133,6 +133,7 @@ class listingApi
 
             $res['listing'][] = $this->prepareItem($item);
         }
+
         return $res;
     }
 
@@ -149,6 +150,7 @@ class listingApi
 
     public function formatResponse($items, $format)
     {
+
         if ($format == 'xml') {
             $xml = $this->container->get('xml')->createXML('listing', $items);
             $response = new Response($xml->saveXML());
@@ -208,11 +210,9 @@ class listingApi
 
 
             }
-
             $fp = fopen('file.csv', 'w');
 
             $res = $headerCsv . "\n" . $valuesCsv;
-
 
             $response = new Response($res);
             $response->setStatusCode(200);

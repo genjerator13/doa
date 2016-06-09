@@ -9,6 +9,7 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
+use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 class EntityListener {
@@ -21,6 +22,7 @@ class EntityListener {
 
     public function preFlush(PreFlushEventArgs $args)
     {
+
 //        $em  = $args->getEntityManager();
 //        $uow = $em->getUnitOfWork();
 //        dump($uow->getScheduledEntityUpdates());
@@ -53,6 +55,7 @@ class EntityListener {
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
+        dump("preupdateXXXX");
 //        $em = $eventArgs->getEntityManager();
 //        $uow = $em->getUnitOfWork();
 //
@@ -102,7 +105,7 @@ class EntityListener {
                     $entity->setFieldStringValue($value);
                 }
             }
-        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
             $this->setPassword($entity);
         }
@@ -121,15 +124,20 @@ class EntityListener {
     }
 
     public function preUpdate(PreUpdateEventArgs $args) {
+
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
-        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+
             $this->setPassword($entity);
+
             $pass = $entity->getPassword();
             if(!empty($pass)){
 
-                $args->setNewValue('password', $entity->getPassword());
+                //$args->setNewValue('password', $pass);
+                //dump($entity);die();
             }
         }
 
@@ -148,6 +156,7 @@ class EntityListener {
     }
 
     public function postUpdate(LifecycleEventArgs $args) {
+
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
