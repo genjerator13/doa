@@ -1,5 +1,5 @@
 {# get the loged dealer #}
-{% set apicall="/api/listings2/2/dealer.json" %}
+{% set apicall="/api/listings/all.json" %}
 {% if is_granted('ROLE_BUSINES') %}
     {% set user= app.security.getToken().getUser().getId() %}
     {% set apicall="/api/listings2/"~user~"/dealer.json" %}

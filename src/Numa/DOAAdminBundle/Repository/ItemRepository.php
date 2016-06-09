@@ -184,7 +184,9 @@ class ItemRepository extends EntityRepository
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->from('NumaDOAAdminBundle:Item', 'i');
-        if (is_numeric($dealer_id)) {
+        if(empty($dealer_id)){
+
+        }elseif (is_numeric($dealer_id)) {
             $qb->where('i.dealer_id=:dealer');
             $qb->setParameter('dealer', $dealer_id);
         } elseif (is_string($dealer_id)) {
@@ -206,10 +208,21 @@ class ItemRepository extends EntityRepository
                 return false;
             }
         }
-
-        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        $qb->andWhere("i.active=1");
+        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
+        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
 
         return $itemsQuery->getResult();
+    }
+
+
+    public function getAllListings(){
+        $sql = "SELECT * FROM item";
+
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        //$rows = $stmt->fetchAll();
+        //$json = json_encode($stmt);
+        return $stmt;
     }
 
     public function removeAllItemFields($item_id)

@@ -81,11 +81,10 @@ class ItemRESTController extends Controller
         return $this->get('listing_api')->formatResponse($items, $format);
     }
 
-    /**
-     * @Rest\View
-     */
+
     public function listingsByDealer2Action(Request $request, $dealerid)
     {
+
         $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealerAndCategory($dealerid);
         return $listings;
     }
@@ -95,8 +94,9 @@ class ItemRESTController extends Controller
      */
     public function allListingsAction()
     {
-        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findAll();
-        return $customers;
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings();
+
+        return $listings;
     }
 
     /**
