@@ -55,33 +55,31 @@ class EntityListener {
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        dump("preupdateXXXX");
-//        $em = $eventArgs->getEntityManager();
-//        $uow = $em->getUnitOfWork();
-//
-//        foreach ($uow->getScheduledEntityInsertions() as $entity) {
-//
-//            if($entity instanceof Item){
-//
-//                //$seoPost =$request->get("numa_doamodulebundle_seo");
-//                $seoService = $this->container->get("Numa.Seo");
-//                $seo = $seoService->prepareSeo($entity, array(), false);
-//                //dump($seo);die();
-//                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
-//                $uow->computeChangeSet($classMetadata, $seo);
-//            }
-//        }
-//
-//        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-////            if($entity instanceof Item){
-////                $seoPost =$request->get("numa_doamodulebundle_seo");
-////                $seoService = $this->container->get("Numa.Seo");
-////                $seo = $seoService->prepareSeo($entity,$seoPost);
-////
-////                $classMetadata = $em->getClassMetadata('Numa\DOAModuleBundle\Entity\Seo');
-////                $uow->computeChangeSet($classMetadata, $seo);
-////            }
-//        }
+
+        $em = $eventArgs->getEntityManager();
+        $uow = $em->getUnitOfWork();
+
+        foreach ($uow->getScheduledEntityInsertions() as $entity) {
+
+            if($entity instanceof ItemField){
+                $item=$entity->getItem();
+                $item->setCoverPhoto($item->getCoverImageSrc());
+                $metaData = $em->getClassMetadata(get_class($item));
+                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
+                $uow->computeChangeSets();
+            }
+        }
+
+        foreach ($uow->getScheduledEntityUpdates() as $entity) {
+
+            if($entity instanceof ItemField){
+                $item=$entity->getItem();
+                $item->setCoverPhoto($item->getCoverImageSrc());
+                $metaData = $em->getClassMetadata(get_class($item));
+                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
+                $uow->computeChangeSets();
+            }
+        }
 
     }
 
@@ -141,7 +139,8 @@ class EntityListener {
             }
         }
 
-        if ($entity instanceof Item) {
+        if ($entity instanceof ItemField) {
+
                 //$entity->equalizeItemFields();
                 //$setting = $this->container->get("Numa.settings");
                 //$title = $setting->generateItemTitle($entity);
@@ -177,8 +176,6 @@ class EntityListener {
 
     public function postLoad(LifecycleEventArgs $args) {
 
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
     }
 
 }
