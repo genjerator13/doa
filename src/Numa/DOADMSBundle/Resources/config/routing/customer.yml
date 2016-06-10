@@ -33,6 +33,18 @@ customer_addnote:
     path:     /{id}/addnote
     defaults: { _controller: "NumaDOADMSBundle:Note:new" }
 
-customer_addnote:
+customer_shownote:
     path:     /{id}/shownote
     defaults: { _controller: "NumaDOADMSBundle:Note:index" }
+
+customer_notes:
+    path:     /notes.html
+    defaults: { _controller: "NumaDOADMSBundle:Note:notes" }
+
+customer_addbilling:
+    path:     /{id}/addbilling
+    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+
+customer_addreminder:
+    path:     /{id}/addreminder
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:new" }

@@ -36,8 +36,9 @@ class CatalogrecordsType extends AbstractType {
                 ->add('city')
                 ->add('zip')
                 ->add('state')
+                ->add('gst')
                 ->add('description', 'ckeditor')
-
+                ->add('ServiceHours','ckeditor')
 
                 ->add('file_import_source', 'file', array('label'=>'Logo Upload','required' => false, 'data_class' => null))
                 ->add('logo_url', 'text', array('label'=>'Logo Url','required' => false))

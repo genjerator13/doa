@@ -1,3 +1,84 @@
-numa_doa_api_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: NumaDOAApiBundle:Default:index }
+#dms_user_api:
+#    type: rest
+#    resource: Numa/DOADMSBundle/Controller/DMSUserRESTController
+#    defaults: {_format: json}
+ads_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/ad.yml"
+        prefix:   /ads
+customer_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/customer.yml"
+        prefix:   /customer
+user_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/user.yml"
+        prefix:   /user
+dmsuser_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/dmsuser.yml"
+        prefix:   /dmsuser
+note_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/note.yml"
+        prefix:   /note
+billing_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/billing.yml"
+        prefix:   /billing
+part_request_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/part_request.yml"
+        prefix:   /part_request
+service_request_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/service_request.yml"
+        prefix:   /service_request
+stats_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/stats.yml"
+        prefix:   /stats
+page_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/page.yml"
+        prefix:   /page
+component_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/component.yml"
+        prefix:   /component
+listing_form_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
+        prefix:   /listing_form
+listing:
+    pattern:  /listing/{id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}
+    requirements: { _method: get }
+
+listingByDealer:
+    pattern:  /listings/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
+    requirements: { _method: get }
+
+listingsAll:
+    pattern:  /listings/{category}/category.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
+    requirements: { _method: get }
+
+listingsAll:
+    pattern:  /listings/{category}/category.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
+    requirements: { _method: get }
+
+listingByDealer2:
+    pattern:  /listings2/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer2",_format: "xml"}
+    requirements: { _method: get }
+
+listing2:
+    pattern:  /listing2/{id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing2",_format: "xml"}
+    requirements: { _method: get }
+
+listings2All:
+    pattern:  /listings/all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:allListings",_format: "xml"}
+    requirements: { _method: get }
+
+listingsByUniques:
+    pattern:  /listings/{id}/uniques.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingByUniques",_format: "xml"}
+    requirements: { _method: get }
+
+listing_add_feature:
+    pattern:  /listings/addfeature
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:addFeature"}
+    requirements: { _method: post }

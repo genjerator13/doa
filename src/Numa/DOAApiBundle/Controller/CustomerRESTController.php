@@ -19,18 +19,33 @@ class CustomerRESTController extends Controller
      */
     public function allAction()
     {
-        $ads = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findAll();
-
-        return $ads;
+        $customers = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findAll();
+        return $customers;
     }
 
-//    /**
-//     * @Rest\View
-//     */
-//    public function byPageAction($pageid)
-//    {
-//        $page = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->find($pageid);
-//        $ads = $page->getAds();
-//        return array('ads' => $ads);
-//    }
+    /**
+     * @Rest\View
+     */
+    public function singleAction($customer_id)
+    {
+        $customer = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->find($customer_id);
+        if (!$customer) {
+            throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+        return $customer;
+    }
+    /**
+     * @Rest\View
+     */
+    public function byDealerAction($dealer_id)
+    {
+
+        $customer = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($dealer_id);
+       // dump($customer);die();
+        if (!$customer) {
+            //throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+
+        return $customer;
+    }
 }

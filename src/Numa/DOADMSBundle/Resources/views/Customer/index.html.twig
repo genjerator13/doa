@@ -1,58 +1,74 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% block stylesheets %}
-{{ parent() }}
-    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css" rel="stylesheet"/>
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+
+    {% stylesheets
+    'css/loading-bar.min.css'
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
     <style>
-        .grid {
-            width: 100%;
-            height: 550px;
-        }
+        .red { color: red;  }
     </style>
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-touch.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular-animate.js"></script>
-    <script src="http://ui-grid.info/docs/grunt-scripts/vfs_fonts.js"></script>
-    <script src="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.js"></script>
-
     {% javascripts
-    '@NumaDOADMSBundle/Resources/public/js/customer.js' 'js/angular/angular-confirm.min.js' 'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    %}
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+    'js/angular/vfs-fonts.js'
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Customer:customer.js.twig' %}
+    </script>
 {% endblock javascripts %}
-
-
 {% block content %}
-
-
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <div class="box">
     <div class="box-header">
         <h3 class="box-title">Customer list</h3>
+
         <div class="box-tools">
             <a href="{{ path('customer_new') }}" class="btn btn-primary">
                 Create new Customer
             </a>
         </div>
     </div>
-    <div class="box-body table-responsive no-padding">
-    <div ng-controller="MainCtrl">
-        <script type="text/ng-template" id="myModalContent.html">
-            <div class="modal-header">
-                <h3 class="modal-title">Please confirm</h3>
-            </div>
+    <div class="box-body table-responsive no-padding" ng-app="app">
 
-            <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
-            </div>
-        </script>
-        <div id="grid1" ui-grid="gridOptions" ui-grid-selection class="grid"></div>
+        <div ng-controller="MainCtrl">
+            <script type="text/ng-template" id="myModalContent.html">
+                <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+            </script>
+            <script type="text/ng-template" id="myModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Please confirm</h3>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-expandable ui-grid-pinning
+                 class="grid"></div>
+        </div>
     </div>
-
-{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+    <script>
+        $(document).ready(function () {
+            $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
+        });
+    </script>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}

@@ -1,14 +1,13 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <div class="box box-default">
         <h1>User Group creation</h1>
-
         {{ form(form) }}
-
         <a href="{{ path('user') }}" class="btn btn-default">
             Back to the list
         </a>
-
     </div>
 {% endblock %}

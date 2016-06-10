@@ -1,6 +1,6 @@
 items:
     pattern:  /
-    defaults: { _controller: "NumaDOAAdminBundle:Item:index" }
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:index" }
 
 items_show:
     pattern:  /{id}/show

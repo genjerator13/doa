@@ -715,6 +715,13 @@ h3.header-first{
     top: 0px;
 }
 
+.right-side-ad{
+    border:1px solid red;
+    height: 130px;
+    width: 130px;
+    display: block;
+}
+
 iframe body{
     padding: 0;
     margin: 0;

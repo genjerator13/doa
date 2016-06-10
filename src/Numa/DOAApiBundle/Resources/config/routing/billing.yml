@@ -1,0 +1,4 @@
+billing_api_single:
+    path:     /{id}/single.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:BillingREST:single",_format: "json"}
+    requirements: { _method: get }

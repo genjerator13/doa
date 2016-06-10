@@ -48,7 +48,7 @@ class NoteController extends Controller
 
             $em->persist($entity);
             $em->flush();
-            return $this->redirect($this->generateUrl('note'));
+            return $this->redirect($this->generateUrl('customer_edit', array('id'=>$entity->getCustomerId())));
 
         }
 
@@ -230,5 +230,20 @@ class NoteController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * Lists all Notes entities.
+     *
+     */
+    public function notesAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $entities = $em->getRepository('NumaDOADMSBundle:Note')->findAll();
+
+        return $this->render('NumaDOADMSBundle:Customer:notes.html.twig', array(
+            'entities' => $entities,
+        ));
     }
 }

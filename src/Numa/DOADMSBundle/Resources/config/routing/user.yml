@@ -1,0 +1,15 @@
+dms_users:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:UserDms:index" }
+
+dms_user_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:User:edit",_dashboard: "DMS" }
+
+dms_user_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:User:new",_dashboard: "DMS"  }
+
+dms_user_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:User:create",_dashboard: "DMS"  }

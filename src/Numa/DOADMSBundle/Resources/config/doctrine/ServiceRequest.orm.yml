@@ -1,0 +1,81 @@
+Numa\DOADMSBundle\Entity\ServiceRequest:
+    type: entity
+    table: service_request
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        cust_name:
+            type: string
+            length: 255
+            nullable: true
+        cust_last_name:
+            type: string
+            length: 255
+            nullable: true
+        contact_by:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        phone:
+            type: string
+            length: 255
+            nullable: true
+        date_appointment:
+            type: date
+            nullable: true
+        time_appointment:
+            type: time
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year:
+            type: integer
+            nullable: true
+        comment:
+            type: text
+            nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+        customer_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: ServiceRequest
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: ServiceRequest
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

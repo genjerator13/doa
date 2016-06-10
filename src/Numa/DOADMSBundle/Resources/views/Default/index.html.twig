@@ -4,4 +4,117 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
+
+    <div class="row">
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalListings }}</h5>
+                <span class="description-text">TOTAL LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalViews }}</h5>
+                <span class="description-text">TOTAL VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalCarListings }}</h5>
+                <span class="description-text">TOTAL CAR LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalCarViews }}</h5>
+                <span class="description-text">TOTAL CAR VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMotoListings }}</h5>
+                <span class="description-text">TOTAL MOTO LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMotoViews }}</h5>
+                <span class="description-text">TOTAL MOTO VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMarineListings }}</h5>
+                <span class="description-text">TOTAL MARINE LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalMarineViews }}</h5>
+                <span class="description-text">TOTAL MARINE VIEWS</span>
+            </div>
+        </div>
+
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalAgsListings }}</h5>
+                <span class="description-text">TOTAL AG LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalAgsViews }}</h5>
+                <span class="description-text">TOTAL AG VIEWS</span>
+            </div>
+        </div>
+
+
+        <div class="col-sm-2 col-xs-3">
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalRvsListings }}</h5>
+                <span class="description-text">TOTAL RVs LISTINGS</span>
+            </div>
+            <div class="description-block border-right">
+                <h5 class="description-header">{{ totalRvsViews }}</h5>
+                <span class="description-text">TOTAL Rvs VIEWS</span>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+    <script>
+        $(function () {
+            $('#container').highcharts({
+                chart: {
+                    type: 'line'
+                },
+                title: {
+                    text: 'Monthly Visits On Site'
+                },
+                xAxis: {
+                    categories: ['1']
+                },
+                yAxis: {
+                    title: {
+                        text: 'Visitors'
+                    }
+                },
+                plotOptions: {
+                    line: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                series: [{
+                    name: 'Doa',
+                    data: [0, 2, 9.5, 14.5, 18.4, 21.5, 125.2, 26.5, 23.3, 18.3, 13.9, 9.6, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9]
+                }, {
+                    name: 'Dodgecity',
+                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+                }]
+            });
+        });
+    </script>
 {% endblock %}

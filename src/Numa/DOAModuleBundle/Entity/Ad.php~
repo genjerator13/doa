@@ -343,7 +343,7 @@ class Ad
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-            $this->createdAt = new \DateTime();
+            $this->updatedAt = new \DateTime();
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -634,7 +634,7 @@ class Ad
         return $this->adorder;
     }
 
-    // Important
+    // Important manytomany
     public function getPages()
     {
         $pages = new ArrayCollection();
@@ -649,7 +649,7 @@ class Ad
     }
 
 
-    // Important
+    // Important manytomany
     public function setPages($pageAds)
     {
         foreach ($pageAds as $pageAd) {
@@ -662,6 +662,8 @@ class Ad
         }
 
     }
+
+
     /**
      * @var integer
      */

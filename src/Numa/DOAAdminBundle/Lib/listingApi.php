@@ -93,12 +93,24 @@ class listingApi
         $res['category_id'] = $item->getCategoryId();
         $res['featured'] = $item->getFeatured();
         $router = $this->container->get('router');
+        $host = $router->getContext()->getScheme() . "://" . $router->getContext()->getHost();
         $urldesription = $item->getUrlDescription();
         $res['url'] = $router->generate('item_details', array('itemId' => $item->getId(), 'description' => $urldesription), true);
 
         foreach ($map as $name => $value) {
             $res[$value] = $item->get($name);
         }
+        $tempImages = array();
+        if (!empty($res['images']['image'])) {
+            foreach ($res['images']['image'] as $image) {
+                if (substr($image, 0, 4) !== "http") {
+                    $image = $host . $image;
+                }
+                $tempImages[]=$image;
+            }
+            $res['images']['image'] = $tempImages;
+        }
+
         return $res;
     }
 
@@ -121,7 +133,6 @@ class listingApi
 
             $res['listing'][] = $this->prepareItem($item);
         }
-
         return $res;
     }
 
@@ -138,7 +149,6 @@ class listingApi
 
     public function formatResponse($items, $format)
     {
-
         if ($format == 'xml') {
             $xml = $this->container->get('xml')->createXML('listing', $items);
             $response = new Response($xml->saveXML());
@@ -190,17 +200,19 @@ class listingApi
                         if (!empty($values[$itemkey][$key])) {
                             $csv[$itemkey][$key] = $values[$itemkey][$key];
                         }
-
-
                     }
-                    $valuesCsv .= implode(',', $csv[$itemkey]) . "\n";
+                    $value = $csv[$itemkey];
+
+                    $valuesCsv .= implode(',', $value) . "\n";
                 }
 
 
             }
+
             $fp = fopen('file.csv', 'w');
 
             $res = $headerCsv . "\n" . $valuesCsv;
+
 
             $response = new Response($res);
             $response->setStatusCode(200);
@@ -212,6 +224,12 @@ class listingApi
 
     public static function clearValueForCsv($value)
     {
+        if(is_numeric($value)){
+            //dump($item);
+        }elseif(is_string($value)){
+            $value = "'".$value."'";
+        }
+
         return str_replace("\n", "-", $value);
     }
 }
