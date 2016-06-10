@@ -58,7 +58,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
         $grid = $this->get('grid');
 
-        //$grid->setDefaultOrder("date_created", "desc");
+        //$grid->setDefaultOrderOrder("date_created", "desc");
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
         $imageColumn->setTitle("Image");
@@ -659,6 +659,32 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             dump($item_id);
         }
         $item_ids = implode(",",$values);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
+            ->update()
+            ->set('i.active', true)
+            ->where('i.id in (' . $item_ids.")");
+        $qb->getQuery()->execute();
+        dump($item_ids);
+        die();
+    }
+
+    public function massDeactivate2Action(Request $request) {
+
+        $data = json_decode($request->get('data'));
+
+        $values =array();
+        foreach($data as $item_id){
+            $values[]=intval($item_id);
+            dump($item_id);
+        }
+        $item_ids = implode(",",$values);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
+            ->update()
+            ->set('i.active', 0)
+            ->where('i.id in (' . $item_ids.")");
+        $qb->getQuery()->execute();
         dump($item_ids);
         die();
     }
