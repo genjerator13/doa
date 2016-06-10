@@ -56,11 +56,9 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-            <button type="button" class="btn btn-primary" ng-disabled="!gridApi.grid.options.multiSelect" ng-click="selectAll()">Select All</button>
-            <button type="button" class="btn btn-primary" ng-click="clearAll()">Clear All</button>
             <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
             <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
-            <button type="button" class="btn btn-danger" ng-click="delete()">Delete</button>
+
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
     </div>
