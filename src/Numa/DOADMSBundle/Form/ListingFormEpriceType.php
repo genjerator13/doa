@@ -17,7 +17,7 @@ class ListingFormEpriceType extends AbstractType
         $builder
             ->add('cust_name',null,array('label'=>'First Name *', 'required'=>true))
             ->add('cust_last_name',null,array('label'=>'Last Name *', 'required'=>true))
-            ->add('email', null, array('label'=>'Email *', 'required' => true))
+            ->add('email', 'email', array('label'=>'Email *', 'required' => true))
             ->add('phone')
             ->add('comment')
 
