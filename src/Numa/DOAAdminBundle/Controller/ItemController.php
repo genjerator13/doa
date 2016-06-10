@@ -651,6 +651,20 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $return;
     }
 
+    public function massActivate2Action(Request $request) {
+
+        $data = json_decode($request->get('data'));
+
+        $values =array();
+        foreach($data as $item_id){
+            $values[]=intval($item_id);
+            dump($item_id);
+        }
+        $item_ids = implode(",",$values);
+        dump($item_ids);
+        die();
+    }
+
     /**
      * deactivate an Item entity.
      *

@@ -274,6 +274,10 @@
 
                 var maxHeight = pgwSlideshow.plugin.find('.ps-current > ul > li.elt_1 img').height();
                 updateHeight(maxHeight);
+                $(".pgwSlideshow").height(maxHeight);
+                $(".right").height(maxHeight);
+                $(".right").css('z-index','50');
+                $(".ps-list").css('z-index','900');
             });
 
             // Enable slideshow
@@ -389,6 +393,10 @@
             if (maxHeightVideo) {
                 updateHeight(maxHeightVideo, true);
             }
+            $(".pgwSlideshow").height(maxHeight);
+            $(".right").height(maxHeight);
+            $(".right").css('z-index','50');
+            $(".ps-list").css('z-index','900');
             return true;
         }
 
