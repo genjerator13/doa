@@ -74,6 +74,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->listingListSlug();
         }elseif ($command == 'test') {
             $this->test();
+        }elseif ($command == 'photos') {
+            $this->itemImages();
         }
     }
 
@@ -509,6 +511,22 @@ class DBUtilsCommand extends ContainerAwareCommand
 
                 $listing->setSlug($slug);
                 dump($slug);
+            }
+        }
+        $em->flush();
+    }
+
+    public function itemImages()
+    {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+
+        foreach ($listings as $listing) {
+
+            if ($listing instanceof \Numa\DOAAdminBundle\Entity\Item) {
+                $photo = $listing->getCoverImageSrc();
+                $listing->setCoverPhoto($photo);
+
             }
         }
         $em->flush();

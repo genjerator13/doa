@@ -171,6 +171,12 @@ class ImageController extends Controller
                 ->set('if.sort_order', $order)
                 ->where('if.id=' . $id);
             $qb->getQuery()->execute();
+            if($order==0){
+                $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
+                $item = $if->getItem();
+                $item->setCoverPhoto($item->getCoverImageSrc());
+                $em->flush();
+            }
         }
         die();
     }
