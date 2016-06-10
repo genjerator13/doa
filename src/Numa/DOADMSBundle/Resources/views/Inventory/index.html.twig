@@ -56,20 +56,11 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-            <script type="text/ng-template" id="myModalContent.html">
-                <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
-            </script>
-            <script type="text/ng-template" id="myModalContent.html">
-                <div class="modal-header">
-                    <h3 class="modal-title">Please confirm</h3>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
-                </div>
-            </script>
-
+            <button type="button" class="btn btn-primary" ng-disabled="!gridApi.grid.options.multiSelect" ng-click="selectAll()">Select All</button>
+            <button type="button" class="btn btn-primary" ng-click="clearAll()">Clear All</button>
+            <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
+            <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
+            <button type="button" class="btn btn-danger" ng-click="delete()">Delete</button>
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
     </div>

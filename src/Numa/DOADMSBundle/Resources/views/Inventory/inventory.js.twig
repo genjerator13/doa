@@ -82,36 +82,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     ];
 
     $scope.items = ['item1', 'item2', 'item3'];
-
+    $scope.selected = {};
     $scope.animationsEnabled = true;
 
-    $scope.delete = function (row) {
-        console.log(row.entity.id);
-        var modalInstance = $uibModal.open({
-            animation: $scope.animationsEnabled,
-            templateUrl: 'myModalContent.html',
-            controller: 'ModalInstanceCtrl',
 
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
-            }
-        });
-
-        modalInstance.result.then(function (selectedItem) {
-            //ok
-
-            $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
-                    .success(function (data) {
-                        var index = $scope.gridOptions.data.indexOf(row.entity);
-                        $scope.gridOptions.data.splice(index, 1);
-                    });
-        }, function () {
-            //cancel
-        });
-
-
+    $scope.setActivate = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('/dms/inventory/activate', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    alert(data);
+                });
     }
 
     var canceler = $q.defer();
@@ -129,12 +109,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
             var msg = 'row selected ' + row.isSelected;
-            $log.log(msg);
+
+            $scope.selected['id'+row.entity.id] = row.entity.id;
+            $log.log($scope.selected);
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             var msg = 'rows changed ' + rows.length;
             $log.log(msg);
+            console.log($scope.selected);
         });
     };
 }]);
@@ -143,6 +126,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) 
     $scope.items = items;
     $scope.selected = {
         item: $scope.items[0]
+
     };
 
     $scope.ok = function () {
