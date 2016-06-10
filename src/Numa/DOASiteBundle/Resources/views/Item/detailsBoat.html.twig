@@ -50,7 +50,7 @@
                         <h2 class="section">{{ item.getListingTitle() }} <span
                                     classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
-
+<div class="row">
                         <div class="slideshow">
 
                             <ul class="pgwSlideshow">
@@ -75,7 +75,7 @@
                             </ul>
 
                         </div>
-
+</div>
                         {% if item.getItemFieldByName('youtube video id') is not empty %}
                             <div class='row'>
                                 <h4>Youtube video:</h4>
