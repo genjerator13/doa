@@ -790,6 +790,16 @@ class Item
 
         return $imagesSorted;
     }
+
+    public function getCoverImageSrc(){
+        $img = $this->getImage2();
+        if($img instanceof ItemField){
+            return $img->getFieldStringValue();
+        }
+        return "";
+    }
+
+
     public function getImage2($num = 0)
     {
         $images = $this->getImages2();
