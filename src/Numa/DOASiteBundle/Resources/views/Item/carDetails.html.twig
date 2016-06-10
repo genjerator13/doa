@@ -1,5 +1,5 @@
 {% set liclass="col-md-6 col-xs-6 col-sm-6 col-lg-6" %}
-<ul class="techData">
+
     {% if item.getStatus() is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Status: </span>
@@ -138,4 +138,3 @@
             <span class="fieldValue fieldValue">{{ item.getSellerComment()|raw }}</span>
         </li>
     {% endif %}
-</ul>
