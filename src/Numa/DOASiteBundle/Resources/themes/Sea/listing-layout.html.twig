@@ -9,7 +9,7 @@
     <title>Dealers on Air</title>
 
     {% block stylesheets %}
-        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css' '@pgw_slideshow_css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css' '@NumaDOASiteBundle/Resources/Public/Sea/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js'  '@pgw_slideshow_js' %}
+        {% javascripts '@bootstrapx_js'  '@NumaDOASiteBundle/Resources/Public/Sea/js/pgwslideshow.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
