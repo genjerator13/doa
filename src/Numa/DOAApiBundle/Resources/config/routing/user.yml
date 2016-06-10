@@ -1,0 +1,8 @@
+user_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:UserREST:all",_format: "json"}
+    requirements: { _method: get }
+user_api_all_dms:
+    path:     /alldms.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:UserREST:allDms",_format: "json"}
+    requirements: { _method: get }

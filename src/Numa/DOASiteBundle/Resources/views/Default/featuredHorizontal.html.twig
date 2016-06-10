@@ -15,7 +15,7 @@
                 {% set imagex=image.getUploadDir()~"/"~image.src %}
 
                 <div class="item {% if loop.first %}active{% endif %}">
-                    
+
                     {% if  "youtube" in image.src %}
                         <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(image.src)) }}" >
                             <img

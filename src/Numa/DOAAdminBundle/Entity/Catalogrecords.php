@@ -26,7 +26,7 @@ class Catalogrecords implements UserInterface
      * @var integer
      * @Expose
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -416,7 +416,9 @@ class Catalogrecords implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        if (!empty($password)) {
+            $this->password = $password;
+        }
 
         return $this;
     }
@@ -474,11 +476,6 @@ class Catalogrecords implements UserInterface
     public function setUserame($username)
     {
         $this->username = $username;
-    }
-
-    public function __sleep()
-    {
-        return array('id', 'name', 'email');
     }
 
     /**
@@ -1092,4 +1089,106 @@ class Catalogrecords implements UserInterface
     }
 
 
+    /**
+     * @var string
+     * @Expose
+     */
+    private $gst;
+
+
+    /**
+     * Set gst
+     *
+     * @param string $gst
+     *
+     * @return Catalogrecords
+     */
+    public function setGst($gst)
+    {
+        $this->gst = $gst;
+
+        return $this;
+    }
+
+    /**
+     * Get gst
+     *
+     * @return string
+     */
+    public function getGst()
+    {
+        return $this->gst;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $HomeTab;
+
+
+    /**
+     * Add homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return Catalogrecords
+     */
+    public function addHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        $this->HomeTab[] = $homeTab;
+
+        return $this;
+    }
+
+    /**
+     * Remove homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        return $this->HomeTab->removeElement($homeTab);
+    }
+
+    /**
+     * Get homeTab
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHomeTab()
+    {
+        return $this->HomeTab;
+    }
+
+    public function __sleep() {
+
+        // these are field names to be serialized, others will be excluded
+        // but note that you have to fill other field values by your own
+        return array('id',
+            'category_id',
+            'name',
+            'description',
+            'url',
+            'address',
+            'phone',
+            'location',
+            'email',
+            'fax',
+            'full',
+            'logo',
+            'logo_url',
+            'password',
+            'contact',
+            'dealer_id',
+            'address2',
+            'city',
+            'zip',
+            'state',
+            'username',
+            'Admindealer',
+            'dms_status',
+            'gst',
+        );
+    }
 }

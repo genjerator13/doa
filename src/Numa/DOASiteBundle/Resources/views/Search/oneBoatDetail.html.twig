@@ -1,3 +1,4 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     {% set images = item.getImages2() %}
     {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
@@ -7,33 +8,19 @@
     {% set dealer = item.getDealer() %}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
-        {{ dump(images) }}
+
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="picture-detail">
                 <a href="{{ detailUrl }}" class="thumbnail">
-
-                    {% if images is empty %}
-                        <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}"/>
-                    {% else %}
-                        {% set image = images|first.fieldStringValue %}
-                        {% if ('http' not in image) %}
-                            <img alt="{{ item.getTitle() }}"
-                                 src="{{ image|imagine_filter('search_image') }}"/>
-                        {% else %}
-                            <img alt="{{ item.getTitle() }}" src="{{ image }}"
-                                 width="120" height="90"/>
-                        {% endif %}
-
-
-                    {% endif %}
+                    {{ component.image(item.getCoverImageSrc(), item.getTitle(), '', 'search_image',120, 90) }}
                 </a>
             </div>
             <div class="shortDetails">
                 <h4>
                     <a href="{{ detailUrl }}">
-                        {{ item.getListingTitle() }} {% if (item.getSold()==1) %}<span
+                        {{ item.getTitle() }} {% if (item.getSold()==1) %}<span
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>

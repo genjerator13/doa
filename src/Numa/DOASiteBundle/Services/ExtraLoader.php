@@ -15,6 +15,7 @@ class ExtraLoader implements LoaderInterface
 
     public function load($resource, $type = null)
     {
+
         if (true === $this->loaded) {
             throw new \RuntimeException('Do not add this loader twice');
         }

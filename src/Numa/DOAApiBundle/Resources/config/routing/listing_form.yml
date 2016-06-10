@@ -1,0 +1,13 @@
+listing_form_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ListingFormREST:all",_format: "json"}
+    requirements: { _method: get }
+listing_form_by_dealer_api:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ListingFormREST:byDealer",_format: "json"}
+    requirements: { _method: get }
+
+listting_form_post:
+    pattern:  /post
+    defaults: { _controller: "NumaDOAApiBundle:ListingFormREST:postListingForm"}
+    requirements: { _method: post }

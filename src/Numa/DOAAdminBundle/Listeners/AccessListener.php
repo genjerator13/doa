@@ -37,6 +37,10 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
         {
             $response = new RedirectResponse($this->router->generate('numa_doa_admin_homepage'));            
         }
+        elseif ($this->checker->isGranted('ROLE_DMS_USER'))
+        {
+            $response = new RedirectResponse($this->router->generate('dms_home'));
+        }
         elseif ($this->checker->isGranted('ROLE_ADMIN'))
         {
             $response = new RedirectResponse($this->router->generate('numa_doa_admin_homepage'));

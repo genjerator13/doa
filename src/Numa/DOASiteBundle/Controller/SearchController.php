@@ -2,7 +2,9 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -15,8 +17,18 @@ use Doctrine\ORM\EntityRepository;
 use Numa\Util\searchParameters;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class SearchController extends Controller
-{
+class SearchController extends Controller implements DealerSiteControllerInterface{
+
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+    }
+
 
     protected $searchParameters;
     protected $queryUrl;
@@ -38,6 +50,7 @@ class SearchController extends Controller
             $parameters = $request->query->all();
 
             $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+
         }
 
         if (!empty($additionalParams)) {
@@ -54,6 +67,12 @@ class SearchController extends Controller
             $this->searchParameters->setAll($parameters);
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
+        //dump($parameters);die();
+
+        if($this->dealer instanceof Catalogrecords){
+            $parameters['dealer_id'] = $this->dealer->getId();
+            $parameters['dealer'] = $this->dealer;
+        }
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
         //$sortParams =  $parameters['search_field'];
@@ -68,6 +87,7 @@ class SearchController extends Controller
 
     public function searchAction(Request $request)
     {
+
         $this->initSearchParams($request);
 
         $page = $request->get('page');
@@ -84,20 +104,12 @@ class SearchController extends Controller
 
     public function showItems($query, $page = 1, $number = 10)
     {
-//        $stopwatch = new Stopwatch();
-//        $stopwatch->start('eventName');
-//        dump($query);
-        $items = $query->getResult();
 
-        //$stopwatch->lap('eventName');
+        $items = $query->getResult();
         $page = empty($page) ? 1 : $page;
-        //pagination
-        //$stopwatch->lap('eventName');
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter($query));
         $number = empty($number) ? 10 : $number;
         $pagerfanta->setMaxPerPage($number);
-        //$queryUrl = $this->searchParameters->makeUrlQuery();
-        //$stopwatch->lap('eventName');
         try {
             $pagerfanta->setCurrentPage($page);
         } catch (NotValidCurrentPageException $e) {
@@ -113,7 +125,8 @@ class SearchController extends Controller
             'queryUrl' => $this->queryUrl,
             'queryUrlNoSort' => $this->queryUrlNoSort,
             'sort_by' => $this->searchParameters->getSortBy(),
-            'sort_order' => $this->searchParameters->getSortOrder()
+            'sort_order' => $this->searchParameters->getSortOrder(),
+            'dealer' => $this->dealer,
         );
     }
 
@@ -1103,6 +1116,23 @@ class SearchController extends Controller
         $response = new Response(json_encode($ret));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+
+    public function searchByStatusAction(Request $request)
+    {
+        $page = empty($page) ? 1 : $page;
+
+        $this->initSearchParams($request);
+        $page = $request->get('page');
+
+        $number = intval($request->get('listings_per_page'));
+
+        //create query
+        $query = $this->searchParameters->createSearchQuery();
+        $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
 }

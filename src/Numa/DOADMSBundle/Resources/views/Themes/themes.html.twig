@@ -1,0 +1,19 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content %}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Theme chooser</h3>
+
+        </div>
+    </div>
+    <div class="box-body">
+        <form action="{{ path('dms_themes') }}">
+            <select name="theme">
+                <option value="Default">Default</option>
+                <option value="Sea">Sea</option>
+            </select>
+            <input class="btn btn-primary" type="submit" value="Switch Theme"/>
+        </form>
+<div>Current theme is : {{ theme }}</div>
+    </div>
+{% endblock %}

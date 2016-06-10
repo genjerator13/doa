@@ -10,6 +10,9 @@ Numa\DOAAdminBundle\Entity\HomeTab:
         category_id:
             type: integer
             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
         category_name:
             type: string
             length: 255
@@ -46,14 +49,16 @@ Numa\DOAAdminBundle\Entity\HomeTab:
     manyToOne:
         Category:
             targetEntity: Category
-            inversedBy: HomeTab
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-    manyToOne:
         ListingFieldLists:
             targetEntity: ListingFieldLists
-            inversedBy: HomeTab
             joinColumn:
                 name: listing_field_list_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            joinColumn:
+                name: dealer_id
                 referencedColumnName: id

@@ -2,3 +2,11 @@ customer_api_all:
     path:     /all.{_format}
     defaults: { _controller: "NumaDOAApiBundle:CustomerREST:all",_format: "json"}
     requirements: { _method: get }
+customer_api_single:
+    path:     /{customer_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:CustomerREST:single",_format: "json"}
+    requirements: { _method: get }
+customer_api_by_dealer:
+    path:     /dealer/{dealer_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:CustomerREST:byDealer",_format: "json"}
+    requirements: { _method: get }

@@ -9,6 +9,10 @@ services:
         tags:
            - { name: twig.extension }
         arguments:  [@Numa.Settings]
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+           - { name: twig.extension }
     Numa.Controller.Search:
         class: Numa\DOASiteBundle\Controller\SearchController
     Numa.Controller.Item:

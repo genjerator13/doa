@@ -2,11 +2,12 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOADMSBundle\Form\CustomerType;
+use Guzzle\Http\Client;
 
 /**
  * Customer controller.
@@ -21,13 +22,7 @@ class CustomerController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Customer')->findAll();
-
-        return $this->render('NumaDOADMSBundle:Customer:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render('NumaDOADMSBundle:Customer:index.html.twig');
     }
     /**
      * Creates a new Customer entity.
@@ -41,6 +36,11 @@ class CustomerController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload();
+
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $entity->setCatalogrecords($dealer);
+
             $em->persist($entity);
             $em->flush();
 
@@ -115,9 +115,21 @@ class CustomerController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        //getserializer
+        $serializer = $this->get('jms_serializer');
+        //create api client
+        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
+        $client = new Client($baseurl);
 
-        $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
+        //getResponse
+        $response = $client->get('/api/customer/'.$id)->send();
+
+        //deserialize response
+        $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
+        $em = $this->getDoctrine()->getManager();
+        //$entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
+
+        //dump($entity);die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');
@@ -170,6 +182,7 @@ class CustomerController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->upload();
             $em->flush();
             $this->addFlash("success","Customer: ".$entity->getName()." successfully updated.");
             return $this->redirect($this->generateUrl('customer', array('id' => $id)));

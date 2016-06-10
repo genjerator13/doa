@@ -103,6 +103,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        gst:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory
@@ -117,6 +121,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             cascade: [persist]
         Coupon:
             targetEntity: Coupon
+            mappedBy: Catalogrecords
+            cascade: [persist]
+        HomeTab:
+            targetEntity: Numa\DOAAdminBundle\Entity\HomeTab
             mappedBy: Catalogrecords
             cascade: [persist]
     lifecycleCallbacks:

@@ -1,0 +1,2 @@
+Numa\DOAAdminBundle\Entity\Item:
+    exclusion_policy: ALL
