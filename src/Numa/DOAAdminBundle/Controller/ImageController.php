@@ -163,9 +163,12 @@ class ImageController extends Controller
         $orders = $request->request->get('orders');
         $ordersArray = json_decode($orders, true);
         $em = $this->getDoctrine()->getManager();
+
         foreach ($ordersArray as $key => $order) {
             $id = (intval($key));
             $order = (intval($order));
+
+
             $qb = $em->getRepository("NumaDOAAdminBundle:ItemField")->createQueryBuilder('if')
                 ->update()
                 ->set('if.sort_order', $order)
@@ -174,9 +177,13 @@ class ImageController extends Controller
             if($order==0){
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
-                $item->setCoverPhoto($item->getCoverImageSrc());
-                $em->flush();
+                $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
+                    ->update()
+                    ->set('i.cover_photo', "'".$if->getFieldStringValue()."'")
+                    ->where('i.id=' . $if->getItemId());
+                $qb->getQuery()->execute();
             }
+
         }
         die();
     }
