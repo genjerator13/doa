@@ -520,13 +520,17 @@ class DBUtilsCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-
+        $i=0;
         foreach ($listings as $listing) {
-
+            $i++;
             if ($listing instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $photo = $listing->getCoverImageSrc();
                 $listing->setCoverPhoto($photo);
 
+            }
+            if($i % 50 == 0){
+                $em->flush();
+                dump($i);
             }
         }
         $em->flush();
