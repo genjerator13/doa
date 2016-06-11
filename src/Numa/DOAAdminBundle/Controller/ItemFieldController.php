@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\ItemField;
@@ -207,6 +208,12 @@ class ItemFieldController extends Controller {
                 if (!$entity) {
                     throw $this->createNotFoundException('Unable to find ItemField entity.');
                 }
+//                $item = $entity->getItem();
+//                if($item instanceof Item)
+//                {
+//                    $item->setCoverPhoto($item->getCoverImageSrc());
+//                }
+
 
                 $em->remove($entity);
             }

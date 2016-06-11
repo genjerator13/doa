@@ -110,6 +110,7 @@
             Dropzone.options.drop = {
                 init: function () {
                     this.on("queuecomplete", function (file) {
+                        alert("AAAAAAAAAAAAAAA");
                         location.reload();
                     });
                 }

@@ -51,38 +51,6 @@
                         </h1>
 
                         <div class="listing-images row">
-                            <div class="row">
-                            <div class="slideshow-sea">
-                                <ul class="pgwSlideshow">
-                                    {% for key,image in images %}
-                                        <li data-order="{{ image.sortOrder }}">
-                                            {% if ('http' not in image.fieldStringValue) %}
-                                                <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
-                                            {% else %}
-                                                {% set videoid="" %}
-                                                {% set img=image.fieldStringValue %}
-                                                {% if ('youtube' in image.fieldStringValue) %}
-                                                    {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                                    {% set img=getYoutubeThumb(videoid) %}
-                                                {% endif %}
-                                                <img data-video="{{ videoid }}" src="{{ img }}"/>
-
-                                            {% endif %}
-                                        </li>
-                                    {% endfor %}
-
-
-                                </ul>
-                                <script>
-                                    $(document).ready(function () {
-                                        $('.pgwSlideshow').pgwSlideshow();
-
-                                    });
-
-
-                                </script>
-                            </div>
-                            </div>
                             <div class="left col-md-6">
 
                                 {% if images|length==1 %}
@@ -100,6 +68,36 @@
                                         {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
                                     {% endif %}
                                 {% else %}
+                                    <div class="slideshow">
+                                        <ul class="pgwSlideshow">
+                                            {% for key,image in images %}
+                                                <li data-order="{{ image.sortOrder }}">
+                                                    {% if ('http' not in image.fieldStringValue) %}
+                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                                    {% else %}
+                                                        {% set videoid="" %}
+                                                        {% set img=image.fieldStringValue %}
+                                                        {% if ('youtube' in image.fieldStringValue) %}
+                                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                            {% set img=getYoutubeThumb(videoid) %}
+                                                        {% endif %}
+                                                        <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+
+
+                                        </ul>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('.pgwSlideshow').pgwSlideshow();
+
+                                            });
+
+
+                                        </script>
+                                    </div>
                                 {% endif %}
                             </div>
 
