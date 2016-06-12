@@ -1,12 +1,14 @@
 {% extends is_granted('ROLE_BUSINES')
 ? 'NumaDOASiteBundle::home-layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts  '@dropzone_js'  '@colorbox_js' '@sortable_js' %}
+    {% javascripts    '@colorbox_js' '@sortable_js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
+
 {% block content %}
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
@@ -17,7 +19,7 @@
             {#<input type="submit" value="Upload" />#}
         </form>
         {#<div class="row">#}
-            {#{{ form(addVideoForm) }}#}
+        {#{{ form(addVideoForm) }}#}
         {#</div>#}
         <div id="item-images">
             <div class="row">
@@ -35,12 +37,10 @@
             </div>
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
-            <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
-                  name="images-delete">
+            {#<form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"#}
+                  {#name="images-delete">#}
                 <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                        All</a><a id="delete-selected" href=""
-                                  data-confirm="Are you sure you want to delete all the selected images?">Delete
-                        Selected</a></div>
+                        All</a><a id="delete-selected" href="#">Delete Selected</a></div>
 
                 <h1>Images list</h1>
 
@@ -67,41 +67,33 @@
                                                          class="image-checkbox">
                             </div>
                             <div class="col-md-2">
-                                {% if  "http" not in image.getFieldStringValue() %}
-                                    <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
-                                        <img
-                                                src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                                class="thumbnail"
-                                                alt="image"/>
-                                    </a>
+                                {% if  "youtube" in image.getFieldStringValue() %}
+                                <a class="colorbox"
+                                   href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
+                                    <img
+                                            src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
+                                            alt="image"
+                                            width="120px"
+                                            class="thumbnail"/>
+                                </a>
+
                                 {% else %}
-                                    {% if  "youtube" in image.getFieldStringValue() %}
-                                        <a class="colorbox" href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
-                                            <img
-                                                    src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
-                                                    alt="image"
-                                                    width="120px"
-                                                    class="thumbnail"/>
-                                        </a>
-                                    {% else %}
-                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
-                                            <img
-                                                    src="{{ image.getFieldStringValue() }}" alt="image"
-                                                    width="120px"
-                                                    class="thumbnail"/>
-                                        </a>
-                                    {% endif %}
+                                <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
+                                    {{ component.image(image.getFieldStringValue(), '', 'thumbnail', 'search_image',"120px") }}
+                                </a>
                                 {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                            class='glyphicon glyphicon-trash'></i></a></div>
+                                <a  data-id="{{ image.id }}" id="delete-single">
+                                    <i class='glyphicon glyphicon-trash'></i>
+                                </a>
+                            </div>
                         </li>
                         {% endfor %}
                     </ul>
                 </div>
-            </form>
-            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+            {#</form>#}
+
             {% endif %}
         </div>
     </div>
@@ -110,6 +102,7 @@
             Dropzone.options.drop = {
                 init: function () {
                     this.on("queuecomplete", function (file) {
+
                         location.reload();
                     });
                 }
@@ -133,24 +126,54 @@
         });
 
         $("#delete-selected").click(function (ev) {
+            ev.preventDefault();
+            var sList = {};
+            i=0;
+            $('input[type=checkbox]').each(function () {
+                if(this.checked){
+                    i++;
+                    ind = "i"+i;
+                    sList[ind]=$(this).val();
+                }
 
-            var href = $("form").attr('action');
-            $('.modal-body').html("");
-
-            if (!$('#dataConfirmModal').length) {
-                $('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
-                //$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');
-
-
-            }
-
-            $("a#dataConfirmOK").live("click", function () {
-
-                $("form").submit();
             });
+            console.log (sList);
+            $.ajax(
+                    {
+                        url: '{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}',
+                        type: "POST",
+                        data: sList,
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            alert("xxx");
+                            location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("Error");
+                        }
+                    });
+        });
 
-            $('#dataConfirmModal').modal({show: true});
-            return false;
+        $("#delete-single").click(function (ev) {
+            ev.preventDefault();
+            id = $(this).data('id');
+            console.log (id);
+            $.ajax(
+                    {
+                        url: '{{ path('itemfield_delete')}}',
+                        type: "POST",
+                        data: {'id':id},
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            
+                            location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("Error");
+                        }
+                    });
         });
 
         $("#saveorder").click(function (ev) {

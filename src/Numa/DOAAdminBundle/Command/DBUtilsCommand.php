@@ -520,16 +520,19 @@ class DBUtilsCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-
+        $i=0;
         foreach ($listings as $listing) {
-
+            $i++;
             if ($listing instanceof \Numa\DOAAdminBundle\Entity\Item) {
                 $photo = $listing->getCoverImageSrc();
-                $listing->setCoverPhoto($photo);
-
+                $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
+                    ->update()
+                    ->set('i.cover_photo', "'".$photo."'")
+                    ->where('i.id=' . $listing->getId());
+                $qb->getQuery()->execute();
             }
+            dump($i);
         }
-        $em->flush();
     }
 
     public function test(){
