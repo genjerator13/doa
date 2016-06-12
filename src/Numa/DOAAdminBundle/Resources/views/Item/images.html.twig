@@ -84,7 +84,7 @@
                                 {% endif %}
                             </div>
                             <div class="col-md-3">
-                                <a  data-id="{{ image.id }}" id="delete-single">
+                                <a  data-id="{{ image.id }}" class="delete-single" href="#">
                                     <i class='glyphicon glyphicon-trash'></i>
                                 </a>
                             </div>
@@ -145,7 +145,6 @@
                         data: sList,
                         success: function(data, textStatus, jqXHR)
                         {
-                            alert("xxx");
                             location.reload();
                         },
                         error: function(jqXHR, textStatus, errorThrown)
@@ -155,7 +154,7 @@
                     });
         });
 
-        $("#delete-single").click(function (ev) {
+        $(".delete-single").click(function (ev) {
             ev.preventDefault();
             id = $(this).data('id');
             console.log (id);
