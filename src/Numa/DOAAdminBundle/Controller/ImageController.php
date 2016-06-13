@@ -179,11 +179,8 @@ class ImageController extends Controller
             if($order==0){
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
-                $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
-                    ->update()
-                    ->set('i.cover_photo', "'".$if->getFieldStringValue()."'")
-                    ->where('i.id=' . $if->getItemId());
-                $qb->getQuery()->execute();
+                $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
+
             }
 
         }
