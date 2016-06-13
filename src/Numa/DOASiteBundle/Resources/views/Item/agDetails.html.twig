@@ -1,12 +1,7 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% set liclass="col-md-6 col-xs-6 col-sm-6 col-lg-6" %}
-{{ component.listingField(item.getStatus(),liclass, "Status") }}www
-    {% if item.getStatus() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Status: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
-        </li>
-    {% endif %}
+{{ component.listingField(item.getStatus(),liclass, "Status") }}
+
     {% if item.getYear() is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Year: </span>
