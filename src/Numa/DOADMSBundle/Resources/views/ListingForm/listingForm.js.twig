@@ -55,7 +55,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true, width: 60,
             cellTemplate: '<span ng-if="row.entity.contact_by == \'Email\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'Phone\'" class="glyphicon glyphicon-phone"></span>',
         },
-        {name: 'email', enableColumnResizing: true},
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
         {name: 'phone', enableColumnResizing: true},
         {name: 'date_drive', enableColumnResizing: true, width: 90, cellFilter: 'date:\'yyyy-MM-dd\''},
         {name: 'comment', enableColumnResizing: true},
