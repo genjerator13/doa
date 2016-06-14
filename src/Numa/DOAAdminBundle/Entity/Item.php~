@@ -790,6 +790,16 @@ class Item
 
         return $imagesSorted;
     }
+
+    public function getCoverImageSrc(){
+        $img = $this->getImage2();
+        if($img instanceof ItemField){
+            return $img->getFieldStringValue();
+        }
+        return "";
+    }
+
+
     public function getImage2($num = 0)
     {
         $images = $this->getImages2();
@@ -4402,5 +4412,63 @@ class Item
     public function getRemotes()
     {
         return $this->remotes;
+    }
+    /**
+     * @var int
+     */
+    private $grey_water_capacity;
+
+
+    /**
+     * Set greyWaterCapacity
+     *
+     * @param int $greyWaterCapacity
+     *
+     * @return Item
+     */
+    public function setGreyWaterCapacity($greyWaterCapacity)
+    {
+        $this->grey_water_capacity = $greyWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get greyWaterCapacity
+     *
+     * @return int
+     */
+    public function getGreyWaterCapacity()
+    {
+        return $this->grey_water_capacity;
+    }
+    /**
+     * @var string
+     */
+    private $cover_phote;
+
+
+    /**
+     * Set coverPhote
+     *
+     * @param string $coverPhote
+     *
+     * @return Item
+     */
+    public function setCoverPhote($coverPhote)
+    {
+        $this->cover_phote = $coverPhote;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhote
+     *
+     * @return string
+     */
+    public function getCoverPhote()
+    {
+        return $this->cover_phote;
     }
 }

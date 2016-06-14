@@ -10,7 +10,13 @@ dms_items_new:
 dms_items_edit:
     pattern:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Item:edit",_dashboard: "DMS" }
-
+dms_item_activate:
+    path:     /activate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massActivate2" }
+dms_item_deactivate:
+    path:     /deactivate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massDeactivate2" }
+    #requirements: { _method: post }
 #
 #inventory_new:
 #    path:     /new

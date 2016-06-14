@@ -443,6 +443,10 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        cover_photo:
+              type: string
+              length: 255
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

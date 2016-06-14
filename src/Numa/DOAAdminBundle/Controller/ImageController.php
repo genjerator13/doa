@@ -38,7 +38,7 @@ class ImageController extends Controller
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
             ->orderBy(array('sortOrder' => Criteria::ASC));
         $images = $item->getItemField()->matching($criteria);
-        ///
+
 
         foreach ($images as $image) {
 
@@ -47,9 +47,10 @@ class ImageController extends Controller
 
                 $imageSource = $image->getFieldStringValue();
 
-                //dump($upload_path);
 
-                if (!file_exists($upload_path . $imageSource)) {
+
+                if (!file_exists($upload_path . $imageSource) || is_dir($upload_path . $imageSource)) {
+
                     $imageSource = "/images/no_image_available_small.png";
                 }
 
@@ -57,16 +58,17 @@ class ImageController extends Controller
                 $imagemanagerResponse = $this->container
                     ->get('liip_imagine.controller')
                     ->filterAction(
-                        $this->getRequest(), $imageSource, 'item_detail_image'
+                        $request, $imageSource, 'item_detail_image'
                     );
+
                 $imagemanagerResponse = $this->container
                     ->get('liip_imagine.controller')
                     ->filterAction(
-                        $this->getRequest(), $imageSource, 'search_image'
+                        $request, $imageSource, 'search_image'
                     );
             }
         }
-        //}
+
 
 
         ///
@@ -163,14 +165,24 @@ class ImageController extends Controller
         $orders = $request->request->get('orders');
         $ordersArray = json_decode($orders, true);
         $em = $this->getDoctrine()->getManager();
+
         foreach ($ordersArray as $key => $order) {
             $id = (intval($key));
             $order = (intval($order));
+
+
             $qb = $em->getRepository("NumaDOAAdminBundle:ItemField")->createQueryBuilder('if')
                 ->update()
                 ->set('if.sort_order', $order)
                 ->where('if.id=' . $id);
             $qb->getQuery()->execute();
+            if($order==0){
+                $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
+                $item = $if->getItem();
+                $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
+
+            }
+
         }
         die();
     }

@@ -218,12 +218,7 @@ class ItemRepository extends EntityRepository
 
     public function getAllListings(){
         //$sql = "SELECT * FROM item";
-        $sql = "SELECT DISTINCT f.sort_order, i. * , f.field_string_value as photo
-FROM item AS i
-RIGHT JOIN item_field AS f ON i.id = f.item_id
-WHERE i.active =1
-GROUP BY i.id
-ORDER BY i.id,f.sort_order ASC";
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         //$rows = $stmt->fetchAll();
@@ -642,6 +637,31 @@ ORDER BY i.id,f.sort_order ASC";
 
         return $itemsQuery->getOneOrNullResult();
     }
+
+    public function setCoverPhoto($item_id, $src){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->update('NumaDOAAdminBundle:Item','i')
+            ->set('i.cover_photo', $src)
+            ->where('i.id=' . $item_id);
+        $qb->getQuery()->execute();
+    }
+
+    /**
+     * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function activate($ids,$active=true){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->update('NumaDOAAdminBundle:Item','i')
+            ->set('i.active', $active)
+            ->where('i.id in (' . $ids.")");
+        $qb->getQuery()->execute();
+    }
+
+
 
 
 }
