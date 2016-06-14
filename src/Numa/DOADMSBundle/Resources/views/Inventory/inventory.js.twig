@@ -78,6 +78,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key-1].active=1;
                     });
+                    $scope.selected={}
+                    $scope.gridApi.selection.clearSelectedRows();
                 });
     }
     $scope.setDeactivate = function () {
@@ -88,6 +90,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key-1].active=0;
                     });
+                    $scope.selected={}
+                    $scope.gridApi.selection.clearSelectedRows();
                 });
     }
     $scope.setDelete = function () {
@@ -100,6 +104,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $scope.gridOptions.data.splice(key-i, 1);
                         i++;
                     });
+                    $scope.selected={}
+                    $scope.gridApi.selection.clearSelectedRows();
+                    angular.forEach(data, function(data, index) {
+                        data.index = index+1;
+                        //data.push({"index":index+1})
+                    })
                 });
     }
 
@@ -130,7 +140,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             var msg = 'rows changed ' + rows.length;
-            $log.log(msg);
+            $log.log(rows);
+            angular.forEach(rows, function(value, key) {
+                $scope.selected[value.entity.index] = value.entity.id;
+            });
             console.log($scope.selected);
         });
     };
