@@ -58,7 +58,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
         $grid = $this->get('grid');
 
-        //$grid->setDefaultOrder("date_created", "desc");
+        //$grid->setDefaultOrderOrder("date_created", "desc");
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
         $imageColumn->setTitle("Image");
@@ -649,6 +649,43 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $entity->setActivationDate(new \DateTime());
         $em->flush();
         return $return;
+    }
+
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massActivate2Action(Request $request) {
+        $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
+        die();
+    }
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeactivate2Action(Request $request) {
+
+        $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,false);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed listings ID separated by "," needed for massDeactivate2Action and massActivate2Action
+     *
+     */
+    private function getActivationParams(Request $request){
+        $data = json_decode($request->get('data'));
+        $values =array();
+        foreach($data as $item_id){
+            $values[]=intval($item_id);
+        }
+        $item_ids = implode(",",$values);
+        return $item_id;
     }
 
     /**

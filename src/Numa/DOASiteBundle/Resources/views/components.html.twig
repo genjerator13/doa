@@ -19,3 +19,26 @@
         {% endif %}
     {% endif %}
 {% endmacro %}
+
+{% macro listingFieldInput(field,label, mainclass,widgetClass) %}
+<div class="{{ mainclass }}">
+    {% if(label is not empty) %}
+        {{ form_label(field,label) }}
+    {% else %}
+        {{ form_label(field) }}
+    {% endif %}
+
+    <div class="{{ widgetClass }}">
+        {{ form_widget(field) }}
+    </div>
+</div>
+{% endmacro %}
+
+{% macro listingField(field,liclass,label) %}
+    {% if field is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption">{{ label }}: </span>
+            <span class="fieldValue">{{ field }}</span>
+        </li>
+    {% endif %}
+{% endmacro %}

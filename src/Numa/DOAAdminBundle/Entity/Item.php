@@ -3974,7 +3974,7 @@ class Item
     {
         if($this->getRetailPrice() > $this->getPrice())
         {
-            return "<div class='retail_price'>Retail Price: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
+            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
 
         }
     }
@@ -4441,5 +4441,63 @@ class Item
     public function getGreyWaterCapacity()
     {
         return $this->grey_water_capacity;
+    }
+    /**
+     * @var string
+     */
+    private $cover_phote;
+
+
+    /**
+     * Set coverPhote
+     *
+     * @param string $coverPhote
+     *
+     * @return Item
+     */
+    public function setCoverPhote($coverPhote)
+    {
+        $this->cover_phote = $coverPhote;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhote
+     *
+     * @return string
+     */
+    public function getCoverPhote()
+    {
+        return $this->cover_phote;
+    }
+    /**
+     * @var string
+     */
+    private $cover_photo;
+
+
+    /**
+     * Set coverPhoto
+     *
+     * @param string $coverPhoto
+     *
+     * @return Item
+     */
+    public function setCoverPhoto($coverPhoto)
+    {
+        $this->cover_photo = $coverPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhoto
+     *
+     * @return string
+     */
+    public function getCoverPhoto()
+    {
+        return $this->cover_photo;
     }
 }
