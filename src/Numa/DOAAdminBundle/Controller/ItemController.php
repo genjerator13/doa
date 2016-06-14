@@ -656,7 +656,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Activates elected listings in datagrid on listing list page
      */
     public function massActivate2Action(Request $request) {
-        $this->getActivationParams($request);
+        $ids = $this->getActivationParams($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
         die();
@@ -667,11 +667,26 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      */
     public function massDeactivate2Action(Request $request) {
 
-        $this->getActivationParams($request);
+        $ids = $this->getActivationParams($request);
+
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,false);
         die();
     }
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDelete2Action(Request $request) {
+
+        $ids = $this->getActivationParams($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->delete($ids);
+        die();
+    }
+
 
     /**
      * @param Request $request
@@ -685,7 +700,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $values[]=intval($item_id);
         }
         $item_ids = implode(",",$values);
-        return $item_id;
+        return $item_ids;
     }
 
     /**
