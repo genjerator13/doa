@@ -661,6 +661,19 @@ class ItemRepository extends EntityRepository
         $qb->getQuery()->execute();
     }
 
+    /**
+     * @param $ids
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function delete($ids){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->delete('NumaDOAAdminBundle:Item','i')
+            ->where('i.id in (' . $ids.")");
+        $qb->getQuery()->execute();
+        dump($ids);die();
+    }
+
 
 
 

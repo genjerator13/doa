@@ -51,7 +51,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'category',displayName:'Category',enableColumnResizing: true,width: 70},
         {name: 'active', enableColumnResizing: true, width: 50},
         {name: 'views', enableColumnResizing: true, width: 50},
-        {#{name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
         {name: 'sold', enableColumnResizing: true, width: 50},
         {name: 'featured', enableColumnResizing: true, width: 50},
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
@@ -61,23 +60,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'discount1', enableColumnResizing: true, width: 90},
         {name: 'discount2', enableColumnResizing: true, width: 90},
         {name: 'sale_amount', enableColumnResizing: true, width: 90},
-        {#{name: 'expiration_date', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},#}
 
-        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
-        {name:'views',enableColumnResizing: true,width: 60},
-        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'_dealer.name',displayName:'Dealer'},
-        {
-            name:'sold',
-            enableColumnResizing: true,width: 50,
-            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },
-        {
-            name:'active',
-            enableColumnResizing: true,width: 60,
-            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },#}
 
     ];
 
@@ -104,6 +87,18 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                     angular.forEach($scope.selected, function(value, key) {
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key-1].active=0;
+                    });
+                });
+    }
+    $scope.setDelete = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    i=1
+                    angular.forEach($scope.selected, function(value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data.splice(key-i, 1);
+                        i++;
                     });
                 });
     }
