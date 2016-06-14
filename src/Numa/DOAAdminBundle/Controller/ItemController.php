@@ -668,7 +668,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $ids = $this->getActivationParams($request);
 
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,false);
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,0);
         die();
     }
 
