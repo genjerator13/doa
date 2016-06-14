@@ -6,13 +6,19 @@ namespace Numa\DOASiteBundle\Services;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Loader\LoaderResolverInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
 class ExtraLoader implements LoaderInterface
 {
     private $loaded = false;
+    protected $container;
 
+    public function __construct(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
     public function load($resource, $type = null)
     {
 
@@ -21,8 +27,7 @@ class ExtraLoader implements LoaderInterface
         }
 
         $routes = new RouteCollection();
-
-        $pattern = '/extra';
+        $pattern = '/bbb';
         $defaults = array(
             '_controller' => 'NumaDOASiteBundle:Default:Index',
         );
