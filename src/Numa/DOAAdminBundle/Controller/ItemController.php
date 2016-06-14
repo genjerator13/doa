@@ -651,44 +651,41 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $return;
     }
 
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
     public function massActivate2Action(Request $request) {
-
-        $data = json_decode($request->get('data'));
-
-        $values =array();
-        foreach($data as $item_id){
-            $values[]=intval($item_id);
-            dump($item_id);
-        }
-        $item_ids = implode(",",$values);
+        $this->getActivationParams($request);
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
-            ->update()
-            ->set('i.active', true)
-            ->where('i.id in (' . $item_ids.")");
-        $qb->getQuery()->execute();
-        dump($item_ids);
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
+        die();
+    }
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeactivate2Action(Request $request) {
+
+        $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,false);
         die();
     }
 
-    public function massDeactivate2Action(Request $request) {
-
+    /**
+     * @param Request $request
+     * @return mixed listings ID separated by "," needed for massDeactivate2Action and massActivate2Action
+     *
+     */
+    private function getActivationParams(Request $request){
         $data = json_decode($request->get('data'));
-
         $values =array();
         foreach($data as $item_id){
             $values[]=intval($item_id);
-            dump($item_id);
         }
         $item_ids = implode(",",$values);
-        $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
-            ->update()
-            ->set('i.active', 0)
-            ->where('i.id in (' . $item_ids.")");
-        $qb->getQuery()->execute();
-        dump($item_ids);
-        die();
+        return $item_id;
     }
 
     /**
