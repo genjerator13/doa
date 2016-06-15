@@ -64,4 +64,7 @@ dms_component:
 NumaDOADMSBundle_listingform:
     resource: "@NumaDOADMSBundle/Resources/config/routing/listingform.yml"
     prefix:   /listingform
+NumaDOAAdminBundle_importfeed:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/importfeed.yml"
+    prefix:   /featuredimport
 
