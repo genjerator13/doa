@@ -67,4 +67,10 @@ NumaDOADMSBundle_listingform:
 NumaDOAAdminBundle_importfeed:
     resource: "@NumaDOADMSBundle/Resources/config/routing/importfeed.yml"
     prefix:   /featuredimport
+NumaDOAAdminBundle_import_mapping:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/importmapping.yml"
+    prefix:   /import_mapping
+command_log:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/command_log.yml"
+    prefix:   /command_log
 
