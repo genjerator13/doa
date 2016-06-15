@@ -180,7 +180,7 @@ class ImageController extends Controller
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
                 $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
-
+                dump($if->getFieldStringValue());
             }
 
         }
