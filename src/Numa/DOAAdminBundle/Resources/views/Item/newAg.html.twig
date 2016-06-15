@@ -17,75 +17,26 @@
             {{ form_widget(form.agApplication, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.type) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.type) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.retail_price) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.retail_price) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.price) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.price) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.mileage) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.mileage) }}
-        </div>
-    </div>
+    {{ component.listingFieldInput(form.type,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.mileage,"", "form-group","col-sm-9") }}
+
     <div class="form-group">
         {{ form_label(form.driveType, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.driveType, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.engine) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.engine) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.horsepower) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.horsepower) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.ofHours) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.ofHours) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.pto_horsepower) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.pto_horsepower) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.dbrhorsepower) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.dbrhorsepower) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.remotes) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.remotes) }}
-        </div>
-    </div>
+    {{ component.listingFieldInput(form.engine,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.horsepower,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.ofHours,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.pto_horsepower,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.dbrhorsepower,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.remotes,"", "form-group","col-sm-9") }}
     <div class="form-group">
         {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
-        <div class="col-sm-9">                            
+        <div class="col-sm-9">
             {{ form_widget(form.fuelType, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
@@ -95,53 +46,17 @@
             {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.operatorStation) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.operatorStation) }}
-        </div>
-    </div>
+    {{ component.listingFieldInput(form.operatorStation,"", "form-group","col-sm-9") }}
     <div class="form-group">
         {{ form_label(form.steeringType, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.steeringType, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.speedForward) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.speedForward) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.speedReverse) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.speedReverse) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.tireSize) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.tireSize) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.tireEquipment) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.tireEquipment) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.cuttingWidth) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.cuttingWidth) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.iwNo) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.iwNo) }}
-        </div>
-    </div>            
+    {{ component.listingFieldInput(form.speedForward,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.speedReverse,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.tireSize,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.tireEquipment,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.cuttingWidth,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.iwNo,"", "form-group","col-sm-9") }}
 {% endblock %}

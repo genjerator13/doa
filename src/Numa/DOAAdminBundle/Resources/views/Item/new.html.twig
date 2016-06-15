@@ -297,34 +297,39 @@
                                             Submit
                                         </button>
                                     </li>
+
                                     {% if(not is_granted('ROLE_BUSINES')) %}
-                                        <li>
-                                            <a href="{{ path('items') }}" class="btn btn-default">
-                                                Back to the list without saving
-                                            </a>
-                                        </li>
+                                    {% if(app.request.get('_dashboard')=='DMS') %}
+                                        <a href="{{ path('inventory') }}" class="btn btn-default">
+                                            Back to the list without saving
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('items') }}" class="btn btn-default">
+                                            Back to the list without saving
+                                        </a>
+                                    {% endif %}
                                     {% endif %}
                                 </ul>
                             </div>
                         </div>
                 </div>
-                <div id="SEO" class="tab-pane">
-                    {{ form_widget(seo) }}
-                    <ul class="list-inline">
-                        <li>
-                            <button class="btn btn-success">
-                                Submit
-                            </button>
-                        </li>
-                        {% if(not is_granted('ROLE_BUSINES')) %}
-                            <li>
-                                <a href="{{ path('items') }}" class="btn btn-default">
-                                    Back to the list without saving
-                                </a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                </div>
+                {#<div id="SEO" class="tab-pane">#}
+                    {#{{ form_widget(seo) }}#}
+                    {#<ul class="list-inline">#}
+                        {#<li>#}
+                            {#<button class="btn btn-success">#}
+                                {#Submit#}
+                            {#</button>#}
+                        {#</li>#}
+                        {#{% if(not is_granted('ROLE_BUSINES')) %}#}
+                            {#<li>#}
+                                {#<a href="{{ path('items') }}" class="btn btn-default">#}
+                                    {#Back to the list without saving#}
+                                {#</a>#}
+                            {#</li>#}
+                        {#{% endif %}#}
+                    {#</ul>#}
+                {#</div>#}
                 </form>
 
             </div>

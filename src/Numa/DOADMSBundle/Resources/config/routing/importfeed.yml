@@ -1,0 +1,39 @@
+dms_importfeed:
+    pattern:  /feed
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:index",_dashboard:"DMS" }
+dms_mapping:
+    pattern:  /mapping
+    defaults: { _controller: "NumaDOAAdminBundle:Mapping:index",_dashboard:"DMS" }
+dms_mapping_feed:
+    pattern:  /mapping/{id}
+    defaults: { _controller: "NumaDOAAdminBundle:Mapping:mapping",_dashboard:"DMS" }
+
+dms_importfeed_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:show",_dashboard:"DMS" }
+
+dms_importfeed_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:new",_dashboard:"DMS" }
+
+dms_importfeed_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:create",_dashboard:"DMS" }
+    requirements: { _method: post }
+
+dms_importfeed_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:edit",_dashboard:"DMS" }
+
+dms_importfeed_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+
+dms_importfeed_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:delete",_dashboard:"DMS" }
+    requirements: { _method: post|delete }
+dms_importfeed_items_delete:
+    pattern:  /{id}/delete_items
+    defaults: { _controller: "NumaDOAAdminBundle:Importfeed:deleteItems",_dashboard:"DMS" }
