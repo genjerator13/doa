@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
  
 {% block content %}
     <h1>Importmapping edit</h1>
@@ -7,9 +9,15 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('import_mapping') }}">
-            Back to the list
-        </a>
+        {% if(app.request.get('_dashboard')=='DMS') %}
+            <a href="{{ path('dms_import_mapping') }}">
+                Back to the list
+            </a>
+        {% else %}
+            <a href="{{ path('import_mapping') }}">
+                Back to the list
+            </a>
+        {% endif %}
     </li>
     <li>{{ form(delete_form) }}</li>
 </ul>

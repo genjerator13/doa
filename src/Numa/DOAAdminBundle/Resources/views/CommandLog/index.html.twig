@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <div class="box box-default">
@@ -6,7 +8,11 @@
         <div class="box-header">
 
             <div class="box-tools">
-                <a href="{{ path('command_log_start') }}" class="btn btn-primary">Start command queue</a>
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a href="{{ path('dms_command_log_start') }}" class="btn btn-primary">Start command queue</a>
+                {% else %}
+                    <a href="{{ path('command_log_start') }}" class="btn btn-primary">Start command queue</a>
+                {% endif %}
             </div>
         </div>
         <div class="box-body table-responsive no-padding">
@@ -35,9 +41,15 @@
                             {% if (entity.status=='started' or entity.status=='finished' or entity.status=='ERROR' ) %} count({{ entity.count }}),current:({% if entity.status=='started' %} {{ memcacheGet('command:progress:'~entity.id) }}{% else %}{{ entity.current }}{% endif %}){% endif %}
                         </td>
                         <td>
-                            <a href="{{ path('command_log_detail',{'id':entity.id}) }}"
-                               class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}">Show
-                                details</a>
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('dms_command_log_detail',{'id':entity.id}) }}"
+                                   class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}">Show
+                                    details</a>
+                            {% else %}
+                                <a href="{{ path('command_log_detail',{'id':entity.id}) }}"
+                                   class="btn btn-primary {% if entity.status !="finished" and entity.status !="ERROR" %} disabled{% endif %}">Show
+                                    details</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
