@@ -17,7 +17,7 @@ class SeoLib
         $this->container = $container;
     }
 
-    public function prepareSeo(Item $item, array $seoPosts=array(),$autogenerate=true,$flush=true,$em=null){
+    public function prepareSeo(Item $item, $seoPosts=array(),$autogenerate=true,$flush=true,$em=null){
         if($em==null) {
             $em = $this->container->get('doctrine.orm.entity_manager');
         }
