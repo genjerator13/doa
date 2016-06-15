@@ -1,20 +1,20 @@
-#component:
-#    path:     /
-#    defaults: { _controller: "NumaDOAModuleBundle:Component:index" }
-#
+component:
+    path:     /
+    defaults: { _controller: "NumaDOAModuleBundle:Component:index" }
+
 #component_show:
 #    path:     /{id}/show
 #    defaults: { _controller: "NumaDOAModuleBundle:Component:show" }
 #
-#component_new:
-#    path:     /new
-#    defaults: { _controller: "NumaDOAModuleBundle:Component:new" }
+component_new:
+    path:     /new
+    defaults: { _controller: "NumaDOAModuleBundle:Component:new" }
 
-#component_create:
-#    path:     /create
-#    defaults: { _controller: "NumaDOAModuleBundle:Component:create" }
-#    requirements: { _method: post }
-#
+component_create:
+    path:     /create
+    defaults: { _controller: "NumaDOAModuleBundle:Component:create" }
+    requirements: { _method: post }
+
 component_edit:
     path:     /{id}/edit
     defaults: { _controller: "NumaDOAModuleBundle:Component:edit",_dashboard:"DMS" }
