@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,8 +25,14 @@ use Doctrine\Common\Collections\Criteria;
  * Item controller.
  *
  */
-class ImageController extends Controller
+class ImageController extends Controller implements DashboardDMSControllerInterface
 {
+
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     public function showAction(Request $request, $id)
     {
@@ -86,7 +93,8 @@ class ImageController extends Controller
         return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
             'item' => $item,
             'images' => $images,
-            'addVideoForm' => $this->addVideoForm($id)->createView()
+            'addVideoForm' => $this->addVideoForm($id)->createView(),
+            'dashboard' => $this->dashboard,
             //'addimages' => $uploadForm->createView(),
         ));
     }
@@ -125,8 +133,12 @@ class ImageController extends Controller
     public function addVideoForm($item_id)
     {
 
+        $redirect = 'item_images_add_video';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_item_images_add_video';
+        }
         $form = $this->createFormBuilder()
-            ->setAction($this->generateUrl('item_images_add_video', array('id' => $item_id)))
+            ->setAction($this->generateUrl($redirect, array('id' => $item_id)))
             ->add('url', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
             ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
@@ -157,7 +169,11 @@ class ImageController extends Controller
             $em->persist($itemField);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('item_images', array('id' => $id)));
+        $redirect = 'item_images';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_item_images';
+        }
+        return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
     }
 
     public function setImageOrderAction(Request $request)
@@ -180,7 +196,7 @@ class ImageController extends Controller
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
                 $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
-
+                dump($if->getFieldStringValue());
             }
 
         }

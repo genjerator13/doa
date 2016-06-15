@@ -56,9 +56,15 @@
             <h3 class="box-title">Inventory list</h3>
 
             <div class="box-tools">
-                <a href="{{ path('dms_additem') }}" class="btn btn-primary">
-                    Create new Inventory
-                </a>
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a href="{{ path('dms_additem') }}" class="btn btn-primary">
+                        Create new Inventory
+                    </a>
+                {% else %}
+                    <a href="{{ path('additem') }}" class="btn btn-primary">
+                        Create new Inventory
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
