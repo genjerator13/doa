@@ -1,6 +1,4 @@
-{% extends app.request.get('_dashboard')=='DMS'
-? 'NumaDOADMSBundle::layout.html.twig'
-: 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block body -%}
     <h1>Importmapping</h1>
