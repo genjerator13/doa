@@ -818,7 +818,7 @@ class Importfeed {
     }
 
     public function __toString() {
-        return $this->getSid();
+        return $this->getSid()."";
     }
 
     /**

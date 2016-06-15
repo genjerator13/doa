@@ -20,7 +20,21 @@ dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }
     #requirements: { _method: post }
-#
+dms_item_images:
+    pattern: /{id}/images
+    defaults: { _controller: "NumaDOAAdminBundle:Image:show",_dashboard: "DMS" }
+dms_item_images_upload:
+    pattern: /{id}/imagesupload
+    defaults: { _controller: "NumaDOAAdminBundle:Image:upload",_dashboard: "DMS" }
+    requirements: { id: \d+ }
+dms_item_image_setorder:
+    pattern: /image_order
+    defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder",_dashboard: "DMS" }
+    condition: "request.isXmlHttpRequest()"
+dms_item_images_add_video:
+    pattern: /{id}/addvideo
+    defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo",_dashboard: "DMS" }
+    requirements: { id: \d+ }
 #inventory_new:
 #    path:     /new
 #    defaults: { _controller: "NumaDOADMSBundle:Inventory:new" }
