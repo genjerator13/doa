@@ -1,4 +1,4 @@
-component:
+componentxxx:
     path:     /
     defaults: { _controller: "NumaDOAModuleBundle:Component:index" }
 
@@ -6,11 +6,11 @@ component_show:
     path:     /{id}/show
     defaults: { _controller: "NumaDOAModuleBundle:Component:show" }
 
-component_new:
+componentxxx_new:
     path:     /new
     defaults: { _controller: "NumaDOAModuleBundle:Component:new" }
 
-component_create:
+componentxxx_create:
     path:     /create
     defaults: { _controller: "NumaDOAModuleBundle:Component:create" }
     requirements: { _method: post }

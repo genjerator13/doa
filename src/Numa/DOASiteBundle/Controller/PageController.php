@@ -37,7 +37,7 @@ class PageController extends Controller implements DealerSiteControllerInterface
 
             $pages = $em->getRepository("NumaDOAModuleBundle:Page")->findCustomPageByUrl($this->dealer->getId(), $url);
         }
-        dump($url);die();
+
         $response = $this->render('NumaDOASiteBundle:Page:index.html.twig',
             array("dealer"=>$this->dealer,"components"=>$this->components ));
         return $response;

@@ -33,7 +33,7 @@ class PageRepository extends EntityRepository
 
     public function findCustomPageByUrl($dealer_id,$url)
     {
-
+        $url="/".$url;
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('p')
@@ -43,8 +43,9 @@ class PageRepository extends EntityRepository
             ->setParameter('url', $url)
             ->setParameter('dealer_id', $dealer_id);
 
-        $query = $qb->getQuery();
-        return $query->getResult();
+        $query = $qb->getQuery()->setMaxResults(1);
+        //
+        return $query->getOneOrNullResult();
     }
 
     public function findPagesByDealer($dealer_id)
