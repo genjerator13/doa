@@ -59,6 +59,9 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $entity->setDealer($dealer);
+
             $em->flush();
             $this->addFlash("success","Page is successfully added. ");
             $redirect = 'page';
