@@ -84,8 +84,7 @@ class ItemRESTController extends Controller
 
     public function listingsByDealer2Action(Request $request, $dealerid)
     {
-
-        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByDealerAndCategory($dealerid);
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings($dealerid);
         return $listings;
     }
 
@@ -95,7 +94,6 @@ class ItemRESTController extends Controller
     public function allListingsAction()
     {
         $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings();
-
         return $listings;
     }
 
