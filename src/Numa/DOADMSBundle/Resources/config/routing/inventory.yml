@@ -19,7 +19,10 @@ dms_item_deactivate:
 dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }
-    #requirements: { _method: post }
+dms_item_category_change:
+    pattern:  /{id}/category
+    defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory",_dashboard: "DMS" }
+    requirements: { _method: post|put }
 dms_item_images:
     pattern: /{id}/images
     defaults: { _controller: "NumaDOAAdminBundle:Image:show",_dashboard: "DMS" }
