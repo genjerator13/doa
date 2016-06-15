@@ -646,11 +646,11 @@ class ItemRepository extends EntityRepository
 
     public function setCoverPhoto($item_id, $src)
     {
-        if (!empty($ids)) {
+        if (!empty($item_id)) {
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.cover_photo', $src)
+                ->set('i.cover_photo', "'".$src."'")
                 ->where('i.id=' . $item_id);
             $qb->getQuery()->execute();
         }
