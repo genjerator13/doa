@@ -1,6 +1,9 @@
+{#{% extends is_granted('ROLE_BUSINES')#}
+{#? 'NumaDOASiteBundle::home-layout.html.twig'#}
+{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
 {% extends is_granted('ROLE_BUSINES')
-? 'NumaDOASiteBundle::home-layout.html.twig'
-: 'NumaDOAAdminBundle::layout.html.twig' %}
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
+:(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block javascripts %}
     {{ parent() }}
@@ -12,7 +15,11 @@
 {% block content %}
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
-        <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {% if(app.request.get('_dashboard')=='DMS') %}
+            <a href="{{ path('dms_items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {% else %}
+            <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {% endif %}
         {#{{ form_end(addimages) }}#}
         <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
             {#{{ form_widget(form.file) }}#}
