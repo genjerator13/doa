@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importfeed;
@@ -12,7 +13,13 @@ use Symfony\Component\Process\Process;
  * Importfeed controller.
  *
  */
-class CommandLogController extends Controller {
+class CommandLogController extends Controller implements DashboardDMSControllerInterface {
+
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all Importfeed entities.
@@ -32,7 +39,8 @@ class CommandLogController extends Controller {
 
         return $this->render('NumaDOAAdminBundle:CommandLog:index.html.twig', array(
                     'entities' => $entities,
-                    'progresses' => $progresses
+                    'progresses' => $progresses,
+                    'dashboard' => $this->dashboard,
         //            'inprogress' => $inProgress,
         ));
     }
@@ -65,7 +73,11 @@ class CommandLogController extends Controller {
 //            die();
         //}
         sleep(2);
-        return $this->redirectToRoute('command_log_home');
+        $action = 'command_log_home';
+        if(!empty($this->dashboard)){
+            $action = 'dms_command_log_home';
+        }
+        return $this->redirectToRoute($action);
     }
 
 }
