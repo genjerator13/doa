@@ -146,7 +146,7 @@
                                 | <a href="#" id="addimages">Add Pictures</a>
                             {% endif %}
                         </div>
-                        <p>Fields marked with an asterisk (*) are mandatory.car</p>
+                        <p>Fields marked with an asterisk (*) are mandatory.</p>
 
                         <div class="box-primary box">
                             <div class="box-header with-border">
@@ -348,10 +348,9 @@
                         $("#numa_doaadminbundle_item_Category").change(function (e) {
                             var form = $(this).closest('form');
 
-                            form.attr('action', '{{path("item_category_change",{id:entity.id})}}');
+                            form.attr('action', '{{ (app.request.get('_dashboard')=='DMS')?path("dms_item_category_change",{id:entity.id}):path("item_category_change",{id:entity.id}) }}');
                             console.log(form.attr('action'));
                             form.submit();
-
                         });
                     });
                 </script>
