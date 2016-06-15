@@ -337,6 +337,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             $seoPost =$request->get("numa_doamodulebundle_seo");
+
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity,$seoPost);
             $em->flush();
