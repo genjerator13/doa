@@ -180,6 +180,12 @@
                 <li class="">
                     <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="treeview">Feeds</li>
+                    <li class="">
+                        <a href="{{ path('dms_importfeed') }}"><i class="fa fa-clone"></i>Feeds</a>
+                    </li>
+                {% endif %}
             </ul>
         </section>
         <!-- /.sidebar -->
