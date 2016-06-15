@@ -347,8 +347,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             if ($request->get("redirect") == "images") {
                 return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
             }
-
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
+            $redirect = 'items_edit';
+            if(strtoupper($this->dashboard) =='DMS'){
+                $redirect = 'dms_items_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
         }
         //'dashboard' =>$dashboard,
         $params = array(
@@ -513,7 +516,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
             //die();
             $em->flush();
-            return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
+            $redirect = 'items_edit';
+            if(strtoupper($this->dashboard) =='DMS'){
+                $redirect = 'dms_items_edit';
+            }
+            return $this->redirectToRoute($redirect,array("id"=>$entity->getId()));
         }
         $params = array(
             'entity' => $entity,
@@ -569,13 +576,18 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             //dump($resultCode);die();
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
+            $redirect = 'items_edit';
+            if(strtoupper($this->dashboard) =='DMS'){
+                $redirect = 'dms_items_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Item:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'dashboard' =>$dashboard,
         ));
     }
 
@@ -728,7 +740,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 $return = $this->redirect($url);
             }
         }
-        //dump($redirect);die();
+        dump($redirect);die();
         $redirect = $request->query->get('redirect');
         if ($redirect == 'item') {
             $return = $this->redirectToRoute('items_edit', array('id' => $id));
@@ -812,8 +824,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
         //if ($form->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
+        $redirect = 'items_edit';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_items_edit';
+        }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         //}
     }
 
