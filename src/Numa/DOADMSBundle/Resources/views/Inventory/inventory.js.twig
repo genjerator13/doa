@@ -15,6 +15,13 @@ var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 
 app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
+function getClassName(grid, row, col, columnName) {
+    var className = "";
+    if (row.entity['featured'] === "1" && row.entity['active']==="1") {
+        className = "featured";
+    }
+    return className;
+}
 
 app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
     $scope.gridOptions = {
@@ -26,6 +33,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         selectionRowHeaderWidth: 35,
         rowHeight: 150,
         enableColumnResizing: true,
+
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
@@ -34,34 +42,74 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableFiltering: false,
             name: 'photo',
             enableColumnResizing: true, width: 150,
-            cellTemplate: '<a href="{[{row.entity.id}]}/edit"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></a>'
+            cellTemplate: '<a href="{[{row.entity.id}]}/edit"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></a>',
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
         },
         {
             name: 'id',
             enableColumnResizing: true,
             width: 50,
             cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                return 'other-cells ' + getClassName(grid, row, col, 'featured');
+            },
         },
-        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50},
-        {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50},
-        {name: 'make', enableColumnResizing: true, width: 80},
-        {name: 'model', enableColumnResizing: true, width: 100},
-        {name: 'stock_nr', enableColumnResizing: true, width: 80},
-        {name: 'status', enableColumnResizing: true, width: 50},
-        {name: 'category',displayName:'Category',enableColumnResizing: true,width: 70},
-        {name: 'active', enableColumnResizing: true, width: 50},
-        {name: 'views', enableColumnResizing: true, width: 50},
-        {name: 'sold', enableColumnResizing: true, width: 50},
-        {name: 'featured', enableColumnResizing: true, width: 50},
-        {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90},
-        {name: 'invoice_nr', enableColumnResizing: true, width: 90,displayName:'Invoice #'},
-        {name: 'invoice_date', enableColumnResizing: true, width: 90},
-        {name: 'invoice_amt', enableColumnResizing: true, width: 90},
-        {name: 'discount1', enableColumnResizing: true, width: 90},
-        {name: 'discount2', enableColumnResizing: true, width: 90},
-        {name: 'sale_amount', enableColumnResizing: true, width: 90},
-
-
+        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'make', enableColumnResizing: true, width: 80,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'model', enableColumnResizing: true, width: 100,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'stock_nr', enableColumnResizing: true, width: 80,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'status', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'category',displayName:'Category',enableColumnResizing: true,width: 70,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'active', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'views', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'sold', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'featured', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'invoice_nr', enableColumnResizing: true, width: 90,displayName:'Invoice #',cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'invoice_date', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'invoice_amt', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'discount1', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'discount2', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
+        {name: 'sale_amount', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+            return 'other-cells ' + getClassName(grid, row, col, 'featured');
+        },},
     ];
 
     $scope.items = ['item1', 'item2', 'item3'];
