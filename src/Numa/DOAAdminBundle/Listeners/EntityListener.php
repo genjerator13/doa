@@ -63,19 +63,21 @@ class EntityListener
         $uow = $em->getUnitOfWork();
 
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-
+            dump("qqqq");
             if ($entity instanceof Item) {
                 $entity->setCoverPhoto($entity->getCoverImageSrc());
                 $metaData = $em->getClassMetadata(get_class($entity));
+                dump("1111");
                 $uow->recomputeSingleEntityChangeSet($metaData, $entity);
                 $uow->computeChangeSets();
+                dump("wwwww");
             }
         }
 
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
             if ($entity instanceof Item) {
-                //dump($entity->getCoverImageSrc());
+                dump("update");
                 //dump($entity->getCoverImageSrc());
                 $entity->setCoverPhoto($entity->getCoverImageSrc());
                 $metaData = $em->getClassMetadata(get_class($entity));
