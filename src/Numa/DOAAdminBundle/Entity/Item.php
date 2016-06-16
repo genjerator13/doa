@@ -776,7 +776,6 @@ class Item
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"));
         $images = $if->matching($criteria);
-
         // Collect an array iterator.
         $iterator = $images->getIterator();
 

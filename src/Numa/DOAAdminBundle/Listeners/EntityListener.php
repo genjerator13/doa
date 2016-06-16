@@ -23,47 +23,11 @@ class EntityListener
         $this->container = $container;
     }
 
-    public function preFlush(PreFlushEventArgs $args)
-    {
-
-//        $em  = $args->getEntityManager();
-//        $uow = $em->getUnitOfWork();
-//        dump($uow->getScheduledEntityUpdates());
-//        dump($uow->getScheduledEntityInsertions());
-//        dump($uow->getScheduledCollectionUpdates());
-//
-//
-//        foreach ($uow->getScheduledEntityUpdates() as $updated) {
-//
-//            if ($updated instanceof Item) {
-//                //$entity->equalizeItemFields();
-//                $setting = $this->container->get("Numa.settings");
-//                $title = $setting->generateItemTitle($updated);
-//                //$entityManager = $this->container->get('doctrine');
-//
-//                $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name'=>'item','table_id'=>$updated->getId()));
-//                if(empty($seo)) {
-//                    $seo = new Seo();
-//                }
-//                $seo->setTitle($title);
-//                dump($seo);die();
-//                $em->persist($seo);
-//                //$entityManager->flush();
-//            }
-//        }
-
-        //$uow->computeChangeSets();
-
-    }
-
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
-
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
-
             if ($entity instanceof Item) {
                 $entity->setCoverPhoto($entity->getCoverImageSrc());
                 $metaData = $em->getClassMetadata(get_class($entity));
@@ -71,11 +35,8 @@ class EntityListener
                 $uow->computeChangeSets();
             }
         }
-
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
-
             if ($entity instanceof Item) {
-                //dump($entity->getCoverImageSrc());
                 //dump($entity->getCoverImageSrc());
                 $entity->setCoverPhoto($entity->getCoverImageSrc());
                 $metaData = $em->getClassMetadata(get_class($entity));
@@ -83,7 +44,6 @@ class EntityListener
                 $uow->computeChangeSets();
             }
         }
-
     }
 
     public function postFlush(PostFlushEventArgs $eventArgs)
