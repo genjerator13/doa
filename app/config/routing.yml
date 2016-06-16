@@ -43,6 +43,11 @@ logout:
 ad:
     pattern:   /error/403
     defaults:  { _controller: NumaDOASiteBundle:Default:accessDenied }
+site_page:
+    pattern:   /page/{url}
+    defaults:  { _controller: NumaDOASiteBundle:Page:show }
+
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 EndroidQrCodeBundle:

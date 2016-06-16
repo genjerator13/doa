@@ -127,26 +127,19 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             $itemField->setItem($item);
             //dump($itemField);
             $item->setCoverPhoto($item->getCoverImageSrc());
+
             if(empty($item->getCoverImageSrc())){
                 $item->setCoverPhoto($itemField->getFieldStringValue());
             }
 
-
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
+
             if(empty($item->getCoverPhoto())){
-                dump($item->getId());
-                dump($itemField->getFieldStringValue());
-
-                $item->setCoverPhoto($itemField->getFieldStringValue());
-                dump($item->getCoverPhoto());
-                $em->flush();
-                dump($item->getCoverPhoto());
+                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
             }
-            die();
         }
-
         die();
     }
 
