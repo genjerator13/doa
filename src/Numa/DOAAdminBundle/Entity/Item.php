@@ -776,7 +776,7 @@ class Item
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"));
         $images = $if->matching($criteria);
-
+        dump($images);
         // Collect an array iterator.
         $iterator = $images->getIterator();
 
@@ -793,6 +793,7 @@ class Item
 
     public function getCoverImageSrc(){
         $img = $this->getImage2();
+        dump($img);
         if($img instanceof ItemField){
             return $img->getFieldStringValue();
         }
@@ -803,6 +804,7 @@ class Item
     public function getImage2($num = 0)
     {
         $images = $this->getImages2();
+        dump($images);
         foreach ($images as $image) {
             return $image;
         }

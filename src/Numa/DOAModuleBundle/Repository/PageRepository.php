@@ -19,7 +19,7 @@ class PageRepository extends EntityRepository
         $qb->select('p')
             ->add('from', 'NumaDOAModuleBundle:Page p')
             ->join('p.PageAds', 'pa')
-            ->join('pa.Ad','ad')
+            ->join('pa.Ad', 'ad')
             ->where('p.url=:url')
 //            ->andWhere('ad.start_date <= :start_date')
 //            ->andWhere('ad.end_date  >=  :end_date')
@@ -31,9 +31,9 @@ class PageRepository extends EntityRepository
         return $query->getResult();
     }
 
-    public function findCustomPageByUrl($dealer_id,$url)
+    public function findCustomPageByUrl($dealer_id, $url)
     {
-        $url="/".$url;
+        $url = "/" . $url;
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('p')
@@ -61,8 +61,15 @@ class PageRepository extends EntityRepository
     }
 
 
-    public function findPageComponentByUrl($url,$dealer_id=null)
+    public function findPageComponentByUrl($url, $dealer_id = null)
     {
+        //remove /page from $url
+
+        if (stripos($url, "page") !== false) {
+
+            $url = substr($url,5,strlen($url)-1);
+            dump($url);
+        }
 
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
@@ -70,20 +77,20 @@ class PageRepository extends EntityRepository
         $qb->select('p')
             ->add('from', 'NumaDOAModuleBundle:page p')
             ->join('p.PageComponent', 'pc')
-            ->join('pc.Component','c')
+            ->join('pc.Component', 'c')
             ->andWhere('p.url like :url');
         $qb->setParameter('url', $url);
-        if(empty($dealer_id)){
+        if (empty($dealer_id)) {
             $qb->andWhere('p.dealer_id is null');
-        }else{
+        } else {
             $qb->andWhere('p.dealer_id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
 
         }
 
         $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
-
-        if($page instanceof Page) {
+        //dump($qb->getQuery());die();
+        if ($page instanceof Page) {
             return $page->getComponent();
         }
 
@@ -99,13 +106,13 @@ class PageRepository extends EntityRepository
         $qb->select('p')
             ->add('from', 'NumaDOAModuleBundle:page p')
             ->join('p.PageComponent', 'pc')
-            ->join('pc.Component','c')
+            ->join('pc.Component', 'c')
             ->where('p.id like :page_id');
         $qb->setParameter('page_id', $page_id);
 
 
         $page = $qb->getQuery()->getOneOrNullResult();
-        if($page instanceof Page) {
+        if ($page instanceof Page) {
             return $page->getComponent();
         }
 

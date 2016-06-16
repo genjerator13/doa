@@ -26,7 +26,8 @@ class PageController extends Controller implements DealerSiteControllerInterface
 
     public function initializePageComponents($components)
     {
-        $this->components;
+
+        $this->components=$components;
     }
 
     public function showAction($url)
