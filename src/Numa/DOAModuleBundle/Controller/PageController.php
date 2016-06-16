@@ -3,6 +3,8 @@
 namespace Numa\DOAModuleBundle\Controller;
 
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Numa\DOAModuleBundle\Entity\Component;
+use Numa\DOAModuleBundle\Entity\PageComponent;
 use Numa\DOAModuleBundle\Form\ComponentType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
