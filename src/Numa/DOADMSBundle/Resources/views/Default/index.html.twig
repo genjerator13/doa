@@ -7,6 +7,10 @@
 
     <div class="row">
         <div class="col-sm-2 col-xs-3">
+            <div class="info-box">
+                <div class="col-md-offset-4 col-md-12 ">
+                    <h4>ALL</h4>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalListings }}</h5>
                 <span class="description-text">TOTAL LISTINGS</span>
@@ -15,9 +19,14 @@
                 <h5 class="description-header">{{ totalViews }}</h5>
                 <span class="description-text">TOTAL VIEWS</span>
             </div>
+            </div>
         </div>
 
         <div class="col-sm-2 col-xs-6">
+            <div class="info-box">
+                <div class="col-md-offset-3 col-md-12 ">
+                    <span class="icon_tab icon_Vehicle"></span>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalCarListings }}</h5>
                 <span class="description-text">TOTAL CAR LISTINGS</span>
@@ -26,9 +35,14 @@
                 <h5 class="description-header">{{ totalCarViews }}</h5>
                 <span class="description-text">TOTAL CAR VIEWS</span>
             </div>
+            </div>
         </div>
 
         <div class="col-sm-2 col-xs-6">
+            <div class="info-box">
+                <div class="col-md-offset-3 col-md-12 ">
+                    <span class="icon_tab icon_Motorsport"></span>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalMotoListings }}</h5>
                 <span class="description-text">TOTAL MOTO LISTINGS</span>
@@ -37,9 +51,14 @@
                 <h5 class="description-header">{{ totalMotoViews }}</h5>
                 <span class="description-text">TOTAL MOTO VIEWS</span>
             </div>
+            </div>
         </div>
 
         <div class="col-sm-2 col-xs-6">
+            <div class="info-box">
+                <div class="col-md-offset-3 col-md-12 ">
+                    <span class="icon_tab icon_Marine"></span>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalMarineListings }}</h5>
                 <span class="description-text">TOTAL MARINE LISTINGS</span>
@@ -48,9 +67,14 @@
                 <h5 class="description-header">{{ totalMarineViews }}</h5>
                 <span class="description-text">TOTAL MARINE VIEWS</span>
             </div>
+            </div>
         </div>
 
         <div class="col-sm-2 col-xs-3">
+            <div class="info-box">
+                <div class="col-md-offset-3 col-md-12 ">
+                    <span class="icon_tab icon_Ag"></span>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalAgsListings }}</h5>
                 <span class="description-text">TOTAL AG LISTINGS</span>
@@ -59,10 +83,15 @@
                 <h5 class="description-header">{{ totalAgsViews }}</h5>
                 <span class="description-text">TOTAL AG VIEWS</span>
             </div>
+            </div>
         </div>
 
 
         <div class="col-sm-2 col-xs-3">
+            <div class="info-box">
+                <div class="col-md-offset-3 col-md-12 ">
+                    <span class="icon_tab icon_RVs"></span>
+                </div>
             <div class="description-block border-right">
                 <h5 class="description-header">{{ totalRvsListings }}</h5>
                 <span class="description-text">TOTAL RVs LISTINGS</span>
@@ -71,8 +100,8 @@
                 <h5 class="description-header">{{ totalRvsViews }}</h5>
                 <span class="description-text">TOTAL Rvs VIEWS</span>
             </div>
+            </div>
         </div>
-
 
     </div>
 
@@ -83,37 +112,55 @@
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
     <script>
+        $(document).ready(function() {
+
+            var options = {
+                chart: {
+                    renderTo: 'container',
+                    type: 'spline'
+                },
+                series: [{}]
+            };
+
+            $.getJSON('{{ path("stats_api_test") }}', function(data) {
+                options.series[0].data = data;
+                var chart = new Highcharts.Chart(options);
+            });
+
+        });
         $(function () {
             $('#container').highcharts({
-                chart: {
-                    type: 'line'
-                },
                 title: {
-                    text: 'Monthly Visits On Site'
+                    text: 'Monthly Average Temperature',
+                    x: -20 //center
+                },
+                subtitle: {
+                    text: 'Source: WorldClimate.com',
+                    x: -20
                 },
                 xAxis: {
-                    categories: ['1']
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 yAxis: {
                     title: {
-                        text: 'Visitors'
-                    }
+                        text: 'Temperature (°C)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
                 },
-                plotOptions: {
-                    line: {
-                        dataLabels: {
-                            enabled: true
-                        },
-                        enableMouseTracking: false
-                    }
+                tooltip: {
+                    valueSuffix: '°C'
                 },
-                series: [{
-                    name: 'Doa',
-                    data: [0, 2, 9.5, 14.5, 18.4, 21.5, 125.2, 26.5, 23.3, 18.3, 13.9, 9.6, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9, 13.9]
-                }, {
-                    name: 'Dodgecity',
-                    data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-                }]
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
             });
         });
     </script>

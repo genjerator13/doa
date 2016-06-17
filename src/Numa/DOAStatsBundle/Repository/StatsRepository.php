@@ -37,35 +37,15 @@ class StatsRepository extends EntityRepository {
 
     }
 
-    public function getVisitors($date1, $date2)
+    public function getVisitors()
     {
-////        $prefix ="";
-////        if(!empty($dealer_id)){
-////            //$prefix= "where dealer_id=$dealer_id";
-////            $prefix = "where http_referer like '%doa.local%'";
-////        }
-//
-//        $year = date("Y");
-//        $month = 1;
-//
-//        $sql = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%'.$year.'-'.$month.'%'";
-//        $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
-//
-//        if (!empty($res[0])) {
-//            return $res[0];
-//        }
-//        return false;
-
-
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder();
-        $qb->select('COUNT(s)')
-            ->add('from', 'NumaDOAStatsBundle:Stats s')
-            ->where('s.request_time between :date1 and :date2')
-            ->setParameter('date1', $date1)
-            ->setParameter('date2', $date2);
-//dump($qb->getQuery());die();
-        $statsQuery = $qb->getQuery(); //getOneOrNullResult();
-        return $statsQuery->getResult();
+        $year = date("Y");
+        $month = "05";
+        //dump($month);die();
+        $sql = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%".$year."-".$month."%'";
+        $sql1 = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%".$year."-06%'";
+        $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
+        $res1 = $this->getEntityManager()->getConnection()->fetchArray($sql1);
+        return array(array(1, $res), array(2, $res1));
     }
 }
