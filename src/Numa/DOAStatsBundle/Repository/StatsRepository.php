@@ -37,35 +37,23 @@ class StatsRepository extends EntityRepository {
 
     }
 
-    public function getVisitors($date1, $date2)
+    public function getVisitorsByMonth()
     {
-////        $prefix ="";
-////        if(!empty($dealer_id)){
-////            //$prefix= "where dealer_id=$dealer_id";
-////            $prefix = "where http_referer like '%doa.local%'";
-////        }
-//
-//        $year = date("Y");
-//        $month = 1;
-//
-//        $sql = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%'.$year.'-'.$month.'%'";
-//        $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
-//
-//        if (!empty($res[0])) {
-//            return $res[0];
-//        }
-//        return false;
+        $year = date("Y");
+        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, month( FROM_UNIXTIME( `request_time` ) ) AS
+MONTH FROM `stats`
+GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , month( FROM_UNIXTIME( `request_time` ) )";
+        $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $res;
+    }
 
-
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder();
-        $qb->select('COUNT(s)')
-            ->add('from', 'NumaDOAStatsBundle:Stats s')
-            ->where('s.request_time between :date1 and :date2')
-            ->setParameter('date1', $date1)
-            ->setParameter('date2', $date2);
-//dump($qb->getQuery());die();
-        $statsQuery = $qb->getQuery(); //getOneOrNullResult();
-        return $statsQuery->getResult();
+    public function getVisitorsByDay()
+    {
+        $year = date("Y");
+        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, day( FROM_UNIXTIME( `request_time` ) ) AS
+day FROM `stats`
+GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , day( FROM_UNIXTIME( `request_time` ) )";
+        $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $res;
     }
 }
