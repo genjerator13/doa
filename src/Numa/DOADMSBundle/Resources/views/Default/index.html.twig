@@ -119,24 +119,10 @@
                     renderTo: 'container',
                     type: 'spline'
                 },
-                series: [{}]
-            };
-
-            $.getJSON('{{ path("stats_api_test") }}', function(data) {
-                options.series[0].data = data;
-                var chart = new Highcharts.Chart(options);
-            });
-
-        });
-        $(function () {
-            $('#container').highcharts({
+                series: [{}],
                 title: {
-                    text: 'Monthly Average Temperature',
+                    text: 'Visitors On Site',
                     x: -20 //center
-                },
-                subtitle: {
-                    text: 'Source: WorldClimate.com',
-                    x: -20
                 },
                 xAxis: {
                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -144,7 +130,7 @@
                 },
                 yAxis: {
                     title: {
-                        text: 'Temperature (°C)'
+                        text: 'Visitors'
                     },
                     plotLines: [{
                         value: 0,
@@ -152,16 +138,22 @@
                         color: '#808080'
                     }]
                 },
-                tooltip: {
-                    valueSuffix: '°C'
-                },
                 legend: {
                     layout: 'vertical',
                     align: 'right',
                     verticalAlign: 'middle',
                     borderWidth: 0
                 },
+
+            };
+
+            $.getJSON('{{ path("stats_api_all") }}', function(data) {
+                options.series[0].name = "2016";
+                options.series[0].data = data;
+                var chart = new Highcharts.Chart(options);
             });
+
         });
+
     </script>
 {% endblock %}

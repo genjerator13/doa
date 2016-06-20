@@ -21,13 +21,25 @@ class StatsRESTController extends Controller
      */
     public function allAction()
     {
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitors();
-        return $stats;
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitorsByMonth();
+        foreach($stats as $key => $value){
+            $arr[] = array(intval($value['MONTH']-1), intval($value['c']));
+        }
+        return $arr;
+    }
+
+    public function dayAction()
+    {
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitorsByMonth();
+        foreach($stats as $key => $value){
+            $arr[] = array(intval($value['day']), intval($value['c']));
+        }
+        return $arr;
     }
 
     public function testdataAction()
     {
-        $data = array(array(1, 2),array(2, 3),array(3, 4),array(4, 5),array(5, 6),array(6, 7),array(7, 7),array(8, 7),array(9, 7),array(10, 7),array(11, 7),array(12, 7));
+        $data = array(array(0, 2), array(1, 2),array(2, 3),array(3, 4),array(4, 15),array(5, 6),array(6, 7),array(7, 24),array(8, 17),array(9, 11),array(10, 7),array(11, 7));
         //dump($data);die();
         return new JsonResponse($data);
     }
