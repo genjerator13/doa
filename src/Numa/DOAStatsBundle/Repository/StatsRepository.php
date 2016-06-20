@@ -37,15 +37,23 @@ class StatsRepository extends EntityRepository {
 
     }
 
-    public function getVisitors()
+    public function getVisitorsByMonth()
     {
         $year = date("Y");
-        $month = "05";
-        //dump($month);die();
-        $sql = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%".$year."-".$month."%'";
-        $sql1 = "SELECT COUNT(date_visited) FROM stats WHERE date_visited like '%".$year."-06%'";
-        $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
-        $res1 = $this->getEntityManager()->getConnection()->fetchArray($sql1);
-        return array(array(1, $res), array(2, $res1));
+        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, month( FROM_UNIXTIME( `request_time` ) ) AS
+MONTH FROM `stats`
+GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , month( FROM_UNIXTIME( `request_time` ) )";
+        $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $res;
+    }
+
+    public function getVisitorsByDay()
+    {
+        $year = date("Y");
+        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, day( FROM_UNIXTIME( `request_time` ) ) AS
+day FROM `stats`
+GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , day( FROM_UNIXTIME( `request_time` ) )";
+        $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $res;
     }
 }
