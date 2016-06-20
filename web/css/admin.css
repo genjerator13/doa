@@ -1,6 +1,42 @@
 /*@import url("reset.css");*/
 
 /* layout styles */
+.icon_tab{
+    width: 42px;
+    height: 42px;
+    display: block;
+    float: left;
+}
+.icon_vehicle, .icon_Vehicle , .icon_car{
+    background: url('/images/icons/Car.png') no-repeat ;
+}
+
+.icon_Marine{
+    background: url('/images/icons/Marine.png') no-repeat ;
+}
+
+.icon_Motorsport{
+    background: url('/images/icons/Motosport.png') no-repeat ;
+}
+.icon_RVs{
+    background: url('/images/icons/Rv.png') no-repeat ;
+}
+.icon_Ag{
+    background: url('/images/icons/Ag.png') no-repeat ;
+}
+.tab_text {
+    padding: 10px 0 0 5px;
+    display: block;
+    float: left;
+}
+.nav-tabs > li > a {
+    height: 60px;
+    outline: none;
+}
+
+.nav-tabs {
+    border: none;
+}
 html
 {
     height: 100%;

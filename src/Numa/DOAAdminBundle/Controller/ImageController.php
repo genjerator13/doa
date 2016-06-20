@@ -113,20 +113,33 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
                 $file->getMimeType() == 'image/png' ||
                 $file->getMimeType() == 'image/gif')
         ) {
+
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
             $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
+
             $upload_url = $this->container->getParameter('upload_url');
             $upload_path = $this->container->getParameter('upload_path');
             $itemField = new ItemField();
 
             $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId() . '_' . time());
+
             $item->setDateUpdated(new \DateTime());
             $itemField->setItem($item);
+            //dump($itemField);
+            $item->setCoverPhoto($item->getCoverImageSrc());
+
+            if(empty($item->getCoverImageSrc())){
+                $item->setCoverPhoto($itemField->getFieldStringValue());
+            }
+
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
-        }
 
+            if(empty($item->getCoverPhoto())){
+                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
+            }
+        }
         die();
     }
 

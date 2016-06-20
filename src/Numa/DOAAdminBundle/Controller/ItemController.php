@@ -345,13 +345,19 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $em->flush();
             //dump($request->get("redirect"));die();
             if ($request->get("redirect") == "images") {
-                return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
+                $redirect = 'item_images';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_item_images';
+                }
+                return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
             }
-            $redirect = 'items_edit';
-            if(strtoupper($this->dashboard) =='DMS'){
-                $redirect = 'dms_items_edit';
+            else{
+                $redirect = 'items_edit';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_items_edit';
+                }
+                return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
             }
-            return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
         }
         //'dashboard' =>$dashboard,
         $params = array(

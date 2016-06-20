@@ -28,7 +28,7 @@ services:
         arguments: ["@doctrine.orm.entity_manager","@service_container"]
     numa.dynamicRouter.listener:
         class: Numa\DOASiteBundle\Services\ExtraLoader
-        arguments: ["@service_container"]
+        arguments: ["@service_container" , "@security.token_storage"]
         tags:
             - { name: routing.loader, priority: 33 }
 

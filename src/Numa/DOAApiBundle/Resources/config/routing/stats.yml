@@ -2,3 +2,7 @@ stats_api_all:
     path:     /all.{_format}
     defaults: { _controller: "NumaDOAApiBundle:StatsREST:all",_format: "json"}
     requirements: { _method: get }
+stats_api_test:
+    path:     /test.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:testdata",_format: "json"}
+    requirements: { _method: get }
