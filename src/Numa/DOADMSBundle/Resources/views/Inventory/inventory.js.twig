@@ -84,9 +84,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'views', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'sold', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {
+            name: 'sold',
+            enableColumnResizing: true,
+            width: 65,
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
-        },},
+        },
+        cellTemplate: '<div ng-if="row.entity.sold == \'0\'" class="ui-grid-cell-contents ng-binding ng-scope">Not Sold</div><div ng-if="row.entity.sold == \'1\'" class="ui-grid-cell-contents ng-binding ng-scope">Sold</div>',
+        },
         {name: 'featured', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
