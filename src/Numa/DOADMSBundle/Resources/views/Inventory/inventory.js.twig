@@ -84,9 +84,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'views', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'sold', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {
+            name: 'sold',
+            enableColumnResizing: true,
+            width: 65,
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
-        },},
+        },
+
+        },
         {name: 'featured', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
@@ -165,9 +171,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
-                angular.forEach(data, function(data, index) {
-                    data.index = index+1;
-                    //data.push({"index":index+1})
+                angular.forEach(data, function(row, index) {
+                    console.log(row)
+                    row.index = index+1;
+
+                    if(row.sold==1){
+                        row.sold = "Sold"
+                    }else{
+                        row.sold = "Not"
+                    }
+
                 })
                 $scope.gridOptions.data = data;
 
