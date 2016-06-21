@@ -39,7 +39,6 @@ class StatsRepository extends EntityRepository {
 
     public function getVisitorsByMonth()
     {
-        $year = date("Y");
         $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, month( FROM_UNIXTIME( `request_time` ) ) AS
 MONTH FROM `stats`
 GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , month( FROM_UNIXTIME( `request_time` ) )";
@@ -49,8 +48,9 @@ GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , month( FROM_UNIXTIME( `reques
 
     public function getVisitorsByDay()
     {
-        $year = date("Y");
-        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, day( FROM_UNIXTIME( `request_time` ) ) AS
+        $month = date("m");
+        $sql = "SELECT count( * ) as c , YEAR( FROM_UNIXTIME( `request_time` ) ) AS year, month( FROM_UNIXTIME( `request_time` ) ) AS
+month, day( FROM_UNIXTIME( `request_time` ) ) AS
 day FROM `stats`
 GROUP BY YEAR( FROM_UNIXTIME( `request_time` ) ) , day( FROM_UNIXTIME( `request_time` ) )";
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);

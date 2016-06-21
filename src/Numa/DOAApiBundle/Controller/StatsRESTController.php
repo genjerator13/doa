@@ -19,7 +19,7 @@ class StatsRESTController extends Controller
     /**
      * @Rest\View
      */
-    public function allAction()
+    public function monthAction()
     {
         $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitorsByMonth();
         foreach($stats as $key => $value){
@@ -30,7 +30,7 @@ class StatsRESTController extends Controller
 
     public function dayAction()
     {
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitorsByMonth();
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:Stats')->getVisitorsByDay();
         foreach($stats as $key => $value){
             $arr[] = array(intval($value['day']), intval($value['c']));
         }
