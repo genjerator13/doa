@@ -368,14 +368,17 @@ class Page
     {
         $ads = new ArrayCollection();
         if (!empty($this->getPageAds()) && !$this->getPageAds()->isEmpty()) {
+
             foreach ($this->getPageAds() as $pa) {
                 if ($pa instanceof PageAds) {
                     $ads[] = $pa->getAd();
+
                 }
             }
         }
         return $ads;
     }
+
 
     // Important
     public function setAds($pageAds)
@@ -389,5 +392,27 @@ class Page
             $this->addPageAd($pa);
         }
 
+    }
+
+
+    public function getActiveAds()
+    {
+        $currentDate = new \DateTime();
+
+        $criteria = new \Doctrine\Common\Collections\Criteria();
+
+        $criteria->andWhere($criteria->expr()->eq('status', 'enabled'));
+        $criteria->andWhere($criteria->expr()->gte('endDate', $currentDate));
+        $criteria->andWhere($criteria->expr()->lte('startDate', $currentDate));
+
+        return $this->getAds()->matching($criteria);
+
+        //return $ads;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getUrl();
     }
 }

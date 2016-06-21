@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation\ExclusionPolicy;
 use JMS\Serializer\Annotation\Expose;
@@ -82,7 +83,9 @@ class Ad
      */
     public function __construct()
     {
-        //$this->pa = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->PageAds = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->start_date = new \DateTime();
+        $this->end_date = new \DateTime();
     }
 
     /**
@@ -492,5 +495,237 @@ class Ad
     public function getSize()
     {
         return $this->size;
+    }
+    /**
+     * @var string
+     */
+    private $url;
+
+    /**
+     * @var integer
+     */
+    private $order;
+
+    /**
+     * @var \DateTime
+     */
+    private $start_date;
+
+    /**
+     * @var \DateTime
+     */
+    private $end_date;
+
+
+    /**
+     * Set url
+     *
+     * @param string $url
+     * @return Ad
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get url
+     *
+     * @return string 
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set order
+     *
+     * @param integer $order
+     * @return Ad
+     */
+    public function setOrder($order)
+    {
+        $this->order = $order;
+
+        return $this;
+    }
+
+    /**
+     * Get order
+     *
+     * @return integer 
+     */
+    public function getOrder()
+    {
+        return $this->order;
+    }
+
+    /**
+     * Set start_date
+     *
+     * @param \DateTime $startDate
+     * @return Ad
+     */
+    public function setStartDate($startDate)
+    {
+        $this->start_date = $startDate;
+
+        return $this;
+    }
+
+    /**
+     * Get start_date
+     *
+     * @return \DateTime 
+     */
+    public function getStartDate()
+    {
+        return $this->start_date;
+    }
+
+    /**
+     * Set end_date
+     *
+     * @param \DateTime $endDate
+     * @return Ad
+     */
+    public function setEndDate($endDate)
+    {
+        $this->end_date = $endDate;
+
+        return $this;
+    }
+
+    /**
+     * Get end_date
+     *
+     * @return \DateTime 
+     */
+    public function getEndDate()
+    {
+        return $this->end_date;
+    }
+    /**
+     * @var integer
+     */
+    private $adorder;
+
+
+    /**
+     * Set adorder
+     *
+     * @param integer $adorder
+     * @return Ad
+     */
+    public function setAdorder($adorder)
+    {
+        $this->adorder = $adorder;
+
+        return $this;
+    }
+
+    /**
+     * Get adorder
+     *
+     * @return integer 
+     */
+    public function getAdorder()
+    {
+        return $this->adorder;
+    }
+
+    // Important
+    public function getPages()
+    {
+        $pages = new ArrayCollection();
+        if (!empty($this->getPageAds()) ) {
+            foreach ($this->getPageAds() as $pa) {
+                if ($pa instanceof PageAds) {
+                    $pages[] = $pa->getPage();
+                }
+            }
+        }
+        return $pages;
+    }
+
+
+    // Important
+    public function setPages($pageAds)
+    {
+        foreach ($pageAds as $pageAd) {
+            $pa = new PageAds();
+
+            $pa->setPage($pageAd);
+            $pa->setAd($this);
+
+            $this->addPageAd($pa);
+        }
+
+    }
+    /**
+     * @var integer
+     */
+    private $clicks;
+
+    /**
+     * @var integer
+     */
+    private $views;
+
+
+    /**
+     * Set clicks
+     *
+     * @param integer $clicks
+     * @return Ad
+     */
+    public function setClicks($clicks)
+    {
+        $this->clicks = $clicks;
+
+        return $this;
+    }
+
+    /**
+     * Get clicks
+     *
+     * @return integer 
+     */
+    public function getClicks()
+    {
+        return $this->clicks;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Ad
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+    public function getRatio()
+    {
+        $ratio = 0;
+        if (!$this->clicks == 0 && !$this->views == 0)
+        $ratio = $this->views / $this->clicks;
+        return $ratio;
     }
 }
