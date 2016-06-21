@@ -1,0 +1,30 @@
+#dms_coupon:
+#    path:     /
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:index",_dashboard:"DMS" }
+#
+#dms_coupon_show:
+#    path:     /{id}/show
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:show",_dashboard:"DMS" }
+#
+#dms_coupon_new:
+#    path:     /new
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:new",_dashboard:"DMS" }
+#
+#dms_coupon_create:
+#    path:     /create
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:create",_dashboard:"DMS" }
+#    requirements: { _method: post }
+#
+#dms_coupon_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:edit",_dashboard:"DMS" }
+#
+dms_coupon_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Coupon:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+
+#dms_coupon_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "NumaDOAAdminBundle:Coupon:delete",_dashboard:"DMS" }
+#    requirements: { _method: post|delete }
