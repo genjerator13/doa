@@ -1,6 +1,10 @@
-{% extends is_granted('ROLE_BUSINES')
-? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
+{#{% extends is_granted('ROLE_BUSINES')#}
+{#? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')#}
+{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
 : 'NumaDOAAdminBundle::layout.html.twig' %}
+
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
@@ -20,12 +24,14 @@
                         {{ form(edit_form) }}
 
                         <ul class="record_actions">
-                            {% if(not is_granted('ROLE_BUSINES')) %}
-                                <li>
-                                    <a href="{{ path('catalogs') }}" class="btn btn-primary">
-                                        Back to the list
-                                    </a>
-                                </li>
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
+                                    Back to the list
+                                </a>
+                            {% else %}
+                                <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                                    Back to the list
+                                </a>
                             {% endif %}
                         </ul>
                     </div>
