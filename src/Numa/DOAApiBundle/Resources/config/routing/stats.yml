@@ -1,6 +1,10 @@
-stats_api_all:
-    path:     /all.{_format}
-    defaults: { _controller: "NumaDOAApiBundle:StatsREST:all",_format: "json"}
+stats_api_month:
+    path:     /month.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:month",_format: "json"}
+    requirements: { _method: get }
+stats_api_day:
+    path:     /day.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:day",_format: "json"}
     requirements: { _method: get }
 stats_api_test:
     path:     /test.{_format}
