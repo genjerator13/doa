@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Coupon;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -13,8 +14,13 @@ use Numa\DOAAdminBundle\Form\CatalogrecordsType;
  * Catalogrecords controller.
  *
  */
-class CatalogrecordsController extends Controller {
+class CatalogrecordsController extends Controller implements DashboardDMSControllerInterface {
 
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
     /**
      * Lists all Catalogrecords entities.
      *
@@ -31,7 +37,9 @@ class CatalogrecordsController extends Controller {
         return $this->render('NumaDOAAdminBundle:Catalogrecords:index.html.twig', array(
                     'entities' => $entities,
                     'uploadForm' => $uploadForm->createView(),
+                    'dashboard' => $this->dashboard,
         ));
+
     }
 
     /**
@@ -40,6 +48,7 @@ class CatalogrecordsController extends Controller {
      */
     public function createAction(Request $request) {
         $entity = new Catalogrecords();
+        $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -51,12 +60,17 @@ class CatalogrecordsController extends Controller {
             $em->flush();
             $entity->upload();
             $em->flush();
-            return $this->redirect($this->generateUrl('catalogs', array('id' => $entity->getId())));
+            $redirect = 'catalogs';
+            if($dashboard =='DMS'){
+                $redirect = 'dms_catalogs';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'dashboard' => $this->dashboard,
         ));
     }
 
@@ -68,12 +82,16 @@ class CatalogrecordsController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Catalogrecords $entity) {
+        $action = 'catalogs_create';
+        if(!empty($this->dashboard)){
+            $action = 'dms_catalogs_create';
+        }
         $form = $this->createForm(new CatalogrecordsType(), $entity, array(
-            'action' => $this->generateUrl('catalogs_create'),
+            'action' => $this->generateUrl($action),
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn',)));
+        $form->add('submit', 'submit', array('label' => 'Create', 'attr' => array('class' => 'btn btn-default left',)));
 
         return $form;
     }
@@ -100,13 +118,15 @@ class CatalogrecordsController extends Controller {
      * Displays a form to create a new Catalogrecords entity.
      *
      */
-    public function newAction() {
+    public function newAction(Request $request) {
         $entity = new Catalogrecords();
+        $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:Catalogrecords:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'dashboard' =>$dashboard,
         ));
     }
 
@@ -134,7 +154,7 @@ class CatalogrecordsController extends Controller {
      * Displays a form to edit an existing Catalogrecords entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id, Request $request) {
         $limitCoupons = 2;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
@@ -152,12 +172,12 @@ class CatalogrecordsController extends Controller {
         $couponsForm = $this->createEditCouponsForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
-
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'coupons_form' => $couponsForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'dashboard' => $this->dashboard,
         ));
     }
 
@@ -188,8 +208,12 @@ class CatalogrecordsController extends Controller {
                 $entity->addCoupon($coupon);
             }
         }
+        $action = 'coupons_update';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $action = 'dms_coupons_update';
+        }
         $form = $this->createForm($catalogForm, $entity, array(
-            'action' => $this->generateUrl('coupons_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -210,9 +234,14 @@ class CatalogrecordsController extends Controller {
         $securityContext = $this->container->get('security.context');
         $catalogForm = new CatalogrecordsType();
         $catalogForm->setSecurityContext($securityContext);
+        $action = 'catalogs_update';
+
+        if(strtoupper($this->dashboard) =='DMS'){
+            $action = 'dms_catalogs_update';
+        }
 
         $form = $this->createForm($catalogForm, $entity, array(
-            'action' => $this->generateUrl('catalogs_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
             'method' => 'POST',
         ));
 
@@ -251,10 +280,14 @@ class CatalogrecordsController extends Controller {
                 $em->flush();
                 $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
                 $securityContext = $this->container->get('security.context');
-                if ($securityContext->isGranted('ROLE_DEALER_ADMIN') || $securityContext->isGranted('ROLE_BUSINES') ) {
-                    return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+//                if ($securityContext->isGranted('ROLE_DEALER_ADMIN') || $securityContext->isGranted('ROLE_BUSINES') ) {
+//                    return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+//                }
+                $redirect = 'catalogs';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_catalogs';
                 }
-                return $this->redirect($this->generateUrl('catalogs', array('id' => $id)));
+                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
             }
         }else{
             dump($editForm->getErrors(true));
@@ -264,6 +297,7 @@ class CatalogrecordsController extends Controller {
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'dashboard' => $this->dashboard,
         ));
     }
 
@@ -288,8 +322,11 @@ class CatalogrecordsController extends Controller {
                     $coupon->upload();
                 }
                 $em->flush();
-
-                return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
+                $redirect = 'catalogs_edit';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_catalogs_edit';
+                }
+                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
             }
         }else{
             dump($couponsForm->getErrors(true));
@@ -335,8 +372,11 @@ class CatalogrecordsController extends Controller {
             $em->remove($entity);
             $em->flush();
         //}
-
-        return $this->redirect($this->generateUrl('catalogs'));
+        $redirect = 'catalogs';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_catalogs';
+        }
+        return $this->redirect($this->generateUrl($redirect));
     }
 
     /**
@@ -347,8 +387,13 @@ class CatalogrecordsController extends Controller {
      * @return \Symfony\Component\Form\Form The form
      */
     private function createDeleteForm($id) {
+
+        $redirect = 'catalogs_delete';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_catalogs_delete';
+        }
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('catalogs_delete', array('id' => $id)))
+                        ->setAction($this->generateUrl($redirect, array('id' => $id)))
                         ->setMethod('DELETE')
                         ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger left',)))
                         ->getForm()
