@@ -1,13 +1,21 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>New Dealer</h1>
     {{ form(form) }}
     <ul class="record_actions">
         <li>
-            <a href="{{ path('catalogs') }}" class="btn btn-primary" >
-                Back to the list
-            </a>
+            {% if(app.request.get('_dashboard')=='DMS') %}
+                <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+            {% else %}
+                <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+            {% endif %}
         </li>
     </ul>
 {% endblock %}
