@@ -153,12 +153,6 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger->warning("FETCH FEED: getRemote items");
 
             $sql = 'update command_log set count=' . count($items) . " where id=" . $this->commandLog->getId();
-            $num_rows_effected = $conn->exec($sql);
-
-            //print items
-            //
-
-
             unset($remoteFeed);
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
@@ -172,12 +166,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count = 0;
             $logger->warning("FETCH FEED: before items loop");
+
             foreach ($items as $importItem) {
 
                 $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
-//                $seoService = $this->getContainer()->get("Numa.Seo");
-//
-//                $seo = $seoService->prepareSeo($item, array(), false);
+
                 if (!empty($item)) {
                     $createdItems[] = $item;
                 }
@@ -187,9 +180,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $count++;
                 if ($count % 200 == 0) {
                     $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                    //$this->em->flush();
-                    //$this->em->clear();
-                    //$memcache->set("feed:progress:".$feed_id, );
+
                 }
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
