@@ -153,6 +153,12 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger->warning("FETCH FEED: getRemote items");
 
             $sql = 'update command_log set count=' . count($items) . " where id=" . $this->commandLog->getId();
+            $num_rows_effected = $conn->exec($sql);
+
+            //print items
+            //
+
+
             unset($remoteFeed);
 
             $mapping = $this->em->getRepository('NumaDOAAdminBundle:Importmapping')->findBy(array('feed_sid' => $feed_id));
