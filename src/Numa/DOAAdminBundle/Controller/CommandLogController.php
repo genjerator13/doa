@@ -60,8 +60,15 @@ class CommandLogController extends Controller implements DashboardDMSControllerI
 
         //if ((!empty($inProgress[0]) && $inProgress[0] instanceof \Numa\DOAAdminBundle\Entity\CommandLog) || !empty($force)) {
             $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil startCommand';
+
+        //$logger = $this->get("logger");
+        //$logger->addWarning("startAction : ".$command);
+        //dump($logger);die();
+
+
             $process = new \Symfony\Component\Process\Process($command);
             $process->start();
+        //$logger->warning("startAction  START: ".$command);
 //            
 //            $process->wait(function ($type, $buffer) {
 //                if (Process::ERR === $type) {
@@ -77,6 +84,7 @@ class CommandLogController extends Controller implements DashboardDMSControllerI
         if(!empty($this->dashboard)){
             $action = 'dms_command_log_home';
         }
+        //$logger->warning("startAction  redirect: ".$command);
         return $this->redirectToRoute($action);
     }
 

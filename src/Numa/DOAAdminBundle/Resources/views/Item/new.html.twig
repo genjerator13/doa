@@ -359,8 +359,6 @@
                     $("#addimages").on("click", function (e) {
                         e.preventDefault();
                         var form = $(this).closest('form');
-
-                        $("#redirect").val("images");
                         console.log(form.attr('action'));
                         form.submit();
                     });
