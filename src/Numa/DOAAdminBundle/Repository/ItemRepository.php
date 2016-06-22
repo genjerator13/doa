@@ -686,8 +686,6 @@ class ItemRepository extends EntityRepository
                 ->delete('NumaDOAAdminBundle:Item', 'i')
                 ->where('i.id in (' . $ids . ")");
             $qb->getQuery()->execute();
-            dump($ids);
-            die();
         }
     }
 
