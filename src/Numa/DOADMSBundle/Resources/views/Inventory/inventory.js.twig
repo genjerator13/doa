@@ -43,7 +43,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableFiltering: false,
             name: 'photo',
             enableColumnResizing: true, width: 150,
-            cellTemplate: '<a href="{[{row.entity.id}]}/edit"><span ng-if="row.entity.photo !== \'\'"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></span></a>',
+            cellTemplate: '<a href="{{ path('inventory') }}{[{row.entity.id}]}/edit"><span ng-if="row.entity.photo !== \'\'"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></span></a>',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
@@ -52,7 +52,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'id',
             enableColumnResizing: true,
             width: 50,
-            cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+            cellTemplate: '<a href="{{ path('inventory') }}{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
