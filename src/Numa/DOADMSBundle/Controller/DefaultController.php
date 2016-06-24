@@ -52,6 +52,22 @@ class DefaultController extends Controller
         }
         return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
     }
+    public function changeThemeAction(Request $request){
+        $theme = $request->get('theme');
+        dump($theme);
+        $settings = $this->get("Numa.Settings");
+        $ctheme="Default";
+        $t = $settings->get("theme");
+        if(!empty($t)){
+            $ctheme = $t;
+        }
+        if (!empty($theme)) {
+
+            $settings->set('theme',$theme,'site');
+
+        }
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
+    }
 
     /**
      * Show the page with all feeds api

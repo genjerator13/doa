@@ -1,6 +1,10 @@
 /*@import url("reset.css");*/
 
 /* layout styles */
+.themeactive{
+    border: 1px solid black;
+    border-radius: 10px;
+}
 .icon_tab{
     width: 42px;
     height: 42px;
