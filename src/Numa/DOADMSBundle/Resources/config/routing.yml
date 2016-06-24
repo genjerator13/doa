@@ -16,6 +16,9 @@ dms_customer_switch:
 dms_themes:
     defaults: { _controller: "NumaDOADMSBundle:Default:themes" }
     path:   /themes
+dms_change_themes:
+    defaults: { _controller: "NumaDOADMSBundle:Default:changeTheme" }
+    path:   /change_themes
 dms_user:
     resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
     prefix:   /users
