@@ -149,6 +149,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                     $scope.gridApi.selection.clearSelectedRows();
                 });
     }
+
+    $scope.setFeatured = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_featured") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+
+                    angular.forEach($scope.selected, function(value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data[key-1].featured=1;
+                    });
+                    $scope.selected={}
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+
     $scope.setDelete = function () {
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
