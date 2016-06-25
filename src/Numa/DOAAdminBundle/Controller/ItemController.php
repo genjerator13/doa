@@ -695,6 +695,17 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
     /**
      * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massMakeFeatured2Action(Request $request) {
+        $ids = $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids,true);
+        die();
+    }
+
+    /**
+     * @param Request $request
      * Deactivates elected listings in datagrid on listing list page
      */
     public function massDelete2Action(Request $request) {
