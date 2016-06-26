@@ -283,6 +283,21 @@ class SettingController extends Controller
     }
 
     /**
+     * make all cover images
+     *
+     */
+    public function makeCoverImagesAction()
+    {
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil photos';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+
+
+        $this->addFlash('success', "Generating cover photos in progress.");
+        return $this->redirect($this->generateUrl('setting'));
+    }
+
+    /**
      * Finds and displays a Setting entity.
      *
      */
