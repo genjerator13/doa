@@ -172,12 +172,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             //echo "Memory usage in fetchAction inside1: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
             $count = 0;
             $logger->warning("FETCH FEED: before items loop");
+
             foreach ($items as $importItem) {
 
                 $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
-//                $seoService = $this->getContainer()->get("Numa.Seo");
-//
-//                $seo = $seoService->prepareSeo($item, array(), false);
+
                 if (!empty($item)) {
                     $createdItems[] = $item;
                 }
@@ -187,9 +186,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $count++;
                 if ($count % 200 == 0) {
                     $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-                    //$this->em->flush();
-                    //$this->em->clear();
-                    //$memcache->set("feed:progress:".$feed_id, );
+
                 }
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
@@ -547,8 +544,22 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function itemImages()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
+        $logger = $this->getContainer()->get('logger');
+        $logger->warning("COVER PHOTOS STARTED");
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('photos');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+
+        $commandLog->setCommand($this->getName() . " photos ");
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        $commandLog->setCount(count($listings));
+        $logger->warning("COVER PHOTOS STARTED persists");
+        $em->persist($commandLog);
+        $em->flush();
         $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
         $i = 0;
+        $logger->warning("COVER PHOTOS STARTED loop");
         foreach ($listings as $listing) {
             $i++;
             if ($listing instanceof \Numa\DOAAdminBundle\Entity\Item) {
@@ -559,8 +570,16 @@ class DBUtilsCommand extends ContainerAwareCommand
                     ->where('i.id=' . $listing->getId());
                 $qb->getQuery()->execute();
             }
-            dump($i);
+            if($i%50==0){
+                $commandLog->setCurrent($i);
+                $em->flush();
+            }
         }
+        $logger->warning("COVER PHOTOS STARTED loop end");
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
+        $logger->warning("COVER PHOTOS FINISHED");
     }
 
     public function test()

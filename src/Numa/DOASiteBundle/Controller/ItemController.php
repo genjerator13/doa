@@ -365,4 +365,13 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('epriceForm' => $epriceForm->createView() ));
     }
 
+    public function manageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
+
+        ));
+    }
+
 }

@@ -16,6 +16,9 @@ dms_item_activate:
 dms_item_deactivate:
     path:     /deactivate
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDeactivate2" }
+dms_item_featured:
+    path:     /featured
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeFeatured2" }
 dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }

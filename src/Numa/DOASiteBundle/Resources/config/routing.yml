@@ -156,3 +156,6 @@ about_us:
 news:
     path:     /news
     defaults: { _controller: "NumaDOASiteBundle:Default:news" }
+site_inventory:
+    path:     /manage_inventory
+    defaults: { _controller: "NumaDOASiteBundle:Item:manage" }

@@ -17,12 +17,12 @@
 {#<div>Current theme is : {{ theme }}</div>#}
 
         <div class="col-md-6 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
-            <img src="{{ asset('upload/themes/theme1.jpg') }}" style="width: 480px; height: 300px;">
+            <img src="{{ asset('images/themes/theme1.jpg') }}" style="width: 480px; height: 300px;">
             <h4>Default Theme</h4>
             <span class="{% if theme != "Default" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
         </div>
         <div class="col-md-6 theme {% if theme == "Sea" %}themeactive{% endif %}" id="theme2" data-name="Sea">
-            <img src="{{ asset('upload/themes/theme2.jpg') }}" style="width: 480px; height: 300px;">
+            <img src="{{ asset('images/themes/theme2.jpg') }}" style="width: 480px; height: 300px;">
             <h4>Sea Theme</h4>
             <span class="{% if theme != "Sea" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
 

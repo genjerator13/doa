@@ -1,7 +1,7 @@
 {#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
 {% extends app.request.get('_dashboard')=='DMS'
 ? 'NumaDOADMSBundle::layout.html.twig'
-: 'NumaDOAAdminBundle::layout.html.twig' %}
+: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::home-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
@@ -73,6 +73,9 @@
         <div ng-controller="MainCtrl">
             <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
             <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
+            {% if(is_granted("ROLE_ADMIN")) %}
+                <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
+            {% endif %}
             <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
 
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>

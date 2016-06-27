@@ -32,6 +32,9 @@ setting_delete:
 setting_cache_clear:
     path:     /cache_clear
     defaults: { _controller: "NumaDOASettingsBundle:Setting:clearCache" }
+setting_cover_images:
+    path:     /cover_images
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:makeCoverImages" }
 setting_hometabs_refresh:
     path:     /hometabs_refresh
     defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }

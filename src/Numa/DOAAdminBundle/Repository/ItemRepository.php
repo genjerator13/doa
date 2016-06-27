@@ -656,6 +656,20 @@ class ItemRepository extends EntityRepository
         }
     }
 
+    public function getCoverPhoto($item_id)
+    {
+        $item_id = intval($item_id);
+        $sql = "select * from item_field where item_field.field_name = \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        if(!empty($res['field_string_value'])){
+            return $res['field_string_value'];
+        }
+        return "";
+    }
+
     /**
      * @param $ids
      * @param $active
@@ -675,6 +689,23 @@ class ItemRepository extends EntityRepository
 
     /**
      * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function makeFeatured($ids, $featured = true)
+    {
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.featured', $featured)
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+    /**
+     * @param $ids
      * Activate or deactivate (depends by $active param) list of ids separated by ,
      */
     public function delete($ids)
@@ -686,10 +717,10 @@ class ItemRepository extends EntityRepository
                 ->delete('NumaDOAAdminBundle:Item', 'i')
                 ->where('i.id in (' . $ids . ")");
             $qb->getQuery()->execute();
-            dump($ids);
-            die();
         }
     }
+
+
 
 
 }
