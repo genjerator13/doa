@@ -1,4 +1,5 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <div class="box">
         <div class="box-header">
@@ -7,30 +8,40 @@
         </div>
     </div>
     {#<div class="box-body">#}
-        {#<form action="{{ path('dms_themes') }}">#}
-            {#<select name="theme">#}
-                {#<option value="Default">Default</option>#}
-                {#<option value="Sea">Sea</option>#}
-            {#</select>#}
-            {#<input class="btn btn-primary" type="submit" value="Switch Theme"/>#}
-        {#</form>#}
-{#<div>Current theme is : {{ theme }}</div>#}
+    {#<form action="{{ path('dms_themes') }}">#}
+    {#<select name="theme">#}
+    {#<option value="Default">Default</option>#}
+    {#<option value="Sea">Sea</option>#}
+    {#</select>#}
+    {#<input class="btn btn-primary" type="submit" value="Switch Theme"/>#}
+    {#</form>#}
+    {#<div>Current theme is : {{ theme }}</div>#}
 
-        <div class="col-md-6 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
-            <img src="{{ asset('images/themes/theme1.jpg') }}" style="width: 480px; height: 300px;">
-            <h4>Default Theme</h4>
-            <span class="{% if theme != "Default" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
-        </div>
-        <div class="col-md-6 theme {% if theme == "Sea" %}themeactive{% endif %}" id="theme2" data-name="Sea">
-            <img src="{{ asset('images/themes/theme2.jpg') }}" style="width: 480px; height: 300px;">
-            <h4>Sea Theme</h4>
-            <span class="{% if theme != "Sea" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+    <div class="col-md-3 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
 
-        </div>
+        {{ component.image('images/themes/theme1.jpg', 'theme1', '', 'themes_image','400px') }}
+        <h4>Default Theme</h4>
+        <span class="{% if theme != "Default" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+    </div>
+    <div class="col-md-3 theme {% if theme == "Sea" %}themeactive{% endif %}" id="theme2" data-name="Sea">
+        {{ component.image('images/themes/theme2.jpg', 'theme1', '', 'themes_image','400px') }}
+        <h4>Sea Theme</h4>
+        <span class="{% if theme != "Sea" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+    </div>
+    <div class="col-md-3 theme {% if theme == "Mountain" %}themeactive{% endif %}" id="theme3" data-name="Mountain">
+        {{ component.image('images/themes/theme3.jpg', 'theme1', '', 'themes_image','400px') }}
+        <h4>Mountain Theme</h4>
+        <span class="{% if theme != "Mountain" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+    </div>
+    <div class="col-md-3 theme {% if theme == "Forest" %}themeactive{% endif %}" id="theme4" data-name="Forest">
+        {{ component.image('images/themes/theme4.jpg', 'theme1', '', 'themes_image','400px') }}
+        <h4>Forest Theme</h4>
+        <span class="{% if theme != "Forest" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+    </div>
 
     <script>
-        $(document).ready(function(){
-            $(".theme").click(function(){
+        $(document).ready(function () {
+            $(".theme").click(function () {
                 console.log(this);
                 $(".theme").removeClass("themeactive");
                 $(this).addClass("themeactive");
@@ -43,15 +54,13 @@
                         {
                             url: "{{ path('dms_change_themes') }}",
                             type: "POST",
-                            data: {"theme":name},
-                            success: function(data, textStatus, jqXHR)
-                            {
+                            data: {"theme": name},
+                            success: function (data, textStatus, jqXHR) {
                                 //alert(theme);
                                 //console.log (theme);
                                 //location.reload();
                             },
-                            error: function(jqXHR, textStatus, errorThrown)
-                            {
+                            error: function (jqXHR, textStatus, errorThrown) {
                                 alert("Error");
                             }
                         });
@@ -59,27 +68,27 @@
         });
 
         {#$(document).ready(function(){#}
-            {#$("#theme2").click(function(){#}
-                {#$("#theme2").css('border', '1px solid black');#}
-                {#$("#theme2").css('border-radius', '10px');#}
-                {#$("#theme1").css('border', 'none');#}
-                {#$.ajax(#}
-                        {#{#}
-                            {#url: "{{ path('dms_change_themes') }}",#}
-                            {#type: "POST",#}
-                            {#data: {"theme":'Sea'},#}
-                            {#success: function(data, textStatus, jqXHR)#}
-                            {#{#}
-                                {#//alert(theme);#}
-                                {#//console.log (theme);#}
-                                {#location.reload();#}
-                            {#},#}
-                            {#error: function(jqXHR, textStatus, errorThrown)#}
-                            {#{#}
-                                {#alert("Error");#}
-                            {#}#}
-                        {#});#}
-            {#});#}
+        {#$("#theme2").click(function(){#}
+        {#$("#theme2").css('border', '1px solid black');#}
+        {#$("#theme2").css('border-radius', '10px');#}
+        {#$("#theme1").css('border', 'none');#}
+        {#$.ajax(#}
+        {#{#}
+        {#url: "{{ path('dms_change_themes') }}",#}
+        {#type: "POST",#}
+        {#data: {"theme":'Sea'},#}
+        {#success: function(data, textStatus, jqXHR)#}
+        {#{#}
+        {#//alert(theme);#}
+        {#//console.log (theme);#}
+        {#location.reload();#}
+        {#},#}
+        {#error: function(jqXHR, textStatus, errorThrown)#}
+        {#{#}
+        {#alert("Error");#}
+        {#}#}
+        {#});#}
+        {#});#}
         {#});#}
     </script>
 
