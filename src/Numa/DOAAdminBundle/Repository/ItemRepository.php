@@ -191,7 +191,45 @@ class ItemRepository extends EntityRepository
         } elseif (is_string($dealer_id)) {
             $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
             $qb->andWhere("d.username like :dealer");
-            $qb->setParameter("dealer", "%" . $dealer_id . "%");
+            $qb->setParameter("dealer", $dealer_id);
+        };
+
+        if (!empty($category)) {
+            if (is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            } else {
+                return false;
+            }
+        }
+        $qb->andWhere("i.active=1");
+        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
+        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        return $itemsQuery->getResult();
+    }
+
+    public function getItemByDealerUsernameAndCategory($dealer_id, $category = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if (empty($dealer_id)) {
+
+//        } elseif (is_numeric($dealer_id)) {
+//            $qb->where('i.dealer_id=:dealer');
+//            $qb->setParameter('dealer', $dealer_id);
+        } elseif (!empty($dealer_id)) {
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", $dealer_id);
         };
 
         if (!empty($category)) {

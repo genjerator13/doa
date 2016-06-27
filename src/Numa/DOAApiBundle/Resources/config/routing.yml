@@ -48,6 +48,11 @@ listingByDealer:
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
     requirements: { _method: get }
 
+listingByDealerUsername:
+    pattern:  /listings/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerUsername",_format: "xml"}
+    requirements: { _method: get }
+
 listingsAll:
     pattern:  /listings/{category}/category.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
