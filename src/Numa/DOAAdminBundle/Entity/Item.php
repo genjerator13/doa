@@ -1943,6 +1943,34 @@ class Item
             $this->setAwnings($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
             $this->setSleeps($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'retail price') {
+            $this->setRetailPrice($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'pto horsepower') {
+            $this->setPtoHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'dbr horsepower') {
+            $this->setDBRHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'torque') {
+            $this->setTorque($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'brakes') {
+            $this->setBrakes($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'wheels') {
+            $this->setWheels($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'compression ratio') {
+            $this->setCompressionRatio($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'frame') {
+            $this->setFrame($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'suspension') {
+            $this->setSuspension($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'ground clereance') {
+            $this->setGroundClereance($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fresh water capacity') {
+            $this->setFreshWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'black water capacity') {
+            $this->setBlackWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'grey water capacity') {
+            $this->setGrayWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
+            $this->setRemotes($itemField->getFieldStringValue());
         }
 
 
