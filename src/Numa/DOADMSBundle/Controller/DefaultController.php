@@ -54,7 +54,6 @@ class DefaultController extends Controller
     }
     public function changeThemeAction(Request $request){
         $theme = $request->get('theme');
-        dump($theme);
         $settings = $this->get("Numa.Settings");
         $ctheme="Default";
         $t = $settings->get("theme");

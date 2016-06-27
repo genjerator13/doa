@@ -15,7 +15,64 @@
             {#<input class="btn btn-primary" type="submit" value="Switch Theme"/>#}
         {#</form>#}
 {#<div>Current theme is : {{ theme }}</div>#}
+    {% if app.session.get('dms_dealer_id') is null %}
+        <h1>ATTENTION: YOU ARE NOT DEALER (Admin can't change themes.)</h1>
+    {% else %}
+        <script>
+            $(document).ready(function(){
+                $(".theme").click(function(){
+                    console.log(this);
+                    $(".theme").removeClass("themeactive");
+                    $(this).addClass("themeactive");
+                    $(".theme > .glyphicon").addClass("hidden");
+                    $(".themeactive > .glyphicon").removeClass("hidden");
 
+                    name = $(this).data("name");
+                    console.log(name);
+                    $.ajax(
+                            {
+                                url: "{{ path('dms_change_themes') }}",
+                                type: "POST",
+                                data: {"theme":name},
+                                success: function(data, textStatus, jqXHR)
+                                {
+                                    //alert(theme);
+                                    //console.log (theme);
+                                    //location.reload();
+                                },
+                                error: function(jqXHR, textStatus, errorThrown)
+                                {
+                                    alert("Error");
+                                }
+                            });
+                });
+            });
+
+            {#$(document).ready(function(){#}
+            {#$("#theme2").click(function(){#}
+            {#$("#theme2").css('border', '1px solid black');#}
+            {#$("#theme2").css('border-radius', '10px');#}
+            {#$("#theme1").css('border', 'none');#}
+            {#$.ajax(#}
+            {#{#}
+            {#url: "{{ path('dms_change_themes') }}",#}
+            {#type: "POST",#}
+            {#data: {"theme":'Sea'},#}
+            {#success: function(data, textStatus, jqXHR)#}
+            {#{#}
+            {#//alert(theme);#}
+            {#//console.log (theme);#}
+            {#location.reload();#}
+            {#},#}
+            {#error: function(jqXHR, textStatus, errorThrown)#}
+            {#{#}
+            {#alert("Error");#}
+            {#}#}
+            {#});#}
+            {#});#}
+            {#});#}
+        </script>
+    {% endif %}
         <div class="col-md-6 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
             <img src="{{ asset('images/themes/theme1.jpg') }}" style="width: 480px; height: 300px;">
             <h4>Default Theme</h4>
@@ -28,59 +85,6 @@
 
         </div>
 
-    <script>
-        $(document).ready(function(){
-            $(".theme").click(function(){
-                console.log(this);
-                $(".theme").removeClass("themeactive");
-                $(this).addClass("themeactive");
-                $(".theme > .glyphicon").addClass("hidden");
-                $(".themeactive > .glyphicon").removeClass("hidden");
 
-                name = $(this).data("name");
-                console.log(name);
-                $.ajax(
-                        {
-                            url: "{{ path('dms_change_themes') }}",
-                            type: "POST",
-                            data: {"theme":name},
-                            success: function(data, textStatus, jqXHR)
-                            {
-                                //alert(theme);
-                                //console.log (theme);
-                                //location.reload();
-                            },
-                            error: function(jqXHR, textStatus, errorThrown)
-                            {
-                                alert("Error");
-                            }
-                        });
-            });
-        });
-
-        {#$(document).ready(function(){#}
-            {#$("#theme2").click(function(){#}
-                {#$("#theme2").css('border', '1px solid black');#}
-                {#$("#theme2").css('border-radius', '10px');#}
-                {#$("#theme1").css('border', 'none');#}
-                {#$.ajax(#}
-                        {#{#}
-                            {#url: "{{ path('dms_change_themes') }}",#}
-                            {#type: "POST",#}
-                            {#data: {"theme":'Sea'},#}
-                            {#success: function(data, textStatus, jqXHR)#}
-                            {#{#}
-                                {#//alert(theme);#}
-                                {#//console.log (theme);#}
-                                {#location.reload();#}
-                            {#},#}
-                            {#error: function(jqXHR, textStatus, errorThrown)#}
-                            {#{#}
-                                {#alert("Error");#}
-                            {#}#}
-                        {#});#}
-            {#});#}
-        {#});#}
-    </script>
 
 {% endblock %}
