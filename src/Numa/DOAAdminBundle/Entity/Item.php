@@ -4001,8 +4001,8 @@ class Item
     {
         if($this->getRetailPrice() > $this->getPrice())
         {
-            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
-
+//            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
+                return $this->getRetailPriceString();
         }
     }
     /**
