@@ -121,6 +121,11 @@ assetic:
         DMS_red_skin_css:
             inputs:
                - '%kernel.root_dir%/../web/css/skins/skin-red.css'
+        theme_mountain_css:
+            inputs:
+               - '%kernel.root_dir%/../web/themes/Mountain/css/template2.css'
+
+
         #javascript
 
 
@@ -374,7 +379,7 @@ knp_snappy:
         binary:     xvfb-run wkhtmltopdf
         options:    []
 liip_theme:
-    themes: ['Default', 'Sea', 'weekend']
+    themes: ['Default', 'Sea', 'Mountain']
     active_theme: 'Default'
     assetic_integration: true
 

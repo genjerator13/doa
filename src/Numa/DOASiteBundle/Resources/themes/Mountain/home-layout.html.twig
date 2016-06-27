@@ -1,0 +1,308 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+        {% stylesheets '@theme_mountain_css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery(".mobile-menu ul ul").hide();
+                /* hide sublinks */
+                jQuery(".separator").click(function () {
+                    jQuery(this).next().slideToggle(300);
+                    /* display sublinks */
+                });
+            });
+        </script>
+
+    {% endblock %}
+</head>
+
+<body>
+<div id="wrapper">
+    {% block headline %}
+    <div class="header">
+
+        <a class="logo" href=""><img src="images/logo.png" /></a>
+
+        <div class="social-media">
+
+            <div class="connect-with-us">Connect with Us</div>
+
+            <a class="facebook" href="">
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </a>
+
+            <a class="youtube" href="">
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </a>
+
+        </div>
+
+        <a class="map" href="">Map</a>
+
+        <div class="address">221B Baker Street<br />Saskatoon, SK, Canada</div>
+
+        <div class="phone">306.555.1234</div>
+
+    </div>
+    {% endblock %}
+    {% block mainmenu %}
+
+    <div class="main-menu">
+
+        <ul class="menu">
+            <li><a href="">Home</a></li>
+            <li class="parent"><a href="">Showroom</a>
+                <ul>
+                    <li><a href="">Current New Inventory</a></li>
+                    <li><a href="">Pre-Owned Inventory</a></li>
+                    <li><a href="">Financing</a></li>
+                    <li><a href="">Finance Calculator</a></li>
+                    <li><a href="">Trade In</a></li>
+                    <li><a href="">Get a Quote</a></li>
+                    <li><a href="">Schedule Test Ride</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </li>
+            <li><a href="">Dealer Services</a></li>
+            <li><a href="">Dealer Info</a></li>
+            <li><a href="">Customer Corner</a></li>
+            <li><a href="">Contact Us</a></li>
+        </ul>
+
+    </div>
+        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+    {% endblock %}
+    {% block mobilemenu %}
+    <div class="mobile-menu">
+
+        <ul class="menu">
+            <li><span class="separator">Menu</span>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><span class="separator">Showroom</span>
+                        <ul>
+                            <li><a href="">Current New Inventory</a></li>
+                            <li><a href="">Pre-Owned Inventory</a></li>
+                            <li><a href="">Financing</a></li>
+                            <li><a href="">Finance Calculator</a></li>
+                            <li><a href="">Trade In</a></li>
+                            <li><a href="">Get a Quote</a></li>
+                            <li><a href="">Schedule Test Ride</a></li>
+                            <li><a href="">Contact Us</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Dealer Services</a></li>
+                    <li><a href="">Dealer Info</a></li>
+                    <li><a href="">Customer Corner</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+    {% endblock %}
+    <div class="container">
+
+        <div class="button-wrapper">
+
+            <div class="button b1">
+
+                <a href="">
+
+                    <h2><span>Shop for</span> New RVs</h2>
+
+                    <div class="click-here">Click Here</div>
+
+                </a>
+
+            </div>
+
+            <div class="button b2">
+
+                <a href="">
+
+                    <h2><span>Shop for</span> Pre-Owned</h2>
+
+                    <div class="click-here">Click Here</div>
+
+                </a>
+
+            </div>
+
+            <div class="button b3">
+
+                <a href="">
+
+                    <h2><span>Apply for</span> Financing</h2>
+
+                    <div class="click-here">Click Here</div>
+
+                </a>
+
+            </div>
+
+            <div class="button">
+
+                <div class="b4">
+
+                    <a href="">
+
+                        <h2>Parts</h2>
+
+                        <div class="click-here">Click Here</div>
+
+                    </a>
+
+                </div>
+
+                <div class="b5">
+
+                    <a href="">
+
+                        <h2>Service</h2>
+
+                        <div class="click-here">Click Here</div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="browse">
+
+            <ul>
+                <li><h2><span>Browse</span> by Type</h2></li>
+                <li><a class="motorhome" href="">Motorhome</a></li>
+                <li><a class="travel-trailer"href="">Travel Trailer</a></li>
+                <li><a class="fifth-wheel" href="">Fifth Wheel</a></li>
+                <li><a class="toy-hauler" href="">Toy Hauler</a></li>
+                <li><a class="park-models" href="">Park Models</a></li>
+            </ul>
+
+        </div>
+
+        <div class="banner"><img src="images/banner.jpg" /></div>
+
+        <div class="content">
+
+            <h1>Welcome to Generic Company</h1>
+
+            <h3>Learn About Us</h3>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        <div class="contact-info">
+
+            <a class="logo" href="">
+                {#<img src="images/small-logo.png" />#}
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/small-logo.png' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </a>
+
+            <p>221B Baker Street<br />Saskatoon, SK, Canada</p>
+
+            <p>Phone: (306) 555-2134<br />
+                Fax: (306) 555-1235</p>
+
+            <p><a href="">Map and Hours</a></p>
+
+        </div>
+
+        <div class="quick-links">
+
+            <h3>Quick Links</h3>
+
+            <ul>
+                <li><a href="">New Inventory</a></li>
+                <li><a href="">Pre-Owned Inventory</a></li>
+                <li><a href="">Get Financed</a></li>
+                <li><a href="">Parts Department</a></li>
+                <li><a href="">Customer Testimonials</a></li>
+            </ul>
+
+        </div>
+
+        <div class="hours">
+
+            <h3>Hours</h3>
+
+            <p><span>Mon-Fri:</span> 8am-5pm<br />
+                <span>Sat:</span> 9am-3pm<br />
+                <span>Sun:</span> Closed</p>
+
+        </div>
+
+        <div class="other-info">
+
+            <a class="facebook" href="">
+
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </a>
+
+            <a class="youtube" href="">
+
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </a>
+
+            <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
+
+            <ul>
+                <li><a href="">Policy</a></li>
+                <li><a href="">Privacy</a></li>
+                <li><a href="">Privacy</a></li>
+                <li><a href="">Terms</a></li>
+                <li><a href="">Site Map</a></li>
+            </ul>
+
+            <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
+
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
