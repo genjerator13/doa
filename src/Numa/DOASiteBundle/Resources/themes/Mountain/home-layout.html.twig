@@ -41,10 +41,10 @@
 
 <body>
 <div id="wrapper">
-    {% block headline %}
+    {% block header %}
     <div class="header">
 
-        <a class="logo" href=""><img src="images/logo.png" /></a>
+        {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
 
         <div class="social-media">
 
@@ -66,23 +66,22 @@
 
         <a class="map" href="">Map</a>
 
-        <div class="address">221B Baker Street<br />Saskatoon, SK, Canada</div>
+        <div class="address">{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}</div>
 
-        <div class="phone">306.555.1234</div>
+        <div class="phone">{{ dealer.phone }}</div>
 
     </div>
     {% endblock %}
-    {% block mainmenu %}
-
+    {% block main %}
     <div class="main-menu">
 
         <ul class="menu">
-            <li><a href="">Home</a></li>
+            <li><a href="{{ path("homepage") }}">Home</a></li>
             <li class="parent"><a href="">Showroom</a>
                 <ul>
-                    <li><a href="">Current New Inventory</a></li>
-                    <li><a href="">Pre-Owned Inventory</a></li>
-                    <li><a href="">Financing</a></li>
+                    <li><a href="{{ path("search_new_vehicle") }}">Current New Inventory</a></li>
+                    <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
+                    <li><a href="{{ path("finance_form") }}">Financing</a></li>
                     <li><a href="">Finance Calculator</a></li>
                     <li><a href="">Trade In</a></li>
                     <li><a href="">Get a Quote</a></li>
@@ -97,20 +96,20 @@
         </ul>
 
     </div>
-        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
     {% endblock %}
-    {% block mobilemenu %}
+        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+    {% block mobile %}
     <div class="mobile-menu">
 
         <ul class="menu">
             <li><span class="separator">Menu</span>
                 <ul>
-                    <li><a href="">Home</a></li>
+                    <li><a href="{{ path("homepage") }}">Home</a></li>
                     <li><span class="separator">Showroom</span>
                         <ul>
-                            <li><a href="">Current New Inventory</a></li>
-                            <li><a href="">Pre-Owned Inventory</a></li>
-                            <li><a href="">Financing</a></li>
+                            <li><a href="{{ path("search_new_vehicle") }}">Current New Inventory</a></li>
+                            <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
+                            <li><a href="{{ path("finance_form") }}">Financing</a></li>
                             <li><a href="">Finance Calculator</a></li>
                             <li><a href="">Trade In</a></li>
                             <li><a href="">Get a Quote</a></li>
@@ -202,8 +201,8 @@
 
             <ul>
                 <li><h2><span>Browse</span> by Type</h2></li>
-                <li><a class="motorhome" href="">Motorhome</a></li>
-                <li><a class="travel-trailer"href="">Travel Trailer</a></li>
+                <li><a class="motorhome" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'motorhome'}) }}">Motorhome</a></li>
+                <li><a class="travel-trailer" href="">Travel Trailer</a></li>
                 <li><a class="fifth-wheel" href="">Fifth Wheel</a></li>
                 <li><a class="toy-hauler" href="">Toy Hauler</a></li>
                 <li><a class="park-models" href="">Park Models</a></li>
@@ -234,9 +233,13 @@
 
             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
 
+            {% if(components is defined) %}
+                {{ displayComponent(components,'page_content') }}
+            {% endif %}
         </div>
 
     </div>
+
     {% block footer %}
     <div class="footer">
 
