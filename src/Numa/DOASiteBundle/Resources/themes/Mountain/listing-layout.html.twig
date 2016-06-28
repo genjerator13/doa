@@ -11,7 +11,7 @@
     {% block stylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        {% stylesheets '@bootstrap' '@theme_mountain_css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@theme_mountain_css' '@NumaDOASiteBundle/Resources/Public/Mountain/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -134,34 +134,9 @@
     {% endblock %}
     <div class="container">
 
-
-        {#<div class="banner">#}
-            {#{% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/banner.jpg' %}#}
-            {#<img src="{{ asset_url }}" alt="banner"/>#}
-            {#{% endimage %}#}
-        {#</div>#}
-
         <div class="content">
             {% block content %}
-            <h1>Welcome to Generic Company</h1>
 
-            <h3>Learn About Us</h3>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                deserunt mollit anim id est laborum.</p>
-
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
-                rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
-                explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui
-                dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora
-                incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum
-                exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem
-                vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum
-                qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
             {% endblock %}
         </div>
 
@@ -173,15 +148,13 @@
 
             <a class="logo" href="">
                 {#<img src="images/small-logo.png" />#}
-                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/small-logo.png' %}
-                <img src="{{ asset_url }}" alt="Example"/>
-                {% endimage %}
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
             </a>
 
-            <p>221B Baker Street<br/>Saskatoon, SK, Canada</p>
+            <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, Canada</p>
 
-            <p>Phone: (306) 555-2134<br/>
-                Fax: (306) 555-1235</p>
+            <p>Phone: {{ dealer.phone }}<br/>
+                Fax: {{ dealer.fax }}</p>
 
             <p><a href="">Map and Hours</a></p>
 
@@ -205,9 +178,7 @@
 
             <h3>Hours</h3>
 
-            <p><span>Mon-Fri:</span> 8am-5pm<br/>
-                <span>Sat:</span> 9am-3pm<br/>
-                <span>Sun:</span> Closed</p>
+            {{ dealer.ServiceHours|raw }}
 
         </div>
 
@@ -237,7 +208,7 @@
                 <li><a href="">Site Map</a></li>
             </ul>
 
-            <div class="copyright">Copyright &copy; 2016 Company Name.<br/>All Rights Reserved</div>
+            <div class="copyright">Copyright &copy; 2016 {{ dealer.name }}.<br/>All Rights Reserved</div>
 
         </div>
 
