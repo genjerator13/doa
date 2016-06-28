@@ -46,7 +46,7 @@ class DefaultController extends Controller
             $ctheme = $dealer->getSiteTheme();
         }
 
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme,"dealer"=>$dealer));
     }
     public function changeThemeAction(Request $request){
         $theme = $request->get('theme');
@@ -58,7 +58,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$theme));
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$theme,"dealer"=>$dealer));
     }
 
     /**

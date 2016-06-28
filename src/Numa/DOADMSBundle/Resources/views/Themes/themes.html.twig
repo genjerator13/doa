@@ -7,20 +7,15 @@
 
         </div>
     </div>
-    {#<div class="box-body">#}
-    {#<form action="{{ path('dms_themes') }}">#}
-    {#<select name="theme">#}
-    {#<option value="Default">Default</option>#}
-    {#<option value="Sea">Sea</option>#}
-    {#</select>#}
-    {#<input class="btn btn-primary" type="submit" value="Switch Theme"/>#}
-    {#</form>#}
-    {#<div>Current theme is : {{ theme }}</div>#}
+
     {% if app.session.get('dms_dealer_id') is null %}
         <div class="alert alert-danger" role="alert">
             <strong>Attention:</strong> You must be logged in like dealer to change theme.
         </div>
     {% else %}
+        <div class="alert">
+            <span id="alert-message"></span>
+        </div>
         <script>
             $(document).ready(function () {
                 var name = "";
@@ -46,9 +41,15 @@
                                     //alert(theme);
                                     //console.log (theme);
                                     //location.reload();
+                                    $(".alert").addClass('alert-success');
+                                    $(".alert").removeClass('alert-error');
+                                    $("#alert-message").html("Theme successfully changed for {{ dealer.name }}. Current theme is "+name);
                                 },
                                 error: function (jqXHR, textStatus, errorThrown) {
-                                    alert("Error");
+                                    //alert("Error");
+                                    $(".alert").addClass('alert-error');
+                                    $(".alert").removeClass('alert-success');
+                                    $("#alert-message").html("Theme successfully changed");
                                 }
                             });
                 })
