@@ -134,7 +134,7 @@
 
             <div class="button b1">
 
-                <a href="">
+                <a href="{{ path("search_new_vehicle") }}">
 
                     <h2><span>Shop for</span> New RVs</h2>
 
@@ -146,7 +146,7 @@
 
             <div class="button b2">
 
-                <a href="">
+                <a href="{{ path("search_used_vehicle") }}">
 
                     <h2><span>Shop for</span> Pre-Owned</h2>
 
@@ -158,7 +158,7 @@
 
             <div class="button b3">
 
-                <a href="">
+                <a href="{{ path("finance_form") }}">
 
                     <h2><span>Apply for</span> Financing</h2>
 
@@ -172,11 +172,11 @@
 
                 <div class="b4">
 
-                    <a href="">
+                    <a href="{{ path("part_form") }}">
 
                         <h2>Parts</h2>
 
-                        <div class="click-here">Click Here</div>
+                        <div class="click-here">Click Hereee</div>
 
                     </a>
 
@@ -184,7 +184,7 @@
 
                 <div class="b5">
 
-                    <a href="">
+                    <a href="{{ path("service_form") }}">
 
                         <h2>Service</h2>
 
@@ -197,7 +197,7 @@
             </div>
 
         </div>
-
+    {% block browse %}
         <div class="browse">
 
             <ul>
@@ -210,9 +210,20 @@
             </ul>
 
         </div>
+    {% endblock %}
+    {% block banner %}
 
-        <div class="banner"><img src="images/banner.jpg" /></div>
+        {#<div class="banner"><img src="images/banner.jpg" /></div>#}
+        {#<div class="banner">#}
 
+            <div class="image">
+                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/banner.jpg' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </div>
+
+        </div>
+    {% endblock %}
         <div class="content">
 
             <h1>Welcome to Generic Company</h1>
@@ -226,22 +237,19 @@
         </div>
 
     </div>
-
+    {% block footer %}
     <div class="footer">
 
         <div class="contact-info">
 
             <a class="logo" href="">
-                {#<img src="images/small-logo.png" />#}
-                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/small-logo.png' %}
-                <img src="{{ asset_url }}" alt="Example"/>
-                {% endimage %}
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
             </a>
 
-            <p>221B Baker Street<br />Saskatoon, SK, Canada</p>
+            <p>{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}</p>
 
-            <p>Phone: (306) 555-2134<br />
-                Fax: (306) 555-1235</p>
+            <p>Phone: {{ dealer.phone }}<br />
+                Fax: {{ dealer.fax }}</p>
 
             <p><a href="">Map and Hours</a></p>
 
@@ -264,10 +272,7 @@
         <div class="hours">
 
             <h3>Hours</h3>
-
-            <p><span>Mon-Fri:</span> 8am-5pm<br />
-                <span>Sat:</span> 9am-3pm<br />
-                <span>Sun:</span> Closed</p>
+            {{ dealer.ServiceHours }}
 
         </div>
 
@@ -302,6 +307,7 @@
         </div>
 
     </div>
+    {% endblock %}
 
 </div>
 </body>
