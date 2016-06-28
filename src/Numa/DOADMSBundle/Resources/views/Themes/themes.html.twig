@@ -16,31 +16,35 @@
     {#<input class="btn btn-primary" type="submit" value="Switch Theme"/>#}
     {#</form>#}
     {#<div>Current theme is : {{ theme }}</div>#}
+    <div>
+        <div class="col-md-3 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
 
-    <div class="col-md-3 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
-
-        {{ component.image('images/themes/theme1.jpg', 'theme1', '', 'themes_image','400px') }}
-        <h4>Default Theme</h4>
-        <span class="{% if theme != "Default" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+            {{ component.image('images/themes/theme1.jpg', 'theme1', '', 'themes_image','400px') }}
+            <h4>Default Theme</h4>
+            <span class="{% if theme != "Default" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+        </div>
+        <div class="col-md-3 theme {% if theme == "Sea" %}themeactive{% endif %}" id="theme2" data-name="Sea">
+            {{ component.image('images/themes/theme2.jpg', 'theme1', '', 'themes_image','400px') }}
+            <h4>Sea Theme</h4>
+            <span class="{% if theme != "Sea" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+        </div>
+        <div class="col-md-3 theme {% if theme == "Mountain" %}themeactive{% endif %}" id="theme3" data-name="Mountain">
+            {{ component.image('images/themes/theme3.jpg', 'theme1', '', 'themes_image','400px') }}
+            <h4>Mountain Theme</h4>
+            <span class="{% if theme != "Mountain" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+        </div>
+        <div class="col-md-3 theme {% if theme == "Forest" %}themeactive{% endif %}" id="theme4" data-name="Forest">
+            {{ component.image('images/themes/theme4.jpg', 'theme1', '', 'themes_image','400px') }}
+            <h4>Forest Theme</h4>
+            <span class="{% if theme != "Forest" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
+        </div>
     </div>
-    <div class="col-md-3 theme {% if theme == "Sea" %}themeactive{% endif %}" id="theme2" data-name="Sea">
-        {{ component.image('images/themes/theme2.jpg', 'theme1', '', 'themes_image','400px') }}
-        <h4>Sea Theme</h4>
-        <span class="{% if theme != "Sea" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
-    </div>
-    <div class="col-md-3 theme {% if theme == "Mountain" %}themeactive{% endif %}" id="theme3" data-name="Mountain">
-        {{ component.image('images/themes/theme3.jpg', 'theme1', '', 'themes_image','400px') }}
-        <h4>Mountain Theme</h4>
-        <span class="{% if theme != "Mountain" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
-    </div>
-    <div class="col-md-3 theme {% if theme == "Forest" %}themeactive{% endif %}" id="theme4" data-name="Forest">
-        {{ component.image('images/themes/theme4.jpg', 'theme1', '', 'themes_image','400px') }}
-        <h4>Forest Theme</h4>
-        <span class="{% if theme != "Forest" %}hidden{% endif %} glyphicon glyphicon-ok"></span>
-    </div>
+    <div class="clear"></div>
+    <button id="change" class="btn btn-success">Change the theme</button>
 
     <script>
         $(document).ready(function () {
+            var name = "";
             $(".theme").click(function () {
                 console.log(this);
                 $(".theme").removeClass("themeactive");
@@ -50,6 +54,10 @@
 
                 name = $(this).data("name");
                 console.log(name);
+
+            });
+
+            $("#change").click(function () {
                 $.ajax(
                         {
                             url: "{{ path('dms_change_themes') }}",
@@ -64,7 +72,7 @@
                                 alert("Error");
                             }
                         });
-            });
+            })
         });
 
         {#$(document).ready(function(){#}
