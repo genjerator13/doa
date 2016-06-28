@@ -7,12 +7,6 @@
 
         </div>
     </div>
-
-    {% if app.session.get('dms_dealer_id') is null %}
-        <div class="alert alert-danger" role="alert">
-            <strong>Attention:</strong> You must be logged in like dealer to change theme.
-        </div>
-    {% else %}
         <div class="alert">
             <span id="alert-message"></span>
         </div>
@@ -56,7 +50,6 @@
             });
 
         </script>
-    {% endif %}
     <div>
         <div class="col-md-3 theme {% if theme == "Default" %}themeactive{% endif %}" id="theme1" data-name="Default">
 
