@@ -556,6 +556,10 @@ body {
     left: 10px;
     width: 100%;
 }
+#myCarousel .carousel-inner {
+    max-height: 500px;
+}
+
 .techData .fieldCaption {
     font-weight: bold;
 }
