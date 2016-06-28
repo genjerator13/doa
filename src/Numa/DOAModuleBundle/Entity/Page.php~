@@ -384,7 +384,6 @@ class Page
             foreach ($this->getPageAds() as $pa) {
                 if ($pa instanceof PageAds) {
                     $ads[] = $pa->getAd();
-
                 }
             }
         }

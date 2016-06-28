@@ -54,39 +54,45 @@ class ExtraListener
 
             $setting = $this->container->get("Numa.settings");
 
-            $host = $setting->get('host');
+            //$host = $setting->get('host');
             $request = $event->getRequest();
             //$session = $request->getSession();
-            if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
-                $dealer = $setting->getDealerForHost(trim($host));
-                if($dealer instanceof Catalogrecords) {
-                    $this->container->set('dealer', $dealer);
-                    //$session->set('dealer_id', $dealer->getId());
-                    $setting->activateTheme($host);
-                    $controllerObject->initializeDealer($dealer);
-                }
-                $request = $event->getRequest();
-                $pathinfo=$request->getPathInfo();
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $host = trim(strip_tags($request->getHost()));
+            $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+            //if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
+            //$dealer = $setting->getDealerForHost(trim($host));
+            if ($dealer instanceof Catalogrecords) {
+                $this->container->set('dealer', $dealer);
+                //$session->set('dealer_id', $dealer->getId());
+                //$setting->activateTheme($host);
+                $theme = $dealer->getSiteTheme();
+                $activeTheme = $this->container->get('liip_theme.active_theme');
+                $activeTheme->setName($theme);
+                $controllerObject->initializeDealer($dealer);
+            }
+            $request = $event->getRequest();
+            $pathinfo = $request->getPathInfo();
 
-                if(substr( $pathinfo, 0, 2 ) === "/d"){
-                    $pathinfo = substr($pathinfo,2,strlen($pathinfo)-1);
-                }
-
-                $em = $this->container->get('doctrine.orm.entity_manager');
-                $dealer_id = null;
-                $components = null;
-                if($dealer instanceof Catalogrecords) {
-                    $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-                }
-
-                $controllerObject->initializePageComponents($components);
+            if (substr($pathinfo, 0, 2) === "/d") {
+                $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
             }
 
-        }elseif($controllerObject instanceof DashboardDMSControllerInterface){
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $dealer_id = null;
+            $components = null;
+            if ($dealer instanceof Catalogrecords) {
+                $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+            }
+
+            $controllerObject->initializePageComponents($components);
+            //}
+
+        } elseif ($controllerObject instanceof DashboardDMSControllerInterface) {
             $request = $event->getRequest();
             $route = $request->get('_route');
-            $dashboard="";
-            if(strtolower(substr( $route, 0, 3 )) === "dms"){
+            $dashboard = "";
+            if (strtolower(substr($route, 0, 3)) === "dms") {
                 $dashboard = "DMS";
 
             }
@@ -95,12 +101,11 @@ class ExtraListener
     }
 
 
-
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        $response  = $event->getResponse();
-        $request   = $event->getRequest();
-        $kernel    = $event->getKernel();
+        $response = $event->getResponse();
+        $request = $event->getRequest();
+        $kernel = $event->getKernel();
         $container = $this->container;
         $routeName = $request->get('_route');
         $routeParams = $request->get('_route_params');
@@ -108,8 +113,8 @@ class ExtraListener
 
         $currentUrl = $request->getRequestUri();
         //dump($currentUrl);die();
-        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('url'=>$currentUrl));
-        if($page instanceof Page) {
+        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('url' => $currentUrl));
+        if ($page instanceof Page) {
             $pageDescription = $page->getDescription();
             $pageTitle = $page->getTitle();
 
@@ -119,9 +124,9 @@ class ExtraListener
             //die();
 
             //$html = preg_replace('/<meta.*?name=("|\')description("|\').*?content=("|\')(.*?)("|\')/i',"aaaa", $html);
-            $html = preg_replace('/<meta name=\"description\" content=\"(.*)\" \/>/i','<meta name="description" content="'.$pageDescription.'" />', $html);
-            $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\" \/>/i','<meta name="keywords" content="'.$pageTitle.'" />', $html);
-            $html = preg_replace('/<title>(.*)<\/title>/i',"<title>".$pageDescription."</title>\n", $html);
+            $html = preg_replace('/<meta name=\"description\" content=\"(.*)\" \/>/i', '<meta name="description" content="' . $pageDescription . '" />', $html);
+            $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\" \/>/i', '<meta name="keywords" content="' . $pageTitle . '" />', $html);
+            $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageDescription . "</title>\n", $html);
 
             $response->setContent($html);
         }

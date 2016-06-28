@@ -55,6 +55,12 @@ class SettingsLib
 
     }
 
+    /**
+     * @param $host
+     * @return mixed
+     * NOT USED
+     *
+     */
     public function getDealerForHost($host)
     {
         $setting = $this->getRepo()->findOneBy(array(
@@ -64,6 +70,12 @@ class SettingsLib
         return $dealer;
     }
 
+    /**
+     * @param $host
+     * @return mixed
+     * NOT USED
+     *
+     */
     public function activateTheme($host){
         $dealer = $this->getDealerForHost($host);
         $theme = $this->getRepo()->getSingle('theme','site',$dealer);
