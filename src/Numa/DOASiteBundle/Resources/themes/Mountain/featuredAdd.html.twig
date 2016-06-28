@@ -1,11 +1,11 @@
 {% if items is defined and items is not empty %}
-    <div class="company-logos">
+    <div class="featured-ads">
 
         <div class="row">
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="col-md-2 featured-ads-item" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ shortWord(item.year~" "~item.make~" "~item.model,16)}}</br>
+                <a class="col-md-2 featured-ads-item" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">{{ shortWord(item.year~" "~item.make~" "~item.model,16)}}</br>
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}
