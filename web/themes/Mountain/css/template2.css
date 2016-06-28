@@ -662,3 +662,70 @@ and (max-width : 767px) {
 }
 
 }
+
+
+.detailsContent .option-lists{
+	margin-left: 50px;
+}
+.detailsContent h2.section{
+	margin: 0px;
+	font-size: 130%;
+	padding: 5px;
+	background-color: #111111;
+	color: #f78f1e;
+	font-family:'Fjalla One','Open Sans', sans-serif;
+}
+
+.detailsContent .row {
+	margin-bottom: 20px;
+}
+.detailsContent .retail_price {
+	color: #f78f1e;
+	text-decoration-line: line-through;
+	font-size: 130%;
+}
+.detailsContent .price {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.detailsContent .price-quote {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+
+.title{
+	color: black;
+}
+.detailsContent  .left{
+	padding:0;
+	min-height: 400px;
+}
+.detailsContent .row{
+
+}
+.right{
+	height: 100%;
+	position: relative;
+	min-height: 400px;
+	padding-right: 0;
+
+}
+
+.ps-current {
+	min-height: 400px;
+}
+
+/*pgwslider */
+.slideshow .pgwSlideshow{
+	background: #fff;
+}
+.slideshow .pgwSlideshow .ps-list {
+	left: 580px;
+	bottom: 147px;
+}
+.listing-images {
+	position: relative;
+}
+
