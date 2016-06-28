@@ -33,51 +33,28 @@
 
                 $("#change").click(function () {
                     $.ajax(
-                            {
-                                url: "{{ path('dms_change_themes') }}",
-                                type: "POST",
-                                data: {"theme": name},
-                                success: function (data, textStatus, jqXHR) {
-                                    //alert(theme);
-                                    //console.log (theme);
-                                    //location.reload();
-                                    $(".alert").addClass('alert-success');
-                                    $(".alert").removeClass('alert-error');
-                                    $("#alert-message").html("Theme successfully changed for {{ dealer.name }}. Current theme is "+name);
-                                },
-                                error: function (jqXHR, textStatus, errorThrown) {
-                                    //alert("Error");
-                                    $(".alert").addClass('alert-error');
-                                    $(".alert").removeClass('alert-success');
-                                    $("#alert-message").html("Theme successfully changed");
-                                }
-                            });
+                        {
+                            url: "{{ path('dms_change_themes') }}",
+                            type: "POST",
+                            data: {"theme": name},
+                            success: function (data, textStatus, jqXHR) {
+                                //alert(theme);
+                                //console.log (theme);
+                                //location.reload();
+                                $(".alert").addClass('alert-success');
+                                $(".alert").removeClass('alert-error');
+                                $("#alert-message").html("Theme successfully changed for {{ dealer.name }}. Current theme is " + name);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //alert("Error");
+                                $(".alert").addClass('alert-error');
+                                $(".alert").removeClass('alert-success');
+                                $("#alert-message").html("Theme successfully changed");
+                            }
+                        });
                 })
             });
 
-            {#$(document).ready(function(){#}
-            {#$("#theme2").click(function(){#}
-            {#$("#theme2").css('border', '1px solid black');#}
-            {#$("#theme2").css('border-radius', '10px');#}
-            {#$("#theme1").css('border', 'none');#}
-            {#$.ajax(#}
-            {#{#}
-            {#url: "{{ path('dms_change_themes') }}",#}
-            {#type: "POST",#}
-            {#data: {"theme":'Sea'},#}
-            {#success: function(data, textStatus, jqXHR)#}
-            {#{#}
-            {#//alert(theme);#}
-            {#//console.log (theme);#}
-            {#location.reload();#}
-            {#},#}
-            {#error: function(jqXHR, textStatus, errorThrown)#}
-            {#{#}
-            {#alert("Error");#}
-            {#}#}
-            {#});#}
-            {#});#}
-            {#});#}
         </script>
     {% endif %}
     <div>
