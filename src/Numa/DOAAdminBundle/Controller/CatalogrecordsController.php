@@ -306,7 +306,11 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 }
 
                 $entity->upload();
-
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $plainPassword = $entity->getPassword();
+                $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                $entity->setPassword($encodedPassword);
                 $em->flush();
                 $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
                 $securityContext = $this->container->get('security.context');
