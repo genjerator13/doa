@@ -776,7 +776,6 @@ class Item
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"));
         $images = $if->matching($criteria);
-
         // Collect an array iterator.
         $iterator = $images->getIterator();
 
@@ -1944,6 +1943,34 @@ class Item
             $this->setAwnings($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
             $this->setSleeps($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'retail price') {
+            $this->setRetailPrice($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'pto horsepower') {
+            $this->setPtoHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'dbr horsepower') {
+            $this->setDBRHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'torque') {
+            $this->setTorque($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'brakes') {
+            $this->setBrakes($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'wheels') {
+            $this->setWheels($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'compression ratio') {
+            $this->setCompressionRatio($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'frame') {
+            $this->setFrame($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'suspension') {
+            $this->setSuspension($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'ground clereance') {
+            $this->setGroundClereance($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fresh water capacity') {
+            $this->setFreshWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'black water capacity') {
+            $this->setBlackWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'grey water capacity') {
+            $this->setGrayWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
+            $this->setRemotes($itemField->getFieldStringValue());
         }
 
 
@@ -3974,8 +4001,8 @@ class Item
     {
         if($this->getRetailPrice() > $this->getPrice())
         {
-            return "<div class='retail_price'>Retail Price: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
-
+//            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
+                return $this->getRetailPriceString();
         }
     }
     /**
@@ -4470,5 +4497,34 @@ class Item
     public function getCoverPhote()
     {
         return $this->cover_phote;
+    }
+    /**
+     * @var string
+     */
+    private $cover_photo;
+
+
+    /**
+     * Set coverPhoto
+     *
+     * @param string $coverPhoto
+     *
+     * @return Item
+     */
+    public function setCoverPhoto($coverPhoto)
+    {
+        $this->cover_photo = $coverPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhoto
+     *
+     * @return string
+     */
+    public function getCoverPhoto()
+    {
+        return $this->cover_photo;
     }
 }

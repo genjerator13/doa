@@ -413,6 +413,11 @@ body {
     font-weight: bold;
 }
 
+.detailsContent .price-quote {
+    font-size: 130%;
+    font-weight: bold;
+}
+
 
 .title{
     color: black;
