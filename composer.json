@@ -26,16 +26,15 @@
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "~1.2",
         
-         "twig/extensions": "~1.0",
+         "twig/extensions": "dev-master",
         "symfony/assetic-bundle": "~2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~3.0.12",
-        "sensio/framework-extra-bundle": "~3.0",
+
         "incenteev/composer-parameter-handler": "~2.0",
         "sensio/generator-bundle": "2.3.*",
         "braincrafted/bootstrap-bundle": "dev-master",
-        "jquery/jquery": "1.9.*",
         "apy/datagrid-bundle": "dev-master",
         "beberlei/DoctrineExtensions" : "dev-master",
         "genemu/form-bundle": "2.2.*",
@@ -50,9 +49,15 @@
         "jms/serializer-bundle": "^1.1@dev",
         "friendsofsymfony/rest-bundle": "dev-master",
         "nelmio/api-doc-bundle": "^2.9@dev",
-        "comur/image-bundle": "1.0.*@dev"
-
-
+        "comur/image-bundle": "1.0.*@dev",
+        "misd/guzzle-bundle": "dev-master",
+        "eightpoints/guzzle-bundle": "^4.4",
+        "leaseweb/guzzle-bundle": "*",
+        "ci/restclientbundle": "^1.0",
+        "guzzle/guzzle": "~3.9",
+        "pugx/autocompleter-bundle": "^1.2",
+        "knplabs/knp-snappy-bundle": "dev-master",
+        "liip/theme-bundle": "^1.4"
     },
     "scripts": {
         "post-install-cmd": [

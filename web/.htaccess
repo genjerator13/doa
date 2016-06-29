@@ -1,6 +1,6 @@
 DirectoryIndex home
 
-Options +FollowSymlinks
+#Options +FollowSymlinks
 RewriteEngine On
 
 # Explicitly disable rewriting for front controllers

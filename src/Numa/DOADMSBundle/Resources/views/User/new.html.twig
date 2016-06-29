@@ -1,0 +1,15 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+{% block content %}
+    <h1>Customer creation</h1>
+
+    {{ form(form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('customer') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+    </li>
+</ul>
+{% endblock %}

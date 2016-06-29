@@ -1,4 +1,6 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {#{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}#}
 {% form_theme edit_form with ['bootstrap_3_horizontal_layout.html.twig', _self]  %}
 
@@ -19,9 +21,15 @@
 
     {{ form(edit_form) }}
 
-            <a href="{{ path('importfeed') }}" class="btn btn-default">
-                Back to the list
-            </a>
+    {% if(app.request.get('_dashboard')=='DMS') %}
+        <a href="{{ path('dms_importfeed') }}" class="btn btn-default">
+            Back to the list
+        </a>
+    {% else %}
+        <a href="{{ path('importfeed') }}" class="btn btn-default">
+            Back to the list
+        </a>
+    {% endif %}
 </div>
 
 {% endblock %}

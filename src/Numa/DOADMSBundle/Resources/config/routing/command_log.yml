@@ -1,0 +1,9 @@
+dms_command_log_home:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:CommandLog:index",_dashboard:"DMS" }
+dms_command_log_detail:
+    pattern:  /details/{id}
+    defaults: { _controller: "NumaDOAAdminBundle:CommandLog:details",_dashboard:"DMS" }
+dms_command_log_start:
+    pattern:  /start
+    defaults: { _controller: "NumaDOAAdminBundle:CommandLog:start",_dashboard:"DMS" }

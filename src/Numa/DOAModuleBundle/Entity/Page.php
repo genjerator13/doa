@@ -3,38 +3,50 @@
 namespace Numa\DOAModuleBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use JMS\Serializer\Annotation\SerializedName;
+use JMS\Serializer\Annotation\XmlRoot;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation as JMS;
 /**
  * Page
+ * @JMS\ExclusionPolicy("ALL")
  */
 class Page
 {
     /**
      * @var string
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $description;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $keywords;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $title;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $url;
 
     /**
      * @var bool
+     * @JMS\Expose
      */
     private $is_public;
 
@@ -314,7 +326,7 @@ class Page
     public function setUpdatedAtValue() {
         if(empty($this->dontupdate)){
 
-            $this->created_at = new \DateTime();
+            $this->updated_at = new \DateTime();
         }
     }
     /**
@@ -372,7 +384,6 @@ class Page
             foreach ($this->getPageAds() as $pa) {
                 if ($pa instanceof PageAds) {
                     $ads[] = $pa->getAd();
-
                 }
             }
         }
@@ -390,6 +401,35 @@ class Page
             $pa->setAd($pageAd);
 
             $this->addPageAd($pa);
+        }
+    }
+
+    // Important
+    public function getComponent()
+    {
+        $components = new ArrayCollection();
+        if (!empty($this->getPageComponent()) && !$this->getPageComponent()->isEmpty()) {
+
+            foreach ($this->getPageComponent() as $pc) {
+                if ($pc instanceof PageComponent) {
+                    $components[] = $pc->getComponent();
+                }
+            }
+        }
+        return $components;
+    }
+
+
+    // Important
+    public function setComponent($pageComponents)
+    {
+        foreach ($pageComponents as $pageComponent) {
+            $pa = new PageComponent();
+
+            $pa->setPage($this);
+            $pa->setComponent($pageComponent);
+
+            $this->addPageComponent($pa);
         }
 
     }
@@ -414,5 +454,105 @@ class Page
     {
         // TODO: Implement __toString() method.
         return $this->getUrl();
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $PageComponent;
+
+
+    /**
+     * Add pageComponent
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
+     *
+     * @return Page
+     */
+    public function addPageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
+    {
+        $this->PageComponent[] = $pageComponent;
+
+        return $this;
+    }
+
+    /**
+     * Remove pageComponent
+     *
+     * @param \Numa\DOAModuleBundle\Entity\PageComponent $pageComponent
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removePageComponent(\Numa\DOAModuleBundle\Entity\PageComponent $pageComponent)
+    {
+        return $this->PageComponent->removeElement($pageComponent);
+    }
+
+    /**
+     * Get pageComponent
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPageComponent()
+    {
+        return $this->PageComponent;
+    }
+    /**
+     * @var int
+     */
+    private $dealer_id;
+
+    /**
+     * @JMS\Expose
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return Page
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return Page
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
     }
 }

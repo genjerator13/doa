@@ -18,7 +18,7 @@ class ImageCarouselType extends AbstractType
             ->add('file', 'file',array('required'=>false))
             ->add('title',null , array('required'=>false))
             ->add('url',null, array('required'=>false))
-
+            ->add('carousel_text','ckeditor', array('required'=>false))
         ;
     }
     

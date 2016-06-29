@@ -52,12 +52,21 @@ class AdController extends Controller
             if ($entity instanceof Ad) {
             }
             if ($request->isXmlHttpRequest()) {
-                $pa = new PageAds();
-                $pa->setAd($entity);
-                $page = $em->getRepository('NumaDOAModuleBundle:Page')->find($entity->getPageId());
-                $pa->setPage($page);
 
-                $entity->addPageAd($pa);
+                $ids = array();
+                foreach($entity->getPages() as $page){
+                    $ids[]=$page->getId();
+                }
+
+                if(!in_array($entity->getPageId(),$ids)) {
+                    $pa = new PageAds();
+                    $pa->setAd($entity);
+                    $page = $em->getRepository('NumaDOAModuleBundle:Page')->find($entity->getPageId());
+                    $pa->setPage($page);
+                    $entity->addPageAd($pa);
+                }
+
+
                 $em->flush();
                 $response = new JsonResponse(
                     array(
@@ -88,7 +97,7 @@ class AdController extends Controller
             'action' => $this->generateUrl('ad_create'),
             'method' => 'POST',
         ));
-
+        //$form->remove('Pages');
         $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
@@ -120,9 +129,16 @@ class AdController extends Controller
         $entity = new Ad();
         $pageid = intval($pageid);
         $entity->setPageId($pageid);
-
+//        $pa = new PageAds();
+//        $pa->setAd($entity);
+//
+//
+//        $em = $this->getDoctrine()->getManager();
+//        $page = $em->getRepository('NumaDOAModuleBundle:Page')->find($pageid);
+//        $pa->setPage($page);
+//        $entity->setPages($pa);
         $form = $this->createCreateForm($entity);
-
+//        $form->
         return $this->render('NumaDOAModuleBundle:Ad:newAjax.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
@@ -213,7 +229,7 @@ class AdController extends Controller
             'method' => 'POST',
             'csrf_protection' => false,
         ));
-
+        //$form->remove('Pages');
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;

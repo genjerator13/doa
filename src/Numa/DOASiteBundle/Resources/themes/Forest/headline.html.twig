@@ -1,0 +1,16 @@
+<div class="header">
+    {% if dealer is defined and dealer is not empty %}
+    <a class="logo" href="">
+
+            {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+
+    </a>
+    <div class="contact-info">
+
+        <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4</div>
+        <a class="map-and-hours" href="">Map &amp; Hours</a>
+
+        <div class="phone">{{ dealer.phone }}</div>
+    </div>
+    {% endif %}
+</div>

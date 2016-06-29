@@ -26,7 +26,7 @@ class Catalogrecords implements UserInterface
      * @var integer
      * @Expose
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -416,7 +416,9 @@ class Catalogrecords implements UserInterface
      */
     public function setPassword($password)
     {
-        $this->password = $password;
+        if (!empty($password)) {
+            $this->password = $password;
+        }
 
         return $this;
     }
@@ -434,7 +436,9 @@ class Catalogrecords implements UserInterface
 
     public function getRoles()
     {
-
+        if (strtolower($this->getDmsStatus())=='activated') {
+            return array('ROLE_DMS_USER', 'ROLE_BUSINES');
+        }
         if ($this->getAdmindealer()) {
             return array('ROLE_DEALER_ADMIN', 'ROLE_BUSINES');
         }
@@ -472,11 +476,6 @@ class Catalogrecords implements UserInterface
     public function setUserame($username)
     {
         $this->username = $username;
-    }
-
-    public function __sleep()
-    {
-        return array('id', 'name', 'email');
     }
 
     /**
@@ -1059,5 +1058,224 @@ class Catalogrecords implements UserInterface
     public function getAdmindealer()
     {
         return $this->Admindealer;
+    }
+    /**
+     * @var string
+     */
+    private $dms_status;
+
+
+    /**
+     * Set dms_status
+     *
+     * @param string $dmsStatus
+     * @return Catalogrecords
+     */
+    public function setDmsStatus($dmsStatus)
+    {
+        $this->dms_status = $dmsStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get dms_status
+     *
+     * @return string
+     */
+    public function getDmsStatus()
+    {
+        return $this->dms_status;
+    }
+
+
+    /**
+     * @var string
+     * @Expose
+     */
+    private $gst;
+
+
+    /**
+     * Set gst
+     *
+     * @param string $gst
+     *
+     * @return Catalogrecords
+     */
+    public function setGst($gst)
+    {
+        $this->gst = $gst;
+
+        return $this;
+    }
+
+    /**
+     * Get gst
+     *
+     * @return string
+     */
+    public function getGst()
+    {
+        return $this->gst;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $HomeTab;
+
+
+    /**
+     * Add homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return Catalogrecords
+     */
+    public function addHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        $this->HomeTab[] = $homeTab;
+
+        return $this;
+    }
+
+    /**
+     * Remove homeTab
+     *
+     * @param \Numa\DOAAdminBundle\Entity\HomeTab $homeTab
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeHomeTab(\Numa\DOAAdminBundle\Entity\HomeTab $homeTab)
+    {
+        return $this->HomeTab->removeElement($homeTab);
+    }
+
+    /**
+     * Get homeTab
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getHomeTab()
+    {
+        return $this->HomeTab;
+    }
+
+    public function __sleep() {
+
+        // these are field names to be serialized, others will be excluded
+        // but note that you have to fill other field values by your own
+        return array('id',
+            'category_id',
+            'name',
+            'description',
+            'url',
+            'address',
+            'phone',
+            'location',
+            'email',
+            'fax',
+            'full',
+            'logo',
+            'logo_url',
+            'password',
+            'contact',
+            'dealer_id',
+            'address2',
+            'city',
+            'zip',
+            'state',
+            'username',
+            'Admindealer',
+            'dms_status',
+            'gst',
+        );
+    }
+    /**
+     * @var string
+     */
+    private $site_url;
+
+    /**
+     * @var string
+     */
+    private $site_theme;
+
+
+    /**
+     * Set siteUrl
+     *
+     * @param string $siteUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteUrl($siteUrl)
+    {
+        $this->site_url = $siteUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get siteUrl
+     *
+     * @return string
+     */
+    public function getSiteUrl()
+    {
+        return $this->site_url;
+    }
+
+    /**
+     * Set siteTheme
+     *
+     * @param string $siteTheme
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteTheme($siteTheme)
+    {
+        $this->site_theme = $siteTheme;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTheme
+     *
+     * @return string
+     */
+    public function getSiteTheme()
+    {
+        return $this->site_theme;
+    }
+    /**
+     * @var string
+     */
+    private $country;
+
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Catalogrecords
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

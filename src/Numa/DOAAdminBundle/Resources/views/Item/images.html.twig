@@ -1,80 +1,97 @@
+{#{% extends is_granted('ROLE_BUSINES')#}
+{#? 'NumaDOASiteBundle::home-layout.html.twig'#}
+{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
 {% extends is_granted('ROLE_BUSINES')
-? 'NumaDOASiteBundle::home-layout.html.twig'
-: 'NumaDOAAdminBundle::layout.html.twig' %}
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
+:(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block javascripts %}
-    {{ parent()}}
-    {% javascripts  '@dropzone_js'  '@colorbox_js' '@sortable_js'  %}
+    {{ parent() }}
+    {% javascripts    '@colorbox_js' '@sortable_js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}
+
 {% block content %}
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
-        <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
-        {#{{ form_start(addimages) }}#}
-        {#{{ form_errors(addimages) }}#}
-        {#<div class="file-upload">#}
-        {#{{ form_row(addimages.Picture1) }}#}
-        {#</div>#}
-
+        {% if(app.request.get('_dashboard')=='DMS') %}
+            <a href="{{ path('dms_items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {% else %}
+            <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+        {% endif %}
         {#{{ form_end(addimages) }}#}
         <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
-
             {#{{ form_widget(form.file) }}#}
-
             {#<input type="submit" value="Upload" />#}
         </form>
+        {#<div class="row">#}
+        {#{{ form(addVideoForm) }}#}
+        {#</div>#}
         <div id="item-images">
+            <div class="row">
+                {{ form_start(addVideoForm) }}
+                <div class="col-lg-6">
+                    <div class="input-group">
+
+                        {{ form_widget(addVideoForm.url) }}
+                        <span class="input-group-btn">
+                            {{ form_widget(addVideoForm.send) }}
+                        </span>
+                    </div>
+                </div>
+                {{ form_end(addVideoForm) }}
+            </div>
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
-                <form method="post" action="{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}"
-                      name="images-delete">
-                    <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                            All</a><a id="delete-selected" href=""
-                                      data-confirm="Are you sure you want to delete all the selected images?">Delete
-                            Selected</a></div>
+                <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
+                        All</a><a id="delete-selected" href="#">Delete Selected</a></div>
+                <h1>Images list</h1>
+                <h3>
+                    <small>To rearrange your photos, just drag and drop</small>
+                </h3>
+                <div class="box-body table-responsive no-padding">
+                    <ul class='list' id="imagelist">
+                        {% for image in images %}
 
-                    <h1>Images list</h1>
-                        <h3><small>To rearrange your photos, just drag and drop</small></h3>
-
-
-                    <div class="box-body table-responsive no-padding">
-                        <ul class='list' id="imagelist">
-                            {% for image in images %}
-
-                                <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}" data-order="{{ image.sortOrder }}">
-                                    <div class="col-md-2 imageindex">
-                                        {% if(loop.first) %}
-                                            Cover Image:
-                                        {% else %}
-                                            {{image.sortOrder  }}
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}" value="{{ image.id }}"
-                                               class="image-checkbox">
-                                    </div>
-                                    <div class="col-md-2">
-                                        {% if  "http" not in image.getFieldStringValue() %}
-                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                        src="{{ image.getFieldStringValue()|imagine_filter('search_image') }}"
-                                                        class="thumbnail"
-                                                        alt="image"/></a>
-                                        {% else %}
-                                            <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}"><img
-                                                        src="{{ image.getFieldStringValue() }}" alt="image"
-                                                        width="120px"
-                                                        class="thumbnail"/></a>
-                                        {% endif %}
-                                    </div>
-                                    <div class="col-md-3">
-                                        <a href="{{ path('itemfield_delete',{'id':image.id,'urlredirect':app.request.uri }) }}"><i
-                                                    class='glyphicon glyphicon-trash'></i></a></div>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                </form>
-                {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+                        <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}"
+                            data-order="{{ image.sortOrder }}">
+                            <div class="col-md-2 imageindex">
+                                {% if(loop.first) %}
+                                    Cover Image:
+                                {% else %}
+                                    {{ image.sortOrder }}
+                                {% endif %}
+                            </div>
+                            <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}"
+                                                         value="{{ image.id }}"
+                                                         class="image-checkbox">
+                            </div>
+                            <div class="col-md-2">
+                                {% if  "youtube" in image.getFieldStringValue() %}
+                                <a class="colorbox"
+                                   href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
+                                    <img
+                                            src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
+                                            alt="image"
+                                            width="120px"
+                                            class="thumbnail"/>
+                                </a>
+                                {% else %}
+                                <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
+                                    {{ component.image(image.getFieldStringValue(), '', 'thumbnail', 'search_image',"120px") }}
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-3">
+                                <a  data-id="{{ image.id }}" class="delete-single" href="#">
+                                    <i class='glyphicon glyphicon-trash'></i>
+                                </a>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endif %}
         </div>
     </div>
@@ -83,15 +100,18 @@
             Dropzone.options.drop = {
                 init: function () {
                     this.on("queuecomplete", function (file) {
+
                         location.reload();
                     });
                 }
             };
             var list = document.getElementById("imagelist");
-            Sortable.create(list,{onEnd: function (/**Event*/evt) {
+            Sortable.create(list, {
+                onEnd: function (/**Event*/evt) {
 
-                updateImages();
-            },}); // That's all.
+                    updateImages();
+                },
+            }); // That's all.
 
         });
         $("#select-all").click(function (e) {
@@ -104,24 +124,53 @@
         });
 
         $("#delete-selected").click(function (ev) {
+            ev.preventDefault();
+            var sList = {};
+            i=0;
+            $('input[type=checkbox]').each(function () {
+                if(this.checked){
+                    i++;
+                    ind = "i"+i;
+                    sList[ind]=$(this).val();
+                }
 
-            var href = $("form").attr('action');
-            $('.modal-body').html("");
-
-            if (!$('#dataConfirmModal').length) {
-                $('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h3 class="modal-title">Please Confirm</h3></div><div class="modal-body"></div>      <div class="modal-footer">        <button class="btn" data-dismiss="modal" >Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
-                //$('.mainContent').append('<div id="dataConfirmModal" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">Modal titleb  </h4></div><div class="modal-body">        <p>One fine body&hellip;</p>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>        <button type="button" class="btn btn-primary">Save changes</button>      </div>    </div>  </div></div>');
-
-
-            }
-
-            $( "a#dataConfirmOK" ).live( "click", function() {
-
-                $("form").submit();
             });
+            console.log (sList);
+            $.ajax(
+                    {
+                        url: '{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}',
+                        type: "POST",
+                        data: sList,
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("Error");
+                        }
+                    });
+        });
 
-            $('#dataConfirmModal').modal({show: true});
-            return false;
+        $(".delete-single").click(function (ev) {
+            ev.preventDefault();
+            id = $(this).data('id');
+            console.log (id);
+            $.ajax(
+                    {
+                        url: '{{ path('itemfield_delete')}}',
+                        type: "POST",
+                        data: {'id':id},
+                        success: function(data, textStatus, jqXHR)
+                        {
+                            
+                            location.reload();
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("Error");
+                        }
+                    });
         });
 
         $("#saveorder").click(function (ev) {
@@ -133,21 +182,21 @@
             $('a.colorbox').colorbox({maxWidth: '95%', maxHeight: '95%', rel: 'group1'});
         });
 
-        var updateImages = function() {
+        var updateImages = function () {
             var imagelist = $("#imagelist");
             var orders = {};
             var images_id = [];
             $("#imagelist li").each(function (index) {
                 //console.log( index + ": " + $( this ).text() );
 
-                if(index==0){
+                if (index == 0) {
                     index = "Cover Image:";
                 }
                 $(this).find(".imageindex").html(index);
                 console.log($(this).find(".imageindex").html());
-                id_image = $(this).data("id")+" ";
+                id_image = $(this).data("id") + " ";
                 order = index;
-                orders[id_image]=order;
+                orders[id_image] = order;
                 //images_id.push(id_image);
                 //setImageOrder(id_image,order);
 
@@ -156,19 +205,17 @@
             setImageOrder(orders);
             //console.log(images_id);
         };
-        var setImageOrder = function(orders) {
+        var setImageOrder = function (orders) {
             console.log(JSON.stringify(orders));
             $.ajax(
                     {
                         url: "{{ path('item_image_setorder') }}",
                         type: "POST",
-                        data: { "orders":JSON.stringify(orders) },
-                        success: function(data, textStatus, jqXHR)
-                        {
+                        data: {"orders": JSON.stringify(orders)},
+                        success: function (data, textStatus, jqXHR) {
                             //data: return data from server
                         },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
+                        error: function (jqXHR, textStatus, errorThrown) {
                             //if fails
                         }
                     });

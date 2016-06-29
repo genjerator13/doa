@@ -1,6 +1,46 @@
 /*@import url("reset.css");*/
 
 /* layout styles */
+.themeactive{
+    border: 1px solid black;
+    border-radius: 10px;
+}
+.icon_tab{
+    width: 42px;
+    height: 42px;
+    display: block;
+    float: left;
+}
+.icon_vehicle, .icon_Vehicle , .icon_car{
+    background: url('/images/icons/Car.png') no-repeat ;
+}
+
+.icon_Marine{
+    background: url('/images/icons/Marine.png') no-repeat ;
+}
+
+.icon_Motorsport{
+    background: url('/images/icons/Motosport.png') no-repeat ;
+}
+.icon_RVs{
+    background: url('/images/icons/Rv.png') no-repeat ;
+}
+.icon_Ag{
+    background: url('/images/icons/Ag.png') no-repeat ;
+}
+.tab_text {
+    padding: 10px 0 0 5px;
+    display: block;
+    float: left;
+}
+.nav-tabs > li > a {
+    height: 60px;
+    outline: none;
+}
+
+.nav-tabs {
+    border: none;
+}
 html
 {
     height: 100%;
@@ -133,4 +173,36 @@ input[type="file"] {
     position: absolute;
     top: 10px;
     right: 30px;
+}
+
+#item-images .form-control{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.grid {
+    width: 100%;
+    height: auto;
+}
+
+.image-angular{padding: 10px;}.image-angular2{padding: 10px 0px 0px 10px;}
+
+.changeable {
+    border-color: #aa3333;
+}
+
+.new-listing{
+    padding: 10px;
+}
+
+.addfeature{
+    margin: 20px;
+}
+
+.page-component {
+    padding: 10px;
+}
+
+.page-component-row {
+    padding: 10px;
 }

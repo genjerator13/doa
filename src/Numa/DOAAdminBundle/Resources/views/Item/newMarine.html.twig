@@ -1,74 +1,22 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-
+    {{ component.listingFieldInput(form.make,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.model,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.stockNr,"", "form-group","col-sm-9") }}
     <div class="form-group">
-        {{ form_label(form.year, 'Year', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.year, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.make, 'Make', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.make, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.model, 'Model', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.model, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.price, 'Price', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.price, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.stockNr, 'Stock Number', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.stockNr, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.type, 'Boat Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        {{ form_label(form.type, 'Boat Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
+    {{ component.listingFieldInput(form.length,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.beam,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.weight,"Boat Weight", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.hullDesign,"", "form-group","col-sm-9") }}
     <div class="form-group">
-        {{ form_label(form.length, 'Length(ft)', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.length, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.beam, 'Beam', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.beam, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.weight, 'Boat Weight', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.weight, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.hullDesign, 'Hull  Design', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.hullDesign, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.steeringType, 'Steering type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.steeringType, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.driveType, { 'attr': {'class': 'form-control'} }) }}  
         </div>
@@ -79,59 +27,31 @@
             {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
+    {{ component.listingFieldInput(form.horsepower,"", "form-group","col-sm-9") }}
     <div class="form-group">
-        {{ form_label(form.horsepower, 'Horsepower', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.horsepower, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.fuelType, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.transmission, 'Transmission', { 'label_attr': {'class': 'col-sm-3'} }) }}   
+        {{ form_label(form.transmission, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.transmission, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.exteriorColor, 'Exterior Color', { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.exteriorColor, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
-            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}  
+            {{ form_widget(form.exteriorColor, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
-        {{ form_label(form.interiorColor, 'Interior Color', { 'label_attr': {'class': 'col-sm-3'} }) }}
+        {{ form_label(form.interiorColor, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">                            
             {{ form_widget(form.interiorColor, { 'attr': {'class': 'form-control'} }) }}  
         </div>
     </div>
-    <div class="form-group">
-        {{ form_label(form.passengers, 'Passengers', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.passengers, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.trailer, 'Trailer', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.trailer, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.battery, 'Battery', { 'label_attr': {'class': 'col-sm-3'} }) }}   
-        <div class="col-sm-9">                            
-            {{ form_widget(form.battery, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.iwNo, 'IW NO', { 'label_attr': {'class': 'col-sm-3'} }) }}
-        <div class="col-sm-9">                            
-            {{ form_widget(form.iwNo, { 'attr': {'class': 'form-control'} }) }}  
-        </div>
-    </div>  
-
+    {{ component.listingFieldInput(form.passengers,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.trailer,"", "form-group","col-sm-9") }}
 {% endblock %}

@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importfeed;
@@ -12,7 +13,13 @@ use Symfony\Component\Process\Process;
  * Importfeed controller.
  *
  */
-class CommandLogController extends Controller {
+class CommandLogController extends Controller implements DashboardDMSControllerInterface {
+
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all Importfeed entities.
@@ -32,7 +39,8 @@ class CommandLogController extends Controller {
 
         return $this->render('NumaDOAAdminBundle:CommandLog:index.html.twig', array(
                     'entities' => $entities,
-                    'progresses' => $progresses
+                    'progresses' => $progresses,
+                    'dashboard' => $this->dashboard,
         //            'inprogress' => $inProgress,
         ));
     }
@@ -52,8 +60,15 @@ class CommandLogController extends Controller {
 
         //if ((!empty($inProgress[0]) && $inProgress[0] instanceof \Numa\DOAAdminBundle\Entity\CommandLog) || !empty($force)) {
             $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil startCommand';
+
+        //$logger = $this->get("logger");
+        //$logger->addWarning("startAction : ".$command);
+        //dump($logger);die();
+
+
             $process = new \Symfony\Component\Process\Process($command);
             $process->start();
+        //$logger->warning("startAction  START: ".$command);
 //            
 //            $process->wait(function ($type, $buffer) {
 //                if (Process::ERR === $type) {
@@ -65,7 +80,12 @@ class CommandLogController extends Controller {
 //            die();
         //}
         sleep(2);
-        return $this->redirectToRoute('command_log_home');
+        $action = 'command_log_home';
+        if(!empty($this->dashboard)){
+            $action = 'dms_command_log_home';
+        }
+        //$logger->warning("startAction  redirect: ".$command);
+        return $this->redirectToRoute($action);
     }
 
 }

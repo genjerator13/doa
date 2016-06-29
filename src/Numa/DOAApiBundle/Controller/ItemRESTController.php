@@ -10,101 +10,160 @@ namespace Numa\DOAApiBundle\Controller;
 
 
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOAAdminBundle\Entity\ItemField;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ItemRESTController extends Controller
 {
-    /**
-     * @return array
-     * @View
-     */
-
     const cacheMaxAge = 86400;
-    public function getListingsAction(){
+
+    public function getListingsAction()
+    {
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByCat(3);
         return $items;
     }
 
-    public function listingAction(Request $request,$id){
+    public function listingAction(Request $request, $id)
+    {
         //check if column separated ids
-        $columnSeparatedIds = explode(":",$id);
+        //listings can be fetched by separating ids by : /api/listing/1536:1539
+        $columnSeparatedIds = explode(":", $id);
 
-        if(count($columnSeparatedIds)>0){
+        if (count($columnSeparatedIds) > 0) {
             $id = array();
-            foreach($columnSeparatedIds as $cid){
-                $cid=intval($cid);
-                $id[]=$cid;
+            foreach ($columnSeparatedIds as $cid) {
+                $cid = intval($cid);
+                $id[] = $cid;
             }
         }
 
 
-        $item = $this->get('listing_api')->prepareListing($id);
+        $items = $this->get('listing_api')->prepareListing($id);
 
 
-        if($item instanceof Item){
+        if ($items instanceof Item) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
 
-        if($format=='xml') {
-            $xml = $this->get('xml')->createXML('listing', $item);
-            $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
-            $response = new Response(json_encode($item));
-        }
 
-        return $response;
+        return $this->get('listing_api')->formatResponse($items, $format);
     }
 
-    public function listingsByDealerAction(Request $request,$dealerid){
+    public function listingsByDealerAction(Request $request, $dealerid)
+    {
 
         $category = $request->query->get('category');
 
-        $items = $this->get('listing_api')->prepareListingByDealer($dealerid,$category);
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
 
-        if(!$items){
+        if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        if($format=='xml') {
-            $xml = $this->get('xml')->createXML('listings', $items);
-            $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
-            $response = new Response(json_encode($items));
-        }
-        $nocache=false;
-
-        if (!$nocache) {
-            $response->setPublic();
-            $response->setSharedMaxAge(self::cacheMaxAge);
-            $response->setMaxAge(self::cacheMaxAge);
-
-        }
-        return $response;
+        return $this->get('listing_api')->formatResponse($items, $format);
     }
 
-    public function listingsAllAction(Request $request,$category){
+    public function listingsByDealerUsernameAction(Request $request, $dealerid)
+    {
+
+        $category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareListingByDealerUsername($dealerid, $category);
+
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        return $this->get('listing_api')->formatResponse($items, $format);
+    }
+
+    public function listingsAllAction(Request $request, $category)
+    {
         //$category = $request->query->get('category');
 
         $items = $this->get('listing_api')->prepareAll($category);
-        if(!$items){
+        if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        if($format=='xml') {
-            $xml = $this->get('xml')->createXML('listings', $items);
-            $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
-            $response = new Response(json_encode($items));
-        }
-        $nocache=false;
-        if (!$nocache) {
-            $response->setPublic();
-            $response->setSharedMaxAge(self::cacheMaxAge);
-            $response->setMaxAge(self::cacheMaxAge);
+        return $this->get('listing_api')->formatResponse($items, $format);
+    }
+
+
+    public function listingsByDealer2Action(Request $request, $dealerid)
+    {
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings($dealerid);
+        return $listings;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function allListingsAction()
+    {
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings();
+        return $listings;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function listing2Action($id)
+    {
+
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        return $customers;
+    }
+
+    /**
+     * @Rest\View
+     */
+    public function listingByUniquesAction(Request $request, $id)
+    {
+        $field = $request->get('field');
+        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsBy($id, $field);
+        return $customers;
+    }
+
+    public function addFeatureAction(Request $request)
+    {
+        $post = $request->getContent();
+        $post = json_decode($post);
+        $item_id = $post->item_id;
+        $feature_name = $post->name;
+        $em = $this->getDoctrine()->getManager();
+        //check if already inserted
+        $exists = $em->getRepository('NumaDOAAdminBundle:Item')->isItemFieldExists($item_id, $feature_name);
+        $response = new JsonResponse(
+            array(
+                'message' => 'Success',
+                'action' => '',
+                400));
+        if (empty($exists)) {
+
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item_id);
+
+
+            $itemfield = new ItemField();
+            $itemfield->setItem($item);
+            $itemfield->setFieldName($feature_name);
+            $itemfield->setFieldType('boolean');
+            $itemfield->setFieldStringValue($feature_name);
+            $itemfield->setFieldBooleanValue(true);
+            $em->persist($itemfield);
+            $item->addItemField($itemfield);
+            $em->flush();
+            $response = new JsonResponse(
+                array(
+                    'message' => 'Success',
+                    'action' => 'refresh',
+                    400));
         }
         return $response;
     }

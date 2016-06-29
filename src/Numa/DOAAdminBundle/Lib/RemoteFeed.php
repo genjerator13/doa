@@ -73,8 +73,28 @@ class RemoteFeed extends ContainerAware
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
 
                 if (self::XML == $this->entity->getImportFormat()) {
-                    //$xml_obj = simplexml_load_file($upload_path . $this->source);
-                    $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
+
+                    if (self::URL == $this->entity->getImportMethod()) {
+                        $ch = curl_init();
+                        curl_setopt($ch, CURLOPT_URL, $upload_path . $this->source);
+
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+
+                        $local_file = curl_exec($ch);
+                        if ($local_file === false) {
+                            echo 'Curl error: ' . curl_error($ch);
+                        }
+                        curl_close($ch);
+
+                        // dump($local_file);die();
+                        $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
+                    } else {
+                        $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
+                    }
+
+
                     //simplexml_load_file('url', null, LIBXML_NOERROR);
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {
@@ -85,7 +105,7 @@ class RemoteFeed extends ContainerAware
                     }
 
                     foreach ($xmlSource as $child) {
-                       // dump($xmlSource);
+                        // dump($xmlSource);
 
                         foreach ($child->children() as $property) {
 
@@ -96,7 +116,7 @@ class RemoteFeed extends ContainerAware
                                     if (is_string($prop)) {
                                         //dump($property->getName() . "::" . $prop . ":::" . $key);
                                         //dump($prop);
-                                        if(!empty($key)) {
+                                        if (!empty($key)) {
                                             $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
                                         }
                                     }
@@ -127,6 +147,11 @@ class RemoteFeed extends ContainerAware
 
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_URL, $handleSource);
+                        $dir = dirname($local_file);
+                        if (!is_dir($dir))
+                        {
+                            mkdir($dir, 0755, true);
+                        }
                         $fp = fopen($local_file, 'w');
                         curl_setopt($ch, CURLOPT_FILE, $fp);
                         curl_exec($ch);
@@ -183,8 +208,26 @@ class RemoteFeed extends ContainerAware
             $sourceFile = $upload_path . $sourceFile;
         }
         if (self::XML == $this->entity->getImportFormat()) {
-            $xml_obj = simplexml_load_file($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
+            if (self::URL == $this->entity->getImportMethod()) {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $sourceFile);
 
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+                curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)');
+
+                $local_file = curl_exec($ch);
+                if ($local_file === false) {
+                    echo 'Curl error: ' . curl_error($ch);
+                }
+                curl_close($ch);
+
+
+                $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
+            } else {
+
+                $xml_obj = simplexml_load_file($sourceFile, 'SimpleXMLElement', LIBXML_NOCDATA);
+            }
             $rootNode = $this->entity->getRootNode();
             if (!empty($rootNode)) {
                 $xmlSource = $xml_obj->xpath($rootNode);
@@ -228,7 +271,7 @@ class RemoteFeed extends ContainerAware
             //$arrayItem = $this->xml2array($this->items);
             $temp = $this->items;
 
-            foreach ($temp as $itemkey=>$item) {
+            foreach ($temp as $itemkey => $item) {
                 foreach ($item as $key => $prop) {
 
                     if (is_array($prop)) {
@@ -236,7 +279,7 @@ class RemoteFeed extends ContainerAware
                             if (is_string($value)) {
 
                                 //dump($key.":".$keyvalue . ":" . $value);
-                                $this->items[$itemkey][$key."_".$keyvalue] = $value;
+                                $this->items[$itemkey][$key . "_" . $keyvalue] = $value;
 
                             }
                         }
@@ -254,6 +297,7 @@ class RemoteFeed extends ContainerAware
             $rowCount = 0;
 
             $handleSource = $this->entity->getImportSource();
+
             $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
 
@@ -272,12 +316,19 @@ class RemoteFeed extends ContainerAware
 
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $handleSource);
+                $dir = dirname($local_file);
+                if (!is_dir($dir))
+                {
+                    mkdir($dir, 0755, true);
+                }
                 $fp = fopen($local_file, 'w');
+                
                 curl_setopt($ch, CURLOPT_FILE, $fp);
                 curl_exec($ch);
                 curl_close($ch);
                 fclose($fp);
                 $filename = $local_file;
+
             }
 
             if (!file_exists($filename)) {
@@ -289,7 +340,7 @@ class RemoteFeed extends ContainerAware
                     $delimeter = ',';
                 }
 
-                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row) ) {
+                while (($row = fgetcsv($handle, 0, $delimeter)) !== FALSE && !empty($row)) {
                     //var_dump($row); // process the row.
 
                     if ($rowCount > 0) {
@@ -307,7 +358,7 @@ class RemoteFeed extends ContainerAware
                 }
             }
         }
-        
+
         return $this->items;
     }
 

@@ -1,0 +1,27 @@
+Numa\DOAModuleBundle\Entity\PageComponent:
+    type: entity
+    table: page_component
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        page_id:
+            type: integer
+        component_id:
+            type: integer
+    manyToOne:
+        Page:
+            targetEntity: Page
+            cascade: [persist]
+            inversedBy: Component
+            joinColumn:
+                name: page_id
+                referencedColumnName: id
+        Component:
+            targetEntity: Component
+            cascade: [persist]
+            inversedBy: Page
+            joinColumn:
+                name: component_id
+                referencedColumnName: id

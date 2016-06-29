@@ -1,0 +1,70 @@
+Numa\DOAStatsBundle\Entity\Stats:
+    type: entity
+    table: stats
+    repositoryClass: Numa\DOAStatsBundle\Repository\StatsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    indexes:
+        name:
+            columns: [ table_name ]
+        name_id:
+            columns: [ table_name,table_id ]
+    fields:
+        table_name:
+            type: string
+            length: 255
+        table_id:
+            type: integer
+            nullable: true
+        date_visited:
+            type: datetime
+            nullable: true
+        status:
+            type: string
+            nullable: true
+        http_user_agent:
+            type: string
+            length: 255
+            nullable: true
+        http_accept:
+            type: string
+            length: 255
+            nullable: true
+        http_accept_language:
+            type: string
+            length: 255
+            nullable: true
+        http_accept_encoding:
+            type: string
+            length: 255
+            nullable: true
+        http_referer:
+            type: string
+            length: 255
+            nullable: true
+        http_cookie:
+            type: string
+            length: 255
+            nullable: true
+        http_conection:
+            type: string
+            length: 255
+            nullable: true
+        remote_address:
+            type: string
+            length: 255
+            nullable: true
+        remote_port:
+            type: string
+            length: 255
+            nullable: true
+        request_url:
+            type: string
+            length: 255
+            nullable: true
+        request_time:
+            type: string
+            length: 255
+            nullable: true

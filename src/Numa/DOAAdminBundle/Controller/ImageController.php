@@ -2,6 +2,9 @@
 
 namespace Numa\DOAAdminBundle\Controller;
 
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -22,8 +25,14 @@ use Doctrine\Common\Collections\Criteria;
  * Item controller.
  *
  */
-class ImageController extends Controller
+class ImageController extends Controller implements DashboardDMSControllerInterface
 {
+
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     public function showAction(Request $request, $id)
     {
@@ -36,7 +45,7 @@ class ImageController extends Controller
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
             ->orderBy(array('sortOrder' => Criteria::ASC));
         $images = $item->getItemField()->matching($criteria);
-        ///
+
 
         foreach ($images as $image) {
 
@@ -45,26 +54,28 @@ class ImageController extends Controller
 
                 $imageSource = $image->getFieldStringValue();
 
-                //dump($upload_path);
 
-                if (!file_exists($upload_path . $imageSource)) {
+
+                if (!file_exists($upload_path . $imageSource) || is_dir($upload_path . $imageSource)) {
+
                     $imageSource = "/images/no_image_available_small.png";
                 }
 
 
-                    $imagemanagerResponse = $this->container
-                        ->get('liip_imagine.controller')
-                        ->filterAction(
-                            $this->getRequest(), $imageSource, 'item_detail_image'
-                        );
-                    $imagemanagerResponse = $this->container
-                        ->get('liip_imagine.controller')
-                        ->filterAction(
-                            $this->getRequest(), $imageSource, 'search_image'
-                        );
-                }
+                $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request, $imageSource, 'item_detail_image'
+                    );
+
+                $imagemanagerResponse = $this->container
+                    ->get('liip_imagine.controller')
+                    ->filterAction(
+                        $request, $imageSource, 'search_image'
+                    );
             }
-        //}
+        }
+
 
 
         ///
@@ -82,6 +93,8 @@ class ImageController extends Controller
         return $this->render('NumaDOAAdminBundle:Item:images.html.twig', array(
             'item' => $item,
             'images' => $images,
+            'addVideoForm' => $this->addVideoForm($id)->createView(),
+            'dashboard' => $this->dashboard,
             //'addimages' => $uploadForm->createView(),
         ));
     }
@@ -93,7 +106,6 @@ class ImageController extends Controller
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
-        dump($file);
 
 
         if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
@@ -101,21 +113,80 @@ class ImageController extends Controller
                 $file->getMimeType() == 'image/png' ||
                 $file->getMimeType() == 'image/gif')
         ) {
+
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
             $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
+
             $upload_url = $this->container->getParameter('upload_url');
             $upload_path = $this->container->getParameter('upload_path');
             $itemField = new ItemField();
 
             $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), 0, true, $item->getId() . '_' . time());
+
+            $item->setDateUpdated(new \DateTime());
+            $itemField->setItem($item);
+            //dump($itemField);
+            $item->setCoverPhoto($item->getCoverImageSrc());
+
+            if(empty($item->getCoverImageSrc())){
+                $item->setCoverPhoto($itemField->getFieldStringValue());
+            }
+
+            $itemField->setListingfield($ImageList);
+            $em->persist($itemField);
+            $em->flush();
+
+            if(empty($item->getCoverPhoto())){
+                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
+            }
+        }
+        die();
+    }
+
+    public function addVideoForm($item_id)
+    {
+
+        $redirect = 'item_images_add_video';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_item_images_add_video';
+        }
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl($redirect, array('id' => $item_id)))
+            ->add('url', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
+            ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
+            ->getForm();
+        return $form;
+
+    }
+
+    public function addVideoAction(Request $request, $id)
+    {
+
+        $form = $this->addVideoForm($id);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $data = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+            $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
+
+            $itemField = new ItemField();
+            $itemField->setFieldBooleanValue(true);
+            $itemField->setFieldStringValue($data['url']);
+
             $item->setDateUpdated(new \DateTime());
             $itemField->setItem($item);
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
         }
-
-        die();
+        $redirect = 'item_images';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_item_images';
+        }
+        return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
     }
 
     public function setImageOrderAction(Request $request)
@@ -123,15 +194,24 @@ class ImageController extends Controller
         $orders = $request->request->get('orders');
         $ordersArray = json_decode($orders, true);
         $em = $this->getDoctrine()->getManager();
+
         foreach ($ordersArray as $key => $order) {
             $id = (intval($key));
             $order = (intval($order));
+
+
             $qb = $em->getRepository("NumaDOAAdminBundle:ItemField")->createQueryBuilder('if')
                 ->update()
                 ->set('if.sort_order', $order)
                 ->where('if.id=' . $id);
-            dump($qb);
             $qb->getQuery()->execute();
+            if($order==0){
+                $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
+                $item = $if->getItem();
+                $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
+                dump($if->getFieldStringValue());
+            }
+
         }
         die();
     }

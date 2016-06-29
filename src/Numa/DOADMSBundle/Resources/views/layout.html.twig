@@ -1,0 +1,265 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- default:main:default.tpl -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
+<head >
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <title>Dealers on Air Admin Panel </title>
+    {% block stylesheets %}
+        {% stylesheets  '@bootstrap'
+                        '@jquery_ui_css'
+                        '@admin'
+                        '@dropzone_css'
+                        '@colorbox_css'
+                        '@AdminLTE_css'
+                        '@DMS_red_skin_css'
+                        'css/ionicons.min.css'
+                        filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts 'js/jquery/jquery.1.11.0.min.js' 'js/jquery/jquery.1.11.0.min.js' '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+
+    {% endblock %}
+    <script>
+        $('.datepicker').datepicker({
+
+            dateFormat: 'dd-mm-yy',
+            yearRange: "-0:+1"
+        });
+    </script>
+</head>
+<body class="hold-transition skin-red sidebar-mini">
+<div class="wrapper">
+
+    <!-- Main Header -->
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="/dms" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>DOA</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Dealers Management System</b></span>
+        </a>
+
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('dms_activate') }}">
+                            <i class="fa fa-rocket"></i>
+                            <span class="">Activate DMS</span>
+                        </a>
+
+                    </li><!-- /.messages-menu -->
+                    <!-- Messages: style can be found in dropdown.less-->
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('homepage') }}">
+                            <i class="fa fa-link"></i>
+                            <span class="">Visit Site</span>
+                        </a>
+
+                    </li>
+                    {#</li><!-- /.messages-menu -->#}
+                    <!-- Control Sidebar Toggle Button -->
+                    {% if not is_granted('ROLE_ADMIN') %}
+                    <li class="dropdown user user-menu">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <span class="hidden-xs"><i class="glyphicon glyphicon-user"></i> {{ app.user.name }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-header">
+                                {% if app.user.logoUrl is empty %}
+                                {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                {% else %}
+                                {{ component.image(app.user.logoUrl, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                {% endif %}
+                                <p>
+                                    {{ app.user.name }}
+                                    <small><a href="{{ app.user.url }}"><i class="glyphicon glyphicon-link"></i>Site</a></small>
+                                </p>
+                            </li>
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a class="btn btn-default btn-flat" href="{{ path('dms_profile_edit', {'id': app.user.id}) }}"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a class="btn btn-default btn-flat" target="_self" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span class="">Logout</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    {% else %}
+                        <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_self" href="{{ url('logout') }}">
+                            <i class="fa fa-sign-out"></i>
+                            <span class="">Logout</span>
+                        </a>
+
+                    </li>
+                    {% endif %}
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="">
+                    <a href="{{ path('dms_home') }}" class=""><i class="fa fa-dashboard"></i>Dashboard</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('listingform') }}" class=""><i class="fa fa-table"></i>Listing Form</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service Request</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-link"></i>Inventory Feeds</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-list"></i>Add New Inventory</a>
+                </li>
+                {% if not is_granted('ROLE_ACCOUNTING') %}
+                <li class="">
+                    <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>
+                </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN')  %}
+                <li class="">
+                    <a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>
+                </li>
+                {% endif %}
+                <li class="">
+                    <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Pages</a>
+                </li>
+                <li class="">
+                    <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>
+                </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="treeview">Feeds</li>
+                    <li class="">
+                        <a href="{{ path('dms_importfeed') }}"><i class="fa fa-upload"></i>Feeds</a>
+                    </li>
+                    <li class="treeview">Content Management</li>
+                    <li class="">
+                        <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
+                    </li>
+                    <li class="">
+                        <a href="{{ path('dms_command_log_home') }}" class=""><i class="fa fa-list"></i>Command Queue</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                <a href="{{ path('dms_home') }}">Dealers on Air</a>
+                <small>Dealers Management System Dashbard</small>
+            </h1>
+            {{ render_esi(controller('NumaDOADMSBundle:Default:dealerChooser')) }}
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+
+            <!-- Your Page Content Here -->
+            {% block content %}
+            {% endblock %}
+
+
+        </section><!-- /.content -->
+    </div><!-- /.content-wrapper -->
+
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            DMS
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2015 <a href="#">Dealers On Air</a>.</strong> All rights reserved.
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+
+
+            </div><!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+
+            </div><!-- /.tab-pane -->
+        </div>
+    </aside><!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+</div><!-- ./wrapper -->
+
+</body>
+</html>
+
+<!-- /default:main:default.tpl -->
+

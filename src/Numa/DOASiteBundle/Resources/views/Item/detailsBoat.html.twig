@@ -1,7 +1,7 @@
 {% extends app.request.attributes.get('_route')=='item_print_details'
 ? 'NumaDOASiteBundle::print-layout.html.twig'
 : 'NumaDOASiteBundle::listing-layout.html.twig' %}
-
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block title %}
     {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
         <title>{{ seo.getTitle() }}</title>
@@ -33,9 +33,6 @@
 {% endblock canonical %}
 {% block stylesheets %}
     {{ parent() }}
-    {% stylesheets '@NumaDOASiteBundle/Resources/Public/css/jssor.css' %}
-    <link rel="stylesheet" href="{{ asset_url }}"/>
-    {% endstylesheets %}
 {% endblock %}
 {% set images = item.getImages2() %}
 
@@ -50,10 +47,10 @@
                                 </div>
                             {% endfor %}
                         {% endfor %}
-                        <h2 class="section">{{ item.getTitle() }} <span
-                                    classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>{% if (item.getSold()==1) %}
+                        <h2 class="section">{{ item.getListingTitle() }} <span
+                                    classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
-
+<div class="row">
                         <div class="slideshow">
 
                             <ul class="pgwSlideshow">
@@ -63,14 +60,22 @@
                                             <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
                                                  alt="image{{ key }}"/>
                                         {% else %}
-                                            <img src="{{ image.fieldStringValue }}" alt="image{{ key }}"/>
+                                            {% set videoid="" %}
+                                            {% set img=image.fieldStringValue %}
+                                            {% if ('youtube' in image.fieldStringValue) %}
+                                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                {% set img=getYoutubeThumb(videoid) %}
+                                            {% endif %}
+                                            <img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>
+
+
                                         {% endif %}
                                     </li>
                                 {% endfor %}
                             </ul>
 
                         </div>
-
+</div>
                         {% if item.getItemFieldByName('youtube video id') is not empty %}
                             <div class='row'>
                                 <h4>Youtube video:</h4>
@@ -86,23 +91,23 @@
                         <h4>Details:</h4>
 
                         <div class='row'>
+                            <ul class="techData">
+                                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
 
-                            {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Seller Comment','IW_NO'] %}
-
-                            {% if item.categoryId()==1 %}
-                                {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
-                            {% elseif(item.categoryId()==2) %}
-                                {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
-                            {% elseif(item.categoryId()==3) %}
-                                {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
-                            {% elseif(item.categoryId()==4) %}
-                                {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
-                            {% elseif(item.categoryId()==13) %}
-                                {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
-                            {% else %}
+                                {% if item.categoryId()==1 %}
+                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+                                {% elseif(item.categoryId()==2) %}
+                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                                {% elseif(item.categoryId()==3) %}
+                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                                {% elseif(item.categoryId()==4) %}
+                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                                {% elseif(item.categoryId()==13) %}
+                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                                {% else %}
 
 
-                                <ul class="techData">
+
                                     {% for field in item.ItemField %}
 
                                         {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
@@ -111,7 +116,7 @@
                                                     : </span>
                                                 {% if field.fieldName=="Price" %}
 
-                                                    <span classb="price">$ {{ item.getItemFieldByName('price')|number_format(0, '.',',') }}</span>
+                                                    <span classb="price">{{ item.getPriceString() }}</span>
                                                 {% elseif field.fieldName|lower=="make model" %}
                                                     <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
                                                 {% else %}
@@ -126,8 +131,9 @@
                                             <span class="fieldValue fieldValue">{{ item.getItemFieldByName('seller comment') }}</span>
                                         </li>
                                     {% endif %}
-                                </ul>
-                            {% endif %}
+
+                                {% endif %}
+                            </ul>
                         </div>
 
                         {% if (item.getOptions|length)>0 %}
@@ -238,8 +244,10 @@
                                         {% endif %}
                                     </li>
                                     <li>
-                                        <a href="#" class="loan-calc"><i class="glyphicon glyphicon-euro"></i></a>
-                                        <a href="#" class="loan-calc">Loan Calculator</a>
+                                        <a href="#" class="loan-calc" data-target="#loancalc" data-toggle="modal"
+                                           type="button"><i class="glyphicon glyphicon-euro"></i></a>
+                                        <a href="#" class="loan-calc" data-target="#loancalc" data-toggle="modal"
+                                           type="button">Loan Calculator</a>
                                     </li>
                                     <li>
                                         <a href="{{ path('compared_listings') }}" target="_blank"><i
@@ -268,227 +276,161 @@
 
                                 {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
 
-                                <div id="dialog" title="Loan Calculator">
-                                    <div class="col-sm-6">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox">Monthly payment
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox">Loan amounth
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Term of Loan</label>
-                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="interestrate">Interest rate</label>
-                                        <input type="text" class="form-control" id="interestrate" placeholder="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="loanamount">Loan Amount</label>
-                                        <input type="text" class="form-control" id="loanamount" placeholder="">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="monthlypayment">Monthly payment</label>
-                                        <input type="text" class="form-control" id="monthlypayment" placeholder="">
-                                    </div>
-                                    </tbody>
-                                </div>
-
-                                <script>
-                                    $(function () {
-                                        $("#dialog").dialog({
-                                            autoOpen: false,
-                                            width: 500,
-                                            height: 500
-                                        });
-                                        $(".loan-calc").click(function () {
-                                            $("#dialog").dialog("open");
-                                        });
-                                    });
-                                </script>
-
                                 <a href="{{ app.request.headers.get('referer') }}">Back to search</a>
 
                                 {% if (dealer is defined and dealer is not empty) %}
-                                <h3>Dealer Info</h3>
+                                    <h3>Dealer Info</h3>
 
-                                {% include "NumaDOASiteBundle::logo.html.twig" with {'item': dealer} %}
+                                    {{ component.image(dealer.logoUrl, dealer.name, '', 'search_image') }}
+                                    <p class="dealer-name">{{ dealer.name }}</p>
+                                    {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
+                                        <a class="dealer-coupon-link"
+                                           href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">SAVINGS
+                                            COUPONS From This Dealer</a>
+                                    {% endif %}
+                                    <p>{{ dealer.address }}</br>
+                                        {{ dealer.city }} {{ dealer.zip }}</br>
+                                        {{ dealer.state }}</br>
+                                        {{ dealer.phone }}</br>
+                                        {{ dealer.location }}</p>
+                                    <p><a href="{{ dealer.url }}">Visit Our Website</a></p>
+                                    <p>Send <a data-toggle="modal" data-target="#myModal">email</a>
 
-                                <p class="dealer-name">{{ dealer.name }}</p>
-                                {% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}
-                                    <a class="dealer-coupon-link"
-                                       href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">SAVINGS
-                                        COUPONS From This Dealer</a>
-                                {% endif %}
-                                <p>{{ dealer.address }}</br>
-                                    {{ dealer.city }} {{ dealer.zip }}</br>
-                                    {{ dealer.state }}</br>
-                                    {{ dealer.phone }}</br>
-                                    {{ dealer.location }}</p>
-                                <p><a href="{{ dealer.url }}">Visit Our Website</a></p>
-                                <p>Send <a data-toggle="modal" data-target="#myModal">email</a>
+                                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+                                         aria-labelledby="myModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4 class="modal-title">Send email to {{ dealer }}</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
+                                                    <form action="" method="post" name="form">
+                                                        {{ form_rest(emailForm) }}
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        Close
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary">Send Email</button>
 
-                                <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-                                     aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close"><span aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h4 class="modal-title">Send email to {{ dealer }}</h4>
+                                                </div>
+                                                </form>
                                             </div>
-                                            <div class="modal-body">
-                                                {% form_theme emailForm 'bootstrap_3_layout.html.twig' %}
-                                                <form action="" method="post" name="form">
-                                                    {{ form_rest(emailForm) }}
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" class="btn btn-primary">Send Email</button>
-
-                                            </div>
-                                            </form>
+                                            <!-- /.modal-content -->
                                         </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div><!-- /.modal -->
-                                <p><a class="dealer-name"
-                                      href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See
-                                        All Listings By This Dealer</a></p>
-                                <p>
-                                    <span class="fieldCaption fieldCaptionId">Listing #</span>
-                                    <span class="fieldValue fieldValueId">{{ item.id }}</span>
-                                </p>
-                                {% if (app.user and app.user.getId()==dealer.id) or is_granted('ROLE_DEALER_ADMIN') %}
-                                <p>Views ({{ item.views }})
-                                <p>
-                                    <a class="btn btn-primary" href="{{ path('items_edit',{'id':item.id}) }}">Edit this
-                                        listing</a>
-                                    {% if item.getActive() %}
-                                        <a class="btn btn-primary" href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a>
-                                    {% else %}
-                                        <a class="btn btn-primary" href="{{ path('items_activate',{'id':item.id}) }}">Activate</a>
-                                    {% endif %}
-                                    {% endif %}
-
-                                    {% endif %}
-                                    <script src="https://maps.googleapis.com/maps/api/js"></script>
-                                    <script>
-                                        var geocoder = new google.maps.Geocoder();
-                                        {% if (dealer is defined and dealer is not empty) %}
-                                        var address = "{{dealer.address}},{{dealer.city}}";
+                                        <!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                    <p><a class="dealer-name"
+                                          href="{{ path('browse_by_dealer',{'dealer_id': dealer.id,'dealername': dealer.name}) }}">See
+                                            All Listings By This Dealer</a></p>
+                                    <p>
+                                        <span class="fieldCaption fieldCaptionId">Listing #</span>
+                                        <span class="fieldValue fieldValueId">{{ item.id }}</span>
+                                    </p>
+                                    {% if (app.user and app.user.getId()==dealer.id) or is_granted('ROLE_DEALER_ADMIN') %}
+                                        <p>Views ({{ item.views }})
+                                        <p>
+                                        <a class="btn btn-primary" href="{{ path('items_edit',{'id':item.id}) }}">Edit
+                                            this
+                                            listing</a>
+                                        {% if item.getActive() %}
+                                            <a class="btn btn-primary"
+                                               href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a>
                                         {% else %}
-                                        var address = "saskatoon";
+                                            <a class="btn btn-primary"
+                                               href="{{ path('items_activate',{'id':item.id}) }}">Activate</a>
                                         {% endif %}
-                                        var latitude = 44.5403;
-                                        var longitude = -78.5463;
-                                        geocoder.geocode({'address': address}, function (results, status) {
-                                            console.log(status + ":::::" + address);
-                                            if (status == google.maps.GeocoderStatus.OK) {
-                                                latitude = results[0].geometry.location.lat();
-                                                longitude = results[0].geometry.location.lng();
+                                    {% endif %}
 
-                                            }
-                                        });
-                                        function initialize() {
-                                            var mapCanvas = document.getElementById('map');
-                                            var mapOptions = {
-                                                center: new google.maps.LatLng(latitude, longitude),
-                                                zoom: 13,
-                                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                                            }
-
-                                            var map = new google.maps.Map(mapCanvas, mapOptions)
-                                            var myLatlng = new google.maps.LatLng(latitude, longitude);
-                                            var marker = new google.maps.Marker({
-                                                position: myLatlng,
-                                                map: map, {% if (dealer is defined and dealer is not empty) %}
-                                                title: '{{dealer.name}}'
-                                                {% endif %}
-                                            });
+                                {% endif %}
+                                <script src="https://maps.googleapis.com/maps/api/js"></script>
+                                <script>
+                                    var geocoder = new google.maps.Geocoder();
+                                    {% if (dealer is defined and dealer is not empty) %}
+                                    var address = "{{dealer.address}},{{dealer.city}}";
+                                    {% else %}
+                                    var address = "saskatoon";
+                                    {% endif %}
+                                    var latitude = 44.5403;
+                                    var longitude = -78.5463;
+                                    geocoder.geocode({'address': address}, function (results, status) {
+                                        console.log(status + ":::::" + address);
+                                        if (status == google.maps.GeocoderStatus.OK) {
+                                            latitude = results[0].geometry.location.lat();
+                                            longitude = results[0].geometry.location.lng();
 
                                         }
-                                        google.maps.event.addDomListener(window, 'load', initialize);
-                                    </script>
-                                    {% javascripts     '@jquery_jssor_js' output="filename.js" %}
-                                    <script src="{{ asset_url }}"></script>
-                                    {% endjavascripts %}
-                                    <script>
-                                        $(document).ready(function () {
-                                            // The slider being synced must be initialized first
-                                            $('#carousel').flexslider({
-                                                animation: "slide",
-                                                controlNav: false,
-                                                animationLoop: false,
-                                                slideshow: true,
-                                                itemWidth: 120,
-                                                itemMargin: 10,
-                                                asNavFor: '#slider'
-                                            });
+                                    });
+                                    function initialize() {
+                                        var mapCanvas = document.getElementById('map');
+                                        var mapOptions = {
+                                            center: new google.maps.LatLng(latitude, longitude),
+                                            zoom: 13,
+                                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        }
 
-                                            $('#slider').flexslider({
-                                                animation: "slide",
-                                                controlNav: false,
-                                                animationLoop: false,
-                                                slideshow: true,
-                                                sync: "#carousel"
-                                            });
-
-
-                                            $('.pgwSlideshow').pgwSlideshow();
+                                        var map = new google.maps.Map(mapCanvas, mapOptions)
+                                        var myLatlng = new google.maps.LatLng(latitude, longitude);
+                                        var marker = new google.maps.Marker({
+                                            position: myLatlng,
+                                            map: map, {% if (dealer is defined and dealer is not empty) %}
+                                            title: '{{dealer.name}}'
+                                            {% endif %}
                                         });
-                                    </script>
-                                    {#{% javascripts '@savecompared_js' %}
-                                    <script type="text/javascript" src="{{ asset_url }}"></script>
-                                    {% endjavascripts %}#}
-                                    <script>
-                                        $(".saveAd").on("click", function () {
-                                            var itemId = $(this).data("itemid");
-                                            console.log(itemId);
-                                            var act = "add";
-                                            if (!$(this).prop('checked')) {
-                                                act = "remove";
+
+                                    }
+                                    google.maps.event.addDomListener(window, 'load', initialize);
+                                </script>
+
+                                <script>
+                                    $(document).ready(function () {
+
+                                        $('.pgwSlideshow').pgwSlideshow();
+                                    });
+                                </script>
+                                {#{% javascripts '@savecompared_js' %}
+                                <script type="text/javascript" src="{{ asset_url }}"></script>
+                                {% endjavascripts %}#}
+                                <script>
+                                    $(".saveAd").on("click", function () {
+                                        var itemId = $(this).data("itemid");
+                                        console.log(itemId);
+                                        var act = "add";
+                                        if (!$(this).prop('checked')) {
+                                            act = "remove";
+                                        }
+                                        var jqxhr = $.post("{{path('item_savead')}}", {
+                                            itemid: itemId,
+                                            act: act
+                                        }, function (data) {
+                                            htmlx = "";
+                                            if (data.savedAds > 0) {
+                                                htmlx = "(" + data.savedAds + ")";
                                             }
-                                            var jqxhr = $.post("{{path('item_savead')}}", {
-                                                itemid: itemId,
-                                                act: act
-                                            }, function (data) {
-                                                htmlx = "";
-                                                if (data.savedAds > 0) {
-                                                    htmlx = "(" + data.savedAds + ")";
-                                                }
-                                                $('.savedAds').html(htmlx);
-                                            })
+                                            $('.savedAds').html(htmlx);
+                                        })
 
-                                        });
-                                        $(".compareAd").on("click", function () {
-                                            var itemId = $(this).data("itemid");
-                                            var url = $(this).data("url");
+                                    });
+                                    $(".compareAd").on("click", function () {
+                                        var itemId = $(this).data("itemid");
+                                        var url = $(this).data("url");
 
-                                            var act = "add";
-                                            if (!$(this).prop('checked')) {
-                                                act = "remove";
+                                        var act = "add";
+                                        if (!$(this).prop('checked')) {
+                                            act = "remove";
+                                        }
+                                        var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                                            htmlx = "";
+                                            if (data.comparedItes > 0) {
+                                                htmlx = "(" + data.comparedItes + ")";
                                             }
-                                            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
-                                                htmlx = "";
-                                                if (data.comparedItes > 0) {
-                                                    htmlx = "(" + data.comparedItes + ")";
-                                                }
-                                                $('.savedAds').html(htmlx);
-                                            })
+                                            $('.savedAds').html(htmlx);
+                                        })
 
-                                        });
-                                    </script>
+                                    });
+                                </script>
                             {% endblock %}

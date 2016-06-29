@@ -1,0 +1,68 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Component edit</h1>
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form_start(edit_form) }}
+                {{ form_row(edit_form.name) }}
+                {{ form_row(edit_form.type) }}
+
+                {{ form_end(edit_form) }}
+
+                <form action="{{ path('component_upload',{'id':entity.id}) }}" method="post" class="dropzone" id="drop">
+
+                </form>
+                <h1>Image Carousel list</h1>
+
+                <div class="box box-default">
+
+                    <div class="box-header">
+
+                    </div>
+
+                    <div class="box-body table-responsive no-padding" id="carousel-list">
+                        {% include "NumaDOAAdminBundle:ImageCarousel:carousel_list.html.twig" %}
+                    </div>
+                </div>
+                <script>
+                    $(document).ready(function () {
+                        Dropzone.options.drop = {
+                            init: function () {
+                                this.on("queuecomplete", function (file) {
+                                    //location.reload();
+                                    //refresh images loists
+                                    $.ajax(
+                                            {
+                                                url: '{{ path('component_carousel_refresh',{'id':entity.id}) }}',
+                                                type: "POST",
+                                                //data: {"component_id":{{ entity.id}},
+                                                success: function (data, textStatus, jqXHR) {
+                                                    console.log(data);
+                                                    $("#carousel-list").html(data);
+                                                },
+                                                error: function (jqXHR, textStatus, errorThrown) {
+                                                    //if fails
+                                                }
+                                            });
+                                });
+                            }
+                        };
+                    });
+                </script>
+                {% if(app.request.get('_dashboard')=='DMS') %}
+                    <a href="{{ path('dms_page') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+                {% else %}
+                    <a href="{{ path('page') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
