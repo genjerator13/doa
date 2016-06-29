@@ -16,6 +16,10 @@ Numa\DOADMSBundle\Entity\Reminder:
         date:
             type: datetime
             nullable: true
+        comment:
+            type: string
+            length: 255
+            nullable: true
         date_created:
             type: datetime
             nullable: true
