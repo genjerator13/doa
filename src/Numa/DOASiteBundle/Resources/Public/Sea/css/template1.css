@@ -698,3 +698,11 @@ and (max-width : 767px) {
     background-color: #111222;
     color: #f78f77;
 }
+.featured-ads {
+    margin: 20px auto;
+    max-width: 1020px;
+    text-align: center;
+}
+ .featured-ads .thumbnails {
+    padding: 0px;
+}
