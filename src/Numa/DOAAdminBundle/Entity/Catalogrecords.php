@@ -1249,4 +1249,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_theme;
     }
+    /**
+     * @var string
+     */
+    private $country;
+
+
+    /**
+     * Set country
+     *
+     * @param string $country
+     *
+     * @return Catalogrecords
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 }
