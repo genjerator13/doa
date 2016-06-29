@@ -317,11 +317,16 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 //                if ($securityContext->isGranted('ROLE_DEALER_ADMIN') || $securityContext->isGranted('ROLE_BUSINES') ) {
 //                    return $this->redirect($this->generateUrl('catalogs_edit', array('id' => $id)));
 //                }
-                $redirect = 'catalogs';
-                if(strtoupper($this->dashboard) =='DMS'){
-                    $redirect = 'dms_catalogs';
+                if ($securityContext->isGranted('ROLE_DEALER_ADMIN')|| $securityContext->isGranted('ROLE_BUSINES')){
+                    return $this->redirect($this->generateUrl('dms_profile_edit', array('id' => $id)));
                 }
-                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+                else{
+                    $redirect = 'catalogs';
+                    if (strtoupper($this->dashboard) == 'DMS') {
+                        $redirect = 'dms_catalogs';
+                    }
+                    return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+                }
             }
         }else{
             dump($editForm->getErrors(true));
