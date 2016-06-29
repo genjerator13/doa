@@ -62,7 +62,7 @@
 {% endblock %}
 </div>
 {% block info %}
-
+{% if dealer is defined and dealer is not empty %}
     <div class="info">
         <ul>
             <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
@@ -88,6 +88,7 @@
             </li>
         </ul>
     </div>
+{% endif %}
 {%  endblock %}
 
 

@@ -90,7 +90,9 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Service:service_success.html.twig', array(
-            'message'=>$message
+            'message'=>$message,
+            'components' => $this->components,
+            'dealer' => $this->dealer,
         ));
     }
 }

@@ -75,8 +75,12 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         city:
             type: string
             length: 255
-            nullable: true  
+            nullable: true
         zip:
+            type: string
+            length: 255
+            nullable: true
+        country:
             type: string
             length: 255
             nullable: true
