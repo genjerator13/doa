@@ -44,93 +44,13 @@
 <body>
 <div id="wrapper">
     {% block headline %}
-        <div class="header">
-
-            <a class="logo" href="{{ path("homepage") }}">
-                {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
-            </a>
-
-            <div class="social-media">
-
-                <div class="connect-with-us">Connect with Us</div>
-
-                <a class="facebook" href="">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
-                    <img src="{{ asset_url }}" alt="Example"/>
-                    {% endimage %}
-                </a>
-
-                <a class="youtube" href="">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
-                    <img src="{{ asset_url }}" alt="Example"/>
-                    {% endimage %}
-                </a>
-
-            </div>
-
-            <a class="map" href="">Map</a>
-
-            <div class="address">221B Baker Street<br/>Saskatoon, SK, Canada</div>
-
-            <div class="phone">306.555.1234</div>
-
-        </div>
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
     {% endblock %}
     {% block mainmenu %}
-
-        <div class="main-menu">
-
-            <ul class="menu">
-                <li><a href="{{ path("homepage") }}">Home</a></li>
-                <li class="parent"><a href="">Showroom</a>
-                    <ul>
-                        <li><a href="">Current New Inventory</a></li>
-                        <li><a href="">Pre-Owned Inventory</a></li>
-                        <li><a href="">Financing</a></li>
-                        <li><a href="">Finance Calculator</a></li>
-                        <li><a href="">Trade In</a></li>
-                        <li><a href="">Get a Quote</a></li>
-                        <li><a href="">Schedule Test Ride</a></li>
-                        <li><a href="">Contact Us</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Dealer Services</a></li>
-                <li><a href="">Dealer Info</a></li>
-                <li><a href="">Customer Corner</a></li>
-                <li><a href="">Contact Us</a></li>
-            </ul>
-
-        </div>
-        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+            {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
     {% endblock %}
     {% block mobilemenu %}
-        <div class="mobile-menu">
-
-            <ul class="menu">
-                <li><span class="separator">Menu</span>
-                    <ul>
-                        <li><a href="">Home</a></li>
-                        <li><span class="separator">Showroom</span>
-                            <ul>
-                                <li><a href="">Current New Inventory</a></li>
-                                <li><a href="">Pre-Owned Inventory</a></li>
-                                <li><a href="">Financing</a></li>
-                                <li><a href="">Finance Calculator</a></li>
-                                <li><a href="">Trade In</a></li>
-                                <li><a href="">Get a Quote</a></li>
-                                <li><a href="">Schedule Test Ride</a></li>
-                                <li><a href="">Contact Us</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">Dealer Services</a></li>
-                        <li><a href="">Dealer Info</a></li>
-                        <li><a href="">Customer Corner</a></li>
-                        <li><a href="">Contact Us</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
     {% endblock %}
     <div class="container">
 
@@ -142,77 +62,8 @@
 
     </div>
 
-    <div class="footer">
 
-        <div class="contact-info">
-
-            <a class="logo" href="">
-                {#<img src="images/small-logo.png" />#}
-                {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
-            </a>
-
-            <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, Canada</p>
-
-            <p>Phone: {{ dealer.phone }}<br/>
-                Fax: {{ dealer.fax }}</p>
-
-            <p><a href="">Map and Hours</a></p>
-
-        </div>
-
-        <div class="quick-links">
-
-            <h3>Quick Links</h3>
-
-            <ul>
-                <li><a href="">New Inventory</a></li>
-                <li><a href="">Pre-Owned Inventory</a></li>
-                <li><a href="">Get Financed</a></li>
-                <li><a href="">Parts Department</a></li>
-                <li><a href="">Customer Testimonials</a></li>
-            </ul>
-
-        </div>
-
-        <div class="hours">
-
-            <h3>Hours</h3>
-
-            {{ dealer.ServiceHours|raw }}
-
-        </div>
-
-        <div class="other-info">
-
-            <a class="facebook" href="">
-
-                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
-                <img src="{{ asset_url }}" alt="Example"/>
-                {% endimage %}
-            </a>
-
-            <a class="youtube" href="">
-
-                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
-                <img src="{{ asset_url }}" alt="Example"/>
-                {% endimage %}
-            </a>
-
-            <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
-
-            <ul>
-                <li><a href="">Policy</a></li>
-                <li><a href="">Privacy</a></li>
-                <li><a href="">Privacy</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="">Site Map</a></li>
-            </ul>
-
-            <div class="copyright">Copyright &copy; 2016 {{ dealer.name }}.<br/>All Rights Reserved</div>
-
-        </div>
-
-    </div>
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
 
 </div>
 </body>

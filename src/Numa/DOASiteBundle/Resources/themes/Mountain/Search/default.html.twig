@@ -246,7 +246,7 @@
                     var itemid = $(this).data('itemid');
                     console.log(itemid);
                     modal.on('show.bs.modal', function () {
-                        $('#eprice_modal .modal-body').load('/d/item/'+itemid+'/eprice');
+                        $('#eprice_modal .modal-body').load('/item/'+itemid+'/eprice');
                     }).modal();
                 });
 

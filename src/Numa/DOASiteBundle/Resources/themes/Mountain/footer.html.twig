@@ -1,0 +1,69 @@
+<div class="footer">
+
+    <div class="contact-info">
+
+        <a class="logo" href="">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+
+        <p>{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
+
+        <p>Phone: {{ dealer.phone }}<br />
+            Fax: {{ dealer.fax }}</p>
+
+        <p><a href="">Map and Hours</a></p>
+
+    </div>
+
+    <div class="quick-links">
+
+        <h3>Quick Links</h3>
+
+        <ul>
+            <li><a href="">New Inventory</a></li>
+            <li><a href="">Pre-Owned Inventory</a></li>
+            <li><a href="">Get Financed</a></li>
+            <li><a href="">Parts Department</a></li>
+            <li><a href="">Customer Testimonials</a></li>
+        </ul>
+
+    </div>
+
+    <div class="hours">
+
+        <h3>Hours</h3>
+        {{ dealer.ServiceHours }}
+
+    </div>
+
+    <div class="other-info">
+
+        <a class="facebook" href="">
+
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        <a class="youtube" href="">
+
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
+
+        <ul>
+            <li><a href="">Policy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Terms</a></li>
+            <li><a href="">Site Map</a></li>
+        </ul>
+
+        <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
+
+    </div>
+
+</div>
