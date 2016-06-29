@@ -50,7 +50,7 @@ security:
         - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
-        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_BUSINES,ROLE_ACCOUNTING] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING] }
 
 
 

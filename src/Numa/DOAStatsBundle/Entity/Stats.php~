@@ -31,6 +31,7 @@ class Stats
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_visited;
 
@@ -91,7 +92,6 @@ class Stats
 
     /**
      * @var \DateTime
-     * @JMS\Expose
      */
     private $request_time;
 

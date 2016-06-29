@@ -147,5 +147,16 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function getDealerByHost($host=null){
+        if(empty($host)){
+            return null;
+        }
+        $qb=$this->createQueryBuilder('d');
+        $qb->andWhere('d.site_url=:host');
+        $qb->setParameter('host', $host);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
 
 }

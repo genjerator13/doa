@@ -104,8 +104,19 @@
                             <div class='right col-md-6'>
                                 <div class="listing-box-top">
                                     <div class="basic_data col-md-6">
-                                        {{ item.getRetailPriceCompared()|raw }}
+                                        {% if item.getRetailPriceCompared() is not null %}
+                                            <div class='retail_price'>
+                                                Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPriceCompared() }}</span></div>
+                                        {% endif %}
+                                        {#{{ item.getRetailPriceCompared()|raw }}#}
+
+                                        {% if item.getPrice() is not null and item.getPrice() != 0 %}
                                         <div class="price">Selling Price: {{ item.getPriceString() }}</div>
+                                        {% endif %}
+
+                                        {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 )%}
+                                            <div class="price-quote">Contact Us For A Quote</div>
+                                        {% endif %}
 
 
                                         {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
