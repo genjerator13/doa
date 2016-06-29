@@ -99,6 +99,22 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         Admindealer:
             type: boolean
             nullable: true
+        dms_status:
+            type: string
+            length: 255
+            nullable: true
+        gst:
+            type: string
+            length: 255
+            nullable: true
+        site_url:
+            type: string
+            length: 255
+            nullable: true
+        site_theme:
+            type: string
+            length: 255
+            nullable: true
 
     manyToOne:
         Catalogcategory:
@@ -114,6 +130,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             cascade: [persist]
         Coupon:
             targetEntity: Coupon
+            mappedBy: Catalogrecords
+            cascade: [persist]
+        HomeTab:
+            targetEntity: Numa\DOAAdminBundle\Entity\HomeTab
             mappedBy: Catalogrecords
             cascade: [persist]
     lifecycleCallbacks:

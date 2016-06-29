@@ -3,12 +3,28 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Form\SendEmailType;
+use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Form\ListingFormContactType;
+use Numa\DOADMSBundle\Form\ListingFormDriveType;
+use Numa\DOADMSBundle\Form\ListingFormEpriceType;
+use Numa\DOADMSBundle\Form\ListingFormOfferType;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ItemController extends Controller {
+class ItemController extends Controller implements DealerSiteControllerInterface{
+
+    public $dealer;
+    public $components;
+    public function initializeDealer($dealer){
+        $this->dealer = $dealer;
+    }
+
+    public function initializePageComponents($components){
+        $this->components = $components;
+    }
 
     public function detailsAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -30,14 +46,16 @@ class ItemController extends Controller {
         }
         $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findSeoByItem($item);
 
-        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>strtolower($item->getMake()."-".$item->getModel())),true);
+        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>$item->getUrlDescription()),true);
         //get dealer
         $dealer = $item->getDealer();
 
-
+        //increase views and insert log
         $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
+        //insert log
+        $em->getRepository('NumaDOAStatsBundle:Stats')->insertLog($item);
 
-        $emailForm = $this->emailDealerForm($request, $item->getDealer());
+        $emailForm = $this->emailDealerForm($request, $dealer);
 
         if ($emailForm instanceof \Symfony\Component\Form\Form) {
 
@@ -48,11 +66,88 @@ class ItemController extends Controller {
                 'dealer' => $dealer,
                 'print' => $print,
                 'searchQ' => $searchQ,
+                'driveForm' => $this->createCreateDriveForm(new ListingForm())->createView(),
+                'offerForm' => $this->createCreateOfferForm(new ListingForm())->createView(),
+                'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
+                'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
             return $response;
         } else {
             return $emailForm;
         }
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateDriveForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormDriveType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_drive'),
+            'method' => 'POST',
+            'attr' => array('id'=>"test_drive_form")
+        ));
+        //$form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateOfferForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormOfferType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_offer'),
+            'method' => 'POST',
+            'attr' => array('id'=>"offer_form")
+        ));
+       // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateEpriceForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_eprice'),
+            'method' => 'POST',
+            'attr' => array('id'=>"eprice_form")
+        ));
+       // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateContactForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormContactType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_contact'),
+            'method' => 'POST',
+            'attr' => array('id'=>"contact_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
     }
 
     public function saveadAction(Request $request) {
@@ -260,6 +355,23 @@ class ItemController extends Controller {
 
         }
         return $form;
+    }
+
+    public function epriceAction($itemid){
+        $listingForm = new ListingForm();
+        $listingForm->setItemId(intval($itemid));
+        $epriceForm = $this->createCreateEpriceForm($listingForm);
+        $epriceForm->add("item_id","hidden");
+        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('epriceForm' => $epriceForm->createView() ));
+    }
+
+    public function manageAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
+
+        ));
     }
 
 }

@@ -1,0 +1,163 @@
+{% set apicall="/api/customer/all" %}
+{% if is_granted('ROLE_BUSINES') %}
+{% set user= app.security.getToken().getUser().getId() %}
+{% set apicall="/api/customer/dealer/"~user %}
+{% endif %}
+{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
+{% set user= app.session.get('dms_dealer_id') %}
+{% set apicall="/api/customer/dealer/"~user %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 100,
+        enableColumnResizing: true,
+        expandableRowTemplate: 'notes.html',
+        expandableRowHeight: 150,
+        //subGridVariable will be available in subGrid scope
+        expandableRowScope: {
+            subGridVariable: 'subGridScopeVariable'
+        }
+    };
+
+    var today = new Date();
+    var tdd = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {name: 'id', enableColumnResizing: true, width: 50},
+        {
+            name: 'logo',
+            enableColumnResizing: true, width: 100,
+            cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="{[{row.entity.name}]}" height="100px" width="100px"></a>'
+        },
+        {name: 'name', enableColumnResizing: true},
+        {name: 'home_phone'},
+        {name: 'mobile_phone'},
+        {name: 'email'},
+        {name: 'sales_person'},
+        {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+                console.log(tdd.getTime());
+                fd = new Date(grid.getCellValue(row,col));
+
+                if (tdd.getTime() === fd.getTime()) {
+                    return 'red';
+                }
+            }},
+        {name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},
+        //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
+        {
+            name: 'Actions',
+            width: 200,
+            enableColumnMenu: false,
+            enableSorting: false,
+            enableFiltering: false,
+            cellTemplate: '<a href="/dms/customers/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a><a href="/dms/customers/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/customers/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a>'
+        }
+
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.delete = function (row) {
+        console.log(row.entity.id);
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+
+            $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
+                    .success(function (data) {
+                        var index = $scope.gridOptions.data.indexOf(row.entity);
+                        $scope.gridOptions.data.splice(index, 1);
+                    });
+        }, function () {
+            //cancel
+        });
+
+
+    }
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                for (i = 0; i < data.length; i++) {
+                    data[i].subGridOptions = {
+                        columnDefs: [
+                            {name: "subject", field: "subject", width: "150"},
+                            {name: "notes", field: "notes"},
+                            {
+                                name: "date_remind",
+                                field: "date_remind",
+                                type: "date",
+                                cellFilter: "date:\'yyyy-MM-dd\'",
+                                width: "150"
+                            }],
+                        data: data[i].note
+                    }
+
+                }
+                //console.log(data);
+                //$scope.gridOptions.data = data;
+                $scope.gridOptions.data = data;
+
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            var msg = 'rows changed ' + rows.length;
+            $log.log(msg);
+        });
+    };
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

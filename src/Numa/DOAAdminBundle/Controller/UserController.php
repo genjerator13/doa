@@ -51,6 +51,7 @@ class UserController extends Controller {
      */
     public function createAction(Request $request) {
         $entity = new User();
+        $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -59,7 +60,7 @@ class UserController extends Controller {
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('dms_users'));
         }
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
@@ -75,9 +76,13 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(User $entity) {
+    private function createCreateForm(User $entity, $dashboard="") {
+        $action = $this->generateUrl('user_create');
+        if($dashboard=='DMS'){
+            $action = $this->generateUrl('dms_user_create');
+        }
         $form = $this->createForm(new UserType(), $entity, array(
-            'action' => $this->generateUrl('user_create'),
+            'action' => $action,
             'method' => 'POST',
         ));
 
@@ -90,9 +95,10 @@ class UserController extends Controller {
      * Displays a form to create a new User entity.
      *
      */
-    public function newAction() {
+    public function newAction(Request $request) {
         $entity = new User();
-        $form = $this->createCreateForm($entity);
+        $dashboard = $request->get('_dashboard');
+        $form = $this->createCreateForm($entity,$dashboard);
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
                     'entity' => $entity,
@@ -180,8 +186,8 @@ class UserController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('user_edit', array('id' => $id)));
+            $this->addFlash("success","User: ".$entity->getUsername()." successfully updated.");
+            return $this->redirect($this->generateUrl('user', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(

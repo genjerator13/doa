@@ -1,0 +1,50 @@
+dms_import_mapping:
+    pattern:  /
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:index",_dashboard:"DMS" }
+
+dms_import_mapping_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:show",_dashboard:"DMS" }
+
+dms_import_mapping_new:
+    pattern:  /new
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:new",_dashboard:"DMS" }
+
+dms_import_mapping_create:
+    pattern:  /create
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:create",_dashboard:"DMS" }
+    requirements: { _method: post }
+
+dms_import_mapping_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:edit",_dashboard:"DMS" }
+
+dms_import_mapping_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:update",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+
+dms_import_mapping_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:delete",_dashboard:"DMS" }
+    requirements: { _method: post|delete }
+
+dms_import_mapping_reset:
+    pattern:  /{id}/reset
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:reset",_dashboard:"DMS" }
+
+dms_import_mapping_feed:
+    pattern:  /{id}/feed
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:feed",_dashboard:"DMS" }
+
+dms_import_mapping_fetch:
+    pattern:  /{id}/fetch
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:fetch",_dashboard:"DMS" }
+
+dms_import_mapping_mapvalues:
+    pattern:  /mapvalues
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:mapvalues",_dashboard:"DMS" }
+
+dms_import_mapping_add_mapvalues:
+    pattern:  /addmapvalues
+    defaults: { _controller: "NumaDOAAdminBundle:Importmapping:addMapValues",_dashboard:"DMS" }

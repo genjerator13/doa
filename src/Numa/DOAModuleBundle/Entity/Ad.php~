@@ -334,8 +334,8 @@ class Ad
      */
     public function setCreatedAtValue() {
         if (!$this->getCreatedAt()) {
-            $this->created_at = new \DateTime();
-            $this->updated_at = new \DateTime();
+            $this->createdAt = new \DateTime();
+            $this->updatedAt = new \DateTime();
         }
     }
 
@@ -343,10 +343,7 @@ class Ad
      * @ORM\PreUpdate
      */
     public function setUpdatedAtValue() {
-        if(empty($this->dontupdate)){
-
-            $this->created_at = new \DateTime();
-        }
+            $this->updatedAt = new \DateTime();
     }
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -637,7 +634,7 @@ class Ad
         return $this->adorder;
     }
 
-    // Important
+    // Important manytomany
     public function getPages()
     {
         $pages = new ArrayCollection();
@@ -652,7 +649,7 @@ class Ad
     }
 
 
-    // Important
+    // Important manytomany
     public function setPages($pageAds)
     {
         foreach ($pageAds as $pageAd) {
@@ -665,6 +662,8 @@ class Ad
         }
 
     }
+
+
     /**
      * @var integer
      */
@@ -720,5 +719,12 @@ class Ad
     public function getViews()
     {
         return $this->views;
+    }
+    public function getRatio()
+    {
+        $ratio = 0;
+        if (!$this->clicks == 0 && !$this->views == 0)
+        $ratio = $this->views / $this->clicks;
+        return number_format((float)$ratio, 2, '.', '');
     }
 }

@@ -1,0 +1,82 @@
+dms_home:
+    path:  /
+    defaults: { _controller: "NumaDOADMSBundle:Default:index" }
+dms_profile_edit:
+    pattern:  /profile/{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit" }
+dms_inventory_feeds:
+    pattern:  /feeds
+    defaults: { _controller: "NumaDOADMSBundle:Default:feeds" }
+dms_customer:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
+    prefix:   /customers
+dms_customer_switch:
+    defaults: { _controller: "NumaDOADMSBundle:Default:dealerChooser" }
+    path:   /customers_switch
+dms_themes:
+    defaults: { _controller: "NumaDOADMSBundle:Default:themes" }
+    path:   /themes
+dms_change_themes:
+    defaults: { _controller: "NumaDOADMSBundle:Default:changeTheme" }
+    path:   /change_themes
+dms_user:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/user.yml"
+    prefix:   /users
+dms_inventory:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/inventory.yml"
+    prefix:   /inventory
+dms_user_group:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/user_groups.yml"
+    prefix:   /users_groups
+NumaDOADMSBundle_partrequest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
+    prefix:   /partrequest
+NumaDOADMSBundle_client:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/client.yml"
+    prefix:   /client
+NumaDOADMSBundle_note:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/note.yml"
+    prefix:   /note
+NumaDOADMSBundle_billing:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
+    prefix:   /billing
+NumaDOADMSBundle_dmsuser:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
+    prefix:   /dmsuser
+NumaDOADMSBundle_reminder:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/reminder.yml"
+    prefix:   /reminder
+dms_settings:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/settings.yml"
+    prefix:   /settings
+part_reguest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
+    prefix:   /partreguest
+dms_imageCarousel:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/imageCarousel.yml"
+    prefix:   /imagecarousel
+NumaDOADMSBundle_servicerequest:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/servicerequest.yml"
+    prefix:   /servicerequest
+dms_pages:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/pages.yml"
+    prefix:   /pages
+dms_component:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/component.yml"
+    prefix:   /component
+NumaDOADMSBundle_listingform:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/listingform.yml"
+    prefix:   /listingform
+NumaDOAAdminBundle_importfeed:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/importfeed.yml"
+    prefix:   /featuredimport
+NumaDOAAdminBundle_import_mapping:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/importmapping.yml"
+    prefix:   /import_mapping
+command_log:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/command_log.yml"
+    prefix:   /command_log
+NumaDOAAdminBundle_catalogs:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/catalogrecords.yml"
+    prefix:   /catalogs
+

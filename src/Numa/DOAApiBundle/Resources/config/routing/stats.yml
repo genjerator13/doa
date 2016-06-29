@@ -1,0 +1,12 @@
+stats_api_month:
+    path:     /month.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:month",_format: "json"}
+    requirements: { _method: get }
+stats_api_day:
+    path:     /day.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:day",_format: "json"}
+    requirements: { _method: get }
+stats_api_test:
+    path:     /test.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:StatsREST:testdata",_format: "json"}
+    requirements: { _method: get }

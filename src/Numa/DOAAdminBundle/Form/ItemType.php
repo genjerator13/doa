@@ -35,24 +35,25 @@ class ItemType extends AbstractType
 
             ->add('sold')
             ->add('trim')
-            ->add('bodyDescription')
+            ->add('bodyDescription',null,array('label'=>'Body Description'))
             ->add('exteriorColor')
             ->add('interiorColor')
             ->add('doors')
             ->add('engine')
-            ->add('engineType')
+            ->add('engineType',null,array('label'=>'Engine Type'))
             ->add('fuelType')
-            ->add('fuelSystem')
-            ->add('fuelCapacity')
-            ->add('driveType')
-            ->add('videoID')
+            ->add('fuelSystem',null,array('label'=>'Fuel System'))
+            ->add('fuelCapacity',null,array('label'=>'Fuel Capacity'))
+            ->add('driveType',null,array('label'=>'Drive Type'))
+            ->add('videoID',null,array('label'=>'Video ID'))
             ->add('moderation_status','choice',array('choices'=>array('APPROVED','NEW')))
             ->add('keywords')
             ->add('featured')
             ->add('Category',null,array('label'=>'Category'))
             ->add('Dealer')
 
-            ->add('price')
+            ->add('retail_price',null,array('label'=>'Retail Price'))
+            ->add('price',null,array('label'=>'Selling Price'))
             ->add('year')
             ->add('bodyStyle', 'choice', array(
                     'choices'   => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style',0,true),
@@ -60,6 +61,7 @@ class ItemType extends AbstractType
                     'empty_value' => 'Any Body Style',
                     'label' => "Body Style", "required" => false
                 ))
+
 
             ->add('make')
             ->add('model')
@@ -70,12 +72,12 @@ class ItemType extends AbstractType
                     'empty_value' => 'Any Transmission',
                     'label' => "Transmission", "required" => false
                 ))
-            ->add('VIN')
+            ->add('VIN',null,array("label"=>"VIN"))
             ->add('mileage')
-            ->add('floorPlan')
+            ->add('floorPlan',null,array("label"=>"Floor Plan"))
             ->add('stockNr',null,array("label"=>"Stock Number"))
-            ->add('status')
-            ->add('agApplication')
+            ->add('status','choice',array('choices'=>array('New'=>'New',"Used"=>"Used")))
+            ->add('agApplication',null,array("label"=>"Ag Application"))
             ->add('activation_date','date',array(
 	            'widget' => 'single_text',
 	            'format' => 'yyyy-MM-dd',
@@ -93,28 +95,15 @@ class ItemType extends AbstractType
             ->add('feature_slideshow')
             ->add('feature_youtube')
             ->add('Importfeed')
-            ->add('seller_comment','ckeditor'
-                    //, 
-//                    array(
-//                //'transformers'                 => array('html_purifier'),
-//                'toolbar'                      => array('document','basicstyles'),
-//                'toolbar_groups'               => array(
-//                    'document' => array('Source')
-//                ),
-//                //'ui_color'                     => '#fff',
-//                'startup_outline_blocks'       => false,
-                
-            //)
-                )
+            ->add('seller_comment','ckeditor',array("label"=>"Seller Comments"))
             ->add('User')
-            ->add('length')
-            ->add('beam')            
-            ->add('hullDesign')
-            ->add('steeringType')
+            ->add('length','integer',array("label"=>"Length", "required" => false))
+            ->add('beam')
+            ->add('hullDesign',null,array("label"=>"Hull Design"))
+            ->add('steeringType',null,array("label"=>"Steering Type"))
             ->add('steering')
             ->add('horsepower')
-            ->add('fuelCapacity')
-            ->add('ofHours')
+            ->add('ofHours',null,array("label"=>"# of Hours"))
 
             ->add('passengers')
             ->add('battery')
@@ -126,23 +115,51 @@ class ItemType extends AbstractType
             ->add('chassis')
             ->add('chassisType')
             ->add('sleeps')
-            ->add('slideOuts')
+            ->add('slideOuts',null,array('label'=>'Slide Outs'))
             ->add('flooring')
-            ->add('floorPlan')
             ->add('class')
-            ->add('weight')
-            ->add('operatorStation')
-            ->add('speedForward')
-            ->add('speedReverse')
-            ->add('tireSize')
-            ->add('tireEquipment')
-            ->add('cuttingWidth')
+            ->add('weight',"integer",array("required" => false))
+            ->add('operatorStation',null,array('label'=>'Operator Station'))
+            ->add('speedForward',null,array('label'=>'Speed Forward'))
+            ->add('speedReverse',null,array('label'=>'Speed Reverse'))
+            ->add('tireSize',null,array('label'=>'Tire Size'))
+            ->add('tireEquipment',null,array('label'=>'Tire Equipment'))
+            ->add('cuttingWidth',null,array('label'=>'Cutting Width'))
             ->add('coolingSystem')
-            ->add('mpgCity')
-            ->add('mpgHighway')
-            ->add('iwNo')
+            ->add('mpgCity',null,array('label'=>'Fuel Economy City'))
+            ->add('mpgHighway',null,array('label'=>'Fuel Economy Highway'))
+            ->add('iwNo',null,array('label'=>'IW NO'))
+            ->add('invoice_nr',null,array("label"=>"Invoice #"))
+            ->add('invoice_date', 'date', array(
+                'label' => "Invoice Date",
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => array('class' => 'datepicker')
+            ))
+            ->add('invoice_amount')
+            ->add('discount1',null,array("label"=>"Discount 1"))
+            ->add('discount2',null,array("label"=>"Discount 2"))
+            ->add('sale_amount')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
-        'by_reference' => false,))            
+        'by_reference' => false,))
+            ->add('torque')
+            ->add('compression_ratio')
+            ->add('brakes')
+            ->add('wheels')
+            ->add('frame')
+            ->add('suspension')
+            ->add('ground_clereance')
+            ->add('fresh_water_capacity')
+            ->add('black_water_capacity')
+            ->add('gray_water_capacity')
+            ->add('hitch_weight')
+            ->add('height')
+            ->add('pto_horsepower')
+            ->add('dbrhorsepower')
+            ->add('remotes')
+            ->add('tire_size')
+
         ;
         
         $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID, $this->category));

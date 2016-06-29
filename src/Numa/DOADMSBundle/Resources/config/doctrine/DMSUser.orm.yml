@@ -1,0 +1,112 @@
+Numa\DOADMSBundle\Entity\DMSUser:
+    type: entity
+    table: dms_user
+    repositoryClass: Numa\DOADMSBundle\Repository\DMSUserRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        username:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255            
+        email:
+            type: string
+            length: 255
+            unique: true
+        user_group_id:
+            type: integer
+            nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+        registration_date:
+            type: datetime
+            nullable: true 
+        active:
+            type: boolean
+            default: 0
+            nullable: true 
+        contract_id:
+            type: integer
+            nullable: true 
+        activation_key:
+            type: string
+            length: 255
+            nullable: true
+        verification_key:
+            type: string
+            length: 255
+            nullable: true
+        trusted_user:
+            type: boolean
+            default: 0
+            nullable: true 
+        balance:
+            type: integer
+            nullable: true 
+        FirstName:
+            type: string
+            length: 255
+            nullable: true
+        LastName:
+            type: string
+            length: 255
+            nullable: true
+        Address:
+            type: string
+            length: 255
+            nullable: true
+        City:
+            type: string
+            length: 255
+            nullable: true
+        PostalCode:
+            type: string
+            length: 32
+            nullable: true
+        PhoneNumber:
+            type: string
+            length: 32
+            nullable: true
+        DisplayEmail:
+            type: boolean
+            default: 0
+            nullable: true 
+        State:
+            type: string
+            length: 255
+            nullable: true
+        DealershipLogo:
+            type: string
+            length: 255
+            nullable: true
+        date_created:
+            type: datetime
+            nullable: true
+            
+        date_updated:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        UserGroup:
+            targetEntity: Numa\DOAAdminBundle\Entity\UserGroup
+            inversedBy: User
+            #cascade: ["persist","remove"]
+            joinColumn:
+                name: user_group_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: User
+            #cascade: ["persist","remove"]
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id

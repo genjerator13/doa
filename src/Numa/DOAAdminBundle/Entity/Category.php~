@@ -3,14 +3,18 @@
 namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Category
+ * @JMS\ExclusionPolicy("ALL")
+ * @JMS\XmlRoot("category")
  */
 class Category
 {
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
@@ -31,6 +35,7 @@ class Category
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $name;
 

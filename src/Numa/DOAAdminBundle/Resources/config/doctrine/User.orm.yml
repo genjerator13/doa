@@ -129,6 +129,10 @@ Numa\DOAAdminBundle\Entity\User:
         date_updated:
             type: datetime
             nullable: true
+        logo:
+            type: string
+            length: 255
+            nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]        

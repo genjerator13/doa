@@ -1,0 +1,222 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+
+    {% block stylesheets %}
+
+        {% stylesheets '@bootstrap'  '@NumaDOASiteBundle/Resources/Public/Sea/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+
+    {% block javascripts %}
+        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery(".mobile-menu ul ul").hide();
+                /* hide sublinks */
+                jQuery(".separator").click(function () {
+                    jQuery(this).next().slideToggle(300);
+                    /* display sublinks */
+                });
+            });
+        </script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+    {% endblock %}
+</head>
+
+<body>
+{% block headline %}
+    {% include 'NumaDOASiteBundle::headline.html.twig' %}
+{% endblock %}
+{% block mainmenu %}
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+{% endblock %}
+
+<div class="mobile-menu">
+    {% block mobilemenu %}
+        <ul class="menu">
+            <li><span class="separator">Menu</span>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><span class="separator">Products</span>
+                        <ul>
+                            <li><a href="">Online Shopping</a></li>
+                            <li><a href="">Parts List</a></li>
+                            <li><a href="">Showroom</a></li>
+                            <li><a href="">Get a Quote</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </li>
+        </ul>
+    {% endblock %}
+</div>
+{% block banner %}
+    <div class="banner">
+
+        <div class="image">
+            {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/banner.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </div>
+
+    </div>
+{% endblock %}
+{% block buttons %}
+    <div class="buttons">
+
+        <ul>
+            <li>
+                <a href="{{ path("search_used_vehicle") }}">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>New</span> Showroom</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("search_new_vehicle") }}">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Used</span> Showroom</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("finance_form") }}">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Get</span> Financed</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path("service_form") }}">
+                    <div class="left-arrow">
+                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
+                        <img src="{{ asset_url }}"/>
+                        {% endimage %}
+                    </div>
+                    <div class="button-title"><span>Service</span> Department</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+{% endblock %}
+{% block links %}
+    <div class="links">
+
+        <ul>
+            <li>
+                <a href="{{ path("news") }}">
+                    <div class="link-title"><span>Dealer's</span> News</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('part_form') }}">
+                    <div class="link-title"><span>Parts</span> Department</div>
+                    <div class="click-here">Click Here</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block featuredads %}
+
+{% endblock %}
+{% block content %}
+
+    <div class="content">
+
+    </div>
+{% endblock %}
+{% block info %}
+    <div class="info">
+        <ul>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+            <li>
+                <h2>{{ dealer.name }}</h2>
+
+                <div class="address">
+                    {{ dealer.address }}<br>
+                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
+                </div>
+                <div class="phone">
+                    <span>Phone:</span> {{ dealer.phone }}<br>
+                </div>
+            </li>
+            <li>
+                {{ dealer.ServiceHours }}
+            </li>
+            <li>
+                {{ displayComponent(components,'quick_links')|raw }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block map %}
+
+    {% include '@NumaDOASite/map.html.twig' %}
+{% endblock %}
+
+
+{% block footer %}
+    <div class="footer-wrapper">
+        <div class="footer">
+            <div class="bottom-menu">
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">About Us</a></li>
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Services</a></li>
+                    <li><a href="">Gallery</a></li>
+                    <li><a href="">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
+            <div class="extra-menu">
+                <ul>
+                    <li><a href="">Policy</a></li>
+                    <li><a href="">Privacy</a></li>
+                    <li><a href="">Terms</a></li>
+                    <li><a href="">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+</body>
+</html>

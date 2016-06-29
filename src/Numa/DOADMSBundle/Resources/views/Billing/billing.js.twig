@@ -1,0 +1,173 @@
+var app = angular.module('myApp', []);
+var names = [];
+
+app.controller('myCtrl', function ($scope, $http, $element) {
+    $scope.stock = "";
+    {% if  max_invoive_nr is defined %}
+    $scope.invoice_nr = "{{ max_invoive_nr }}";
+    {% endif %}
+    {% if id is defined and id is not empty %}
+    $http.get("/api/billing/{{ id }}/single")
+            .then(function (response) {
+                console.log(response.data._item);
+                if (response.data._item) {
+                    $scope.VIN = response.data._item._v_i_n;
+                    $scope.stock = response.data._item.stock_nr;
+                    $scope.item_id = response.data._item.id;
+
+                    $scope.color = response.data._item.exterior_color;
+                    $scope.new = "";
+                    $scope.used = "";
+                    if (response.data._item.status == 'Used') {
+
+                        $scope.used = "X";
+                    } else {
+                        $scope.new = "X";
+                    }
+                }
+                $scope.billing_date = response.data.billing_date;
+                $scope.sales_person = response.data.sales_person;
+                $scope.trim = response.data.trim;
+                $scope.dealer_nr = response.data.dealer_nr;
+                $scope.invoice_nr = response.data.invoice_nr;
+                $scope.tid_make = response.data.tid_make;
+                $scope.tid_model = response.data.tid_model;
+                $scope.tid_year = response.data.tid_year;
+                $scope.tid_km = response.data.tid_km;
+                $scope.tid_vin = response.data.tid_vin;
+                $scope.tid_milleage = response.data.tid_milleage;
+                $scope.payableto = response.data.payableto;
+                $scope.address = response.data.address;
+                $scope.address2 = response.data.address2;
+                $scope.amount = response.data.amount;
+                $scope.total = response.data.total;
+                $scope.less_discount = response.data.less_discount;
+                $scope.options_total_cost = response.data.options_total_cost;
+                $scope.sale_price = response.data.sale_price;
+                $scope.admin_fee = response.data.admin_fee;
+                $scope.warranty = response.data.warranty;
+                $scope.new_warranty = response.data.new_warranty;
+                $scope.used_warranty = response.data.used_warranty;
+                $scope.protection_pkg = response.data.protection_pkg;
+                $scope.tos_total = response.data.tos_total;
+                $scope.less_trade_in = response.data.less_trade_in;
+                $scope.difference_payabl = response.data.difference_payabl;
+                $scope.tax1 = response.data.tax1;
+                $scope.tax2 = response.data.tax2;
+                $scope.tax3 = response.data.tax3;
+                $scope.taxt1_name = response.data.taxt1_name;
+                $scope.taxt2_name = response.data.taxt2_name;
+                $scope.taxt3_name = response.data.taxt3_name;
+
+                $scope.other_misc1 = response.data.other_misc1;
+                $scope.other_misc2 = response.data.other_misc2;
+                $scope.other_misc1_name = response.data.other_misc1_name;
+                $scope.other_misc2_name = response.data.other_misc2_name;
+                $scope.taxes_paid_total = response.data.taxes_paid_total;
+                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
+                $scope.total_due = response.data.total_due;
+                $scope.less_trade_in_tax = response.data.less_trade_in_tax;
+                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
+                $scope.less_deposit = response.data.less_deposit;
+                $scope.payable_on_delivery = response.data.payable_on_delivery;
+                $scope.balance_to_finance = response.data.balance_to_finance;
+                $scope.insurance = response.data.insurance;
+                $scope.total_balance_due = response.data.total_balance_due;
+                $scope.bank_registration_fee = response.data.bank_registration_fee;
+
+                $scope.opt1 = response.data.opt1;
+                $scope.opt2 = response.data.opt2
+                $scope.opt3 = response.data.opt3;
+                $scope.opt4 = response.data.opt4;
+                $scope.opt5 = response.data.opt5;
+                $scope.opt6 = response.data.opt6;
+                $scope.opt7 = response.data.opt7;
+                $scope.opt8 = response.data.opt8;
+                $scope.opt9 = response.data.opt9;
+                $scope.opt10 = response.data.opt10;
+
+                $scope.opteq1 = response.data.opteq1;
+                $scope.opteq2 = response.data.opteq2
+                $scope.opteq3 = response.data.opteq3;
+                $scope.opteq4 = response.data.opteq4;
+                $scope.opteq5 = response.data.opteq5;
+                $scope.opteq6 = response.data.opteq6;
+                $scope.opteq7 = response.data.opteq7;
+                $scope.opteq8 = response.data.opteq8;
+                $scope.opteq9 = response.data.opteq9;
+                $scope.opteq10 = response.data.opteq10;
+
+            });
+    {% endif %}
+    $scope.change = function (field) {
+
+        $scope.find = $scope.stock;
+
+        if (field == 'vin') {
+            $scope.find = $scope.VIN;
+        }
+
+
+        if ($scope.find.length > 2) {
+
+            $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
+                    .then(function (response) {
+                        //$scope.stock = response.data;
+
+                        names = [];
+
+                        for (i = 0; i < response.data.length; i++) {
+                            //names[i]=response.data[i].stock_nr;
+                            name = response.data[i].stock_nr;
+                            if (field == 'vin') {
+                                name = response.data[i]._v_i_n;
+                            }
+                            names.push(name);
+
+                        }
+
+                        var uniqueNames = [];
+                        $.each(names, function (i, el) {
+                            if ($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+                        });
+                        console.log(uniqueNames);
+                        console.log(names);
+                        $("#stock-autocomplete").autocomplete({
+                            source: names
+                        });
+                        $scope.stockcount = response.data.length;
+                        if (uniqueNames.length == 1) {
+                            $scope.listingyear = response.data[0].year;
+                            $scope.listingmake = response.data[0].make;
+                            $scope.listingmodel = response.data[0].model;
+                            $scope.listingmileage = response.data[0].mileage;
+                            $scope.listingtrim = response.data[0].trim;
+                            $scope.VIN = response.data[0]._v_i_n;
+                            $scope.stock = response.data[0].stock_nr;
+                            $scope.item_id = response.data[0].id;
+
+                            $scope.color = response.data[0].exterior_color;
+                            $scope.new = "";
+                            $scope.used = "";
+                            if (response.data[0].status == 'Used') {
+
+                                $scope.used = "X";
+                            } else {
+                                $scope.new = "X";
+                            }
+
+                        }
+                    });
+
+        }
+    }
+
+});
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+$(function () {
+    $(".datepicker").datepicker();
+});

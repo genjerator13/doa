@@ -1,0 +1,15 @@
+{% if dealers is defined and dealers is not empty %}
+    <form action="{{ path('dms_customer_switch') }}">
+        <select name="dealer">
+            <option value="admin">Admin</option>
+            {% for dealer in dealers %}
+                <option value="{{ dealer.id }}">{{ dealer.name }}</option>
+            {% endfor %}
+        </select>
+        <input class="btn btn-primary" type="submit" value="Switch dealer"/>
+    </form>
+    {% set dealer = app.session.get('dms_dealer_id') %}
+    {% if(dealer is defined and dealer is not empty) %}
+        Logged Dealer: {{ app.session.get('dms_dealer_name') }}
+    {% endif %}
+{% endif %}

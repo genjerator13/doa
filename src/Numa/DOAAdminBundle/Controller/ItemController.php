@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,13 @@ use Doctrine\Common\Collections\Criteria;
  * Item controller.
  *
  */
-class ItemController extends Controller {
+class ItemController extends Controller  implements DashboardDMSControllerInterface
+{
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all User entities.
@@ -51,7 +58,7 @@ class ItemController extends Controller {
 
         $grid = $this->get('grid');
 
-        //$grid->setDefaultOrder("date_created", "desc");
+        //$grid->setDefaultOrderOrder("date_created", "desc");
         $grid->setLimits(array(10, 20, 50));
         $imageColumn = new BlankColumn();
         $imageColumn->setTitle("Image");
@@ -70,6 +77,7 @@ class ItemController extends Controller {
 
             $image = $item->getImage2();
 
+            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
             echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
         }
         );
@@ -182,13 +190,14 @@ class ItemController extends Controller {
      * Lists all Item entities.
      *
      */
-    public function additemAction() {
+    public function additemAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
-
+        $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Item:additem.html.twig', array(
                     'entities' => $entities,
+                    'dashboard' => $dashboard,
         ));
     }
 
@@ -243,6 +252,7 @@ class ItemController extends Controller {
     public function newAction(Request $request, $cat_id, $item_id = null) {
 
         $entity = new Item();
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
         //get category by request parameter
         $category = $em->getRepository('NumaDOAAdminBundle:Category')->findOneById($cat_id);
@@ -329,28 +339,40 @@ class ItemController extends Controller {
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             $seoPost =$request->get("numa_doamodulebundle_seo");
+
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity,$seoPost);
             $em->flush();
             //dump($request->get("redirect"));die();
             if ($request->get("redirect") == "images") {
-                return $this->redirect($this->generateUrl('item_images', array('id' => $entity->getId())));
+                $redirect = 'item_images';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_item_images';
+                }
+                return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
             }
-
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $entity->getId())));
+            else{
+                $redirect = 'items_edit';
+                if(strtoupper($this->dashboard) =='DMS'){
+                    $redirect = 'dms_items_edit';
+                }
+                return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
+            }
         }
-
-        return $this->switchTemplateByCategory($cat_id, $entity, $form, $category,$seoFormView);
+        //'dashboard' =>$dashboard,
+        $params = array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'category' => $category,
+            'seo'=> $seoFormView,
+            'dashboard' =>$dashboard,
+        );
+        return $this->switchTemplateByCategory($cat_id, $params);
     }
 
-    private function switchTemplateByCategory($cat_id, $entity, $form, $category,$seo=null) {
+    private function switchTemplateByCategory($cat_id, $params) {
 
-        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'category' => $category,
-                    'seo'=> $seo,
-        ));
+        return $this->render('NumaDOAAdminBundle:Item:new.html.twig', $params);
     }
 
     /**
@@ -378,6 +400,7 @@ class ItemController extends Controller {
      *
      */
     public function editAction(Request $request, $id) {
+        $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -499,9 +522,22 @@ class ItemController extends Controller {
 
             //die();
             $em->flush();
-            return $this->redirectToRoute("items_edit",array("id"=>$entity->getId()));
+            $redirect = 'items_edit';
+            if(strtoupper($this->dashboard) =='DMS'){
+                $redirect = 'dms_items_edit';
+            }
+            return $this->redirectToRoute($redirect,array("id"=>$entity->getId()));
         }
-        return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
+        $params = array(
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'category' => $entity->getCategory(),
+            'seo'=> $seoFormView,
+            'dashboard' =>$this->dashboard,
+        );
+        return $this->switchTemplateByCategory($category, $params);
+
+        //return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
     }
 
     /**
@@ -546,13 +582,18 @@ class ItemController extends Controller {
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
             //dump($resultCode);die();
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
+            $redirect = 'items_edit';
+            if(strtoupper($this->dashboard) =='DMS'){
+                $redirect = 'dms_items_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Item:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
+                    'dashboard' =>$dashboard,
         ));
     }
 
@@ -630,6 +671,69 @@ class ItemController extends Controller {
     }
 
     /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massActivate2Action(Request $request) {
+        $ids = $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
+        die();
+    }
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeactivate2Action(Request $request) {
+
+        $ids = $this->getActivationParams($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,0);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massMakeFeatured2Action(Request $request) {
+        $ids = $this->getActivationParams($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids,true);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDelete2Action(Request $request) {
+
+        $ids = $this->getActivationParams($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->delete($ids);
+        die();
+    }
+
+
+    /**
+     * @param Request $request
+     * @return mixed listings ID separated by "," needed for massDeactivate2Action and massActivate2Action
+     *
+     */
+    private function getActivationParams(Request $request){
+        $data = json_decode($request->get('data'));
+        $values =array();
+        foreach($data as $item_id){
+            $values[]=intval($item_id);
+        }
+        $item_ids = implode(",",$values);
+        return $item_ids;
+    }
+
+    /**
      * deactivate an Item entity.
      *
      */
@@ -653,7 +757,7 @@ class ItemController extends Controller {
                 $return = $this->redirect($url);
             }
         }
-        //dump($redirect);die();
+        dump($redirect);die();
         $redirect = $request->query->get('redirect');
         if ($redirect == 'item') {
             $return = $this->redirectToRoute('items_edit', array('id' => $id));
@@ -737,8 +841,11 @@ class ItemController extends Controller {
 
         //if ($form->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('items_edit', array('id' => $id)));
+        $redirect = 'items_edit';
+        if(strtoupper($this->dashboard) =='DMS'){
+            $redirect = 'dms_items_edit';
+        }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         //}
     }
 

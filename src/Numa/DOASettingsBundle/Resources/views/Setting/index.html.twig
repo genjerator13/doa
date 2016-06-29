@@ -1,74 +1,96 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content %}
     {% include("NumaDOAAdminBundle::flashmsg.html.twig") %}
-    <div class="box box-default">
-    <h1>Setting list</h1>
-    <ul class="nav nav-tabs">
+    <section class="content">
+        <div class="box box-primary nav-tabs-custom">
+            <div class="page-header ">
+                <h1>Setting list</h1>
+            </div>
+            <ul class="nav nav-tabs">
 
-        {% for section in sections %}
-
-            <li role="presentation" class="{% if loop.first %}active{% endif %}"><a data-toggle="tab"
-                                                                                    href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
-            </li>
-        {% endfor %}
-        <li role="presentation">
-            <a data-toggle="tab" href="#system">System</a>
-        </li>
-    </ul>
-
-        <div class="nav-tabs-custom">
-            <div class="tab-content">
                 {% for section in sections %}
 
-                    <div id="{{ section.section|replace(" ","-") }}"
-                         class="tab-pane {% if loop.first %}active{% endif %}">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Value</th>
-                                <th>Section</th>
-                                <th>Actions</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-
-                            {% for entity in settings[section.section] %}
-                                {% if section.section==entity.section %}
-                                    <tr>
-                                        <td>{{ entity.name }}</td>
-                                        <td>{{ entity.value }}</td>
-                                        <td>{{ entity.section }}</td>
-                                        <td>
-                                            <ul>
-                                                <li>
-                                                    <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
-                                                       class="btn btn-primary">edit</a>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                {% endif %}
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                        <ul>
-                            <li>
-                                <a href="{{ path('setting_new') }}" class="btn btn-success">
-                                    Create a new entry
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <li role="presentation" class="{% if loop.first %}active{% endif %}"><a data-toggle="tab"
+                                                                                            href="#{{ section.section|replace(" ","-") }}">{{ section.section }}</a>
+                    </li>
                 {% endfor %}
-                <div id="system" class="tab-pane">
-                    <a class="btn btn-primary" href="{{ path('setting_cache_clear') }}">Clear http cache</a>
-                    <a class="btn btn-primary" href="{{ path('setting_hometabs_refresh') }}">Refresh Tabs on Homepage</a>
+                <li role="presentation">
+                    <a data-toggle="tab" href="#system">System</a>
+                </li>
+            </ul>
+
+            <div class="nav-tabs-custom">
+                <div class="tab-content">
+                    {% for section in sections %}
+
+                        <div id="{{ section.section|replace(" ","-") }}"
+                             class="tab-pane {% if loop.first %}active{% endif %}">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                    <th>Section</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for entity in settings[section.section] %}
+                                    {% if section.section==entity.section %}
+                                        <tr>
+                                            <td>{{ entity.name }}</td>
+                                            <td>{{ entity.value }}</td>
+                                            <td>{{ entity.section }}</td>
+                                            <td>
+                                                <ul>
+                                                    {% if(app.request.get('_dashboard')=='DMS') %}
+                                                        <li>
+                                                            <a href="{{ path('dms_setting_edit', { 'id': entity.id }) }}"
+                                                               class="btn btn-primary">edit</a>
+                                                        </li>
+                                                    {% else %}
+                                                        <li>
+                                                            <a href="{{ path('setting_edit', { 'id': entity.id }) }}"
+                                                               class="btn btn-primary">edit</a>
+                                                        </li>
+                                                    {% endif %}
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <ul>
+                                <li>
+
+                                    {% if(app.request.get('_dashboard')=='DMS') %}
+                                        <a href="{{ path('dms_setting_new') }}" class="btn btn-success">
+                                            Create a new entry
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ path('setting_new') }}" class="btn btn-success">
+                                            Create a new entry
+                                        </a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>
+
+                    {% endfor %}
+                    <div id="system" class="tab-pane">
+                        <a class="btn btn-primary" href="{{ path('setting_cache_clear') }}">Clear http cache</a>
+
+                        <a class="btn btn-primary" href="{{ path('setting') }}">Refresh Tabs on
+                            Homepage</a>
+                        <a class="btn btn-primary" href="{{ path('setting_cover_images') }}">Generate cover images</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
 {% endblock %}

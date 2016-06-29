@@ -1,0 +1,85 @@
+inventory:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:index",_dashboard: "DMS" }
+dms_additem:
+    pattern:  /additem
+    defaults: { _controller: "NumaDOAAdminBundle:Item:additem",_dashboard: "DMS" }
+dms_items_new:
+    pattern:  /{cat_id}/new
+    defaults: { _controller: "NumaDOAAdminBundle:Item:new",_dashboard: "DMS" }
+dms_items_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "NumaDOAAdminBundle:Item:edit",_dashboard: "DMS" }
+dms_item_activate:
+    path:     /activate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massActivate2" }
+dms_item_deactivate:
+    path:     /deactivate
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massDeactivate2" }
+dms_item_featured:
+    path:     /featured
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeFeatured2" }
+dms_item_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }
+dms_item_category_change:
+    pattern:  /{id}/category
+    defaults: { _controller: "NumaDOAAdminBundle:Item:changeCategory",_dashboard: "DMS" }
+    requirements: { _method: post|put }
+dms_item_images:
+    pattern: /{id}/images
+    defaults: { _controller: "NumaDOAAdminBundle:Image:show",_dashboard: "DMS" }
+dms_item_images_upload:
+    pattern: /{id}/imagesupload
+    defaults: { _controller: "NumaDOAAdminBundle:Image:upload",_dashboard: "DMS" }
+    requirements: { id: \d+ }
+dms_item_image_setorder:
+    pattern: /image_order
+    defaults: { _controller: "NumaDOAAdminBundle:Image:setImageOrder",_dashboard: "DMS" }
+    condition: "request.isXmlHttpRequest()"
+dms_item_images_add_video:
+    pattern: /{id}/addvideo
+    defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo",_dashboard: "DMS" }
+    requirements: { id: \d+ }
+#inventory_new:
+#    path:     /new
+#    defaults: { _controller: "NumaDOADMSBundle:Inventory:new" }
+#
+#customer_create:
+#    path:     /create
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:create" }
+#    requirements: { _method: post }
+#
+#customer_edit:
+#    path:     /{id}/edit
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:edit" }
+#
+#customer_update:
+#    path:     /{id}/update
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:update" }
+#    requirements: { _method: post|put }
+#
+#customer_delete:
+#    path:     /{id}/delete
+#    defaults: { _controller: "NumaDOADMSBundle:Customer:delete" }
+#    requirements: { _method: post|delete }
+#
+#customer_addnote:
+#    path:     /{id}/addnote
+#    defaults: { _controller: "NumaDOADMSBundle:Note:new" }
+#
+#customer_addbilling:
+#    path:     /{id}/addbilling
+#    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+#
+#customer_shownote:
+#    path:     /{id}/shownote
+#    defaults: { _controller: "NumaDOADMSBundle:Note:index" }
+#
+#customer_notes:
+#    path:     /notes.html
+#    defaults: { _controller: "NumaDOADMSBundle:Note:notes" }
+#
+#customer_addbilling:
+#    path:     /{id}/addbilling
+#    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }

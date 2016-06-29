@@ -1,0 +1,8 @@
+note_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:NoteREST:all",_format: "json"}
+    requirements: { _method: get }
+note_api_all_by_customer:
+    path:     /{customer_id}/customer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:NoteREST:allByCustomer",_format: "json"}
+    requirements: { _method: get }
