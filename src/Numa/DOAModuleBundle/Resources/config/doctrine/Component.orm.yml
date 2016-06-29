@@ -1,0 +1,47 @@
+Numa\DOAModuleBundle\Entity\Component:
+    type: entity
+    table: componentx
+    repositoryClass: Numa\DOAModuleBundle\Repository\ComponentRepository
+    indexes:
+        url:
+            columns: [ name ]
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        page_id:
+            type: integer
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: string
+            length: 255
+            nullable: true
+        value:
+             type: text
+             nullable: true
+        settings:
+             type: text
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+    oneToMany:
+        PageComponent:
+            targetEntity: PageComponent
+            mappedBy: Component
+            cascade: [persist]
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

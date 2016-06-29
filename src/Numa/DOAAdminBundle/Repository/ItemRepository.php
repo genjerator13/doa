@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
@@ -31,49 +32,51 @@ class ItemRepository extends EntityRepository
         return $res;
     }
 
-    public function findFeatured($max = 5)
+    public function findFeatured($dealer_id = "", $max = 5)
     {
         if (empty($max)) {
             $max = 5;
         }
-        $em = $this->getEntityManager();
-        $res2 = $this->memcache->get('featured');
+        $dealer_id = empty($dealer_id) ? "" : $dealer_id;
+
+        $res2 = $this->memcache->get('featured_' . $dealer_id);
 
         if (!$res2) {
 
             $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
+            if (!empty($dealer_id)) {
+                $q = $q . " AND i.dealer_id=" . intval($dealer_id);
+            }
+
             $query = $this->getEntityManager()
                 ->createQuery($q);
-            $query->useResultCache(true, 3600, 'featuredSelect');
+            // $query->useResultCache(true, 3600, 'featuredSelect_'.$dealer_id);
+            //dump($query);die();
             $res2 = $query->getArrayResult();
-            $this->memcache->set('featured', $res2);
+            $this->memcache->set('featured_' . $dealer_id, $res2);
 
         }
 
         $count = count($res2);
         $maxOffset = $count - $max <= 0 ? $count : $max;
-
         if (!empty($res2)) {
 
-            //$randResult = $this->memcache->get('randomFeaturedads');
-            //if ($randResult===false) {
             $rand_keys = array_rand($res2, $maxOffset);
             $randResult = array();
             foreach ($rand_keys as $key) {
                 $randResult[] = $res2[$key]['id'];
             }
-            //$this->memcache->set('randomFeaturedads',$randResult,false,3600);
-            // } 
-
 
             $qb = $this->getEntityManager()->createQueryBuilder();
             $qb->select('i')
-                    ->from('NumaDOAAdminBundle:Item', 'i')
-                    //->join('i.ItemField', 'if')
-                    ->andWhere('i.id IN (:ids)')
-                    ->setParameter('ids', $randResult)
-                    ->setMaxResults(10);
-            ;
+                ->from('NumaDOAAdminBundle:Item', 'i')
+                ->andWhere('i.id IN (:ids)')
+                ->setParameter('ids', $randResult)
+                ->setMaxResults(10);;
+            if (!empty($dealer_id)) {
+                $qb->andWhere('i.dealer_id=:dealer_id');
+                $qb->setParameter('dealer_id', intval($dealer_id));
+            }
 
             $query = $qb->getQuery();
             $query->useResultCache(true, 3600, 'featuredRandomSet');
@@ -99,8 +102,6 @@ class ItemRepository extends EntityRepository
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->add('from', 'NumaDOAAdminBundle:Item i LEFT JOIN i.UserItem ui')
-            //->from('NumaDOAAdminBundle:Item', 'i')
-            //->join('NumaDOAAdminBundle:UserItem', 'ui')
             ->where('ui.user_id=:user_id')
             ->andWhere('ui.item_type= :item_type')
             ->setParameter('item_type', \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD)
@@ -147,7 +148,6 @@ class ItemRepository extends EntityRepository
             ->setParameter('category', $cat);
 
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
-        //dump($itemsQuery->getSQL());
         return $itemsQuery->getResult();
     }
 
@@ -183,13 +183,15 @@ class ItemRepository extends EntityRepository
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->from('NumaDOAAdminBundle:Item', 'i');
-        if (is_numeric($dealer_id)) {
+        if (empty($dealer_id)) {
+
+        } elseif (is_numeric($dealer_id)) {
             $qb->where('i.dealer_id=:dealer');
             $qb->setParameter('dealer', $dealer_id);
         } elseif (is_string($dealer_id)) {
             $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
             $qb->andWhere("d.username like :dealer");
-            $qb->setParameter("dealer", "%" . $dealer_id . "%");
+            $qb->setParameter("dealer", $dealer_id);
         };
 
         if (!empty($category)) {
@@ -205,10 +207,64 @@ class ItemRepository extends EntityRepository
                 return false;
             }
         }
-
-        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        $qb->andWhere("i.active=1");
+        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
+        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
 
         return $itemsQuery->getResult();
+    }
+
+    public function getItemByDealerUsernameAndCategory($dealer_id, $category = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if (empty($dealer_id)) {
+
+//        } elseif (is_numeric($dealer_id)) {
+//            $qb->where('i.dealer_id=:dealer');
+//            $qb->setParameter('dealer', $dealer_id);
+        } elseif (!empty($dealer_id)) {
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
+            $qb->andWhere("d.username like :dealer");
+            $qb->setParameter("dealer", $dealer_id);
+        };
+
+        if (!empty($category)) {
+            if (is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            } else {
+                return false;
+            }
+        }
+        $qb->andWhere("i.active=1");
+        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
+        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        return $itemsQuery->getResult();
+    }
+
+
+    public function getAllListings($dealer_id=null)
+    {
+        //$sql = "SELECT * FROM item";
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
+        if(!empty($dealer_id)) {
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=".$dealer_id." GROUP BY i.id ORDER BY i.id DESC";
+        }
+
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        //$rows = $stmt->fetchAll();
+        //$json = json_encode($stmt);
+        return $stmt;
     }
 
     public function removeAllItemFields($item_id)
@@ -260,7 +316,7 @@ class ItemRepository extends EntityRepository
         $sql = "
         UPDATE item
         SET views=COALESCE(views, 0 )+1
-        WHERE id=".$itemId;
+        WHERE id=" . $itemId;
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
@@ -279,6 +335,28 @@ class ItemRepository extends EntityRepository
             ->createQuery($q)->setMaxResults(1);
         //dump($itemsQuery->getOneOrNullResult());
         return $itemsQuery->getOneOrNullResult();
+    }
+
+    /**
+     * @return bool|mixed
+     * Finds items by stock# and VIn
+     */
+    public function findItemsBy($find, $field = 'vin')
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if ($field == 'vin') {
+            $qb->Where('i.VIN like :find');
+        } else {
+            $qb->where('i.stock_nr like :find');
+        }
+
+        $qb->setParameter("find", "%" . $find . "%");
+
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
     }
 
     public function removeItemsByFeed($feed_id)
@@ -360,18 +438,18 @@ class ItemRepository extends EntityRepository
 
             $processed = false;
             $listingField = false;
-            if(!empty($maprow->getFieldSid())) {
+            if (!empty($maprow->getFieldSid())) {
                 $listingField = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('id' => $maprow->getFieldSid()));
 
             }
             //dump($listingField);
             //check if there are predefine
-                //d listing field in database (listing_field_lists)
+            //d listing field in database (listing_field_lists)
             if (!empty($listingField) && !empty($importItem[$property])) {
 
                 $stringValue = $importItem[$property];
                 $listingFieldsType = $listingField->getType();
-//
+
                 $itemField = new ItemField();
                 $itemField->setAllValues($stringValue, $maprow->getValueMapValues());
                 $itemField->setFeedId($feed->getId());
@@ -525,6 +603,162 @@ class ItemRepository extends EntityRepository
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+
+    public function countAllListings($active = 1, $sold = 0, $category = 0, $dealer = false)
+    {
+        $suffix = "";
+        if ($dealer instanceof Catalogrecords) {
+            $suffix .= " and i.dealer_id=" . $dealer->getId();
+        }
+        if (!empty($category)) {
+            $suffix .= " and i.category_id=" . $category;
+        }
+        $sql = "select count(*) as count from item i WHERE i.active=$active and i.sold=$sold" . $suffix;
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        return $res['count'];
+
+    }
+
+    public function countAllViews($active = 1, $sold = 0, $category = 0, $dealer = false)
+    {
+        $suffix = "";
+        if ($dealer instanceof Catalogrecords) {
+            $suffix = " and i.dealer_id=" . $dealer->getId();
+        }
+        if (!empty($category)) {
+            $suffix .= " and i.category_id=" . $category;
+        }
+        $sql = "select sum(i.views) as count from item i WHERE i.active=$active and i.sold=$sold" . $suffix;
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        return $res['count'];
+
+    }
+
+    public function getByCategoryTypeDealer($cat, $type, $dealer = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.category_id=:category_id');
+
+        if ($cat == 1) {
+            $qb->andWhere('i.body_style like :body_style');
+            $qb->setParameter('body_style', $type);
+        } else {
+            $qb->andWhere('i.type like :type');
+            $qb->setParameter('type', $type);
+
+        }
+        $qb->setParameter('category_id', $cat);
+        if ($dealer instanceof Catalogrecords) {
+            $qb->andWhere('i.dealer_id=:dealer_id');
+            $qb->setParameter('dealer_id', $dealer->getId());
+        }
+
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        //dump($itemsQuery);
+        return $itemsQuery->getResult();
+    }
+
+    public function isItemFieldExists($item_id, $fieldName)
+    {
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:ItemField', 'i')
+            ->andWhere('i.field_name=:field_name')
+            ->andwhere('i.item_id=:item_id');
+        $qb->setParameter('field_name', $fieldName);
+        $qb->setParameter('item_id', $item_id);
+        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+
+        return $itemsQuery->getOneOrNullResult();
+    }
+
+    public function setCoverPhoto($item_id, $src)
+    {
+        if (!empty($item_id)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.cover_photo', "'".$src."'")
+                ->where('i.id=' . $item_id);
+            $qb->getQuery()->execute();
+        }
+    }
+
+    public function getCoverPhoto($item_id)
+    {
+        $item_id = intval($item_id);
+        $sql = "select * from item_field where item_field.field_name = \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order";
+
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+        $res = $stmt->fetch();
+        if(!empty($res['field_string_value'])){
+            return $res['field_string_value'];
+        }
+        return "";
+    }
+
+    /**
+     * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function activate($ids, $active = true)
+    {
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.active', $active)
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+    /**
+     * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function makeFeatured($ids, $featured = true)
+    {
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.featured', $featured)
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+    /**
+     * @param $ids
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function delete($ids)
+    {
+        if (!empty($ids)) {
+
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->delete('NumaDOAAdminBundle:Item', 'i')
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+
 
 
 }

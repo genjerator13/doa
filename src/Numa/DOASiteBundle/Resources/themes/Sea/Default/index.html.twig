@@ -1,0 +1,95 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{#{% block headline %}#}
+    {#<div class="header">#}
+        {#<a class="logo" href="">#}
+            {#{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}#}
+        {#</a>#}
+
+        {#<div class="contact-info">#}
+            {#<div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4#}
+            {#</div>#}
+            {#<a class="map-and-hours" href="">Map &amp; Hours</a>#}
+
+            {#<div class="phone">{{ dealer.phone }}</div>#}
+        {#</div>#}
+    {#</div>#}
+{#{% endblock %}#}
+{% block banner %}
+
+    {% set images = displayCarouselComponent(components) %}
+
+    <div class="bs-example">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                {% for image in images %}
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                {% endfor %}
+
+            </ol>
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                {% for image in images %}
+                <div class="item {%  if loop.first %} active{% endif %}">
+                    {{ component.image('upload/dealers/'~image.src, "aaaaaa", '', 'carousel_wide') }}
+                    <div class="text_widget">{{ image.carouselText|raw }}</div>
+                </div>
+                {% endfor %}
+
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#myCarousel").carousel({
+                interval : 8000,
+                pause: false
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="content">
+        {{ displayComponent(components,'welcome_text')|raw }}
+    </div>
+{% endblock %}
+
+{% block info %}
+    <div class="info">
+        <ul>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+            <li>
+                <h2>{{ dealer.name }}</h2>
+
+                <div class="address">
+                    {{ dealer.address }}<br>
+                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
+                </div>
+                <div class="phone">
+                    <span>Phone:</span> {{ dealer.phone }}<br>
+                </div>
+            </li>
+            <li>
+                {{ displayComponent(components,'hours_of_operation')|raw }}
+            </li>
+            <li>
+                {{ displayComponent(components,'quick_links')|raw }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+
+{% block featuredads %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
+{% endblock %}

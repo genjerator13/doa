@@ -1,0 +1,29 @@
+Numa\DOADMSBundle\Entity\ReminderItem:
+    type: entity
+    table: reminderItem
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        description:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+    oneToMany:
+        Reminder:
+            targetEntity: Numa\DOADMSBundle\Entity\Reminder
+            mappedBy: ReminderItem
+            cascade: [persist]
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

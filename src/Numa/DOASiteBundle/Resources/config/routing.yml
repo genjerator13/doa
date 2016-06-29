@@ -18,7 +18,13 @@ search_by_type:
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }     
 browse_by_dealer:
     path:  /browse_by_dealer/{dealer_id}/{dealername}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByDealer, _locale: en }      
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByDealer, _locale: en }
+search_new_vehicle:
+    path:  /browse_new
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByStatus, _locale: en,status:N }
+search_used_vehicle:
+    path:  /browse_used
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByStatus, _locale: en,status:U }
 homepage_categories:
     path:  /categories
     defaults: { _controller: NumaDOASiteBundle:Default:categories }
@@ -70,7 +76,10 @@ item_compare:
     defaults: { _controller: NumaDOASiteBundle:Item:compare }
 item_qrcode:
     path:     /item/qrcode
-    defaults: { _controller: NumaDOASiteBundle:Item:qrcode }    
+    defaults: { _controller: NumaDOASiteBundle:Item:qrcode }
+item_eprice:
+    path:     /item/{itemid}/eprice
+    defaults: { _controller: NumaDOASiteBundle:Item:eprice }
 item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }  
@@ -106,10 +115,15 @@ compared_listings:
 dealer_coupons:
     path:  /dealer/{dealername}/coupons
     defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }
-
+sandbox_test3:
+    path:  /sandbox/test3
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:test3 }
 sandbox_test:
     path:  /sandbox/test
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test }
+sandbox_test2:
+    path:  /sandbox/test2
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:test2 }
 ads_page:
     path:  /ads/{id}
     defaults: { _controller: NumaDOASiteBundle:Ads:index }
@@ -117,3 +131,31 @@ ads_page:
 ad_increase_click:
     path:     /ads/{id}/click
     defaults: { _controller: "NumaDOAModuleBundle:Ad:clickAjax" }
+
+statistics:
+    path:     /stats
+    defaults: { _controller: "NumaDOASiteBundle:Default:statistics" }
+part_form:
+    path:     /parts
+    defaults: { _controller: "NumaDOASiteBundle:Parts:part" }
+part_success:
+    path:  /partSuccess
+    defaults: { _controller: "NumaDOASiteBundle:Parts:success" }
+service_form:
+    path:     /service
+    defaults: { _controller: "NumaDOASiteBundle:Service:service" }
+service_success:
+    path:  /serviceSuccess
+    defaults: { _controller: "NumaDOASiteBundle:Service:success" }
+finance_form:
+    path:     /finance
+    defaults: { _controller: "NumaDOASiteBundle:Finance:new" }
+about_us:
+    path:     /about_us
+    defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }
+news:
+    path:     /news
+    defaults: { _controller: "NumaDOASiteBundle:Default:news" }
+site_inventory:
+    path:     /manage_inventory
+    defaults: { _controller: "NumaDOASiteBundle:Item:manage" }

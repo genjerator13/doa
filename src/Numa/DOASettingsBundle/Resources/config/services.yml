@@ -2,6 +2,6 @@ parameters:
 #    numa_doa_settings.example.class: Numa\DOASettingsBundle\Example
 
 services:
-#    numa_doa_settings.example:
-#        class: %numa_doa_settings.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    Numa.Dms.User:
+        class: Numa\DOADMSBundle\Util\DmsUserLib
+        arguments: ["@doctrine.orm.entity_manager","@service_container"]

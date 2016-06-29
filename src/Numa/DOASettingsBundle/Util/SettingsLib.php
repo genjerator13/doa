@@ -1,6 +1,7 @@
 <?php
 namespace Numa\DOASettingsBundle\Util;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
@@ -50,21 +51,66 @@ class SettingsLib
         return $value;
     }
 
+    public function getSetting($name,$section="",$dealer=null){
+
+    }
+
+    /**
+     * @param $host
+     * @return mixed
+     * NOT USED
+     *
+     */
+    public function getDealerForHost($host)
+    {
+        $setting = $this->getRepo()->findOneBy(array(
+            'name' => 'host','value'=>$host
+        ));
+        $dealer = $setting->getDealer();
+        return $dealer;
+    }
+
+    /**
+     * @param $host
+     * @return mixed
+     * NOT USED
+     *
+     */
+    public function activateTheme($host){
+        $dealer = $this->getDealerForHost($host);
+        $theme = $this->getRepo()->getSingle('theme','site',$dealer);
+        $activeTheme = $this->container->get('liip_theme.active_theme');
+
+        $activeTheme->setName($theme->getValue());
+
+        return $theme;
+    }
+
     /**
      * @param string $name Name of the setting to update.
      * @param string|null $value New value for the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function set($name, $value)
+    public function set($name, $value,$section="",$dealer_id=null)
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => $name,
         ));
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
         if ($setting === null) {
-            throw $this->createNotFoundException($name);
+            $setting= new Setting();
+            $setting->setName($name);
+            $setting->setValue($value);
+            $setting->setDealer($dealer);
+            $setting->setSection($section);
+            $this->em->persist($setting);
+
         }
+        $setting->setDealer($dealer);
         $setting->setValue($value);
-        $this->em->flush($setting);
+        $setting->setSection($section);
+
+        $this->em->flush();
     }
 
     /**
@@ -141,13 +187,17 @@ class SettingsLib
         return new \RuntimeException(sprintf('Setting "%s" couldn\'t be found.', $name));
     }
 
-    public function getSections(){
-        $q = $this->em->createQueryBuilder()
-            ->select('s.section')
+    public function getSections($dealer=null){
+        $q = $this->em->createQueryBuilder();
+        $q->select('s.section')
             ->distinct()
-            ->from('NumaDOASettingsBundle:Setting', 's')
-            ->getQuery();
-        return $q->getArrayResult();
+            ->from('NumaDOASettingsBundle:Setting', 's');
+        if($dealer instanceof Catalogrecords){
+            $q->where('s.dealer_id=:dealer_id');
+            $q->setParameter('dealer_id',$dealer->getId());
+        }
+        $res=$q->getQuery();
+        return $res->getArrayResult();
     }
 
     public function replaceRealValues($subject,$map=array()){
@@ -212,5 +262,31 @@ class SettingsLib
 
         $title =  str_replace($matches[0], $replace, $stringFormula);
         return $title;
+    }
+
+    public function createDealerUploadFolders($dealer_id){
+        //upload to
+        $upload =$this->container->getParameter('upload_dealer').$dealer_id;
+        if(!is_dir($upload)) {
+
+            if (!is_dir($this->container->getParameter('upload_dealer'))) {
+                mkdir($this->container->getParameter('upload_dealer'),777,true);
+
+            }
+            mkdir($upload,0777,true);
+
+        }
+    }
+
+    public function createDealerComponentUploadFolders($dealer_id,$component_id){
+        //$this->createDealerUploadFolders($dealer_id);
+        $upload =$this->container->getParameter('upload_dealer').$dealer_id."/component/".$component_id;
+        if(!is_dir($this->container->getParameter('upload_dealer').$dealer_id."/component")){
+            mkdir($this->container->getParameter('upload_dealer').$dealer_id."/component",0777,true);
+            if(!is_dir($upload)){
+                mkdir($upload,0777,true);
+            }
+
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importmapping;
@@ -20,7 +21,13 @@ use Symfony\Component\HttpFoundation\Response;
  * Importmapping controller.
  *
  */
-class ImportmappingController extends Controller {
+class ImportmappingController extends Controller implements DashboardDMSControllerInterface {
+
+    public $dashboard;
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all Importmapping entities.
@@ -31,6 +38,7 @@ class ImportmappingController extends Controller {
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findAll();
         return $this->render('NumaDOAAdminBundle:Importmapping:index.html.twig', array(
                     'entities' => $entities,
+                    'dashboard' => $this->dashboard,
         ));
     }
 
@@ -311,8 +319,11 @@ class ImportmappingController extends Controller {
         //$process->start();
         $request->getSession()->getFlashBag()
                 ->add('success', 'Feed' . $id . ' added to queue. Click on -Start command Queue- in order to start fetching the feed');
-
-        return $this->redirectToRoute('command_log_home');
+        $action = 'command_log_home';
+        if(!empty($this->dashboard)){
+            $action = 'dms_command_log_home';
+        }
+        return $this->redirectToRoute($action);
     }
 
     public function renderFetch($items) {

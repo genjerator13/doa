@@ -1,12 +1,14 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content -%}
 <div class="box box-default">
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Pages list</h1>
-    <a href="{{ path('page_new') }}" class="btn btn-default">
-        Create a new entry
-    </a>
+        <a href="{{ path('page_new') }}" class="btn btn-success">
+            Create a new entry
+        </a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -31,7 +33,19 @@
                 {#<td>{% if entity.createdat %}{{ entity.createdat|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                 {#<td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                 <td>
-                    <a href="{{ path('page_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                    <ul>
+                    {% if(app.request.get('_dashboard')=='DMS') %}
+                        <li>
+                            <a href="{{ path('dms_page_edit', { 'id': entity.id }) }}"
+                               class="btn btn-primary">edit</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ path('page_edit', { 'id': entity.id }) }}"
+                               class="btn btn-primary">edit</a>
+                        </li>
+                    {% endif %}
+                    </ul>
                 </td>
             </tr>
         {% endfor %}

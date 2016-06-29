@@ -47,6 +47,12 @@ class AppKernel extends Kernel {
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
             new Numa\DOAApiBundle\NumaDOAApiBundle(),
             //new Lsw\GuzzleBundle\LswGuzzleBundle(),
+            new Numa\DOADMSBundle\NumaDOADMSBundle(),
+            //new PUGX\AutocompleterBundle\PUGXAutocompleterBundle(),
+            //new Circle\RestClientBundle\CircleRestClientBundle(),
+            new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
+            new Numa\DOAStatsBundle\NumaDOAStatsBundle(),
+            new Liip\ThemeBundle\LiipThemeBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

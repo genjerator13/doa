@@ -1,3 +1,17 @@
+numa_doa_stats:
+    resource: "@NumaDOAStatsBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dms_activate:
+    path:  /dms_activate
+    defaults: { _controller: "NumaDOADMSBundle:Dms:activate" }
+dms_activate_success:
+    path:  /dms_activate_success
+    defaults: { _controller: "NumaDOADMSBundle:Dms:activateSuccess" }
+numa_doadms:
+    resource: "@NumaDOADMSBundle/Resources/config/routing.yml"
+    prefix:   /dms
+
 numa_doa_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
     prefix:   /
@@ -13,7 +27,9 @@ numa_doa_settings:
 numa_doa_site:
     resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
     prefix:   /
-
+#numa_doa_site2:
+#    resource: "@NumaDOASiteBundle/Resources/config/routing.yml"
+#    prefix:   /d
 numa_doa_admin:
     resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
@@ -27,6 +43,11 @@ logout:
 ad:
     pattern:   /error/403
     defaults:  { _controller: NumaDOASiteBundle:Default:accessDenied }
+site_page:
+    pattern:   /page/{url}
+    defaults:  { _controller: NumaDOASiteBundle:Page:show }
+
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 EndroidQrCodeBundle:
@@ -49,8 +70,19 @@ genemu_base64:
 #        resource: "@NumaDOAAdminBundle/Resources/config/routing/restApi.yml"
 #        prefix:   /restApi
 api:
-        resource: "@NumaDOAApiBundle/Resources/config/routing/api.yml"
+        resource: "@NumaDOAApiBundle/Resources/config/routing.yml"
         prefix:   /api
 DOASiteBundle:
     resource: .
     type: extra
+liip_theme:
+    resource: "@LiipThemeBundle/Resources/config/routing.xml"
+    prefix: /theme
+
+image_upload:
+    pattern:   /upload_image
+    defaults:  { _controller: NumaDOASiteBundle:Default:uploadImage }
+
+image_browse:
+    pattern:   /browse_image
+    defaults:  { _controller: NumaDOASiteBundle:Default:browseImage }

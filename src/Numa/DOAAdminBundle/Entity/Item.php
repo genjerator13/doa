@@ -14,13 +14,14 @@ use Numa\DOAModuleBundle\Entity\Seo;
 
 
 /**
+ * Item
+ * @JMS\ExclusionPolicy("ALL")
  * @GRID\Source(columns ="id,sold,Category.name,make,model,stock_nr, Dealer.name,active,moderation_status,views,activation_date,expiration_date,date_created,featured" ,groupBy="id")
  * @JMS\XmlRoot("listing")
- * @JMS\ExclusionPolicy("ALL")
  */
 class Item
 {
-
+    //
     public static $fields = array(
         1 =>
             array('body_description' => 'bodyDescription', 'doors' => 'doors', 'exterior_color' => 'exteriorColor', 'interior_color' => 'interiorColor', 'engine' => 'engine', 'transmission' => 'transmission', 'fuel_type' => 'fuelType', 'drive_type' => 'driveType', 'Make Model' => 'make', 'model' => 'model'),
@@ -66,12 +67,14 @@ class Item
     /**
      * @var boolean
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $active;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="moderation_status", title="Status", selectFrom="values",values={"Pending","Aproved","Rejected"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $moderation_status;
 
@@ -89,6 +92,7 @@ class Item
     /**
      * @var integer
      * @GRID\Column(type="text", field="views", title="Views", filterable=false, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $views;
 
@@ -100,12 +104,14 @@ class Item
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="activation_date", title="activation_date", selectFrom="source", selectTo="source", filterable=true, defaultOperator="btw",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $activation_date;
 
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="expiration_date", title="expiration_date", filterable=true, operatorsVisible=false, defaultOperator="btw")
+     * @JMS\Expose
      */
     private $expiration_date;
 
@@ -117,6 +123,7 @@ class Item
     /**
      * @var \DateTime
      * @GRID\Column(type="date", field="date_created", title="date_created", selectFrom="source", selectTo="source",sortable=true, filterable=true, defaultOperator="btw",operatorsVisible=false)
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -160,6 +167,7 @@ class Item
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
      * @GRID\Column(type="text", field="Category.name", title="Category", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
+     * @JMS\Expose
      */
     private $Category;
 
@@ -768,7 +776,6 @@ class Item
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"));
         $images = $if->matching($criteria);
-
         // Collect an array iterator.
         $iterator = $images->getIterator();
 
@@ -783,6 +790,22 @@ class Item
         return $imagesSorted;
     }
 
+    public function getCoverImageSrc(){
+        $img = $this->getImage2();
+        if($img instanceof ItemField){
+            return $img->getFieldStringValue();
+        }
+        return "";
+    }
+
+
+    public function getImage2($num = 0)
+    {
+        $images = $this->getImages2();
+        foreach ($images as $image) {
+            return $image;
+        }
+    }
     public function getImagesForApi()
     {
         $images = $this->getImages2();
@@ -824,13 +847,41 @@ class Item
         }
         return $res;
     }
+    //private $photo;
+    /**
+     * @param int $num
+     * @return mixed|null
+     * @JMS\VirtualProperty
+     * returns first image of the listing
+     */
+    public function getPhoto($num = 0)
+    {
+        $if = $this->getItemField();
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("fieldName", "Image List"))
+            ->setMaxResults(1);
+        $images = $if->matching($criteria);
+        if(!empty($images) && $images->first() instanceof ItemField) {
 
-    public function getImage2($num = 0)
+            return $images->first()->getFieldStringValue();
+        }
+        return null;
+    }
+
+    public function getPhotos()
     {
         $images = $this->getImages2();
+        $res = array();
         foreach ($images as $image) {
-            return $image;
+            if ($image instanceof ItemField) {
+                $res[] = $image->getFieldStringValue();
+            }
         }
+        return $res;
+    }
+
+    public function setImage2($photo){
+        $this->photo =  $photo;
     }
 
     public function getImage($num = 0)
@@ -1080,6 +1131,7 @@ class Item
     /**
      * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
      * @GRID\Column(type="text", field="Dealer.name", title="Dealer", filter="select", operatorsVisible=false, selectMulti=true, sortable=true)
+     * @JMS\Expose
      */
     private $Dealer;
 
@@ -1136,6 +1188,9 @@ class Item
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
+        if(strtolower($separator)=="{newline}") {
+            $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
+        }
 
         $order = 1;
 
@@ -1311,6 +1366,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $body_style;
 
@@ -1335,57 +1391,69 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flor_pane;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $ag_application;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $postal;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $city;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $address;
 
     /**
      * @var string
+     * @JMS\Expose
+     * @JMS\Accessor(getter="getStatus",setter="setStatus")
      */
     private $status;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="stock_nr", title="Stock #", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $stock_nr;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $mileage;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $VIN;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $transmission;
 
@@ -1446,6 +1514,23 @@ class Item
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Get price string
+     *
+     * @return string
+     */
+    public function getPriceString()
+    {
+        $res = "";
+        if ($this->getPrice() == 0) {
+            return "";
+        }
+        if (!empty($this->getPrice())) {
+            $res = "$" . number_format($this->getPrice(), 0, '.', ',');
+        }
+        return $res;
     }
 
     /**
@@ -1619,6 +1704,14 @@ class Item
     {
         $this->status = $status;
 
+        if(strtolower($status)=="new" || strtolower($status)=="n"){
+            $this->status = "New";
+        }
+
+        if(strtolower($status)=="used" || strtolower($status)=="u" || strtolower($status)=="use"){
+            $this->status = "Used";
+        }
+
         return $this;
     }
 
@@ -1626,9 +1719,15 @@ class Item
      * Get status
      *
      * @return string
+     * @JMS\VirtualProperty
      */
     public function getStatus()
     {
+        if(strtolower($this->status)=='n' or strtolower($this->status)=='new'){
+            $this->status="New";
+        }elseif(strtolower($this->status)=='u' or strtolower($this->status)=='used' or strtolower($this->status)=='use'){
+            $this->status="Used";
+        }
         return $this->status;
     }
 
@@ -1792,7 +1891,7 @@ class Item
             $this->setDisplacement($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'chassis type') {
             $this->setChassisType($itemField->getFieldStringValue());
-        } elseif (strtolower($itemField->getFieldName()) == 'slide outs') {
+        } elseif (strtolower($itemField->getFieldName()) == 'slide outs' || strtolower($itemField->getFieldName()) == 'slideouts') {
             $this->setSlideOuts($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'flooring') {
             $this->setFlooring($itemField->getFieldStringValue());
@@ -1801,6 +1900,8 @@ class Item
         } elseif (strtolower($itemField->getFieldName()) == 'class') {
             $this->setClass($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'weight') {
+            $this->setWeight($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'boat weight') {
             $this->setWeight($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'engine type') {
             $this->setEngineType($itemField->getFieldStringValue());
@@ -1838,7 +1939,40 @@ class Item
             $this->setMpgCity($itemField->getFieldStringValue());
         } elseif (strtolower($itemField->getFieldName()) == 'mpg - highway') {
             $this->setMpgHighway($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'awnings') {
+            $this->setAwnings($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'sleeps') {
+            $this->setSleeps($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'retail price') {
+            $this->setRetailPrice($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'pto horsepower') {
+            $this->setPtoHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'dbr horsepower') {
+            $this->setDBRHorsepower($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'torque') {
+            $this->setTorque($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'brakes') {
+            $this->setBrakes($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'wheels') {
+            $this->setWheels($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'compression ratio') {
+            $this->setCompressionRatio($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'frame') {
+            $this->setFrame($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'suspension') {
+            $this->setSuspension($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'ground clereance') {
+            $this->setGroundClereance($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'fresh water capacity') {
+            $this->setFreshWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'black water capacity') {
+            $this->setBlackWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'grey water capacity') {
+            $this->setGrayWaterCapacity($itemField->getFieldStringValue());
+        } elseif (strtolower($itemField->getFieldName()) == 'remotes') {
+            $this->setRemotes($itemField->getFieldStringValue());
         }
+
 
     }
 
@@ -1852,39 +1986,13 @@ class Item
         return $this;
     }
 
-    /**
-     * @var integer
-     */
-    private $photos;
 
     /**
      * @var string
      * @GRID\Column(type="text", field="make", title="Make")
+     * @JMS\Expose*
      */
     private $make;
-
-    /**
-     * Set photos
-     *
-     * @param integer $photos
-     * @return Item
-     */
-    public function setPhotos($photos)
-    {
-        $this->photos = $photos;
-
-        return $this;
-    }
-
-    /**
-     * Get photos
-     *
-     * @return integer
-     */
-    public function getPhotos()
-    {
-        return $this->photos;
-    }
 
     /**
      * Set make
@@ -1900,6 +2008,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $floor_plan;
 
@@ -1948,21 +2057,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $engine;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $interior_color;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $exterior_color;
 
@@ -2065,16 +2178,19 @@ class Item
     /**
      * @var boolean
      * @GRID\Column(type="boolean", field="sold", title="Sold", filterable=true, operatorsVisible=false)
+     * @JMS\Expose
      */
     private $sold;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $body_description;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $videoId;
 
@@ -2152,6 +2268,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $trim;
 
@@ -2181,6 +2298,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $doors;
 
@@ -2210,6 +2328,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $drive_type;
 
@@ -2239,6 +2358,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $seller_comment;
 
@@ -2268,51 +2388,61 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $length;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $boat_weight;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $hull_design;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $steering_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $of_hours;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $passengers;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $trailer;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $battery;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_capacity;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $horsepower;
 
@@ -2334,6 +2464,7 @@ class Item
      * Get length
      *
      * @return float
+     *
      */
     public function getLength()
     {
@@ -2558,6 +2689,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $beam;
 
@@ -2587,6 +2719,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $passenger;
 
@@ -2616,21 +2749,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $fuel_system;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $ignition;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $gears;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $width;
 
@@ -2732,6 +2869,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $engine_type;
 
@@ -2761,6 +2899,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $displacement;
 
@@ -2790,21 +2929,25 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $chassis_type;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $sleeps;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $slide_outs;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flooring;
 
@@ -2906,6 +3049,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $flor_plan;
 
@@ -2935,6 +3079,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $class;
 
@@ -2964,6 +3109,7 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $weight;
 
@@ -2993,31 +3139,37 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $operator_station;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $speed_forward;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $speed_reverse;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tire_size;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $tire_equipment;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cutting_width;
 
@@ -3167,6 +3319,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cooling_system;
 
@@ -3196,6 +3349,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $chassis;
 
@@ -3225,6 +3379,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $steering;
 
@@ -3254,11 +3409,13 @@ class Item
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $mpgCity;
 
     /**
      * @var float
+     * @JMS\Expose
      */
     private $mpgHighway;
 
@@ -3312,6 +3469,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $iw_no;
 
@@ -3437,8 +3595,8 @@ class Item
 
     public function get($property)
     {
-        $mappedProperty="";
-        if(!empty(self::$fields[$this->category_id][$property])) {
+        $mappedProperty = "";
+        if (!empty(self::$fields[$this->category_id][$property])) {
             $mappedProperty = self::$fields[$this->category_id][$property];
         }
         if (!empty($mappedProperty)) {
@@ -3456,13 +3614,16 @@ class Item
         $url = str_ireplace(" ", "-", $this->getTitle());
         $url = str_ireplace("--", "-", $url);
         $url = trim($url, " -");
+        if (empty($url)) {
+            $url = "details";
+        }
         return $url;
     }
 
 
     public function getTitle()
     {
-        $desc = $this->getYear() . " " . $this->getMake() . " " . $this->slug($this->getModel());
+        $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
         if ($this->getCategoryId() == 4) {
             $desc = $desc . " " . $this->getFloorPlan();
         } elseif ($this->getCategoryId() == 1) {
@@ -3471,11 +3632,25 @@ class Item
             }
         }
         return $desc;
+    }
 
+    public function getListingTitle()
+    {
+        $desc = $this->getYear() . " " . $this->slug($this->getMake()) . " " . $this->slug($this->getModel());
+        if ($this->getCategoryId() == 4) {
+            $desc = $desc . " " . $this->getFloorPlan();
+        } elseif ($this->getCategoryId() == 1) {
+            if (!empty($this->getTrim())) {
+                $desc .= " " . $this->getTrim();
+            }
+        }
+        return $desc;
     }
 
     function Slug($string)
     {
+        $string = str_replace('/', '-', $string);
+
         return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
 
@@ -3486,6 +3661,7 @@ class Item
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $other;
 
@@ -3571,5 +3747,784 @@ class Item
     public function getSeo()
     {
         return $this->Seo;
+    }
+
+    /**
+     * @var string
+     */
+    private $awnings;
+
+
+    /**
+     * Set awnings
+     *
+     * @param string $awnings
+     * @return Item
+     */
+    public function setAwnings($awnings)
+    {
+        $this->awnings = $awnings;
+
+        return $this;
+    }
+
+    /**
+     * Get awnings
+     *
+     * @return string
+     */
+    public function getAwnings()
+    {
+        return $this->awnings;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $invoice_nr;
+
+    /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $invoice_date;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $invoice_amount;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $discount1;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $discount2;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $sale_amount;
+
+
+    /**
+     * Set invoiceNr
+     *
+     * @param string $invoiceNr
+     *
+     * @return Item
+     */
+    public function setInvoiceNr($invoiceNr)
+    {
+        $this->invoice_nr = $invoiceNr;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceNr
+     *
+     * @return string
+     */
+    public function getInvoiceNr()
+    {
+        return $this->invoice_nr;
+    }
+
+    /**
+     * Set invoiceDate
+     *
+     * @param \DateTime $invoiceDate
+     *
+     * @return Item
+     */
+    public function setInvoiceDate($invoiceDate)
+    {
+        $this->invoice_date = $invoiceDate;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime
+     */
+    public function getInvoiceDate()
+    {
+        return $this->invoice_date;
+    }
+
+    /**
+     * Set invoiceAmount
+     *
+     * @param float $invoiceAmount
+     *
+     * @return Item
+     */
+    public function setInvoiceAmount($invoiceAmount)
+    {
+        $this->invoice_amount = $invoiceAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceAmount
+     *
+     * @return float
+     */
+    public function getInvoiceAmount()
+    {
+        return $this->invoice_amount;
+    }
+
+    /**
+     * Set discount1
+     *
+     * @param float $discount1
+     *
+     * @return Item
+     */
+    public function setDiscount1($discount1)
+    {
+        $this->discount1 = $discount1;
+
+        return $this;
+    }
+
+    /**
+     * Get discount1
+     *
+     * @return float
+     */
+    public function getDiscount1()
+    {
+        return $this->discount1;
+    }
+
+    /**
+     * Set discount2
+     *
+     * @param float $discount2
+     *
+     * @return Item
+     */
+    public function setDiscount2($discount2)
+    {
+        $this->discount2 = $discount2;
+
+        return $this;
+    }
+
+    /**
+     * Get discount2
+     *
+     * @return float
+     */
+    public function getDiscount2()
+    {
+        return $this->discount2;
+    }
+
+    /**
+     * Set saleAmount
+     *
+     * @param float $saleAmount
+     *
+     * @return Item
+     */
+    public function setSaleAmount($saleAmount)
+    {
+        $this->sale_amount = $saleAmount;
+
+        return $this;
+    }
+
+    /**
+     * Get saleAmount
+     *
+     * @return float
+     */
+    public function getSaleAmount()
+    {
+        return $this->sale_amount;
+    }
+    /**
+     * @var float
+     */
+    private $retail_price;
+
+
+    /**
+     * Set retailPrice
+     *
+     * @param float $retailPrice
+     *
+     * @return Item
+     */
+    public function setRetailPrice($retailPrice)
+    {
+        $this->retail_price = $retailPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get retailPrice
+     *
+     * @return float
+     */
+    public function getRetailPrice()
+    {
+        return $this->retail_price;
+    }
+    public function getRetailPriceString()
+    {
+        $res = "";
+        if ($this->getRetailPrice() == 0) {
+            return "";
+        }
+        if (!empty($this->getRetailPrice())) {
+            $res = "$" . number_format($this->getRetailPrice(), 0, '.', ',');
+        }
+        return $res;
+    }
+    public function getRetailPriceCompared()
+    {
+        if($this->getRetailPrice() > $this->getPrice())
+        {
+//            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
+                return $this->getRetailPriceString();
+        }
+    }
+    /**
+     * @var int
+     */
+    private $pto_horsepower;
+
+    /**
+     * @var int
+     */
+    private $DBR_horsepower;
+
+    /**
+     * @var string
+     */
+    private $height;
+
+    /**
+     * @var string
+     */
+    private $torque;
+
+    /**
+     * @var string
+     */
+    private $brakes;
+
+    /**
+     * @var string
+     */
+    private $wheels;
+
+    /**
+     * @var float
+     */
+    private $compression_ratio;
+
+    /**
+     * @var string
+     */
+    private $frame;
+
+    /**
+     * @var string
+     */
+    private $suspension;
+
+    /**
+     * @var string
+     */
+    private $ground_clereance;
+
+    /**
+     * @var int
+     */
+    private $fresh_water_capacity;
+
+    /**
+     * @var int
+     */
+    private $black_water_capacity;
+
+    /**
+     * @var int
+     */
+    private $gray_water_capacity;
+
+    /**
+     * @var float
+     */
+    private $hitch_weight;
+
+    /**
+     * @var string
+     */
+    private $remotes;
+
+
+    /**
+     * Set ptoHorsepower
+     *
+     * @param int $ptoHorsepower
+     *
+     * @return Item
+     */
+    public function setPtoHorsepower($ptoHorsepower)
+    {
+        $this->pto_horsepower = $ptoHorsepower;
+
+        return $this;
+    }
+
+    /**
+     * Get ptoHorsepower
+     *
+     * @return int
+     */
+    public function getPtoHorsepower()
+    {
+        return $this->pto_horsepower;
+    }
+
+    /**
+     * Set dBRHorsepower
+     *
+     * @param int $dBRHorsepower
+     *
+     * @return Item
+     */
+    public function setDBRHorsepower($dBRHorsepower)
+    {
+        $this->DBR_horsepower = $dBRHorsepower;
+
+        return $this;
+    }
+
+    /**
+     * Get dBRHorsepower
+     *
+     * @return int
+     */
+    public function getDBRHorsepower()
+    {
+        return $this->DBR_horsepower;
+    }
+
+    /**
+     * Set height
+     *
+     * @param string $height
+     *
+     * @return Item
+     */
+    public function setHeight($height)
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    /**
+     * Get height
+     *
+     * @return string
+     */
+    public function getHeight()
+    {
+        return $this->height;
+    }
+
+    /**
+     * Set torque
+     *
+     * @param string $torque
+     *
+     * @return Item
+     */
+    public function setTorque($torque)
+    {
+        $this->torque = $torque;
+
+        return $this;
+    }
+
+    /**
+     * Get torque
+     *
+     * @return string
+     */
+    public function getTorque()
+    {
+        return $this->torque;
+    }
+
+    /**
+     * Set brakes
+     *
+     * @param string $brakes
+     *
+     * @return Item
+     */
+    public function setBrakes($brakes)
+    {
+        $this->brakes = $brakes;
+
+        return $this;
+    }
+
+    /**
+     * Get brakes
+     *
+     * @return string
+     */
+    public function getBrakes()
+    {
+        return $this->brakes;
+    }
+
+    /**
+     * Set wheels
+     *
+     * @param string $wheels
+     *
+     * @return Item
+     */
+    public function setWheels($wheels)
+    {
+        $this->wheels = $wheels;
+
+        return $this;
+    }
+
+    /**
+     * Get wheels
+     *
+     * @return string
+     */
+    public function getWheels()
+    {
+        return $this->wheels;
+    }
+
+    /**
+     * Set compressionRatio
+     *
+     * @param float $compressionRatio
+     *
+     * @return Item
+     */
+    public function setCompressionRatio($compressionRatio)
+    {
+        $this->compression_ratio = $compressionRatio;
+
+        return $this;
+    }
+
+    /**
+     * Get compressionRatio
+     *
+     * @return float
+     */
+    public function getCompressionRatio()
+    {
+        return $this->compression_ratio;
+    }
+
+    /**
+     * Set frame
+     *
+     * @param string $frame
+     *
+     * @return Item
+     */
+    public function setFrame($frame)
+    {
+        $this->frame = $frame;
+
+        return $this;
+    }
+
+    /**
+     * Get frame
+     *
+     * @return string
+     */
+    public function getFrame()
+    {
+        return $this->frame;
+    }
+
+    /**
+     * Set suspension
+     *
+     * @param string $suspension
+     *
+     * @return Item
+     */
+    public function setSuspension($suspension)
+    {
+        $this->suspension = $suspension;
+
+        return $this;
+    }
+
+    /**
+     * Get suspension
+     *
+     * @return string
+     */
+    public function getSuspension()
+    {
+        return $this->suspension;
+    }
+
+    /**
+     * Set groundClereance
+     *
+     * @param string $groundClereance
+     *
+     * @return Item
+     */
+    public function setGroundClereance($groundClereance)
+    {
+        $this->ground_clereance = $groundClereance;
+
+        return $this;
+    }
+
+    /**
+     * Get groundClereance
+     *
+     * @return string
+     */
+    public function getGroundClereance()
+    {
+        return $this->ground_clereance;
+    }
+
+    /**
+     * Set freshWaterCapacity
+     *
+     * @param int $freshWaterCapacity
+     *
+     * @return Item
+     */
+    public function setFreshWaterCapacity($freshWaterCapacity)
+    {
+        $this->fresh_water_capacity = $freshWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get freshWaterCapacity
+     *
+     * @return int
+     */
+    public function getFreshWaterCapacity()
+    {
+        return $this->fresh_water_capacity;
+    }
+
+    /**
+     * Set blackWaterCapacity
+     *
+     * @param int $blackWaterCapacity
+     *
+     * @return Item
+     */
+    public function setBlackWaterCapacity($blackWaterCapacity)
+    {
+        $this->black_water_capacity = $blackWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get blackWaterCapacity
+     *
+     * @return int
+     */
+    public function getBlackWaterCapacity()
+    {
+        return $this->black_water_capacity;
+    }
+
+    /**
+     * Set grayWaterCapacity
+     *
+     * @param int $grayWaterCapacity
+     *
+     * @return Item
+     */
+    public function setGrayWaterCapacity($grayWaterCapacity)
+    {
+        $this->gray_water_capacity = $grayWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get grayWaterCapacity
+     *
+     * @return int
+     */
+    public function getGrayWaterCapacity()
+    {
+        return $this->gray_water_capacity;
+    }
+
+    /**
+     * Set hitchWeight
+     *
+     * @param float $hitchWeight
+     *
+     * @return Item
+     */
+    public function setHitchWeight($hitchWeight)
+    {
+        $this->hitch_weight = $hitchWeight;
+
+        return $this;
+    }
+
+    /**
+     * Get hitchWeight
+     *
+     * @return float
+     */
+    public function getHitchWeight()
+    {
+        return $this->hitch_weight;
+    }
+
+    /**
+     * Set remotes
+     *
+     * @param string $remotes
+     *
+     * @return Item
+     */
+    public function setRemotes($remotes)
+    {
+        $this->remotes = $remotes;
+
+        return $this;
+    }
+
+    /**
+     * Get remotes
+     *
+     * @return string
+     */
+    public function getRemotes()
+    {
+        return $this->remotes;
+    }
+    /**
+     * @var int
+     */
+    private $grey_water_capacity;
+
+
+    /**
+     * Set greyWaterCapacity
+     *
+     * @param int $greyWaterCapacity
+     *
+     * @return Item
+     */
+    public function setGreyWaterCapacity($greyWaterCapacity)
+    {
+        $this->grey_water_capacity = $greyWaterCapacity;
+
+        return $this;
+    }
+
+    /**
+     * Get greyWaterCapacity
+     *
+     * @return int
+     */
+    public function getGreyWaterCapacity()
+    {
+        return $this->grey_water_capacity;
+    }
+    /**
+     * @var string
+     */
+    private $cover_phote;
+
+
+    /**
+     * Set coverPhote
+     *
+     * @param string $coverPhote
+     *
+     * @return Item
+     */
+    public function setCoverPhote($coverPhote)
+    {
+        $this->cover_phote = $coverPhote;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhote
+     *
+     * @return string
+     */
+    public function getCoverPhote()
+    {
+        return $this->cover_phote;
+    }
+    /**
+     * @var string
+     */
+    private $cover_photo;
+
+
+    /**
+     * Set coverPhoto
+     *
+     * @param string $coverPhoto
+     *
+     * @return Item
+     */
+    public function setCoverPhoto($coverPhoto)
+    {
+        $this->cover_photo = $coverPhoto;
+
+        return $this;
+    }
+
+    /**
+     * Get coverPhoto
+     *
+     * @return string
+     */
+    public function getCoverPhoto()
+    {
+        return $this->cover_photo;
     }
 }

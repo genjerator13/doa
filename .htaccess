@@ -16,6 +16,7 @@
 
     # Fix the bundles folder
     RewriteRule ^images/(.*)$ /web/images/$1  [QSA,L]
+    RewriteRule ^themes/(.*)$ /web/themes/$1  [QSA,L]
     RewriteRule ^css/(.*)$ /web/css/$1  [QSA,L]
     RewriteRule ^js/(.*)$ /web/js/$1  [QSA,L]
     RewriteRule ^bootstrap3/(.*)$ /web/bootstrap3/$1  [QSA,L]
@@ -31,7 +32,6 @@
     # Change below before deploying to production
     RewriteRule ^(.*)$ /web/app.php [QSA,L]
     #RewriteRule ^(.*)$ /web/app_dev.php [QSA,L]
-
 </IfModule>
 <IfModule mod_expires.c>
     ExpiresActive On

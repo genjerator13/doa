@@ -1,0 +1,29 @@
+<div class="header">
+    {% if dealer is defined and dealer is not empty %}
+        {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+    {% endif %}
+    <div class="social-media">
+
+        <div class="connect-with-us">Connect with Us</div>
+
+        <a class="facebook" href="">
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        <a class="youtube" href="">
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+    </div>
+
+    <a class="map" href="">Map</a>
+
+    <div class="address">{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}</div>
+
+    <div class="phone">{{ dealer.phone }}</div>
+
+</div>

@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Numa\Form\AutocompleteType;
 
 class AddItemSubscriber implements EventSubscriberInterface
 {
@@ -72,9 +73,6 @@ class AddItemSubscriber implements EventSubscriberInterface
 
         $item = $event->getData();
         $form = $event->getForm();
-        //$formItemFields = $form->get('Itemfield');
-        //$data->removeAllItemField();
-        //$data->getDoors();
         //check all 
         $cat = $item->getCategoryId();
         if ($this->category instanceof \Numa\DOAAdminBundle\Entity\Category) {
@@ -101,9 +99,17 @@ class AddItemSubscriber implements EventSubscriberInterface
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
+                    //if the value is not in the list addi it
+
+                    if (!in_array($selected, $values)) {
+                        $values[$selected] = $selected;
+                    }
 
                     //make form name from db name TODO function for that
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+
+                    //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 } elseif (strtolower($type) == 'tree') {
 
                     $selected = $item->getItemFieldByName($carFieldField);
@@ -115,12 +121,10 @@ class AddItemSubscriber implements EventSubscriberInterface
                     foreach ($listingTree as $key => $value) {
                         $values[$value->getName()] = $value->getName();
                     }
-                    //dump($values);
-                    //dump($selected);
                     //make form name from db name TODO function for that
 
 
-                    $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 }
             }
         }

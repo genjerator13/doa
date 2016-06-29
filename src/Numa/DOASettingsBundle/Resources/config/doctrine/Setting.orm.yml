@@ -1,6 +1,7 @@
 Numa\DOASettingsBundle\Entity\Setting:
     type: entity
     table: setting
+    repositoryClass: Numa\DOASettingsBundle\Repository\SettingRepository
     id:
         id:
             type: integer
@@ -18,3 +19,13 @@ Numa\DOASettingsBundle\Entity\Setting:
         section:
             type: string
             length: 255
+        dealer_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Settings
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id

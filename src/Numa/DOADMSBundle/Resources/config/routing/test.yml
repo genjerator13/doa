@@ -1,0 +1,30 @@
+test:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Test:index" }
+
+test_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Test:show" }
+
+test_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Test:new" }
+
+test_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Test:create" }
+    requirements: { _method: post }
+
+test_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Test:edit" }
+
+test_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Test:update" }
+    requirements: { _method: post|put }
+
+test_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Test:delete" }
+    requirements: { _method: post|delete }

@@ -482,6 +482,12 @@ ul,li{list-style:none;margin:0;padding:0;}
     margin-bottom: 0;
 }
 
+
+.picture-detail .thumbnail {
+    max-height: 110px;
+    overflow: hidden;
+}
+
 .panel-body a {
     margin-bottom: 20px;
 }
@@ -714,7 +720,39 @@ h3.header-first{
     top: 0px;
 }
 
+.right-side-ad{
+    border:1px solid red;
+    height: 130px;
+    width: 130px;
+    display: block;
+}
+
 iframe body{
     padding: 0;
     margin: 0;
+}
+
+.box{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.description-block > .description-header {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+}
+#item-images .form-control{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.youtube_play{
+    background: url('/images/YouTube-icon-dark.png') 50% bottom no-repeat;
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: 150px;
+    left: 250px;
 }

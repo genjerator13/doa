@@ -47,6 +47,7 @@ class searchParameters {
             'postedTo' => new SearchItem('date_created', 0, 'dateRangeTo'),
             'zip' => new SearchItem('Postal', "", 'string'),
             'stock' => new SearchItem('stock_nr', "", 'string'),
+            'status' => new SearchItem('status', "", 'string'),
             'IW_NO' => new SearchItem('IW_NO', "", 'string'),
             'isSold' => new SearchItem('sold', 0, 'int'),
             'exteriorColor' => new SearchItem('exterior_color', 0, 'int'),

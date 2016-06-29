@@ -4,8 +4,9 @@ security:
         ROLE_USER:       ROLE_USER
         ROLE_BUSINES:    ROLE_BUSINES
         ROLE_DEALER_ADMIN:    ROLE_DEALER_ADMIN
+        ROLE_DMS_USER:      ROLE_DMS_USER
         ROLE_ADMIN:      ROLE_ADMIN
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES,ROLE_DEALER_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH,ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER]
 
     firewalls:
         dev:
@@ -34,6 +35,9 @@ security:
         - { path: ^/admin/catalogs/[0-9]+/update, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/itemsfield/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/imagecarousel/upload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
@@ -44,18 +48,24 @@ security:
         - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
         - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
+        - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING] }
 
 
 
     providers:
         chain_provider:
             chain:
-                providers: [main, busines]
+                providers: [main, busines,dms]
         main:
             entity: { class: Numa\DOAAdminBundle\Entity\User }
         busines:
             entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
+        dms:
+            entity: { class: Numa\DOADMSBundle\Entity\DMSUser, property: username}
  
     encoders:
         Numa\DOAAdminBundle\Entity\User: sha512
         Numa\DOAAdminBundle\Entity\Catalogrecords: sha512
+        Numa\DOADMSBundle\Entity\DMSUser: sha512

@@ -67,7 +67,7 @@ class HomeTab
     /**
      * @var \Numa\DOAAdminBundle\Entity\ListingFieldLists
      */
-    private $ListingFieldLists;
+    protected $ListingFieldLists;
 
 
     /**
@@ -353,7 +353,7 @@ class HomeTab
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
      */
-    private $Category;
+    protected $Category;
 
 
     /**
@@ -381,7 +381,7 @@ class HomeTab
     /**
      * @var string
      */
-    private $listing_field_list_slug;
+    protected $listing_field_list_slug;
 
 
     /**
@@ -407,4 +407,80 @@ class HomeTab
     {
         return $this->listing_field_list_slug;
     }
+    /**
+     * @var int
+     */
+    protected $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    protected $Dealer;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param int $dealerId
+     *
+     * @return HomeTab
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return int
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return HomeTab
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+
+    public function __sleep() {
+
+        // these are field names to be serialized, others will be excluded
+        // but note that you have to fill other field values by your own
+        return array('id',
+            'category_id',
+            'category_name',
+            'listing_field_list_id',
+            'listing_field_list_value',
+            'position',
+            'location',
+            'count',
+            'listing_field_list_slug',
+            'dealer_id',
+        );
+    }
+
 }
