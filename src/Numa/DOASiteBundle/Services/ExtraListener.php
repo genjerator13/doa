@@ -60,8 +60,10 @@ class ExtraListener
             $em = $this->container->get('doctrine.orm.entity_manager');
             $host = trim(strip_tags($request->getHost()));
             $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
             //if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
             //$dealer = $setting->getDealerForHost(trim($host));
+
             if ($dealer instanceof Catalogrecords) {
                 $this->container->set('dealer', $dealer);
                 //$session->set('dealer_id', $dealer->getId());
@@ -70,7 +72,11 @@ class ExtraListener
                 $activeTheme = $this->container->get('liip_theme.active_theme');
                 $activeTheme->setName($theme);
                 $controllerObject->initializeDealer($dealer);
+            }else{
+                $activeTheme = $this->container->get('liip_theme.active_theme');
+                $activeTheme->setName('Default');
             }
+
             $request = $event->getRequest();
             $pathinfo = $request->getPathInfo();
 

@@ -1,7 +1,7 @@
 <div class="header">
-
-    {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
-
+    {% if dealer is defined and dealer is not empty %}
+        {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+    {% endif %}
     <div class="social-media">
 
         <div class="connect-with-us">Connect with Us</div>
