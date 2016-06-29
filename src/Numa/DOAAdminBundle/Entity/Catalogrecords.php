@@ -1191,4 +1191,62 @@ class Catalogrecords implements UserInterface
             'gst',
         );
     }
+    /**
+     * @var string
+     */
+    private $site_url;
+
+    /**
+     * @var string
+     */
+    private $site_theme;
+
+
+    /**
+     * Set siteUrl
+     *
+     * @param string $siteUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteUrl($siteUrl)
+    {
+        $this->site_url = $siteUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get siteUrl
+     *
+     * @return string
+     */
+    public function getSiteUrl()
+    {
+        return $this->site_url;
+    }
+
+    /**
+     * Set siteTheme
+     *
+     * @param string $siteTheme
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteTheme($siteTheme)
+    {
+        $this->site_theme = $siteTheme;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTheme
+     *
+     * @return string
+     */
+    public function getSiteTheme()
+    {
+        return $this->site_theme;
+    }
 }

@@ -38,35 +38,27 @@ class DefaultController extends Controller
     }
 
     public function themesAction(Request $request){
-        $theme = $request->get('theme');
-        $settings = $this->get("Numa.Settings");
         $ctheme="Default";
-        $t = $settings->get("theme");
-        if(!empty($t)){
-            $ctheme = $t;
-        }
-        if (!empty($theme)) {
 
-            $settings->set('theme',$theme,'site');
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser();
 
+        if($dealer instanceof Catalogrecords && !empty($dealer->getSiteTheme())){
+            $ctheme = $dealer->getSiteTheme();
         }
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
+
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme,"dealer"=>$dealer));
     }
     public function changeThemeAction(Request $request){
         $theme = $request->get('theme');
-        dump($theme);
-        $settings = $this->get("Numa.Settings");
-        $ctheme="Default";
-        $t = $settings->get("theme");
-        if(!empty($t)){
-            $ctheme = $t;
-        }
-        if (!empty($theme)) {
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser();
 
-            $settings->set('theme',$theme,'site');
-
+        if($dealer instanceof Catalogrecords){
+            $dealer->setSiteTheme($theme);
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
         }
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme));
+
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$theme,"dealer"=>$dealer));
     }
 
     /**

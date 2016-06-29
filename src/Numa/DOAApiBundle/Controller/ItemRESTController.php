@@ -69,6 +69,20 @@ class ItemRESTController extends Controller
         return $this->get('listing_api')->formatResponse($items, $format);
     }
 
+    public function listingsByDealerUsernameAction(Request $request, $dealerid)
+    {
+
+        $category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareListingByDealerUsername($dealerid, $category);
+
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        return $this->get('listing_api')->formatResponse($items, $format);
+    }
+
     public function listingsAllAction(Request $request, $category)
     {
         //$category = $request->query->get('category');

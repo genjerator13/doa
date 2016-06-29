@@ -1,0 +1,28 @@
+<ul class="pagination">
+        {% if page > 1 %}
+            <li> <a class="previous" href="{{ path('rentabo_one_param_paginate', { 'param1':param1,'page': page-1 }) }}">Previous</a>
+        {% endif %}
+        {% for i in 1..(totalpages/20)%}
+                    {#
+            {% if paginator.range.0 > 2 and i == paginator.range.0 %}
+                  ...
+            {% endif %}
+#}
+
+                {% if i==page %}
+                    <li><a class="active" href="{{ path('rentabo_one_param_paginate', { 'param1':param1,'page': i })}}">{{i}}</a></li>
+                {% else %}
+                <li><a href="{{ path('rentabo_one_param_paginate', { 'param1':param1,'page': i }) }}"> {{i}}</a></li>
+                {% endif %}
+
+{#
+            {% if paginator.range[paginator.midrange -1] < paginator.numpages -1 and i == paginator.range[paginator.midrange-1] %}
+                ...
+            {% endif %}
+#}
+        {% endfor %}
+        {% if page < totalpages %}
+        <li> <a class="next" href="{{ path('rentabo_one_param_paginate', { 'param1':param1,'page': page+1 }) }}">Next</a>
+        {% endif %}
+    </ul>
+
