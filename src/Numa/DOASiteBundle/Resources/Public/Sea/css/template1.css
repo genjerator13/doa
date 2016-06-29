@@ -413,6 +413,11 @@ body {
     font-weight: bold;
 }
 
+.detailsContent .price-quote {
+    font-size: 130%;
+    font-weight: bold;
+}
+
 
 .title{
     color: black;
@@ -556,6 +561,10 @@ body {
     left: 10px;
     width: 100%;
 }
+#myCarousel .carousel-inner {
+    max-height: 500px;
+}
+
 .techData .fieldCaption {
     font-weight: bold;
 }
@@ -688,4 +697,12 @@ and (max-width : 767px) {
 .btn-sea:hover {
     background-color: #111222;
     color: #f78f77;
+}
+.featured-ads {
+    margin: 20px auto;
+    max-width: 1020px;
+    text-align: center;
+}
+ .featured-ads .thumbnails {
+    padding: 0px;
 }

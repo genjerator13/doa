@@ -7,16 +7,19 @@
 
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <section class="content">
         <h1>Edit Dealer</h1>
+
         {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
         {{ component.image(entity.logoUrl, entity.name, '', 'search_image') }}
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs ">
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
             </ul>
             <div class="nav-tabs-custom">
                 <div class="tab-content">
@@ -60,7 +63,25 @@
                         </ul>
                         {{ form_end(coupons_form) }}
                     </div>
+                    <div id="site" class="tab-pane">
+
+                        {{ form_start(site_form) }}
+                        {{ form_row(site_form.site_url) }}
+                        {{ form_row(site_form.site_theme) }}
+
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a class="btn btn-primary" href="{{ path("dms_themes") }}" >Change the Theme</a>
+                        <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
+                            Back to the list
+                        </a>
+                        {{ form_rest(site_form) }}
+
+                        {{ form_end(site_form) }}
+
+
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>

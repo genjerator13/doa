@@ -30,3 +30,8 @@ dms_coupons_update:
     path:     /{id}/update_coupons
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateCoupons",_dashboard:"DMS" }
     requirements: { _method: post|put }
+dms_catalogs_site_update:
+    path:     /{id}/update_site
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateSite",_dashboard:"DMS" }
+    requirements: { _method: post|put }
+

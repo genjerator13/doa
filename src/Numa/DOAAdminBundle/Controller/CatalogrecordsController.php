@@ -4,11 +4,13 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Coupon;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
+use Numa\DOAAdminBundle\Form\DealerSiteType;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Form\CatalogrecordsType;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 
 /**
  * Catalogrecords controller.
@@ -169,12 +171,14 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
 
         $editForm = $this->createEditForm($entity);
+        $siteForm = $this->createDealerSiteForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'site_form' => $siteForm->createView(),
                     'coupons_form' => $couponsForm->createView(),
                     'delete_form' => $deleteForm->createView(),
                     'dashboard' => $this->dashboard,
@@ -251,6 +255,30 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
     }
 
     /**
+     * Creates a form to edit a Catalogrecords entity.
+     *
+     * @param Catalogrecords $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createDealerSiteForm(Catalogrecords $entity) {
+        $securityContext = $this->container->get('security.context');
+        $catalogForm = new DealerSiteType();
+        $catalogForm->setSecurityContext($securityContext);
+        $action = 'dms_catalogs_site_update';
+
+        $form = $this->createForm($catalogForm, $entity, array(
+            'action' => $this->generateUrl($action, array('id' => $entity->getId())),
+            'method' => 'POST',
+        ));
+
+       // $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
+
+
+        return $form;
+    }
+
+    /**
      * Edits an existing Catalogrecords entity.
      *
      */
@@ -265,6 +293,8 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
+        $siteForm = $this->createDealerSiteForm($entity);
+        $couponsForm = $this->createEditCouponsForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
@@ -276,7 +306,11 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 }
 
                 $entity->upload();
-
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $plainPassword = $entity->getPassword();
+                $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                $entity->setPassword($encodedPassword);
                 $em->flush();
                 $this->addFlash("success","Dealer: ".$entity->getName()." successfully updated.");
                 $securityContext = $this->container->get('security.context');
@@ -296,6 +330,9 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'coupons_form' => $couponsForm->createView(),
+                    'site_form' => $siteForm->createView(),
+
                     'delete_form' => $deleteForm->createView(),
                     'dashboard' => $this->dashboard,
         ));
@@ -337,6 +374,42 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'coupons_form' => $couponsForm->createView(),
+
+        ));
+    }
+
+    /**
+     * Edits an existing Dealers Site parameters
+     *
+     */
+    public function updateSiteAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $deleteForm = $this->createDeleteForm($id);
+        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+
+        $editForm = $this->createEditForm($entity);
+        $couponsForm = $this->createEditCouponsForm($entity);
+        $siteForm = $this->createDealerSiteForm($entity);
+        $siteForm->handleRequest($request);
+
+        if ($siteForm->isValid()) {
+            if($entity instanceof Catalogrecords) {
+
+                $em->flush();
+                $redirect = 'dms_catalogs_edit';
+
+                return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+            }
+        }else{
+            dump($couponsForm->getErrors(true));
+        }
+
+        return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'coupons_form' => $couponsForm->createView(),
+            'site_form' => $siteForm->createView(),
 
         ));
     }

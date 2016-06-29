@@ -47,34 +47,6 @@ class EntityListener
         }
     }
 
-    public function postFlush(PostFlushEventArgs $eventArgs)
-    {
-//
-//        $em = $eventArgs->getEntityManager();
-//        $uow = $em->getUnitOfWork();
-//        dump($eventArgs->);
-//        foreach ($uow->getScheduledEntityInsertions() as $entity) {
-//
-//            if ($entity instanceof Item) {
-//                $entity->setCoverPhoto($entity->getCoverImageSrc());
-//                $metaData = $em->getClassMetadata(get_class($entity));
-//                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
-//                $uow->computeChangeSets();
-//            }
-//        }
-//
-//        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-//
-//            if ($entity instanceof Item) {
-//                dump($entity->getCoverImageSrc());
-//                $entity->setCoverPhoto($entity->getCoverImageSrc());
-//                $metaData = $em->getClassMetadata(get_class($entity));
-//                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
-//                $uow->computeChangeSets();
-//            }
-//        }
-
-    }
 
     public function prePersist(LifecycleEventArgs $args)
     {
@@ -109,60 +81,61 @@ class EntityListener
         $encoder = $factory->getEncoder($entity);
         $plainPassword = $entity->getPassword();
         $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
-
+//        dump($plainPassword);
+//        dump($encodedPassword);
+//        dump($entity);
+        //die();
         if (!empty($plainPassword)) {
 
             $entity->setPassword($encodedPassword);
+
         }
+        return $encodedPassword;
+        //dump($entity);
+        //die();
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
 
 
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
+//        $entity = $args->getEntity();
+//        $entityManager = $args->getEntityManager();
+//
+//        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+//            dump($entity->getPassword());
+//            $rawPass = $entity->getPassword();
+//            $this->setPassword($entity);
+//
+//            $pass = $entity->getPassword();
+//            if (!empty($rawPass)) {
+//
+//                //$args->setNewValue('password', $pass);
+//                dump($pass);
+//                dump($entity);die();
+//            }
+       // }
 
-        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
-
-            $this->setPassword($entity);
-
-            $pass = $entity->getPassword();
-            if (!empty($pass)) {
-
-                //$args->setNewValue('password', $pass);
-                //dump($entity);die();
-            }
-        }
-
-        if ($entity instanceof ItemField) {
-
-            //$entity->equalizeItemFields();
-            //$setting = $this->container->get("Numa.settings");
-            //$title = $setting->generateItemTitle($entity);
-            //$entityManager = $this->container->get('doctrine');
-
-
-            //$entity->setSeo($seo);
-//dump($seo);die();
-            //$entityManager->persist($seo);
-            //$entityManager->flush();
-        }
     }
 
     public function postUpdate(LifecycleEventArgs $args)
     {
 
-        $entity = $args->getEntity();
-        $entityManager = $args->getEntityManager();
-        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-            //$this->setPassword($entity);
-        } elseif ($entity instanceof Item) {
-
-            $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-            $command->setContainer($this->container);
-            //$resultCode = $command->makeHomeTabs(false);
-        }
+//        $entity = $args->getEntity();
+//
+//        $entityManager = $args->getEntityManager();
+//
+//        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
+//
+//
+//            $this->setPassword($entity);
+//            $args->setNewValue('password', $pass);
+//        } elseif ($entity instanceof Item) {
+//
+//            //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
+//            //$command->setContainer($this->container);
+//            //$resultCode = $command->makeHomeTabs(false);
+//        }
 
 
     }
