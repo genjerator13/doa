@@ -1,20 +1,20 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
-{% block headline %}
-    <div class="header">
-        <a class="logo" href="">
-            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
-        </a>
+{#{% block headline %}#}
+    {#<div class="header">#}
+        {#<a class="logo" href="">#}
+            {#{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}#}
+        {#</a>#}
 
-        <div class="contact-info">
-            <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4
-            </div>
-            <a class="map-and-hours" href="">Map &amp; Hours</a>
+        {#<div class="contact-info">#}
+            {#<div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4#}
+            {#</div>#}
+            {#<a class="map-and-hours" href="">Map &amp; Hours</a>#}
 
-            <div class="phone">{{ dealer.phone }}</div>
-        </div>
-    </div>
-{% endblock %}
+            {#<div class="phone">{{ dealer.phone }}</div>#}
+        {#</div>#}
+    {#</div>#}
+{#{% endblock %}#}
 {% block banner %}
 
     {% set images = displayCarouselComponent(components) %}

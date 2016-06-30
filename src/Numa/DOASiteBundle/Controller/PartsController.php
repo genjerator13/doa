@@ -130,7 +130,9 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Parts:parts_success.html.twig', array(
-            'message'=>$message
+            'message'=>$message,
+            'components' => $this->components,
+            'dealer' => $this->dealer,
         ));
     }
 }
