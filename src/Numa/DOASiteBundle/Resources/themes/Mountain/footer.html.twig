@@ -25,6 +25,7 @@
             <li><a href="">Get Financed</a></li>
             <li><a href="">Parts Department</a></li>
             <li><a href="">Customer Testimonials</a></li>
+            <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
         </ul>
 
     </div>
@@ -35,17 +36,15 @@
         {{ dealer.ServiceHours }}
 
     </div>
-
     <div class="other-info">
-
-        <a class="facebook" href="">
+        <a class="facebook" href="{{ dealer.siteFacebook }}">
 
             {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
 
-        <a class="youtube" href="">
+        <a class="youtube" href="{{ dealer.siteYoutube }}">
 
             {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
