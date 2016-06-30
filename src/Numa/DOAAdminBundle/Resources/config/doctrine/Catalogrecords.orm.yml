@@ -119,6 +119,26 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        site_facebook:
+            type: string
+            length: 255
+            nullable: true
+        site_youtube:
+            type: string
+            length: 255
+            nullable: true
+        site_google:
+            type: string
+            length: 255
+            nullable: true
+        site_twitter:
+            type: string
+            length: 255
+            nullable: true
+        site_instagram:
+            type: string
+            length: 255
+            nullable: true
 
     manyToOne:
         Catalogcategory:

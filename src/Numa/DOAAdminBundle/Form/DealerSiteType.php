@@ -20,6 +20,11 @@ class DealerSiteType extends AbstractType {
         $builder
                 ->add('site_theme','choice',array("choices"=>array('Default'=>"default","Sea"=>"Sea","Mountain"=>"Mountain","Forest"=>"Forest")))
                 ->add('site_url')
+                ->add('site_facebook')
+                ->add('site_youtube')
+                ->add('site_google')
+                ->add('site_twitter')
+                ->add('site_instagram')
         ;
 
     }
