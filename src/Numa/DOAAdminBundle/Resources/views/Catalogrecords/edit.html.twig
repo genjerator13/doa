@@ -78,9 +78,11 @@
 
                         <button type="submit" class="btn btn-primary">Update</button>
                         <a class="btn btn-primary" href="{{ path("dms_themes") }}" >Change the Theme</a>
+                        {% if (is_granted('ROLE_ADMIN')) %}
                         <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
                             Back to the list
                         </a>
+                        {% endif %}
                         {{ form_rest(site_form) }}
 
                         {{ form_end(site_form) }}
