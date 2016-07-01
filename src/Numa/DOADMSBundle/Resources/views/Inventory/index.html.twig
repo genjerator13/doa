@@ -1,7 +1,7 @@
 {#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
 {% extends app.request.get('_dashboard')=='DMS'
 ? 'NumaDOADMSBundle::layout.html.twig'
-: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::home-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
+: is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
