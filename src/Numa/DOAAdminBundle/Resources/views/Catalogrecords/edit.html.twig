@@ -1,9 +1,14 @@
 {#{% extends is_granted('ROLE_BUSINES')#}
 {#? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')#}
 {#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
-{% extends app.request.get('_dashboard')=='DMS'
-? 'NumaDOADMSBundle::layout.html.twig'
-: 'NumaDOAAdminBundle::layout.html.twig' %}
+{#{% extends app.request.get('_dashboard')=='DMS'#}
+{#? 'NumaDOADMSBundle::layout.html.twig'#}
+{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
+
+{% extends is_granted('ROLE_BUSINES')
+? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
+:(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
+
 
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
