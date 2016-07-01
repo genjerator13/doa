@@ -11,7 +11,7 @@
                 <li><a href="">Trade In</a></li>
                 <li><a href="">Get a Quote</a></li>
                 <li><a href="">Schedule Test Ride</a></li>
-                <li><a href="">Contact Us</a></li>
+                <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
             </ul>
         </li>
         <li><a href="">Dealer Services</a></li>
@@ -54,7 +54,7 @@
             $.ajax({
                 type: "POST",
                 data: form,
-                url: '{{ path("listting_form_post",{"form":'contact',"item_id": "Contact Me" }) }}',
+                url: '{{ path("listting_form_post",{"form":'contact',"item_id": "item.id" }) }}',
             });
         })
 

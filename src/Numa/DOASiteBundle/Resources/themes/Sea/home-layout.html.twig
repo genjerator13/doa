@@ -44,11 +44,12 @@
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
 {% block mainmenu %}
-    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
+    {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
 {% endblock %}
 
+{% block mobilemenu %}
 <div class="mobile-menu">
-    {% block mobilemenu %}
         <ul class="menu">
             <li><span class="separator">Menu</span>
                 <ul>
@@ -68,8 +69,8 @@
                 </ul>
             </li>
         </ul>
-    {% endblock %}
 </div>
+{% endblock %}
 {% block banner %}
     <div class="banner">
 
@@ -203,7 +204,7 @@
                     <li><a href="">Products</a></li>
                     <li><a href="">Services</a></li>
                     <li><a href="">Gallery</a></li>
-                    <li><a href="">Contact Us</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
                 </ul>
             </div>
             <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
