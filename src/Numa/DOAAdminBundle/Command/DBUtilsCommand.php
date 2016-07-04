@@ -338,6 +338,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $hometab->setListingFieldLists($value);
                     $hometab->setListingFieldListValue($value->getValue());
                     $hometab->setListingFieldListSlug($value->getSlug());
+                    $hometab->setCount($count);
                     $logger->addWarning("makeHomeTabForCategory hometabs creating for CAT=2");
                     if ($dealer instanceof Catalogrecords) {
                         $logger->addWarning("makeHomeTabForCategory hometabs dealers for CAT=2");
