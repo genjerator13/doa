@@ -44,10 +44,12 @@
     {% block header %}
         {% include 'NumaDOASiteBundle::headline.html.twig' %}
     {% endblock %}
+
     {% block main %}
         {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
         {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
     {% endblock %}
+
     {% block mobile %}
         {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
     {% endblock %}
@@ -158,6 +160,7 @@
     {% block footer %}
         {% include 'NumaDOASiteBundle::footer.html.twig' %}
     {% endblock %}
+
 </div>
 </body>
 </html>
