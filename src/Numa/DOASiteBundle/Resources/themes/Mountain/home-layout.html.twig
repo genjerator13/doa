@@ -125,11 +125,11 @@
 
             <ul>
                 <li><h2><span>Browse</span> by Type</h2></li>
-                <li><a class="motorhome" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'motorhome'}) }}">Motorhome</a></li>
-                <li><a class="travel-trailer" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'Travel Trailer'}) }}">Travel Trailer</a></li>
-                <li><a class="fifth-wheel" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th Wheel'}) }}">Fifth Wheel</a></li>
-                <li><a class="toy-hauler" href="">Toy Hauler</a></li>
-                <li><a class="park-models" href="">Park Models</a></li>
+                <li><a class="motorhome" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a></li>
+                <li><a class="travel-trailer" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel Trailer</a></li>
+                <li><a class="fifth-wheel" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth Wheel</a></li>
+                <li><a class="toy-hauler" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy Hauler</a></li>
+                <li><a class="park-models" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park Models</a></li>
             </ul>
 
         </div>
@@ -158,7 +158,6 @@
     {% block footer %}
         {% include 'NumaDOASiteBundle::footer.html.twig' %}
     {% endblock %}
-
 </div>
 </body>
 </html>
