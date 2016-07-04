@@ -1,0 +1,68 @@
+<div class="footer">
+
+    <div class="contact-info">
+
+        <a class="logo" href="{{ path("homepage") }}">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+
+        <p>{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
+
+        <p>Phone: {{ dealer.phone }}<br />
+            Fax: {{ dealer.fax }}</p>
+
+        <p><a href="">Map and Hours</a></p>
+
+    </div>
+
+    <div class="quick-links">
+
+        <h3>Quick Links</h3>
+
+        <ul>
+            <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+            <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
+            <li><a href="{{ path("finance_form") }}">Get Financed</a></li>
+            <li><a href="">Parts Department</a></li>
+            <li><a href="">Customer Testimonials</a></li>
+            <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
+        </ul>
+
+    </div>
+
+    <div class="hours">
+
+        <h3>Hours</h3>
+        {{ dealer.ServiceHours }}
+
+    </div>
+    <div class="other-info">
+        <a class="facebook" href="{{ dealer.siteFacebook }}">
+
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        <a class="youtube" href="{{ dealer.siteYoutube }}">
+
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
+
+        <ul>
+            <li><a href="">Policy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Terms</a></li>
+            <li><a href="">Site Map</a></li>
+        </ul>
+
+        <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
+
+    </div>
+
+</div>

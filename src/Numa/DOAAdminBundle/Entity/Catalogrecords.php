@@ -1278,4 +1278,178 @@ class Catalogrecords implements UserInterface
     {
         return $this->country;
     }
+    /**
+     * @var string
+     */
+    private $site_facebook;
+
+    /**
+     * @var string
+     */
+    private $site_youtube;
+
+    /**
+     * @var string
+     */
+    private $site_google;
+
+    /**
+     * @var string
+     */
+    private $site_twiter;
+
+    /**
+     * @var string
+     */
+    private $site_instagram;
+
+
+    /**
+     * Set siteFacebook
+     *
+     * @param string $siteFacebook
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteFacebook($siteFacebook)
+    {
+        $this->site_facebook = $siteFacebook;
+
+        return $this;
+    }
+
+    /**
+     * Get siteFacebook
+     *
+     * @return string
+     */
+    public function getSiteFacebook()
+    {
+        return $this->site_facebook;
+    }
+
+    /**
+     * Set siteYoutube
+     *
+     * @param string $siteYoutube
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteYoutube($siteYoutube)
+    {
+        $this->site_youtube = $siteYoutube;
+
+        return $this;
+    }
+
+    /**
+     * Get siteYoutube
+     *
+     * @return string
+     */
+    public function getSiteYoutube()
+    {
+        return $this->site_youtube;
+    }
+
+    /**
+     * Set siteGoogle
+     *
+     * @param string $siteGoogle
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteGoogle($siteGoogle)
+    {
+        $this->site_google = $siteGoogle;
+
+        return $this;
+    }
+
+    /**
+     * Get siteGoogle
+     *
+     * @return string
+     */
+    public function getSiteGoogle()
+    {
+        return $this->site_google;
+    }
+
+    /**
+     * Set siteTwiter
+     *
+     * @param string $siteTwiter
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteTwiter($siteTwiter)
+    {
+        $this->site_twiter = $siteTwiter;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwiter
+     *
+     * @return string
+     */
+    public function getSiteTwiter()
+    {
+        return $this->site_twiter;
+    }
+
+    /**
+     * Set siteInstagram
+     *
+     * @param string $siteInstagram
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteInstagram($siteInstagram)
+    {
+        $this->site_instagram = $siteInstagram;
+
+        return $this;
+    }
+
+    /**
+     * Get siteInstagram
+     *
+     * @return string
+     */
+    public function getSiteInstagram()
+    {
+        return $this->site_instagram;
+    }
+    /**
+     * @var string
+     */
+    private $site_twitter;
+
+
+    /**
+     * Set siteTwitter
+     *
+     * @param string $siteTwitter
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteTwitter($siteTwitter)
+    {
+        $this->site_twitter = $siteTwitter;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitter
+     *
+     * @return string
+     */
+    public function getSiteTwitter()
+    {
+        return $this->site_twitter;
+    }
 }

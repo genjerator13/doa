@@ -246,13 +246,14 @@
                     var itemid = $(this).data('itemid');
                     console.log(itemid);
                     modal.on('show.bs.modal', function () {
-                        $('#eprice_modal .modal-body').load('/d/item/'+itemid+'/eprice');
+                        $('#eprice_modal .modal-body').load('/item/'+itemid+'/eprice');
                     }).modal();
                 });
 
                 $('#submit_eprice').click(function (e) {
                     e.preventDefault();
                     var form = $('#eprice_form').serializeArray();
+                    alert("Success");
                     $.ajax({
                         type: "POST",
                         data: form,
