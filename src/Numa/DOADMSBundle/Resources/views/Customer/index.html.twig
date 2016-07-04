@@ -3,29 +3,28 @@
     {{ parent() }}
     <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
           rel="stylesheet"/>
-
     {% stylesheets
     'css/loading-bar.min.css'
+
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
-    <style>
-        .red { color: red;  }
-    </style>
 {% endblock stylesheets %}
 {% block javascripts %}
     {{ parent() }}
     {% javascripts
-    '@colorbox_js'
+
     'js/angular/angular143.min.js'
     'js/angular/angular-touch143.min.js'
     'js/angular/angular-animate143.min.js'
-    'js/angular/vfs-fonts.js'
+
     'js/angular/ui-grid.js'
     'js/angular/angular-confirm.min.js'
     'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    'js/loading-bar.min.js' %}
-    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
+    'js/loading-bar.min.js'
+
+    %}
+
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>

@@ -45,7 +45,8 @@
         {% include 'NumaDOASiteBundle::headline.html.twig' %}
     {% endblock %}
     {% block main %}
-        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
+        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
     {% endblock %}
     {% block mobile %}
         {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
