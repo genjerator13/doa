@@ -22,17 +22,32 @@ use APY\DataGridBundle\Grid\Column\ArrayColumn;
 use APY\DataGridBundle\Grid\Column\TextColumn;
 use APY\DataGridBundle\Grid\Column\BlankColumn;
 use Doctrine\Common\Collections\Criteria;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 
 /**
  * Item controller.
  *
  */
-class ItemController extends Controller  implements DashboardDMSControllerInterface
+class ItemController extends Controller  implements DashboardDMSControllerInterface, DealerSiteControllerInterface
 {
     public $dashboard;
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
+    }
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
     }
 
     /**
