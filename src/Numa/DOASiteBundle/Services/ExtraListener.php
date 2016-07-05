@@ -63,18 +63,20 @@ class ExtraListener
 
             //if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
             //$dealer = $setting->getDealerForHost(trim($host));
+            $activeTheme = $this->container->get('liip_theme.active_theme');
 
             if ($dealer instanceof Catalogrecords) {
                 $this->container->set('dealer', $dealer);
                 //$session->set('dealer_id', $dealer->getId());
                 //$setting->activateTheme($host);
                 $theme = $dealer->getSiteTheme();
-                $activeTheme = $this->container->get('liip_theme.active_theme');
+
                 $activeTheme->setName($theme);
                 $controllerObject->initializeDealer($dealer);
             }else{
-                $activeTheme = $this->container->get('liip_theme.active_theme');
+
                 $activeTheme->setName('Default');
+
             }
 
             $request = $event->getRequest();
