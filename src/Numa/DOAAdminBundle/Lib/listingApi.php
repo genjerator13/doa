@@ -222,7 +222,7 @@ class listingApi
 
             }
 
-            $fp = fopen('file.csv', 'w');
+            //$fp = fopen('file.csv', 'w');
 
             $res = $headerCsv . "\n" . $valuesCsv;
 
