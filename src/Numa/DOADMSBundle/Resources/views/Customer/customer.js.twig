@@ -39,7 +39,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'id', enableColumnResizing: true, width: 50},
         {
             name: 'logo',
-            enableColumnResizing: true, width: 100,
+            enableColumnResizing: true, width: 100, enableFiltering: false,
             cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="{[{row.entity.name}]}" height="100px" width="100px"></a>'
         },
         {name: 'name', enableColumnResizing: true},
@@ -47,6 +47,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'mobile_phone'},
         {name: 'email'},
         {name: 'sales_person'},
+        {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
         {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 console.log(tdd.getTime());
