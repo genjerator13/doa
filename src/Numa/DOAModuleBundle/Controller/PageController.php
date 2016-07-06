@@ -6,6 +6,7 @@ use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOAModuleBundle\Entity\PageComponent;
 use Numa\DOAModuleBundle\Form\ComponentType;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,13 +19,28 @@ use Numa\DOAModuleBundle\Form\PageType;
  * Page controller.
  *
  */
-class PageController extends Controller implements DashboardDMSControllerInterface
+class PageController extends Controller implements DashboardDMSControllerInterface, DealerSiteControllerInterface
 {
     public $dashboard;
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
+
     /**
      * Lists all Page entities.
      *
@@ -178,6 +194,8 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
+            'dealer' => $this->dealer,
+            'components' => $this->components,
         ));
     }
 
