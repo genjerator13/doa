@@ -6,6 +6,7 @@ use Numa\DOAAdminBundle\Entity\Coupon;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Numa\DOAAdminBundle\Form\DealerSiteType;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -16,13 +17,28 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
  * Catalogrecords controller.
  *
  */
-class CatalogrecordsController extends Controller implements DashboardDMSControllerInterface {
+class CatalogrecordsController extends Controller implements DashboardDMSControllerInterface, DealerSiteControllerInterface {
 
     public $dashboard;
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
+
     /**
      * Lists all Catalogrecords entities.
      *
