@@ -283,7 +283,6 @@
 
                                     {{ component.image(dealer.logoUrl, dealer.name, '', 'search_image') }}
                                     <p class="dealer-name">{{ dealer.name }}</p>
-                                    {{ dump(dealer.hasCoupons()) }}
                                     {% if (dealer.hasCoupons()) %}
                                     {#{% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}#}
                                         <a class="dealer-coupon-link"
