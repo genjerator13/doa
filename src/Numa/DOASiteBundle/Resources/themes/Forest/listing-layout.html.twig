@@ -46,12 +46,12 @@
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
 {% block mainmenu %}
-    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
 {% endblock %}
 
 <div class="mobile-menu">
     {% block mobilemenu %}
-        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
     {% endblock %}
 </div>
 <div class="content">

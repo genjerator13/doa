@@ -1030,6 +1030,15 @@ class Catalogrecords implements UserInterface
         return $this->Coupon;
     }
 
+    public function hasCoupons(){
+        foreach($this->getCoupon() as $coupon){
+            if(!$coupon->isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @var bool
      */

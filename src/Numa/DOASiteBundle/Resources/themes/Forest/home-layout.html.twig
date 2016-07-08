@@ -97,32 +97,9 @@
             </div>
 
         </div>
-
-        <div class="main-menu">
-
-            <ul>
-                <li><a href="">Home</a></li>
-                <li class="parent"><a href="">Inventory</a>
-                    <ul>
-                        <li><a href="">Manufacturer Showroom</a></li>
-                        <li><a href="">New Inventory</a></li>
-                        <li><a href="">Pre-Owned Inventory</a></li>
-                        <li><a href="">Get a Quote</a></li>
-                        <li><a href="">Finance</a></li>
-                        <li><a href="">Payment Calculator</a></li>
-                        <li><a href="">Value Your Trade</a></li>
-                        <li><a href="">Schedule a Test Ride</a></li>
-                        <li><a href="">Contact Us</a></li>
-                    </ul>
-                </li>
-                <li><a href="">Specials</a></li>
-                <li><a href="">Dealer Services</a></li>
-                <li><a href="">Dealer Info</a></li>
-                <li><a href="">Customer Corner</a></li>
-                <li><a href="">Contact</a></li>
-            </ul>
-
-        </div>
+{% block mainmenu %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
+{% endblock %}
 
         <div class="mobile-menu">
 

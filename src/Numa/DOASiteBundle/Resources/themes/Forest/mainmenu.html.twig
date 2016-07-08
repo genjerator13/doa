@@ -1,17 +1,61 @@
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
 <div class="main-menu">
     <ul>
         <li><a href="{{ path('homepage') }}">Home</a></li>
         <li><a href="{{ path('about_us') }}">About Us</a></li>
-        <li><a href="{{ path('search_dispatch') }}">Products</a>
+        <li><a href="">Products</a>
             <ul>
-                <li><a href="">Online Shopping</a></li>
-                <li><a href="">Parts List</a></li>
-                <li><a href="">Showroom</a></li>
-                <li><a href="">Get a Quote</a></li>
+                <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+                <li><a href="{{ path("search_used_vehicle") }}">Used Inventory</a></li>
+                <li><a href="{{ path('search_dispatch') }}">Show Room</a></li>
             </ul>
         </li>
-        <li><a href="{{ path('service_form') }}">Services</a></li>
-        <li><a href="">Gallery</a></li>
-        <li><a href="">Contact Us</a></li>
+        <li><a href="">Services</a>
+            <ul>
+                <li><a href="{{ path('part_form') }}">Parts Dept.</a></li>
+                <li><a href="{{ path('service_form') }}">Service Dept.</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ path("finance_form") }}">Financing</a></li>
+        <li><a href="">Specials</a></li>
+        <li><a href="{{ path("news") }}">Dealer News</a></li>
+        <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
     </ul>
 </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="contactus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Contact Us</h4>
+            </div>
+            <div class="modal-body">
+                {{ form(contactForm) }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="submit_contact">Save changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#submit_contact').click(function (e) {
+            e.preventDefault();
+            var form = $('#contact_form').serializeArray();
+            alert("Success");
+            $.ajax({
+                type: "POST",
+                data: form,
+                url: '{{ path("listting_form_post",{"form":'contact',"item_id": "item.id" }) }}',
+            });
+        })
+
+    });
+</script>

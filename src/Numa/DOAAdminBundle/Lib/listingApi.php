@@ -240,7 +240,7 @@ class listingApi
         if(is_numeric($value)){
             //dump($item);
         }elseif(is_string($value)){
-            $value = "'".$value."'";
+            $value = "\"".$value."\"";
         }
 
         return str_replace("\n", "-", $value);
