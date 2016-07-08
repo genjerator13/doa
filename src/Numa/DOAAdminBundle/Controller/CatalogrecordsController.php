@@ -185,7 +185,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }
 
 
-
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
@@ -310,7 +309,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
-        $couponsForm = $this->createEditCouponsForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
@@ -347,13 +345,10 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }else{
             dump($editForm->getErrors(true));
         }
-
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'coupons_form' => $couponsForm->createView(),
                     'site_form' => $siteForm->createView(),
-
                     'delete_form' => $deleteForm->createView(),
                     'dashboard' => $this->dashboard,
         ));
@@ -368,6 +363,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $deleteForm = $this->createDeleteForm($id);
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
+        $siteForm = $this->createDealerSiteForm($entity);
         $editForm = $this->createEditForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
         $couponsForm->handleRequest($request);
@@ -395,6 +391,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'coupons_form' => $couponsForm->createView(),
+            'site_form' => $siteForm->createView(),
 
         ));
     }
@@ -409,7 +406,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
         $editForm = $this->createEditForm($entity);
-        $couponsForm = $this->createEditCouponsForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
         $siteForm->handleRequest($request);
 
@@ -429,7 +425,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'coupons_form' => $couponsForm->createView(),
             'site_form' => $siteForm->createView(),
 
         ));
