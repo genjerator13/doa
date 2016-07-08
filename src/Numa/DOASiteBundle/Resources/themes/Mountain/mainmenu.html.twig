@@ -1,22 +1,24 @@
 {% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
 <div class="main-menu">
     <ul class="menu">
-        <li><a href="{{ path("homepage") }}">Home</a></li>
-        <li class="parent"><a href="{{ path('search_dispatch') }}">Showroom</a>
+        <li><a href="{{ path('homepage') }}">Home</a></li>
+        <li><a href="{{ path('about_us') }}">About Us</a></li>
+        <li class="parent"><a href="">Products</a>
             <ul>
-                <li><a href="{{ path("search_new_vehicle") }}">Current New Inventory</a></li>
-                <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
-                <li><a href="{{ path("finance_form") }}">Financing</a></li>
-                <li><a href="">Finance Calculator</a></li>
-                <li><a href="">Trade In</a></li>
-                <li><a href="">Get a Quote</a></li>
-                <li><a href="">Schedule Test Ride</a></li>
-                <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
+                <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+                <li><a href="{{ path("search_used_vehicle") }}">Used Inventory</a></li>
+                <li><a href="{{ path('search_dispatch') }}">Show Room</a></li>
             </ul>
         </li>
-        <li><a href="">Dealer Services</a></li>
-        <li><a href="">Dealer Info</a></li>
-        <li><a href="">Customer Corner</a></li>
+        <li><a href="">Services</a>
+            <ul>
+                <li><a href="{{ path('part_form') }}">Parts Dept.</a></li>
+                <li><a href="{{ path('service_form') }}">Service Dept.</a></li>
+            </ul>
+        </li>
+        <li><a href="{{ path("finance_form") }}">Financing</a></li>
+        <li><a href="">Specials</a></li>
+        <li><a href="{{ path("news") }}">Dealer News</a></li>
         <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
     </ul>
 </div>

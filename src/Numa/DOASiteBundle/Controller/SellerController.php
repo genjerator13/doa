@@ -2,10 +2,25 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class SellerController extends Controller {
+class SellerController extends Controller implements DealerSiteControllerInterface {
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
 
     public function searchAction(Request $request) {
         $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
