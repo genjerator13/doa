@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -9,8 +10,23 @@ use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Form\ServiceRequestType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class FinanceController extends Controller
+class FinanceController extends Controller implements DealerSiteControllerInterface
 {
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
+
     public function newAction(Request $request)
     {
         // create a task and give it some dummy data for this example
@@ -67,6 +83,8 @@ class FinanceController extends Controller
 
         return $this->render('NumaDOASiteBundle:Finance:finance_form.html.twig', array(
             'form' => $form->createView(),
+            'dealer' => $this->dealer,
+            'components' => $this->components,
         ));
     }
 }

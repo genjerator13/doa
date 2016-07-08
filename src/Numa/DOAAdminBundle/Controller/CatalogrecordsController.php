@@ -6,6 +6,7 @@ use Numa\DOAAdminBundle\Entity\Coupon;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
 use Numa\DOAAdminBundle\Form\DealerSiteType;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
+use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
@@ -16,13 +17,28 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
  * Catalogrecords controller.
  *
  */
-class CatalogrecordsController extends Controller implements DashboardDMSControllerInterface {
+class CatalogrecordsController extends Controller implements DashboardDMSControllerInterface, DealerSiteControllerInterface {
 
     public $dashboard;
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+
+    public $dealer;
+    public $components;
+
+    public function initializeDealer($dealer)
+    {
+        $this->dealer = $dealer;
+
+    }
+
+    public function initializePageComponents($components)
+    {
+        $this->components = $components;
+    }
+
     /**
      * Lists all Catalogrecords entities.
      *
@@ -169,7 +185,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }
 
 
-
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
@@ -294,7 +309,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
-        $couponsForm = $this->createEditCouponsForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {            
@@ -331,13 +345,10 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }else{
             dump($editForm->getErrors(true));
         }
-
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
-                    'coupons_form' => $couponsForm->createView(),
                     'site_form' => $siteForm->createView(),
-
                     'delete_form' => $deleteForm->createView(),
                     'dashboard' => $this->dashboard,
         ));
@@ -352,6 +363,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $deleteForm = $this->createDeleteForm($id);
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
+        $siteForm = $this->createDealerSiteForm($entity);
         $editForm = $this->createEditForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
         $couponsForm->handleRequest($request);
@@ -379,6 +391,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'coupons_form' => $couponsForm->createView(),
+            'site_form' => $siteForm->createView(),
 
         ));
     }
@@ -393,7 +406,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
         $editForm = $this->createEditForm($entity);
-        $couponsForm = $this->createEditCouponsForm($entity);
         $siteForm = $this->createDealerSiteForm($entity);
         $siteForm->handleRequest($request);
 
@@ -413,7 +425,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'coupons_form' => $couponsForm->createView(),
             'site_form' => $siteForm->createView(),
 
         ));
