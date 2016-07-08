@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,12 +51,17 @@ class SellerController extends Controller implements DealerSiteControllerInterfa
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(),'catalogs' => $catalogs));
     }
 
-    public function couponsAction(Request $request,$dealername){
+    public function couponsAction(Request $request,$dealername=""){
         $em = $this->getDoctrine()->getManager();
-        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('username'=>$dealername));
-        $coupons = $em->getRepository("NumaDOAAdminBundle:Coupon")->findBy(array('dealer_id'=>$dealer->getId()));
 
-        return $this->render('NumaDOASiteBundle:Seller:coupon.html.twig', array('dealer' => $dealer,'coupons'=>$coupons));
+        if(empty($dealername) && $this->dealer instanceof Catalogrecords){
+            $dealer = $this->dealer;
+        }else {
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findOneBy(array('username' => $dealername));
+        }
+        $coupons = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getNonEmptyCoupons($dealer->getId());
+
+        return $this->render('NumaDOASiteBundle:Seller:coupon.html.twig', array('components' => $this->components,'dealer' => $dealer,'coupons'=>$coupons));
     }
 
 }

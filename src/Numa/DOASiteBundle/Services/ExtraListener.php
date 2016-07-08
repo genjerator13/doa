@@ -73,6 +73,7 @@ class ExtraListener
 
                 $activeTheme->setName($theme);
                 $controllerObject->initializeDealer($dealer);
+
             }else{
 
                 $activeTheme->setName('Default');
