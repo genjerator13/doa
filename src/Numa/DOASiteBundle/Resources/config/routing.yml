@@ -115,6 +115,9 @@ compared_listings:
 dealer_coupons:
     path:  /dealer/{dealername}/coupons
     defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }
+dealer_coupons_dms:
+    path:  /coupons
+    defaults: { _controller: NumaDOASiteBundle:Seller:coupons, _locale: en }
 sandbox_test3:
     path:  /sandbox/test3
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test3 }

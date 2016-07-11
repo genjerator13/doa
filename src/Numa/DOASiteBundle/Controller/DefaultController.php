@@ -518,7 +518,10 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     }
     public function contactusAction() {
         $response = $this->render('NumaDOASiteBundle::mainmenu.html.twig', array(
-            'contactForm' => $this->createCreateContactForm(new ListingForm())->createView()));
+            'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
+            'components' => $this->components,
+            'dealer' => $this->dealer,
+        ));
         return $response;
     }
     private function createCreateContactForm(ListingForm $entity)
@@ -526,7 +529,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
             'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
-            'attr' => array('id'=>"contact_form")
+            'attr' => array('id'=>"contact_form"),
+
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;

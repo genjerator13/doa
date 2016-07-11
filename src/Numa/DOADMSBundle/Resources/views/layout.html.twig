@@ -2,21 +2,21 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" >
-<head >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
     <meta name="keywords" content=""/>
     <meta name="description" content=""/>
     <title>Dealers on Air Admin Panel </title>
     {% block stylesheets %}
         {% stylesheets  '@bootstrap'
-                        '@jquery_ui_css'
-                        '@admin'
-                        '@dropzone_css'
-                        '@colorbox_css'
-                        '@AdminLTE_css'
-                        '@DMS_red_skin_css'
-                        'css/ionicons.min.css'
-                        filter='cssrewrite' output='css/*.css' %}
+        '@jquery_ui_css'
+        '@admin'
+        '@dropzone_css'
+        '@colorbox_css'
+        '@AdminLTE_css'
+        '@DMS_red_skin_css'
+        'css/ionicons.min.css'
+        filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
     {% endblock %}
@@ -83,42 +83,47 @@
                     {#</li><!-- /.messages-menu -->#}
                     <!-- Control Sidebar Toggle Button -->
                     {% if not is_granted('ROLE_ADMIN') %}
-                    <li class="dropdown user user-menu">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="hidden-xs"><i class="glyphicon glyphicon-user"></i> {{ app.user.name }}</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="user-header">
-                                {% if app.user.logoUrl is empty %}
-                                {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
-                                {% else %}
-                                {{ component.image(app.user.logoUrl, 'logo', 'img-circle', 'search_image',90, 120) }}
-                                {% endif %}
-                                <p>
-                                    {{ app.user.name }}
-                                    <small><a href="{{ app.user.url }}"><i class="glyphicon glyphicon-link"></i>Site</a></small>
-                                </p>
-                            </li>
-                            <li class="user-footer">
-                                <div class="pull-left">
-                                    <a class="btn btn-default btn-flat" href="{{ path('dms_profile_edit', {'id': app.user.id}) }}"><i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
-                                </div>
-                                <div class="pull-right">
-                                    <a class="btn btn-default btn-flat" target="_self" href="{{ url('logout') }}"><i class="fa fa-sign-out"></i><span class="">Logout</span>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
+                        <li class="dropdown user user-menu">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="hidden-xs"><i
+                                            class="glyphicon glyphicon-user"></i> {{ app.user.name }}</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="user-header">
+                                    {% if app.user.logoUrl is empty %}
+                                        {{ component.image(app.user.logo, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                    {% else %}
+                                        {{ component.image(app.user.logoUrl, 'logo', 'img-circle', 'search_image',90, 120) }}
+                                    {% endif %}
+                                    <p>
+                                        {{ app.user.name }}
+                                        <small><a href="{{ app.user.url }}"><i class="glyphicon glyphicon-link"></i>Site</a>
+                                        </small>
+                                    </p>
+                                </li>
+                                <li class="user-footer">
+                                    <div class="pull-left">
+                                        <a class="btn btn-default btn-flat"
+                                           href="{{ path('dms_profile_edit', {'id': app.user.id}) }}"><i
+                                                    class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                    </div>
+                                    <div class="pull-right">
+                                        <a class="btn btn-default btn-flat" target="_self" href="{{ url('logout') }}"><i
+                                                    class="fa fa-sign-out"></i><span class="">Logout</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
                     {% else %}
                         <li class="dropdown messages-menu">
-                        <!-- Menu toggle button -->
-                        <a target="_self" href="{{ url('logout') }}">
-                            <i class="fa fa-sign-out"></i>
-                            <span class="">Logout</span>
-                        </a>
+                            <!-- Menu toggle button -->
+                            <a target="_self" href="{{ url('logout') }}">
+                                <i class="fa fa-sign-out"></i>
+                                <span class="">Logout</span>
+                            </a>
 
-                    </li>
+                        </li>
                     {% endif %}
                     <li>
                         <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
@@ -137,60 +142,85 @@
                 <li class="">
                     <a href="{{ path('dms_home') }}" class=""><i class="fa fa-dashboard"></i>Dashboard</a>
                 </li>
-                <li class="">
-                    <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('listingform') }}" class=""><i class="fa fa-table"></i>Listing Form</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service Request</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-link"></i>Inventory Feeds</a>
-                </li>
-                <li class="">
-                    <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-list"></i>Add New Inventory</a>
-                </li>
-                {% if not is_granted('ROLE_ACCOUNTING') %}
-                <li class="">
-                    <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>
-                </li>
+                {% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}
+                    <li class="">
+                        <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>
+                    </li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN')  %}
-                <li class="">
-                    <a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('listingform') }}" class=""><i class="fa fa-table"></i>Listing Form</a>
+                    </li>
                 {% endif %}
-                <li class="">
-                    <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
-                </li>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service Request</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-link"></i>Inventory
+                            Feeds</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES')or is_granted('ROLE_DMS_USER')  %}
+                    <li class="">
+                        <a href="{{ path('dms_additem') }}" class=""><i class="fa fa-list"></i>Add New Inventory</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                    <li class="">
+                        <a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="">
+                        <a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  %}
+                    <li class="">
+                        <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  %}
                 <li class="">
                     <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>
                 </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
                 <li class="">
                     <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Pages</a>
                 </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
                 <li class="">
                     <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>
                 </li>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
                     <li class="treeview">Feeds</li>
                     <li class="">
                         <a href="{{ path('dms_importfeed') }}"><i class="fa fa-upload"></i>Feeds</a>
                     </li>
                     <li class="treeview">Content Management</li>
                     <li class="">
-                        <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
+                        <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business
+                            Directory</a>
                     </li>
                     <li class="">
-                        <a href="{{ path('dms_command_log_home') }}" class=""><i class="fa fa-list"></i>Command Queue</a>
+                        <a href="{{ path('dms_command_log_home') }}" class=""><i class="fa fa-list"></i>Command
+                            Queue</a>
                     </li>
                 {% endif %}
             </ul>
