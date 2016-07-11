@@ -158,5 +158,18 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         return $qb->getQuery()->getOneOrNullResult();
     }
 
+    public function getNonEmptyCoupons($dealer_id){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('c')->distinct()
+            ->add('from', 'NumaDOAAdminBundle:Coupon c')
+            ->andWhere('c.dealer_id = :dealer_id')
+            ->andWhere('c.name <> :name ')
+            ->setParameter('dealer_id', $dealer_id)
+            ->setParameter('name', "");
+        //$qb->getMaxResults(1);
+        $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
 
 }
