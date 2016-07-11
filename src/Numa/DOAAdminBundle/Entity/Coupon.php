@@ -383,6 +383,6 @@ class Coupon
 //        else{
 //            return true;
 //        }
-        return empty($this->getPhoto()) && empty($this->getDescription()) && empty($this->getDiscount());
+        return empty($this->getName());
     }
 }

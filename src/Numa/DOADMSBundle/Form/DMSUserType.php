@@ -21,7 +21,7 @@ class DMSUserType extends AbstractType
             ->add('active')
 //            ->add('activation_key')
 //            ->add('verification_key')
-            ->add('trusted_user')
+//            ->add('trusted_user')
 //            ->add('balance')
             ->add('FirstName')
             ->add('LastName')
