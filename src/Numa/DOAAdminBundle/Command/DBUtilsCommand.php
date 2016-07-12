@@ -574,6 +574,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             if($i%50==0){
                 $commandLog->setCurrent($i);
                 $em->flush();
+                $em->clear();
+                $logger->warning("COVER PHOTOS STARTED flush ".$i);
             }
         }
         $logger->warning("COVER PHOTOS STARTED loop end");
