@@ -42,6 +42,9 @@ NumaDOADMSBundle_billing:
     prefix:   /billing
 NumaDOADMSBundle_dmsuser:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
+    prefix:   /userprofile
+NumaDOADMSBundle_dmsuser:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
     prefix:   /dmsuser
 NumaDOADMSBundle_reminder:
     resource: "@NumaDOADMSBundle/Resources/config/routing/reminder.yml"

@@ -351,7 +351,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function accessDeniedAction()
     {
-        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig');
+        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig',array('components' => $this->components,
+            'dealer' => $this->dealer,));
     }
 
     public function emailDealerForm($request)
