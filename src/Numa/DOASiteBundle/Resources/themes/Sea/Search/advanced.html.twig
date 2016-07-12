@@ -1,9 +1,10 @@
-{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% block javascripts %}
     {{parent()}}
 
 {% endblock %}
 {% block content %}
+    <div class="container">
     <h2>Advanced Search</h2>
 <div id="searchtags"></div>
 <div id="searchform">
@@ -74,4 +75,5 @@
                                         <button class="btn btn-default  col-sm-12 " type="submit">Search</button>
                                     </div>
                                 </div>
+    </div>
 {% endblock %}

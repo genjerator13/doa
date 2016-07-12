@@ -45,6 +45,15 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
         {
             $response = new RedirectResponse($this->router->generate('dms_home'));
         }
+        elseif ($this->checker->isGranted('ROLE_ACCOUNTING') ||
+                $this->checker->isGranted('ROLE_SALES') ||
+                $this->checker->isGranted('ROLE_SERVICE_DMS') ||
+                $this->checker->isGranted('ROLE_PARTS_DMS') ||
+                $this->checker->isGranted('ROLE_REGULAR_ADMIN')
+                )
+        {
+            $response = new RedirectResponse($this->router->generate('dms_home'));
+        }
         elseif ($this->checker->isGranted('ROLE_USER'))
         {
             // redirect the user to where they were before the login process begun.
