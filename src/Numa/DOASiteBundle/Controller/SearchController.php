@@ -332,7 +332,11 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             //print_r($form->getData());
             //die("success");
         }
-        return $this->render('NumaDOASiteBundle:Search:advanced.html.twig', array('form' => $form->createView()));
+        return $this->render('NumaDOASiteBundle:Search:advanced.html.twig', array(
+            'form' => $form->createView(),
+            'dealer' => $this->dealer,
+            'components' => $this->components,
+        ));
     }
 
     private function proccessAdvancedSearch($post, $category = 0)

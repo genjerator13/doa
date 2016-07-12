@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -762,9 +763,9 @@ class DMSUser  implements UserInterface
                 return array('ROLE_SALES');
             } elseif ($groupName == 'manager') {
                 return array('ROLE_MANAGER');
-            }elseif ($groupName == 'service') {
+            }elseif ($groupName == 'service_user') {
                 return array('ROLE_SERVICE_DMS');
-            }elseif ($groupName == 'parts') {
+            }elseif ($groupName == 'parts_user') {
                 return array('ROLE_PARTS_DMS');
             }elseif ($groupName == 'regular_admin') {
                 return array('ROLE_REGULAR_ADMIN_DMS');
@@ -789,5 +790,25 @@ class DMSUser  implements UserInterface
 
     public function __sleep(){
         return array('id', 'username', 'email');
+    }
+
+    public function getName(){
+        return $this->getFirstName()." ".$this->getLastName();
+    }
+
+    public function getLogoUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getLogoUrl();
+        }
+        return "";
+    }
+
+    public function getUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getUrl();
+        }
+        return "";
     }
 }
