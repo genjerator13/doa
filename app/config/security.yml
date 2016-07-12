@@ -48,12 +48,16 @@ security:
         - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
         - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
-        - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING] }
+        - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
+        - { path: ^/dms/partrequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
+        - { path: ^/dms/servicerequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
+        - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
+        - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
+        - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
 
 
 
