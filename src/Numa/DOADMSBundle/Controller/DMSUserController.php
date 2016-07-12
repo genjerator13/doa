@@ -132,7 +132,18 @@ class DMSUserController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
-
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
+            $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+            $securityContext->isGranted('ROLE_SALES') ||
+            $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
+            && $this->getUser()->getId() == $id
+        )
+        {
+            //ok
+        }else{
+            throw $this->createAccessDeniedException("You cannot edit this page!");
+        }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find DMSUser entity.');
         }
@@ -156,10 +167,25 @@ class DMSUserController extends Controller
     */
     private function createEditForm(DMSUser $entity)
     {
-        $form = $this->createForm(new DMSUserType(), $entity, array(
-            'action' => $this->generateUrl('dmsuser_update', array('id' => $entity->getId())),
-            'method' => 'POST',
-        ));
+        $securityContext = $this->container->get('security.authorization_checker');
+        if ($securityContext->isGranted('ROLE_PARTS_DMS') ||
+            $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+            $securityContext->isGranted('ROLE_SALES') ||
+            $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
+        )
+        {
+
+            $form = $this->createForm(new DMSUserType(), $entity, array(
+                'action' => $this->generateUrl('userprofile_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+            ));
+        } else{
+            $form = $this->createForm(new DMSUserType(), $entity, array(
+                'action' => $this->generateUrl('dmsuser_update', array('id' => $entity->getId())),
+                'method' => 'POST',
+            ));
+
+        }
 
         $form->add('submit', 'submit', array('label' => 'Update'));
 
@@ -172,9 +198,17 @@ class DMSUserController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-
+        $redirectRoute = "dmsuser_edit";
         $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
-
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
+                $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+                $securityContext->isGranted('ROLE_SALES') ||
+                $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
+        )
+        {
+            $redirectRoute = "userprofile_edit";
+        }
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find DMSUser entity.');
         }
@@ -186,7 +220,7 @@ class DMSUserController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('dmsuser_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl($redirectRoute, array('id' => $id)));
         }
 
         return $this->render('NumaDOADMSBundle:DMSUser:edit.html.twig', array(

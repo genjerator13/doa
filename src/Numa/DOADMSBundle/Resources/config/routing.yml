@@ -42,10 +42,15 @@ NumaDOADMSBundle_billing:
     prefix:   /billing
 NumaDOADMSBundle_dmsuser:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
-    prefix:   /userprofile
-NumaDOADMSBundle_dmsuser:
-    resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
     prefix:   /dmsuser
+userprofile_edit:
+    path:     userprofile/{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:edit" }
+userprofile_update:
+    path:     userprofile/{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:DMSUser:update" }
+    requirements: { _method: post|put }
+
 NumaDOADMSBundle_reminder:
     resource: "@NumaDOADMSBundle/Resources/config/routing/reminder.yml"
     prefix:   /reminder
