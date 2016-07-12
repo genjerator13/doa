@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
@@ -789,5 +790,25 @@ class DMSUser  implements UserInterface
 
     public function __sleep(){
         return array('id', 'username', 'email');
+    }
+
+    public function getName(){
+        return $this->getFirstName()." ".$this->getLastName();
+    }
+
+    public function getLogoUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getLogoUrl();
+        }
+        return "";
+    }
+
+    public function getUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getUrl();
+        }
+        return "";
     }
 }
