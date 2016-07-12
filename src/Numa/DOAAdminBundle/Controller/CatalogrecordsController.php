@@ -176,7 +176,10 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $limitCoupons = 2;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
-        $securityContext = $this->container->get('security.context');
+        $securityContext = $this->container->get('security.authorization_checker');
+        if($securityContext->isGranted('ROLE_DMS_USER') && $this->getUser()->getId() != $id){
+            throw $this->createAccessDeniedException('You cannot access this page!');
+        }
         if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && $securityContext->isGranted('ROLE_BUSINES') && $this->getUser()->getId() != $id) {
             throw $this->createAccessDeniedException('You cannot access this page!');
         }
