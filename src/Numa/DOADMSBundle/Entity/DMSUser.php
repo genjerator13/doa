@@ -763,9 +763,9 @@ class DMSUser  implements UserInterface
                 return array('ROLE_SALES');
             } elseif ($groupName == 'manager') {
                 return array('ROLE_MANAGER');
-            }elseif ($groupName == 'service') {
+            }elseif ($groupName == 'service_user') {
                 return array('ROLE_SERVICE_DMS');
-            }elseif ($groupName == 'parts') {
+            }elseif ($groupName == 'parts_user') {
                 return array('ROLE_PARTS_DMS');
             }elseif ($groupName == 'regular_admin') {
                 return array('ROLE_REGULAR_ADMIN_DMS');
