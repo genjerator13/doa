@@ -49,9 +49,9 @@ NumaDOADMSBundle_reminder:
 dms_settings:
     resource: "@NumaDOADMSBundle/Resources/config/routing/settings.yml"
     prefix:   /settings
-part_reguest:
+part_request:
     resource: "@NumaDOADMSBundle/Resources/config/routing/partrequest.yml"
-    prefix:   /partreguest
+    prefix:   /partrequest
 dms_imageCarousel:
     resource: "@NumaDOADMSBundle/Resources/config/routing/imageCarousel.yml"
     prefix:   /imagecarousel
