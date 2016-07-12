@@ -571,12 +571,13 @@ class DBUtilsCommand extends ContainerAwareCommand
                     ->where('i.id=' . $listing->getId());
                 $qb->getQuery()->execute();
             }
-            if($i%50==0){
-                $commandLog->setCurrent($i);
-                $em->flush();
-                $em->clear();
-                $logger->warning("COVER PHOTOS STARTED flush ".$i);
-            }
+            $logger->warning("COVER PHOTOS STARTED update ".$i);
+//            if($i%50==0){
+//                $commandLog->setCurrent($i);
+//                $em->flush();
+//                $em->clear();
+//                $logger->warning("COVER PHOTOS STARTED flush ".$i);
+//            }
         }
         $logger->warning("COVER PHOTOS STARTED loop end");
         $commandLog->setStatus('finished');
