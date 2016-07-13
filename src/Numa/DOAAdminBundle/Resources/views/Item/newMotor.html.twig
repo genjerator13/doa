@@ -39,7 +39,13 @@
     {{ component.listingFieldInput(form.fuelSystem,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.fuelCapacity,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.ignition,"", "form-group","col-sm-9") }}
-    {{ component.listingFieldInput(form.driveType,"", "form-group","col-sm-9") }}
+    {#{{ component.listingFieldInput(form.driveType,"", "form-group","col-sm-9") }}#}
+    <div class="form-group">
+        {{ form_label(form.driveType, 'Drive Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.driveType, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
     {{ component.listingFieldInput(form.gears,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.brakes,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.wheels,"", "form-group","col-sm-9") }}
