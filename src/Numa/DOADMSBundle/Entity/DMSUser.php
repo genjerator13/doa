@@ -7,9 +7,14 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserLoaderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * DMSUser
+ * @ORM\Entity
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
 class DMSUser  implements UserInterface
 {
@@ -20,16 +25,19 @@ class DMSUser  implements UserInterface
 
     /**
      * @var string
+     * @Assert\Length(min=2)
      */
     private $username;
 
     /**
      * @var string
+
      */
     private $password;
 
     /**
      * @var string
+     * @Assert\Length(min=2)
      */
     private $email;
 

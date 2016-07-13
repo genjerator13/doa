@@ -81,7 +81,7 @@ class AddItemSubscriber implements EventSubscriberInterface
 
         foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB => $carFieldField) {
             $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
-
+            //dump($carFieldDB);
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
 
                 $type = $listingList->getType();
@@ -100,7 +100,10 @@ class AddItemSubscriber implements EventSubscriberInterface
                         $values[$value->getValue()] = $value->getValue();
                     }
                     //if the value is not in the list addi it
-
+                    //if() {
+                       // dump($carFieldDB);
+                        //die();
+                    //}
                     if (!in_array($selected, $values)) {
                         $values[$selected] = $selected;
                     }
@@ -109,7 +112,12 @@ class AddItemSubscriber implements EventSubscriberInterface
 
                     //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
 
-                    $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
+                    if($carFieldDB=="ag_application" || $carFieldDB=="Boat Type" || ($carFieldField=="type" && ($cat=4 || $cat==3))) {
+
+                        $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
+                    }else {
+                        $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
+                    }
                 } elseif (strtolower($type) == 'tree') {
 
                     $selected = $item->getItemFieldByName($carFieldField);
