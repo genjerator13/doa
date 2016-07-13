@@ -97,37 +97,13 @@
             </div>
 
         </div>
-{% block mainmenu %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-{% endblock %}
 
-        <div class="mobile-menu">
-
-            <ul class="menu">
-                <li><span class="separator">Menu</span>
-                    <ul>
-                        <li><a href="">Home</a></li>
-                        <li><span class="separator">Showroom</span>
-                            <ul>
-                                <li><a href="">Current New Inventory</a></li>
-                                <li><a href="">Pre-Owned Inventory</a></li>
-                                <li><a href="">Financing</a></li>
-                                <li><a href="">Finance Calculator</a></li>
-                                <li><a href="">Trade In</a></li>
-                                <li><a href="">Get a Quote</a></li>
-                                <li><a href="">Schedule Test Ride</a></li>
-                                <li><a href="">Contact Us</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="">Dealer Services</a></li>
-                        <li><a href="">Dealer Info</a></li>
-                        <li><a href="">Customer Corner</a></li>
-                        <li><a href="">Contact Us</a></li>
-                    </ul>
-                </li>
-            </ul>
-
-        </div>
+            {% block mainmenu %}
+                {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
+            {% endblock %}
+            {% block mobilemenu %}
+                {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+            {% endblock %}
 
     </div>
 
