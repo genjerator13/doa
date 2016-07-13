@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOASiteBundle\Form\SidebarSearchType;
 use Numa\DOAModuleBundle\Entity\Page;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -98,8 +99,9 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $query = $this->searchParameters->createSearchQuery();
 
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+        $sidebarForm = $this->createSidebarForm();
+        $param['sidebarForm'] = $sidebarForm->createView();
+        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
     }
 
     public function showItems($query, $page = 1, $number = 10)
@@ -232,8 +234,9 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
         $param['ads'] = $ads;
         $param['webpage'] = $webpage;
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+        $sidebarForm = $this->createSidebarForm();
+        $param['sidebarForm'] = $sidebarForm->createView();
+        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
     }
 
     public function searchByDealerAction(Request $request)
@@ -250,8 +253,9 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         //create query        
         $query = $this->searchParameters->createSearchQuery();
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+        $sidebarForm = $this->createSidebarForm();
+        $param['sidebarForm'] = $sidebarForm->createView();
+        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
     }
 
     public function searchAdvancedAction(Request $request)
@@ -382,8 +386,9 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         } catch (NotValidCurrentPageException $e) {
             throw new NotFoundHttpException();
         }
-
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));
+        $sidebarForm = $this->createSidebarForm();
+        $param['sidebarForm'] = $sidebarForm->createView();
+        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', array('items' => $items, 'pagerfanta' => $pagerfanta));
     }
 
     public function searchAdvancedCategoryAction(Request $request)
@@ -1135,8 +1140,26 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         //create query
         $query = $this->searchParameters->createSearchQuery();
         $param = $this->showItems($query, $page, $this->searchParameters->getListingPerPage());
+        //create sidebar
 
-        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
+        $sidebarType = new SidebarSearchType();
+
+        $sidebarForm = $this->createSidebarForm();
+
+        //dump($sidebarForm->createView());die();
+        $param['sidebarForm'] = $sidebarForm->createView();
+        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
+    }
+
+    public function createSidebarForm(){
+        $sidebarType = new SidebarSearchType();
+
+        $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
+            'action' => $this->generateUrl('search_dispatch'),
+            'method' => 'GET'));
+
+        return $sidebarForm;
+        //$param['sidebarForm'] = $sidebarForm->createView();
     }
 
 }

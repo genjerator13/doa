@@ -41,6 +41,7 @@ class searchParameters {
             'category_id' => new SearchItem('category_id', 0, 'int'),
             'priceFrom' => new SearchItem('price', 0, 'rangeFrom'),
             'priceTo' => new SearchItem('price', '', 'rangeTo'),
+            'year' => new SearchItem('year', 0, 'int'),
             'yearTo' => new SearchItem('year', 0, 'rangeTo'),
             'yearFrom' => new SearchItem('year', 0, 'rangeFrom'),
             'postedFrom' => new SearchItem('date_created', 0, 'dateRangeFrom'),
@@ -72,6 +73,7 @@ class searchParameters {
             'bodyStyleString' => new SearchItem('body_style', "", 'string'),
             'bodyStyleSlug' => new SearchItem('body_style', "", 'listSlug'),
             'make' => new SearchItem('make', "", 'tree'),
+            'make_string' => new SearchItem('make', "", 'string'),
             'model' => new SearchItem('model', "", 'string'),
             'transmission' => new SearchItem('transmission', 0, 'list'),
             'engine' => new SearchItem('engine', 0, 'list'),
@@ -164,11 +166,11 @@ class searchParameters {
                     $value = $value[0];
                 }
                 if (!empty($value)) {
-                    $this->params[$key]->setValue(urldecode($value));
+                    $this->params[$key]->setValue(urldecode(trim($value)));
                 }
             }
         }
-
+        //dump($this->params);die();
     }
 
     public function set($key, $value) {
