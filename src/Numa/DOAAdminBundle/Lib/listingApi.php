@@ -168,6 +168,7 @@ class listingApi
         } elseif ($format == 'json') {
             $response = new Response(json_encode($items));
         } elseif ($format == 'csv') {
+
             $headers = array();
             $values = array();
             if (array_key_exists('id', $items)) {
@@ -240,6 +241,7 @@ class listingApi
         if(is_numeric($value)){
             //dump($item);
         }elseif(is_string($value)){
+            $value = str_replace('"'," inches ",$value);
             $value = "\"".$value."\"";
         }
 

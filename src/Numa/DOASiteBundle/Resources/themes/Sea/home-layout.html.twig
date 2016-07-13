@@ -33,8 +33,6 @@
                 });
             });
         </script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
     {% endblock %}
 </head>
@@ -43,6 +41,7 @@
 {% block headline %}
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
+
 {% block mainmenu %}
     {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
     {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
