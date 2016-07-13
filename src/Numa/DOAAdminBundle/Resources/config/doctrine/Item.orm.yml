@@ -369,10 +369,12 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         mpgCity:
-              type: float
+              type: string
+              length: 255
               nullable: true
         mpgHighway:
-              type: float
+              type: string
+              length: 255
               nullable: true
         iw_no:
               type: string

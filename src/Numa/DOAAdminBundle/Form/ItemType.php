@@ -62,7 +62,6 @@ class ItemType extends AbstractType
                     'label' => "Body Style", "required" => false
                 ))
 
-
             ->add('make')
             ->add('model')
             ->add('type')

@@ -50,9 +50,8 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-
-        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findAll();
+        $dealer = $this->get('security.token_storage')->getToken()->getUser();
+        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId());
 
         $render = 'NumaDOAModuleBundle:Page:index.html.twig';
         if($this->dashboard =='DMS'){
