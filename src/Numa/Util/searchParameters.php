@@ -24,6 +24,7 @@ class searchParameters {
     public $init = false;
     protected $params = array();
     protected $listing_per_page;
+    protected $queryBuilder;
 
     public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {
         $this->container = $container;
@@ -284,7 +285,12 @@ class searchParameters {
             }
         }
         $qb->addOrderBy("i.sold", 'ASC');
+        $this->queryBuilder = $qb;
         return $qb->getQuery();
+    }
+
+    public function getQueryBuilder(){
+        return $this->queryBuilder;
     }
 
     public function createAllQuery($qb,$string){

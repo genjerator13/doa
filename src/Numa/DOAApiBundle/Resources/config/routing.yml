@@ -39,17 +39,17 @@ listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
 listing:
-    pattern:  /listing/{id}.{_format}
+    path:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}
     requirements: { _method: get }
 
 listingByDealer:
-    pattern:  /listings/{dealerid}/dealer.{_format}
+    path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
     requirements: { _method: get }
 
 listingByDealerUsername:
-    pattern:  /listings/{dealerid}/dealer.{_format}
+    path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerUsername",_format: "xml"}
     requirements: { _method: get }
 

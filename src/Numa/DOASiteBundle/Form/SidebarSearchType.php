@@ -17,15 +17,22 @@ class SidebarSearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $categories = array(0=>"All Categories",1=>"Car",2=>"Marine",3=>"Moto Sport",4=>"RVs",13=>"Ag");
+        //$categories = array(0=>"All Categories",1=>"Car",2=>"Marine",3=>"Moto Sport",4=>"RVs",13=>"Ag");
         $builder
 
-            ->add('category_id','choice',array('label'=>'Category',"choices"=>$categories))
-
-            ->add('year','integer',array('label'=>'Year',"required"=>false))
-            ->add('make_string','text',array('label'=>'Make',"required"=>false))
-            ->add('model','text',array('label'=>'Model',"required"=>false))
+            //->add('category_id','choice',array('label'=>'Category',"choices"=>$categories))
+            ->add('bodyStyleString','choice',array('label'=>'Body Style',"choices"=>array()))
+            ->add('yearFrom','text',array('label'=>'Year From',"required"=>false))
+            ->add('yearTo','text',array('label'=>'Year To',"required"=>false))
+            //->add('year','integer',array('label'=>'Year',"required"=>false))
+            ->add('make','choice',array('label'=>'Make',"required"=>false))
+            ->add('model','choice',array('label'=>'Model',"required"=>false))
+            ->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false))
+            ->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false))
+            ->add('priceFrom','text',array('label'=>'Price From',"required"=>false))
+            ->add('priceTo','text',array('label'=>'Price To',"required"=>false))
             ->add('search','submit',array('label'=>'Search'))
+            ->add('reset','submit',array('label'=>'Reset'))
 
             //->add('type')
         ;
