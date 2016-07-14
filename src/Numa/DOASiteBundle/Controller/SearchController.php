@@ -108,7 +108,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param['sidebarForm'] = $sidebarForm->createView();
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
-        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function showItems($query, $page = 1, $number = 10)
@@ -245,7 +245,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param['sidebarForm'] = $sidebarForm->createView();
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
-        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function searchByDealerAction(Request $request)
@@ -266,7 +266,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param['sidebarForm'] = $sidebarForm->createView();
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
-        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function searchAdvancedAction(Request $request)
@@ -401,7 +401,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param['sidebarForm'] = $sidebarForm->createView();
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
-        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', array('items' => $this->items, 'pagerfanta' => $pagerfanta));
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', array('items' => $this->items, 'pagerfanta' => $pagerfanta));
     }
 
     public function searchAdvancedCategoryAction(Request $request)
@@ -1162,7 +1162,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
         //dump($param);die();
-        return $this->render('NumaDOASiteBundle:Search:default-sidebar.html.twig', $param);
+        return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
     public function createSidebarForm(){
