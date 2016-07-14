@@ -706,3 +706,7 @@ and (max-width : 767px) {
  .featured-ads .thumbnails {
     padding: 0px;
 }
+
+ .searchSidebar label{
+     font-weight: normal;
+ }
