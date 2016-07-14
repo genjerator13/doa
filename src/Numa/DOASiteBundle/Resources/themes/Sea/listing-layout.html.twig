@@ -75,9 +75,7 @@
                 </div>
             </li>
             <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent(components,'hours_of_operation')|raw }}
-                {% endif %}
+                {{ dealer.ServiceHours|raw }}
             </li>
             <li>
                 {% if(components is defined and components is not empty) %}
