@@ -7,8 +7,7 @@
         {% for coupon in coupons %}
             <div class="coupon-container">
                 <div class="coupon-name"><h3>{{ coupon.name }}</h3></div>
-                <div class="coupon-image"><img id="coupon-image-{{ coupon.id }}" src="{{ asset(coupon.photo) }}"
-                                               width="300px"/></div>
+                <div class="coupon-image"><img id="coupon-image-{{ coupon.id }}" src="{{ asset(coupon.photo) }}"/></div>
                 <div class="coupon-description">{{ coupon.description() }}
                     <a href="#" class="coupon-print">Print this coupon</a>
                     {#<a href="#">Email this coupon</a>#}
