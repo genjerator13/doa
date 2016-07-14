@@ -63,7 +63,7 @@
                                 <div>{{ form_row(coupon.description) }}</div>
                                 <div>{{ form_row(coupon.originalImage) }}
                                     {% if coupon.vars.data.photo is not empty %}
-                                        <img src="{{ asset(coupon.vars.data.photo) }}" width="300px"/>
+                                        <img src="{{ asset(coupon.vars.data.photo) }}"/>
                                     {% endif %}
                                 </div>
                             {% endfor %}
