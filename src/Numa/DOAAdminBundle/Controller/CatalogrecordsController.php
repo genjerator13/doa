@@ -225,7 +225,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $catalogForm = new DealerCouponsType();
 
         //$catalogForm->setSecurityContext($securityContext);
-        $limitCoupons = 2;
+        $limitCoupons = 4;
         $countCoupons = 0;
         if (!empty($entity->getCoupon())) {
             $countCoupons = $entity->getCoupon()->count();
