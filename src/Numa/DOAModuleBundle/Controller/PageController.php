@@ -25,6 +25,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
+
     }
 
     public $dealer;

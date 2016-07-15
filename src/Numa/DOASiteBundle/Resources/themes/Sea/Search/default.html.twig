@@ -301,12 +301,15 @@
             $('#submit_eprice').click(function (e) {
                 e.preventDefault();
                 var form = $('#eprice_form').serializeArray();
-                alert("Success");
+
                 $.ajax({
                     type: "POST",
                     data: form,
                     url: '{{ path("listting_form_post",{"form":'eprice' }) }}',
-                });
+                    success:function(data) {
+                        $('#eprice_modal').close();
+                    }
+                })
             })
         });
 

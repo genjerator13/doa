@@ -97,7 +97,8 @@ class ExtraListener
             $controllerObject->initializePageComponents($components);
             //}
 
-        } elseif ($controllerObject instanceof DashboardDMSControllerInterface) {
+        }
+        if ($controllerObject instanceof DashboardDMSControllerInterface) {
             $request = $event->getRequest();
             $route = $request->get('_route');
             $dashboard = "";
@@ -105,6 +106,7 @@ class ExtraListener
                 $dashboard = "DMS";
 
             }
+
             $controllerObject->initializeDashboard($dashboard);
         }
     }

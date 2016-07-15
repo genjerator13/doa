@@ -3,7 +3,8 @@
 
 {% block content %}
     {% if coupons|length>0 %}
-        <h2>Free Saving Coupons for </br>{{ dealer.name }}</h2>
+        <h2>{{ displayComponent(components,'page_title')|raw }}</h2>
+        {{ displayComponent(components,'page_content')|raw }}
         {% for coupon in coupons %}
             <div class="coupon-container">
                 <div class="coupon-name"><h3>{{ coupon.name }}</h3></div>
