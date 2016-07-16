@@ -66,9 +66,7 @@ class PageRepository extends EntityRepository
         //remove /page from $url
 
         if (stripos($url, "page") !== false) {
-
             $url = substr($url,5,strlen($url)-1);
-            dump($url);
         }
 
         $qb = $this->getEntityManager()
