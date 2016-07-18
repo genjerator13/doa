@@ -31,7 +31,6 @@ services:
         arguments: ["@service_container" , "@security.token_storage"]
         tags:
             - { name: routing.loader, priority: 33 }
-
     listener.requestresponse:
         class: Numa\DOASiteBundle\Services\ExtraListener
         arguments: [ @service_container ]
@@ -39,3 +38,6 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+    Numa.ListingForms:
+        class: Numa\DOASiteBundle\Services\ListingFormHandler
+        arguments: ["@service_container" ]

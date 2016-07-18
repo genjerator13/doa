@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * ListingForm
@@ -23,6 +24,11 @@ class ListingForm
     /**
      * @var string
      * @JMS\Expose
+     * @Assert\Length(max=60)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z ]+$/i",
+     *     htmlPattern = "^[a-z A-Z]+$"
+     * )
      */
     private $cust_name;
 

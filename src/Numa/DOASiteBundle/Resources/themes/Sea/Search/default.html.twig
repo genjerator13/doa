@@ -307,7 +307,8 @@
                     data: form,
                     url: '{{ path("listting_form_post",{"form":'eprice' }) }}',
                     success:function(data) {
-                        $('#eprice_modal').close();
+                        $('#eprice_modal').modal('toggle');
+
                     }
                 })
             })

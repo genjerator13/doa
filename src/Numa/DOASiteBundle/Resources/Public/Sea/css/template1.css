@@ -710,3 +710,7 @@ and (max-width : 767px) {
  .searchSidebar label{
      font-weight: normal;
  }
+
+ .dontshow{
+     display:none;
+ }
