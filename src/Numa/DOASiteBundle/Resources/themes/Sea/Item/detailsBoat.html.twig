@@ -1,5 +1,8 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block form_label_class -%}
     col-sm-3
@@ -141,7 +144,7 @@
                                                     data-target="#eprice">Get ePrice
                                             </button>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
-                                                    data-target="#financing">Apply for Financing
+                                                    data-target="#finance">Apply for Financing
                                             </button>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                     data-target="#contactus">Contact us
@@ -252,6 +255,7 @@
                                 <div class="modal-body">
                                     {{ form(epriceForm) }}
                                 </div>
+                                <div class="eprice_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_eprice">Save changes
@@ -261,7 +265,7 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="financing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="finance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -270,11 +274,12 @@
                                     <h4 class="modal-title" id="myModalLabel">Apply for Financing</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(financeForm) }}
                                 </div>
+                                <div class="finance_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="submit_financing">Save changes
+                                    <button type="button" class="btn btn-primary" id="submit_finance">Save changes
                                     </button>
                                 </div>
                             </div>
@@ -369,23 +374,47 @@
 
                             $('#submit_eprice').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#eprice_form').serializeArray();
-                                alert("Success");
+                                var form = $('#eprice_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'eprice',"item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".eprice_error").html(data.action);
+                                        }else {
+                                            $('#eprice').modal('toggle');
+                                            $('.alertz').html("Successfully sent eprice form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
-                            $('#submit_contact').click(function (e) {
+                            $('#submit_finance').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#contact_form').serializeArray();
-                                alert("Success");
+                                var form = $('#finance_form').serialize();
+                                alert(form);
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'contact',"item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".finance_error").html(data.action);
+                                        }else {
+                                            $('#finance').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 

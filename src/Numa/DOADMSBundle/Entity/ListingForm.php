@@ -26,8 +26,8 @@ class ListingForm
      * @JMS\Expose
      * @Assert\Length(max=60)
      * @Assert\Regex(
-     *     pattern     = "/^[a-z ]+$/i",
-     *     htmlPattern = "^[a-z A-Z]+$"
+     *     pattern     = "/^[a-z A-Z1-9]+$/i",
+     *     htmlPattern = "^[a-z A-Z1-9]+$"
      * )
      */
     private $cust_name;
@@ -35,12 +35,22 @@ class ListingForm
     /**
      * @var string
      * @JMS\Expose
+     * @Assert\Length(max=60)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z A-Z1-9]+$/i",
+     *     htmlPattern = "^[a-z A-Z1-9]+$"
+     * )
      */
     private $cust_last_name;
 
     /**
      * @var string
      * @JMS\Expose
+     * @Assert\Length(max=60)
+     * @Assert\Regex(
+     *     pattern     = "/^[a-z A-Z1-9]+$/i",
+     *     htmlPattern = "^[a-z A-Z1-9]+$"
+     * )
      */
     private $cust_officer;
 
@@ -53,6 +63,7 @@ class ListingForm
     /**
      * @var string
      * @JMS\Expose
+     * @Assert\Email()
      */
     private $email;
 

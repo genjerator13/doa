@@ -24,13 +24,13 @@ class ListingFormHandler
         $this->container = $container;
     }
 
-    public function handleListingForm(ListingForm $listingForm){
+    public function handleListingForm(ListingForm $listingForm,$dealer=null){
 
 
         $item = $listingForm->getItem();
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(!empty($listingForm->getDealer())) {
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $listingForm->getEmail(), 'dealer_id' => $listingForm->getDealer()->getId()));
+        if(!empty($dealer)) {
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $listingForm->getEmail(), 'dealer_id' => $dealer->getId()));
 
             if (empty($customer)) {
                 $customer = new Customer();

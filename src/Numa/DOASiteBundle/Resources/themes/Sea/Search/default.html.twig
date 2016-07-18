@@ -272,8 +272,10 @@
 
                 </div>
                 <div class="modal-body">
+
                     <div class="te">Loading...</div>
                 </div>
+                <div class="eprice_error"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" id="submit_eprice">Save changes</button>
@@ -287,11 +289,11 @@
     <script>
         $(document).ready(function () {
 
-
+            var itemid;
             $(".eprice").on('click', function () {
 
                 var modal = $('#eprice_modal');
-                var itemid = $(this).data('itemid');
+                itemid = $(this).data('itemid');
                 console.log(itemid);
                 modal.on('show.bs.modal', function () {
                     $('#eprice_modal .modal-body').load('/item/' + itemid + '/eprice');
@@ -307,8 +309,16 @@
                     data: form,
                     url: '{{ path("listting_form_post",{"form":'eprice' }) }}',
                     success:function(data) {
-                        $('#eprice_modal').modal('toggle');
-
+                        if(data.message=='error'){
+                            $(".eprice_error").html(data.action);
+                        }else {
+                            $('#eprice_modal').modal('toggle');
+                            $('.alertz').html("Successfully sent eprice form.");
+                            $('.alertz').addClass("alert-success");
+                            $('.alertz').removeClass("dontshow");
+                            $('.alertz').show();
+                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                        }
                     }
                 })
             })

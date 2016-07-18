@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ListingFormEpriceType extends AbstractType
+class ListingFormFinanceType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -20,7 +20,7 @@ class ListingFormEpriceType extends AbstractType
             ->add('email', 'email', array('label'=>'Email *', 'required' => true))
             ->add('phone')
             ->add('comment')
-            ->add('type','hidden',array('data'=>'eprice'))
+            ->add('type','hidden',array('data'=>'finance'))
             ->add('item_id','hidden')
 
 //            ->add('date_created')
@@ -48,6 +48,6 @@ class ListingFormEpriceType extends AbstractType
      */
     public function getName()
     {
-        return 'eprice';
+        return 'finance';
     }
 }

@@ -9,8 +9,11 @@
 namespace Numa\DOAApiBundle\Controller;
 
 use Numa\DOADMSBundle\Entity\ListingForm;
-use Numa\DOADMSBundle\Entity\Customer;
+
+use Numa\DOADMSBundle\Form\ListingFormContactType;
+use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
+use Numa\DOADMSBundle\Form\ListingFormFinanceType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -52,28 +55,54 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
     public function postListingFormAction(Request $request)
     {
         $post = $request->getContent();
+        $error=true;
 
-        $data =$request->request->get('numa_doadmsbundle_listingform');
+        if(!empty($request->request->get('eprice'))) {
+            $data = $request->request->get('eprice');
+            $form = new ListingFormEpriceType();
+            $id = "eprice_form";
+        }
+        if(!empty($request->request->get('finance'))) {
+            $data = $request->request->get('finance');
+            $form = new ListingFormFinanceType();
+            $id = "finance_form";
+        }
+        if(empty($request->request->get('contact'))) {
+            $data = $request->request->get('contact');
+            $form = new ListingFormContactType();
+            $id = "conatact_form";
+        }
+        if(empty($request->request->get('drive'))){
+           $data = $request->request->get('drive');
+           $form = new ListingFormDriveType();
+            $id = "drive_form";
+        }
 
-        $form = new ListingFormEpriceType();
+
+
         $entity = new ListingForm();
-        $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
+        $form = $this->createForm($form, $entity, array(
             'csrf_protection' => false,
             'method' => 'POST',
-            'attr' => array('id'=>"contact_form"),
+            'attr' => array('id'=>$id),
         ));
 
         $form->submit($data);
 
-        //dump($form->getData());die();
         if($form->isValid()){
-            dump("aaaaa");
-        }else{
-            dump($form->getErrorsAsString(true));
+            $error=false;
         }
-       
-        $this->get("Numa.ListingForms")->handleListingForm($form);
 
+        $this->get("Numa.ListingForms")->handleListingForm($form->getData(),$this->dealer);
+
+        if($error){
+            $response = new JsonResponse(
+                array(
+                    'message' => 'error',
+                    'action' => $form->getErrorsAsString(),
+                    400));
+            return $response;
+        }
         $response = new JsonResponse(
             array(
                 'message' => 'Success',

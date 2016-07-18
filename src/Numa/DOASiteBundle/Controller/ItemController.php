@@ -8,6 +8,7 @@ use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
 use Numa\DOADMSBundle\Form\ListingFormOfferType;
+use Numa\DOADMSBundle\Form\ListingFormFinanceType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -69,6 +70,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'driveForm' => $this->createCreateDriveForm(new ListingForm())->createView(),
                 'offerForm' => $this->createCreateOfferForm(new ListingForm())->createView(),
                 'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
+                'financeForm' => $this->createCreateFinanceForm(new ListingForm())->createView(),
                 'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
                 'emailForm' => $emailForm->createView()));
             return $response;
@@ -128,6 +130,24 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'attr' => array('id'=>"eprice_form")
         ));
        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateFinanceForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_contact'),
+            'method' => 'POST',
+            'attr' => array('id'=>"finance_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
