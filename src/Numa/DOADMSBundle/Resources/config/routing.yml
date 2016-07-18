@@ -87,4 +87,6 @@ command_log:
 NumaDOAAdminBundle_catalogs:
     resource: "@NumaDOADMSBundle/Resources/config/routing/catalogrecords.yml"
     prefix:   /catalogs
-
+NumaDOADMSBundle_dealercomponent:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dealercomponent.yml"
+    prefix:   /dealercomponent
