@@ -13,9 +13,9 @@
     </div>
     <form>
         Date From:
-        <input type="date">
+        <input type="date" class="datepicker">
         Date To:
-        <input type="date">
+        <input type="date" class="datepicker">
 
         <button class="btn btn-success" type="submit">Show</button>
     </form>
@@ -56,4 +56,9 @@
     </div>
     {% endif %}
 </div>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+        });
+    </script>
 {% endblock %}
