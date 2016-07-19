@@ -37,7 +37,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
     }
 
     public $dealer;
-    public $components;
+
 
     public function initializeDealer($dealer)
     {
@@ -45,10 +45,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
     }
 
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
+
 
     /**
      * Lists all User entities.

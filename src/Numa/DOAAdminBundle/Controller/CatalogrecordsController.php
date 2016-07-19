@@ -28,7 +28,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
     }
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
@@ -36,10 +35,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
     }
 
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
 
     /**
      * Lists all Catalogrecords entities.

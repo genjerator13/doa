@@ -15,7 +15,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 {
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
@@ -23,10 +22,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     }
 
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
 
     public function indexAction()
     {
@@ -210,7 +205,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             'motorsportForm' => $motorsportForm->createView(),
             'rvsForm' => $rvsForm->createView(),
             'agForm' => $agForm->createView(),
-            'components' => $this->components,
+
             'dealer' => $this->dealer,
             'marineForm' => $marineForm->createView()));
         if (!$nocache) {
@@ -351,7 +346,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function accessDeniedAction()
     {
-        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig',array('components' => $this->components,
+        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig',array(
             'dealer' => $this->dealer,));
     }
 
@@ -441,7 +436,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function aboutusAction(Request $request)
     {
-        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ));
     }
 
     public function contactUsAction(Request $request)
@@ -461,16 +456,16 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $response = $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array(
             'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
-            'components' => $this->components,
+
             'dealer' => $this->dealer,
         ));
         return $response;
-        //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
+        //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
 
     public function newsAction(Request $request)
     {
-        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ,'components' => $this->components));
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ));
     }
 
     public function uploadImageAction(Request $request)
