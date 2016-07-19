@@ -184,7 +184,7 @@ class NumaExtension extends \Twig_Extension
             $dcomponents = $dealer->getComponent();
         }
         if (!empty($pcomponents)) {
-            $componentsArray = $components->matching($criteria);
+            $componentsArray = $pcomponents->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
 
