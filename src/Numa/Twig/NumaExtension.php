@@ -162,7 +162,7 @@ class NumaExtension extends \Twig_Extension
                 $component = $componentsArray->first();
             }
         }
-
+        
         if(! ($component instanceof Component) && !($component instanceof DealerComponent)){
 
             if($source=="page" && $page instanceof Page){
@@ -183,6 +183,7 @@ class NumaExtension extends \Twig_Extension
                 $comp->setName($name);
                 $comp->setType($type);
                 $em->persist($comp);
+
                 $em->flush();
                 $value = $comp->getValue();
             }
