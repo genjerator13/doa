@@ -26,4 +26,18 @@ class BillingRepository extends EntityRepository
         return false;
     }
 
+    public function findByDate($date, $date1)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('b')
+            ->from('NumaDOADMSBundle:Billing', 'b')
+            ->Where('b.date_created BETWEEN :date AND :date1')
+            ->setParameter("date", $date)
+            ->setParameter("date1", $date1);
+
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
 }

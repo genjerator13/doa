@@ -90,3 +90,6 @@ NumaDOAAdminBundle_catalogs:
 NumaDOADMSBundle_dealercomponent:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dealercomponent.yml"
     prefix:   /dealercomponent
+dms_reports:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/reports.yml"
+    prefix:   /reports
