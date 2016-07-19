@@ -117,8 +117,10 @@ class NumaExtension extends \Twig_Extension
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name))
             ;//->getMaxResults(1);
-        if(!empty($components)) {
-            $componentsArray = $components->matching($criteria);
+        
+        $pcomponent = array_merge($components['page'],$components['dealer']);
+        if(!empty($pcomponent)) {
+            $componentsArray = $pcomponent->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
 

@@ -171,5 +171,27 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         return $query->getResult();
     }
 
+    public function findDealerComponents($dealer_id = null)
+    {
+        //remove /page from $url
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->select('dc')
+            ->add('from', 'NumaDOADMSBundle:DealerComponent dc');
+        if (empty($dealer_id)) {
+            $qb->andWhere('dc.dealer_id is null');
+        } else {
+            $qb->andWhere('dc.dealer_id=:dealer_id');
+            $qb->setParameter('dealer_id', $dealer_id);
+
+        }
+
+        $dc = $qb->getQuery()->getResult();
+
+
+        return $dc;
+    }
+
 
 }

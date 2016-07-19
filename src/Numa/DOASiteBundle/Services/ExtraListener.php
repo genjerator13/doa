@@ -89,12 +89,16 @@ class ExtraListener
 
             $em = $this->container->get('doctrine.orm.entity_manager');
             $dealer_id = null;
-            $components = null;
+            $pcomponents = array();
+            $dcomponents = array();
             if ($dealer instanceof Catalogrecords) {
-                $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+                $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+                $dcomponents = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findDealerComponents($dealer->getId());
             }
-
+            $components['page'] = $pcomponents;
+            $components['dealer'] = $dcomponents;
             $controllerObject->initializePageComponents($components);
+            ///$controllerObject->initializeDealerComponents($dcomponents);
             //}
 
         }

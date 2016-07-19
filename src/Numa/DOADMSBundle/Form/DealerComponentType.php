@@ -15,15 +15,15 @@ class DealerComponentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dealer_id')
+            //->add('dealer_id')
             ->add('name')
             ->add('type')
             ->add('value')
-            ->add('settings', 'hidden')
-            ->add('date_updated', 'hidden')
-            ->add('date_created', 'hidden')
-            ->add('status', 'hidden')
-            ->add('Dealer', 'hidden')
+//            ->add('settings', 'hidden')
+//            ->add('date_updated', 'hidden')
+//            ->add('date_created', 'hidden')
+//            ->add('status', 'hidden')
+            //->add('Dealer', 'hidden')
         ;
     }
     
