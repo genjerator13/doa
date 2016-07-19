@@ -1,0 +1,117 @@
+{# get the loged dealer #}
+{% set apicall="/api/dealer_component/all" %}
+{% if is_granted('ROLE_BUSINES') %}
+{% set user= app.security.getToken().getUser().getId() %}
+{% set apicall="/api/dealer_component/"~user~"/dealer" %}
+{% endif %}
+{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
+{% set user= app.session.get('dms_dealer_id') %}
+{% set apicall="/api/dealer_component/"~user~"/dealer" %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 50,
+        enableColumnResizing: true,
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {name: 'name', enableColumnResizing: true, width: 150},
+        {name: 'type', enableColumnResizing: true, width: 200},
+        {name: 'value', enableColumnResizing: true, width: 400},
+        {
+            name: 'Actions',
+            width: 100,
+            enableColumnMenu: false,
+            enableSorting: false,
+            enableFiltering: false,
+            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+        }
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.delete = function (row) {
+        console.log(row.entity.id);
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+
+            $http.delete('/dms/customers/' + row.entity.id + "/delete", {timeout: canceler.promise})
+                    .success(function (data) {
+                        var index = $scope.gridOptions.data.indexOf(row.entity);
+                        $scope.gridOptions.data.splice(index, 1);
+                    });
+        }, function () {
+            //cancel
+        });
+
+
+    }
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                $scope.gridOptions.data = data;
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            var msg = 'row selected ' + row.isSelected;
+            $log.log(msg);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            var msg = 'rows changed ' + rows.length;
+            $log.log(msg);
+        });
+    };
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

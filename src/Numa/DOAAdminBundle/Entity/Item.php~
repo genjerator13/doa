@@ -4441,35 +4441,6 @@ class Item
         return $this->remotes;
     }
     /**
-     * @var int
-     */
-    private $grey_water_capacity;
-
-
-    /**
-     * Set greyWaterCapacity
-     *
-     * @param int $greyWaterCapacity
-     *
-     * @return Item
-     */
-    public function setGreyWaterCapacity($greyWaterCapacity)
-    {
-        $this->grey_water_capacity = $greyWaterCapacity;
-
-        return $this;
-    }
-
-    /**
-     * Get greyWaterCapacity
-     *
-     * @return int
-     */
-    public function getGreyWaterCapacity()
-    {
-        return $this->grey_water_capacity;
-    }
-    /**
      * @var string
      */
     private $cover_phote;

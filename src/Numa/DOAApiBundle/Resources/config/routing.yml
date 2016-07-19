@@ -87,3 +87,6 @@ listing_add_feature:
     pattern:  /listings/addfeature
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:addFeature"}
     requirements: { _method: post }
+dealer_component_api:
+    resource: "@NumaDOAApiBundle/Resources/config/routing/dealer_component.yml"
+    prefix:   /dealer_component
