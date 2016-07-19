@@ -7,6 +7,7 @@ namespace Numa\Twig;
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOADMSBundle\Entity\Component;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 
 class NumaExtension extends \Twig_Extension
 {
@@ -112,21 +113,55 @@ class NumaExtension extends \Twig_Extension
         return "https://www.youtube.com/embed/".$id;
     }
 
-    public function displayComponent($components,$name)
+    public function displayComponent($name)
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name))
             ;//->getMaxResults(1);
-        
-        $pcomponent = array_merge($components['page'],$components['dealer']);
-        if(!empty($pcomponent)) {
-            $componentsArray = $pcomponent->matching($criteria);
+        $request = $this->container->get("request");
+        //dump($request);
+        $pathinfo = $request->getPathInfo();
+
+        if (substr($pathinfo, 0, 2) === "/d") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $host = trim(strip_tags($request->getHost()));
+        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
+
+        $dealer_id = null;
+        $pcomponents = array();
+        $dcomponents = array();
+
+        if ($dealer instanceof Catalogrecords) {
+            $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+            $dcomponents = $dealer->getComponent();
+        }
+        //dump($dealer->getComponent());die();
+//        $components['page'] = $pcomponents;
+//        $components['dealer'] = $dcomponents;
+        //$componentRes = "c not f";
+
+        if(!empty($pcomponents)) {
+            $componentsArray = $pcomponents->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
 
                 return $componentsArray->first()->getValue();
             }
         }
+
+        if(!empty($dcomponents)) {
+
+            $componentsArray = $dcomponents->matching($criteria);
+
+            if (!empty($componentsArray) and $componentsArray->count() > 0) {
+
+                return  $componentsArray->first()->getValue();
+            }
+        }
+
         return "c not f";
     }
 

@@ -1,14 +1,20 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserLoaderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * DMSUser
+ * @ORM\Entity
+ * @UniqueEntity("username")
+ * @UniqueEntity("email")
  */
 class DMSUser  implements UserInterface
 {
@@ -19,16 +25,19 @@ class DMSUser  implements UserInterface
 
     /**
      * @var string
+     * @Assert\Length(min=2)
      */
     private $username;
 
     /**
      * @var string
+
      */
     private $password;
 
     /**
      * @var string
+     * @Assert\Length(min=2)
      */
     private $email;
 
@@ -762,6 +771,14 @@ class DMSUser  implements UserInterface
                 return array('ROLE_SALES');
             } elseif ($groupName == 'manager') {
                 return array('ROLE_MANAGER');
+            }elseif ($groupName == 'service_user') {
+                return array('ROLE_SERVICE_DMS');
+            }elseif ($groupName == 'parts_user') {
+                return array('ROLE_PARTS_DMS');
+            }elseif ($groupName == 'regular_admin') {
+                return array('ROLE_REGULAR_ADMIN_DMS');
+            }elseif ($groupName == 'super_admin') {
+                return array('ROLE_ADMIN');
             }
         }
         return array('ROLE_USER');
@@ -781,5 +798,25 @@ class DMSUser  implements UserInterface
 
     public function __sleep(){
         return array('id', 'username', 'email');
+    }
+
+    public function getName(){
+        return $this->getFirstName()." ".$this->getLastName();
+    }
+
+    public function getLogoUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getLogoUrl();
+        }
+        return "";
+    }
+
+    public function getUrl(){
+        $dealer=$this->getDealer();
+        if($dealer instanceof Catalogrecords){
+            return $dealer->getUrl();
+        }
+        return "";
     }
 }
