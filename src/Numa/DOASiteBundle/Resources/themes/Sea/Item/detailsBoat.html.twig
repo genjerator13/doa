@@ -3,6 +3,7 @@
 {% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block form_label_class -%}
     col-sm-3
@@ -297,6 +298,7 @@
                                 <div class="modal-body">
                                     {{ form(contactForm) }}
                                 </div>
+                                <div class="contactus_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_contact">Save changes
@@ -317,6 +319,7 @@
                                 <div class="modal-body">
                                     {{ form(offerForm) }}
                                 </div>
+                                <div class="offer_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_offer">Save changes
@@ -340,6 +343,9 @@
                                 <div class="modal-body">
                                     {{ form(driveForm) }}
                                 </div>
+                                <div class="testdrive_error">
+
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_testdrive">Save changes
@@ -352,23 +358,47 @@
                         $(document).ready(function () {
                             $('#submit_testdrive').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#test_drive_form').serializeArray();
-                                alert("Success");
+                                var form = $('#testdrive_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'drive',"item_id": item.id}) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".testdrive_error").html(data.action);
+                                        }else {
+                                            $('#testdrive').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
                             $('#submit_offer').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#offer_form').serializeArray();
-                                alert("Success");
+                                var form = $('#offer_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":"offer","item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".offer_error").html(data.action);
+                                        }else {
+                                            $('#offer').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
@@ -398,7 +428,7 @@
                             $('#submit_finance').click(function (e) {
                                 e.preventDefault();
                                 var form = $('#finance_form').serialize();
-                                alert(form);
+
                                 $.ajax({
                                     type: "POST",
                                     data: form+"{{ item.id }}",
@@ -408,6 +438,29 @@
                                             $(".finance_error").html(data.action);
                                         }else {
                                             $('#finance').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_contact').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#contact_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".contactus_error").html(data.action);
+                                        }else {
+                                            $('#contactus').modal('toggle');
                                             $('.alertz').html("Successfully sent finance form.");
                                             $('.alertz').addClass("alert-success");
                                             $('.alertz').removeClass("dontshow");

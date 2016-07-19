@@ -91,7 +91,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormDriveType(), $entity, array(
             'action' => $this->generateUrl('listingform_create_drive'),
             'method' => 'POST',
-            'attr' => array('id'=>"test_drive_form")
+            'attr' => array('id'=>"testdrive_form")
         ));
         //$form->add('submit', 'submit', array('label' => 'Create'));
         return $form;

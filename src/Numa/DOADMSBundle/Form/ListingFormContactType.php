@@ -55,6 +55,6 @@ class ListingFormContactType extends AbstractType
      */
     public function getName()
     {
-        return 'contact_us';
+        return 'contactus';
     }
 }

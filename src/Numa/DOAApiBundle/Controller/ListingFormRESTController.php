@@ -14,12 +14,13 @@ use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
 use Numa\DOADMSBundle\Form\ListingFormFinanceType;
+use Numa\DOADMSBundle\Form\ListingFormOfferType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class ListingFormRESTController extends Controller implements DealerSiteControllerInterface{
 
@@ -61,26 +62,36 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $data = $request->request->get('eprice');
             $form = new ListingFormEpriceType();
             $id = "eprice_form";
+
         }
         if(!empty($request->request->get('finance'))) {
             $data = $request->request->get('finance');
             $form = new ListingFormFinanceType();
             $id = "finance_form";
+
         }
-        if(empty($request->request->get('contact'))) {
-            $data = $request->request->get('contact');
+        if(!empty($request->request->get('contactus'))) {
+            $data = $request->request->get('contactus');
             $form = new ListingFormContactType();
-            $id = "conatact_form";
+            $id = "contact_form";
+
         }
-        if(empty($request->request->get('drive'))){
-           $data = $request->request->get('drive');
+        if(!empty($request->request->get('testdrive'))){
+           $data = $request->request->get('testdrive');
            $form = new ListingFormDriveType();
-            $id = "drive_form";
+            $id = "testdrive_form";
+
+        }
+        if(!empty($request->request->get('offer'))){
+            $data = $request->request->get('offer');
+            $form = new ListingFormOfferType();
+            $id = "offer_form";
         }
 
 
 
         $entity = new ListingForm();
+        $entity->setDealer($this->dealer);
         $form = $this->createForm($form, $entity, array(
             'csrf_protection' => false,
             'method' => 'POST',
@@ -89,6 +100,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         $form->submit($data);
 
+        //die();
         if($form->isValid()){
             $error=false;
         }

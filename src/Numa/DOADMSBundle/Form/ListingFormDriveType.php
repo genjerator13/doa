@@ -21,7 +21,8 @@ class ListingFormDriveType extends AbstractType
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')
             ->add('date_drive', null, array('label'=>'Best Date *', 'required' => true))
-
+            ->add('type','hidden',array('data'=>'testdrive'))
+            ->add('item_id','hidden')
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')
@@ -37,7 +38,8 @@ class ListingFormDriveType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm'
+            'csrf_protection' => false,
+            'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm',
         ));
     }
 
@@ -46,6 +48,6 @@ class ListingFormDriveType extends AbstractType
      */
     public function getName()
     {
-        return 'numa_doadmsbundle_listingform';
+        return 'testdrive';
     }
 }

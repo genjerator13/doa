@@ -25,6 +25,7 @@ class ListingForm
      * @var string
      * @JMS\Expose
      * @Assert\Length(max=60)
+     * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern     = "/^[a-z A-Z1-9]+$/i",
      *     htmlPattern = "^[a-z A-Z1-9]+$"
@@ -36,6 +37,7 @@ class ListingForm
      * @var string
      * @JMS\Expose
      * @Assert\Length(max=60)
+     * @Assert\NotBlank()
      * @Assert\Regex(
      *     pattern     = "/^[a-z A-Z1-9]+$/i",
      *     htmlPattern = "^[a-z A-Z1-9]+$"
@@ -64,6 +66,7 @@ class ListingForm
      * @var string
      * @JMS\Expose
      * @Assert\Email()
+     * @Assert\NotBlank()
      */
     private $email;
 
