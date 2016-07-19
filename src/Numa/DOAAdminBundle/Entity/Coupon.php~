@@ -376,4 +376,13 @@ class Coupon
         // clean up the file property as you won't need it anymore
         $this->originalImage = null;
     }
+    public function isEmpty(){
+//        if (empty($this->getPhoto()) && empty($this->getDescription()) && empty($this->$discount)){
+//            return false;
+//        }
+//        else{
+//            return true;
+//        }
+        return empty($this->getName());
+    }
 }

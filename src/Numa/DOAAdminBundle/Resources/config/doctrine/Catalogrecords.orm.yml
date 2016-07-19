@@ -156,6 +156,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             targetEntity: Coupon
             mappedBy: Catalogrecords
             cascade: [persist]
+        Component:
+            targetEntity: Numa\DOADMSBundle\Entity\DealerComponent
+            mappedBy: Dealer
+            cascade: [persist]
         HomeTab:
             targetEntity: Numa\DOAAdminBundle\Entity\HomeTab
             mappedBy: Catalogrecords

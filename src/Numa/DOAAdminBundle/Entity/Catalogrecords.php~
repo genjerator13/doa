@@ -1030,6 +1030,15 @@ class Catalogrecords implements UserInterface
         return $this->Coupon;
     }
 
+    public function hasCoupons(){
+        foreach($this->getCoupon() as $coupon){
+            if(!$coupon->isEmpty()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @var bool
      */
@@ -1422,5 +1431,89 @@ class Catalogrecords implements UserInterface
     public function getSiteInstagram()
     {
         return $this->site_instagram;
+    }
+    /**
+     * @var string
+     */
+    private $site_twitter;
+
+
+    /**
+     * Set siteTwitter
+     *
+     * @param string $siteTwitter
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteTwitter($siteTwitter)
+    {
+        $this->site_twitter = $siteTwitter;
+
+        return $this;
+    }
+
+    /**
+     * Get siteTwitter
+     *
+     * @return string
+     */
+    public function getSiteTwitter()
+    {
+        return $this->site_twitter;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Component;
+
+
+    /**
+     * Add component
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerComponent $component
+     *
+     * @return Catalogrecords
+     */
+    public function addComponent(\Numa\DOADMSBundle\Entity\DealerComponent $component)
+    {
+        $this->Component[] = $component;
+
+        return $this;
+    }
+
+    /**
+     * Remove component
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerComponent $component
+     */
+    public function removeComponent(\Numa\DOADMSBundle\Entity\DealerComponent $component)
+    {
+        $this->Component->removeElement($component);
+    }
+
+    /**
+     * Get component
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComponent()
+    {
+        return $this->Component;
+    }
+
+    // Important
+    public function getDealerComponent()
+    {
+
+        $components = new ArrayCollection();
+
+        if (!empty($this->getComponent())) {
+            foreach ($this->getComponent() as $pc) {
+
+                $components[] = $pc;
+            }
+        }
+        dump($components);die();
+        return $components;
     }
 }

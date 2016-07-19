@@ -77,13 +77,11 @@
                 {{ dealer.ServiceHours|raw }}
             </li>
             <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent(components,'quick_links')|raw }}
-                {% endif %}
+                {{ displayComponent('quick_links')|raw }}
             </li>
         </ul>
     </div>
-{%  endblock %}
+{% endblock %}
 
 
 {% block map %}

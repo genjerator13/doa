@@ -10,19 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 class SellerController extends Controller implements DealerSiteControllerInterface {
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
 
     }
-
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
-
+    
     public function searchAction(Request $request) {
         $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,
@@ -61,7 +55,7 @@ class SellerController extends Controller implements DealerSiteControllerInterfa
         }
         $coupons = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getNonEmptyCoupons($dealer->getId());
 
-        return $this->render('NumaDOASiteBundle:Seller:coupon.html.twig', array('components' => $this->components,'dealer' => $dealer,'coupons'=>$coupons));
+        return $this->render('NumaDOASiteBundle:Seller:coupon.html.twig', array('dealer' => $dealer,'coupons'=>$coupons));
     }
 
 }
