@@ -164,7 +164,7 @@ class NumaExtension extends \Twig_Extension
         return "c not f";
     }
 
-    public function displayCarouselComponent($components)
+    public function displayCarouselComponent()
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
