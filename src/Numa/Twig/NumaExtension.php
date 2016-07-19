@@ -110,14 +110,13 @@ class NumaExtension extends \Twig_Extension
     public function getYoutubeEmbed($id)
     {
         //https://www.youtube.com/embed/xH01UCfId0A
-        return "https://www.youtube.com/embed/".$id;
+        return "https://www.youtube.com/embed/" . $id;
     }
 
     public function displayComponent($name)
     {
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("name", $name))
-            ;//->getMaxResults(1);
+            ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
         $request = $this->container->get("request");
         //dump($request);
         $pathinfo = $request->getPathInfo();
@@ -143,7 +142,7 @@ class NumaExtension extends \Twig_Extension
 //        $components['dealer'] = $dcomponents;
         //$componentRes = "c not f";
 
-        if(!empty($pcomponents)) {
+        if (!empty($pcomponents)) {
             $componentsArray = $pcomponents->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
@@ -152,32 +151,47 @@ class NumaExtension extends \Twig_Extension
             }
         }
 
-        if(!empty($dcomponents)) {
+        if (!empty($dcomponents)) {
 
             $componentsArray = $dcomponents->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
 
-                return  $componentsArray->first()->getValue();
+                return $componentsArray->first()->getValue();
             }
         }
 
         return "c not f";
     }
 
-    public function displayCarouselComponent($components){
+    public function displayCarouselComponent($components)
+    {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
+        $request = $this->container->get("request");
+        //dump($request);
+        $pathinfo = $request->getPathInfo();
 
-        if(!empty($components)) {
+        if (substr($pathinfo, 0, 2) === "/d") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $host = trim(strip_tags($request->getHost()));
+        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
+        if ($dealer instanceof Catalogrecords) {
+            $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+            $dcomponents = $dealer->getComponent();
+        }
+        if (!empty($pcomponents)) {
             $componentsArray = $components->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
 
-                $component =  $componentsArray->first();
+                $component = $componentsArray->first();
 
-                $em        = $this->container->get('doctrine.orm.entity_manager');
-                $images    = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+                $em = $this->container->get('doctrine.orm.entity_manager');
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
 
                 return $images;
             }
@@ -185,26 +199,28 @@ class NumaExtension extends \Twig_Extension
         return null;
     }
 
-    public function getDealer(){
-        $session   = $this->container->get('session');
+    public function getDealer()
+    {
+        $session = $this->container->get('session');
         $dealer_id = $session->get('dealer_id');
-        $em        = $this->container->get('doctrine.orm.entity_manager');
-        $dealer    = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
         return $dealer;
     }
 
-    public function shortWord($str,$chars){
+    public function shortWord($str, $chars)
+    {
         $pieces = explode(" ", $str);
         $pieces = preg_split("/[-;, ]+/", $str);
         $len = 0;
-        $ret="";
-        foreach($pieces as $word){
+        $ret = "";
+        foreach ($pieces as $word) {
             $len = $len + strlen($word);
 
-            if($len>$chars){
+            if ($len > $chars) {
                 return $ret;
             }
-            $ret = $ret." ".$word;
+            $ret = $ret . " " . $word;
         }
         return $ret;
 
