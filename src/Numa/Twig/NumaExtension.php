@@ -183,6 +183,7 @@ class NumaExtension extends \Twig_Extension
             $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
             $dcomponents = $dealer->getComponent();
         }
+
         if (!empty($pcomponents)) {
             $componentsArray = $pcomponents->matching($criteria);
 
