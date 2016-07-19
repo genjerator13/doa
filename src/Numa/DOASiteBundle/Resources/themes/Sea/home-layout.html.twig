@@ -43,8 +43,8 @@
 {% endblock %}
 
 {% block mainmenu %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-    {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+    {#{{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}#}
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
 {% endblock %}
 
 {% block mobilemenu %}
@@ -139,9 +139,6 @@
     <div class="alertz hide alert"></div>
 {% block content %}
 
-
-
-
 {% endblock %}
 </div>
 {% block info %}
@@ -182,7 +179,7 @@
                 <ul>
                     <li><a href="{{ path("homepage") }}">Home</a></li>
                     <li><a href="{{ path("about_us") }}">About Us</a></li>
-                    <li><a href="{{ path("search_dispatch") }}>Products</a></li>
+                    <li><a href="{{ path("search_dispatch") }}">Products</a></li>
                     <li><a href="{{ path("service_form") }}">Services</a></li>
                     <li><a href="#" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
                 </ul>
