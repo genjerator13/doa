@@ -29,7 +29,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     }
 
     public $dealer;
-    public $components;
+
 
     public function initializeDealer($dealer)
     {
@@ -37,10 +37,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
 
     }
 
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
+
 
     /**
      * Lists all Page entities.
@@ -195,7 +192,6 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
             'dealer' => $this->dealer,
-            'components' => $this->components,
         ));
     }
 

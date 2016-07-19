@@ -17,17 +17,10 @@ class PageController extends Controller implements DealerSiteControllerInterface
 {
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
-    }
-
-    public function initializePageComponents($components)
-    {
-
-        $this->components=$components;
     }
 
     public function showAction($url)

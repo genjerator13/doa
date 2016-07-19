@@ -22,7 +22,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 class SearchController extends Controller implements DealerSiteControllerInterface{
 
     public $dealer;
-    public $components;
+
     public $items;
     public $query;
     public $twigParams;
@@ -30,9 +30,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $this->dealer = $dealer;
     }
 
-    public function initializePageComponents($components){
-        $this->components = $components;
-    }
 
 
     protected $searchParameters;
@@ -350,7 +347,6 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         return $this->render('NumaDOASiteBundle:Search:advanced.html.twig', array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
-            'components' => $this->components,
         ));
     }
 

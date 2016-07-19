@@ -16,7 +16,7 @@ class SellerController extends Controller implements DealerSiteControllerInterfa
         $this->dealer = $dealer;
 
     }
-    
+
     public function searchAction(Request $request) {
         $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
                     'csrf_protection' => false,

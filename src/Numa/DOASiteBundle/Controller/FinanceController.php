@@ -14,17 +14,11 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 {
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
 
-    }
-
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
     }
 
     public function newAction(Request $request)
@@ -84,7 +78,6 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Finance:finance_form.html.twig', array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
-            'components' => $this->components,
         ));
     }
 }
