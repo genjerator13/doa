@@ -55,41 +55,37 @@
     {% endblock %}
 </div>
 <div class="content">
-{% block content %}
-<div class="content">
+    {% block content %}
+        <div class="content">
 
-</div>
-{% endblock %}
+        </div>
+    {% endblock %}
 </div>
 {% block info %}
-{% if dealer is defined and dealer is not empty %}
-    <div class="info">
-        <ul>
-            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
-            <li>
-                <h2>{{ dealer.name }}</h2>
-                <div class="address">
-                    {{ dealer.address }}<br>
-                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
-                </div>
-                <div class="phone">
-                    <span>Phone:</span> {{ dealer.phone }}<br>
-                </div>
-            </li>
-            <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent('hours_of_operation')|raw }}
-                {% endif %}
-            </li>
-            <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent('quick_links')|raw }}
-                {% endif %}
-            </li>
-        </ul>
-    </div>
-{% endif %}
-{%  endblock %}
+    {% if dealer is defined and dealer is not empty %}
+        <div class="info">
+            <ul>
+                <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+                <li>
+                    <h2>{{ dealer.name }}</h2>
+                    <div class="address">
+                        {{ dealer.address }}<br>
+                        {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
+                    </div>
+                    <div class="phone">
+                        <span>Phone:</span> {{ dealer.phone }}<br>
+                    </div>
+                </li>
+                <li>
+                    {{ dealer.ServiceHours|raw }}
+                </li>
+                <li>
+                    {{ displayComponent('quick_links',"HTML")|raw }}
+                </li>
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
 
 
 {% block map %}

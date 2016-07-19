@@ -8,9 +8,9 @@
 {%- endblock form_group_class %}
 {% block content %}
     {% set dealer = getDealer() %}
-    {% if(components is defined) %}
-        {{ displayComponent('page_content') }}
-    {% endif %}
+
+    {{ displayComponent('page_content',"HTML") }}
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {% if app.session.flashBag.has('success') %}

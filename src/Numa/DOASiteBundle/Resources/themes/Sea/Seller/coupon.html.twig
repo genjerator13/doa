@@ -6,7 +6,7 @@
 
         <h2>{{ displayComponent('page_title',"Text")|raw }}</h2>
         {{ displayComponent('page_content',"HTML")|raw }}
-        {{ displayComponent('coupon_carousel',"Carousel","dealer")|raw }}
+
         {% for coupon in coupons %}
             <div class="coupon-container">
                 <div class="coupon-name"><h3>{{ coupon.name }}</h3></div>
