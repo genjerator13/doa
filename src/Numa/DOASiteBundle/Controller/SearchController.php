@@ -1175,20 +1175,20 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
         $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style",$this->dealer);
         $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle));
+        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,"required"=>false));
 
         $make = $em->getRepository('NumaDOAAdminBundle:Item')->getAllmake($this->dealer);
         //dump($make);die();
         $make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
-        $sidebarForm->add('make','choice',array('label'=>'Make','choices'=>$make));
+        $sidebarForm->add('make','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
 
         $yearFrom = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer);
         $yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
-        $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom));
+        $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom,"required"=>false));
 
         $yearTo = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer,"DESC");
         $yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo));
+        $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo,"required"=>false));
 
 //        $criteriaMinYear = Criteria::create()->orderBy(array('year' => Criteria::ASC));
 //        $criteriaMaxYear = Criteria::create()->orderBy(array('year' => Criteria::DESC));
