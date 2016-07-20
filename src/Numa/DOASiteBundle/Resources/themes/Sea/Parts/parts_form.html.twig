@@ -20,9 +20,8 @@
         }
     </style>
 
-    {% if(components is defined) %}
-        {{ displayComponent('page_content') }}
-    {% endif %}
+    {{ displayComponent('page_content',"HTML") }}
+
 
     {{ form_start(form) }}
     {{ form_errors(form) }}

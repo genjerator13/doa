@@ -5,9 +5,12 @@
 namespace Numa\Twig;
 
 use Doctrine\Common\Collections\Criteria;
-use Numa\DOADMSBundle\Entity\Component;
+use Numa\DOAModuleBundle\Entity\Component;
+use Numa\DOADMSBundle\Entity\DealerComponent;
+use Numa\DOAModuleBundle\Entity\PageComponent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAModuleBundle\Entity\Page;
 
 class NumaExtension extends \Twig_Extension
 {
@@ -113,12 +116,17 @@ class NumaExtension extends \Twig_Extension
         return "https://www.youtube.com/embed/" . $id;
     }
 
-    public function displayComponent($name)
+    public function displayComponent($name, $type="Text", $source = "page")
     {
+
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
+        if(strtolower($type)=="carousel"){
+            $criteria = Criteria::create()
+                ->where(Criteria::expr()->eq("type", 'Carousel'));
+        }
         $request = $this->container->get("request");
-        //dump($request);
+
         $pathinfo = $request->getPathInfo();
 
         if (substr($pathinfo, 0, 2) === "/d") {
@@ -130,38 +138,74 @@ class NumaExtension extends \Twig_Extension
 
 
         $dealer_id = null;
-        $pcomponents = array();
-        $dcomponents = array();
+        $page = null;
+        $component = null;
+        $value = "c not f";
+        //$dcomponents = array();
 
         if ($dealer instanceof Catalogrecords) {
-            $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-            $dcomponents = $dealer->getComponent();
-        }
-        //dump($dealer->getComponent());die();
-//        $components['page'] = $pcomponents;
-//        $components['dealer'] = $dcomponents;
-        //$componentRes = "c not f";
+            if ($source == "page") {
+                $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo,$dealer->getId());
+                if ($page instanceof Page) {
+                    $components = $page->getComponent();
+                }
 
-        if (!empty($pcomponents)) {
-            $componentsArray = $pcomponents->matching($criteria);
-
-            if (!empty($componentsArray) and $componentsArray->count() > 0) {
-
-                return $componentsArray->first()->getValue();
+            } elseif ($source == "dealer") {
+                $components = $dealer->getComponent();
             }
         }
 
-        if (!empty($dcomponents)) {
-
-            $componentsArray = $dcomponents->matching($criteria);
+        if (!empty($components)) {
+            $componentsArray = $components->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
-
-                return $componentsArray->first()->getValue();
+                $component = $componentsArray->first();
             }
         }
+        
+        if(! ($component instanceof Component) && !($component instanceof DealerComponent)){
 
-        return "c not f";
+            if($source=="page" && $page instanceof Page){
+                $comp = new Component();
+                $comp->setName($name);
+                $comp->setType($type);
+                $pc = new PageComponent();
+                $pc->setComponent($comp);
+                $pc->setPage($page);
+                $em->persist($comp);
+                $em->persist($pc);
+                $em->flush();
+                $value = $comp->getValue();
+            }elseif($source=="dealer"){
+
+                $comp = new DealerComponent();
+                $comp->setDealer($dealer);
+                $comp->setName($name);
+                $comp->setType($type);
+                $em->persist($comp);
+
+                $em->flush();
+                $value = $comp->getValue();
+            }
+
+        }else{
+            $value = $component->getValue();
+
+        }
+        if(empty($value)){
+            $value = "enter this value of component in DMS";
+        }
+        if(strtolower($type)=="carousel"){
+
+
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+
+            return $images;
+        }
+
+
+        return $value;
     }
 
     public function displayCarouselComponent()

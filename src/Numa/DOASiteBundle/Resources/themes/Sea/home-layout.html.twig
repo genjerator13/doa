@@ -157,10 +157,10 @@
                 </div>
             </li>
             <li>
-                {{ dealer.ServiceHours }}
+                {{ dealer.ServiceHours|raw }}
             </li>
             <li>
-                {{ displayComponent('quick_links')|raw }}
+                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
             </li>
         </ul>
     </div>
