@@ -717,6 +717,7 @@ and (max-width : 767px) {
 
 .coupons-container {
     float: left;
+    margin-bottom: 20px;
 }
 
 .coupon-container {
