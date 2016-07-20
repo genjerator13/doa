@@ -34,3 +34,6 @@ billing_print:
 billing_print_inside:
     path:     /{id}/print_inside
     defaults: { _controller: "NumaDOADMSBundle:Billing:printInside" }
+billing_report_xls:
+    path:     /{id}/report_xls
+    defaults: { _controller: "NumaDOADMSBundle:Billing:reportXls" }

@@ -48,3 +48,7 @@ customer_addbilling:
 customer_addreminder:
     path:     /{id}/addreminder
     defaults: { _controller: "NumaDOADMSBundle:Reminder:new" }
+
+billing_report_xls:
+    path:     /{id}/report_xls
+    defaults: { _controller: "NumaDOADMSBundle:Billing:reportXls" }

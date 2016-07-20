@@ -57,7 +57,8 @@
         "guzzle/guzzle": "~3.9",
         "pugx/autocompleter-bundle": "^1.2",
         "knplabs/knp-snappy-bundle": "dev-master",
-        "liip/theme-bundle": "^1.4"
+        "liip/theme-bundle": "^1.4",
+        "mpdf/mpdf": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

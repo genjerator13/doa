@@ -25,9 +25,11 @@ class ReportsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1);
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
-            'entities' => $entities,
+            'billings' => $entities,
+            'dealer'   => $dealer,
         ));
     }
 }
