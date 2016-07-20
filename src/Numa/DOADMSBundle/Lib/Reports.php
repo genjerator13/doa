@@ -21,12 +21,13 @@ class Reports
     {
         $this->container = $container;
     }
+    //"columnLetter" =array("entity property","title")
     public $inventoryPurchaseFields = array(
         "B"=>array("item_id","Listing ID"),
         "C"=>array("item:year","Year"),
         "D"=>array("item:make","Make"),
         "E"=>array("item:model","Model"),
-        //"F"=>array("stock","Stock #"),
+        "F"=>array("item:stock","Stock #"),
     );
     public function billingReportXls($entities)
     {
