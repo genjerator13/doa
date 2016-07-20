@@ -3231,4 +3231,21 @@ class Billing
     {
         return $this->invoice_nr;
     }
+
+    public function get($property)
+    {
+        $propSplit = explode(":",$property);
+        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
+        if(count($propSplit)==2){
+            if(strtolower($propSplit[0])=='item'){
+                return $this->getItem()->get($propSplit[1]);
+            }
+        }
+
+
+        if (method_exists($this, $function)) {
+            return $this->{$function}();
+        }
+    }
+
 }

@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
  * Billing controller.
  *
  */
-class ReportsController extends Controller {
+class ReportsController extends Controller
+{
     /**
      * Lists all Billing entities.
      *
@@ -25,7 +26,12 @@ class ReportsController extends Controller {
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1,$dealer->getId());
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1);
+
+        if($request->query->has('excel')){
+            return  $this->get('Numa.Reports')->billingReportXls($entities);
+        }
+
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'billings' => $entities,
             'dealer'   => $dealer,

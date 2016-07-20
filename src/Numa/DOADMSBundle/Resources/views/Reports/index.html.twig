@@ -17,10 +17,11 @@
         Date To:
         <input type="date" class="datepicker" name="dateTo">
 
-        <button class="btn btn-success" type="submit">Filter</button>
+        <button class="btn btn-success" type="submit" name="filter">Filter</button>
+        <button class="btn btn-info" type="submit" name="excel"><i class="glyphicon glyphicon-file"></i>Excel</button>
     </form>
 
-        <a class="btn btn-info" href="{{ path("billing_report_xls",{'id': dealer.id}) }}"><i class="glyphicon glyphicon-file"></i>Excel</a>
+        {#<button class="btn btn-info" href="{{ path("billing_report_xls",{'id': dealer.id}) }}"><i class="glyphicon glyphicon-file"></i>Excel</button>#}
     {% if billings is empty %}
     <div>No Billing</div>
     {% else %}
