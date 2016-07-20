@@ -16,26 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ReportsController extends Controller
 {
-
     /**
      * Lists all Billing entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findAll();
-        return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
-            'entities' => $entities,
-        ));
-    }
-
-    public function byDateAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-        $date = '2016-06-19';
-        $date1 = '2016-08-19';
+        $date = $request->query->get('dateFrom');
+        $date1 = $request->query->get('dateTo');
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1);
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'entities' => $entities,

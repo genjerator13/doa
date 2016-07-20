@@ -30,11 +30,23 @@ class BillingRepository extends EntityRepository
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('b')
-            ->from('NumaDOADMSBundle:Billing', 'b')
-            ->Where('b.date_created BETWEEN :date AND :date1')
-            ->setParameter("date", $date)
-            ->setParameter("date1", $date1);
-
+            ->from('NumaDOADMSBundle:Billing', 'b');
+            if(!empty($date) && empty($date1))
+            {
+                $qb->Where('b.date_created > :date')
+                    ->setParameter("date", $date);
+            }
+            if(empty($date) && !empty($date1))
+            {
+                $qb->Where('b.date_created < :date1')
+                    ->setParameter("date1", $date1);
+            }
+            if(!empty($date) && !empty($date1))
+            {
+                $qb->Where('b.date_created BETWEEN :date AND :date1')
+                    ->setParameter("date", $date)
+                    ->setParameter("date1", $date1);
+            }
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
         return $res;
