@@ -255,6 +255,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [200, 160], mode: inset }
                 background: { color: '#FFFFFF' }
+        coupon:
+            quality: 100
+            filters:
+                thumbnail: { size: [300, 230], mode: inset }
+                background: { color: '#FFFFFF' }
         item_detail_image:
             quality: 100
             filters:
