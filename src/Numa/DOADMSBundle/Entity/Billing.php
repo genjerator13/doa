@@ -3234,14 +3234,14 @@ class Billing
 
     public function get($property)
     {
-        $mappedProperty = "";
-        if (!empty(self::$fields[$this->category_id][$property])) {
-            $mappedProperty = self::$fields[$this->category_id][$property];
-        }
-//        if (!empty($mappedProperty)) {
-//            $property = $mappedProperty;
-//        }
+        $propSplit = explode(":",$property);
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
+        if(count($propSplit)==2){
+            if(strtolower($propSplit[0])=='item'){
+                return $this->getItem()->get($propSplit[1]);
+            }
+        }
+
 
         if (method_exists($this, $function)) {
             return $this->{$function}();

@@ -23,9 +23,9 @@ class Reports
     }
     public $inventoryPurchaseFields = array(
         "B"=>array("item_id","Listing ID"),
-        "C"=>array("year","Year"),
-        "D"=>array("make","Make"),
-        "E"=>array("make","Model"),
+        "C"=>array("item:year","Year"),
+        "D"=>array("item:make","Make"),
+        "E"=>array("item:model","Model"),
         //"F"=>array("stock","Stock #"),
     );
     public function billingReportXls($entities)
@@ -71,14 +71,15 @@ class Reports
         }
 
         foreach($this->inventoryPurchaseFields as $key=>$field){
-            $i=2;
-            foreach($entities as $key=>$entity) {
+            $i=3;
+            foreach($entities as $entity) {
+                //dump($field);
                 $phpExcelObject->getActiveSheet()->setCellValue($key . $i, $entity->get($field[0]));
                 $i++;
             }
         }
-
-            dump($entities);die();
+       // die();
+            //dump($entities);die();
         // adding headers
         // create the writer
         $writer = $this->container->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
