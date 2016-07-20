@@ -3231,4 +3231,21 @@ class Billing
     {
         return $this->invoice_nr;
     }
+
+    public function get($property)
+    {
+        $mappedProperty = "";
+        if (!empty(self::$fields[$this->category_id][$property])) {
+            $mappedProperty = self::$fields[$this->category_id][$property];
+        }
+//        if (!empty($mappedProperty)) {
+//            $property = $mappedProperty;
+//        }
+        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
+
+        if (method_exists($this, $function)) {
+            return $this->{$function}();
+        }
+    }
+
 }

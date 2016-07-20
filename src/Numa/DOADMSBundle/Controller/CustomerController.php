@@ -245,62 +245,6 @@ class CustomerController extends Controller
 
     public function reportXlsAction(Request $request,$id)
     {
-        // ask the service for a Excel5
-        ///pdf renderer
-        $format =         // ask the service for a Excel5
-            ///pdf renderer
-            //$format = $request->attributes->get('format');
-            //die();
-        $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
-        $rendererLibrary = 'mPDF';
-        $rendererLibraryPath = (dirname(__FILE__) . '/../../../../vendor/mpdf/mpdf'); //works
-
-        if (!\PHPExcel_Settings::setPdfRenderer(
-            $rendererName, $rendererLibraryPath
-        )) {
-            die(
-                'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
-                '<br />' .
-                'at the top of this script as appropriate for your directory structure'
-            );
-        }
-        //disable profiler
-        if ($this->has('profiler')) {
-            $this->get('profiler')->disable();
-        }
-        $em = $this->getDoctrine()->getManager();
-
-        $download_path = $this->getParameter('upload_dealer');
-        $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject($download_path . 'billing_report.xls');
-        //dump($phpExcelObject);
-        $phpExcelObject->getProperties()->setCreator("DOA")
-            ->setLastModifiedBy("DOA")
-            ->setTitle("DOA billing report")
-            ->setSubject("DOA billing report")
-            ->setDescription("DOA billing report")
-        ;
-        $phpExcelObject->setActiveSheetIndex(0);
-
-
-        $currentRow = 7;
-        //$phpExcelObject->getActiveSheet()->setCellValue("B" . $currentRow, $dispatchCards->getDateorder() instanceof \DateTime ? $dispatchCards->getDateorder()->format('m/d/Y') : "");
-        $phpExcelObject->getActiveSheet()->setCellValue("K" . $currentRow, "aaaa");
-        $currentRow++;
-
-        // adding headers
-        // create the writer
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
-        // create the response
-        $response = $this->get('phpexcel')->createStreamedResponse($writer);
-        $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename=stream-file.xls');
-        $response->headers->set('Pragma', 'public');
-        $response->headers->set('Cache-Control', 'maxage=1');
-        $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel5');
-        $writer->save($download_path . 'CustomerDetailsReport_' . "test" . '.xls');
-
-        return $response;
-
+        return $this->get('Numa.Reports')->billingReportXls($id);die();
     }
-
 }
