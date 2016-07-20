@@ -18,7 +18,7 @@
             <tr>
                 <th>Id</th>
                 <th>Date</th>
-                <th>Status</th>
+                <th>Comment</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,7 +27,7 @@
             <tr>
                 <td><a href="{{ path('reminder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
+                <td>{{ entity.comment }}</td>
                 <td><ul>
         <li>
             <a href="{{ path('reminder_edit', { 'id': entity.id }) }}" class="btn btn-primary">Edit</a>

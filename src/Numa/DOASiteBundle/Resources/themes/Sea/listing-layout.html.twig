@@ -83,36 +83,12 @@
     </div>
 {% endblock %}
 
-
 {% block map %}
-
     {% include '@NumaDOASite/map.html.twig' %}
 {% endblock %}
 
-
 {% block footer %}
-    <div class="footer-wrapper">
-        <div class="footer">
-            <div class="bottom-menu">
-                <ul>
-                    <li><a href="{{ path("homepage") }}">Home</a></li>
-                    <li><a href="{{ path("about_us") }}">About Us</a></li>
-                    <li><a href="{{ path("search_dispatch") }}">Products</a></li>
-                    <li><a href="{{ path("service_form") }}">Services</a></li>
-                    <li><a href="#" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
-            <div class="extra-menu">
-                <ul>
-                    <li><a href="#">Policy</a></li>
-                    <li><a href="#">Privacy</a></li>
-                    <li><a href="#">Terms</a></li>
-                    <li><a href="#">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
 </body>
 </html>

@@ -120,9 +120,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                             }],
                         data: data[i].note
                     }
-                    {#if(data[i].name.length<1){#}
+                    data[i].name;
+                    if(!data[i].name){
                         data[i].name = data[i].first_name+" "+data[i].last_name;
-                    {#}#}
+                        if(!data[i].first_name){
+                            data[i].name = data[i].last_name;
+                        }
+                        if(!data[i].last_name){
+                            data[i].name = data[i].first_name;
+                        }
+                        if(!data[i].first_name && !data[i].last_name){
+                            data[i].name = "";
+                        }
+
+                    }
+
                     console.log(data[i]);
                 }
                 //console.log(data);
