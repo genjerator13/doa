@@ -24,11 +24,11 @@ class Reports
     //"columnLetter" =array("entity property","title")
     public $inventoryPurchaseFields = array(
         "B"=>array("item_id","Listing ID"),
-        "C"=>array("item:year","Year"),
-        "D"=>array("item:make","Make"),
-        "E"=>array("item:model","Model"),
+        "C"=>array("tid_year","Year"),
+        "D"=>array("tid_make","Make"),
+        "E"=>array("tid_model","Model"),
         "F"=>array("item:stock_nr","Stock #"),
-        "G"=>array("item:vin","Vin #"),
+        "G"=>array("tid_vin","Vin #"),
         "H"=>array("invoice_nr","Invoice #"),
         "I"=>array("date_billing","Invoice Date"),
         "J"=>array("amount","Invoice Amount"),
