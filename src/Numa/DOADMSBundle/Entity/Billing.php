@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOAAdminBundle\Entity\Item;
 
 /**
  * Billing
@@ -3238,7 +3239,11 @@ class Billing
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
         if(count($propSplit)==2){
             if(strtolower($propSplit[0])=='item'){
-                return $this->getItem()->get($propSplit[1]);
+                if($this->getItem() instanceof Item) {
+                    return $this->getItem()->get($propSplit[1]);
+                }else{
+                    return "";
+                }
             }
         }
 
