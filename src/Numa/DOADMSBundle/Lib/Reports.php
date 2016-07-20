@@ -27,7 +27,13 @@ class Reports
         "C"=>array("item:year","Year"),
         "D"=>array("item:make","Make"),
         "E"=>array("item:model","Model"),
-        "F"=>array("item:stock","Stock #"),
+        "F"=>array("item:stock_nr","Stock #"),
+        "G"=>array("item:vin","Vin #"),
+        "H"=>array("invoice_nr","Invoice #"),
+        "I"=>array("date_billing","Invoice Date"),
+        "J"=>array("amount","Invoice Amount"),
+        "K"=>array("less_trade_in","Trade In Value"),
+        "L"=>array("lien_on_trade_in","Lien On Trade In"),
     );
     public function billingReportXls($entities)
     {
