@@ -35,7 +35,7 @@ class Reports
         "K"=>array("less_trade_in","Trade In Value"),
         "L"=>array("lien_on_trade_in","Lien On Trade In"),
     );
-    public function billingReportXls($entities)
+    public function billingReportPurchaseXls($entities)
     {
 
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
@@ -67,11 +67,6 @@ class Reports
             ->setDescription("DOA billing report")
         ;
         $phpExcelObject->setActiveSheetIndex(0);
-
-
-        $currentRow = 7;
-        //$phpExcelObject->getActiveSheet()->setCellValue("B" . $currentRow, $dispatchCards->getDateorder() instanceof \DateTime ? $dispatchCards->getDateorder()->format('m/d/Y') : "");
-        $phpExcelObject->getActiveSheet()->setCellValue("K" . $currentRow, "aaaa");
 
         foreach($this->inventoryPurchaseFields as $key=>$field){
             $phpExcelObject->getActiveSheet()->setCellValue($key . "2", $field[1]);

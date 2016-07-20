@@ -27,8 +27,16 @@ class ReportsController extends Controller
         $date1 = $request->query->get('dateTo');
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
-        if($request->query->has('excel')){
-            return  $this->get('Numa.Reports')->billingReportXls($entities);
+        if($request->query->has('purchase')){
+            return  $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
+        }
+
+        if($request->query->has('inventory')){
+            return  $this->get('Numa.Reports')->billingReportInventoryXls($entities);
+        }
+
+        if($request->query->has('sales')){
+            return  $this->get('Numa.Reports')->billingReportSalesXls($entities);
         }
 
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
