@@ -24,10 +24,16 @@ class Reports
     //"columnLetter" =array("entity property","title")
     public $inventoryPurchaseFields = array(
         "B"=>array("item_id","Listing ID"),
-        "C"=>array("item:year","Year"),
-        "D"=>array("item:make","Make"),
-        "E"=>array("item:model","Model"),
-        "F"=>array("item:stock","Stock #"),
+        "C"=>array("tid_year","Year"),
+        "D"=>array("tid_make","Make"),
+        "E"=>array("tid_model","Model"),
+        "F"=>array("item:stock_nr","Stock #"),
+        "G"=>array("tid_vin","Vin #"),
+        "H"=>array("invoice_nr","Invoice #"),
+        "I"=>array("date_billing","Invoice Date"),
+        "J"=>array("amount","Invoice Amount"),
+        "K"=>array("less_trade_in","Trade In Value"),
+        "L"=>array("lien_on_trade_in","Lien On Trade In"),
     );
     public function billingReportXls($entities)
     {
