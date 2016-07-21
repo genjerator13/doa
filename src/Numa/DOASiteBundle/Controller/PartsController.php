@@ -14,14 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 class PartsController extends Controller implements DealerSiteControllerInterface{
 
     public $dealer;
-    public $components;
+
     public function initializeDealer($dealer){
         $this->dealer = $dealer;
     }
 
-    public function initializePageComponents($components){
-        $this->components = $components;
-    }
     public function partAction(Request $request) {
 
         $entity = new PartRequest();
@@ -80,7 +77,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         return $this->render('NumaDOASiteBundle:Parts:parts_form.html.twig', array(
             'entity' => $entity,
-            'components' => $this->components,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
         ));
@@ -131,7 +127,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         return $this->render('NumaDOASiteBundle:Parts:parts_success.html.twig', array(
             'message'=>$message,
-            'components' => $this->components,
             'dealer' => $this->dealer,
         ));
     }

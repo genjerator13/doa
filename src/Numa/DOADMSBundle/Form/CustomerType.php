@@ -17,6 +17,8 @@ class CustomerType extends AbstractType
         $builder
             ->add('sales_person',null,array('label'=>'Salesperson'))
             ->add('name')
+            ->add('first_name')
+            ->add('last_name')
             ->add('address')
             ->add('address2')
             ->add('city')

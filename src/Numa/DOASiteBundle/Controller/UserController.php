@@ -20,17 +20,10 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
 {
 
     public $dealer;
-    public $components;
-
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
 
-    }
-
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
     }
 
     public function registerAction(Request $request) {
@@ -140,7 +133,6 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
                     'last_username' => $session->get(SecurityContext::LAST_USERNAME),
                     'error' => $error,
             'dealer'=>$this->dealer,
-            'components'=>$this->components,
         ));
     }
 

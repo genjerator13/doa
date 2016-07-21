@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\ServiceRequest:
     type: entity
     table: service_request
-
+    repositoryClass: Numa\DOADMSBundle\Repository\ServiceRequestRepository
     id:
         id:
             type: integer

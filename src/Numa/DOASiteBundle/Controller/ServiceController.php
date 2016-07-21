@@ -15,15 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 class ServiceController extends Controller implements DealerSiteControllerInterface{
 
     public $dealer;
-    public $components;
+
     public function initializeDealer($dealer){
         $this->dealer = $dealer;
     }
 
-    public function initializePageComponents($components){
-        $this->components = $components;
-
-    }
 
     public function serviceAction(Request $request) {
         $entity = new ServiceRequest();
@@ -63,7 +59,6 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Service:service_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'components'=>$this->components,
             'form'   => $form->createView(),
         ));
     }
@@ -91,7 +86,6 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         return $this->render('NumaDOASiteBundle:Service:service_success.html.twig', array(
             'message'=>$message,
-            'components' => $this->components,
             'dealer' => $this->dealer,
         ));
     }

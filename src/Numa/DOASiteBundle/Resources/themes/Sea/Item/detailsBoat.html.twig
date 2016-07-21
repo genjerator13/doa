@@ -1,5 +1,9 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block form_label_class -%}
     col-sm-3
@@ -141,7 +145,7 @@
                                                     data-target="#eprice">Get ePrice
                                             </button>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
-                                                    data-target="#financing">Apply for Financing
+                                                    data-target="#finance">Apply for Financing
                                             </button>
                                             <button type="button" class="btn btn-warning" data-toggle="modal"
                                                     data-target="#contactus">Contact us
@@ -171,6 +175,8 @@
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
                             <ul class='option-lists'>
+                                {#{{ dump(item.ItemField) }}#}
+                                {% if item.categoryId()==1 %}
                                 {% for field in item.ItemField %}
                                     {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
                                         <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
@@ -190,6 +196,17 @@
                                         </li>
                                     {% endif %}
                                 {% endfor %}
+                                {% elseif(item.categoryId()==2) %}
+                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                                {% elseif(item.categoryId()==3) %}
+                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                                {% elseif(item.categoryId()==4) %}
+                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                                {% elseif(item.categoryId()==13) %}
+                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                                {% else %}
+                                {% endif %}
+
                             </ul>
                         </div>
                         {% if (item.getOptions|length)>0 %}
@@ -239,6 +256,7 @@
                                 <div class="modal-body">
                                     {{ form(epriceForm) }}
                                 </div>
+                                <div class="eprice_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_eprice">Save changes
@@ -248,7 +266,7 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="financing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="finance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -257,11 +275,12 @@
                                     <h4 class="modal-title" id="myModalLabel">Apply for Financing</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(financeForm) }}
                                 </div>
+                                <div class="finance_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" id="submit_financing">Save changes
+                                    <button type="button" class="btn btn-primary" id="submit_finance">Save changes
                                     </button>
                                 </div>
                             </div>
@@ -279,6 +298,7 @@
                                 <div class="modal-body">
                                     {{ form(contactForm) }}
                                 </div>
+                                <div class="contactus_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_contact">Save changes
@@ -299,6 +319,7 @@
                                 <div class="modal-body">
                                     {{ form(offerForm) }}
                                 </div>
+                                <div class="offer_error"></div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_offer">Save changes
@@ -322,6 +343,9 @@
                                 <div class="modal-body">
                                     {{ form(driveForm) }}
                                 </div>
+                                <div class="testdrive_error">
+
+                                </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary" id="submit_testdrive">Save changes
@@ -334,45 +358,116 @@
                         $(document).ready(function () {
                             $('#submit_testdrive').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#test_drive_form').serializeArray();
-                                alert("Success");
+                                var form = $('#testdrive_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'drive',"item_id": item.id}) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".testdrive_error").html(data.action);
+                                        }else {
+                                            $('#testdrive').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
                             $('#submit_offer').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#offer_form').serializeArray();
-                                alert("Success");
+                                var form = $('#offer_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":"offer","item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".offer_error").html(data.action);
+                                        }else {
+                                            $('#offer').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
                             $('#submit_eprice').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#eprice_form').serializeArray();
-                                alert("Success");
+                                var form = $('#eprice_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'eprice',"item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".eprice_error").html(data.action);
+                                        }else {
+                                            $('#eprice').modal('toggle');
+                                            $('.alertz').html("Successfully sent eprice form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_finance').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#finance_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".finance_error").html(data.action);
+                                        }else {
+                                            $('#finance').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 
                             $('#submit_contact').click(function (e) {
                                 e.preventDefault();
-                                var form = $('#contact_form').serializeArray();
-                                alert("Success");
+                                var form = $('#contact_form').serialize();
+
                                 $.ajax({
                                     type: "POST",
-                                    data: form,
-                                    url: '{{ path("listting_form_post",{"form":'contact',"item_id": item.id }) }}',
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".contactus_error").html(data.action);
+                                        }else {
+                                            $('#contactus').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
                                 });
                             })
 

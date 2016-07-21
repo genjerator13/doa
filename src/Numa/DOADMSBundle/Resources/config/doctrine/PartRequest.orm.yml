@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\PartRequest:
     type: entity
     table: part_request
-
+    repositoryClass: Numa\DOADMSBundle\Repository\PartRequestRepository
     id:
         id:
             type: integer

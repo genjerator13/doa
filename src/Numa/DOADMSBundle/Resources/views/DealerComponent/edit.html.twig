@@ -1,0 +1,25 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>DealerComponent edit</h1>
+<div class="nav-tabs-custom">
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+    {{ form(edit_form) }}
+
+            {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES')%}
+                    <a href="{{ path('dms_profile_edit', {'id': app.user.id}) }}"  class="btn btn-primary">
+                        Back to the edit profile</a>
+                </li>
+            {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS')%}
+                    <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}"  class="btn btn-primary">
+                        Back to the edit profile</a>
+                </li>
+            {% endif %}
+
+         </div>
+    </div>
+</div>
+{% endblock %}

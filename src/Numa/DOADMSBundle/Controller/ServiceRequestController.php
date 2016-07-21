@@ -221,4 +221,18 @@ class ServiceRequestController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDelete2Action(Request $request) {
+
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository("NumaDOADMSBundle:ServiceRequest")->delete($ids);
+        die();
+    }
 }

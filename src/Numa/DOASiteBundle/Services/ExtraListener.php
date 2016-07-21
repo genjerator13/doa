@@ -61,14 +61,11 @@ class ExtraListener
             $host = trim(strip_tags($request->getHost()));
             $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
 
-            //if(trim(strip_tags($host))==trim(strip_tags($request->getHost()))){
-            //$dealer = $setting->getDealerForHost(trim($host));
             $activeTheme = $this->container->get('liip_theme.active_theme');
 
             if ($dealer instanceof Catalogrecords) {
                 $this->container->set('dealer', $dealer);
-                //$session->set('dealer_id', $dealer->getId());
-                //$setting->activateTheme($host);
+
                 $theme = $dealer->getSiteTheme();
 
                 $activeTheme->setName($theme);
@@ -80,24 +77,29 @@ class ExtraListener
 
             }
 
-            $request = $event->getRequest();
-            $pathinfo = $request->getPathInfo();
+//            $request = $event->getRequest();
+//            $pathinfo = $request->getPathInfo();
+//
+//            if (substr($pathinfo, 0, 2) === "/d") {
+//                $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+//            }
 
-            if (substr($pathinfo, 0, 2) === "/d") {
-                $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-            }
-
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $dealer_id = null;
-            $components = null;
-            if ($dealer instanceof Catalogrecords) {
-                $components = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-            }
-
-            $controllerObject->initializePageComponents($components);
+            //$em = $this->container->get('doctrine.orm.entity_manager');
+            //$dealer_id = null;
+            //$pcomponents = array();
+            //$dcomponents = array();
+            //if ($dealer instanceof Catalogrecords) {
+            //    $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
+            //    $dcomponents = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findDealerComponents($dealer->getId());
+            //}
+            //$components['page'] = $pcomponents;
+            //$components['dealer'] = $dcomponents;
+            //$controllerObject->initializePageComponents($pcomponents);
+            //$controllerObject->initializeDealerComponents($dcomponents);
             //}
 
-        } elseif ($controllerObject instanceof DashboardDMSControllerInterface) {
+        }
+        if ($controllerObject instanceof DashboardDMSControllerInterface) {
             $request = $event->getRequest();
             $route = $request->get('_route');
             $dashboard = "";
@@ -105,6 +107,7 @@ class ExtraListener
                 $dashboard = "DMS";
 
             }
+
             $controllerObject->initializeDashboard($dashboard);
         }
     }

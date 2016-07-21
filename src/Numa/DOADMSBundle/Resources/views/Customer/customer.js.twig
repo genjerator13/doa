@@ -40,7 +40,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {
             name: 'logo',
             enableColumnResizing: true, width: 100, enableFiltering: false,
-            cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="{[{row.entity.name}]}" height="100px" width="100px"></a>'
+            cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
         },
         {name: 'name', enableColumnResizing: true},
         {name: 'home_phone'},
@@ -50,7 +50,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
         {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-                console.log(tdd.getTime());
+
                 fd = new Date(grid.getCellValue(row,col));
 
                 if (tdd.getTime() === fd.getTime()) {
@@ -120,7 +120,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                             }],
                         data: data[i].note
                     }
+                    data[i].name;
+                    if(!data[i].name){
+                        data[i].name = data[i].first_name+" "+data[i].last_name;
+                        if(!data[i].first_name){
+                            data[i].name = data[i].last_name;
+                        }
+                        if(!data[i].last_name){
+                            data[i].name = data[i].first_name;
+                        }
+                        if(!data[i].first_name && !data[i].last_name){
+                            data[i].name = "";
+                        }
 
+                    }
+
+                    console.log(data[i]);
                 }
                 //console.log(data);
                 //$scope.gridOptions.data = data;

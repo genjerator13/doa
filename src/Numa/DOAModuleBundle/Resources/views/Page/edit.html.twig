@@ -7,8 +7,7 @@
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#ads">Ads</a></li>
-
-            <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
+        <li role="presentation"><a data-toggle="tab" href="#web-content">Content</a></li>
 
     </ul>
     {{ form_start(edit_form) }}
@@ -27,9 +26,6 @@
         </div>
 
         <div id="web-content" class="tab-pane">
-
-
-
             {% block stylesheets %}
                 {{ parent() }}
                 <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
