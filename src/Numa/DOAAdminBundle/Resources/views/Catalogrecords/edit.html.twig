@@ -15,11 +15,11 @@
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <section class="content">
         <h1>Edit Dealer</h1>
 
         {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-        {{ component.image(entity.logoUrl, entity.name, '', 'search_image') }}
+        {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
+
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs ">
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
@@ -167,5 +167,4 @@
 
             </div>
         </div>
-    </section>
 {% endblock %}
