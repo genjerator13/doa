@@ -2,3 +2,6 @@ services:
     Numa.Reports:
         class: Numa\DOADMSBundle\Lib\Reports
         arguments:  [@service_container]
+    Numa.UiGrid:
+        class: Numa\DOADMSBundle\Lib\UiGrid
+        arguments:  [@service_container]
