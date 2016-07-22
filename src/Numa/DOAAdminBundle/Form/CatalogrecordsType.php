@@ -40,7 +40,7 @@ class CatalogrecordsType extends AbstractType {
                 ->add('gst')
                 ->add('description', 'ckeditor')
                 ->add('ServiceHours','ckeditor')
-                ->add('terms_text','ckeditor')
+                ->add('terms_text','ckeditor', array('label'=>'Terms & Conditions','required' => false, 'data_class' => null))
                 ->add('file_import_source', 'file', array('label'=>'Logo Upload','required' => false, 'data_class' => null))
                 ->add('logo_url', 'text', array('label'=>'Logo Url','required' => false))
                 ->add('password', 'password', array('required' => false))
