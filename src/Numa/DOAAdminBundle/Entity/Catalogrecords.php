@@ -1510,4 +1510,62 @@ class Catalogrecords implements UserInterface
         return $this->Component;
     }
 
+    /**
+     * @var string
+     */
+    private $terms_upload;
+
+    /**
+     * @var string
+     */
+    private $terms_text;
+
+
+    /**
+     * Set termsUpload
+     *
+     * @param string $termsUpload
+     *
+     * @return Catalogrecords
+     */
+    public function setTermsUpload($termsUpload)
+    {
+        $this->terms_upload = $termsUpload;
+
+        return $this;
+    }
+
+    /**
+     * Get termsUpload
+     *
+     * @return string
+     */
+    public function getTermsUpload()
+    {
+        return $this->terms_upload;
+    }
+
+    /**
+     * Set termsText
+     *
+     * @param string $termsText
+     *
+     * @return Catalogrecords
+     */
+    public function setTermsText($termsText)
+    {
+        $this->terms_text = $termsText;
+
+        return $this;
+    }
+
+    /**
+     * Get termsText
+     *
+     * @return string
+     */
+    public function getTermsText()
+    {
+        return $this->terms_text;
+    }
 }

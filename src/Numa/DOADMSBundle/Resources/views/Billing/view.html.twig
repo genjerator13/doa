@@ -1,11 +1,18 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <style>
+    <style type="text/css" media="print">
         table tr td{
             font-size: 11pt;
         }
+
+
+        div.page
+        {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
     </style>
-    <div>
+    <div class="page">
     <div>
         <table cellspacing="0" border="0">
             <colgroup span="3" width="80"></colgroup>
@@ -954,6 +961,8 @@
                 </td>
             </tr>
         </table>
-
+    </div>
+    <div class="page">
+        {{ dealer.termsText()|raw }}
     </div>
 {% endblock %}
