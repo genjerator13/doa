@@ -1,6 +1,9 @@
 <div class="footer-wrapper">
     <div class="footer">
         <div class="bottom-menu">
+            {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
+            {{ include(template_from_string(bottommenu)) }}
+            {% if bottommenu is empty %}
             <ul>
                 <li><a href="{{ path("homepage") }}">Home</a></li>
                 <li><a href="{{ path("about_us") }}">About Us</a></li>
@@ -8,18 +11,23 @@
                 <li><a href="{{ path("service_form") }}">Services</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
             </ul>
+            {% endif %}
         </div>
         <div class="pull-right">
             <a href="http://www.dms-lite.com/">Powered By DMS-Lite</a>
         </div>
         <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
         <div class="extra-menu">
+            {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
+            {{ include(template_from_string(extramenu)) }}
+            {% if extramenu is empty %}
             <ul>
                 <li><a href="#">Policy</a></li>
                 <li><a href="#">Privacy</a></li>
                 <li><a href="#">Terms</a></li>
                 <li><a href="#">Sitemap</a></li>
             </ul>
+            {% endif %}
         </div>
     </div>
 </div>
