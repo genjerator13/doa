@@ -6,11 +6,16 @@
         }
 
 
-        div.page
-        {
-            page-break-after: always;
-            page-break-inside: avoid;
-        }
+        /*div.page*/
+        /*{*/
+            /*page-break-after: always;*/
+            /*page-break-inside: avoid;*/
+        /*}*/
+        /*div.last-page*/
+        /*{*/
+            /*page-break-after: avoid;*/
+            /*page-break-inside: avoid;*/
+        /*}*/
     </style>
     <div class="page">
     <div>
@@ -962,7 +967,9 @@
             </tr>
         </table>
     </div>
-    <div class="page">
+    <div class="">
+        {% if dealer.termsText is not empty %}
         {{ dealer.termsText()|raw }}
+        {% endif %}
     </div>
 {% endblock %}
