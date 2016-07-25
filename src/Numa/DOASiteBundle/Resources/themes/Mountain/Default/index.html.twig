@@ -17,45 +17,45 @@
 {% endblock %}
 {% block banner %}
 
-    {#{% set images = displayCarouselComponent(components) %}#}
+    {% set images = displayComponent("homepage_carousel","carousel") %}
 
-    {#<div class="bs-example">#}
-        {#<div id="myCarousel" class="carousel slide" data-ride="carousel">#}
-            {#<!-- Carousel indicators -->#}
-            {#<ol class="carousel-indicators">#}
-                {#{% for image in images %}#}
-                    {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>#}
-                {#{% endfor %}#}
+    <div class="bs-example">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                {% for image in images %}
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                {% endfor %}
 
-            {#</ol>#}
-            {#<!-- Wrapper for carousel items -->#}
-            {#<div class="carousel-inner">#}
-                {#{% for image in images %}#}
-                {#<div class="item {%  if loop.first %} active{% endif %}">#}
-                    {#{{ component.image('upload/dealers/'~image.src, "aaaaaa", '', 'carousel_wide') }}#}
-                    {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
-                {#</div>#}
-                {#{% endfor %}#}
+            </ol>
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                {% for image in images %}
+                <div class="item {%  if loop.first %} active{% endif %}">
+                    {{ component.image('upload/dealers/'~image.src, "aaaaaa", '', 'carousel_wide') }}
+                    <div class="text_widget">{{ image.carouselText|raw }}</div>
+                </div>
+                {% endfor %}
 
-            {#</div>#}
-            {#<!-- Carousel controls -->#}
-            {#<a class="carousel-control left" href="#myCarousel" data-slide="prev">#}
-                {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-            {#</a>#}
-            {#<a class="carousel-control right" href="#myCarousel" data-slide="next">#}
-                {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-            {#</a>#}
-        {#</div>#}
-    {#</div>#}
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
 
-    {#<script type="text/javascript">#}
-        {#$(document).ready(function(){#}
-            {#$("#myCarousel").carousel({#}
-                {#interval : 8000,#}
-                {#pause: false#}
-            {#});#}
-        {#});#}
-    {#</script>#}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#myCarousel").carousel({
+                interval : 8000,
+                pause: false
+            });
+        });
+    </script>
 {% endblock %}
 {% block content %}
     <div class="content">
@@ -82,7 +82,7 @@
                 {{ dealer.ServiceHours|raw }}
             </li>
             <li>
-                {{ displayComponent('quick_links',"HTML")|raw }}
+                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
             </li>
         </ul>
     </div>
