@@ -10,6 +10,9 @@ Numa\DOADMSBundle\Entity\Finance:
         dealer_id:
             type: integer
             nullable: true
+        customer_id:
+            type: integer
+            nullable: true
         applicant_type:
             type: string
             length: 255
@@ -162,6 +165,12 @@ Numa\DOADMSBundle\Entity\Finance:
             inversedBy: Finance
             joinColumn:
                 name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: Finance
+            joinColumn:
+                name: customer_id
                 referencedColumnName: id
 
     lifecycleCallbacks:

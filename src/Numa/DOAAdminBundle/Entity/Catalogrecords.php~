@@ -1568,4 +1568,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->terms_text;
     }
+    /**
+     * @var string
+     */
+    private $finance_email;
+
+
+    /**
+     * Set financeEmail
+     *
+     * @param string $financeEmail
+     *
+     * @return Catalogrecords
+     */
+    public function setFinanceEmail($financeEmail)
+    {
+        $this->finance_email = $financeEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get financeEmail
+     *
+     * @return string
+     */
+    public function getFinanceEmail()
+    {
+        return $this->finance_email;
+    }
 }

@@ -1172,7 +1172,11 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
 
 
-
+//dump($this->dealer->getDealerCategories());
+//        foreach ( $this->dealer->getDCategory() as $item) {
+//            dump($item->getId());
+//        }
+//        die();
         $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style",$this->dealer);
         $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
         $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,"required"=>false));

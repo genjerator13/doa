@@ -33,19 +33,9 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
         if ($form->isValid()) {
 
-            $em = $this->getDoctrine()->getManager();
+            $em   = $this->getDoctrine()->getManager();
 
-//            if (empty($customer)) {
-//                $customer = new Customer();
-//                $customer->setFirstName($data->getCustName());
-//                $customer->setLastName($data->getCustLastName());
-//                $customer->setEmail($email);
-//                $customer->setCatalogrecords($this->dealer);
-//                $customer->setHomePhone($data->getPhone());
-//                $em->persist($customer);
-//
-//            }
-            $entities = array();
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
 
             $entity->setDealer($this->dealer);
 

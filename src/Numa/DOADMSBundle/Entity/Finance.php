@@ -489,4 +489,62 @@ class Finance
     {
         // Add your code here
     }
+    /**
+     * @var integer
+     */
+    private $customer_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Customer
+     */
+    private $Customer;
+
+
+    /**
+     * Set customerId
+     *
+     * @param integer $customerId
+     *
+     * @return Finance
+     */
+    public function setCustomerId($customerId)
+    {
+        $this->customer_id = $customerId;
+
+        return $this;
+    }
+
+    /**
+     * Get customerId
+     *
+     * @return integer
+     */
+    public function getCustomerId()
+    {
+        return $this->customer_id;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Numa\DOADMSBundle\Entity\Customer $customer
+     *
+     * @return Finance
+     */
+    public function setCustomer(\Numa\DOADMSBundle\Entity\Customer $customer = null)
+    {
+        $this->Customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Numa\DOADMSBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->Customer;
+    }
 }

@@ -5,3 +5,6 @@ services:
     Numa.UiGrid:
         class: Numa\DOADMSBundle\Lib\UiGrid
         arguments:  [@service_container]
+    Numa.DMSUtils:
+        class: Numa\DOADMSBundle\Lib\DMSUtils
+        arguments:  [@service_container]
