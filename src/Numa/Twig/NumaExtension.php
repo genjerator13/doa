@@ -200,7 +200,7 @@ class NumaExtension extends \Twig_Extension
 
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
-            if($component instanceof Component && $component instanceof DealerComponent){
+            if($component instanceof Component || $component instanceof DealerComponent){
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
             return $images;
