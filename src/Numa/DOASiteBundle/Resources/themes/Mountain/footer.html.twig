@@ -6,35 +6,38 @@
             {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
         </a>
 
-        <p>{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
+        <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
 
-        <p>Phone: {{ dealer.phone }}<br />
+        <p>Phone: {{ dealer.phone }}<br/>
             Fax: {{ dealer.fax }}</p>
 
         <p><a href="">Map and Hours</a></p>
 
     </div>
 
-    <div class="quick-links">
 
-        <h3>Quick Links</h3>
+    {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
+    {{ include(template_from_string(quicklinks)) }}
+    {% if quicklinks is empty %}
+        <div class="quick-links">
+            <h3>Quick Links</h3>
 
-        <ul>
-            <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
-            <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
-            <li><a href="{{ path("finance_form") }}">Get Financed</a></li>
-            <li><a href="">Parts Department</a></li>
-            <li><a href="">Customer Testimonials</a></li>
-            {% if not(is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN')) %}
-            <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
-            {% endif %}
-            {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
-            <li><a class="btn btn-danger btn-xs" href="{{ path('logout') }}">Dealer Logout</a></li>
-            {% endif %}
-        </ul>
+            <ul>
+                <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+                <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
+                <li><a href="{{ path("finance_form") }}">Get Financed</a></li>
+                <li><a href="">Parts Department</a></li>
+                <li><a href="">Customer Testimonials</a></li>
+                {% if not(is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN')) %}
+                    <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
+                    <li><a class="btn btn-danger btn-xs" href="{{ path('logout') }}">Dealer Logout</a></li>
+                {% endif %}
+            </ul>
 
-    </div>
-
+        </div>
+    {% endif %}
     <div class="hours">
 
         <h3>Hours</h3>
@@ -66,7 +69,7 @@
             <li><a href="">Site Map</a></li>
         </ul>
 
-        <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
+        <div class="copyright">Copyright &copy; 2016 Company Name.<br/>All Rights Reserved</div>
         <div class="content">
             <a href="http://www.dms-lite.com/">Powered By DMS-Lite</a>
         </div>
