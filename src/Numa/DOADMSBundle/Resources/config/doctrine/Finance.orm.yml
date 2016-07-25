@@ -1,6 +1,7 @@
 Numa\DOADMSBundle\Entity\Finance:
     type: entity
     table: finance
+    repositoryClass: Numa\DOADMSBundle\Repository\FinanceRepository
 
     id:
         id:

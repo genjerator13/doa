@@ -14,7 +14,15 @@ use JMS\Serializer\Annotation as JMS;
  */
 class Finance
 {
+    /**
+     * @var integer
+     * @JMS\Expose
+     */
     protected $applicant_type;
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $amount_required;
     protected $down_payment;
     protected $loan_term;
@@ -30,6 +38,10 @@ class Finance
     protected $cust_name;
     protected $cust_last_name;
     protected $preferred_contact;
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $email;
     protected $day_phone;
     protected $cell_phone;
@@ -403,6 +415,7 @@ class Finance
     }
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
