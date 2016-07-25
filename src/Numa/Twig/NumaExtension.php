@@ -202,6 +202,8 @@ class NumaExtension extends \Twig_Extension
             $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
 
             return $images;
+        }elseif(strtolower($type)=="template"){
+
         }
 
 
