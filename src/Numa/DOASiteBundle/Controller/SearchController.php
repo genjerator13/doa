@@ -1172,14 +1172,13 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 
 
 
-//dump($this->dealer->getDealerCategories());
-//        foreach ( $this->dealer->getDCategory() as $item) {
-//            dump($item->getId());
-//        }
-//        die();
+        //dump($this->dealer->isRVsDealer());
+
+
         $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style",$this->dealer);
+        $bodyStyle[] = array("body_style"=>"Other");
         $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,"required"=>false));
+        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,));
 
         $make = $em->getRepository('NumaDOAAdminBundle:Item')->getAllmake($this->dealer);
         //dump($make);die();
@@ -1201,7 +1200,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
 //        $maxYear = $this->items->matching($criteriaMaxYear);
 //        dump($minYear);
 //        dump($maxYear);die();
-
+        //die();
         if(!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
             $sidebarForm->get('bodyStyleString')->setData($params['bodyStyleString']->getValue());
         }

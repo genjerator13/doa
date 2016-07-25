@@ -1597,4 +1597,32 @@ class Catalogrecords implements UserInterface
     {
         return $this->finance_email;
     }
+
+    public function isCarDealer(){
+        return $this->dealerType(1);
+    }
+
+    public function isMotoDealer(){
+        return $this->dealerType(5);
+    }
+
+    public function isRVsDealer(){
+        return $this->dealerType(7);
+    }
+
+    public function isAgDealer(){
+        return $this->dealerType(3);
+    }
+
+    public function dealerType($cid){
+
+        foreach($this->getDcategory() as $category){
+            if($category->getId()==$cid){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

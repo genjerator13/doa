@@ -268,9 +268,9 @@ class ItemRepository extends EntityRepository
     }
     public function getAllSingleColumn($columnName,$dealer=null,$order="ASC"){
 
-        $sql = "SELECT DISTINCT i.".$columnName." from item i ORDER BY ".$columnName." ".$order;
+        $sql = "SELECT DISTINCT i.".$columnName." from item i WHERE i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
         if($dealer instanceof Catalogrecords) {
-            $sql = "SELECT DISTINCT i.".$columnName." from item i where dealer_id=".intval($dealer->getId())." ORDER BY ".$columnName." ".$order;
+            $sql = "SELECT DISTINCT i.".$columnName." from item i where dealer_id=".intval($dealer->getId())." AND i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
         }
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
