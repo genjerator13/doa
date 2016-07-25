@@ -301,7 +301,14 @@
                     </a>
                 </li>
                 {% endif %}
-
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                <li class="treeview">
+                    <a href="{{ path('finance') }}">
+                        <i class="fa fa-usd"></i>
+                        <span>FINANCE</span>
+                    </a>
+                </li>
+                {% endif %}
                 {#{% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}#}
                     {#<li class="">#}
                         {#<a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>#}
