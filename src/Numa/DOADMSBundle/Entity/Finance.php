@@ -479,7 +479,10 @@ class Finance
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -487,7 +490,10 @@ class Finance
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
     /**
      * @var integer
@@ -546,5 +552,92 @@ class Finance
     public function getCustomer()
     {
         return $this->Customer;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $date_updated;
+
+    /**
+     * @var \DateTime
+     */
+    private $date_created;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+
+    /**
+     * Set dateUpdated
+     *
+     * @param \DateTime $dateUpdated
+     *
+     * @return Finance
+     */
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->date_updated = $dateUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdated
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdated()
+    {
+        return $this->date_updated;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Finance
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->date_created = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->date_created;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Finance
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }
