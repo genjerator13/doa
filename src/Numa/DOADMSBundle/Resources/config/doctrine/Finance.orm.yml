@@ -158,7 +158,16 @@ Numa\DOADMSBundle\Entity\Finance:
             type: string
             length: 255
             nullable: true
-
+        date_updated:
+             type: datetime
+             nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords

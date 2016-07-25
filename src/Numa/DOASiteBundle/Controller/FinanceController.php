@@ -41,7 +41,6 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
 
             if (empty($entities)) {
-//                $entity->setCustomer($customer);
                 $em->persist($entity);
             }
 

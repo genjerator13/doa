@@ -32,7 +32,7 @@ class SidebarSearchType extends AbstractType
             ->add('priceFrom','text',array('label'=>'Price From',"required"=>false))
             ->add('priceTo','text',array('label'=>'Price To',"required"=>false))
             ->add('search','submit',array('label'=>'Search'))
-            ->add('reset','submit',array('label'=>'Reset'))
+            ->add('reset','reset',array('label'=>'Reset'))
 
             //->add('type')
         ;
