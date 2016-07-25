@@ -36,9 +36,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
 
         },
+        {name: 'cust_name', enableColumnResizing: true},
         {name: 'applicant_type', enableColumnResizing: true},
         {name: 'amount_required', enableColumnResizing: true},
         {name: 'email', enableColumnResizing: true},
+        {name: 'date_created', enableColumnResizing: true, cellFilter: 'date: "yyyy-MM-dd | HH:mm"'},
 
         {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
         {name:'views',enableColumnResizing: true,width: 60},

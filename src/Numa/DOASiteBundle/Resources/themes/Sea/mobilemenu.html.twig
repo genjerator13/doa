@@ -1,4 +1,7 @@
 <div class="mobile-menu">
+    {%  set mainmenu = displayComponent('mainmenu',"template","dealer") %}
+    {{ include(template_from_string(mainmenu)) }}
+    {% if mainmenu is empty %}
     <ul class="menu">
         <li><span class="separator">Menu</span>
             <ul>
@@ -21,7 +24,7 @@
                 <li><a href="{{ path("news") }}">Dealer News</a></li>
                 <li><a href="{{ path('about_us') }}">About Us</a></li>
                 {#<li><a href="{{ path("search_advanced") }}">Advanced Search</a></li>#}
-                <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
+                <li><a href="{{ path('contactus') }}">Contact Us</a></li>
             </ul>
         </li>
     </ul>

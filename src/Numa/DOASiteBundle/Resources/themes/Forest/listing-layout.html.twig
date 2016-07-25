@@ -42,18 +42,19 @@
 </head>
 
 <body>
+
 {% block headline %}
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
+
 {% block mainmenu %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
 {% endblock %}
 
-<div class="mobile-menu">
-    {% block mobilemenu %}
-        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-    {% endblock %}
-</div>
+{% block mobilemenu %}
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+{% endblock %}
+
 <div class="content">
     {% block content %}
         <div class="content">
@@ -87,12 +88,9 @@
     {% endif %}
 {% endblock %}
 
-
 {% block map %}
-
     {% include '@NumaDOASite/map.html.twig' %}
 {% endblock %}
-
 
 {% block footer %}
     <div class="footer-wrapper">
