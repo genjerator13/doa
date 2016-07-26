@@ -42,19 +42,16 @@
 <body>
 
 <div id="wrapper">
-
     <div class="header-wrapper">
-
+        {% block headline %}
         <div class="header">
-
             <div class="logo"><a href="">
                     {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/logo.png' %}
                     <img src="{{ asset_url }}" alt="Example"/>
                     {% endimage %}
-                </a></div>
-
+                </a>
+            </div>
             <div class="top-menu">
-
                 <ul>
                     <li><a href="">ATVs</a></li>
                     <li><a href="">Side &times; Sides</a></li>
@@ -63,9 +60,7 @@
                     <li><a href="">Golf Carts</a></li>
                     <li><a href="">Turf</a></li>
                 </ul>
-
             </div>
-
             <div class="social-media">
 
                 <a class="facebook" href="">
