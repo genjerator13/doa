@@ -1,21 +1,6 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme sidebarForm 'bootstrap_3_layout.html.twig' %}
-{% block stylesheets %}
-    {{ parent() }}
-    {% stylesheets
-    'css/bootstrap-slider.css'
 
-    filter='cssrewrite' output='css/*.css' %}
-    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
-    {% endstylesheets %}
-{% endblock stylesheets %}
-{% block javascripts %}
-    {{ parent() }}
-    {% javascripts
-    'js/bootstrap-slider.js' %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-{% endblock %}
 {% block content %}
     <div class="row">
         {% if pagerfanta is not empty %}
