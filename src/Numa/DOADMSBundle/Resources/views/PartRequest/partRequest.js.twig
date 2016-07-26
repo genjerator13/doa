@@ -38,7 +38,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         },
         {name: 'cust_name', displayName: 'Name', enableColumnResizing: true, width: 100},
         {name: 'cust_last_name', displayName: 'Surname', enableColumnResizing: true, width: 100},
-        {name: 'email', enableColumnResizing: true, width: 100},
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            width: 100,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
         {name: 'phone', enableColumnResizing: true, width: 100},
         {name: 'make', enableColumnResizing: true, width: 100},
         {name: 'model', enableColumnResizing: true, width: 100},

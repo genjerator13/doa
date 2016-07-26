@@ -43,7 +43,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true, width: 60,
             cellTemplate: '<span ng-if="row.entity.contact_by == \'0\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.contact_by == \'1\'" class="glyphicon glyphicon-phone"></span>',
         },
-        {name: 'email', enableColumnResizing: true},
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
         {name: 'phone', enableColumnResizing: true},
         {name: 'date_appointment', enableColumnResizing: true, width: 100, cellFilter: 'date:\'yyyy-MM-dd\''},
         {name: 'time_appointment', enableColumnResizing: true, width: 100, cellFilter: 'date:\'HH:mm\''},
