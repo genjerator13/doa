@@ -103,14 +103,22 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $error=false;
         }
 
-        $this->get("Numa.ListingForms")->handleListingForm($form->getData(),$this->dealer);
+        $em = $this->get('doctrine.orm.entity_manager');
 
+        $this->get('Numa.DMSUtils')->attachCustomerByEmail($entity,$entity->getDealer(),$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+        if(!empty($entity->getItemId())) {
+            $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
+            $entity->setItem($item);
+        }
+
+        $em->persist($entity);
+        $em->flush();
         if($error){
             $response = new JsonResponse(
                 array(
                     'message' => 'error',
                     'action' => $form->getErrorsAsString(),
-                    400));
+                    500));
             return $response;
         }
         $response = new JsonResponse(
