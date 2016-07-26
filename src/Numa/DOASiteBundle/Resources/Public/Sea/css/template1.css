@@ -735,7 +735,7 @@ and (max-width : 767px) {
 
 .coupon-container .coupon-image{
     width: 230px;
-    height: 300px;
+    /*height: 300px;*/
     overflow: hidden;
     margin-bottom: 10px;
 }
