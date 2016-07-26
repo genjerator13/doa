@@ -22,7 +22,7 @@ class ListingFormContactType extends AbstractType
             ->add('phone')
             ->add('comment')
             ->add('type','hidden',array('data'=>'contact'))
-
+            ->add('item_id','hidden')
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')

@@ -29,21 +29,9 @@ class ListingFormHandler
 
         $item = $listingForm->getItem();
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(!empty($dealer)) {
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $listingForm->getEmail(), 'dealer_id' => $dealer->getId()));
+        //dump($listingForm->getDealer());die();
+        $this->container->get('Numa.DMSUtils')->attachCustomerByEmail($listingForm,$listingForm->getDealer(),$listingForm->getEmail(),$listingForm->getCustName(),$listingForm->getCustLastName(),$listingForm->getPhone());
 
-            if (empty($customer)) {
-                $customer = new Customer();
-                $customer->setFirstName($listingForm->getCustName());
-                $customer->setLastName($listingForm->getCustLastName());
-                $customer->setEmail($listingForm->getEmail());
-                $customer->setCatalogrecords($listingForm->getDealer());
-                $customer->setHomePhone($listingForm->getPhone());
-                $em->persist($customer);
-            }
-        }
-
-        $listingForm->setCustomer($customer);
         $em->persist($listingForm);
         $em->flush();
 

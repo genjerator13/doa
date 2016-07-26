@@ -563,7 +563,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         return $this->render('NumaDOASiteBundle:Default:contact_success.html.twig', array(
             'message'=>$message,
-            'components' => $this->components,
             'dealer' => $this->dealer,
         ));
     }
