@@ -46,12 +46,18 @@
 
         <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
 
-        <ul>
-            <li><a href="">Policy</a></li>
-            <li><a href="">Privacy</a></li>
-            <li><a href="">Terms</a></li>
-            <li><a href="">Site Map</a></li>
-        </ul>
+        <div class="extra-menu">
+            {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
+            {{ include(template_from_string(extramenu)) }}
+            {% if extramenu is empty %}
+                <ul>
+                    <li><a href="#">Policy</a></li>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Sitemap</a></li>
+                </ul>
+            {% endif %}
+        </div>
 
         <div class="pull-left">
             <a href="http://www.dms-lite.com/">Powered By DMS-Lite</a>
