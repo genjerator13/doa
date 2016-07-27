@@ -31,7 +31,7 @@
                 <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
                 <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
                 <li><a href="{{ path("finance_form") }}">Get Financed</a></li>
-                <li><a href="">Parts Department</a></li>
+                <li><a href="{{ path('part_form') }}">Parts Department</a></li>
                 <li><a href="">Customer Testimonials</a></li>
                 {% if not(is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN')) %}
                     <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
