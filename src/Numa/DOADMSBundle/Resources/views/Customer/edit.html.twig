@@ -3,7 +3,12 @@
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
 
-    <h1>{{ entity.name }}</h1>
+    <h1>{% if entity.name is not empty %}
+            {{ entity.name }}
+        {% else %}
+            {{ entity.firstName }}  {{ entity.lastName }}
+        {% endif %}
+    </h1>
     <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
         <li role="presentation"><a data-toggle="tab" href="#billings">Billings</a></li>
