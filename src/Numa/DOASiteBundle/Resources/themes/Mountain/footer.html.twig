@@ -17,8 +17,10 @@
 
 
     {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
-    {{ include(template_from_string(quicklinks)) }}
-    {% if quicklinks is empty %}
+    {% if quicklinks != 'enter this value of component in DMS' %}
+        {{ include(template_from_string(quicklinks)) }}
+    {% endif %}
+    {% if quicklinks == 'enter this value of component in DMS' %}
         <div class="quick-links">
             <h3>Quick Links</h3>
 

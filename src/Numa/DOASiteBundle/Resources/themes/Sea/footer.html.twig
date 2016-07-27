@@ -2,8 +2,10 @@
     <div class="footer">
         <div class="bottom-menu">
             {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
-            {{ include(template_from_string(bottommenu)) }}
-            {% if bottommenu is empty %}
+            {% if bottommenu != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(bottommenu)) }}
+            {% endif %}
+            {% if bottommenu == 'enter this value of component in DMS' %}
             <ul>
                 <li><a href="{{ path("homepage") }}">Home</a></li>
                 <li><a href="{{ path("about_us") }}">About Us</a></li>
@@ -19,8 +21,10 @@
         <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
         <div class="extra-menu">
             {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
-            {{ include(template_from_string(extramenu)) }}
-            {% if extramenu is empty %}
+            {% if extramenu != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(extramenu)) }}
+            {% endif %}
+            {% if extramenu == 'enter this value of component in DMS' %}
             <ul>
                 <li><a href="#">Policy</a></li>
                 <li><a href="#">Privacy</a></li>

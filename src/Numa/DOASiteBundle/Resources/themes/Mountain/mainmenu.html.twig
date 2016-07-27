@@ -1,8 +1,9 @@
-
 <div class="main-menu">
     {%  set mainmenu = displayComponent('mainmenu',"template","dealer") %}
-    {{ include(template_from_string(mainmenu)) }}
-    {% if mainmenu is empty %}
+    {% if mainmenu != 'enter this value of component in DMS' %}
+        {{ include(template_from_string(mainmenu)) }}
+    {% endif %}
+    {% if mainmenu == 'enter this value of component in DMS' %}
     <ul class="menu">
         <li><a href="{{ path('homepage') }}">Home</a></li>
         <li><a href="{{ path('about_us') }}">About Us</a></li>

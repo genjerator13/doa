@@ -9,7 +9,11 @@
     </div>
 
     <div class="top-menu">
-
+            {%  set topmenu = displayComponent('topmenu',"template","dealer") %}
+        {% if topmenu != 'enter this value of component in DMS' %}
+            {{ include(template_from_string(topmenu)) }}
+        {% endif %}
+        {% if topmenu == 'enter this value of component in DMS' %}
         <ul>
             <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'quads-atvs'}) }}">ATVs</a></li>
             <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'side-by-side'}) }}">Side &times; Sides</a></li>
@@ -18,7 +22,7 @@
             <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'golf-carts'}) }}">Golf Carts</a></li>
             <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'motor-cycles'}) }}">Turf</a></li>
         </ul>
-
+        {% endif %}
     </div>
 
     <div class="social-media">

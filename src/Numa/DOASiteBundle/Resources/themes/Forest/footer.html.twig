@@ -20,8 +20,10 @@
     </div>
 
     {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
-    {{ include(template_from_string(quicklinks)) }}
-    {% if quicklinks is empty %}
+    {% if quicklinks != 'enter this value of component in DMS' %}
+        {{ include(template_from_string(quicklinks)) }}
+    {% endif %}
+    {% if quicklinks == 'enter this value of component in DMS' %}
         <div class="quick-links">
             <h3>Quick Links</h3>
 
@@ -48,8 +50,10 @@
 
         <div class="extra-menu">
             {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
-            {{ include(template_from_string(extramenu)) }}
-            {% if extramenu is empty %}
+            {% if extramenu != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(extramenu)) }}
+            {% endif %}
+            {% if extramenu == 'enter this value of component in DMS' %}
                 <ul>
                     <li><a href="#">Policy</a></li>
                     <li><a href="#">Privacy</a></li>
