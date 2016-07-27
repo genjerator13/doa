@@ -5,8 +5,8 @@
     {% endif %}
     {% if mainmenu == 'enter this value of component in DMS' %}
     <ul>
-        <li><a href="/homepage">Home</a></li>
-        <li><a href="/about_us">About Us</a></li>
+        <li><a href="{{ path('homepage') }}">Home</a></li>
+        <li><a href="{{ path('about_us') }}">About Us</a></li>
         <li><a href="">Products</a>
             <ul>
                 <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
