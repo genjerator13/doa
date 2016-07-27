@@ -9,18 +9,18 @@
     <title>Dealers on Air</title>
 
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
-
-        {% stylesheets '@theme_forest_css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+        {% stylesheets '@bootstrap' '@colorbox_css' '@theme_forest_css' '@NumaDOASiteBundle/Resources/Public/Mountain/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
     {% endblock %}
 
     {% block javascripts %}
-        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'js/jssor/jssor.slider.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
