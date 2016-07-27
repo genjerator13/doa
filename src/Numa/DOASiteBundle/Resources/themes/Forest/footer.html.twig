@@ -19,14 +19,13 @@
 
     </div>
 
-    {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
-    {% if quicklinks != 'enter this value of component in DMS' %}
-        {{ include(template_from_string(quicklinks)) }}
-    {% endif %}
-    {% if quicklinks == 'enter this value of component in DMS' %}
         <div class="quick-links">
             <h3>Quick Links</h3>
-
+            {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
+            {% if quicklinks != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(quicklinks)) }}
+            {% endif %}
+            {% if quicklinks == 'enter this value of component in DMS' %}
             <ul>
                 <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
                 <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
@@ -40,9 +39,8 @@
                     <li><a class="btn btn-danger btn-xs" href="{{ path('logout') }}">Dealer Logout</a></li>
                 {% endif %}
             </ul>
-
+            {% endif %}
         </div>
-    {% endif %}
 
     <div class="other-info">
 
