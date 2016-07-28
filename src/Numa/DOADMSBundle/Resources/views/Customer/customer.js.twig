@@ -45,7 +45,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'name', enableColumnResizing: true},
         {name: 'home_phone'},
         {name: 'mobile_phone'},
-        {name: 'email'},
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
         {name: 'sales_person'},
         {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
         {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',

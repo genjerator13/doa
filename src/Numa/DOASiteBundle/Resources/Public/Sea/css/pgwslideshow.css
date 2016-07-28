@@ -209,3 +209,19 @@
     font-size: 0.8rem;
     padding: 8px;
 }
+
+/*pgwslider */
+.slideshow .pgwSlideshow{
+    background: #fff;
+}
+.slideshow .pgwSlideshow .ps-list {
+    left: 509px;
+    bottom: 147px;
+}
+.listing-images {
+    position: relative;
+}
+
+.slideshow .ps-current {
+    min-height: 400px;
+}

@@ -45,65 +45,18 @@
 
     <div class="header-wrapper">
 
-        <div class="header">
 
-            <div class="logo"><a href="">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/logo.png' %}
-                    <img src="{{ asset_url }}" alt="Example"/>
-                    {% endimage %}
-                </a></div>
+        {% block header %}
+            {% include 'NumaDOASiteBundle::headline.html.twig' %}
+        {% endblock %}
 
-            <div class="top-menu">
+        {% block mainmenu %}
+            {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+        {% endblock %}
 
-                <ul>
-                    <li><a href="">ATVs</a></li>
-                    <li><a href="">Side &times; Sides</a></li>
-                    <li><a href="">Snowmobiles</a></li>
-                    <li><a href="">Boats</a></li>
-                    <li><a href="">Golf Carts</a></li>
-                    <li><a href="">Turf</a></li>
-                </ul>
-
-            </div>
-
-            <div class="social-media">
-
-                <a class="facebook" href="">
-                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/facebook.png' %}
-                    <img src="{{ asset_url }}" alt="Facebook"/>
-                    {% endimage %}
-                </a>
-                <a class="twitter" href="">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/twitter.png' %}
-                    <img src="{{ asset_url }}" alt="Twitter"/>
-                    {% endimage %}</a>
-                <a class="google" href="">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/google.png' %}
-                    <img src="{{ asset_url }}" alt="Google"/>
-                    {% endimage %}</a>
-                <a class="youtube" href="">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/youtube.png' %}
-                    <img src="{{ asset_url }}" alt="Youtube"/>
-                    {% endimage %}</a>
-                <a class="instagram" href="">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/instagram.png' %}
-                    <img src="{{ asset_url }}" alt="Instagram"/>
-                    {% endimage %}</a>
-
-            </div>
-
-            <div class="contact-info">
-
-                <a class="address" href="">221B Baker Street &middot; Saskatoon, SK, Canada</a>
-
-                <div class="phone">306.555.1234</div>
-
-            </div>
-
-        </div>
-
-            {% block mainmenu %}
-                {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-            {% endblock %}
-            {% block mobilemenu %}
-                {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
-            {% endblock %}
+        {% block mobilemenu %}
+            {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+        {% endblock %}
 
     </div>
 
@@ -113,7 +66,7 @@
 
             <div class="button b1">
 
-                <a href="">
+                <a href="{{ path("search_new_vehicle") }}">
 
                     <h2>New Units <span>Click Here</span></h2>
 
@@ -123,7 +76,7 @@
 
             <div class="button b2">
 
-                <a href="">
+                <a href="{{ path("search_used_vehicle") }}">
 
                     <h2>Pre-Owned <span>Click Here</span></h2>
 
@@ -133,7 +86,7 @@
 
             <div class="button b3">
 
-                <a href="">
+                <a href="{{ path("finance_form") }}">
 
                     <h2>Financing <span>In House</span></h2>
 
@@ -143,7 +96,7 @@
 
             <div class="button b4">
 
-                <a href="">
+                <a href="{{ path("part_form") }}">
 
                     <h2>Parts <span>and Service</span></h2>
 
@@ -200,11 +153,9 @@
         </div>
 
         <div class="content">
-
-            <h1>Welcome to Generic Company</h1>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
+            {% if(components is defined) %}
+                {{ displayComponent('page_content',"HTML") }}
+            {% endif %}
         </div>
 
         <div class="brands">
@@ -221,55 +172,10 @@
 
     </div>
 
-    <div class="footer">
 
-        <div class="logo"><img src="images/logo.png" /></div>
-
-        <div class="contact-info">
-
-            <h3>Contact Us</h3>
-
-            <p>221B Baker Street<br />Saskatoon, SK, Canada</p>
-
-            <p>Phone: (306) 555-2134<br />
-                Fax: (306) 555-1235</p>
-
-            <p><a href="">Map and Hours</a></p>
-
-        </div>
-
-        <div class="quick-links">
-
-            <h3>Quick Links</h3>
-
-            <ul>
-                <li><a href="">New Inventory</a></li>
-                <li><a href="">Pre-Owned Inventory</a></li>
-                <li><a href="">Get Financed</a></li>
-                <li><a href="">Parts Department</a></li>
-                <li><a href="">Customer Testimonials</a></li>
-                <li><a href="">Current Specials</a></li>
-            </ul>
-
-        </div>
-
-        <div class="other-info">
-
-            <div class="copyright">Copyright &copy; 2016 Company Name.<br />All Rights Reserved</div>
-
-            <ul>
-                <li><a href="">Policy</a></li>
-                <li><a href="">Privacy</a></li>
-                <li><a href="">Terms</a></li>
-                <li><a href="">Site Map</a></li>
-            </ul>
-
-            <div class="pull-left">
-                <a href="http://www.dms-lite.com/">Powered By DMS-Lite</a>
-            </div>
-        </div>
-
-    </div>
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
 
 </div>
 </body>

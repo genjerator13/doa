@@ -230,8 +230,13 @@ class searchParameters {
 //                            $qb->andWhere('i.category_id=:cat');
 //                            $qb->setParameter('cat', $searchItem->getValue());
                         } elseif ($type == 'string') {
-                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                            $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
+
+                            if($dbName=="body_style" && strtolower($searchItem->getValue())=="other"){
+                                $qb->andWhere('i.' . $dbName . ' is null');
+                            }else {
+                                $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                                $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
+                            }
                         } elseif ($type == 'int') {
                             $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
 

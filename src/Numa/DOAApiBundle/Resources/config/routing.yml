@@ -90,3 +90,6 @@ listing_add_feature:
 dealer_component_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing/dealer_component.yml"
     prefix:   /dealer_component
+finance_api:
+    resource: "@NumaDOAApiBundle/Resources/config/routing/finance.yml"
+    prefix:   /finance

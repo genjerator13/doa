@@ -349,6 +349,7 @@ body {
 .checkbox{
     color: black;
 }
+
 /* listing detail */
 .detailsContent .row {
     margin: 0px;
@@ -376,8 +377,6 @@ body {
 .listing-box-top {
     min-height: 200px;
 }
-
-
 
 
 #listing-content .row{
@@ -437,9 +436,6 @@ body {
 
 }
 
-.ps-current {
-    min-height: 400px;
-}
 
 /* ==========================================================================
    Info
@@ -675,17 +671,7 @@ and (max-width : 767px) {
 
 }
 
-/*pgwslider */
-.slideshow .pgwSlideshow{
-    background: #fff;
-}
-.slideshow .pgwSlideshow .ps-list {
-    left: 509px;
-    bottom: 147px;
-}
-.listing-images {
-    position: relative;
-}
+
 
 
 
@@ -735,7 +721,7 @@ and (max-width : 767px) {
 
 .coupon-container .coupon-image{
     width: 230px;
-    height: 300px;
+    /*height: 300px;*/
     overflow: hidden;
     margin-bottom: 10px;
 }

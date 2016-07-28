@@ -1,5 +1,9 @@
-{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
 <div class="main-menu">
+    {%  set mainmenu = displayComponent('mainmenu',"template","dealer") %}
+    {% if mainmenu != 'enter this value of component in DMS' %}
+        {{ include(template_from_string(mainmenu)) }}
+    {% endif %}
+    {% if mainmenu == 'enter this value of component in DMS' %}
     <ul class="menu">
         <li><a href="{{ path('homepage') }}">Home</a></li>
         <li><a href="{{ path('about_us') }}">About Us</a></li>
@@ -18,44 +22,8 @@
         </li>
         <li><a href="{{ path("finance_form") }}">Financing</a></li>
         <li><a href="{{ path("dealer_coupons_dms") }}">Specials</a></li>
-        <li><a href="{{ path("news") }}">Dealer News</a></li>
-        <li><a href="{{ path("search_advanced") }}">Advanced Search</a></li>
-        <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
+        <li><a href="{{ path("news") }}">News</a></li>
+        <li><a href="{{ path("contactus") }}" >Contact Us</a></li>
     </ul>
+    {% endif %}
 </div>
-
-<!-- Modal -->
-<div class="modal fade" id="contactus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Contact Us</h4>
-            </div>
-            <div class="modal-body">
-                {{ form(contactForm) }}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="submit_contact">Save changes
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $('#submit_contact').click(function (e) {
-            e.preventDefault();
-            var form = $('#contact_form').serializeArray();
-            alert("Success");
-            $.ajax({
-                type: "POST",
-                data: form,
-                url: '{{ path("listting_form_post",{"form":'contact',"item_id": "item.id" }) }}',
-            });
-        })
-
-    });
-</script>

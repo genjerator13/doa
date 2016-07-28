@@ -1,3 +1,5 @@
+/* web/themes/forest/ccc/template.css */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -534,5 +536,130 @@ and (max-width : 767px) {
 .quick-links ul { list-style: none; }
 
 .other-info ul { margin: 10px auto; }
+
+}
+
+.coupons-container {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.coupon-container {
+	border: 1px solid #111111;
+	width: 240px;
+	float: left;
+	margin-left: 5px;
+	/*padding: 10px;*/
+	background-color: #e7e7e7;
+}
+
+.coupon-container h3 {
+	text-align: center;
+}
+
+.coupon-container .coupon-image{
+	width: 230px;
+	/*height: 300px;*/
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.coupon-container a.coupon-print{
+	font-size: 22px;
+	float: right;
+	color: #F78F1E;
+}
+
+.coupon-container a.coupon-print:hover{
+	font-size: 24px;
+}
+
+.coupon-page-text{
+	margin-bottom: 10px;
+}
+
+/* listing detail */
+.detailsContent .row {
+	margin: 0px;
+	border: 1px solid lightslategray;
+}
+.detailsContent .row p{
+	padding: 10px;
+}
+
+.listing-buttons {
+	padding: 0px;
+	text-align: right;
+	z-index:1000;
+	position: absolute;
+	top: 0px;
+	right:0px;
+}
+
+.listing-buttons button{
+	text-align: right;
+	font-weight: bold;
+
+}
+
+.listing-box-top {
+	min-height: 200px;
+}
+
+
+#listing-content .row{
+	margin: 0px;
+	border: 1px solid lightslategray;
+}
+.row .items{
+	padding: 15px 0 0 0;
+}
+
+.detailsContent .option-lists{
+	margin-left: 50px;
+}
+.detailsContent h2.section{
+	margin: 0px;
+	font-size: 130%;
+	padding: 5px;
+	background-color: #111111;
+	color: #f78f1e;
+	font-family:'Fjalla One','Open Sans', sans-serif;
+}
+
+.detailsContent .row {
+	margin-bottom: 20px;
+}
+.detailsContent .retail_price {
+	color: #f78f1e;
+	text-decoration-line: line-through;
+	font-size: 130%;
+}
+.detailsContent .price {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.detailsContent .price-quote {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+
+.title{
+	color: black;
+}
+.detailsContent  .left{
+	padding:0;
+	min-height: 400px;
+}
+.detailsContent .row{
+
+}
+.right{
+	height: 100%;
+	position: relative;
+	min-height: 400px;
+	padding-right: 0;
 
 }

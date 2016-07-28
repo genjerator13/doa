@@ -14,7 +14,15 @@ use JMS\Serializer\Annotation as JMS;
  */
 class Finance
 {
+    /**
+     * @var integer
+     * @JMS\Expose
+     */
     protected $applicant_type;
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $amount_required;
     protected $down_payment;
     protected $loan_term;
@@ -26,10 +34,17 @@ class Finance
     protected $year;
     protected $vehicle_type;
     protected $interested_in;
-
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $cust_name;
     protected $cust_last_name;
     protected $preferred_contact;
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $email;
     protected $day_phone;
     protected $cell_phone;
@@ -400,5 +415,246 @@ class Finance
     public function setOtherMonthlyIncome($other_monthly_income)
     {
         $this->other_monthly_income = $other_monthly_income;
+    }
+    /**
+     * @var integer
+     * @JMS\Expose
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set dealerId
+     *
+     * @param integer $dealerId
+     *
+     * @return Finance
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return integer
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return Finance
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+    /**
+     * @ORM\PrePersist
+     */
+    public function setCreatedAtValue()
+    {
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAtValue()
+    {
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
+    }
+    /**
+     * @var integer
+     */
+    private $customer_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Customer
+     */
+    private $Customer;
+
+
+    /**
+     * Set customerId
+     *
+     * @param integer $customerId
+     *
+     * @return Finance
+     */
+    public function setCustomerId($customerId)
+    {
+        $this->customer_id = $customerId;
+
+        return $this;
+    }
+
+    /**
+     * Get customerId
+     *
+     * @return integer
+     */
+    public function getCustomerId()
+    {
+        return $this->customer_id;
+    }
+
+    /**
+     * Set customer
+     *
+     * @param \Numa\DOADMSBundle\Entity\Customer $customer
+     *
+     * @return Finance
+     */
+    public function setCustomer(\Numa\DOADMSBundle\Entity\Customer $customer = null)
+    {
+        $this->Customer = $customer;
+
+        return $this;
+    }
+
+    /**
+     * Get customer
+     *
+     * @return \Numa\DOADMSBundle\Entity\Customer
+     */
+    public function getCustomer()
+    {
+        return $this->Customer;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $date_updated;
+
+    /**
+     * @var \DateTime
+     * @JMS\Expose
+     */
+    private $date_created;
+
+    /**
+     * @var string
+     */
+    private $status;
+
+
+    /**
+     * Set dateUpdated
+     *
+     * @param \DateTime $dateUpdated
+     *
+     * @return Finance
+     */
+    public function setDateUpdated($dateUpdated)
+    {
+        $this->date_updated = $dateUpdated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateUpdated
+     *
+     * @return \DateTime
+     */
+    public function getDateUpdated()
+    {
+        return $this->date_updated;
+    }
+
+    /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     *
+     * @return Finance
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->date_created = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->date_created;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Finance
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
     }
 }

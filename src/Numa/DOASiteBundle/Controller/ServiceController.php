@@ -28,24 +28,10 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            //check if customer exists based by its email
-            $data = $form->getData();
-            $email = $data->getEmail();
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
-            if(empty($customer)){
-                $customer = new Customer();
-                $customer->setFirstName($data->getCustName());
-                $customer->setLastName($data->getCustLastName());
-                $customer->setEmail($email);
-                $customer->setCatalogrecords($this->dealer);
-                $customer->setHomePhone($data->getPhone());
-                $em->persist($customer);
-            }
-            $entity->setCustomer($customer);
-            //if($this->dealer instanceof Catalogrecords){
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+
                 $entity->setDealer($this->dealer);
-            //}
 
             if(empty($entities)) {
                 $em->persist($entity);

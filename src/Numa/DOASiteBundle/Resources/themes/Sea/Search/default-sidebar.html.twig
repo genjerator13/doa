@@ -1,5 +1,6 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme sidebarForm 'bootstrap_3_layout.html.twig' %}
+
 {% block content %}
     <div class="row">
         {% if pagerfanta is not empty %}
@@ -207,6 +208,9 @@
     <div class="row">
         <div class="searchSidebar col-md-2">
             {{ form(sidebarForm) }}
+            <script>
+                var slider = new Slider('#priceTo', {});
+            </script>
             <script>
                 var treeDataCar = '{{jsonCar|raw }}';
                 //var treeDataRvs = '{{jsonRvs|raw }}';

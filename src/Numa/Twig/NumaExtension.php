@@ -199,50 +199,19 @@ class NumaExtension extends \Twig_Extension
 
 
             $em = $this->container->get('doctrine.orm.entity_manager');
-            $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-
+            $images = array();
+            if($component instanceof Component || $component instanceof DealerComponent){
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+            }
             return $images;
+        }elseif(strtolower($type)=="template"){
+
         }
 
 
         return $value;
     }
 
-    public function displayCarouselComponent()
-    {
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
-        $request = $this->container->get("request");
-        //dump($request);
-        $pathinfo = $request->getPathInfo();
-
-        if (substr($pathinfo, 0, 2) === "/d") {
-            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-        }
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $host = trim(strip_tags($request->getHost()));
-        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
-
-        if ($dealer instanceof Catalogrecords) {
-            $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-            $dcomponents = $dealer->getComponent();
-        }
-
-        if (!empty($pcomponents)) {
-            $componentsArray = $pcomponents->matching($criteria);
-
-            if (!empty($componentsArray) and $componentsArray->count() > 0) {
-
-                $component = $componentsArray->first();
-
-                $em = $this->container->get('doctrine.orm.entity_manager');
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-
-                return $images;
-            }
-        }
-        return null;
-    }
 
     public function getDealer()
     {

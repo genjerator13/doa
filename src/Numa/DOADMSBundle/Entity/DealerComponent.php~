@@ -287,16 +287,18 @@ class DealerComponent
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue()
-    {
-        // Add your code here
+    public function setCreatedAtValue() {
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue()
-    {
-        // Add your code here
+    public function setUpdatedAtValue() {
+            $this->date_updated = new \DateTime();
+
     }
 }

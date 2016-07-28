@@ -1,0 +1,188 @@
+Numa\DOADMSBundle\Entity\Finance:
+    type: entity
+    table: finance
+    repositoryClass: Numa\DOADMSBundle\Repository\FinanceRepository
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+            nullable: true
+        customer_id:
+            type: integer
+            nullable: true
+        applicant_type:
+            type: string
+            length: 255
+            nullable: true
+        amount_required:
+            type: string
+            length: 255
+            nullable: true
+        loan_term:
+            type: string
+            length: 255
+            nullable: true
+        down_payment:
+            type: string
+            length: 255
+            nullable: true
+        trade_in:
+            type: string
+            length: 255
+            nullable: true
+        message_text:
+            type: string
+            length: 255
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year:
+            type: string
+            length: 255
+            nullable: true
+        vehicle_type:
+            type: string
+            length: 255
+            nullable: true
+        interested_in:
+            type: string
+            length: 255
+            nullable: true
+        cust_name:
+            type: string
+            length: 255
+            nullable: true
+        cust_last_name:
+            type: string
+            length: 255
+            nullable: true
+        preferred_contact:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        day_phone:
+            type: string
+            length: 255
+            nullable: true
+        cell_phone:
+            type: string
+            length: 255
+            nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state:
+            type: string
+            length: 255
+            nullable: true
+        zip_code:
+            type: string
+            length: 255
+            nullable: true
+        ssn_sin_nr:
+            type: string
+            length: 255
+            nullable: true
+        birth_date:
+            type: datetime
+            nullable: true
+        residence_type:
+            type: string
+            length: 255
+            nullable: true
+        monthly_payment:
+            type: string
+            length: 255
+            nullable: true
+        at_residence:
+            type: datetime
+            nullable: true
+        employer:
+            type: string
+            length: 255
+            nullable: true
+        occupation:
+            type: string
+            length: 255
+            nullable: true
+        monthly_income:
+            type: string
+            length: 255
+            nullable: true
+        on_job:
+            type: datetime
+            nullable: true
+        business_phone:
+            type: string
+            length: 255
+            nullable: true
+        employer_address:
+            type: string
+            length: 255
+            nullable: true
+        employer_city:
+            type: string
+            length: 255
+            nullable: true
+        employer_state:
+            type: string
+            length: 255
+            nullable: true
+        employer_zip:
+            type: string
+            length: 255
+            nullable: true
+        source:
+            type: string
+            length: 255
+            nullable: true
+        other_monthly_income:
+            type: string
+            length: 255
+            nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Finance
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: Finance
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

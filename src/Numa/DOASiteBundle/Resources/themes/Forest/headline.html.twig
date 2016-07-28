@@ -1,16 +1,58 @@
 <div class="header">
-    {% if dealer is defined and dealer is not empty %}
-    <a class="logo" href="">
 
-            {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+    <div class="logo">
+        {% if dealer is defined and dealer is not empty %}
+            <a href="{{ path("homepage") }}">
+                {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+            </a>
+        {% endif %}
+    </div>
 
-    </a>
+    <div class="top-menu">
+            {%  set topmenu = displayComponent('topmenu',"template","dealer") %}
+        {% if topmenu != 'enter this value of component in DMS' %}
+            {{ include(template_from_string(topmenu)) }}
+        {% endif %}
+        {% if topmenu == 'enter this value of component in DMS' %}
+        <ul>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'quads-atvs'}) }}">ATVs</a></li>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'side-by-side'}) }}">Side &times; Sides</a></li>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'snowmobiles'}) }}">Snowmobiles</a></li>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'dirt-motocross'}) }}">Boats</a></li>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'golf-carts'}) }}">Golf Carts</a></li>
+            <li><a href="{{ path('search_by_type',{'category': 'motorsport','typeSlug': 'motor-cycles'}) }}">Turf</a></li>
+        </ul>
+        {% endif %}
+    </div>
+
+    <div class="social-media">
+
+        <a class="facebook" href="{{ dealer.siteFacebook }}">
+            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Facebook"/>
+            {% endimage %}
+        </a>
+        <a class="twitter" href="{{ dealer.siteTwitter }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/twitter.png' %}
+            <img src="{{ asset_url }}" alt="Twitter"/>
+            {% endimage %}</a>
+        <a class="google" href="{{ dealer.siteGoogle }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/google.png' %}
+            <img src="{{ asset_url }}" alt="Google"/>
+            {% endimage %}</a>
+        <a class="youtube" href="{{ dealer.siteYoutube }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Youtube"/>
+            {% endimage %}</a>
+        <a class="instagram" href="{{ dealer.siteInstagram }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/instagram.png' %}
+            <img src="{{ asset_url }}" alt="Instagram"/>
+            {% endimage %}</a>
+
+    </div>
+
     <div class="contact-info">
 
-        <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4</div>
-        <a class="map-and-hours" href="">Map &amp; Hours</a>
+        <a class="address" href="">{{ dealer.address }}, {{ dealer.city }}, {{ dealer.state }}</a>
 
         <div class="phone">{{ dealer.phone }}</div>
+
     </div>
-    {% endif %}
+
 </div>
