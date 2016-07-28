@@ -11,23 +11,21 @@
     {% block stylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        {% stylesheets '@theme_mountain_css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@colorbox_css' '@theme_forest_css' '@NumaDOASiteBundle/Resources/Public/Forest/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 
     {% endblock %}
+
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js'  'themes/Mountain/js/pgwslideshow.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'themes/Forest/js/pgwslideshow.js'  %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-
         {% endjavascripts %}
-        {% include 'NumaDOASiteBundle::ga.html.twig' %}
-
-        <script type="text/javascript">
+                <script type="text/javascript">
             jQuery(document).ready(function () {
                 jQuery(".mobile-menu ul ul").hide();
                 /* hide sublinks */
@@ -37,91 +35,40 @@
                 });
             });
         </script>
+
     {% endblock %}
 
 </head>
 
 <body>
-{% block headline %}
-    {% include 'NumaDOASiteBundle::headline.html.twig' %}
-{% endblock %}
-{% block mainmenu %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-{% endblock %}
 
-<div class="mobile-menu">
-    {% block mobilemenu %}
-        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-    {% endblock %}
-</div>
-<div class="content">
-{% block content %}
-<div class="content">
+<div id="wrapper">
 
-</div>
-{% endblock %}
-</div>
-{% block info %}
-{% if dealer is defined and dealer is not empty %}
-    <div class="info">
-        <ul>
-            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
-            <li>
-                <h2>{{ dealer.name }}</h2>
-                <div class="address">
-                    {{ dealer.address }}<br>
-                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
-                </div>
-                <div class="phone">
-                    <span>Phone:</span> {{ dealer.phone }}<br>
-                </div>
-            </li>
-            <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent(components,'hours_of_operation')|raw }}
-                {% endif %}
-            </li>
-            <li>
-                {% if(components is defined and components is not empty) %}
-                    {{ displayComponent(components,'quick_links')|raw }}
-                {% endif %}
-            </li>
-        </ul>
+    <div class="header-wrapper">
+
+
+        {% block header %}
+            {% include 'NumaDOASiteBundle::headline.html.twig' %}
+        {% endblock %}
+
+        {% block mainmenu %}
+            {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+        {% endblock %}
+
+        {% block mobilemenu %}
+            {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+        {% endblock %}
+
     </div>
-{% endif %}
-{%  endblock %}
-
-
-{% block map %}
-
-    {% include '@NumaDOASite/map.html.twig' %}
-{% endblock %}
+<div class="content-wrapper">
+        {% block content %}
+        {% endblock %}
+</div>
 
 
 {% block footer %}
-    <div class="footer-wrapper">
-        <div class="footer">
-            <div class="bottom-menu">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
-            <div class="extra-menu">
-                <ul>
-                    <li><a href="">Policy</a></li>
-                    <li><a href="">Privacy</a></li>
-                    <li><a href="">Terms</a></li>
-                    <li><a href="">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
+    </div>
 </body>
 </html>

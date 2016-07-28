@@ -242,4 +242,9 @@ class CustomerController extends Controller
         ;
     }
 
+
+    public function reportXlsAction(Request $request,$id)
+    {
+        return $this->get('Numa.Reports')->billingReportXls($id);die();
+    }
 }

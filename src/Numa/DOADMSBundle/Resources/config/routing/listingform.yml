@@ -34,7 +34,7 @@ listingform_create_offer:
     defaults: { _controller: "NumaDOADMSBundle:ListingForm:create" }
     requirements: { _method: post }
 listingform_create_contact:
-    path:     /create_offer
+    path:     /contact_us
     defaults: { _controller: "NumaDOADMSBundle:ListingForm:create" }
     requirements: { _method: post }
 listingform_edit:

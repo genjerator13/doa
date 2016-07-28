@@ -13,7 +13,7 @@ class PageRepository extends EntityRepository
 {
     public function findPageByUrl($url)
     {
-        $current_date = new \DateTime();;
+
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('p')
@@ -66,9 +66,7 @@ class PageRepository extends EntityRepository
         //remove /page from $url
 
         if (stripos($url, "page") !== false) {
-
             $url = substr($url,5,strlen($url)-1);
-            dump($url);
         }
 
         $qb = $this->getEntityManager()
@@ -76,8 +74,8 @@ class PageRepository extends EntityRepository
 
         $qb->select('p')
             ->add('from', 'NumaDOAModuleBundle:page p')
-            ->join('p.PageComponent', 'pc')
-            ->join('pc.Component', 'c')
+            //->join('p.PageComponent', 'pc')
+            //->join('pc.Component', 'c')
             ->andWhere('p.url like :url');
         $qb->setParameter('url', $url);
         if (empty($dealer_id)) {
@@ -89,12 +87,12 @@ class PageRepository extends EntityRepository
         }
 
         $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
-        //dump($qb->getQuery());die();
-        if ($page instanceof Page) {
-            return $page->getComponent();
-        }
+//        //dump($qb->getQuery());die();
+//        if ($page instanceof Page) {
+//            return $page->getComponent();
+//        }
 
-        return null;
+        return $page;
     }
 
     public function findPageComponentByPageId($page_id)

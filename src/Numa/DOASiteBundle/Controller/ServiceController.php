@@ -15,15 +15,11 @@ use Symfony\Component\HttpFoundation\Request;
 class ServiceController extends Controller implements DealerSiteControllerInterface{
 
     public $dealer;
-    public $components;
+
     public function initializeDealer($dealer){
         $this->dealer = $dealer;
     }
 
-    public function initializePageComponents($components){
-        $this->components = $components;
-
-    }
 
     public function serviceAction(Request $request) {
         $entity = new ServiceRequest();
@@ -32,24 +28,10 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            //check if customer exists based by its email
-            $data = $form->getData();
-            $email = $data->getEmail();
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
 
-            if(empty($customer)){
-                $customer = new Customer();
-                $customer->setFirstName($data->getCustName());
-                $customer->setLastName($data->getCustLastName());
-                $customer->setEmail($email);
-                $customer->setCatalogrecords($this->dealer);
-                $customer->setHomePhone($data->getPhone());
-                $em->persist($customer);
-            }
-            $entity->setCustomer($customer);
-            //if($this->dealer instanceof Catalogrecords){
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
+
                 $entity->setDealer($this->dealer);
-            //}
 
             if(empty($entities)) {
                 $em->persist($entity);
@@ -63,7 +45,6 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Service:service_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
-            'components'=>$this->components,
             'form'   => $form->createView(),
         ));
     }
@@ -91,7 +72,6 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         return $this->render('NumaDOASiteBundle:Service:service_success.html.twig', array(
             'message'=>$message,
-            'components' => $this->components,
             'dealer' => $this->dealer,
         ));
     }

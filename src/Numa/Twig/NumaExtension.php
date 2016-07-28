@@ -5,8 +5,12 @@
 namespace Numa\Twig;
 
 use Doctrine\Common\Collections\Criteria;
-use Numa\DOADMSBundle\Entity\Component;
+use Numa\DOAModuleBundle\Entity\Component;
+use Numa\DOADMSBundle\Entity\DealerComponent;
+use Numa\DOAModuleBundle\Entity\PageComponent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAModuleBundle\Entity\Page;
 
 class NumaExtension extends \Twig_Extension
 {
@@ -109,65 +113,128 @@ class NumaExtension extends \Twig_Extension
     public function getYoutubeEmbed($id)
     {
         //https://www.youtube.com/embed/xH01UCfId0A
-        return "https://www.youtube.com/embed/".$id;
+        return "https://www.youtube.com/embed/" . $id;
     }
 
-    public function displayComponent($components,$name)
+    public function displayComponent($name, $type="Text", $source = "page")
     {
+
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("name", $name))
-            ;//->getMaxResults(1);
-        if(!empty($components)) {
+            ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
+        if(strtolower($type)=="carousel"){
+            $criteria = Criteria::create()
+                ->where(Criteria::expr()->eq("type", 'Carousel'));
+        }
+        $request = $this->container->get("request");
+
+        $pathinfo = $request->getPathInfo();
+
+        if (substr($pathinfo, 0, 2) === "/d") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $host = trim(strip_tags($request->getHost()));
+        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
+
+        $dealer_id = null;
+        $page = null;
+        $component = null;
+        $value = "c not f";
+        //$dcomponents = array();
+
+        if ($dealer instanceof Catalogrecords) {
+            if ($source == "page") {
+                $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo,$dealer->getId());
+                if ($page instanceof Page) {
+                    $components = $page->getComponent();
+                }
+
+            } elseif ($source == "dealer") {
+                $components = $dealer->getComponent();
+            }
+        }
+
+        if (!empty($components)) {
             $componentsArray = $components->matching($criteria);
 
             if (!empty($componentsArray) and $componentsArray->count() > 0) {
-
-                return $componentsArray->first()->getValue();
+                $component = $componentsArray->first();
             }
         }
-        return "c not f";
-    }
+        
+        if(! ($component instanceof Component) && !($component instanceof DealerComponent)){
 
-    public function displayCarouselComponent($components){
-        $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("type", 'Carousel'));//->getMaxResults(1);
+            if($source=="page" && $page instanceof Page){
+                $comp = new Component();
+                $comp->setName($name);
+                $comp->setType($type);
+                $pc = new PageComponent();
+                $pc->setComponent($comp);
+                $pc->setPage($page);
+                $em->persist($comp);
+                $em->persist($pc);
+                $em->flush();
+                $value = $comp->getValue();
+            }elseif($source=="dealer"){
 
-        if(!empty($components)) {
-            $componentsArray = $components->matching($criteria);
+                $comp = new DealerComponent();
+                $comp->setDealer($dealer);
+                $comp->setName($name);
+                $comp->setType($type);
+                $em->persist($comp);
 
-            if (!empty($componentsArray) and $componentsArray->count() > 0) {
-
-                $component =  $componentsArray->first();
-
-                $em        = $this->container->get('doctrine.orm.entity_manager');
-                $images    = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-
-                return $images;
+                $em->flush();
+                $value = $comp->getValue();
             }
+
+        }else{
+            $value = $component->getValue();
+
         }
-        return null;
+        if(empty($value)){
+            $value = "enter this value of component in DMS";
+        }
+        if(strtolower($type)=="carousel"){
+
+
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $images = array();
+            if($component instanceof Component || $component instanceof DealerComponent){
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+            }
+            return $images;
+        }elseif(strtolower($type)=="template"){
+
+        }
+
+
+        return $value;
     }
 
-    public function getDealer(){
-        $session   = $this->container->get('session');
+
+    public function getDealer()
+    {
+        $session = $this->container->get('session');
         $dealer_id = $session->get('dealer_id');
-        $em        = $this->container->get('doctrine.orm.entity_manager');
-        $dealer    = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerById($dealer_id);
         return $dealer;
     }
 
-    public function shortWord($str,$chars){
+    public function shortWord($str, $chars)
+    {
         $pieces = explode(" ", $str);
         $pieces = preg_split("/[-;, ]+/", $str);
         $len = 0;
-        $ret="";
-        foreach($pieces as $word){
+        $ret = "";
+        foreach ($pieces as $word) {
             $len = $len + strlen($word);
 
-            if($len>$chars){
+            if ($len > $chars) {
                 return $ret;
             }
-            $ret = $ret." ".$word;
+            $ret = $ret . " " . $word;
         }
         return $ret;
 

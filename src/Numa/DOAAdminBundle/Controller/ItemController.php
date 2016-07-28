@@ -37,7 +37,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
     }
 
     public $dealer;
-    public $components;
+
 
     public function initializeDealer($dealer)
     {
@@ -45,10 +45,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
     }
 
-    public function initializePageComponents($components)
-    {
-        $this->components = $components;
-    }
+
 
     /**
      * Lists all User entities.
@@ -197,7 +194,6 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 $em->flush();
             }
         }
-
         return $this->redirect($this->generateUrl('items'));
     }
 
@@ -699,8 +695,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      */
     public function massDeactivate2Action(Request $request) {
 
-        $ids = $this->getActivationParams($request);
-
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,0);
         die();
@@ -711,7 +706,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Activates elected listings in datagrid on listing list page
      */
     public function massMakeFeatured2Action(Request $request) {
-        $ids = $this->getActivationParams($request);
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids,true);
         die();
@@ -723,28 +718,13 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      */
     public function massDelete2Action(Request $request) {
 
-        $ids = $this->getActivationParams($request);
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
 
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->delete($ids);
         die();
     }
 
-
-    /**
-     * @param Request $request
-     * @return mixed listings ID separated by "," needed for massDeactivate2Action and massActivate2Action
-     *
-     */
-    private function getActivationParams(Request $request){
-        $data = json_decode($request->get('data'));
-        $values =array();
-        foreach($data as $item_id){
-            $values[]=intval($item_id);
-        }
-        $item_ids = implode(",",$values);
-        return $item_ids;
-    }
 
     /**
      * deactivate an Item entity.

@@ -2,10 +2,10 @@ dms_home:
     path:  /
     defaults: { _controller: "NumaDOADMSBundle:Default:index" }
 dms_profile_edit:
-    pattern:  /profile/{id}/edit
+    path:  /profile/{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit",_dashboard:"DMS" }
 dms_inventory_feeds:
-    pattern:  /feeds
+    path:  /feeds
     defaults: { _controller: "NumaDOADMSBundle:Default:feeds" }
 dms_customer:
     resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
@@ -87,4 +87,12 @@ command_log:
 NumaDOAAdminBundle_catalogs:
     resource: "@NumaDOADMSBundle/Resources/config/routing/catalogrecords.yml"
     prefix:   /catalogs
-
+NumaDOADMSBundle_dealercomponent:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dealercomponent.yml"
+    prefix:   /dealercomponent
+dms_reports:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/reports.yml"
+    prefix:   /reports
+NumaDOADMSBundle_finance:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/finance.yml"
+    prefix:   /finance

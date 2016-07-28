@@ -17,17 +17,10 @@ class PageController extends Controller implements DealerSiteControllerInterface
 {
 
     public $dealer;
-    public $components;
 
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
-    }
-
-    public function initializePageComponents($components)
-    {
-
-        $this->components=$components;
     }
 
     public function showAction($url)
@@ -40,7 +33,7 @@ class PageController extends Controller implements DealerSiteControllerInterface
         }
 
         $response = $this->render('NumaDOASiteBundle:Page:index.html.twig',
-            array("dealer"=>$this->dealer,"components"=>$this->components ));
+            array("dealer"=>$this->dealer ));
         return $response;
     }
 

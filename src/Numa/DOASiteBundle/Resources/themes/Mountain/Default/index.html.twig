@@ -17,7 +17,7 @@
 {% endblock %}
 {% block banner %}
 
-    {% set images = displayCarouselComponent(components) %}
+    {% set images = displayComponent("homepage_carousel","carousel") %}
 
     <div class="bs-example">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -59,7 +59,7 @@
 {% endblock %}
 {% block content %}
     <div class="content">
-        {{ displayComponent(components,'welcome_text')|raw }}
+        {{ displayComponent('welcome_text',"HTML")|raw }}
     </div>
 {% endblock %}
 
@@ -79,10 +79,10 @@
                 </div>
             </li>
             <li>
-                {{ displayComponent(components,'hours_of_operation')|raw }}
+                {{ dealer.ServiceHours|raw }}
             </li>
             <li>
-                {{ displayComponent(components,'quick_links')|raw }}
+                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
             </li>
         </ul>
     </div>

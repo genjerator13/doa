@@ -270,13 +270,10 @@ class SettingController extends Controller
     public function clearCacheAction()
     {
         $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil cacheclear';
+
+
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
-
-        $command = 'echo \'flush_all\' | nc localhost 11211';
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
-
 
         $this->addFlash('success', "Http cache is cleared.");
         return $this->redirect($this->generateUrl('setting'));

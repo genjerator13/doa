@@ -43,8 +43,8 @@
 {% endblock %}
 
 {% block mainmenu %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-    {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+    {#{{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}#}
+    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
 {% endblock %}
 
 {% block mobilemenu %}
@@ -135,12 +135,12 @@
 {% block featuredads %}
 
 {% endblock %}
+<div class="content">
+    <div class="alertz hide alert"></div>
 {% block content %}
 
-    <div class="content">
-
-    </div>
 {% endblock %}
+</div>
 {% block info %}
     <div class="info">
         <ul>
@@ -157,45 +157,21 @@
                 </div>
             </li>
             <li>
-                {{ dealer.ServiceHours }}
+                {{ dealer.ServiceHours|raw }}
             </li>
             <li>
-                {{ displayComponent(components,'quick_links')|raw }}
+                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
             </li>
         </ul>
     </div>
 {% endblock %}
 
-
 {% block map %}
     {% include '@NumaDOASite/map.html.twig' %}
 {% endblock %}
 
-
 {% block footer %}
-    <div class="footer-wrapper">
-        <div class="footer">
-            <div class="bottom-menu">
-                <ul>
-                    <li><a href="">Home</a></li>
-                    <li><a href="">About Us</a></li>
-                    <li><a href="">Products</a></li>
-                    <li><a href="">Services</a></li>
-                    <li><a href="">Gallery</a></li>
-                    <li><a href="" data-toggle="modal" data-target="#contactus">Contact Us</a></li>
-                </ul>
-            </div>
-            <div class="copyright">Copyright &copy; 2016 Generic Company &middot; All Rights Reserved</div>
-            <div class="extra-menu">
-                <ul>
-                    <li><a href="">Policy</a></li>
-                    <li><a href="">Privacy</a></li>
-                    <li><a href="">Terms</a></li>
-                    <li><a href="">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}
 </body>
 </html>

@@ -121,6 +121,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $scope.items = ['item1', 'item2', 'item3'];
     $scope.selected = {};
+
     $scope.animationsEnabled = true;
 
 
@@ -187,7 +188,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
                 angular.forEach(data, function(row, index) {
-                    console.log(row)
+
                     row.index = index+1;
 
                     if(row.sold==1){
@@ -230,7 +231,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) 
     $scope.items = items;
     $scope.selected = {
         item: $scope.items[0]
-
     };
 
     $scope.ok = function () {

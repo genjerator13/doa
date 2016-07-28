@@ -9,7 +9,7 @@
 {% block content %}
     {% set dealer = getDealer() %}
     {% if(components is defined) %}
-        {{ displayComponent(components,'page_content') }}
+        {{ displayComponent('page_content',"HTML") }}
     {% endif %}
     {{ form_start(form) }}
     {{ form_errors(form) }}

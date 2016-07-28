@@ -76,6 +76,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->test();
         } elseif ($command == 'photos') {
             $this->itemImages();
+        }elseif ($command == 'rvsubcats') {
+            $this->rvsubcats();
         }
     }
 
@@ -511,10 +513,20 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function cacheClear()
     {
+        $logger->warning("CLEAR CACHE set permission back");
+        $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+        $logger = $this->getContainer()->get('logger');
+        $logger->warning("CLEAR HTTP CACHE");
         $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
-
+        $logger->warning("CLEAR MEMCACHED CACHE");
+        $command = 'echo \'flush_all\' | nc localhost 11211';
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+        $logger->warning("CLEAR CACHE set permission back");
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
@@ -579,6 +591,36 @@ class DBUtilsCommand extends ContainerAwareCommand
 //                $logger->warning("COVER PHOTOS STARTED flush ".$i);
 //            }
         }
+        $logger->warning("COVER PHOTOS STARTED loop end");
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
+        $logger->warning("COVER PHOTOS FINISHED");
+    }
+    public function rvsubcats()
+    {
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $logger = $this->getContainer()->get('logger');
+        $logger->warning("RVSUBCATS STARTED");
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('rvsubcats');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+
+        $commandLog->setCommand($this->getName() . " rvsubcats ");
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        $commandLog->setCount(count($listings));
+        $logger->warning("RVSUBCATS STARTED persists");
+        $em->persist($commandLog);
+        $em->flush();
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
+        $i = 0;
+        $logger->warning("RVSUBCATS STARTED loop");
+        //UPDATE `item` SET TYPE = "Class B and C Motorhome" WHERE TYPE LIKE '%C Motorhome%' OR TYPE LIKE '%B Motorhome%'
+        //INSERT INTO `listing_field_list` (`id`, `listing_field_id`, `order`, `value`, `slug`) VALUES
+        //(366, 746, 4, 'Class B Motorhome', 'class-b-motorhome');
+        //INSERT INTO `listing_field_list` (`id`, `listing_field_id`, `order`, `value`, `slug`) VALUES (NULL, '746', '8', 'Park Model', 'park-model');
+        //UPDATE `listing_field_list` SET `value` = 'Planting and Seeding', `slug` = 'planting-seeding' WHERE slug like '%planting%'
         $logger->warning("COVER PHOTOS STARTED loop end");
         $commandLog->setStatus('finished');
         $em->flush();

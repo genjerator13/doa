@@ -258,7 +258,7 @@ class ItemRepository extends EntityRepository
         //$sql = "SELECT * FROM item";
         $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
         if(!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=".$dealer_id." GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=".intval($dealer_id)." GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
@@ -266,6 +266,26 @@ class ItemRepository extends EntityRepository
         //$json = json_encode($stmt);
         return $stmt;
     }
+    public function getAllSingleColumn($columnName,$dealer=null,$order="ASC"){
+
+        $sql = "SELECT DISTINCT i.".$columnName." from item i WHERE i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
+        if($dealer instanceof Catalogrecords) {
+            $sql = "SELECT DISTINCT i.".$columnName." from item i where dealer_id=".intval($dealer->getId())." AND i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
+        }
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $stmt;
+    }
+
+    public function getAllmake($dealer=null,$order="ASC"){
+
+        $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name ORDER BY make ".$order;
+        if($dealer instanceof Catalogrecords) {
+            $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name WHERE dealer_id=".intval($dealer->getId())." ORDER BY make ".$order;
+        }
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $stmt;
+    }
+
 
     public function removeAllItemFields($item_id)
     {

@@ -1,12 +1,10 @@
-#parameters:
-#
-#services:
-#    user.listener:
-#        class: Numa\DOAAdminBundle\Listeners\EntityListener
-#        arguments: [@service_container]
-#        tags:
-#            - { name: doctrine.event_listener, event: prePersist }
-#            - { name: doctrine.event_listener, event: preUpdate }
-#            - { name: doctrine.event_listener, event: postUpdate }
-#            - { name: doctrine.event_listener, event: preFlush }
-#            - { name: doctrine.event_listener, event: onFlush }
+services:
+    Numa.Reports:
+        class: Numa\DOADMSBundle\Lib\Reports
+        arguments:  [@service_container]
+    Numa.UiGrid:
+        class: Numa\DOADMSBundle\Lib\UiGrid
+        arguments:  [@service_container]
+    Numa.DMSUtils:
+        class: Numa\DOADMSBundle\Lib\DMSUtils
+        arguments:  [@service_container]

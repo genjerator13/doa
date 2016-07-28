@@ -1,11 +1,23 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <style>
+    <style type="text/css" media="print">
         table tr td{
             font-size: 11pt;
         }
+
+
+        /*div.page*/
+        /*{*/
+            /*page-break-after: always;*/
+            /*page-break-inside: avoid;*/
+        /*}*/
+        /*div.last-page*/
+        /*{*/
+            /*page-break-after: avoid;*/
+            /*page-break-inside: avoid;*/
+        /*}*/
     </style>
-    <div>
+    <div class="page">
     <div>
         <table cellspacing="0" border="0">
             <colgroup span="3" width="80"></colgroup>
@@ -954,6 +966,10 @@
                 </td>
             </tr>
         </table>
-
+    </div>
+    <div class="">
+        {% if dealer.termsText is not empty %}
+        {{ dealer.termsText()|raw }}
+        {% endif %}
     </div>
 {% endblock %}

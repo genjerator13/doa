@@ -1,0 +1,8 @@
+dealer_component_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:DealerComponentREST:all",_format: "json"}
+    requirements: { _method: get }
+dealer_component_by_dealer_api:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:DealerComponentREST:byDealer",_format: "json"}
+    requirements: { _method: get }

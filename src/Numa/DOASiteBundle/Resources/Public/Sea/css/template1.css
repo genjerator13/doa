@@ -349,6 +349,7 @@ body {
 .checkbox{
     color: black;
 }
+
 /* listing detail */
 .detailsContent .row {
     margin: 0px;
@@ -376,8 +377,6 @@ body {
 .listing-box-top {
     min-height: 200px;
 }
-
-
 
 
 #listing-content .row{
@@ -437,9 +436,6 @@ body {
 
 }
 
-.ps-current {
-    min-height: 400px;
-}
 
 /* ==========================================================================
    Info
@@ -675,17 +671,7 @@ and (max-width : 767px) {
 
 }
 
-/*pgwslider */
-.slideshow .pgwSlideshow{
-    background: #fff;
-}
-.slideshow .pgwSlideshow .ps-list {
-    left: 509px;
-    bottom: 147px;
-}
-.listing-images {
-    position: relative;
-}
+
 
 
 
@@ -705,4 +691,51 @@ and (max-width : 767px) {
 }
  .featured-ads .thumbnails {
     padding: 0px;
+}
+
+ .searchSidebar label{
+     font-weight: normal;
+ }
+
+ .dontshow{
+     display:none;
+ }
+
+.coupons-container {
+    float: left;
+    margin-bottom: 20px;
+}
+
+.coupon-container {
+    border: 1px solid #111111;
+    width: 250px;
+    float: left;
+    margin-left: 5px;
+    padding: 10px;
+    background-color: #e7e7e7;
+}
+
+.coupon-container h3 {
+    text-align: center;
+}
+
+.coupon-container .coupon-image{
+    width: 230px;
+    /*height: 300px;*/
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.coupon-container a.coupon-print{
+    font-size: 22px;
+    float: right;
+    color: #F78F1E;
+}
+
+.coupon-container a.coupon-print:hover{
+    font-size: 24px;
+}
+
+.coupon-page-text{
+    margin-bottom: 10px;
 }

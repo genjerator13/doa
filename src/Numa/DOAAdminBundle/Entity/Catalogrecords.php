@@ -436,7 +436,7 @@ class Catalogrecords implements UserInterface
 
     public function getRoles()
     {
-        if (strtolower($this->getDmsStatus())=='activated') {
+        if (strtolower($this->getDmsStatus()) == 'activated') {
             return array('ROLE_DMS_USER', 'ROLE_BUSINES');
         }
         if ($this->getAdmindealer()) {
@@ -1030,9 +1030,10 @@ class Catalogrecords implements UserInterface
         return $this->Coupon;
     }
 
-    public function hasCoupons(){
-        foreach($this->getCoupon() as $coupon){
-            if(!$coupon->isEmpty()){
+    public function hasCoupons()
+    {
+        foreach ($this->getCoupon() as $coupon) {
+            if (!$coupon->isEmpty()) {
                 return true;
             }
         }
@@ -1068,6 +1069,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->Admindealer;
     }
+
     /**
      * @var string
      */
@@ -1128,6 +1130,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->gst;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -1170,7 +1173,8 @@ class Catalogrecords implements UserInterface
         return $this->HomeTab;
     }
 
-    public function __sleep() {
+    public function __sleep()
+    {
 
         // these are field names to be serialized, others will be excluded
         // but note that you have to fill other field values by your own
@@ -1200,6 +1204,7 @@ class Catalogrecords implements UserInterface
             'gst',
         );
     }
+
     /**
      * @var string
      */
@@ -1258,6 +1263,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_theme;
     }
+
     /**
      * @var string
      */
@@ -1287,6 +1293,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->country;
     }
+
     /**
      * @var string
      */
@@ -1432,6 +1439,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_instagram;
     }
+
     /**
      * @var string
      */
@@ -1461,4 +1469,160 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_twitter;
     }
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Component;
+
+
+    /**
+     * Add component
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerComponent $component
+     *
+     * @return Catalogrecords
+     */
+    public function addComponent(\Numa\DOADMSBundle\Entity\DealerComponent $component)
+    {
+        $this->Component[] = $component;
+
+        return $this;
+    }
+
+    /**
+     * Remove component
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerComponent $component
+     */
+    public function removeComponent(\Numa\DOADMSBundle\Entity\DealerComponent $component)
+    {
+        $this->Component->removeElement($component);
+    }
+
+    /**
+     * Get component
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComponent()
+    {
+        return $this->Component;
+    }
+
+    /**
+     * @var string
+     */
+    private $terms_upload;
+
+    /**
+     * @var string
+     */
+    private $terms_text;
+
+
+    /**
+     * Set termsUpload
+     *
+     * @param string $termsUpload
+     *
+     * @return Catalogrecords
+     */
+    public function setTermsUpload($termsUpload)
+    {
+        $this->terms_upload = $termsUpload;
+
+        return $this;
+    }
+
+    /**
+     * Get termsUpload
+     *
+     * @return string
+     */
+    public function getTermsUpload()
+    {
+        return $this->terms_upload;
+    }
+
+    /**
+     * Set termsText
+     *
+     * @param string $termsText
+     *
+     * @return Catalogrecords
+     */
+    public function setTermsText($termsText)
+    {
+        $this->terms_text = $termsText;
+
+        return $this;
+    }
+
+    /**
+     * Get termsText
+     *
+     * @return string
+     */
+    public function getTermsText()
+    {
+        return $this->terms_text;
+    }
+    /**
+     * @var string
+     */
+    private $finance_email;
+
+
+    /**
+     * Set financeEmail
+     *
+     * @param string $financeEmail
+     *
+     * @return Catalogrecords
+     */
+    public function setFinanceEmail($financeEmail)
+    {
+        $this->finance_email = $financeEmail;
+
+        return $this;
+    }
+
+    /**
+     * Get financeEmail
+     *
+     * @return string
+     */
+    public function getFinanceEmail()
+    {
+        return $this->finance_email;
+    }
+
+    public function isCarDealer(){
+        return $this->dealerType(1);
+    }
+
+    public function isMotoDealer(){
+        return $this->dealerType(5);
+    }
+
+    public function isRVsDealer(){
+        return $this->dealerType(7);
+    }
+
+    public function isAgDealer(){
+        return $this->dealerType(3);
+    }
+
+    public function dealerType($cid){
+
+        foreach($this->getDcategory() as $category){
+            if($category->getId()==$cid){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

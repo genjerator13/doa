@@ -50,6 +50,6 @@ class ListingFormType extends AbstractType
      */
     public function getName()
     {
-        return 'numa_doadmsbundle_listingform';
+        return 'contactus';
     }
 }

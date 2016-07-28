@@ -24,6 +24,7 @@ class searchParameters {
     public $init = false;
     protected $params = array();
     protected $listing_per_page;
+    protected $queryBuilder;
 
     public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {
         $this->container = $container;
@@ -41,6 +42,7 @@ class searchParameters {
             'category_id' => new SearchItem('category_id', 0, 'int'),
             'priceFrom' => new SearchItem('price', 0, 'rangeFrom'),
             'priceTo' => new SearchItem('price', '', 'rangeTo'),
+            'year' => new SearchItem('year', 0, 'int'),
             'yearTo' => new SearchItem('year', 0, 'rangeTo'),
             'yearFrom' => new SearchItem('year', 0, 'rangeFrom'),
             'postedFrom' => new SearchItem('date_created', 0, 'dateRangeFrom'),
@@ -72,6 +74,7 @@ class searchParameters {
             'bodyStyleString' => new SearchItem('body_style', "", 'string'),
             'bodyStyleSlug' => new SearchItem('body_style', "", 'listSlug'),
             'make' => new SearchItem('make', "", 'tree'),
+            'make_string' => new SearchItem('make', "", 'string'),
             'model' => new SearchItem('model', "", 'string'),
             'transmission' => new SearchItem('transmission', 0, 'list'),
             'engine' => new SearchItem('engine', 0, 'list'),
@@ -164,11 +167,11 @@ class searchParameters {
                     $value = $value[0];
                 }
                 if (!empty($value)) {
-                    $this->params[$key]->setValue(urldecode($value));
+                    $this->params[$key]->setValue(urldecode(trim($value)));
                 }
             }
         }
-
+        //dump($this->params);die();
     }
 
     public function set($key, $value) {
@@ -227,8 +230,13 @@ class searchParameters {
 //                            $qb->andWhere('i.category_id=:cat');
 //                            $qb->setParameter('cat', $searchItem->getValue());
                         } elseif ($type == 'string') {
-                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                            $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
+
+                            if($dbName=="body_style" && strtolower($searchItem->getValue())=="other"){
+                                $qb->andWhere('i.' . $dbName . ' is null');
+                            }else {
+                                $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                                $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
+                            }
                         } elseif ($type == 'int') {
                             $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
 
@@ -283,7 +291,12 @@ class searchParameters {
             }
         }
         $qb->addOrderBy("i.sold", 'ASC');
+        $this->queryBuilder = $qb;
         return $qb->getQuery();
+    }
+
+    public function getQueryBuilder(){
+        return $this->queryBuilder;
     }
 
     public function createAllQuery($qb,$string){
