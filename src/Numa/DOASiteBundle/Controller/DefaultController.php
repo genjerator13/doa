@@ -303,7 +303,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $featured = $itemrep->findFeatured($dealer_id, $max * 2);
 
         $items = array();
-        $temp = array();
+
         if(!empty($featured)) {
             $items = array_slice($featured, $max);
         }
@@ -316,10 +316,10 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         }
-
-        $response->setPublic();
-        $response->setSharedMaxAge(60);
-        $response->setMaxAge(60);
+        dump($items);//die();
+//        $response->setPublic();
+//        $response->setSharedMaxAge(60);
+//        $response->setMaxAge(60);
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         return $response;
     }
