@@ -316,7 +316,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         }
-        dump($items);//die();
+        //dump($items);//die();
 //        $response->setPublic();
 //        $response->setSharedMaxAge(60);
 //        $response->setMaxAge(60);

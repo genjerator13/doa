@@ -274,7 +274,7 @@ class SettingController extends Controller
 
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
-        
+
         $this->addFlash('success', "Http cache is cleared.");
         return $this->redirect($this->generateUrl('setting'));
     }
