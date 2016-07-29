@@ -141,7 +141,6 @@ class NumaExtension extends \Twig_Extension
         $page = null;
         $component = null;
         $value = "c not f";
-        //$dcomponents = array();
 
         if ($dealer instanceof Catalogrecords) {
             if ($source == "page") {
@@ -162,7 +161,7 @@ class NumaExtension extends \Twig_Extension
                 $component = $componentsArray->first();
             }
         }
-        
+
         if(! ($component instanceof Component) && !($component instanceof DealerComponent)){
 
             if($source=="page" && $page instanceof Page){

@@ -778,7 +778,14 @@ class ItemRepository extends EntityRepository
         }
     }
 
+    public function generateCoverPhotos(){
+        //$sql = " SELECT item.cover_photo, item_field . * FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
+        $sql = "UPDATE item JOIN item_field ON item.id = item_field.item_id SET item.cover_photo = item_field.field_string_value WHERE item_field.field_name LIKE \"Image List\" ";
 
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $res = $stmt->execute();
+
+    }
 
 
 }
