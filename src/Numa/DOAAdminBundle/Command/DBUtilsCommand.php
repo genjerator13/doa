@@ -513,11 +513,13 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function cacheClear()
     {
+        $logger = $this->getContainer()->get('logger');
+
         $logger->warning("CLEAR CACHE set permission back");
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
-        $logger = $this->getContainer()->get('logger');
+
         $logger->warning("CLEAR HTTP CACHE");
         $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
         $process = new \Symfony\Component\Process\Process($command);
