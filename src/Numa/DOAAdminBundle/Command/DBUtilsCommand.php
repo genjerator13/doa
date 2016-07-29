@@ -514,6 +514,7 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function cacheClear()
     {
         $logger = $this->getContainer()->get('logger');
+
         $logger->warning("CLEAR CACHE set permission back");
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
