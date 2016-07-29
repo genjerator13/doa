@@ -211,7 +211,8 @@ class ItemFieldController extends Controller
         $item = $entity->getItem();
         if ($item instanceof Item) {
             //$item->setCoverPhoto($item->getCoverImageSrc());
-            $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+            $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+            //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
         }
         $em->flush();
         die();
