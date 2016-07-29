@@ -779,12 +779,34 @@ class ItemRepository extends EntityRepository
     }
 
     public function generateCoverPhotos(){
-        //$sql = " SELECT item.cover_photo, item_field . * FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
-        $sql = "UPDATE item JOIN item_field ON item.id = item_field.item_id SET item.cover_photo = item_field.field_string_value WHERE item_field.field_name LIKE \"Image List\" ";
+//        $sql = " SELECT item.id FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
+        $sql = "UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\"  order by item_field.sort_order LIMIT 1)";
 
+//        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+//        return $stmt;
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-        $res = $stmt->execute();
+        $stmt->execute();
+    }
 
+    public function updateCoverPhoto($item_id){
+        $photo = $this->getCoverPhoto2($item_id);
+        if(!empty($photo)) {
+            $sql = "UPDATE item SET item.cover_photo = \"$photo\" ";
+            dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+        }
+    }
+
+    public function getCoverPhoto2($item_id){
+        $sql = " SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order LIMIT 1";
+        //$sql = "UPDATE item JOIN item_field ON item.id = item_field.item_id SET item.cover_photo = item_field.field_string_value WHERE item_field.field_name LIKE \"Image List\" ";
+//UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE "Image List"  order by item_field.sort_order LIMIT 1)
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        if(!empty($stmt[0]['field_string_value'])) {
+            return $stmt[0]['field_string_value'];
+        }
+        return null;
     }
 
 
