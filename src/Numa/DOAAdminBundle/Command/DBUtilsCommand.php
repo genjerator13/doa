@@ -513,6 +513,14 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function cacheClear()
     {
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('cacheclear');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand('cacheclear');
+
         $logger = $this->getContainer()->get('logger');
 
         $logger->warning("CLEAR CACHE set permission back");
@@ -532,6 +540,11 @@ class DBUtilsCommand extends ContainerAwareCommand
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+        $em->persist($commandLog);
+        $em->flush();
+
     }
 
     public function listingListSlug()
