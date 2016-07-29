@@ -253,12 +253,12 @@ class ItemRepository extends EntityRepository
     }
 
 
-    public function getAllListings($dealer_id=null)
+    public function getAllListings($dealer_id = null)
     {
         //$sql = "SELECT * FROM item";
         $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
-        if(!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=".intval($dealer_id)." GROUP BY i.id ORDER BY i.id DESC";
+        if (!empty($dealer_id)) {
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=" . intval($dealer_id) . " GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
@@ -266,21 +266,24 @@ class ItemRepository extends EntityRepository
         //$json = json_encode($stmt);
         return $stmt;
     }
-    public function getAllSingleColumn($columnName,$dealer=null,$order="ASC"){
 
-        $sql = "SELECT DISTINCT i.".$columnName." from item i WHERE i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
-        if($dealer instanceof Catalogrecords) {
-            $sql = "SELECT DISTINCT i.".$columnName." from item i where dealer_id=".intval($dealer->getId())." AND i.".$columnName." IS NOT NULL ORDER BY ".$columnName." ".$order;
+    public function getAllSingleColumn($columnName, $dealer = null, $order = "ASC")
+    {
+
+        $sql = "SELECT DISTINCT i." . $columnName . " from item i WHERE i." . $columnName . " IS NOT NULL ORDER BY " . $columnName . " " . $order;
+        if ($dealer instanceof Catalogrecords) {
+            $sql = "SELECT DISTINCT i." . $columnName . " from item i where dealer_id=" . intval($dealer->getId()) . " AND i." . $columnName . " IS NOT NULL ORDER BY " . $columnName . " " . $order;
         }
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
     }
 
-    public function getAllmake($dealer=null,$order="ASC"){
+    public function getAllmake($dealer = null, $order = "ASC")
+    {
 
-        $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name ORDER BY make ".$order;
-        if($dealer instanceof Catalogrecords) {
-            $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name WHERE dealer_id=".intval($dealer->getId())." ORDER BY make ".$order;
+        $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name ORDER BY make " . $order;
+        if ($dealer instanceof Catalogrecords) {
+            $sql = "SELECT DISTINCT i.make, lft.id FROM item i JOIN listing_field_tree lft ON i.make = lft.name WHERE dealer_id=" . intval($dealer->getId()) . " ORDER BY make " . $order;
         }
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
@@ -708,7 +711,7 @@ class ItemRepository extends EntityRepository
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.cover_photo', "'".$src."'")
+                ->set('i.cover_photo', "'" . $src . "'")
                 ->where('i.id=' . $item_id);
             $qb->getQuery()->execute();
         }
@@ -722,7 +725,7 @@ class ItemRepository extends EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $res = $stmt->execute();
         $res = $stmt->fetch();
-        if(!empty($res['field_string_value'])){
+        if (!empty($res['field_string_value'])) {
             return $res['field_string_value'];
         }
         return "";
@@ -778,32 +781,42 @@ class ItemRepository extends EntityRepository
         }
     }
 
-    public function generateCoverPhotos(){
-//        $sql = " SELECT item.id FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
-        $sql = "UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\"  order by item_field.sort_order LIMIT 1)";
+    public function generateCoverPhotos()
+    {
+        $sql = " SELECT item.id FROM item JOIN item_field ON item.id = item_field.item_id WHERE item_field.field_name LIKE \"Image List\" group by item.id order by item_field.sort_order";
+        $sql = "UPDATE item i JOIN (
+SELECT field_string_value, item_id
+FROM item_field
+WHERE field_name LIKE '%Image List%'
+ORDER BY sort_order
+)iif ON i.id = iif.item_id
+SET i.cover_photo = iif.field_string_value";
 
-//        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
-//        return $stmt;
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+        return $stmt;
+        //$stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        //return $stmt;
+
+
+    }
+
+    public function updateCoverPhoto($item_id)
+    {
+        $sql = "UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\" and item_field.item_id=$item_id  order by item_field.sort_order LIMIT 1)";
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
     }
 
-    public function updateCoverPhoto($item_id){
-        $photo = $this->getCoverPhoto2($item_id);
-        if(!empty($photo)) {
-            $sql = "UPDATE item SET item.cover_photo = \"$photo\" ";
-            dump($sql);
-            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-            $stmt->execute();
-        }
-    }
 
-    public function getCoverPhoto2($item_id){
+    public function getCoverPhoto2($item_id)
+    {
         $sql = " SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE \"Image List\" and item_field.item_id=$item_id order by item_field.sort_order LIMIT 1";
         //$sql = "UPDATE item JOIN item_field ON item.id = item_field.item_id SET item.cover_photo = item_field.field_string_value WHERE item_field.field_name LIKE \"Image List\" ";
 //UPDATE item SET item.cover_photo = ( SELECT item_field.field_string_value FROM item_field WHERE item_field.field_name LIKE "Image List"  order by item_field.sort_order LIMIT 1)
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
-        if(!empty($stmt[0]['field_string_value'])) {
+        if (!empty($stmt[0]['field_string_value'])) {
             return $stmt[0]['field_string_value'];
         }
         return null;

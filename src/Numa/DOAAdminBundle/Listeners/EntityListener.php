@@ -33,7 +33,7 @@ class EntityListener
 //                $metaData = $em->getClassMetadata(get_class($entity));
 //                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
 //                $uow->computeChangeSets();
-                $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+                //$em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
             }
         }
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
