@@ -126,19 +126,20 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             $item->setDateUpdated(new \DateTime());
             $itemField->setItem($item);
             //dump($itemField);
-            $item->setCoverPhoto($item->getCoverImageSrc());
-
-            if(empty($item->getCoverImageSrc())){
-                $item->setCoverPhoto($itemField->getFieldStringValue());
-            }
+//            $item->setCoverPhoto($item->getCoverImageSrc());
+//
+//            if(empty($item->getCoverImageSrc())){
+//                $item->setCoverPhoto($itemField->getFieldStringValue());
+//            }
 
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
 
-            if(empty($item->getCoverPhoto())){
-                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
-            }
+//            if(empty($item->getCoverPhoto())){
+//                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
+//            }
+            $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
         }
         die();
     }
@@ -208,8 +209,9 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             if($order==0){
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
-                $em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
-                dump($if->getFieldStringValue());
+                //$em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
+                $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+                //dump($if->getFieldStringValue());
             }
 
         }
