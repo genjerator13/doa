@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\ListingForm:
     type: entity
     table: listing_form
-
+    repositoryClass: Numa\DOADMSBundle\Repository\ListingFormRepository
     id:
         id:
             type: integer
