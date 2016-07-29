@@ -31,8 +31,8 @@ class SidebarSearchType extends AbstractType
             ->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false))
             ->add('priceFrom','text',array('label'=>'Price From',"required"=>false))
             ->add('priceTo','text',array('label'=>'Price To',"required"=>false))
-            ->add('search','submit',array('label'=>'Search'))
-            ->add('reset','reset',array('label'=>'Reset'))
+            ->add('search','submit',array('label'=>'Search', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('reset','reset',array('label'=>'Reset', 'attr' => array('class' => 'btn btn-default') ))
 
             //->add('type')
         ;

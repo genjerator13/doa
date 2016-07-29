@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Repository;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -124,41 +125,47 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
         return $qb->getQuery()->execute();
     }
+
     public function updateDmsStatus($dealer_id, $status)
     {
         $sql = "
         UPDATE catalog_records
-        SET dms_status='".$status."'
-        WHERE id=".$dealer_id;
+        SET dms_status='" . $status . "'
+        WHERE id=" . $dealer_id;
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
 
     }
 
-    public function getDealerById($dealer_id=null){
-        $qb=$this->createQueryBuilder('d');
-        if(empty($dealer_id)){
+    public function getDealerById($dealer_id = null)
+    {
+        $qb = $this->createQueryBuilder('d');
+        if (empty($dealer_id)) {
             $qb->andWhere('d.id is null');
-        }else {
+        } else {
             $qb->andWhere('d.id=:dealer_id');
             $qb->setParameter('dealer_id', $dealer_id);
         }
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function getDealerByHost($host=null){
-        if(empty($host)){
+    public function getDealerByHost($host = null)
+    {
+
+        if (empty($host)) {
             return null;
         }
-        $qb=$this->createQueryBuilder('d');
+        $qb = $this->createQueryBuilder('d');
         $qb->andWhere('d.site_url=:host');
         $qb->setParameter('host', $host);
 
         return $qb->getQuery()->getOneOrNullResult();
+
     }
 
-    public function getNonEmptyCoupons($dealer_id){
+    public function getNonEmptyCoupons($dealer_id)
+    {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('c')->distinct()
             ->add('from', 'NumaDOAAdminBundle:Coupon c')
