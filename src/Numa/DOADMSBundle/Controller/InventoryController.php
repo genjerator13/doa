@@ -21,12 +21,9 @@ class InventoryController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        //$entities = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
-
+            'dealer'=>$dealer
         ));
     }
     /**

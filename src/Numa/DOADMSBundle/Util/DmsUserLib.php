@@ -5,6 +5,7 @@ namespace Numa\DOADMSBundle\Util;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\DependencyInjection\Container;
 
 class DmsUserLib
@@ -46,7 +47,7 @@ class DmsUserLib
     {
         $dealer = $this->getSignedUser();
 
-        if($dealer instanceof Catalogrecords){
+        if($dealer instanceof Catalogrecords || $dealer instanceof User){
             return $dealer;
         }
         return null;
