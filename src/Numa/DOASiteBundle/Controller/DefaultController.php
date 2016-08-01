@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -299,7 +300,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $itemrep->setMemcached($this->get('mymemcache'));
         $session = $this->get('session');
-        $dealer_id = $session->get('dealer_id');
+        $dealer_id="";
+        if($this->dealer instanceof  Catalogrecords) {
+            $dealer_id = $this->dealer->getId();
+        }
+        
         $featured = $itemrep->findFeatured($dealer_id, $max * 2);
 
         $items = array();
