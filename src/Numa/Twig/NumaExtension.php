@@ -124,6 +124,7 @@ class NumaExtension extends \Twig_Extension
         if(strtolower($type)=="carousel"){
             $criteria = Criteria::create()
                 ->where(Criteria::expr()->eq("type", 'carousel'));
+
         }
         $request = $this->container->get("request");
 
@@ -194,14 +195,15 @@ class NumaExtension extends \Twig_Extension
         if(empty($value)){
             $value = "enter this value of component in DMS";
         }
+
         if(strtolower($type)=="carousel"){
-
-
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
+
             if($component instanceof Component || $component instanceof DealerComponent){
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
+
             return $images;
         }elseif(strtolower($type)=="template"){
 
