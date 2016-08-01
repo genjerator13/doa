@@ -61,6 +61,17 @@
     </div>
 
     <div class="content-wrapper">
+        <div class="banner">
+            {% block banner %}
+            <div class="image">
+                {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/banner.jpg' %}
+                <img src="{{ asset_url }}"/>
+                {% endimage %}
+            </div>
+            {% endblock %}
+            {% block featuredads %}
+            {% endblock %}
+        </div>
         <div class="button-wrapper">
             <div class="button b1">
                 <a href="{{ path("search_new_vehicle") }}">
@@ -86,19 +97,6 @@
                 </a>
             </div>
         </div>
-
-        <div class="banner">
-            {% block banner %}
-            <div class="image">
-                {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/banner.jpg' %}
-                <img src="{{ asset_url }}"/>
-                {% endimage %}
-            </div>
-            {% endblock %}
-            {% block featuredads %}
-            {% endblock %}
-        </div>
-
         {% block content %}
         <div class="content-wrapper">
             {{ displayComponent('page_content',"HTML") }}
