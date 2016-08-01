@@ -52,7 +52,8 @@
         $(document).ready(function(){
             $("#myCarousel").carousel({
                 interval : 8000,
-                pause: false
+                pause: false,
+                height: 480
             });
         });
     </script>
@@ -60,7 +61,7 @@
 {% block content %}
     <div class="content">
         <h1>Welcome to {{ dealer.name }}</h1>
-        {{ displayComponent('welcome_text',"HTML")|raw }}
+        {{ dealer.description|raw }}
     </div>
     <div class="brands">
 
