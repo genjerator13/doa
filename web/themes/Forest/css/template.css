@@ -690,6 +690,6 @@ ul.techData li {
 	width: 100%;
 }
 #myCarousel .carousel-inner {
-	max-height: 480px;
-	min-height: 480px;
+	max-height: 418px;
+	min-height: 418px;
 }

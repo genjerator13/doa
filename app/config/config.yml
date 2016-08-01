@@ -307,10 +307,15 @@ liip_imagine:
                 relative_resize: { widen: 1920 }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
+        carousel_forest:
+            quality: 100
+            filters:
+                relative_resize: { highten: 418 }
+                background: { color: '#FFFFFF' }
         brands_forest:
             quality: 100
             filters:
-                thumbnail: { size: [100, 150], mode: inbound }
+                thumbnail: { heighten: 75 }
                 background: { color: '#FFFFFF' }
         featured_forest:
             quality: 100
