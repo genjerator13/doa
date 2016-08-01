@@ -767,3 +767,19 @@ and (max-width : 767px) {
 .coupon-page-text{
 	margin-bottom: 10px;
 }
+
+.techData .fieldCaption {
+	font-weight: bold;
+}
+ul.techData{
+	margin:20px 0 0 0;
+}
+
+ul.techData li {
+	margin:0;
+	padding: 0px;
+}
+
+.top-buffer {
+	margin-top:20px;
+}
