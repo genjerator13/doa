@@ -310,8 +310,8 @@ liip_imagine:
         carousel_forest:
             quality: 100
             filters:
-                relative_resize: { heighten: 418 }
-                background: { color: '#FFFFFF' }
+                thumbnail: { size: [643, 418], mode: outbound }
+                background: { color: '#FFFFFF' }}
         brands_forest:
             quality: 100
             filters:
