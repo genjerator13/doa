@@ -122,9 +122,7 @@ class NumaExtension extends \Twig_Extension
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
         if(strtolower($type)=="carousel"){
-            $criteria = Criteria::create()
-                ->where(Criteria::expr()->eq("type", 'carousel'));
-
+            $criteria->andWhere(Criteria::expr()->eq("name", $name));
         }
         $request = $this->container->get("request");
 
