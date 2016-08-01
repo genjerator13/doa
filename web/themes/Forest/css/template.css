@@ -682,3 +682,14 @@ ul.techData li {
 .top-buffer {
 	margin-top:20px;
 }
+
+#myCarousel .text_widget {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+}
+#myCarousel .carousel-inner {
+	max-height: 480px;
+	min-height: 480px;
+}
