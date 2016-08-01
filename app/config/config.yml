@@ -311,7 +311,7 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [643, 418], mode: outbound }
-                background: { color: '#FFFFFF' }}
+                background: { color: '#FFFFFF' }
         brands_forest:
             quality: 100
             filters:
