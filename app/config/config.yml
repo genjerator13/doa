@@ -310,7 +310,7 @@ liip_imagine:
         carousel_forest:
             quality: 100
             filters:
-                relative_resize: { highten: 418 }
+                relative_resize: { heighten: 418 }
                 background: { color: '#FFFFFF' }
         brands_forest:
             quality: 100
