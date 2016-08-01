@@ -304,7 +304,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         if($this->dealer instanceof  Catalogrecords) {
             $dealer_id = $this->dealer->getId();
         }
-        
+
         $featured = $itemrep->findFeatured($dealer_id, $max * 2);
 
         $items = array();
