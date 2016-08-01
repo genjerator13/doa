@@ -384,6 +384,7 @@ body {
 	height: 50px;
 	padding: 20px;
 	vertical-align: middle;
+	padding-bottom: 170px;
 }
 
 /* ==========================================================================
@@ -656,7 +657,7 @@ and (max-width : 767px) {
 .detailsContent .row{
 
 }
-.right{
+.listing-right{
 	height: 100%;
 	position: relative;
 	min-height: 400px;
