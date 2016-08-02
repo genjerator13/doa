@@ -230,8 +230,8 @@ body {
 
 .button-wrapper {
 	box-sizing: border-box;
-	float: left;
-	padding-right: 5px;
+	float: right;
+	padding-left: 5px;
 	position: relative;
 	width: 33.825%;
 	z-index: 0;
@@ -301,8 +301,8 @@ body {
 	 
 .banner {
 	box-sizing: border-box;
-	float: right;
-	padding-left: 5px;
+	float: left;
+	padding-right: 5px;
 	width: 66.175%;
 }
 
@@ -681,4 +681,15 @@ ul.techData li {
 
 .top-buffer {
 	margin-top:20px;
+}
+
+#myCarousel .text_widget {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+}
+#myCarousel .carousel-inner {
+	max-height: 418px;
+	min-height: 418px;
 }
