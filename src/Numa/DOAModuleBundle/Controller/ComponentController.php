@@ -142,6 +142,7 @@ class ComponentController extends Controller
                 'delete_form' => $deleteForm->createView(),
             ));
         }
+
         return $this->render('NumaDOAModuleBundle:Component:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
