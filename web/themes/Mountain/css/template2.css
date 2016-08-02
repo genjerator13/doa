@@ -801,8 +801,11 @@ ul.techData li {
 	width: 555px;
 	height: 400px;
 	float: left;
+	margin-left: 20px;
+}
 
-	margin-left: 10px;
+#myCarousel_left {
+	margin-left:0px;
 }
 
 .bs-carousels {
