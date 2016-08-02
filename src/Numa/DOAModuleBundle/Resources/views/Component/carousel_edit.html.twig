@@ -23,7 +23,11 @@
                     <div class="box-header">
 
                     </div>
-
+                    <div class="images-action">
+                        <a href="#" id="select-all"><i class="glyphicon glyphicon-ok"></i>Select All</a>
+                        <a id="deselect-all" href="#"><i class="glyphicon glyphicon-remove"></i> Deselect All</a>
+                        <a id="delete-selected" href="#"><i class="glyphicon glyphicon-trash"></i>Delete Selected</a>
+                    </div>
                     <div class="box-body table-responsive no-padding" id="carousel-list">
                         {% include "NumaDOAAdminBundle:ImageCarousel:carousel_list.html.twig" %}
                     </div>
