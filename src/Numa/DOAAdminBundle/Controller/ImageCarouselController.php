@@ -242,25 +242,28 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
     }
 
 
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request)
     {
 
-        $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
+        $rids = $request->request->all();
+        $ids = array();
+        foreach ($rids as $idx) {
+            $ids[] = $idx;
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
-        $em->remove($entity);
-        $em->flush();
-        $redirect = 'imagecarousel';
-        if(strtoupper($this->dashboard) =='DMS'){
-            $redirect = 'dms_imagecarousel';
-            if($entity->getComponent() instanceof Component){
-                return $this->redirect($this->generateUrl("component_edit",array("id"=>$entity->getComponentId())));
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($ids as $id) {
+            $entity = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->find($id);
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find ItemField entity.');
             }
+            $em->remove($entity);
+
         }
-        return $this->redirect($this->generateUrl($redirect));
+
+        $em->flush();
+        die();
     }
 
     /**
