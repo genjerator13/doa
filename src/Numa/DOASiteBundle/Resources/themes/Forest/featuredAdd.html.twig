@@ -5,7 +5,8 @@
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="col-md-4 featured-ads-item" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ shortWord(item.year~" "~item.make~" "~item.model,16)}}</br>
+                <a class="col-md-4 featured-ads-item text-center" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">
+
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}
@@ -22,7 +23,9 @@
                         {% endif %}
 
                     {% endif %}
-                    <span class="text-center price">{{ item.getPriceString() }}</span>
+                    {{ shortWord(item.year~" "~item.make~" "~item.model,16)}}
+                    </br>
+                    <span class="price">{{ item.getPriceString() }}</span>
                 </a>
             {% endfor %}
         </div>

@@ -1,5 +1,9 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block form_label_class -%}
     col-sm-3
@@ -246,7 +250,7 @@
                                     <h4 class="modal-title" id="myModalLabel">Apply for Financing</h4>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    {{ form(financeForm) }}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
