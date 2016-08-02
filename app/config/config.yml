@@ -310,7 +310,12 @@ liip_imagine:
         carousel_forest:
             quality: 100
             filters:
-                thumbnail: { size: [643, 418], mode: outbound }
+                thumbnail: { size: [644, 418], mode: inbount }
+                background: { color: '#FFFFFF' }
+        carousel_mountain:
+            quality: 100
+            filters:
+                thumbnail: { size: [555, 400], mode: outbound }
                 background: { color: '#FFFFFF' }
         brands_forest:
             quality: 100
