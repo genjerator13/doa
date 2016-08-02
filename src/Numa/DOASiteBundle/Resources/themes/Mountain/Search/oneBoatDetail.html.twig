@@ -64,76 +64,17 @@
 
             </div>
             <div class="btn-group-vertical col-md-2">
-                <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
+                <button type="button" class="btn btn-primary eprice" data-itemid="{{ item.id }}"><i
                             class="fa fa-money"></i> Get ePrice
                 </button>
                 {#<button type="button" class="btn btn-default">Save This Car</button>#}
-                <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
+                <a href="{{ detailUrl }}" class="btn btn-info"><span>View Details</span></a>
                 <button type="button" class="btn btn-default" data-toggle="modal"
                         data-target="#searchOther">Search Other
                 </button>
             </div>
         </div>
     </div>
-    <br>
-    <div class="clear"></div>
-    <div class="modal fade" id="searchOther" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Search Other</h4>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(sidebarForm) }}
-                    {{ form_row(sidebarForm.bodyStyleString) }}
-                    {{ form_row(sidebarForm.yearFrom) }}
-                    {{ form_row(sidebarForm.yearTo) }}
-                    {{ form_row(sidebarForm.make) }}
-                    {{ form_row(sidebarForm.model) }}
-                    {{ form_row(sidebarForm.mileageFrom) }}
-                    {{ form_row(sidebarForm.mileageTo) }}
-                    {{ form_row(sidebarForm.priceFrom) }}
-                    {{ form_row(sidebarForm.priceTo) }}
-                    <script>
-                        var treeDataCar = '{{jsonCar|raw }}';
-                        //var treeDataRvs = '{{jsonRvs|raw }}';
 
-                        treeX = function (make, model, treeData) {
 
-                            $(make).change(function () {
-
-                                jsonTree = JSON.parse(treeData);
-
-                                var modelJson = jsonTree[$(make).val()];
-                                $(model).html($("<option />").val(0).text("Any Model"));
-                                $.each(modelJson, function (i) {
-                                    var test = modelJson[i];
-                                    var key = "";
-                                    var value = "";
-                                    for (var keyx in modelJson[i]) {
-                                        key = keyx;
-                                        value = test[keyx];
-                                    }
-                                    $(model).append($("<option />").val(value).text(value))
-                                });
-                            });
-                        }
-
-                        $(document).ready(function () {
-                            treeX('#make', '#model', treeDataCar);
-                            //treeX('#makeRvs', '#modelRvs', treeDataRvs);
-                        });
-                    </script>
-                </div>
-                <div class="searchOther_error"></div>
-                <div class="modal-footer">
-                    <div class="pull-right">{{ form_row(sidebarForm.reset) }}</div>
-                    <div class="pull-right">{{ form_row(sidebarForm.search) }}</div>
-                    {{ form_end(sidebarForm) }}
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
