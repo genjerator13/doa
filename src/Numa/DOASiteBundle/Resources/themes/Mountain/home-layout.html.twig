@@ -59,8 +59,9 @@
 
         <div class="button-wrapper">
             {% set button1 = displayComponent('button_1','image')   %}
-            {#{% set button1 = "/upload/dealers/3/component/40/fast-cars-3.jpg"   %}#}
-            {{ dump(button1) }}
+            {% set button2 = displayComponent('button_2','image')   %}
+            {% set button3 = displayComponent('button_3','image')   %}
+
             <div class="button {% if button1 is empty %}b1{% endif %}">
 
                 <a href="{{ path("search_new_vehicle") }}">
@@ -76,10 +77,12 @@
 
             </div>
 
-            <div class="button b2">
+            <div class="button {% if button2 is empty %}b2{% endif %}">
 
                 <a href="{{ path("search_used_vehicle") }}">
-
+                    {% if button2 is not empty %}
+                        {{ component.image(button2, 'btn2', '', 'mountain_button') }}
+                    {% endif %}
                     <h2><span>Shop for</span> Pre-Owned</h2>
 
                     <div class="click-here">Click Here</div>
@@ -88,10 +91,12 @@
 
             </div>
 
-            <div class="button b3">
+            <div class="button {% if button3 is empty %}b3{% endif %}">
 
                 <a href="{{ path("finance_form") }}">
-
+                    {% if button3 is not empty %}
+                        {{ component.image(button3, 'btn3', '', 'mountain_button') }}
+                    {% endif %}
                     <h2><span>Apply for</span> Financing</h2>
 
                     <div class="click-here">Click Here</div>
