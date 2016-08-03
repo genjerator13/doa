@@ -141,6 +141,14 @@ class ComponentController extends Controller
                 'edit_form' => $editForm->createView(),
                 'delete_form' => $deleteForm->createView(),
             ));
+        }elseif(strtolower($entity->getType())=="image"){
+            return $this->render('NumaDOAModuleBundle:Component:image_edit.html.twig', array(
+                'uploadDir' => $uploadDir,
+                'entity' => $entity,
+                'entities' => $entities,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
         }
 
         return $this->render('NumaDOAModuleBundle:Component:edit.html.twig', array(
