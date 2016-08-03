@@ -37,6 +37,14 @@
         </script>
 
     {% endblock %}
+    <style type="text/css">
+        {% set imgBg = displayComponent('site_background','image','dealer')   %}
+        {% if imgBg is not empty %}
+        body{
+            background-image: url("{{ imgBg }}");
+        }
+        {% endif %}
+    </style>
 </head>
 
 <body>
@@ -148,11 +156,10 @@
 
         </div>
     {% endblock %}
-        <div class="content">
-            {% if(components is defined) %}
-                {{ displayComponent('page_content',"HTML") }}
-            {% endif %}
-        </div>
+        {#<div class="content">#}
+            {#<h1>Welcome to {{ dealer.name }}</h1>#}
+            {{ displayComponent('page_content',"HTML") }}
+        {#</div>#}
 
     </div>
 

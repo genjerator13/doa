@@ -207,6 +207,15 @@ class NumaExtension extends \Twig_Extension
 
         }
 
+        elseif(strtolower($type)=="image"){
+            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
+            $value="";
+            if(!empty($matches[1])){
+                $value = $matches[1];
+            }
+
+        }
+
 
         return $value;
     }
