@@ -9,8 +9,7 @@
     <title>Dealers on Air</title>
 
     {% block stylesheets %}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
         {% stylesheets '@bootstrap' '@colorbox_css' '@theme_mountain_css' '@NumaDOASiteBundle/Resources/Public/Mountain/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
@@ -38,7 +37,14 @@
             });
         </script>
     {% endblock %}
-
+    <style type="text/css">
+        {% set imgBg = displayComponent('site_background','image','dealer')   %}
+        {% if imgBg is not empty %}
+        body{
+            background-image: url("{{ imgBg }}");
+        }
+        {% endif %}
+    </style>
 </head>
 
 <body>

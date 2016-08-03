@@ -1,4 +1,5 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
 {% block content %}
     {% set images = item.getImages2() %}
     {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
@@ -12,10 +13,10 @@
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
-            <div class="picture-detail col-md-4">
-                <a href="{{ detailUrl }}" class="thumbnail">
+            <div class="col-md-4">
+                <a href="{{ detailUrl }}" class="thumbnail  picture-detail">
                     {% if item.getImage2() is defined and item.getImage2() is not empty %}
-                        {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
+                        {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea',350) }}
                     {% endif %}
                 </a>
             </div>
@@ -44,26 +45,7 @@
                         {% endif %}
                     </ul>
                 {% endif %}
-                {#{% if (item.StockNr) %}#}
-                {#Stock Number: {{ item.StockNr }};#}
-                {#{% endif %}#}
-                {#Listing ID#}
-                {## {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}#}
-                {#"#}
-                {#<div>Posted by {{ dealer }} </div>#}
-
-
-                {#<span class="glyphicon glyphicon-earphone">{% if dealer %}{{ dealer.phone }}{% endif %}</span>#}
-
-                {#<a href="{{ detailUrl }}">View#}
-                {#Details {% if dealer and app.user and app.user.getId()==dealer.id %}({{ item.views }} views){% endif %}</a>#}
-
-                {#<div class="checkbox-inline">#}
-                {#<label>#}
-                {#<input type="checkbox" class="saveAd"> Save Ad#}
-                {#</label>#}
-                {#</div>#}
-                <div class="checkbox-inline">
+                <div class="checkbox-inline top-buffer">
                     <label>
                         <input type="checkbox" class="compareAd"> Compare Ad
                     </label>
@@ -82,15 +64,17 @@
 
             </div>
             <div class="btn-group-vertical col-md-2">
-                <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
+                <button type="button" class="btn btn-primary eprice" data-itemid="{{ item.id }}"><i
                             class="fa fa-money"></i> Get ePrice
                 </button>
                 {#<button type="button" class="btn btn-default">Save This Car</button>#}
-                <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
+                <a href="{{ detailUrl }}" class="btn btn-info"><span>View Details</span></a>
+                <button type="button" class="btn btn-default" data-toggle="modal"
+                        data-target="#searchOther">Search Other
+                </button>
             </div>
         </div>
     </div>
-    <br>
-    <div class="clear"></div>
+
 
 {% endblock %}

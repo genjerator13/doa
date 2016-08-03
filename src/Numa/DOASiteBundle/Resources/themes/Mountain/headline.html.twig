@@ -8,18 +8,21 @@
 
         <div class="connect-with-us">Connect with Us</div>
 
+        {% if dealer.siteFacebook is not null %}
         <a class="facebook" href="{{ dealer.siteFacebook }}">
             {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/facebook.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
+        {% endif %}
 
+        {% if dealer.siteYoutube is not null %}
         <a class="youtube" href="{{ dealer.siteYoutube }}">
             {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
-
+        {% endif %}
     </div>
 
     <a class="map" href="">Map</a>

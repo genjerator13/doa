@@ -44,8 +44,11 @@
             </div>
             <div>Images Total: {{ images|length }}</div>
             {% if(images|length>0) %}
-                <div class="images-action"><a href="#" id="select-all">Select All</a><a id="deselect-all" href="#">Deselect
-                        All</a><a id="delete-selected" href="#">Delete Selected</a></div>
+                <div class="images-action">
+                    <a href="#" id="select-all"><i class="glyphicon glyphicon-ok"></i>Select All</a>
+                    <a id="deselect-all" href="#"><i class="glyphicon glyphicon-remove"></i> Deselect All</a>
+                    <a id="delete-selected" href="#"><i class="glyphicon glyphicon-trash"></i>Delete Selected</a>
+                </div>
                 <h1>Images list</h1>
                 <h3>
                     <small>To rearrange your photos, just drag and drop</small>

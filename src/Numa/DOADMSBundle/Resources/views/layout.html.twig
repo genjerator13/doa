@@ -63,6 +63,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
+                    {% if app.user.dmsStatus is not defined or app.user.dmsStatus != 'activated' %}
                     <li class="dropdown messages-menu">
                         <!-- Menu toggle button -->
                         <a target="_blank" href="{{ url('dms_activate') }}">
@@ -70,7 +71,9 @@
                             <span class="">Activate DMS</span>
                         </a>
 
-                    </li><!-- /.messages-menu -->
+                    </li>
+                    {% endif %}
+                    <!-- /.messages-menu -->
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
                         <!-- Menu toggle button -->

@@ -1,7 +1,7 @@
 <table class="table">
     <thead>
     <tr>
-
+        <th>CB</th>
         <th>Src</th>
         <th>Title</th>
         <th>Url</th>
@@ -13,6 +13,12 @@
     {% for entity in entities %}
         {% set image=uploadDir~"/"~entity.src %}
         <tr>
+            <td>
+                <div class="col-md-1"><input type="checkbox" name="image-{{ entity.id }}"
+                                             value="{{ entity.id }}"
+                                             class="image-checkbox">
+                </div>
+            </td>
             <td>
                 {% if  "youtube" in entity.src %}
                     <a class="colorbox_youtube" href="{{ getYoutubeEmbed(getYoutubeId(entity.src)) }}"
@@ -34,29 +40,77 @@
             <td>{{ entity.url }}</td>
             <td>
                 <ul class="list-inline">
-                    {% if(app.request.get('_dashboard')=='DMS') %}
                         <li>
                             <a class="btn btn-primary"
                                href="{{ path('dms_imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
                         </li>
                         <li>
-                            <a class="btn btn-danger"
-                               href="{{ path('dms_imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-
+                            <a  data-id="{{ entity.id }}" class="btn btn-danger delete-single" href="#">
+                                <i class='glyphicon glyphicon-trash'></i>delete
+                            </a>
                         </li>
-                    {% else %}
-                        <li>
-                            <a class="btn btn-primary"
-                               href="{{ path('imagecarousel_edit', { 'id': entity.id }) }}">edit</a>
-                        </li>
-                        <li>
-                            <a class="btn btn-danger"
-                               href="{{ path('imagecarousel_delete', { 'id': entity.id }) }}">delete</a>
-                        </li>
-                    {% endif %}
                 </ul>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+<script>
+    $("#select-all").click(function (e) {
+        e.preventDefault();
+        $(".image-checkbox").prop('checked', true);
+    });
+    $("#deselect-all").click(function (e) {
+        e.preventDefault();
+        $(".image-checkbox").prop('checked', false);
+    });
+
+    $("#delete-selected").click(function (ev) {
+        ev.preventDefault();
+        var sList = {};
+        i=0;
+        $('input[type=checkbox]').each(function () {
+            if(this.checked){
+                i++;
+                ind = "i"+i;
+                sList[ind]=$(this).val();
+            }
+
+        });
+        console.log (sList);
+        $.ajax(
+                {
+                    url: '{{ path('dms_imagecarousel_delete',{'id':0,'urlredirect':app.request.uri }) }}',
+                    type: "POST",
+                    data: sList,
+                    success: function(data, textStatus, jqXHR)
+                    {
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Error");
+                    }
+                });
+    });
+    $(".delete-single").click(function (ev) {
+        ev.preventDefault();
+        id = $(this).data('id');
+        console.log (id);
+        $.ajax(
+                {
+                    url: '{{ path('dms_imagecarousel_delete')}}',
+                    type: "POST",
+                    data: {'id':id},
+                    success: function(data, textStatus, jqXHR)
+                    {
+
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("Error");
+                    }
+                });
+    });
+</script>

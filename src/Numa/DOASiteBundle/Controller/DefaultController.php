@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -291,7 +292,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
     }
 
-    public function featuredAddAction($max, $order = 1)
+    public function featuredAddAction($max, $order = 1,$image_size="")
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -299,7 +300,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $itemrep->setMemcached($this->get('mymemcache'));
         $session = $this->get('session');
-        $dealer_id = $session->get('dealer_id');
+        $dealer_id="";
+        if($this->dealer instanceof  Catalogrecords) {
+            $dealer_id = $this->dealer->getId();
+        }
+
         $featured = $itemrep->findFeatured($dealer_id, $max * 2);
 
         $items = array();
@@ -320,6 +325,9 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 //        $response->setPublic();
 //        $response->setSharedMaxAge(60);
 //        $response->setMaxAge(60);
+        if(empty($image_size)){
+            $image_size="search_image";
+        }
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         return $response;
     }
