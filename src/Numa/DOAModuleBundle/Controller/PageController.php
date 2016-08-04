@@ -59,6 +59,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         return $this->render($render, array(
             'entities' => $entities,
             'dashboard' => $this->dashboard,
+            'dealer' => $this->dealer,
         ));
     }
     /**

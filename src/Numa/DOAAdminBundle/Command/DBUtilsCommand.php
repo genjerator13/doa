@@ -53,6 +53,7 @@ class DBUtilsCommand extends ContainerAwareCommand
     {
         $command = $input->getArgument('function');
         $feed_id = $input->getArgument('feed_id');
+        $dealer_id = $input->getArgument('feed_id');
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $em->clear();
@@ -76,8 +77,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->test();
         } elseif ($command == 'photos') {
             $this->itemImages();
-        }elseif ($command == 'rvsubcats') {
-            $this->rvsubcats();
+        }elseif ($command == 'pages') {
+            $this->pages($dealer_id);
         }
     }
 
@@ -680,6 +681,13 @@ class DBUtilsCommand extends ContainerAwareCommand
         $seoService = $this->getContainer()->get("Numa.Seo");
         $seo = $seoService->generateSeoForFeed(1);
 
+        die();
+    }
+
+    public function pages($dealer_id)
+    {
+
+        $pages = $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($dealer_id);
         die();
     }
 
