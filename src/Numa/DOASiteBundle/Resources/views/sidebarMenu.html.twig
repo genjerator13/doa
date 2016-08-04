@@ -25,13 +25,13 @@
             {% endif %}
             <a class="list-group-item" href="{{ path('statistics') }}">Statistics</a>
 
-            {#{% if(app.user.getDmsStatus() == "activated") %}#}
+            {% if(app.user.getDmsStatus() == "activated") %}
 
-            {#{% elseif((app.user.getDmsStatus()) == "pending") %}#}
-            {#<a class="list-group-item" href="#">Pending DMS activation</a>#}
-            {#{% else %}#}
-            {#<a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>#}
-            {#{% endif %}#}
+            {% elseif((app.user.getDmsStatus()) == "pending") %}
+            <a class="list-group-item" href="#">Pending DMS activation</a>
+            {% else %}
+            <a class="list-group-item" href="{{ path('dms_activate') }}">Activate DMS</a>
+            {% endif %}
         {% endif %}
 
         {% if is_granted('ROLE_USER') %}
