@@ -37,14 +37,9 @@
             });
         </script>
     {% endblock %}
-    <style type="text/css">
-        {% set imgBg = displayComponent('site_background','image','dealer')   %}
-        {% if imgBg is not empty %}
-        body{
-            background-image: url("{{ imgBg }}");
-        }
-        {% endif %}
-    </style>
+    {% block bodyBackground %}
+        {% include "NumaDOASiteBundle::bodyBg.html.twig" %}
+    {% endblock %}
 </head>
 
 <body>
