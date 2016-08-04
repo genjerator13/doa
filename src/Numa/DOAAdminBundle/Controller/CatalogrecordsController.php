@@ -77,6 +77,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             $em->flush();
             $entity->upload();
             $em->flush();
+            $this->get('Numa.DMSUtils')->generatePagesForDealer($entity->getId());
             $redirect = 'catalogs';
             if ($dashboard == 'DMS') {
                 $redirect = 'dms_catalogs';

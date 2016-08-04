@@ -19,6 +19,7 @@
 
     {% set images = displayComponent("homepage_carousel","carousel") %}
 
+    {% if images is not empty %}
     <div class="bs-example">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Carousel indicators -->
@@ -47,6 +48,11 @@
             </a>
         </div>
     </div>
+        {% else %}
+        <div class="content  clearfix">
+
+        </div>
+        {% endif %}
 
     <script type="text/javascript">
         $(document).ready(function(){
