@@ -8,8 +8,14 @@
 
         <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
 
-        <p>Phone: {{ dealer.phone }}<br/>
-            Fax: {{ dealer.fax }}</p>
+        <p>
+            {% if dealer.phone is not null %}
+            Phone: {{ dealer.phone }}<br/>
+            {% endif %}
+            {% if dealer.fax is not null %}
+            Fax: {{ dealer.fax }}
+            {% endif %}
+        </p>
 
         <p><a href="">Map and Hours</a></p>
 
@@ -39,12 +45,14 @@
             </ul>
             {% endif %}
         </div>
+    {% if dealer.ServiceHours != "" %}
     <div class="hours">
 
         <h3>Hours</h3>
         {{ dealer.ServiceHours }}
 
     </div>
+    {% endif %}
     <div class="other-info">
         <a class="facebook" href="{{ dealer.siteFacebook }}">
 
@@ -52,14 +60,14 @@
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
-
+        {% if dealer.siteYoutube is not null %}
         <a class="youtube" href="{{ dealer.siteYoutube }}">
 
             {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/youtube.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
-
+        {% endif %}
         <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
 
         {%  set extramenu = displayComponent('extramenu',"template","dealer") %}

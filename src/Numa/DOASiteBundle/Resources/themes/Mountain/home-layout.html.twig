@@ -61,6 +61,8 @@
             {% set button1 = displayComponent('button_1','image')   %}
             {% set button2 = displayComponent('button_2','image')   %}
             {% set button3 = displayComponent('button_3','image')   %}
+            {% set button4 = displayComponent('button_4','image')   %}
+            {% set button5 = displayComponent('button_5','image')   %}
 
             <div class="button {% if button1 is empty %}b1{% endif %}">
 
@@ -122,17 +124,17 @@
                 <div class="b5">
 
                     <a href="{{ path("service_form") }}">
-
+                        {#{% if button5 is not empty %}#}
+                            {#{{ component.image(button5, 'btn5', '', 'mountain_small_button') }}#}
+                        {#{% endif %}#}
                         <h2>Service</h2>
 
                         <div class="click-here">Click Here</div>
-
                     </a>
 
                 </div>
 
             </div>
-
         </div>
     {% block browse %}
         <div class="browse">
@@ -175,3 +177,14 @@
 </div>
 </body>
 </html>
+
+<script>
+    var button4 = "{{ button4 }}"
+    var button5 = "{{ button5 }}"
+    if(button4 != ""){
+        $('.b4').css("background-image", "url({{ button4 }})");
+    }
+    if(button5 != "") {
+        $('.b5').css("background-image", "url({{ button5 }})");
+    }
+</script>
