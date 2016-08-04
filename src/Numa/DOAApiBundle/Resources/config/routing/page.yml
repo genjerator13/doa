@@ -6,3 +6,7 @@ page_by_dealer_api:
     path:     /{dealer_id}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:PageREST:byDealer",_format: "json"}
     requirements: { _method: get }
+page_api_admin:
+    path:     /admin.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:PageREST:adminPages",_format: "json"}
+    requirements: { _method: get }
