@@ -31,4 +31,13 @@ class PageRESTController extends Controller
         return $page;
     }
 
+    /**
+     * @Rest\View
+     */
+    public function adminPagesAction()
+    {
+        $page = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id'=>null));
+        return $page;
+    }
+
 }
