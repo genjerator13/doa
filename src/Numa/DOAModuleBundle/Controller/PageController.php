@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOAModuleBundle\Entity\PageComponent;
@@ -55,11 +56,14 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         if($this->dashboard =='DMS'){
             $render = 'NumaDOAModuleBundle:Page:DMSindex.html.twig';
         }
-
+        $dealer_id="";
+        if($this->dealer instanceof Catalogrecords){
+            $dealer_id=$this->dealer->getId();
+        }
         return $this->render($render, array(
             'entities' => $entities,
             'dashboard' => $this->dashboard,
-            'dealer' => $this->dealer,
+            'dealer_id' => $dealer_id,
         ));
     }
     /**
