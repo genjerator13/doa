@@ -5,24 +5,27 @@
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="col-md-2 featured-ads-item" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ shortWord(item.year~" "~item.make~" "~item.model,16)}}</br>
+                <a class="col-md-4 featured-ads-item text-center" href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">
+
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}
-                        <img class="thumbnail" alt="No photos"
+                        <img class="" alt="No photos"
                              src="{{ asset('images/no_image_available_small.png') }}"/>
                     {% else %}
                         {% set image = item.getImages()|first["stringvalue"] %}
                         {% if ('http' not in image) %}
-                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
-                                 src="{{ image|imagine_filter('search_image') }}"/>
+                            <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}"
+                                 src="{{ image|imagine_filter('featured_forest') }}"/>
                         {% else %}
-                            <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
-                                 width="120" height="90"/>
+                            <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
+                                 width="200px" height="150px"/>
                         {% endif %}
 
                     {% endif %}
-                    <span class="text-center price">{{ item.getPriceString() }}</span>
+                    {{ shortWord(item.year~" "~item.make~" "~item.model,16)}}
+                    </br>
+                    <span class="price">{{ item.getPriceString() }}</span>
                 </a>
             {% endfor %}
         </div>

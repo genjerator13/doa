@@ -9,9 +9,8 @@
     <title>Dealers on Air</title>
 
     {% block stylesheets %}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
-        {% stylesheets '@bootstrap' '@theme_mountain_css' '@NumaDOASiteBundle/Resources/Public/Mountain/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+
+        {% stylesheets '@bootstrap' '@colorbox_css' '@theme_mountain_css' '@NumaDOASiteBundle/Resources/Public/Mountain/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -21,7 +20,7 @@
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js'  'themes/Mountain/js/pgwslideshow.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js'  'themes/Mountain/js/pgwslideshow.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
@@ -38,7 +37,9 @@
             });
         </script>
     {% endblock %}
-
+    {% block bodyBackground %}
+        {% include "NumaDOASiteBundle::bodyBg.html.twig" %}
+    {% endblock %}
 </head>
 
 <body>
@@ -47,22 +48,18 @@
         {% include 'NumaDOASiteBundle::headline.html.twig' %}
     {% endblock %}
     {% block mainmenu %}
-        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-            {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
     {% endblock %}
     {% block mobilemenu %}
         {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
     {% endblock %}
     <div class="container">
-
-        <div class="content">
+        <div class="content  clearfix">
             {% block content %}
 
             {% endblock %}
         </div>
-
     </div>
-
     {% block footer %}
         {% include 'NumaDOASiteBundle::footer.html.twig' %}
     {% endblock %}

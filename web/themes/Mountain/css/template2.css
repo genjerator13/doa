@@ -393,7 +393,7 @@ body {
 	margin-top: -31px;
 	padding: 51px 20px 20px 20px;
 	position: relative;
-	z-index: 0;
+	float: left;
 }
 
 .content { margin-top: 25px; }
@@ -436,7 +436,8 @@ body {
 	color: #fff;
 	display: table;
 	font-size: 11px;
-	margin-top: 41px;
+	margin-top: 21px;
+	float: left;
 	padding-bottom: 30px;
 	table-layout: fixed;
 	width: 100%;
@@ -518,7 +519,7 @@ body {
 
 .copyright { text-transform: uppercase; }
 
-@media only screen  
+@media only screen
 and (max-width : 1023px) {
 
 .main-menu { padding: 14px 0; }
@@ -569,7 +570,7 @@ and (max-width : 1023px) {
 
 }
 
-@media only screen  
+@media only screen
 and (max-width : 767px) {
 
 .main-menu { display: none; }
@@ -705,7 +706,7 @@ and (max-width : 767px) {
 .detailsContent .row{
 
 }
-.right{
+.listing-right{
 	height: 100%;
 	position: relative;
 	min-height: 400px;
@@ -729,3 +730,119 @@ and (max-width : 767px) {
 	position: relative;
 }
 
+.coupons-container {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.coupon-container {
+	border: 1px solid #111111;
+	width: 250px;
+	float: left;
+	margin-left: 5px;
+	padding: 10px;
+	background-color: #e7e7e7;
+}
+
+.coupon-container h3 {
+	text-align: center;
+}
+
+.coupon-container .coupon-image{
+	width: 230px;
+	/*height: 300px;*/
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.coupon-container a.coupon-print{
+	font-size: 22px;
+	float: right;
+	color: #F78F1E;
+}
+
+.coupon-container a.coupon-print:hover{
+	font-size: 24px;
+}
+
+.coupon-page-text{
+	margin-bottom: 10px;
+}
+
+.techData .fieldCaption {
+	font-weight: bold;
+}
+ul.techData{
+	margin:20px 0 0 0;
+}
+
+ul.techData li {
+	margin:0;
+	padding: 0px;
+}
+
+.top-buffer {
+	margin-top:20px;
+}
+
+.picture-detail {
+	max-height: 246px;
+
+	display: block;
+	width: 350px;
+	overflow: hidden;
+}
+
+#listing-content .items {
+	height: 270px;
+}
+
+.carousel {
+	width: 555px;
+	height: 400px;
+	float: left;
+	margin-left: 20px;
+}
+
+#myCarousel_left {
+	margin-left:0px;
+}
+
+.bs-carousels {
+	float: left;
+
+}
+
+.carousel .text_widget {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+}
+.carouse .carousel-inner {
+	max-height: 400px;
+	min-height: 400px;
+}
+.carousel-fade .carousel-inner .item {
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	-o-transition-property: opacity;
+	transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+	opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+	left: 0;
+	opacity: 0;
+	z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+	opacity: 1;
+}
+.carousel-fade .carousel-control {
+	z-index: 2;
+}

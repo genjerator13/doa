@@ -53,6 +53,7 @@ class AppKernel extends Kernel {
             new Knp\Bundle\SnappyBundle\KnpSnappyBundle(),
             new Numa\DOAStatsBundle\NumaDOAStatsBundle(),
             new Liip\ThemeBundle\LiipThemeBundle(),
+            //new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

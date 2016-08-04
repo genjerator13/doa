@@ -18,13 +18,13 @@ class DealerSiteType extends AbstractType {
     }
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('site_theme','choice',array("choices"=>array('Default'=>"default","Sea"=>"Sea","Mountain"=>"Mountain","Forest"=>"Forest")))
-                ->add('site_url')
-                ->add('site_facebook')
-                ->add('site_youtube')
-                ->add('site_google')
-                ->add('site_twitter')
-                ->add('site_instagram')
+                ->add('site_theme','choice',array('label' =>"Theme","choices"=>array('Default'=>"default","Sea"=>"Sea","Mountain"=>"Mountain","Forest"=>"Forest")))
+                ->add('site_url',null,array('label'=>'URL'))
+                ->add('site_facebook',null,array('label'=>'Facebook'))
+                ->add('site_youtube',null,array('label'=>'Youtube'))
+                ->add('site_google',null,array('label'=>'Google'))
+                ->add('site_twitter',null,array('label'=>'Twitter'))
+                ->add('site_instagram',null,array('label'=>'Instagram'))
         ;
 
     }

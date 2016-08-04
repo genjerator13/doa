@@ -37,6 +37,9 @@
         </script>
 
     {% endblock %}
+    {% block bodyBackground %}
+        {% include "NumaDOASiteBundle::bodyBg.html.twig" %}
+    {% endblock %}
 </head>
 
 <body>
@@ -45,8 +48,8 @@
         {% include 'NumaDOASiteBundle::headline.html.twig' %}
     {% endblock %}
     {% block main %}
-        {{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}
-        {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+        {#{{ render_esi(controller('NumaDOASiteBundle:Default:contactus')) }}#}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
     {% endblock %}
 
     {% block mobilemenu %}
@@ -55,11 +58,17 @@
     <div class="container">
 
         <div class="button-wrapper">
+            {% set button1 = displayComponent('button_1','image')   %}
+            {% set button2 = displayComponent('button_2','image')   %}
+            {% set button3 = displayComponent('button_3','image')   %}
 
-            <div class="button b1">
+            <div class="button {% if button1 is empty %}b1{% endif %}">
 
                 <a href="{{ path("search_new_vehicle") }}">
 
+                    {% if button1 is not empty %}
+                        {{ component.image(button1, 'btn1', '', 'mountain_button') }}
+                    {% endif %}
                     <h2><span>Shop for</span> New RVs</h2>
 
                     <div class="click-here">Click Here</div>
@@ -68,10 +77,12 @@
 
             </div>
 
-            <div class="button b2">
+            <div class="button {% if button2 is empty %}b2{% endif %}">
 
                 <a href="{{ path("search_used_vehicle") }}">
-
+                    {% if button2 is not empty %}
+                        {{ component.image(button2, 'btn2', '', 'mountain_button') }}
+                    {% endif %}
                     <h2><span>Shop for</span> Pre-Owned</h2>
 
                     <div class="click-here">Click Here</div>
@@ -80,10 +91,12 @@
 
             </div>
 
-            <div class="button b3">
+            <div class="button {% if button3 is empty %}b3{% endif %}">
 
                 <a href="{{ path("finance_form") }}">
-
+                    {% if button3 is not empty %}
+                        {{ component.image(button3, 'btn3', '', 'mountain_button') }}
+                    {% endif %}
                     <h2><span>Apply for</span> Financing</h2>
 
                     <div class="click-here">Click Here</div>
@@ -148,11 +161,10 @@
 
         </div>
     {% endblock %}
-        <div class="content">
-            {% if(components is defined) %}
-                {{ displayComponent(components,'page_content') }}
-            {% endif %}
-        </div>
+        {#<div class="content">#}
+            {#<h1>Welcome to {{ dealer.name }}</h1>#}
+            {{ displayComponent('page_content',"HTML") }}
+        {#</div>#}
 
     </div>
 

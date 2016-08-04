@@ -20,6 +20,8 @@ class ListingFormEpriceType extends AbstractType
             ->add('email', 'email', array('label'=>'Email *', 'required' => true))
             ->add('phone')
             ->add('comment')
+            ->add('type','hidden',array('data'=>'eprice'))
+            ->add('item_id','hidden')
 
 //            ->add('date_created')
 //            ->add('date_updated')
@@ -36,6 +38,7 @@ class ListingFormEpriceType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
+            'csrf_protection' => false,
             'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm'
         ));
     }
@@ -45,6 +48,6 @@ class ListingFormEpriceType extends AbstractType
      */
     public function getName()
     {
-        return 'numa_doadmsbundle_listingform';
+        return 'eprice';
     }
 }

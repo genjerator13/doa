@@ -28,3 +28,7 @@ servicerequest_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:ServiceRequest:delete" }
     requirements: { _method: post|delete }
+
+servicerequest_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:ServiceRequest:massDelete2" }

@@ -435,7 +435,7 @@ Numa\DOAAdminBundle\Entity\Item:
         black_water_capacity:
               type: integer
               nullable: true
-        grey_water_capacity:
+        gray_water_capacity:
               type: integer
               nullable: true
         hitch_weight:

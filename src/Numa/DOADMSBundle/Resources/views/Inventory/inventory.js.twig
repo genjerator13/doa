@@ -1,12 +1,7 @@
 {# get the loged dealer #}
 {% set apicall="/api/listings/all.json" %}
-{% if is_granted('ROLE_BUSINES') %}
-    {% set user= app.security.getToken().getUser().getId() %}
-    {% set apicall="/api/listings2/"~user~"/dealer.json" %}
-{% endif %}
-{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
-    {% set user= app.session.get('dms_dealer_id') %}
-{% set apicall="/api/listings2/"~user~"/dealer.json" %}
+{% if dealer is not empty %}
+    {% set apicall="/api/listings2/"~dealer.id~"/dealer.json" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -121,6 +116,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $scope.items = ['item1', 'item2', 'item3'];
     $scope.selected = {};
+
     $scope.animationsEnabled = true;
 
 
@@ -187,7 +183,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
                 angular.forEach(data, function(row, index) {
-                    console.log(row)
+
                     row.index = index+1;
 
                     if(row.sold==1){
@@ -230,7 +226,6 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) 
     $scope.items = items;
     $scope.selected = {
         item: $scope.items[0]
-
     };
 
     $scope.ok = function () {

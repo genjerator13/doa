@@ -14,14 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 class PartsController extends Controller implements DealerSiteControllerInterface{
 
     public $dealer;
-    public $components;
+
     public function initializeDealer($dealer){
         $this->dealer = $dealer;
     }
 
-    public function initializePageComponents($components){
-        $this->components = $components;
-    }
     public function partAction(Request $request) {
 
         $entity = new PartRequest();
@@ -33,22 +30,9 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
             $em = $this->getDoctrine()->getManager();
 
             $parts = explode(",",$entity->getPartNum());
-            //check if customer exists based by its email
-            $data = $form->getData();
-            $email = $data->getEmail();
 
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email'=>$email,'dealer_id'=>$this->dealer->getId()));
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
 
-            if(empty($customer)){
-                $customer = new Customer();
-                $customer->setFirstName($data->getCustName());
-                $customer->setLastName($data->getCustLastName());
-                $customer->setEmail($email);
-                $customer->setCatalogrecords($this->dealer);
-                $customer->setHomePhone($data->getPhone());
-                $em->persist($customer);
-
-            }
             $entities = array();
             if($parts>1){
                 $c=0;
@@ -58,7 +42,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
                         $entities[$c]->setDealer($this->dealer);
 
-                    $entities[$c]->setCustomer($customer);
                     $em->persist($entities[$c]);
                     $c++;
                 }
@@ -68,7 +51,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
 
             if(empty($entities)) {
-                $entity->setCustomer($customer);
                 $em->persist($entity);
             }
 
@@ -80,33 +62,10 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         return $this->render('NumaDOASiteBundle:Parts:parts_form.html.twig', array(
             'entity' => $entity,
-            'components' => $this->components,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
         ));
     }
-
-
-
-//    public function createAction(Request $request)
-//    {
-//        $entity = new PartRequest();
-//        $form = $this->createCreateForm($entity);
-//        $form->handleRequest($request);
-//
-//        if ($form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($entity);
-//            $em->flush();
-//            return $this->redirect($this->generateUrl('partrequest'));
-//
-//        }
-//
-//        return $this->render('NumaDOADMSBundle:PartRequest:new.html.twig', array(
-//            'entity' => $entity,
-//            'form'   => $form->createView(),
-//        ));
-//    }
 
     /**
      * Creates a form to create a PartRequest entity.
@@ -131,7 +90,6 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         return $this->render('NumaDOASiteBundle:Parts:parts_success.html.twig', array(
             'message'=>$message,
-            'components' => $this->components,
             'dealer' => $this->dealer,
         ));
     }

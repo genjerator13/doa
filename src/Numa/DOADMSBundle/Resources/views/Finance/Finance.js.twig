@@ -1,0 +1,141 @@
+{# get the loged dealer #}
+{% set apicall="/api/finance/all" %}
+{% if is_granted('ROLE_BUSINES') %}
+{% set user= app.security.getToken().getUser().getId() %}
+{% set apicall="/api/finance/"~user~"/dealer" %}
+{% endif %}
+{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
+{% set user= app.session.get('dms_dealer_id') %}
+{% set apicall="/api/finance/"~user~"/dealer" %}
+{% endif %}
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 50,
+        enableColumnResizing: true,
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {
+            name: 'id',
+            enableColumnResizing: true,
+            width: 30,
+            cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+
+        },
+        {name: 'cust_name', enableColumnResizing: true},
+        {name: 'applicant_type', enableColumnResizing: true},
+        {name: 'amount_required', enableColumnResizing: true},
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
+        {name: 'date_created', enableColumnResizing: true, cellFilter: 'date: "yyyy-MM-dd | HH:mm"'},
+
+        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
+        {name:'views',enableColumnResizing: true,width: 60},
+        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'_dealer.name',displayName:'Dealer'},
+        {
+            name:'sold',
+            enableColumnResizing: true,width: 50,
+            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },
+        {
+            name:'active',
+            enableColumnResizing: true,width: 60,
+            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },#}
+
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.selected = {};
+
+    $scope.animationsEnabled = true;
+
+    $scope.setDelete = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("finance_mass_delete") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    i=1
+                    angular.forEach($scope.selected, function(value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data.splice(key-i, 1);
+                        i++;
+                    });
+                    $scope.selected={}
+                    $scope.gridApi.selection.clearSelectedRows();
+                    angular.forEach(data, function(data, index) {
+                        data.index = index+1;
+                        //data.push({"index":index+1})
+                    })
+                });
+    }
+
+    var canceler = $q.defer();
+    $http.get('{{ apicall }}', {timeout: canceler.promise})
+            .success(function (data) {
+                angular.forEach(data, function(row, index) {
+                    row.index = index+1;
+                })
+                $scope.gridOptions.data = data;
+
+            });
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            var msg = 'row selected ' + row.isSelected;
+
+            $scope.selected[row.entity.index] = row.entity.id;
+            $log.log(row);
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            var msg = 'rows changed ' + rows.length;
+            $log.log(rows);
+            angular.forEach(rows, function(value, key) {
+                $scope.selected[value.entity.index] = value.entity.id;
+            });
+            console.log($scope.selected);
+        });
+    };
+
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

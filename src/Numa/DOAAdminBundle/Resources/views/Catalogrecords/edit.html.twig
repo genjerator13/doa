@@ -15,16 +15,17 @@
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    <section class="content">
         <h1>Edit Dealer</h1>
 
         {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-        {{ component.image(entity.logoUrl, entity.name, '', 'search_image') }}
+        {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
+
         <div class="nav-tabs-custom">
             <ul class="nav nav-tabs ">
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
             </ul>
             <div class="nav-tabs-custom">
                 <div class="tab-content">
@@ -63,7 +64,7 @@
                                 <div>{{ form_row(coupon.description) }}</div>
                                 <div>{{ form_row(coupon.originalImage) }}
                                     {% if coupon.vars.data.photo is not empty %}
-                                        <img src="{{ asset(coupon.vars.data.photo) }}" width="300px"/>
+                                        <img src="{{ asset(coupon.vars.data.photo) }}"/>
                                     {% endif %}
                                 </div>
                             {% endfor %}
@@ -94,10 +95,76 @@
 
 
                     </div>
+                    <div id="component" class="tab-pane">
+                        {% block stylesheets %}
+                            {{ parent() }}
+                            <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+                                  rel="stylesheet"/>
+                            {% stylesheets
+                            'css/loading-bar.min.css'
+
+                            filter='cssrewrite' output='css/*.css' %}
+                            <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+                            {% endstylesheets %}
+                        {% endblock stylesheets %}
+                        {% block javascripts %}
+                            {{ parent() }}
+                            {% javascripts
+                            '@colorbox_js'
+                            'js/angular/angular143.min.js'
+                            'js/angular/angular-touch143.min.js'
+                            'js/angular/angular-animate143.min.js'
+                            'js/angular/vfs-fonts.js'
+                            'js/angular/ui-grid.js'
+                            'js/angular/angular-confirm.min.js'
+                            'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+                            'js/loading-bar.min.js' %}
+
+                            <script src="{{ asset_url }}"></script>
+                            {% endjavascripts %}
+                            <script>
+                                {% include 'NumaDOADMSBundle:DealerComponent:dealerComponent.js.twig' %}
+                            </script>
+                        {% endblock javascripts %}
+
+
+
+
+                        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+                        <div class="box">
+                            <div class="box-header">
+                                <div class="box-header">
+                                    <h3 class="box-title">DealerComponent list</h3>
+
+                                </div>
+                            </div>
+                            <div class="box-body table-responsive no-padding" ng-app="app">
+
+                                <div ng-controller="MainCtrl">
+                                    <script type="text/ng-template" id="myModalContent.html">
+                                        <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+                                    </script>
+                                    <script type="text/ng-template" id="myModalContent.html">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Please confirm</h3>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                                            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                                        </div>
+                                    </script>
+
+                                    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+                                </div>
+                            </div>
+
+                            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
+
+                        </div>
                 </div>
 
             </div>
         </div>
-    </section>
-
 {% endblock %}

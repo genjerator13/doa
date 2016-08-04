@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOAModuleBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -8,6 +9,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+
 /**
  * Component
  * @JMS\ExclusionPolicy("ALL")
@@ -315,12 +317,16 @@ class Component
     {
         return $this->PageComponent;
     }
+
     /**
      * @ORM\PrePersist
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -328,14 +334,14 @@ class Component
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        $this->date_updated = new \DateTime();
     }
 
     // Important manytomany
     public function getPages()
     {
         $pages = new ArrayCollection();
-        if (!empty($this->getPageComponent()) ) {
+        if (!empty($this->getPageComponent())) {
             foreach ($this->getPageComponent() as $pa) {
                 if ($pa instanceof PageAds) {
                     $pages[] = $pa->getPage();
@@ -358,7 +364,8 @@ class Component
 
     }
 
-    public static function getUploadDir($dealer_id, $component_id){
+    public static function getUploadDir($dealer_id, $component_id)
+    {
         $uploadDir = "upload/dealers";
         return $uploadDir;
     }

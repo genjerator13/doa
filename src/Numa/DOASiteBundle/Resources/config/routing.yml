@@ -153,9 +153,18 @@ service_success:
 finance_form:
     path:     /finance
     defaults: { _controller: "NumaDOASiteBundle:Finance:new" }
+finance_success:
+    path:  /financeSuccess
+    defaults: { _controller: "NumaDOASiteBundle:Finance:success" }
 about_us:
     path:     /about_us
     defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }
+contactus:
+    path:     /contactus
+    defaults: { _controller: "NumaDOASiteBundle:Default:contactUs" }
+contactus_success:
+    path:     /contactus_success
+    defaults: { _controller: "NumaDOASiteBundle:Default:contactSuccess" }
 news:
     path:     /news
     defaults: { _controller: "NumaDOASiteBundle:Default:news" }

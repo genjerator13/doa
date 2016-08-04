@@ -1,0 +1,34 @@
+finance:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Finance:index" }
+
+finance_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Finance:show" }
+
+finance_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Finance:new" }
+
+finance_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Finance:create" }
+    requirements: { _method: post }
+
+finance_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Finance:edit" }
+
+finance_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Finance:update" }
+    requirements: { _method: post|put }
+
+finance_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Finance:delete" }
+    requirements: { _method: post|delete }
+
+finance_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:Finance:massDelete2" }

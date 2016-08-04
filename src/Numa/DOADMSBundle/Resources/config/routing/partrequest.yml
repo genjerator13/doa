@@ -28,3 +28,7 @@ partrequest_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:PartRequest:delete" }
     requirements: { _method: post|delete }
+
+partrequest_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:PartRequest:massDelete2" }

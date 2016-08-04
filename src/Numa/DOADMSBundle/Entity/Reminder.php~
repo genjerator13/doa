@@ -288,6 +288,7 @@ class Reminder
     }
     /**
      * @var string
+     * @JMS\Expose
      */
     private $comment;
 

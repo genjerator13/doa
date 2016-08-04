@@ -1,3 +1,5 @@
+/* web/themes/forest/ccc/template.css */
+
 * {
 	margin: 0;
 	padding: 0;
@@ -228,8 +230,8 @@ body {
 
 .button-wrapper {
 	box-sizing: border-box;
-	float: left;
-	padding-right: 5px;
+	float: right;
+	padding-left: 5px;
 	position: relative;
 	width: 33.825%;
 	z-index: 0;
@@ -267,6 +269,7 @@ body {
 		bottom: 0;
 		left: 0;
 	text-decoration: none;
+	margin:0;
 }
 
 .button a:hover {
@@ -282,6 +285,7 @@ body {
 	line-height: 23px;
 	padding: 92px 17px 18px 17px;
 	text-transform: uppercase;
+	margin:0;
 }
 
 .button h2 span {
@@ -297,8 +301,8 @@ body {
 	 
 .banner {
 	box-sizing: border-box;
-	float: right;
-	padding-left: 5px;
+	float: left;
+	padding-right: 5px;
 	width: 66.175%;
 }
 
@@ -378,10 +382,11 @@ body {
 
 .brand a {
 	background-color: #ebebeb;
-	display: inline-block;
-	height: 50px;
+	display: block;
+	min-height: 50px;
 	padding: 20px;
 	vertical-align: middle;
+	padding-bottom: 20px;
 }
 
 /* ==========================================================================
@@ -481,7 +486,7 @@ and (max-width : 1023px) {
 
 .main-menu > ul { margin: 0 auto; }
 
-.button h2 { font-size: 28px; }
+.button h2 { font-size: 28px; margin:0; }
 
 .footer .logo { display: none; }
 
@@ -535,4 +540,179 @@ and (max-width : 767px) {
 
 .other-info ul { margin: 10px auto; }
 
+}
+
+.coupons-container {
+	float: left;
+	margin-bottom: 20px;
+}
+
+.coupon-container {
+	border: 1px solid #111111;
+	width: 240px;
+	float: left;
+	margin-left: 5px;
+	/*padding: 10px;*/
+	background-color: #e7e7e7;
+}
+
+.coupon-container h3 {
+	text-align: center;
+}
+
+.coupon-container .coupon-image{
+	width: 230px;
+	/*height: 300px;*/
+	overflow: hidden;
+	margin-bottom: 10px;
+}
+
+.coupon-container a.coupon-print{
+	font-size: 22px;
+	float: right;
+	color: #F78F1E;
+}
+
+.coupon-container a.coupon-print:hover{
+	font-size: 24px;
+}
+
+.coupon-page-text{
+	margin-bottom: 10px;
+}
+
+/* listing detail */
+.detailsContent .row {
+	margin: 0px;
+	border: 1px solid lightslategray;
+}
+.detailsContent .row p{
+	padding: 10px;
+}
+
+.listing-buttons {
+	padding: 0px;
+	text-align: right;
+	z-index:1000;
+	position: absolute;
+	top: 0px;
+	right:0px;
+}
+
+.listing-buttons button{
+	text-align: right;
+	font-weight: bold;
+
+}
+
+.listing-box-top {
+	min-height: 200px;
+}
+
+
+#listing-content .row{
+	margin: 0px;
+	border: 1px solid lightslategray;
+}
+.row .items{
+	padding: 15px 0 0 0;
+}
+
+.detailsContent .option-lists{
+	margin-left: 50px;
+}
+.detailsContent h2.section{
+	margin: 0px;
+	font-size: 130%;
+	padding: 5px;
+	background-color: #111111;
+	color: #f78f1e;
+	font-family:'Fjalla One','Open Sans', sans-serif;
+}
+
+.detailsContent .row {
+	margin-bottom: 20px;
+}
+.detailsContent .retail_price {
+	color: #f78f1e;
+	text-decoration-line: line-through;
+	font-size: 130%;
+}
+.detailsContent .price {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.detailsContent .price-quote {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+
+.title{
+	color: black;
+}
+.detailsContent  .left{
+	padding:0;
+	min-height: 400px;
+}
+.detailsContent .row{
+
+}
+.listing-right{
+	height: 100%;
+	position: relative;
+	min-height: 400px;
+	padding-right: 0;
+
+}
+
+.techData .fieldCaption {
+	font-weight: bold;
+}
+ul.techData{
+	margin:20px 0 0 0;
+}
+
+ul.techData li {
+	margin:0;
+	padding: 0px;
+}
+
+.top-buffer {
+	margin-top:20px;
+}
+
+#myCarousel .text_widget {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+}
+#myCarousel .carousel-inner {
+	max-height: 418px;
+	min-height: 418px;
+}
+.carousel-fade .carousel-inner .item {
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	-o-transition-property: opacity;
+	transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+	opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+	left: 0;
+	opacity: 0;
+	z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+	opacity: 1;
+}
+.carousel-fade .carousel-control {
+	z-index: 2;
 }

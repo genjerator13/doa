@@ -314,6 +314,7 @@ class BillingController extends Controller
         return $response;
     }
 
+
     /**
      * Creates a form to delete a Billing entity by id.
      *
