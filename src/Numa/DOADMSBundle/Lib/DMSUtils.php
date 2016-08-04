@@ -44,16 +44,19 @@ class DMSUtils
     }
 
     public function generatePagesForDealer($dealer_id){
-        dump($dealer_id);
+
         $em = $this->container->get("doctrine.orm.entity_manager");
-        $pages = $em->getRepository('NumaDOADMSBundle:Page')->findBy(array('dealer_id' => null));
+        $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => null));
         foreach($pages as $page){
-            $existPage = $em->getRepository('NumaDOADMSBundle:Page')->findOneBy(array('url'=>$page->getUrl(),'dealer_id' => $dealer_id));
+            $existPage = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('url'=>$page->getUrl(),'dealer_id' => $dealer_id));
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
+
             if(!($existPage instanceof page)){
                 //create new page
                 $newPage = new Page();
-                $newPage->setUrl();
-                $newPage->setDealer();//
+
+                $newPage->setUrl($page->getUrl());
+                $newPage->setDealer($dealer);//
                 $em->persist($newPage);
             }
         }
