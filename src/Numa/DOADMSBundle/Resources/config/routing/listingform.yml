@@ -50,3 +50,7 @@ listingform_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:ListingForm:delete" }
     requirements: { _method: post|delete }
+
+listingform_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:ListingForm:massDelete2" }

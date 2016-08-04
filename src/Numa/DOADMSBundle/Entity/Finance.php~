@@ -34,7 +34,10 @@ class Finance
     protected $year;
     protected $vehicle_type;
     protected $interested_in;
-
+    /**
+     * @var string
+     * @JMS\Expose
+     */
     protected $cust_name;
     protected $cust_last_name;
     protected $preferred_contact;
@@ -573,6 +576,7 @@ class Finance
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 

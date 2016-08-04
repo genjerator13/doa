@@ -17,7 +17,7 @@ class ComponentType extends AbstractType
     {
         $builder
             ->add('name', 'text', array('disabled'=>'true'))
-            ->add('type','choice',array('disabled'=>'true','choices'=>array('HTML'=>'HTML','Text'=>'Text','String'=>'String','Image'=>'Image','Carousel'=>'Carousel')))
+            ->add('type','choice',array('disabled'=>'true','choices'=>array('HTML'=>'HTML','text'=>'text','string'=>'string','image'=>'image','carousel'=>'carousel')))
             ->add('value')
         ;
         $builder->addEventSubscriber(new AdsEventSubscriber());

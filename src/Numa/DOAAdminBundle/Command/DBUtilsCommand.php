@@ -624,6 +624,14 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         $commandLog->setCommand($this->getName() . " photos ");
         $em = $this->getContainer()->get('doctrine')->getManager();
+        $listings = $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+//        $i=0;
+//        foreach($listings as $listing){
+//            $i++;
+//            $logger->warning("COVER PHOTOS STARTED loop n=".$i."==".$listing['id']);
+//            $em->getRepository("NumaDOAAdminBundle:Item")->updateCoverPhoto($listing['id']);
+//        }
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
         $logger->warning("COVER PHOTOS STARTED loop end");
         $commandLog->setStatus('finished');

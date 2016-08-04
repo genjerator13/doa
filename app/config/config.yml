@@ -307,6 +307,31 @@ liip_imagine:
                 relative_resize: { widen: 1920 }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
+        carousel_forest:
+            quality: 100
+            filters:
+                thumbnail: { size: [644, 418], mode: inbount }
+                background: { color: '#FFFFFF' }
+        carousel_mountain:
+            quality: 100
+            filters:
+                thumbnail: { size: [555, 400], mode: outbound }
+                background: { color: '#FFFFFF' }
+        mountain_button:
+            quality: 100
+            filters:
+                thumbnail: { size: [265, 600], mode: outbound }
+                background: { color: '#FFFFFF' }
+        brands_forest:
+            quality: 100
+            filters:
+                thumbnail: { heighten: 75 }
+                background: { color: '#FFFFFF' }
+        featured_forest:
+            quality: 100
+            filters:
+                thumbnail: { size: [200, 150], mode: inbound }
+                background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web

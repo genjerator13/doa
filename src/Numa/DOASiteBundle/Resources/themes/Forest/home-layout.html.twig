@@ -61,53 +61,7 @@
     </div>
 
     <div class="content-wrapper">
-
-        <div class="button-wrapper">
-
-            <div class="button b1">
-
-                <a href="{{ path("search_new_vehicle") }}">
-
-                    <h2>New Units <span>Click Here</span></h2>
-
-                </a>
-
-            </div>
-
-            <div class="button b2">
-
-                <a href="{{ path("search_used_vehicle") }}">
-
-                    <h2>Pre-Owned <span>Click Here</span></h2>
-
-                </a>
-
-            </div>
-
-            <div class="button b3">
-
-                <a href="{{ path("finance_form") }}">
-
-                    <h2>Financing <span>In House</span></h2>
-
-                </a>
-
-            </div>
-
-            <div class="button b4">
-
-                <a href="{{ path("part_form") }}">
-
-                    <h2>Parts <span>and Service</span></h2>
-
-                </a>
-
-            </div>
-
-        </div>
-
         <div class="banner">
-
             {% block banner %}
             <div class="image">
                 {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/banner.jpg' %}
@@ -115,66 +69,39 @@
                 {% endimage %}
             </div>
             {% endblock %}
-
-            <div class="features">
-
-                <h2>Featured Inventory</h2>
-
-                {% block featuredads %}
-
-                {% endblock %}
-
-                {#<div class="item">#}
-
-                    {#<img src="images/item1.jpg" />#}
-                    {#{% image '@NumaDOASiteBundle/Resources/Public/Forest/images/item1.jpg' %}#}
-                    {#<img src="{{ asset_url }}"/>#}
-                    {#{% endimage %}#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>#}
-
-                {#</div>#}
-
-                {#<div class="item">#}
-
-                    {#{% image '@NumaDOASiteBundle/Resources/Public/Forest/images/item2.jpg' %}#}
-                    {#<img src="{{ asset_url }}" />#}
-                    {#{% endimage %}#}
-
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>#}
-
-                {#</div>#}
-
-                {#<div class="item">#}
-
-                    {#<img src="images/item3.jpg" />#}
-                    {#{% image '@NumaDOASiteBundle/Resources/Public/Forest/images/item3.jpg' %}#}
-                    {#<img src="{{ asset_url }}"/>#}
-                    {#{% endimage %}#}
-                    {#<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>#}
-
-                {#</div>#}
+            {% block featuredads %}
+            {% endblock %}
+        </div>
+        <div class="button-wrapper">
+            <div class="button b1">
+                <a href="{{ path("search_new_vehicle") }}">
+                    <h2>New Units <span>Click Here</span></h2>
+                </a>
             </div>
 
+            <div class="button b2">
+                <a href="{{ path("search_used_vehicle") }}">
+                    <h2>Pre-Owned <span>Click Here</span></h2>
+                </a>
+            </div>
+
+            <div class="button b3">
+                <a href="{{ path("finance_form") }}">
+                    <h2>Financing <span>In House</span></h2>
+                </a>
+            </div>
+
+            <div class="button b4">
+                <a href="{{ path("part_form") }}">
+                    <h2>Parts <span>and Service</span></h2>
+                </a>
+            </div>
         </div>
-
-        <div class="content">
-            {% if(components is defined) %}
-                {{ displayComponent('page_content',"HTML") }}
-            {% endif %}
+        {% block content %}
+        <div class="content-wrapper">
+            {{ displayComponent('page_content',"HTML") }}
         </div>
-
-        <div class="brands">
-
-            <h1>Brands</h1>
-
-            <div class="brand"><a href=""><img src="images/company1.png" /></a></div>
-
-            <div class="brand"><a href=""><img src="images/company2.png" /></a></div>
-
-            <div class="brand"><a href=""><img src="images/company3.png" /></a></div>
-
-        </div>
-
+        {% endblock %}
     </div>
 
 

@@ -5,44 +5,70 @@
         <a class="logo" href="">
             {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
         </a>
-
         <div class="contact-info">
             <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4
             </div>
             <a class="map-and-hours" href="">Map &amp; Hours</a>
-
             <div class="phone">{{ dealer.phone }}</div>
         </div>
     </div>
 {% endblock %}
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel") %}
+    {% set images_left = displayComponent("homepage_left_carousel","carousel") %}
+    {% set images_right = displayComponent("homepage_right_carousel","carousel") %}
 
-    <div class="bs-example">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="bs-carousels clearfix">
+        <div id="myCarousel_left" class="carousel slide carousel-fade" data-ride="carousel">
             <!-- Carousel indicators -->
             <ol class="carousel-indicators">
-                {% for image in images %}
-                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                {% for image in images_left %}
+                    <li data-target="#myCarousel_left" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
                 {% endfor %}
 
             </ol>
             <!-- Wrapper for carousel items -->
             <div class="carousel-inner">
-                {% for image in images %}
+                {% for image in images_left %}
                 <div class="item {%  if loop.first %} active{% endif %}">
-                    {{ component.image('upload/dealers/'~image.src, "aaaaaa", '', 'carousel_wide') }}
+                    {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_mountain') }}
                     <div class="text_widget">{{ image.carouselText|raw }}</div>
                 </div>
                 {% endfor %}
 
             </div>
             <!-- Carousel controls -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+            <a class="carousel-control left" href="#myCarousel_left" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
             </a>
-            <a class="carousel-control right" href="#myCarousel" data-slide="next">
+            <a class="carousel-control right" href="#myCarousel_left" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+
+        <div id="myCarousel_right" class="carousel slide carousel-fade" data-ride="carousel">
+            <!-- Carousel indicators -->
+            <ol class="carousel-indicators">
+                {% for image in images_right %}
+                    <li data-target="#myCarousel_right" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                {% endfor %}
+
+            </ol>
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                {% for image in images_right %}
+                    <div class="item {%  if loop.first %} active{% endif %}">
+                        {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_mountain') }}
+                        <div class="text_widget">{{ image.carouselText|raw }}</div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control left" href="#myCarousel_right" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#myCarousel_right" data-slide="next">
                 <span class="glyphicon glyphicon-chevron-right"></span>
             </a>
         </div>

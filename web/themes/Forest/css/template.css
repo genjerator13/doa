@@ -230,8 +230,8 @@ body {
 
 .button-wrapper {
 	box-sizing: border-box;
-	float: left;
-	padding-right: 5px;
+	float: right;
+	padding-left: 5px;
 	position: relative;
 	width: 33.825%;
 	z-index: 0;
@@ -269,6 +269,7 @@ body {
 		bottom: 0;
 		left: 0;
 	text-decoration: none;
+	margin:0;
 }
 
 .button a:hover {
@@ -284,6 +285,7 @@ body {
 	line-height: 23px;
 	padding: 92px 17px 18px 17px;
 	text-transform: uppercase;
+	margin:0;
 }
 
 .button h2 span {
@@ -299,8 +301,8 @@ body {
 	 
 .banner {
 	box-sizing: border-box;
-	float: right;
-	padding-left: 5px;
+	float: left;
+	padding-right: 5px;
 	width: 66.175%;
 }
 
@@ -380,10 +382,11 @@ body {
 
 .brand a {
 	background-color: #ebebeb;
-	display: inline-block;
-	height: 50px;
+	display: block;
+	min-height: 50px;
 	padding: 20px;
 	vertical-align: middle;
+	padding-bottom: 20px;
 }
 
 /* ==========================================================================
@@ -483,7 +486,7 @@ and (max-width : 1023px) {
 
 .main-menu > ul { margin: 0 auto; }
 
-.button h2 { font-size: 28px; }
+.button h2 { font-size: 28px; margin:0; }
 
 .footer .logo { display: none; }
 
@@ -656,10 +659,60 @@ and (max-width : 767px) {
 .detailsContent .row{
 
 }
-.right{
+.listing-right{
 	height: 100%;
 	position: relative;
 	min-height: 400px;
 	padding-right: 0;
 
+}
+
+.techData .fieldCaption {
+	font-weight: bold;
+}
+ul.techData{
+	margin:20px 0 0 0;
+}
+
+ul.techData li {
+	margin:0;
+	padding: 0px;
+}
+
+.top-buffer {
+	margin-top:20px;
+}
+
+#myCarousel .text_widget {
+	position: absolute;
+	top: 10px;
+	left: 10px;
+	width: 100%;
+}
+#myCarousel .carousel-inner {
+	max-height: 418px;
+	min-height: 418px;
+}
+.carousel-fade .carousel-inner .item {
+	opacity: 0;
+	-webkit-transition-property: opacity;
+	-moz-transition-property: opacity;
+	-o-transition-property: opacity;
+	transition-property: opacity;
+}
+.carousel-fade .carousel-inner .active {
+	opacity: 1;
+}
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+	left: 0;
+	opacity: 0;
+	z-index: 1;
+}
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+	opacity: 1;
+}
+.carousel-fade .carousel-control {
+	z-index: 2;
 }
