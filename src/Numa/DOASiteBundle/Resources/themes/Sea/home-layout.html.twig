@@ -152,9 +152,11 @@
                     {{ dealer.address }}<br>
                     {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
                 </div>
+                {% if dealer.phone is defined and dealer.phone is not empty %}
                 <div class="phone">
                     <span>Phone:</span> {{ dealer.phone }}<br>
                 </div>
+                {% endif %}
             </li>
             <li>
                 {{ dealer.ServiceHours|raw }}

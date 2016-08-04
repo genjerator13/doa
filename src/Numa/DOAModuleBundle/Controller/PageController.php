@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOAModuleBundle\Entity\PageComponent;
@@ -48,18 +49,23 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get('security.token_storage')->getToken()->getUser();
-        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId());
+//        $dealer = $this->get('security.token_storage')->getToken()->getUser();
+//        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId());
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         $render = 'NumaDOAModuleBundle:Page:index.html.twig';
         if($this->dashboard =='DMS'){
             $render = 'NumaDOAModuleBundle:Page:DMSindex.html.twig';
         }
 
+        $dealer_id="";
+        if($dealer instanceof Catalogrecords){
+            $dealer_id=$dealer->getId();
+        }
         return $this->render($render, array(
-            'entities' => $entities,
+
             'dashboard' => $this->dashboard,
-            'dealer' => $this->dealer,
+            'dealer_id' => $dealer_id,
         ));
     }
     /**
