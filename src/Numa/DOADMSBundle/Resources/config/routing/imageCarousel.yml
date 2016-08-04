@@ -25,7 +25,7 @@ dms_imagecarousel_update:
     requirements: { _method: post|put }
 
 dms_imagecarousel_delete:
-    path:     /{id}/delete
+    path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:ImageCarousel:delete",_dashboard:"DMS" }
 
 dms_imagecarousel_upload:

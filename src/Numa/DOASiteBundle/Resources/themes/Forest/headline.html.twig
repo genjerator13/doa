@@ -26,25 +26,37 @@
     </div>
 
     <div class="social-media">
-
+        {% if dealer.siteFacebook is not null %}
         <a class="facebook" href="{{ dealer.siteFacebook }}">
             {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/facebook.png' %}
             <img src="{{ asset_url }}" alt="Facebook"/>
             {% endimage %}
         </a>
-        <a class="twitter" href="{{ dealer.siteTwitter }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/twitter.png' %}
+        {% endif %}
+        {% if dealer.siteTwitter is not null %}
+        <a class="twitter" href="{{ dealer.siteTwitter }}">
+            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/twitter.png' %}
             <img src="{{ asset_url }}" alt="Twitter"/>
             {% endimage %}</a>
-        <a class="google" href="{{ dealer.siteGoogle }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/google.png' %}
+        {% endif %}
+        {% if dealer.siteGoogle is not null %}
+        <a class="google" href="{{ dealer.siteGoogle }}">
+            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/google.png' %}
             <img src="{{ asset_url }}" alt="Google"/>
             {% endimage %}</a>
-        <a class="youtube" href="{{ dealer.siteYoutube }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/youtube.png' %}
+        {% endif %}
+        {% if dealer.siteYoutube is not null %}
+        <a class="youtube" href="{{ dealer.siteYoutube }}">
+            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/youtube.png' %}
             <img src="{{ asset_url }}" alt="Youtube"/>
             {% endimage %}</a>
-        <a class="instagram" href="{{ dealer.siteInstagram }}">                    {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/instagram.png' %}
+        {% endif %}
+        {% if dealer.siteInstagram is not null %}
+        <a class="instagram" href="{{ dealer.siteInstagram }}">
+            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/instagram.png' %}
             <img src="{{ asset_url }}" alt="Instagram"/>
             {% endimage %}</a>
-
+        {% endif %}
     </div>
 
     <div class="contact-info">

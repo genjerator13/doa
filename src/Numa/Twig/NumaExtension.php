@@ -10,6 +10,7 @@ use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOAModuleBundle\Entity\PageComponent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Numa\DOAModuleBundle\Entity\Page;
 
 class NumaExtension extends \Twig_Extension
@@ -122,8 +123,7 @@ class NumaExtension extends \Twig_Extension
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
         if(strtolower($type)=="carousel"){
-            $criteria = Criteria::create()
-                ->where(Criteria::expr()->eq("type", 'carousel'));
+            $criteria->andWhere(Criteria::expr()->eq("name", $name));
         }
         $request = $this->container->get("request");
 
@@ -140,7 +140,7 @@ class NumaExtension extends \Twig_Extension
         $dealer_id = null;
         $page = null;
         $component = null;
-        $value = "c not f";
+        $value = "";
 
         if ($dealer instanceof Catalogrecords) {
             if ($source == "page") {
@@ -192,18 +192,45 @@ class NumaExtension extends \Twig_Extension
 
         }
         if(empty($value)){
-            $value = "enter this value of component in DMS";
+            $value = "";
         }
+
         if(strtolower($type)=="carousel"){
-
-
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
+
             if($component instanceof Component || $component instanceof DealerComponent){
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
+
             return $images;
         }elseif(strtolower($type)=="template"){
+
+        }elseif(strtolower($type)=="image" && $component instanceof Component){
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $images = array();
+
+            if($component instanceof Component || $component instanceof DealerComponent){
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+            }
+            if(!empty($images[0])){
+                $uploadDir = "/".ImageCarousel::getUploadDir();
+                $res= $images[0]->getSrc();
+//                dump($uploadDir."/dealers/".$res);
+//                // set button1 = "/upload/dealers/3/component/40/fast-cars-3.jpg"   %}
+//                //dump($res);
+//                //die();
+                return "/upload/dealers/".$res;
+            }
+
+        }
+
+        elseif(strtolower($type)=="image"){
+            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
+            $value="";
+            if(!empty($matches[1])){
+                $value = $matches[1];
+            }
 
         }
 
