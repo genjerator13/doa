@@ -1,6 +1,6 @@
 {% set apicall="/api/page/admin" %}
-{% if dealer is not empty %}
-{% set apicall="/api/page/"~dealer.id~"/dealer.json" %}
+{% if dealer_id is not empty %}
+{% set apicall="/api/page/"~dealer_id~"/dealer.json" %}
 {% endif %}
 
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
