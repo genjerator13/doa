@@ -34,11 +34,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'value', enableColumnResizing: true, width: 400},
         {
             name: 'Actions',
-            width: 100,
+            width: 130,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a type="button" class="btn btn-primary eprice"  ng-click="grid.appScope.clickHelp(row)"><i class="fa fa-money"></i> Get ePrice</button>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info"  ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
         }
     ];
 
@@ -121,4 +121,7 @@ app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,$sce,par
     //$scope.help = params;
     $scope.help =  $sce.trustAsHtml(params);
 
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
 });
