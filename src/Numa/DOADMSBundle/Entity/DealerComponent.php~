@@ -301,4 +301,33 @@ class DealerComponent
             $this->date_updated = new \DateTime();
 
     }
+    /**
+     * @var string
+     */
+    private $help;
+
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     *
+     * @return DealerComponent
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+
+        return $this;
+    }
+
+    /**
+     * Get help
+     *
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
 }

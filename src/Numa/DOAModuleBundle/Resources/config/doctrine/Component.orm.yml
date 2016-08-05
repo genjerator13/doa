@@ -27,6 +27,10 @@ Numa\DOAModuleBundle\Entity\Component:
         settings:
              type: text
              nullable: true
+        help:
+             type: string
+             length: 255
+             nullable: true
         date_updated:
              type: datetime
              nullable: true
