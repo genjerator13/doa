@@ -331,4 +331,34 @@ class DealerComponent
     {
         return $this->helpdesc;
     }
+
+    /**
+     * @var string
+     */
+    private $help;
+
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     *
+     * @return Component
+     */
+    public function setHelpdesc($help)
+    {
+        $this->help = $help;
+
+        return $this;
+    }
+
+    /**
+     * Get helpdesc
+     *
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
 }
