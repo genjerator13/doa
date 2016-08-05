@@ -373,30 +373,30 @@ class Component
      * @var string
      * @JMS\Expose
      */
-    private $help;
+    private $helpdesc;
 
 
     /**
-     * Set help
+     * Set helpdesc
      *
-     * @param string $help
+     * @param string $helpdesc
      *
      * @return Component
      */
-    public function setHelp($help)
+    public function setHelpdesc($helpdesc)
     {
-        $this->help = $help;
+        $this->helpdesc = $helpdesc;
 
         return $this;
     }
 
     /**
-     * Get help
+     * Get helpdesc
      *
      * @return string
      */
-    public function getHelp()
+    public function getHelpdesc()
     {
-        return $this->help;
+        return $this->helpdesc;
     }
 }

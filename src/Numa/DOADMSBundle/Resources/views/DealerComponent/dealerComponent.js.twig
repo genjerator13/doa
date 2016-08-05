@@ -77,7 +77,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $scope.clickHelp = function (row) {
 
-        $scope.help ="ssss2222";
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'myModalContent.html',
@@ -86,7 +85,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             resolve: {
                 params: function () {
                     $log.log(row);
-                    return row.entity.help;
+                    return row.entity.helpdesc;
                 }
             }
         });
@@ -119,7 +118,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,$sce,params) {
 
     //$scope.help = params;
-    $scope.help =  $sce.trustAsHtml(params);
+    $scope.helpdesc =  $sce.trustAsHtml(params);
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
