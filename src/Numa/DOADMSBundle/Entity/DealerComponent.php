@@ -345,7 +345,7 @@ class DealerComponent
      *
      * @return Component
      */
-    public function setHelpdesc($help)
+    public function setHelp($help)
     {
         $this->help = $help;
 
