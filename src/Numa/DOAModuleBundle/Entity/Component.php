@@ -421,7 +421,7 @@ class Component
     }
 
     /**
-     * Get helpdesc
+     * Get help
      *
      * @return string
      */
