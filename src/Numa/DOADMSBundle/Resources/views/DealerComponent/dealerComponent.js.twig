@@ -38,7 +38,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><button type="button" class="btn btn-info" data-toggle="modal" data-target="#help{[{row.entity.id}]}"><span class="glyphicon glyphicon-info-sign"/></button>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
         }
     ];
 

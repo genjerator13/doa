@@ -181,6 +181,8 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $limitCoupons = 2;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+        $dealerComponent = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $entity->getId()));
+//        dump($dealerComponent);die();
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('ROLE_DMS_USER') && $this->getUser()->getId() != $id) {
             throw $this->createAccessDeniedException('You cannot access this page!');
@@ -205,6 +207,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'coupons_form' => $couponsForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
+            'dealerComponent' => $dealerComponent,
         ));
     }
 
