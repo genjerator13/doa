@@ -1,20 +1,6 @@
 {% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
-{#{% block headline %}#}
-    {#<div class="header">#}
-        {#<a class="logo" href="">#}
-            {#{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}#}
-        {#</a>#}
 
-        {#<div class="contact-info">#}
-            {#<div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }} &middot; S7B 2K4#}
-            {#</div>#}
-            {#<a class="map-and-hours" href="">Map &amp; Hours</a>#}
-
-            {#<div class="phone">{{ dealer.phone }}</div>#}
-        {#</div>#}
-    {#</div>#}
-{#{% endblock %}#}
 {% block banner %}
 
     {% set images = displayComponent("homepage_carousel","carousel") %}
@@ -69,33 +55,3 @@
     </div>
 {% endblock %}
 
-{#{% block info %}#}
-    {#<div class="info">#}
-        {#<ul>#}
-            {#<li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>#}
-            {#<li>#}
-                {#<h2>{{ dealer.name }}</h2>#}
-
-                {#<div class="address">#}
-                    {#{{ dealer.address }}<br>#}
-                    {#{{ dealer.city }}, {{ dealer.state }} #}{#· S7B 2K4#}
-                {#</div>#}
-                {#<div class="phone">#}
-                    {#<span>Phone:</span> {{ dealer.phone }}<br>#}
-                {#</div>#}
-            {#</li>#}
-            {#<li>#}
-                {#{{ displayComponent('hours_of_operation')|raw }}#}
-            {#</li>#}
-            {#<li>#}
-                {#{{ displayComponent('quick_links')|raw }}#}
-            {#</li>#}
-        {#</ul>#}
-    {#</div>#}
-{#{% endblock %}#}
-
-
-
-{% block featuredads %}
-    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
-{% endblock %}

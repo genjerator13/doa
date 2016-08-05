@@ -19,6 +19,7 @@ class DealerComponentType extends AbstractType
             ->add('name', 'text', array('disabled'=>'true'))
             ->add('type','choice',array('choices'=>array('HTML'=>'HTML','Text'=>'Text','String'=>'String','Image'=>'Image','Carousel'=>'Carousel')))
             ->add('value','ckeditor')
+            ->add('help','ckeditor')
 //            ->add('settings', 'hidden')
 //            ->add('date_updated', 'hidden')
 //            ->add('date_created', 'hidden')
