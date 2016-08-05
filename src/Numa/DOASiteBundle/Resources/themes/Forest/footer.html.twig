@@ -12,10 +12,15 @@
 
         <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
 
-        <p>Phone: {{ dealer.phone }}<br/>
-            Fax: {{ dealer.fax }}</p>
-
-        <p><a href="">Map and Hours</a></p>
+        <p>
+            {% if dealer.phone is not null %}
+                Phone: {{ dealer.phone }}<br/>
+            {% endif %}
+            {% if dealer.fax is not null %}
+                Fax: {{ dealer.fax }}
+            {% endif %}
+        <p>
+            <a href="">Map and Hours</a></p>
 
     </div>
 
