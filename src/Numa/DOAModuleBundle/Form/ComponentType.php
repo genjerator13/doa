@@ -19,6 +19,7 @@ class ComponentType extends AbstractType
             ->add('name', 'text', array('disabled'=>'true'))
             ->add('type','choice',array('disabled'=>'true','choices'=>array('HTML'=>'HTML','text'=>'text','string'=>'string','image'=>'image','carousel'=>'carousel')))
             ->add('value')
+            ->add('help','ckeditor')
         ;
         $builder->addEventSubscriber(new AdsEventSubscriber());
     }

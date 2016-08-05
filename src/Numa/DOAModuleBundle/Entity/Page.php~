@@ -404,7 +404,12 @@ class Page
         }
     }
 
-    // Important
+    /**
+     * Get Component
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
+     */
     public function getComponent()
     {
         $components = new ArrayCollection();
