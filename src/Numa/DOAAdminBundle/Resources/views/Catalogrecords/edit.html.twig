@@ -114,7 +114,6 @@
                             'js/angular/angular143.min.js'
                             'js/angular/angular-touch143.min.js'
                             'js/angular/angular-animate143.min.js'
-                            'js/angular/vfs-fonts.js'
                             'js/angular/ui-grid.js'
                             'js/angular/angular-confirm.min.js'
                             'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
@@ -149,10 +148,11 @@
                                         <div class="modal-header">
                                             <h3 class="modal-title">Please confirm</h3>
                                         </div>
-
+                                        <div class="modal-body">
+                                            <div ng-bind-html="help">{[{ help }]}</div>
+                                        </div>
                                         <div class="modal-footer">
-                                            <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                                            <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+
                                         </div>
                                     </script>
 
@@ -163,6 +163,45 @@
                             {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 
                         </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title">Get ePrice</h4>
+
+                                    </div>
+                                    <div class="modal-body"><div class="te">Loading...</div></div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="submit_eprice">Save changes</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!-- /.modal -->
+                        <script>
+                            $( document ).ready(function() {
+
+                                console.log(itemid);
+                                $(".eprice").on('click', function () {
+
+                                    var modal = $('#eprice_modal');
+                                    var itemid = $(this).data('itemid');
+                                    console.log(itemid);
+                                    modal.on('show.bs.modal', function () {
+                                        $('#eprice_modal .modal-body').load('/dealercomponent/'+itemid+'/edit');
+                                    }).modal();
+                                });
+
+                            });
+
+                        </script>
+
                 </div>
 
             </div>

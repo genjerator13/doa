@@ -133,7 +133,7 @@
     </div>
 {% endblock %}
 {% block featuredads %}
-
+    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
 {% endblock %}
 <div class="content">
     <div class="alertz hide alert"></div>
