@@ -24,7 +24,7 @@ Numa\DOADMSBundle\Entity\DealerComponent:
         settings:
              type: text
              nullable: true
-        help:
+        helpdesc:
              type: string
              length: 255
              nullable: true
