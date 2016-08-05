@@ -369,4 +369,34 @@ class Component
         $uploadDir = "upload/dealers";
         return $uploadDir;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $help;
+
+
+    /**
+     * Set help
+     *
+     * @param string $help
+     *
+     * @return Component
+     */
+    public function setHelp($help)
+    {
+        $this->help = $help;
+
+        return $this;
+    }
+
+    /**
+     * Get help
+     *
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
+    }
 }

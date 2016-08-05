@@ -28,11 +28,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
             name: 'Actions',
-            width: 100,
+            width: 130,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/component/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            cellTemplate: '<a href="/dms/component/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info"  ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
         }
 
     ];
@@ -69,6 +69,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
 
     }
+    $scope.clickHelp = function (row) {
+
+        $scope.help ="ssss2222";
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                params: function () {
+                    $log.log(row);
+                    return row.entity.help;
+                }
+            }
+        });
+    };
 
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})
@@ -94,17 +110,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         });
     };
 }]);
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,$sce,params) {
 
-    $scope.items = items;
-    $scope.selected = {
-        item: $scope.items[0]
-    };
-
-    $scope.ok = function () {
-        $uibModalInstance.close($scope.selected.item);
-        return true;
-    };
+    //$scope.help = params;
+    $scope.help =  $sce.trustAsHtml(params);
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
