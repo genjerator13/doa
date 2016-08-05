@@ -16,6 +16,8 @@ monolog:
         main:
             type:   stream
             path:   "%kernel.logs_dir%/%kernel.environment%.log"
-            level:  error
+            level:  warning
         console:
             type:   console
+            path:   "%kernel.logs_dir%/console_%kernel.environment%.log"
+            level:  warning

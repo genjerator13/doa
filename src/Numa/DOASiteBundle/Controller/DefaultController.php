@@ -287,8 +287,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function sidebarMenuAction()
     {
-
-
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
     }
 

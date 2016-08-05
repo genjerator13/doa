@@ -37,6 +37,7 @@ class ItemRepository extends EntityRepository
         if (empty($max)) {
             $max = 5;
         }
+
         $dealer_id = empty($dealer_id) ? "" : $dealer_id;
 
         $res2 = $this->memcache->get('featured_' . $dealer_id);
@@ -59,32 +60,35 @@ class ItemRepository extends EntityRepository
 
         $count = count($res2);
         $maxOffset = $count - $max <= 0 ? $count : $max;
+
         if (!empty($res2)) {
 
             $rand_keys = array_rand($res2, $maxOffset);
+
             $randResult = array();
-            foreach ($rand_keys as $key) {
-                $randResult[] = $res2[$key]['id'];
+            if (!empty($rand_keys)) {
+                foreach ($rand_keys as $key) {
+                    $randResult[] = $res2[$key]['id'];
+                }
+
+                $qb = $this->getEntityManager()->createQueryBuilder();
+                $qb->select('i')
+                    ->from('NumaDOAAdminBundle:Item', 'i')
+                    ->andWhere('i.id IN (:ids)')
+                    ->setParameter('ids', $randResult)
+                    ->setMaxResults(10);;
+                if (!empty($dealer_id)) {
+                    $qb->andWhere('i.dealer_id=:dealer_id');
+                    $qb->setParameter('dealer_id', intval($dealer_id));
+                }
+
+                $query = $qb->getQuery();
+                $query->useResultCache(true, 3600, 'featuredRandomSet');
+
+                $res = $query->getResult(); //->getResult();
+
+                return $res;
             }
-
-            $qb = $this->getEntityManager()->createQueryBuilder();
-            $qb->select('i')
-                ->from('NumaDOAAdminBundle:Item', 'i')
-                ->andWhere('i.id IN (:ids)')
-                ->setParameter('ids', $randResult)
-                ->setMaxResults(10);;
-            if (!empty($dealer_id)) {
-                $qb->andWhere('i.dealer_id=:dealer_id');
-                $qb->setParameter('dealer_id', intval($dealer_id));
-            }
-
-            $query = $qb->getQuery();
-            $query->useResultCache(true, 3600, 'featuredRandomSet');
-
-            $res = $query->getResult(); //->getResult();
-
-            return $res;
-
         }
         return null;
     }
