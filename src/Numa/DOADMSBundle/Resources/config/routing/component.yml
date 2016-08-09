@@ -1,6 +1,6 @@
 component:
     path:     /
-    defaults: { _controller: "NumaDOAModuleBundle:Component:index" }
+    defaults: { _controller: "NumaDOADMSBundle:Component:index" }
 
 #component_show:
 #    path:     /{id}/show

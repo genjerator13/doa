@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Proxies\__CG__\Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -131,8 +132,12 @@ class ComponentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($id);
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-
-        $uploadDir = Component::getUploadDir($dealer->getId(),$id);
+        $dealer_id = 0;
+        if($dealer instanceof Catalogrecords){
+            $dealer_id = $dealer->getId();
+        }
+        $uploadDir = Component::getUploadDir($dealer_id,$id);
+        
         if(strtolower($entity->getType())=="carousel"){
             return $this->render('NumaDOAModuleBundle:Component:carousel_edit.html.twig', array(
                 'uploadDir' => $uploadDir,

@@ -5,7 +5,6 @@
           rel="stylesheet"/>
     {% stylesheets
     'css/loading-bar.min.css'
-
     filter='cssrewrite' output='css/*.css' %}
     <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
     {% endstylesheets %}
@@ -17,7 +16,6 @@
     'js/angular/angular143.min.js'
     'js/angular/angular-touch143.min.js'
     'js/angular/angular-animate143.min.js'
-
     'js/angular/ui-grid.js'
     'js/angular/angular-confirm.min.js'
     'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
@@ -26,14 +24,11 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
-        {% include 'NumaDOADMSBundle:Component:component.js.twig' %}
+        {% include 'NumaDOADMSBundle:Component:Component.js.twig' %}
     </script>
 {% endblock javascripts %}
 
-
 {% block content %}
-
-
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
 
 <div class="box">
@@ -64,5 +59,4 @@
         </div>
     </div>
 
-    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
     {% endblock %}
