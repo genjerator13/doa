@@ -231,18 +231,7 @@ class NumaExtension extends \Twig_Extension
             }
 
         } elseif (strtolower($type) == "image_text") {
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $images = array();
-
-            if ($component instanceof Component || $component instanceof DealerComponent) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-            }
-
-            if (!empty($images[0])) {
-                $image_text = $images[0]->getCarouselText();
-
-                return $image_text;
-            }
+            return $component->getValue();
         }
 
 
