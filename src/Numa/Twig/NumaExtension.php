@@ -117,12 +117,12 @@ class NumaExtension extends \Twig_Extension
         return "https://www.youtube.com/embed/" . $id;
     }
 
-    public function displayComponent($name, $type="Text", $source = "page")
+    public function displayComponent($name, $type = "Text", $source = "page")
     {
 
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
-        if(strtolower($type)=="carousel"){
+        if (strtolower($type) == "carousel") {
             $criteria->andWhere(Criteria::expr()->eq("name", $name));
         }
         $request = $this->container->get("request");
@@ -144,7 +144,7 @@ class NumaExtension extends \Twig_Extension
 
         if ($dealer instanceof Catalogrecords) {
             if ($source == "page") {
-                $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo,$dealer->getId());
+                $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
                 if ($page instanceof Page) {
                     $components = $page->getComponent();
                 }
@@ -162,76 +162,76 @@ class NumaExtension extends \Twig_Extension
             }
         }
 
-        if(! ($component instanceof Component) && !($component instanceof DealerComponent)){
+        if (!($component instanceof Component) && !($component instanceof DealerComponent)) {
+            if (!$type == "image_text") {
+                if ($source == "page" && $page instanceof Page) {
+                    $comp = new Component();
+                    $comp->setName($name);
+                    $comp->setType($type);
+                    $pc = new PageComponent();
+                    $pc->setComponent($comp);
+                    $pc->setPage($page);
+                    $em->persist($comp);
+                    $em->persist($pc);
+                    $em->flush();
+                    $value = $comp->getValue();
+                } elseif ($source == "dealer") {
 
-            if($source=="page" && $page instanceof Page){
-                $comp = new Component();
-                $comp->setName($name);
-                $comp->setType($type);
-                $pc = new PageComponent();
-                $pc->setComponent($comp);
-                $pc->setPage($page);
-                $em->persist($comp);
-                $em->persist($pc);
-                $em->flush();
-                $value = $comp->getValue();
-            }elseif($source=="dealer"){
+                    $comp = new DealerComponent();
+                    $comp->setDealer($dealer);
+                    $comp->setName($name);
+                    $comp->setType($type);
+                    $em->persist($comp);
 
-                $comp = new DealerComponent();
-                $comp->setDealer($dealer);
-                $comp->setName($name);
-                $comp->setType($type);
-                $em->persist($comp);
-
-                $em->flush();
-                $value = $comp->getValue();
+                    $em->flush();
+                    $value = $comp->getValue();
+                }
             }
-
-        }else{
+        } else {
             $value = $component->getValue();
 
         }
-        if(empty($value)){
+        if (empty($value)) {
             $value = "";
         }
 
-        if(strtolower($type)=="carousel"){
+        if (strtolower($type) == "carousel") {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if($component instanceof Component || $component instanceof DealerComponent){
+            if ($component instanceof Component || $component instanceof DealerComponent) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
 
             return $images;
-        }elseif(strtolower($type)=="template"){
+        } elseif (strtolower($type) == "template") {
 
-        }elseif(strtolower($type)=="image" && $component instanceof Component){
+        } elseif (strtolower($type) == "image" && $component instanceof Component) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if($component instanceof Component || $component instanceof DealerComponent){
+            if ($component instanceof Component || $component instanceof DealerComponent) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
-            if(!empty($images[0])){
-                $uploadDir = "/".ImageCarousel::getUploadDir();
-                $res= $images[0]->getSrc();
+            if (!empty($images[0])) {
+                $uploadDir = "/" . ImageCarousel::getUploadDir();
+                $res = $images[0]->getSrc();
 //                dump($uploadDir."/dealers/".$res);
 //                // set button1 = "/upload/dealers/3/component/40/fast-cars-3.jpg"   %}
 //                //dump($res);
 //                //die();
-                return "/upload/dealers/".$res;
+                return "/upload/dealers/" . $res;
             }
 
-        }
-
-        elseif(strtolower($type)=="image"){
+        } elseif (strtolower($type) == "image") {
             preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
-            $value="";
-            if(!empty($matches[1])){
+            $value = "";
+            if (!empty($matches[1])) {
                 $value = $matches[1];
             }
 
+        } elseif (strtolower($type) == "image_text") {
+            return $component->getValue();
         }
 
 
