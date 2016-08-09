@@ -8,6 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DealerComponentType extends AbstractType
 {
+    public $securityContext;
+    public function setSecurityContext($securityContext){
+        $this->securityContext=$securityContext;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -18,8 +22,11 @@ class DealerComponentType extends AbstractType
             //->add('dealer_id')
             ->add('name', 'text', array('disabled'=>'true'))
             ->add('type','choice',array('choices'=>array('HTML'=>'HTML','Text'=>'Text','String'=>'String','Image'=>'Image','Carousel'=>'Carousel')))
-            ->add('value','ckeditor')
-            ->add('helpdesc','ckeditor', array('label'=>'Help'))
+            ->add('value','ckeditor');
+        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_ADMIN')){
+            $builder->add('helpdesc','ckeditor', array('label'=>'Help'));
+        }
+        //$builder->add('helpdesc','ckeditor', array('label'=>'Help'))
 //            ->add('settings', 'hidden')
 //            ->add('date_updated', 'hidden')
 //            ->add('date_created', 'hidden')
