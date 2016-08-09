@@ -17,24 +17,15 @@
 
         }
     });
-    function initialize() {
-        var mapCanvas = document.getElementById('map');
-
-        var mapOptions = {
-            center: new google.maps.LatLng(latitude, longitude),
-            zoom: 13,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-
-        var map = new google.maps.Map(mapCanvas, mapOptions)
-        var myLatlng = new google.maps.LatLng(latitude, longitude);
-        var marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map, {% if (dealer is defined and dealer is not empty) %}
-            title: '{{dealer.name}}'
-            {% endif %}
-        });
-
-    }
-    google.maps.event.addDomListener(window, 'load', initialize);
+            function initMap() {
+                var mapDiv = document.getElementById('map');
+                var map = new google.maps.Map(mapDiv, {
+                    center: {lat: 44.540, lng: -78.546},
+                    zoom: 8
+                });
+            }
 </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6fKea9t6GnGouD3iI8DjHrWmDClCsfU&callback=initMap">
+</script>
+
