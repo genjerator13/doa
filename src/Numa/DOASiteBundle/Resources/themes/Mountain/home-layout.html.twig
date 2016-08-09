@@ -58,25 +58,22 @@
     <div class="container">
 
         <div class="button-wrapper">
-            {% set button1 = displayComponent('button_1','image')   %}
-            {% set button2 = displayComponent('button_2','image')   %}
-            {% set button3 = displayComponent('button_3','image')   %}
-            {% set button4 = displayComponent('button_4','image')   %}
-            {% set button5 = displayComponent('button_5','image')   %}
+            {% set button1 = displayComponent('button_1','image') %}
+            {% set button2 = displayComponent('button_2','image') %}
+            {% set button3 = displayComponent('button_3','image') %}
+            {% set button4 = displayComponent('button_4','image') %}
+            {% set button5 = displayComponent('button_5','image') %}
 
             <div class="button {% if button1 is empty %}b1{% endif %}">
-
-                <a href="{{ path("search_new_vehicle") }}">
-
-                    {% if button1 is not empty %}
-                        {{ component.image(button1, 'btn1', '', 'mountain_button') }}
-                    {% endif %}
-                    <h2>{{ displayComponent('button_1','image_text')|raw   }}</h2>
-
-                    <div class="click-here">Click Here</div>
-
+                    <a href="{{ path("search_new_vehicle") }}" class="xxxx">
+                        <div class="button-text">
+                            <h2>{{ displayComponent('button_1','image_text')|raw }}</h2>
+                            <div class="click-here">Click Here</div>
+                        </div>
+                        {% if button1 is not empty %}
+                            {{ component.image(button1, 'btn1', '', 'mountain_button') }}
+                        {% endif %}
                 </a>
-
             </div>
 
             <div class="button {% if button2 is empty %}b2{% endif %}">
@@ -125,7 +122,7 @@
 
                     <a href="{{ path("service_form") }}">
                         {#{% if button5 is not empty %}#}
-                            {#{{ component.image(button5, 'btn5', '', 'mountain_small_button') }}#}
+                        {#{{ component.image(button5, 'btn5', '', 'mountain_small_button') }}#}
                         {#{% endif %}#}
                         <h2>Service</h2>
 
@@ -136,43 +133,53 @@
 
             </div>
         </div>
-    {% block browse %}
-        <div class="browse">
+        {% block browse %}
+            <div class="browse">
 
-            <ul>
-                <li><h2><span>Browse</span> by Type</h2></li>
-                <li><a class="motorhome" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a></li>
-                <li><a class="travel-trailer" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel Trailer</a></li>
-                <li><a class="fifth-wheel" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth Wheel</a></li>
-                <li><a class="toy-hauler" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy Hauler</a></li>
-                <li><a class="park-models" href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park Models</a></li>
-            </ul>
+                <ul>
+                    <li><h2><span>Browse</span> by Type</h2></li>
+                    <li><a class="motorhome"
+                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a>
+                    </li>
+                    <li><a class="travel-trailer"
+                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel
+                            Trailer</a></li>
+                    <li><a class="fifth-wheel"
+                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth
+                            Wheel</a></li>
+                    <li><a class="toy-hauler"
+                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy
+                            Hauler</a></li>
+                    <li><a class="park-models"
+                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park
+                            Models</a></li>
+                </ul>
 
-        </div>
-    {% endblock %}
-    {% block banner %}
+            </div>
+        {% endblock %}
+        {% block banner %}
 
         {#<div class="banner"><img src="images/banner.jpg" /></div>#}
         {#<div class="banner">#}
 
-            <div class="image">
-                {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/banner.jpg' %}
-                <img src="{{ asset_url }}" alt="Example"/>
-                {% endimage %}
-            </div>
-
+        <div class="image">
+            {% image '@NumaDOASiteBundle/Resources/Public/Mountain/images/banner.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
         </div>
-    {% endblock %}
-        {#<div class="content">#}
-            {#<h1>Welcome to {{ dealer.name }}</h1>#}
-            {{ displayComponent('page_content',"HTML") }}
-        {#</div>#}
 
     </div>
-
-    {% block footer %}
-        {% include 'NumaDOASiteBundle::footer.html.twig' %}
     {% endblock %}
+    {#<div class="content">#}
+    {#<h1>Welcome to {{ dealer.name }}</h1>#}
+    {{ displayComponent('page_content',"HTML") }}
+    {#</div>#}
+
+</div>
+
+{% block footer %}
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
+{% endblock %}
 
 </div>
 </body>
@@ -181,10 +188,10 @@
 <script>
     var button4 = "{{ button4 }}"
     var button5 = "{{ button5 }}"
-    if(button4 != ""){
+    if (button4 != "") {
         $('.b4').css("background-image", "url({{ button4 }})");
     }
-    if(button5 != "") {
+    if (button5 != "") {
         $('.b5').css("background-image", "url({{ button5 }})");
     }
 </script>
