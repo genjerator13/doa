@@ -76,7 +76,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'test') {
             $this->test();
         } elseif ($command == 'photos') {
-            $this->itemImages();
+            $this->generateCoverPhotos();
         }elseif ($command == 'pages') {
             $this->pages($dealer_id);
         }
@@ -225,6 +225,9 @@ class DBUtilsCommand extends ContainerAwareCommand
             $seoService = $this->getContainer()->get("Numa.Seo");
             $seo = $seoService->generateSeoForFeed($feed_id);
             $logger->warning("FETCH FEED: END");
+
+            $this->generateCoverPhotos();
+
             die();
 
         } catch (Exception $ex) {
@@ -534,7 +537,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
         $logger->warning("CLEAR MEMCACHED CACHE");
-        $command = 'echo \'flush_all\' | nc localhost 11211';
+        $command = '/etc/init.d/memcached restart';
         $process = new \Symfony\Component\Process\Process($command);
         $process->start();
         $logger->warning("CLEAR CACHE set permission back");
@@ -570,51 +573,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
     }
 
-//    public function itemImages()
-//    {
-//        $em = $this->getContainer()->get('doctrine')->getManager();
-//        $logger = $this->getContainer()->get('logger');
-//        $logger->warning("COVER PHOTOS STARTED");
-//        $commandLog = new CommandLog();
-//        $commandLog->setCategory('photos');
-//        $commandLog->setStartedAt(new \DateTime());
-//        $commandLog->setStatus('started');
-//
-//        $commandLog->setCommand($this->getName() . " photos ");
-//        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-//        $commandLog->setCount(count($listings));
-//        $logger->warning("COVER PHOTOS STARTED persists");
-//        $em->persist($commandLog);
-//        $em->flush();
-//        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
-//        $i = 0;
-//        $logger->warning("COVER PHOTOS STARTED loop");
-//        foreach ($listings as $listing) {
-//            $i++;
-//            if ($listing instanceof \Numa\DOAAdminBundle\Entity\Item) {
-//                $photo = $listing->getCoverImageSrc();
-//                $qb = $em->getRepository("NumaDOAAdminBundle:Item")->createQueryBuilder('i')
-//                    ->update()
-//                    ->set('i.cover_photo', "'" . $photo . "'")
-//                    ->where('i.id=' . $listing->getId());
-//                $qb->getQuery()->execute();
-//            }
-//            $logger->warning("COVER PHOTOS STARTED update ".$i);
-////            if($i%50==0){
-////                $commandLog->setCurrent($i);
-////                $em->flush();
-////                $em->clear();
-////                $logger->warning("COVER PHOTOS STARTED flush ".$i);
-////            }
-//        }
-//        $logger->warning("COVER PHOTOS STARTED loop end");
-//        $commandLog->setStatus('finished');
-//        $em->flush();
-//        $em->clear();
-//        $logger->warning("COVER PHOTOS FINISHED");
-//    }
-
-    public function itemImages()
+    public function generateCoverPhotos()
     {
         $logger = $this->getContainer()->get('logger');
         $logger->warning("COVER PHOTOS STARTED");
@@ -625,15 +584,8 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         $commandLog->setCommand($this->getName() . " photos ");
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $listings = $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
-//        $i=0;
-//        foreach($listings as $listing){
-//            $i++;
-//            $logger->warning("COVER PHOTOS STARTED loop n=".$i."==".$listing['id']);
-//            $em->getRepository("NumaDOAAdminBundle:Item")->updateCoverPhoto($listing['id']);
-//        }
-        $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+
         $logger->warning("COVER PHOTOS STARTED loop end");
         $commandLog->setStatus('finished');
         $em->flush();
