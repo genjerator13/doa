@@ -31,4 +31,13 @@ class ComponentRESTController extends Controller
         return $component;
     }
 
+    /**
+     * @Rest\View
+     */
+    public function byDealerAction($dealer_id)
+    {
+        $component = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByDealerId($dealer_id);
+        return $component;
+    }
+
 }
