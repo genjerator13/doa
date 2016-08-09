@@ -138,10 +138,10 @@ class DealerComponentController extends Controller
     */
     private function createEditForm(DealerComponent $entity)
     {
-        $securityContext = $this->get('security.token_storage');
+        $securityContext = $this->get('security.authorization_checker');
         $dealerType = new DealerComponentType($securityContext);
         $dealerType->setSecurityContext($securityContext);
-        $form = $this->createForm(new DealerComponentType(), $entity, array(
+        $form = $this->createForm($dealerType, $entity, array(
             'action' => $this->generateUrl('dealercomponent_update', array('id' => $entity->getId())),
             'method' => 'POST',
         ));
