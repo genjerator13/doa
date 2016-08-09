@@ -343,12 +343,33 @@ class Component
         $pages = new ArrayCollection();
         if (!empty($this->getPageComponent())) {
             foreach ($this->getPageComponent() as $pa) {
-                if ($pa instanceof PageAds) {
+                if ($pa instanceof PageComponent) {
                     $pages[] = $pa->getPage();
                 }
             }
         }
         return $pages;
+    }
+
+    /**
+     * Get Note
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     * @JMS\VirtualProperty
+     */
+    public function getPagesNames(){
+        $pages=array();
+        if (!empty($this->getPageComponent())) {
+            foreach ($this->getPageComponent() as $pa) {
+                if ($pa instanceof PageComponent) {
+                    $pages[] = $pa->getPage()->getUrl();
+
+                }
+            }
+        }
+
+        $names = implode(",",$pages);
+        return $names;
     }
 
 
