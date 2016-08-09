@@ -8,8 +8,8 @@
     {{ form(edit_form) }}
 
     {% if(app.request.get('_dashboard')=='DMS') %}
-        <a href="{{ path('dms_imagecarousel') }}" class="btn btn-primary">
-            Back to the carousel
+        <a href="{{ path('component_edit', { 'id': entity.componentId() }) }}" class="btn btn-primary">
+            Back to the component edit
         </a>
     {% else %}
         <a href="{{ path('imagecarousel') }}" class="btn btn-primary">
