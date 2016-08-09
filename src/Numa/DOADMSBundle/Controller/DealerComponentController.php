@@ -22,12 +22,7 @@ class DealerComponentController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findAll();
-
-        return $this->render('NumaDOADMSBundle:DealerComponent:index.html.twig', array(
-            'entities' => $entities,
-        ));
+        return $this->render('NumaDOADMSBundle:DealerComponent:index.html.twig');
     }
     /**
      * Creates a new DealerComponent entity.
