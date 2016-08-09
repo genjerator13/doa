@@ -3,7 +3,7 @@
 <script>
     var geocoder = new google.maps.Geocoder();
     {% if (dealer is defined and dealer is not empty) %}
-    var address = "{{dealer.address}},{{dealer.city}}";
+    var address = "{{ dealer.address }},{{ dealer.city }}";
     {% else %}
     var address = "saskatoon";
     {% endif %}
@@ -17,13 +17,13 @@
 
         }
     });
-            function initMap() {
-                var mapDiv = document.getElementById('map');
-                var map = new google.maps.Map(mapDiv, {
-                    center: {lat: 44.540, lng: longitude},
-                    zoom: 8
-                });
-            }
+    function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+            center: {lat: 44.540, lng: longitude},
+            zoom: 8
+        });
+    }
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAq6fKea9t6GnGouD3iI8DjHrWmDClCsfU&callback=initMap">

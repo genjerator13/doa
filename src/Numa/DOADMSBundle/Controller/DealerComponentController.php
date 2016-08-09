@@ -119,6 +119,7 @@ class DealerComponentController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
@@ -137,6 +138,9 @@ class DealerComponentController extends Controller
     */
     private function createEditForm(DealerComponent $entity)
     {
+        $securityContext = $this->get('security.token_storage');
+        $dealerType = new DealerComponentType($securityContext);
+        $dealerType->setSecurityContext($securityContext);
         $form = $this->createForm(new DealerComponentType(), $entity, array(
             'action' => $this->generateUrl('dealercomponent_update', array('id' => $entity->getId())),
             'method' => 'POST',
