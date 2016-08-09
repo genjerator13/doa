@@ -19,7 +19,7 @@
             line-height: 2 !important;
         }
     </style>
-    {{ displayComponent('page_content',"HTML") }}
+    {{ displayComponent('page_content',"HTML")|raw }}
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
