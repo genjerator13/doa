@@ -116,4 +116,23 @@ class PageRepository extends EntityRepository
 
         return null;
     }
+
+    public function findPageComponentByDealerId($dealer_id)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->select('c')
+            ->add('from', 'NumaDOAModuleBundle:Component c')
+            ->join('c.PageComponent', 'pc')
+            ->join('pc.Page', 'p')
+            ->where('p.dealer_id like :dealer_id');
+        $qb->setParameter('dealer_id', $dealer_id);
+
+
+        $components = $qb->getQuery()->getResult();
+
+        return $components;
+    }
 }
