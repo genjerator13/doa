@@ -1,30 +1,38 @@
-{% extends '::base.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content %}
     <h1>ListingForm</h1>
 
+<div class="nav-tabs-custom">
+    <div class="tab-content">
     <table class="record_properties">
         <tbody>
+            {#<tr>#}
+                {#<th>Id</th>#}
+                {#<td>{{ entity.id }}</td>#}
+            {#</tr>#}
             <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
+                <th>Customer</th>
+                <td>{{ entity.custname }} {{ entity.custlastname }}</td>
             </tr>
+            {% if entity.custofficer is not null %}
             <tr>
-                <th>Cust_name</th>
-                <td>{{ entity.custname }}</td>
-            </tr>
-            <tr>
-                <th>Cust_last_name</th>
-                <td>{{ entity.custlastname }}</td>
-            </tr>
-            <tr>
-                <th>Cust_officer</th>
+                <th>Sales Person</th>
                 <td>{{ entity.custofficer }}</td>
             </tr>
+            {% endif %}
+            {% if entity.contactby is not null %}
             <tr>
-                <th>Contact_by</th>
-                <td>{{ entity.contactby }}</td>
+                <th>Contact By</th>
+                <td>
+                    {% if entity.contactby == 0 %}
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-earphone"></i>
+                    {% endif %}
+                </td>
             </tr>
+            {% endif %}
             <tr>
                 <th>Email</th>
                 <td>{{ entity.email }}</td>
@@ -33,34 +41,38 @@
                 <th>Phone</th>
                 <td>{{ entity.phone }}</td>
             </tr>
+            {% if entity.datedrive is not null %}
             <tr>
-                <th>Date_drive</th>
-                <td>{{ entity.datedrive|date('Y-m-d H:i:s') }}</td>
+                <th>Date drive</th>
+                <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
             </tr>
+            {% endif %}
+            {% if entity.comment is not null %}
             <tr>
                 <th>Comment</th>
                 <td>{{ entity.comment }}</td>
             </tr>
+            {% endif %}
+            {#<tr>#}
+                {#<th>Dealer_id</th>#}
+                {#<td>{{ entity.dealerid }}</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<th>Customer_id</th>#}
+                {#<td>{{ entity.customerid }}</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<th>Item_id</th>#}
+                {#<td>{{ entity.itemid }}</td>#}
+            {#</tr>#}
             <tr>
-                <th>Dealer_id</th>
-                <td>{{ entity.dealerid }}</td>
+                <th>Date Submited</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i') }}</td>
             </tr>
-            <tr>
-                <th>Customer_id</th>
-                <td>{{ entity.customerid }}</td>
-            </tr>
-            <tr>
-                <th>Item_id</th>
-                <td>{{ entity.itemid }}</td>
-            </tr>
-            <tr>
-                <th>Date_created</th>
-                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Date_updated</th>#}
+                {#<td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Status</th>
                 <td>{{ entity.status }}</td>
@@ -73,9 +85,11 @@
             Back to the list
         </a>
 
+    </div>
+</div>
 
-        <a href="{{ path('listingform_edit', { 'id': entity.id }) }}" class="btn btn-default">
-            Edit
-        </a>
+        {#<a href="{{ path('listingform_edit', { 'id': entity.id }) }}" class="btn btn-default">#}
+            {#Edit#}
+        {#</a>#}
 
 {% endblock %}
