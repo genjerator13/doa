@@ -27,21 +27,37 @@
                         <th>Date Submited</th>
                         <th>Type</th>
                         {#<th>Status</th>#}
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td>{{ entity.id }}</td>
+                            <td>
+                                {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="finance" or entity.type|lower=="contact" or entity.type|lower=="testdrive" %}
+                                    <a href="{{ path('listingform_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                {% elseif entity.type|lower=="service" %}
+                                    <a href="{{ path('servicerequest_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                {% elseif entity.type|lower=="part" %}
+                                    <a href="{{ path('partrequest_edit', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                {% endif %}
+                            </td>
                             <td>{{ entity.cust_name }} {{ entity.cust_last_name }}</td>
                             <td>{{ entity.email }}</td>
                             <td>{{ entity.date_created }}</td>
-                            <td>{% if entity.type|lower=="eprice" %}
-                                    <span class="label label-success">{{ entity.type }}</span>
+                            <td>
+                                {% if entity.type|lower=="eprice" %}
+                                    <span class="label label-success"><a href="{{ path('listingform') }}">{{ entity.type }}</a></span>
                                 {% elseif entity.type|lower=="contact" %}
-                                    <span class="label label-danger">{{ entity.type }}</span>
+                                    <span class="label label-danger"><a href="{{ path('listingform') }}">{{ entity.type }}</a></span>
+                                {% elseif entity.type|lower=="part" %}
+                                    <span class="label label-info"><a href="{{ path('partrequest') }}">{{ entity.type }}</a></span>
+                                {% elseif entity.type|lower=="service" %}
+                                    <span class="label label-warning"><a href="{{ path('servicerequest') }}">{{ entity.type }}</a></span>
+                                {% elseif entity.type|lower=="offer" %}
+                                    <span class="label label-default"><a href="{{ path('listingform') }}">{{ entity.type }}</a></span>
                                 {% else %}
-                                    <span class="label label-primary">{{ entity.type }}</span>
+                                    <span class="label label-primary"><a href="{{ path('listingform') }}">{{ entity.type }}</a></span>
 
                                 {% endif %}
                             </td>
