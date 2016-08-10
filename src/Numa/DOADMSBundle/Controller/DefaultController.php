@@ -11,8 +11,18 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
-        return $this->render('NumaDOADMSBundle:Default:index.html.twig',
-            $stats);
+
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
+        $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer);
+
+//        dump($entities);die();
+//        return $this->render('NumaDOADMSBundle:ListingForm:index.html.twig', array(
+//            'entities' => $entities,
+//        ));
+        return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
+            'entities' => $entities,
+            'stats' => $stats));
     }
 
     public function dealerChooserAction(Request $request)
