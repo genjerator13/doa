@@ -20,24 +20,39 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         enableRowSelection: true,
         enableSelectAll: true,
         selectionRowHeaderWidth: 35,
-        rowHeight: 50,
+        rowHeight: 35,
         enableColumnResizing: true,
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {name: 'name', enableColumnResizing: true, width: 150},
-        {name: 'type', enableColumnResizing: true, width: 200},
+        {name: 'type', enableColumnResizing: true, width: 100},
         {name: 'value', enableColumnResizing: true, width: 400},
+        {name: 'pages_names', enableColumnResizing: true, width: 200},
         {
             name: 'Actions',
             width: 130,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info"  ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            {#cellTemplate: '<a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info"  ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a>#}{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}{#'#}
+            cellTemplate: actionTemplate()
         }
     ];
+    function actionTemplate() {
+        {#test =
+        <div ng-if="video == video.large">
+            <!-- code to render a large video block-->
+        </div>
+        <div ng-if="video != video.large">
+                <!-- code to render the regular video block -->
+        </div>
 
+        ng-if="row.entity.helpdesc !== undefined && row.entity.helpdesc !== \'\'"
+        #}
+            return '<div ng-if="row.entity.pages_names == \'All Pages\'"><a href="/dms/dealercomponent/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info" ng-if="row.entity.helpdesc !== undefined && row.entity.helpdesc !== \'\'" ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a></div><div ng-if="row.entity.pages_names !== \'All Pages\'"><a href="/dms/component/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a class="btn btn-info" ng-if="row.entity.helpdesc !== undefined && row.entity.helpdesc !== \'\'" ng-click="grid.appScope.clickHelp(row)"><i class="glyphicon glyphicon-info-sign"></i>Help</a></div>';
+
+    }
     $scope.items = ['item1', 'item2', 'item3'];
 
     $scope.animationsEnabled = true;
@@ -95,7 +110,13 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $http.get('{{ apicall2 }}', {timeout: canceler.promise})
             .success(function (data) {
-                //$scope.gridOptions.data += data;
+                //$log.log(data);
+                //$log.log($scope.gridOptions);
+                data.forEach( function( row ) {
+                    row.pages_names="All Pages";
+                    $scope.gridOptions.data.push(row);
+                    $log.log(row);
+                });
             });
 
     $scope.$on('$destroy', function () {
