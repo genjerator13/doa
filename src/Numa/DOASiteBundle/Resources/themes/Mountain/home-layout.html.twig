@@ -67,7 +67,7 @@
             <div class="button {% if button1 is empty %}b1{% endif %}">
                     <a href="{{ path("search_new_vehicle") }}" class="xxxx">
                         <div class="button-text">
-                            <h2>{{ displayComponent('button_1','image_text')|raw }}</h2>
+                            <h2>{{ displayComponent('button_1','image_text')|raw }}{% if displayComponent('button_1','image_text') =="" %}<span>Shop for</span> New RVs{% endif %}</h2>
                             <div class="click-here">Click Here</div>
                         </div>
                         {% if button1 is not empty %}
@@ -77,29 +77,27 @@
             </div>
 
             <div class="button {% if button2 is empty %}b2{% endif %}">
-
-                <a href="{{ path("search_used_vehicle") }}">
+                <a href="{{ path("search_used_vehicle") }}" class="xxxx">
+                    <div class="button-text">
+                        <h2>{{ displayComponent('button_2','image_text')|raw }}{% if displayComponent('button_2','image_text') =="" %}<span>Shop for</span> Pre-Owned{% endif %}</h2>
+                        <div class="click-here">Click Here</div>
+                    </div>
                     {% if button2 is not empty %}
                         {{ component.image(button2, 'btn2', '', 'mountain_button') }}
                     {% endif %}
-                    <h2><span>Shop for</span> Pre-Owned</h2>
-
-                    <div class="click-here">Click Here</div>
-
                 </a>
 
             </div>
 
             <div class="button {% if button3 is empty %}b3{% endif %}">
-
-                <a href="{{ path("finance_form") }}">
+                <a href="{{ path("finance_form") }}" class="xxxx">
+                    <div class="button-text">
+                        <h2>{{ displayComponent('button_3','image_text')|raw }}{% if displayComponent('button_3','image_text') =="" %}<span>Apply for</span> Financing{% endif %}</h2>
+                        <div class="click-here">Click Here</div>
+                    </div>
                     {% if button3 is not empty %}
                         {{ component.image(button3, 'btn3', '', 'mountain_button') }}
                     {% endif %}
-                    <h2><span>Apply for</span> Financing</h2>
-
-                    <div class="click-here">Click Here</div>
-
                 </a>
 
             </div>
