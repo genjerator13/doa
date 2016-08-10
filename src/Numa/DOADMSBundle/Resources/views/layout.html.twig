@@ -1,4 +1,4 @@
-{% import "NumaDOASiteBundle::components.html.twig" as component %}
+ {% import "NumaDOASiteBundle::components.html.twig" as component %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- default:main:default.tpl -->
@@ -298,6 +298,11 @@
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
                             <li class="">
                                 <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel (Default Theme Only)</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
+                            <li class="">
+                                <a href="{{ path('component') }}" class=""><i class="fa fa-pencil-square-o"></i>Content Components</a>
                             </li>
                         {% endif %}
                     </ul>
