@@ -4,6 +4,51 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Website Forms</h3>
+            <div class="box-tools pull-right">
+                <button class="btn btn-box-tool" data-widget="collapse" type="button">
+                    <i class="fa fa-minus"></i>
+                </button>
+                <button class="btn btn-box-tool" data-widget="remove" type="button">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="box-body" style="display: block;">
+            <div class="table-responsive">
+                <table class="table no-margin">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{ entity.id }}</td>
+                            <td>{{ entity.cust_name }}</td>
+                            <td>{{ entity.email }}</td>
+                            <td>{{ entity.date_created }}</td>
+                            <td>{{ entity.status }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="box-footer clearfix" style="display: block;">
+            {#<a class="btn btn-sm btn-info btn-flat pull-left" href="javascript:void(0)">Place New Order</a>#}
+            <a class="btn btn-sm btn-default btn-flat pull-right" href="javascript:void(0)">View All Orders</a>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-sm-2 col-xs-3">
             <div class="box box-danger box-solid">
@@ -12,11 +57,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalListings }}</h5>
                         <span class="description-text">TOTAL LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalViews }}</h5>
                         <span class="description-text">TOTAL VIEWS</span>
                     </div>
                 </div>
@@ -29,11 +74,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalCarListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalCarListings }}</h5>
                         <span class="description-text">CAR LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalCarViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalCarViews }}</h5>
                         <span class="description-text">CAR VIEWS</span>
                     </div>
                 </div>
@@ -46,11 +91,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalMotoListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalMotoListings }}</h5>
                         <span class="description-text">MOTO LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalMotoViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalMotoViews }}</h5>
                         <span class="description-text">MOTO VIEWS</span>
                     </div>
                 </div>
@@ -63,11 +108,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalMarineListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalMarineListings }}</h5>
                         <span class="description-text">MARINE LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalMarineViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalMarineViews }}</h5>
                         <span class="description-text">MARINE VIEWS</span>
                     </div>
                 </div>
@@ -80,11 +125,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalAgsListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalAgsListings }}</h5>
                         <span class="description-text">AG LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalAgsViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalAgsViews }}</h5>
                         <span class="description-text">AG VIEWS</span>
                     </div>
                 </div>
@@ -97,11 +142,11 @@
                 </div>
                 <div class="box-body" style="display: block;">
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalRvsListings }}</h5>
+                        <h5 class="description-header">{{ stats.totalRvsListings }}</h5>
                         <span class="description-text">RVs LISTINGS</span>
                     </div>
                     <div class="description-block border-right">
-                        <h5 class="description-header">{{ totalRvsViews }}</h5>
+                        <h5 class="description-header">{{ stats.totalRvsViews }}</h5>
                         <span class="description-text">Rvs VIEWS</span>
                     </div>
                 </div>
