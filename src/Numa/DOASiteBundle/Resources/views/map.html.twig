@@ -14,15 +14,14 @@
         var geocoder = new google.maps.Geocoder();
 
         geocoder.geocode({'address': address}, function (results, status) {
-            console.log(status + ":::::" + address);
+
             if (status == google.maps.GeocoderStatus.OK) {
                 latitude = results[0].geometry.location.lat();
                 longitude = results[0].geometry.location.lng();
-                console.log(latitude + ":::::" + longitude);
+
             }
-            //console.log(latitude + "++++" + longitude);
+
             var myLatlng = new google.maps.LatLng(latitude, longitude);
-            //console.log(myLatlng);
             var mapDiv = document.getElementById('map');
             var map = new google.maps.Map(mapDiv, {
                 center: {lat: latitude, lng: longitude},
