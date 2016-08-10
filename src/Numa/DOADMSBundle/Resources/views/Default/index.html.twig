@@ -34,9 +34,9 @@
                     {% for entity in entities %}
                         <tr>
                             <td>
-                                {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="contact" or entity.type|lower=="testdrive" %}
+                                {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="contact" or entity.type|lower=="testdrive"  or entity.type|lower=="finance" %}
                                     <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
-                                {% elseif entity.type|lower=="finance" %}
+                                {% elseif entity.type|lower=="financing" %}
                                     <a href="{{ path('finance_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                 {% elseif entity.type|lower=="service" %}
                                     <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
@@ -58,14 +58,26 @@
                                     <a href="{{ path('servicerequest') }}"><span class="label label-warning">{{ entity.type }}</span></a>
                                 {% elseif entity.type|lower=="offer" %}
                                     <a href="{{ path('listingform') }}"><span class="label label-default">{{ entity.type }}</span></a>
-                                {% elseif entity.type|lower=="finance" %}
+                                {% elseif entity.type|lower=="financing" %}
                                     <a href="{{ path('finance') }}"><span class="label label-default">{{ entity.type }}</span></a>
                                 {% else %}
                                     <a href="{{ path('listingform') }}"><span class="label label-primary">{{ entity.type }}</span></a>
                                 {% endif %}
                             </td>
 
-                            {#<td>{{ entity.status }}</td>#}
+                            <td>
+
+                                    {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="contact" or entity.type|lower=="testdrive"  or entity.type|lower=="finance" %}
+                                        <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                                    {% elseif entity.type|lower=="financing" %}
+                                        <a href="{{ path('finance_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                                    {% elseif entity.type|lower=="service" %}
+                                        <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                                    {% elseif entity.type|lower=="part" %}
+                                        <a href="{{ path('partrequest_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                                    {% endif %}
+
+                            </td>
 
                         </tr>
                     {% endfor %}
