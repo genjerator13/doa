@@ -406,6 +406,7 @@ class Component
      */
     public function setHelpdesc($helpdesc)
     {
+
         $this->helpdesc = $helpdesc;
 
         return $this;
@@ -418,6 +419,9 @@ class Component
      */
     public function getHelpdesc()
     {
+        if(empty($this->helpdesc)){
+            return "";
+        }
         return $this->helpdesc;
     }
 
