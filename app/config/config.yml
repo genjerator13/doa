@@ -327,6 +327,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [270, 135], mode: outbound }
                 background: { color: '#FFFFFF' }
+        mountain_browse:
+            quality: 100
+            filters:
+                thumbnail: { size: [86, 44], mode: outbound }
+                background: { color: '#FFFFFF' }
         brands_forest:
             quality: 100
             filters:
