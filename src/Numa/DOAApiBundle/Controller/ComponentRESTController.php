@@ -40,4 +40,10 @@ class ComponentRESTController extends Controller
         return $component;
     }
 
+    public function allComponentsByDealerAction($dealer_id)
+    {
+        $components = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Component')->findPageComponentByDealerId($dealer_id);
+        return $components;
+    }
+
 }
