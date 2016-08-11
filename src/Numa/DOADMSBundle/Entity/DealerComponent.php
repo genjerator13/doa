@@ -329,6 +329,9 @@ class DealerComponent
      */
     public function getHelpdesc()
     {
+        if(empty($this->helpdesc)){
+            return "";
+        }
         return $this->helpdesc;
     }
 
