@@ -3,6 +3,7 @@
 namespace Numa\DOASiteBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Form\ListingFormNewsletterType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -568,6 +569,50 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Default:contact_success.html.twig', array(
+            'message'=>$message,
+            'dealer' => $this->dealer,
+        ));
+    }
+    public function newsletterAction(Request $request)
+    {
+        $entity = new ListingForm();
+        $form = $this->createNewsletterForm($entity);
+        $form->handleRequest($request);
+
+
+        if ($form->isValid()) {
+            $listingForm=$form->getData();
+            $listingForm->setDealer($this->dealer);
+            $this->get("Numa.ListingForms")->handleListingForm($listingForm);
+            return $this->redirectToRoute("newsletter_success");
+
+        }
+
+        $response = $this->render('NumaDOASiteBundle:Default:newsletter.html.twig', array(
+            'newsletterForm' => $this->createNewsletterForm(new ListingForm())->createView(),
+
+            'dealer' => $this->dealer,
+        ));
+        return $response;
+        //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
+    }
+    private function createNewsletterForm(ListingForm $entity)
+    {
+        $listingForm = new ListingForm();
+        $form = $this->createForm(new ListingFormNewsletterType(), $entity, array(
+            //'csrf_protection' => false,
+            //'action' => $this->generateUrl('listingform_create_contact'),
+            'method' => 'POST',
+            'attr' => array('id'=>"newsletter_form"),
+
+        ));
+        $form->add('submit', 'submit', array('label' => 'Send'));
+        return $form;
+    }
+    public function newsletterSuccessAction(){
+        $message = "Success";
+
+        return $this->render('NumaDOASiteBundle:Default:newsletter_success.html.twig', array(
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
