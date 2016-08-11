@@ -163,7 +163,7 @@ class NumaExtension extends \Twig_Extension
         }
 
         if (!($component instanceof Component) && !($component instanceof DealerComponent)) {
-            if (!$type == "image_text") {
+            if ($type != "image_text") {
                 if ($source == "page" && $page instanceof Page) {
                     $comp = new Component();
                     $comp->setName($name);
