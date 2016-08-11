@@ -422,7 +422,6 @@ class Component
         if(empty($this->helpdesc)){
             return "";
         }
-        
         return $this->helpdesc;
     }
 
