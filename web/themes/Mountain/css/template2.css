@@ -371,7 +371,7 @@ body {
 }
 
 .browse a {
-	background: url("../images/motorhome.png") center top no-repeat;
+	/*background: url("../images/motorhome.png") center top no-repeat;*/
 	color: #000;
 	display: block;
 	font-size: 14px;
@@ -386,21 +386,21 @@ body {
 .browse li:last-child a { margin-right: 0; }
 
 .browse a:hover {
-	background-image: url("../images/motorhome-over.png");
+	/*background-image: url("../images/motorhome-over.png");*/
 	color: #007cb3;
 }
 
-.browse .travel-trailer { background-image: url("../images/travel-trailer.png"); }
-.browse .travel-trailer:hover { background-image: url("../images/travel-trailer-over.png"); }
+/*.browse .travel-trailer { background-image: url("../images/travel-trailer.png"); }*/
+/*.browse .travel-trailer:hover { background-image: url("../images/travel-trailer-over.png"); }*/
 
-.browse .fifth-wheel { background-image: url("../images/fifth-wheel.png"); }
-.browse .fifth-wheel:hover { background-image: url("../images/fifth-wheel-over.png"); }
+/*.browse .fifth-wheel { background-image: url("../images/fifth-wheel.png"); }*/
+/*.browse .fifth-wheel:hover { background-image: url("../images/fifth-wheel-over.png"); }*/
 
-.browse .toy-hauler { background-image: url("../images/toy-hauler.png"); }
-.browse .toy-hauler:hover { background-image: url("../images/toy-hauler-over.png"); }
+/*.browse .toy-hauler { background-image: url("../images/toy-hauler.png"); }*/
+/*.browse .toy-hauler:hover { background-image: url("../images/toy-hauler-over.png"); }*/
 
-.browse .park-models { background-image: url("../images/park-models.png"); }
-.browse .park-models:hover { background-image: url("../images/park-models-over.png"); }
+/*.browse .park-models { background-image: url("../images/park-models.png"); }*/
+/*.browse .park-models:hover { background-image: url("../images/park-models-over.png"); }*/
 
 /* ==========================================================================
    Banner
@@ -411,7 +411,9 @@ body {
 /* ==========================================================================
    Content
    ========================================================================== */
-
+.input-group{
+	margin-bottom: 15px;
+}
 .container {
 	background-color: #fff;
 	margin-top: -31px;

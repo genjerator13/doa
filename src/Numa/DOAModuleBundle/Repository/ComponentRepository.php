@@ -34,4 +34,12 @@ class ComponentRepository extends EntityRepository
         return $query->getResult();
     }
 
+    public function getAllComponentsByDealer($dealer_id)
+    {
+        $sql = "SELECT c0_.id AS id_0, c0_.page_id AS page_id_1, c0_.name AS name_2, c0_.type AS type_3, c0_.value AS value_4, c0_.settings AS settings_5, c0_.helpdesc AS helpdesc_6, c0_.date_updated AS date_updated_7, c0_.date_created AS date_created_8, c0_.status AS status_9 FROM componentx c0_ INNER JOIN page_component p1_ ON c0_.id = p1_.component_id INNER JOIN page p2_ ON p1_.page_id = p2_.id WHERE p2_.dealer_id LIKE ?";
+
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $stmt;
+    }
+
 }

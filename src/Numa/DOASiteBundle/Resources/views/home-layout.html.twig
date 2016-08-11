@@ -11,7 +11,6 @@
     {% endblock title %}
     {% block description %}
         {% if(webpage is defined and webpage is not empty) %}
-
             {% include "NumaDOASiteBundle::description.html.twig" with {'description': webpage.description} %}
         {% else %}
             {% include "NumaDOASiteBundle::description.html.twig" with {'description' :numa_settings('description')} %}
