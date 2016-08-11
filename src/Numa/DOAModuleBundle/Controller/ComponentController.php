@@ -172,7 +172,10 @@ class ComponentController extends Controller
      */
     private function createEditForm(Component $entity)
     {
-        $form = $this->createForm(new ComponentType(), $entity, array(
+        $securityContext = $this->get('security.authorization_checker');
+        $componentType = new ComponentType($securityContext);
+        $componentType->setSecurityContext($securityContext);
+        $form = $this->createForm($componentType, $entity, array(
             'action' => $this->generateUrl('component_update', array('id' => $entity->getId())),
             'attr' => array('class' => '', 'id' => 'my-awesome-dropzone'),
             'method' => 'POST',
