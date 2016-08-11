@@ -98,6 +98,7 @@ body {
 	margin: 0 20px;
 	padding: 14px;
 	position: relative;
+	top: 10px;
 	z-index: 1;
 }
 
