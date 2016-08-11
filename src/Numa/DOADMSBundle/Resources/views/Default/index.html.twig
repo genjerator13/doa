@@ -42,6 +42,8 @@
                                     <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                 {% elseif entity.type|lower=="part" %}
                                     <a href="{{ path('partrequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                                {% elseif entity.type|lower=="newsletter" %}
+                                    <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                                 {% endif %}
                             </td>
                             <td>{{ entity.cust_name }} {{ entity.cust_last_name }}</td>
@@ -60,6 +62,8 @@
                                     <a href="{{ path('listingform') }}"><span class="label label-default">{{ entity.type }}</span></a>
                                 {% elseif entity.type|lower=="financing" %}
                                     <a href="{{ path('finance') }}"><span class="label label-default">{{ entity.type }}</span></a>
+                                {% elseif entity.type|lower=="newsletter" %}
+                                    <a href="{{ path('listingform') }}"><span class="label label-primary">{{ entity.type }}</span></a>
                                 {% else %}
                                     <a href="{{ path('listingform') }}"><span class="label label-primary">{{ entity.type }}</span></a>
                                 {% endif %}
@@ -75,6 +79,8 @@
                                         <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                                     {% elseif entity.type|lower=="part" %}
                                         <a href="{{ path('partrequest_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
+                                    {% elseif entity.type|lower=="newsletter" %}
+                                        <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                                     {% endif %}
 
                             </td>
