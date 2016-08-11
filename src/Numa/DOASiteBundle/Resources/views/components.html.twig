@@ -1,5 +1,4 @@
 {% macro image(src, alt, class, filter, width, height) %}
-
     {% if (src is empty or src is not defined) %}
         <img alt="No photos" src="{{ asset('images/no_image_available_small.png') }}"/>
     {% else %}
