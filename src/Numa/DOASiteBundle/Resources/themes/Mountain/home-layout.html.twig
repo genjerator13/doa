@@ -107,11 +107,13 @@
                 <div class="b4">
 
                     <a href="{{ path("part_form") }}">
-
-                        <h2>Parts</h2>
-
-                        <div class="click-here">Click Here</div>
-
+                        <div class="button-small-text">
+                            <h2>{{ displayComponent('button_4','image_text')|raw }}{% if displayComponent('button_4','image_text') =="" %}Parts{% endif %}</h2>
+                            <div class="click-here">Click Here</div>
+                        </div>
+                        {% if button4 is not empty %}
+                            {{ component.image(button4, 'btn4', '', 'mountain_small_button') }}
+                        {% endif %}
                     </a>
 
                 </div>
@@ -119,12 +121,13 @@
                 <div class="b5">
 
                     <a href="{{ path("service_form") }}">
-                        {#{% if button5 is not empty %}#}
-                        {#{{ component.image(button5, 'btn5', '', 'mountain_small_button') }}#}
-                        {#{% endif %}#}
-                        <h2>Service</h2>
-
-                        <div class="click-here">Click Here</div>
+                        <div class="button-small-text">
+                            <h2>{{ displayComponent('button_5','image_text')|raw }}{% if displayComponent('button_5','image_text') =="" %}Service{% endif %}</h2>
+                            <div class="click-here">Click Here</div>
+                        </div>
+                        {% if button5 is not empty %}
+                            {{ component.image(button5, 'btn5', '', 'mountain_small_button') }}
+                        {% endif %}
                     </a>
 
                 </div>
@@ -168,10 +171,10 @@
 
     </div>
     {% endblock %}
-    {#<div class="content">#}
+    <div class="content">
     {#<h1>Welcome to {{ dealer.name }}</h1>#}
-    {{ displayComponent('page_content',"HTML") }}
-    {#</div>#}
+    {{ displayComponent('page_content',"HTML")|raw }}
+    </div>
 
 </div>
 
@@ -184,12 +187,12 @@
 </html>
 
 <script>
-    var button4 = "{{ button4 }}"
-    var button5 = "{{ button5 }}"
-    if (button4 != "") {
-        $('.b4').css("background-image", "url({{ button4 }})");
-    }
-    if (button5 != "") {
-        $('.b5').css("background-image", "url({{ button5 }})");
-    }
+    {#var button4 = "{{ button4 }}"#}
+    {#var button5 = "{{ button5 }}"#}
+    {#if (button4 != "") #}{#}#}
+        {#$('.b4').css("background-image", "url({{ button4 }})");#}
+    {#}#}
+    {#if (button5 != "") {#}
+        {#$('.b5').css("background-image", "url({{ button5 }})");#}
+    {#}#}
 </script>
