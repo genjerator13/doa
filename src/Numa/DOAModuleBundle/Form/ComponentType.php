@@ -9,6 +9,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ComponentType extends AbstractType
 {
+    public $securityContext;
+    public function setSecurityContext($securityContext){
+        $this->securityContext=$securityContext;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -18,8 +22,10 @@ class ComponentType extends AbstractType
         $builder
             ->add('name', 'text', array('disabled'=>'true'))
             ->add('type','choice',array('disabled'=>'true','choices'=>array('HTML'=>'HTML','text'=>'text','string'=>'string','image'=>'image','carousel'=>'carousel')))
-            ->add('value')
-            ->add('helpdesc','ckeditor', array('label'=>'Help'))
+            ->add('value');
+        if(!empty($this->securityContext) && $this->securityContext->isGranted('ROLE_ADMIN')){
+            $builder->add('helpdesc','ckeditor', array('label'=>'Help'));
+        }
         ;
         $builder->addEventSubscriber(new AdsEventSubscriber());
     }
