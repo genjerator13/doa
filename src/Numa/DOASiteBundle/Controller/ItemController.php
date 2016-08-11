@@ -171,7 +171,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $user = $this->container->get('security.context')->getToken()->getUser();
         $itemid = intval($request->request->get('itemid'));
         $em = $this->get('doctrine')->getManager();
-        $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->
+        //$em->getRepository("NumaDOAAdminBundle:Catalogrecords")->
 
         $act = $request->get('act');
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->findOneById($itemid);

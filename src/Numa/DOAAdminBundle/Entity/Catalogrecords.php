@@ -388,6 +388,7 @@ class Catalogrecords implements UserInterface
      */
     public function setLogoUrl($logoUrl)
     {
+
         $this->logo_url = $logoUrl;
 
         return $this;
@@ -400,6 +401,9 @@ class Catalogrecords implements UserInterface
      */
     public function getLogoUrl()
     {
+        if(!empty($this->getLogo())){
+            $this->logo_url = $this->getLogo();
+        }
         return $this->logo_url;
     }
 
@@ -824,7 +828,7 @@ class Catalogrecords implements UserInterface
 
         // set the path property to the filename where you've saved the file
         $this->logo = $this->getUploadDir() . "/" . $this->getFileImportSource()->getClientOriginalName();
-
+        dump($this->logo);die();
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
     }
