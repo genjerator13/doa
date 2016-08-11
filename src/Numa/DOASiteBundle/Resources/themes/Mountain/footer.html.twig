@@ -49,7 +49,7 @@
     <div class="hours">
 
         <h3>Hours</h3>
-        {{ dealer.ServiceHours }}
+        {{ dealer.ServiceHours|raw }}
 
     </div>
     {% endif %}
@@ -68,7 +68,7 @@
             {% endimage %}
         </a>
         {% endif %}
-        <a class="newsletter" href=""><span>E-Newsletter</span> Sign-Up</a>
+        <a class="newsletter" href="/newsletter"><span>E-Newsletter</span> Sign-Up</a>
 
         {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
         {% if extramenu != 'enter this value of component in DMS' %}

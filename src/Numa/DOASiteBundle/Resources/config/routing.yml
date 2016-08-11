@@ -165,6 +165,12 @@ contactus:
 contactus_success:
     path:     /contactus_success
     defaults: { _controller: "NumaDOASiteBundle:Default:contactSuccess" }
+newsletter:
+    path:     /newsletter
+    defaults: { _controller: "NumaDOASiteBundle:Default:newsletter" }
+newsletter_success:
+    path:     /newsletter_success
+    defaults: { _controller: "NumaDOASiteBundle:Default:newsletterSuccess" }
 news:
     path:     /news
     defaults: { _controller: "NumaDOASiteBundle:Default:news" }

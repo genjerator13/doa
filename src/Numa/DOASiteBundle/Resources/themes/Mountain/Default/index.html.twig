@@ -35,7 +35,6 @@
                     <div class="text_widget">{{ image.carouselText|raw }}</div>
                 </div>
                 {% endfor %}
-
             </div>
             <!-- Carousel controls -->
             <a class="carousel-control left" href="#myCarousel_left" data-slide="prev">
@@ -114,6 +113,22 @@
     </div>
 {% endblock %}
 
+{% block browse %}
+    {% set browse_images = displayComponent("browse_icons","carousel") %}
+    <div class="browse">
+        <ul>
+            <li><h2><span>Browse</span> by Type</h2></li>
+            {% for image in browse_images %}
+                <li>
+                    <a class="" href="{{ image.url }}">
+                        {{ component.image('upload/dealers/'~image.src, "", '', 'mountain_browse') }}
+                        Motorhome
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
 
 
 {% block featuredads %}
