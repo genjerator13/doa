@@ -94,6 +94,9 @@ class PartRequestController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find PartRequest entity.');
         }
+        $entity->setStatus("Read");
+        $em->flush();
+//        dump($entity);die();
 
         $deleteForm = $this->createDeleteForm($id);
 

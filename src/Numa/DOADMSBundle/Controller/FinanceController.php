@@ -101,6 +101,9 @@ class FinanceController extends Controller
             throw $this->createNotFoundException('Unable to find Finance entity.');
         }
 
+        $entity->setStatus("Read");
+        $em->flush();
+        
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:Finance:show.html.twig', array(
