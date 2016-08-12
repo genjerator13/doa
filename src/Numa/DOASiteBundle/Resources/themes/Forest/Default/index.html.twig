@@ -60,8 +60,10 @@
 {% endblock %}
 {% block content %}
     <div class="content">
-        <h1>Welcome to {{ dealer.name }}</h1>
-        {{ dealer.description|raw }}
+        {#<h1>Welcome to {{ dealer.name }}</h1>#}
+        {#{{ dealer.description|raw }}#}
+
+        {{ displayComponent('welcome_text',"HTML")|raw }}
     </div>
     <div class="brands">
 
