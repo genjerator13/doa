@@ -24,6 +24,16 @@ class DefaultController extends Controller
             'entities' => $entities,
             'stats' => $stats));
     }
+    public function WebsiteFormsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
+        $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
+
+        return $this->render('NumaDOADMSBundle:Default:nortificationWebsiteForms.html.twig', array('webforms' => $webForms));
+//        dump($webForms);die();
+//        return $webForms;
+    }
 
     public function dealerChooserAction(Request $request)
     {
