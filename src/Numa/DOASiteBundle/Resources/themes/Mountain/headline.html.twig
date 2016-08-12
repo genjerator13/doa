@@ -23,8 +23,7 @@
         {% endif %}
     </div>
 
-    <a class="map" href="">Map</a> {#visibility hidden in cc#}
-
+    <a class="map" href="{{ path('site_page',{'url':"map"}) }}">Map</a>
     <div class="address">{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}</div>
 
     <div class="phone">{{ dealer.phone }}</div>
