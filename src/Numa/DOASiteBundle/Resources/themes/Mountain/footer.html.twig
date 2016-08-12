@@ -24,11 +24,11 @@
 
         <div class="quick-links">
             <h3>Quick Links</h3>
-            {% set quicklinks = displayComponent('quicklinks',"template","dealer") %}
-            {% if quicklinks != 'enter this value of component in DMS' %}
-                {{ include(template_from_string(quicklinks)) }}
+            {% set quick_links = displayComponent('quick_links',"template","dealer") %}
+            {% if quick_links != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(quick_links)) }}
             {% endif %}
-            {% if quicklinks == 'enter this value of component in DMS' %}
+            {% if quick_links == 'enter this value of component in DMS' %}
 
             <ul>
                 <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
