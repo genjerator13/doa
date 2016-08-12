@@ -30,15 +30,19 @@ class ListingFormRepository extends EntityRepository
         }
     }
 
-    public function getAllFormsByDealer($dealer_id,$limit=10)
+    public function getAllFormsByDealer($dealer_id,$limit=10, $notstatus = "")
     {
-        $sql = "SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `finance` WHERE dealer_id = " . intval($dealer_id) . "";
-        $sql = "(SELECT dealer_id, id, cust_name,cust_last_name, email, date_created, status,type FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " )
-UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"part\" FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " )
-UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"service\" FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . ")
-UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"financing\" FROM `finance` WHERE dealer_id =" . intval($dealer_id) . ")
+        $stautusSql="";
+        if(!empty($notstatus)) {
+            $stautusSql = " AND (status NOT LIKE '" . $notstatus . "' OR status IS NULL)";
+        }
+//        $sql = "SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `finance` WHERE dealer_id = " . intval($dealer_id) . "";
+        $sql = "(SELECT dealer_id, id, cust_name,cust_last_name, email, date_created, status,type FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
+UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"part\" FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql." )
+UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"service\" FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
+UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"financing\" FROM `finance` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
 order by date_created desc limit $limit";
-
+//dump($sql);die();
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
     }

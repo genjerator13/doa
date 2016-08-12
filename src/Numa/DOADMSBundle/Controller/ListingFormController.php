@@ -214,6 +214,9 @@ class ListingFormController extends Controller
             throw $this->createNotFoundException('Unable to find ListingForm entity.');
         }
 
+        $entity->setStatus("Read");
+        $em->flush();
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:ListingForm:show.html.twig', array(

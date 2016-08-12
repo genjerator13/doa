@@ -95,6 +95,9 @@ class PartRequestController extends Controller
             throw $this->createNotFoundException('Unable to find PartRequest entity.');
         }
 
+        $entity->setStatus("Read");
+        $em->flush();
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:PartRequest:show.html.twig', array(
