@@ -103,7 +103,7 @@ class FinanceController extends Controller
 
         $entity->setStatus("Read");
         $em->flush();
-        
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:Finance:show.html.twig', array(
