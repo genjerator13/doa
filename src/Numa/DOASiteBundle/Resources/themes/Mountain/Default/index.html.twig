@@ -8,7 +8,7 @@
         <div class="contact-info">
             <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}
             </div>
-            <a class="map-and-hours" href="">Map &amp; Hours</a>
+            <a class="map-and-hours" href="{{ path('site_page',{'url':"map"}) }}">Map &amp; Hours</a>
             <div class="phone">{{ dealer.phone }}</div>
         </div>
     </div>
