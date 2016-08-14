@@ -208,7 +208,10 @@ body {
 .menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
 .menu ul li ul li:hover ul li a:hover { background:#ca9875 url('menu_images/hover_sub.gif') center left no-repeat; color: #fff; }
 
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
+    z-index: 0;
+}
 
 
 /* ==========================================================================
