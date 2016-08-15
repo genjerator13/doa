@@ -342,6 +342,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [200, 150], mode: inbound }
                 background: { color: '#FFFFFF' }
+        autodealer_featured:
+            quality: 100
+            filters:
+                thumbnail: { size: [160, 100], mode: inbound }
+                background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web
