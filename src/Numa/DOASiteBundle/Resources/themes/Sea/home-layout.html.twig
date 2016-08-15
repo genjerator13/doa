@@ -160,12 +160,18 @@
                 </div>
                 {% endif %}
             </li>
+            {% if dealer.ServiceHours is not empty %}
             <li>
+                <h2>Hours Of Operation</h2>
                 {{ dealer.ServiceHours|raw }}
             </li>
+            {% endif %}
+            {% if displayComponent('quick_links',"HTML","dealer") is not empty %}
             <li>
+                <h2>Quick Links</h2>
                 {{ displayComponent('quick_links',"HTML","dealer")|raw }}
             </li>
+            {% endif %}
         </ul>
     </div>
 {% endblock %}
