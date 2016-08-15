@@ -781,6 +781,7 @@ and (max-width : 767px) {
 }
 .featured-ads {
     margin: 20px auto;
+    margin-left: 130px;
     max-width: 1020px;
     text-align: center;
 }
