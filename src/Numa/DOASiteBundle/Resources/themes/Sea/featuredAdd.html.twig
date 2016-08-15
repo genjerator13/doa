@@ -15,7 +15,7 @@
                         {% set image = item.getImages()|first["stringvalue"] %}
                         {% if ('http' not in image) %}
                             <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}"
-                                 src="{{ image|imagine_filter('search_image') }}"/>
+                                 src="{{ image|imagine_filter('autodealer_featured') }}"/>
                         {% else %}
                             <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
                                  width="160" height="100"/>
