@@ -157,6 +157,11 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <li class="active">
+                        <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}
                 <li class="treeview">
                     <a href="#">
@@ -165,11 +170,6 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        {% if (is_granted('ROLE_ADMIN')) %}
-                            <li class="active">
-                                <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
-                            </li>
-                        {% endif %}
                         {% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}
                             <li class="active">
                                 <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Current Customers</a>
