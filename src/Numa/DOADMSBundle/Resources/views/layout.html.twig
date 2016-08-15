@@ -63,7 +63,7 @@
             <div class="navbar-custom-menu">
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
-                    {{ render_esi(controller('NumaDOADMSBundle:Default:WebsiteForms')) }}
+                    {{ render_esi(controller('NumaDOADMSBundle:Default:notifications')) }}
                     {#{{ dump(entities|length) }}#}
 
                     {% if app.user.dmsStatus is not defined or app.user.dmsStatus != 'activated' %}
@@ -157,6 +157,11 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                {% if (is_granted('ROLE_ADMIN')) %}
+                    <li class="active">
+                        <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}
                 <li class="treeview">
                     <a href="#">
@@ -165,11 +170,6 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        {% if (is_granted('ROLE_ADMIN')) %}
-                            <li class="active">
-                                <a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business Directory</a>
-                            </li>
-                        {% endif %}
                         {% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}
                             <li class="active">
                                 <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Current Customers</a>
@@ -320,91 +320,6 @@
                     </a>
                 </li>
                 {% endif %}
-                {#{% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Customers</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('listingform') }}" class=""><i class="fa fa-table"></i>Listing Form</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service Request</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Inventory</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_inventory_feeds') }}" class=""><i class="fa fa-link"></i>Inventory#}
-                            {#Feeds</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES')or is_granted('ROLE_DMS_USER')  %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_additem') }}" class=""><i class="fa fa-list"></i>Add New Inventory</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dmsuser') }}" class=""><i class="fa fa-user"></i>Users</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_user_groups') }}" class=""><i class="fa fa-users"></i>Users Groups</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  %}#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>#}
-                    {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  %}#}
-                {#<li class="">#}
-                    {#<a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>#}
-                {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}#}
-                {#<li class="">#}
-                    {#<a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Pages</a>#}
-                {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}#}
-                {#<li class="">#}
-                    {#<a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image Carousel</a>#}
-                {#</li>#}
-                {#{% endif %}#}
-                {#{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}#}
-                    {#<li class="treeview">Feeds</li>#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_importfeed') }}"><i class="fa fa-upload"></i>Feeds</a>#}
-                    {#</li>#}
-                    {#<li class="treeview">Content Management</li>#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_catalogs') }}" class=""><i class="fa fa-suitcase"></i>Business#}
-                            {#Directory</a>#}
-                    {#</li>#}
-                    {#<li class="">#}
-                        {#<a href="{{ path('dms_command_log_home') }}" class=""><i class="fa fa-list"></i>Command#}
-                            {#Queue</a>#}
-                    {#</li>#}
-
-
-
-
-                {#{% endif %}#}
             </ul>
         </section>
         <!-- /.sidebar -->
