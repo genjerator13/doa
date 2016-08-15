@@ -775,7 +775,7 @@ and (max-width : 767px) {
     color: #f78f77;
 }
 .featured-ads {
-    margin: 20px auto;
+    margin: 0px auto;
 
     max-width: 1020px;
     text-align: center;
