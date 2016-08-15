@@ -1,7 +1,6 @@
-{% set apicall="/api/component/all" %}
-{% if is_granted('ROLE_BUSINES') %}
+
 {% set apicall="/api/component/"~entity.id~"/page" %}
-{% endif %}
+
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
 app.config(function ($interpolateProvider) {
