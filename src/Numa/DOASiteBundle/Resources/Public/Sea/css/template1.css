@@ -641,11 +641,6 @@ body {
     margin-top: -10px;
 }
 
-.featured-ads-item{
-
-    display: block;
-}
-
 #myCarousel .text_widget {
     position: absolute;
     top: 10px;
@@ -781,12 +776,23 @@ and (max-width : 767px) {
 }
 .featured-ads {
     margin: 20px auto;
-    margin-left: 130px;
+
     max-width: 1020px;
     text-align: center;
 }
- .featured-ads .thumbnails {
-    padding: 0px;
+.featured-ads .third{
+    margin-right: 20px;
+}
+
+.featured-ads .last{
+    margin-right: 0px;
+}
+
+.featured-ads-item{
+    float: left;
+    width: 160px;
+    display: block;
+    margin-right: 10px;
 }
 
  .searchSidebar label{
