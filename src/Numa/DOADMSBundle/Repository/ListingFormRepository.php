@@ -45,7 +45,7 @@ class ListingFormRepository extends EntityRepository
 UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"part\" FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql." )
 UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"service\" FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
 UNION (SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status,\"financing\" FROM `finance` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
-order by date_created desc";
+order by date_created desc ".$limitSql;
 
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
