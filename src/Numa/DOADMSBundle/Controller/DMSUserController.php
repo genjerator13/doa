@@ -129,33 +129,23 @@ class DMSUserController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $ok=$this->checkDMSUserPermission($id);
+        if($ok) {
+            $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
-            $securityContext->isGranted('ROLE_SERVICE_DMS') ||
-            $securityContext->isGranted('ROLE_SALES') ||
-            $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
-            && $this->getUser()->getId() == $id
-        )
-        {
-            //ok
-        }else{
-            throw $this->createAccessDeniedException("You cannot edit this page!");
+            $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
+            $securityContext = $this->container->get('security.authorization_checker');
+
+
+            $editForm = $this->createEditForm($entity);
+            $deleteForm = $this->createDeleteForm($id);
+
+            return $this->render('NumaDOADMSBundle:DMSUser:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
         }
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find DMSUser entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
-
-        return $this->render('NumaDOADMSBundle:DMSUser:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
 
     /**
@@ -197,37 +187,39 @@ class DMSUserController extends Controller
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $redirectRoute = "dmsuser_edit";
-        $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
-        $securityContext = $this->container->get('security.authorization_checker');
-        if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
+        $ok=$this->checkDMSUserPermission($id);
+        if($ok) {
+            $em = $this->getDoctrine()->getManager();
+            $redirectRoute = "dmsuser_edit";
+            $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
+            $securityContext = $this->container->get('security.authorization_checker');
+            if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
-        )
-        {
-            $redirectRoute = "userprofile_edit";
+            ) {
+                $redirectRoute = "userprofile_edit";
+            }
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find DMSUser entity.');
+            }
+
+            $deleteForm = $this->createDeleteForm($id);
+            $editForm = $this->createEditForm($entity);
+            $editForm->handleRequest($request);
+
+            if ($editForm->isValid()) {
+                $em->flush();
+
+                return $this->redirect($this->generateUrl($redirectRoute, array('id' => $id)));
+            }
+
+            return $this->render('NumaDOADMSBundle:DMSUser:edit.html.twig', array(
+                'entity' => $entity,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
         }
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find DMSUser entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl($redirectRoute, array('id' => $id)));
-        }
-
-        return $this->render('NumaDOADMSBundle:DMSUser:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
     }
     /**
      * Deletes a DMSUser entity.
@@ -269,4 +261,35 @@ class DMSUserController extends Controller
             ->getForm()
         ;
     }
+
+    public function checkDMSUserPermission($id){
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
+        $securityContext = $this->container->get('security.authorization_checker');
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $user   = $this->getUser();
+
+        if($securityContext->isGranted('ROLE_ADMIN')) {
+            return true;
+        }elseif($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId()==$entity->getDealerId())){
+            return true;
+        }elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
+                $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+                $securityContext->isGranted('ROLE_SALES') ||
+                $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
+            )
+            && $this->getUser()->getId() == $id
+        )
+        {
+            //ok
+            return true;
+        }else{
+            throw $this->createAccessDeniedException("You cannot edit this page!");
+        }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find DMSUser entity.');
+        }
+        return false;
+    }
 }
+
