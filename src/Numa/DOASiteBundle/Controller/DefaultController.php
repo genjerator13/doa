@@ -291,7 +291,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
     }
 
-    public function featuredAddAction($max, $order = 1,$image_size="")
+    public function featuredAddAction($max, $order = 1, $image_size = "")
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -299,8 +299,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $itemrep->setMemcached($this->get('mymemcache'));
         $session = $this->get('session');
-        $dealer_id="";
-        if($this->dealer instanceof  Catalogrecords) {
+        $dealer_id = "";
+        if ($this->dealer instanceof Catalogrecords) {
             $dealer_id = $this->dealer->getId();
         }
 
@@ -308,14 +308,14 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $items = array();
 
-        if(!empty($featured)) {
+        if (!empty($featured)) {
             $items = array_slice($featured, $max);
         }
 
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
 
-        if($order==1){
-            if(!empty($featured)) {
+        if ($order == 1) {
+            if (!empty($featured)) {
                 $items = array_slice($featured, 0, $max);
             }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
@@ -324,8 +324,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 //        $response->setPublic();
 //        $response->setSharedMaxAge(60);
 //        $response->setMaxAge(60);
-        if(empty($image_size)){
-            $image_size="search_image";
+        if (empty($image_size)) {
+            $image_size = "search_image";
         }
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         return $response;
@@ -353,7 +353,19 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function accessDeniedAction()
     {
-        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig',array(
+        return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig', array(
+            'dealer' => $this->dealer,));
+    }
+
+    public function error404Action()
+    {
+        return $this->render('NumaDOASiteBundle:Errors:error404.html.twig', array(
+            'dealer' => $this->dealer,));
+    }
+
+    public function error500Action()
+    {
+        return $this->render('NumaDOASiteBundle:Errors:error500.html.twig', array(
             'dealer' => $this->dealer,));
     }
 
@@ -443,7 +455,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function aboutusAction(Request $request)
     {
-        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ));
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer' => $this->dealer));
     }
 
     public function contactUsAction(Request $request)
@@ -454,7 +466,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
 
         if ($form->isValid()) {
-            $listingForm=$form->getData();
+            $listingForm = $form->getData();
             $listingForm->setDealer($this->dealer);
             $this->get("Numa.ListingForms")->handleListingForm($listingForm);
             return $this->redirectToRoute("contactus_success");
@@ -472,7 +484,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function newsAction(Request $request)
     {
-        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer'=>$this->dealer ));
+        return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer' => $this->dealer));
     }
 
     public function uploadImageAction(Request $request)
@@ -503,30 +515,28 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function browseImageAction(Request $request)
     {
-        if ($this->container->has('profiler'))
-        {
+        if ($this->container->has('profiler')) {
             $this->container->get('profiler')->disable();
         }
 
 
-
         if (isset($_FILES['upload'])) {
-            $dealer_id=0;
+            $dealer_id = 0;
 
-            if(!empty( $this->dealer)) {
+            if (!empty($this->dealer)) {
                 $dealer_id = $this->dealer->getId();
             }
             $filen = $_FILES['upload']['tmp_name'];
             $upload_path = $this->getParameter('upload_dealer');
-            $dir = $upload_path.$dealer_id."/images";
-            if(!is_dir($dir)){
-                mkdir($dir,0777,true);
+            $dir = $upload_path . $dealer_id . "/images";
+            if (!is_dir($dir)) {
+                mkdir($dir, 0777, true);
             }
-            $con_images = $dir."/" . $_FILES['upload']['name'];
+            $con_images = $dir . "/" . $_FILES['upload']['name'];
 
             move_uploaded_file($filen, $con_images);
 
-            $url = "http://".$request->getHost() . '/upload/dealers/'.$dealer_id."/images/".$_FILES['upload']['name'];
+            $url = "http://" . $request->getHost() . '/upload/dealers/' . $dealer_id . "/images/" . $_FILES['upload']['name'];
 
             $funcNum = $_GET['CKEditorFuncNum'];
             // Optional: instance name (might be used to load a specific configuration file or anything else).
@@ -543,7 +553,9 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
         //return $this->render('NumaDOASiteBundle:Static:content.html.twig',array('components'=>$components));
     }
-    public function contactusAjaxAction() {
+
+    public function contactusAjaxAction()
+    {
         $response = $this->render('NumaDOASiteBundle::mainmenu.html.twig', array(
             'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
             'components' => $this->components,
@@ -551,6 +563,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         ));
         return $response;
     }
+
     private function createCreateContactForm(ListingForm $entity)
     {
         $listingForm = new ListingForm();
@@ -558,21 +571,23 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             //'csrf_protection' => false,
             //'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
-            'attr' => array('id'=>"contact_form"),
+            'attr' => array('id' => "contact_form"),
 
         ));
-         $form->add('submit', 'submit', array('label' => 'Send'));
+        $form->add('submit', 'submit', array('label' => 'Send'));
         return $form;
     }
 
-    public function contactSuccessAction(){
+    public function contactSuccessAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Default:contact_success.html.twig', array(
-            'message'=>$message,
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }
+
     public function newsletterAction(Request $request)
     {
         $entity = new ListingForm();
@@ -581,7 +596,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
 
         if ($form->isValid()) {
-            $listingForm=$form->getData();
+            $listingForm = $form->getData();
             $listingForm->setDealer($this->dealer);
             $this->get("Numa.ListingForms")->handleListingForm($listingForm);
             return $this->redirectToRoute("newsletter_success");
@@ -596,6 +611,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
         //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
+
     private function createNewsletterForm(ListingForm $entity)
     {
         $listingForm = new ListingForm();
@@ -603,17 +619,19 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             //'csrf_protection' => false,
             //'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
-            'attr' => array('id'=>"newsletter_form"),
+            'attr' => array('id' => "newsletter_form"),
 
         ));
         $form->add('submit', 'submit', array('label' => 'Send'));
         return $form;
     }
-    public function newsletterSuccessAction(){
+
+    public function newsletterSuccessAction()
+    {
         $message = "Success";
 
         return $this->render('NumaDOASiteBundle:Default:newsletter_success.html.twig', array(
-            'message'=>$message,
+            'message' => $message,
             'dealer' => $this->dealer,
         ));
     }
