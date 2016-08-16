@@ -1,4 +1,4 @@
-<div class="menu">
+<div class="main-menu">
     {%  set mainmenu = displayComponent('mainmenu',"template","dealer") %}
     {% if mainmenu != 'enter this value of component in DMS' %}
         {{ include(template_from_string(mainmenu)) }}
