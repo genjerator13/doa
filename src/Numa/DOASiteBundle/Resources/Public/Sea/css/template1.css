@@ -119,95 +119,6 @@ body {
 
 .main-menu ul ul a { padding: 8px 15px; }
 
-.menu{
-    background-color: #111;
-    clear: both;
-    font-weight: 700;
-    margin: 0 auto;
-    max-width: 1020px;
-    position: relative;
-    text-transform: uppercase;
-    z-index: 1;
-}
-.menu ul{
-    display: table;
-    padding: 0 10px;
-    list-style: none;
-}
-.menu li{
-    float:left;
-    padding:0px;
-}
-.menu li a{
-    color: #f78f1e;
-    display: block;
-    line-height: 20px;
-    text-decoration: none;
-    padding: 14px;
-}
-.menu li a:hover, .menu ul li:hover a{
-    background-color: #3c3c3c;
-}
-.menu li ul{
-    background-color: #111;
-    display:none;
-    height:auto;
-    padding:0px;
-    margin:0px;
-    border:0px;
-    position:absolute;
-    /*width: 225px;*/
-    width:205px;
-    z-index:200;
-    /*top:1em;
-    /*left:0;*/
-}
-.menu li:hover ul{
-    display:block;
-
-}
-.menu li li {
-
-    display:block;
-    float:none;
-    margin:0px;
-    padding:0px;
-    /*width: 225px;*/
-    width:205px;
-}
-.menu li:hover li a{
-    background:none;
-
-}
-.menu li ul a{
-    display:block;
-    line-height: 20px;
-    font-size:13px;
-    font-style:normal;
-    margin:0px;
-    padding: 14px;
-    text-align:left;
-}
-.menu li ul a:hover, .menu li ul li:hover a{
-    background-color: #3c3c3c;
-    border:0px;
-   
-    text-decoration:none;
-}
-.menu p{
-    clear:left;
-}
-.menu ul li ul li { position: relative; }
-.menu ul li ul li ul, .menu ul li:hover ul li ul { display: none; }
-.menu ul li ul li:hover ul {
-    display: block;
-    position: absolute;
-    left: 100%;
-    top: 0;
-}
-.menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
-.menu ul li ul li:hover ul li a:hover { background:#ca9875 url('menu_images/hover_sub.gif') center left no-repeat; color: #fff; }
-
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
     z-index: 0;
@@ -232,28 +143,27 @@ body {
     list-style: none;
 }
 
-.mobile-menu .menu a,
-.mobile-menu .menu .separator {
+.mobile-menu .mobmenu a,
+.mobile-menu .mobmenu .separator {
     color: #fff;
     display: block;
     text-decoration: none;
     padding: 19px 20px;
 }
 
-.mobile-menu .menu li { border-top: 1px solid #222; }
+.mobile-menu .mobmenu li { border-top: 1px solid #222; cursor:pointer; }
 
-.mobile-menu .menu > li:first-child { border-top: none; }
+.mobile-menu .mobmenu > li:first-child { border-top: none; }
 
-.mobile-menu .menu > li > .separator {
-    background: #111 url("../images/mobile-menu-icon.png") 20px center no-repeat;
-    padding-left: 70px;
+.mobile-menu .mobmenu > li > .glyphicon {
+    font-size: 110%;
 }
 
-.mobile-menu .menu ul ul { background-color: #222; }
+.mobile-menu .mobmenu ul ul { background-color: #222; }
 
-.mobile-menu .menu ul ul li { border-top: 1px solid #333; }
+.mobile-menu .mobmenu ul ul li { border-top: 1px solid #333; }
 
-.mobile-menu .menu ul ul li:first-child { border-top: none; }
+.mobile-menu .mobmenu ul ul li:first-child { border-top: none; }
 
 /* ==========================================================================
    Banner
@@ -710,7 +620,7 @@ and (max-width : 767px) {
         margin: 10px 0 14px 0;
     }
 
-    .main-menu { display: none; }
+    .menu { display: none; }
 
     .mobile-menu { display: block; }
 
