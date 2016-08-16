@@ -1,11 +1,12 @@
 <div class="mobile-menu">
+    <ul class="mobmenu">
+        <li>
+            <span class="separator"><span class="glyphicon glyphicon-align-justify"></span> Menu</span>
     {%  set mainmenu = displayComponent('mainmenu',"template","dealer") %}
     {% if mainmenu != 'enter this value of component in DMS' %}
         {{ include(template_from_string(mainmenu)) }}
     {% endif %}
     {% if mainmenu == 'enter this value of component in DMS' %}
-    <ul class="menu">
-        <li><span class="separator">Menu</span>
             <ul>
                 <li><a href="{{ path('homepage') }}">Home</a></li>
                 <li><a href="">Products</a>
@@ -27,7 +28,7 @@
                 <li><a href="{{ path('about_us') }}">About Us</a></li>
                 <li><a href="{{ path('contactus') }}">Contact Us</a></li>
             </ul>
+    {% endif %}
         </li>
     </ul>
-    {% endif %}
 </div>
