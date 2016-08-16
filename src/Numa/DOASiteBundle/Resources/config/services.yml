@@ -37,11 +37,12 @@ services:
             - { name: routing.loader, priority: 33 }
     listener.requestresponse:
         class: Numa\DOASiteBundle\Services\ExtraListener
-        arguments: [ @service_container ]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -10 }
+        arguments: [ @service_container,@controller_resolver, @request_stack, @http_kernel ]
     Numa.ListingForms:
         class: Numa\DOASiteBundle\Services\ListingFormHandler
         arguments: ["@service_container" ]
