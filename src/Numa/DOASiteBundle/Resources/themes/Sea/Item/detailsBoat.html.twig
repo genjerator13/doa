@@ -179,7 +179,7 @@
                                 {% if item.categoryId()==1 %}
                                 {% for field in item.ItemField %}
                                     {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                        <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                                        <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                             <div class="checkbox">
                                                 <label>
                                                     <span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}
@@ -218,7 +218,7 @@
 
                                         {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
 
-                                            <li class="col-md-4 col-xs-4 col-sm-4 col-lg-4">
+                                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                                                 <div class="checkbox">
                                                     <label>
                                                         {{ field.fieldName }}
