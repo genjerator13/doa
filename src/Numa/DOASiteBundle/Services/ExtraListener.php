@@ -17,15 +17,25 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class ExtraListener
 {
     protected $container;
+    private $controller_resolver;
+    private $request_stack;
+    private $http_kernel;
 
-    public function __construct(ContainerInterface $container) // this is @service_container
+    public function __construct(ContainerInterface $container,$controller_resolver, $request_stack, $http_kernel)
     {
         $this->container = $container;
+        $this->controller_resolver = $controller_resolver;
+        $this->request_stack = $request_stack;
+        $this->http_kernel = $http_kernel;
     }
+
 
     public function onKernelRequest(GetResponseEvent $event)
     {
@@ -141,6 +151,23 @@ class ExtraListener
             $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageDescription . "</title>\n", $html);
 
             $response->setContent($html);
+        }
+    }
+
+    public function onKernelException(GetResponseForExceptionEvent $event)
+    {
+
+        if ($event->getException() instanceof NotFoundHttpException) {
+
+            $request = new \Symfony\Component\HttpFoundation\Request();
+            $request->attributes->set('_controller', 'NumaDOASiteBundle:Default:error404');
+            $controller = $this->controller_resolver->getController($request);
+
+            $path['_controller'] = $controller;
+            $subRequest = $this->request_stack->getCurrentRequest()->duplicate(array(), null, $path);
+
+            $event->setResponse($this->http_kernel->handle($subRequest, HttpKernelInterface::MASTER_REQUEST)); // Simulating "forward" in order to preserve the "Not Found URL"
+
         }
     }
 }

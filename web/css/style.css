@@ -207,6 +207,13 @@ ul.tmp{
     left: 335px;
 
 }
+.header-error-image {
+    background: url("/images/heder_car2.png") no-repeat scroll 50% bottom #ffffff;
+    height: 165px;
+    padding: 0;
+    position: relative;
+    width: 100%;
+}
 
 .logo-text {
     font-family: bauhaus93;
