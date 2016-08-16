@@ -55,7 +55,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: Peak Dealers Online
+        title: DMS lite
         subject: Email from
         upload_feed_path: /upload/feeds/
     form_themes:

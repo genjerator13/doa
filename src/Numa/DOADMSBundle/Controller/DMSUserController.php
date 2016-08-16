@@ -271,7 +271,7 @@ class DMSUserController extends Controller
 
         if($securityContext->isGranted('ROLE_ADMIN')) {
             return true;
-        }elseif($securityContext->isGranted('ROLE_BUSINES') && $dealer->getId()==$entity->getDealerId()){
+        }elseif($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId()==$entity->getDealerId())){
             return true;
         }elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
