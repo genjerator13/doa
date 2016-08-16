@@ -456,7 +456,7 @@ body {
     padding: 0px;
     text-align: right;
     z-index:1000;
-    position: absolute;
+    position: relative;
     top: 0px;
     right:0px;
 }
@@ -666,6 +666,8 @@ ul.techData li {
 @media only screen
 and (max-width : 1023px) {
 
+    .listing-buttons { top: 20px; }
+
     .left-arrow img { height: 34px; }
 
     .button-title {
@@ -684,6 +686,8 @@ and (max-width : 1023px) {
 
 @media only screen
 and (max-width : 767px) {
+
+    .listing-buttons { top: 20px; }
 
     .header { text-align: center; }
 
