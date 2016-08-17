@@ -231,7 +231,12 @@ class NumaExtension extends \Twig_Extension
             }
 
         } elseif (strtolower($type) == "image_text") {
-            return $component->getValue();
+
+//            dump($component);die();;
+//            if(!empty($component->getValue())) {
+//                return $component->getValue();
+//            }\\
+            return "";
         }
 
 
