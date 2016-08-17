@@ -26,23 +26,23 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'description', enableColumnResizing: true, width: 100},
         {name: 'keywords', enableColumnResizing: true, width: 100},
         {name: 'title', enableColumnResizing: true, width: 250},
-        {name: 'url', enableColumnResizing: true, width: 350},
+        {name: 'url', enableColumnResizing: true, width: 350,cellTemplate:'<div ng-if="row.entity.is_manual==true">/page{[{row.entity.url}]}</div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined">{[{row.entity.url}]}</div>'},
         {
             name: 'Link',
             enableColumnResizing: true,
             enableFiltering: false,
-            width: 50,
-            cellTemplate: '<a href="{[{row.entity.url}]}">Link to page</a>'
+            width: 90,
+            cellTemplate: '<div ng-if="row.entity.is_manual==true"><a href="/page{[{row.entity.url}]}">Link to page</a></div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined"><a href="{[{row.entity.url}]}">Link to page</a></div>'
         },
-
+        {#<div ng-if="row.entity.pages_names == \'All Pages\'">#}
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
             name: 'Actions',
-            width: 100,
+            width: 70,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/pages/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>{#<a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>#}'
+            cellTemplate: '<a href="/dms/pages/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a>'
         }
         {#,#}
 
