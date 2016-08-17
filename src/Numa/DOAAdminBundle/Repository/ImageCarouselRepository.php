@@ -43,4 +43,19 @@ class ImageCarouselRepository extends EntityRepository
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+
+    public function findByDealerComponent($component_id)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('ic')
+            ->from('NumaDOAAdminBundle:ImageCarousel', 'ic');
+
+
+        $qb->Where('ic.dealer_component_id like :component_id');
+        $qb->setParameter("component_id", $component_id);
+
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
 }

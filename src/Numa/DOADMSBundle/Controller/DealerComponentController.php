@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOADMSBundle\Form\DealerComponentType;
+use Numa\DOAModuleBundle\Entity\Component;
 
 /**
  * DealerComponent controller.
@@ -121,12 +122,42 @@ class DealerComponentController extends Controller
         $editForm = $this->createEditForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealer_id = 0;
+        if($dealer instanceof Catalogrecords){
+            $dealer_id = $dealer->getId();
+        }
+        $uploadDir = Component::getUploadDir($dealer_id,$id);
+
+
+        if(strtolower($entity->getType())=="carousel"){
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
+            return $this->render('NumaDOAModuleBundle:Component:carousel_edit.html.twig', array(
+                'uploadDir' => $uploadDir,
+                'dealerComponent' => true,
+                'entity' => $entity,
+                'entities' => $entities,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }elseif(strtolower($entity->getType())=="image"){
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
+            return $this->render('NumaDOAModuleBundle:Component:image_edit.html.twig', array(
+                'uploadDir' => $uploadDir,
+                'entity' => $entity,
+                'entities' => $entities,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
 
         return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+
+
     }
 
     /**
