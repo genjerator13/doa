@@ -264,22 +264,36 @@ class ComponentController extends Controller
     public function uploadAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
+        $dc = $request->query->get('dc');
+
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $path   = $dealer->getId() . "/component/" . $id;
-        $upload = $this->container->getParameter('upload_dealer') . $path;
+        if($dc==1) {
+            $path = $dealer->getId() . "/dcomponent/" . $id;
+            $upload = $this->container->getParameter('upload_dealer') . $path;
+        }else{
+            $path = $dealer->getId() . "/component/" . $id;
+            $upload = $this->container->getParameter('upload_dealer') . $path;
+        }
 
         if ($file instanceof UploadedFile && $file->isValid()) {
             $this->get("Numa.Settings")->createDealerComponentUploadFolders($dealer->getId(),$id);
             $file->move($upload,$file->getClientOriginalName() );
             $component = $em->getRepository("NumaDOAModuleBundle:Component")->find($id);
+            if($dc==1){
+                $component = $em->getRepository("NumaDOADMSBundle:DealerComponent")->find($id);
+            }
             $set = $component->getSettings();
             $setJson = json_decode($set,true);
             $imageCarousel = new ImageCarousel();
             $imageCarousel->setDealer($dealer);
-            $imageCarousel->setComponent($component);
+            if($dc==1) {
+                $imageCarousel->setDealerComponent($component);
+            }else{
+                $imageCarousel->setComponent($component);
+            }
             $imageCarousel->setSrc($path."/".$file->getClientOriginalName());
             $imageCarousel->setActive(true);
             $imageCarousel->setTitle($file->getClientOriginalName());
@@ -297,8 +311,15 @@ class ComponentController extends Controller
     public function refreshCarouselAction(Request $request,$id){
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         //get component by dealer and component id
+        $dealerComponent = $request->query->get('dc');
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByComponent($id);
+
+        if($dealerComponent==1){
+            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealerComponent($id);
+        }else{
+            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByComponent($id);
+        }
+
         $uploadDir = Component::getUploadDir($dealer->getId(),$id);
         return $this->render('NumaDOAAdminBundle:ImageCarousel:carousel_list.html.twig', array(
             'entities' => $entities,
