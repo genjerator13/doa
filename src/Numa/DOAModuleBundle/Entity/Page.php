@@ -560,4 +560,34 @@ class Page
     {
         return $this->Dealer;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $is_manual;
+
+
+    /**
+     * Set isManual
+     *
+     * @param boolean $isManual
+
+     * @return Page
+     */
+    public function setIsManual($isManual)
+    {
+        $this->is_manual = $isManual;
+
+        return $this;
+    }
+
+    /**
+     * Get isManual
+     *
+     * @return boolean
+     */
+    public function getIsManual()
+    {
+        return $this->is_manual;
+    }
 }

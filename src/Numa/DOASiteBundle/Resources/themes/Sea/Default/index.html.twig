@@ -6,56 +6,52 @@
     {% set images = displayComponent("homepage_carousel","carousel") %}
 
     {% if images is not empty %}
-    <div class="bs-example">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <!-- Carousel indicators -->
-            <ol class="carousel-indicators">
-                {% for image in images %}
-                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
-                {% endfor %}
+        <div class="bs-example">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Carousel indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in images %}
+                        <li data-target="#myCarousel" data-slide-to="{{ loop.index }}"
+                            class="{% if loop.first %}active{% endif %}"></li>
+                    {% endfor %}
 
-            </ol>
-            <!-- Wrapper for carousel items -->
-            <div class="carousel-inner">
-                {% for image in images %}
-                <div class="item {%  if loop.first %} active{% endif %}">
-                    {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}
-                    <div class="text_widget">{{ image.carouselText|raw }}</div>
+                </ol>
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    {% for image in images %}
+                        <div class="item {% if loop.first %} active{% endif %}">
+                            {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}
+                            <div class="text_widget">{{ image.carouselText|raw }}</div>
+                        </div>
+                    {% endfor %}
+
                 </div>
-                {% endfor %}
-
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
             </div>
-            <!-- Carousel controls -->
-            <a class="carousel-control left" href="#myCarousel" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="carousel-control right" href="#myCarousel" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
         </div>
-    </div>
-        {% else %}
+    {% else %}
         <div class="content  clearfix">
 
         </div>
-        {% endif %}
+    {% endif %}
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#myCarousel").carousel({
-                interval : 8000,
+                interval: 8000,
                 pause: false
             });
         });
     </script>
 {% endblock %}
 {% block content %}
-    <div class="content">
-        <h1>Welcome to {{ dealer.name }}</h1>
-        {{ dealer.description|raw }}
-
-        {#{{ displayComponent('welcome_text',"HTML")|raw }}#}
-    </div>
-    </div>
+    <h1>Welcome to {{ dealer.name }}</h1>
+    {{ dealer.description|raw }}
 {% endblock %}
 

@@ -301,6 +301,40 @@ class DealerComponent
             $this->date_updated = new \DateTime();
 
     }
+    
+    /**
+     * @var string
+     */
+    private $helpdesc;
+
+
+    /**
+     * Set helpdesc
+     *
+     * @param string $helpdesc
+     *
+     * @return DealerComponent
+     */
+    public function setHelpdesc($helpdesc)
+    {
+        $this->helpdesc = $helpdesc;
+
+        return $this;
+    }
+
+    /**
+     * Get helpdesc
+     *
+     * @return string
+     */
+    public function getHelpdesc()
+    {
+        if(empty($this->helpdesc)){
+            return "";
+        }
+        return $this->helpdesc;
+    }
+
     /**
      * @var string
      */
@@ -312,7 +346,7 @@ class DealerComponent
      *
      * @param string $help
      *
-     * @return DealerComponent
+     * @return Component
      */
     public function setHelp($help)
     {
@@ -322,7 +356,7 @@ class DealerComponent
     }
 
     /**
-     * Get help
+     * Get helpdesc
      *
      * @return string
      */
