@@ -153,7 +153,7 @@ class NumaExtension extends \Twig_Extension
                 $components = $dealer->getComponent();
             }
         }
-
+        dump($components);
         if (!empty($components)) {
             $componentsArray = $components->matching($criteria);
 
@@ -199,20 +199,28 @@ class NumaExtension extends \Twig_Extension
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if ($component instanceof Component || $component instanceof DealerComponent) {
+            if ($component instanceof Component) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+            }elseif($component instanceof DealerComponent){
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
             }
 
             return $images;
         } elseif (strtolower($type) == "template") {
 
-        } elseif (strtolower($type) == "image" && $component instanceof Component) {
+        } elseif (strtolower($type) == "image" && ($component instanceof Component || $component instanceof DealerComponent)) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if ($component instanceof Component || $component instanceof DealerComponent) {
+            if ($component instanceof Component ) {
                 $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
             }
+
+            if ($component instanceof DealerComponent) {
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
+
+            }
+
             if (!empty($images[0])) {
                 $uploadDir = "/" . ImageCarousel::getUploadDir();
                 $res = $images[0]->getSrc();
