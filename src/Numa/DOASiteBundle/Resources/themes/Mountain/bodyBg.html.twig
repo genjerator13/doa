@@ -1,6 +1,7 @@
 {% block bodyBackground %}
     <style type="text/css">
         {% set imgBg = displayComponent('site_background','image','dealer')   %}
+
         {% if imgBg is not empty %}
         body{
             background-image: url("{{ imgBg }}");

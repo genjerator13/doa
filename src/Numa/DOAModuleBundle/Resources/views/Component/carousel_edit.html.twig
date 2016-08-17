@@ -12,8 +12,12 @@
                 {{ form_row(edit_form.type) }}
 
                 {{ form_end(edit_form) }}
+                {% set dc=0 %}
+                {% if(dealerComponent is defined and dealerComponent is not empty) %}
+                    {% set dc=1 %}
+                {% endif %}
 
-                <form action="{{ path('component_upload',{'id':entity.id}) }}" method="post" class="dropzone" id="drop">
+                <form action="{{ path('component_upload',{'id':entity.id,'dc':dc}) }}" method="post" class="dropzone" id="drop">
 
                 </form>
                 <h1>Image Carousel list</h1>
@@ -41,7 +45,7 @@
                                     //refresh images loists
                                     $.ajax(
                                             {
-                                                url: '{{ path('component_carousel_refresh',{'id':entity.id}) }}',
+                                                url: '{{ path('component_carousel_refresh',{'id':entity.id,'dc':dc}) }}',
                                                 type: "POST",
                                                 //data: {"component_id":{{ entity.id}},
                                                 success: function (data, textStatus, jqXHR) {
