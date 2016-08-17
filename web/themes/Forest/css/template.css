@@ -597,7 +597,7 @@ and (max-width : 767px) {
 	padding: 0px;
 	text-align: right;
 	z-index:1000;
-	position: absolute;
+	position: relative;
 	top: 0px;
 	right:0px;
 }

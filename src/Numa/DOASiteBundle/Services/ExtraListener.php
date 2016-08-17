@@ -78,13 +78,15 @@ class ExtraListener
 
                 $theme = $dealer->getSiteTheme();
 
+                if(!(in_array($theme, $activeTheme->getThemes()))){
+                    $theme = $activeTheme->getThemes()[0];
+                }
+
                 $activeTheme->setName($theme);
                 $controllerObject->initializeDealer($dealer);
 
             }else{
-
                 $activeTheme->setName('Default');
-
             }
 
 //            $request = $event->getRequest();
