@@ -153,7 +153,7 @@ class NumaExtension extends \Twig_Extension
                 $components = $dealer->getComponent();
             }
         }
-        dump($components);
+
         if (!empty($components)) {
             $componentsArray = $components->matching($criteria);
 
