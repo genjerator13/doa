@@ -80,6 +80,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setIsManual(true);
             $em->persist($entity);
 
             $component = new Component();
