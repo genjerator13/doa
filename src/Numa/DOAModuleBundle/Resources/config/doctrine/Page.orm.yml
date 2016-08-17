@@ -33,6 +33,9 @@ Numa\DOAModuleBundle\Entity\Page:
         is_public:
             type: boolean
             nullable: true
+        is_manual:
+            type: boolean
+            nullable: true
         autogenerate:
             type: boolean
             options:
