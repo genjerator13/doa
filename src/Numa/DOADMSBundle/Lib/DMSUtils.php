@@ -65,4 +65,16 @@ class DMSUtils
         //loop
             //if url,dealer_id does not exist create new page with dealer_id and url
     }
+
+    public function clearCache()
+    {
+        $command = 'php ' . $this->container->get('kernel')->getRootDir() . '/console numa:dbutil cacheclear';
+
+
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+
+        ///$this->addFlash('success', "Http cache is cleared.");
+        return true;
+    }
 }
