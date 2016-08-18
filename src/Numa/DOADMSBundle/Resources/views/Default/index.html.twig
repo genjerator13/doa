@@ -4,6 +4,73 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>{{ stats.totalListings }}</h3>
+                    <p>Listings</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-truck"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('inventory') }}">
+                    More info
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{ pages }}</h3>
+                    <p>Pages</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-laptop"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('dms_page') }}">
+                    More info
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{ customers }}</h3>
+                    <p>Customers</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('customer') }}">
+                    More info
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>&nbsp;
+                    </h3>
+                    <p>Content</p>
+                </div>
+                <div class="icon">
+                    <i class="fa fa-pencil-square-o"></i>
+                </div>
+                <a class="small-box-footer" href="{{ path('component') }}">
+                    More info
+                    <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+
+
     <div class="box box-info">
         <div class="box-header with-border">
             <h3 class="box-title">Website Forms</h3>
