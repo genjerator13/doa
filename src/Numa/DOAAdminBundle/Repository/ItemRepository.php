@@ -678,7 +678,10 @@ class ItemRepository extends EntityRepository
         if ($cat == 1) {
             $qb->andWhere('i.body_style like :body_style');
             $qb->setParameter('body_style', $type);
-        } else {
+        }elseif ($cat == 13) {
+            $qb->andWhere('i.ag_application like :ag_application');
+            $qb->setParameter('ag_application', $type);
+        }else {
             $qb->andWhere('i.type like :type');
             $qb->setParameter('type', $type);
 
