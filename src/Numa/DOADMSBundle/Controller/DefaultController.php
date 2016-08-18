@@ -11,18 +11,23 @@ class DefaultController extends Controller
     public function indexAction()
     {
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
-
         $em = $this->getDoctrine()->getManager();
         $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
+        $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => $dealer));
+        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findBy(array('dealer_id' => $dealer));
+        $components = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $dealer));
 
-//        dump($entities);die();
-//        return $this->render('NumaDOADMSBundle:ListingForm:index.html.twig', array(
-//            'entities' => $entities,
-//        ));
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {$dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
+            $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => null));
+            $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAll();
+        }
+
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
-            'stats' => $stats));
+            'stats' => $stats,
+            'pages' => count($pages),
+            'customers' => count($customers)));
     }
     public function notificationsAction()
     {
@@ -33,8 +38,7 @@ class DefaultController extends Controller
         $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10000,"read");
 
         return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array('webforms' => $webForms,"count"=>count($webFormsCount)));
-        //
-//        return $webForms;
+
     }
 
     public function dealerChooserAction(Request $request)
