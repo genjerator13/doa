@@ -126,7 +126,7 @@
                 <li>
                     <a class="" href="{{ image.url }}">
                         {{ component.image('upload/dealers/'~image.src, "", '', 'mountain_browse') }}
-                        Motorhome
+                        <span class="browse_icon_text">{{ image.carouselText|striptags }}</span>
                     </a>
                 </li>
             {% endfor %}
