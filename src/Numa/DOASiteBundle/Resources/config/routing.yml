@@ -7,6 +7,9 @@ sandbox:
 search_by_category:
     path:  /browse_by_category_{category}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
+search_by_category_model:
+    path:  /browse_by_category_{category}/{make_string}
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{bodyStyleSlug}
     defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
