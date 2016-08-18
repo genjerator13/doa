@@ -78,6 +78,8 @@ class DefaultController extends Controller
             $dealer->setSiteTheme($theme);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
+            //clear the cache
+            $this->get('Numa.DMSUtils')->clearCache();
         }
 
         return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$theme,"dealer"=>$dealer));
