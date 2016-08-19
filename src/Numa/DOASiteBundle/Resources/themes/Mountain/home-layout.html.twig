@@ -60,6 +60,7 @@
 
         {% set images = displayComponent("homepage_carousel","carousel") %}
 
+        {% if images is not empty %}
         <div class="bs-carousels clearfix">
             <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
                 <!-- Carousel indicators -->
@@ -87,6 +88,7 @@
                 </a>
             </div>
         </div>
+        {% endif %}
 
         <script type="text/javascript">
             $(document).ready(function(){
