@@ -58,6 +58,45 @@
     {% endblock %}
     <div class="container">
 
+        {% set images = displayComponent("homepage_carousel","carousel") %}
+
+        <div class="bs-carousels clearfix">
+            <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
+                <!-- Carousel indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in images %}
+                        <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                    {% endfor %}
+
+                </ol>
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    {% for image in images %}
+                        <div class="item {%  if loop.first %} active{% endif %}">
+                            {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain') }}
+                            <div class="text_widget">{{ image.carouselText|raw }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#myCarousel_top" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#myCarousel_top" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#myCarousel").carousel({
+                    interval : 8000,
+                    pause: false
+                });
+            });
+        </script>
+
         <div class="button-wrapper">
             {% set button1 = displayComponent('button_1','image') %}
             {% set button2 = displayComponent('button_2','image') %}
