@@ -719,7 +719,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Deactivates elected listings in datagrid on listing list page
      */
     public function massDelete2Action(Request $request) {
-
+        $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
 
         $em = $this->getDoctrine()->getManager();
@@ -752,7 +752,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 $return = $this->redirect($url);
             }
         }
-        dump($redirect);die();
+        $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
+
         $redirect = $request->query->get('redirect');
         if ($redirect == 'item') {
             $return = $this->redirectToRoute('items_edit', array('id' => $id));
