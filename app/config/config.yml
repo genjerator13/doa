@@ -317,6 +317,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [555, 400], mode: outbound }
                 background: { color: '#FFFFFF' }
+        carousel_top_mountain:
+                    quality: 100
+                    filters:
+                        thumbnail: { size: [1130, 400], mode: outbound }
+                        background: { color: '#FFFFFF' }
         mountain_button:
             quality: 100
             filters:
