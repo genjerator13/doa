@@ -113,28 +113,24 @@ class EntityListener
     public function postUpdate(LifecycleEventArgs $args)
     {
 
-//        $entity = $args->getEntity();
-//
-//        $entityManager = $args->getEntityManager();
-//
-//        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords) {
-//
-//
-//            $this->setPassword($entity);
-//            $args->setNewValue('password', $pass);
-//        } elseif ($entity instanceof Item) {
-//
-//            //$command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
-//            //$command->setContainer($this->container);
-//            //$resultCode = $command->makeHomeTabs(false);
-//        }
+        $entity = $args->getEntity();
+
+        $entityManager = $args->getEntityManager();
+
+        if ($entity instanceof Item ) {
+            $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
+        }
 
 
     }
 
     public function postPersist(LifecycleEventArgs $args)
     {
+        $entity = $args->getEntity();
 
+        if ($entity instanceof Item ) {
+            $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
+        }
     }
 
     public function postLoad(LifecycleEventArgs $args)
