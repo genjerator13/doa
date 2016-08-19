@@ -845,6 +845,10 @@ ul.techData li {
 #myCarousel_left {
 	margin-left:0px;
 }
+#myCarousel_top {
+	min-width: 1130px;
+	margin-left: 0px;
+}
 
 .bs-carousels {
 	float: left;

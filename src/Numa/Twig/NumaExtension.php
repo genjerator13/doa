@@ -208,7 +208,7 @@ class NumaExtension extends \Twig_Extension
             return $images;
         } elseif (strtolower($type) == "template") {
 
-        } elseif (strtolower($type) == "image" && ($component instanceof Component || $component instanceof DealerComponent)) {
+        } elseif ((strtolower($type) == "image" || strtolower($type) == "image_object") && ($component instanceof Component || $component instanceof DealerComponent)) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
@@ -221,7 +221,13 @@ class NumaExtension extends \Twig_Extension
 
             }
 
+
             if (!empty($images[0])) {
+                if(strtolower($type) == "image_object"){
+                    $image = $images[0];
+                    $image->setSrc("/upload/dealers/".$image->getSrc());
+                    return $image;
+                }
                 $uploadDir = "/" . ImageCarousel::getUploadDir();
                 $res = $images[0]->getSrc();
 //                dump($uploadDir."/dealers/".$res);
@@ -232,11 +238,12 @@ class NumaExtension extends \Twig_Extension
             }
 
         } elseif (strtolower($type) == "image") {
-            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
-            $value = "";
-            if (!empty($matches[1])) {
-                $value = $matches[1];
-            }
+
+//            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
+//            $value = "";
+//            if (!empty($matches[1])) {
+//                $value = $matches[1];
+//            }
 
         }elseif (strtolower($type) == "image_text") {
 
