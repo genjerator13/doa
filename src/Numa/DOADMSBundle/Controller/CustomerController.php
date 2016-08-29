@@ -129,7 +129,7 @@ class CustomerController extends Controller
         $em = $this->getDoctrine()->getManager();
         //$entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
-//        dump($entity);die();
+        dump($entity);die();
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Customer entity.');
