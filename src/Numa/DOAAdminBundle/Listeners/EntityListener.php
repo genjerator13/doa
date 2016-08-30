@@ -29,22 +29,12 @@ class EntityListener
         $uow = $em->getUnitOfWork();
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             if ($entity instanceof Item) {
-//                $entity->setCoverPhoto($entity->getCoverImageSrc());
-//                $metaData = $em->getClassMetadata(get_class($entity));
-//                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
-//                $uow->computeChangeSets();
-                //$em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+                $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
             }
         }
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
             if ($entity instanceof Item) {
-//                $cover = $em->getRepository("NumaDOAAdminBundle:Item")->getCoverPhoto($entity->getId());
-//                //dump($cover);die();
-//                $entity->setCoverPhoto($cover);
-//                $metaData = $em->getClassMetadata(get_class($entity));
-//                $uow->recomputeSingleEntityChangeSet($metaData, $entity);
-//                $uow->computeChangeSets();
-                $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
+                $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
             }
         }
     }

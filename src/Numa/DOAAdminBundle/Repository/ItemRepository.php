@@ -718,7 +718,7 @@ class ItemRepository extends EntityRepository
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.cover_photo', "'" . $src . "'")
+                ->set('i.cover_photo', "'".$src."'")
                 ->where('i.id=' . $item_id);
             $qb->getQuery()->execute();
         }
@@ -732,7 +732,7 @@ class ItemRepository extends EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $res = $stmt->execute();
         $res = $stmt->fetch();
-        if (!empty($res['field_string_value'])) {
+        if(!empty($res['field_string_value'])){
             return $res['field_string_value'];
         }
         return "";
