@@ -46,6 +46,13 @@
             $("#myCarousel").carousel({
                 interval: 8000,
                 pause: false
+            }).on('slide.bs.carousel', function (e) {
+                var nextH = $(e.relatedTarget).height();
+                console.log(nextH)
+                console.log( $(this).find('.active.item').parent() )
+                $(this).find('.active.item').parent().animate({
+                    height: nextH
+                }, 500);
             });
         });
     </script>

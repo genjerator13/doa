@@ -238,7 +238,8 @@ liip_imagine:
         search_image:
             quality: 100
             filters:
-                thumbnail: { size: [120, 90], mode: outbound }
+                relative_resize: { heighten: 90 }
+#                thumbnail: { size: [120, 90], mode: outbound }
                 background: { color: '#FFFFFF' }
         search_image_sea:
             quality: 100
@@ -318,10 +319,10 @@ liip_imagine:
                 thumbnail: { size: [555, 400], mode: outbound }
                 background: { color: '#FFFFFF' }
         carousel_top_mountain:
-                    quality: 100
-                    filters:
-                        thumbnail: { size: [1130, 400], mode: outbound }
-                        background: { color: '#FFFFFF' }
+            quality: 100
+            filters:
+                thumbnail: { size: [1130, 400], mode: outbound }
+                background: { color: '#FFFFFF' }
         mountain_button:
             quality: 100
             filters:
