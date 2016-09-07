@@ -110,6 +110,7 @@ class ListingFieldTreeRepository extends EntityRepository  {
                      t.name like \'%' . $propertyName . '%\'     )) ';
             $query = $this->getEntityManager()
                             ->createQuery($q)->setMaxResults(1);
+            
             $res = $query->getOneOrNullResult(); //getOneOrNullResult();
             return $res;
         //}
