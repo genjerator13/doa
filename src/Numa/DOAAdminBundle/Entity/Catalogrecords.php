@@ -828,6 +828,7 @@ class Catalogrecords implements UserInterface
 
         // set the path property to the filename where you've saved the file
         $this->logo = $this->getUploadDir() . "/" . $this->getFileImportSource()->getClientOriginalName();
+        $this->logo_url = $this->logo;
 //        dump($this->logo);die();
         // clean up the file property as you won't need it anymore
         $this->file_import_source = null;
