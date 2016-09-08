@@ -33,7 +33,7 @@ class CustomerType extends AbstractType
             ->add('fax')
             ->add('email')
             ->add('followup_date','date')
-            ->add('file_import_source', 'file', array('label'=>'Logo Upload','required' => false, 'data_class' => null))
+            ->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
 
         ;
     }
