@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -200,10 +201,7 @@ class CustomerController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
 
-        if (count($form->getErrors(true)==0)) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
@@ -211,18 +209,10 @@ class CustomerController extends Controller
                 throw $this->createNotFoundException('Unable to find Customer entity.');
             }
 
-            $em->remove($entity);
+            $entity->setStatus('deleted');
+
             $em->flush();
-
-        }else{
-
-            foreach($form->getErrors(true) as $error){
-                dump($error->getMessage());
-            }
-
-        }
-        die();
-        return $this->redirect($this->generateUrl('customer'));
+        return new Response();
     }
 
     /**

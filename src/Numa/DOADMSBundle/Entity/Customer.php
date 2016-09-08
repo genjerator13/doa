@@ -1029,4 +1029,33 @@ class Customer
         return $this;
     }
 
+    /**
+     * @var string
+     */
+    private $status;
+
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     *
+     * @return Customer
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
 }
