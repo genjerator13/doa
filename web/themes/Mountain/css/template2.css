@@ -476,6 +476,7 @@ body {
 
 .row .vdesc{
 	padding: 10px 30px;
+
 }
 
 /* ==========================================================================
@@ -719,16 +720,21 @@ and (max-width : 767px) {
 }
 
 
+.detailsContent .row{
+	border: 1px solid darkgray;
+}
 .detailsContent .option-lists{
 	margin-left: 50px;
 }
 .detailsContent h2.section{
+	height: 50px;
 	margin: 0px;
 	font-size: 130%;
-	padding: 5px;
-	background-color: #357ebd;
-	color: white;
+	padding: 10px;
+	background-color: lightgray;
+	color: black;
 	font-family:'Fjalla One','Open Sans', sans-serif;
+	border-bottom: 1px solid darkgray;
 }
 
 .detailsContent .row {
