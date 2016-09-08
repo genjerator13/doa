@@ -20,7 +20,7 @@ class DefaultController extends Controller
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {$dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
             $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => null));
-            $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAll();
+            $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted();
         }
 
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(

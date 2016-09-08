@@ -19,7 +19,7 @@ class CustomerRESTController extends Controller
      */
     public function allAction()
     {
-        $customers = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findAll();
+        $customers = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted();
         return $customers;
     }
 

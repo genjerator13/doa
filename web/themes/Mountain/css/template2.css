@@ -726,8 +726,8 @@ and (max-width : 767px) {
 	margin: 0px;
 	font-size: 130%;
 	padding: 5px;
-	background-color: #111111;
-	color: #f78f1e;
+	background-color: #357ebd;
+	color: white;
 	font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
