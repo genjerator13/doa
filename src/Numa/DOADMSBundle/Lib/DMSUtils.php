@@ -30,6 +30,9 @@ class DMSUtils
         if(!empty($email)) {
             $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $email, 'dealer_id' => $dealer->getId()));
 
+            if(!empty($customer) && $customer->getStatus()=="deleted"){
+                $customer->setStatus(NULL);
+            }
             if (!$customer instanceof Customer) {
                 $customer = new Customer();
                 $customer->setFirstName($custName);
