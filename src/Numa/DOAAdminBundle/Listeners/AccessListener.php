@@ -49,6 +49,7 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
                 $this->checker->isGranted('ROLE_SALES') ||
                 $this->checker->isGranted('ROLE_SERVICE_DMS') ||
                 $this->checker->isGranted('ROLE_PARTS_DMS') ||
+                $this->checker->isGranted('ROLE_FINANCE_DMS') ||
                 $this->checker->isGranted('ROLE_REGULAR_ADMIN')
                 )
         {

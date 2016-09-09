@@ -690,7 +690,10 @@ class DMSUser  implements UserInterface
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -698,7 +701,10 @@ class DMSUser  implements UserInterface
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
     /**
      * @var integer
@@ -775,6 +781,8 @@ class DMSUser  implements UserInterface
                 return array('ROLE_SERVICE_DMS');
             }elseif ($groupName == 'parts_user') {
                 return array('ROLE_PARTS_DMS');
+            }elseif ($groupName == 'finance_user') {
+                return array('ROLE_FINANCE_DMS');
             }elseif ($groupName == 'regular_admin') {
                 //return array('ROLE_REGULAR_ADMIN_DMS');
                 return array('ROLE_REGULAR_ADMIN_DMS','ROLE_DMS_USER', 'ROLE_BUSINES');
