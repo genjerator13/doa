@@ -51,11 +51,11 @@ security:
 
 
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
-        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
+        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_SALES] }
         - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
+        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS] }
         - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/themes, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
@@ -69,7 +69,7 @@ security:
         - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
-        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS] }
         - { path: ^/dms, roles: [ROLE_ADMIN,ROLE_DMS_USER] }
 #        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
 
