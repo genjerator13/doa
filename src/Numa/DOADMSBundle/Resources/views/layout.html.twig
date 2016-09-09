@@ -113,7 +113,7 @@
                                         <a class="btn btn-default btn-flat"
                                            href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                             <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
-                                        {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS')%}
+                                        {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS')%}
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                                 <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
@@ -312,7 +312,7 @@
                     </a>
                 </li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_FINANCE_DMS') %}
                 <li class="treeview">
                     <a href="{{ path('finance') }}">
                         <i class="fa fa-usd"></i>
