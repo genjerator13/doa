@@ -160,6 +160,7 @@ class DMSUserController extends Controller
         $securityContext = $this->container->get('security.authorization_checker');
         if ($securityContext->isGranted('ROLE_PARTS_DMS') ||
             $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+            $securityContext->isGranted('ROLE_FINANCE_DMS') ||
             $securityContext->isGranted('ROLE_SALES') ||
             $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
         )
@@ -195,6 +196,7 @@ class DMSUserController extends Controller
             $securityContext = $this->container->get('security.authorization_checker');
             if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+                $securityContext->isGranted('ROLE_FINANCE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
             ) {
@@ -275,6 +277,7 @@ class DMSUserController extends Controller
             return true;
         }elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
+                $securityContext->isGranted('ROLE_FINANCE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
             )
