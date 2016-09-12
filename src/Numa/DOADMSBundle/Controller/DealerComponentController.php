@@ -128,7 +128,8 @@ class DealerComponentController extends Controller
             $dealer_id = $dealer->getId();
         }
         $uploadDir = Component::getUploadDir($dealer_id,$id);
-
+        //clear the cache
+        $this->get('Numa.DMSUtils')->clearCache();
 
         if(strtolower($entity->getType())=="carousel"){
             $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
