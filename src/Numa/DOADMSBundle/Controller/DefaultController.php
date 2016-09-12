@@ -15,7 +15,7 @@ class DefaultController extends Controller
         $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => $dealer));
-        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findBy(array('dealer_id' => $dealer));
+        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($dealer);
         $components = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $dealer));
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {$dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
