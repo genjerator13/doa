@@ -21,15 +21,13 @@ class VinDecoderController extends Controller
         //getserializer
         $serializer = $this->get('jms_serializer');
         //create api client
-        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
-        $client = new Client($baseurl);
+       // $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
+        $client = new Client();
 
         //getResponse
         $response = $client->get('https://api.edmunds.com/api/vehicle/v2/vins/'.$vin.'?&fmt=json&api_key=t42a3577zdfuy63qu6fr7wu3')->send();
 
-        //deserialize response
-        $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
-        dump($response->json());die();
-
+        // dump($response->json());die();
+        return $response->json();
     }
 }

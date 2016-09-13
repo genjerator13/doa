@@ -18,11 +18,47 @@
     <script>
         $('#vin_submit_button').click(function(){
             vin = $('#numa_doaadminbundle_item_VIN').val();
+            make = $('#numa_doaadminbundle_item_make');
+            model = $('#numa_doaadminbundle_item_model');
+            year = $('#numa_doaadminbundle_item_year');
+            bodyStyle = $('#numa_doaadminbundle_item_bodyStyle');
+            doors = $('#numa_doaadminbundle_item_doors');
+            mpgCity = $('#numa_doaadminbundle_item_mpgCity');
+            mpgHighway = $('#numa_doaadminbundle_item_mpgHighway');
             console.log(vin);
             $.ajax({
                 type: "POST",
                 url: "{{ path("decode_vin_api") }}",
-                data: {vin:vin}
+                data: {vin:vin},
+                success: function(data, textStatus, jqXHR)
+                {
+                    //console.log(jQuery.isEmptyObject(data.make));
+                    if(!jQuery.isEmptyObject(data.make.niceName)) {
+                        make.val(data.make.niceName);
+                    }
+                    if(!jQuery.isEmptyObject(data.model.niceName)) {
+                        model.val(data.model.niceName);
+                    }
+                    if(!jQuery.isEmptyObject(data.years[0].year)) {
+                        year.val(data.years[0].year);
+                    }
+                    if(!jQuery.isEmptyObject(data.MPG.city)) {
+                        mpgCity.val(data.MPG.city);
+                    }
+                    if(!jQuery.isEmptyObject(data.MPG.highway)) {
+                        mpgHighway.val(data.MPG.highway);
+                    }
+                    if(!jQuery.isEmptyObject(data.categories.market)) {
+                        bodyStyle.val(data.categories.market);
+                    }
+                    if(!jQuery.isEmptyObject(data.numOfDoors)) {
+                        doors.val(data.numOfDoors);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    alert("Error, wrong VIN!");
+                }
             });
         });
     </script>
