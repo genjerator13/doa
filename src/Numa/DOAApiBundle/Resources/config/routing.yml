@@ -38,6 +38,9 @@ component_api:
 listing_form_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/listing_form.yml"
         prefix:   /listing_form
+decode_vin_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/decode_vin.yml"
+        prefix:   /decode_vin
 listing:
     path:  /listing/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing",_format: "xml"}
