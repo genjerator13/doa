@@ -28,6 +28,6 @@ class VinDecoderController extends Controller
         $response = $client->get('https://api.edmunds.com/api/vehicle/v2/vins/'.$vin.'?&fmt=json&api_key=t42a3577zdfuy63qu6fr7wu3')->send();
 
         // dump($response->json());die();
-        return $response->json();
+        return trim($response->json());
     }
 }
