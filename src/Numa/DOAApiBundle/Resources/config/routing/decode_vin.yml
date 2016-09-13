@@ -1,0 +1,4 @@
+decode_vin_api:
+    path:     /
+    defaults: { _controller: "NumaDOAApiBundle:VinDecoder:decodeVin",_format: "json"}
+    requirements: { _method: post }
