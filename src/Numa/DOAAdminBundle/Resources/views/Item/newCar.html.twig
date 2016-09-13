@@ -13,8 +13,19 @@
         <div class="col-sm-4">
             {{ form_widget(form.VIN) }}
         </div>
-        <a href="#" class="vin btn btn-success">Decode Vin</a>
+        <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
     </div>
+    <script>
+        $('#vin_submit_button').click(function(){
+            vin = $('#numa_doaadminbundle_item_VIN').val();
+            console.log(vin);
+            $.ajax({
+                type: "POST",
+                url: "{{ path("decode_vin_api") }}",
+                data: {vin:vin}
+            });
+        });
+    </script>
     <div class="form-group">
         {{ form_label(form.make, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">

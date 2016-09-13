@@ -1,4 +1,4 @@
-note_api_all:
-    path:     /all.{_format}
-    defaults: { _controller: "NumaDOAApiBundle:NoteREST:all",_format: "json"}
-    requirements: { _method: get }
+decode_vin_api:
+    path:     /
+    defaults: { _controller: "NumaDOAApiBundle:VinDecoder:decodeVin",_format: "json"}
+    requirements: { _method: post }
