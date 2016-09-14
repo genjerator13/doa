@@ -1,0 +1,11 @@
+{% if(entity.type|lower == "eprice") %}
+    {% include 'NumaDOADMS:Emails:epriceBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "contact") %}
+    {% include 'NumaDOADMS:Emails:contactBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "finance") %}
+    {% include 'NumaDOADMS:Emails:financeBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "testdrive") %}
+    {% include 'NumaDOADMS:Emails:testdriveBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "offer") %}
+    {% include 'NumaDOADMS:Emails:offerBodyTemplate.html.twig' %}
+{% endif %}
