@@ -15,6 +15,8 @@ namespace Numa\Lib;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
+use Numa\DOADMSBundle\Entity\Email;
+use Numa\DOADMSBundle\Entity\PartRequest;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Emailer extends ContainerAware
@@ -83,6 +85,63 @@ class Emailer extends ContainerAware
         return $return;
     }
 
+    public function sendNotificationEmail($entity,$dealer,$customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $email = new Email();
+
+        $errors = array();
+        $return = array();
+                // $data is a simply array with your form fields
+        // like "query" and "category" as defined above.
+        if (filter_var($dealer->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            // Sanitize the e-mail to be extra safe.
+            // I think Pear Mail will automatically do this for you
+            $emailTo = filter_var($dealer->getEmail(), FILTER_SANITIZE_EMAIL);
+        } else {
+
+            $errors[] = "Invalid email!";
+        }
+
+        //$emailFrom = $email;
+        $emailTo = $dealer->getEmail();
+        $email->setEmailTo($emailTo);
+
+        $emailBody = $this->makeNotificationMessageBody($entity);
+        $email->setBody($emailBody);
+
+        $subject = "";
+        if ($entity instanceof PartRequest){
+            $subject = "New Part Request from ".$customer->getFullName();
+        }
+        $email->setSubject($subject);
+
+        $mailer = $this->container->get('mailer');
+        $emailFrom = 'general@dealersonair.com';
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom($emailFrom)
+            //->addBcc('jim@dealersonair.com')
+            ->addBcc('e.medjesi@gmail.com')
+            //->setTo($dealer->getEmail())
+            ->setTo("genjerator@outlook.com")
+            ->setBody($emailBody);
+        if (empty($errors)) {
+            $ok = $mailer->send($message);
+            $email->setStatus('Sent');
+            //dump($emailFrom);
+            //dump($message);die();
+            sleep(2);
+        }else{
+            $email->setStatus('Error');
+        }
+
+        $email->setEmailBcc('jim@dealersonair.com;e.medjesi@gmail.com');
+        $em->persist($email);
+        $em->flush();
+        return $return;
+    }
+
     public function makeMessageBody($currentUrl, $data, $emailFrom)
     {
         $body = "";
@@ -93,6 +152,22 @@ class Emailer extends ContainerAware
         $body .= "User Comment: " . " \n" . $this->stripUserComment($data['comments']);
         return $body;
     }
+
+    public function makeNotificationMessageBody($entity)
+    {
+        $templating = $this->container->get('templating');
+        $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
+            'entity' => $entity,
+
+        ));
+        //dump($data);die();
+        //$body .= "URL: " . $currentUrl . " \n";
+        //$body .= "EMAIL FROM: " . $emailFrom . " \n";
+        //$body .= "Name: " . $this->stripUserComment($data['first_name']) . " " . $this->stripUserComment($data['last_name']) . " \n";
+        //$body .= "User Comment: " . " \n" . $this->stripUserComment($data['comments']);
+        return $html;
+    }
+
 
     public function stripUserComment($userComment)
     {

@@ -1,0 +1,65 @@
+Numa\DOADMSBundle\Entity\Email:
+    type: entity
+    table: email
+    #repositoryClass: Numa\DOADMSBundle\Repository\EmailRepository
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        created_at:
+            type: datetime
+            nullable: true
+        updated_at:
+            type: datetime
+            nullable: true
+        customer_id:
+            type: integer
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        body:
+            type: text
+            nullable: true
+        attachment:
+            type: text
+            nullable: true
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        email_from:
+            type: string
+            length: 255
+            nullable: true
+        email_to:
+            type: string
+            length: 255
+            nullable: true
+        email_bcc:
+            type: string
+            length: 255
+            nullable: true
+        email_cc:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        Customer:
+            targetEntity: Customer
+            inversedBy: Email
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Email
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
