@@ -169,6 +169,11 @@ class Emailer extends ContainerAware
                 'entity' => $entity,
 
             ));
+        }elseif($entity instanceof ListingForm){
+            $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
         }
         return $html;
     }
