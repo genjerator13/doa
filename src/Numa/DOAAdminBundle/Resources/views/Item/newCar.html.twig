@@ -16,15 +16,23 @@
         <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
     </div>
     <script>
+        function firstToUpperCase( str ) {
+            return str.substr(0, 1).toUpperCase() + str.substr(1);
+        }
         $('#vin_submit_button').click(function(){
             vin = $('#numa_doaadminbundle_item_VIN').val();
             make = $('#numa_doaadminbundle_item_make');
             model = $('#numa_doaadminbundle_item_model');
             year = $('#numa_doaadminbundle_item_year');
             bodyStyle = $('#numa_doaadminbundle_item_bodyStyle');
+            bodyDescription = $('#numa_doaadminbundle_item_bodyDescription');
             doors = $('#numa_doaadminbundle_item_doors');
             mpgCity = $('#numa_doaadminbundle_item_mpgCity');
             mpgHighway = $('#numa_doaadminbundle_item_mpgHighway');
+            driveType = $('#numa_doaadminbundle_item_driveType');
+            fuelType = $('#numa_doaadminbundle_item_fuelType');
+            transmission = $('#numa_doaadminbundle_item_transmission');
+            engine = $('#numa_doaadminbundle_item_engine');
             console.log(vin);
             $.ajax({
                 type: "POST",
@@ -33,11 +41,11 @@
                 success: function(data, textStatus, jqXHR)
                 {
                     //console.log(jQuery.isEmptyObject(data.make));
-                    if(!jQuery.isEmptyObject(data.make.niceName)) {
-                        make.val(data.make.niceName);
+                    if(!jQuery.isEmptyObject(data.make.name)) {
+                        make.val(data.make.name);
                     }
-                    if(!jQuery.isEmptyObject(data.model.niceName)) {
-                        model.val(data.model.niceName);
+                    if(!jQuery.isEmptyObject(data.model.name)) {
+                        model.val(data.model.name);
                     }
                     if(!jQuery.isEmptyObject(data.years[0].year)) {
                         year.val(data.years[0].year);
@@ -48,11 +56,35 @@
                     if(!jQuery.isEmptyObject(data.MPG.highway)) {
                         mpgHighway.val(data.MPG.highway);
                     }
-                    if(!jQuery.isEmptyObject(data.categories.market)) {
+                    if(!jQuery.isEmptyObject(data.categories.market) && (data.categories.market == "Wagon" || data.categories.market == "Van" || data.categories.market == "Truck" || data.categories.market == "SUV" || data.categories.market == "Sedan" || data.categories.market == "Hatchback" || data.categories.market == "Crossover" || data.categories.market == "Coupe" || data.categories.market == "Convertible")) {
                         bodyStyle.val(data.categories.market);
+                    }
+                    else if(!jQuery.isEmptyObject(data.categories.vehicleType) && (data.categories.vehicleType == "Wagon" || data.categories.vehicleType == "Van" || data.categories.vehicleType == "Truck" || data.categories.vehicleType == "SUV" || data.categories.vehicleType == "Sedan" || data.categories.vehicleType == "Hatchback" || data.categories.vehicleType == "Crossover" || data.categories.vehicleType == "Coupe" || data.categories.vehicleType == "Convertible")) {
+                        bodyStyle.val(data.categories.vehicleType);
+                    }
+                    else if(!jQuery.isEmptyObject(data.categories.vehicleStyle) && (data.categories.vehicleStyle == "Wagon" || data.categories.vehicleStyle == "Van" || data.categories.vehicleStyle == "Truck" || data.categories.vehicleStyle == "SUV" || data.categories.vehicleStyle == "Sedan" || data.categories.vehicleStyle == "Hatchback" || data.categories.vehicleStyle == "Crossover" || data.categories.vehicleStyle == "Coupe" || data.categories.vehicleStyle == "Convertible")) {
+                        bodyStyle.val(data.categories.vehicleStyle);
+                    }
+                    if(!jQuery.isEmptyObject(data.categories.vehicleStyle)) {
+                        bodyDescription.val(data.categories.vehicleStyle);
                     }
                     if(!jQuery.isEmptyObject(data.numOfDoors)) {
                         doors.val(data.numOfDoors);
+                    }
+                    if(!jQuery.isEmptyObject(data.drivenWheels)) {
+                        driveType.val(firstToUpperCase(data.drivenWheels));
+                    }
+                    if(!jQuery.isEmptyObject(data.engine.type)) {
+                        fuelType.val(firstToUpperCase(data.engine.type));
+                    }
+                    if(!jQuery.isEmptyObject(data.transmission.name)) {
+                        transmission.val(data.transmission.name);
+                    }
+                    else if(!jQuery.isEmptyObject(data.transmission.transmissionType)) {
+                        transmission.val(data.transmission.transmissionType);
+                    }
+                    if(!jQuery.isEmptyObject(data.engine.name)) {
+                        engine.val(data.engine.name);
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown)
