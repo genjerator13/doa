@@ -17,6 +17,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOADMSBundle\Entity\Email;
 use Numa\DOADMSBundle\Entity\PartRequest;
+use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Emailer extends ContainerAware
@@ -85,14 +86,14 @@ class Emailer extends ContainerAware
         return $return;
     }
 
-    public function sendNotificationEmail($entity,$dealer,$customer)
+    public function sendNotificationEmail($entity, $dealer, $customer)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $email = new Email();
 
         $errors = array();
         $return = array();
-                // $data is a simply array with your form fields
+        // $data is a simply array with your form fields
         // like "query" and "category" as defined above.
         if (filter_var($dealer->getEmail(), FILTER_VALIDATE_EMAIL)) {
             // Sanitize the e-mail to be extra safe.
@@ -111,8 +112,8 @@ class Emailer extends ContainerAware
         $email->setBody($emailBody);
 
         $subject = "";
-        if ($entity instanceof PartRequest){
-            $subject = "New Part Request from ".$customer->getFullName();
+        if ($entity instanceof PartRequest) {
+            $subject = "New Part Request from " . $customer->getFullName();
         }
         $email->setSubject($subject);
 
@@ -125,14 +126,14 @@ class Emailer extends ContainerAware
             ->addBcc('e.medjesi@gmail.com')
             //->setTo($dealer->getEmail())
             ->setTo("genjerator@outlook.com")
-            ->setBody($emailBody);
+            ->setBody($emailBody, 'text/html');
         if (empty($errors)) {
             $ok = $mailer->send($message);
             $email->setStatus('Sent');
             //dump($emailFrom);
             //dump($message);die();
             sleep(2);
-        }else{
+        } else {
             $email->setStatus('Error');
         }
 
@@ -156,15 +157,19 @@ class Emailer extends ContainerAware
     public function makeNotificationMessageBody($entity)
     {
         $templating = $this->container->get('templating');
-        $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
-            'entity' => $entity,
+        $html = "";
+        if ($entity instanceof PartRequest) {
 
-        ));
-        //dump($data);die();
-        //$body .= "URL: " . $currentUrl . " \n";
-        //$body .= "EMAIL FROM: " . $emailFrom . " \n";
-        //$body .= "Name: " . $this->stripUserComment($data['first_name']) . " " . $this->stripUserComment($data['last_name']) . " \n";
-        //$body .= "User Comment: " . " \n" . $this->stripUserComment($data['comments']);
+            $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        }elseif($entity instanceof ServiceRequest){
+            $html = $templating->render('NumaDOADMSBundle:Emails:serviceRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        }
         return $html;
     }
 
@@ -240,17 +245,17 @@ class Emailer extends ContainerAware
         return false;
     }
 
-    public function sendDmsActivateEmail($host, $dealer="")
+    public function sendDmsActivateEmail($host, $dealer = "")
     {
         $em = $this->container->get('doctrine')->getManager();
         $text = "";
-        if($dealer instanceof Catalogrecords){
+        if ($dealer instanceof Catalogrecords) {
             $name = $dealer->getName();
-            $text = " by ".$name;
+            $text = " by " . $name;
         }
         $subject = "DMS activation request";
 
-        $emailBody ="DMS activation request".$text." for the site:".$host;;
+        $emailBody = "DMS activation request" . $text . " for the site:" . $host;;
 
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
