@@ -229,7 +229,7 @@
                 </tr>
                 <tr>
                     <td style="border-bottom: 1px solid #000000" colspan=5 height="20" align="center" valign=bottom
-                        bgcolor="#FFF2CC">{{ customer.name }}</td>
+                        bgcolor="#FFF2CC">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=4 align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.address }}</td>
                     <td style="border-bottom: 1px solid #000000" colspan=2 align="center" valign=bottom
