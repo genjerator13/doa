@@ -11,6 +11,9 @@ use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
 use Numa\DOADMSBundle\Entity\DMSUser;
+use Numa\DOADMSBundle\Entity\PartRequest;
+use Numa\DOADMSBundle\Entity\ServiceRequest;
+use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 class EntityListener
@@ -130,6 +133,12 @@ class EntityListener
 
         if ($entity instanceof Item ) {
             $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
+        }elseif($entity instanceof PartRequest){
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
+        }elseif($entity instanceof ServiceRequest){
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
+        }elseif($entity instanceof ListingForm){
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
         }
     }
 

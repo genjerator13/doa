@@ -122,8 +122,11 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
             'action' => $this->generateUrl('listingform_create_eprice'),
             'method' => 'POST',
+            'allow_extra_fields'=>true,
             'attr' => array('id'=>"eprice_form")
         ));
+
+
        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }

@@ -303,7 +303,7 @@
             $('#submit_eprice').click(function (e) {
                 e.preventDefault();
                 var form = $('#eprice_form').serializeArray();
-
+                console.log(form);
                 $.ajax({
                     type: "POST",
                     data: form,
