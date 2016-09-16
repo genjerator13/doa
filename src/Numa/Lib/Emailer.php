@@ -16,6 +16,8 @@ namespace Numa\Lib;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOADMSBundle\Entity\Email;
+use Numa\DOADMSBundle\Entity\Finance;
+use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -113,8 +115,17 @@ class Emailer extends ContainerAware
 
         $subject = "";
         if ($entity instanceof PartRequest) {
-            $subject = "New Part Request from " . $customer->getFullName();
+            $subject = "Part Request from " . $customer->getFullName();
+        } elseif ($entity instanceof ServiceRequest) {
+            $subject = "Service Request from " . $customer->getFullName();
+        }elseif ($entity instanceof ListingForm) {
+
+            $subject = ucfirst($entity->getType())." Request from " . $customer->getFullName();
+
+        }elseif ($entity instanceof Finance) {
+            $subject = "Finance Form Request from " . $customer->getFullName();
         }
+
         $email->setSubject($subject);
 
         $mailer = $this->container->get('mailer');
@@ -164,13 +175,18 @@ class Emailer extends ContainerAware
                 'entity' => $entity,
 
             ));
-        }elseif($entity instanceof ServiceRequest){
+        } elseif ($entity instanceof ServiceRequest) {
             $html = $templating->render('NumaDOADMSBundle:Emails:serviceRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
 
             ));
-        }elseif($entity instanceof ListingForm){
+        } elseif ($entity instanceof ListingForm) {
             $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        } elseif ($entity instanceof Finance) {
+            $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
 
             ));

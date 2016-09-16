@@ -6,4 +6,4 @@
     <p>Phone: {{ entity.phone }}</p>
     <p>Comment: {{ entity.comment }}</p>
  <h4>Item Information</h4>
-    <p>entity.id</p>
+    {#<p><a href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()}))  }}">{{ entity.item.getTitle() }}</a></p>#}

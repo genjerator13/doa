@@ -5,4 +5,4 @@
     <p>Contact Me By: {% if entity.contactBy == 0 %}Email{% elseif entity.contactBy == 1 %}Phone{% endif %}</p>
     <p>Email: {{ entity.email }}</p>
     <p>Phone: {{ entity.phone }}</p>
-    <p>Best Date: {{ entity.dateDrive }}</p>
+    <p>Best Date: {{ entity.dateDrive|date('Y-m-d') }}</p>
