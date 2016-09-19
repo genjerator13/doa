@@ -295,6 +295,12 @@ class searchParameters {
         return $qb->getQuery();
     }
 
+    public function createElasticSearchResults(){
+        foreach ($this->params as $key => $searchItem) {
+            dump($searchItem);
+        }
+    }
+
     public function getQueryBuilder(){
         return $this->queryBuilder;
     }

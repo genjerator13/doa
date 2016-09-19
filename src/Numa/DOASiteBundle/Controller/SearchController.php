@@ -80,6 +80,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         //$sortParams =  $parameters['search_field'];
 
         $this->searchParameters->setAll($parameters);
+        dump("aaa");die();
     }
 
     public function getSearchParameters()
