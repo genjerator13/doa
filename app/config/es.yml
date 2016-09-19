@@ -1,0 +1,65 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+                Item:
+                    mappings:
+                        id:
+                          type: integer
+                        make: ~
+                        model: ~
+                        year: ~
+                        status: ~
+                        type: ~
+                        price: ~
+                        active:
+                          type : boolean
+                        featured:
+                          type : boolean
+                        date_created:
+                          type : date
+                        views: ~
+                        VIN: ~
+                        mileage: ~
+                        trim: ~
+                        stock_nr: ~
+                        transmission: ~
+                        iw_no: ~
+                        sold: ~
+                        bodyStyle: ~
+                        fuelType: ~
+                        interiorColor: ~
+                        exteriorColor: ~
+                        horsepower: ~
+                        ofHours: ~
+                        steering: ~
+                        speedForward: ~
+                        speedReverse: ~
+                        tireSize: ~
+                        tireEquipment: ~
+                        cutting_width: ~
+                        width: ~
+                        beam: ~
+                        hullDesign: ~
+                        steeringType: ~
+                        driveType: ~
+                        fuelCapacity: ~
+                        passengers: ~
+                        trailer: ~
+                        battery: ~
+                        chassisType: ~
+                        sleeps: ~
+                        slideOuts: ~
+                        flooring: ~
+
+                    persistence:
+                        # the driver can be orm, mongodb, phpcr or propel
+                        # listener and finder are not supported by
+                        # propel and should be removed
+                        driver: orm
+                        model: Numa\DOAAdminBundle\Entity\Item
+                        provider: ~
+                        listener: ~
+                        finder: ~
