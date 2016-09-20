@@ -300,12 +300,14 @@ body {
 .buttons a:hover .button-title { color: #f78f1e; }
 
 .left-arrow {
+    display: block;
     float: left;
     margin: 0 10px 10px 0;
 
 }
 
 .button-title {
+    display: block;
     float: left;
     font-weight: 600;
     line-height: 14px;
@@ -318,6 +320,7 @@ body {
 }
 
 .click-here {
+    display: block;
     background: url("../images/small-arrow.png") right center no-repeat;
     border-top: 1px dotted #959595;
     clear: both;
@@ -357,6 +360,7 @@ body {
 }
 
 .link-title {
+    display: block;
     font-size: 36px;
     font-weight: 600;
     line-height: 36px;
