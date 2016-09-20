@@ -218,6 +218,20 @@ swiftmailer:
 genemu_form:
     tinymce: 
         theme:   advanced
+    captcha:
+        enabled:          true
+        width:            100
+        height:           100
+        length:           4
+        format:           'png'
+        chars:            '0123456789'
+        font_size:        24
+        font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
+        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        fonts:            [ 'whoobub.ttf']
+        background_color: 'DDDDDD'
+        border_color:     '000000'
+        grayscale:        false
 #comur_image:
 #    config:
 #        cropped_image_dir: 'cropped'

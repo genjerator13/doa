@@ -61,63 +61,34 @@ class SandboxController extends Controller
     public function test3Action()
     {
 
-        //$json = '{ "menu": { "home": { "url": "\/" }, "product": { "url": "\/product", "submenu": { "New Inventory": { "url": "\/browse_new" }, "Used Inventory": { "url": "\/browse_used" } } }, "Services": { "submenu": { "Part Dept.": { "url": "\/parts" }, "Service Dept.": { "url": "\/service" } } } } }';
-        $json2 = '{
-    "menu": {
-        "home": {
-            "url": "/"
-        },
-        "product": {
-            "url": "/product",
-            "submenu": {
-                "New Inventory": {
-                    "url": "/browse_new"
-                },
-                "Used Inventory": {
-                    "url": "/browse_used"
-                }
-            }
-        },
-        "Services": {
-            "submenu": {
-                "Part Dept.": {
-                    "url": "/parts"
-                },
-                "Service Dept.": {
-                    "url": "/service"
-                }
-            }
-        }
-    }
-}';
-        dump($json2);
-        dump(json_decode($json2,true));
-        $menuArray = array("menu" =>
-            array(
-                "home" => array("url" => "/"),
-                "product" => array("url" => "/product", "submenu" => array(
-                    "New Inventory" => array(
-                        "url" => "/browse_new"),
-                    "Used Inventory" => array(
-                        "url" => "/browse_used")
-                )),
-                "Services" => array("submenu" => array(
-                    "Part Dept." => array(
-                        "url" => "/parts"),
-                    "Service Dept." => array(
-                        "url" => "/service")
-                )
-                )
-            )
-
-        );
-        dump($menuArray);
-        dump(json_encode($menuArray, JSON_PRETTY_PRINT));
+        $a= array(2,3,10,2,4,8,1);
+        dump($this->maxDifference($a));
         die();
         $response = $this->render('NumaDOAStatsBundle:Default:index.html.twig', array());
         return $response;
     }
 
+    function maxDifference( $a) {
+
+
+    }
+
+    function balanceSum($A) {
+        print_r($A);
+        $n=$A[0];
+        array_shift($A);
+        for ($i=1;$i<$n;$i++){
+            $left  = array_slice($A,0,$i);
+            $right = array_slice($A,$i+1,$n);
+            $leftSum = array_sum($left);
+            $rightSum = array_sum($right);
+            if($leftSum==$rightSum){
+                return $i;
+            }
+            dump($left);
+            dump($right);
+        }
+    }
 
 }
 

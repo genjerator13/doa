@@ -1,0 +1,12 @@
+{% if(entity.type|lower == "eprice") %}
+    {% include 'NumaDOADMSBundle:Emails:epriceBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "contact") %}
+    {% include 'NumaDOADMSBundle:Emails:contactBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "finance") %}
+    {% include 'NumaDOADMSBundle:Emails:financeBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "testdrive") %}
+    {% include 'NumaDOADMSBundle:Emails:testdriveBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "offer") %}
+    {% include 'NumaDOADMSBundle:Emails:offerBodyTemplate.html.twig' %}
+{% endif %}
+{% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}
