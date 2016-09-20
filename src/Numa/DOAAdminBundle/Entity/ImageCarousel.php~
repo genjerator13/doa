@@ -535,4 +535,62 @@ class ImageCarousel
     {
         return $this->carousel_text;
     }
+    /**
+     * @var integer
+     */
+    private $dealer_component_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\DealerComponent
+     */
+    private $Dealer_component;
+
+
+    /**
+     * Set dealerComponentId
+     *
+     * @param integer $dealerComponentId
+     *
+     * @return ImageCarousel
+     */
+    public function setDealerComponentId($dealerComponentId)
+    {
+        $this->dealer_component_id = $dealerComponentId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerComponentId
+     *
+     * @return integer
+     */
+    public function getDealerComponentId()
+    {
+        return $this->dealer_component_id;
+    }
+
+    /**
+     * Set dealerComponent
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerComponent $dealerComponent
+     *
+     * @return ImageCarousel
+     */
+    public function setDealerComponent(\Numa\DOADMSBundle\Entity\DealerComponent $dealerComponent = null)
+    {
+        $this->Dealer_component = $dealerComponent;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerComponent
+     *
+     * @return \Numa\DOADMSBundle\Entity\DealerComponent
+     */
+    public function getDealerComponent()
+    {
+        return $this->Dealer_component;
+    }
 }

@@ -15,6 +15,11 @@ namespace Numa\Lib;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
+use Numa\DOADMSBundle\Entity\Email;
+use Numa\DOADMSBundle\Entity\Finance;
+use Numa\DOADMSBundle\Entity\ListingForm;
+use Numa\DOADMSBundle\Entity\PartRequest;
+use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class Emailer extends ContainerAware
@@ -83,6 +88,72 @@ class Emailer extends ContainerAware
         return $return;
     }
 
+    public function sendNotificationEmail($entity, $dealer, $customer)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $email = new Email();
+
+        $errors = array();
+        $return = array();
+        // $data is a simply array with your form fields
+        // like "query" and "category" as defined above.
+        if (filter_var($dealer->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            // Sanitize the e-mail to be extra safe.
+            // I think Pear Mail will automatically do this for you
+            $emailTo = filter_var($dealer->getEmail(), FILTER_SANITIZE_EMAIL);
+        } else {
+
+            $errors[] = "Invalid email!";
+        }
+
+        //$emailFrom = $email;
+        $emailTo = $dealer->getEmail();
+        $email->setEmailTo($emailTo);
+
+        $emailBody = $this->makeNotificationMessageBody($entity);
+        $email->setBody($emailBody);
+
+        $subject = "";
+        if ($entity instanceof PartRequest) {
+            $subject = "Part Request from " . $customer->getFullName();
+        } elseif ($entity instanceof ServiceRequest) {
+            $subject = "Service Request from " . $customer->getFullName();
+        }elseif ($entity instanceof ListingForm) {
+
+            $subject = ucfirst($entity->getType())." Request from " . $customer->getFullName();
+
+        }elseif ($entity instanceof Finance) {
+            $subject = "Finance Form Request from " . $customer->getFullName();
+        }
+
+        $email->setSubject($subject);
+
+        $mailer = $this->container->get('mailer');
+        $emailFrom = 'general@dealersonair.com';
+        $message = $mailer->createMessage()
+            ->setSubject($subject)
+            ->setFrom($emailFrom)
+            //->addBcc('jim@dealersonair.com')
+            ->addBcc('e.medjesi@gmail.com')
+            //->setTo($dealer->getEmail())
+            ->setTo("genjerator@outlook.com")
+            ->setBody($emailBody, 'text/html');
+        if (empty($errors)) {
+            $ok = $mailer->send($message);
+            $email->setStatus('Sent');
+            //dump($emailFrom);
+            //dump($message);die();
+            sleep(2);
+        } else {
+            $email->setStatus('Error');
+        }
+
+        $email->setEmailBcc('jim@dealersonair.com;e.medjesi@gmail.com');
+        $em->persist($email);
+        $em->flush();
+        return $return;
+    }
+
     public function makeMessageBody($currentUrl, $data, $emailFrom)
     {
         $body = "";
@@ -93,6 +164,36 @@ class Emailer extends ContainerAware
         $body .= "User Comment: " . " \n" . $this->stripUserComment($data['comments']);
         return $body;
     }
+
+    public function makeNotificationMessageBody($entity)
+    {
+        $templating = $this->container->get('templating');
+        $html = "";
+        if ($entity instanceof PartRequest) {
+
+            $html = $templating->render('NumaDOADMSBundle:Emails:partRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        } elseif ($entity instanceof ServiceRequest) {
+            $html = $templating->render('NumaDOADMSBundle:Emails:serviceRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        } elseif ($entity instanceof ListingForm) {
+            $html = $templating->render('NumaDOADMSBundle:Emails:listingFormRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        } elseif ($entity instanceof Finance) {
+            $html = $templating->render('NumaDOADMSBundle:Emails:financeRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        }
+        return $html;
+    }
+
 
     public function stripUserComment($userComment)
     {
@@ -165,17 +266,17 @@ class Emailer extends ContainerAware
         return false;
     }
 
-    public function sendDmsActivateEmail($host, $dealer="")
+    public function sendDmsActivateEmail($host, $dealer = "")
     {
         $em = $this->container->get('doctrine')->getManager();
         $text = "";
-        if($dealer instanceof Catalogrecords){
+        if ($dealer instanceof Catalogrecords) {
             $name = $dealer->getName();
-            $text = " by ".$name;
+            $text = " by " . $name;
         }
         $subject = "DMS activation request";
 
-        $emailBody ="DMS activation request".$text." for the site:".$host;;
+        $emailBody = "DMS activation request" . $text . " for the site:" . $host;;
 
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
