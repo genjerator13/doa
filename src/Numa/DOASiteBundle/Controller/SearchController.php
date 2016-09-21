@@ -80,7 +80,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         //$sortParams =  $parameters['search_field'];
 
         $this->searchParameters->setAll($parameters);
-        dump("aaa");die();
+
     }
 
     public function getSearchParameters()
@@ -257,7 +257,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $page = $request->get('page');
         $number = intval($request->get('listings_per_page'));
 
-        //create query        
+        //create query
         $this->query = $this->searchParameters->createSearchQuery();
         $param = $this->showItems($this->query, $page, $this->searchParameters->getListingPerPage());
         $sidebarForm = $this->createSidebarForm();
@@ -293,11 +293,11 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             ->add('distance', 'choice', array('label' => "Search Within", "required" => false))
             ->add('zip', 'text', array('label' => "Of Zip / Postal", "required" => false))
             ->add('id', 'text', array('label' => "Ad ID", "required" => false))
-            ->add('postedFrom', 'text', array('label' => "Posted Within", "required" => false))
-            ->add('postedTo', 'text', array('label' => "To", "required" => false))
-            ->add('feedFrom', 'text', array('label' => "Feed Sid", "required" => false))
-            ->add('feedTo', 'text', array('label' => "To", "required" => false))
-            ->add('status', 'text', array('label' => "Status", "required" => false))
+//            ->add('postedFrom', 'text', array('label' => "Posted Within", "required" => false))
+//            ->add('postedTo', 'text', array('label' => "To", "required" => false))
+//            ->add('feedFrom', 'text', array('label' => "Feed Sid", "required" => false))
+//            ->add('feedTo', 'text', array('label' => "To", "required" => false))
+            ->add('status', 'choice', array('label' => "Status", "required" => false,'choices'=>array('N'=>'New','U'=>'Used')))
             ->add('city', 'text', array('label' => "City", "required" => false))
             ->add('stock', 'text', array('label' => "Stock Number", "required" => false))
             ->add('optionList', 'text', array('label' => "Options List", "required" => false))
@@ -337,6 +337,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             ->add('IW_NO', 'text', array('label' => "IW NO", "required" => false))
             ->add('isSold', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'include sold items')))
             ->add('withPicture', 'choice', array('expanded' => true, 'multiple' => true, "required" => false, 'choices' => array(1 => 'with pictures only')))
+            ->add('Search','submit')
             ->getForm();
         $form->handleRequest($request);
 

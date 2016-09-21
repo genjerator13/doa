@@ -15,7 +15,8 @@ use Numa\Util\SearchItem;
  *
  * @author genjerator
  */
-class searchParameters {
+class searchParameters
+{
 
     private $container;
     protected $page = 1;
@@ -25,13 +26,16 @@ class searchParameters {
     protected $params = array();
     protected $listing_per_page;
     protected $queryBuilder;
+    protected $pagerFanta;
 
-    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null) {
+    public function __construct(\Symfony\Component\DependencyInjection\ContainerInterface $container = null)
+    {
         $this->container = $container;
         $this->initParams();
     }
 
-    public function initParams() {
+    public function initParams()
+    {
         $this->init = true;
         $this->listing_per_page = 10;
         $this->params = array(
@@ -88,7 +92,8 @@ class searchParameters {
         );
     }
 
-    public function getParams($all = true) {
+    public function getParams($all = true)
+    {
         $res = array();
         if ($all) {
             return $this->params;
@@ -106,7 +111,8 @@ class searchParameters {
      * Returns url query based by the search parameters and by sorting fields and order
      * @return string
      */
-    public function makeUrlQuery($sort = true) {
+    public function makeUrlQuery($sort = true)
+    {
         $params = $this->getParams(false);
         $aQuery = array();
         foreach ($params as $key => $value) {
@@ -128,7 +134,8 @@ class searchParameters {
         return $query;
     }
 
-    public function get($key) {
+    public function get($key)
+    {
         if ($this->isParamSet($key)) {
             $value = $this->params[$key];
             return $value;
@@ -136,24 +143,28 @@ class searchParameters {
         return false;
     }
 
-    public function dump() {
+    public function dump()
+    {
         foreach ($this->params as $key => $value) {
             if ($value instanceof SearchItem) {
-
-                $value->dump();
+                if(!$value->isValueEmpty())
+                dump($value);
             }
         }
     }
 
-    public function setListingPerPage($lpg = 10) {
+    public function setListingPerPage($lpg = 10)
+    {
         $this->listing_per_page = $lpg;
     }
 
-    public function getListingPerPage() {
+    public function getListingPerPage()
+    {
         return $this->listing_per_page;
     }
 
-    public function setAll($params) {
+    public function setAll($params)
+    {
 
         if (!empty($params['category_id']) && $params['category_id'] == 13 && !empty($params['typeString'])) {
             $params['ag_applicationString'] = $params['typeString'];
@@ -174,18 +185,21 @@ class searchParameters {
         //dump($this->params);die();
     }
 
-    public function set($key, $value) {
+    public function set($key, $value)
+    {
         $this->params[$key] = $value;
     }
 
-    public function isParamSet($key) {
+    public function isParamSet($key)
+    {
         if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
             return true;
         }
         return false;
     }
 
-    public function isParamValueSet($key) {
+    public function isParamValueSet($key)
+    {
 
         if (!empty($this->params[$key]) && $this->params[$key] instanceof SearchItem) {
             $searchItem = $this->params[$key];
@@ -197,7 +211,8 @@ class searchParameters {
         return false;
     }
 
-    public function createSearchQuery() {
+    public function createSearchQuery()
+    {
         //create query
         $em = $this->container->get('doctrine')->getEntityManager();
         $filters = $em->getFilters()
@@ -205,7 +220,7 @@ class searchParameters {
         $filters->setParameter('active', true);
         $qb = $em->createQueryBuilder();
         $qb->select('i')
-                ->from('NumaDOAAdminBundle:Item', 'i');
+            ->from('NumaDOAAdminBundle:Item', 'i');
 
         //->orderBy('u.name', 'ASC');
 
@@ -222,7 +237,7 @@ class searchParameters {
 
                         if ($dbName == 'all') {
 
-                            $q = $this->createAllQuery($qb,$searchItem->getValue());
+                            $q = $this->createAllQuery($qb, $searchItem->getValue());
 
                             //$qb->andWhere($q);
                             //$qb->setParameter('text', "%" . $searchItem->getValue() . "%");
@@ -231,9 +246,9 @@ class searchParameters {
 //                            $qb->setParameter('cat', $searchItem->getValue());
                         } elseif ($type == 'string') {
 
-                            if($dbName=="body_style" && strtolower($searchItem->getValue())=="other"){
+                            if ($dbName == "body_style" && strtolower($searchItem->getValue()) == "other") {
                                 $qb->andWhere('i.' . $dbName . ' is null');
-                            }else {
+                            } else {
                                 $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
                                 $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
                             }
@@ -261,10 +276,10 @@ class searchParameters {
 
                             $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
                         } elseif ($type == 'listSlug') {
-                                $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('slug' => $searchItem->getValue()));
-                                $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                                $qb->orWhere('i.ag_application' . ' LIKE :' . $dbName);
-                                $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
+                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('slug' => $searchItem->getValue()));
+                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
+                            $qb->orWhere('i.ag_application' . ' LIKE :' . $dbName);
+                            $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
 
                         } elseif ($type == 'tree') {
                             $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
@@ -295,33 +310,30 @@ class searchParameters {
         return $qb->getQuery();
     }
 
-    public function createElasticSearchResults(){
-        foreach ($this->params as $key => $searchItem) {
-            dump($searchItem);
-        }
-    }
 
-    public function getQueryBuilder(){
+    public function getQueryBuilder()
+    {
         return $this->queryBuilder;
     }
 
-    public function createAllQuery($qb,$string){
+    public function createAllQuery($qb, $string)
+    {
         $param = "text";
-        $words = explode(" ",$string);
+        $words = explode(" ", $string);
 
-        $q = $this->createSingleAllQuery($qb,$param);
-        $qb->setParameter($param,$string);
-        if(count($words)>1){
-            $c=2;
-            foreach($words as $word) {
-                $param = "text" .$c;
+        $q = $this->createSingleAllQuery($qb, $param);
+        $qb->setParameter($param, $string);
+        if (count($words) > 1) {
+            $c = 2;
+            foreach ($words as $word) {
+                $param = "text" . $c;
                 $v = " AND ";
-                if($c==2){
+                if ($c == 2) {
                     $v = " OR ";
                 }
-                $q = $q . $v .$this->createSingleAllQuery($qb,$param) ;
+                $q = $q . $v . $this->createSingleAllQuery($qb, $param);
 
-                $qb->setParameter($param,$word);
+                $qb->setParameter($param, $word);
                 $c++;
             }
         }
@@ -331,16 +343,19 @@ class searchParameters {
 
     }
 
-    private function createSingleAllQuery($qb,$param){
-        $q = '(i.model LIKE :'.$param.' or i.make LIKe :'.$param.' or i.type LIKE :'.$param.' or i.body_style LIKE :'.$param.' or i.year LIKE :'.$param.' or i.VIN LIKE :'.$param.' or i.transmission LIKE :'.$param.' or i.floor_plan LIKE :text or i.keywords LIKE :'.$param.' or i.stock_nr LIKE :'.$param.')';
+    private function createSingleAllQuery($qb, $param)
+    {
+        $q = '(i.model LIKE :' . $param . ' or i.make LIKe :' . $param . ' or i.type LIKE :' . $param . ' or i.body_style LIKE :' . $param . ' or i.year LIKE :' . $param . ' or i.VIN LIKE :' . $param . ' or i.transmission LIKE :' . $param . ' or i.floor_plan LIKE :text or i.keywords LIKE :' . $param . ' or i.stock_nr LIKE :' . $param . ')';
         return $q;
     }
 
-    public function getSearchText() {
+    public function getSearchText()
+    {
         return get('searchText');
     }
 
-    public function getPage() {
+    public function getPage()
+    {
         return $this->page;
     }
 
@@ -348,7 +363,8 @@ class searchParameters {
      * Prepares search text
      * @param type $searchText
      */
-    public function setSearchText($searchText) {
+    public function setSearchText($searchText)
+    {
         $this->searchText = empty($searchText) ? " " : $searchText;
         $this->set('searchText', $this->searchText);
     }
@@ -357,51 +373,56 @@ class searchParameters {
      * Prepares page number
      * @param type $page
      */
-    public function setPage($page) {
+    public function setPage($page)
+    {
         $intPage = intval($page);
         $this->page = empty($intPage) ? 1 : $intPage;
     }
 
-    public function setBoatModel($boatModel) {
+    public function setBoatModel($boatModel)
+    {
         $this->set('boatModel', $this->set('boatModel', $boatModel));
     }
 
-    public function getBoatModel() {
-        return get('searchText');
-        ;
+    public function getBoatModel()
+    {
+        return get('searchText');;
     }
 
-    public function setYears($yearfrom, $yearto) {
+    public function setYears($yearfrom, $yearto)
+    {
         $this->set('yearFrom', $yearfrom);
         $this->set('yearTo', $yearto);
     }
 
-    public function getYearfrom() {
-        return get('yearFrom');
-        ;
+    public function getYearfrom()
+    {
+        return get('yearFrom');;
     }
 
-    public function getYearto() {
-        return get('yearTo');
-        ;
+    public function getYearto()
+    {
+        return get('yearTo');;
     }
 
-    public function setPrice($pricefrom, $priceto) {
+    public function setPrice($pricefrom, $priceto)
+    {
         $this->set('priceFrom', $pricefrom);
         $this->set('priceTo', $priceto);
     }
 
-    public function getPricefrom() {
-        return get('priceFrom');
-        ;
+    public function getPricefrom()
+    {
+        return get('priceFrom');;
     }
 
-    public function getPriceto() {
-        return get('priceTo');
-        ;
+    public function getPriceto()
+    {
+        return get('priceTo');;
     }
 
-    public function setSort($sort) {
+    public function setSort($sort)
+    {
         if (!empty($sort['sort_by'])) {
             $this->sort_by = $sort['sort_by'];
         }
@@ -414,11 +435,13 @@ class searchParameters {
         }
     }
 
-    public function getSortBy() {
+    public function getSortBy()
+    {
         return $this->sort_by;
     }
 
-    public function getSortOrder() {
+    public function getSortOrder()
+    {
         return $this->sort_order;
     }
 
@@ -427,18 +450,72 @@ class searchParameters {
      * @param type $dateStart
      * @param type $dateEnd
      */
-    public function setOrder($order) {
+    public function setOrder($order)
+    {
         if (!empty($order)) {
             $this->order = $order;
         }
     }
 
-    public function getSort() {
+    public function getSort()
+    {
         return $this->sort;
     }
 
-    public function getOrder() {
+    public function getOrder()
+    {
         return $this->order;
     }
 
+/* elastic search starts here */
+
+    public function createElasticSearchResults()
+    {
+        //$index = $this->get('fos_elastica.index.app.item');
+        $finder = $this->container->get('fos_elastica.finder.app.item');
+        $boolQuery = new \Elastica\Query\BoolQuery();
+
+        foreach ($this->params as $key => $searchItem) {
+            if ($searchItem instanceof SearchItem) {
+
+                if (!$searchItem->isValueEmpty()) {
+
+                    if($searchItem->isString()){
+
+                        if($searchItem->getDbFieldName()=='status'){
+                            //search by lowercase and upercase until i find better solution
+                            $fieldQuery = new \Elastica\Query\Wildcard();
+                            $fieldQuery->setValue('status',strtolower($searchItem->getValue()).'*');
+                            $boolQuery->addShould($fieldQuery);
+
+                            $fieldQuery = new \Elastica\Query\Wildcard();
+                            $fieldQuery->setValue('status',strtoupper($searchItem->getValue()).'*');
+                            $boolQuery->addShould($fieldQuery);
+                        }else{
+
+                        }
+                    }elseif($searchItem->isInt()){
+                        $fieldQuery = new \Elastica\Query\Term();
+                        $fieldQuery->setTerm($searchItem->getDbFieldName(),$searchItem->getValue());
+                        $boolQuery->addShould($fieldQuery);
+                    }elseif($searchItem->isCategory()){
+                        $fieldQuery = new \Elastica\Query\Term();
+                        $fieldQuery->setTerm('categoryName',$searchItem->getValue());
+                        $boolQuery->addShould($fieldQuery);
+                    }
+
+                }
+            }
+
+        }
+
+
+
+        $this->pagerFanta = $finder->findPaginated($boolQuery);
+
+    }
+
+    public function getPagerFanta(){
+        return $this->pagerFanta;
+    }
 }

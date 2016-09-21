@@ -20,6 +20,10 @@ fos_elastica:
                           type : boolean
                         date_created:
                           type : date
+                        dealer_id:
+                          type: integer
+                        categoryName: ~
+                        categorySubType: ~
                         views: ~
                         VIN: ~
                         mileage: ~
@@ -61,5 +65,8 @@ fos_elastica:
                         driver: orm
                         model: Numa\DOAAdminBundle\Entity\Item
                         provider: ~
-                        listener: ~
+                        listener:
+                          insert: true
+                          update: true
+                          delete: true
                         finder: ~
