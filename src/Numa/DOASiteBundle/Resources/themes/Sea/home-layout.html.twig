@@ -63,75 +63,8 @@
     </div>
 {% endblock %}
 {% block buttons %}
-    <div class="buttons">
-
-        <ul>
-            <li>
-                <a href="{{ path("search_new_vehicle") }}">
-                    <div class="left-arrow">
-                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                        <img src="{{ asset_url }}"/>
-                        {% endimage %}
-                    </div>
-                    <div class="button-title"><span>New</span> Showroom</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path("search_used_vehicle") }}">
-                    <div class="left-arrow">
-                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                        <img src="{{ asset_url }}"/>
-                        {% endimage %}
-                    </div>
-                    <div class="button-title"><span>Used</span> Showroom</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path("finance_form") }}">
-                    <div class="left-arrow">
-                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                        <img src="{{ asset_url }}"/>
-                        {% endimage %}
-                    </div>
-                    <div class="button-title"><span>Get</span> Financed</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path("service_form") }}">
-                    <div class="left-arrow">
-                        {% image '@NumaDOASiteBundle/Resources/Public/Sea/images/double-arrow-button.png' %}
-                        <img src="{{ asset_url }}"/>
-                        {% endimage %}
-                    </div>
-                    <div class="button-title"><span>Service</span> Department</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-        </ul>
-
-    </div>
 {% endblock %}
 {% block links %}
-    <div class="links">
-
-        <ul>
-            <li>
-                <a href="{{ path("news") }}">
-                    <div class="link-title"><span>Dealer</span> News</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('part_form') }}">
-                    <div class="link-title"><span>Parts</span> Department</div>
-                    <div class="click-here">Click Here</div>
-                </a>
-            </li>
-        </ul>
-    </div>
 {% endblock %}
 {% block featuredads %}
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}

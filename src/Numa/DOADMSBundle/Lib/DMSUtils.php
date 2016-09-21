@@ -80,4 +80,16 @@ class DMSUtils
         ///$this->addFlash('success', "Http cache is cleared.");
         return true;
     }
+
+    public function clearCacheFile($parameter='NumaDOASiteBundle:Default:index.html.twig')
+    {
+        $command = 'php app/console kmlf:twig --clear --env=prod '.$parameter;
+
+
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+
+        ///$this->addFlash('success', "Http cache is cleared.");
+        return true;
+    }
 }
