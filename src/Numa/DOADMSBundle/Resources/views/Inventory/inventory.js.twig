@@ -52,7 +52,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
         },
-        {name: 'body_style', displayName: 'Body Style / Type', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'categorySubType', displayName: 'Sub Category', enableColumnResizing: true, width: 80,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
         {name: 'year', displayName: 'Year', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
