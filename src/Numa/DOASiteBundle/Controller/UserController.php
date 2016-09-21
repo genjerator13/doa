@@ -217,7 +217,7 @@ class UserController extends Controller  implements DealerSiteControllerInterfac
             $session = $this->get('session');
 
             $firewall = 'secured_area';
-            $token = new UsernamePasswordToken($result, $result->getPassword(), $firewall, array('ROLE_BUSINES'));
+            $token = new UsernamePasswordToken($result, $result->getPassword(), $firewall, array('ROLE_BUSINES','ROLE_DMS_USER'));
             $session->set('_security_' . $firewall, serialize($token));
             $session->save();
 
