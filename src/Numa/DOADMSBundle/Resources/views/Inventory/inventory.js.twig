@@ -88,7 +88,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         },
 
         },
-        {name: 'featured', enableColumnResizing: true, width: 50,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'type', enableColumnResizing: true, width: 100,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {

@@ -105,7 +105,6 @@ class ItemRESTController extends Controller
            $value['categorySubType']="aaa";
             $cat = $value['category_id'];
             if (!empty($cat)) {
-
                 if ($cat == 1) {
                     $value['categorySubType']=$value["body_style"];
                 } elseif ($cat == 2) {
