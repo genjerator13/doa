@@ -519,34 +519,44 @@ class DBUtilsCommand extends ContainerAwareCommand
     {
 
         $em = $this->getContainer()->get('doctrine')->getManager();
+        $listings = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAll();
+
+        $lastCache = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category'=>"cacheclear"),array('id'=>'desc'));
+
+        if($lastCache instanceof CommandLog){
+            if($lastCache->isRunning()){
+                die();
+            }
+        }
+
         $commandLog = new CommandLog();
         $commandLog->setCategory('cacheclear');
         $commandLog->setStartedAt(new \DateTime());
         $commandLog->setStatus('started');
         $commandLog->setCommand('cacheclear');
-
+        $em->persist($commandLog);
+        $em->flush();
         $logger = $this->getContainer()->get('logger');
 
         $logger->warning("CLEAR CACHE set permission back");
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
+        $process->run();
 
         $logger->warning("CLEAR HTTP CACHE");
         $command = 'php ' . $this->getContainer()->get('kernel')->getRootDir() . '/console cache:clear -e prod';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
+        $process->run();
         $logger->warning("CLEAR MEMCACHED CACHE");
         $command = '/etc/init.d/memcached restart';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
+        $process->run();
         $logger->warning("CLEAR CACHE set permission back");
         $command = 'chmod -R 777 ' . $this->getContainer()->get('kernel')->getRootDir() . '/cache ' . $this->getContainer()->get('kernel')->getRootDir() . '/logs';
         $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
+        $process->run();
         $commandLog->setEndedAt(new \DateTime());
         $commandLog->setStatus('finished');
-        $em->persist($commandLog);
         $em->flush();
 
     }
