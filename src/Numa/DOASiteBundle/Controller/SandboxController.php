@@ -10,7 +10,7 @@ use Numa\Util\Util as Util;
 //use Guzzle
 use Guzzle\Http\Client;
 use Lsw\GuzzleBundle\LswGuzzleBundle;
-use Elastica\Facet\Terms;
+
 use Elastica\Query;
 use Elastica\Query\Elastica_Query_Terms;
 use Symfony\Component\HttpFoundation\Response;
@@ -60,6 +60,85 @@ class SandboxController extends Controller
 //        dump($customer->getLastnoteadded());die();
         $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
 
+        return $response;
+    }
+
+    public function elasticAction()
+    {
+        $search = $this->get('fos_elastica.index.app.item');
+        //$search = $this->get('fos_elastica.finder.app.item');
+        // index
+
+
+
+        $query = new \Elastica\Query\MatchAll();
+
+        $elasticaQuery = new \Elastica\Query();
+        $elasticaQuery->setQuery($query);
+        //$elasticaQuery->setSize(550);
+
+        $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
+        $elasticaAggMake->setField('make');
+        //categorySubType
+        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
+        $elasticaAggSubCat->setField('categorySubType');
+        //model
+        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('model');
+        $elasticaAggSubCat->setField('model');
+        //year
+        $elasticaYear= new \Elastica\Aggregation\Terms('year');
+        $elasticaYear->setField('year');
+        $elasticaYear->setSize(20);
+        //price
+        $elasticaPrice= new \Elastica\Aggregation\Range('price');
+        $elasticaPrice->addRange(0,5000);
+        $elasticaPrice->addRange(5000,10000);
+        $elasticaPrice->addRange(10000,15000);
+        $elasticaPrice->addRange(15000,20000);
+        $elasticaPrice->addRange(20000,30000);
+        $elasticaPrice->addRange(30000,40000);
+        $elasticaPrice->addRange(40000,50000);
+        $elasticaPrice->addRange(50000,60000);
+        $elasticaPrice->addRange(70000,80000);
+        $elasticaPrice->addRange(80000,90000);
+        $elasticaPrice->addRange(90000,100000);
+        $elasticaPrice->addRange(100000,1000000);
+        $elasticaPrice->setField('price');
+        //priceStats
+        $elasticaPriceStats= new \Elastica\Aggregation\Stats('priceStats');
+        $elasticaPriceStats->setField('price');
+        //mileageStats
+        $elasticaMileageStats= new \Elastica\Aggregation\Stats('mileageStats');
+        $elasticaMileageStats->setField('mileage');
+        //yearStats
+        $elasticaYearStats= new \Elastica\Aggregation\Stats('yearStats');
+        $elasticaYearStats->setField('year');
+
+        //$elasticaYear->setOrder('year','desc');
+
+
+        //$elasticaAggreg->setSize(550);
+
+        //$elasticaAggreg->setOrder('_count', 'desc');
+
+        $elasticaQuery->addAggregation($elasticaAggMake);
+        $elasticaQuery->addAggregation($elasticaAggSubCat);
+        $elasticaQuery->addAggregation($elasticaYear);
+        $elasticaQuery->addAggregation($elasticaPrice);
+        $elasticaQuery->addAggregation($elasticaPriceStats);
+        $elasticaQuery->addAggregation($elasticaMileageStats);
+        $elasticaQuery->addAggregation($elasticaYearStats);
+
+        // ResultSet
+
+        $elasticaResultSet = $search->search($elasticaQuery);
+
+
+        // Get Aggregations
+        $elasticaAggregs = $elasticaResultSet->getAggregations();
+        //$elasticaResultSet->
+        dump($elasticaAggregs);die();
+        $response = $this->render('NumaDOASiteBundle:Sandbox:elastic.html.twig', array());
         return $response;
     }
 

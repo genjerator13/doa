@@ -136,6 +136,11 @@ sandbox_test:
 sandbox_test2:
     path:  /sandbox/test2
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test2 }
+sandbox_es:
+    path:  /sandbox/elastic
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:elastic }
+
+
 ads_page:
     path:  /ads/{id}
     defaults: { _controller: NumaDOASiteBundle:Ads:index }
