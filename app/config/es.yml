@@ -11,7 +11,9 @@ fos_elastica:
                         make:
                           index: not_analyzed
                           type: string
-                        model: ~
+                        model:
+                          index: not_analyzed
+                          type: string
                         year:
                           type: integer
                         status: ~

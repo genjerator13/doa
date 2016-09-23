@@ -155,24 +155,55 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //$params = $paramsO->getParams();
         $em = $this->getDoctrine()->getManager();
 
-        $subCat = $sidebarParam['subCat'];
+        $subCat = array('' => '');
+        $subCat += $sidebarParam['subCat'];
+//        dump($subCat);die();
         //$bodyStyle[] = array("body_style"=>"Other");
         //dump($bodyStyle);die();
         //$bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('categorySubType','choice',array('label'=>'Sub Category','choices'=>$subCat,));
+        $sidebarForm->add('categorySubType','choice',array('label'=>'Sub Category','choices'=>$subCat,"required"=>false));
 
         $make = $sidebarParam['make'];
         //dump($make);die();
         //$make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
-        $sidebarForm->add('make','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
+        $sidebarForm->add('make_string','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
 
-        $yearFrom = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer);
+        $model = $sidebarParam['model'];
+//        dump($model);die();
+        //$make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
+        $sidebarForm->add('model','choice',array('label'=>'Model','choices'=>$model,"required"=>false));
+
+        $yearFrom = $sidebarParam['year'];
+        ksort($yearFrom);
+//        dump($yearFrom);die();
         //$yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
         $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom,"required"=>false));
+//dump($yearFrom);die();
 
-        $yearTo = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer,"DESC");
+        $yearTo =  $sidebarParam['year'];
         //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
         $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo,"required"=>false));
+
+        $mileageFrom =  $sidebarParam['mileageStats']['min'];
+//        dump($mileageFrom);die();
+        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
+        $sidebarForm->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false,"data"=>$mileageFrom));
+
+        $mileageTo =  $sidebarParam['mileageStats']['max'];
+//        dump($mileageTo);die();
+        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
+        $sidebarForm->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false,"data"=>$mileageTo));
+
+        $priceFrom =  $sidebarParam['priceStats']['min'];
+//        dump($priceFrom);
+        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
+        $sidebarForm->add('priceFrom','text',array('label'=>'Price From',"required"=>false,"data"=>$priceFrom));
+
+        $priceTo =  $sidebarParam['priceStats']['max'];
+//        dump($priceTo);die();
+        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
+        $sidebarForm->add('priceTo','text',array('label'=>'Price To',"required"=>false,"data"=>$priceTo));
+
         $sidebarForm->add('search','submit');
 
         if(!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
@@ -298,7 +329,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         // Get Aggregations
         $elasticaAggregs = $elasticaResultSet->getAggregations();
         $result = array();
-        //dump($elasticaAggregs);die();
+//        dump($elasticaAggregs);
         foreach($elasticaAggregs['categorySubType']['buckets'] as $sc){
             $result['subCat'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
 
@@ -308,6 +339,22 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $result['make'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
 
         }
+
+        foreach($elasticaAggregs['model']['buckets'] as $sc){
+            $result['model'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        }
+
+        foreach($elasticaAggregs['year']['buckets'] as $sc){
+            $result['year'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        }
+
+            $result['mileageStats']['min']=intval($elasticaAggregs['mileageStats']['min']);
+            $result['mileageStats']['max']=intval($elasticaAggregs['mileageStats']['max']);
+            $result['priceStats']['min']=intval($elasticaAggregs['priceStats']['min']);
+            $result['priceStats']['max']=intval($elasticaAggregs['priceStats']['max']);
+//        dump($result);die();
+
+//        dump($elasticaAggregs);die();
 
         //dump($result);die();
         //$result['subCat']
