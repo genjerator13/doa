@@ -261,7 +261,7 @@
                 </span>
                 <span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
             </p>
-            <div id="listing-content">
+            <div id="listing-content" class="col-md-8">
                 {#<div class="page_ads">#}
                     {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
 
@@ -269,9 +269,9 @@
                 {#</div>#}
             {% for item in pagerfanta %}
                                {% if queryUrl is defined %}
-                    {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
                 {% else %}
-                    {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item}) }}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
                 {% endif %}
 
             {% endfor %}
