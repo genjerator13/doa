@@ -383,18 +383,23 @@ class searchESParameters
                         $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('lte' => $searchItem->getValue()));
                         $boolQuery->addMust($fieldQuery);
                     }
-
                 }
             }
-
         }
+
         $fieldQuery = new \Elastica\Query\Term();
         $fieldQuery->setTerm('active', 1);
+        $boolQuery->addMust($fieldQuery);
+
+        //if dealer site  TO DO
+        $fieldQuery = new \Elastica\Query\Term();
+        $fieldQuery->setTerm('dealer_id', 3);///to do
         $boolQuery->addMust($fieldQuery);
 
 
         $elasticaQuery = new \Elastica\Query();
         $elasticaQuery->setQuery($boolQuery);
+
 
 //        if ($this->sort_by == 'date_created') {
 //            $elasticaQuery->addSort(array("date_created" => "asc"));
@@ -406,7 +411,7 @@ class searchESParameters
         //}
         $elasticaQuery->addSort(array("sold" => 'asc'));
 
-
+        $this->elasticaQuery = $elasticaQuery;
         $this->pagerFanta = $finder->findPaginated($elasticaQuery);
 
     }
@@ -414,5 +419,9 @@ class searchESParameters
     public function getPagerFanta()
     {
         return $this->pagerFanta;
+    }
+    public function getElasticaQuery()
+    {
+        return $this->elasticaQuery;
     }
 }

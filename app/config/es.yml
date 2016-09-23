@@ -8,12 +8,16 @@ fos_elastica:
                     mappings:
                         id:
                           type: integer
-                        make: ~
+                        make:
+                          index: not_analyzed
+                          type: string
                         model: ~
-                        year: ~
+                        year:
+                          type: integer
                         status: ~
                         type: ~
-                        price: ~
+                        price:
+                          type: integer
                         active:
                           type : boolean
                         featured:
@@ -23,10 +27,13 @@ fos_elastica:
                         dealer_id:
                           type: integer
                         categoryName: ~
-                        categorySubType: ~
+                        categorySubType:
+                          index: not_analyzed
+                          type: string
                         views: ~
                         VIN: ~
-                        mileage: ~
+                        mileage:
+                          type: integer
                         trim: ~
                         stock_nr: ~
                         transmission: ~

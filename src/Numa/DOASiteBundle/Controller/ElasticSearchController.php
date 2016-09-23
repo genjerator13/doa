@@ -106,7 +106,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         $sidebarForm = $this->createSidebarForm();
         //$param['sidebarForm'] = $sidebarForm->createView();
-        $sidebarParam = $this->setSidebarSearchParams();
+        $sidebarParam = $this->createAggregation();
         $params = array(
             'sidebarForm' => $sidebarForm->createView(),
             'page'=>$page,
@@ -146,44 +146,35 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
     public function createSidebarForm(){
         $sidebarType = new SidebarSearchType();
-        $paramsO = $this->getSearchParameters();
+        $sidebarParam = $this->createAggregation();
+
+        //$paramsO = $this->getSearchParameters();
         $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
             'action' => $this->generateUrl('search_dispatch'),
             'method' => 'GET'));
-        $params = $paramsO->getParams();
+        //$params = $paramsO->getParams();
         $em = $this->getDoctrine()->getManager();
 
+        $subCat = $sidebarParam['subCat'];
+        //$bodyStyle[] = array("body_style"=>"Other");
+        //dump($bodyStyle);die();
+        //$bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
+        $sidebarForm->add('categorySubType','choice',array('label'=>'Sub Category','choices'=>$subCat,));
 
-
-        //dump($this->dealer->isRVsDealer());
-
-
-        $bodyStyle = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("body_style",$this->dealer);
-        $bodyStyle[] = array("body_style"=>"Other");
-        $bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('bodyStyleString','choice',array('label'=>'Body Style','choices'=>$bodyStyle,));
-
-        $make = $em->getRepository('NumaDOAAdminBundle:Item')->getAllmake($this->dealer);
+        $make = $sidebarParam['make'];
         //dump($make);die();
-        $make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
+        //$make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
         $sidebarForm->add('make','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
 
         $yearFrom = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer);
-        $yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
+        //$yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
         $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom,"required"=>false));
 
         $yearTo = $em->getRepository('NumaDOAAdminBundle:Item')->getAllSingleColumn("year",$this->dealer,"DESC");
-        $yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
+        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
         $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo,"required"=>false));
+        $sidebarForm->add('search','submit');
 
-//        $criteriaMinYear = Criteria::create()->orderBy(array('year' => Criteria::ASC));
-//        $criteriaMaxYear = Criteria::create()->orderBy(array('year' => Criteria::DESC));
-//
-//        $minYear = $this->items->matching($criteriaMinYear);
-//        $maxYear = $this->items->matching($criteriaMaxYear);
-//        dump($minYear);
-//        dump($maxYear);die();
-        //die();
         if(!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
             $sidebarForm->get('bodyStyleString')->setData($params['bodyStyleString']->getValue());
         }
@@ -211,49 +202,120 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if(!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
-        //dump($params['year']->getValue());die();
+
         return $sidebarForm;
-        //$param['sidebarForm'] = $sidebarForm->createView();
+
     }
 
-    private function setSidebarSearchParams(){
-        $em = $this->getDoctrine()->getManager();
+    private function createAggregation()
+    {
+        $search = $this->get('fos_elastica.index.app.item');
+        //$search = $this->get('fos_elastica.finder.app.item');
+        // index
 
-        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
-        $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
-        $lftreec->setMemcached($this->get('mymemcache'));
-        $lflistc->setMemcached($this->get('mymemcache'));
 
-        $jsonCar = $lftreec->getJsonTreeModels(614);
 
-        $jsonRvs = $lftreec->getJsonTreeModels(760);
-        $params  = array('jsonCar'=>$jsonCar,'jsonRvs'=>$jsonRvs);
-        return $params;
-    }
+        //$query = new \Elastica\Query\MatchAll();
 
-    /**
-     * Makes choices for dropdown from search results
-     */
-    public function makeChoicesForChoiceType($items,$field,$first=""){
-        $res=array();
-        $res[0]=$first;
-        foreach ($items as $item) {
-            $res[strtolower($item[$field])]=$item[$field];
+
+//        $boolQuery = new \Elastica\Query\BoolQuery();
+//
+//        $fieldQuery = new \Elastica\Query\Term();
+//        $fieldQuery->setTerm('active', 1);
+//        $boolQuery->addMust($fieldQuery);
+//
+//        $fieldQuery = new \Elastica\Query\Term();
+//        $fieldQuery->setTerm('dealer_id', 3);///to do
+//        $boolQuery->addMust($fieldQuery);
+//
+        //$elasticaQuery = new \Elastica\Query();
+        //$elasticaQuery->setQuery($boolQuery);
+
+        $elasticaQuery = $this->searchParameters->getElasticaQuery();
+
+
+        //$elasticaQuery->setSize(550);
+        //make
+        $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
+        $elasticaAggMake->setField('make');
+        //subCategory
+        $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
+        $elasticaAggModel->setField('model');
+        //categorySubType
+        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
+        $elasticaAggSubCat->setField('categorySubType');
+
+        //year
+        $elasticaYear= new \Elastica\Aggregation\Terms('year');
+        $elasticaYear->setField('year');
+        $elasticaYear->setSize(20);
+        //price
+        $elasticaPrice= new \Elastica\Aggregation\Range('price');
+        $elasticaPrice->addRange(0,5000);
+        $elasticaPrice->addRange(5000,10000);
+        $elasticaPrice->addRange(10000,15000);
+        $elasticaPrice->addRange(15000,20000);
+        $elasticaPrice->addRange(20000,30000);
+        $elasticaPrice->addRange(30000,40000);
+        $elasticaPrice->addRange(40000,50000);
+        $elasticaPrice->addRange(50000,60000);
+        $elasticaPrice->addRange(70000,80000);
+        $elasticaPrice->addRange(80000,90000);
+        $elasticaPrice->addRange(90000,100000);
+        $elasticaPrice->addRange(100000,1000000);
+        $elasticaPrice->setField('price');
+        //priceStats
+        $elasticaPriceStats= new \Elastica\Aggregation\Stats('priceStats');
+        $elasticaPriceStats->setField('price');
+        //mileageStats
+        $elasticaMileageStats= new \Elastica\Aggregation\Stats('mileageStats');
+        $elasticaMileageStats->setField('mileage');
+        //yearStats
+        $elasticaYearStats= new \Elastica\Aggregation\Stats('yearStats');
+        $elasticaYearStats->setField('year');
+
+        //$elasticaYear->setOrder('year','desc');
+
+
+        //$elasticaAggreg->setSize(550);
+
+        //$elasticaAggreg->setOrder('_count', 'desc');
+
+        $elasticaQuery->addAggregation($elasticaAggMake);
+        $elasticaQuery->addAggregation($elasticaAggModel);
+        $elasticaQuery->addAggregation($elasticaAggSubCat);
+        $elasticaQuery->addAggregation($elasticaYear);
+        $elasticaQuery->addAggregation($elasticaPrice);
+        $elasticaQuery->addAggregation($elasticaPriceStats);
+        $elasticaQuery->addAggregation($elasticaMileageStats);
+        $elasticaQuery->addAggregation($elasticaYearStats);
+
+        // ResultSet
+
+        $elasticaResultSet = $search->search($elasticaQuery);
+
+
+        // Get Aggregations
+        $elasticaAggregs = $elasticaResultSet->getAggregations();
+        $result = array();
+        //dump($elasticaAggregs);die();
+        foreach($elasticaAggregs['categorySubType']['buckets'] as $sc){
+            $result['subCat'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+
         }
 
-        return $res;
+        foreach($elasticaAggregs['make']['buckets'] as $sc){
+            $result['make'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+
+        }
+
+        //dump($result);die();
+        //$result['subCat']
+        //$elasticaResultSet->
+
+        return $result;
     }
 
-    /**
-     * Makes choices for dropdown from search results
-     */
-    public function makeMakeChoicesForChoiceType($items,$field,$first=""){
-        $res=array();
-        $res[0]=$first;
-        foreach ($items as $item) {
-            $res[$item['id']]=$item[$field];
-        }
-        return $res;
-    }
+
 
 }
