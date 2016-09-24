@@ -21,11 +21,11 @@ class SidebarSearchType extends AbstractType
         $builder
 
             //->add('category_id','choice',array('label'=>'Category',"choices"=>$categories))
-            ->add('bodyStyleString','choice',array('label'=>'Body Style',"choices"=>array()))
+            ->add('categorySubType','choice',array('label'=>'Body Style',"choices"=>array()))
             ->add('yearFrom','text',array('label'=>'Year From',"required"=>false))
             ->add('yearTo','text',array('label'=>'Year To',"required"=>false))
             //->add('year','integer',array('label'=>'Year',"required"=>false))
-            ->add('make','choice',array('label'=>'Make',"required"=>false))
+            ->add('make_string','choice',array('label'=>'Make',"required"=>false))
             ->add('model','choice',array('label'=>'Model',"required"=>false))
             ->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false))
             ->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false))
