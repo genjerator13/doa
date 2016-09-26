@@ -59,7 +59,7 @@ class ItemRESTController extends Controller
     {
 
         $category = $request->query->get('category');
-
+        
         $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
 
         if (!$items) {
@@ -98,7 +98,31 @@ class ItemRESTController extends Controller
 
     public function listingsByDealer2Action(Request $request, $dealerid)
     {
+
         $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings($dealerid);
+        $func = function($value) {
+
+           $value['categorySubType']="aaa";
+            $cat = $value['category_id'];
+            if (!empty($cat)) {
+                if ($cat == 1) {
+                    $value['categorySubType']=$value["body_style"];
+                } elseif ($cat == 2) {
+                    $value['categorySubType']= $value["type"];
+                } elseif ($cat == 3) {
+                    $value['categorySubType']= $value["type"];
+                } elseif ($cat == 4) {
+                    $value['categorySubType']= $value["type"];
+                } elseif ($cat == 13) {
+                    $value['categorySubType']= $value["ag_application"];
+                }
+            }
+
+            return $value;
+
+        };
+        //dump($listings);die();
+        $listings = array_map($func, $listings);
         return $listings;
     }
 
