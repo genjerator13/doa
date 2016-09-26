@@ -128,13 +128,22 @@ class ElasticSearchController extends Controller implements DealerSiteController
         return $this->doSearch($request);
     }
 
+    public function searchAjaxAction(Request $request)
+    {
+        $html = $this->doSearch($request);
+
+        return $html;
+    }
+
     private function doSearch(Request $request,$params=array()){
         $this->initSearchParams($request);
         $this->searchParameters->createElasticSearchResults();
         //$this->searchParameters->dump();
         $pagerFanta=$this->searchParameters->getPagerFanta();
         $param = $this->generateTwigParams($request, $pagerFanta);
-
+        if($request->isXmlHttpRequest()){
+            return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
+        }
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
@@ -151,63 +160,58 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //$paramsO = $this->getSearchParameters();
         $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
             'action' => $this->generateUrl('search_dispatch'),
+            'attr' => array('id'=>'sidebarSearch'),
             'method' => 'GET'));
-        //$params = $paramsO->getParams();
+
         $em = $this->getDoctrine()->getManager();
+        if(!empty($sidebarParam['subCat'])) {
+            $subCat = array('' => 'Choose Subcategory');
+            $subCat += $sidebarParam['subCat'];
+            $sidebarForm->add('categorySubType', 'choice', array('label' => 'Sub Category', 'choices' => $subCat, "required" => false));
+        }
+        if(!empty($sidebarParam['make'])) {
+            $make = array('' => 'Choose Make');
+            $make += $sidebarParam['make'];
+            $sidebarForm->add('make_string', 'choice', array('label' => 'Make', 'choices' => $make, "required" => false));
+        }
 
-        $subCat = array('' => '');
-        $subCat += $sidebarParam['subCat'];
-//        dump($subCat);die();
-        //$bodyStyle[] = array("body_style"=>"Other");
-        //dump($bodyStyle);die();
-        //$bodyStyle = $this->makeChoicesForChoiceType($bodyStyle,"body_style","Any Body Style");
-        $sidebarForm->add('categorySubType','choice',array('label'=>'Sub Category','choices'=>$subCat,"required"=>false));
 
-        $make = $sidebarParam['make'];
-        //dump($make);die();
-        //$make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
-        $sidebarForm->add('make_string','choice',array('label'=>'Make','choices'=>$make,"required"=>false));
+        if(!empty($sidebarParam['model'])) {
+            $model = array('' => 'Choose Model');
+            $model += $sidebarParam['model'];
+            $sidebarForm->add('model', 'choice', array('label' => 'Model', 'choices' => $model, "required" => false));
+        }
 
-        $model = $sidebarParam['model'];
-//        dump($model);die();
-        //$make = $this->makeMakeChoicesForChoiceType($make,"make","Any Make");
-        $sidebarForm->add('model','choice',array('label'=>'Model','choices'=>$model,"required"=>false));
+        if(!empty($sidebarParam['year'])) {
+            $yearFrom = $sidebarParam['year'];
+            ksort($yearFrom);
+            $sidebarForm->add('yearFrom', 'choice', array('label' => 'Year From', 'choices' => $yearFrom, "required" => false));
 
-        $yearFrom = $sidebarParam['year'];
-        ksort($yearFrom);
-//        dump($yearFrom);die();
-        //$yearFrom = $this->makeChoicesForChoiceType($yearFrom,"year","Any Year");
-        $sidebarForm->add('yearFrom','choice',array('label'=>'Year From','choices'=>$yearFrom,"required"=>false));
-//dump($yearFrom);die();
+            $yearTo = $sidebarParam['year'];
+            $sidebarForm->add('yearTo', 'choice', array('label' => 'Year To', 'choices' => $yearTo, "required" => false));
+        }
 
-        $yearTo =  $sidebarParam['year'];
-        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('yearTo','choice',array('label'=>'Year To','choices'=>$yearTo,"required"=>false));
+        //if(!empty($sidebarParam['year'])) {
+        //$mileageFrom =  $sidebarParam['mileageStats']['min'];
 
-        $mileageFrom =  $sidebarParam['mileageStats']['min'];
-//        dump($mileageFrom);die();
-        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false,"data"=>$mileageFrom));
+        $sidebarForm->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false));
 
-        $mileageTo =  $sidebarParam['mileageStats']['max'];
-//        dump($mileageTo);die();
-        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false,"data"=>$mileageTo));
+        //$mileageTo =  $sidebarParam['mileageStats']['max'];
+        $sidebarForm->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false));
 
-        $priceFrom =  $sidebarParam['priceStats']['min'];
-//        dump($priceFrom);
-        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('priceFrom','text',array('label'=>'Price From',"required"=>false,"data"=>$priceFrom));
+        //$priceFrom =  $sidebarParam['priceStats']['min'];
+        $sidebarForm->add('priceFrom','text',array('label'=>'Price From',"required"=>false));
 
-        $priceTo =  $sidebarParam['priceStats']['max'];
-//        dump($priceTo);die();
-        //$yearTo = $this->makeChoicesForChoiceType($yearTo,"year","Any Year");
-        $sidebarForm->add('priceTo','text',array('label'=>'Price To',"required"=>false,"data"=>$priceTo));
+        //$priceTo =  $sidebarParam['priceStats']['max'];
+        $sidebarForm->add('priceTo','text',array('label'=>'Price To',"required"=>false));
 
         $sidebarForm->add('search','submit');
+        $sidebarForm->add('reset','reset');
 
-        if(!empty($params['bodyStyleString']) && !empty($params['bodyStyleString']->getValue())) {
-            $sidebarForm->get('bodyStyleString')->setData($params['bodyStyleString']->getValue());
+        $params = $this->searchParameters->getParams();
+        dump($params['categorySubType']->getValue());
+        if(!empty($params['categorySubType']) && !empty($params['categorySubType']->getValue())) {
+            $sidebarForm->get('categorySubType')->setData($params['categorySubType']->getValue());
         }
         if(!empty($params['yearFrom']) && !empty($params['yearFrom']->getValue())) {
             $sidebarForm->get('yearFrom')->setData($params['yearFrom']->getValue());
@@ -215,8 +219,8 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if(!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
             $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
         }
-        if(!empty($params['make']) && !empty($params['make']->getValue())) {
-            $sidebarForm->get('make')->setData($params['make']->getValue());
+        if(!empty($params['make_string']) && !empty($params['make_string']->getValue())) {
+            $sidebarForm->get('make_string')->setData($params['make_string']->getValue());
         }
         if(!empty($params['model']) && !empty($params['model']->getValue())) {
             $sidebarForm->get('model')->setData($params['model']->getValue());
