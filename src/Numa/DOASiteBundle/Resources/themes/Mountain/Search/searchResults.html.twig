@@ -218,7 +218,9 @@
     <div class="searchSideBar col-md-4" style="border: 1px solid black; min-height: 500px">
         {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
     </div>
-    {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+    <div class="col-md-12">
+        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
