@@ -27,6 +27,14 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function indexAction()
     {
+        $activeTheme = $this->get('liip_theme.active_theme');
+        $theme = strtolower($activeTheme->getName());
+        if($theme=="sea"){
+            return $this->redirectToRoute("search_used_vehicle");
+        }
+
+
+
         $nocache = false;
 
         $em = $this->getDoctrine()->getManager();
