@@ -69,7 +69,7 @@ class Item
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
-    private $active;
+    private $active=true;
 
     /**
      * @var string
