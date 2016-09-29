@@ -69,7 +69,7 @@ class Item
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
-    private $active;
+    private $active=true;
 
     /**
      * @var string
@@ -4497,5 +4497,237 @@ class Item
     public function getCoverPhoto()
     {
         return $this->cover_photo;
+    }
+    /**
+     * @var string
+     */
+    private $expense_1_descrip;
+
+    /**
+     * @var string
+     */
+    private $expense_1_amt;
+
+    /**
+     * @var string
+     */
+    private $expense_2_descrip;
+
+    /**
+     * @var string
+     */
+    private $expense_2_amt;
+
+    /**
+     * @var string
+     */
+    private $expense_3_descrip;
+
+    /**
+     * @var string
+     */
+    private $expense_3_amt;
+
+    /**
+     * @var string
+     */
+    private $expense_4_descrip;
+
+    /**
+     * @var string
+     */
+    private $expense_4_amt;
+
+
+    /**
+     * Set expense1Descrip
+     *
+     * @param string $expense1Descrip
+     *
+     * @return Item
+     */
+    public function setExpense1Descrip($expense1Descrip)
+    {
+        $this->expense_1_descrip = $expense1Descrip;
+
+        return $this;
+    }
+
+    /**
+     * Get expense1Descrip
+     *
+     * @return string
+     */
+    public function getExpense1Descrip()
+    {
+        return $this->expense_1_descrip;
+    }
+
+    /**
+     * Set expense1Amt
+     *
+     * @param string $expense1Amt
+     *
+     * @return Item
+     */
+    public function setExpense1Amt($expense1Amt)
+    {
+        $this->expense_1_amt = $expense1Amt;
+
+        return $this;
+    }
+
+    /**
+     * Get expense1Amt
+     *
+     * @return string
+     */
+    public function getExpense1Amt()
+    {
+        return $this->expense_1_amt;
+    }
+
+    /**
+     * Set expense2Descrip
+     *
+     * @param string $expense2Descrip
+     *
+     * @return Item
+     */
+    public function setExpense2Descrip($expense2Descrip)
+    {
+        $this->expense_2_descrip = $expense2Descrip;
+
+        return $this;
+    }
+
+    /**
+     * Get expense2Descrip
+     *
+     * @return string
+     */
+    public function getExpense2Descrip()
+    {
+        return $this->expense_2_descrip;
+    }
+
+    /**
+     * Set expense2Amt
+     *
+     * @param string $expense2Amt
+     *
+     * @return Item
+     */
+    public function setExpense2Amt($expense2Amt)
+    {
+        $this->expense_2_amt = $expense2Amt;
+
+        return $this;
+    }
+
+    /**
+     * Get expense2Amt
+     *
+     * @return string
+     */
+    public function getExpense2Amt()
+    {
+        return $this->expense_2_amt;
+    }
+
+    /**
+     * Set expense3Descrip
+     *
+     * @param string $expense3Descrip
+     *
+     * @return Item
+     */
+    public function setExpense3Descrip($expense3Descrip)
+    {
+        $this->expense_3_descrip = $expense3Descrip;
+
+        return $this;
+    }
+
+    /**
+     * Get expense3Descrip
+     *
+     * @return string
+     */
+    public function getExpense3Descrip()
+    {
+        return $this->expense_3_descrip;
+    }
+
+    /**
+     * Set expense3Amt
+     *
+     * @param string $expense3Amt
+     *
+     * @return Item
+     */
+    public function setExpense3Amt($expense3Amt)
+    {
+        $this->expense_3_amt = $expense3Amt;
+
+        return $this;
+    }
+
+    /**
+     * Get expense3Amt
+     *
+     * @return string
+     */
+    public function getExpense3Amt()
+    {
+        return $this->expense_3_amt;
+    }
+
+    /**
+     * Set expense4Descrip
+     *
+     * @param string $expense4Descrip
+     *
+     * @return Item
+     */
+    public function setExpense4Descrip($expense4Descrip)
+    {
+        $this->expense_4_descrip = $expense4Descrip;
+
+        return $this;
+    }
+
+    /**
+     * Get expense4Descrip
+     *
+     * @return string
+     */
+    public function getExpense4Descrip()
+    {
+        return $this->expense_4_descrip;
+    }
+
+    /**
+     * Set expense4Amt
+     *
+     * @param string $expense4Amt
+     *
+     * @return Item
+     */
+    public function setExpense4Amt($expense4Amt)
+    {
+        $this->expense_4_amt = $expense4Amt;
+
+        return $this;
+    }
+
+    /**
+     * Get expense4Amt
+     *
+     * @return string
+     */
+    public function getExpense4Amt()
+    {
+        return $this->expense_4_amt;
     }
 }
