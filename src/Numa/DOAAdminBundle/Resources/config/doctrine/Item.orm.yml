@@ -130,7 +130,7 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         price:
-              type: integer
+              type: bigint
               nullable: true
         year:
               type: integer
@@ -168,7 +168,7 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         mileage:
-              type: integer
+              type: bigint
               nullable: true
         VIN:
               type: string
