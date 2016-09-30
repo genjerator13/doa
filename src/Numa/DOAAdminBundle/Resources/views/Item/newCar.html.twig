@@ -47,7 +47,7 @@
                     if(!jQuery.isEmptyObject(data.model.name)) {
                         model.val(data.model.name);
                     }
-                    if(!jQuery.isEmptyObject(data.years[0].year)) {
+                    if(data.years[0].year != null) {
                         year.val(data.years[0].year);
                     }
                     if(!jQuery.isEmptyObject(data.MPG.city)) {
