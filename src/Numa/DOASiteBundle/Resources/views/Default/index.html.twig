@@ -38,11 +38,11 @@
                                     {% elseif key=='RVs' %}
                                     <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                        style=""
-                                       href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'rvsTypeSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
+                                       href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
                                         {% elseif  key|lower=='motorsport' or key|lower=='ag' %}
                                         <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                            style=""
-                                           href="{{ path('search_by_type',{'category': key|url_encode|lower,'typeSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
+                                           href="{{ path('search_by_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
                                             {% endif %}
 
                                             {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
