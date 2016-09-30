@@ -130,7 +130,7 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         price:
-              type: integer
+              type: bigint
               nullable: true
         year:
               type: integer
@@ -168,7 +168,7 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         mileage:
-              type: integer
+              type: bigint
               nullable: true
         VIN:
               type: string
@@ -446,6 +446,38 @@ Numa\DOAAdminBundle\Entity\Item:
               length: 255
               nullable: true
         cover_photo:
+              type: string
+              length: 255
+              nullable: true
+        expense_1_descrip:
+              type: string
+              length: 255
+              nullable: true
+        expense_1_amt:
+              type: string
+              length: 255
+              nullable: true
+        expense_2_descrip:
+              type: string
+              length: 255
+              nullable: true
+        expense_2_amt:
+              type: string
+              length: 255
+              nullable: true
+        expense_3_descrip:
+              type: string
+              length: 255
+              nullable: true
+        expense_3_amt:
+              type: string
+              length: 255
+              nullable: true
+        expense_4_descrip:
+              type: string
+              length: 255
+              nullable: true
+        expense_4_amt:
               type: string
               length: 255
               nullable: true

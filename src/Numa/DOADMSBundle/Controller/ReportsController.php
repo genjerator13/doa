@@ -26,6 +26,12 @@ class ReportsController extends Controller
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        if(empty($dealer)){
+            $entities = null;
+            $em->flush();
+            $this->addFlash("danger","You must be logged in like Dealer!");
+        }
+        else{
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
         if($request->query->has('purchase')){
             return  $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
@@ -38,7 +44,7 @@ class ReportsController extends Controller
         if($request->query->has('sales')){
             return  $this->get('Numa.Reports')->billingReportSalesXls($entities);
         }
-
+        }
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'billings' => $entities,
             'dealer'   => $dealer,
