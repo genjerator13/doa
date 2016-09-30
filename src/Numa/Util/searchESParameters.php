@@ -392,9 +392,9 @@ class searchESParameters
         $boolQuery->addMust($fieldQuery);
 
         //if dealer site  TO DO
-        $fieldQuery = new \Elastica\Query\Term();
-        $fieldQuery->setTerm('dealer_id', 3);///to do
-        $boolQuery->addMust($fieldQuery);
+        //$fieldQuery = new \Elastica\Query\Term();
+        //$fieldQuery->setTerm('dealer_id', 3);///to do
+        //$boolQuery->addMust($fieldQuery);
 
 
         $elasticaQuery = new \Elastica\Query();
