@@ -209,6 +209,12 @@
                                 <h3 class="box-title with-border">Purchase Invoice Data</h3>
                             </div>
                             <div class="form-group">
+                                {{ form_label(form.vendor_id) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.vendor_id) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 {{ form_label(form.invoice_nr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
                                     {{ form_widget(form.invoice_nr, { 'attr': {'class': 'form-control'} }) }}
@@ -254,7 +260,7 @@
                             <div class="form-group">
                                 {{ form_label(form.expense_1_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
-                                    {{ form_widget(form.expense_1_amt, { 'attr': {'class': 'form-control'} }) }}
+                                    {{ form_widget(form.expense_1_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -266,7 +272,7 @@
                             <div class="form-group">
                                 {{ form_label(form.expense_2_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
-                                    {{ form_widget(form.expense_2_amt, { 'attr': {'class': 'form-control'} }) }}
+                                    {{ form_widget(form.expense_2_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -278,7 +284,7 @@
                             <div class="form-group">
                                 {{ form_label(form.expense_3_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
-                                    {{ form_widget(form.expense_3_amt, { 'attr': {'class': 'form-control'} }) }}
+                                    {{ form_widget(form.expense_3_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -290,7 +296,13 @@
                             <div class="form-group">
                                 {{ form_label(form.expense_4_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
                                 <div class="col-sm-9">
-                                    {{ form_widget(form.expense_4_amt, { 'attr': {'class': 'form-control'} }) }}
+                                    {{ form_widget(form.expense_4_amt, { 'attr': {'class': 'price'} }) }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(form.total_cost, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+                                <div class="col-sm-9">
+                                    {{ form_widget(form.total_cost, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
                             </div>
                         </div>
@@ -419,6 +431,17 @@
         $(function () {
             $(".datepicker").datepicker();
         });
-    </script>
 
+        $('.price').keyup(function () {
+
+            var sum = 0;
+
+            $('.price').each(function() {
+                sum += Number($(this).val());
+            });
+
+            $('#numa_doaadminbundle_item_total_cost').val(sum);
+
+        });
+    </script>
 {% endblock %}

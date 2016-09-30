@@ -1,0 +1,12 @@
+vendor_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:VendorREST:all",_format: "json"}
+    requirements: { _method: get }
+vendor_api_single:
+    path:     /{vendor_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:VendorREST:single",_format: "json"}
+    requirements: { _method: get }
+vendor_api_by_dealer:
+    path:     /dealer/{dealer_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:VendorREST:byDealer",_format: "json"}
+    requirements: { _method: get }
