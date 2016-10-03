@@ -129,7 +129,7 @@ class PageRepository extends EntityRepository
             ->join('pc.Page', 'p')
             ->where('p.dealer_id like :dealer_id');
         $qb->setParameter('dealer_id', $dealer_id);
-
+//dump($qb->getQuery()->getSQL());die();
 
         $components = $qb->getQuery()->getResult();
 

@@ -1,0 +1,38 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>{% if entity.companyName is not empty %}
+            {{ entity.companyName }}
+        {% else %}
+            {{ entity.firstName }}  {{ entity.lastName }}
+        {% endif %}
+    </h1>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+        {#<li role="presentation"><a data-toggle="tab" href="#billings">Billings</a></li>#}
+        {#<li role="presentation"><a data-toggle="tab" href="#notes">Notes</a></li>#}
+        {#<li role="presentation"><a data-toggle="tab" href="#reminder">Reminder</a></li>#}
+    </ul>
+    <div class="tab-content">
+        <div id="details" class="tab-pane active">
+            <div class="box">
+                {{ component.image(entity.logo, entity.companyName, 'thumbnail', 'search_image',90, 120) }}
+                {{ form(edit_form) }}
+            </div>
+        </div>
+        {#<div id="notes" class="tab-pane">#}
+            {#{% include 'NumaDOADMSBundle:Note:index.html.twig' with {'entities': entity.note,'customer_id':entity.id} %}#}
+        {#</div>#}
+        {#<div id="billings" class="tab-pane">#}
+            {#{% include 'NumaDOADMSBundle:Billing:index.html.twig' with {'entities': entity.billing,'vendor_id':entity.id} %}#}
+        {#</div>#}
+        {#<div id="reminder" class="tab-pane">#}
+            {#{% include 'NumaDOADMSBundle:Reminder:index.html.twig' with {'entities': entity.reminder,'vendor_id':entity.id} %}#}
+        {#</div>#}
+    </div>
+    <a href="{{ path('vendor') }}" class="btn btn-primary">
+        Back to the list
+    </a>
+{% endblock %}

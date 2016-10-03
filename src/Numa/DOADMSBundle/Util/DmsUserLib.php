@@ -57,6 +57,13 @@ class DmsUserLib
         return null;
     }
 
+    public function getHost($request)
+    {
+        $dealer = $this->getSignedDealer();
+        $url = empty($dealer)? $request->getHost():$dealer->getSiteUrl();
+        return $url;
+    }
+
     public function isAdmin(){
         $user = $this->getSignedUser();
         return in_array('ROLE_ADMIN',$user->getRoles());
