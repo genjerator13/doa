@@ -5,7 +5,17 @@
 {% block content %}
     <h1>Page creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.keywords) }}
+    {{ form_row(form.title) }}
+    <div class="form-group">
+            {{ form_label(form.url)}}
+        <div class="col-sm-10">
+            <span class="pull-left">{{ url }}</span><span class="pull-left col-md-10"> {{ form_widget(form.url,{"attr": {'class':'col-md-7'}}) }}</span>
+            </div>
+    </div>
+    {{ form_end(form) }}
 
     {% if(app.request.get('_dashboard')=='DMS') %}
         <a href="{{ path('dms_page') }}" class="btn btn-primary">

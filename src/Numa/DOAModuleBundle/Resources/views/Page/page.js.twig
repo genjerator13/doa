@@ -26,7 +26,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'description', enableColumnResizing: true, width: 100},
         {name: 'keywords', enableColumnResizing: true, width: 100},
         {name: 'title', enableColumnResizing: true, width: 250},
-        {name: 'url', enableColumnResizing: true, width: 350,cellTemplate:'<div ng-if="row.entity.is_manual==true">/page{[{row.entity.url}]}</div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined">{[{row.entity.url}]}</div>'},
+        {name: 'url', enableColumnResizing: true, width: 350
+            ,cellTemplate:
+                '<div ng-if="row.entity.is_manual==true"><span class="text-primary">{{ url }}</span>/page{[{row.entity.url}]}</div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined"><span class="text-primary">{{ url }}</span>{[{row.entity.url}]}</div>'},
         {
             name: 'Link',
             enableColumnResizing: true,
