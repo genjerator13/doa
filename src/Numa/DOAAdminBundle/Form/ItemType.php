@@ -136,6 +136,13 @@ class ItemType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'datepicker')
             ))
+            ->add('Vendor', 'entity',array(
+                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
             ->add('invoice_amount')
             ->add('discount1',null,array("label"=>"Discount 1"))
             ->add('discount2',null,array("label"=>"Discount 2"))
@@ -148,6 +155,7 @@ class ItemType extends AbstractType
             ->add('expense_3_amt')
             ->add('expense_4_descrip')
             ->add('expense_4_amt')
+            ->add('total_cost')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))
             ->add('torque')

@@ -19,7 +19,12 @@
             {{ form_row(edit_form.title) }}
             {{ form_row(edit_form.description) }}
             {{ form_row(edit_form.keywords) }}
-            {{ form_row(edit_form.url) }}
+            <div class="form-group">
+                {{ form_label(edit_form.url)}}
+                <div class="col-sm-10">
+                    <span class="pull-left">{{ url }}</span><span class="pull-left col-md-10"> {{ form_widget(edit_form.url,{"attr": {'class':'col-md-7'}}) }}</span>
+                </div>
+            </div>
         </div>
         <div id="ads" class="tab-pane">
             {% include 'NumaDOAModuleBundle:Page:pageAds.html.twig' %}
