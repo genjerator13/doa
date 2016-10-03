@@ -52,6 +52,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
 //        $dealer = $this->get('security.token_storage')->getToken()->getUser();
 //        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId());
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $url = $this->get('Numa.Dms.User')->getHost($request);
 
         $render = 'NumaDOAModuleBundle:Page:index.html.twig';
         if($this->dashboard =='DMS'){
@@ -63,7 +64,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             $dealer_id=$dealer->getId();
         }
         return $this->render($render, array(
-
+            'url' => $url,
             'dashboard' => $this->dashboard,
             'dealer_id' => $dealer_id,
         ));
@@ -94,6 +95,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             $entity->addPageComponent($pageComponent);
 
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $url = $dealer->getSiteUrl();
             $entity->setDealer($dealer);
 
             $em->persist($component);
@@ -112,6 +114,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         }
 
         return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
+            'url'=> $url,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -148,8 +151,11 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     {
         $entity = new Page();
         $form   = $this->createCreateForm($entity);
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $url = $this->get('Numa.Dms.User')->getHost($request);
 
         return $this->render('NumaDOAModuleBundle:Page:new.html.twig', array(
+            'url'=>$url,
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -193,6 +199,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
         $component = $entity->getComponent();
+        $url = $this->get('Numa.Dms.User')->getHost($request);
 
         return $this->render('NumaDOAModuleBundle:Page:edit.html.twig', array(
             'entity'      => $entity,
@@ -200,6 +207,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
             'dealer' => $this->dealer,
+            'url' => $url,
         ));
     }
 
