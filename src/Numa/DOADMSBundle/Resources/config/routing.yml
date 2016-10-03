@@ -96,3 +96,6 @@ dms_reports:
 NumaDOADMSBundle_finance:
     resource: "@NumaDOADMSBundle/Resources/config/routing/finance.yml"
     prefix:   /finance
+NumaDOADMSBundle_vendor:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/vendor.yml"
+    prefix:   /vendor
