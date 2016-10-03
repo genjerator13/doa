@@ -934,6 +934,7 @@ class Vendor
 
     public function __toString()
     {
-        return $this->company_name;
+
+        return empty($this->company_name)?$this->first_name." ".$this->last_name:$this->company_name;
     }
 }

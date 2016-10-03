@@ -143,7 +143,6 @@ class ItemType extends AbstractType
                 'empty_value' => 'Choose Vendor',
                 'label' => "Vendor", "required" => false
             ))
-           // ->add('vendor_id',null,array("label"=>"Vendor"))
             ->add('invoice_amount')
             ->add('discount1',null,array("label"=>"Discount 1"))
             ->add('discount2',null,array("label"=>"Discount 2"))
