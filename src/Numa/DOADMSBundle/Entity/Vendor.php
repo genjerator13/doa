@@ -931,4 +931,9 @@ class Vendor
             $this->date_updated = new \DateTime();
         }
     }
+
+    public function __toString()
+    {
+        return $this->company_name;
+    }
 }
