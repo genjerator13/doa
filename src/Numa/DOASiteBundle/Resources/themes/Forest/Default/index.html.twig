@@ -17,7 +17,7 @@
 {% endblock %}
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel") %}
+    {% set images = displayComponent("forest_homepage_carousel","carousel") %}
 
     <div class="bs-example">
         <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -68,8 +68,7 @@
     <div class="brands">
 
         <h1>Brands</h1>
-        {% set brands = displayComponent("brands_images","carousel") %}
-
+        {% set brands = displayComponent("forest_brands_images","carousel") %}
         {% for image in brands %}
             <div class="brand"><a href="">{{ component.image('upload/dealers/'~image.src, '', '', 'brands_forest') }}</a></div>
         {% endfor %}
@@ -81,7 +80,7 @@
 {% block info %}
     <div class="info">
         <ul>
-            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'forest_logo_home') }}</li>
             <li>
                 <h2>{{ dealer.name }}</h2>
 

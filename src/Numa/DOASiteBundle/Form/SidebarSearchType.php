@@ -17,10 +17,10 @@ class SidebarSearchType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        //$categories = array(0=>"All Categories",1=>"Car",2=>"Marine",3=>"Moto Sport",4=>"RVs",13=>"Ag");
+        ///$categories = array(0=>"All Categories",1=>"Car",2=>"Marine",3=>"Moto Sport",4=>"RVs",13=>"Ag");
         $builder
 
-            //->add('category_id','choice',array('label'=>'Category',"choices"=>$categories))
+            ->add('category','choice',array('label'=>'Category',"choices"=>array()))
             ->add('categorySubType','choice',array('label'=>'Body Style',"choices"=>array()))
             ->add('yearFrom','text',array('label'=>'Year From',"required"=>false))
             ->add('yearTo','text',array('label'=>'Year To',"required"=>false))

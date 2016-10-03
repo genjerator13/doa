@@ -164,6 +164,11 @@ class ElasticSearchController extends Controller implements DealerSiteController
             'method' => 'GET'));
 
         $em = $this->getDoctrine()->getManager();
+        if(!empty($sidebarParam['category'])) {
+            $category = array('' => 'Choose Category');
+            $category += $sidebarParam['category'];
+            $sidebarForm->add('category', 'choice', array('label' => 'Category', 'choices' => $category, "required" => false));
+        }
         if(!empty($sidebarParam['subCat'])) {
             $subCat = array('' => 'Choose Subcategory');
             $subCat += $sidebarParam['subCat'];
@@ -209,7 +214,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $sidebarForm->add('reset','reset');
 
         $params = $this->searchParameters->getParams();
-        dump($params['categorySubType']->getValue());
+
+        if(!empty($params['category']) && !empty($params['category']->getValue())) {
+            $sidebarForm->get('category')->setData($params['category']->getValue());
+        }
         if(!empty($params['categorySubType']) && !empty($params['categorySubType']->getValue())) {
             $sidebarForm->get('categorySubType')->setData($params['categorySubType']->getValue());
         }
@@ -273,9 +281,12 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //make
         $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
         $elasticaAggMake->setField('make');
-        //subCategory
+        //model
         $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
         $elasticaAggModel->setField('model');
+        //category
+        $elasticaAggCategory = new \Elastica\Aggregation\Terms('category');
+        $elasticaAggCategory->setField('categoryName');
         //categorySubType
         $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
@@ -319,6 +330,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaQuery->addAggregation($elasticaAggMake);
         $elasticaQuery->addAggregation($elasticaAggModel);
         $elasticaQuery->addAggregation($elasticaAggSubCat);
+        $elasticaQuery->addAggregation($elasticaAggCategory);
         $elasticaQuery->addAggregation($elasticaYear);
         $elasticaQuery->addAggregation($elasticaPrice);
         $elasticaQuery->addAggregation($elasticaPriceStats);
@@ -333,7 +345,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         // Get Aggregations
         $elasticaAggregs = $elasticaResultSet->getAggregations();
         $result = array();
-//        dump($elasticaAggregs);
+
         foreach($elasticaAggregs['categorySubType']['buckets'] as $sc){
             $result['subCat'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
 
@@ -341,7 +353,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         foreach($elasticaAggregs['make']['buckets'] as $sc){
             $result['make'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
-
         }
 
         foreach($elasticaAggregs['model']['buckets'] as $sc){
@@ -350,6 +361,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         foreach($elasticaAggregs['year']['buckets'] as $sc){
             $result['year'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        }
+
+        foreach($elasticaAggregs['category']['buckets'] as $sc){
+            $result['category'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
         }
 
             $result['mileageStats']['min']=intval($elasticaAggregs['mileageStats']['min']);
