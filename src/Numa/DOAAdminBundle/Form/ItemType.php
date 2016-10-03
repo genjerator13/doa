@@ -136,13 +136,13 @@ class ItemType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'datepicker')
             ))
-//            ->add('vendor_id', 'choice', array(
-//                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
-//                'required'  => false,
-//                'empty_value' => 'Vendor',
-//                'label' => "Body Style", "required" => false
-//            ))
-            ->add('vendor_id',null,array("label"=>"Vendor"))
+            ->add('Vendor', 'entity',array(
+                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
             ->add('invoice_amount')
             ->add('discount1',null,array("label"=>"Discount 1"))
             ->add('discount2',null,array("label"=>"Discount 2"))

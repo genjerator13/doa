@@ -353,11 +353,17 @@ liip_imagine:
             filters:
                 thumbnail: { size: [86, 44], mode: outbound }
                 background: { color: '#FFFFFF' }
+#        brands_forest:
+#            quality: 100
+#            filters:
+#                thumbnail: { heighten: 75 }
+#                background: { color: '#FFFFFF' }
         brands_forest:
-            quality: 100
-            filters:
-                thumbnail: { heighten: 75 }
-                background: { color: '#FFFFFF' }
+           quality: 100
+           filters:
+             resize:
+                 size: [117, 60]
+
         featured_forest:
             quality: 100
             filters:
