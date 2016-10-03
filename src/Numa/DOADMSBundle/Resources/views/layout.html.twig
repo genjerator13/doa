@@ -192,6 +192,20 @@
                         {% endif %}
                     </ul>
                 </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span>VENDOR RELATIONS </span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            {% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS')  or is_granted('ROLE_DMS_USER') ) %}
+                                <li class="active">
+                                    <a href="{{ path('vendor') }}" class=""><i class="fa fa-users"></i>Current Vendors</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') %}
                 <li class="treeview">

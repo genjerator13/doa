@@ -1,0 +1,50 @@
+vendor:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:index" }
+
+vendor_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:show" }
+
+vendor_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:new" }
+
+vendor_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:create" }
+    requirements: { _method: post }
+
+vendor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:edit" }
+
+vendor_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:update" }
+    requirements: { _method: post|put }
+
+vendor_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:delete" }
+    requirements: { _method: post|delete }
+
+vendor_addnote:
+    path:     /{id}/addnote
+    defaults: { _controller: "NumaDOADMSBundle:Note:new" }
+
+vendor_shownote:
+    path:     /{id}/shownote
+    defaults: { _controller: "NumaDOADMSBundle:Note:index" }
+
+vendor_notes:
+    path:     /notes.html
+    defaults: { _controller: "NumaDOADMSBundle:Note:notes" }
+
+vendor_addbilling:
+    path:     /{id}/addbilling
+    defaults: { _controller: "NumaDOADMSBundle:Billing:new" }
+
+vendor_addreminder:
+    path:     /{id}/addreminder
+    defaults: { _controller: "NumaDOADMSBundle:Reminder:new" }

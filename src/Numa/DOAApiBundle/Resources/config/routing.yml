@@ -8,6 +8,9 @@ ads_api:
 customer_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/customer.yml"
         prefix:   /customer
+vendor_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/vendor.yml"
+        prefix:   /vendor
 user_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/user.yml"
         prefix:   /user

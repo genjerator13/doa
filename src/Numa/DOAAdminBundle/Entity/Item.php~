@@ -4730,4 +4730,33 @@ class Item
     {
         return $this->expense_4_amt;
     }
+    /**
+     * @var float
+     */
+    private $total_cost;
+
+
+    /**
+     * Set totalCost
+     *
+     * @param float $totalCost
+     *
+     * @return Item
+     */
+    public function setTotalCost($totalCost)
+    {
+        $this->total_cost = $totalCost;
+
+        return $this;
+    }
+
+    /**
+     * Get totalCost
+     *
+     * @return float
+     */
+    public function getTotalCost()
+    {
+        return $this->total_cost;
+    }
 }
