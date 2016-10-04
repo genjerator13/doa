@@ -259,9 +259,12 @@
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_1_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-                                <div class="col-sm-9">
+                                <div class="col-sm-3">
                                     {{ form_widget(form.expense_1_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
+                                <span>
+                                    $
+                                </span>
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_2_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -271,9 +274,12 @@
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_2_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-                                <div class="col-sm-9">
+                                <div class="col-sm-3">
                                     {{ form_widget(form.expense_2_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
+                                <span>
+                                    $
+                                </span>
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_3_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -283,9 +289,12 @@
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_3_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-                                <div class="col-sm-9">
+                                <div class="col-sm-3">
                                     {{ form_widget(form.expense_3_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
+                                <span>
+                                    $
+                                </span>
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_4_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -295,15 +304,21 @@
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.expense_4_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-                                <div class="col-sm-9">
+                                <div class="col-sm-3">
                                     {{ form_widget(form.expense_4_amt, { 'attr': {'class': 'price'} }) }}
                                 </div>
+                                <span>
+                                    $
+                                </span>
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.total_cost, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-                                <div class="col-sm-9">
+                                <div class="col-sm-3">
                                     {{ form_widget(form.total_cost, { 'attr': {'class': 'form-control'} }) }}
                                 </div>
+                                <span>
+                                    $
+                                </span>
                             </div>
                         </div>
                         <div class="box-primary box">
