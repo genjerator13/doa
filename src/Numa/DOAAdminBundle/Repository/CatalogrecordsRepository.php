@@ -157,8 +157,10 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             return null;
         }
         $qb = $this->createQueryBuilder('d');
-        $qb->andWhere('d.site_url=:host');
+        $qb->orWhere('d.site_url=:host');
+        $qb->orWhere('d.site_url=:hostwww');
         $qb->setParameter('host', $host);
+        $qb->setParameter('hostwww', "www.".$host);
 
         return $qb->getQuery()->getOneOrNullResult();
 
