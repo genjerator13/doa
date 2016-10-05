@@ -68,7 +68,7 @@
     <div class="brands">
 
         <h1>Brands</h1>
-        {% set brands = displayComponent("brands_images","carousel") %}
+        {% set brands = displayComponent("forest_brands_images","carousel") %}
 
         {% for image in brands %}
             <div class="brand"><a href="{{ image.url }}">{{ component.image('upload/dealers/'~image.src, '', '', 'brands_forest') }}</a></div>
