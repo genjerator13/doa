@@ -1,0 +1,14 @@
+{% set button1 = displayComponent(button,'image_object') %}
+
+<div class="button {% if button1 is empty %}b{{ num }}{% endif %}">
+    <a href=" {% if button1 is not empty and button1.url is not empty %}{{ button1.url }}{% else %}#{% endif %}" class="xxxx">
+        {% if button1 is not empty and button1.carouselText is not empty %}
+            <h2>{{ button1.carouselText|striptags()|raw }}
+                <span>Click Here</span>
+            </h2>
+        {% endif %}
+    </a>
+    {% if button1 is not empty and button1 is not empty %}
+        {{ component.image(button1.src, 'btn'~num, '', 'forest_button') }}
+    {% endif %}
+</div>
