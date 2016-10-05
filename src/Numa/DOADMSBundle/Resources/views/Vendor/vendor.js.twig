@@ -43,7 +43,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
         },
         {name: 'company_name', enableColumnResizing: true},
-        {name: 'work_phone'},
+        {name: 'work_phone',displayName: 'Office Phone'},
         {name: 'mobile_phone'},
         {
             name: 'email',
