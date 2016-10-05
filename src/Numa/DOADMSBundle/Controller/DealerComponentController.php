@@ -145,6 +145,7 @@ class DealerComponentController extends Controller
             $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
             return $this->render('NumaDOAModuleBundle:Component:image_edit.html.twig', array(
                 'uploadDir' => $uploadDir,
+                'dealerComponent' => true,
                 'entity' => $entity,
                 'entities' => $entities,
                 'edit_form' => $editForm->createView(),
