@@ -55,6 +55,7 @@ class ImageCarouselRepository extends EntityRepository
         $qb->setParameter("component_id", $component_id);
 
         $query = $qb->getQuery();
+        //dump($query);die();
         $res = $query->getResult(); //->getResult();
         return $res;
     }
