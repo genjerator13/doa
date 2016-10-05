@@ -75,30 +75,12 @@
             {% block featuredads %}
             {% endblock %}
         </div>
+
         <div class="button-wrapper">
-            <div class="button b1">
-                <a href="{{ path("search_new_vehicle") }}">
-                    <h2>New Units <span>Click Here</span></h2>
-                </a>
-            </div>
-
-            <div class="button b2">
-                <a href="{{ path("search_used_vehicle") }}">
-                    <h2>Pre-Owned <span>Click Here</span></h2>
-                </a>
-            </div>
-
-            <div class="button b3">
-                <a href="{{ path("finance_form") }}">
-                    <h2>Financing <span>In House</span></h2>
-                </a>
-            </div>
-
-            <div class="button b4">
-                <a href="{{ path("part_form") }}">
-                    <h2>Parts <span>and Service</span></h2>
-                </a>
-            </div>
+            {% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_1',"num":1} %}
+            {% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_2',"num":2} %}
+            {% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_3',"num":3} %}
+            {% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_4',"num":4} %}
         </div>
         {% block content %}
         <div class="content-wrapper">
