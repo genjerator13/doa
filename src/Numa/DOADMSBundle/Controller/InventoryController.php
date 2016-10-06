@@ -28,6 +28,42 @@ class InventoryController extends Controller
         ));
     }
     /**
+     * Lists all Customer entities.
+     *
+     */
+    public function viewAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+
+        return $this->render('NumaDOADMSBundle:Inventory:indexView.html.twig', array(
+            'dealer'=>$dealer
+        ));
+    }
+    /**
+     * Lists all Customer entities.
+     *
+     */
+    public function costAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        return $this->render('NumaDOADMSBundle:Inventory:indexCost.html.twig', array(
+            'dealer'=>$dealer
+        ));
+    }
+    /**
+     * Lists all Customer entities.
+     *
+     */
+    public function salesAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+
+        return $this->render('NumaDOADMSBundle:Inventory:indexSales.html.twig', array(
+            'dealer'=>$dealer
+        ));
+    }
+
+    /**
      * Creates a new Customer entity.
      *
      */

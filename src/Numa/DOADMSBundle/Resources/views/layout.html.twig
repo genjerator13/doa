@@ -228,6 +228,26 @@
                     </ul>
                 </li>
                 {% endif %}
+                {% if is_granted('ROLE_WHOLESALE_DMS') %}
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-columns"></i>
+                            <span>Current Listings View</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="{{ path('inventory_view') }}" class=""><i class="fa fa-truck"></i>Current Listings View</a>
+                                </li>
+                                <li class="active">
+                                    <a href="{{ path('inventory_cost') }}" class=""><i class="fa fa-truck"></i>Listings Cost View</a>
+                                </li>
+                                <li class="active">
+                                    <a href="{{ path('inventory_sales') }}" class=""><i class="fa fa-truck"></i>Listing Sales View</a>
+                                </li>
+                        </ul>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') %}
                 <li class="treeview">
                     <a href="#">
