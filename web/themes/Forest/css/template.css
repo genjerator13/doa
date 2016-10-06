@@ -397,6 +397,12 @@ body {
 	padding-bottom: 20px;
 }
 
+.brands  .brands_image_text {
+	display: block;
+	text-align: center;
+
+}
+
 /* ==========================================================================
    Footer
    ========================================================================== */
@@ -729,4 +735,10 @@ ul.techData li {
 .carousel-fade .carousel-control {
 	z-index: 2;
 }
-/*test*/
+
+/*remove bootstrap carousel indicator */
+ol.carousel-indicators {
+	display: none;
+}
+
+

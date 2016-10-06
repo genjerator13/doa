@@ -1,0 +1,12 @@
+{% block bodyBackground %}
+    <style type="text/css">
+
+        {% set imgBg = displayComponent('forest_site_background','image','dealer')   %}
+
+        {% if imgBg is not empty %}
+        body{
+            background-image: url("{{ imgBg }}");
+        }
+        {% endif %}
+    </style>
+{% endblock %}

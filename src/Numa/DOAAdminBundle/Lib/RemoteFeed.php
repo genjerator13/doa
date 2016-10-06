@@ -240,7 +240,7 @@ class RemoteFeed extends ContainerAware
             ///$this->items = self::xml2array($xmlSource);
 
             $this->items = json_decode(json_encode((array)$xml_obj), 1);
-            // dump($rootNode);
+
 
 
             if (!empty($rootNode)) {
@@ -283,6 +283,7 @@ class RemoteFeed extends ContainerAware
 
                             }
                         }
+
                     }
                 }
 
@@ -349,6 +350,10 @@ class RemoteFeed extends ContainerAware
                             $tmp[trim($value)] = $row[trim($key)];
 
                         }
+                        if($tmp['Mileage']){
+                            $tmp['Mileage'] = str_replace(",","",$tmp['Mileage']);
+                        }
+                        
                         $this->items[] = $tmp;
                     } else {
                         $header = $row;

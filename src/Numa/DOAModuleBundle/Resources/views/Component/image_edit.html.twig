@@ -12,8 +12,11 @@
                 {{ form_row(edit_form.type) }}
 
                 {{ form_end(edit_form) }}
-
-                <form action="{{ path('component_upload',{'id':entity.id}) }}" method="post" class="dropzone" id="drop">
+                {% set dc=0 %}
+                {% if(dealerComponent is defined and dealerComponent is not empty) %}
+                    {% set dc=1 %}
+                {% endif %}
+                <form action="{{ path('component_upload',{'id':entity.id,'dc':dc}) }}" method="post" class="dropzone" id="drop">
 
                 </form>
                 <h1>Image Carousel list</h1>

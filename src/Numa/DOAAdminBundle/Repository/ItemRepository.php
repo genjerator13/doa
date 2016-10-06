@@ -395,7 +395,7 @@ class ItemRepository extends EntityRepository
 
     /**
      * Imports single remote listing(Item)
-     * @param type $importItem (array remote Item)
+     * @param array $importItem (array remote Item)
      * @param type $mapping (mapping row)
      * @param type $feed_id (id of the feed
      * @param type $upload_url
@@ -470,8 +470,8 @@ class ItemRepository extends EntityRepository
 
             }
             //dump($listingField);
-            //check if there are predefine
-            //d listing field in database (listing_field_lists)
+            //check if there are predefined
+            //listing field in database (listing_field_lists)
             if (!empty($listingField) && !empty($importItem[$property])) {
 
                 $stringValue = $importItem[$property];
