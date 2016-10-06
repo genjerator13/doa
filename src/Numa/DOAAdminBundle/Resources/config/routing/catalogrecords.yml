@@ -36,3 +36,7 @@ coupons_update:
     path:     /{id}/update_coupons
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateCoupons" }
     requirements: { _method: post|put }
+
+catalogs_activate:
+    pattern:  /{id}/activate
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:activateDealer" }

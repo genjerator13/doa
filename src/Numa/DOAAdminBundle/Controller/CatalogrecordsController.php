@@ -581,4 +581,18 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         return $this->redirectToRoute('catalogs');
     }
 
+    public function activateDealerAction($id)
+    {
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+
+        if(!empty($dealer)){
+            $dealer->setDmsStatus("activated");
+            $em->flush();
+        }
+
+        return $this->redirect($this->generateUrl('dms_catalogs'));
+
+    }
+
 }
