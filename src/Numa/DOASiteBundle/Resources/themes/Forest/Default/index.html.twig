@@ -24,17 +24,18 @@
             <!-- Carousel indicators -->
             <ol class="carousel-indicators">
                 {% for image in images %}
-                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}"
+                        class="{% if loop.first %}active{% endif %}"></li>
                 {% endfor %}
 
             </ol>
             <!-- Wrapper for carousel items -->
             <div class="carousel-inner">
                 {% for image in images %}
-                <div class="item {%  if loop.first %} active{% endif %}">
-                    {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_forest') }}
-                    <div class="text_widget">{{ image.carouselText|raw }}</div>
-                </div>
+                    <div class="item {% if loop.first %} active{% endif %}">
+                        {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_forest') }}
+                        <div class="text_widget">{{ image.carouselText|raw }}</div>
+                    </div>
                 {% endfor %}
 
             </div>
@@ -49,9 +50,9 @@
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $("#myCarousel").carousel({
-                interval : 8000,
+                interval: 8000,
                 pause: false,
                 height: 480
             });
@@ -66,11 +67,23 @@
         {#{{ displayComponent('welcome_text',"HTML")|raw }}#}
     </div>
     <div class="brands">
-
-        <h1>Brands</h1>
         {% set brands = displayComponent("forest_brands_images","carousel") %}
+        {% set brandstext = displayComponent("forest_brands_images","image_text") %}
+
+        <h1>{% if brandstext is empty or brandstext is not defined %}
+                brands
+            {% else %}
+                {{ brandstext }}
+            {% endif %}
+        </h1>
+
+
         {% for image in brands %}
-            <div class="brand"><a href="">{{ component.image('upload/dealers/'~image.src, '', '', 'brands_forest') }}</a></div>
+            <div class="brand">
+                <a href="{{ image.url }}">{{ component.image('upload/dealers/'~image.src, '', '', 'brands_forest') }}
+                    <span class="brands_image_text">{% if image.carouselText|striptags|raw is not empty %}{{ image.carouselText|striptags|raw }}{% else %}&nbsp;{% endif%} </span>
+                </a>
+            </div>
         {% endfor %}
 
 
@@ -80,7 +93,7 @@
 {% block info %}
     <div class="info">
         <ul>
-            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'forest_logo_home') }}</li>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
             <li>
                 <h2>{{ dealer.name }}</h2>
 

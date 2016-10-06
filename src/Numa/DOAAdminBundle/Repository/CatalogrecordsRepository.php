@@ -156,9 +156,13 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         if (empty($host)) {
             return null;
         }
+        $nonwww = substr($host,4,strlen($host));
+        //dump($nonwww);die();
         $qb = $this->createQueryBuilder('d');
-        $qb->andWhere('d.site_url=:host');
+        $qb->orWhere('d.site_url=:host');
+        $qb->orWhere('d.site_url=:hostwww');
         $qb->setParameter('host', $host);
+        $qb->setParameter('hostwww', $nonwww);
 
         return $qb->getQuery()->getOneOrNullResult();
 

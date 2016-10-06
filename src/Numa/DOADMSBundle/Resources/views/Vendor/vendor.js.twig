@@ -42,8 +42,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true, width: 100, enableFiltering: false,
             cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
         },
-        {name: 'name', enableColumnResizing: true},
-        {name: 'home_phone'},
+        {name: 'company_name', enableColumnResizing: true},
+        {name: 'work_phone',displayName: 'Office Phone'},
         {name: 'mobile_phone'},
         {
             name: 'email',
@@ -51,7 +51,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
         },
         {name: 'sales_person'},
-        {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
+        {#{name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},#}
         {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
 
@@ -61,7 +61,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                     return 'red';
                 }
             }},
-        {name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {#{name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},#}
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
             name: 'Actions',
@@ -69,7 +69,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/vendor/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a><a href="/dms/vendor/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a><a href="/dms/vendor/{[{row.entity.id}]}/addbilling" class="btn btn-primary" data-toggle="tooltip" title="Add Billing"><span class="glyphicon glyphicon-usd"/></a>'
+            cellTemplate: '<a href="/dms/vendor/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-primary" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a>{#<a href="/dms/vendor/{[{row.entity.id}]}/addnote" class="btn btn-primary" data-toggle="tooltip" title="Add Note"><span class="glyphicon glyphicon-book"/></a>#}<a href="/dms/inventory/additem" class="btn btn-primary" data-toggle="tooltip" title="Add New Listing"><span class="fa fa-list"/></a>'
         }
 
     ];
@@ -124,17 +124,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                             }],
                         data: data[i].note
                     }
-                    data[i].name;
-                    if(!data[i].name){
-                        data[i].name = data[i].first_name+" "+data[i].last_name;
+                    data[i].company_name;
+                    if(!data[i].company_name){
+                        data[i].company_name = data[i].first_name+" "+data[i].last_name;
                         if(!data[i].first_name){
-                            data[i].name = data[i].last_name;
+                            data[i].company_name = data[i].last_name;
                         }
                         if(!data[i].last_name){
-                            data[i].name = data[i].first_name;
+                            data[i].company_name = data[i].first_name;
                         }
                         if(!data[i].first_name && !data[i].last_name){
-                            data[i].name = "";
+                            data[i].company_name = "";
                         }
 
                     }

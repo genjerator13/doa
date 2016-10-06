@@ -363,7 +363,11 @@ liip_imagine:
            filters:
              resize:
                  size: [117, 60]
-
+        forest_button:
+            quality: 100
+            filters:
+                thumbnail: { size: [325, 154], mode: outbound }
+                background: { color: '#FFFFFF' }
         featured_forest:
             quality: 100
             filters:
