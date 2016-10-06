@@ -130,6 +130,7 @@ class DMSUserController extends Controller
     public function editAction($id)
     {
         $ok=$this->checkDMSUserPermission($id);
+
         if($ok) {
             $em = $this->getDoctrine()->getManager();
 
@@ -161,6 +162,7 @@ class DMSUserController extends Controller
         if ($securityContext->isGranted('ROLE_PARTS_DMS') ||
             $securityContext->isGranted('ROLE_SERVICE_DMS') ||
             $securityContext->isGranted('ROLE_FINANCE_DMS') ||
+            $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
             $securityContext->isGranted('ROLE_SALES') ||
             $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
         )
@@ -197,6 +199,7 @@ class DMSUserController extends Controller
             if (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
+                $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS'))
             ) {
@@ -267,7 +270,9 @@ class DMSUserController extends Controller
     public function checkDMSUserPermission($id){
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
+//        dump($entity);
         $securityContext = $this->container->get('security.authorization_checker');
+//        dump($securityContext);die();
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $user   = $this->getUser();
 
@@ -278,7 +283,9 @@ class DMSUserController extends Controller
         }elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
+                $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
                 $securityContext->isGranted('ROLE_SALES') ||
+                $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
             )
             && $this->getUser()->getId() == $id

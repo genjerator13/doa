@@ -66,7 +66,7 @@
                     {{ render_esi(controller('NumaDOADMSBundle:Default:notifications')) }}
                     {#{{ dump(entities|length) }}#}
 
-                    {% if app.user.dmsStatus is not defined or app.user.dmsStatus != 'activated' %}
+                    {% if is_granted('ROLE_ADMIN') %}
                     <li class="dropdown messages-menu">
                         <!-- Menu toggle button -->
                         <a target="_blank" href="{{ url('dms_activate') }}">
@@ -113,7 +113,7 @@
                                         <a class="btn btn-default btn-flat"
                                            href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                             <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
-                                        {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS')%}
+                                        {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS')%}
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                                 <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
@@ -227,6 +227,26 @@
                         {% endif %}
                     </ul>
                 </li>
+                {% endif %}
+                {% if is_granted('ROLE_WHOLESALE_DMS') %}
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-columns"></i>
+                            <span>LISTINGS</span>
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                                <li class="active">
+                                    <a href="{{ path('inventory_view') }}" class=""><i class="fa fa-truck"></i>Current Listings View</a>
+                                </li>
+                                <li class="active">
+                                    <a href="{{ path('inventory_cost') }}" class=""><i class="fa fa-truck"></i>Listings Cost View</a>
+                                </li>
+                                <li class="active">
+                                    <a href="{{ path('inventory_sales') }}" class=""><i class="fa fa-truck"></i>Listing Sales View</a>
+                                </li>
+                        </ul>
+                    </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') %}
                 <li class="treeview">
