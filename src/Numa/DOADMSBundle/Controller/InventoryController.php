@@ -34,8 +34,9 @@ class InventoryController extends Controller
     public function viewAction()
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-
+        $js = "view";
         return $this->render('NumaDOADMSBundle:Inventory:indexView.html.twig', array(
+            'js' => $js,
             'dealer'=>$dealer
         ));
     }
@@ -46,7 +47,9 @@ class InventoryController extends Controller
     public function costAction()
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        return $this->render('NumaDOADMSBundle:Inventory:indexCost.html.twig', array(
+        $js = "cost";
+        return $this->render('NumaDOADMSBundle:Inventory:indexView.html.twig', array(
+            'js' => $js,
             'dealer'=>$dealer
         ));
     }
@@ -57,8 +60,9 @@ class InventoryController extends Controller
     public function salesAction()
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-
-        return $this->render('NumaDOADMSBundle:Inventory:indexSales.html.twig', array(
+        $js = "sales";
+        return $this->render('NumaDOADMSBundle:Inventory:indexView.html.twig', array(
+            'js' => $js,
             'dealer'=>$dealer
         ));
     }

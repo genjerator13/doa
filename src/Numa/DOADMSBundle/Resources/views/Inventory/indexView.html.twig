@@ -31,7 +31,13 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
+        {% if js == "view" %}
         {% include 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
+        {% elseif js == "cost" %}
+        {% include 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
+        {% elseif js == "sales" %}
+        {% include 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
+        {% endif %}
     </script>
     <style>
         .ui-grid-row .ui-grid-cell.featured {
