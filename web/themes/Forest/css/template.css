@@ -397,6 +397,12 @@ body {
 	padding-bottom: 20px;
 }
 
+.brands  .brands_image_text {
+	display: block;
+	text-align: center;
+
+}
+
 /* ==========================================================================
    Footer
    ========================================================================== */
@@ -734,3 +740,5 @@ ul.techData li {
 ol.carousel-indicators {
 	display: none;
 }
+
+
