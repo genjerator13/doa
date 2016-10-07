@@ -2,6 +2,7 @@
 
 namespace Numa\DOAAdminBundle\Form;
 
+use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,6 +19,10 @@ class ItemType extends AbstractType
     protected $container;
     public function __construct($em=null, $securityContext=null,$dealerID=null,$category=null,$container=null) {
         $this->em = $em;
+            if($dealerID instanceof DMSUser){
+                $dealerID = $dealerID->getDealer();
+            }
+
         $this->dealerID =$dealerID ;
         $this->securityContext = $securityContext;
         $this->category = $category;

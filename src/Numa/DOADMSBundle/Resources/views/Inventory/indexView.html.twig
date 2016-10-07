@@ -76,12 +76,12 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-            {#<button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>#}
-            {#<button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>#}
-            {#{% if(is_granted("ROLE_ADMIN")) %}#}
-                {#<button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>#}
-            {#{% endif %}#}
-            {#<button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>#}
+            <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
+            <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
+            {% if(is_granted("ROLE_ADMIN")) %}
+                <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
+            {% endif %}
+            <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
 
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
