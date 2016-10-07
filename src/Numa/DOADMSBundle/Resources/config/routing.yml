@@ -99,3 +99,6 @@ NumaDOADMSBundle_finance:
 NumaDOADMSBundle_vendor:
     resource: "@NumaDOADMSBundle/Resources/config/routing/vendor.yml"
     prefix:   /vendor
+NumaDOADMSBundle_sale:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/sale.yml"
+    prefix:   /sale
