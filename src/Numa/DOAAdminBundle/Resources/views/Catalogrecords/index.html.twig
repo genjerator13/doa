@@ -37,6 +37,7 @@
                     <th>Url</th>
                     <th>Category</th>
                     <th>Username</th>
+                    <th>DMS</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -48,6 +49,15 @@
                         <td>{{ entity.url }}</td>
                         <td>{{ entity.getDcategoryNames() }}</td>
                         <td>{{ entity.username() }}</td>
+                        <td>
+                            {% if(entity.dmsStatus =='activated') %}
+                                Activated
+                            {% else %}
+                            <a href="{{ path('dms_catalogs_activate', { 'id': entity.id }) }}" class="btn btn-success">
+                                Activate
+                            </a>
+                            {% endif %}
+                        </td>
                         <td class="nowrap">
                             <ul class="list-inline">
 

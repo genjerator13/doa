@@ -64,18 +64,15 @@
                 <ul class="nav navbar-nav">
                     <!-- Messages: style can be found in dropdown.less-->
                     {{ render_esi(controller('NumaDOADMSBundle:Default:notifications')) }}
-                    {#{{ dump(entities|length) }}#}
 
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <li class="dropdown messages-menu">
-                        <!-- Menu toggle button -->
-                        <a target="_blank" href="{{ url('dms_activate') }}">
-                            <i class="fa fa-rocket"></i>
-                            <span class="">Activate DMS</span>
-                        </a>
+                    {#<li class="dropdown messages-menu">#}
+                        {#<!-- Menu toggle button -->#}
+                        {#<a target="_blank" href="{{ url('dms_activate') }}">#}
+                            {#<i class="fa fa-rocket"></i>#}
+                            {#<span class="">Activate DMS</span>#}
+                        {#</a>#}
 
-                    </li>
-                    {% endif %}
+                    {#</li>#}
                     <!-- /.messages-menu -->
                     <!-- Messages: style can be found in dropdown.less-->
                     <li class="dropdown messages-menu">
