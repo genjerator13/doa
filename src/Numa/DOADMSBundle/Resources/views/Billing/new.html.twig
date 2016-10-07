@@ -68,7 +68,7 @@
                     </td>
                     <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom
                         bgcolor="#E7E6E6">
-                        <b><u>PURCHASE INVOICE</u></b></td>
+                        <b><u>BILL OF SALE</u></b></td>
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                         valign=bottom
                         bgcolor="#E7E6E6"><b>Invoice #</b></td>
@@ -437,7 +437,10 @@
                             PRICE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.sale_price) }}
+                        {{ form_row(form.sale_price, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -459,7 +462,10 @@
                         valign=bottom bgcolor="#E7E6E6"><b>ADMIN FEE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.admin_fee) }}
+                        {{ form_row(form.admin_fee, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -484,7 +490,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.warranty) }}
+                        {{ form_row(form.warranty, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -511,7 +520,10 @@
                             PKG</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.protection_pkg) }}
+                        {{ form_row(form.protection_pkg, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -539,7 +551,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.tos_total) }}
+                        {{ form_row(form.tos_total, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -567,7 +582,10 @@
                             IN</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.less_trade_in) }}
+                        {{ form_row(form.less_trade_in, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -591,7 +609,10 @@
                             PAYABLE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.difference_payable) }}
+                        {{ form_row(form.difference_payable, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -617,7 +638,10 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
 
-                        {{ form_row(form.tax1) }}
+                        {{ form_row(form.tax1, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
 
                     </td>
                     <td align="left" valign=bottom></td>
@@ -644,7 +668,10 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
 
-                        {{ form_row(form.tax2) }}
+                        {{ form_row(form.tax2, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
 
                     </td>
                     <td align="left" valign=bottom></td>
@@ -672,7 +699,10 @@
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
 
-                        {{ form_row(form.tax3) }}
+                        {{ form_row(form.tax3, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
 
                     </td>
                     <td align="left" valign=bottom></td>
@@ -696,7 +726,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
-                        {{ form_row(form.other_misc1) }}
+                        {{ form_row(form.other_misc1, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -719,7 +752,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                         colspan=2 align="center" bgcolor="#FBE5D6">
-                        {{ form_row(form.other_misc2) }}
+                        {{ form_row(form.other_misc2, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -740,7 +776,10 @@
                             TOTAL</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.taxes_paid_total) }}
+                        {{ form_row(form.taxes_paid_total, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -761,7 +800,10 @@
                             TRADE-IN </b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.lien_on_trade_in) }}
+                        {{ form_row(form.lien_on_trade_in, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -780,7 +822,10 @@
                             DUE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.total_due) }}
+                        {{ form_row(form.total_due, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -799,7 +844,10 @@
                         <b>LESS TRADE-IN TAX</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.less_trade_in_tax) }}
+                        {{ form_row(form.less_trade_in_tax, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -820,7 +868,10 @@
                             DEPOSIT</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.less_deposit) }}
+                        {{ form_row(form.less_deposit, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -856,10 +907,13 @@
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"
                         valign=bottom></td>
                     <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
-                            DELEIVERY</b></td>
+                            DELIVERY</b></td>
                     <td colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.payable_on_delivery) }}
+                        {{ form_row(form.payable_on_delivery, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -877,7 +931,10 @@
                             FINANCE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.balance_to_finance) }}
+                        {{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -890,7 +947,10 @@
                         align="center" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.total) }}
+                        {{ form_row(form.total, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
                         align="center"
@@ -903,7 +963,10 @@
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.insurance) }}
+                        {{ form_row(form.insurance, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -928,7 +991,10 @@
                     <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.bank_registration_fee) }}
+                        {{ form_row(form.bank_registration_fee, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -941,7 +1007,10 @@
                             TOTAL COST</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.options_total_cost) }}
+                        {{ form_row(form.options_total_cost, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                         colspan=3 align="center" valign=bottom
@@ -975,7 +1044,10 @@
                             DUE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.total_balance_due) }}
+                        {{ form_row(form.total_balance_due, {'attr': {'class': 'col-md-10'}}) }}
+                        <span>
+                            $
+                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -983,7 +1055,7 @@
                 </tr>
                 <tr>
                     <td style="border-top: 1px solid #000000" colspan=4 height="20" align="left" valign=bottom
-                        bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDISITONS</b></td>
+                        bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDITIONS</b></td>
                     <td style="border-top: 1px solid #000000" align="left" valign=bottom>
                     </td>
                     <td align="left" valign=bottom></td>
