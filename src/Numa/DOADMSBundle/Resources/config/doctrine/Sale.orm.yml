@@ -1,0 +1,226 @@
+Numa\DOADMSBundle\Entity\Sale:
+    type: entity
+    table: sale
+#    repositoryClass: Numa\DOADMSBundle\Repository\SaleRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        vendor_id:
+            type: integer
+            nullable: true
+        item_id:
+            type: integer
+            nullable: true
+        sales_person:
+            type: string
+            length: 255
+            nullable: true
+        stock_nr:
+            type: string
+            length: 255
+            nullable: true
+        vin:
+            type: string
+            length: 255
+            nullable: true
+        invoice_nr:
+            type: string
+            length: 255
+            nullable: true
+        invoice_date:
+            type: date
+            nullable: true
+        invoica_amt:
+            type: float
+            nullable: true
+        related_taxes_1:
+            type: float
+            nullable: true
+        related_taxes_2:
+            type: float
+            nullable: true
+        delivery:
+            type: float
+            nullable: true
+        clear_up:
+            type: float
+            nullable: true
+        glass:
+            type: float
+            nullable: true
+        mechanical_1:
+            type: float
+            nullable: true
+        mechanical_2:
+            type: float
+            nullable: true
+        other_exp_1:
+            type: float
+            nullable: true
+        other_exp_2:
+            type: float
+            nullable: true
+        other_exp_3:
+            type: float
+            nullable: true
+        other_exp_4:
+            type: float
+            nullable: true
+        other_exp_5:
+            type: float
+            nullable: true
+        total_unit_cost:
+            type: float
+            nullable: true
+        net_grain:
+            type: float
+            nullable: true
+        protect_pkg:
+            type: float
+            nullable: true
+        warranty:
+            type: float
+            nullable: true
+        doc_fees:
+            type: float
+            nullable: true
+        admin_fees:
+            type: float
+            nullable: true
+        insurance:
+            type: float
+            nullable: true
+        life_ins:
+            type: float
+            nullable: true
+        disability_ins:
+            type: float
+            nullable: true
+        feverse:
+            type: float
+            nullable: true
+        misc_1:
+            type: float
+            nullable: true
+        misc_2:
+            type: float
+            nullable: true
+        misc_3:
+            type: float
+            nullable: true
+        sales_comms:
+            type: float
+            nullable: true
+        total_sale_cost:
+            type: float
+            nullable: true
+        discrip1:
+            type: string
+            length: 255
+            nullable: true
+        discrip2:
+            type: string
+            length: 255
+            nullable: true
+        discrip3:
+            type: string
+            length: 255
+            nullable: true
+        discrip4:
+            type: string
+            length: 255
+            nullable: true
+        discrip5:
+            type: string
+            length: 255
+            nullable: true
+        discrip6:
+            type: string
+            length: 255
+            nullable: true
+        discrip7:
+            type: string
+            length: 255
+            nullable: true
+        tax_1_out:
+            type: float
+            nullable: true
+        tax_2_out:
+            type: float
+            nullable: true
+        trade_in_tax:
+            type: float
+            nullable: true
+        tax_1_in:
+            type: float
+            nullable: true
+        tax_2_in:
+            type: float
+            nullable: true
+        net_tax:
+            type: float
+            nullable: true
+        selling_price:
+            type: float
+            nullable: true
+        trade_in:
+            type: float
+            nullable: true
+        warranty1:
+            type: float
+            nullable: true
+        life_insur:
+            type: float
+            nullable: true
+        disability_ins1:
+            type: float
+            nullable: true
+        admin_fees1:
+            type: float
+            nullable: true
+        doc_fees1:
+            type: float
+            nullable: true
+        protect_pkg1:
+            type: float
+            nullable: true
+        insurance1:
+            type: float
+            nullable: true
+        bank_commis:
+            type: float
+            nullable: true
+        other_1:
+            type: float
+            nullable: true
+        other_2:
+            type: float
+            nullable: true
+        other_3:
+            type: float
+            nullable: true
+        total_revenue:
+            type: float
+            nullable: true
+        revenue_this_unit:
+            type: float
+            nullable: true
+    manyToOne:
+        Vendor:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: vendor_id
+                referencedColumnName: id
+        Item:
+            targetEntity: Numa\DOAAdminBundle\Entity\Item
+            inversedBy: Sale
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
