@@ -1,20 +1,19 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <style type="text/css" media="print">
-        table tr td{
+        table tr td {
             font-size: 11pt;
         }
 
-
         /*div.page*/
         /*{*/
-            /*page-break-after: always;*/
-            /*page-break-inside: avoid;*/
+        /*page-break-after: always;*/
+        /*page-break-inside: avoid;*/
         /*}*/
         /*div.last-page*/
         /*{*/
-            /*page-break-after: avoid;*/
-            /*page-break-inside: avoid;*/
+        /*page-break-after: avoid;*/
+        /*page-break-inside: avoid;*/
         /*}*/
     </style>
     <div class="page">
@@ -41,7 +40,7 @@
                 </td>
                 <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom
                     bgcolor="#E7E6E6">
-                    <b><u>PURCHASE INVOICE</u></b></td>
+                    <b><u>BILL OF SALE</u></b></td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign=bottom
                     bgcolor="#E7E6E6"><b>Invoice #</b></td>
@@ -66,7 +65,7 @@
                     align="center"
                     valign=bottom bgcolor="#ffffff">
                     {% if item is defined and item is not empty and item.stockNr is defined %}
-                    {{ item.stockNr }}
+                        {{ item.stockNr }}
                     {% endif %}
                 </td>
                 <td align="left" valign=bottom></td>
@@ -274,20 +273,20 @@
                 <td style="border-left: 1px solid #000000"
                     align="center" valign=bottom bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.year is defined %}
-                    {{ item.year }}
+                        {{ item.year }}
                     {% endif %}
                 </td>
                 <td style="border-left: 1px solid #000000"
                     colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.make is defined %}
-                    {{ item.make }}
+                        {{ item.make }}
                     {% endif %}
                 </td>
                 <td style="border-left: 1px solid #000000" colspan=2
                     align="center"
                     valign=bottom bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.model is defined %}
-                    {{ item.model }}
+                        {{ item.model }}
                     {% endif %}
                 </td>
                 <td align="left" valign=bottom></td>
@@ -310,7 +309,7 @@
                     align="center"
                     valign=bottom bgcolor="#ffffff">
                     {% if item is defined and item is not empty and item.vIN is defined %}
-                    {{ item.vin }}
+                        {{ item.vin }}
                     {% endif %}
                 </td>
                 <td align="left" valign=bottom></td>
@@ -350,7 +349,7 @@
                 </td>
                 <td colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.mileage is defined %}
-                    {{ item.mileage }}
+                        {{ item.mileage }}
                     {% endif %}
                 </td>
                 <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom
@@ -377,10 +376,11 @@
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"
                     colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">
                     {% if item is defined and item is not empty and item.trim is defined %}
-                    {{ item.trim }}
+                        {{ item.trim }}
                     {% endif %}
                 </td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=4
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=4
                     align="center"
                     valign=bottom bgcolor="#AFABAB"><b>TERMS OF SETTLEMENT</b></td>
                 <td align="left" valign=bottom></td>
@@ -570,10 +570,10 @@
                 </td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan=2 align="left" bgcolor="#ffffff">
-                        {{ billing.taxt1Name }}
+                    {{ billing.taxt1Name }}
                 </td>
                 <td style="border-top: 1px solid #000000" align="center" colspan="2">
-                        {{ billing.tax1 }}
+                    {{ billing.tax1 }}
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -717,12 +717,14 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#ffffff"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan=3 align="center" valign=bottom bgcolor="#ffffff"></td>
                 <td colspan=3 align="left"
                     valign=bottom></td>
-                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000" colspan=2 align="left" valign=bottom
+                <td style="border-left: 1px solid #000000; border-top: 1px solid #000000" colspan=2 align="left"
+                    valign=bottom
                     bgcolor="#E7E6E6">
                     <b>LESS TRADE-IN TAX</b></td>
                 <td style="border-top: 1px solid #000000" colspan=2
@@ -754,7 +756,8 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left" valign=bottom bgcolor="#ffffff"></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" height="20" align="left"
+                    valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
                     colspan=3 align="center" valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-bottom: 1px dashed #000000" colspan=3 align="center" valign=middle>
@@ -778,8 +781,8 @@
                 <td align="center" valign=middle colspan="3">
                     <b>SIGNATURE X</b>
                 </td>
-                <td style="border-left: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#E7E6E6" ><b>PAYABLE ON
-                        DELEIVERY</b></td>
+                <td style="border-left: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE
+                        ON DELIVERY</b></td>
                 <td colspan=2
                     align="center" bgcolor="#ffffff">
                     {{ billing.payableOnDelivery }}
@@ -808,8 +811,8 @@
             </tr>
             <tr>
                 <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2
-                height="20"
-                align="center" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b></td>
+                    height="20"
+                    align="center" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b></td>
                 <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2
                     align="center" bgcolor="#ffffff">
                     {{ billing.total }}
@@ -831,7 +834,8 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-right: 1px solid #000000" colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6">
+                <td style="border-right: 1px solid #000000" colspan=2 height="20" align="center" valign=bottom
+                    bgcolor="#E7E6E6">
                     <b>LESS DISCOUNT</b>
                 </td>
                 <td style="border-right: 1px solid #000000" colspan=2
@@ -857,7 +861,8 @@
                     colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
                         OPTIONS
                         TOTAL COST</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=2
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                    colspan=2
                     align="center" bgcolor="#ffffff">
                     {{ billing.optionsTotalCost }}
                 </td>
@@ -868,10 +873,12 @@
                 </td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-bottom: 1px solid #000000"></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#ffffff" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#ffffff" sdnum="1033;0;&quot;$&quot;#,##0.00">
                     <br>
                 </td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom bgcolor="#ffffff" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom
+                    bgcolor="#ffffff" sdnum="1033;0;&quot;$&quot;#,##0.00">
                     <br>
                 </td>
                 <td align="left" valign=bottom></td>
@@ -902,7 +909,7 @@
             </tr>
             <tr>
                 <td style="border-top: 1px solid #000000" colspan=7 height="20" align="left" valign=bottom
-                    bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDISITONS</b></td>
+                    bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDITIONS</b></td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left" valign=bottom>
                 </td>
                 <td style="border-top: 1px solid #000000"></td>
@@ -960,16 +967,16 @@
                 <td colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
                         PURCHASERS
                         SIGNATURE X</b></td>
-                <td  style="border-bottom: 1px dashed #000000" colspan=5 align="center" valign=bottom>
+                <td style="border-bottom: 1px dashed #000000" colspan=5 align="center" valign=bottom>
                 </td>
-                <td colspan=4 align="center" valign=bottom >
+                <td colspan=4 align="center" valign=bottom>
                 </td>
             </tr>
         </table>
     </div>
     <div class="">
-        {% if dealer.termsText is not empty %}
-        {{ dealer.termsText()|raw }}
+        {% if dealer.termsText is defined %}
+            {{ dealer.termsText()|raw }}
         {% endif %}
     </div>
 {% endblock %}
