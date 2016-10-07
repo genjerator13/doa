@@ -47,7 +47,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'id',
             enableColumnResizing: true,
             width: 50,
-            {#cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',#}
+            cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
             cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
