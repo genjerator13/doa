@@ -1,0 +1,277 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Sale</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_id</th>
+                <td>{{ entity.vendorid }}</td>
+            </tr>
+            <tr>
+                <th>Item_id</th>
+                <td>{{ entity.itemid }}</td>
+            </tr>
+            <tr>
+                <th>Sales_person</th>
+                <td>{{ entity.salesperson }}</td>
+            </tr>
+            <tr>
+                <th>Stock_nr</th>
+                <td>{{ entity.stocknr }}</td>
+            </tr>
+            <tr>
+                <th>Vin</th>
+                <td>{{ entity.vin }}</td>
+            </tr>
+            <tr>
+                <th>Invoice_nr</th>
+                <td>{{ entity.invoicenr }}</td>
+            </tr>
+            <tr>
+                <th>Invoice_date</th>
+                <td>{{ entity.invoicedate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Invoica_amt</th>
+                <td>{{ entity.invoicaamt }}</td>
+            </tr>
+            <tr>
+                <th>Related_taxes_1</th>
+                <td>{{ entity.relatedtaxes1 }}</td>
+            </tr>
+            <tr>
+                <th>Related_taxes_2</th>
+                <td>{{ entity.relatedtaxes2 }}</td>
+            </tr>
+            <tr>
+                <th>Delivery</th>
+                <td>{{ entity.delivery }}</td>
+            </tr>
+            <tr>
+                <th>Clear_up</th>
+                <td>{{ entity.clearup }}</td>
+            </tr>
+            <tr>
+                <th>Glass</th>
+                <td>{{ entity.glass }}</td>
+            </tr>
+            <tr>
+                <th>Mechanical_1</th>
+                <td>{{ entity.mechanical1 }}</td>
+            </tr>
+            <tr>
+                <th>Mechanical_2</th>
+                <td>{{ entity.mechanical2 }}</td>
+            </tr>
+            <tr>
+                <th>Other_exp_1</th>
+                <td>{{ entity.otherexp1 }}</td>
+            </tr>
+            <tr>
+                <th>Other_exp_2</th>
+                <td>{{ entity.otherexp2 }}</td>
+            </tr>
+            <tr>
+                <th>Other_exp_3</th>
+                <td>{{ entity.otherexp3 }}</td>
+            </tr>
+            <tr>
+                <th>Other_exp_4</th>
+                <td>{{ entity.otherexp4 }}</td>
+            </tr>
+            <tr>
+                <th>Other_exp_5</th>
+                <td>{{ entity.otherexp5 }}</td>
+            </tr>
+            <tr>
+                <th>Total_unit_cost</th>
+                <td>{{ entity.totalunitcost }}</td>
+            </tr>
+            <tr>
+                <th>Net_grain</th>
+                <td>{{ entity.netgrain }}</td>
+            </tr>
+            <tr>
+                <th>Protect_pkg</th>
+                <td>{{ entity.protectpkg }}</td>
+            </tr>
+            <tr>
+                <th>Warranty</th>
+                <td>{{ entity.warranty }}</td>
+            </tr>
+            <tr>
+                <th>Doc_fees</th>
+                <td>{{ entity.docfees }}</td>
+            </tr>
+            <tr>
+                <th>Admin_fees</th>
+                <td>{{ entity.adminfees }}</td>
+            </tr>
+            <tr>
+                <th>Insurance</th>
+                <td>{{ entity.insurance }}</td>
+            </tr>
+            <tr>
+                <th>Life_ins</th>
+                <td>{{ entity.lifeins }}</td>
+            </tr>
+            <tr>
+                <th>Disability_ins</th>
+                <td>{{ entity.disabilityins }}</td>
+            </tr>
+            <tr>
+                <th>Feverse</th>
+                <td>{{ entity.feverse }}</td>
+            </tr>
+            <tr>
+                <th>Misc_1</th>
+                <td>{{ entity.misc1 }}</td>
+            </tr>
+            <tr>
+                <th>Misc_2</th>
+                <td>{{ entity.misc2 }}</td>
+            </tr>
+            <tr>
+                <th>Misc_3</th>
+                <td>{{ entity.misc3 }}</td>
+            </tr>
+            <tr>
+                <th>Sales_comms</th>
+                <td>{{ entity.salescomms }}</td>
+            </tr>
+            <tr>
+                <th>Total_sale_cost</th>
+                <td>{{ entity.totalsalecost }}</td>
+            </tr>
+            <tr>
+                <th>Discrip1</th>
+                <td>{{ entity.discrip1 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip2</th>
+                <td>{{ entity.discrip2 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip3</th>
+                <td>{{ entity.discrip3 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip4</th>
+                <td>{{ entity.discrip4 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip5</th>
+                <td>{{ entity.discrip5 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip6</th>
+                <td>{{ entity.discrip6 }}</td>
+            </tr>
+            <tr>
+                <th>Discrip7</th>
+                <td>{{ entity.discrip7 }}</td>
+            </tr>
+            <tr>
+                <th>Tax_1_out</th>
+                <td>{{ entity.tax1out }}</td>
+            </tr>
+            <tr>
+                <th>Tax_2_out</th>
+                <td>{{ entity.tax2out }}</td>
+            </tr>
+            <tr>
+                <th>Trade_in_tax</th>
+                <td>{{ entity.tradeintax }}</td>
+            </tr>
+            <tr>
+                <th>Tax_1_in</th>
+                <td>{{ entity.tax1in }}</td>
+            </tr>
+            <tr>
+                <th>Tax_2_in</th>
+                <td>{{ entity.tax2in }}</td>
+            </tr>
+            <tr>
+                <th>Net_tax</th>
+                <td>{{ entity.nettax }}</td>
+            </tr>
+            <tr>
+                <th>Selling_price</th>
+                <td>{{ entity.sellingprice }}</td>
+            </tr>
+            <tr>
+                <th>Trade_in</th>
+                <td>{{ entity.tradein }}</td>
+            </tr>
+            <tr>
+                <th>Warranty1</th>
+                <td>{{ entity.warranty1 }}</td>
+            </tr>
+            <tr>
+                <th>Life_insur</th>
+                <td>{{ entity.lifeinsur }}</td>
+            </tr>
+            <tr>
+                <th>Disability_ins1</th>
+                <td>{{ entity.disabilityins1 }}</td>
+            </tr>
+            <tr>
+                <th>Admin_fees1</th>
+                <td>{{ entity.adminfees1 }}</td>
+            </tr>
+            <tr>
+                <th>Doc_fees1</th>
+                <td>{{ entity.docfees1 }}</td>
+            </tr>
+            <tr>
+                <th>Protect_pkg1</th>
+                <td>{{ entity.protectpkg1 }}</td>
+            </tr>
+            <tr>
+                <th>Insurance1</th>
+                <td>{{ entity.insurance1 }}</td>
+            </tr>
+            <tr>
+                <th>Bank_commis</th>
+                <td>{{ entity.bankcommis }}</td>
+            </tr>
+            <tr>
+                <th>Other_1</th>
+                <td>{{ entity.other1 }}</td>
+            </tr>
+            <tr>
+                <th>Other_2</th>
+                <td>{{ entity.other2 }}</td>
+            </tr>
+            <tr>
+                <th>Other_3</th>
+                <td>{{ entity.other3 }}</td>
+            </tr>
+            <tr>
+                <th>Total_revenue</th>
+                <td>{{ entity.totalrevenue }}</td>
+            </tr>
+            <tr>
+                <th>Revenue_this_unit</th>
+                <td>{{ entity.revenuethisunit }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+        <a href="{{ path('sale') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+
+        <a href="{{ path('sale_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            Edit
+        </a>
+
+{% endblock %}
