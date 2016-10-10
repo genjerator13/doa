@@ -1,20 +1,19 @@
-{% extends 'NumaDOADMSBundle::layout.html.twig' %}
-
 {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+<div class="hidden">
 {% block form_label_class -%}
-    col-sm-3
+    col-sm-4
 {%- endblock form_label_class %}
 {% block form_group_class -%}
-    col-sm-9
+    col-sm-8
 {%- endblock form_group_class %}
+</div>
 
-{% block content %}
     <h1>UNIT PROFIT REPORT</h1>
 
     {#{{ form(form) }}#}
     {{ form_start(form) }}
     <div class="col-md-7">
-        {{ form_row(form.vendor_id) }}
+        {{ form_row(form.Vendor) }}
         {{ form_row(form.sales_person) }}
     </div>
     <div class="col-md-5">
@@ -101,10 +100,10 @@
     <div class="clearfix"></div>
     {{ form_end(form) }}
 
-        
-        <a href="{{ path('sale') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('sale') }}" class="btn btn-primary" >
+        Back to the list
+    </a>
     <script>
         $('.sum1').keyup(function () {
             var sum = 0;
@@ -123,11 +122,11 @@
         });
 
         $('.form-control').keyup(function () {
-            var n1 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_1_out").value);
-            var n2 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_2_out").value);
-            var n3 = parseFloat(document.getElementById("numa_doadmsbundle_sale_trade_in_tax").value);
-            var n4 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_1_in").value);
-            var n5 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_2_in").value);
+            var n1 = parseInt(document.getElementById("numa_doadmsbundle_sale_tax_1_out").value);
+            var n2 = parseInt(document.getElementById("numa_doadmsbundle_sale_tax_2_out").value);
+            var n3 = parseInt(document.getElementById("numa_doadmsbundle_sale_trade_in_tax").value);
+            var n4 = parseInt(document.getElementById("numa_doadmsbundle_sale_tax_1_in").value);
+            var n5 = parseInt(document.getElementById("numa_doadmsbundle_sale_tax_2_in").value);
             if(isNaN(parseFloat(n1))){
                 n1 = 0;
             }
@@ -148,9 +147,9 @@
         });
 
         $('.form-control').keyup(function () {
-            var n1 = parseFloat(document.getElementById("numa_doadmsbundle_sale_total_unit_cost").value);
-            var n2 = parseFloat(document.getElementById("numa_doadmsbundle_sale_selling_price").value);
-            var n3 = parseFloat(document.getElementById("numa_doadmsbundle_sale_trade_in").value);
+            var n1 = parseInt(document.getElementById("numa_doadmsbundle_sale_total_unit_cost").value);
+            var n2 = parseInt(document.getElementById("numa_doadmsbundle_sale_selling_price").value);
+            var n3 = parseInt(document.getElementById("numa_doadmsbundle_sale_trade_in").value);
             if(isNaN(parseFloat(n1))){
                 n1 = 0;
             }
@@ -173,4 +172,3 @@
         });
     </script>
 
-{% endblock %}

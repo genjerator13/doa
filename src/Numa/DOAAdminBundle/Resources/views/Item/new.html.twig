@@ -42,16 +42,7 @@
     <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 
 {% endblock checkbox_widget %}
-{#{% block checkbox_widget -%}#}
-    {#{% set parent_label_class = parent_label_class|default('') -%}#}
-    {#{% if 'checkbox-inline' in parent_label_class %}#}
-        {#{{- form_label(form, null, { widget: parent() }) -}}#}
-    {#{% else -%}#}
-        {#<div class="checkbox">#}
-            {#{{- form_label(form, null, { widget: parent() }) -}}#}
-        {#</div>#}
-    {#{%- endif %}#}
-{#{%- endblock checkbox_widget %}#}
+
 {% block checkbox_label -%}
     {{- block('checkbox_radio_label') -}}
 {%- endblock checkbox_label %}
@@ -106,6 +97,7 @@
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#sale">Sale</a></li>
             </ul>
             <div class="tab-content">
                 <div id="details" class="tab-pane active">
@@ -394,25 +386,27 @@
                             </div>
                         </div>
                 </div>
-                {#<div id="SEO" class="tab-pane">#}
-                    {#{{ form_widget(seo) }}#}
-                    {#<ul class="list-inline">#}
-                        {#<li>#}
-                            {#<button class="btn btn-success">#}
-                                {#Submit#}
-                            {#</button>#}
-                        {#</li>#}
-                        {#{% if(not is_granted('ROLE_BUSINES')) %}#}
-                            {#<li>#}
-                                {#<a href="{{ path('items') }}" class="btn btn-default">#}
-                                    {#Back to the list without saving#}
-                                {#</a>#}
-                            {#</li>#}
-                        {#{% endif %}#}
-                    {#</ul>#}
-                {#</div>#}
+                <div id="SEO" class="tab-pane">
+                    {{ form_widget(seo) }}
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn-success">
+                                Submit
+                            </button>
+                        </li>
+                        {% if(not is_granted('ROLE_BUSINES')) %}
+                            <li>
+                                <a href="{{ path('items') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
                 </form>
-
+                <div id="sale" class="tab-pane">
+                    {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':saleForm} %}
+                </div>
             </div>
             <div class="clear"></div>
 
