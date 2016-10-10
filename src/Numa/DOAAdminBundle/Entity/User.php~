@@ -927,7 +927,7 @@ class User implements UserInterface {
      * @return \Doctrine\Common\Collections\Collection 
      */
     public function __toString() {
-        return $this->getUsername();
+        return $this->getUsername()."";
     }
 
     public function getRoles() {
@@ -940,6 +940,8 @@ class User implements UserInterface {
                 return array('ROLE_USER');
             } elseif ($groupName == 'dealer_admin') {
                 return array('ROLE_DEALER_ADMIN');
+            }elseif ($groupName == 'wholesale') {
+                return array('ROLE_WHOLESALE_DMS');
             }
         }
         return array('ROLE_USER');
