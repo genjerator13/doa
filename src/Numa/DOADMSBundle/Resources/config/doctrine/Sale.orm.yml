@@ -225,12 +225,20 @@ Numa\DOADMSBundle\Entity\Sale:
             joinColumn:
                 name: vendor_id
                 referencedColumnName: id
+    oneToOne:
         Item:
             targetEntity: Numa\DOAAdminBundle\Entity\Item
-            inversedBy: Sale
+
+            cascade: ["persist","remove"]
             joinColumn:
                 name: item_id
                 referencedColumnName: id
+#        Item:
+#            targetEntity: Numa\DOAAdminBundle\Entity\Item
+#            inversedBy: Sale
+#            joinColumn:
+#                name: item_id
+#                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

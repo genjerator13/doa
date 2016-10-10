@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Form;
 
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Form\SeoType;
+use Numa\DOADMSBundle\Form\SaleType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -37,6 +38,8 @@ class ItemType extends AbstractType
         $builder
             ->add('active')
             ->add('Seo', new SeoType())
+            ->add('sale', new SaleType(), array(
+                'data_class' => 'Numa\DOADMSBundle\Entity\Sale','by_reference' => true))
 
             ->add('sold')
             ->add('trim')

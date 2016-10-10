@@ -125,17 +125,17 @@
                                 | <a target="_blank" href="{{ detailUrl }}" class="itemControls view">View Listing</a>
                             {% endif %}
                             {% if entity.id is not empty %}
-                                |
-                                {% if(app.request.get('_dashboard')=='DMS') %}
-                                    <a href="{{ path('dms_item_images',{id:entity.id}) }}">
+                            |
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                            <a href="{{ path('dms_item_images',{id:entity.id}) }}">
                                 {% else %}
-                                    <a href="{{ path('item_images',{id:entity.id}) }}">
-                                {% endif %}
+                                <a href="{{ path('item_images',{id:entity.id}) }}">
+                                    {% endif %}
                                     Edit Pictures
-                                ({{ entity.getCountImages() }})</a>
-                            {% else %}
-                                | <a href="#" id="addimages">Add Pictures</a>
-                            {% endif %}
+                                    ({{ entity.getCountImages() }})</a>
+                                {% else %}
+                                    | <a href="#" id="addimages">Add Pictures</a>
+                                {% endif %}
                         </div>
                         <p>Fields marked with an asterisk (*) are mandatory.</p>
 
@@ -421,29 +421,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <ul class="list-inline">
-                                    <li>
-                                        <button class="btn btn-success">
-                                            Submit
-                                        </button>
-                                    </li>
 
-                                    {% if(not is_granted('ROLE_BUSINES')) %}
-                                    {% if(app.request.get('_dashboard')=='DMS') %}
-                                        <a href="{{ path('inventory') }}" class="btn btn-default">
-                                            Back to the list without saving
-                                        </a>
-                                    {% else %}
-                                        <a href="{{ path('items') }}" class="btn btn-default">
-                                            Back to the list without saving
-                                        </a>
-                                    {% endif %}
-                                    {% endif %}
-                                </ul>
-                            </div>
-                        </div>
                 </div>
                 <div id="SEO" class="tab-pane">
                     {{ form_widget(seo) }}
@@ -462,11 +440,41 @@
                         {% endif %}
                     </ul>
                 </div>
-                </form>
+
                 <div id="sale" class="tab-pane">
-                    {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':saleForm} %}
+                    {#//{{ dump(form.sale) }}#}
+                    {#{{ form_widget(form.sale) }}#}
+                    {% if entity.id is not empty %}
+                        {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':form.sale} %}
+                    {% else %}
+                        <div class="alert alert-info">Please submit the listing first.</div>
+                    {% endif %}
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="list-inline">
+                        <li>
+                            <button class="btn btn-success">
+                                Submit
+                            </button>
+                        </li>
+
+                        {% if(not is_granted('ROLE_BUSINES')) %}
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('inventory') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            {% else %}
+                                <a href="{{ path('items') }}" class="btn btn-default">
+                                    Back to the list without saving
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            </form>
             <div class="clear"></div>
 
             {% if entity.id is not empty %}
@@ -499,10 +507,10 @@
         $(function () {
             $(".datepicker").datepicker();
         });
-        
+
         $('.price').keyup(function () {
             var sum = 0;
-            $('.price').each(function() {
+            $('.price').each(function () {
                 sum += Number($(this).val());
             });
             $('#numa_doaadminbundle_item_total_cost').val(sum);

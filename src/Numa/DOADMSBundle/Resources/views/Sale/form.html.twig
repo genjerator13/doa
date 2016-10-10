@@ -10,8 +10,7 @@
 
     <h1>UNIT PROFIT REPORT</h1>
 
-    {#{{ form(form) }}#}
-    {{ form_start(form) }}
+
     <div class="col-md-7">
         {{ form_row(form.Vendor) }}
         {{ form_row(form.sales_person) }}
@@ -96,14 +95,10 @@
         {{ form_row(form.other_3, {'attr': {'class': 'sum4'}}) }}
         {{ form_row(form.total_revenue) }}
         {{ form_row(form.revenue_this_unit) }}
+        {#{{ form_row(form.item_id) }}#}
     </div>
     <div class="clearfix"></div>
-    {{ form_end(form) }}
 
-
-    <a href="{{ path('sale') }}" class="btn btn-primary" >
-        Back to the list
-    </a>
     <script>
         $('.sum1').keyup(function () {
             var sum = 0;
