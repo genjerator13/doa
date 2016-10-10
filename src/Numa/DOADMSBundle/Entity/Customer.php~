@@ -550,6 +550,11 @@ class Customer
         return $this->name;
         //return $this->first_name." ".$this->last_name;
     }
+
+    public function getFullName()
+    {
+        return ucfirst($this->first_name)." ".ucfirst($this->last_name);
+    }
     /**
      * @var \DateTime
      * @JMS\Expose
