@@ -383,7 +383,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $params = array(
             'entity' => $entity,
             'form' => $form->createView(),
-            'saleForm' => $saleForm->createView(),
+//            'saleForm' => $saleForm->createView(),
             'category' => $category,
             'seo'=> $seoFormView,
             'dashboard' =>$dashboard,
