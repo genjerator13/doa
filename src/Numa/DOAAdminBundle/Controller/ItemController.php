@@ -344,9 +344,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         ));
         $seoFormView = $seoForm->createView();
 
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $em->persist($entity);
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
@@ -374,13 +376,12 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         }
         //sale form
 
-        $saleForm = $this->createSaleCreateForm(new Sale());
-
+       // $saleForm = $this->createSaleCreateForm(new Sale());
+        //$entity->setSeo($seo);
 
 
         $params = array(
             'entity' => $entity,
-
             'form' => $form->createView(),
             'saleForm' => $saleForm->createView(),
             'category' => $category,
@@ -525,10 +526,17 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
         ));
-        //dump($entity->getItemField());
+
+        $saleForm = $this->createForm(new SaleType(),$entity->getSale(), array(
+            'method' => 'POST',
+        ));
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            //$sale = $entity->getSale();
+            //$sale->setItem($entity);
+            //$sale->setItemId($entity->getId());
 
             if(empty($id)) {
                 $em->persist($entity);
@@ -550,7 +558,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         }
 
         //sale form
-        $saleForm = $this->createSaleEditForm($entity);
+        //$saleForm = $this->createSaleEditForm($entity);
 
         $params = array(
             'entity' => $entity,
@@ -902,7 +910,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             'action' => $action,
             'method' => 'POST',
         ));
-        $form->add('item_id','hidden', array('data'=>$item->getId()));
+        //$form->add('item_id','hidden', array('data'=>$item->getId()));
         $form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;

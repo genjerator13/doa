@@ -4817,4 +4817,120 @@ class Item
     {
         return $this->Vendor;
     }
+    /**
+     * @var integer
+     */
+    private $sale_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Sale
+     */
+    private $Sale;
+
+
+    /**
+     * Set saleId
+     *
+     * @param integer $saleId
+     *
+     * @return Item
+     */
+    public function setSaleId($saleId)
+    {
+        $this->sale_id = $saleId;
+
+        return $this;
+    }
+
+    /**
+     * Get saleId
+     *
+     * @return integer
+     */
+    public function getSaleId()
+    {
+        return $this->sale_id;
+    }
+
+    /**
+     * Set sale
+     *
+     * @param \Numa\DOADMSBundle\Entity\Sale $sale
+     *
+     * @return Item
+     */
+    public function setSale(\Numa\DOADMSBundle\Entity\Sale $sale = null)
+    {
+        $this->Sale = $sale;
+
+        return $this;
+    }
+
+    /**
+     * Get sale
+     *
+     * @return \Numa\DOADMSBundle\Entity\Sale
+     */
+    public function getSale()
+    {
+        return $this->Sale;
+    }
+    /**
+     * @var string
+     */
+    private $seller_comment_1;
+
+    /**
+     * @var string
+     */
+    private $seller_comment_2;
+
+
+    /**
+     * Set sellerComment1
+     *
+     * @param string $sellerComment1
+     *
+     * @return Item
+     */
+    public function setSellerComment1($sellerComment1)
+    {
+        $this->seller_comment_1 = $sellerComment1;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerComment1
+     *
+     * @return string
+     */
+    public function getSellerComment1()
+    {
+        return $this->seller_comment_1;
+    }
+
+    /**
+     * Set sellerComment2
+     *
+     * @param string $sellerComment2
+     *
+     * @return Item
+     */
+    public function setSellerComment2($sellerComment2)
+    {
+        $this->seller_comment_2 = $sellerComment2;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerComment2
+     *
+     * @return string
+     */
+    public function getSellerComment2()
+    {
+        return $this->seller_comment_2;
+    }
 }
