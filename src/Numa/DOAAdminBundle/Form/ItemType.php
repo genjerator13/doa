@@ -103,6 +103,9 @@ class ItemType extends AbstractType
             ->add('feature_youtube')
             ->add('Importfeed')
             ->add('seller_comment','ckeditor',array("label"=>"Seller Comments"))
+            ->add('seller_comment_1','ckeditor',array("label"=>"Seller Comments 2"))
+            ->add('seller_comment_2','ckeditor',array("label"=>"Seller Comments 3"))
+            ->add('seller_comment_active','choice',array('choices'=>array('Seller Comments','Seller Comments 2','Seller Comments 3'), 'label'=>'Seller Comment Active'))
             ->add('User')
             ->add('length','integer',array("label"=>"Length", "required" => false))
             ->add('beam')
@@ -144,26 +147,26 @@ class ItemType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'datepicker')
             ))
-            ->add('Vendor', 'entity',array(
-                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
-                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
-                'required'  => false,
-                'empty_value' => 'Choose Vendor',
-                'label' => "Vendor", "required" => false
-            ))
-            ->add('invoice_amount')
-            ->add('discount1',null,array("label"=>"Discount 1"))
-            ->add('discount2',null,array("label"=>"Discount 2"))
-            ->add('sale_amount')
-            ->add('expense_1_descrip')
-            ->add('expense_1_amt')
-            ->add('expense_2_descrip')
-            ->add('expense_2_amt')
-            ->add('expense_3_descrip')
-            ->add('expense_3_amt')
-            ->add('expense_4_descrip')
-            ->add('expense_4_amt')
-            ->add('total_cost')
+//            ->add('Vendor', 'entity',array(
+//                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+//                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+//                'required'  => false,
+//                'empty_value' => 'Choose Vendor',
+//                'label' => "Vendor", "required" => false
+//            ))
+//            ->add('invoice_amount')
+//            ->add('discount1',null,array("label"=>"Discount 1"))
+//            ->add('discount2',null,array("label"=>"Discount 2"))
+//            ->add('sale_amount')
+//            ->add('expense_1_descrip')
+//            ->add('expense_1_amt')
+//            ->add('expense_2_descrip')
+//            ->add('expense_2_amt')
+//            ->add('expense_3_descrip')
+//            ->add('expense_3_amt')
+//            ->add('expense_4_descrip')
+//            ->add('expense_4_amt')
+//            ->add('total_cost')
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))
             ->add('torque')
