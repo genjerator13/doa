@@ -1161,27 +1161,27 @@
     </div>
 <script>
     $('.col-md-10').keyup(function () {
-    var n1 = parseInt(document.getElementById("numa_doadmsbundle_billing_sale_price").value);
-    var n2 = parseInt(document.getElementById("numa_doadmsbundle_billing_admin_fee").value);
-    var n3 = parseInt(document.getElementById("numa_doadmsbundle_billing_warranty").value);
-    var n4 = parseInt(document.getElementById("numa_doadmsbundle_billing_protection_pkg").value);
+    var n1 = parseFloat(document.getElementById("numa_doadmsbundle_billing_sale_price").value);
+    var n2 = parseFloat(document.getElementById("numa_doadmsbundle_billing_admin_fee").value);
+    var n3 = parseFloat(document.getElementById("numa_doadmsbundle_billing_warranty").value);
+    var n4 = parseFloat(document.getElementById("numa_doadmsbundle_billing_protection_pkg").value);
 
-    var n5 = parseInt(document.getElementById("numa_doadmsbundle_billing_less_trade_in").value);
+    var n5 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_trade_in").value);
 
-    var n6 = parseInt(document.getElementById("numa_doadmsbundle_billing_tax1").value);
-    var n7 = parseInt(document.getElementById("numa_doadmsbundle_billing_tax2").value);
+    var n6 = parseFloat(document.getElementById("numa_doadmsbundle_billing_tax1").value);
+    var n7 = parseFloat(document.getElementById("numa_doadmsbundle_billing_tax2").value);
 
-    var n8 = parseInt(document.getElementById("numa_doadmsbundle_billing_other_misc1").value);
-    var n9 = parseInt(document.getElementById("numa_doadmsbundle_billing_other_misc2").value);
+    var n8 = parseFloat(document.getElementById("numa_doadmsbundle_billing_other_misc1").value);
+    var n9 = parseFloat(document.getElementById("numa_doadmsbundle_billing_other_misc2").value);
 
-    var n10 = parseInt(document.getElementById("numa_doadmsbundle_billing_lien_on_trade_in").value);
+    var n10 = parseFloat(document.getElementById("numa_doadmsbundle_billing_lien_on_trade_in").value);
 
-    var n11 = parseInt(document.getElementById("numa_doadmsbundle_billing_less_trade_in_tax").value);
-    var n12 = parseInt(document.getElementById("numa_doadmsbundle_billing_less_deposit").value);
+    var n11 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_trade_in_tax").value);
+    var n12 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_deposit").value);
 
-    var n13 = parseInt(document.getElementById("numa_doadmsbundle_billing_balance_to_finance").value);
-    var n14 = parseInt(document.getElementById("numa_doadmsbundle_billing_insurance").value);
-    var n15 = parseInt(document.getElementById("numa_doadmsbundle_billing_bank_registration_fee").value);
+    var n13 = parseFloat(document.getElementById("numa_doadmsbundle_billing_balance_to_finance").value);
+    var n14 = parseFloat(document.getElementById("numa_doadmsbundle_billing_insurance").value);
+    var n15 = parseFloat(document.getElementById("numa_doadmsbundle_billing_bank_registration_fee").value);
 
     if(isNaN(parseFloat(n1))){
     n1 = 0;
