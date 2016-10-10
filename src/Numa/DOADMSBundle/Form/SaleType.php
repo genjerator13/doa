@@ -83,7 +83,7 @@ class SaleType extends AbstractType
             ->add('other_3')
             ->add('total_revenue')
             ->add('revenue_this_unit')
-            ->add('item_id','hidden')
+            //->add('item_id','hidden')
 //            ->add('Vendor')
 //            ->add('Item')
         ;
