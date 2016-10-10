@@ -8,7 +8,10 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master-dms
 /**
  * Sale
  */
@@ -25,11 +28,14 @@ class Sale
     private $vendor_id;
 
     /**
+<<<<<<< HEAD
+=======
      * @var integer
      */
     private $item_id;
 
     /**
+>>>>>>> origin/master-dms
      * @var string
      */
     private $sales_person;
@@ -380,6 +386,8 @@ class Sale
     }
 
     /**
+<<<<<<< HEAD
+=======
      * Set itemId
      *
      * @param integer $itemId
@@ -404,6 +412,7 @@ class Sale
     }
 
     /**
+>>>>>>> origin/master-dms
      * Set salesPerson
      *
      * @param string $salesPerson
@@ -1448,7 +1457,11 @@ class Sale
 
         return $this;
     }
+<<<<<<< HEAD
+//test
+=======
 
+>>>>>>> origin/master-dms
     /**
      * Get tax1In
      *

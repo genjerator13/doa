@@ -4914,4 +4914,91 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->Sale;
     }
+    /**
+     * @var string
+     */
+    private $seller_comment_1;
+
+    /**
+     * @var string
+     */
+    private $seller_comment_2;
+
+
+    /**
+     * Set sellerComment1
+     *
+     * @param string $sellerComment1
+     *
+     * @return Item
+     */
+    public function setSellerComment1($sellerComment1)
+    {
+        $this->seller_comment_1 = $sellerComment1;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerComment1
+     *
+     * @return string
+     */
+    public function getSellerComment1()
+    {
+        return $this->seller_comment_1;
+    }
+
+    /**
+     * Set sellerComment2
+     *
+     * @param string $sellerComment2
+     *
+     * @return Item
+     */
+    public function setSellerComment2($sellerComment2)
+    {
+        $this->seller_comment_2 = $sellerComment2;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerComment2
+     *
+     * @return string
+     */
+    public function getSellerComment2()
+    {
+        return $this->seller_comment_2;
+    }
+    /**
+     * @var integer
+     */
+    private $seller_comment_active;
+
+
+    /**
+     * Set sellerCommentActive
+     *
+     * @param integer $sellerCommentActive
+     *
+     * @return Item
+     */
+    public function setSellerCommentActive($sellerCommentActive)
+    {
+        $this->seller_comment_active = $sellerCommentActive;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerCommentActive
+     *
+     * @return integer
+     */
+    public function getSellerCommentActive()
+    {
+        return $this->seller_comment_active;
+    }
 }

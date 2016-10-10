@@ -232,7 +232,16 @@ Numa\DOAAdminBundle\Entity\Item:
               nullable: true            
         seller_comment:
               type: text
-              nullable: true 
+              nullable: true
+        seller_comment_1:
+              type: text
+              nullable: true
+        seller_comment_2:
+              type: text
+              nullable: true
+        seller_comment_active:
+              type: smallint
+              nullable: true
         length:
               type: string
               length: 255
