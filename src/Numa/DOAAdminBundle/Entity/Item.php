@@ -4817,4 +4817,62 @@ class Item
     {
         return $this->Vendor;
     }
+    /**
+     * @var integer
+     */
+    private $sale_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Sale
+     */
+    private $Sale;
+
+
+    /**
+     * Set saleId
+     *
+     * @param integer $saleId
+     *
+     * @return Item
+     */
+    public function setSaleId($saleId)
+    {
+        $this->sale_id = $saleId;
+
+        return $this;
+    }
+
+    /**
+     * Get saleId
+     *
+     * @return integer
+     */
+    public function getSaleId()
+    {
+        return $this->sale_id;
+    }
+
+    /**
+     * Set sale
+     *
+     * @param \Numa\DOADMSBundle\Entity\Sale $sale
+     *
+     * @return Item
+     */
+    public function setSale(\Numa\DOADMSBundle\Entity\Sale $sale = null)
+    {
+        $this->Sale = $sale;
+
+        return $this;
+    }
+
+    /**
+     * Get sale
+     *
+     * @return \Numa\DOADMSBundle\Entity\Sale
+     */
+    public function getSale()
+    {
+        return $this->Sale;
+    }
 }

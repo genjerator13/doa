@@ -317,4 +317,20 @@ class CommandLog
     {
         return $this->current;
     }
+
+    public function isRunning(){
+        $running = empty($this->getEndedAt());
+        $now = new \DateTime("now");
+        $interval = date_diff($this->getStartedAt(), $now);
+        $i = intval($interval->format('%i'));
+        
+        $isRunning = false;
+        if($running){
+            $isRunning = true;
+        }
+        if($i>10){
+            $isRunning = false;
+        }
+        return $isRunning;
+    }
 }

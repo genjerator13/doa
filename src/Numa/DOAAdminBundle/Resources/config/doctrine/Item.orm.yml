@@ -482,6 +482,9 @@ Numa\DOAAdminBundle\Entity\Item:
         total_cost:
               type: float
               nullable: true
+        sale_id:
+              type: integer
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
@@ -537,10 +540,10 @@ Numa\DOAAdminBundle\Entity\Item:
                 name: item_id
                 referencedColumnName: id
                 onDelete: cascade
-#    oneToOne:
-#        SeoItem:
-#            targetEntity: Numa\DOAModuleBundle\Entity\Seo
-#            cascade: ["persist","remove"]
-#            joinColumn:
-#                name: seo_id
-#                referencedColumnName: id
+    oneToOne:
+        Sale:
+            targetEntity: Numa\DOADMSBundle\Entity\Sale
+            cascade: ["persist","remove"]
+            joinColumn:
+                name: sale_id
+                referencedColumnName: id

@@ -931,4 +931,10 @@ class Vendor
             $this->date_updated = new \DateTime();
         }
     }
+
+    public function __toString()
+    {
+
+        return empty($this->company_name)?$this->first_name." ".$this->last_name:$this->company_name;
+    }
 }

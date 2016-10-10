@@ -15,7 +15,13 @@ class SaleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('vendor_id')
+            ->add('Vendor', 'entity',array(
+                //'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
             ->add('sales_person')
             ->add('stock_nr')
             ->add('vin')
@@ -77,6 +83,7 @@ class SaleType extends AbstractType
             ->add('other_3')
             ->add('total_revenue')
             ->add('revenue_this_unit')
+            ->add('item_id','hidden')
 //            ->add('Vendor')
 //            ->add('Item')
         ;
