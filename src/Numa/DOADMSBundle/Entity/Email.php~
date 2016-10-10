@@ -2,7 +2,10 @@
 
 namespace Numa\DOADMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< HEAD
 //test
+=======
+>>>>>>> origin/master-dms
 /**
  * Email
  */
@@ -491,3 +494,7 @@ class Email
         $this->updated_at = new \DateTime();
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master-dms

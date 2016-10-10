@@ -6,7 +6,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
+use Numa\DOADMSBundle\Entity\Sale;
 use Numa\DOAModuleBundle\Form\SeoType;
+use Numa\DOADMSBundle\Form\SaleType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -368,10 +370,17 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
             }
         }
-        //'dashboard' =>$dashboard,
+        //sale form
+
+        $saleForm = $this->createSaleCreateForm(new Sale());
+
+
+
         $params = array(
             'entity' => $entity,
+
             'form' => $form->createView(),
+            'saleForm' => $saleForm->createView(),
             'category' => $category,
             'seo'=> $seoFormView,
             'dashboard' =>$dashboard,
@@ -537,9 +546,15 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             }
             return $this->redirectToRoute($redirect,array("id"=>$entity->getId()));
         }
+
+        //sale form
+        $saleForm = $this->createSaleEditForm($entity);
+
         $params = array(
             'entity' => $entity,
+
             'form' => $form->createView(),
+            'saleForm' => $saleForm->createView(),
             'category' => $entity->getCategory(),
             'seo'=> $seoFormView,
             'dashboard' =>$this->dashboard,
@@ -845,6 +860,50 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
     public function renderFetch($array) {
         
+    }
+
+    /**
+     * Creates a form to create a Sale entity.
+     *
+     * @param Sale $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSaleCreateForm(Sale $entity)
+    {
+        $form = $this->createForm(new SaleType(), $entity, array(
+            'action' => $this->generateUrl('sale_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Creates a form to edit a Sale entity.
+     *
+     * @param Sale $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSaleEditForm(Item $item)
+    {
+        $action = $this->generateUrl('sale_new');
+        $sale = new Sale();
+        if($item->getSale() instanceof Sale){
+            $sale = $item->getSale();
+            $action = $this->generateUrl('sale_update', array('id' => $sale->getId()));
+        }
+        $form = $this->createForm(new SaleType(), $sale, array(
+            'action' => $action,
+            'method' => 'POST',
+        ));
+        $form->add('item_id','hidden', array('data'=>$item->getId()));
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
     }
 
 }

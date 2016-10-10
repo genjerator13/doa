@@ -1930,4 +1930,3 @@ class Sale
         // Add your code here
     }
 }
-

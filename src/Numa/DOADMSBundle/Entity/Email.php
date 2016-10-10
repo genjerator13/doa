@@ -490,4 +490,3 @@ class Email
         $this->updated_at = new \DateTime();
     }
 }
-
