@@ -21,12 +21,7 @@ class Stats
     }
     public function dashboardStats(){
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $user = $this->container->get('security.token_storage')->getToken()->getUser();
-        $dealer=false;
-
-        if ($user instanceof Catalogrecords) {
-            $dealer = $user;
-        }
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedUser();
 
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,0,$dealer);
         $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,0,$dealer);
