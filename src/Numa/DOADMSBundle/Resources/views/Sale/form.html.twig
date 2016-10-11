@@ -7,7 +7,7 @@
     col-sm-8
 {%- endblock form_group_class %}
 </div>
-<div class="row">
+<div class="row form-horizontal">
     <h1>UNIT PROFIT REPORT</h1>
 
 
@@ -40,8 +40,8 @@
         {{ form_row(form.other_exp_3, {'attr': {'class': 'sum1'}}) }}
         {{ form_row(form.other_exp_4, {'attr': {'class': 'sum1'}}) }}
         {{ form_row(form.other_exp_5, {'attr': {'class': 'sum1'}}) }}
-        {{ form_row(form.total_unit_cost, {'attr': {'style': 'background-color: lightgray'}}) }}
-        {{ form_row(form.net_grain, {'attr': {'style': 'background-color: lightgray'}}) }}
+        {{ form_row(form.total_unit_cost, {'attr': {'class': 'darkgrey'}}) }}
+        {{ form_row(form.net_grain, {'attr': {'class': 'lightgray'}}) }}
 
         <h2>SALES COST RECAP</h2>
 
@@ -57,7 +57,7 @@
         {{ form_row(form.misc_2, {'attr': {'class': 'sum2'}}) }}
         {{ form_row(form.misc_3, {'attr': {'class': 'sum2'}}) }}
         {{ form_row(form.sales_comms, {'attr': {'class': 'sum2'}}) }}
-        {{ form_row(form.total_sale_cost, {'attr': {'style': 'background-color: lightgray'}}) }}
+        {{ form_row(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}
     </div>
     <div class="col-md-4">
         <div style="margin-top: 160px"></div>
@@ -76,7 +76,7 @@
         {{ form_row(form.trade_in_tax) }}
         {{ form_row(form.tax_1_in) }}
         {{ form_row(form.tax_2_in) }}
-        {{ form_row(form.net_tax, {'attr': {'style': 'background-color: lightgray'}}) }}
+        {{ form_row(form.net_tax, {'attr': {'class': 'lightgray'}}) }}
     </div>
     <div class="col-md-4">
         <h2>UNIT REVENUE</h2>
@@ -95,7 +95,7 @@
         {{ form_row(form.other_2, {'attr': {'class': 'sum4'}}) }}
         {{ form_row(form.other_3, {'attr': {'class': 'sum4'}}) }}
         {{ form_row(form.total_revenue) }}
-        {{ form_row(form.revenue_this_unit, {'attr': {'style': 'background-color: lightgray'}}) }}
+        {{ form_row(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}
         {#{{ form_row(form.item_id) }}#}
     </div>
 </div>
