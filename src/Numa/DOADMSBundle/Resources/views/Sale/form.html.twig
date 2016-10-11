@@ -70,11 +70,11 @@
 
         <h2>TAXES</h2>
 
-        {{ form_row(form.tax_1_out, {'attr': {'class': 'sum3'}}) }}
-        {{ form_row(form.tax_2_out, {'attr': {'class': 'sum3'}}) }}
-        {{ form_row(form.trade_in_tax, {'attr': {'class': 'sum3'}}) }}
-        {{ form_row(form.tax_1_in, {'attr': {'class': 'tax'}}) }}
-        {{ form_row(form.tax_2_in, {'attr': {'class': 'tax'}}) }}
+        {{ form_row(form.tax_1_out) }}
+        {{ form_row(form.tax_2_out) }}
+        {{ form_row(form.trade_in_tax) }}
+        {{ form_row(form.tax_1_in) }}
+        {{ form_row(form.tax_2_in) }}
         {{ form_row(form.net_tax, {'attr': {'style': 'background-color: lightgray'}}) }}
     </div>
     <div class="col-md-4">
@@ -140,7 +140,7 @@
                 n5 = 0;
             }
 
-            $('#numa_doadmsbundle_sale_net_tax').val((n1+n2+n3) - (n4+n5));
+            $('#numa_doaadminbundle_item_sale_net_tax').val((n1+n2+n3) - (n4+n5));
         });
 
         $('.form-control').keyup(function () {
