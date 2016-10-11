@@ -40,8 +40,8 @@
         {{ form_row(form.other_exp_3, {'attr': {'class': 'sum1'}}) }}
         {{ form_row(form.other_exp_4, {'attr': {'class': 'sum1'}}) }}
         {{ form_row(form.other_exp_5, {'attr': {'class': 'sum1'}}) }}
-        {{ form_row(form.total_unit_cost) }}
-        {{ form_row(form.net_grain) }}
+        {{ form_row(form.total_unit_cost, {'attr': {'style': 'background-color: lightgray'}}) }}
+        {{ form_row(form.net_grain, {'attr': {'style': 'background-color: lightgray'}}) }}
 
         <h2>SALES COST RECAP</h2>
 
@@ -57,7 +57,7 @@
         {{ form_row(form.misc_2, {'attr': {'class': 'sum2'}}) }}
         {{ form_row(form.misc_3, {'attr': {'class': 'sum2'}}) }}
         {{ form_row(form.sales_comms, {'attr': {'class': 'sum2'}}) }}
-        {{ form_row(form.total_sale_cost) }}
+        {{ form_row(form.total_sale_cost, {'attr': {'style': 'background-color: lightgray'}}) }}
     </div>
     <div class="col-md-4">
         {{ form_row(form.discrip1) }}
@@ -75,7 +75,7 @@
         {{ form_row(form.trade_in_tax, {'attr': {'class': 'sum3'}}) }}
         {{ form_row(form.tax_1_in, {'attr': {'class': 'tax'}}) }}
         {{ form_row(form.tax_2_in, {'attr': {'class': 'tax'}}) }}
-        {{ form_row(form.net_tax) }}
+        {{ form_row(form.net_tax, {'attr': {'style': 'background-color: lightgray'}}) }}
     </div>
     <div class="col-md-4">
         <h2>UNIT REVENUE</h2>
@@ -94,7 +94,7 @@
         {{ form_row(form.other_2, {'attr': {'class': 'sum4'}}) }}
         {{ form_row(form.other_3, {'attr': {'class': 'sum4'}}) }}
         {{ form_row(form.total_revenue) }}
-        {{ form_row(form.revenue_this_unit) }}
+        {{ form_row(form.revenue_this_unit, {'attr': {'style': 'background-color: lightgray'}}) }}
         {#{{ form_row(form.item_id) }}#}
     </div>
 </div>
