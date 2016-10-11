@@ -4727,3 +4727,7 @@ table.text-center th {
     white-space: normal!important;
   }
 }
+
+.lightgray {
+  background: #ECF0F5;
+}
