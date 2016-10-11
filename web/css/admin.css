@@ -206,3 +206,11 @@ input[type="file"] {
 .page-component-row {
     padding: 10px;
 }
+
+.lightgray {
+    background: #ECF0F5;
+}
+
+.darkgrey {
+    background: #F6F4F1;
+}
