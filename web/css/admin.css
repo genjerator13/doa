@@ -212,5 +212,9 @@ input[type="file"] {
 }
 
 .darkgrey {
-    background: #F6F4F1;
+    background: #8c8c8c;
+}
+
+.itemsale{
+    margin-bottom: 20px;
 }
