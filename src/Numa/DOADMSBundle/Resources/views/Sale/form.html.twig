@@ -11,28 +11,47 @@
     <h1>UNIT PROFIT REPORT</h1>
     <table cellspacing="0" width="100%" border="0">
         <tr>
-            <td colspan="3">
-                {{ form_row(form.Vendor) }}
+            <td colspan="1">
+                {{ form_label(form.Vendor) }}
             </td>
-            <td colspan="3">
-                {{ form_row(form.stock_nr) }}
+            <td colspan="1">
+                {{ form_widget(form.Vendor) }}
+            </td>
+            <td colspan="1">
+                {{ form_label(form.stock_nr) }}
+            </td>
+            <td colspan="1">
+                {{ form_widget(form.stock_nr) }}
+            </td>
+            <td colspan="2">
+                &nbsp;
             </td>
         </tr>
         <tr>
-            <td colspan="3">
-                {{ form_row(form.sales_person) }}
+            <td colspan="1">
+                {{ form_label(form.sales_person) }}
             </td>
-            <td colspan="3">
-                {{ form_row(form.vin) }}
+            <td colspan="1">
+                {{ form_widget(form.sales_person) }}
+            </td>
+            <td colspan="1">
+                {{ form_label(form.vin) }}
+            </td>
+            <td colspan="1">
+                {{ form_widget(form.vin) }}
+            </td>
+            <td colspan="2">
+                &nbsp;
             </td>
         </tr>
+
         <tr>
-            <td>{{ form_label(form.invoice_nr) }}</td>
-            <td>{{ form_widget(form.invoice_nr) }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td width="10%">{{ form_label(form.invoice_nr) }}</td>
+            <td width="20%">{{ form_widget(form.invoice_nr) }}</td>
+            <td width="10%"></td>
+            <td width="20%"></td>
+            <td width="10%"></td>
+            <td width="20%"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.invoice_date) }}</td>
@@ -163,62 +182,62 @@
         <tr>
             <td>{{ form_label(form.net_grain) }}</td>
             <td>{{ form_widget(form.net_grain, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
-            <td colspan="2"><h2>TAXES</h2></td>
+            <td colspan="2"></td>
             <td>{{ form_label(form.other_2) }}</td>
             <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
             <td colspan="2"><h2>SALES COST RECAP</h2></td>
-            <td>{{ form_label(form.tax_1_out) }}</td>
-            <td>{{ form_widget(form.tax_1_out) }}</td>
+            <td><h2>TAXES</h2></td>
+            <td></td>
             <td>{{ form_label(form.other_3) }}</td>
             <td>{{ form_widget(form.other_3, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.protect_pkg) }}</td>
             <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
-            <td>{{ form_label(form.tax_2_out) }}</td>
-            <td>{{ form_widget(form.tax_2_out) }}</td>
+            <td>{{ form_label(form.tax_1_out) }}</td>
+            <td>{{ form_widget(form.tax_1_out) }}</td>
             <td>{{ form_label(form.total_revenue) }}</td>
             <td>{{ form_widget(form.total_revenue) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.warranty) }}</td>
             <td>{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</td>
-            <td>{{ form_label(form.trade_in_tax) }}</td>
-            <td>{{ form_widget(form.trade_in_tax) }}</td>
+            <td>{{ form_label(form.tax_2_out) }}</td>
+            <td>{{ form_widget(form.tax_2_out) }}</td>
             <td>{{ form_label(form.revenue_this_unit) }}</td>
             <td>{{ form_widget(form.revenue_this_unit, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.doc_fees) }}</td>
             <td>{{ form_widget(form.doc_fees, {'attr': {'class': 'sum2'}}) }}</td>
-            <td>{{ form_label(form.tax_1_in) }}</td>
-            <td>{{ form_widget(form.tax_1_in) }}</td>
+            <td>{{ form_label(form.trade_in_tax) }}</td>
+            <td>{{ form_widget(form.trade_in_tax) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.admin_fees) }}</td>
             <td>{{ form_widget(form.admin_fees, {'attr': {'class': 'sum2'}}) }}</td>
-            <td>{{ form_label(form.tax_2_in) }}</td>
-            <td>{{ form_widget(form.tax_2_in) }}</td>
+            <td>{{ form_label(form.tax_1_in) }}</td>
+            <td>{{ form_widget(form.tax_1_in) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.insurance) }}</td>
             <td>{{ form_widget(form.insurance, {'attr': {'class': 'sum2'}}) }}</td>
-            <td>{{ form_label(form.net_tax) }}</td>
-            <td>{{ form_widget(form.net_tax, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
+            <td>{{ form_label(form.tax_2_in) }}</td>
+            <td>{{ form_widget(form.tax_2_in) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.life_ins) }}</td>
             <td>{{ form_widget(form.life_ins, {'attr': {'class': 'sum2'}}) }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td>{{ form_label(form.net_tax) }}</td>
+            <td>{{ form_widget(form.net_tax, {'attr': {'class': 'lightgray'}}) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
         </tr>
