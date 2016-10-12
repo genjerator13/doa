@@ -7,9 +7,9 @@
     col-sm-12
 {%- endblock form_group_class %}
 </div>
-<div class="row">
+<div class="row form-horizontal">
     <h1>UNIT PROFIT REPORT</h1>
-    <table cellspacing="0" width="100%" border="0">
+    <table cellspacing="0" width="100%" border="0" class="itemsale">
         <tr>
             <td colspan="1">
                 {{ form_label(form.Vendor) }}
@@ -44,7 +44,6 @@
                 &nbsp;
             </td>
         </tr>
-
         <tr>
             <td width="10%">{{ form_label(form.invoice_nr) }}</td>
             <td width="20%">{{ form_widget(form.invoice_nr) }}</td>
