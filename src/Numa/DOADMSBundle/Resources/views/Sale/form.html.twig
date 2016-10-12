@@ -23,8 +23,8 @@
         {{ form_row(form.invoice_nr) }}
         {{ form_row(form.invoice_date) }}
         {{ form_row(form.invoica_amt, {'attr': {'class': 'sum1'}}) }}
-        {{ form_row(form.related_taxes_1, {'attr': {'class': 'sum1'}}) }}
-        {{ form_row(form.related_taxes_2, {'attr': {'class': 'sum1'}}) }}
+        {{ form_row(form.related_taxes_1, {'attr': {'class': ''}}) }}
+        {{ form_row(form.related_taxes_2, {'attr': {'class': ''}}) }}
     </div>
     <div class="clearfix"></div>
     <div class="col-md-4">
@@ -60,7 +60,7 @@
         {{ form_row(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}
     </div>
     <div class="col-md-4">
-        <div style="margin-top: 160px"></div>
+        <div style="margin-top: 210px"></div>
         {{ form_row(form.discrip1) }}
         {{ form_row(form.discrip2) }}
         {{ form_row(form.discrip3) }}
@@ -68,7 +68,7 @@
         {{ form_row(form.discrip5) }}
         {{ form_row(form.discrip6) }}
         {{ form_row(form.discrip7) }}
-
+        <div style="margin-top: 110px"></div>
         <h2>TAXES</h2>
 
         {{ form_row(form.tax_1_out) }}
