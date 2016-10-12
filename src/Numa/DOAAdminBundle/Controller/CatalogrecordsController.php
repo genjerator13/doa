@@ -581,6 +581,11 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         return $this->redirectToRoute('catalogs');
     }
 
+    /**
+     * Activates the dealer and creates pages for him
+     * @param $id Dealer id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function activateDealerAction($id)
     {
         $em = $this->container->get("doctrine.orm.entity_manager");
@@ -590,6 +595,9 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             $dealer->setDmsStatus("activated");
             $em->flush();
         }
+
+        //generate all the pages
+        $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($id);
 
         return $this->redirect($this->generateUrl('dms_catalogs'));
 
