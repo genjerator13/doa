@@ -2022,4 +2022,149 @@ class Sale
     {
         return $this->status;
     }
+    /**
+     * @var float
+     */
+    private $invoice_amt;
+
+    /**
+     * @var float
+     */
+    private $clean_up;
+
+
+    /**
+     * Set invoiceAmt
+     *
+     * @param float $invoiceAmt
+     *
+     * @return Sale
+     */
+    public function setInvoiceAmt($invoiceAmt)
+    {
+        $this->invoice_amt = $invoiceAmt;
+
+        return $this;
+    }
+
+    /**
+     * Get invoiceAmt
+     *
+     * @return float
+     */
+    public function getInvoiceAmt()
+    {
+        return $this->invoice_amt;
+    }
+
+    /**
+     * Set cleanUp
+     *
+     * @param float $cleanUp
+     *
+     * @return Sale
+     */
+    public function setCleanUp($cleanUp)
+    {
+        $this->clean_up = $cleanUp;
+
+        return $this;
+    }
+
+    /**
+     * Get cleanUp
+     *
+     * @return float
+     */
+    public function getCleanUp()
+    {
+        return $this->clean_up;
+    }
+    /**
+     * @var string
+     */
+    private $supplier;
+
+    /**
+     * @var string
+     */
+    private $supplier1;
+
+    /**
+     * @var string
+     */
+    private $supplier2;
+
+
+    /**
+     * Set supplier
+     *
+     * @param string $supplier
+     *
+     * @return Sale
+     */
+    public function setSupplier($supplier)
+    {
+        $this->supplier = $supplier;
+
+        return $this;
+    }
+
+    /**
+     * Get supplier
+     *
+     * @return string
+     */
+    public function getSupplier()
+    {
+        return $this->supplier;
+    }
+
+    /**
+     * Set supplier1
+     *
+     * @param string $supplier1
+     *
+     * @return Sale
+     */
+    public function setSupplier1($supplier1)
+    {
+        $this->supplier1 = $supplier1;
+
+        return $this;
+    }
+
+    /**
+     * Get supplier1
+     *
+     * @return string
+     */
+    public function getSupplier1()
+    {
+        return $this->supplier1;
+    }
+
+    /**
+     * Set supplier2
+     *
+     * @param string $supplier2
+     *
+     * @return Sale
+     */
+    public function setSupplier2($supplier2)
+    {
+        $this->supplier2 = $supplier2;
+
+        return $this;
+    }
+
+    /**
+     * Get supplier2
+     *
+     * @return string
+     */
+    public function getSupplier2()
+    {
+        return $this->supplier2;
+    }
 }
