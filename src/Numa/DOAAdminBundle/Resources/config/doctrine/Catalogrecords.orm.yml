@@ -150,6 +150,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        default_listing_comment:
+            type: string
+            length: 255
+            nullable: true
 
     manyToOne:
         Catalogcategory:

@@ -4933,4 +4933,33 @@ class Item
     {
         return $this->seller_comment_2;
     }
+    /**
+     * @var integer
+     */
+    private $seller_comment_active;
+
+
+    /**
+     * Set sellerCommentActive
+     *
+     * @param integer $sellerCommentActive
+     *
+     * @return Item
+     */
+    public function setSellerCommentActive($sellerCommentActive)
+    {
+        $this->seller_comment_active = $sellerCommentActive;
+
+        return $this;
+    }
+
+    /**
+     * Get sellerCommentActive
+     *
+     * @return integer
+     */
+    public function getSellerCommentActive()
+    {
+        return $this->seller_comment_active;
+    }
 }
