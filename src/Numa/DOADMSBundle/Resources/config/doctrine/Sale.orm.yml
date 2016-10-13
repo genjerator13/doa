@@ -32,7 +32,7 @@ Numa\DOADMSBundle\Entity\Sale:
         invoice_date:
             type: date
             nullable: true
-        invoica_amt:
+        invoice_amt:
             type: float
             nullable: true
         related_taxes_1:
@@ -44,7 +44,7 @@ Numa\DOADMSBundle\Entity\Sale:
         delivery:
             type: float
             nullable: true
-        clear_up:
+        clean_up:
             type: float
             nullable: true
         glass:
@@ -214,6 +214,18 @@ Numa\DOADMSBundle\Entity\Sale:
             type: datetime
             nullable: true
         status:
+            type: string
+            length: 255
+            nullable: true
+        supplier:
+            type: string
+            length: 255
+            nullable: true
+        supplier1:
+            type: string
+            length: 255
+            nullable: true
+        supplier2:
             type: string
             length: 255
             nullable: true

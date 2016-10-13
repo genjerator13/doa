@@ -21,7 +21,7 @@
                 {{ form_label(form.stock_nr) }}
             </td>
             <td colspan="1">
-                {{ form_widget(form.stock_nr) }}
+                {{ entity.stockNr }}
             </td>
             <td colspan="2">
                 &nbsp;
@@ -38,7 +38,7 @@
                 {{ form_label(form.vin) }}
             </td>
             <td colspan="1">
-                {{ form_widget(form.vin) }}
+                {{ entity.vin }}
             </td>
             <td colspan="2">
                 &nbsp;
@@ -61,8 +61,8 @@
             <td width="165px"></td>
         </tr>
         <tr>
-            <td>{{ form_label(form.invoica_amt) }}</td>
-            <td>{{ form_widget(form.invoica_amt, {'attr': {'class': 'sum1'}}) }}</td>
+            <td>{{ form_label(form.invoice_amt) }}</td>
+            <td>{{ form_widget(form.invoice_amt, {'attr': {'class': 'sum1'}}) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
             <td width="165px"></td>
@@ -70,7 +70,7 @@
         </tr>
         <tr>
             <td>{{ form_label(form.related_taxes_1) }}</td>
-            <td>{{ form_widget(form.related_taxes_1, {'attr': {'class': 'sum1'}}) }}</td>
+            <td>{{ form_widget(form.related_taxes_1) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
             <td width="165px"></td>
@@ -78,7 +78,7 @@
         </tr>
         <tr>
             <td>{{ form_label(form.related_taxes_2) }}</td>
-            <td>{{ form_widget(form.related_taxes_2, {'attr': {'class': 'sum1'}}) }}</td>
+            <td>{{ form_widget(form.related_taxes_2) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
             <td width="165px"></td>
@@ -93,24 +93,24 @@
         <tr>
             <td>{{ form_label(form.delivery) }}</td>
             <td>{{ form_widget(form.delivery, {'attr': {'class': 'sum1'}}) }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td>{{ form_label(form.supplier) }}</td>
+            <td>{{ form_widget(form.supplier) }}</td>
             <td>{{ form_label(form.selling_price) }}</td>
             <td>{{ form_widget(form.selling_price, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
-            <td>{{ form_label(form.clear_up) }}</td>
-            <td>{{ form_widget(form.clear_up, {'attr': {'class': 'sum1'}}) }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td>{{ form_label(form.clean_up) }}</td>
+            <td>{{ form_widget(form.clean_up, {'attr': {'class': 'sum1'}}) }}</td>
+            <td>{{ form_label(form.supplier1) }}</td>
+            <td>{{ form_widget(form.supplier1) }}</td>
             <td>{{ form_label(form.trade_in) }}</td>
             <td>{{ form_widget(form.trade_in, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.glass) }}</td>
             <td>{{ form_widget(form.glass, {'attr': {'class': 'sum1'}}) }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td>{{ form_label(form.supplier2) }}</td>
+            <td>{{ form_widget(form.supplier2) }}</td>
             <td>{{ form_label(form.warranty1) }}</td>
             <td>{{ form_widget(form.warranty1, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
@@ -172,7 +172,7 @@
         </tr>
         <tr>
             <td>{{ form_label(form.total_unit_cost) }}</td>
-            <td>{{ form_widget(form.total_unit_cost, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
+            <td>{{ form_widget(form.total_unit_cost, {'attr': {'class': 'lightgray'}}) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
             <td>{{ form_label(form.other_1) }}</td>
@@ -180,7 +180,7 @@
         </tr>
         <tr>
             <td>{{ form_label(form.net_grain) }}</td>
-            <td>{{ form_widget(form.net_grain, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
+            <td>{{ form_widget(form.net_grain, {'attr': {'class': 'lightgray'}}) }}</td>
             <td colspan="2"></td>
             <td>{{ form_label(form.other_2) }}</td>
             <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
@@ -198,15 +198,15 @@
             <td>{{ form_label(form.tax_1_out) }}</td>
             <td>{{ form_widget(form.tax_1_out) }}</td>
             <td>{{ form_label(form.total_revenue) }}</td>
-            <td>{{ form_widget(form.total_revenue) }}</td>
+            <td>{{ form_widget(form.total_revenue, {'attr': {'class': 'lightgray'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.warranty) }}</td>
             <td>{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</td>
             <td>{{ form_label(form.tax_2_out) }}</td>
             <td>{{ form_widget(form.tax_2_out) }}</td>
-            <td>{{ form_label(form.revenue_this_unit) }}</td>
-            <td>{{ form_widget(form.revenue_this_unit, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
+            <td width="165px"></td>
+            <td width="165px"></td>
         </tr>
         <tr>
             <td>{{ form_label(form.doc_fees) }}</td>
@@ -290,11 +290,11 @@
         </tr>
         <tr>
             <td>{{ form_label(form.total_sale_cost) }}</td>
-            <td>{{ form_widget(form.total_sale_cost, {'attr': {'style': 'background-color: lightgray'}}) }}</td>
+            <td>{{ form_widget(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
+            <td>{{ form_label(form.revenue_this_unit) }}</td>
+            <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
         </tr>
     </table>
 
@@ -365,5 +365,18 @@
             $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4);
             $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4);
         });
-    </script>
 
+        $('.form-control').keyup(function () {
+            var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
+            var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
+
+            if(isNaN(parseFloat(n1))){
+                n1 = 0;
+            }
+            if(isNaN(parseFloat(n2))){
+                n2 = 0;
+            }
+
+            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(n1 - n2);
+        });
+    </script>

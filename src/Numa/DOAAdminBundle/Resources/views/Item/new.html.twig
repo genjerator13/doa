@@ -445,7 +445,7 @@
                     {#//{{ dump(form.sale) }}#}
                     {#{{ form_widget(form.sale) }}#}
                     {% if entity.id is not empty %}
-                        {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':form.sale} %}
+                        {% include "NumaDOADMSBundle:Sale:form.html.twig" with {'form':form.sale,'item':entity} %}
                     {% else %}
                         <div class="alert alert-info">Please submit the listing first.</div>
                     {% endif %}
