@@ -29,7 +29,7 @@ class SaleType extends AbstractType
             ->add('invoice_date')
             ->add('invoice_amt')
             ->add('related_taxes_1',null,array('label'=>'Taxes 1'))
-            ->add('related_taxes_2',null,array('label'=>'Taxes 1'))
+            ->add('related_taxes_2',null,array('label'=>'Taxes 2'))
             ->add('delivery')
             ->add('clean_up')
             ->add('glass')
