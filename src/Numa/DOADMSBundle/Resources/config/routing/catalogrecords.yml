@@ -37,4 +37,7 @@ dms_catalogs_site_update:
     path:     /{id}/update_site
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateSite",_dashboard:"DMS" }
     requirements: { _method: post|put }
-
+dms_catalogs_item_default_update:
+    path:     /{id}/update_item_default
+    defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:updateItemDefault",_dashboard:"DMS" }
+    requirements: { _method: post|put }
