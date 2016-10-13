@@ -1629,5 +1629,33 @@ class Catalogrecords implements UserInterface
         return false;
     }
 
+    /**
+     * @var string
+     */
+    private $default_listing_comment;
 
+
+    /**
+     * Set defaultListingComment
+     *
+     * @param string $defaultListingComment
+     *
+     * @return Catalogrecords
+     */
+    public function setDefaultListingComment($defaultListingComment)
+    {
+        $this->default_listing_comment = $defaultListingComment;
+
+        return $this;
+    }
+
+    /**
+     * Get defaultListingComment
+     *
+     * @return string
+     */
+    public function getDefaultListingComment()
+    {
+        return $this->default_listing_comment;
+    }
 }
