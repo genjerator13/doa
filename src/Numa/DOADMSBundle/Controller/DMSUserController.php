@@ -56,6 +56,16 @@ class DMSUserController extends Controller
 
 
             $em->persist($entity);
+            $rq = $request->get("numa_doadmsbundle_dmsuser");
+            $pass= $rq["password"];
+
+            if (!empty($pass)) {
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $plainPassword = $entity->getPassword();
+                $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                $entity->setPassword($encodedPassword);
+            }
             $em->flush();
             return $this->redirect($this->generateUrl('dmsuser'));
 
@@ -214,6 +224,17 @@ class DMSUserController extends Controller
             $editForm->handleRequest($request);
 
             if ($editForm->isValid()) {
+                //dump($request);die();
+                $rq = $request->get("numa_doadmsbundle_dmsuser");
+                $pass= $rq["password"];
+
+                if (!empty($pass)) {
+                    $factory = $this->container->get('security.encoder_factory');
+                    $encoder = $factory->getEncoder($entity);
+                    $plainPassword = $entity->getPassword();
+                    $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                    $entity->setPassword($encodedPassword);
+                }
                 $em->flush();
 
                 return $this->redirect($this->generateUrl($redirectRoute, array('id' => $id)));

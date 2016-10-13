@@ -360,7 +360,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 }
 
                 $entity->upload();
-                //$data = $request->);
+
                 $rq = $request->get("numa_doaadminbundle_catalogrecords");
                 $pass= $rq["password"];
 
@@ -371,6 +371,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                     $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
                     $entity->setPassword($encodedPassword);
                 }
+
                 $em->flush();
                 $this->addFlash("success", "Dealer: " . $entity->getName() . " successfully updated.");
                 $securityContext = $this->container->get('security.context');
