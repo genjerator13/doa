@@ -26,6 +26,7 @@
                 <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
+                <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
             </ul>
             <div class="nav-tabs-custom">
                 <div class="tab-content">
@@ -162,6 +163,16 @@
 
                             {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 
+                        </div>
+                        </div>
+                        <div id="settings" class="tab-pane active">
+
+                            {{ form_start(itemDefaultForm) }}
+                            {{ form_row(itemDefaultForm.default_listing_comment) }}
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            {{ form_rest(itemDefaultForm) }}
+
+                            {{ form_end(site_form) }}
                         </div>
 
                 </div>

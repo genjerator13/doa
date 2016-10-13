@@ -135,6 +135,14 @@
         </li>
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="fieldCaption field">Seller Comments:</div>
-            <span class="fieldValue fieldValue">{{ item.getSellerComment()|raw }}</span>
+            <span class="fieldValue fieldValue">
+                {% if item.sellerCommentActive == 0 %}
+                    {{ item.getSellerComment()|raw }}
+                {% elseif item.sellerCommentActive == 1 %}
+                    {{ item.getSellerComment1()|raw }}
+                {% elseif item.sellerCommentActive == 2 %}
+                    {{ item.getSellerComment2()|raw }}
+                {% endif %}
+            </span>
         </li>
     {% endif %}
