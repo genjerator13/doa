@@ -23,8 +23,8 @@ class DMSUserController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        if($user instanceof Catalogrecords){
+        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
+        if($dealer instanceof Catalogrecords){
             $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$user));
         }else {
             $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findAll();
