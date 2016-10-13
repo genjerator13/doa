@@ -350,7 +350,7 @@ liip_imagine:
         mountain_browse:
             quality: 100
             filters:
-                thumbnail: { size: [86, 44], mode: outbound }
+                thumbnail: { size: [115, 45], mode: inbound }
                 background: { color: '#FFFFFF' }
 #        brands_forest:
 #            quality: 100
