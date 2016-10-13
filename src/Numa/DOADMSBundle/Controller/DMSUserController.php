@@ -48,10 +48,10 @@ class DMSUserController extends Controller
             $em = $this->getDoctrine()->getManager();
             //get loged user
 
-            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
 
-            if($user instanceof Catalogrecords){
-                $entity->setDealer($user);
+            if($dealer instanceof Catalogrecords){
+                $entity->setDealer($dealer);
             }
 
 
