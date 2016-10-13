@@ -38,7 +38,7 @@ class DMSUserRESTController extends Controller
      */
     public function byDealerAction()
     {
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user = $this->get("Numa.Dms.User")->getSignedDealer();
         $users = $this->getDoctrine()->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$user));
         return $users;
     }
