@@ -226,6 +226,7 @@ body {
 	margin: -20px;
 	table-layout: fixed;
 	width: calc(100% + 40px);
+	height: 379px;
 }
 
 .b1 { background: url("../images/button1.jpg") center center no-repeat; }
