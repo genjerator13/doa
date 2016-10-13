@@ -252,7 +252,7 @@ body {
 .button {
 	background-size: cover;
 	display: table-cell;
-	height: 302px;
+	/*height: 302px;*/
 	position: relative;
 	text-align: center;
 	overflow: hidden;
