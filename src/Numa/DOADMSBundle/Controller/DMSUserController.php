@@ -25,7 +25,7 @@ class DMSUserController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         if($dealer instanceof Catalogrecords){
-            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$user));
+            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$dealer));
         }else {
             $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findAll();
         }
