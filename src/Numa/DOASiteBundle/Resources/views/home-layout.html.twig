@@ -42,8 +42,9 @@
 <body class=" default ">
 
 <!-- Static navbar -->
+{% block navbar %}
 <div class="navbar navbar-default navbar-static-top" role="navigation">
-    {% block navbar %}
+
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -58,9 +59,9 @@
             {{ render_esi(controller('NumaDOASiteBundle:Default:search',{'route':route})) }}
         </div>
     </div>
-    {% endblock %}
-</div>
 
+</div>
+{% endblock %}
 <div class="header-background"></div>
 
 <div class="container">
