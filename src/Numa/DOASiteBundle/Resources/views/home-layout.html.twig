@@ -74,8 +74,10 @@
     </div>
     <div class="row">
         <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+            {% block leftads %}
             {{ render_esi(controller('NumaDOASiteBundle:Default:sidebarMenu')) }}
             {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':1 })) }}
+            {%  endblock %}
         </div>
 
         <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8">
@@ -84,7 +86,9 @@
         </div>
 
         <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 right-sidebar">
+            {% block rightads %}
             {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 5,'order':2 })) }}
+            {%  endblock %}
             {% block rightsidebar %}
             {% endblock %}
         </div>
