@@ -142,6 +142,7 @@ class EntityListener
             $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
         }elseif($entity instanceof Billing){
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
+            $this->container->get("Numa.Dms.Sale")->createSaleByBillingTradeIn($entity);
         }
 
 
@@ -161,6 +162,8 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
         }elseif($entity instanceof Billing){
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
+            $this->container->get("Numa.Dms.Sale")->createSaleByBillingTradeIn($entity);
+
         }
     }
 

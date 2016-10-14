@@ -27,6 +27,7 @@ class ListingLib
 
     public function createListingByBillingTradeIn(Billing $billing)
     {
+//        dump($billing->getItem());die();
         if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
@@ -36,7 +37,7 @@ class ListingLib
                 $item = new Item();
                 
                 //$item->set($entity->getTidKm());
-
+                $item->setCategory($billing->getItem()->getCategory());
                 $item->setMake($billing->getTidMake());
                 $item->setModel($billing->getTidModel());
                 $item->setMileage($billing->getTidMilleage());
