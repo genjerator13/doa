@@ -263,7 +263,6 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      *
      */
     public function newAction(Request $request, $cat_id, $item_id = null) {
-
         $entity = new Item();
         $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
@@ -541,7 +540,6 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             if(empty($id)) {
                 $em->persist($entity);
             }
-
             $seoPost =$request->get("numa_doamodulebundle_seo");
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity,$seoPost);
@@ -550,6 +548,10 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
             //die();
             $em->flush();
+
+            if(!empty($form->getClickedButton()) && $form->getClickedButton()->getName()=="submitAndPrint"){
+                return $this->redirect($this->generateUrl('sale_print_inside', array('id' =>$entity->getId())));
+            }
             $redirect = 'items_edit';
             if(strtoupper($this->dashboard) =='DMS'){
                 $redirect = 'dms_items_edit';

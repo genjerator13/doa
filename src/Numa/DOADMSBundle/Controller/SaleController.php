@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Numa\DOADMSBundle\Entity\Sale;
 use Numa\DOADMSBundle\Form\SaleType;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Sale controller.
@@ -220,5 +221,38 @@ class SaleController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /***
+     * @param Request $request
+     * @param $id
+     * @return Response
+     */
+
+    /**
+     * Print a Sale entity.
+     *
+     */
+    public function printInsideAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        $saleId = $listings->getSaleId();
+        $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($saleId);
+        $html = $this->renderView(
+            'NumaDOADMSBundle:Sale:view.html.twig',
+            array('sale'=>$sale,
+                'listing' => $listings,
+                'id' => $sale->getId())
+        );
+
+        return new Response(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            200,
+            array(
+                'Content-Type'          => 'application/pdf',
+                'Content-Disposition'   => 'attachment; filename="Sale.pdf"'
+            )
+        );
     }
 }
