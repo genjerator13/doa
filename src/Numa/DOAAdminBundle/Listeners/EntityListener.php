@@ -11,6 +11,7 @@ use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
 use Numa\DOADMSBundle\Entity\DMSUser;
+use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
@@ -28,16 +29,33 @@ class EntityListener
 
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
+
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
         foreach ($uow->getScheduledEntityInsertions() as $entity) {
             if ($entity instanceof Item) {
-                $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+                //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
             }
         }
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
+
             if ($entity instanceof Item) {
-                $em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+                //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+            }elseif($entity instanceof Billing){
+
+
+//                if(!empty($entity->getTidMake()) && !empty($entity->getTidModel())){
+//                    //check if vin exists already
+//                    $item = new Item();
+//                    //$item->set($entity->getTidKm());
+//
+//                    $item->setMake($entity->getTidMake());
+//                    $item->setModel($entity->getTidModel());
+//                    $item->setMillea($entity->getTidMilleage());
+//                    $item->setVin($entity->getTidVin());
+//                    $item->setYear($entity->getTidYear());
+//                    $item->setDealer($entity->getDealer());
+//                }
             }
         }
     }
@@ -122,6 +140,8 @@ class EntityListener
 
         if ($entity instanceof Item ) {
             $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
+        }elseif($entity instanceof Billing){
+            $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
         }
 
 
@@ -139,6 +159,8 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
         }elseif($entity instanceof ListingForm){
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
+        }elseif($entity instanceof Billing){
+            $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
         }
     }
 
