@@ -307,7 +307,7 @@ body {
 
 .button .button-text {
 	position: absolute;
-	top: 200px;
+	top: 50%;
 	width: 100%
 }
 
@@ -342,8 +342,8 @@ body {
 	width: 75%;
 }
 
-.b4 h2,
-.b5 h2 { margin-top: 38px; }
+/*.b4 h2,*/
+/*.b5 h2 { margin-top: 38px; }*/
 
 .click-here {
 	background-color: #47a7e1;
