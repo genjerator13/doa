@@ -296,6 +296,11 @@
             <td>{{ form_label(form.revenue_this_unit) }}</td>
             <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
         </tr>
+        <tr>
+            <td>
+                <a href="{{ path('sale_print_inside', {'id': entity.saleId }) }} " class="btn btn-primary">Print</a>
+            </td>
+        </tr>
     </table>
 
     <script>

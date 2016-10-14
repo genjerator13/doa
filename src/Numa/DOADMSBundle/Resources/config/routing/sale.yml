@@ -28,3 +28,7 @@ sale_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Sale:delete" }
     requirements: { _method: post|delete }
+
+sale_print_inside:
+    path:     /{id}/print_inside
+    defaults: { _controller: "NumaDOADMSBundle:Sale:printInside" }
