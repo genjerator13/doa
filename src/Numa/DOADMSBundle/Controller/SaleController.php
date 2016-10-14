@@ -235,12 +235,14 @@ class SaleController extends Controller
      */
     public function printInsideAction(Request $request, $id)
     {
-
         $em = $this->getDoctrine()->getManager();
-        $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($id);
+        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
+        $saleId = $listings->getSaleId();
+        $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($saleId);
         $html = $this->renderView(
             'NumaDOADMSBundle:Sale:view.html.twig',
             array('sale'=>$sale,
+                'listing' => $listings,
                 'id' => $sale->getId())
         );
 

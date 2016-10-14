@@ -86,6 +86,7 @@ class SaleType extends AbstractType
             ->add('supplier',null,array('label'=>'Supplier 1'))
             ->add('supplier1',null,array('label'=>'Supplier 2'))
             ->add('supplier2',null,array('label'=>'Supplier 3'))
+            ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')));
 
         //->add('item_id','hidden')
 //            ->add('Vendor')

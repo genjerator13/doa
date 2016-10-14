@@ -298,8 +298,13 @@
         </tr>
         <tr>
             <td>
-                <a href="{{ path('sale_print_inside', {'id': entity.saleId }) }} " class="btn btn-primary">Print</a>
+                {{ form_row(form.submitAndPrint) }}
             </td>
+            <td width="165px"></td>
+            <td width="165px"></td>
+            <td width="165px"></td>
+            <td width="165px"></td>
+            <td width="165px"></td>
         </tr>
     </table>
 
