@@ -35,6 +35,7 @@ class SaleLib
             $item = $billing->getItem();
             if($item instanceof Item) {
                 $sale = $item->getSale();
+//                dump($item->getSaleId());
                 if (!$sale instanceof Sale) {
                     $sale = new Sale();
                     $sale->setItem($item);
@@ -46,8 +47,12 @@ class SaleLib
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
                 $sale->setInsurance1($billing->getInsurance());
-                $item->setSale($sale);
                 $em->flush($sale);
+//                dump($item);
+//                dump($sale->getId());die();
+
+                $item->setSaleId($sale->getId());
+                $em->flush($item);
             }
         }
     }
