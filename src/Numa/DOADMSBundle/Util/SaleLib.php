@@ -48,9 +48,6 @@ class SaleLib
                 $sale->setProtectPkg1($billing->getProtectionPkg());
                 $sale->setInsurance1($billing->getInsurance());
                 $em->flush($sale);
-//                dump($item);
-//                dump($sale->getId());die();
-
                 $item->setSaleId($sale->getId());
                 $em->flush($item);
             }
