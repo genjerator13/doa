@@ -547,7 +547,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             //die();
             $em->flush();
 
-            if(!empty($form->getClickedButton()) && $form->getClickedButton()->getName()=="submitAndPrint"){
+            if($form->getClickedButton() != null && $form->getClickedButton()->getName()=="submitAndPrint"){
                 return $this->redirect($this->generateUrl('sale_print_inside', array('id' =>$entity->getId())));
             }
             $redirect = 'items_edit';
