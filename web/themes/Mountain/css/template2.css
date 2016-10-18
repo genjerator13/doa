@@ -3,7 +3,7 @@
 	padding: 0;
 }
 
-html, body { height: 100%; }
+/*html, body { height: 100%; }*/
 
 body {
 	background: #111 url("../images/bg.jpg") center top no-repeat;
@@ -939,16 +939,6 @@ ul.techData li {
 	z-index: 2;
 }
 
-.loadingmodal {
-	display:    none;
-	position:   fixed;
-	z-index:    1000;
-	top:        0;
-	left:       0;
-	height:     100%;
-	width:      100%;
-	background: rgba( 255, 255, 255, .8 )
-	url('http://sampsonresume.com/labs/pIkfp.gif')
-	50% 50%
-	no-repeat;
+.clear {
+	clear:both;
 }
