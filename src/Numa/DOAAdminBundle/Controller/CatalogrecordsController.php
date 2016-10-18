@@ -519,6 +519,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      */
     public function deleteAction(Request $request, $id)
     {
+        $this->denyAccessUnlessGranted(array('ROLE_ADMIN', 'ROLE_DEALER_ADMIN'), null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
         $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->removeDealer($id);
