@@ -877,12 +877,34 @@ ul.techData li {
 
 }
 
-.carousel .text_widget {
+.carousel .carousel-text {
+	bottom: 20px;
+
+	color: #fff;
+	left: 15%;
+	padding-bottom: 40px;
+	padding-top: 20px;
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 100%;
+	right: 15%;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.6);
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+	z-index: 10;
 }
+
+.carousel .carousel-text a {
+	/*border: 1px solid red;*/
+	color: #ffffff;
+	font-weight:bold;
+	text-shadow: 1px 1px black;
+
+}
+
+.carousel-text a{
+	font-weight:bold;
+}
+
+
 .carouse .carousel-inner {
 	max-height: 400px;
 	min-height: 400px;
