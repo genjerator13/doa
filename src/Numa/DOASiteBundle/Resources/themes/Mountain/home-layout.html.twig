@@ -64,19 +64,19 @@
         {% if images is not empty %}
         <div class="bs-carousels clearfix">
             <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
-                <!-- Carousel indicators -->
-                <ol class="carousel-indicators">
-                    {% for image in images %}
-                        <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>
-                    {% endfor %}
+                {#<!-- Carousel indicators -->#}
+                {#<ol class="carousel-indicators">#}
+                    {#{% for image in images %}#}
+                        {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}" class="{% if loop.first %}active{% endif %}"></li>#}
+                    {#{% endfor %}#}
 
-                </ol>
+                {#</ol>#}
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     {% for image in images %}
                         <div class="item {%  if loop.first %} active{% endif %}">
                             {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain') }}
-                            <div class="carousel-text">{{ image.carouselText|raw }}</div>
+                            <div class="carousel-text-large">{{ image.carouselText|raw }}</div>
                         </div>
                     {% endfor %}
                 </div>
