@@ -426,7 +426,7 @@ body {
 
 .footer .logo { display: block; }
 
-.footer .logo img { max-height: 50px; }
+.footer .logo img { max-height: 100px; }
 
 .footer h3 {
 	color: #004ca5;
