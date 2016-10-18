@@ -866,6 +866,12 @@ ul.techData li {
 	height: 270px;
 }
 
+.searchSideBar{
+	border: 1px solid black;
+	min-height: 500px;
+	padding-top: 20px;
+}
+
 .carousel {
 	width: 555px;
 	height: 400px;
@@ -918,4 +924,18 @@ ul.techData li {
 }
 .carousel-fade .carousel-control {
 	z-index: 2;
+}
+
+.loadingmodal {
+	display:    none;
+	position:   fixed;
+	z-index:    1000;
+	top:        0;
+	left:       0;
+	height:     100%;
+	width:      100%;
+	background: rgba( 255, 255, 255, .8 )
+	url('http://sampsonresume.com/labs/pIkfp.gif')
+	50% 50%
+	no-repeat;
 }

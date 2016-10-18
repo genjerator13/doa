@@ -309,6 +309,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $itemrep = $em->getRepository('NumaDOAAdminBundle:Item');
 
         $itemrep->setMemcached($this->get('mymemcache'));
+
         $session = $this->get('session');
         $dealer_id = "";
         if ($this->dealer instanceof Catalogrecords) {
@@ -331,10 +332,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         }
-        //dump($items);//die();
-//        $response->setPublic();
-//        $response->setSharedMaxAge(60);
-//        $response->setMaxAge(60);
+
         if (empty($image_size)) {
             $image_size = "search_image";
         }

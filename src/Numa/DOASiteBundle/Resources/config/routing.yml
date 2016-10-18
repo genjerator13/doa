@@ -7,31 +7,37 @@ sandbox:
     defaults: { _controller: NumaDOASiteBundle:Sandbox:index }
 search_by_category:
     path:  /browse_by_category_{category}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
-search_by_category_model:
-    path:  /browse_by_category_{category}/{make_string}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_category_make:
+    path:  /browse_by_{category}/make/{make_string}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{bodyStyleSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }   
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
 search_by_boat_type:
     path:  /browse_by_boat_type_{category}/{boatTypeSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }  
+    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
 search_by_rvs_type:
-    path:  /browse_by_rvs_type_{category}/{rvsTypeSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en } 
+    path:  /browse_by_{category}/{categorySubType}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_type:
-    path:  /browse_by_type_{category}/{typeSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }     
+    path:  /browse_by_type_{category}/{categorySubType}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 browse_by_dealer:
     path:  /browse_by_dealer/{dealer_id}/{dealername}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByDealer, _locale: en }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+browse_by_dealer2:
+    path:  /browse_by_dealer/{dealer_id}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_new_vehicle:
     path:  /browse_new
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByStatus, _locale: en,status:N }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,status:N }
 search_used_vehicle:
     path:  /browse_used
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByStatus, _locale: en,status:U }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,status:U }
+search_ajax:
+    path:  /searchajax
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:searchAjax, _locale: en,status:U }
 homepage_categories:
     path:  /categories
     defaults: { _controller: NumaDOASiteBundle:Default:categories }
@@ -99,14 +105,14 @@ search_sellers:
 
 search_dispatch:
     pattern:  /search
-    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }   
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 
-search:
-    pattern:  /search-result/{text}
-    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en } 
-search:
-    pattern:  /search-result/
-    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
+#search:
+#    pattern:  /search-result/{text}
+#    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
+#search:
+#    pattern:  /search-result/
+#    defaults: { _controller: NumaDOASiteBundle:Search:search, _locale: en }
 search_advanced:
     pattern:  /search-advanced
     defaults: { _controller: NumaDOASiteBundle:Search:searchAdvanced, _locale: en } 
@@ -134,6 +140,11 @@ sandbox_test:
 sandbox_test2:
     path:  /sandbox/test2
     defaults: { _controller: NumaDOASiteBundle:Sandbox:test2 }
+sandbox_es:
+    path:  /sandbox/elastic
+    defaults: { _controller: NumaDOASiteBundle:Sandbox:elastic }
+
+
 ads_page:
     path:  /ads/{id}
     defaults: { _controller: NumaDOASiteBundle:Ads:index }

@@ -1,7 +1,8 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
-    
+    - { resource: es.yml }
+
 services:
     memcached:
         class: Memcached
