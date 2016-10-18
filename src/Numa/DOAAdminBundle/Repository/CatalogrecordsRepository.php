@@ -156,7 +156,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         if (empty($host)) {
             return null;
         }
-        $nonwww = substr($host,4,strlen($host));
+        $nonwww = substr($host, 4, strlen($host));
         //dump($nonwww);die();
         $qb = $this->createQueryBuilder('d');
         $qb->orWhere('d.site_url=:host');
@@ -204,5 +204,87 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         return $dc;
     }
 
+    public function removeDealer($dealer_id)
+    {
+        $dealer_id = intval($dealer_id);
+        if (!empty($dealer_id)) {
+
+            $this->deleteDealerTable('billing', $dealer_id);
+
+            $this->deleteDealerTable('dealer_categories', $dealer_id);
+            $this->deleteDealerTable('coupon', $dealer_id);
+            $this->deleteDealerTable('dms_user', $dealer_id);
+            $this->deleteDealerTable('email', $dealer_id);
+
+            $this->deleteDealerTable('finance', $dealer_id);
+            $this->deleteDealerTable('home_tab', $dealer_id);
+            $this->deleteDealerTable('imiage_carousel', $dealer_id);
+            $this->deleteDealerTable('dealer_component', $dealer_id);
+            //$this->deleteDealerTable('import_feed',$dealer_id);
+
+            $this->deleteDealerTable('listing_form', $dealer_id);
+
+
+
+            $this->deleteDealerTable('part_request', $dealer_id);
+            $this->deleteDealerTable('service_request', $dealer_id);
+            $this->deleteDealerTable('setting', $dealer_id);
+            $this->deleteDealerTable('vendor', $dealer_id);
+
+            //
+            $sql = "DELETE FROM page_component WHERE page_id IN (SELECT id FROM page WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            //
+            $sql = "DELETE FROM listing_form WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            //
+            $sql = "DELETE FROM billing WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+            //
+
+
+            $sql = "UPDATE item set sale_id = NULL where dealer_id=".$dealer_id;
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            $sql = "DELETE FROM sale WHERE item_id IN (SELECT id FROM item WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            $sql = "DELETE FROM sale WHERE id IN (SELECT sale_id FROM item WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+
+
+            //dump("item");
+            $this->deleteDealerTable('item', $dealer_id);
+            $this->deleteDealerTable('import_feed',$dealer_id);
+            $this->deleteDealerTable('customer', $dealer_id);
+            $this->deleteDealerTable('page', $dealer_id);
+
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:CatalogRecords d where d.id = ' . $dealer_id);
+            $numDeleted = $q->execute();
+        }
+    }
+
+    public function deleteDealerTable($tablename, $dealer_id)
+    {
+        $sql = "delete from " . $tablename . " where dealer_id=" . intval($dealer_id);
+        //dump($sql);
+        $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+        $stmt->execute();
+    }
 
 }
