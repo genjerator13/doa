@@ -54,10 +54,7 @@ class Sale
      */
     private $invoice_date;
 
-    /**
-     * @var float
-     */
-    private $invoica_amt;
+
 
     /**
      * @var float
@@ -523,29 +520,7 @@ class Sale
         return $this->invoice_date;
     }
 
-    /**
-     * Set invoicaAmt
-     *
-     * @param float $invoicaAmt
-     *
-     * @return Sale
-     */
-    public function setInvoicaAmt($invoicaAmt)
-    {
-        $this->invoica_amt = $invoicaAmt;
 
-        return $this;
-    }
-
-    /**
-     * Get invoicaAmt
-     *
-     * @return float
-     */
-    public function getInvoicaAmt()
-    {
-        return $this->invoica_amt;
-    }
 
     /**
      * Set relatedTaxes1
