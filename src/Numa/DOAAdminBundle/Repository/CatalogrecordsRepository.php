@@ -230,7 +230,11 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $this->deleteDealerTable('service_request', $dealer_id);
             $this->deleteDealerTable('setting', $dealer_id);
             $this->deleteDealerTable('vendor', $dealer_id);
-
+//
+            $sql = "DELETE FROM user_item WHERE item_id IN (SELECT id FROM item WHERE dealer_id =".$dealer_id.")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
             //
             $sql = "DELETE FROM page_component WHERE page_id IN (SELECT id FROM page WHERE dealer_id =".$dealer_id.")";
             //dump($sql);
