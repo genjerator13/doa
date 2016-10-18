@@ -34,7 +34,7 @@ class DealerComponentType extends AbstractType
             //->add('Dealer', 'hidden')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
