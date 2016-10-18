@@ -2,10 +2,10 @@
     <div class="footer">
         <div class="bottom-menu">
             {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
-            {% if bottommenu != 'enter this value of component in DMS' %}
+            {% if bottommenu != '' %}
                 {{ include(template_from_string(bottommenu)) }}
             {% endif %}
-            {% if bottommenu == 'enter this value of component in DMS' %}
+            {% if bottommenu == '' %}
             <ul>
                 <li><a href="{{ path("homepage") }}">Home</a></li>
                 <li><a href="{{ path("about_us") }}">About Us</a></li>
