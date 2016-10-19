@@ -76,7 +76,9 @@
                     {% for image in images %}
                         <div class="item {%  if loop.first %} active{% endif %}">
                             {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain') }}
-                            <div class="carousel-text-large">{{ image.carouselText|raw }}</div>
+                            {% if image.carouselText is not empty %}
+                                <div class="carousel-text-large">{{ image.carouselText|raw }}</div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
