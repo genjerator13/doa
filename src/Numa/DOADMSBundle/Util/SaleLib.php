@@ -41,8 +41,6 @@ class SaleLib
 //                    $sale->setItem($item);
                     $em->persist($sale);
                 }
-                $sale->setVin($item->getVIN());
-                $sale->setStockNr($item->getStockNr());
                 $sale->setSellingPrice($billing->getSalePrice());
                 $sale->setWarranty1($billing->getWarranty());
                 $sale->setAdminFees1($billing->getAdminFee());
