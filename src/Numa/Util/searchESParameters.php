@@ -367,7 +367,11 @@ class searchESParameters
                     } elseif ($searchItem->isInt()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
-                        $boolQuery->addShould($fieldQuery);
+                        if($searchItem->getDbFieldName()=='dealer_id') {
+                            $boolQuery->addMust($fieldQuery);
+                        }else{
+                            $boolQuery->addShould($fieldQuery);
+                        }
                     } elseif ($searchItem->isCategory()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm('categoryName', $searchItem->getValue());
@@ -391,10 +395,7 @@ class searchESParameters
         $fieldQuery->setTerm('active', 1);
         $boolQuery->addMust($fieldQuery);
 
-        //if dealer site  TO DO
-        //$fieldQuery = new \Elastica\Query\Term();
-        //$fieldQuery->setTerm('dealer_id', 3);///to do
-        //$boolQuery->addMust($fieldQuery);
+
 
 
         $elasticaQuery = new \Elastica\Query();
