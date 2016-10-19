@@ -307,7 +307,8 @@ liip_imagine:
         sea_logo_home:
             quality: 100
             filters:
-                relative_resize: { heighten: 75 }    # Transforms 50x40 to 32x26
+                thumbnail: { size: [360, 122], mode: inbount }
+                background: { color: '#FFFFFF' }
         carousel:
             quality: 100
             filters:
