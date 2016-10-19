@@ -882,8 +882,8 @@ ul.techData li {
 
 	color: #fff;
 	left: 15%;
-	padding-bottom: 40px;
-	padding-top: 20px;
+	/*padding-bottom: 40px;*/
+	padding-top: 10px;
 	position: absolute;
 	right: 15%;
 	text-align: center;
