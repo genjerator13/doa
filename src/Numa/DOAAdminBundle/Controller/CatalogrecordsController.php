@@ -519,32 +519,12 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        //if ($form->isValid()) {
+        $this->denyAccessUnlessGranted(array('ROLE_ADMIN', 'ROLE_DEALER_ADMIN'), null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
+        $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->removeDealer($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Catalogrecords entity.');
-        }
-        //remove the dealer and all the listings he created
-        $listings = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Dealer' => $entity));
-        foreach ($listings as $key => $listing) {
-            $em->remove($listing);
-        }
-        //remove the dealer and all the import feed he created
-        $feeds = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findBy(array('Dealer' => $entity));
-        foreach ($feeds as $key => $feed) {
 
-            $feed->setDealer(null);
-
-        }
-        $em->remove($entity);
-        $em->flush();
-        //}
         $redirect = 'catalogs';
         if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_catalogs';

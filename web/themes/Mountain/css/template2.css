@@ -3,7 +3,7 @@
 	padding: 0;
 }
 
-html, body { height: 100%; }
+/*html, body { height: 100%; }*/
 
 body {
 	background: #111 url("../images/bg.jpg") center top no-repeat;
@@ -931,4 +931,8 @@ ul.techData li {
 }
 .carousel-fade .carousel-control {
 	z-index: 2;
+}
+
+.clear {
+	clear:both;
 }
