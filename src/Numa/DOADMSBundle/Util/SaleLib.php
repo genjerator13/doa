@@ -38,7 +38,7 @@ class SaleLib
 //                dump($item->getSaleId());
                 if (!$sale instanceof Sale) {
                     $sale = new Sale();
-                    $sale->setItem($item);
+//                    $sale->setItem($item);
                     $em->persist($sale);
                 }
                 $sale->setSellingPrice($billing->getSalePrice());
