@@ -53,5 +53,15 @@ class BillingRepository extends EntityRepository
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+    public function delete($ids)
+    {
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->delete('NumaDOADMSBundle:Billing', 'b')
+                ->where('b.item_id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
 
 }
