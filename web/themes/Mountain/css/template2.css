@@ -886,6 +886,12 @@ ul.techData li {
 	width: 1130px;
 	margin-left: 0px;
 }
+#myCarousel_top .text_widget {
+	left: 10px;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+}
 
 .bs-carousels {
 	float: left;

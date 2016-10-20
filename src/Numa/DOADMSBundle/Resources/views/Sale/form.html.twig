@@ -379,6 +379,7 @@
         $('.form-control').keyup(function () {
             var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
             var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
+            var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
             if(isNaN(parseFloat(n1))){
                 n1 = 0;
@@ -386,7 +387,10 @@
             if(isNaN(parseFloat(n2))){
                 n2 = 0;
             }
+            if(isNaN(parseFloat(n3))){
+                n3 = 0;
+            }
 
-            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(n1 - n2);
+            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(n2-(n3+n1));
         });
     </script>
