@@ -11,11 +11,11 @@ search_by_category_make:
     path:  /browse_by_{category}/make/{make_string}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_body_style:
-    path:  /browse_by_body_style_{category}/{bodyStyleSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
+    path:  /browse_by_body_style_{category}/{bodyStyle}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_boat_type:
     path:  /browse_by_boat_type_{category}/{boatTypeSlug}
-    defaults: { _controller: NumaDOASiteBundle:Search:searchByCategoryModel, _locale: en }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_rvs_type:
     path:  /browse_by_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
