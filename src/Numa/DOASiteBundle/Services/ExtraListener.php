@@ -89,27 +89,6 @@ class ExtraListener
                 $activeTheme->setName('Default');
             }
 
-//            $request = $event->getRequest();
-//            $pathinfo = $request->getPathInfo();
-//
-//            if (substr($pathinfo, 0, 2) === "/d") {
-//                $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-//            }
-
-            //$em = $this->container->get('doctrine.orm.entity_manager');
-            //$dealer_id = null;
-            //$pcomponents = array();
-            //$dcomponents = array();
-            //if ($dealer instanceof Catalogrecords) {
-            //    $pcomponents = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
-            //    $dcomponents = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findDealerComponents($dealer->getId());
-            //}
-            //$components['page'] = $pcomponents;
-            //$components['dealer'] = $dcomponents;
-            //$controllerObject->initializePageComponents($pcomponents);
-            //$controllerObject->initializeDealerComponents($dcomponents);
-            //}
-
         }
         if ($controllerObject instanceof DashboardDMSControllerInterface) {
             $request = $event->getRequest();
@@ -129,29 +108,38 @@ class ExtraListener
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-        $kernel = $event->getKernel();
-        $container = $this->container;
+//        $kernel = $event->getKernel();
+//        $container = $this->container;
         $routeName = $request->get('_route');
-        $routeParams = $request->get('_route_params');
-        $em = $this->container->get('doctrine.orm.entity_manager');
+        //ignore if route starts with dms
 
-        $currentUrl = $request->getRequestUri();
-        //dump($currentUrl);die();
-        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findOneBy(array('url' => $currentUrl));
-        if ($page instanceof Page) {
-            $pageDescription = $page->getDescription();
-            $pageTitle = $page->getTitle();
+        if(!empty($routeName) && strpos(strtolower($routeName),"dms")!==0 && strpos(strtolower($routeName),"api")===false) {
+
+
+//        $routeParams = $request->get('_route_params');
+            $em = $this->container->get('doctrine.orm.entity_manager');
+
+            $currentUrl = $request->getRequestUri();
+            //myurl fix
+            if (substr($currentUrl, 0, 2) === "/d") {
+                $currentUrl = substr($currentUrl, 2, strlen($currentUrl) - 1);
+            }
+
+
+            $dealer = $this->container->get("Numa.Dms.User")->getDealerByHost();
+
+            $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
 
             $html = $response->getContent();
-            //dump($request);
-            //dump($routeParams);
-            //die();
 
-            //$html = preg_replace('/<meta.*?name=("|\')description("|\').*?content=("|\')(.*?)("|\')/i',"aaaa", $html);
-            $html = preg_replace('/<meta name=\"description\" content=\"(.*)\" \/>/i', '<meta name="description" content="' . $pageDescription . '" />', $html);
-            $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\" \/>/i', '<meta name="keywords" content="' . $pageTitle . '" />', $html);
-            $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageDescription . "</title>\n", $html);
+            $pageTitle = $this->container->get("Numa.settings")->getPageTitle($page,$dealer);
+            $pageDescription = $this->container->get("Numa.settings")->getPageDescription($page,$dealer);
+            $pageKeyword = $this->container->get("Numa.settings")->getPageKeywords($page,$dealer);
 
+            $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
+            $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
+            $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
+            dump($html);die();
             $response->setContent($html);
         }
     }
