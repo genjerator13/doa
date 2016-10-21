@@ -113,9 +113,10 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
             $entity->setItem($item);
         }
-
-        $em->persist($entity);
-        $em->flush();
+        if(!$error) {
+            $em->persist($entity);
+            $em->flush();
+        }
         if($error){
             $response = new JsonResponse(
                 array(
