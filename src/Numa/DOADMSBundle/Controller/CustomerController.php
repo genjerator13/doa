@@ -23,7 +23,11 @@ class CustomerController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('NumaDOADMSBundle:Customer:index.html.twig');
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+
+        return $this->render('NumaDOADMSBundle:Customer:index.html.twig', array(
+            'dealer'=>$dealer
+        ));
     }
     /**
      * Creates a new Customer entity.
