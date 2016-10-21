@@ -90,7 +90,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         $entity = new ListingForm();
         $entity->setDealer($this->dealer);
-        $form = $this->createForm($form, $data, array(
+        $form = $this->createForm($form, $entity, array(
             'csrf_protection' => false,
             'method' => 'POST',
             'attr' => array('id'=>$id),
@@ -100,10 +100,10 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         if($form->isValid()){
             $error=false;
-            dump("error");
+            //dump("error");
         }else{
-            dump("OK");
-            dump("OK");
+            //dump("OK");
+            //dump("OK");
         }
 
         $em = $this->get('doctrine.orm.entity_manager');
@@ -113,10 +113,10 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
             $entity->setItem($item);
         }
-        dump($data);
-        die();
-        $em->persist($entity);
-        $em->flush();
+        if(!$error) {
+            $em->persist($entity);
+            $em->flush();
+        }
         if($error){
             $response = new JsonResponse(
                 array(
