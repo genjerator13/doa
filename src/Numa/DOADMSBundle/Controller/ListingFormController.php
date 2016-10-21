@@ -24,12 +24,10 @@ class ListingFormController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         return $this->render('NumaDOADMSBundle:ListingForm:index.html.twig', array(
-            'entities' => $entities,
+            'dealer' => $dealer,
         ));
     }
     /**

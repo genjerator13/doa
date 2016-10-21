@@ -21,12 +21,10 @@ class ServiceRequestController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:ServiceRequest')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         return $this->render('NumaDOADMSBundle:ServiceRequest:index.html.twig', array(
-            'entities' => $entities,
+            'dealer'=>$dealer
         ));
     }
     /**

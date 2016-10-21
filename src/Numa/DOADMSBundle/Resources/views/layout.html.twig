@@ -106,13 +106,13 @@
                                 </li>
                                 <li class="user-footer">
                                     <div class="pull-left">
-                                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') %}
-                                            <a class="btn btn-default btn-flat"
-                                               href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
-                                                <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
-                                        {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE2_DMS') %}
+                                        {% if is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_REGULAR_ADMIN_DMS') %}
                                             <a class="btn btn-default btn-flat"
                                                href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
+                                                <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
+                                        {% elseif is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') %}
+                                            <a class="btn btn-default btn-flat"
+                                               href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                                 <i class="glyphicon glyphicon-edit"></i> Edit Profile</a>
                                         {% endif %}
                                     </div>
@@ -286,14 +286,15 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') %}
-                                <li class="active">
-                                    <a href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
-                                        <i class="fa fa-pencil-square-o"></i>Business Profile</a>
-                                </li>
-                            {% elseif is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') %}
+
+                            {% if is_granted('ROLE_SALES') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_REGULAR_ADMIN_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
+                                        <i class="fa fa-pencil-square-o"></i>Business Profile</a>
+                                </li>
+                            {% elseif is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') %}
+                                <li class="active">
+                                    <a href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>Business Profile</a>
                                 </li>
                             {% endif %}
