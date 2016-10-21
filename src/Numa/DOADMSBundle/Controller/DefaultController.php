@@ -12,7 +12,7 @@ class DefaultController extends Controller
     {
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
         $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer()->getId();
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => $dealer));
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($dealer);
