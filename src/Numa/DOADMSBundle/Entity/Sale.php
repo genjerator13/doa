@@ -831,7 +831,8 @@ class Sale
      */
     public function getTotalUnitCost()
     {
-        return $this->total_unit_cost;
+        return $this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5();
+//        return $this->total_unit_cost;
     }
 
     /**
@@ -855,7 +856,8 @@ class Sale
      */
     public function getNetGrain()
     {
-        return $this->net_grain;
+          return ($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost();
+//        return $this->net_grain;
     }
 
     /**
@@ -1167,7 +1169,8 @@ class Sale
      */
     public function getTotalSaleCost()
     {
-        return $this->total_sale_cost;
+        return $this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms();
+//        return $this->total_sale_cost;
     }
 
     /**
@@ -1479,7 +1482,8 @@ class Sale
      */
     public function getNetTax()
     {
-        return $this->net_tax;
+          return ($this->getTax1Out() + $this->getTax2Out() + $this->getTradeInTax())-($this->getTax1In() + $this->getTax2In());
+//        return $this->net_tax;
     }
 
     /**
@@ -1815,7 +1819,8 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        return $this->total_revenue;
+        return $this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3();
+//        return $this->total_revenue;
     }
 
     /**
@@ -1839,7 +1844,8 @@ class Sale
      */
     public function getRevenueThisUnit()
     {
-        return $this->revenue_this_unit;
+        return $this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost());
+//        return $this->revenue_this_unit;
     }
 
     /**
