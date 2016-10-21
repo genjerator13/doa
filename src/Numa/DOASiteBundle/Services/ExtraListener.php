@@ -27,6 +27,8 @@ class ExtraListener
     private $controller_resolver;
     private $request_stack;
     private $http_kernel;
+    private $twig;
+    public $page;
 
     public function __construct(ContainerInterface $container,$controller_resolver, $request_stack, $http_kernel)
     {
@@ -34,12 +36,29 @@ class ExtraListener
         $this->controller_resolver = $controller_resolver;
         $this->request_stack = $request_stack;
         $this->http_kernel = $http_kernel;
+        $this->page = null;
     }
 
 
     public function onKernelRequest(GetResponseEvent $event)
     {
+        $request = $event->getRequest();
+        if (!$request->hasPreviousSession()) {
+            return;
+        }
 
+        //$request->attributes->set('page', "XXXXXXXX");
+        //$this->page = "AAAAAAAA";
+        //$request->attributes->set('page',"test");
+        //dump($request->attributes);
+        //die();
+        // try to see if the locale has been set as a _locale routing parameter
+//        if ($locale = $request->attributes->get('_locale')) {
+//            $request->getSession()->set('_locale', $locale);
+//        } else {
+//            // if no explicit locale has been set on this request, use one from the session
+//            $request->setLocale($request->getSession()->get('_locale', $this->defaultLocale));
+//        }
     }
 
     public function onKernelController(FilterControllerEvent $event)
@@ -108,38 +127,22 @@ class ExtraListener
     {
         $response = $event->getResponse();
         $request = $event->getRequest();
-//        $kernel = $event->getKernel();
-//        $container = $this->container;
         $routeName = $request->get('_route');
         //ignore if route starts with dms
 
         if(!empty($routeName) && strpos(strtolower($routeName),"dms")!==0 && strpos(strtolower($routeName),"api")===false) {
-
-
-//        $routeParams = $request->get('_route_params');
             $em = $this->container->get('doctrine.orm.entity_manager');
-
             $currentUrl = $request->getRequestUri();
             //myurl fix
             if (substr($currentUrl, 0, 2) === "/d") {
                 $currentUrl = substr($currentUrl, 2, strlen($currentUrl) - 1);
             }
 
-
             $dealer = $this->container->get("Numa.Dms.User")->getDealerByHost();
-
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
+            $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(),$page,$dealer);
+            //$response->set
 
-            $html = $response->getContent();
-
-            $pageTitle = $this->container->get("Numa.settings")->getPageTitle($page,$dealer);
-            $pageDescription = $this->container->get("Numa.settings")->getPageDescription($page,$dealer);
-            $pageKeyword = $this->container->get("Numa.settings")->getPageKeywords($page,$dealer);
-
-            $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
-            $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
-            $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
-            dump($html);die();
             $response->setContent($html);
         }
     }
@@ -158,6 +161,26 @@ class ExtraListener
 
             $event->setResponse($this->http_kernel->handle($subRequest, HttpKernelInterface::MASTER_REQUEST)); // Simulating "forward" in order to preserve the "Not Found URL"
 
+        }
+    }
+
+    public function preExecute(GetResponseForControllerResultEvent $event)
+    {
+
+        $request    = $event->getRequest();
+        $parameters = $event->getControllerResult();
+        dump($parameters);
+        die();
+        if (!empty($parameters)) {
+            $response = array();
+            foreach ($parameters as $parameter => $value) {
+                if (isset($this->_responseParameters[$parameter])) {
+                    $response[$parameter] = $value;
+                }
+            }
+            if (!empty($response)) {
+                $request->attributes->set('_response', $response);
+            }
         }
     }
 }

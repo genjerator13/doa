@@ -12,16 +12,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Numa\DOAModuleBundle\Entity\Page;
-
+use Numa\DOASiteBundle\Services\ExtraListener;
 
 class NumaExtension extends \Twig_Extension
 {
 
     protected $container;
-
-    public function __construct(ContainerInterface $container = null)
+    protected $extraListener;
+    public function __construct(ContainerInterface $container = null, ExtraListener $extraListener)
     {
         $this->container = $container;
+        $this->extraListener = $extraListener;
     }
 
     public function getFunctions()

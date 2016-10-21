@@ -328,4 +328,17 @@ class SettingsLib
 
         return strip_tags($pageKeywords);
     }
+
+    public function replaceSeoInPageHTML($html,$page,$dealer){
+
+        $pageTitle = $this->getPageTitle($page,$dealer);
+        $pageDescription = $this->getPageDescription($page,$dealer);
+        $pageKeyword = $this->getPageKeywords($page,$dealer);
+
+        $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
+        $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
+
+        return $html;
+    }
 }

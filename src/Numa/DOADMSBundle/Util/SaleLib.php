@@ -26,7 +26,7 @@ class SaleLib
         $this->container = $container;
     }
 
-    public function createSaleByBillingTradeIn(Billing $billing)
+    public function createSaleByBilling(Billing $billing)
     {
 //        dump($billing->getItem());die();
         if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getInsurance())) {
@@ -47,6 +47,7 @@ class SaleLib
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
                 $sale->setInsurance1($billing->getInsurance());
+
                 $em->flush($sale);
                 $item->setSaleId($sale->getId());
                 $em->flush($item);

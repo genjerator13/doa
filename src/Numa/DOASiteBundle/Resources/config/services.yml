@@ -3,7 +3,7 @@ services:
         class: Numa\Twig\NumaExtension
         tags:
            - { name: twig.extension } 
-        arguments:  [@service_container]
+        arguments:  [@service_container,@listener.requestresponse]
     Numa.Twig.Settings:
         class: Numa\DOASettingsBundle\Twig\SettingsExtension
         tags:
@@ -43,10 +43,13 @@ services:
     listener.requestresponse:
         class: Numa\DOASiteBundle\Services\ExtraListener
         tags:
+           #- { name: kernel.event_listener, event: kernel.view, method: onKernelView }
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
             - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -10 }
+           #- { name: kernel.event_listener, event: kernel.view, method: preExecute }
+
         arguments: [ @service_container,@controller_resolver, @request_stack, @http_kernel ]
     Numa.ListingForms:
         class: Numa\DOASiteBundle\Services\ListingFormHandler
