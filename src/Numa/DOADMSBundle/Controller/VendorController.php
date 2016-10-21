@@ -22,12 +22,10 @@ class VendorController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Vendor')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         return $this->render('NumaDOADMSBundle:Vendor:index.html.twig', array(
-            'entities' => $entities,
+            'dealer'=>$dealer
         ));
     }
     /**

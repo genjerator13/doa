@@ -21,12 +21,10 @@ class FinanceController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Finance')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
 
         return $this->render('NumaDOADMSBundle:Finance:index.html.twig', array(
-            'entities' => $entities,
+            'dealer'=>$dealer
         ));
     }
     /**
