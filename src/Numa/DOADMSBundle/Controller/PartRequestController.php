@@ -21,7 +21,11 @@ class PartRequestController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('NumaDOADMSBundle:PartRequest:index.html.twig');
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+
+        return $this->render('NumaDOADMSBundle:PartRequest:index.html.twig', array(
+            'dealer'=>$dealer
+        ));
     }
     /**
      * Creates a new PartRequest entity.

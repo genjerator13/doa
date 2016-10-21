@@ -1,12 +1,7 @@
 {# get the loged dealer #}
 {% set apicall="/api/listing_form/all" %}
-{% if is_granted('ROLE_BUSINES') %}
-{% set user= app.security.getToken().getUser().getId() %}
-{% set apicall="/api/listing_form/"~user~"/dealer" %}
-{% endif %}
-{% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
-{% set user= app.session.get('dms_dealer_id') %}
-{% set apicall="/api/listing_form/"~user~"/dealer" %}
+{% if dealer is not empty %}
+{% set apicall="/api/listing_form/"~dealer.id~"/dealer" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
