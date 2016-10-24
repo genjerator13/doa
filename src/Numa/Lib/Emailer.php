@@ -133,10 +133,10 @@ class Emailer extends ContainerAware
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom($emailFrom)
-            //->addBcc('jim@dealersonair.com')
+            ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
-            //->setTo($dealer->getEmail())
-            ->setTo("genjerator@outlook.com")
+            ->setTo($dealer->getEmail())
+            //->setTo("genjerator@outlook.com")
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {
             $ok = $mailer->send($message);
