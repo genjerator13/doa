@@ -54,6 +54,8 @@ security:
         - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
+        - { path: ^/dms/component, roles: [ROLE_ADMIN,ROLE_BUSINES, ROLE_SALE3_DMS] }
+        - { path: ^/dms/pages, roles: [ROLE_ADMIN,ROLE_BUSINES, ROLE_SALE3_DMS] }
         - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
@@ -70,8 +72,9 @@ security:
 #        - { path: ^/dms/inventory/cost, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
 #        - { path: ^/dms/inventory/sales, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
         - { path: ^/dms/inventory/[0-9]+/edit, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
-        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
-        - { path: ^/dms/inventory/addnew, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/[0-9]+/new, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/additem, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS] }
         - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
