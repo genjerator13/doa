@@ -137,6 +137,10 @@ class AddItemSubscriber implements EventSubscriberInterface
             }
         }
         //die();
+//        dump($item);die();
+        if(empty($item->getId())){
+            $form->add('seller_comment','ckeditor',array("data"=>$this->dealerID->getDefaultListingComment()));
+        }
 
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
 

@@ -12,16 +12,17 @@ class DefaultController extends Controller
     {
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
         $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer()->getId();
+        $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        if(empty($signedDealer)){
+            $dealer = null;
+        }
+        else{
+            $dealer = $signedDealer->getId();
+        }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => $dealer));
-        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($dealer);
+        $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted($dealer);
         $components = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $dealer));
-
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {$dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
-            $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => null));
-            $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted();
-        }
 
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
