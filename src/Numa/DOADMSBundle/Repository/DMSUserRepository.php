@@ -11,6 +11,7 @@ namespace Numa\DOADMSBundle\Repository;
 
 
 use Doctrine\ORM\EntityRepository;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -67,12 +68,25 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
 
     public function findOneByUsernameOrEmail($username)
     {
-        return $this->createQueryBuilder('u')
+        global $kernel;
+        if($kernel instanceOf \AppCache) $kernel = $kernel->getKernel();
+
+        $host = $kernel->getContainer()->get('numa.dms.user')->getCurrentSiteHost();
+
+        $one = $this->createQueryBuilder('u')
             ->andWhere('u.username = :username OR u.email = :email')
             ->setParameter('username', $username)
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
+        $dealer =$one->getDealer();
+        if($dealer instanceof Catalogrecords){
+            $dealer_host = $dealer->getSiteUrl();
+            if (strpos($dealer_host, $host) !== false || strpos($host,$dealer_host)!== false) {
+                return $one;
+            }
+        }
+        return null;
     }
 
     public function updatePassword($user,$password){
