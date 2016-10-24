@@ -51,34 +51,34 @@ security:
 
 
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
-        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS] }
+        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS] }
-        - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS] }
+        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/vendor, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS] }
-        - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS] }
+        - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/themes, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/settings, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/image_carousel, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/command_log, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/reports, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/partrequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SALE2_DMS] }
-        - { path: ^/dms/servicerequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_SERVICE_DMS,ROLE_SALE2_DMS] }
-#        - { path: ^/dms/inventory/view, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
+        - { path: ^/dms/partrequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/servicerequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_SERVICE_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/view, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
 #        - { path: ^/dms/inventory/cost, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
 #        - { path: ^/dms/inventory/sales, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
-        - { path: ^/dms/inventory/[0-9]+/edit, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS] }
-        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
-        - { path: ^/dms/inventory/addnew, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS] }
+        - { path: ^/dms/inventory/[0-9]+/edit, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/addnew, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
         - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
 
 
-        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
-        - { path: ^/dms, roles: [ROLE_ADMIN,ROLE_DMS_USER, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
+        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms, roles: [ROLE_ADMIN,ROLE_DMS_USER, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
 #        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
 
 
