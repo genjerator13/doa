@@ -33,7 +33,8 @@ class DefaultController extends Controller
     public function notificationsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get('Numa.Dms.User')->getSignedUser()->getId();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer()->getId();
+
         $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
 
         $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10000,"read");
