@@ -68,4 +68,19 @@ class DmsUserLib
         $user = $this->getSignedUser();
         return in_array('ROLE_ADMIN',$user->getRoles());
     }
+
+    public function getCurrentSiteHost(){
+        $router = $this->container->get('router');
+        $host = str_replace("www.","",$router->getContext()->getHost());
+        return $host;
+    }
+
+
+
+    public function getDealerByHost(){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $host = $this->getCurrentSiteHost();
+        //check if www
+        return $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+    }
 }
