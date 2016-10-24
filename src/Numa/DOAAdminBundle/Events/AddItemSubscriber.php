@@ -5,7 +5,7 @@
 namespace Numa\DOAAdminBundle\Events;
 
 use Numa\DOAAdminBundle\Entity\Item;
-use Proxies\__CG__\Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -138,9 +138,10 @@ class AddItemSubscriber implements EventSubscriberInterface
             }
         }
         //die();
-//        dump($item);die();
+
         if($this->dealerID instanceof Catalogrecords)
         {
+            
             if(empty($item->getId())){
                 $form->add('seller_comment','ckeditor',array("data"=>$this->dealerID->getDefaultListingComment()));
             }
