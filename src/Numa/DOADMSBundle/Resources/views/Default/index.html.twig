@@ -67,8 +67,9 @@
             </div>
         </div>
     </div>
-
-    {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
+    {% if not is_granted('ROLE_ADMIN') %}
+        {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
+    {% endif %}
 
     <div class="row">
         <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">

@@ -9,10 +9,11 @@
         <div id="details" class="tab-pane active">
     {{ form(edit_form) }}
 
-        
-        <a href="{{ path('dmsuser') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+        {% if is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('dmsuser') }}" class="btn btn-primary" >
+                Back to the list
+            </a>
+        {% endif %}
 
          </div>
     </div>
