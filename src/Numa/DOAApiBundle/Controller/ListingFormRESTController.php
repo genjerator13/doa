@@ -22,15 +22,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ListingFormRESTController extends Controller implements DealerSiteControllerInterface{
+class ListingFormRESTController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
-    public function initializeDealer($dealer){
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
-
-
 
 
     /**
@@ -47,45 +47,44 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function byDealerAction($dealer_id)
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id'=>$dealer_id));
+        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id' => $dealer_id));
         return $listingForm;
     }
 
     public function postListingFormAction(Request $request)
     {
         $post = $request->getContent();
-        $error=true;
+        $error = true;
 
-        if(!empty($request->request->get('eprice'))) {
+        if (!empty($request->request->get('eprice'))) {
             $data = $request->request->get('eprice');
             $form = new ListingFormEpriceType();
             $id = "eprice_form";
 
         }
-        if(!empty($request->request->get('finance'))) {
+        if (!empty($request->request->get('finance'))) {
             $data = $request->request->get('finance');
             $form = new ListingFormFinanceType();
             $id = "finance_form";
 
         }
-        if(!empty($request->request->get('contactus'))) {
+        if (!empty($request->request->get('contactus'))) {
             $data = $request->request->get('contactus');
             $form = new ListingFormContactType();
             $id = "contact_form";
 
         }
-        if(!empty($request->request->get('testdrive'))){
-           $data = $request->request->get('testdrive');
-           $form = new ListingFormDriveType();
+        if (!empty($request->request->get('testdrive'))) {
+            $data = $request->request->get('testdrive');
+            $form = new ListingFormDriveType();
             $id = "testdrive_form";
 
         }
-        if(!empty($request->request->get('offer'))){
+        if (!empty($request->request->get('offer'))) {
             $data = $request->request->get('offer');
             $form = new ListingFormOfferType();
             $id = "offer_form";
         }
-
 
 
         $entity = new ListingForm();
@@ -93,31 +92,31 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
         $form = $this->createForm($form, $entity, array(
             'csrf_protection' => false,
             'method' => 'POST',
-            'attr' => array('id'=>$id),
+            'attr' => array('id' => $id),
         ));
 
         $form->handleRequest($request);
 
-        if($form->isValid()){
-            $error=false;
+        if ($form->isValid()) {
+            $error = false;
             //dump("error");
-        }else{
+        } else {
             //dump("OK");
             //dump("OK");
         }
+        if (!$error) {
+            $em = $this->get('doctrine.orm.entity_manager');
 
-        $em = $this->get('doctrine.orm.entity_manager');
+            $this->get('Numa.DMSUtils')->attachCustomerByEmail($entity, $entity->getDealer(), $entity->getEmail(), $entity->getCustName(), $entity->getCustLastName(), $entity->getPhone());
+            if (!empty($entity->getItemId())) {
+                $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
+                $entity->setItem($item);
+            }
 
-        $this->get('Numa.DMSUtils')->attachCustomerByEmail($entity,$entity->getDealer(),$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
-        if(!empty($entity->getItemId())) {
-            $item = $em->getRepository("NumaDOAAdminBundle:Item")->find($entity->getItemId());
-            $entity->setItem($item);
-        }
-        if(!$error) {
             $em->persist($entity);
             $em->flush();
         }
-        if($error){
+        if ($error) {
             $response = new JsonResponse(
                 array(
                     'message' => 'error',
