@@ -96,7 +96,7 @@ security:
         busines:
             entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
         dms:
-            entity: { class: Numa\DOADMSBundle\Entity\DMSUser, property: username}
+            entity: { class: Numa\DOADMSBundle\Entity\DMSUser}
  
     encoders:
         Numa\DOAAdminBundle\Entity\User: sha512
