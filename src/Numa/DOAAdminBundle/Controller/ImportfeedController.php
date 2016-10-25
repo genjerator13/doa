@@ -250,23 +250,10 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
+
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $entity->getId()));
 
-        foreach ($items as $item) {
-            foreach ($item->getItemField() as $itemField) {
-                if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
-                    $web_path = $this->container->getParameter('web_path');
-                    $filename = $web_path . $itemField->getFieldStringValue();
-                    if (file_exists($filename) && is_file($filename)) {
-                        unlink($filename);
-                    }
-                    $em->remove($itemField);
-                }
-            }
-            $em->remove($item);
-        }
-        //$em->remove($entity);
-        $em->flush();
+        $this->get("Numa.Dms.Listing")->deleteItems($items);
 
         //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
         $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed ' . $id . " are removed and the images are deleted.");
