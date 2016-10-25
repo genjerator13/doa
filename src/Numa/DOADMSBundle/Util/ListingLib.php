@@ -62,16 +62,16 @@ class ListingLib
         }
     }
 
-    public function deleteItem($itemId)
+    public function deleteItem($item)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(!$itemId instanceof Item){
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($itemId);
+        if(!$item instanceof Item){
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
         }
-
-        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
-
-        if($item->getDealer()->getId() == $dealer->getId()){
+        $securityContext = $this->container->get('security.authorization_checker');
+        
+        if(!($securityContext->isGranted('ROLE_ADMIN')) && !($item->getDealer()->getDmsStatus() == "activated") && !($item->getSold())){
+            dump("delete");die();
         if ($item instanceof Item) {
             foreach ($item->getItemField() as $itemField) {
                 if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
@@ -84,10 +84,10 @@ class ListingLib
                 }
             }
         }
-//        dump($item->getSaleId());die();
-        $em->getRepository("NumaDOADMSBundle:Billing")->delete($itemId);
-        $em->getRepository("NumaDOAAdminBundle:Item")->delete($itemId);
+        $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
+        $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
         $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
         }
+//        dump($item);
     }
 }
