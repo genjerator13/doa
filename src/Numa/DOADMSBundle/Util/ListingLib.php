@@ -69,6 +69,9 @@ class ListingLib
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($itemId);
         }
 
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+
+        if($item->getDealer()->getId() == $dealer->getId()){
         if ($item instanceof Item) {
             foreach ($item->getItemField() as $itemField) {
                 if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
@@ -85,5 +88,6 @@ class ListingLib
         $em->getRepository("NumaDOADMSBundle:Billing")->delete($itemId);
         $em->getRepository("NumaDOAAdminBundle:Item")->delete($itemId);
         $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
+        }
     }
 }
