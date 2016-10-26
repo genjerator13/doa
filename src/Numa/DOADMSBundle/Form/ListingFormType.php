@@ -42,6 +42,7 @@ class ListingFormType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm'
+            //'data_class' => null
         ));
     }
 
