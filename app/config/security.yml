@@ -26,32 +26,11 @@ security:
  
     access_control:
 
-        - { path: ^/admin/items/additem/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/itemsfield/[0-9]+/delete/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/catalogs/[0-9]+/update/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/catalogs/[0-9]+/update, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/itemsfield/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/imagecarousel/upload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/items/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
-        - { path: ^/admin/feed_api, roles: [ROLE_ADMIN] }
-        - { path: ^/admin/categories, roles: [ROLE_ADMIN] }
-        - { path: ^/admin/user_group, roles: [ROLE_ADMIN] }
-        - { path: ^/admin/command_log, roles: [ROLE_ADMIN] }
-        - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
-        - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
-        - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+
 
 
         - { path: ^/dms/users_groups, roles: [ROLE_ADMIN] }
-        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/userprofile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS] }
         - { path: ^/dms/dmsuser, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/component, roles: [ROLE_ADMIN,ROLE_BUSINES, ROLE_SALE3_DMS] }
@@ -68,11 +47,19 @@ security:
         - { path: ^/dms/reports, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/partrequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/servicerequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_SERVICE_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+
+        # inventory Images (listings,items)
         - { path: ^/dms/inventory/view, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
-#        - { path: ^/dms/inventory/cost, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
-#        - { path: ^/dms/inventory/sales, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS] }
         - { path: ^/dms/inventory/[0-9]+/edit, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/inventory/[0-9]+/new, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/[0-9]+/images, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/[0-9]+/imagesupload, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/[0-9]+/addvideo, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/admin/itemsfield/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/admin/imagecarousel/upload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/admin/items/[0-9]+/imagesupload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+
         - { path: ^/dms/inventory/additem, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS] }
         - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
@@ -84,7 +71,28 @@ security:
         - { path: ^/dms, roles: [ROLE_ADMIN,ROLE_DMS_USER, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
 #        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
 
+        - { path: ^/admin/items/additem/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/itemsfield/[0-9]+/delete/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+/update/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+/update, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/catalogs/[0-9]+, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
 
+
+
+
+        - { path: ^/admin/items, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/items/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/feed_api, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/categories, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/user_group, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/command_log, roles: [ROLE_ADMIN] }
+        - { path: ^/admin/setting, roles: [ROLE_ADMIN] }
+        - { path: ^/admin, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
+        - { path: ^/admin/, roles: [ROLE_ADMIN,ROLE_DEALER_ADMIN] }
 
 
     providers:

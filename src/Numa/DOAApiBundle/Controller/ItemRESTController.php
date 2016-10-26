@@ -59,7 +59,7 @@ class ItemRESTController extends Controller
     {
 
         $category = $request->query->get('category');
-        
+
         $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
 
         if (!$items) {
