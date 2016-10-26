@@ -179,8 +179,8 @@
             <td>{{ form_widget(form.other_1, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
-            <td>{{ form_label(form.net_grain) }}</td>
-            <td>{{ form_widget(form.net_grain, {'attr': {'class': 'lightgray'}}) }}</td>
+            <td>{{ form_label(form.net_gain) }}</td>
+            <td>{{ form_widget(form.net_gain, {'attr': {'class': 'lightgray'}}) }}</td>
             <td colspan="2"></td>
             <td>{{ form_label(form.other_2) }}</td>
             <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
@@ -364,7 +364,7 @@
             if(isNaN(parseFloat(n3))){
                 n3 = 0;
             }
-            $('#numa_doaadminbundle_item_sale_net_grain').val((n2+n3) - n1);
+            $('#numa_doaadminbundle_item_sale_net_gain').val((n2+n3) - n1);
         });
 
         $('.form-control').keyup(function () {
