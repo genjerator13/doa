@@ -8,6 +8,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class DMSUserType extends AbstractType
 {
+    public $securityContext;
+    public function setSecurityContext($securityContext){
+        $this->securityContext=$securityContext;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -30,7 +34,7 @@ class DMSUserType extends AbstractType
             ->add('PostalCode')
             ->add('PhoneNumber')
             ->add('State')
-            ->add('UserGroup')
+            ->add('UserGroup');
         ;
     }
     
