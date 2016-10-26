@@ -14,3 +14,9 @@ services:
     Numa.Dms.Sale:
         class: Numa\DOADMSBundle\Util\SaleLib
         arguments:  [@service_container]
+    Numa.Form.container_aware_type:
+        class: Numa\DOADMSBundle\Form\ContainerAwareType
+        calls:
+          - [setContainer, ['@service_container']]
+        tags:
+            - { name: form.type, alias: 'container_aware' }
