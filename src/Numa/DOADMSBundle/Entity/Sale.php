@@ -2148,4 +2148,33 @@ class Sale
     {
         return $this->supplier2;
     }
+    /**
+     * @var float
+     */
+    private $net_gain;
+
+
+    /**
+     * Set netGain
+     *
+     * @param float $netGain
+     *
+     * @return Sale
+     */
+    public function setNetGain($netGain)
+    {
+        $this->net_gain = $netGain;
+
+        return $this;
+    }
+
+    /**
+     * Get netGain
+     *
+     * @return float
+     */
+    public function getNetGain()
+    {
+        return $this->net_gain;
+    }
 }

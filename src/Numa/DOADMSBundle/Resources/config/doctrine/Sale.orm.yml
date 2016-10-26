@@ -74,7 +74,7 @@ Numa\DOADMSBundle\Entity\Sale:
         total_unit_cost:
             type: float
             nullable: true
-        net_grain:
+        net_gain:
             type: float
             nullable: true
         protect_pkg:
