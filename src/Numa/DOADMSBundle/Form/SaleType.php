@@ -41,7 +41,7 @@ class SaleType extends AbstractType
             ->add('other_exp_4')
             ->add('other_exp_5')
             ->add('total_unit_cost')
-            ->add('net_grain')
+            ->add('net_gain')
             ->add('protect_pkg')
             ->add('warranty')
             ->add('doc_fees')

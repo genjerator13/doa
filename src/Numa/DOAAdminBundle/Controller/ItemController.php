@@ -746,22 +746,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
     public function massDelete2Action(Request $request) {
         $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-        $em = $this->getDoctrine()->getManager();
-
-        $itemIds = explode(",",$ids);
-        $saleIds = array();
-        foreach($itemIds as $itemId)
-        {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($itemId);
-            $saleId = $item->getSaleId();
-            if(!empty($saleId)){
-                $saleIds[] = $saleId;
-            }
-        }
-        $saleIdss = implode(", ", $saleIds);
-        $qbBilling = $em->getRepository("NumaDOADMSBundle:Billing")->delete($ids);
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->delete($ids);
-        $qbSale = $em->getRepository("NumaDOADMSBundle:Sale")->delete($saleIdss);
+        $this->get("Numa.Dms.Listing")->deleteItems($ids);
         die();
     }
     /**

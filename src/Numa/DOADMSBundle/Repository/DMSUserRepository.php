@@ -80,6 +80,8 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
             ->getQuery()
             ->getOneOrNullResult();
         $dealer =$one->getDealer();
+
+
         if($dealer instanceof Catalogrecords){
             $dealer_host = $dealer->getSiteUrl();
             if (strpos($dealer_host, $host) !== false || strpos($host,$dealer_host)!== false) {
