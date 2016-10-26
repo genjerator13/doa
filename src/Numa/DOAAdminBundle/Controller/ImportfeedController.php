@@ -258,7 +258,7 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
         //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
         $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed ' . $id . " are removed and the images are deleted.");
 
-        return $this->redirect($this->generateUrl('importfeed'));
+        return $this->redirect($this->generateUrl('dms_importfeed'));
     }
 
     /**
