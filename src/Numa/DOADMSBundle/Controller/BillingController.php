@@ -119,7 +119,7 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
-        $dealer = $this->get('security.token_storage')->getToken()->getUser();
+        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $entity->setCustomerId($id);
         $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
 
