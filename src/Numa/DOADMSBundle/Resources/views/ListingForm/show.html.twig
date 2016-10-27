@@ -1,7 +1,7 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
 {% block content %}
-    <h1>ListingForm</h1>
+    <h1>Site Forms</h1>
 
 <div class="nav-tabs-custom">
     <div class="tab-content">
@@ -47,6 +47,35 @@
                 <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
             </tr>
             {% endif %}
+
+            {% if entity.model is not null %}
+                <tr>
+                    <th>Model</th>
+                    <td>{{ entity.model }}</td>
+                </tr>
+            {% endif %}
+
+            {% if entity.make is not null %}
+                <tr>
+                    <th>Make</th>
+                    <td>{{ entity.make }}</td>
+                </tr>
+            {% endif %}
+
+            {% if entity.kilometers is not null %}
+                <tr>
+                    <th>Kilometers</th>
+                    <td>{{ entity.kilometers }}</td>
+                </tr>
+            {% endif %}
+
+            {% if entity.accesories is not null %}
+                <tr>
+                    <th>Accessories</th>
+                    <td>{{ entity.accesories }}</td>
+                </tr>
+            {% endif %}
+
             {% if entity.comment is not null %}
             <tr>
                 <th>Comment</th>

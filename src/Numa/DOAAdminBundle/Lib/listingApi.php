@@ -244,6 +244,12 @@ class listingApi
             $value = str_replace('"'," inches ",$value);
             $value = "\"".$value."\"";
         }
+        if(is_string($value)) {
+            //$value = strip_tags('<li>', $value);
+
+            $value = preg_replace("/<.*?>/", "", $value);
+            //dump($value);
+        }
 
         return str_replace("\n", "-", $value);
     }
