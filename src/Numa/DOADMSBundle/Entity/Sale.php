@@ -831,7 +831,7 @@ class Sale
      */
     public function getTotalUnitCost()
     {
-        return $this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5();
+        return round($this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2);
 //        return $this->total_unit_cost;
     }
 
@@ -856,7 +856,7 @@ class Sale
      */
     public function getNetGrain()
     {
-          return ($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost();
+          return round(($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2);
 //        return $this->net_grain;
     }
 
@@ -1169,7 +1169,7 @@ class Sale
      */
     public function getTotalSaleCost()
     {
-        return $this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms();
+        return round($this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2);
 //        return $this->total_sale_cost;
     }
 
@@ -1819,7 +1819,7 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        return $this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3();
+        return round($this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2);
 //        return $this->total_revenue;
     }
 
@@ -1844,7 +1844,7 @@ class Sale
      */
     public function getRevenueThisUnit()
     {
-        return $this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost());
+        return round($this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2);
 //        return $this->revenue_this_unit;
     }
 
