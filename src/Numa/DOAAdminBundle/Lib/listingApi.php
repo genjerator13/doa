@@ -246,9 +246,9 @@ class listingApi
         }
         if(is_string($value)) {
             //$value = strip_tags('<li>', $value);
-            
+
             $value = preg_replace("/<.*?>/", "", $value);
-            dump($value);
+            //dump($value);
         }
 
         return str_replace("\n", "-", $value);
