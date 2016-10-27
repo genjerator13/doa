@@ -8,5 +8,7 @@
     {% include 'NumaDOADMSBundle:Emails:testdriveBodyTemplate.html.twig' %}
 {% elseif(entity.type|lower == "offer") %}
     {% include 'NumaDOADMSBundle:Emails:offerBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "offer trade in") %}
+    {% include 'NumaDOADMSBundle:Emails:offerTradeInBodyTemplate.html.twig' %}
 {% endif %}
 {% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}

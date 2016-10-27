@@ -14,6 +14,7 @@ use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
 use Numa\DOADMSBundle\Form\ListingFormFinanceType;
+use Numa\DOADMSBundle\Form\ListingFormOfferTradeInType;
 use Numa\DOADMSBundle\Form\ListingFormOfferType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -84,6 +85,12 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $data = $request->request->get('offer');
             $form = new ListingFormOfferType();
             $id = "offer_form";
+        }
+        if (!empty($request->request->get('offertradein'))) {
+
+            $data = $request->request->get('offertradein');
+            $form = new ListingFormOfferTradeInType();
+            $id = "offerTradeIn_form";
         }
 
 

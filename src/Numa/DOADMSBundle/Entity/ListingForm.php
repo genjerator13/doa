@@ -635,4 +635,178 @@ class ListingForm
     {
         return $this->type;
     }
+    /**
+     * @var integer
+     */
+    private $trade_in;
+
+    /**
+     * @var string
+     */
+    private $make;
+
+    /**
+     * @var string
+     */
+    private $model;
+
+    /**
+     * @var integer
+     */
+    private $year;
+
+    /**
+     * @var integer
+     */
+    private $kilometers;
+
+    /**
+     * @var string
+     */
+    private $accesories;
+
+
+    /**
+     * Set tradeIn
+     *
+     * @param integer $tradeIn
+     *
+     * @return ListingForm
+     */
+    public function setTradeIn($tradeIn)
+    {
+        $this->trade_in = $tradeIn;
+
+        return $this;
+    }
+
+    /**
+     * Get tradeIn
+     *
+     * @return integer
+     */
+    public function getTradeIn()
+    {
+        return $this->trade_in;
+    }
+
+    /**
+     * Set make
+     *
+     * @param string $make
+     *
+     * @return ListingForm
+     */
+    public function setMake($make)
+    {
+        $this->make = $make;
+
+        return $this;
+    }
+
+    /**
+     * Get make
+     *
+     * @return string
+     */
+    public function getMake()
+    {
+        return $this->make;
+    }
+
+    /**
+     * Set model
+     *
+     * @param string $model
+     *
+     * @return ListingForm
+     */
+    public function setModel($model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set year
+     *
+     * @param integer $year
+     *
+     * @return ListingForm
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
+
+        return $this;
+    }
+
+    /**
+     * Get year
+     *
+     * @return integer
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * Set kilometers
+     *
+     * @param integer $kilometers
+     *
+     * @return ListingForm
+     */
+    public function setKilometers($kilometers)
+    {
+        $this->kilometers = $kilometers;
+
+        return $this;
+    }
+
+    /**
+     * Get kilometers
+     *
+     * @return integer
+     */
+    public function getKilometers()
+    {
+        return $this->kilometers;
+    }
+
+    /**
+     * Set accesories
+     *
+     * @param string $accesories
+     *
+     * @return ListingForm
+     */
+    public function setAccesories($accesories)
+    {
+        $this->accesories = $accesories;
+
+        return $this;
+    }
+
+    /**
+     * Get accesories
+     *
+     * @return string
+     */
+    public function getAccesories()
+    {
+        return $this->accesories;
+    }
 }
