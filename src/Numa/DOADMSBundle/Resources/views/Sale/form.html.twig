@@ -315,7 +315,7 @@
                 sum += Number($(this).val());
             });
 
-            $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum);
+            $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum.toFixed( 2 ));
         });
 
         $('.form-control').keyup(function () {
@@ -323,7 +323,7 @@
             $('.sum2').each(function() {
                 sum2 += Number($(this).val());
             });
-            $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2);
+            $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2.toFixed( 2 ));
         });
 
         $('.form-control').keyup(function () {
@@ -347,8 +347,8 @@
             if(isNaN(parseFloat(n5))){
                 n5 = 0;
             }
-
-            $('#numa_doaadminbundle_item_sale_net_tax').val((n1+n2+n3) - (n4+n5));
+            var saleNetTax = ((n1+n2+n3) - (n4+n5)).toFixed( 2 );
+            $('#numa_doaadminbundle_item_sale_net_tax').val(saleNetTax);
         });
 
         $('.form-control').keyup(function () {
@@ -364,7 +364,7 @@
             if(isNaN(parseFloat(n3))){
                 n3 = 0;
             }
-            $('#numa_doaadminbundle_item_sale_net_gain').val((n2+n3) - n1);
+            $('#numa_doaadminbundle_item_sale_net_gain').val(((n2+n3) - n1).toFixed( 2 ));
         });
 
         $('.form-control').keyup(function () {
@@ -372,8 +372,8 @@
             $('.sum4').each(function() {
                 sum4 += Number($(this).val());
             });
-            $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4);
-            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4);
+            $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed( 2 ));
+            //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
         });
 
         $('.form-control').keyup(function () {
@@ -391,6 +391,6 @@
                 n3 = 0;
             }
 
-            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val(n2-(n3+n1));
+            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2-(n3+n1)).toFixed( 2 ));
         });
     </script>
