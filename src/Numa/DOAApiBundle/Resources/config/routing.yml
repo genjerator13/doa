@@ -99,3 +99,6 @@ dealer_component_api:
 finance_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing/finance.yml"
     prefix:   /finance
+support_form_api:
+    resource: "@NumaDOAApiBundle/Resources/config/routing/support_form.yml"
+    prefix:   /support_form
