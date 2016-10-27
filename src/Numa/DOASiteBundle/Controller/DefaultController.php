@@ -39,11 +39,11 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $host = $this->get('numa.dms.user')->getCurrentSiteHost();
         if (!empty($this->dealer) && $this->dealer instanceof Catalogrecords) {
             if (strpos($host, 'midcityautocentre.ca') !== false) {
-               return $this->redirect("search_used_vehicle");
+               return $this->redirectToRoute("search_used_vehicle");
             }
 
             if (strpos($host, 'midcityautocentre.com') !== false) {
-               return $this->redirect("search_used_vehicle");
+               return $this->redirectToRoute("search_used_vehicle");
             }
         }
 
