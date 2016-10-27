@@ -49,6 +49,7 @@ class SupportFormController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
+            $this->addFlash("success","Successfully Send Support Form.");
             return $this->redirect($this->generateUrl('supportform_new'));
 
         }
@@ -73,7 +74,7 @@ class SupportFormController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
     }
