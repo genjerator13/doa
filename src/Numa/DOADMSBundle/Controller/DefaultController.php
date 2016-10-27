@@ -20,6 +20,7 @@ class DefaultController extends Controller
             $dealer = $signedDealer->getId();
         }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
+
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => $dealer));
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted($dealer);
         $components = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $dealer));
