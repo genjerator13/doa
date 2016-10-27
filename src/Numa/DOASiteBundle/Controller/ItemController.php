@@ -7,6 +7,7 @@ use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
 use Numa\DOADMSBundle\Form\ListingFormDriveType;
 use Numa\DOADMSBundle\Form\ListingFormEpriceType;
+use Numa\DOADMSBundle\Form\ListingFormOfferTradeInType;
 use Numa\DOADMSBundle\Form\ListingFormOfferType;
 use Numa\DOADMSBundle\Form\ListingFormFinanceType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
@@ -64,6 +65,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
                 'searchQ' => $searchQ,
                 'driveForm' => $this->createCreateDriveForm(new ListingForm())->createView(),
                 'offerForm' => $this->createCreateOfferForm(new ListingForm())->createView(),
+                'offerTradeInForm' => $this->createCreateOfferTradeInForm(new ListingForm())->createView(),
                 'epriceForm' => $this->createCreateEpriceForm(new ListingForm())->createView(),
                 'financeForm' => $this->createCreateFinanceForm(new ListingForm())->createView(),
                 'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
@@ -107,6 +109,24 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'attr' => array('id'=>"offer_form")
         ));
        // $form->add('submit', 'submit', array('label' => 'Create'));
+        return $form;
+    }
+
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateOfferTradeInForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormOfferTradeInType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_offer_trade_in'),
+            'method' => 'POST',
+            'attr' => array('id'=>"offerTradeIn_form")
+        ));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 

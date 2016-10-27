@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOADMSBundle\Form\ListingFormOfferTradeInType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -50,8 +51,11 @@ class ListingFormController extends Controller
             elseif($routeName == 'listingform_create_eprice') {
                 $entity->setType('eprice');
             }
-            else{
+            elseif($routeName == 'listingform_create_offer') {
                 $entity->setType('offer');
+            }
+            else{
+                $entity->setType('offer trade in');
             }
 
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
@@ -161,6 +165,40 @@ class ListingFormController extends Controller
             'form'   => $form->createView(),
         ));
     }
+    /**
+     * Creates a form to create a ListingForm entity.
+     *
+     * @param ListingForm $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateOfferTradeInForm(ListingForm $entity)
+    {
+        $form = $this->createForm(new ListingFormOfferTradeInType(), $entity, array(
+            'action' => $this->generateUrl('listingform_create_offer_trade_in'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new ListingForm entity.
+     *
+     */
+    public function newOfferTradeInAction()
+    {
+        $entity = new ListingForm();
+        $form   = $this->createCreateOfferTradeInForm($entity);
+
+        return $this->render('NumaDOADMSBundle:ListingForm:new.html.twig', array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        ));
+    }
+
 
     /**
      * Creates a form to create a ListingForm entity.

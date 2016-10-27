@@ -47,19 +47,39 @@ Numa\DOADMSBundle\Entity\ListingForm:
             type: integer
             nullable: true
         date_created:
-             type: datetime
-             nullable: true
+            type: datetime
+            nullable: true
         date_updated:
-             type: datetime
-             nullable: true
+            type: datetime
+            nullable: true
         status:
-             type: string
-             length: 255
-             nullable: true
+            type: string
+            length: 255
+            nullable: true
         type:
-             type: string
-             length: 255
-             nullable: true
+            type: string
+            length: 255
+            nullable: true
+        trade_in:
+            type: integer
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year:
+            type: integer
+            nullable: true
+        kilometers:
+            type: bigint
+            nullable: true
+        accesories:
+            type: text
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
