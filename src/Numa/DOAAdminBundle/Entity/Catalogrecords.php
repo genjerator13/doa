@@ -1658,4 +1658,62 @@ class Catalogrecords implements UserInterface
     {
         return $this->default_listing_comment;
     }
+    /**
+     * @var integer
+     */
+    private $dealer_group_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\DealerGroup
+     */
+    private $DealerGroup;
+
+
+    /**
+     * Set dealerGroupId
+     *
+     * @param integer $dealerGroupId
+     *
+     * @return Catalogrecords
+     */
+    public function setDealerGroupId($dealerGroupId)
+    {
+        $this->dealer_group_id = $dealerGroupId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerGroupId
+     *
+     * @return integer
+     */
+    public function getDealerGroupId()
+    {
+        return $this->dealer_group_id;
+    }
+
+    /**
+     * Set dealerGroup
+     *
+     * @param \Numa\DOAAdminBundle\Entity\DealerGroup $dealerGroup
+     *
+     * @return Catalogrecords
+     */
+    public function setDealerGroup(\Numa\DOADMSBundle\Entity\DealerGroup $dealerGroup = null)
+    {
+        $this->DealerGroup = $dealerGroup;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerGroup
+     *
+     * @return \Numa\DOAAdminBundle\Entity\DealerGroup
+     */
+    public function getDealerGroup()
+    {
+        return $this->DealerGroup;
+    }
 }
