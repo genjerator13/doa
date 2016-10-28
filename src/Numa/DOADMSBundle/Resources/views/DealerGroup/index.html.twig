@@ -17,11 +17,10 @@
             <tr>
                 <th>Id</th>
                 <th>Username</th>
-                <th>Password</th>
                 <th>Email</th>
                 <th>Status</th>
+                <th>Dealers</th>
                 <th>Date_created</th>
-                <th>Date_updated</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -30,17 +29,13 @@
             <tr>
                 <td><a href="{{ path('dealergroup_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.username }}</td>
-                <td>{{ entity.password }}</td>
                 <td>{{ entity.email }}</td>
                 <td>{{ entity.status }}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.Dealer|join(', ') }}</td>
+                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d') }}{% endif %}</td>
                 <td><ul>
         <li>
-            <a href="{{ path('dealergroup_show', { 'id': entity.id }) }}">show</a>
-        </li>
-        <li>
-            <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}">edit</a>
+            <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
         </li>
 </ul>
                 </td>

@@ -53,7 +53,10 @@ listingByDealer:
     path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer",_format: "xml"}
     requirements: { _method: get }
-
+listingByDealerGroup:
+    path:  /listings/{dealer_group_id}/dealergroup.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerGroup",_format: "xml"}
+    requirements: { _method: get }
 listingByDealerUsername:
     path:  /listings/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealerUsername",_format: "xml"}
