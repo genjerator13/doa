@@ -98,7 +98,7 @@ class listingApi
         $res['url'] = $router->generate('item_details', array('itemId' => $item->getId(), 'description' => $urldesription), true);
 
         foreach ($map as $name => $value) {
-            $res[$value] = $item->get($name);
+            $res[strtolower($value)] = $item->get($name);
         }
         $tempImages = array();
         if (!empty($res['images']['image'])) {
