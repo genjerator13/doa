@@ -140,10 +140,10 @@ class ItemRESTController extends Controller
         return $listings;
     }
 
-    public function listingsByDealerGroup2Action(Request $request, $dealergroup)
+    public function listingsByDealerGroup2Action(Request $request, $dealer_group_id)
     {
         $em = $this->getDoctrine()->getManager();
-        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findBy(array('dealer_group_id'=>$dealergroup));
+        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findBy(array('dealer_group_id'=>$dealer_group_id));
         $dealersIds=array();
         foreach($dealers as $dealer){
             $dealersIds[]=$dealer->getId();

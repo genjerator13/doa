@@ -17,15 +17,14 @@ use Numa\Form\AutocompleteType;
 class AddItemSubscriber implements EventSubscriberInterface
 {
 
-    protected $em;
     protected $securityContext;
     protected $dealerID;
     protected $category;
     protected $container;
 
-    public function __construct($em, $securityContext, $dealerID, $category)
+    public function __construct($container, $securityContext, $dealerID, $category)
     {
-        $this->em = $em;
+        $this->container = $container;
         $this->dealerID = $dealerID;
         $this->category = $category;
 
@@ -79,9 +78,9 @@ class AddItemSubscriber implements EventSubscriberInterface
         if ($this->category instanceof \Numa\DOAAdminBundle\Entity\Category) {
             $cat = $this->category->getId();
         }
-
+        $em = $this->container->get("doctrine.orm.entity_manager");
         foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB => $carFieldField) {
-            $listingList = $this->em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
+            $listingList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
             //dump($carFieldDB);
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
 
@@ -94,7 +93,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                     if (empty($selected)) {
                         $selected = $item->getItemFieldByName($carFieldDB);
                     }
-                    $listingLists = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(), "ASC");
+                    $listingLists = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllByListingField($listingList->getId(), "ASC");
 
                     $values = array();
                     foreach ($listingLists as $key => $value) {
@@ -124,7 +123,7 @@ class AddItemSubscriber implements EventSubscriberInterface
                     $selected = $item->getItemFieldByName($carFieldField);
 
 
-                    $listingTree = $this->em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(), 'level' => 1),
+                    $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findBy(array('listing_field_id' => $listingList->getId(), 'level' => 1),
                         array('name' => 'ASC'));
                     $values = array();
                     foreach ($listingTree as $key => $value) {
@@ -154,11 +153,15 @@ class AddItemSubscriber implements EventSubscriberInterface
             $form->add('dealer_id', 'hidden', array('data' => $this->dealerID->getId()));
         }
 
-        if ($this->securityContext->isGranted('ROLE_DMS_USER') || $this->securityContext->isGranted('ROLE_BUSINES')) {
+        if ($this->securityContext->isGranted('ROLE_DMS_USER') || $this->securityContext->isGranted('ROLE_BUSINES') || $this->securityContext->isGranted('ROLE_ADMIN')) {
+            $dealer = $this->container->get("numa.dms.user")->getSignedUser();
 
-            if($this->dealerID instanceof Catalogrecords && empty($dg)){
-                $dg = $this->dealerID->getDealerGroup();
-                $form->add('Dealer','entity');
+            if($dealer instanceof Catalogrecords && !empty($dealer->getDealerGroup())){
+                $dg = $dealer->getDealerGroup();
+                $form->add('Dealer','entity',array(
+                    'choices'   => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dg->getId()),
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                ));
             }
 
             //if dealer have dealer group
