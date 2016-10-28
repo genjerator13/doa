@@ -42,66 +42,74 @@
                 <td>{{ entity.phone }}</td>
             </tr>
             {% if entity.datedrive is not null %}
-            <tr>
-                <th>Date drive</th>
-                <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
-            </tr>
-            {% endif %}
-
-            {% if entity.model is not null %}
                 <tr>
-                    <th>Model</th>
-                    <td>{{ entity.model }}</td>
+                    <th>Date drive</th>
+                    <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
                 </tr>
             {% endif %}
-
+            {#{{ dump(entity) }}#}
+            {% if entity.tradeIn is not null %}
+                <tr>
+                    <th>Trade in</th>
+                    <td>{% if entity.tradeIn == 1 %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}</td>
+                </tr>
+            {% endif %}
             {% if entity.make is not null %}
                 <tr>
-                    <th>Make</th>
+                    <th>Trade in Make</th>
                     <td>{{ entity.make }}</td>
                 </tr>
             {% endif %}
-
+            {% if entity.model is not null %}
+                <tr>
+                    <th>Trade in Model</th>
+                    <td>{{ entity.model }}</td>
+                </tr>
+            {% endif %}
+            {% if entity.year is not null %}
+                <tr>
+                    <th>Trade in Year</th>
+                    <td>{{ entity.year }}</td>
+                </tr>
+            {% endif %}
             {% if entity.kilometers is not null %}
                 <tr>
-                    <th>Kilometers</th>
+                    <th>Trade in Kilometers</th>
                     <td>{{ entity.kilometers }}</td>
                 </tr>
             {% endif %}
-
             {% if entity.accesories is not null %}
                 <tr>
-                    <th>Accessories</th>
+                    <th>Trade in Accesories</th>
                     <td>{{ entity.accesories }}</td>
                 </tr>
             {% endif %}
-
             {% if entity.comment is not null %}
-            <tr>
-                <th>Comment</th>
-                <td>{{ entity.comment }}</td>
-            </tr>
+                <tr>
+                    <th>Comment</th>
+                    <td>{{ entity.comment }}</td>
+                </tr>
             {% endif %}
-            {#<tr>#}
-                {#<th>Dealer_id</th>#}
-                {#<td>{{ entity.dealerid }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Customer_id</th>#}
-                {#<td>{{ entity.customerid }}</td>#}
-            {#</tr>#}
-            {#<tr>#}
-                {#<th>Item_id</th>#}
-                {#<td>{{ entity.itemid }}</td>#}
-            {#</tr>#}
+            <tr>
+                <th>Link to listing</th>
+                <td><a href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()}))  }}">{{ entity.item.getTitle() }}</a></td>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <td>{{ entity.item.make }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ entity.item.model }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.item.year }}</td>
+            </tr>
             <tr>
                 <th>Date Submited</th>
                 <td>{{ entity.datecreated|date('Y-m-d H:i') }}</td>
             </tr>
-            {#<tr>#}
-                {#<th>Date_updated</th>#}
-                {#<td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>#}
-            {#</tr>#}
             <tr>
                 <th>Status</th>
                 <td>{{ entity.status }}</td>

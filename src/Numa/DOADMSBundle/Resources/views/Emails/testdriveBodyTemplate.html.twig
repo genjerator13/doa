@@ -6,3 +6,5 @@
     <p>Email: {{ entity.email }}</p>
     <p>Phone: {{ entity.phone }}</p>
     <p>Best Date: {{ entity.dateDrive|date('Y-m-d') }}</p>
+{% include 'NumaDOADMSBundle:Emails:item.html.twig' %}
+{% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}

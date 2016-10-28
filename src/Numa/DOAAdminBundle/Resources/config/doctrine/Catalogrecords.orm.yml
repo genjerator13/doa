@@ -18,6 +18,9 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         category_id:
             type: integer
             nullable: true
+        dealer_group_id:
+            type: integer
+            nullable: true
         description:
             type: text
             nullable: true
@@ -161,6 +164,12 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             inversedBy: Catalogrecords
             joinColumn:
                 name: category_id
+                referencedColumnName: id
+        DealerGroup:
+            targetEntity: Numa\DOADMSBundle\Entity\DealerGroup
+            inversedBy: Dealer
+            joinColumn:
+                name: dealer_group_id
                 referencedColumnName: id
     oneToMany:
         DealerCategories:

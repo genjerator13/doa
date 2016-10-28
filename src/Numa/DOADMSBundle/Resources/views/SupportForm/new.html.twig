@@ -1,0 +1,22 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+    <h1>Support Form</h1>
+    {% if app.session.flashBag.has('success') %}
+        <div class="alert alert-success text-center">
+            {% for msg in app.session.flashBag.get('success') %}
+                {{ msg }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    {{ form(form) }}
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('supportform') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+        {% endif %}
+
+{% endblock %}
