@@ -167,7 +167,7 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
                 referencedColumnName: id
         DealerGroup:
             targetEntity: Numa\DOADMSBundle\Entity\DealerGroup
-            inversedBy: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Dealer
             joinColumn:
                 name: dealer_group_id
                 referencedColumnName: id

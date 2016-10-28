@@ -41,11 +41,6 @@ class SupportForm
     /**
      * @var string
      */
-    private $body;
-
-    /**
-     * @var string
-     */
     private $message;
 
     /**
@@ -190,30 +185,6 @@ class SupportForm
     }
 
     /**
-     * Set body
-     *
-     * @param string $body
-     *
-     * @return SupportForm
-     */
-    public function setBody($body)
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    /**
-     * Get body
-     *
-     * @return string
-     */
-    public function getBody()
-    {
-        return $this->body;
-    }
-
-    /**
      * Set message
      *
      * @param string $message
@@ -289,7 +260,10 @@ class SupportForm
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getCreatedAt()) {
+            $this->created_at = new \DateTime();
+            $this->updated_at = new \DateTime();
+        }
     }
 
     /**
@@ -297,7 +271,38 @@ class SupportForm
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->updated_at = new \DateTime();
+        }
+    }
+    /**
+     * @var string
+     */
+    private $subject;
+
+
+    /**
+     * Set subject
+     *
+     * @param string $subject
+     *
+     * @return SupportForm
+     */
+    public function setSubject($subject)
+    {
+        $this->subject = $subject;
+
+        return $this;
+    }
+
+    /**
+     * Get subject
+     *
+     * @return string
+     */
+    public function getSubject()
+    {
+        return $this->subject;
     }
 }
-

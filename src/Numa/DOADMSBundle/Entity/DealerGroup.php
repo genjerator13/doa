@@ -281,11 +281,11 @@ class DealerGroup
     /**
      * Add dealer
      *
-     * @param \Numa\DOADMSBundle\Entity\Catalogrecords $dealer
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $Dealer
      *
      * @return DealerGroup
      */
-    public function addDealer(\Numa\DOADMSBundle\Entity\Catalogrecords $dealer)
+    public function addDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer)
     {
         $this->Dealer[] = $dealer;
 
@@ -295,9 +295,9 @@ class DealerGroup
     /**
      * Remove dealer
      *
-     * @param \Numa\DOADMSBundle\Entity\Catalogrecords $dealer
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
      */
-    public function removeDealer(\Numa\DOADMSBundle\Entity\Catalogrecords $dealer)
+    public function removeDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer)
     {
         $this->Dealer->removeElement($dealer);
     }

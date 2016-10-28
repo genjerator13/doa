@@ -19,6 +19,13 @@ class DealerGroupType extends AbstractType
             ->add('password')
             ->add('email')
             ->add('status')
+            ->add('Dealer', 'entity',array(
+                //'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+                'class' => 'Numa\DOAAdminBundle\Entity\Catalogrecords',
+                'multiple'  => true,
+                //'empty_value' => 'Choose Dealer',
+                'label' => "Dealer"
+            ))
 //            ->add('date_created')
 //            ->add('date_updated')
         ;

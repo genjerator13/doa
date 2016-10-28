@@ -1700,7 +1700,7 @@ class Catalogrecords implements UserInterface
      *
      * @return Catalogrecords
      */
-    public function setDealerGroup(\Numa\DOAAdminBundle\Entity\DealerGroup $dealerGroup = null)
+    public function setDealerGroup(\Numa\DOADMSBundle\Entity\DealerGroup $dealerGroup = null)
     {
         $this->DealerGroup = $dealerGroup;
 
