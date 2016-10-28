@@ -123,11 +123,23 @@ class listingApi
         return $res;
     }
 
-    public function prepareListingByDealer($dealerid, $category)
+    public function prepareListingByDealer($dealer_group_id, $category)
     {
         $res = array();
         $em = $this->container->get('doctrine');
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealerid, $category);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_group_id, $category);
+
+        foreach ($items as $item) {
+
+            $res['listing'][] = $this->prepareItem($item);
+        }
+        return $res;
+    }
+    public function prepareListingByDealerGroup($dealer_group_id, $category)
+    {
+        $res = array();
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerGroupAndCategory($dealer_group_id, $category);
 
         foreach ($items as $item) {
 
