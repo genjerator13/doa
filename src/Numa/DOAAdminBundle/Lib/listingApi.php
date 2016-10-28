@@ -143,9 +143,9 @@ class listingApi
 
         foreach ($items as $item) {
 
-            $res['listing'][] = $this->prepareItem($item);
+            $res['listings'][] = $this->prepareItem($item);
         }
-        return $res;
+        return $res['listings'];
     }
 
     public function prepareListingByDealerUsername($dealerid, $category)
