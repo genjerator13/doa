@@ -260,9 +260,14 @@ class ItemRepository extends EntityRepository
     public function getAllListings($dealer_id = null)
     {
         //$sql = "SELECT * FROM item";
+        $dealers = $dealer_id;
+        if(is_array($dealer_id)){
+            $dealers = implode(",",$dealer_id);
+        }
+
         $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
         if (!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=" . intval($dealer_id) . " GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id in (" . $dealers . ") GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);

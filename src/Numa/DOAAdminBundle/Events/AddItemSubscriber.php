@@ -154,6 +154,17 @@ class AddItemSubscriber implements EventSubscriberInterface
             $form->add('dealer_id', 'hidden', array('data' => $this->dealerID->getId()));
         }
 
+        if ($this->securityContext->isGranted('ROLE_DMS_USER') || $this->securityContext->isGranted('ROLE_BUSINES')) {
+
+            if($this->dealerID instanceof Catalogrecords && empty($dg)){
+                $dg = $this->dealerID->getDealerGroup();
+                $form->add('Dealer','entity');
+            }
+
+            //if dealer have dealer group
+            //add select field with all the dealers from the group
+        }
+
         foreach ($item->getItemField() as $itemfield) {
             if ($itemfield->getFieldType() == 'boolean') {
 

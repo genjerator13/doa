@@ -126,6 +126,17 @@ class ItemRESTController extends Controller
         return $listings;
     }
 
+    public function listingsByDealerGroup2Action(Request $request, $dealergroup)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findBy(array('dealer_group_id'=>$dealergroup));
+        $dealersIds=array();
+        foreach($dealers as $dealer){
+            $dealersIds[]=$dealer->getId();
+        }
+        return $this->listingsByDealer2Action($request,$dealersIds);
+    }
+
     /**
      * @Rest\View
      */
