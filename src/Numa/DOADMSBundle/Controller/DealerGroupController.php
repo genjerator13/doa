@@ -41,6 +41,10 @@ class DealerGroupController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            foreach($entity->getDealer() as $dealer)
+            {
+                $dealer->setDealerGroup($entity);
+            }
             $em->persist($entity);
             $em->flush();
             return $this->redirect($this->generateUrl('dealergroup'));
@@ -170,6 +174,10 @@ class DealerGroupController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            foreach($entity->getDealer() as $dealer)
+            {
+                $dealer->setDealerGroup($entity);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('dealergroup_edit', array('id' => $id)));
