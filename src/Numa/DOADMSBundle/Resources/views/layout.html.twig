@@ -404,6 +404,22 @@
                         </a>
                     </li>
                 {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="treeview">
+                        <a href="{{ path('supportform') }}">
+                            <i class="fa fa-question"></i>
+                            <span>SUPPORT</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {#{% if is_granted('ROLE_ADMIN') %}#}
+                    {#<li class="treeview">#}
+                        {#<a href="{{ path('dealergroup') }}">#}
+                            {#<i class="fa fa-users"></i>#}
+                            {#<span>Dealer Group</span>#}
+                        {#</a>#}
+                    {#</li>#}
+                {#{% endif %}#}
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -454,7 +470,7 @@
             <!-- Home tab content -->
             <div class="tab-pane active" id="control-sidebar-home-tab">
 
-
+                <a href="{{ path('supportform_new') }}" class="btn btn-default">Support</a>
             </div><!-- /.tab-pane -->
             <!-- Stats tab content -->
             <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div><!-- /.tab-pane -->

@@ -218,6 +218,41 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
+    public function getItemByDealerGroupAndCategory($dealer_group_id, $category = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if (empty($dealer_group_id)) {
+
+        } elseif (is_numeric($dealer_group_id)) {
+            $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
+            $qb->andWhere("d.dealer_group_id like :dealer_group_id");
+            $qb->setParameter("dealer_group_id", $dealer_group_id);
+        }
+
+        if (!empty($category)) {
+            if (is_numeric($category)) {
+
+                $qb->andWhere("i.category_id like :name");
+                $qb->setParameter("name", $category);
+            } elseif (is_string($category)) {
+                $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
+                $qb->andWhere("c.name like :name");
+                $qb->setParameter("name", "%" . $category . "%");
+            } else {
+                return false;
+            }
+        }
+        $qb->andWhere("i.active=1");
+        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
+        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        return $itemsQuery->getResult();
+    }
+
     public function getItemByDealerUsernameAndCategory($dealer_id, $category = null)
     {
 
@@ -260,9 +295,14 @@ class ItemRepository extends EntityRepository
     public function getAllListings($dealer_id = null)
     {
         //$sql = "SELECT * FROM item";
+        $dealers = $dealer_id;
+        if(is_array($dealer_id)){
+            $dealers = implode(",",$dealer_id);
+        }
+
         $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id GROUP BY i.id ORDER BY i.id DESC";
         if (!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id=" . intval($dealer_id) . " GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category FROM item AS i left JOIN category c ON i.category_id = c.id where i.dealer_id in (" . $dealers . ") GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);

@@ -69,6 +69,20 @@ class ItemRESTController extends Controller
         return $this->get('listing_api')->formatResponse($items, $format);
     }
 
+    public function listingsByDealerGroupAction(Request $request, $dealer_group_id)
+    {
+
+        $category = $request->query->get('category');
+
+        $items = $this->get('listing_api')->prepareListingByDealerGroup($dealer_group_id, $category);
+
+        if (!$items) {
+            throw $this->createNotFoundException('The product does not exist');
+        }
+        $format = $request->attributes->get('_format');
+        return $this->get('listing_api')->formatResponse($items, $format);
+    }
+
     public function listingsByDealerUsernameAction(Request $request, $dealerid)
     {
 
@@ -124,6 +138,17 @@ class ItemRESTController extends Controller
         //dump($listings);die();
         $listings = array_map($func, $listings);
         return $listings;
+    }
+
+    public function listingsByDealerGroup2Action(Request $request, $dealer_group_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findBy(array('dealer_group_id'=>$dealer_group_id));
+        $dealersIds=array();
+        foreach($dealers as $dealer){
+            $dealersIds[]=$dealer->getId();
+        }
+        return $this->listingsByDealer2Action($request,$dealersIds);
     }
 
     /**

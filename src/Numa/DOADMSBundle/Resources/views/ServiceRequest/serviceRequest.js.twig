@@ -28,7 +28,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             name: 'id',
             enableColumnResizing: true,
             width: 30,
-            cellTemplate: '<a href="{[{row.entity.id}]}/edit">{[{row.entity.id}]}</a>',
+            cellTemplate: '<a href="{[{row.entity.id}]}/show">{[{row.entity.id}]}</a>',
 
         },
         {name: 'cust_name', displayName: 'Name', enableColumnResizing: true},

@@ -1,7 +1,9 @@
 <h1>Finance from {{ entity.email }} </h1>
- <h4>Contact Information:</h4>
-    <p>First Name: {{ entity.custName }}</p>
-    <p>Last Name: {{ entity.custLastName }}</p>
-    <p>Email: {{ entity.email }}</p>
-    <p>Phone: {{ entity.phone }}</p>
-    <p>Comment: {{ entity.comment }}</p>
+<h4>Contact Information:</h4>
+<p>First Name: {{ entity.custName }}</p>
+<p>Last Name: {{ entity.custLastName }}</p>
+<p>Email: {{ entity.email }}</p>
+<p>Phone: {{ entity.phone }}</p>
+<p>Comment: {{ entity.comment }}</p>
+{% include 'NumaDOADMSBundle:Emails:item.html.twig' %}
+{% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}

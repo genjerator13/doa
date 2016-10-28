@@ -102,3 +102,9 @@ NumaDOADMSBundle_vendor:
 NumaDOADMSBundle_sale:
     resource: "@NumaDOADMSBundle/Resources/config/routing/sale.yml"
     prefix:   /sale
+NumaDOADMSBundle_supportform:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/supportform.yml"
+    prefix:   /supportform
+NumaDOADMSBundle_dealergroup:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dealergroup.yml"
+    prefix:   /dealergroup

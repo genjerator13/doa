@@ -168,6 +168,19 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
     }
 
+    public function getDealersByDealerGroup($dealer_group_id)
+    {
+
+        $qb = $this->createQueryBuilder('d');
+        $qb->orWhere('d.dealer_group_id=:dgid');
+
+        $qb->setParameter('dgid', $dealer_group_id);
+
+        return $qb->getQuery()->getResult();
+
+    }
+
+
     public function getNonEmptyCoupons($dealer_id)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();

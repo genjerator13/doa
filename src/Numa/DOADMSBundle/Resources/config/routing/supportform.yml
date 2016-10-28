@@ -1,0 +1,30 @@
+supportform:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:index" }
+
+supportform_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:show" }
+
+supportform_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:new" }
+
+supportform_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:create" }
+    requirements: { _method: post }
+
+supportform_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:edit" }
+
+supportform_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:update" }
+    requirements: { _method: post|put }
+
+supportform_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:delete" }
+    requirements: { _method: post|delete }
