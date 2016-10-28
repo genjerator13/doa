@@ -1,0 +1,38 @@
+Numa\DOADMSBundle\Entity\DealerGroup:
+    type: entity
+    table: dealer_group
+#    repositoryClass: Numa\DOADMSBundle\Repository\DealerGroupRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        username:
+            type: string
+            length: 255
+            unique: true
+        password:
+            type: string
+            length: 255            
+        email:
+            type: string
+            length: 255
+            unique: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        date_created:
+            type: datetime
+            nullable: true
+        date_updated:
+            type: datetime
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    oneToMany:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            mappedBy: DealerGroup
+            cascade: [persist]

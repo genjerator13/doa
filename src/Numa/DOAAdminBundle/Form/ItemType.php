@@ -147,26 +147,7 @@ class ItemType extends AbstractType
                 'format' => 'dd-MM-yyyy',
                 'attr' => array('class' => 'datepicker')
             ))
-//            ->add('Vendor', 'entity',array(
-//                'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
-//                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
-//                'required'  => false,
-//                'empty_value' => 'Choose Vendor',
-//                'label' => "Vendor", "required" => false
-//            ))
-//            ->add('invoice_amount')
-//            ->add('discount1',null,array("label"=>"Discount 1"))
-//            ->add('discount2',null,array("label"=>"Discount 2"))
-//            ->add('sale_amount')
-//            ->add('expense_1_descrip')
-//            ->add('expense_1_amt')
-//            ->add('expense_2_descrip')
-//            ->add('expense_2_amt')
-//            ->add('expense_3_descrip')
-//            ->add('expense_3_amt')
-//            ->add('expense_4_descrip')
-//            ->add('expense_4_amt')
-//            ->add('total_cost')
+
             ->add('Itemfield', 'collection', array('type' => new \Numa\DOAAdminBundle\Form\ItemFieldType($this->em),
         'by_reference' => false,))
             ->add('torque')
@@ -187,11 +168,9 @@ class ItemType extends AbstractType
             ->add('tire_size')
 
         ;
-        
-        $builder->addEventSubscriber(new AddItemSubscriber($this->em,$this->securityContext,$this->dealerID, $this->category));
-//        $builder->addEventListener(FormEvents::POST_SUBMIT, function ($event) {
-//            $event->stopPropagation();
-//        }, 900);
+
+        $builder->addEventSubscriber(new AddItemSubscriber($options['container'],$this->securityContext,$this->dealerID, $this->category));
+
     }
     
     /**
@@ -210,5 +189,9 @@ class ItemType extends AbstractType
     public function getName()
     {
         return 'numa_doaadminbundle_item';
+    }
+
+    public function getParent() {
+        return 'container_aware';
     }
 }

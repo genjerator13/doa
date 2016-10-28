@@ -1,0 +1,8 @@
+support_form_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:SupportFormREST:all",_format: "json"}
+    requirements: { _method: get }
+support_form_by_dealer_api:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:SupportFormREST:byDealer",_format: "json"}
+    requirements: { _method: get }
