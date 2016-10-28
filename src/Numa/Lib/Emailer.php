@@ -135,7 +135,7 @@ class Emailer extends ContainerAware
             ->setFrom($emailFrom)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
-            ->setTo($dealer->getEmail())
+            //->setTo($dealer->getEmail())
             //->setTo("genjerator@outlook.com")
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {

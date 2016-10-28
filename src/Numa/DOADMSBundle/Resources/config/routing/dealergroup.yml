@@ -1,0 +1,30 @@
+dealergroup:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:index" }
+
+dealergroup_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:show" }
+
+dealergroup_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:new" }
+
+dealergroup_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:create" }
+    requirements: { _method: post }
+
+dealergroup_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:edit" }
+
+dealergroup_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:update" }
+    requirements: { _method: post|put }
+
+dealergroup_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:DealerGroup:delete" }
+    requirements: { _method: post|delete }

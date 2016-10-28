@@ -1,0 +1,49 @@
+Numa\DOADMSBundle\Entity\SupportForm:
+    type: entity
+    table: support_form
+    #repositoryClass: Numa\DOADMSBundle\Repository\SupportFormRepository
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+            nullable: true
+        dms_user_id:
+            type: integer
+            nullable: true
+        created_at:
+            type: datetime
+            nullable: true
+        updated_at:
+            type: datetime
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        subject:
+            type: string
+            length: 255
+            nullable: true
+        message:
+            type: text
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: SupportForm
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        DMSUser:
+            targetEntity: Numa\DOADMSBundle\Entity\DMSUser
+            inversedBy: SupportForm
+            joinColumn:
+                name: dms_user_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

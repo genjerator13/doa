@@ -47,6 +47,10 @@ security:
         - { path: ^/dms/reports, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/partrequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/servicerequest, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_SERVICE_DMS,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/supportform/new, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_REGULAR_ADMIN_DMS,ROLE_ACCOUNTING,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_REGULAR_ADMIN_DMS] }
+        - { path: ^/dms/supportform/create, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_REGULAR_ADMIN_DMS,ROLE_ACCOUNTING,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_REGULAR_ADMIN_DMS] }
+        - { path: ^/dms/supportform/, roles: [ROLE_ADMIN] }
+
 
         # inventory Images (listings,items)
         - { path: ^/dms/inventory/view, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
@@ -55,6 +59,8 @@ security:
         - { path: ^/dms/inventory/[0-9]+/images, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/inventory/[0-9]+/imagesupload, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/inventory/[0-9]+/addvideo, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/admin/items/image_order, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/admin/itemsfield/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
         - { path: ^/admin/imagecarousel/upload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS] }

@@ -711,7 +711,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Activates elected listings in datagrid on listing list page
      */
     public function massActivate2Action(Request $request) {
-        $ids = $this->getActivationParams($request);
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
         die();
@@ -747,6 +747,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $this->get("Numa.Dms.Listing")->deleteItems($ids);
+
         die();
     }
     /**
