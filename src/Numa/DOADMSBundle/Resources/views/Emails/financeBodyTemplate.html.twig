@@ -5,3 +5,16 @@
     <p>Email: {{ entity.email }}</p>
     <p>Phone: {{ entity.phone }}</p>
     <p>Comment: {{ entity.comment }}</p>
+ <h4>Item Information</h4>
+    <p>Link to listing</p>
+    <p><a href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()}))  }}">{{ entity.item.getTitle() }}</a></p>
+    <p>Make</p>
+    <p>{{ entity.item.make }}</p>
+    <p>Model</p>
+    <p>{{ entity.item.model }}</p>
+    <p>Year</p>
+    <p>{{ entity.item.year }}</p>
+    <p>Date Submited</p>
+    <p>{{ entity.datecreated|date('Y-m-d H:i') }}</p>
+    <p>Status</p>
+    <p>{{ entity.status }}</p>

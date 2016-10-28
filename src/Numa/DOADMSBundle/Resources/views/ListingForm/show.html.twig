@@ -42,10 +42,10 @@
                 <td>{{ entity.phone }}</td>
             </tr>
             {% if entity.datedrive is not null %}
-            <tr>
-                <th>Date drive</th>
-                <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
-            </tr>
+                <tr>
+                    <th>Date drive</th>
+                    <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
+                </tr>
             {% endif %}
             {#{{ dump(entity) }}#}
             {% if entity.tradeIn is not null %}
@@ -55,34 +55,40 @@
                 </tr>
             {% endif %}
             {% if entity.make is not null %}
-            <tr>
-                <th>Trade in Make</th>
-                <td>{{ entity.make }}</td>
-            </tr>
+                <tr>
+                    <th>Trade in Make</th>
+                    <td>{{ entity.make }}</td>
+                </tr>
             {% endif %}
             {% if entity.model is not null %}
-            <tr>
-                <th>Trade in Model</th>
-                <td>{{ entity.model }}</td>
-            </tr>
+                <tr>
+                    <th>Trade in Model</th>
+                    <td>{{ entity.model }}</td>
+                </tr>
             {% endif %}
             {% if entity.year is not null %}
-            <tr>
-                <th>Trade in Year</th>
-                <td>{{ entity.year }}</td>
-            </tr>
+                <tr>
+                    <th>Trade in Year</th>
+                    <td>{{ entity.year }}</td>
+                </tr>
             {% endif %}
             {% if entity.kilometers is not null %}
-            <tr>
-                <th>Trade in Kilometers</th>
-                <td>{{ entity.kilometers }}</td>
-            </tr>
+                <tr>
+                    <th>Trade in Kilometers</th>
+                    <td>{{ entity.kilometers }}</td>
+                </tr>
             {% endif %}
             {% if entity.accesories is not null %}
-            <tr>
-                <th>Trade in Accesories</th>
-                <td>{{ entity.accesories }}</td>
-            </tr>
+                <tr>
+                    <th>Trade in Accesories</th>
+                    <td>{{ entity.accesories }}</td>
+                </tr>
+            {% endif %}
+            {% if entity.comment is not null %}
+                <tr>
+                    <th>Comment</th>
+                    <td>{{ entity.comment }}</td>
+                </tr>
             {% endif %}
             <tr>
                 <th>Link to listing</th>
