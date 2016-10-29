@@ -442,6 +442,8 @@ class Catalogrecords implements UserInterface
     {
         if (strtolower($this->getDmsStatus()) == 'activated') {
             return array('ROLE_DMS_USER', 'ROLE_BUSINES');
+        }else{
+            return array('ROLE_NODMS_USER', 'ROLE_BUSINES');
         }
         if ($this->getAdmindealer()) {
             return array('ROLE_DEALER_ADMIN', 'ROLE_BUSINES');
