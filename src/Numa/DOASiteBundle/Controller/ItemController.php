@@ -408,7 +408,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
-
+            'dealer'=>$this->get("numa.dms.user")->getSignedDealer()
         ));
     }
 
