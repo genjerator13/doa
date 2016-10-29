@@ -309,6 +309,15 @@
     </table>
 
     <script>
+
+        $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input',function(e){
+            $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
+        });
+
+        $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input',function(e){
+            $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
+        });
+
         $('.form-control').keyup(function () {
             var sum = 0;
             $('.sum1').each(function() {
