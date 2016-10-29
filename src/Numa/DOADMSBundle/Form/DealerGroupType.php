@@ -15,8 +15,8 @@ class DealerGroupType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
-            ->add('password')
+            ->add('username',null,array('label'=>"Name"))
+            //->add('password')
             ->add('email')
             ->add('status')
             ->add('Dealer', 'entity',array(
