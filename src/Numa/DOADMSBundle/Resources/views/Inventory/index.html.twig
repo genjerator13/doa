@@ -1,5 +1,5 @@
 {#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
-{% extends app.request.get('_dashboard')=='DMS' and not is_granted('ROLE_NODMS_USER')
+{% extends app.request.get('_dashboard')=='DMS' and dealer.dmsStatus=="activated" and not is_granted("ROLE_NODMS_USER")
 ? 'NumaDOADMSBundle::layout.html.twig'
 : is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
 {% block stylesheets %}
@@ -83,6 +83,7 @@
             </div>
         </div>
     </div>
+
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">

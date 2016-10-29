@@ -1,5 +1,5 @@
 {#{% extends 'NumaDOADMSBundle::layout.html.twig' %}#}
-{% extends app.request.get('_dashboard')=='DMS'
+{% extends app.request.get('_dashboard')=='DMS' and dealer.dmsStatus=="activated"
 ? 'NumaDOADMSBundle::layout.html.twig'
 : is_granted('ROLE_BUSINES')?'NumaDOASiteBundle::wide-layout.html.twig':'NumaDOAAdminBundle::layout.html.twig' %}
 {% block stylesheets %}
@@ -55,7 +55,7 @@
 
 
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-
+{{ dump() }}
     <div class="box">
     <div class="box-header">
         <div class="box-header">
