@@ -12,15 +12,17 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ImageCarousel;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOASiteBundle\Services\ExtraListener;
 
 class NumaExtension extends \Twig_Extension
 {
 
     protected $container;
-
-    public function __construct(ContainerInterface $container = null)
+    protected $extraListener;
+    public function __construct(ContainerInterface $container = null, ExtraListener $extraListener)
     {
         $this->container = $container;
+        $this->extraListener = $extraListener;
     }
 
     public function getFunctions()
@@ -38,6 +40,7 @@ class NumaExtension extends \Twig_Extension
             'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
+            'getPage' => new \Twig_Function_Method($this, 'getPage'),
         );
     }
 
@@ -115,6 +118,26 @@ class NumaExtension extends \Twig_Extension
     {
         //https://www.youtube.com/embed/xH01UCfId0A
         return "https://www.youtube.com/embed/" . $id;
+    }
+
+
+    public function getPage()
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $request = $this->container->get("request");
+        $host = trim(strip_tags($request->getHost()));
+        $pathinfo = $request->getPathInfo();
+        if (substr($pathinfo, 0, 2) === "/d") {
+            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+        }
+        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+        $dealer_id=null;
+        if ($dealer instanceof Catalogrecords) {
+            $dealer_id=$dealer->getId();
+        }
+        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageByUrl2($pathinfo,$dealer->getId());
+
+        return $page;
     }
 
     public function displayComponent($name, $type = "Text", $source = "page")

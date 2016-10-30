@@ -25,7 +25,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     }
 
 
-    public function indexAction()
+    public function indexAction(Request $request)
     {
 
         $activeTheme = $this->get('liip_theme.active_theme');
@@ -231,6 +231,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
             'dealer' => $this->dealer,
             'marineForm' => $marineForm->createView()));
+
         if (!$nocache) {
             $response->setPublic();
             $response->setSharedMaxAge(600);
