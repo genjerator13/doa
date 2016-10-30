@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 
@@ -1005,13 +1006,52 @@ class Item
     }
 
     /**
-     * Set Importfeed
-     *
-     * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
-     * @return Item
+     * @return string Category name need for elasticsearch
      */
-    public function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
+
+    public function getCategoryName()
     {
+        if (!empty($this->getCategory())) {
+            return strtolower($this->getCategory()->getName());
+        }
+        return "";
+    }
+
+    /**
+     * Get categorSubType
+     *
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getCategorySubType()
+    {
+        if (!empty($this->getCategory())) {
+            $cat = $this->getCategory();
+            if ($cat->getId() == 1) {
+                return $this->getBodyStyle();
+            } elseif ($cat->getId() == 2) {
+                return $this->getType();
+            } elseif ($cat->getId() == 3) {
+                return $this->getType();
+            } elseif ($cat->getId() == 4) {
+                return $this->getType();
+            } elseif ($cat->getId() == 13) {
+                return $this->getAgApplication();
+            }
+        }
+        return "";
+    }
+
+
+/**
+ * Set Importfeed
+ *
+ * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
+ * @return Item
+ */
+public
+function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
+{
 
         if (!empty($importfeed)) {
             //die(get_class($importfeed));
@@ -4961,5 +5001,14 @@ class Item
     public function getSellerCommentActive()
     {
         return $this->seller_comment_active;
+    }
+
+    public function getDealerGroup(){
+        if($this->getDealer() instanceof  Catalogrecords){
+            if($this->getDealer()->getDealerGroup() instanceof DealerGroup){
+                return $this->getDealer()->getDealerGroup()->getId();
+            }
+        }
+        return null;
     }
 }

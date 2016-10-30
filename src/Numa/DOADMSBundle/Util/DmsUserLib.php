@@ -5,6 +5,7 @@ namespace Numa\DOADMSBundle\Util;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -72,11 +73,21 @@ class DmsUserLib
         $router = $this->container->get('router');
         return $router->getContext()->getHost();
     }
+
     public function getDealerByHost(){
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
         //check if www
         $host = str_replace("www.","",$host);
         return $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+    }
+
+    public function getDealerGroupIdByHost(){
+
+        $dealer = $this->getDealerByHost();
+        if($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup){
+            return $dealer->getDealerGroup()->getId();
+        }
+        return null;
     }
 }
