@@ -23,7 +23,7 @@ class DealerGroupController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('NumaDOADMSBundle:DealerGroup')->findAll();
+        $entities = $em->getRepository('NumaDOADMSBundle:DealerGroup')->findBy(array(),array("id"=>"desc"));
 
         return $this->render('NumaDOADMSBundle:DealerGroup:index.html.twig', array(
             'entities' => $entities,
@@ -174,13 +174,20 @@ class DealerGroupController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $olddealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('dealer_group_id'=>$id));
+            foreach($olddealers as $dealer){
+                $dealer->setDealerGroup(null);
+            }
             foreach($entity->getDealer() as $dealer)
             {
+
                 $dealer->setDealerGroup($entity);
             }
+            $this->addFlash("success","Dealer Group: ".$entity->getUsername()." successfully updated.");
             $em->flush();
 
-            return $this->redirect($this->generateUrl('dealergroup_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('dealergroup', array('id' => $id)));
         }
 
         return $this->render('NumaDOADMSBundle:DealerGroup:edit.html.twig', array(
