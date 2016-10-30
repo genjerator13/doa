@@ -1,6 +1,7 @@
 <?php
 namespace Numa\DOASettingsBundle\Twig;
 use Numa\DOASettingsBundle\Util\SettingsLib;
+use Numa\DOASiteBundle\Services\ExtraListener;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SettingsExtension extends \Twig_Extension {
@@ -13,11 +14,13 @@ class SettingsExtension extends \Twig_Extension {
      */
     protected $config;
 
+
     /**
      * @param Config $config
      */
     public function __construct(SettingsLib $config){
         $this->config = $config;
+
     }
     public function setConfig(SettingsLib $config) {
         $this->config = $config;

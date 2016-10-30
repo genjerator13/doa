@@ -28,7 +28,28 @@ class PageRepository extends EntityRepository
 //            ->setParameter('end_date', $current_date);
 
         $query = $qb->getQuery();
+
         return $query->getResult();
+    }
+
+    public function findPageByUrl2($url, $dealer_id = null)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('p')
+            ->add('from', 'NumaDOAModuleBundle:Page p')
+            ->where('p.url=:url')
+            ->setParameter('url', $url);
+        if (empty($dealer_id)) {
+            $qb->andWhere('p.dealer_id is :dealer_id');
+        } else {
+            $qb->andWhere('p.dealer_id=:dealer_id');
+        }
+        $qb->setParameter('dealer_id', $dealer_id);
+        $query = $qb->getQuery()->setMaxResults(1);
+
+        return $query->getOneOrNullResult();
     }
 
     public function findCustomPageByUrl($dealer_id, $url)
@@ -66,7 +87,7 @@ class PageRepository extends EntityRepository
         //remove /page from $url
 
         if (stripos($url, "page") !== false) {
-            $url = substr($url,5,strlen($url)-1);
+            $url = substr($url, 5, strlen($url) - 1);
         }
 
         $qb = $this->getEntityManager()

@@ -1,0 +1,78 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block content %}
+    {% set images = item.getImages2() %}
+    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
+    {% if searchQ is defined %}
+        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode(),'searchQ':searchQ}) %}
+    {% endif %}
+    {% set dealer = item.getDealer() %}
+    {% if detailUrl is empty %}
+        {% set detailUrl = "details" %}
+
+    {% endif %}
+    <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
+            <div class="picture-detail col-md-6">
+                <a href="{{ detailUrl }}" class="thumbnail">
+                    {% if item.getImage2() is defined and item.getImage2() is not empty %}
+                        {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
+                    {% endif %}
+                </a>
+            </div>
+            <div class="shortDetails col-md-6">
+                <h4>
+                    <a href="{{ detailUrl }}"><span>{{ item.getTitle() }}</span>
+                        {{ item.getPriceString() }} {% if (item.getSold()==1) %}<span
+                                class="badge">Sold</span>{% endif %}
+                    </a>
+                </h4>
+
+                {% if item.bodyStyle is defined and item.StockNr is defined and item.exteriorColor is defined and item.getItemFieldByName('mileage') is defined %}
+                    {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
+                    <ul class="techData  list-unstyled">
+                        {% if item.categoryId()==1 %}
+                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                        {% elseif(item.categoryId()==2) %}
+                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                        {% elseif(item.categoryId()==3) %}
+                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                        {% elseif(item.categoryId()==4) %}
+                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                        {% elseif(item.categoryId()==13) %}
+                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                        {% else %}
+                        {% endif %}
+                    </ul>
+                {% endif %}
+
+                <div class="checkbox-inline">
+                    <label>
+                        <input type="checkbox" class="compareAd"> Compare Ad
+                    </label>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
+                                class="fa fa-money"></i> Get ePrice
+                    </button>
+                    {#<button type="button" class="btn btn-default">Save This Car</button>#}
+                    <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
+                </div>
+                {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
+                    <ul class="list-inline">
+                        <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
+                        {% if item.getActive() %}
+                            <li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>
+                        {% else %}
+                            <li><a href="{{ path('items_activate',{'id':item.id}) }}">Activate</a></li>
+                        {% endif %}
+                        <li><a href="{{ path('items_delete',{'id':item.id}) }}">Delete</a></li>
+                    </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="clear"></div>
+
+{% endblock %}

@@ -863,6 +863,12 @@ ul.techData li {
 	height: 270px;
 }
 
+.searchSideBar{
+	border: 1px solid black;
+	min-height: 500px;
+	padding-top: 20px;
+}
+
 .carousel {
 	width: 555px;
 	height: 400px;

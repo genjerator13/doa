@@ -36,7 +36,7 @@
                                                 //$(this).parent().parent().html("aaaa");
                                                 //alert("aaa");
                                                 var savesearch = $("#savesearch").val();
-                                                var jqxhr = $.post("{{path('search_save')}}", {
+                                                var jqxhr = $.post("{{ path('search_save') }}", {
                                                     name: savesearch,
                                                     url: document.URL
                                                 }, function (data) {
@@ -80,16 +80,16 @@
                 <script>
                     $('.listingsNumber').change(function () {
                         lnr = parseInt(($(this).val()));
-                        {%if queryUrl is defined %}
-                        url = "{{path('search_dispatch')}}?{{queryUrl}}&listings_per_page=" + lnr;
+                        {% if queryUrl is defined %}
+                        url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
                         url = url.replace(/&amp;/g, '&');
                         //console.log(url);
-                        //console.log("{{queryUrl}}");
+                        //console.log("{{ queryUrl }}");
                         window.location.href = url;
                         {% else %}
 
 
-                        console.log({{path('search_dispatch')}} ? listings_per_page = "+lnr);
+                        console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
                         //window.open(url.replace("&amp;","&"));
                         {% endif %}
                     })
@@ -212,82 +212,61 @@
 
                     {% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}
                 </div>
-            {% for item in pagerfanta %}
-                {#
-                        {%if item.getCategory().getName()=='Marine'%}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {%endif%}
-                        {% if item.getCategory().getName()=='Car' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}
-                        {% if item.getCategory().getName()=='Motosport' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}
-                        {% if item.getCategory().getName()=='RVs' %}
-                            <a href="{{path('item_details',{'itemId':item.id,'description':'testdes'})}}">{{ item.id }}    </a>
-                        {% endif %}#}
+                {% for item in pagerfanta %}
+                    {% if queryUrl is defined %}
+                        {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                    {% else %}
+                        {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item}) }}
+                    {% endif %}
 
-
-                {% if queryUrl is defined %}
-                    {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item,'searchQ':queryUrl}) }}
-                {% else %}
-                    {{ include("NumaDOASiteBundle:Search:oneBoatDetail.html.twig",{'item':item}) }}
-                {% endif %}
-
-            {% endfor %}
+                {% endfor %}
             </div>
             {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+
+            <script type="text/javascript">
+                num = 10;
+                {% if listing_per_page is defined %}
+                num = parseInt({{ listing_per_page }});
+                {% endif %}
+                $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+
+            </script>
+
+            <script>
+                $(".saveAd").on("click", function () {
+                    var itemId = $(this).closest('.item-row').attr("data");
+                    console.log(itemId);
+                    var act = "add";
+                    if (!$(this).prop('checked')) {
+                        act = "remove";
+                    }
+                    var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
+                        htmlx = "";
+                        if (data.savedAds > 0) {
+                            htmlx = "(" + data.savedAds + ")";
+                        }
+                        $('.savedAds').html(htmlx);
+                    })
+
+                });
+                $(".compareAd").on("click", function () {
+                    var itemId = $(this).closest('.item-row').attr("data");
+                    var url = $(this).closest('.item-row').attr("url");
+
+                    var act = "add";
+                    if (!$(this).prop('checked')) {
+                        act = "remove";
+                    }
+                    var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                        htmlx = "";
+                        if (data.comparedItes > 0) {
+                            htmlx = "(" + data.comparedItes + ")";
+                        }
+                        $('.savedAds').html(htmlx);
+                    })
+
+                });
+            </script>
         </div>
-        <script type="text/javascript">
-            num = 10;
-            {%if listing_per_page is defined %}
-            num = parseInt({{listing_per_page}});
-            {% endif %}
-            $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-            {#$('select#numberoflisting').change(
-                    function() {
-                        var ss = $("#searchSource").val();
-                        ss = ss + $("#numberoflisting").val()
-                        console.log(ss);
-                        $(this).closest('form').submit();
-
-                    });#}
-        </script>
-
-        <script>
-            $(".saveAd").on("click", function () {
-                var itemId = $(this).closest('.item-row').attr("data");
-                console.log(itemId);
-                var act = "add";
-                if (!$(this).prop('checked')) {
-                    act = "remove";
-                }
-                var jqxhr = $.post("{{path('item_savead')}}", {itemid: itemId, act: act}, function (data) {
-                    htmlx = "";
-                    if (data.savedAds > 0) {
-                        htmlx = "(" + data.savedAds + ")";
-                    }
-                    $('.savedAds').html(htmlx);
-                })
-
-            });
-            $(".compareAd").on("click", function () {
-                var itemId = $(this).closest('.item-row').attr("data");
-                var url = $(this).closest('.item-row').attr("url");
-
-                var act = "add";
-                if (!$(this).prop('checked')) {
-                    act = "remove";
-                }
-                var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
-                    htmlx = "";
-                    if (data.comparedItes > 0) {
-                        htmlx = "(" + data.comparedItes + ")";
-                    }
-                    $('.savedAds').html(htmlx);
-                })
-
-            });
-        </script>
     {% endif %}
 {% endblock %}

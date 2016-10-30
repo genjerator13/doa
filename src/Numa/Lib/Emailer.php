@@ -268,6 +268,7 @@ class Emailer extends ContainerAware
 
     public function sendDmsActivateEmail($host, $dealer = "")
     {
+        $templating = $this->container->get('templating');
         $em = $this->container->get('doctrine')->getManager();
         $text = "";
         if ($dealer instanceof Catalogrecords) {
@@ -277,7 +278,8 @@ class Emailer extends ContainerAware
         $subject = "DMS activation request";
 
         $emailBody = "DMS activation request" . $text . " for the site:" . $host;;
-
+        $emailBody = $templating->render('NumaDOADMSBundle:Emails:activationEmail.html.twig', array('text'=>$text,$host=>$host
+        ));
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)

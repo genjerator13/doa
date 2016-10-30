@@ -63,4 +63,35 @@ class SearchItem {
         $value = $this->getValue();
         return empty($value);
     }
+
+    public function isString(){
+        return $this->getType()=='string';
+    }
+
+    public function isInt(){
+        return $this->getType()=='int';
+    }
+
+    public function isCategory(){
+        return $this->getType()=='category';
+    }
+
+    public function isListSlug(){
+        return $this->getType()=='listSlug';
+    }
+
+    public function isText(){
+        return $this->getType()=='text';
+    }
+
+    public function isRangeFrom(){
+        return $this->getType()=='rangeFrom';
+    }
+
+    public function isRangeTo(){
+        return $this->getType()=='rangeTo';
+    }
+///
+//
+//
 }

@@ -59,7 +59,9 @@
         "knplabs/knp-snappy-bundle": "dev-master",
         "liip/theme-bundle": "^1.4",
         "mpdf/mpdf": "dev-master",
-        "liuggio/excelbundle": "~2.0"
+        "liuggio/excelbundle": "~2.0",
+        "friendsofsymfony/elastica-bundle": "dev-master",
+        "ruflin/elastica": "3.2.1 as 2.99.0"
     },
     "scripts": {
         "post-install-cmd": [

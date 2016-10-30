@@ -637,6 +637,12 @@ and (max-width : 767px) {
 	padding: 15px 0 0 0;
 }
 
+.searchSideBar{
+	border: 1px solid black;
+	min-height: 500px;
+	padding-top: 20px;
+}
+
 .detailsContent .row{
 	border: 1px solid darkgray;
 }
