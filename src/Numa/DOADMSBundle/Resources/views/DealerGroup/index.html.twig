@@ -1,15 +1,17 @@
     {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
 {% block content -%}
+
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">DealerGroup list</h3>
         <div class="box-tools">
             
                         <a href="{{ path('dealergroup_new') }}" class="btn btn-primary">
-                            Create a new DealerGroup
+                            Create a new Dealer Group
                         </a>
                     </div>
+        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
