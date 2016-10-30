@@ -79,6 +79,8 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->generateCoverPhotos();
         }elseif ($command == 'pages') {
             $this->pages($dealer_id);
+        }elseif ($command == 'populate') {
+            $this->populate();
         }
     }
 
@@ -651,6 +653,35 @@ class DBUtilsCommand extends ContainerAwareCommand
 
         $pages = $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($dealer_id);
         die();
+    }
+
+    public function populate(){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category'=>"elasticsearch"),array('id'=>'desc'));
+
+        if($lastCommand instanceof CommandLog){
+            if($lastCommand->isRunning()){
+                die();
+            }
+        }
+        $command = 'php app/console fos:elastica:populate';
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('elasticsearch');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand($command);
+        $em->persist($commandLog);
+        $em->flush();
+        //$em->clear();
+        $logger = $this->getContainer()->get('logger');
+        $logger->error("TEST before populate");
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->run();
+        $logger->error("TEST after populate");
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
     }
 
 }
