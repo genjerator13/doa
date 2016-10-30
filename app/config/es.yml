@@ -66,6 +66,8 @@ fos_elastica:
                         sleeps: ~
                         slideOuts: ~
                         flooring: ~
+                        dealerGroup:
+                            type: integer
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
