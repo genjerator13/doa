@@ -13,7 +13,8 @@ Numa\DOADMSBundle\Entity\DealerGroup:
             unique: true
         password:
             type: string
-            length: 255            
+            length: 255
+            nullable: true
         email:
             type: string
             length: 255
@@ -28,6 +29,10 @@ Numa\DOADMSBundle\Entity\DealerGroup:
         date_updated:
             type: datetime
             nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
@@ -36,3 +41,10 @@ Numa\DOADMSBundle\Entity\DealerGroup:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
             mappedBy: DealerGroup
             cascade: [persist]
+    manyToOne:
+        DealerCreator:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: DealerGroup
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
