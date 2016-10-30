@@ -165,7 +165,11 @@ class EntityListener
         }elseif($entity instanceof DealerGroup){
             $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
             $em->flush();
-            //dump($this->container->get("numa.dms.user")->getSignedDealer());;die();
+            $command = 'php ' . $this->container->get('kernel')->getRootDir() . '/console numa:dbutil populate';
+
+
+            $process = new \Symfony\Component\Process\Process($command);
+            $process->start();
         }
     }
 
