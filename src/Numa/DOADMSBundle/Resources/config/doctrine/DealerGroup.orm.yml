@@ -18,7 +18,7 @@ Numa\DOADMSBundle\Entity\DealerGroup:
         email:
             type: string
             length: 255
-            unique: true
+            nullable: true
         status:
             type: string
             length: 255

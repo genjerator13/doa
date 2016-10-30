@@ -10,6 +10,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 
@@ -5000,5 +5001,14 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     public function getSellerCommentActive()
     {
         return $this->seller_comment_active;
+    }
+
+    public function getDealerGroup(){
+        if($this->getDealer() instanceof  Catalogrecords){
+            if($this->getDealer()->getDealerGroup() instanceof DealerGroup){
+                return $this->getDealer()->getDealerGroup()->getId();
+            }
+        }
+        return null;
     }
 }

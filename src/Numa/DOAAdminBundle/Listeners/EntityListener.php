@@ -10,6 +10,7 @@ use Doctrine\ORM\Event\PreFlushEventArgs;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\PartRequest;
@@ -149,7 +150,7 @@ class EntityListener
     public function postPersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
-
+        $em = $args->getEntityManager();
         if ($entity instanceof Item ) {
             $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
         }elseif($entity instanceof PartRequest){
@@ -162,6 +163,10 @@ class EntityListener
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
 
+        }elseif($entity instanceof DealerGroup){
+            $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
+            $em->flush();
+            //dump($this->container->get("numa.dms.user")->getSignedDealer());;die();
         }
     }
 
