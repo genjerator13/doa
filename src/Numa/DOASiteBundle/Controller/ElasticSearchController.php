@@ -70,7 +70,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $this->searchParameters->setAll($parameters);
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
-        //dump($parameters);die();
 
         if($this->dealer instanceof Catalogrecords){
             $parameters['dealer_id'] = $this->dealer->getId();
@@ -78,7 +77,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
-        //$sortParams =  $parameters['search_field'];
 
         $this->searchParameters->setAll($parameters);
     }
@@ -102,10 +100,8 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $pagerFanta->setMaxPerPage($number);
         $pagerFanta->setCurrentPage($page);
 
-        $sidebarType = new SidebarSearchType();
-
         $sidebarForm = $this->createSidebarForm();
-        //$param['sidebarForm'] = $sidebarForm->createView();
+
         $sidebarParam = $this->createAggregation();
         $params = array(
             'sidebarForm' => $sidebarForm->createView(),
@@ -138,7 +134,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
     private function doSearch(Request $request,$params=array()){
         $this->initSearchParams($request);
         $this->searchParameters->createElasticSearchResults();
-        //$this->searchParameters->dump();
+
         $pagerFanta=$this->searchParameters->getPagerFanta();
         $param = $this->generateTwigParams($request, $pagerFanta);
         if($request->isXmlHttpRequest()){
@@ -157,13 +153,13 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $sidebarType = new SidebarSearchType();
         $sidebarParam = $this->createAggregation();
 
-        //$paramsO = $this->getSearchParameters();
+
         $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
             'action' => $this->generateUrl('search_dispatch'),
             'attr' => array('id'=>'sidebarSearch'),
             'method' => 'GET'));
 
-        $em = $this->getDoctrine()->getManager();
+
         if(!empty($sidebarParam['category'])) {
             $category = array('' => 'Choose Category');
             $category += $sidebarParam['category'];
@@ -196,18 +192,12 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm->add('yearTo', 'choice', array('label' => 'Year To', 'choices' => $yearTo, "required" => false));
         }
 
-        //if(!empty($sidebarParam['year'])) {
-        //$mileageFrom =  $sidebarParam['mileageStats']['min'];
-
         $sidebarForm->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false));
 
-        //$mileageTo =  $sidebarParam['mileageStats']['max'];
         $sidebarForm->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false));
 
-        //$priceFrom =  $sidebarParam['priceStats']['min'];
         $sidebarForm->add('priceFrom','text',array('label'=>'Price From',"required"=>false));
 
-        //$priceTo =  $sidebarParam['priceStats']['max'];
         $sidebarForm->add('priceTo','text',array('label'=>'Price To',"required"=>false));
 
         $sidebarForm->add('search','submit');
@@ -253,26 +243,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
     private function createAggregation()
     {
         $search = $this->get('fos_elastica.index.app.item');
-        //$search = $this->get('fos_elastica.finder.app.item');
-        // index
 
-
-
-        //$query = new \Elastica\Query\MatchAll();
-
-
-//        $boolQuery = new \Elastica\Query\BoolQuery();
-//
-//        $fieldQuery = new \Elastica\Query\Term();
-//        $fieldQuery->setTerm('active', 1);
-//        $boolQuery->addMust($fieldQuery);
-//
-//        $fieldQuery = new \Elastica\Query\Term();
-//        $fieldQuery->setTerm('dealer_id', 3);///to do
-//        $boolQuery->addMust($fieldQuery);
-//
-        //$elasticaQuery = new \Elastica\Query();
-        //$elasticaQuery->setQuery($boolQuery);
 
         $elasticaQuery = $this->searchParameters->getElasticaQuery();
 
@@ -371,13 +342,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $result['mileageStats']['max']=intval($elasticaAggregs['mileageStats']['max']);
             $result['priceStats']['min']=intval($elasticaAggregs['priceStats']['min']);
             $result['priceStats']['max']=intval($elasticaAggregs['priceStats']['max']);
-//        dump($result);die();
-
-//        dump($elasticaAggregs);die();
-
-        //dump($result);die();
-        //$result['subCat']
-        //$elasticaResultSet->
 
         return $result;
     }
