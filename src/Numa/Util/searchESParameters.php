@@ -15,7 +15,7 @@ use Numa\Util\SearchItem;
  *
  * @author genjerator
  */
-class searchParameters
+class searchESParameters
 {
 
     private $container;
@@ -64,6 +64,7 @@ class searchParameters
             'boatType' => new SearchItem('type', 0, "list"),
             'typeString' => new SearchItem('type', 0, "string"),
             'typeSlug' => new SearchItem('type', 0, "listSlug"),
+            'categorySubType' => new SearchItem('categorySubType', 0, "string"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatTypeSlug' => new SearchItem('type', 0, "listSlug"),
@@ -74,9 +75,9 @@ class searchParameters
             'rvsTypeString' => new SearchItem('type', 0, "string"),
             'rvsTypeSlug' => new SearchItem('type', 0, "listSlug"),
             //cars
-            'bodyStyle' => new SearchItem('body_style', "", 'list'),
-            'bodyStyleString' => new SearchItem('body_style', "", 'string'),
-            'bodyStyleSlug' => new SearchItem('body_style', "", 'listSlug'),
+            'bodyStyle' => new SearchItem('bodyStyle', "", 'string'),
+            'bodyStyleString' => new SearchItem('bodyStyle', "", 'string'),
+            'bodyStyleSlug' => new SearchItem('bodyStyle', "", 'listSlug'),
             'make' => new SearchItem('make', "", 'tree'),
             'make_string' => new SearchItem('make', "", 'string'),
             'model' => new SearchItem('model', "", 'string'),
@@ -147,8 +148,8 @@ class searchParameters
     {
         foreach ($this->params as $key => $value) {
             if ($value instanceof SearchItem) {
-                if(!$value->isValueEmpty())
-                dump($value);
+                if (!$value->isValueEmpty())
+                    dump($value);
             }
         }
     }
@@ -211,142 +212,9 @@ class searchParameters
         return false;
     }
 
-    public function createSearchQuery()
-    {
-        //create query
-        $em = $this->container->get('doctrine')->getEntityManager();
-        $filters = $em->getFilters()
-            ->enable('active_filter');
-        $filters->setParameter('active', true);
-        $qb = $em->createQueryBuilder();
-        $qb->select('i')
-            ->from('NumaDOAAdminBundle:Item', 'i');
-
-        //->orderBy('u.name', 'ASC');
-
-        foreach ($this->params as $key => $searchItem) {
-            if ($this->isParamSet($key)) {
-
-                if ($searchItem instanceof \Numa\Util\SearchItem) {
-
-                    if (!$searchItem->isValueEmpty()) {
-
-                        $type = $searchItem->getType();
-                        $dbName = $searchItem->getDbFieldName();
-                        $value = $searchItem->getValue();
-
-                        if ($dbName == 'all') {
-
-                            $q = $this->createAllQuery($qb, $searchItem->getValue());
-
-                            //$qb->andWhere($q);
-                            //$qb->setParameter('text', "%" . $searchItem->getValue() . "%");
-//                        } elseif ($type == 'category') {
-//                            $qb->andWhere('i.category_id=:cat');
-//                            $qb->setParameter('cat', $searchItem->getValue());
-                        } elseif ($type == 'string') {
-
-                            if ($dbName == "body_style" && strtolower($searchItem->getValue()) == "other") {
-                                $qb->andWhere('i.' . $dbName . ' is null');
-                            } else {
-                                $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                                $qb->setParameter($dbName, "%" . $searchItem->getValue() . "%");
-                            }
-                        } elseif ($type == 'int') {
-                            $qb->andWhere('i.' . $dbName . ' = :' . $dbName);
-
-                            $qb->setParameter($dbName, $searchItem->getValue());
-                        } elseif ($type == 'rangeFrom') {
-                            $qb->andWhere('i.' . $dbName . ' >= :' . $dbName . "from");
-                            $qb->setParameter($dbName . "from", floatval($searchItem->getValue()));
-                        } elseif ($type == 'rangeTo') {
-                            $qb->andWhere('i.' . $dbName . '<= :' . $dbName . "to");
-                            $qb->setParameter($dbName . "to", floatval($searchItem->getValue()));
-                        } elseif ($type == 'dateRangeFrom') {
-//                            $qb->andWhere('i.date_created >= :dateFrom')
-//                            
-//                                    ->setParameter('dateFrom', $monday->format('Y-m-d'))
-//                                    ->setParameter('sunday', $sunday->format('Y-m-d'));
-                        } elseif ($type == 'dateRangeTo') {
-//                            $qb->andWhere('i.date_created >=' . $searchItem->getValue());
-//                            //$qb->orderBy('ifield.field_integer_value', "ASC");
-                        } elseif ($type == 'list') {
-                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('id' => $searchItem->getValue()));
-                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-
-                            $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
-                        } elseif ($type == 'listSlug') {
-                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldLists")->findOneBy(array('slug' => $searchItem->getValue()));
-                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                            $qb->orWhere('i.ag_application' . ' LIKE :' . $dbName);
-                            $qb->setParameter($dbName, "%" . $lflValue->getValue() . "%");
-
-                        } elseif ($type == 'tree') {
-                            $lflValue = $this->container->get('doctrine')->getRepository("NumaDOAAdminBundle:ListingFieldTree")->findOneBy(array('id' => $searchItem->getValue()));
-
-                            $qb->andWhere('i.' . $dbName . ' LIKE :' . $dbName);
-                            $qb->setParameter($dbName, "%" . $lflValue->getName() . "%");
-                        }
-                    }
-                }
-            }
-        }
-        //sort
-
-        //die();
-
-
-        if ($this->sort_by == 'date_created') {
-
-            $qb->addOrderBy("i.date_updated", $this->sort_order);
-            $qb->addOrderBy("i.date_created", $this->sort_order);
-        } else {
-            if (!empty($this->sort_by)) {
-                $qb->addOrderBy("i." . $this->sort_by, $this->sort_order);
-            }
-        }
-        $qb->addOrderBy("i.sold", 'ASC');
-        $this->queryBuilder = $qb;
-        return $qb->getQuery();
-    }
-
-
     public function getQueryBuilder()
     {
         return $this->queryBuilder;
-    }
-
-    public function createAllQuery($qb, $string)
-    {
-        $param = "text";
-        $words = explode(" ", $string);
-
-        $q = $this->createSingleAllQuery($qb, $param);
-        $qb->setParameter($param, $string);
-        if (count($words) > 1) {
-            $c = 2;
-            foreach ($words as $word) {
-                $param = "text" . $c;
-                $v = " AND ";
-                if ($c == 2) {
-                    $v = " OR ";
-                }
-                $q = $q . $v . $this->createSingleAllQuery($qb, $param);
-
-                $qb->setParameter($param, $word);
-                $c++;
-            }
-        }
-        $qb->andWhere($q);
-        //dump($qb);die();
-        return $q;
-
-    }
-
-    private function createSingleAllQuery($qb, $param)
-    {
-        $q = '(i.model LIKE :' . $param . ' or i.make LIKe :' . $param . ' or i.type LIKE :' . $param . ' or i.body_style LIKE :' . $param . ' or i.year LIKE :' . $param . ' or i.VIN LIKE :' . $param . ' or i.transmission LIKE :' . $param . ' or i.floor_plan LIKE :text or i.keywords LIKE :' . $param . ' or i.stock_nr LIKE :' . $param . ')';
-        return $q;
     }
 
     public function getSearchText()
@@ -467,7 +335,7 @@ class searchParameters
         return $this->order;
     }
 
-/* elastic search starts here */
+    /* elastic search starts here */
 
     public function createElasticSearchResults()
     {
@@ -480,42 +348,89 @@ class searchParameters
 
                 if (!$searchItem->isValueEmpty()) {
 
-                    if($searchItem->isString()){
+                    if ($searchItem->isString()) {
 
-                        if($searchItem->getDbFieldName()=='status'){
+                        if ($searchItem->getDbFieldName() == 'status') {
                             //search by lowercase and upercase until i find better solution
                             $fieldQuery = new \Elastica\Query\Wildcard();
-                            $fieldQuery->setValue('status',strtolower($searchItem->getValue()).'*');
+                            $fieldQuery->setValue('status', strtolower($searchItem->getValue()) . '*');
                             $boolQuery->addShould($fieldQuery);
 
                             $fieldQuery = new \Elastica\Query\Wildcard();
-                            $fieldQuery->setValue('status',strtoupper($searchItem->getValue()).'*');
+                            $fieldQuery->setValue('status', strtoupper($searchItem->getValue()) . '*');
                             $boolQuery->addShould($fieldQuery);
-                        }else{
-
+                        } else {
+                            $fieldQuery = new \Elastica\Query\Term();
+                            $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
+                            $boolQuery->addMust($fieldQuery);
                         }
-                    }elseif($searchItem->isInt()){
+                    } elseif ($searchItem->isInt()) {
                         $fieldQuery = new \Elastica\Query\Term();
-                        $fieldQuery->setTerm($searchItem->getDbFieldName(),$searchItem->getValue());
-                        $boolQuery->addShould($fieldQuery);
-                    }elseif($searchItem->isCategory()){
-                        $fieldQuery = new \Elastica\Query\Term();
-                        $fieldQuery->setTerm('categoryName',$searchItem->getValue());
-                        $boolQuery->addShould($fieldQuery);
-                    }
+                        $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
+                        if($searchItem->getDbFieldName()=='dealer_id') {
+                            $dg = $this->container->get("numa.dms.user")->getDealerGroupIdByHost();
+                            if(!empty($dg)){
+                                $fieldQuery = new \Elastica\Query\Term();
+                                $fieldQuery->setTerm('dealerGroup', $dg);
+                                $boolQuery->addMust($fieldQuery);
+                            }else {
+                                $boolQuery->addMust($fieldQuery);
+                            }
 
+                        }else{
+                            $boolQuery->addShould($fieldQuery);
+                        }
+                    } elseif ($searchItem->isCategory()) {
+                        $fieldQuery = new \Elastica\Query\Term();
+                        $fieldQuery->setTerm('categoryName', $searchItem->getValue());
+                        $boolQuery->addShould($fieldQuery);
+                    } elseif ($searchItem->isText()) {
+                        $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
+
+                        $boolQuery->addShould($fieldQuery);
+                    } elseif ($searchItem->isRangeFrom()) {
+                        $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('gte' => $searchItem->getValue()));
+                        $boolQuery->addMust($fieldQuery);
+                    } elseif ($searchItem->isRangeTo()) {
+                        $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('lte' => $searchItem->getValue()));
+                        $boolQuery->addMust($fieldQuery);
+                    }
                 }
             }
-
         }
 
+        $fieldQuery = new \Elastica\Query\Term();
+        $fieldQuery->setTerm('active', 1);
+        $boolQuery->addMust($fieldQuery);
 
 
-        $this->pagerFanta = $finder->findPaginated($boolQuery);
+
+
+        $elasticaQuery = new \Elastica\Query();
+        $elasticaQuery->setQuery($boolQuery);
+        //dump($this->container);
+
+//        if ($this->sort_by == 'date_created') {
+//            $elasticaQuery->addSort(array("date_created" => "asc"));
+//        } else {
+        if (!empty($this->sort_by)) {
+
+            $elasticaQuery->addSort(array($this->sort_by => $this->sort_order));
+        }
+        //}
+        $elasticaQuery->addSort(array("sold" => 'asc'));
+
+        $this->elasticaQuery = $elasticaQuery;
+        $this->pagerFanta = $finder->findPaginated($elasticaQuery);
 
     }
 
-    public function getPagerFanta(){
+    public function getPagerFanta()
+    {
         return $this->pagerFanta;
+    }
+    public function getElasticaQuery()
+    {
+        return $this->elasticaQuery;
     }
 }

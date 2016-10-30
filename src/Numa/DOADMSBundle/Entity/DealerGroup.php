@@ -307,4 +307,33 @@ class DealerGroup
     {
         $this->Dealer->removeElement($dealer);
     }
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $DealerCreator;
+
+
+    /**
+     * Set dealerCreator
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealerCreator
+     *
+     * @return DealerGroup
+     */
+    public function setDealerCreator(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealerCreator = null)
+    {
+        $this->DealerCreator = $dealerCreator;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerCreator
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealerCreator()
+    {
+        return $this->DealerCreator;
+    }
 }

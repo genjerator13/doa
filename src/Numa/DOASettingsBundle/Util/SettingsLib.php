@@ -3,6 +3,7 @@ namespace Numa\DOASettingsBundle\Util;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOAModuleBundle\Entity\Page;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -52,7 +53,7 @@ class SettingsLib
     }
 
     public function getSetting($name,$section="",$dealer=null){
-
+        return $this->getRepo()->getSingle($name,$section,$dealer);
     }
 
     /**
@@ -288,5 +289,56 @@ class SettingsLib
             }
 
         }
+    }
+
+    public function getPageTitle($page,$dealer){
+        $pageTitle="";
+        if ($page instanceof Page) {
+            $pageTitle = $page->getTitle();
+        }
+
+        if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
+            $pageTitle = $this->get('title', 'seo', $dealer);
+        }
+        return strip_tags($pageTitle);
+    }
+
+    public function getPageDescription($page,$dealer){
+        $pageDescription="";
+        if ($page instanceof Page) {
+            $pageDescription = $page->getDescription();
+        }
+
+        if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
+            $pageDescription = $this->get('description', 'seo', $dealer);
+        }
+
+        return strip_tags($pageDescription);
+    }
+
+    public function getPageKeywords($page, $dealer){
+        $pageKeywords="";
+        if ($page instanceof Page) {
+            $pageKeywords = $page->getKeywords();
+        }
+
+        if(empty($pageKeywords) && $dealer instanceof Catalogrecords) {
+            $pageKeywords = $this->get('keywords', 'seo', $dealer);
+        }
+
+        return strip_tags($pageKeywords);
+    }
+
+    public function replaceSeoInPageHTML($html,$page,$dealer){
+
+        $pageTitle = $this->getPageTitle($page,$dealer);
+        $pageDescription = $this->getPageDescription($page,$dealer);
+        $pageKeyword = $this->getPageKeywords($page,$dealer);
+
+        $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
+        $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
+        $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
+
+        return $html;
     }
 }

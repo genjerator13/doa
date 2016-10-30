@@ -54,6 +54,7 @@ class AppKernel extends Kernel {
             new Numa\DOAStatsBundle\NumaDOAStatsBundle(),
             new Liip\ThemeBundle\LiipThemeBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
