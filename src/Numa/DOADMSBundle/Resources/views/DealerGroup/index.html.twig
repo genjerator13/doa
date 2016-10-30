@@ -1,6 +1,7 @@
     {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
 {% block content -%}
+
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">DealerGroup list</h3>
@@ -10,6 +11,7 @@
                             Create a new DealerGroup
                         </a>
                     </div>
+        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
