@@ -27,4 +27,4 @@ dealergroup_update:
 dealergroup_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DealerGroup:delete" }
-    requirements: { _method: post|delete }
+    #requirements: { _method: post|delete }

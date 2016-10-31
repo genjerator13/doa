@@ -35,12 +35,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name:'_last_name',enableColumnResizing: true},
         {name:'_user_group.name',displayName:"User Group",enableColumnResizing: true},
         {name:'Actions',
-            width: 100,
+            width: 200,
             enableColumnMenu: false,
             enableSorting:false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/dmsuser/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit">Edit</a>'
-
+            cellTemplate: '<ul class="list-inline"><li><a href="/dms/dmsuser/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i>Edit</a></li><li><a href="/dms/dmsuser/{[{row.entity.id}]}/delete" class="btn btn-danger" data-toggle="tooltip" title="Delete" data-confirm="Do you realy want to delete {[{row.entity.name}]} user?"><i class="glyphicon glyphicon-remove"></i>Delete</a></li></ul>'
         }
     ];
 
