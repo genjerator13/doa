@@ -25,21 +25,18 @@
             <tr>
                 <td style="border-bottom: 1px solid #000000" colspan=4
                     rowspan=4
-                    height="80" align="center" valign=bottom><br>
-
-                    {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
-                        {{ component.image(dealer.logo, dealer.name, 'thumbnail', 'search_image','120px', '90px') }}
-                    {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
-                        {{ component.image(dealer.logoUrl, dealer.name, 'thumbnail', 'search_image') }}
+                    height="80" align="center" valign=bottom width="3000px">
+                    {% if dealer is defined and dealer is not empty and dealer.name is defined %}
+                        <h4>{{ dealer.name }}</h4>
                     {% endif %}
                 </td>
                 <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=bottom
                     bgcolor="#E7E6E6">
-                    <b><u>BILL OF SALE</u></b></td>
+                    <b><u><h3>BILL OF SALE</h3></u></b></td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign=bottom
                     bgcolor="#E7E6E6"><b>Invoice #</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                <td style="border-top: 1px solid #000000;" colspan=2
                     align="center"
                     valign=bottom bgcolor="">
                     {{ billing.invoiceNr }}
@@ -51,12 +48,16 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom>
+                <td style="border-left: 1px solid #000000" colspan=4 rowspan="7" align="center" valign=middle>
+                    {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
+                        {{ component.image(dealer.logo, dealer.name, '', 'billing_logo_image') }}
+                    {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
+                        {{ component.image(dealer.logoUrl, dealer.name, '', 'billing_logo_image') }}
+                    {% endif %}
                 </td>
-                <td align="left" valign=bottom></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
                     align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                     align="center"
                     valign=bottom bgcolor="#ffffff">
                     {% if item is defined and item is not empty and item.stockNr is defined %}
@@ -68,14 +69,7 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=4
-                    align="center"
-                    valign=bottom> GST
-                    # {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
-                        {{ dealer.gst }}
-                    {% endif %}
-                </td>
-                <td style="border-bottom: 1px solid #000000" align="left"
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
                     valign=bottom
                     bgcolor="#E7E6E6"><b>Dealer #</b></td>
                 <td style="border-bottom: 1px solid #000000" colspan=2
@@ -87,9 +81,6 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
-                    <br>
-                </td>
                 <td align="left" valign=bottom></td>
                 <td align="left"
                     valign=bottom>
@@ -107,14 +98,14 @@
                         {{ dealer.address }}
                     {% endif %}
                 </td>
-                <td style="border-left: 1px solid #000000" colspan=3 align="center" valign=bottom>
-                </td>
-                <td align="left" valign=bottom></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                    align="left" valign=bottom bgcolor="#E7E6E6"><b>DATE</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                <td style="border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>BUS #</b></td>
+                <td colspan=2
                     align="center"
-                    valign=bottom bgcolor="#ffffff">{{ billing.dateBilling |date("m/d/Y") }}
+                    valign=bottom bgcolor="#ffffff">
+                    {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
+                        {{ dealer.gst }}
+                    {% endif %}
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -126,10 +117,12 @@
                     {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
                     {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}</td>
                 {% endif %}
-                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    align="left" valign=bottom bgcolor="#E7E6E6"><b>DATE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                    align="center"
+                    valign=bottom bgcolor="#ffffff">{{ billing.dateBilling |date("m/d/Y") }}
                 </td>
-                <td align="left" valign=bottom></td>
-                <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -139,14 +132,13 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                <td style="border-top: 1px solid #000000" colspan=4 height="20px" align="center" valign=bottom
                     bgcolor="#ffffff">
-                    {% if dealer is defined and dealer is not empty and dealer.phone is defined and dealer.fax is defined %}
-                        Phone: {{ dealer.phone }}, Fax: {{ dealer.fax }}
+                    {% if dealer is defined and dealer is not empty and dealer.phone is defined %}
+                        Phone: {{ dealer.phone }}
                     {% endif %}
                 </td>
-                <td style="border-left: 1px solid #000000" align="left" valign=bottom>
-                </td>
+                <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -158,14 +150,15 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td style="border-top: 1px solid #000000" height="20" align="left" valign=bottom></td>
-                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
-                </td>
-                <td style="border-top: 1px solid #000000" align="left" valign=bottom>
-                </td>
-                <td style="border-top: 1px solid #000000"
-                    align="left" valign=bottom></td>
-                <td style="border-left: 1px solid #000000" align="left" valign=bottom></td>
+                <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=top
+                    bgcolor="#ffffff">
+                    {% if dealer is defined and dealer is not empty and dealer.fax is defined %}
+                        Fax: {{ dealer.fax }}
+                    {% endif %}</td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
+                <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
