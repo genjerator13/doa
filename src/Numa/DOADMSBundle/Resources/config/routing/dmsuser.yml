@@ -27,7 +27,7 @@ dmsuser_update:
 dmsuser_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:DMSUser:delete" }
-    requirements: { _method: post|delete }
+    #requirements: { _method: post|delete }
 
 userprofile_edit:
     path:     /{id}/edit

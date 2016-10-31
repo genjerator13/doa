@@ -24,9 +24,9 @@ class DMSUserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
-        if($dealer instanceof Catalogrecords){
-            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$dealer));
-        }else {
+        if ($dealer instanceof Catalogrecords) {
+            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer' => $dealer));
+        } else {
             $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findAll();
         }
 
@@ -34,6 +34,7 @@ class DMSUserController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new DMSUser entity.
      *
@@ -50,14 +51,14 @@ class DMSUserController extends Controller
 
             $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
 
-            if($dealer instanceof Catalogrecords){
+            if ($dealer instanceof Catalogrecords) {
                 $entity->setDealer($dealer);
             }
 
 
             $em->persist($entity);
             $rq = $request->get("numa_doadmsbundle_dmsuser");
-            $pass= $rq["password"];
+            $pass = $rq["password"];
 
             if (!empty($pass)) {
                 $factory = $this->container->get('security.encoder_factory');
@@ -73,7 +74,7 @@ class DMSUserController extends Controller
 
         return $this->render('NumaDOADMSBundle:DMSUser:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -103,11 +104,11 @@ class DMSUserController extends Controller
     public function newAction()
     {
         $entity = new DMSUser();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:DMSUser:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -128,7 +129,7 @@ class DMSUserController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:DMSUser:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -139,9 +140,9 @@ class DMSUserController extends Controller
      */
     public function editAction($id)
     {
-        $ok=$this->checkDMSUserPermission($id);
+        $ok = $this->checkDMSUserPermission($id);
 
-        if($ok) {
+        if ($ok) {
             $em = $this->getDoctrine()->getManager();
 
             $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
@@ -160,12 +161,12 @@ class DMSUserController extends Controller
     }
 
     /**
-    * Creates a form to edit a DMSUser entity.
-    *
-    * @param DMSUser $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a DMSUser entity.
+     *
+     * @param DMSUser $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(DMSUser $entity)
     {
         $securityContext = $this->container->get('security.authorization_checker');
@@ -175,14 +176,13 @@ class DMSUserController extends Controller
             $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
             $securityContext->isGranted('ROLE_SALES') ||
             $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS')
-        )
-        {
+        ) {
 
             $form = $this->createForm(new DMSUserType(), $entity, array(
                 'action' => $this->generateUrl('userprofile_update', array('id' => $entity->getId())),
                 'method' => 'POST',
             ));
-        } else{
+        } else {
             $form = $this->createForm(new DMSUserType(), $entity, array(
                 'action' => $this->generateUrl('dmsuser_update', array('id' => $entity->getId())),
                 'method' => 'POST',
@@ -194,14 +194,15 @@ class DMSUserController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing DMSUser entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
-        $ok=$this->checkDMSUserPermission($id);
-        if($ok) {
+        $ok = $this->checkDMSUserPermission($id);
+        if ($ok) {
             $em = $this->getDoctrine()->getManager();
             $redirectRoute = "dmsuser_edit";
             $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
@@ -226,7 +227,7 @@ class DMSUserController extends Controller
             if ($editForm->isValid()) {
                 //dump($request);die();
                 $rq = $request->get("numa_doadmsbundle_dmsuser");
-                $pass= $rq["password"];
+                $pass = $rq["password"];
 
                 if (!empty($pass)) {
                     $factory = $this->container->get('security.encoder_factory');
@@ -247,26 +248,44 @@ class DMSUserController extends Controller
             ));
         }
     }
+
     /**
      * Deletes a DMSUser entity.
      *
      */
     public function deleteAction(Request $request, $id)
     {
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) {
+            throw $this->createAccessDeniedException("Only administrator and user owner may delete this User.");
+        }
+
+
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
+        //if ($form->isValid()) {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find DMSUser entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find DMSUser entity.');
         }
+        if ($securityContext->isGranted('ROLE_DMS_USER')) {
+            $dealer = $this->get("numa.dms.user")->getSignedDealer();
+            if ($dealer instanceof Catalogrecords && $entity->getDealer() instanceof Catalogrecords){
+                if($dealer->getId()!=$entity->getDealer()->getId())
+                {
+                    throw $this->createAccessDeniedException("Only User owner may delete this user.");
+                }
+
+            }
+            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
+        }
+
+        $em->remove($entity);
+        $em->flush();
+        //}
 
         return $this->redirect($this->generateUrl('dmsuser'));
     }
@@ -284,24 +303,24 @@ class DMSUserController extends Controller
             ->setAction($this->generateUrl('dmsuser_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
-    public function checkDMSUserPermission($id){
+    public function checkDMSUserPermission($id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOADMSBundle:DMSUser')->find($id);
 //        dump($entity);
         $securityContext = $this->container->get('security.authorization_checker');
 //        dump($securityContext);die();
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $user   = $this->getUser();
+        $user = $this->getUser();
 
-        if($securityContext->isGranted('ROLE_ADMIN')) {
+        if ($securityContext->isGranted('ROLE_ADMIN')) {
             return true;
-        }elseif($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId()==$entity->getDealerId())){
+        } elseif ($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId() == $entity->getDealerId())) {
             return true;
-        }elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
+        } elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
                 $securityContext->isGranted('ROLE_WHOLESALE_DMS') ||
@@ -311,11 +330,10 @@ class DMSUserController extends Controller
                 $securityContext->isGranted('ROLE_SALE3_DMS')
             )
             && $this->getUser()->getId() == $id
-        )
-        {
+        ) {
             //ok
             return true;
-        }else{
+        } else {
             throw $this->createAccessDeniedException("You cannot edit this page!");
         }
         if (!$entity) {
