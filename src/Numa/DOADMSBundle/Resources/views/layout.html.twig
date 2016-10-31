@@ -153,7 +153,16 @@
                             Directory</a>
                     </li>
                 {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_PARTS_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') %}
+                {% if is_granted('ROLE_ADMIN') or
+                        is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                        is_granted('ROLE_SALES') or
+                        is_granted('ROLE_SALE2_DMS') or
+                        is_granted('ROLE_SALE3_DMS') or
+                        is_granted('ROLE_PARTS_DMS')  or
+                        is_granted('ROLE_SERVICE_DMS') or
+                        is_granted('ROLE_DMS_USER') or
+                        is_granted('ROLE_DEALER_PRINCIPAL')
+                %}
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-user"></i>
@@ -161,7 +170,13 @@
                             <i class="fa fa-angle-left pull-right"></i>
                         </a>
                         <ul class="treeview-menu">
-                            {% if (is_granted('ROLE_ADMIN')   or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS')  or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') ) %}
+                            {% if (is_granted('ROLE_ADMIN') or
+                                   is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                                   is_granted('ROLE_SALES') or
+                                   is_granted('ROLE_SALE2_DMS') or
+                                   is_granted('ROLE_DMS_USER') or
+                                   is_granted('ROLE_SALE3_DMS') or
+                                   is_granted('ROLE_DEALER_PRINCIPAL') ) %}
                                 <li class="active">
                                     <a href="{{ path('customer') }}" class=""><i class="fa fa-users"></i>Current
                                         Customers</a>
@@ -210,6 +225,7 @@
                 is_granted('ROLE_DMS_USER') or
                 is_granted('ROLE_WHOLESALE_DMS') or
                 is_granted('ROLE_SALE2_DMS') or
+                is_granted('ROLE_DEALER_PRINCIPAL') or
                 is_granted('ROLE_SALE3_DMS') %}
                     <li class="treeview">
                         <a href="#">
@@ -222,6 +238,7 @@
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or
                             is_granted('ROLE_DMS_USER') or
+                            is_granted('ROLE_DEALER_PRINCIPAL') or
                             is_granted('ROLE_WHOLESALE_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Current

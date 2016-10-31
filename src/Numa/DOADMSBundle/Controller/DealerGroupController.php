@@ -46,6 +46,13 @@ class DealerGroupController extends Controller
                 $dealer->setDealerGroup($entity);
             }
             $em->persist($entity);
+            if (!empty($pass)) {
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $plainPassword = $entity->getPassword();
+                $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                $entity->setPassword($encodedPassword);
+            }
             $em->flush();
             return $this->redirect($this->generateUrl('dealergroup'));
 
@@ -185,6 +192,15 @@ class DealerGroupController extends Controller
                 $dealer->setDealerGroup($entity);
             }
             $this->addFlash("success","Dealer Group: ".$entity->getUsername()." successfully updated.");
+            $rq = $request->get("numa_doadmsbundle_dealergroup");
+            $pass= $rq["password"];
+            if (!empty($pass)) {
+                $factory = $this->container->get('security.encoder_factory');
+                $encoder = $factory->getEncoder($entity);
+                $plainPassword = $entity->getPassword();
+                $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
+                $entity->setPassword($encodedPassword);
+            }
             $em->flush();
 
             return $this->redirect($this->generateUrl('dealergroup', array('id' => $id)));

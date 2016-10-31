@@ -1,7 +1,9 @@
 {# get the loged dealer #}
 {% set apicall="/api/customer/all" %}
-{% if dealer is not empty %}
-{% set apicall="/api/customer/dealer/"~dealer.id%}
+{% if dealerPrincipal is not empty %}
+    {% set apicall="/api/customer/dealerprincipal/"~dealerPrincipal.id %}
+{% elseif dealer is not empty %}
+    {% set apicall="/api/customer/dealer/"~dealer.id %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -29,7 +31,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     };
 
     var today = new Date();
-    var tdd = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    var tdd = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {name: 'id', enableColumnResizing: true, width: 50},
@@ -48,15 +50,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         },
         {name: 'sales_person'},
         {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
-        {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
-            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {
+            name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
 
-                fd = new Date(grid.getCellValue(row,col));
+                fd = new Date(grid.getCellValue(row, col));
 
                 if (tdd.getTime() === fd.getTime()) {
                     return 'red';
                 }
-            }},
+            }
+        },
         {name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
@@ -121,15 +125,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         data: data[i].note
                     }
                     data[i].name;
-                    if(!data[i].name){
-                        data[i].name = data[i].first_name+" "+data[i].last_name;
-                        if(!data[i].first_name){
+                    if (!data[i].name) {
+                        data[i].name = data[i].first_name + " " + data[i].last_name;
+                        if (!data[i].first_name) {
                             data[i].name = data[i].last_name;
                         }
-                        if(!data[i].last_name){
+                        if (!data[i].last_name) {
                             data[i].name = data[i].first_name;
                         }
-                        if(!data[i].first_name && !data[i].last_name){
+                        if (!data[i].first_name && !data[i].last_name) {
                             data[i].name = "";
                         }
 

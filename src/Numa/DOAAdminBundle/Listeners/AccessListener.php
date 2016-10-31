@@ -53,7 +53,8 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
                 $this->checker->isGranted('ROLE_WHOLESALE_DMS') ||
                 $this->checker->isGranted('ROLE_SALE2_DMS') ||
                 $this->checker->isGranted('ROLE_SALE3_DMS') ||
-                $this->checker->isGranted('ROLE_REGULAR_ADMIN')
+                $this->checker->isGranted('ROLE_REGULAR_ADMIN') ||
+                $this->checker->isGranted('ROLE_DEALER_PRINCIPAL')
                 )
         {
             $response = new RedirectResponse($this->router->generate('dms_home'));
