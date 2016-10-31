@@ -186,11 +186,12 @@ class DealerGroupController extends Controller
             foreach($olddealers as $dealer){
                 $dealer->setDealerGroup(null);
             }
+
             foreach($entity->getDealer() as $dealer)
             {
-
                 $dealer->setDealerGroup($entity);
             }
+
             $this->addFlash("success","Dealer Group: ".$entity->getUsername()." successfully updated.");
             $rq = $request->get("numa_doadmsbundle_dealergroup");
             $pass= $rq["password"];
@@ -218,10 +219,14 @@ class DealerGroupController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!$securityContext->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
+        }
+            $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        //if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:DealerGroup')->find($id);
 
@@ -229,9 +234,16 @@ class DealerGroupController extends Controller
                 throw $this->createNotFoundException('Unable to find DealerGroup entity.');
             }
 
+
+
+            foreach($entity->getDealer() as $dealer)
+            {
+                $dealer->setDealerGroup(null);
+            }
+
             $em->remove($entity);
             $em->flush();
-        }
+        //}
 
         return $this->redirect($this->generateUrl('dealergroup'));
     }

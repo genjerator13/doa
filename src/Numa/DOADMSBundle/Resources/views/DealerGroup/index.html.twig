@@ -36,14 +36,14 @@
                     <td>{{ entity.Dealer|join(', ') }}</td>
                     <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d') }}{% endif %}</td>
                     <td>
-                        <ul class="">
+                        <ul class="list-inline">
                             <li>
                                 <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-primary"><i
                                             class="glyphicon glyphicon-edit"></i>Edit</a>
                             </li>
                             <li>
-                                <a href="{{ path('dealergroup_delete', { 'id': entity.id }) }}" class="btn btn-primary"><i
-                                            class="glyphicon glyphicon-edit"></i>Delete</a>
+                                <a href="{{ path('dealergroup_delete', { 'id': entity.id }) }}" class="btn btn-danger" data-confirm="Dealer Group <strong>{{ entity.username }}</strong> will be deleted.<br>Are you sure you want to delete it?" >
+                                    <i class="glyphicon glyphicon-remove"></i>Delete</a>
                             </li>
                         </ul>
                     </td>
@@ -52,5 +52,5 @@
             </tbody>
         </table>
     </div>
-
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
     {% endblock %}
