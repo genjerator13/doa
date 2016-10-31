@@ -238,56 +238,54 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $this->deleteDealerTable('listing_form', $dealer_id);
 
 
-
             $this->deleteDealerTable('part_request', $dealer_id);
             $this->deleteDealerTable('service_request', $dealer_id);
             $this->deleteDealerTable('setting', $dealer_id);
             $this->deleteDealerTable('vendor', $dealer_id);
 //
-            $sql = "DELETE FROM user_item WHERE item_id IN (SELECT id FROM item WHERE dealer_id =".$dealer_id.")";
+            $sql = "DELETE FROM user_item WHERE item_id IN (SELECT id FROM item WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
             //
-            $sql = "DELETE FROM page_component WHERE page_id IN (SELECT id FROM page WHERE dealer_id =".$dealer_id.")";
-            //dump($sql);
-            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
-            $stmt->execute();
-
-            //
-            $sql = "DELETE FROM listing_form WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =".$dealer_id.")";
+            $sql = "DELETE FROM page_component WHERE page_id IN (SELECT id FROM page WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
 
             //
-            $sql = "DELETE FROM billing WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =".$dealer_id.")";
+            $sql = "DELETE FROM listing_form WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =" . $dealer_id . ")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
+            //
+            $sql = "DELETE FROM billing WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
             //
 
 
-            $sql = "UPDATE item set sale_id = NULL where dealer_id=".$dealer_id;
+            $sql = "UPDATE item set sale_id = NULL where dealer_id=" . $dealer_id;
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
 
-            $sql = "DELETE FROM sale WHERE item_id IN (SELECT id FROM item WHERE dealer_id =".$dealer_id.")";
+            $sql = "DELETE FROM sale WHERE item_id IN (SELECT id FROM item WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
 
-            $sql = "DELETE FROM sale WHERE id IN (SELECT sale_id FROM item WHERE dealer_id =".$dealer_id.")";
+            $sql = "DELETE FROM sale WHERE id IN (SELECT sale_id FROM item WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
-
 
 
             //dump("item");
             $this->deleteDealerTable('item', $dealer_id);
-            $this->deleteDealerTable('import_feed',$dealer_id);
+            $this->deleteDealerTable('import_feed', $dealer_id);
             $this->deleteDealerTable('customer', $dealer_id);
             $this->deleteDealerTable('page', $dealer_id);
 

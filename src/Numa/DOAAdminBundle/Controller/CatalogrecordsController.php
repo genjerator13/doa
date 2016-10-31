@@ -184,7 +184,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
         $securityContext = $this->container->get('security.authorization_checker');
         $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
-        if($dealer instanceof Catalogrecords) {
+        if ($dealer instanceof Catalogrecords) {
 
             if ($securityContext->isGranted('ROLE_DMS_USER') && $dealer->getId() != $id) {
                 throw $this->createAccessDeniedException('You cannot access this page!');
@@ -311,6 +311,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
         return $form;
     }
+
     /**
      * Creates a form to edit a Catalogrecords entity.
      *
@@ -367,7 +368,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 $entity->upload();
 
                 $rq = $request->get("numa_doaadminbundle_catalogrecords");
-                $pass= $rq["password"];
+                $pass = $rq["password"];
 
                 if (!empty($pass)) {
                     $factory = $this->container->get('security.encoder_factory');
@@ -483,6 +484,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
 
         ));
     }
+
     /**
      * Edits an existing Item Default parameters
      *
@@ -640,7 +642,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $em = $this->container->get("doctrine.orm.entity_manager");
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
-        if(!empty($dealer)){
+        if (!empty($dealer)) {
             $dealer->setDmsStatus("activated");
             $em->flush();
         }

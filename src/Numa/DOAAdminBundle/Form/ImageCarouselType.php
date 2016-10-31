@@ -8,20 +8,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ImageCarouselType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('file', 'file',array('required'=>false))
-            ->add('title',null , array('required'=>false))
-            ->add('url',null, array('required'=>false))
-            ->add('carousel_text','ckeditor', array('required'=>false))
-        ;
+            ->add('file', 'file', array('required' => false))
+            ->add('title', null, array('required' => false))
+            ->add('url', null, array('required' => false))
+            ->add('carousel_text', 'ckeditor', array('required' => false));
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

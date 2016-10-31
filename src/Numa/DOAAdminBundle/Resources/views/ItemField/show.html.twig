@@ -5,52 +5,52 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Item_id</th>
-                <td>{{ entity.itemid }}</td>
-            </tr>
-            <tr>
-                <th>Field_name</th>
-                <td>{{ entity.fieldname }}</td>
-            </tr>
-            <tr>
-                <th>Field_type</th>
-                <td>{{ entity.fieldtype }}</td>
-            </tr>
-            <tr>
-                <th>Field_string_value</th>
-                <td>{{ entity.fieldstringvalue }}</td>
-            </tr>
-            <tr>
-                <th>Field_boolean_value</th>
-                <td>{{ entity.fieldbooleanvalue }}</td>
-            </tr>
-            <tr>
-                <th>Field_integer_value</th>
-                <td>{{ entity.fieldintegervalue }}</td>
-            </tr>
-            <tr>
-                <th>Field_datetime_value</th>
-                <td>{{ entity.fielddatetimevalue|date('Y-m-d H:i:s') }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Item_id</th>
+            <td>{{ entity.itemid }}</td>
+        </tr>
+        <tr>
+            <th>Field_name</th>
+            <td>{{ entity.fieldname }}</td>
+        </tr>
+        <tr>
+            <th>Field_type</th>
+            <td>{{ entity.fieldtype }}</td>
+        </tr>
+        <tr>
+            <th>Field_string_value</th>
+            <td>{{ entity.fieldstringvalue }}</td>
+        </tr>
+        <tr>
+            <th>Field_boolean_value</th>
+            <td>{{ entity.fieldbooleanvalue }}</td>
+        </tr>
+        <tr>
+            <th>Field_integer_value</th>
+            <td>{{ entity.fieldintegervalue }}</td>
+        </tr>
+        <tr>
+            <th>Field_datetime_value</th>
+            <td>{{ entity.fielddatetimevalue|date('Y-m-d H:i:s') }}</td>
+        </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('itemfield') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('itemfield_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('itemfield') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('itemfield_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

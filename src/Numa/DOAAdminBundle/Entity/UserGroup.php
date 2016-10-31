@@ -61,11 +61,11 @@ class UserGroup
     {
         $this->User = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -81,14 +81,14 @@ class UserGroup
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -104,14 +104,14 @@ class UserGroup
     public function setRegFormTemplate($regFormTemplate)
     {
         $this->reg_form_template = $regFormTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get reg_form_template
      *
-     * @return string 
+     * @return string
      */
     public function getRegFormTemplate()
     {
@@ -127,14 +127,14 @@ class UserGroup
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -150,14 +150,14 @@ class UserGroup
     public function setImmediateActivation($immediateActivation)
     {
         $this->immediate_activation = $immediateActivation;
-    
+
         return $this;
     }
 
     /**
      * Get immediate_activation
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getImmediateActivation()
     {
@@ -173,14 +173,14 @@ class UserGroup
     public function setUserMenuTemplate($userMenuTemplate)
     {
         $this->user_menu_template = $userMenuTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get user_menu_template
      *
-     * @return string 
+     * @return string
      */
     public function getUserMenuTemplate()
     {
@@ -196,14 +196,14 @@ class UserGroup
     public function setInitialBalance($initialBalance)
     {
         $this->initial_balance = $initialBalance;
-    
+
         return $this;
     }
 
     /**
      * Get initial_balance
      *
-     * @return integer 
+     * @return integer
      */
     public function getInitialBalance()
     {
@@ -219,14 +219,14 @@ class UserGroup
     public function setMakeUserTrusted($makeUserTrusted)
     {
         $this->make_user_trusted = $makeUserTrusted;
-    
+
         return $this;
     }
 
     /**
      * Get make_user_trusted
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getMakeUserTrusted()
     {
@@ -242,7 +242,7 @@ class UserGroup
     public function addUser(\Numa\DOAAdminBundle\Entity\User $user)
     {
         $this->User[] = $user;
-    
+
         return $this;
     }
 
@@ -259,16 +259,17 @@ class UserGroup
     /**
      * Get User
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUser()
     {
         return $this->User;
     }
+
     /**
      * Get User
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function __toString()
     {

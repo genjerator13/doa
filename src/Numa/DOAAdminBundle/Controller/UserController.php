@@ -19,13 +19,15 @@ use APY\DataGridBundle\Grid\Column\BlankColumn;
  * User controller.
  *
  */
-class UserController extends Controller {
+class UserController extends Controller
+{
 
     /**
      * Lists all User entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $source = new Entity('NumaDOAAdminBundle:User');
 
@@ -49,7 +51,8 @@ class UserController extends Controller {
      * Creates a new User entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new User();
         $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
@@ -64,8 +67,8 @@ class UserController extends Controller {
         }
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -76,9 +79,10 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(User $entity, $dashboard="") {
+    private function createCreateForm(User $entity, $dashboard = "")
+    {
         $action = $this->generateUrl('user_create');
-        if($dashboard=='DMS'){
+        if ($dashboard == 'DMS') {
             $action = $this->generateUrl('dms_user_create');
         }
         $form = $this->createForm(new UserType(), $entity, array(
@@ -95,14 +99,15 @@ class UserController extends Controller {
      * Displays a form to create a new User entity.
      *
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request)
+    {
         $entity = new User();
         $dashboard = $request->get('_dashboard');
-        $form = $this->createCreateForm($entity,$dashboard);
+        $form = $this->createCreateForm($entity, $dashboard);
 
         return $this->render('NumaDOAAdminBundle:User:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -110,7 +115,8 @@ class UserController extends Controller {
      * Finds and displays a User entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -122,15 +128,16 @@ class UserController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:User:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing User entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -143,9 +150,9 @@ class UserController extends Controller {
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -156,7 +163,8 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(User $entity) {
+    private function createEditForm(User $entity)
+    {
         $form = $this->createForm(new UserType(), $entity, array(
             'action' => $this->generateUrl('user_update', array('id' => $entity->getId())),
             'method' => 'POST',
@@ -171,7 +179,8 @@ class UserController extends Controller {
      * Edits an existing User entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
@@ -186,14 +195,14 @@ class UserController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-            $this->addFlash("success","User: ".$entity->getUsername()." successfully updated.");
+            $this->addFlash("success", "User: " . $entity->getUsername() . " successfully updated.");
             return $this->redirect($this->generateUrl('user', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:User:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -201,20 +210,21 @@ class UserController extends Controller {
      * Deletes a User entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
         //if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAAdminBundle:User')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find User entity.');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find User entity.');
+        }
 
-            $em->remove($entity);
-            $em->flush();
+        $em->remove($entity);
+        $em->flush();
         //}
 
         return $this->redirect($this->generateUrl('user'));
@@ -227,13 +237,13 @@ class UserController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('user_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('user_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
 }

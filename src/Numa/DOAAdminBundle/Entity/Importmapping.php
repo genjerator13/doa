@@ -65,12 +65,11 @@ class Importmapping
     private $value_map_values;
 
 
-
-
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->Listingfields = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
@@ -78,7 +77,7 @@ class Importmapping
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -94,14 +93,14 @@ class Importmapping
     public function setSid($sid)
     {
         $this->sid = $sid;
-    
+
         return $this;
     }
 
     /**
      * Get sid
      *
-     * @return string 
+     * @return string
      */
     public function getSid()
     {
@@ -117,14 +116,14 @@ class Importmapping
     public function setFeedSid($feedSid)
     {
         $this->feed_sid = $feedSid;
-    
+
         return $this;
     }
 
     /**
      * Get feed_sid
      *
-     * @return integer 
+     * @return integer
      */
     public function getFeedSid()
     {
@@ -140,14 +139,14 @@ class Importmapping
     public function setProperty($property)
     {
         $this->property = $property;
-    
+
         return $this;
     }
 
     /**
      * Get property
      *
-     * @return string 
+     * @return string
      */
     public function getProperty()
     {
@@ -163,14 +162,14 @@ class Importmapping
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -186,14 +185,14 @@ class Importmapping
     public function setFieldSid($fieldSid)
     {
         $this->field_sid = $fieldSid;
-    
+
         return $this;
     }
 
     /**
      * Get field_sid
      *
-     * @return integer 
+     * @return integer
      */
     public function getFieldSid()
     {
@@ -209,14 +208,14 @@ class Importmapping
     public function setTrueValue($trueValue)
     {
         $this->true_value = $trueValue;
-    
+
         return $this;
     }
 
     /**
      * Get true_value
      *
-     * @return string 
+     * @return string
      */
     public function getTrueValue()
     {
@@ -232,14 +231,14 @@ class Importmapping
     public function setFalseValue($falseValue)
     {
         $this->false_value = $falseValue;
-    
+
         return $this;
     }
 
     /**
      * Get false_value
      *
-     * @return string 
+     * @return string
      */
     public function getFalseValue()
     {
@@ -255,14 +254,14 @@ class Importmapping
     public function setTreeLevel($treeLevel)
     {
         $this->tree_level = $treeLevel;
-    
+
         return $this;
     }
 
     /**
      * Get tree_level
      *
-     * @return integer 
+     * @return integer
      */
     public function getTreeLevel()
     {
@@ -278,14 +277,14 @@ class Importmapping
     public function setObjectType($objectType)
     {
         $this->object_type = $objectType;
-    
+
         return $this;
     }
 
     /**
      * Get object_type
      *
-     * @return string 
+     * @return string
      */
     public function getObjectType()
     {
@@ -301,14 +300,14 @@ class Importmapping
     public function setValueMapValues($valueMapValues)
     {
         $this->value_map_values = $valueMapValues;
-    
+
         return $this;
     }
 
     /**
      * Get value_map_values
      *
-     * @return string 
+     * @return string
      */
     public function getValueMapValues()
     {

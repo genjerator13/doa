@@ -23,23 +23,26 @@ class ItemRESTController extends Controller
      */
 
     const cacheMaxAge = 86400;
-    public function getListingsAction(){
+
+    public function getListingsAction()
+    {
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getItemByCat(3);
 
         return $items;
     }
 
-    public function listingAction(Request $request,$id){
+    public function listingAction(Request $request, $id)
+    {
         //check if column separated ids
         //listings can be fetched by separating ids by : /api/listing/1536:1539
 
-        $columnSeparatedIds = explode(":",$id);
+        $columnSeparatedIds = explode(":", $id);
 
-        if(count($columnSeparatedIds)>0){
+        if (count($columnSeparatedIds) > 0) {
             $id = array();
-            foreach($columnSeparatedIds as $cid){
-                $cid=intval($cid);
-                $id[]=$cid;
+            foreach ($columnSeparatedIds as $cid) {
+                $cid = intval($cid);
+                $id[] = $cid;
             }
         }
         die();
@@ -47,38 +50,39 @@ class ItemRESTController extends Controller
         $item = $this->get('listing_api')->prepareListing($id);
 
 
-        if($item instanceof Item){
+        if ($item instanceof Item) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
 
-        if($format=='xml') {
+        if ($format == 'xml') {
             $xml = $this->get('xml')->createXML('listing', $item);
             $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
+        } elseif ($format == 'json') {
             $response = new Response(json_encode($item));
         }
 
         return $response;
     }
 
-    public function listingsByDealerAction(Request $request,$dealerid){
+    public function listingsByDealerAction(Request $request, $dealerid)
+    {
 
         $category = $request->query->get('category');
 
-        $items = $this->get('listing_api')->prepareListingByDealer($dealerid,$category);
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
 
-        if(!$items){
+        if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        if($format=='xml') {
+        if ($format == 'xml') {
             $xml = $this->get('xml')->createXML('listings', $items);
             $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
+        } elseif ($format == 'json') {
             $response = new Response(json_encode($items));
         }
-        $nocache=false;
+        $nocache = false;
 
         if (!$nocache) {
             $response->setPublic();
@@ -89,23 +93,24 @@ class ItemRESTController extends Controller
         return $response;
     }
 
-    public function listingsByCategoryAction(Request $request,$dealerid){
+    public function listingsByCategoryAction(Request $request, $dealerid)
+    {
 
         $category = $request->query->get('category');
 
-        $items = $this->get('listing_api')->prepareListingByDealer($dealerid,$category);
+        $items = $this->get('listing_api')->prepareListingByDealer($dealerid, $category);
 
-        if(!$items){
+        if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        if($format=='xml') {
+        if ($format == 'xml') {
             $xml = $this->get('xml')->createXML('listings', $items);
             $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
+        } elseif ($format == 'json') {
             $response = new Response(json_encode($items));
         }
-        $nocache=false;
+        $nocache = false;
 
         if (!$nocache) {
             $response->setPublic();
@@ -116,21 +121,22 @@ class ItemRESTController extends Controller
         return $response;
     }
 
-    public function listingsAllAction(Request $request,$category){
+    public function listingsAllAction(Request $request, $category)
+    {
         //$category = $request->query->get('category');
 
         $items = $this->get('listing_api')->prepareAll($category);
-        if(!$items){
+        if (!$items) {
             throw $this->createNotFoundException('The product does not exist');
         }
         $format = $request->attributes->get('_format');
-        if($format=='xml') {
+        if ($format == 'xml') {
             $xml = $this->get('xml')->createXML('listings', $items);
             $response = new Response($xml->saveXML());
-        }elseif($format=='json'){
+        } elseif ($format == 'json') {
             $response = new Response(json_encode($items));
         }
-        $nocache=false;
+        $nocache = false;
         if (!$nocache) {
             $response->setPublic();
             $response->setSharedMaxAge(self::cacheMaxAge);

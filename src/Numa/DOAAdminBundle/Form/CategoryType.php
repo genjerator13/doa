@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CategoryType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -27,10 +27,9 @@ class CategoryType extends AbstractType
             ->add('browsing_settings')
             ->add('listing_caption_template_content')
             ->add('last_modified')
-            ->add('listing_url_seo_data')
-        ;
+            ->add('listing_url_seo_data');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

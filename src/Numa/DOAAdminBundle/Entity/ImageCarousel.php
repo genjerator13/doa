@@ -228,10 +228,12 @@ class ImageCarousel
     {
         return $this->updated_at;
     }
+
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue() {
+    public function setCreatedAtValue()
+    {
         if (!$this->getCreatedAt()) {
             $this->created_at = new \DateTime();
             $this->updated_at = new \DateTime();
@@ -241,8 +243,9 @@ class ImageCarousel
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue() {
-        if(empty($this->dontupdate)){
+    public function setUpdatedAtValue()
+    {
+        if (empty($this->dontupdate)) {
 
             $this->created_at = new \DateTime();
         }
@@ -277,10 +280,11 @@ class ImageCarousel
     {
         return $this->url;
     }
+
     /**
      * @var bool
      */
-    private $active=true;
+    private $active = true;
 
 
     /**
@@ -296,7 +300,6 @@ class ImageCarousel
 
         return $this;
     }
-
 
 
     /**
@@ -335,29 +338,30 @@ class ImageCarousel
     {
         return null === $this->path
             ? null
-            : $this->getUploadRootDir().'/'.$this->path;
+            : $this->getUploadRootDir() . '/' . $this->path;
     }
 
     public function getWebPath()
     {
         return null === $this->path
             ? null
-            : self::getUploadDir().'/'.$this->path;
+            : self::getUploadDir() . '/' . $this->path;
     }
 
     public function getUploadRootDir()
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        $folder = __DIR__.'/../../../../web/'.self::getUploadDir();
+        $folder = __DIR__ . '/../../../../web/' . self::getUploadDir();
 //        if(!file_exists($folder)){
 //            mkdir($folder,777,true);
 //        }
         return $folder;
     }
 
-    public function getImageSrc(){
-        return $this->getUploadRootDir()."/".$this->getSrc();
+    public function getImageSrc()
+    {
+        return $this->getUploadRootDir() . "/" . $this->getSrc();
     }
 
     public static function getUploadDir()
@@ -386,10 +390,11 @@ class ImageCarousel
 
         // set the path property to the filename where you've saved the file
         $this->path = $this->getFile()->getClientOriginalName();
-        $this->src  = $this->getFile()->getClientOriginalName();
+        $this->src = $this->getFile()->getClientOriginalName();
         // clean up the file property as you won't need it anymore
         $this->file = null;
     }
+
     /**
      * @var int
      */
@@ -448,6 +453,7 @@ class ImageCarousel
     {
         return $this->Dealer;
     }
+
     /**
      * @var int
      */
@@ -506,6 +512,7 @@ class ImageCarousel
     {
         return $this->Component;
     }
+
     /**
      * @var string
      */
@@ -535,6 +542,7 @@ class ImageCarousel
     {
         return $this->carousel_text;
     }
+
     /**
      * @var integer
      */

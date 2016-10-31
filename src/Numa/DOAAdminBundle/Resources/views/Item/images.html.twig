@@ -16,7 +16,8 @@
     <div class="box box-default">
         <h1>Listing Images Management for {{ item.getTitle() }}</h1>
         {% if(app.request.get('_dashboard')=='DMS') %}
-            <a href="{{ path('dms_items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
+            <a href="{{ path('dms_items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }}
+                )</a>
         {% else %}
             <a href="{{ path('items_edit',{id:item.id}) }}">Back to listing ({{ item.getTitle() }} {{ item.id }})</a>
         {% endif %}
@@ -57,41 +58,41 @@
                     <ul class='list' id="imagelist">
                         {% for image in images %}
 
-                        <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}"
-                            data-order="{{ image.sortOrder }}">
-                            <div class="col-md-2 imageindex">
-                                {% if(loop.first) %}
-                                    Cover Image:
-                                {% else %}
-                                    {{ image.sortOrder }}
-                                {% endif %}
-                            </div>
-                            <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}"
-                                                         value="{{ image.id }}"
-                                                         class="image-checkbox">
-                            </div>
-                            <div class="col-md-2">
-                                {% if  "youtube" in image.getFieldStringValue() %}
-                                <a class="colorbox"
-                                   href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
-                                    <img
-                                            src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
-                                            alt="image"
-                                            width="120px"
-                                            class="thumbnail"/>
-                                </a>
-                                {% else %}
-                                <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
-                                    {{ component.image(image.getFieldStringValue(), '', 'thumbnail', 'search_image',"120px") }}
-                                </a>
-                                {% endif %}
-                            </div>
-                            <div class="col-md-3">
-                                <a  data-id="{{ image.id }}" class="delete-single" href="#">
-                                    <i class='glyphicon glyphicon-trash'></i>
-                                </a>
-                            </div>
-                        </li>
+                            <li class="row" id="image-{{ image.id }}" data-id="{{ image.id }}"
+                                data-order="{{ image.sortOrder }}">
+                                <div class="col-md-2 imageindex">
+                                    {% if(loop.first) %}
+                                        Cover Image:
+                                    {% else %}
+                                        {{ image.sortOrder }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-1"><input type="checkbox" name="image-{{ image.id }}"
+                                                             value="{{ image.id }}"
+                                                             class="image-checkbox">
+                                </div>
+                                <div class="col-md-2">
+                                    {% if  "youtube" in image.getFieldStringValue() %}
+                                        <a class="colorbox"
+                                           href="http://www.youtube.com/embed/VOJyrQa_WR4?rel=0&wmode=transparent">
+                                            <img
+                                                    src="{{ getYoutubeThumb(getYoutubeId(image.getFieldStringValue())) }}"
+                                                    alt="image"
+                                                    width="120px"
+                                                    class="thumbnail"/>
+                                        </a>
+                                    {% else %}
+                                        <a class="colorbox" href="{{ asset(image.getFieldStringValue()) }}">
+                                            {{ component.image(image.getFieldStringValue(), '', 'thumbnail', 'search_image',"120px") }}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-3">
+                                    <a data-id="{{ image.id }}" class="delete-single" href="#">
+                                        <i class='glyphicon glyphicon-trash'></i>
+                                    </a>
+                                </div>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -129,27 +130,25 @@
         $("#delete-selected").click(function (ev) {
             ev.preventDefault();
             var sList = {};
-            i=0;
+            i = 0;
             $('input[type=checkbox]').each(function () {
-                if(this.checked){
+                if (this.checked) {
                     i++;
-                    ind = "i"+i;
-                    sList[ind]=$(this).val();
+                    ind = "i" + i;
+                    sList[ind] = $(this).val();
                 }
 
             });
-            console.log (sList);
+            console.log(sList);
             $.ajax(
                     {
                         url: '{{ path('itemfield_delete',{'id':0,'urlredirect':app.request.uri }) }}',
                         type: "POST",
                         data: sList,
-                        success: function(data, textStatus, jqXHR)
-                        {
+                        success: function (data, textStatus, jqXHR) {
                             location.reload();
                         },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
+                        error: function (jqXHR, textStatus, errorThrown) {
                             alert("Error");
                         }
                     });
@@ -158,19 +157,17 @@
         $(".delete-single").click(function (ev) {
             ev.preventDefault();
             id = $(this).data('id');
-            console.log (id);
+            console.log(id);
             $.ajax(
                     {
-                        url: '{{ path('itemfield_delete')}}',
+                        url: '{{ path('itemfield_delete') }}',
                         type: "POST",
-                        data: {'id':id},
-                        success: function(data, textStatus, jqXHR)
-                        {
-                            
+                        data: {'id': id},
+                        success: function (data, textStatus, jqXHR) {
+
                             location.reload();
                         },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
+                        error: function (jqXHR, textStatus, errorThrown) {
                             alert("Error");
                         }
                     });

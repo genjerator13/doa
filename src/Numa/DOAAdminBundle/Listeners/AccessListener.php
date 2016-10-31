@@ -14,10 +14,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerI
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Request;
- 
+
 class AccessListener implements AuthenticationSuccessHandlerInterface
 {
-    
+
     protected $router;
     protected $tokenStorage;
     protected $checker;
@@ -28,52 +28,41 @@ class AccessListener implements AuthenticationSuccessHandlerInterface
         $this->tokenStorage = $tokenStorage;
         $this->checker = $checker;
     }
-    
+
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
         //$user = $this->tokenStorage->getToken()->getUser();
         $response = new RedirectResponse($this->router->generate('homepage'));
-        if ($this->checker->isGranted('ROLE_SUPER_ADMIN'))
-        {
+        if ($this->checker->isGranted('ROLE_SUPER_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
-        }
-        elseif ($this->checker->isGranted('ROLE_DMS_USER'))
-        {
+        } elseif ($this->checker->isGranted('ROLE_DMS_USER')) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
-        }
-        elseif ($this->checker->isGranted('ROLE_ADMIN'))
-        {
+        } elseif ($this->checker->isGranted('ROLE_ADMIN')) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
-        }
-        elseif ($this->checker->isGranted('ROLE_ACCOUNTING') ||
-                $this->checker->isGranted('ROLE_SALES') ||
-                $this->checker->isGranted('ROLE_SERVICE_DMS') ||
-                $this->checker->isGranted('ROLE_PARTS_DMS') ||
-                $this->checker->isGranted('ROLE_FINANCE_DMS') ||
-                $this->checker->isGranted('ROLE_WHOLESALE_DMS') ||
-                $this->checker->isGranted('ROLE_SALE2_DMS') ||
-                $this->checker->isGranted('ROLE_SALE3_DMS') ||
-                $this->checker->isGranted('ROLE_REGULAR_ADMIN') ||
-                $this->checker->isGranted('ROLE_DEALER_PRINCIPAL')
-                )
-        {
+        } elseif ($this->checker->isGranted('ROLE_ACCOUNTING') ||
+            $this->checker->isGranted('ROLE_SALES') ||
+            $this->checker->isGranted('ROLE_SERVICE_DMS') ||
+            $this->checker->isGranted('ROLE_PARTS_DMS') ||
+            $this->checker->isGranted('ROLE_FINANCE_DMS') ||
+            $this->checker->isGranted('ROLE_WHOLESALE_DMS') ||
+            $this->checker->isGranted('ROLE_SALE2_DMS') ||
+            $this->checker->isGranted('ROLE_SALE3_DMS') ||
+            $this->checker->isGranted('ROLE_REGULAR_ADMIN') ||
+            $this->checker->isGranted('ROLE_DEALER_PRINCIPAL')
+        ) {
             $response = new RedirectResponse($this->router->generate('dms_home'));
-        }
-        elseif ($this->checker->isGranted('ROLE_USER'))
-        {
+        } elseif ($this->checker->isGranted('ROLE_USER')) {
             // redirect the user to where they were before the login process begun.
             $response = new RedirectResponse($this->router->generate('homepage'));
-        }elseif ($this->checker->isGranted('ROLE_BUSINES'))
-        {
+        } elseif ($this->checker->isGranted('ROLE_BUSINES')) {
             // redirect the user to where they were before the login process begun.
             $response = new RedirectResponse($this->router->generate('homepage'));
-        }elseif ($this->checker->isGranted('ROLE_DEALER_ADMIN'))
-        {
+        } elseif ($this->checker->isGranted('ROLE_DEALER_ADMIN')) {
             // redirect the user to where they were before the login process begun.
             $response = new RedirectResponse($this->router->generate('homepage'));
         }
 
         return $response;
     }
-    
+
 }

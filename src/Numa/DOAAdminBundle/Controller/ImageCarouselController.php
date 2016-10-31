@@ -20,10 +20,12 @@ use Numa\DOAAdminBundle\Form\ImageCarouselType;
 class ImageCarouselController extends Controller implements DashboardDMSControllerInterface
 {
     public $dashboard;
+
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+
     /**
      * Lists all ImageCarousel entities.
      *
@@ -62,7 +64,7 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
             $em->flush();
             $this->addFlash("New image is added to carousel", 'success');
             $redirect = 'imagecarousel';
-            if($this->dashboard =='DMS'){
+            if ($this->dashboard == 'DMS') {
                 $redirect = 'dms_imagecarousel';
             }
 
@@ -144,7 +146,7 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
             throw $this->createNotFoundException('Unable to find ImageCarousel entity.');
         }
 
-        $editForm = $this->createEditForm($entity,$this->dashboard);
+        $editForm = $this->createEditForm($entity, $this->dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:ImageCarousel:edit.html.twig', array(
@@ -163,11 +165,11 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(ImageCarousel $entity,$dashboard = "")
+    private function createEditForm(ImageCarousel $entity, $dashboard = "")
     {
         $action = 'imagecarousel_update';
 
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $action = 'dms_imagecarousel_update';
         }
 
@@ -202,7 +204,7 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
         if ($editForm->isValid()) {
             $em->flush();
             $redirect = 'imagecarousel_edit';
-            if(strtoupper($this->dashboard) =='DMS'){
+            if (strtoupper($this->dashboard) == 'DMS') {
                 $redirect = 'dms_imagecarousel_edit';
             }
             return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
@@ -288,12 +290,11 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
     {
         $action = 'imagecarousel_add_video';
 
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $action = 'dms_imagecarousel_add_video';
         }
 
         $form = $this->createFormBuilder()
-
             ->setAction($this->generateUrl($action))
             ->add('url', TextType::class, array('attr' => array('class' => 'form-control', 'placeholder' => 'Youtube video URL')))
             ->add('send', SubmitType::class, array('label' => 'Add', 'attr' => array('class' => 'btn btn-primary')))
@@ -321,7 +322,7 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
         }
 
         $redirect = 'imagecarousel';
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_imagecarousel';
         }
 

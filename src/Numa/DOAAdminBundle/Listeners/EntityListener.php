@@ -41,7 +41,7 @@ class EntityListener
 
             if ($entity instanceof Item) {
                 //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
-            }elseif($entity instanceof Billing){
+            } elseif ($entity instanceof Billing) {
 
 
 //                if(!empty($entity->getTidMake()) && !empty($entity->getTidModel())){
@@ -127,7 +127,7 @@ class EntityListener
 //                dump($pass);
 //                dump($entity);die();
 //            }
-       // }
+        // }
 
     }
 
@@ -138,9 +138,9 @@ class EntityListener
 
         $entityManager = $args->getEntityManager();
 
-        if ($entity instanceof Item ) {
-            $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
-        }elseif($entity instanceof Billing){
+        if ($entity instanceof Item) {
+            $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+        } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
         }
@@ -150,19 +150,19 @@ class EntityListener
     {
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
-        if ($entity instanceof Item ) {
-            $this->container->get('mymemcache')->delete('featured_'.$entity->getDealerId());
-        }elseif($entity instanceof PartRequest){
-            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
-        }elseif($entity instanceof ServiceRequest){
-            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
-        }elseif($entity instanceof ListingForm){
-            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity,$entity->getDealer(),$entity->getCustomer());
-        }elseif($entity instanceof Billing){
+        if ($entity instanceof Item) {
+            $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+        } elseif ($entity instanceof PartRequest) {
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+        } elseif ($entity instanceof ServiceRequest) {
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+        } elseif ($entity instanceof ListingForm) {
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+        } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
 
-        }elseif($entity instanceof DealerGroup){
+        } elseif ($entity instanceof DealerGroup) {
             $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
             $em->flush();
             $command = 'php ' . $this->container->get('kernel')->getRootDir() . '/console numa:dbutil populate';

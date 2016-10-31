@@ -77,9 +77,9 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->test();
         } elseif ($command == 'photos') {
             $this->generateCoverPhotos();
-        }elseif ($command == 'pages') {
+        } elseif ($command == 'pages') {
             $this->pages($dealer_id);
-        }elseif ($command == 'populate') {
+        } elseif ($command == 'populate') {
             $this->populate();
         }
     }
@@ -271,7 +271,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         if ($echo) {
             print_r("Making home tabs\n");
         }
-        $logger->warning("HOMETABS: Start echo:".$echo);
+        $logger->warning("HOMETABS: Start echo:" . $echo);
         //$aCategories = array(1, 2, 3, 4, 13);
         //$this->getContainer()->get('doctrine')->resetEntityManager();
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -292,7 +292,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $memcache = $this->getContainer()->get('mymemcache');
         foreach ($categories as $cat) {
             $logger->warning("HOMETABS: make hometabs for category=" . $cat->getId());
-            $this->makeHomeTabForCategory($cat,null, $echo);
+            $this->makeHomeTabForCategory($cat, null, $echo);
         }
         $logger->warning("HOMETABS: makeHomeTabForCategory end");
         $memcache->delete('hometabs_');
@@ -330,13 +330,13 @@ class DBUtilsCommand extends ContainerAwareCommand
                 foreach ($list as $key => $value) {
 
                     $items = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), $value->getValue(), $dealer);
-                    $logger->addWarning("makeHomeTabForCategory inside values loop items fetched, count items:".count($items));
+                    $logger->addWarning("makeHomeTabForCategory inside values loop items fetched, count items:" . count($items));
                     $count = count($items);
 
                     if ($echo) {
                         echo $count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n";
                     }
-                    $logger->addWarning("makeHomeTabForCategory:".$count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n");
+                    $logger->addWarning("makeHomeTabForCategory:" . $count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n");
                     //$count = $items->count();
                     $hometab = new HomeTab();
 
@@ -377,7 +377,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                     if ($echo) {
                         echo $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n";
                     }
-                    $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::".$subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
+                    $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::" . $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
                     //$count = $items->count();
                     $hometab = new HomeTab();
                     if ($dealer instanceof Catalogrecords) {
@@ -455,7 +455,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                     if ($echo) {
                         echo count($items) . ":" . $subCat->getId() . ":" . $value->getId() . "::" . $value->getValue() . "\n";
                     }
-                    $logger->warning("makeHomeTabForCategory inside values loop CAT=13::::".count($items) . ":" . $subCat->getId() . ":" . $value->getId() . "::" . $value->getValue() . "\n");
+                    $logger->warning("makeHomeTabForCategory inside values loop CAT=13::::" . count($items) . ":" . $subCat->getId() . ":" . $value->getId() . "::" . $value->getValue() . "\n");
                     //$count = $items->count();
                     $hometab = new HomeTab();
                     if ($dealer instanceof Catalogrecords) {
@@ -523,10 +523,10 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $listings = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAll();
 
-        $lastCache = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category'=>"cacheclear"),array('id'=>'desc'));
+        $lastCache = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "cacheclear"), array('id' => 'desc'));
 
-        if($lastCache instanceof CommandLog){
-            if($lastCache->isRunning()){
+        if ($lastCache instanceof CommandLog) {
+            if ($lastCache->isRunning()) {
                 die();
             }
         }
@@ -639,7 +639,6 @@ class DBUtilsCommand extends ContainerAwareCommand
     }
 
 
-
     public function test()
     {
         $seoService = $this->getContainer()->get("Numa.Seo");
@@ -655,12 +654,13 @@ class DBUtilsCommand extends ContainerAwareCommand
         die();
     }
 
-    public function populate(){
+    public function populate()
+    {
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category'=>"elasticsearch"),array('id'=>'desc'));
+        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "elasticsearch"), array('id' => 'desc'));
 
-        if($lastCommand instanceof CommandLog){
-            if($lastCommand->isRunning()){
+        if ($lastCommand instanceof CommandLog) {
+            if ($lastCommand->isRunning()) {
                 die();
             }
         }

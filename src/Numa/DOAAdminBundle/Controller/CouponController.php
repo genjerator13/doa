@@ -29,6 +29,7 @@ class CouponController extends Controller
             'entities' => $entities,
         ));
     }
+
     /**
      * Creates a new Coupon entity.
      *
@@ -49,7 +50,7 @@ class CouponController extends Controller
 
         return $this->render('NumaDOAAdminBundle:Coupon:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -79,10 +80,10 @@ class CouponController extends Controller
     public function newAction()
     {
         $entity = new Coupon();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
         return $this->render('NumaDOAAdminBundle:Coupon:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -103,7 +104,7 @@ class CouponController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Coupon:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -126,19 +127,19 @@ class CouponController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Coupon:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Coupon entity.
-    *
-    * @param Coupon $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Coupon entity.
+     *
+     * @param Coupon $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Coupon $entity)
     {
         $form = $this->createForm(new CouponType(), $entity, array(
@@ -150,6 +151,7 @@ class CouponController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Coupon entity.
      *
@@ -175,11 +177,12 @@ class CouponController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:Coupon:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Coupon entity.
      *
@@ -217,7 +220,6 @@ class CouponController extends Controller
             ->setAction($this->generateUrl('coupon_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

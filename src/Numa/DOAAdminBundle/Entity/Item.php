@@ -70,7 +70,7 @@ class Item
      * @GRID\Column(type="text", field="active", title="active", selectFrom="values",values={"inactive","Active"},filter="select", filterable=true, defaultOperator="eq",operatorsVisible=false)
      * @JMS\Expose
      */
-    private $active=true;
+    private $active = true;
 
     /**
      * @var string
@@ -791,9 +791,10 @@ class Item
         return $imagesSorted;
     }
 
-    public function getCoverImageSrc(){
+    public function getCoverImageSrc()
+    {
         $img = $this->getImage2();
-        if($img instanceof ItemField){
+        if ($img instanceof ItemField) {
             return $img->getFieldStringValue();
         }
         return "";
@@ -807,6 +808,7 @@ class Item
             return $image;
         }
     }
+
     public function getImagesForApi()
     {
         $images = $this->getImages2();
@@ -862,7 +864,7 @@ class Item
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
             ->setMaxResults(1);
         $images = $if->matching($criteria);
-        if(!empty($images) && $images->first() instanceof ItemField) {
+        if (!empty($images) && $images->first() instanceof ItemField) {
 
             return $images->first()->getFieldStringValue();
         }
@@ -881,8 +883,9 @@ class Item
         return $res;
     }
 
-    public function setImage2($photo){
-        $this->photo =  $photo;
+    public function setImage2($photo)
+    {
+        $this->photo = $photo;
     }
 
     public function getImage($num = 0)
@@ -1043,15 +1046,15 @@ class Item
     }
 
 
-/**
- * Set Importfeed
- *
- * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
- * @return Item
- */
-public
-function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
-{
+    /**
+     * Set Importfeed
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Importfeed $importfeed
+     * @return Item
+     */
+    public
+    function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null)
+    {
 
         if (!empty($importfeed)) {
             //die(get_class($importfeed));
@@ -1228,7 +1231,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
             $separator = "|";
         }
         $optionsArray = explode($separator, $stringvalue);
-        if(strtolower($separator)=="{newline}") {
+        if (strtolower($separator) == "{newline}") {
             $optionsArray = preg_split('/\n|\r\n?/', $stringvalue);
         }
 
@@ -1744,11 +1747,11 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         $this->status = $status;
 
-        if(strtolower($status)=="new" || strtolower($status)=="n"){
+        if (strtolower($status) == "new" || strtolower($status) == "n") {
             $this->status = "New";
         }
 
-        if(strtolower($status)=="used" || strtolower($status)=="u" || strtolower($status)=="use"){
+        if (strtolower($status) == "used" || strtolower($status) == "u" || strtolower($status) == "use") {
             $this->status = "Used";
         }
 
@@ -1763,10 +1766,10 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
      */
     public function getStatus()
     {
-        if(strtolower($this->status)=='n' or strtolower($this->status)=='new'){
-            $this->status="New";
-        }elseif(strtolower($this->status)=='u' or strtolower($this->status)=='used' or strtolower($this->status)=='use'){
-            $this->status="Used";
+        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
+            $this->status = "New";
+        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use') {
+            $this->status = "Used";
         }
         return $this->status;
     }
@@ -3817,6 +3820,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->awnings;
     }
+
     /**
      * @var string
      * @JMS\Expose
@@ -3997,6 +4001,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->sale_amount;
     }
+
     /**
      * @var float
      */
@@ -4026,6 +4031,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->retail_price;
     }
+
     public function getRetailPriceString()
     {
         $res = "";
@@ -4037,14 +4043,15 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
         }
         return $res;
     }
+
     public function getRetailPriceCompared()
     {
-        if($this->getRetailPrice() > $this->getPrice())
-        {
+        if ($this->getRetailPrice() > $this->getPrice()) {
 //            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
-                return $this->getRetailPriceString();
+            return $this->getRetailPriceString();
         }
     }
+
     /**
      * @var int
      */
@@ -4480,6 +4487,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->remotes;
     }
+
     /**
      * @var string
      */
@@ -4509,6 +4517,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->cover_phote;
     }
+
     /**
      * @var string
      */
@@ -4538,6 +4547,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->cover_photo;
     }
+
     /**
      * @var string
      */
@@ -4770,6 +4780,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->expense_4_amt;
     }
+
     /**
      * @var float
      */
@@ -4799,6 +4810,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->total_cost;
     }
+
     /**
      * @var integer
      */
@@ -4857,6 +4869,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->Vendor;
     }
+
     /**
      * @var integer
      */
@@ -4915,6 +4928,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->Sale;
     }
+
     /**
      * @var string
      */
@@ -4973,6 +4987,7 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
     {
         return $this->seller_comment_2;
     }
+
     /**
      * @var integer
      */
@@ -5003,9 +5018,10 @@ function setImportfeed(\Numa\DOAAdminBundle\Entity\Importfeed $importfeed = null
         return $this->seller_comment_active;
     }
 
-    public function getDealerGroup(){
-        if($this->getDealer() instanceof  Catalogrecords){
-            if($this->getDealer()->getDealerGroup() instanceof DealerGroup){
+    public function getDealerGroup()
+    {
+        if ($this->getDealer() instanceof Catalogrecords) {
+            if ($this->getDealer()->getDealerGroup() instanceof DealerGroup) {
                 return $this->getDealer()->getDealerGroup()->getId();
             }
         }

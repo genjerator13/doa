@@ -29,6 +29,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
 {
 
     public $dashboard;
+
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
@@ -55,7 +56,6 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
                 $imageSource = $image->getFieldStringValue();
 
 
-
                 if (!file_exists($upload_path . $imageSource) || is_dir($upload_path . $imageSource)) {
 
                     $imageSource = "/images/no_image_available_small.png";
@@ -75,7 +75,6 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
                     );
             }
         }
-
 
 
         ///
@@ -148,7 +147,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
     {
 
         $redirect = 'item_images_add_video';
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_item_images_add_video';
         }
         $form = $this->createFormBuilder()
@@ -184,7 +183,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             $em->flush();
         }
         $redirect = 'item_images';
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_item_images';
         }
         return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
@@ -206,7 +205,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
                 ->set('if.sort_order', $order)
                 ->where('if.id=' . $id);
             $qb->getQuery()->execute();
-            if($order==0){
+            if ($order == 0) {
                 $if = $em->getRepository("NumaDOAAdminBundle:ItemField")->find($id);
                 $item = $if->getItem();
                 //$em->getRepository("NumaDOAAdminBundle:Item")->setCoverPhoto($if->getItemId(),$if->getFieldStringValue());
