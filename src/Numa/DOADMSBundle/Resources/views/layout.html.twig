@@ -238,6 +238,7 @@
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or
                             is_granted('ROLE_DMS_USER') or
+                            is_granted('ROLE_SALE3_DMS') or
                             is_granted('ROLE_DEALER_PRINCIPAL') %}
                                 <li class="active">
                                     <a href="{{ path('inventory') }}" class=""><i class="fa fa-truck"></i>Current
@@ -255,7 +256,7 @@
                                 {% endif %}
                             {% endif %}
 
-                            {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_WHOLESALE_DMS') %}
+                            {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_WHOLESALE_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('inventory_view') }}" class=""><i class="fa fa-truck"></i>Listings View</a>
                                 </li>
