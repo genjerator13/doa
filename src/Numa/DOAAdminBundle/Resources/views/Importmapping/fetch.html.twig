@@ -3,9 +3,9 @@
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 
 {% block content %}
-    <p>{{items|length}} Items fetched</p>
-    <a href="{{path("importfeed")}}">Back to the feed list</a>
+    <p>{{ items|length }} Items fetched</p>
+    <a href="{{ path("importfeed") }}">Back to the feed list</a>
     {% for key,item in items %}
-        {{dump(item)}}        
+        {{ dump(item) }}
     {% endfor %}
 {% endblock %}

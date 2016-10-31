@@ -401,7 +401,7 @@ class Catalogrecords implements UserInterface
      */
     public function getLogoUrl()
     {
-        if(!empty($this->getLogo())){
+        if (!empty($this->getLogo())) {
             $this->logo_url = $this->getLogo();
         }
         return $this->logo_url;
@@ -442,7 +442,7 @@ class Catalogrecords implements UserInterface
     {
         if (strtolower($this->getDmsStatus()) == 'activated') {
             return array('ROLE_DMS_USER', 'ROLE_BUSINES');
-        }else{
+        } else {
             return array('ROLE_NODMS_USER', 'ROLE_BUSINES');
         }
         if ($this->getAdmindealer()) {
@@ -1575,6 +1575,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->terms_text;
     }
+
     /**
      * @var string
      */
@@ -1605,26 +1606,31 @@ class Catalogrecords implements UserInterface
         return $this->finance_email;
     }
 
-    public function isCarDealer(){
+    public function isCarDealer()
+    {
         return $this->dealerType(1);
     }
 
-    public function isMotoDealer(){
+    public function isMotoDealer()
+    {
         return $this->dealerType(5);
     }
 
-    public function isRVsDealer(){
+    public function isRVsDealer()
+    {
         return $this->dealerType(7);
     }
 
-    public function isAgDealer(){
+    public function isAgDealer()
+    {
         return $this->dealerType(3);
     }
 
-    public function dealerType($cid){
+    public function dealerType($cid)
+    {
 
-        foreach($this->getDcategory() as $category){
-            if($category->getId()==$cid){
+        foreach ($this->getDcategory() as $category) {
+            if ($category->getId() == $cid) {
                 return true;
             }
         }
@@ -1660,6 +1666,7 @@ class Catalogrecords implements UserInterface
     {
         return $this->default_listing_comment;
     }
+
     /**
      * @var integer
      * @Expose

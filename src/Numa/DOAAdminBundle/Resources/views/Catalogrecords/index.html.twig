@@ -53,9 +53,10 @@
                             {% if(entity.dmsStatus =='activated') %}
                                 Activated
                             {% else %}
-                            <a href="{{ path('dms_catalogs_activate', { 'id': entity.id }) }}" class="btn btn-success">
-                                Activate
-                            </a>
+                                <a href="{{ path('dms_catalogs_activate', { 'id': entity.id }) }}"
+                                   class="btn btn-success">
+                                    Activate
+                                </a>
                             {% endif %}
                         </td>
                         <td class="nowrap">
@@ -63,21 +64,25 @@
 
                                 <li>
                                     {% if(app.request.get('_dashboard')=='DMS') %}
-                                        <a href="{{ path('dms_catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+                                        <a href="{{ path('dms_catalogs_edit', { 'id': entity.id }) }}"
+                                           class="btn btn-primary">
                                             Edit
                                         </a>
                                     {% else %}
-                                        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}" class="btn btn-primary">
+                                        <a href="{{ path('catalogs_edit', { 'id': entity.id }) }}"
+                                           class="btn btn-primary">
                                             Edit
                                         </a>
                                     {% endif %}
                                 </li>
                                 <li>
                                     {% if(app.request.get('_dashboard')=='DMS') %}
-                                        <a href="{{ path('dms_catalogs_delete', { 'id': entity.id }) }}" class="btn btn-danger"
+                                        <a href="{{ path('dms_catalogs_delete', { 'id': entity.id }) }}"
+                                           class="btn btn-danger"
                                            data-confirm="All the listings <strong>{{ entity.name }}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
                                     {% else %}
-                                        <a href="{{ path('catalogs_delete', { 'id': entity.id }) }}" class="btn btn-danger"
+                                        <a href="{{ path('catalogs_delete', { 'id': entity.id }) }}"
+                                           class="btn btn-danger"
                                            data-confirm="All the listings <strong>{{ entity.name }}</strong> has been made will be deleted.<br>Are you sure you want to delete?">Delete</a>
                                     {% endif %}
                                 </li>

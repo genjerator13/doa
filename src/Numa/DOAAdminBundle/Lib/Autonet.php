@@ -16,12 +16,14 @@ namespace Numa\DOAAdminBundle\Lib;
 
 use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
-class Autonet extends Curl {
+class Autonet extends Curl
+{
 
     public $options;
 
     //put your code here
-    public function __construct() {
+    public function __construct()
+    {
         $username = "MediaTech";
         $password = "CaHuVB9";
         $this->setPassword($password);
@@ -30,11 +32,13 @@ class Autonet extends Curl {
         parent::__construct();
     }
 
-    public function allDealersList() {
+    public function allDealersList()
+    {
         $this->setUrlSuffix("dealers/");
     }
 
-    public function parseAlldealers() {
+    public function parseAlldealers()
+    {
         $this->setUrlSuffix("dealers/");
         $dealers = $this->call();
 
@@ -48,7 +52,8 @@ class Autonet extends Curl {
         return $array;
     }
 
-    public function parseDealerVehicles($dealer_id) {
+    public function parseDealerVehicles($dealer_id)
+    {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles");
         $dealers = $this->call();
 
@@ -66,12 +71,13 @@ class Autonet extends Curl {
         return $xml;
     }
 
-    public function getVehicleXml($dealer_id, $vehicle_id) {
+    public function getVehicleXml($dealer_id, $vehicle_id)
+    {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id);
         $vehicles = $this->call();
         //ids
         $xml1Vehicles = simplexml_load_string($vehicles);
-        $id = (string) $xml1Vehicles->attributes()->id[0];
+        $id = (string)$xml1Vehicles->attributes()->id[0];
         $xml1Vehicles->addChild("id", $id);
 
         //process elements with children
@@ -108,7 +114,8 @@ class Autonet extends Curl {
         return $xml;
     }
 
-    public function getVehiclePhotos($dealer_id, $vehicle_id) {
+    public function getVehiclePhotos($dealer_id, $vehicle_id)
+    {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id . "/photos");
         $photos = $this->call();
 
@@ -129,39 +136,42 @@ class Autonet extends Curl {
         return $photosXml;
     }
 
-    public function processOptions($options) {
+    public function processOptions($options)
+    {
         $this->mapOptions();
         $optionsXml = "<options>";
         foreach ($options->option as $option) {
             $tempArray = (array)$option['id'];
-            if(array_key_exists($tempArray[0], $this->options)){                
-                $optionsXml .="<option id='" . $tempArray[0] . "'>" . htmlentities($this->options[$tempArray[0]]) . "</option>";
+            if (array_key_exists($tempArray[0], $this->options)) {
+                $optionsXml .= "<option id='" . $tempArray[0] . "'>" . htmlentities($this->options[$tempArray[0]]) . "</option>";
             }
         }
         $optionsXml .= "</options>";
         return $optionsXml;
     }
 
-    public function mapOptions() {
+    public function mapOptions()
+    {
         if (empty($this->options)) {
             $this->setUrlSuffix("assets/options");
             $options = $this->call();
             $optionsXml = new SimpleXMLElement($options);
             $json = json_encode($optionsXml);
             $array = json_decode($json, TRUE);
-            foreach($array['class'] as $class){
-                
-                foreach($class['option'] as $option){
+            foreach ($array['class'] as $class) {
+
+                foreach ($class['option'] as $option) {
                     //dump($option);
                     $id = $option['@attributes']['id'];
                     $this->options[$id] = trim($option['desc']);
                 }
-            }  
-            
+            }
+
         }
     }
 
-    public function getOption($dealer_id, $vehicle_id, $photo_id) {
+    public function getOption($dealer_id, $vehicle_id, $photo_id)
+    {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id . "/photos");
         $photos = $this->call();
 
@@ -172,7 +182,8 @@ class Autonet extends Curl {
         return $array;
     }
 
-    public function getPhoto($dealer_id, $vehicle_id, $photo_id) {
+    public function getPhoto($dealer_id, $vehicle_id, $photo_id)
+    {
         $this->setUrlSuffix("dealers/" . $dealer_id . "/vehicles/" . $vehicle_id . "/photos");
         $photos = $this->call();
 

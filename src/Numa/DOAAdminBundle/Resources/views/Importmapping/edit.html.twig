@@ -7,18 +7,18 @@
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        {% if(app.request.get('_dashboard')=='DMS') %}
-            <a href="{{ path('dms_import_mapping') }}">
-                Back to the list
-            </a>
-        {% else %}
-            <a href="{{ path('import_mapping') }}">
-                Back to the list
-            </a>
-        {% endif %}
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            {% if(app.request.get('_dashboard')=='DMS') %}
+                <a href="{{ path('dms_import_mapping') }}">
+                    Back to the list
+                </a>
+            {% else %}
+                <a href="{{ path('import_mapping') }}">
+                    Back to the list
+                </a>
+            {% endif %}
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

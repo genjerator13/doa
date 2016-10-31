@@ -30,9 +30,10 @@ use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
  * Item controller.
  *
  */
-class ItemController extends Controller  implements DashboardDMSControllerInterface, DealerSiteControllerInterface
+class ItemController extends Controller implements DashboardDMSControllerInterface, DealerSiteControllerInterface
 {
     public $dashboard;
+
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
@@ -48,22 +49,21 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
     }
 
 
-
     /**
      * Lists all User entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         //$this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access Denied!');
 
         $em = $this->getDoctrine()->getManager();
         $source = new Entity('NumaDOAAdminBundle:Item');
 
         $source->manipulateRow(
-            function ($row)
-            {
+            function ($row) {
 
-                if($row->getField('active') && $row->getField('featured')){
+                if ($row->getField('active') && $row->getField('featured')) {
                     $row->setClass('featured');
                 }
                 return $row;
@@ -84,16 +84,16 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
         $controller = $this;
         $imageColumn->manipulateRenderCell(
-                function($value, $row, $router) use ($controller) {
-            $em = $controller->getDoctrine()->getManager();
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
+            function ($value, $row, $router) use ($controller) {
+                $em = $controller->getDoctrine()->getManager();
+                $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($row->getField('id'));
 
 
-            $image = $item->getImage2();
+                $image = $item->getImage2();
 
-            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
-            echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
-        }
+                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+                echo $controller->renderView("NumaDOAAdminBundle:Item:imageCell.html.twig", array('image' => $image, 'id' => $row->getField('id')));
+            }
         );
 
         $yourMassAction = new MassAction('Delete', 'NumaDOAAdminBundle:Item:massDelete');
@@ -115,7 +115,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
     }
 
-    public function massActivateAction($primaryKeys, $allPrimaryKeys) {
+    public function massActivateAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -129,7 +130,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $this->redirect($this->generateUrl('items'));
     }
 
-    public function massDeactivateAction($primaryKeys, $allPrimaryKeys) {
+    public function massDeactivateAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -143,7 +145,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $this->redirect($this->generateUrl('items'));
     }
 
-    public function massApproveAction($primaryKeys, $allPrimaryKeys) {
+    public function massApproveAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -157,7 +160,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $this->redirect($this->generateUrl('items'));
     }
 
-    public function massFeatureAction($primaryKeys, $allPrimaryKeys) {
+    public function massFeatureAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -172,7 +176,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $this->redirect($this->generateUrl('items'));
     }
 
-    public function massRejectAction($primaryKeys, $allPrimaryKeys) {
+    public function massRejectAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -186,7 +191,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         return $this->redirect($this->generateUrl('items'));
     }
 
-    public function massDeleteAction($primaryKeys, $allPrimaryKeys) {
+    public function massDeleteAction($primaryKeys, $allPrimaryKeys)
+    {
         $em = $this->getDoctrine()->getManager();
         foreach ($primaryKeys as $id) {
             $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -203,14 +209,15 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Lists all Item entities.
      *
      */
-    public function additemAction(Request $request) {
+    public function additemAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $dashboard = $request->get('_dashboard');
         $entities = $em->getRepository('NumaDOAAdminBundle:Category')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Item:additem.html.twig', array(
-                    'entities' => $entities,
-                    'dashboard' => $dashboard,
+            'entities' => $entities,
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -218,7 +225,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Creates a new Item entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Item();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -235,8 +243,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         }
 
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -247,8 +255,9 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Item $entity) {
-        $form = $this->createForm(new ItemType(null,null,null,null,$this->container), $entity, array(
+    private function createCreateForm(Item $entity)
+    {
+        $form = $this->createForm(new ItemType(null, null, null, null, $this->container), $entity, array(
             'action' => $this->generateUrl('items_create'),
             'method' => 'POST',
         ));
@@ -262,7 +271,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Displays a form to create a new Item entity.
      *
      */
-    public function newAction(Request $request, $cat_id, $item_id = null) {
+    public function newAction(Request $request, $cat_id, $item_id = null)
+    {
         $entity = new Item();
         $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
@@ -284,13 +294,13 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
                 if ($item_id != null) {
                     $qb = $item->createQueryBuilder('i')
-                            ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
-                            ->where('i.id = :iid')
-                            ->join('i.ItemField', 'if')
-                            ->join('if.Listingfield', 'ls')
-                            ->andWhere('ls.id = :lsid')
-                            ->setParameter('iid', $item_id)
-                            ->setParameter('lsid', $field->getId());
+                        ->select('if.field_integer_value,if.field_string_value,if.field_boolean_value,if.field_name,ls.id as field_id')
+                        ->where('i.id = :iid')
+                        ->join('i.ItemField', 'if')
+                        ->join('if.Listingfield', 'ls')
+                        ->andWhere('ls.id = :lsid')
+                        ->setParameter('iid', $item_id)
+                        ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
                     $listingField = $query->setMaxResults(1)->getOneOrNullResult();
@@ -308,7 +318,6 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 if (strtolower($field->getCaption()) != 'image list') {
                     $entity->addItemField($itemField);
                 }
-
 
 
             }
@@ -332,11 +341,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         ));
 
         //$seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
-        if(empty($seo)){
+        if (empty($seo)) {
             $seo = new Seo();
         }
         $entity->setSeo($seo);
-        $seoForm = $this->createForm(new SeoType(),$seo, array(
+        $seoForm = $this->createForm(new SeoType(), $seo, array(
             'method' => 'POST',
         ));
         $seoFormView = $seoForm->createView();
@@ -350,22 +359,21 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            $seoPost =$request->get("numa_doamodulebundle_seo");
+            $seoPost = $request->get("numa_doamodulebundle_seo");
 
             $seoService = $this->container->get("Numa.Seo");
-            $seo = $seoService->prepareSeo($entity,$seoPost);
+            $seo = $seoService->prepareSeo($entity, $seoPost);
             $em->flush();
             //dump($request->get("redirect"));die();
             if ($request->get("redirect") == "images") {
                 $redirect = 'item_images';
-                if(strtoupper($this->dashboard) =='DMS'){
+                if (strtoupper($this->dashboard) == 'DMS') {
                     $redirect = 'dms_item_images';
                 }
                 return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
-            }
-            else{
+            } else {
                 $redirect = 'items_edit';
-                if(strtoupper($this->dashboard) =='DMS'){
+                if (strtoupper($this->dashboard) == 'DMS') {
                     $redirect = 'dms_items_edit';
                 }
                 return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
@@ -373,7 +381,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         }
         //sale form
 
-       // $saleForm = $this->createSaleCreateForm(new Sale());
+        // $saleForm = $this->createSaleCreateForm(new Sale());
         //$entity->setSeo($seo);
 
 
@@ -382,13 +390,14 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             'form' => $form->createView(),
 //            'saleForm' => $saleForm->createView(),
             'category' => $category,
-            'seo'=> $seoFormView,
-            'dashboard' =>$dashboard,
+            'seo' => $seoFormView,
+            'dashboard' => $dashboard,
         );
         return $this->switchTemplateByCategory($cat_id, $params);
     }
 
-    private function switchTemplateByCategory($cat_id, $params) {
+    private function switchTemplateByCategory($cat_id, $params)
+    {
 
         return $this->render('NumaDOAAdminBundle:Item:new.html.twig', $params);
     }
@@ -397,7 +406,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Finds and displays a Item entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -409,15 +419,16 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Item:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Item entity.
      *
      */
-    public function editAction(Request $request, $id) {
+    public function editAction(Request $request, $id)
+    {
         $dashboard = $request->get('_dashboard');
         $em = $this->getDoctrine()->getManager();
 
@@ -453,26 +464,27 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         if (!empty($fields)) {
             //lop trough all the listing fields
             foreach ($fields as $key => $field) {
-                if($field instanceof Listingfield){}
+                if ($field instanceof Listingfield) {
+                }
 
                 //check if item field has value for the listing_field if edit (exists)
 
                 if ($id != null) {
 
                     $qb = $em->getRepository('NumaDOAAdminBundle:ItemField')->createQueryBuilder('if')
-                            ->select('if')
-                            ->where('if.item_id = :iid')
-                            ->andWhere('if.field_id = :lsid')
-                            ->setParameter('iid', $id)
-                            ->setParameter('lsid', $field->getId());
+                        ->select('if')
+                        ->where('if.item_id = :iid')
+                        ->andWhere('if.field_id = :lsid')
+                        ->setParameter('iid', $id)
+                        ->setParameter('lsid', $field->getId());
                     $query = $qb->getQuery();
 
                     $itemField = $query->setMaxResults(1)->getOneOrNullResult();
 
-                    if (! $itemField instanceof ItemField) {
+                    if (!$itemField instanceof ItemField) {
                         $itemField = new ItemField();
                     }
-                }else{
+                } else {
                     $itemField = new ItemField();
                 }
 
@@ -485,8 +497,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
 
                 if (strtolower($field->getCaption()) != 'image list') {
                     //check if the listing field is already there
-                    $itemFieldAlreadySet= new ArrayCollection();
-                    if($itemField instanceof ItemField) {
+                    $itemFieldAlreadySet = new ArrayCollection();
+                    if ($itemField instanceof ItemField) {
                         //dump($itemField->getFieldId());
                         $criteria = Criteria::create()
                             ->where(Criteria::expr()->eq("fieldId", $itemField->getFieldId()))
@@ -506,16 +518,15 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $entity->sortItemFieldsBy();
 
 
-
         //seo
-        if(!empty($entity->getId())) {
+        if (!empty($entity->getId())) {
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
-            if(empty($seo)){
+            if (empty($seo)) {
                 $seo = new Seo();
             }
             $entity->setSeo($seo);
 
-            $seoForm = $this->createForm(new SeoType(),$seo, array(
+            $seoForm = $this->createForm(new SeoType(), $seo, array(
                 'method' => 'POST',
             ));
             $seoFormView = $seoForm->createView();
@@ -524,7 +535,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             'method' => 'POST',
         ));
 
-        $saleForm = $this->createForm(new SaleType(),$entity->getSale(), array(
+        $saleForm = $this->createForm(new SaleType(), $entity->getSale(), array(
             'method' => 'POST',
         ));
 
@@ -535,26 +546,26 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             //$sale->setItem($entity);
             //$sale->setItemId($entity->getId());
 
-            if(empty($id)) {
+            if (empty($id)) {
                 $em->persist($entity);
             }
-            $seoPost =$request->get("numa_doamodulebundle_seo");
+            $seoPost = $request->get("numa_doamodulebundle_seo");
             $seoService = $this->container->get("Numa.Seo");
-            $seo = $seoService->prepareSeo($entity,$seoPost);
+            $seo = $seoService->prepareSeo($entity, $seoPost);
             //dump($entity->getItemField());
-           // die();
+            // die();
 
             //die();
             $em->flush();
 
-            if($form->getClickedButton() != null && $form->getClickedButton()->getName()=="submitAndPrint"){
-                return $this->redirect($this->generateUrl('sale_print_inside', array('id' =>$entity->getId())));
+            if ($form->getClickedButton() != null && $form->getClickedButton()->getName() == "submitAndPrint") {
+                return $this->redirect($this->generateUrl('sale_print_inside', array('id' => $entity->getId())));
             }
             $redirect = 'items_edit';
-            if(strtoupper($this->dashboard) =='DMS'){
+            if (strtoupper($this->dashboard) == 'DMS') {
                 $redirect = 'dms_items_edit';
             }
-            return $this->redirectToRoute($redirect,array("id"=>$entity->getId()));
+            return $this->redirectToRoute($redirect, array("id" => $entity->getId()));
         }
 
         //sale form
@@ -566,8 +577,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             'form' => $form->createView(),
             'saleForm' => $saleForm->createView(),
             'category' => $entity->getCategory(),
-            'seo'=> $seoFormView,
-            'dashboard' =>$this->dashboard,
+            'seo' => $seoFormView,
+            'dashboard' => $this->dashboard,
         );
         return $this->switchTemplateByCategory($category, $params);
 
@@ -581,8 +592,9 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Item $entity) {
-        $form = $this->createForm(new ItemType(null,null,null,null,$this->container), $entity, array(
+    private function createEditForm(Item $entity)
+    {
+        $form = $this->createForm(new ItemType(null, null, null, null, $this->container), $entity, array(
             'action' => $this->generateUrl('items_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -596,7 +608,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Edits an existing Item entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -617,17 +630,17 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
             $resultCode = $command->makeHomeTabs(false);
             //dump($resultCode);die();
             $redirect = 'items_edit';
-            if(strtoupper($this->dashboard) =='DMS'){
+            if (strtoupper($this->dashboard) == 'DMS') {
                 $redirect = 'dms_items_edit';
             }
             return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Item:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
-                    'dashboard' =>$dashboard,
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -635,7 +648,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Deletes a Item entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
 
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
@@ -644,8 +658,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
         $securityContext = $this->container->get('security.context');
-        if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN') ) {
-            if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId() && !$securityContext->isGranted('ROLE_DEALER_ADMIN') ) {
+        if ($securityContext->isGranted('ROLE_BUSINES') || $securityContext->isGranted('ROLE_ADMIN') || $securityContext->isGranted('ROLE_SUPER_ADMIN')) {
+            if ($securityContext->isGranted('ROLE_BUSINES') && $entity->getDealer()->getId() != $this->getUser()->getId() && !$securityContext->isGranted('ROLE_DEALER_ADMIN')) {
                 throw $this->createAccessDeniedException('You cannot delete this listing!');
             }
         }
@@ -657,7 +671,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $em->flush();
         //}
         if ($securityContext->isGranted('ROLE_BUSINES')) {
-            $referer = $request->headers->get('referer');  
+            $referer = $request->headers->get('referer');
 
             return $this->redirect($referer);
         }
@@ -668,7 +682,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * Activate a Item entity.
      *
      */
-    public function activateAction(Request $request, $id) {
+    public function activateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $activation = $request->get('active');
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -683,7 +698,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
             if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && ($entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
-                    $entity->getDealer()->getId() != $this->getUser()->getId())) {
+                    $entity->getDealer()->getId() != $this->getUser()->getId())
+            ) {
 
                 throw $this->createAccessDeniedException('You cannot access this page!');
             } else {
@@ -708,21 +724,24 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * @param Request $request
      * Activates elected listings in datagrid on listing list page
      */
-    public function massActivate2Action(Request $request) {
+    public function massActivate2Action(Request $request)
+    {
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,true);
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids, true);
         die();
     }
+
     /**
      * @param Request $request
      * Deactivates elected listings in datagrid on listing list page
      */
-    public function massDeactivate2Action(Request $request) {
+    public function massDeactivate2Action(Request $request)
+    {
 
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids,0);
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->activate($ids, 0);
         die();
     }
 
@@ -730,10 +749,11 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * @param Request $request
      * Activates elected listings in datagrid on listing list page
      */
-    public function massMakeFeatured2Action(Request $request) {
+    public function massMakeFeatured2Action(Request $request)
+    {
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
-        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids,true);
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids, true);
         die();
     }
 
@@ -741,18 +761,21 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * @param Request $request
      * Deactivates elected listings in datagrid on listing list page
      */
-    public function massDelete2Action(Request $request) {
-        $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
+    public function massDelete2Action(Request $request)
+    {
+        $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $this->get("Numa.Dms.Listing")->deleteItems($ids);
 
         die();
     }
+
     /**
      * deactivate an Item entity.
      *
      */
-    public function deactivateAction(Request $request, $id) {
+    public function deactivateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
         $securityContext = $this->container->get('security.context');
@@ -764,7 +787,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         if ($securityContext->isGranted('ROLE_BUSINES')) {
 
             if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && $entity->getDealer() instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords &&
-                    $entity->getDealer()->getId() != $this->getUser()->getId()) {
+                $entity->getDealer()->getId() != $this->getUser()->getId()
+            ) {
                 throw $this->createAccessDeniedException('You cannot access this page!');
             } else {
 
@@ -772,7 +796,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
                 $return = $this->redirect($url);
             }
         }
-        $this->container->get('mymemcache')->delete('featured_'.$this->dealer);
+        $this->container->get('mymemcache')->delete('featured_' . $this->dealer);
 
         $redirect = $request->query->get('redirect');
         if ($redirect == 'item') {
@@ -789,7 +813,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * reject a Item entity.
      *
      */
-    public function rejectAction(Request $request, $id) {
+    public function rejectAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
 
@@ -808,7 +833,8 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      * approve a Item entity.
      *
      */
-    public function approveAction(Request $request, $id) {
+    public function approveAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
 
@@ -830,15 +856,17 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('items_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm();
+            ->setAction($this->generateUrl('items_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
-    public function changeCategoryAction(Request $request, $id) {
+    public function changeCategoryAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
@@ -856,17 +884,18 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
         $form->handleRequest($request);
 
         //if ($form->isValid()) {
-            $em->flush();
+        $em->flush();
         $redirect = 'items_edit';
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_items_edit';
         }
-            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
+        return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         //}
     }
 
-    public function renderFetch($array) {
-        
+    public function renderFetch($array)
+    {
+
     }
 
     /**
@@ -899,7 +928,7 @@ class ItemController extends Controller  implements DashboardDMSControllerInterf
     {
         $action = $this->generateUrl('sale_new');
         $sale = new Sale();
-        if($item->getSale() instanceof Sale){
+        if ($item->getSale() instanceof Sale) {
             $sale = $item->getSale();
             $action = $this->generateUrl('sale_update', array('id' => $sale->getId()));
         }

@@ -97,7 +97,8 @@
             <ul class="nav nav-tabs">
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
-                {% if(is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES')) %}<li role="presentation"><a data-toggle="tab" href="#sale">Sale</a></li>{% endif %}
+                {% if(is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES')) %}
+                    <li role="presentation"><a data-toggle="tab" href="#sale">Sale</a></li>{% endif %}
             </ul>
             <div class="tab-content">
                 <div id="details" class="tab-pane active">
@@ -197,121 +198,121 @@
                             </div>
                         </div>
                         {#<div class="box-primary box">#}
-                            {#<div class="box-header">#}
-                                {#<h3 class="box-title with-border">Bill of Sale</h3>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.Vendor) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.Vendor) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.invoice_nr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.invoice_nr, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
+                        {#<div class="box-header">#}
+                        {#<h3 class="box-title with-border">Bill of Sale</h3>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.Vendor) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.Vendor) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.invoice_nr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_nr, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
 
-                                {#{{ form_label(form.invoice_date, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.invoice_date, { 'attr': {'class': 'datepicker form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.invoice_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.invoice_amount, { 'attr': {'class': 'form-control price'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.discount1, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.discount1, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.discount2, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.discount2, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.sale_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.sale_amount, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_1_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.expense_1_descrip, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_1_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-3">#}
-                                    {#{{ form_widget(form.expense_1_amt, { 'attr': {'class': 'price'} }) }}#}
-                                {#</div>#}
-                                {#<span>#}
-                                    {#$#}
-                                {#</span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_2_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.expense_2_descrip, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_2_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-3">#}
-                                    {#{{ form_widget(form.expense_2_amt, { 'attr': {'class': 'price'} }) }}#}
-                                {#</div>#}
-                                {#<span>#}
-                                    {#$#}
-                                {#</span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_3_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.expense_3_descrip, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_3_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-3">#}
-                                    {#{{ form_widget(form.expense_3_amt, { 'attr': {'class': 'price'} }) }}#}
-                                {#</div>#}
-                                {#<span>#}
-                                    {#$#}
-                                {#</span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_4_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-9">#}
-                                    {#{{ form_widget(form.expense_4_descrip, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.expense_4_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-3">#}
-                                    {#{{ form_widget(form.expense_4_amt, { 'attr': {'class': 'price'} }) }}#}
-                                {#</div>#}
-                                {#<span>#}
-                                    {#$#}
-                                {#</span>#}
-                            {#</div>#}
-                            {#<div class="form-group">#}
-                                {#{{ form_label(form.total_cost, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
-                                {#<div class="col-sm-3">#}
-                                    {#{{ form_widget(form.total_cost, { 'attr': {'class': 'form-control'} }) }}#}
-                                {#</div>#}
-                                {#<span>#}
-                                    {#$#}
-                                {#</span>#}
-                            {#</div>#}
+                        {#{{ form_label(form.invoice_date, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_date, { 'attr': {'class': 'datepicker form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.invoice_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.invoice_amount, { 'attr': {'class': 'form-control price'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.discount1, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.discount1, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.discount2, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.discount2, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.sale_amount, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.sale_amount, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_1_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_1_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_1_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_1_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_2_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_2_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_2_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_2_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_3_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_3_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_3_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_3_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_4_descrip, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-9">#}
+                        {#{{ form_widget(form.expense_4_descrip, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.expense_4_amt, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.expense_4_amt, { 'attr': {'class': 'price'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
+                        {#<div class="form-group">#}
+                        {#{{ form_label(form.total_cost, null, { 'label_attr': {'class': 'col-sm-3'} }) }}#}
+                        {#<div class="col-sm-3">#}
+                        {#{{ form_widget(form.total_cost, { 'attr': {'class': 'form-control'} }) }}#}
+                        {#</div>#}
+                        {#<span>#}
+                        {#$#}
+                        {#</span>#}
+                        {#</div>#}
                         {#</div>#}
                         <div class="box box-info">
                             <div class="box-header with-border">
@@ -377,7 +378,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                                {{ form_label(form.seller_comment_active) }}
+                            {{ form_label(form.seller_comment_active) }}
                             <div class="col-sm-8">
                                 {{ form_widget(form.seller_comment_active) }}
                             </div>

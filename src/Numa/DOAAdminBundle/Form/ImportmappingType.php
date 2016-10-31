@@ -11,7 +11,7 @@ use Numa\DOAAdminBundle\Events\AddFeedSourceSubscriber;
 
 class ImportmappingType extends AbstractType
 {
-    public function __construct($feed_cid = null, $properties = null,$em)
+    public function __construct($feed_cid = null, $properties = null, $em)
     {
         $this->feed_cid = $feed_cid;
         $this->properties = $properties;
@@ -27,8 +27,8 @@ class ImportmappingType extends AbstractType
     {
         $feedCid = $this->feed_cid;
         $categories = array(0);
-        if(!empty($feedCid)){
-            $categories[]=$feedCid;
+        if (!empty($feedCid)) {
+            $categories[] = $feedCid;
         }
         $builder
             ->add('sid')
@@ -38,11 +38,10 @@ class ImportmappingType extends AbstractType
                 array(
                     'class' => 'NumaDOAAdminBundle:Listingfield',
                     'property' => 'caption',
-                    'query_builder' => function ($lr) use ($categories)
-                    {
-                               // echo get_class($lr);
+                    'query_builder' => function ($lr) use ($categories) {
+                        // echo get_class($lr);
                         return $lr->createQueryBuilder('lf')
-                            ->where("lf.category_sid IN (".implode(',', $categories).")")
+                            ->where("lf.category_sid IN (" . implode(',', $categories) . ")")
                             ->orderBy('lf.caption', 'ASC');
                     },
                     'empty_value' => 'Choose an option',
@@ -50,8 +49,7 @@ class ImportmappingType extends AbstractType
                 )
             )
             //->add('id','hidden', array('required' => false,'label'=>' '))
-            ->add('value_map_values','hidden', array('required' => false, 'label'=>' ', 'attr' =>array('class'=>'mapvalue')));
-        ;//->add('feed_sid','hidden');
+            ->add('value_map_values', 'hidden', array('required' => false, 'label' => ' ', 'attr' => array('class' => 'mapvalue')));;//->add('feed_sid','hidden');
         ;
 
 

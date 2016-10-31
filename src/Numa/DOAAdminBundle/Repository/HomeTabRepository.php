@@ -46,9 +46,9 @@ class HomeTabRepository extends EntityRepository
             ->from('NumaDOAAdminBundle:HomeTab', 'ht');
 
 
-        if($dealer_id==null){
+        if ($dealer_id == null) {
             $qb->Where('ht.dealer_id is NULL');
-        }else{
+        } else {
             $qb->Where('ht.dealer_id = :dealer_id');
             $qb->setParameter("dealer_id", $dealer_id);
         }

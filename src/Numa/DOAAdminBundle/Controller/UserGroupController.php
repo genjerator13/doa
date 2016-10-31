@@ -32,6 +32,7 @@ class UserGroupController extends Controller
 
         ));
     }
+
     /**
      * Creates a new UserGroup entity.
      *
@@ -52,22 +53,22 @@ class UserGroupController extends Controller
 
         return $this->render('NumaDOAAdminBundle:UserGroup:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a UserGroup entity.
-    *
-    * @param UserGroup $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createCreateForm(UserGroup $entity,$dashboard="")
+     * Creates a form to create a UserGroup entity.
+     *
+     * @param UserGroup $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(UserGroup $entity, $dashboard = "")
     {
-        $action    = $this->generateUrl('user_group_create');
-        if($dashboard=='DMS'){
-            $action    = $this->generateUrl('dms_user_group_create');
+        $action = $this->generateUrl('user_group_create');
+        if ($dashboard == 'DMS') {
+            $action = $this->generateUrl('dms_user_group_create');
         }
 
         $form = $this->createForm(new UserGroupType(), $entity, array(
@@ -87,11 +88,11 @@ class UserGroupController extends Controller
     public function newAction(Request $request)
     {
         $entity = new UserGroup();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:UserGroup:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -112,8 +113,8 @@ class UserGroupController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:UserGroup:show.html.twig', array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),        ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
@@ -135,26 +136,27 @@ class UserGroupController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:UserGroup:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a UserGroup entity.
-    *
-    * @param UserGroup $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(UserGroup $entity,$dashboard="")
+     * Creates a form to edit a UserGroup entity.
+     *
+     * @param UserGroup $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createEditForm(UserGroup $entity, $dashboard = "")
     {
         $action = $this->generateUrl('user_group_update', array('id' => $entity->getId()));
-        if($dashboard=='DMS'){
+        if ($dashboard == 'DMS') {
             $action = $this->generateUrl('dms_user_group_update', array('id' => $entity->getId()));
         }
-        dump($action);die();
+        dump($action);
+        die();
         $form = $this->createForm(new UserGroupType(), $entity, array(
             'action' => $action,
             'method' => 'POST',
@@ -164,6 +166,7 @@ class UserGroupController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing UserGroup entity.
      *
@@ -185,7 +188,7 @@ class UserGroupController extends Controller
         $editForm->handleRequest($request);
 
         $redirect = $this->redirect($this->generateUrl('user_group_edit', array('id' => $id)));
-        if($dashboard="DMS"){
+        if ($dashboard = "DMS") {
             $redirect = $this->redirect($this->generateUrl('dms_user_group_edit', array('id' => $id)));
         }
 
@@ -196,12 +199,13 @@ class UserGroupController extends Controller
         }
 
         return $this->render('NumaDOAAdminBundle:UserGroup:edit.html.twig', array(
-            'entity'      => $entity,
-            'dashboard'   => $dashboard,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'dashboard' => $dashboard,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a UserGroup entity.
      *
@@ -239,7 +243,6 @@ class UserGroupController extends Controller
             ->setAction($this->generateUrl('user_group_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

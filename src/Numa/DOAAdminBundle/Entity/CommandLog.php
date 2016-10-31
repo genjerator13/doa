@@ -43,7 +43,7 @@ class CommandLog
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -66,7 +66,7 @@ class CommandLog
     /**
      * Get commande
      *
-     * @return string 
+     * @return string
      */
     public function getCommande()
     {
@@ -89,7 +89,7 @@ class CommandLog
     /**
      * Get category
      *
-     * @return string 
+     * @return string
      */
     public function getCategory()
     {
@@ -112,7 +112,7 @@ class CommandLog
     /**
      * Get started_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getStartedAt()
     {
@@ -135,7 +135,7 @@ class CommandLog
     /**
      * Get ended_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getEndedAt()
     {
@@ -158,21 +158,23 @@ class CommandLog
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
         return $this->status;
     }
-    
-     /**
+
+    /**
      * @ORM\PrePersist
      */
-    public function setStartedAtValue() {
+    public function setStartedAtValue()
+    {
         if (!$this->getStartedAt()) {
             $this->started_at = new \DateTime();
         }
     }
+
     /**
      * @var string
      */
@@ -196,15 +198,16 @@ class CommandLog
 
         return $this;
     }
-    
-    public function appendFullDetails($string){
-        $this->setFullDetails($this->getFullDetails()."\n".$string);
+
+    public function appendFullDetails($string)
+    {
+        $this->setFullDetails($this->getFullDetails() . "\n" . $string);
     }
 
     /**
      * Get full_details
      *
-     * @return string 
+     * @return string
      */
     public function getFullDetails()
     {
@@ -227,12 +230,13 @@ class CommandLog
     /**
      * Get full_details_object
      *
-     * @return \stdClass 
+     * @return \stdClass
      */
     public function getFullDetailsObject()
     {
         return $this->full_details_object;
     }
+
     /**
      * @var string
      */
@@ -255,12 +259,13 @@ class CommandLog
     /**
      * Get command
      *
-     * @return string 
+     * @return string
      */
     public function getCommand()
     {
         return $this->command;
     }
+
     /**
      * @var integer
      */
@@ -288,7 +293,7 @@ class CommandLog
     /**
      * Get count
      *
-     * @return integer 
+     * @return integer
      */
     public function getCount()
     {
@@ -311,24 +316,25 @@ class CommandLog
     /**
      * Get current
      *
-     * @return integer 
+     * @return integer
      */
     public function getCurrent()
     {
         return $this->current;
     }
 
-    public function isRunning(){
+    public function isRunning()
+    {
         $running = empty($this->getEndedAt());
         $now = new \DateTime("now");
         $interval = date_diff($this->getStartedAt(), $now);
         $i = intval($interval->format('%i'));
-        
+
         $isRunning = false;
-        if($running){
+        if ($running) {
             $isRunning = true;
         }
-        if($i>10){
+        if ($i > 10) {
             $isRunning = false;
         }
         return $isRunning;

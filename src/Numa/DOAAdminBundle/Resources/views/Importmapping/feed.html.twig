@@ -4,12 +4,13 @@
 
 {% block content %}
 
-    <h3>Mapping {{feed.sid}}</h3>
+    <h3>Mapping {{ feed.sid }}</h3>
     {#{{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_row (form._token) }}
     {{form(form)}}#}
-    <a class="btn btn-danger" href="{{ path('import_mapping_reset', { 'id': feed.id }) }}" data-confirm="Mapping fields will be reset. Are you sure you want to continue?">Reset Mapping</a>
+    <a class="btn btn-danger" href="{{ path('import_mapping_reset', { 'id': feed.id }) }}"
+       data-confirm="Mapping fields will be reset. Are you sure you want to continue?">Reset Mapping</a>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_row (form._token) }}
@@ -19,7 +20,7 @@
             <div class="alert alert-danger" role="alert">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only">Error:</span>
-                {{error}}
+                {{ error }}
             </div>
         {% endfor %}
     {% else %}
@@ -51,10 +52,10 @@
                         {{ form_errors(map.description) }}
                         {{ form_widget(map.description) }}
                     </td>
-                    <td>                    
+                    <td>
                         {{ form_errors(map.ListingField) }}
                         {{ form_widget(map.ListingField) }}
-                    </td>                   
+                    </td>
 
                     <td>
                         {{ form_errors(map.value_map_values) }}
@@ -74,7 +75,8 @@
         <button type='submit' class='btn btn-primary'>Save</button>
         {{ form_end(form) }}
         <!-- Modal -->
-        <div class="modal fade" id="mapvalues" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="mapvalues" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
@@ -95,7 +97,7 @@
             // setup an "add a tag" link
             var $addTagLink = $('<a href="#" class="add_tag_link btn btn-primary">Add new row</a>');
             console.log($addTagLink);
-            jQuery(document).ready(function() {
+            jQuery(document).ready(function () {
                 // add the "add a tag" anchor and li to the tags ul
                 collectionHolder.after($addTagLink);
                 console.log(collectionHolder);
@@ -103,7 +105,7 @@
                 // index when inserting a new item (e.g. 2)
                 collectionHolder.data('index', collectionHolder.find(':input').length);
 
-                $addTagLink.on('click', function(e) {
+                $addTagLink.on('click', function (e) {
                     // prevent the link from creating a "#" on the URL
                     e.preventDefault();
 
@@ -111,7 +113,7 @@
                     addTagForm(collectionHolder, $addTagLink);
                 });
 
-                collectionHolder.find('.remove').click(function() {
+                collectionHolder.find('.remove').click(function () {
                     console.log($(this).closest("tr"));
                     $(this).closest("tr").remove();
                 });
@@ -142,14 +144,17 @@
             }
             var mapinput = null;
             var mapid = null;
-            $(".mapvalues").on("click", function() {
+            $(".mapvalues").on("click", function () {
 
                 mapid = parseInt($(this).closest("tr").attr('data'));
                 mapinput = $(this).closest("tr").find('.mapvalue');
 
                 if (mapid > 0) {
                     $('#addmapvalue').attr('data', mapid);
-                    var jqxhr = $.post("{{path('import_mapping_add_mapvalues')}}", {mapid: mapid, init: 'init'}, function(data) {
+                    var jqxhr = $.post("{{ path('import_mapping_add_mapvalues') }}", {
+                        mapid: mapid,
+                        init: 'init'
+                    }, function (data) {
                         $('#valuemapper-content').append(data);
                     })
                 }
@@ -157,11 +162,11 @@
                 $('#mapvalues').modal();
             });
 
-            $('#addmapvalue').on("click", function() {
+            $('#addmapvalue').on("click", function () {
                 //mapid = $(this).attr('data');
                 if (mapid > 0) {
                     $('#addmapvalue').attr('data', mapid);
-                    var jqxhr = $.post("{{path('import_mapping_add_mapvalues')}}", {mapid: mapid}, function(data) {
+                    var jqxhr = $.post("{{ path('import_mapping_add_mapvalues') }}", {mapid: mapid}, function (data) {
                         console.log(data);
                         $('#valuemapper-content').append(data);
                     })
@@ -169,10 +174,10 @@
 
             });
 
-            $('#savemapvalue').on("click", function(e) {
+            $('#savemapvalue').on("click", function (e) {
                 var jsonRes = {};
                 var key = "";
-                $('.addMappingValue').each(function() {
+                $('.addMappingValue').each(function () {
                     key = $(this).find('.remote-value').val();
                     jsonRes[key] = $(this).find('.local-value').val();
                 });
@@ -186,14 +191,14 @@
                 $('#mapvalues').modal('hide');
             });
             //Cancel button pressed
-            $('#cancelmapvalue').on("click", function() {
+            $('#cancelmapvalue').on("click", function () {
                 $('#valuemapper-content').html("");
                 mapinput = null;
                 mapid = null;
                 $('#mapvalues').modal('hide');
             });
 
-            $('#mapvalues').on('hidden.bs.modal', function() {
+            $('#mapvalues').on('hidden.bs.modal', function () {
                 $('#valuemapper-content').html("");
                 mapinput = null;
                 mapid = null;
@@ -203,8 +208,7 @@
             });
 
             //callback handler for form submit
-            var submitForm = function(form, e)
-            {
+            var submitForm = function (form, e) {
                 var postData = form.serializeArray();
                 var formURL = form.attr("action");
                 $.ajax(
@@ -212,12 +216,10 @@
                             url: formURL,
                             type: "POST",
                             data: postData,
-                            success: function(data, textStatus, jqXHR)
-                            {
+                            success: function (data, textStatus, jqXHR) {
                                 //data: return data from server
                             },
-                            error: function(jqXHR, textStatus, errorThrown)
-                            {
+                            error: function (jqXHR, textStatus, errorThrown) {
                                 //if fails     
                             }
                         });
@@ -225,6 +227,6 @@
                 //e.unbind(); //unbind. to stop multiple form submit.
             };
         </script>
-    {%endif %}
+    {% endif %}
 {% endblock %}
 

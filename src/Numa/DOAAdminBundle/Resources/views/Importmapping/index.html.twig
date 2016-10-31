@@ -5,20 +5,20 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Sid</th>
-                <th>Feed_sid</th>
-                <th>Property</th>
-                <th>Description</th>
-                <th>Field_sid</th>
-                <th>True_value</th>
-                <th>False_value</th>
-                <th>Tree_level</th>
-                <th>Object_type</th>
-                <th>Value_map_values</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Sid</th>
+            <th>Feed_sid</th>
+            <th>Property</th>
+            <th>Description</th>
+            <th>Field_sid</th>
+            <th>True_value</th>
+            <th>False_value</th>
+            <th>Tree_level</th>
+            <th>Object_type</th>
+            <th>Value_map_values</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
@@ -35,25 +35,25 @@
                 <td>{{ entity.objecttype }}</td>
                 <td>{{ entity.valuemapvalues }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('import_mapping_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('import_mapping_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('import_mapping_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('import_mapping_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('import_mapping_new') }}" class="btn btn-primary">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

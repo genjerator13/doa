@@ -9,7 +9,6 @@
 namespace Numa\DOAAdminBundle\Repository;
 
 
-
 use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -25,17 +24,19 @@ class UserRepository extends EntityRepository implements UserProviderInterface, 
      * @var ContainerInterface
      */
     private $container;
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
+
     public function loadUserByUsername($username)
     {
 
         $user = $this->findOneByUsernameOrEmail($username);
 
         if (!$user) {
-            throw new UsernameNotFoundException('No user found for username '.$username);
+            throw new UsernameNotFoundException('No user found for username ' . $username);
         }
 
         return $user;
@@ -74,15 +75,16 @@ class UserRepository extends EntityRepository implements UserProviderInterface, 
             ->getOneOrNullResult();
     }
 
-    public function updatePassword($user,$password){
+    public function updatePassword($user, $password)
+    {
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user);
 
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
 
-        $qb=$this->createQueryBuilder('d')
+        $qb = $this->createQueryBuilder('d')
             ->update()
-            ->set('d.password',':pass')
+            ->set('d.password', ':pass')
             ->where('d.id= :id')
             ->setParameter('pass', $encodedPassword)
             ->setParameter('id', $user->getId());

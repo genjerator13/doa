@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserGroupType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -21,10 +21,9 @@ class UserGroupType extends AbstractType
             ->add('immediate_activation')
             ->add('user_menu_template')
             ->add('initial_balance')
-            ->add('make_user_trusted')
-        ;
+            ->add('make_user_trusted');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

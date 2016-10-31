@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CouponType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -20,12 +20,10 @@ class CouponType extends AbstractType
             ->add('name')
             ->add('originalImage', 'file', array('required' => false, 'data_class' => null))
             ->add('discount')
-            ->add('description',null,array('attr'=>array('maxlength'=>500)))
-
-        ;
+            ->add('description', null, array('attr' => array('maxlength' => 500)));
 
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -15,168 +15,171 @@
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-        <h1>Edit Dealer</h1>
+    <h1>Edit Dealer</h1>
 
-        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-        {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+    {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
 
+    <div class="nav-tabs-custom">
+        <ul class="nav nav-tabs ">
+            <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
+        </ul>
         <div class="nav-tabs-custom">
-            <ul class="nav nav-tabs ">
-                <li role="presentation" class="active"><a data-toggle="tab" href="#details">Profile Details</a></li>
-                <li role="presentation"><a data-toggle="tab" href="#coupons">Coupons</a></li>
-                <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
-                <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
-                <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
-            </ul>
-            <div class="nav-tabs-custom">
-                <div class="tab-content">
-                    <div id="details" class="tab-pane active">
-                        {{ form(edit_form) }}
+            <div class="tab-content">
+                <div id="details" class="tab-pane active">
+                    {{ form(edit_form) }}
 
-                        <ul class="record_actions">
-                            {% if (is_granted('ROLE_ADMIN')) %}
-                                {% if(app.request.get('_dashboard')=='DMS') %}
-                                    <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
-                                       Back to the list
-                                    </a>
-                                {% else %}
-                                    <a href="{{ path('catalogs') }}" class="btn btn-primary">
-                                        Back to the list
-                                    </a>
-                                {% endif %}
-                            {% endif %}
-                        </ul>
-                    </div>
-                    <div id="coupons" class="tab-pane">
-
-                        {{ form_start(coupons_form) }}
-                        {# render the task's only field: description #}
-                        {#{{ form_row(coupons_form.description) }}#}
-
-
-                        <ul class="tags">
-                            {# iterate over each existing tag and render its only field: name #}
-
-                            {% for key,coupon in coupons_form.coupon %}
-
-                                <h4>Coupon {{ (key+1) }}</h4>
-                                <div>{{ form_row(coupon.name) }}</div>
-                                <div>{{ form_row(coupon.discount) }}</div>
-                                <div>{{ form_row(coupon.description) }}</div>
-                                <div>{{ form_row(coupon.originalImage) }}
-                                    {% if coupon.vars.data.photo is not empty %}
-                                        <img src="{{ asset(coupon.vars.data.photo) }}"/>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                        </ul>
-                        {{ form_end(coupons_form) }}
-                    </div>
-                    <div id="site" class="tab-pane">
-
-                        {{ form_start(site_form) }}
-                        {{ form_row(site_form.site_url) }}
-                        {{ form_row(site_form.site_theme) }}
-                        {{ form_row(site_form.site_facebook) }}
-                        {{ form_row(site_form.site_youtube) }}
-                        {{ form_row(site_form.site_google) }}
-                        {{ form_row(site_form.site_twitter) }}
-                        {{ form_row(site_form.site_instagram) }}
-
-                        <button type="submit" class="btn btn-primary">Update</button>
-                        <a class="btn btn-primary" href="{{ path("dms_themes") }}" >Change the Theme</a>
+                    <ul class="record_actions">
                         {% if (is_granted('ROLE_ADMIN')) %}
+                            {% if(app.request.get('_dashboard')=='DMS') %}
+                                <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
+                                    Back to the list
+                                </a>
+                            {% else %}
+                                <a href="{{ path('catalogs') }}" class="btn btn-primary">
+                                    Back to the list
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </ul>
+                </div>
+                <div id="coupons" class="tab-pane">
+
+                    {{ form_start(coupons_form) }}
+                    {# render the task's only field: description #}
+                    {#{{ form_row(coupons_form.description) }}#}
+
+
+                    <ul class="tags">
+                        {# iterate over each existing tag and render its only field: name #}
+
+                        {% for key,coupon in coupons_form.coupon %}
+
+                            <h4>Coupon {{ (key+1) }}</h4>
+                            <div>{{ form_row(coupon.name) }}</div>
+                            <div>{{ form_row(coupon.discount) }}</div>
+                            <div>{{ form_row(coupon.description) }}</div>
+                            <div>{{ form_row(coupon.originalImage) }}
+                                {% if coupon.vars.data.photo is not empty %}
+                                    <img src="{{ asset(coupon.vars.data.photo) }}"/>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </ul>
+                    {{ form_end(coupons_form) }}
+                </div>
+                <div id="site" class="tab-pane">
+
+                    {{ form_start(site_form) }}
+                    {{ form_row(site_form.site_url) }}
+                    {{ form_row(site_form.site_theme) }}
+                    {{ form_row(site_form.site_facebook) }}
+                    {{ form_row(site_form.site_youtube) }}
+                    {{ form_row(site_form.site_google) }}
+                    {{ form_row(site_form.site_twitter) }}
+                    {{ form_row(site_form.site_instagram) }}
+
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a class="btn btn-primary" href="{{ path("dms_themes") }}">Change the Theme</a>
+                    {% if (is_granted('ROLE_ADMIN')) %}
                         <a href="{{ path('dms_catalogs') }}" class="btn btn-primary">
                             Back to the list
                         </a>
-                        {% endif %}
-                        {{ form_rest(site_form) }}
+                    {% endif %}
+                    {{ form_rest(site_form) }}
 
-                        {{ form_end(site_form) }}
+                    {{ form_end(site_form) }}
 
+
+                </div>
+                <div id="component" class="tab-pane">
+                    {% block stylesheets %}
+                        {{ parent() }}
+                        <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"
+                              type="text/css"
+                              rel="stylesheet"/>
+                        {% stylesheets
+                        'css/loading-bar.min.css'
+
+                        filter='cssrewrite' output='css/*.css' %}
+                        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+                        {% endstylesheets %}
+                    {% endblock stylesheets %}
+                    {% block javascripts %}
+                        {{ parent() }}
+                        {% javascripts
+                        '@colorbox_js'
+                        'js/angular/angular143.min.js'
+                        'js/angular/angular-touch143.min.js'
+                        'js/angular/angular-animate143.min.js'
+                        'js/angular/ui-grid.js'
+                        'js/angular/angular-confirm.min.js'
+                        'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+                        'js/loading-bar.min.js' %}
+
+                        <script src="{{ asset_url }}"></script>
+                        {% endjavascripts %}
+                        <script>
+                            {% include 'NumaDOADMSBundle:DealerComponent:dealerComponent.js.twig' %}
+                        </script>
+                    {% endblock javascripts %}
+
+
+
+
+                    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+                    <div class="box">
+                        <div class="box-header">
+                            <div class="box-header">
+                                <h3 class="box-title">DealerComponent list</h3>
+
+                            </div>
+                        </div>
+                        <div class="box-body table-responsive no-padding" ng-app="app">
+
+                            <div ng-controller="MainCtrl">
+                                <script type="text/ng-template" id="myModalContent.html">
+                                    <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+                                </script>
+                                <script type="text/ng-template" id="myModalContent.html">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" aria-hidden="true"
+                                                ng-click="cancel()">&times;</button>
+                                        <h3 class="modal-title">Help</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div ng-bind-html="helpdesc">{[{ help }]}</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </script>
+
+                                <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning
+                                     class="grid"></div>
+                            </div>
+                        </div>
+
+                        {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 
                     </div>
-                    <div id="component" class="tab-pane">
-                        {% block stylesheets %}
-                            {{ parent() }}
-                            <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
-                                  rel="stylesheet"/>
-                            {% stylesheets
-                            'css/loading-bar.min.css'
+                </div>
+                <div id="settings" class="tab-pane">
 
-                            filter='cssrewrite' output='css/*.css' %}
-                            <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
-                            {% endstylesheets %}
-                        {% endblock stylesheets %}
-                        {% block javascripts %}
-                            {{ parent() }}
-                            {% javascripts
-                            '@colorbox_js'
-                            'js/angular/angular143.min.js'
-                            'js/angular/angular-touch143.min.js'
-                            'js/angular/angular-animate143.min.js'
-                            'js/angular/ui-grid.js'
-                            'js/angular/angular-confirm.min.js'
-                            'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-                            'js/loading-bar.min.js' %}
+                    {{ form_start(itemDefaultForm) }}
+                    {{ form_row(itemDefaultForm.default_listing_comment) }}
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    {{ form_rest(itemDefaultForm) }}
 
-                            <script src="{{ asset_url }}"></script>
-                            {% endjavascripts %}
-                            <script>
-                                {% include 'NumaDOADMSBundle:DealerComponent:dealerComponent.js.twig' %}
-                            </script>
-                        {% endblock javascripts %}
-
-
-
-
-                        {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
-
-                        <div class="box">
-                            <div class="box-header">
-                                <div class="box-header">
-                                    <h3 class="box-title">DealerComponent list</h3>
-
-                                </div>
-                            </div>
-                            <div class="box-body table-responsive no-padding" ng-app="app">
-
-                                <div ng-controller="MainCtrl">
-                                    <script type="text/ng-template" id="myModalContent.html">
-                                        <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
-                                    </script>
-                                    <script type="text/ng-template" id="myModalContent.html">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" aria-hidden="true" ng-click="cancel()">&times;</button>
-                                            <h3 class="modal-title">Help</h3>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div ng-bind-html="helpdesc">{[{ help }]}</div>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </script>
-
-                                    <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
-                                </div>
-                            </div>
-
-                            {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
-
-                        </div>
-                        </div>
-                        <div id="settings"  class="tab-pane">
-
-                            {{ form_start(itemDefaultForm) }}
-                            {{ form_row(itemDefaultForm.default_listing_comment) }}
-                            <button type="submit" class="btn btn-primary">Update</button>
-                            {{ form_rest(itemDefaultForm) }}
-
-                            {{ form_end(site_form) }}
-                        </div>
-
+                    {{ form_end(site_form) }}
                 </div>
 
             </div>
+
         </div>
+    </div>
 {% endblock %}
