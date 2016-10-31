@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class UserType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,7 +16,7 @@ class UserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password','password',array('required'=>false))
+            ->add('password', 'password', array('required' => false))
             ->add('email')
             ->add('active')
 //            ->add('activation_key')
@@ -27,18 +27,16 @@ class UserType extends AbstractType
 //            ->add('DealershipName')
             ->add('Address')
             ->add('City')
-            ->add('PostalCode','text',array('label' => "Zip / Postal", "required" => false))
+            ->add('PostalCode', 'text', array('label' => "Zip / Postal", "required" => false))
             ->add('PhoneNumber')
 //            ->add('DealershipWebsite')
 //            ->add('DisplayEmail')
             ->add('State')
-
 //            ->add('DealershipLogo')
 //            ->add('third_party_id')
-            ->add('UserGroup')
-        ;
+            ->add('UserGroup');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

@@ -7,10 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Numa\DOAAdminBundle\Events\AddItemFieldSubscriber;
-class ItemFieldType extends AbstractType {
+
+class ItemFieldType extends AbstractType
+{
 
     protected $em;
-    public function __construct($em=null) {
+
+    public function __construct($em = null)
+    {
         $this->em = $em;
     }
 
@@ -18,21 +22,22 @@ class ItemFieldType extends AbstractType {
      * @param FormBuilderInterface $builder
      * @param array $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
-               // ->add('field_id', 'hidden')
-                ->add('field_name', 'hidden')
-                ->add('field_type', 'hidden')
-                ->add('field_string_value')
-                ->add('field_string_value',null,array('label'=>""))
-        ;
-        $builder->addEventSubscriber(new AddItemFieldSubscriber($this->em));        
+            // ->add('field_id', 'hidden')
+            ->add('field_name', 'hidden')
+            ->add('field_type', 'hidden')
+            ->add('field_string_value')
+            ->add('field_string_value', null, array('label' => ""));
+        $builder->addEventSubscriber(new AddItemFieldSubscriber($this->em));
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
         $resolver->setDefaults(array(
             'data_class' => 'Numa\DOAAdminBundle\Entity\ItemField'
         ));
@@ -41,7 +46,8 @@ class ItemFieldType extends AbstractType {
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'numa_doaadminbundle_itemfield';
     }
 

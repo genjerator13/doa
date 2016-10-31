@@ -17,16 +17,16 @@ class TwigCacheCommand extends ContainerAwareCommand
     {
         $this->setName('kmlf:twig')
             ->setDescription('selectively manage the twig cache')
-
             ->addArgument(
                 'names',
                 InputArgument::IS_ARRAY,
                 'Example AcmeBundle:Section:view.html.twig',
                 null
-            )->addOption('clear','c', InputOption::VALUE_NONE, 'delete cache files' );
+            )->addOption('clear', 'c', InputOption::VALUE_NONE, 'delete cache files');
     }
 
-    public function write($output, $text) {
+    public function write($output, $text)
+    {
         $output->writeln($text);
     }
 
@@ -40,11 +40,11 @@ class TwigCacheCommand extends ContainerAwareCommand
         $actionName = null;
         if ($input->getOption('clear')) {
             $actionName = 'deleting';
-            $action =  function ($fileName) {
+            $action = function ($fileName) {
                 unlink($fileName);
             };
         } else {
-            $actionName="path:";
+            $actionName = "path:";
             $action = function ($filename) {
 
             };
@@ -58,7 +58,7 @@ class TwigCacheCommand extends ContainerAwareCommand
             } else {
                 $fileName = 'not found.';
             }
-            $this->write($output, $actionName.' '.$name."\ncacheFile: ".$fileName);
+            $this->write($output, $actionName . ' ' . $name . "\ncacheFile: " . $fileName);
         }
         $this->write($output, 'Done');
     }

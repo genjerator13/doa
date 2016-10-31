@@ -5,7 +5,8 @@ namespace Numa\DOAAdminBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
-class Importmappings {
+class Importmappings
+{
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -60,7 +61,7 @@ class Importmappings {
 
     public function setFeedSid($test)
     {
-        $this->feed_sid =$test;
+        $this->feed_sid = $test;
     }
 
     public function __toString()

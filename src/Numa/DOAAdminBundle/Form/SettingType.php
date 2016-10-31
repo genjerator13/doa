@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SettingType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -16,11 +16,10 @@ class SettingType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('value','ckeditor')
-            ->add('section')
-        ;
+            ->add('value', 'ckeditor')
+            ->add('section');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

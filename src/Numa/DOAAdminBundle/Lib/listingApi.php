@@ -106,7 +106,7 @@ class listingApi
                 if (substr($image, 0, 4) !== "http") {
                     $image = $host . $image;
                 }
-                $tempImages[]=$image;
+                $tempImages[] = $image;
             }
             $res['images']['image'] = $tempImages;
         }
@@ -135,6 +135,7 @@ class listingApi
         }
         return $res;
     }
+
     public function prepareListingByDealerGroup($dealer_group_id, $category)
     {
         $res = array();
@@ -250,13 +251,13 @@ class listingApi
 
     public static function clearValueForCsv($value)
     {
-        if(is_numeric($value)){
+        if (is_numeric($value)) {
             //dump($item);
-        }elseif(is_string($value)){
-            $value = str_replace('"'," inches ",$value);
-            $value = "\"".$value."\"";
+        } elseif (is_string($value)) {
+            $value = str_replace('"', " inches ", $value);
+            $value = "\"" . $value . "\"";
         }
-        if(is_string($value)) {
+        if (is_string($value)) {
             //$value = strip_tags('<li>', $value);
 
             $value = preg_replace("/<.*?>/", "", $value);

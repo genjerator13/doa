@@ -21,9 +21,11 @@ use Symfony\Component\HttpFoundation\Response;
  * Importmapping controller.
  *
  */
-class ImportmappingController extends Controller implements DashboardDMSControllerInterface {
+class ImportmappingController extends Controller implements DashboardDMSControllerInterface
+{
 
     public $dashboard;
+
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
@@ -33,12 +35,13 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Lists all Importmapping entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
         $entities = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findAll();
         return $this->render('NumaDOAAdminBundle:Importmapping:index.html.twig', array(
-                    'entities' => $entities,
-                    'dashboard' => $this->dashboard,
+            'entities' => $entities,
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -46,7 +49,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Creates a new Importmapping entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Importmapping();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
@@ -60,8 +64,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         }
 
         return $this->render('NumaDOAAdminBundle:Importmapping:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -72,7 +76,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Importmapping $entity) {
+    private function createCreateForm(Importmapping $entity)
+    {
         $form = $this->createForm(new ImportmappingType(), $entity, array(
             'action' => $this->generateUrl('import_mapping_create'),
             'method' => 'POST',
@@ -87,13 +92,14 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Displays a form to create a new Importmapping entity.
      *
      */
-    public function newAction() {
+    public function newAction()
+    {
         $entity = new Importmapping();
         $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:Importmapping:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
+            'entity' => $entity,
+            'form' => $form->createView(),
         ));
     }
 
@@ -101,7 +107,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Finds and displays a Importmapping entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($id);
@@ -113,15 +120,16 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importmapping:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),));
     }
 
     /**
      * Displays a form to edit an existing Importmapping entity.
      *
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($id);
@@ -134,9 +142,9 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importmapping:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -147,7 +155,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Importmapping $entity) {
+    private function createEditForm(Importmapping $entity)
+    {
         $form = $this->createForm(new ImportmappingType(), $entity, array(
             'action' => $this->generateUrl('import_mapping_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -162,7 +171,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Edits an existing Importmapping entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importmapping')->find($id);
@@ -182,9 +192,9 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         }
 
         return $this->render('NumaDOAAdminBundle:Importmapping:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -192,7 +202,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      * Deletes a Importmapping entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -218,16 +229,17 @@ class ImportmappingController extends Controller implements DashboardDMSControll
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('import_mapping_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('import_mapping_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
-    public function feedAction(Request $request = null, $id) {
+    public function feedAction(Request $request = null, $id)
+    {
         $error = array();
         $em = $this->getDoctrine()->getManager();
         //get maping by feedid
@@ -292,13 +304,14 @@ class ImportmappingController extends Controller implements DashboardDMSControll
 
 
         return $this->render('NumaDOAAdminBundle:Importmapping:feed.html.twig', array(
-                    'form' => $collection->createView(),
-                    'feed' => $feed,
-                    'errors' => $error,
+            'form' => $collection->createView(),
+            'feed' => $feed,
+            'errors' => $error,
         ));
     }
 
-    public function fetchAction(Request $request = null, $id) {
+    public function fetchAction(Request $request = null, $id)
+    {
 
         $em = $this->getDoctrine()->getManager();
 
@@ -318,20 +331,22 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         //$process = new \Symfony\Component\Process\Process($command);
         //$process->start();
         $request->getSession()->getFlashBag()
-                ->add('success', 'Feed' . $id . ' added to queue. Click on -Start command Queue- in order to start fetching the feed');
+            ->add('success', 'Feed' . $id . ' added to queue. Click on -Start command Queue- in order to start fetching the feed');
         $action = 'command_log_home';
-        if(!empty($this->dashboard)){
+        if (!empty($this->dashboard)) {
             $action = 'dms_command_log_home';
         }
         return $this->redirectToRoute($action);
     }
 
-    public function renderFetch($items) {
+    public function renderFetch($items)
+    {
         //return "aaaa";
         return $this->render('NumaDOAAdminBundle:Importmapping:fetch.html.twig');
     }
 
-    public function mapvaluesAction(Request $request = null) {
+    public function mapvaluesAction(Request $request = null)
+    {
         $mapid = intval($request->request->get('mapid'));
         $json = array();
         if (!empty($mapid)) {
@@ -345,7 +360,8 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         return $response;
     }
 
-    public function addMapValuesAction(Request $request = null) {
+    public function addMapValuesAction(Request $request = null)
+    {
         $mapid = intval($request->request->get('mapid'));
         $init = $request->request->get('init');
         $first = false;
@@ -370,12 +386,13 @@ class ImportmappingController extends Controller implements DashboardDMSControll
         return $this->render('NumaDOAAdminBundle:Importmapping:addMappingValue.html.twig', array('list' => $listingFieldList, 'mapvalues' => $mapvaluesJson, 'first' => $first));
     }
 
-    public function resetAction(Request $request = null,$id){
+    public function resetAction(Request $request = null, $id)
+    {
 
         $feedId = intval($id);
         $em = $this->getDoctrine()->getManager();
         $em->getRepository('NumaDOAAdminBundle:Importmapping')->resetMappings($feedId);
-        return $this->redirectToRoute("import_mapping_feed",array("id"=>$id));
+        return $this->redirectToRoute("import_mapping_feed", array("id" => $id));
     }
 
 }
