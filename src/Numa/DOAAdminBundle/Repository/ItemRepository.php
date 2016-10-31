@@ -8,6 +8,7 @@ use Numa\DOAAdminBundle\Entity\Importfeed;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 
@@ -677,10 +678,15 @@ class ItemRepository extends EntityRepository
         if ($dealer instanceof Catalogrecords) {
             $suffix .= " and i.dealer_id=" . $dealer->getId();
         }
+
         if (!empty($category)) {
             $suffix .= " and i.category_id=" . $category;
         }
         $sql = "select count(*) as count from item i WHERE i.active=$active and i.sold=$sold" . $suffix;
+        if ($dealer instanceof DealerGroup) {
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE d.dealer_group_id=".$dealer->getId()." and i.active=$active and i.sold=$sold" . $suffix;
+        }
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $res = $stmt->execute();
         $res = $stmt->fetch();
