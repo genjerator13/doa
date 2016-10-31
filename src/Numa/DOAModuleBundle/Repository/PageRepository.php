@@ -4,7 +4,9 @@ namespace Numa\DOAModuleBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Doctrine\Common\Collections\Criteria;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -78,6 +80,34 @@ class PageRepository extends EntityRepository
             ->where('p.dealer_id=:dealer_id')
             ->setParameter('dealer_id', $dealer_id);
         $query = $qb->getQuery();
+        return $query->getResult();
+    }
+
+    public function countByDealer($dealer)
+    {
+
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('p')->distinct()
+            ->add('from', 'NumaDOAModuleBundle:Page p');
+
+        if($dealer instanceof DealerGroup){
+            $qb->Join('NumaDOAAdminBundle:Catalogrecords', 'd');
+            $qb->andWhere('p.dealer_id=d.id');
+            $qb->andWhere('p.dealer_id is not null');
+            $qb->andWhere('d.dealer_group_id=:dealer_group_id')
+                ->setParameter('dealer_group_id', $dealer->getId());
+        }else{
+            $dealer_id=null;
+            if($dealer instanceof Catalogrecords){
+                $dealer_id=$dealer->getId();
+            }
+            $qb->andWhere('p.dealer_id=:dealer_id')
+               ->setParameter('dealer_id', $dealer_id);
+        }
+
+        $query = $qb->getQuery();
+        //dump($query->getSQL());die();
         return $query->getResult();
     }
 
