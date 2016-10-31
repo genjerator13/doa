@@ -5,17 +5,17 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Item_id</th>
-                <th>Field_name</th>
-                <th>Field_type</th>
-                <th>Field_string_value</th>
-                <th>Field_boolean_value</th>
-                <th>Field_integer_value</th>
-                <th>Field_datetime_value</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Item_id</th>
+            <th>Field_name</th>
+            <th>Field_type</th>
+            <th>Field_string_value</th>
+            <th>Field_boolean_value</th>
+            <th>Field_integer_value</th>
+            <th>Field_datetime_value</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
@@ -29,25 +29,25 @@
                 <td>{{ entity.fieldintegervalue }}</td>
                 <td>{% if entity.fielddatetimevalue %}{{ entity.fielddatetimevalue|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('itemfield_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('itemfield_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('itemfield_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('itemfield_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('itemfield_new') }}" class="btn btn-primary">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

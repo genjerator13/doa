@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Importfeed
  */
-class Importfeed {
+class Importfeed
+{
 
     /**
      * @var integer
@@ -167,9 +168,10 @@ class Importfeed {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -179,7 +181,8 @@ class Importfeed {
      * @param string $sid
      * @return Importfeed
      */
-    public function setSid($sid) {
+    public function setSid($sid)
+    {
         $this->sid = $sid;
 
         return $this;
@@ -188,9 +191,10 @@ class Importfeed {
     /**
      * Get sid
      *
-     * @return string 
+     * @return string
      */
-    public function getSid() {
+    public function getSid()
+    {
         return $this->sid;
     }
 
@@ -200,7 +204,8 @@ class Importfeed {
      * @param string $description
      * @return Importfeed
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -209,9 +214,10 @@ class Importfeed {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -221,7 +227,8 @@ class Importfeed {
      * @param string $importFormat
      * @return Importfeed
      */
-    public function setImportFormat($importFormat) {
+    public function setImportFormat($importFormat)
+    {
         $this->import_format = $importFormat;
 
         return $this;
@@ -230,9 +237,10 @@ class Importfeed {
     /**
      * Get import_format
      *
-     * @return string 
+     * @return string
      */
-    public function getImportFormat() {
+    public function getImportFormat()
+    {
         return $this->import_format;
     }
 
@@ -242,7 +250,8 @@ class Importfeed {
      * @param string $delimiter
      * @return Importfeed
      */
-    public function setDelimiter($delimiter) {
+    public function setDelimiter($delimiter)
+    {
         $this->delimiter = $delimiter;
 
         return $this;
@@ -251,9 +260,10 @@ class Importfeed {
     /**
      * Get delimiter
      *
-     * @return string 
+     * @return string
      */
-    public function getDelimiter() {
+    public function getDelimiter()
+    {
         return $this->delimiter;
     }
 
@@ -263,7 +273,8 @@ class Importfeed {
      * @param string $importMethod
      * @return Importfeed
      */
-    public function setImportMethod($importMethod) {
+    public function setImportMethod($importMethod)
+    {
         $this->import_method = $importMethod;
 
         return $this;
@@ -272,9 +283,10 @@ class Importfeed {
     /**
      * Get import_method
      *
-     * @return string 
+     * @return string
      */
-    public function getImportMethod() {
+    public function getImportMethod()
+    {
         return $this->import_method;
     }
 
@@ -284,7 +296,8 @@ class Importfeed {
      * @param string $importSource
      * @return Importfeed
      */
-    public function setImportSource($importSource) {
+    public function setImportSource($importSource)
+    {
         $this->import_source = $importSource;
 
         return $this;
@@ -293,9 +306,10 @@ class Importfeed {
     /**
      * Get import_source
      *
-     * @return string 
+     * @return string
      */
-    public function getImportSource() {
+    public function getImportSource()
+    {
         return $this->import_source;
     }
 
@@ -305,7 +319,8 @@ class Importfeed {
      * @param string $rootNode
      * @return Importfeed
      */
-    public function setRootNode($rootNode) {
+    public function setRootNode($rootNode)
+    {
         $this->root_node = $rootNode;
 
         return $this;
@@ -314,9 +329,10 @@ class Importfeed {
     /**
      * Get root_node
      *
-     * @return string 
+     * @return string
      */
-    public function getRootNode() {
+    public function getRootNode()
+    {
         return $this->root_node;
     }
 
@@ -326,7 +342,8 @@ class Importfeed {
      * @param integer $listingType
      * @return Importfeed
      */
-    public function setListingType($listingType) {
+    public function setListingType($listingType)
+    {
         $this->listing_type = $listingType;
 
         return $this;
@@ -335,9 +352,10 @@ class Importfeed {
     /**
      * Get listing_type
      *
-     * @return integer 
+     * @return integer
      */
-    public function getListingType() {
+    public function getListingType()
+    {
         return $this->listing_type;
     }
 
@@ -347,7 +365,8 @@ class Importfeed {
      * @param string $defaultUser
      * @return Importfeed
      */
-    public function setDefaultUser($defaultUser) {
+    public function setDefaultUser($defaultUser)
+    {
         $this->default_user = $defaultUser;
 
         return $this;
@@ -356,9 +375,10 @@ class Importfeed {
     /**
      * Get default_user
      *
-     * @return string 
+     * @return string
      */
-    public function getDefaultUser() {
+    public function getDefaultUser()
+    {
         return $this->default_user;
     }
 
@@ -368,7 +388,8 @@ class Importfeed {
      * @param boolean $notifyOnUserRegistration
      * @return Importfeed
      */
-    public function setNotifyOnUserRegistration($notifyOnUserRegistration) {
+    public function setNotifyOnUserRegistration($notifyOnUserRegistration)
+    {
         $this->notify_on_user_registration = $notifyOnUserRegistration;
 
         return $this;
@@ -377,9 +398,10 @@ class Importfeed {
     /**
      * Get notify_on_user_registration
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getNotifyOnUserRegistration() {
+    public function getNotifyOnUserRegistration()
+    {
         return $this->notify_on_user_registration;
     }
 
@@ -389,7 +411,8 @@ class Importfeed {
      * @param string $optionsKey
      * @return Importfeed
      */
-    public function setOptionsKey($optionsKey) {
+    public function setOptionsKey($optionsKey)
+    {
         $this->options_key = $optionsKey;
 
         return $this;
@@ -398,9 +421,10 @@ class Importfeed {
     /**
      * Get options_key
      *
-     * @return string 
+     * @return string
      */
-    public function getOptionsKey() {
+    public function getOptionsKey()
+    {
         return $this->options_key;
     }
 
@@ -410,7 +434,8 @@ class Importfeed {
      * @param string $optionsSeparator
      * @return Importfeed
      */
-    public function setOptionsSeparator($optionsSeparator) {
+    public function setOptionsSeparator($optionsSeparator)
+    {
         $this->options_separator = $optionsSeparator;
 
         return $this;
@@ -419,9 +444,10 @@ class Importfeed {
     /**
      * Get options_separator
      *
-     * @return string 
+     * @return string
      */
-    public function getOptionsSeparator() {
+    public function getOptionsSeparator()
+    {
         return $this->options_separator;
     }
 
@@ -431,7 +457,8 @@ class Importfeed {
      * @param string $defaultPackage
      * @return Importfeed
      */
-    public function setDefaultPackage($defaultPackage) {
+    public function setDefaultPackage($defaultPackage)
+    {
         $this->default_package = $defaultPackage;
 
         return $this;
@@ -440,9 +467,10 @@ class Importfeed {
     /**
      * Get default_package
      *
-     * @return string 
+     * @return string
      */
-    public function getDefaultPackage() {
+    public function getDefaultPackage()
+    {
         return $this->default_package;
     }
 
@@ -452,7 +480,8 @@ class Importfeed {
      * @param string $picturesKey
      * @return Importfeed
      */
-    public function setPicturesKey($picturesKey) {
+    public function setPicturesKey($picturesKey)
+    {
         $this->pictures_key = $picturesKey;
 
         return $this;
@@ -461,9 +490,10 @@ class Importfeed {
     /**
      * Get pictures_key
      *
-     * @return string 
+     * @return string
      */
-    public function getPicturesKey() {
+    public function getPicturesKey()
+    {
         return $this->pictures_key;
     }
 
@@ -473,7 +503,8 @@ class Importfeed {
      * @param string $picturesSeparator
      * @return Importfeed
      */
-    public function setPicturesSeparator($picturesSeparator) {
+    public function setPicturesSeparator($picturesSeparator)
+    {
         $this->pictures_separator = $picturesSeparator;
 
         return $this;
@@ -482,9 +513,10 @@ class Importfeed {
     /**
      * Get pictures_separator
      *
-     * @return string 
+     * @return string
      */
-    public function getPicturesSeparator() {
+    public function getPicturesSeparator()
+    {
         return $this->pictures_separator;
     }
 
@@ -494,7 +526,8 @@ class Importfeed {
      * @param boolean $activateListing
      * @return Importfeed
      */
-    public function setActivateListing($activateListing) {
+    public function setActivateListing($activateListing)
+    {
         $this->activate_listing = $activateListing;
 
         return $this;
@@ -503,9 +536,10 @@ class Importfeed {
     /**
      * Get activate_listing
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getActivateListing() {
+    public function getActivateListing()
+    {
         return $this->activate_listing;
     }
 
@@ -515,7 +549,8 @@ class Importfeed {
      * @param boolean $makeFeatured
      * @return Importfeed
      */
-    public function setMakeFeatured($makeFeatured) {
+    public function setMakeFeatured($makeFeatured)
+    {
         $this->make_featured = $makeFeatured;
 
         return $this;
@@ -524,9 +559,10 @@ class Importfeed {
     /**
      * Get make_featured
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getMakeFeatured() {
+    public function getMakeFeatured()
+    {
         return $this->make_featured;
     }
 
@@ -536,7 +572,8 @@ class Importfeed {
      * @param boolean $makeHighlighted
      * @return Importfeed
      */
-    public function setMakeHighlighted($makeHighlighted) {
+    public function setMakeHighlighted($makeHighlighted)
+    {
         $this->make_highlighted = $makeHighlighted;
 
         return $this;
@@ -545,9 +582,10 @@ class Importfeed {
     /**
      * Get make_highlighted
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getMakeHighlighted() {
+    public function getMakeHighlighted()
+    {
         return $this->make_highlighted;
     }
 
@@ -557,7 +595,8 @@ class Importfeed {
      * @param boolean $makeSlideshow
      * @return Importfeed
      */
-    public function setMakeSlideshow($makeSlideshow) {
+    public function setMakeSlideshow($makeSlideshow)
+    {
         $this->make_slideshow = $makeSlideshow;
 
         return $this;
@@ -566,9 +605,10 @@ class Importfeed {
     /**
      * Get make_slideshow
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getMakeSlideshow() {
+    public function getMakeSlideshow()
+    {
         return $this->make_slideshow;
     }
 
@@ -578,7 +618,8 @@ class Importfeed {
      * @param boolean $makeYoutubevideo
      * @return Importfeed
      */
-    public function setMakeYoutubevideo($makeYoutubevideo) {
+    public function setMakeYoutubevideo($makeYoutubevideo)
+    {
         $this->make_youtubevideo = $makeYoutubevideo;
 
         return $this;
@@ -587,9 +628,10 @@ class Importfeed {
     /**
      * Get make_youtubevideo
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getMakeYoutubevideo() {
+    public function getMakeYoutubevideo()
+    {
         return $this->make_youtubevideo;
     }
 
@@ -599,7 +641,8 @@ class Importfeed {
      * @param boolean $addOptions
      * @return Importfeed
      */
-    public function setAddOptions($addOptions) {
+    public function setAddOptions($addOptions)
+    {
         $this->add_options = $addOptions;
 
         return $this;
@@ -608,9 +651,10 @@ class Importfeed {
     /**
      * Get add_options
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getAddOptions() {
+    public function getAddOptions()
+    {
         return $this->add_options;
     }
 
@@ -620,7 +664,8 @@ class Importfeed {
      * @param boolean $addListValues
      * @return Importfeed
      */
-    public function setAddListValues($addListValues) {
+    public function setAddListValues($addListValues)
+    {
         $this->add_list_values = $addListValues;
 
         return $this;
@@ -629,9 +674,10 @@ class Importfeed {
     /**
      * Get add_list_values
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getAddListValues() {
+    public function getAddListValues()
+    {
         return $this->add_list_values;
     }
 
@@ -641,7 +687,8 @@ class Importfeed {
      * @param boolean $addTreeValues
      * @return Importfeed
      */
-    public function setAddTreeValues($addTreeValues) {
+    public function setAddTreeValues($addTreeValues)
+    {
         $this->add_tree_values = $addTreeValues;
 
         return $this;
@@ -650,9 +697,10 @@ class Importfeed {
     /**
      * Get add_tree_values
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getAddTreeValues() {
+    public function getAddTreeValues()
+    {
         return $this->add_tree_values;
     }
 
@@ -662,7 +710,8 @@ class Importfeed {
      * @param string $uniqueField
      * @return Importfeed
      */
-    public function setUniqueField($uniqueField) {
+    public function setUniqueField($uniqueField)
+    {
         $this->unique_field = $uniqueField;
 
         return $this;
@@ -671,9 +720,10 @@ class Importfeed {
     /**
      * Get unique_field
      *
-     * @return string 
+     * @return string
      */
-    public function getUniqueField() {
+    public function getUniqueField()
+    {
         return $this->unique_field;
     }
 
@@ -683,7 +733,8 @@ class Importfeed {
      * @param boolean $updateOnMatch
      * @return Importfeed
      */
-    public function setUpdateOnMatch($updateOnMatch) {
+    public function setUpdateOnMatch($updateOnMatch)
+    {
         $this->update_on_match = $updateOnMatch;
 
         return $this;
@@ -692,9 +743,10 @@ class Importfeed {
     /**
      * Get update_on_match
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getUpdateOnMatch() {
+    public function getUpdateOnMatch()
+    {
         return $this->update_on_match;
     }
 
@@ -704,7 +756,8 @@ class Importfeed {
      * @param integer $expirationAfter
      * @return Importfeed
      */
-    public function setExpirationAfter($expirationAfter) {
+    public function setExpirationAfter($expirationAfter)
+    {
         $this->expiration_after = $expirationAfter;
 
         return $this;
@@ -713,9 +766,10 @@ class Importfeed {
     /**
      * Get expiration_after
      *
-     * @return integer 
+     * @return integer
      */
-    public function getExpirationAfter() {
+    public function getExpirationAfter()
+    {
         return $this->expiration_after;
     }
 
@@ -725,7 +779,8 @@ class Importfeed {
      * @param \DateTime $updatedOn
      * @return Importfeed
      */
-    public function setUpdatedOn($updatedOn) {
+    public function setUpdatedOn($updatedOn)
+    {
         $this->updated_on = $updatedOn;
 
         return $this;
@@ -734,9 +789,10 @@ class Importfeed {
     /**
      * Get updated_on
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getUpdatedOn() {
+    public function getUpdatedOn()
+    {
         return $this->updated_on;
     }
 
@@ -746,7 +802,8 @@ class Importfeed {
      * @param string $userType
      * @return Importfeed
      */
-    public function setUserType($userType) {
+    public function setUserType($userType)
+    {
         $this->user_type = $userType;
 
         return $this;
@@ -755,9 +812,10 @@ class Importfeed {
     /**
      * Get user_type
      *
-     * @return string 
+     * @return string
      */
-    public function getUserType() {
+    public function getUserType()
+    {
         return $this->user_type;
     }
 
@@ -767,7 +825,8 @@ class Importfeed {
      * @param string $userUniqueField
      * @return Importfeed
      */
-    public function setUserUniqueField($userUniqueField) {
+    public function setUserUniqueField($userUniqueField)
+    {
         $this->user_unique_field = $userUniqueField;
 
         return $this;
@@ -776,9 +835,10 @@ class Importfeed {
     /**
      * Get user_unique_field
      *
-     * @return string 
+     * @return string
      */
-    public function getUserUniqueField() {
+    public function getUserUniqueField()
+    {
         return $this->user_unique_field;
     }
 
@@ -788,7 +848,8 @@ class Importfeed {
      * @param \Numa\DOAAdminBundle\Entity\Category $category
      * @return Importfeed
      */
-    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null) {
+    public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null)
+    {
         $this->Category = $category;
 
         return $this;
@@ -797,28 +858,32 @@ class Importfeed {
     /**
      * Get Category
      *
-     * @return \Numa\DOAAdminBundle\Entity\Category 
+     * @return \Numa\DOAAdminBundle\Entity\Category
      */
-    public function getCategory() {
+    public function getCategory()
+    {
         return $this->Category;
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue() {
+    public function setCreatedAtValue()
+    {
         // Add your code here
     }
 
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue() {
+    public function setUpdatedAtValue()
+    {
         // Add your code here
     }
 
-    public function __toString() {
-        return $this->getSid()."";
+    public function __toString()
+    {
+        return $this->getSid() . "";
     }
 
     /**
@@ -832,7 +897,8 @@ class Importfeed {
      * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $user
      * @return Importfeed
      */
-    public function setUser(\Numa\DOAAdminBundle\Entity\Catalogrecords $user = null) {
+    public function setUser(\Numa\DOAAdminBundle\Entity\Catalogrecords $user = null)
+    {
         $this->User = $user;
 
         return $this;
@@ -841,9 +907,10 @@ class Importfeed {
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
-    public function getUser() {
+    public function getUser()
+    {
         return $this->User;
     }
 
@@ -858,7 +925,8 @@ class Importfeed {
      * @param string $importSourceFile
      * @return Importfeed
      */
-    public function setImportSourceFile($importSourceFile) {
+    public function setImportSourceFile($importSourceFile)
+    {
         $this->import_source_file = $importSourceFile;
 
         return $this;
@@ -867,27 +935,32 @@ class Importfeed {
     /**
      * Get import_source_file
      *
-     * @return string 
+     * @return string
      */
-    public function getImportSourceFile() {
+    public function getImportSourceFile()
+    {
         return $this->import_source_file;
     }
 
-    public function getAbsolutePath() {
+    public function getAbsolutePath()
+    {
         return null === $this->import_source ? null : $this->getUploadRootDir() . '/' . $this->import_source;
     }
 
-    public function getWebPath() {
+    public function getWebPath()
+    {
         return null === $this->import_source ? null : $this->getUploadDir() . '/' . $this->import_source;
     }
 
-    protected function getUploadRootDir() {
+    protected function getUploadRootDir()
+    {
         // the absolute directory path where uploaded
         // documents should be saved
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
-    protected function getUploadDir() {
+    protected function getUploadDir()
+    {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
         return 'upload/feeds';
@@ -900,7 +973,8 @@ class Importfeed {
      *
      * @param UploadedFile $file
      */
-    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null) {
+    public function setFileImportSource(\Symfony\Component\HttpFoundation\File\UploadedFile $file_import_source = null)
+    {
         $this->file_import_source = $file_import_source;
     }
 
@@ -909,11 +983,13 @@ class Importfeed {
      *
      * @return UploadedFile
      */
-    public function getFileImportSource() {
+    public function getFileImportSource()
+    {
         return $this->file_import_source;
     }
 
-    public function upload() {
+    public function upload()
+    {
         // the file property can be empty if the field is not required
         if (null === $this->getFileImportSource()) {
             return;
@@ -924,7 +1000,7 @@ class Importfeed {
         // move takes the target directory and then the
         // target filename to move to
         $this->getFileImportSource()->move(
-                $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
+            $this->getUploadRootDir(), $this->getFileImportSource()->getClientOriginalName()
         );
 
         // set the path property to the filename where you've saved the file
@@ -949,19 +1025,20 @@ class Importfeed {
     public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
     {
         $this->Dealer = $dealer;
-    
+
         return $this;
     }
 
     /**
      * Get Dealer
      *
-     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords 
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
      */
     public function getDealer()
     {
         return $this->Dealer;
     }
+
     /**
      * @var string
      */
@@ -977,19 +1054,20 @@ class Importfeed {
     public function setDelimiterx($delimiterx)
     {
         $this->delimiterx = $delimiterx;
-    
+
         return $this;
     }
 
     /**
      * Get delimiterx
      *
-     * @return string 
+     * @return string
      */
     public function getDelimiterx()
     {
         return $this->delimiterx;
     }
+
     /**
      * @var integer
      */
@@ -1005,19 +1083,20 @@ class Importfeed {
     public function setDealerId($dealerId)
     {
         $this->dealer_id = $dealerId;
-    
+
         return $this;
     }
 
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId()
     {
         return $this->dealer_id;
     }
+
     /**
      * @var boolean
      */
@@ -1033,19 +1112,20 @@ class Importfeed {
     public function setPhotoFeed($photoFeed)
     {
         $this->photo_feed = $photoFeed;
-    
+
         return $this;
     }
 
     /**
      * Get photo_feed
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPhotoFeed()
     {
         return $this->photo_feed;
     }
+
     /**
      * @var boolean
      */
@@ -1060,19 +1140,20 @@ class Importfeed {
      */
     public function setPicturesSaveLocaly($picturesSaveLocaly)
     {
-        $this->pictures_save_localy = $picturesSaveLocaly;    
+        $this->pictures_save_localy = $picturesSaveLocaly;
         return $this;
     }
 
     /**
      * Get pictures_save_localy
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getPicturesSaveLocaly()
     {
         return $this->pictures_save_localy;
     }
+
     /**
      * @var string
      */
@@ -1100,7 +1181,7 @@ class Importfeed {
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -1123,12 +1204,13 @@ class Importfeed {
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
         return $this->password;
     }
+
     /**
      * @var bool
      */
@@ -1158,6 +1240,7 @@ class Importfeed {
     {
         return $this->autogenerate_seo;
     }
+
     /**
      * @var bool
      */

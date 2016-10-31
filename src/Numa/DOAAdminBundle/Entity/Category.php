@@ -83,7 +83,7 @@ class Category
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -99,14 +99,14 @@ class Category
     public function setSid($sid)
     {
         $this->sid = $sid;
-    
+
         return $this;
     }
 
     /**
      * Get sid
      *
-     * @return string 
+     * @return string
      */
     public function getSid()
     {
@@ -122,14 +122,14 @@ class Category
     public function setParent($parent)
     {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
     /**
      * Get parent
      *
-     * @return integer 
+     * @return integer
      */
     public function getParent()
     {
@@ -145,14 +145,14 @@ class Category
     public function setOrder($order)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
      * Get order
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrder()
     {
@@ -168,14 +168,14 @@ class Category
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -191,14 +191,14 @@ class Category
     public function setInputTemplate($inputTemplate)
     {
         $this->input_template = $inputTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get input_template
      *
-     * @return string 
+     * @return string
      */
     public function getInputTemplate()
     {
@@ -214,14 +214,14 @@ class Category
     public function setSearchTemplate($searchTemplate)
     {
         $this->search_template = $searchTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get search_template
      *
-     * @return string 
+     * @return string
      */
     public function getSearchTemplate()
     {
@@ -237,14 +237,14 @@ class Category
     public function setSearchResultTemplate($searchResultTemplate)
     {
         $this->search_result_template = $searchResultTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get search_result_template
      *
-     * @return string 
+     * @return string
      */
     public function getSearchResultTemplate()
     {
@@ -260,14 +260,14 @@ class Category
     public function setViewTemplate($viewTemplate)
     {
         $this->view_template = $viewTemplate;
-    
+
         return $this;
     }
 
     /**
      * Get view_template
      *
-     * @return string 
+     * @return string
      */
     public function getViewTemplate()
     {
@@ -283,14 +283,14 @@ class Category
     public function setBrowsingSettings($browsingSettings)
     {
         $this->browsing_settings = $browsingSettings;
-    
+
         return $this;
     }
 
     /**
      * Get browsing_settings
      *
-     * @return string 
+     * @return string
      */
     public function getBrowsingSettings()
     {
@@ -306,14 +306,14 @@ class Category
     public function setListingCaptionTemplateContent($listingCaptionTemplateContent)
     {
         $this->listing_caption_template_content = $listingCaptionTemplateContent;
-    
+
         return $this;
     }
 
     /**
      * Get listing_caption_template_content
      *
-     * @return string 
+     * @return string
      */
     public function getListingCaptionTemplateContent()
     {
@@ -329,14 +329,14 @@ class Category
     public function setLastModified($lastModified)
     {
         $this->last_modified = $lastModified;
-    
+
         return $this;
     }
 
     /**
      * Get last_modified
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastModified()
     {
@@ -352,19 +352,20 @@ class Category
     public function setListingUrlSeoData($listingUrlSeoData)
     {
         $this->listing_url_seo_data = $listingUrlSeoData;
-    
+
         return $this;
     }
 
     /**
      * Get listing_url_seo_data
      *
-     * @return string 
+     * @return string
      */
     public function getListingUrlSeoData()
     {
         return $this->listing_url_seo_data;
     }
+
     /**
      * @var integer
      */
@@ -380,14 +381,14 @@ class Category
     public function setCategoryorder($categoryorder)
     {
         $this->categoryorder = $categoryorder;
-    
+
         return $this;
     }
 
     /**
      * Get categoryorder
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoryorder()
     {
@@ -397,7 +398,6 @@ class Category
      * @var \Doctrine\Common\Collections\Collection
      */
 
-    
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -446,7 +446,8 @@ class Category
         return $this->Catalogrecords;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getName();
     }
 }

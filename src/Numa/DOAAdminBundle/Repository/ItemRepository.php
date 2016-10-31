@@ -296,8 +296,8 @@ class ItemRepository extends EntityRepository
     {
         //$sql = "SELECT * FROM item";
         $dealers = $dealer_id;
-        if(is_array($dealer_id)){
-            $dealers = implode(",",$dealer_id);
+        if (is_array($dealer_id)) {
+            $dealers = implode(",", $dealer_id);
         }
 
         $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id JOIN sale s ON i.sale_id = s.id GROUP BY i.id ORDER BY i.id DESC";
@@ -718,10 +718,10 @@ class ItemRepository extends EntityRepository
         if ($cat == 1) {
             $qb->andWhere('i.body_style like :body_style');
             $qb->setParameter('body_style', $type);
-        }elseif ($cat == 13) {
+        } elseif ($cat == 13) {
             $qb->andWhere('i.ag_application like :ag_application');
             $qb->setParameter('ag_application', $type);
-        }else {
+        } else {
             $qb->andWhere('i.type like :type');
             $qb->setParameter('type', $type);
 
@@ -758,7 +758,7 @@ class ItemRepository extends EntityRepository
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.cover_photo', "'".$src."'")
+                ->set('i.cover_photo', "'" . $src . "'")
                 ->where('i.id=' . $item_id);
             $qb->getQuery()->execute();
         }
@@ -772,7 +772,7 @@ class ItemRepository extends EntityRepository
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $res = $stmt->execute();
         $res = $stmt->fetch();
-        if(!empty($res['field_string_value'])){
+        if (!empty($res['field_string_value'])) {
             return $res['field_string_value'];
         }
         return "";

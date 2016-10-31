@@ -53,7 +53,7 @@ class UserSearch
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,14 +69,14 @@ class UserSearch
     public function setUserId($userId)
     {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -92,14 +92,14 @@ class UserSearch
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -115,14 +115,14 @@ class UserSearch
     public function setSearchType($searchType)
     {
         $this->search_type = $searchType;
-    
+
         return $this;
     }
 
     /**
      * Get search_type
      *
-     * @return integer 
+     * @return integer
      */
     public function getSearchType()
     {
@@ -138,14 +138,14 @@ class UserSearch
     public function setSearchUrl($searchUrl)
     {
         $this->search_url = $searchUrl;
-    
+
         return $this;
     }
 
     /**
      * Get search_url
      *
-     * @return string 
+     * @return string
      */
     public function getSearchUrl()
     {
@@ -161,14 +161,14 @@ class UserSearch
     public function setDateCreated($dateCreated)
     {
         $this->date_created = $dateCreated;
-    
+
         return $this;
     }
 
     /**
      * Get date_created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -184,14 +184,14 @@ class UserSearch
     public function setDateUpdated($dateUpdated)
     {
         $this->date_updated = $dateUpdated;
-    
+
         return $this;
     }
 
     /**
      * Get date_updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateUpdated()
     {
@@ -207,14 +207,14 @@ class UserSearch
     public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
     {
         $this->User = $user;
-    
+
         return $this;
     }
 
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\User 
+     * @return \Numa\DOAAdminBundle\Entity\User
      */
     public function getUser()
     {
@@ -236,6 +236,7 @@ class UserSearch
     {
         // Add your code here
     }
+
     /**
      * @var string
      */
@@ -251,14 +252,14 @@ class UserSearch
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

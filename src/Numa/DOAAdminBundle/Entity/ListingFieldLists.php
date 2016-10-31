@@ -38,7 +38,7 @@ class ListingFieldLists
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -54,14 +54,14 @@ class ListingFieldLists
     public function setListingFieldId($listingFieldId)
     {
         $this->listing_field_id = $listingFieldId;
-    
+
         return $this;
     }
 
     /**
      * Get listing_field_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getListingFieldId()
     {
@@ -77,14 +77,14 @@ class ListingFieldLists
     public function setOrder($order)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
      * Get order
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrder()
     {
@@ -100,14 +100,14 @@ class ListingFieldLists
     public function setValue($value)
     {
         $this->value = $value;
-    
+
         return $this;
     }
 
     /**
      * Get value
      *
-     * @return string 
+     * @return string
      */
     public function getValue()
     {
@@ -123,23 +123,25 @@ class ListingFieldLists
     public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
     {
         $this->Listingfield = $listingfield;
-    
+
         return $this;
     }
 
     /**
      * Get Listingfield
      *
-     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
+     * @return \Numa\DOAAdminBundle\Entity\Listingfield
      */
     public function getListingfield()
     {
         return $this->Listingfield;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getValue();
     }
+
     /**
      * @var string
      */

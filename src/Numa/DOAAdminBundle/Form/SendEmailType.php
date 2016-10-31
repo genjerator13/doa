@@ -34,7 +34,7 @@ class SendEmailType extends AbstractType implements ContainerAwareInterface
             ->add('last_name', 'text')
             ->add('email', 'email')
             ->add('dealer', 'hidden')
-          ->add('captcha', 'genemu_captcha',array('mapped' => false,));
+            ->add('captcha', 'genemu_captcha', array('mapped' => false,));
 
 //            ->add('button',  new asbt($this->container))
 //            ->addEventListener(FormEvents::POST_BIND, function(FormEvent $event) use($container) {
@@ -51,6 +51,7 @@ class SendEmailType extends AbstractType implements ContainerAwareInterface
 //
 //        ;
     }
+
     /**
      * @return string
      */

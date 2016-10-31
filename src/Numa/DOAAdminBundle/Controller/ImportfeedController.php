@@ -12,25 +12,29 @@ use Numa\DOAAdminBundle\Form\ImportfeedType;
  * Importfeed controller.
  *
  */
-class ImportfeedController extends Controller implements DashboardDMSControllerInterface {
+class ImportfeedController extends Controller implements DashboardDMSControllerInterface
+{
 
     public $dashboard;
+
     public function initializeDashboard($dashboard)
     {
         $this->dashboard = $dashboard;
     }
+
     /**
      * Lists all Importfeed entities.
      *
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('NumaDOAAdminBundle:Importfeed')->findAll();
 
         return $this->render('NumaDOAAdminBundle:Importfeed:index.html.twig', array(
-                    'entities' => $entities,
-                    'dashboard' => $this->dashboard,
+            'entities' => $entities,
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -38,7 +42,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Creates a new Importfeed entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request)
+    {
         $entity = new Importfeed();
         $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
@@ -49,18 +54,18 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
             $entity->upload();
             $em->persist($entity);
             $em->flush();
-            $this->addFlash("success","Feed #".$entity->getId()." successfully created.");
+            $this->addFlash("success", "Feed #" . $entity->getId() . " successfully created.");
             $redirect = 'importfeed';
-            if($dashboard =='DMS'){
+            if ($dashboard == 'DMS') {
                 $redirect = 'dms_importfeed';
             }
             return $this->redirect($this->generateUrl($redirect));
         }
 
         return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'dashboard' => $this->dashboard,
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -71,9 +76,10 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Importfeed $entity) {
+    private function createCreateForm(Importfeed $entity)
+    {
         $action = 'importfeed_create';
-        if(!empty($this->dashboard)){
+        if (!empty($this->dashboard)) {
             $action = 'dms_importfeed_create';
         }
         $form = $this->createForm(new ImportfeedType(), $entity, array(
@@ -90,15 +96,16 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Displays a form to create a new Importfeed entity.
      *
      */
-    public function newAction(Request $request) {
+    public function newAction(Request $request)
+    {
         $entity = new Importfeed();
         $dashboard = $request->get('_dashboard');
         $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'dashboard' =>$dashboard,
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'dashboard' => $dashboard,
         ));
     }
 
@@ -106,7 +113,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Finds and displays a Importfeed entity.
      *
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -118,16 +126,17 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:show.html.twig', array(
-                    'entity' => $entity,
-                    'delete_form' => $deleteForm->createView(),
-            ));
+            'entity' => $entity,
+            'delete_form' => $deleteForm->createView(),
+        ));
     }
 
     /**
      * Displays a form to edit an existing Importfeed entity.
      *
      */
-    public function editAction($id, Request $request) {
+    public function editAction($id, Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -136,14 +145,14 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
             throw $this->createNotFoundException('Unable to find Importfeed entity.');
         }
 
-        $editForm = $this->createEditForm($entity,$this->dashboard);
+        $editForm = $this->createEditForm($entity, $this->dashboard);
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
-                    'dashboard' => $this->dashboard,
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -154,10 +163,11 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Importfeed $entity) {
+    private function createEditForm(Importfeed $entity)
+    {
         $action = 'importfeed_update';
 
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $action = 'dms_importfeed_update';
         }
 
@@ -175,7 +185,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Edits an existing Importfeed entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -196,19 +207,19 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
             //}
 
             $em->flush();
-            $this->addFlash("success",$entity->getSid()." is seccesfully updated.");
+            $this->addFlash("success", $entity->getSid() . " is seccesfully updated.");
             $redirect = 'importfeed';
-            if(strtoupper($this->dashboard) =='DMS'){
+            if (strtoupper($this->dashboard) == 'DMS') {
                 $redirect = 'dms_importfeed';
             }
             return $this->redirect($this->generateUrl($redirect));
-        } 
+        }
 
         return $this->render('NumaDOAAdminBundle:Importfeed:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'delete_form' => $deleteForm->createView(),
-                    'dashboard' => $this->dashboard,
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'delete_form' => $deleteForm->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -216,7 +227,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Deletes a Importfeed entity.
      *
      */
-    public function deleteAction(Request $request, $id) {
+    public function deleteAction(Request $request, $id)
+    {
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
@@ -232,7 +244,7 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
             $em->flush();
         }
         $redirect = 'importfeed';
-        if(strtoupper($this->dashboard) =='DMS'){
+        if (strtoupper($this->dashboard) == 'DMS') {
             $redirect = 'dms_importfeed';
         }
         return $this->redirect($this->generateUrl($redirect));
@@ -242,7 +254,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      * Deletes all Importfeed listings.
      *
      */
-    public function deleteItemsAction(Request $request, $id) {
+    public function deleteItemsAction(Request $request, $id)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
@@ -268,13 +281,13 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($id) {
+    private function createDeleteForm($id)
+    {
         return $this->createFormBuilder()
-                        ->setAction($this->generateUrl('importfeed_delete', array('id' => $id)))
-                        ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Delete'))
-                        ->getForm()
-        ;
+            ->setAction($this->generateUrl('importfeed_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
     }
 
 }

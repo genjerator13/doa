@@ -5,72 +5,72 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Sid</th>
-                <td>{{ entity.sid }}</td>
-            </tr>
-            <tr>
-                <th>Parent</th>
-                <td>{{ entity.parent }}</td>
-            </tr>
-            <tr>
-                <th>Order</th>
-                <td>{{ entity.order }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ entity.name }}</td>
-            </tr>
-            <tr>
-                <th>Input_template</th>
-                <td>{{ entity.inputtemplate }}</td>
-            </tr>
-            <tr>
-                <th>Search_template</th>
-                <td>{{ entity.searchtemplate }}</td>
-            </tr>
-            <tr>
-                <th>Search_result_template</th>
-                <td>{{ entity.searchresulttemplate }}</td>
-            </tr>
-            <tr>
-                <th>View_template</th>
-                <td>{{ entity.viewtemplate }}</td>
-            </tr>
-            <tr>
-                <th>Browsing_settings</th>
-                <td>{{ entity.browsingsettings }}</td>
-            </tr>
-            <tr>
-                <th>Listing_caption_template_content</th>
-                <td>{{ entity.listingcaptiontemplatecontent }}</td>
-            </tr>
-            <tr>
-                <th>Last_modified</th>
-                <td>{{ entity.lastmodified|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Listing_url_seo_data</th>
-                <td>{{ entity.listingurlseodata }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Sid</th>
+            <td>{{ entity.sid }}</td>
+        </tr>
+        <tr>
+            <th>Parent</th>
+            <td>{{ entity.parent }}</td>
+        </tr>
+        <tr>
+            <th>Order</th>
+            <td>{{ entity.order }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
+        </tr>
+        <tr>
+            <th>Input_template</th>
+            <td>{{ entity.inputtemplate }}</td>
+        </tr>
+        <tr>
+            <th>Search_template</th>
+            <td>{{ entity.searchtemplate }}</td>
+        </tr>
+        <tr>
+            <th>Search_result_template</th>
+            <td>{{ entity.searchresulttemplate }}</td>
+        </tr>
+        <tr>
+            <th>View_template</th>
+            <td>{{ entity.viewtemplate }}</td>
+        </tr>
+        <tr>
+            <th>Browsing_settings</th>
+            <td>{{ entity.browsingsettings }}</td>
+        </tr>
+        <tr>
+            <th>Listing_caption_template_content</th>
+            <td>{{ entity.listingcaptiontemplatecontent }}</td>
+        </tr>
+        <tr>
+            <th>Last_modified</th>
+            <td>{{ entity.lastmodified|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Listing_url_seo_data</th>
+            <td>{{ entity.listingurlseodata }}</td>
+        </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('categories') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('categories_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('categories') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('categories_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

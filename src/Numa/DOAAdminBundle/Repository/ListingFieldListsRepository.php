@@ -57,11 +57,11 @@ class ListingFieldListsRepository extends EntityRepository
      * @return array
      * returns all the listing list for the requested listing field
      */
-    public function findAllByListingField($listing_field_id,$order="ASC")
+    public function findAllByListingField($listing_field_id, $order = "ASC")
     {
-        $order="ASC";
-        if(strtoupper($order)=="DESC"){
-            $order="DESC";
+        $order = "ASC";
+        if (strtoupper($order) == "DESC") {
+            $order = "DESC";
         }
         $qb = $this->getEntityManager()
             ->createQueryBuilder();

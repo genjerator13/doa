@@ -9,7 +9,7 @@
 ? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 :(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
 
-{%  set routePrefix="" %}
+{% set routePrefix="" %}
 {% if(dashboard is defined and dashboard is not empty) %}
     {% set routePrefix=dashboard|lower~"_" %}
 {% endif %}
@@ -26,17 +26,17 @@
             {% for entity in entities %}
 
                 <li><a href="{{ path(routePrefix~'items_new', { 'cat_id': entity.id }) }}">
-                {% if(entity.name =="Car")  %}
-                <span class="icon_tab icon_Vehicle"></span>
-                {% elseif(entity.name =="Marine") %}
-                <span class="icon_tab icon_Marine"></span>
-                {% elseif(entity.name =="Motorsport") %}
-                <span class="icon_tab icon_Motorsport"></span>
-                {% elseif(entity.name =="RVs") %}
-                <span class="icon_tab icon_RVs"></span>
-                {% elseif(entity.name =="Ag") %}
-                <span class="icon_tab icon_Ag"></span>
-                {% endif %}<span class="tab_text">{{ entity.name }}</span></a></li>
+                        {% if(entity.name =="Car") %}
+                        <span class="icon_tab icon_Vehicle"></span>
+                    {% elseif(entity.name =="Marine") %}
+                        <span class="icon_tab icon_Marine"></span>
+                    {% elseif(entity.name =="Motorsport") %}
+                        <span class="icon_tab icon_Motorsport"></span>
+                    {% elseif(entity.name =="RVs") %}
+                        <span class="icon_tab icon_RVs"></span>
+                    {% elseif(entity.name =="Ag") %}
+                        <span class="icon_tab icon_Ag"></span>
+                        {% endif %}<span class="tab_text">{{ entity.name }}</span></a></li>
             {% endfor %}
         </ul>
     </div>

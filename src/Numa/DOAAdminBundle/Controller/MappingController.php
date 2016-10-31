@@ -9,7 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
  * Mapping controller.
  *
  */
-class MappingController extends Controller {
+class MappingController extends Controller
+{
 
     const URL = "Link-URL";
     const XML = "XML";
@@ -18,19 +19,21 @@ class MappingController extends Controller {
     var $XMLproperties = array();
     var $properties = array();
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('NumaDOAAdminBundle:Mapping:index.html.twig');
     }
 
-    public function mappingAction($id) {
+    public function mappingAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entityImportFeed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($id);
         $this->getXMLFeed($entityImportFeed);
         $query = $em->createQuery(
-                'SELECT lf FROM NumaDOAAdminBundle:Listingfield lf WHERE lf.category_sid  in (0,11)');
+            'SELECT lf FROM NumaDOAAdminBundle:Listingfield lf WHERE lf.category_sid  in (0,11)');
         //$listingFields = $entityImportFeed->getListingFields();
         $listingFiellds = $query->getArrayResult();
         if (!$entityImportFeed) {
@@ -38,13 +41,14 @@ class MappingController extends Controller {
         }
 
         return $this->render('NumaDOAAdminBundle:Mapping:index.html.twig', array(
-                    'entity' => $entityImportFeed,
-                    'properties' => $this->properties,
-                    'dbProperties' => $listingFiellds,
+            'entity' => $entityImportFeed,
+            'properties' => $this->properties,
+            'dbProperties' => $listingFiellds,
         ));
     }
 
-    public function getXMLFeed(\Numa\DOAAdminBundle\Entity\Importfeed $entity) {
+    public function getXMLFeed(\Numa\DOAAdminBundle\Entity\Importfeed $entity)
+    {
         $source = $entity->getImportSource();
         $category = $entity->getCategory();
         if (self::URL == $entity->getImportMethod()) {
@@ -59,7 +63,7 @@ class MappingController extends Controller {
                     }
                 }
             }
-        }elseif (self::CSV == $entity->getImportFormat()) {
+        } elseif (self::CSV == $entity->getImportFormat()) {
             $row = fgetcsv($entity->getImportSource());
             //set the properties from header
             foreach ($row as $hCell) {
@@ -68,7 +72,8 @@ class MappingController extends Controller {
         }
     }
 
-    public function getCSVFeed(\Numa\DOAAdminBundle\Entity\Importfeed $entity) {
+    public function getCSVFeed(\Numa\DOAAdminBundle\Entity\Importfeed $entity)
+    {
         $source = $entity->getImportSource();
         $category = $entity->getCategory();
         //if (self::URL == $entity->getImportMethod()) {

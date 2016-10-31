@@ -12,17 +12,17 @@
     </form>
     {#{{ form(form) }}#}
 
-        <ul class="list-inline">
-    <li>
-        {% if(app.request.get('_dashboard')=='DMS') %}
-            <a href="{{ path('dms_imagecarousel') }}" class="btn btn-primary">
-                Back to the carousel
-            </a>
-        {% else %}
-            <a href="{{ path('imagecarousel') }}" class="btn btn-primary">
-                Back to the carousel
-            </a>
-        {% endif %}
-    </li>
-</ul>
+    <ul class="list-inline">
+        <li>
+            {% if(app.request.get('_dashboard')=='DMS') %}
+                <a href="{{ path('dms_imagecarousel') }}" class="btn btn-primary">
+                    Back to the carousel
+                </a>
+            {% else %}
+                <a href="{{ path('imagecarousel') }}" class="btn btn-primary">
+                    Back to the carousel
+                </a>
+            {% endif %}
+        </li>
+    </ul>
 {% endblock %}

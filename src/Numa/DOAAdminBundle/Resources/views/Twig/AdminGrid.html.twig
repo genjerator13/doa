@@ -1,7 +1,7 @@
 {% extends 'APYDataGridBundle::blocks.html.twig' %}
 {% block grid_pager %}
     {% if pagerfanta %}
-        <div class="pager row" >
+        <div class="pager row">
             <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
                 {{ grid_pagerfanta(grid) }}
             </div>
@@ -9,10 +9,10 @@
     {% endif %}
     <div class="pager row">
         <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
-        {{ grid_pager_totalcount(grid) }}
-        {{ grid_pager_selectpage(grid) }}
-        {{ grid_pager_results_perpage(grid) }}
-         </div>
+            {{ grid_pager_totalcount(grid) }}
+            {{ grid_pager_selectpage(grid) }}
+            {{ grid_pager_results_perpage(grid) }}
+        </div>
     </div>
 
 {% endblock grid_pager %}

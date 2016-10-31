@@ -20,7 +20,7 @@ class ImageCarouselRepository extends EntityRepository
             $qb->Where('ic.dealer_id like :dealer_id');
 
             $qb->setParameter("dealer_id", $user->getId());
-        }else{
+        } else {
             $qb->andWhere('ic.dealer_id is null');
         }
         $qb->andWhere('ic.component_id is null');

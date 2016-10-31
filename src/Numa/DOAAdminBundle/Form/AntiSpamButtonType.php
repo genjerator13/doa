@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Form;
+
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;

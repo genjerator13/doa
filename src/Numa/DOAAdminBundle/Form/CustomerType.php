@@ -8,7 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CustomerType extends AbstractType
 {
-        /**
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -26,10 +26,9 @@ class CustomerType extends AbstractType
             ->add('mobile_phone')
             ->add('fax')
             ->add('email')
-            ->add('notes')
-        ;
+            ->add('notes');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */

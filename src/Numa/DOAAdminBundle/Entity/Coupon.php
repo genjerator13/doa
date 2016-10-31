@@ -1,7 +1,9 @@
 <?php
 
 namespace Numa\DOAAdminBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Coupon
  */
@@ -215,7 +217,8 @@ class Coupon
     /**
      * @ORM\PrePersist
      */
-    public function setCreatedAtValue() {
+    public function setCreatedAtValue()
+    {
         if (!$this->getUpdatedAt()) {
             $this->setCreatedAt(new \DateTime());
             $this->setUpdatedAt(new \DateTime());
@@ -225,9 +228,11 @@ class Coupon
     /**
      * @ORM\PreUpdate
      */
-    public function setUpdatedAtValue() {
+    public function setUpdatedAtValue()
+    {
         $this->date_updated = new \DateTime();
     }
+
     /**
      * @var integer
      */
@@ -290,7 +295,7 @@ class Coupon
     public function getUploadRootDir()
     {
         // absolute path to your directory where images must be saved
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
     public function getUploadDir()
@@ -300,12 +305,12 @@ class Coupon
 
     public function getAbsolutePath()
     {
-        return null === $this->image ? null : $this->getUploadRootDir().'/'.$this->image;
+        return null === $this->image ? null : $this->getUploadRootDir() . '/' . $this->image;
     }
 
     public function getWebPath()
     {
-        return null === $this->image ? null : '/'.$this->getUploadDir().'/'.$this->image;
+        return null === $this->image ? null : '/' . $this->getUploadDir() . '/' . $this->image;
     }
 
     /**
@@ -337,6 +342,7 @@ class Coupon
     {
         return $this->originalImage;
     }
+
     /**
      * Get file.
      *
@@ -360,23 +366,25 @@ class Coupon
         // move takes the target directory and then the
         // target filename to move to
         dump($this->getUploadRootDir());
-        if(!file_exists($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId())){
+        if (!file_exists($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId())) {
 
-            mkdir($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(),0775,true);
+            mkdir($this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(), 0775, true);
         }
 
         $this->getOriginalImage()->move(
-            $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(), "coupon".$this->getId().".".$this->getOriginalImage()->getClientOriginalExtension()
+            $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId(), "coupon" . $this->getId() . "." . $this->getOriginalImage()->getClientOriginalExtension()
         );
 
         // set the path property to the filename where you've saved the file
 
-        $this->photo = $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId()."/coupon".$this->getId().".".$this->getOriginalImage()->getClientOriginalExtension();
+        $this->photo = $this->getUploadDir() . "/" . $this->getCatalogrecords()->getId() . "/coupon" . $this->getId() . "." . $this->getOriginalImage()->getClientOriginalExtension();
 
         // clean up the file property as you won't need it anymore
         $this->originalImage = null;
     }
-    public function isEmpty(){
+
+    public function isEmpty()
+    {
 //        if (empty($this->getPhoto()) && empty($this->getDescription()) && empty($this->$discount)){
 //            return false;
 //        }

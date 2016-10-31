@@ -91,11 +91,11 @@ class Listingfield
     {
         $this->ImportMapping = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -111,14 +111,14 @@ class Listingfield
     public function setSid($sid)
     {
         $this->sid = $sid;
-    
+
         return $this;
     }
 
     /**
      * Get sid
      *
-     * @return string 
+     * @return string
      */
     public function getSid()
     {
@@ -134,14 +134,14 @@ class Listingfield
     public function setCategorySid($categorySid)
     {
         $this->category_sid = $categorySid;
-    
+
         return $this;
     }
 
     /**
      * Get category_sid
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategorySid()
     {
@@ -157,14 +157,14 @@ class Listingfield
     public function setOrder($order)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
      * Get order
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrder()
     {
@@ -180,14 +180,14 @@ class Listingfield
     public function setCaption($caption)
     {
         $this->caption = $caption;
-    
+
         return $this;
     }
 
     /**
      * Get caption
      *
-     * @return string 
+     * @return string
      */
     public function getCaption()
     {
@@ -203,14 +203,14 @@ class Listingfield
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -226,14 +226,14 @@ class Listingfield
     public function setIsRequired($isRequired)
     {
         $this->is_required = $isRequired;
-    
+
         return $this;
     }
 
     /**
      * Get is_required
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsRequired()
     {
@@ -249,14 +249,14 @@ class Listingfield
     public function setMinimum($minimum)
     {
         $this->minimum = $minimum;
-    
+
         return $this;
     }
 
     /**
      * Get minimum
      *
-     * @return string 
+     * @return string
      */
     public function getMinimum()
     {
@@ -272,14 +272,14 @@ class Listingfield
     public function setMaximum($maximum)
     {
         $this->maximum = $maximum;
-    
+
         return $this;
     }
 
     /**
      * Get maximum
      *
-     * @return string 
+     * @return string
      */
     public function getMaximum()
     {
@@ -295,14 +295,14 @@ class Listingfield
     public function setSignsNum($signsNum)
     {
         $this->signs_num = $signsNum;
-    
+
         return $this;
     }
 
     /**
      * Get signs_num
      *
-     * @return integer 
+     * @return integer
      */
     public function getSignsNum()
     {
@@ -318,14 +318,14 @@ class Listingfield
     public function setMaxlength($maxlength)
     {
         $this->maxlength = $maxlength;
-    
+
         return $this;
     }
 
     /**
      * Get maxlength
      *
-     * @return string 
+     * @return string
      */
     public function getMaxlength()
     {
@@ -341,14 +341,14 @@ class Listingfield
     public function setMaxFileSize($maxFileSize)
     {
         $this->max_file_size = $maxFileSize;
-    
+
         return $this;
     }
 
     /**
      * Get max_file_size
      *
-     * @return string 
+     * @return string
      */
     public function getMaxFileSize()
     {
@@ -364,14 +364,14 @@ class Listingfield
     public function setLevelsIds($levelsIds)
     {
         $this->levels_ids = $levelsIds;
-    
+
         return $this;
     }
 
     /**
      * Get levels_ids
      *
-     * @return string 
+     * @return string
      */
     public function getLevelsIds()
     {
@@ -387,14 +387,14 @@ class Listingfield
     public function setLevelsCaptions($levelsCaptions)
     {
         $this->levels_captions = $levelsCaptions;
-    
+
         return $this;
     }
 
     /**
      * Get levels_captions
      *
-     * @return string 
+     * @return string
      */
     public function getLevelsCaptions()
     {
@@ -410,7 +410,7 @@ class Listingfield
     public function addImportMapping(\Numa\DOAAdminBundle\Entity\Importmapping $importMapping)
     {
         $this->ImportMapping[] = $importMapping;
-    
+
         return $this;
     }
 
@@ -427,16 +427,18 @@ class Listingfield
     /**
      * Get ImportMapping
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImportMapping()
     {
         return $this->ImportMapping;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getCaption();
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -452,7 +454,7 @@ class Listingfield
     public function addItemField(\Numa\DOAAdminBundle\Entity\ItemField $itemField)
     {
         $this->ItemField[] = $itemField;
-    
+
         return $this;
     }
 
@@ -469,7 +471,7 @@ class Listingfield
     /**
      * Get ItemField
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getItemField()
     {
@@ -491,7 +493,7 @@ class Listingfield
     public function addListingFieldList(\Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists)
     {
         $this->ListingFieldLists[] = $listingFieldLists;
-    
+
         return $this;
     }
 
@@ -508,12 +510,13 @@ class Listingfield
     /**
      * Get ListingFieldLists
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getListingFieldLists()
     {
         return $this->ListingFieldLists;
     }
+
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -578,6 +581,7 @@ class Listingfield
     {
         return $this->api_caption;
     }
+
     /**
      * @var boolean
      */

@@ -5,104 +5,104 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Sid</th>
-                <td>{{ entity.sid }}</td>
-            </tr>
-            <tr>
-                <th>Feed_id</th>
-                <td>{{ entity.feedid }}</td>
-            </tr>
-            <tr>
-                <th>Category_id</th>
-                <td>{{ entity.categoryid }}</td>
-            </tr>
-            <tr>
-                <th>User_id</th>
-                <td>{{ entity.userid }}</td>
-            </tr>
-            <tr>
-                <th>Active</th>
-                <td>{{ entity.active }}</td>
-            </tr>
-            <tr>
-                <th>Moderation_status</th>
-                <td>{{ entity.moderationstatus }}</td>
-            </tr>
-            <tr>
-                <th>Keywords</th>
-                <td>{{ entity.keywords }}</td>
-            </tr>
-            <tr>
-                <th>Featured</th>
-                <td>{{ entity.featured }}</td>
-            </tr>
-            <tr>
-                <th>Views</th>
-                <td>{{ entity.views }}</td>
-            </tr>
-            <tr>
-                <th>Pictures</th>
-                <td>{{ entity.pictures }}</td>
-            </tr>
-            <tr>
-                <th>Activation_date</th>
-                <td>{{ entity.activationdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Expiration_date</th>
-                <td>{{ entity.expirationdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Featured_last_showed</th>
-                <td>{{ entity.featuredlastshowed|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_created</th>
-                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Auto_extend</th>
-                <td>{{ entity.autoextend }}</td>
-            </tr>
-            <tr>
-                <th>Feature_highlighted</th>
-                <td>{{ entity.featurehighlighted }}</td>
-            </tr>
-            <tr>
-                <th>Feature_slideshow</th>
-                <td>{{ entity.featureslideshow }}</td>
-            </tr>
-            <tr>
-                <th>Feature_youtube</th>
-                <td>{{ entity.featureyoutube }}</td>
-            </tr>
-            <tr>
-                <th>Last_user_ip</th>
-                <td>{{ entity.lastuserip }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Sid</th>
+            <td>{{ entity.sid }}</td>
+        </tr>
+        <tr>
+            <th>Feed_id</th>
+            <td>{{ entity.feedid }}</td>
+        </tr>
+        <tr>
+            <th>Category_id</th>
+            <td>{{ entity.categoryid }}</td>
+        </tr>
+        <tr>
+            <th>User_id</th>
+            <td>{{ entity.userid }}</td>
+        </tr>
+        <tr>
+            <th>Active</th>
+            <td>{{ entity.active }}</td>
+        </tr>
+        <tr>
+            <th>Moderation_status</th>
+            <td>{{ entity.moderationstatus }}</td>
+        </tr>
+        <tr>
+            <th>Keywords</th>
+            <td>{{ entity.keywords }}</td>
+        </tr>
+        <tr>
+            <th>Featured</th>
+            <td>{{ entity.featured }}</td>
+        </tr>
+        <tr>
+            <th>Views</th>
+            <td>{{ entity.views }}</td>
+        </tr>
+        <tr>
+            <th>Pictures</th>
+            <td>{{ entity.pictures }}</td>
+        </tr>
+        <tr>
+            <th>Activation_date</th>
+            <td>{{ entity.activationdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Expiration_date</th>
+            <td>{{ entity.expirationdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Featured_last_showed</th>
+            <td>{{ entity.featuredlastshowed|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_created</th>
+            <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_updated</th>
+            <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Auto_extend</th>
+            <td>{{ entity.autoextend }}</td>
+        </tr>
+        <tr>
+            <th>Feature_highlighted</th>
+            <td>{{ entity.featurehighlighted }}</td>
+        </tr>
+        <tr>
+            <th>Feature_slideshow</th>
+            <td>{{ entity.featureslideshow }}</td>
+        </tr>
+        <tr>
+            <th>Feature_youtube</th>
+            <td>{{ entity.featureyoutube }}</td>
+        </tr>
+        <tr>
+            <th>Last_user_ip</th>
+            <td>{{ entity.lastuserip }}</td>
+        </tr>
         </tbody>
     </table>
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('items') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>
-        <a href="{{ path('items_edit', { 'id': entity.id }) }}">
-            Edit
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('items') }}">
+                Back to the list
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('items_edit', { 'id': entity.id }) }}">
+                Edit
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
 {% endblock %}

@@ -8,27 +8,26 @@ use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
-class MappingRepository extends EntityRepository {
-    
-     /* @param integer $user_id
+class MappingRepository extends EntityRepository
+{
+
+    /* @param integer $user_id
      * @return \Numa\DOAAdminBundle\Entity\Item
      */
-    
-    public function findMapRow($feed_id,$remoteProperty) {
+
+    public function findMapRow($feed_id, $remoteProperty)
+    {
         $feed_id = intval($feed_id);
         $qb = $this->getEntityManager()
-                ->createQueryBuilder();
+            ->createQueryBuilder();
         $qb->select('m')->distinct()
-                ->add('from', 'NumaDOAAdminBundle:Importmapping m')
+            ->add('from', 'NumaDOAAdminBundle:Importmapping m')
+            ->where('m.feed_sid=:feed_id')
+            ->andWhere('m.property like :property')
+            ->setParameter('feed_id', $feed_id)
+            ->setParameter('property', "" . $remoteProperty . "")
+            ->setMaxResults(1);
 
-                ->where('m.feed_sid=:feed_id')
-                ->andWhere('m.property like :property')
-                ->setParameter('feed_id', $feed_id)
-                ->setParameter('property', "" . $remoteProperty . "")
-
-                ->setMaxResults(1)
-        ;
-            
         $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
         //\Doctrine\Common\Util\Debug::dump($feed_id);
         //\Doctrine\Common\Util\Debug::dump($remoteProperty);
@@ -36,16 +35,15 @@ class MappingRepository extends EntityRepository {
         return $itemsQuery->getOneOrNullResult();
     }
 
-    public function resetMappings($feedId){
+    public function resetMappings($feedId)
+    {
         $feedId = intval($feedId);
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->delete('m')
             ->add('from', 'NumaDOAAdminBundle:Importmapping m')
-
             ->where('m.feed_sid=:feed_id')
-            ->setParameter('feed_id', $feedId)
-        ;
+            ->setParameter('feed_id', $feedId);
 
         $itemsQuery = $qb->getQuery();
         $itemsQuery->execute();

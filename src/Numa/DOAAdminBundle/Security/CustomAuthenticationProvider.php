@@ -10,8 +10,10 @@
 
 namespace Numa\DOAAdminBundle\Security;
 
-use Numa\DOAAdminBundle\NumaDOAAdminBundle;use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Security;use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Numa\DOAAdminBundle\NumaDOAAdminBundle;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -41,7 +43,8 @@ class CustomAuthenticationProvider extends UserAuthenticationProvider
         $providerKey,
         EncoderFactoryInterface $encoderFactory,
         $hideUserNotFoundExceptions = true
-    ) {
+    )
+    {
         parent::__construct($userChecker, $providerKey, $hideUserNotFoundExceptions);
         $this->encoderFactory = $encoderFactory;
         $this->userProvider = $userProvider;

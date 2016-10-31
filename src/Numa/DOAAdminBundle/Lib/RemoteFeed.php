@@ -148,8 +148,7 @@ class RemoteFeed extends ContainerAware
                         $ch = curl_init();
                         curl_setopt($ch, CURLOPT_URL, $handleSource);
                         $dir = dirname($local_file);
-                        if (!is_dir($dir))
-                        {
+                        if (!is_dir($dir)) {
                             mkdir($dir, 0755, true);
                         }
                         $fp = fopen($local_file, 'w');
@@ -242,7 +241,6 @@ class RemoteFeed extends ContainerAware
             $this->items = json_decode(json_encode((array)$xml_obj), 1);
 
 
-
             if (!empty($rootNode)) {
 
                 $c = 0;
@@ -318,12 +316,11 @@ class RemoteFeed extends ContainerAware
                 $ch = curl_init();
                 curl_setopt($ch, CURLOPT_URL, $handleSource);
                 $dir = dirname($local_file);
-                if (!is_dir($dir))
-                {
+                if (!is_dir($dir)) {
                     mkdir($dir, 0755, true);
                 }
                 $fp = fopen($local_file, 'w');
-                
+
                 curl_setopt($ch, CURLOPT_FILE, $fp);
                 curl_exec($ch);
                 curl_close($ch);
@@ -350,10 +347,10 @@ class RemoteFeed extends ContainerAware
                             $tmp[trim($value)] = $row[trim($key)];
 
                         }
-                        if($tmp['Mileage']){
-                            $tmp['Mileage'] = str_replace(",","",$tmp['Mileage']);
+                        if ($tmp['Mileage']) {
+                            $tmp['Mileage'] = str_replace(",", "", $tmp['Mileage']);
                         }
-                        
+
                         $this->items[] = $tmp;
                     } else {
                         $header = $row;

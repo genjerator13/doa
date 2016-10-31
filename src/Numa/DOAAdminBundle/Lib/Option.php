@@ -13,32 +13,40 @@
  */
 
 namespace Numa\DOAAdminBundle\Lib;
-class Option {
+class Option
+{
     private $value;
     private $name;
     private $order;
-    
-    public function setValue($value){
+
+    public function setValue($value)
+    {
         $this->value = $value;
     }
-    
-    public function setName($name){
+
+    public function setName($name)
+    {
         $this->name = $name;
     }
-    
-    public function setOrder($order){
+
+    public function setOrder($order)
+    {
         $this->order = $order;
     }
-    
-    public function getValue(){
+
+    public function getValue()
+    {
         return $this->value;
     }
-    
-    public function getName(){
+
+    public function getName()
+    {
         return $this->name;
     }
-    public function getOrder(){
+
+    public function getOrder()
+    {
         return $this->order;
     }
-    
+
 }
