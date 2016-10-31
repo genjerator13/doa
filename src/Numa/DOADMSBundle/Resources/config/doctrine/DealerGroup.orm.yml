@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\DealerGroup:
     type: entity
     table: dealer_group
-#    repositoryClass: Numa\DOADMSBundle\Repository\DealerGroupRepository
+    repositoryClass: Numa\DOADMSBundle\Repository\DealerGroupRepository
     id:
         id:
             type: integer
@@ -18,7 +18,7 @@ Numa\DOADMSBundle\Entity\DealerGroup:
         email:
             type: string
             length: 255
-            nullable: true
+            unique: true
         status:
             type: string
             length: 255

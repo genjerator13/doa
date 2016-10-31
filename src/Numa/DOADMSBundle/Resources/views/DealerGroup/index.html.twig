@@ -1,4 +1,4 @@
-    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
 {% block content -%}
 
@@ -6,16 +6,16 @@
     <div class="box-header">
         <h3 class="box-title">DealerGroup list</h3>
         <div class="box-tools">
-            
-                        <a href="{{ path('dealergroup_new') }}" class="btn btn-primary">
-                            Create a new Dealer Group
-                        </a>
-                    </div>
+
+            <a href="{{ path('dealergroup_new') }}" class="btn btn-primary">
+                Create a new Dealer Group
+            </a>
+        </div>
         {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
-        <thead>
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Username</th>
@@ -25,26 +25,32 @@
                 <th>Date_created</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('dealergroup_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.username }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.status }}</td>
-                <td>{{ entity.Dealer|join(', ') }}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d') }}{% endif %}</td>
-                <td><ul>
-        <li>
-            <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
-        </li>
-</ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('dealergroup_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.username }}</td>
+                    <td>{{ entity.email }}</td>
+                    <td>{{ entity.status }}</td>
+                    <td>{{ entity.Dealer|join(', ') }}</td>
+                    <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d') }}{% endif %}</td>
+                    <td>
+                        <ul class="">
+                            <li>
+                                <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-primary"><i
+                                            class="glyphicon glyphicon-edit"></i>Edit</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('dealergroup_delete', { 'id': entity.id }) }}" class="btn btn-primary"><i
+                                            class="glyphicon glyphicon-edit"></i>Delete</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-{% endblock %}
+    {% endblock %}

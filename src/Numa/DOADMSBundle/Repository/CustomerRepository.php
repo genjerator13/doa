@@ -24,6 +24,24 @@ class CustomerRepository extends EntityRepository {
 
         return $res;
     }
+
+    public function findByDealerGroupId($dealer_group_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('cust')
+
+            ->add('from', 'NumaDOADMSBundle:Customer cust')
+            ->innerJoin('NumaDOAAdminBundle:Catalogrecords', 'd', "WITH", "d.id=cust.dealer_id")
+            ->where("d.dealer_group_id=:dealer_group_id")
+            ->andWhere("cust.status NOT LIKE 'deleted' OR cust.status IS NULL")
+            ->setParameter('dealer_group_id', $dealer_group_id);
+
+        $res = $qb->getQuery()->getResult();
+
+        return $res;
+    }
+
+
     public function findAllNotDeleted(){
         $qb = $this->getEntityManager()
             ->createQueryBuilder();

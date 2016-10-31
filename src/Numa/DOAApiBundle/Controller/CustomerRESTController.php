@@ -48,4 +48,19 @@ class CustomerRESTController extends Controller
 
         return $customer;
     }
+
+    /**
+     * @Rest\View
+     */
+    public function byDealerPrincipalAction($dealer_group_id)
+    {
+
+        $customer = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Customer')->findByDealerGroupId($dealer_group_id);
+         //dump($customer);die();
+        if (!$customer) {
+            //throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+
+        return $customer;
+    }
 }
