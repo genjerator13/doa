@@ -44,6 +44,7 @@ class DmsUserLib
         }
         return $dealer;
     }
+
     public function getSignedDealer()
     {
         $dealer = $this->getSignedUser();
@@ -55,6 +56,21 @@ class DmsUserLib
         if($dealer instanceof DMSUser ){
             return $dealer->getDealer();
         }
+
+        if($dealer instanceof DealerGroup ){
+            return $dealer;
+        }
+        return null;
+    }
+
+    public function getSignedDealerPrincipal()
+    {
+        $principal = $this->container->get('security.token_storage')->getToken()->getUser();
+
+        if($principal instanceof DealerGroup ){
+            return $principal;
+        }
+
         return null;
     }
 

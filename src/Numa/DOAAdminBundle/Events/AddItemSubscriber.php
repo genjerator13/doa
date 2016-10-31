@@ -6,6 +6,7 @@ namespace Numa\DOAAdminBundle\Events;
 
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -101,8 +102,8 @@ class AddItemSubscriber implements EventSubscriberInterface
                     }
                     //if the value is not in the list addi it
                     //if() {
-                       // dump($carFieldDB);
-                        //die();
+                    // dump($carFieldDB);
+                    //die();
                     //}
                     if (!in_array($selected, $values)) {
                         $values[$selected] = $selected;
@@ -112,10 +113,10 @@ class AddItemSubscriber implements EventSubscriberInterface
 
                     //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
 
-                    if($carFieldDB=="ag_application" || $carFieldDB=="Boat Type" || ($carFieldField=="type" && ($cat=4 || $cat==3))) {
+                    if ($carFieldDB == "ag_application" || $carFieldDB == "Boat Type" || ($carFieldField == "type" && ($cat = 4 || $cat == 3))) {
 
                         $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
-                    }else {
+                    } else {
                         $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                     }
                 } elseif (strtolower($type) == 'tree') {
@@ -138,28 +139,30 @@ class AddItemSubscriber implements EventSubscriberInterface
         }
         //die();
 
-        if($this->dealerID instanceof Catalogrecords)
-        {
-            
-            if(empty($item->getId())){
-                $form->add('seller_comment','ckeditor',array("data"=>$this->dealerID->getDefaultListingComment()));
+        if ($this->dealerID instanceof Catalogrecords) {
+
+            if (empty($item->getId())) {
+                $form->add('seller_comment', 'ckeditor', array("data" => $this->dealerID->getDefaultListingComment()));
             }
         }
 
         if (!$this->securityContext->isGranted('ROLE_ADMIN')) {
-
-            $item->setDealer($this->dealerID);
-            $form->remove('Dealer');
-            $form->add('dealer_id', 'hidden', array('data' => $this->dealerID->getId()));
+            if ($this->dealerID instanceof Catalogrecords) {
+                $item->setDealer($this->dealerID);
+            }
+            if (!$this->securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
+                $form->remove('Dealer');
+                $form->add('dealer_id', 'hidden', array('data' => $this->dealerID->getId()));
+            }
         }
 
-        if ($this->securityContext->isGranted('ROLE_DMS_USER') || $this->securityContext->isGranted('ROLE_BUSINES') || $this->securityContext->isGranted('ROLE_ADMIN')) {
-            $dealer = $this->container->get("numa.dms.user")->getSignedUser();
+        if ($this->securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
+            $dealerPrincipal = $this->container->get("numa.dms.user")->getSignedDealerPrincipal();
 
-            if($dealer instanceof Catalogrecords && !empty($dealer->getDealerGroup())){
-                $dg = $dealer->getDealerGroup();
-                $form->add('Dealer','entity',array(
-                    'choices'   => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dg->getId()),
+            if ($dealerPrincipal instanceof DealerGroup) {
+
+                $form->add('Dealer', 'entity', array(
+                    'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
                     'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
                 ));
             }

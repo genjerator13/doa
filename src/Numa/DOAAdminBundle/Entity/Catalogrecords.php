@@ -1662,6 +1662,7 @@ class Catalogrecords implements UserInterface
     }
     /**
      * @var integer
+     * @Expose
      */
     private $dealer_group_id;
 

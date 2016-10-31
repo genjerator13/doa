@@ -38,12 +38,14 @@ class DefaultController extends Controller
         $dealer_id=null;
         if($dealer instanceof Catalogrecords){
             $dealer_id=$dealer->getId();
+            $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10,"read");
+
+            $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10000,"read");
+
+            return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array('webforms' => $webForms,"count"=>count($webFormsCount)));
         }
-        $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10,"read");
 
-        $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10000,"read");
-
-        return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array('webforms' => $webForms,"count"=>count($webFormsCount)));
+        return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array());
 
     }
 
