@@ -35,13 +35,13 @@ security:
         - { path: ^/dms/user, roles: [ROLE_ADMIN,ROLE_BUSINES] }
         - { path: ^/dms/component, roles: [ROLE_ADMIN,ROLE_BUSINES, ROLE_SALE3_DMS] }
         - { path: ^/dms/pages, roles: [ROLE_ADMIN,ROLE_BUSINES, ROLE_SALE3_DMS] }
-        - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_REGULAR_ADMIN_DMS] }
+        - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_REGULAR_ADMIN_DMS] }
         - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS, ROLE_SALE3_DMS] }
         - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_DEALER_PRINCIPAL] }
-        - { path: ^/dms/vendor, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS,ROLE_DEALER_PRINCIPAL] }
+        - { path: ^/dms/vendor, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
-        - { path: ^/dms/themes, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
-        - { path: ^/dms/settings, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
+        - { path: ^/dms/themes, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALE3_DMS ] }
+        - { path: ^/dms/settings, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALE3_DMS] }
         - { path: ^/dms/image_carousel, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/command_log, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER] }
         - { path: ^/dms/reports, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_DEALER_PRINCIPAL] }
@@ -67,7 +67,7 @@ security:
         - { path: ^/admin/items/[0-9]+/imagesupload, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_DEALER_PRINCIPAL] }
 
         - { path: ^/dms/inventory/additem, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_DEALER_PRINCIPAL] }
-        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES, ROLE_WHOLESALE_DMS,ROLE_DEALER_PRINCIPAL] }
+        - { path: ^/dms/inventory, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/inventory/delete, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/inventory/deactivate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/inventory/activate, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
