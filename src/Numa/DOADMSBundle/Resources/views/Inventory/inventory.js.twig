@@ -98,22 +98,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'date_created', enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'', width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'invoice_nr', enableColumnResizing: true, width: 90,displayName:'Invoice #',cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'saleInvoiceNr', displayName: 'Invoice #', enableColumnResizing: true, width: 90,displayName:'Invoice #',cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'invoice_date', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'saleInvoiceDate', displayName: 'Invoice Date', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'invoice_amt', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'saleInvoiceAmt', displayName: 'Invoice AMT', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'discount1', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {name: 'saleTotalUnitCost', displayName: 'Total Unit Cost', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
-        {name: 'discount2', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
-            return 'other-cells ' + getClassName(grid, row, col, 'featured');
-        },},
-        {name: 'sale_amount', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {#{name: 'discount2', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {#}
+            {#return 'other-cells ' + getClassName(grid, row, col, 'featured');#}
+        {#},},#}
+        {name: 'saleSellingPrice', displayName: 'Selling Price', enableColumnResizing: true, width: 90,cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
             return 'other-cells ' + getClassName(grid, row, col, 'featured');
         },},
     ];
