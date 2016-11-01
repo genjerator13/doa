@@ -5,109 +5,109 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Company_name</th>
-                <td>{{ entity.companyname }}</td>
-            </tr>
-            <tr>
-                <th>First_name</th>
-                <td>{{ entity.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Last_name</th>
-                <td>{{ entity.lastname }}</td>
-            </tr>
-            <tr>
-                <th>Address</th>
-                <td>{{ entity.address }}</td>
-            </tr>
-            <tr>
-                <th>Address2</th>
-                <td>{{ entity.address2 }}</td>
-            </tr>
-            <tr>
-                <th>City</th>
-                <td>{{ entity.city }}</td>
-            </tr>
-            <tr>
-                <th>State</th>
-                <td>{{ entity.state }}</td>
-            </tr>
-            <tr>
-                <th>Zip</th>
-                <td>{{ entity.zip }}</td>
-            </tr>
-            <tr>
-                <th>Country</th>
-                <td>{{ entity.country }}</td>
-            </tr>
-            <tr>
-                <th>Home_phone</th>
-                <td>{{ entity.homephone }}</td>
-            </tr>
-            <tr>
-                <th>Work_phone</th>
-                <td>{{ entity.workphone }}</td>
-            </tr>
-            <tr>
-                <th>Mobile_phone</th>
-                <td>{{ entity.mobilephone }}</td>
-            </tr>
-            <tr>
-                <th>Sales_person</th>
-                <td>{{ entity.salesperson }}</td>
-            </tr>
-            <tr>
-                <th>Fax</th>
-                <td>{{ entity.fax }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Anotes</th>
-                <td>{{ entity.anotes }}</td>
-            </tr>
-            <tr>
-                <th>Followup_date</th>
-                <td>{{ entity.followupdate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_created</th>
-                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-            <tr>
-                <th>Dealer_id</th>
-                <td>{{ entity.dealerid }}</td>
-            </tr>
-            <tr>
-                <th>Logo</th>
-                <td>{{ entity.logo }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Company_name</th>
+            <td>{{ entity.companyname }}</td>
+        </tr>
+        <tr>
+            <th>First_name</th>
+            <td>{{ entity.firstname }}</td>
+        </tr>
+        <tr>
+            <th>Last_name</th>
+            <td>{{ entity.lastname }}</td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td>{{ entity.address }}</td>
+        </tr>
+        <tr>
+            <th>Address2</th>
+            <td>{{ entity.address2 }}</td>
+        </tr>
+        <tr>
+            <th>City</th>
+            <td>{{ entity.city }}</td>
+        </tr>
+        <tr>
+            <th>State</th>
+            <td>{{ entity.state }}</td>
+        </tr>
+        <tr>
+            <th>Zip</th>
+            <td>{{ entity.zip }}</td>
+        </tr>
+        <tr>
+            <th>Country</th>
+            <td>{{ entity.country }}</td>
+        </tr>
+        <tr>
+            <th>Home_phone</th>
+            <td>{{ entity.homephone }}</td>
+        </tr>
+        <tr>
+            <th>Work_phone</th>
+            <td>{{ entity.workphone }}</td>
+        </tr>
+        <tr>
+            <th>Mobile_phone</th>
+            <td>{{ entity.mobilephone }}</td>
+        </tr>
+        <tr>
+            <th>Sales_person</th>
+            <td>{{ entity.salesperson }}</td>
+        </tr>
+        <tr>
+            <th>Fax</th>
+            <td>{{ entity.fax }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Anotes</th>
+            <td>{{ entity.anotes }}</td>
+        </tr>
+        <tr>
+            <th>Followup_date</th>
+            <td>{{ entity.followupdate|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_created</th>
+            <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_updated</th>
+            <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
+            <th>Dealer_id</th>
+            <td>{{ entity.dealerid }}</td>
+        </tr>
+        <tr>
+            <th>Logo</th>
+            <td>{{ entity.logo }}</td>
+        </tr>
         </tbody>
     </table>
 
-        
-        <a href="{{ path('vendor') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('vendor') }}" class="btn btn-primary">
+        Back to the list
+    </a>
 
 
-        <a href="{{ path('vendor_edit', { 'id': entity.id }) }}" class="btn btn-default">
-            Edit
-        </a>
+    <a href="{{ path('vendor_edit', { 'id': entity.id }) }}" class="btn btn-default">
+        Edit
+    </a>
 
 {% endblock %}

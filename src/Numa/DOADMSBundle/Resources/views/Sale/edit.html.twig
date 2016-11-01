@@ -4,17 +4,17 @@
 {% block content %}
 
     <h1>Sale edit</h1>
-<div class="nav-tabs-custom">
-    <div class="tab-content">
-        <div id="details" class="tab-pane active">
-    {{ form(edit_form) }}
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form(edit_form) }}
 
-        
-        <a href="{{ path('sale') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
 
-         </div>
+                <a href="{{ path('sale') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}

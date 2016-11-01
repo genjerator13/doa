@@ -4,18 +4,18 @@
 {% block content %}
 
     <h1>PartRequest edit</h1>
-<div class="nav-tabs-custom">
-    <div class="tab-content">
-        <div id="details" class="tab-pane active">
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
 
-    {{ form(edit_form) }}
+                {{ form(edit_form) }}
 
-        
-        <a href="{{ path('partrequest') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
 
-         </div>
+                <a href="{{ path('partrequest') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}

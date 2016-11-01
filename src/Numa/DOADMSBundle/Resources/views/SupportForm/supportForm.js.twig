@@ -54,22 +54,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.animationsEnabled = true;
 
     {#$scope.setDelete = function () {#}
-        {#$log.log(JSON.stringify($scope.selected));#}
-        {#$http.post('{{ path("servicerequest_mass_delete") }}', {'data': JSON.stringify($scope.selected)})#}
-                {#.success(function (data) {#}
-                    {#i=1#}
-                    {#angular.forEach($scope.selected, function(value, key) {#}
-                        {#$log.log(key + ': ' + value);#}
-                        {#$scope.gridOptions.data.splice(key-i, 1);#}
-                        {#i++;#}
-                    {#});#}
-                    {#$scope.selected={}#}
-                    {#$scope.gridApi.selection.clearSelectedRows();#}
-                    {#angular.forEach(data, function(data, index) {#}
-                        {#data.index = index+1;#}
-                        {#//data.push({"index":index+1})#}
-                    {#})#}
-                {#});#}
+    {#$log.log(JSON.stringify($scope.selected));#}
+    {#$http.post('{{ path("servicerequest_mass_delete") }}', {'data': JSON.stringify($scope.selected)})#}
+    {#.success(function (data) {#}
+    {#i=1#}
+    {#angular.forEach($scope.selected, function(value, key) {#}
+    {#$log.log(key + ': ' + value);#}
+    {#$scope.gridOptions.data.splice(key-i, 1);#}
+    {#i++;#}
+    {#});#}
+    {#$scope.selected={}#}
+    {#$scope.gridApi.selection.clearSelectedRows();#}
+    {#angular.forEach(data, function(data, index) {#}
+    {#data.index = index+1;#}
+    {#//data.push({"index":index+1})#}
+    {#})#}
+    {#});#}
     {#}#}
 
     var canceler = $q.defer();
@@ -78,11 +78,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                 for (i = 0; i < data.length; i++) {
 
                     console.log(data[i]);
-                    if(data[i]._d_m_s_user != undefined){
-                        data[i].dms_user_name = data[i]._d_m_s_user._first_name+" "+data[i]._d_m_s_user._user_group.name;
+                    if (data[i]._d_m_s_user != undefined) {
+                        data[i].dms_user_name = data[i]._d_m_s_user._first_name + " " + data[i]._d_m_s_user._user_group.name;
                         data[i].dms_user_group = data[i]._d_m_s_user._user_group.name
                     }
-                    else{
+                    else {
                         data[i].dms_user_name = "Dealer";
                         data[i].dms_user_group = "Dealer";
                     }
@@ -111,7 +111,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             var msg = 'rows changed ' + rows.length;
             $log.log(rows);
-            angular.forEach(rows, function(value, key) {
+            angular.forEach(rows, function (value, key) {
                 $scope.selected[value.entity.index] = value.entity.id;
             });
             console.log($scope.selected);

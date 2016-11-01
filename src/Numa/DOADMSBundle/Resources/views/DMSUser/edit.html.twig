@@ -4,18 +4,18 @@
 {% block content %}
 
     <h1>DMSUser edit</h1>
-<div class="nav-tabs-custom">
-    <div class="tab-content">
-        <div id="details" class="tab-pane active">
-    {{ form(edit_form) }}
+    <div class="nav-tabs-custom">
+        <div class="tab-content">
+            <div id="details" class="tab-pane active">
+                {{ form(edit_form) }}
 
-        {% if is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('dmsuser') }}" class="btn btn-primary" >
-                Back to the list
-            </a>
-        {% endif %}
+                {% if is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('dmsuser') }}" class="btn btn-primary">
+                        Back to the list
+                    </a>
+                {% endif %}
 
-         </div>
+            </div>
+        </div>
     </div>
-</div>
 {% endblock %}

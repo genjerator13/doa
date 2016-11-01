@@ -5,57 +5,57 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Dealer Name</th>
-                <td>{{ entity.dealer.name }}</td>
-            </tr>
-            <tr>
-                <th>User Name</th>
-                <td>
-                    {% if entity.dMSUser %}
-                        {{ entity.dMSUser.name }}
-                    {% else %}
-                        Dealer
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>User Group</th>
-                <td>
-                    {% if entity.dMSUser %}
-                        {{ entity.dMSUser.userGroup.name }}
-                    {% else %}
-                        Dealer
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th>Subject</th>
-                <td><h4>{{ entity.subject }}</h4></td>
-            </tr>
-            <tr>
-                <th>Message</th>
-                <td><h4>{{ entity.message }}</h4></td>
-            </tr>
-            <tr>
-                <th>Created At</th>
-                <td>{{ entity.createdat|date('Y-m-d') }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Dealer Name</th>
+            <td>{{ entity.dealer.name }}</td>
+        </tr>
+        <tr>
+            <th>User Name</th>
+            <td>
+                {% if entity.dMSUser %}
+                    {{ entity.dMSUser.name }}
+                {% else %}
+                    Dealer
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>User Group</th>
+            <td>
+                {% if entity.dMSUser %}
+                    {{ entity.dMSUser.userGroup.name }}
+                {% else %}
+                    Dealer
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td><h4>{{ entity.subject }}</h4></td>
+        </tr>
+        <tr>
+            <th>Message</th>
+            <td><h4>{{ entity.message }}</h4></td>
+        </tr>
+        <tr>
+            <th>Created At</th>
+            <td>{{ entity.createdat|date('Y-m-d') }}</td>
+        </tr>
         </tbody>
     </table>
 
-        
-        <a href="{{ path('supportform') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('supportform') }}" class="btn btn-primary">
+        Back to the list
+    </a>
 
 
-        <a href="{{ path('supportform_edit', { 'id': entity.id }) }}" class="btn btn-default">
-            Edit
-        </a>
+    <a href="{{ path('supportform_edit', { 'id': entity.id }) }}" class="btn btn-default">
+        Edit
+    </a>
 
 {% endblock %}

@@ -5,45 +5,45 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Username</th>
-                <td>{{ entity.username }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ entity.password }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ entity.email }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
-            <tr>
-                <th>Date_created</th>
-                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Username</th>
+            <td>{{ entity.username }}</td>
+        </tr>
+        <tr>
+            <th>Password</th>
+            <td>{{ entity.password }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ entity.email }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
+        <tr>
+            <th>Date_created</th>
+            <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_updated</th>
+            <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+        </tr>
         </tbody>
     </table>
 
-        
-        <a href="{{ path('dealergroup') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('dealergroup') }}" class="btn btn-primary">
+        Back to the list
+    </a>
 
 
-        <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-default">
-            Edit
-        </a>
+    <a href="{{ path('dealergroup_edit', { 'id': entity.id }) }}" class="btn btn-default">
+        Edit
+    </a>
 
 {% endblock %}

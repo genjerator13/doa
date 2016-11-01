@@ -1,11 +1,11 @@
 {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
 <div class="hidden">
-{% block form_label_class -%}
-    col-sm-12
-{%- endblock form_label_class %}
-{% block form_group_class -%}
-    col-sm-12
-{%- endblock form_group_class %}
+    {% block form_label_class -%}
+        col-sm-12
+    {%- endblock form_label_class %}
+    {% block form_group_class -%}
+        col-sm-12
+    {%- endblock form_group_class %}
 </div>
 <div class="row form-horizontal">
     <h1>UNIT PROFIT REPORT</h1>
@@ -310,29 +310,29 @@
 
     <script>
 
-        $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input',function(e){
+        $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input', function (e) {
             $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
         });
 
-        $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input',function(e){
+        $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input', function (e) {
             $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
         });
 
         $('.form-control').keyup(function () {
             var sum = 0;
-            $('.sum1').each(function() {
+            $('.sum1').each(function () {
                 sum += Number($(this).val());
             });
 
-            $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum.toFixed( 2 ));
+            $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum.toFixed(2));
         });
 
         $('.form-control').keyup(function () {
             var sum2 = 0;
-            $('.sum2').each(function() {
+            $('.sum2').each(function () {
                 sum2 += Number($(this).val());
             });
-            $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2.toFixed( 2 ));
+            $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2.toFixed(2));
         });
 
         $('.form-control').keyup(function () {
@@ -341,22 +341,22 @@
             var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in_tax").value);
             var n4 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_1_in").value);
             var n5 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_2_in").value);
-            if(isNaN(parseFloat(n1))){
+            if (isNaN(parseFloat(n1))) {
                 n1 = 0;
             }
-            if(isNaN(parseFloat(n2))){
+            if (isNaN(parseFloat(n2))) {
                 n2 = 0;
             }
-            if(isNaN(parseFloat(n3))){
+            if (isNaN(parseFloat(n3))) {
                 n3 = 0;
             }
-            if(isNaN(parseFloat(n4))){
+            if (isNaN(parseFloat(n4))) {
                 n4 = 0;
             }
-            if(isNaN(parseFloat(n5))){
+            if (isNaN(parseFloat(n5))) {
                 n5 = 0;
             }
-            var saleNetTax = ((n1+n2+n3) - (n4+n5)).toFixed( 2 );
+            var saleNetTax = ((n1 + n2 + n3) - (n4 + n5)).toFixed(2);
             $('#numa_doaadminbundle_item_sale_net_tax').val(saleNetTax);
         });
 
@@ -364,24 +364,24 @@
             var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
             var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_selling_price").value);
             var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in").value);
-            if(isNaN(parseFloat(n1))){
+            if (isNaN(parseFloat(n1))) {
                 n1 = 0;
             }
-            if(isNaN(parseFloat(n2))){
+            if (isNaN(parseFloat(n2))) {
                 n2 = 0;
             }
-            if(isNaN(parseFloat(n3))){
+            if (isNaN(parseFloat(n3))) {
                 n3 = 0;
             }
-            $('#numa_doaadminbundle_item_sale_net_gain').val(((n2+n3) - n1).toFixed( 2 ));
+            $('#numa_doaadminbundle_item_sale_net_gain').val(((n2 + n3) - n1).toFixed(2));
         });
 
         $('.form-control').keyup(function () {
             var sum4 = 0;
-            $('.sum4').each(function() {
+            $('.sum4').each(function () {
                 sum4 += Number($(this).val());
             });
-            $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed( 2 ));
+            $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
             //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
         });
 
@@ -390,16 +390,16 @@
             var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
             var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
-            if(isNaN(parseFloat(n1))){
+            if (isNaN(parseFloat(n1))) {
                 n1 = 0;
             }
-            if(isNaN(parseFloat(n2))){
+            if (isNaN(parseFloat(n2))) {
                 n2 = 0;
             }
-            if(isNaN(parseFloat(n3))){
+            if (isNaN(parseFloat(n3))) {
                 n3 = 0;
             }
 
-            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2-(n3+n1)).toFixed( 2 ));
+            $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2 - (n3 + n1)).toFixed(2));
         });
     </script>

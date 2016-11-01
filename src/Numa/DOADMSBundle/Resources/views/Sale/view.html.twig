@@ -1,289 +1,289 @@
-    <h1>UNIT PROFIT REPORT</h1>
-    <table cellspacing="0" width="100%" border="0" class="itemsale">
-        <tr>
-            <td colspan="1">
-                Vendor
-            </td>
-            <td colspan="1">
-                {{ sale.vendor }}
-            </td>
-            <td colspan="1">
-                Stock nr
-            </td>
-            <td colspan="1">
-                {{ listing.stockNr }}
-            </td>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="1">
-                Sales person
-            </td>
-            <td colspan="1">
-                {{ sale.salesPerson }}
-            </td>
-            <td colspan="1">
-                VIN
-            </td>
-            <td colspan="1">
-                {{ listing.vin }}
-            </td>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td width="10%">Invoice Nr</td>
-            <td width="20%">{{ sale.invoiceNr }}</td>
-            <td width="10%"></td>
-            <td width="20%"></td>
-            <td width="10%"></td>
-            <td width="20%"></td>
-        </tr>
-        <tr>
-            <td>Invoice Date</td>
-            <td>{{ sale.invoiceDate|date('Y-m-d') }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Invoice Amt</td>
-            <td>{{ sale.invoiceAmt }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Taxes 1</td>
-            <td>{{ sale.relatedTaxes1 }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Taxes 2</td>
-            <td>{{ sale.relatedTaxes2 }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td colspan="2"><h2>UNIT COST RECAP</h2></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td colspan="2"><h2>UNIT REVENUE</h2></td>
-        </tr>
-        <tr>
-            <td>Delivery</td>
-            <td>{{ sale.delivery }}</td>
-            <td>Supplier 1</td>
-            <td>{{ sale.supplier }}</td>
-            <td>Selling Price</td>
-            <td>{{ sale.sellingPrice }}</td>
-        </tr>
-        <tr>
-            <td>Clean Up</td>
-            <td>{{ sale.cleanUp }}</td>
-            <td>Supplier 2</td>
-            <td>{{ sale.supplier1 }}</td>
-            <td>Trade In</td>
-            <td>{{ sale.tradeIn }}</td>
-        </tr>
-        <tr>
-            <td>Glass</td>
-            <td>{{ sale.glass }}</td>
-            <td>Supplier 3</td>
-            <td>{{ sale.supplier2 }}</td>
-            <td>Warranty</td>
-            <td>{{ sale.warranty1 }}</td>
-        </tr>
-        <tr>
-            <td>Mechanical 1</td>
-            <td>{{ sale.mechanical1 }}</td>
-            <td>Description 1</td>
-            <td>{{ sale.discrip1 }}</td>
-            <td>Life Insur</td>
-            <td>{{ sale.lifeInsur }}</td>
-        </tr>
-        <tr>
-            <td>Mechanical 2</td>
-            <td>{{ sale.mechanical2 }}</td>
-            <td>Description 2</td>
-            <td>{{ sale.discrip2 }}</td>
-            <td>Disability Ins</td>
-            <td>{{ sale.disabilityIns1 }}</td>
-        </tr>
-        <tr>
-            <td>Other exp 1</td>
-            <td>{{ sale.otherExp1 }}</td>
-            <td>Description 3</td>
-            <td>{{ sale.discrip3 }}</td>
-            <td>Admin Fees</td>
-            <td>{{ sale.adminFees1 }}</td>
-        </tr>
-        <tr>
-            <td>Other exp 2</td>
-            <td>{{ sale.otherExp2 }}</td>
-            <td>Description 4</td>
-            <td>{{ sale.discrip4 }}</td>
-            <td>Doc Fees</td>
-            <td>{{ sale.docFees1 }}</td>
-        </tr>
-        <tr>
-            <td>Other exp 3</td>
-            <td>{{ sale.otherExp3 }}</td>
-            <td>Description 5</td>
-            <td>{{ sale.discrip5 }}</td>
-            <td>Protect PKG</td>
-            <td>{{ sale.protectPkg1 }}</td>
-        </tr>
-        <tr>
-            <td>Other exp 4</td>
-            <td>{{ sale.otherExp4 }}</td>
-            <td>Description 6</td>
-            <td>{{ sale.discrip6 }}</td>
-            <td>Insurance</td>
-            <td>{{ sale.insurance1 }}</td>
-        </tr>
-        <tr>
-            <td>Other exp 5</td>
-            <td>{{ sale.otherExp5 }}</td>
-            <td>Description 7</td>
-            <td>{{ sale.discrip7 }}</td>
-            <td>Bank Commis</td>
-            <td>{{ sale.bankCommis }}</td>
-        </tr>
-        <tr>
-            <td>Total unit cost</td>
-            <td>{{ sale.totalUnitCost }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td>Other 1</td>
-            <td>{{ sale.other1 }}</td>
-        </tr>
-        <tr>
-            <td>Net grain</td>
-            <td>{{ sale.netGrain }}</td>
-            <td colspan="2"></td>
-            <td>Other 2</td>
-            <td>{{ sale.other2 }}</td>
-        </tr>
-        <tr>
-            <td colspan="2"><h2>SALES COST RECAP</h2></td>
-            <td><h2>TAXES</h2></td>
-            <td></td>
-            <td>Other 3</td>
-            <td>{{ sale.other3 }}</td>
-        </tr>
-        <tr>
-            <td>Protect PKG</td>
-            <td>{{ sale.protectPkg }}</td>
-            <td>Tax 1 out</td>
-            <td>{{ sale.tax1Out }}</td>
-            <td>Total Revenue</td>
-            <td>{{ sale.totalRevenue }}</td>
-        </tr>
-        <tr>
-            <td>Warranty</td>
-            <td>{{ sale.warranty }}</td>
-            <td>Tax 2 out</td>
-            <td>{{ sale.tax2Out }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Doc Fees</td>
-            <td>{{ sale.docFees }}</td>
-            <td>Trade in tax</td>
-            <td>{{ sale.tradeInTax }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Admin Fees</td>
-            <td>{{ sale.adminFees }}</td>
-            <td>Tax 1 In</td>
-            <td>{{ sale.tax1In }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Insurance</td>
-            <td>{{ sale.insurance }}</td>
-            <td>Tax 2 In</td>
-            <td>{{ sale.tax2In }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Life Ins</td>
-            <td>{{ sale.lifeIns }}</td>
-            <td>Net Tax</td>
-            <td>{{ sale.netTax }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Disability Ins</td>
-            <td>{{ sale.disabilityIns }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Feverse</td>
-            <td>{{ sale.feverse }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Misc 1</td>
-            <td>{{ sale.misc1 }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Misc 2</td>
-            <td>{{ sale.misc2 }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Misc 3</td>
-            <td>{{ sale.misc3 }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Sales Comms</td>
-            <td>{{ sale.salesComms }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-        </tr>
-        <tr>
-            <td>Total Sale Cost</td>
-            <td>{{ sale.totalSaleCost }}</td>
-            <td width="165px"></td>
-            <td width="165px"></td>
-            <td>Revenue This Unit</td>
-            <td>{{ sale.revenueThisUnit }}</td>
-        </tr>
-    </table>
+<h1>UNIT PROFIT REPORT</h1>
+<table cellspacing="0" width="100%" border="0" class="itemsale">
+    <tr>
+        <td colspan="1">
+            Vendor
+        </td>
+        <td colspan="1">
+            {{ sale.vendor }}
+        </td>
+        <td colspan="1">
+            Stock nr
+        </td>
+        <td colspan="1">
+            {{ listing.stockNr }}
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1">
+            Sales person
+        </td>
+        <td colspan="1">
+            {{ sale.salesPerson }}
+        </td>
+        <td colspan="1">
+            VIN
+        </td>
+        <td colspan="1">
+            {{ listing.vin }}
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td width="10%">Invoice Nr</td>
+        <td width="20%">{{ sale.invoiceNr }}</td>
+        <td width="10%"></td>
+        <td width="20%"></td>
+        <td width="10%"></td>
+        <td width="20%"></td>
+    </tr>
+    <tr>
+        <td>Invoice Date</td>
+        <td>{{ sale.invoiceDate|date('Y-m-d') }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Invoice Amt</td>
+        <td>{{ sale.invoiceAmt }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Taxes 1</td>
+        <td>{{ sale.relatedTaxes1 }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Taxes 2</td>
+        <td>{{ sale.relatedTaxes2 }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td colspan="2"><h2>UNIT COST RECAP</h2></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td colspan="2"><h2>UNIT REVENUE</h2></td>
+    </tr>
+    <tr>
+        <td>Delivery</td>
+        <td>{{ sale.delivery }}</td>
+        <td>Supplier 1</td>
+        <td>{{ sale.supplier }}</td>
+        <td>Selling Price</td>
+        <td>{{ sale.sellingPrice }}</td>
+    </tr>
+    <tr>
+        <td>Clean Up</td>
+        <td>{{ sale.cleanUp }}</td>
+        <td>Supplier 2</td>
+        <td>{{ sale.supplier1 }}</td>
+        <td>Trade In</td>
+        <td>{{ sale.tradeIn }}</td>
+    </tr>
+    <tr>
+        <td>Glass</td>
+        <td>{{ sale.glass }}</td>
+        <td>Supplier 3</td>
+        <td>{{ sale.supplier2 }}</td>
+        <td>Warranty</td>
+        <td>{{ sale.warranty1 }}</td>
+    </tr>
+    <tr>
+        <td>Mechanical 1</td>
+        <td>{{ sale.mechanical1 }}</td>
+        <td>Description 1</td>
+        <td>{{ sale.discrip1 }}</td>
+        <td>Life Insur</td>
+        <td>{{ sale.lifeInsur }}</td>
+    </tr>
+    <tr>
+        <td>Mechanical 2</td>
+        <td>{{ sale.mechanical2 }}</td>
+        <td>Description 2</td>
+        <td>{{ sale.discrip2 }}</td>
+        <td>Disability Ins</td>
+        <td>{{ sale.disabilityIns1 }}</td>
+    </tr>
+    <tr>
+        <td>Other exp 1</td>
+        <td>{{ sale.otherExp1 }}</td>
+        <td>Description 3</td>
+        <td>{{ sale.discrip3 }}</td>
+        <td>Admin Fees</td>
+        <td>{{ sale.adminFees1 }}</td>
+    </tr>
+    <tr>
+        <td>Other exp 2</td>
+        <td>{{ sale.otherExp2 }}</td>
+        <td>Description 4</td>
+        <td>{{ sale.discrip4 }}</td>
+        <td>Doc Fees</td>
+        <td>{{ sale.docFees1 }}</td>
+    </tr>
+    <tr>
+        <td>Other exp 3</td>
+        <td>{{ sale.otherExp3 }}</td>
+        <td>Description 5</td>
+        <td>{{ sale.discrip5 }}</td>
+        <td>Protect PKG</td>
+        <td>{{ sale.protectPkg1 }}</td>
+    </tr>
+    <tr>
+        <td>Other exp 4</td>
+        <td>{{ sale.otherExp4 }}</td>
+        <td>Description 6</td>
+        <td>{{ sale.discrip6 }}</td>
+        <td>Insurance</td>
+        <td>{{ sale.insurance1 }}</td>
+    </tr>
+    <tr>
+        <td>Other exp 5</td>
+        <td>{{ sale.otherExp5 }}</td>
+        <td>Description 7</td>
+        <td>{{ sale.discrip7 }}</td>
+        <td>Bank Commis</td>
+        <td>{{ sale.bankCommis }}</td>
+    </tr>
+    <tr>
+        <td>Total unit cost</td>
+        <td>{{ sale.totalUnitCost }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td>Other 1</td>
+        <td>{{ sale.other1 }}</td>
+    </tr>
+    <tr>
+        <td>Net grain</td>
+        <td>{{ sale.netGrain }}</td>
+        <td colspan="2"></td>
+        <td>Other 2</td>
+        <td>{{ sale.other2 }}</td>
+    </tr>
+    <tr>
+        <td colspan="2"><h2>SALES COST RECAP</h2></td>
+        <td><h2>TAXES</h2></td>
+        <td></td>
+        <td>Other 3</td>
+        <td>{{ sale.other3 }}</td>
+    </tr>
+    <tr>
+        <td>Protect PKG</td>
+        <td>{{ sale.protectPkg }}</td>
+        <td>Tax 1 out</td>
+        <td>{{ sale.tax1Out }}</td>
+        <td>Total Revenue</td>
+        <td>{{ sale.totalRevenue }}</td>
+    </tr>
+    <tr>
+        <td>Warranty</td>
+        <td>{{ sale.warranty }}</td>
+        <td>Tax 2 out</td>
+        <td>{{ sale.tax2Out }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Doc Fees</td>
+        <td>{{ sale.docFees }}</td>
+        <td>Trade in tax</td>
+        <td>{{ sale.tradeInTax }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Admin Fees</td>
+        <td>{{ sale.adminFees }}</td>
+        <td>Tax 1 In</td>
+        <td>{{ sale.tax1In }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Insurance</td>
+        <td>{{ sale.insurance }}</td>
+        <td>Tax 2 In</td>
+        <td>{{ sale.tax2In }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Life Ins</td>
+        <td>{{ sale.lifeIns }}</td>
+        <td>Net Tax</td>
+        <td>{{ sale.netTax }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Disability Ins</td>
+        <td>{{ sale.disabilityIns }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Feverse</td>
+        <td>{{ sale.feverse }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Misc 1</td>
+        <td>{{ sale.misc1 }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Misc 2</td>
+        <td>{{ sale.misc2 }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Misc 3</td>
+        <td>{{ sale.misc3 }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Sales Comms</td>
+        <td>{{ sale.salesComms }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+    </tr>
+    <tr>
+        <td>Total Sale Cost</td>
+        <td>{{ sale.totalSaleCost }}</td>
+        <td width="165px"></td>
+        <td width="165px"></td>
+        <td>Revenue This Unit</td>
+        <td>{{ sale.revenueThisUnit }}</td>
+    </tr>
+</table>
