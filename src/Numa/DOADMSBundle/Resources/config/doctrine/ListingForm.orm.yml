@@ -80,6 +80,10 @@ Numa\DOADMSBundle\Entity\ListingForm:
         accesories:
             type: text
             nullable: true
+        offer_amt:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
