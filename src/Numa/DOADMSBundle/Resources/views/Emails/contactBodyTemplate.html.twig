@@ -1,11 +1,11 @@
 <h1>Contact from {{ entity.email }} </h1>
- <h4>Contact Information:</h4>
-    <p>First Name: {{ entity.custName }}</p>
-    <p>Last Name: {{ entity.custLastName }}</p>
-    <p>Contact Me By: {% if entity.contactBy == 0 %}Email{% elseif entity.contactBy == 1 %}Phone{% endif %}</p>
-    <p>Email: {{ entity.email }}</p>
-    <p>Phone: {{ entity.phone }}</p>
-    <p>Comment: {{ entity.comment }}</p><p>Link to listing</p>
+<h4>Contact Information:</h4>
+<p>First Name: {{ entity.custName }}</p>
+<p>Last Name: {{ entity.custLastName }}</p>
+<p>Contact Me By: {% if entity.contactBy == 0 %}Email{% elseif entity.contactBy == 1 %}Phone{% endif %}</p>
+<p>Email: {{ entity.email }}</p>
+<p>Phone: {{ entity.phone }}</p>
+<p>Comment: {{ entity.comment }}</p><p>Link to listing</p>
 
 {% include 'NumaDOADMSBundle:Emails:item.html.twig' %}
 {% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}
