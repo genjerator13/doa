@@ -71,7 +71,7 @@ class ListingLib
         $securityContext = $this->container->get('security.authorization_checker');
 
         if(($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())){
-            
+
         }
         else{
         if ($item instanceof Item) {
@@ -86,6 +86,7 @@ class ListingLib
                 }
             }
         $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
+        $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
         $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
         $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
         }

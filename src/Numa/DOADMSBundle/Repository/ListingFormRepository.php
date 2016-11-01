@@ -30,6 +30,18 @@ class ListingFormRepository extends EntityRepository
         }
     }
 
+    public function deleteByItemId($ids)
+    {
+        if (!empty($ids)) {
+
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->delete('NumaDOADMSBundle:ListingForm', 'l')
+                ->where('l.item_id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
     public function getAllFormsByDealer($dealer_id,$limit, $notstatus = "")
     {
         $stautusSql="";
