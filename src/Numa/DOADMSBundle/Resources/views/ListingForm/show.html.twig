@@ -47,7 +47,12 @@
                         <td>{{ entity.datedrive|date('Y-m-d H:i') }}</td>
                     </tr>
                 {% endif %}
-                {#{{ dump(entity) }}#}
+                {% if entity.offerAmt is not null %}
+                    <tr>
+                        <th>Offer Amt</th>
+                        <td>{{ entity.offerAmt }}</td>
+                    </tr>
+                {% endif %}
                 {% if entity.tradeIn is not null %}
                     <tr>
                         <th>Trade in</th>
@@ -91,32 +96,44 @@
                         <td>{{ entity.comment }}</td>
                     </tr>
                 {% endif %}
+                {% if entity.itemId is not null and entity.item.getUrlDescription() is not null %}
                 <tr>
                     <th>Link to listing</th>
                     <td>
                         <a href="{{ absolute_url(path('item_details', {'itemId': entity.itemId, 'description': entity.item.getUrlDescription()|url_encode()})) }}">{{ entity.item.getTitle() }}</a>
                     </td>
                 </tr>
+                {% endif %}
+                {% if entity.item.make is not null %}
                 <tr>
                     <th>Make</th>
                     <td>{{ entity.item.make }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.item.model is not null %}
                 <tr>
                     <th>Model</th>
                     <td>{{ entity.item.model }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.item.year is not null %}
                 <tr>
                     <th>Year</th>
                     <td>{{ entity.item.year }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.comment is not null %}
                 <tr>
-                    <th>Date Submited</th>
+                    <th>Date datecreated</th>
                     <td>{{ entity.datecreated|date('Y-m-d H:i') }}</td>
                 </tr>
+                {% endif %}
+                {% if entity.status is not null %}
                 <tr>
                     <th>Status</th>
                     <td>{{ entity.status }}</td>
                 </tr>
+                {% endif %}
                 </tbody>
             </table>
 
