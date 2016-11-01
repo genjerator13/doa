@@ -2,12 +2,12 @@
 {% set apicall="/api/dmsuser/all" %}
 
 {% if is_granted('ROLE_BUSINES') %}
-    {% set user= app.security.getToken().getUser().getId() %}
-    {% set apicall="/api/dmsuser/"~user~"/dealer" %}
+{% set user= app.security.getToken().getUser().getId() %}
+{% set apicall="/api/dmsuser/"~user~"/dealer" %}
 {% endif %}
 {% if is_granted('ROLE_ADMIN') and app.session.get('dms_dealer_id') %}
-    {% set user= app.session.get('dms_dealer_id') %}
-    {% set apicall="/api/dmsuser/"~user~"/dealer" %}
+{% set user= app.session.get('dms_dealer_id') %}
+{% set apicall="/api/dmsuser/"~user~"/dealer" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
@@ -16,7 +16,7 @@ app.config(function ($interpolateProvider) {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants','$q','$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants,$q,$uibModal) {
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
     $scope.gridOptions = {
         enableSorting: true,
         showGridFooter: true,
@@ -29,23 +29,22 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     };
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
-        {name:'id', enableColumnResizing: true,width: 50},
-        {name:'username',enableColumnResizing: true},
-        {name:'_first_name',enableColumnResizing: true},
-        {name:'_last_name',enableColumnResizing: true},
-        {name:'_user_group.name',displayName:"User Group",enableColumnResizing: true},
-        {name:'Actions',
+        {name: 'id', enableColumnResizing: true, width: 50},
+        {name: 'username', enableColumnResizing: true},
+        {name: '_first_name', enableColumnResizing: true},
+        {name: '_last_name', enableColumnResizing: true},
+        {name: '_user_group.name', displayName: "User Group", enableColumnResizing: true},
+        {
+            name: 'Actions',
             width: 200,
             enableColumnMenu: false,
-            enableSorting:false,
+            enableSorting: false,
             enableFiltering: false,
             cellTemplate: '<ul class="list-inline"><li><a href="/dms/dmsuser/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i>Edit</a></li><li><a href="/dms/dmsuser/{[{row.entity.id}]}/delete" class="btn btn-danger" data-toggle="tooltip" title="Delete" data-confirm="Do you realy want to delete {[{row.entity.name}]} user?"><i class="glyphicon glyphicon-remove"></i>Delete</a></li></ul>'
         }
     ];
 
     $scope.animationsEnabled = true;
-
-
 
 
     var canceler = $q.defer();

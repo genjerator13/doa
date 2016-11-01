@@ -5,12 +5,12 @@
 
     <table class="records_list">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>First_name</th>
-                <th>Last_name</th>
-                <th>Actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>First_name</th>
+            <th>Last_name</th>
+            <th>Actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
@@ -19,25 +19,25 @@
                 <td>{{ entity.firstname }}</td>
                 <td>{{ entity.lastname }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('test_show', { 'id': entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('test_edit', { 'id': entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('test_show', { 'id': entity.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('test_edit', { 'id': entity.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-        <ul>
+    <ul>
         <li>
             <a href="{{ path('test_new') }}">
                 Create a new entry
             </a>
         </li>
     </ul>
-    {% endblock %}
+{% endblock %}

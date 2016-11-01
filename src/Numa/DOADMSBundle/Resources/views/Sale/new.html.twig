@@ -101,15 +101,15 @@
     <div class="clearfix"></div>
     {{ form_end(form) }}
 
-        
-        <a href="{{ path('sale') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('sale') }}" class="btn btn-primary">
+        Back to the list
+    </a>
     <script>
 
         $('.sum1').keyup(function () {
             var sum = 0;
-            $('.sum1').each(function() {
+            $('.sum1').each(function () {
                 sum += Number($(this).val());
             });
             $('#numa_doadmsbundle_sale_total_unit_cost').val(sum);
@@ -117,7 +117,7 @@
 
         $('.sum2').keyup(function () {
             var sum2 = 0;
-            $('.sum2').each(function() {
+            $('.sum2').each(function () {
                 sum2 += Number($(this).val());
             });
             $('#numa_doadmsbundle_sale_total_sale_cost').val(sum2);
@@ -129,44 +129,44 @@
             var n3 = parseFloat(document.getElementById("numa_doadmsbundle_sale_trade_in_tax").value);
             var n4 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_1_in").value);
             var n5 = parseFloat(document.getElementById("numa_doadmsbundle_sale_tax_2_in").value);
-            if(isNaN(parseFloat(n1))){
+            if (isNaN(parseFloat(n1))) {
                 n1 = 0;
             }
-            if(isNaN(parseFloat(n2))){
+            if (isNaN(parseFloat(n2))) {
                 n2 = 0;
             }
-            if(isNaN(parseFloat(n3))){
+            if (isNaN(parseFloat(n3))) {
                 n3 = 0;
             }
-            if(isNaN(parseFloat(n4))){
+            if (isNaN(parseFloat(n4))) {
                 n4 = 0;
             }
-            if(isNaN(parseFloat(n5))){
+            if (isNaN(parseFloat(n5))) {
                 n5 = 0;
             }
 
-            $('#numa_doadmsbundle_sale_net_tax').val((n1+n2+n3) - (n4+n5));
+            $('#numa_doadmsbundle_sale_net_tax').val((n1 + n2 + n3) - (n4 + n5));
         });
 
         $('.form-control').keyup(function () {
             var n1 = parseFloat(document.getElementById("numa_doadmsbundle_sale_total_unit_cost").value);
             var n2 = parseFloat(document.getElementById("numa_doadmsbundle_sale_selling_price").value);
             var n3 = parseFloat(document.getElementById("numa_doadmsbundle_sale_trade_in").value);
-            if(isNaN(parseFloat(n1))){
+            if (isNaN(parseFloat(n1))) {
                 n1 = 0;
             }
-            if(isNaN(parseFloat(n2))){
+            if (isNaN(parseFloat(n2))) {
                 n2 = 0;
             }
-            if(isNaN(parseFloat(n3))){
+            if (isNaN(parseFloat(n3))) {
                 n3 = 0;
             }
-            $('#numa_doadmsbundle_sale_net_grain').val((n2+n3) - n1);
+            $('#numa_doadmsbundle_sale_net_grain').val((n2 + n3) - n1);
         });
 
         $('.sum4').keyup(function () {
             var sum4 = 0;
-            $('.sum4').each(function() {
+            $('.sum4').each(function () {
                 sum4 += Number($(this).val());
             });
             $('#numa_doadmsbundle_sale_total_revenue').val(sum4);

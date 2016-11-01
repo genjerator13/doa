@@ -13,10 +13,10 @@
     {% endif %}
     {{ form(form) }}
 
-        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('supportform') }}" class="btn btn-primary" >
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('supportform') }}" class="btn btn-primary">
             Back to the list
         </a>
-        {% endif %}
+    {% endif %}
 
 {% endblock %}

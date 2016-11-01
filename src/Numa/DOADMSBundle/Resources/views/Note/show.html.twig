@@ -5,49 +5,49 @@
 
     <table class="record_properties">
         <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Customer_id</th>
-                <td>{{ entity.customerid }}</td>
-            </tr>
-            <tr>
-                <th>Subject</th>
-                <td>{{ entity.subject }}</td>
-            </tr>
-            <tr>
-                <th>Notes</th>
-                <td>{{ entity.notes }}</td>
-            </tr>
-            <tr>
-                <th>Date_remind</th>
-                <td>{{ entity.dateremind|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_created</th>
-                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ entity.status }}</td>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Customer_id</th>
+            <td>{{ entity.customerid }}</td>
+        </tr>
+        <tr>
+            <th>Subject</th>
+            <td>{{ entity.subject }}</td>
+        </tr>
+        <tr>
+            <th>Notes</th>
+            <td>{{ entity.notes }}</td>
+        </tr>
+        <tr>
+            <th>Date_remind</th>
+            <td>{{ entity.dateremind|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_created</th>
+            <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Date_updated</th>
+            <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ entity.status }}</td>
+        </tr>
         </tbody>
     </table>
 
-        
-        <a href="{{ path('note') }}" class="btn btn-primary" >
-            Back to the list
-        </a>
+
+    <a href="{{ path('note') }}" class="btn btn-primary">
+        Back to the list
+    </a>
 
 
-        <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">
-            Edit
-        </a>
+    <a href="{{ path('note_edit', { 'id': entity.id }) }}" class="btn btn-default">
+        Edit
+    </a>
 
 {% endblock %}

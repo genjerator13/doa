@@ -29,7 +29,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     };
 
     var today = new Date();
-    var tdd = new Date(today.getFullYear(),today.getMonth(),today.getDate());
+    var tdd = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {name: 'id', enableColumnResizing: true, width: 50},
@@ -39,7 +39,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
         },
         {name: 'company_name', enableColumnResizing: true},
-        {name: 'work_phone',displayName: 'Office Phone'},
+        {name: 'work_phone', displayName: 'Office Phone'},
         {name: 'mobile_phone'},
         {
             name: 'email',
@@ -48,15 +48,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         },
         {name: 'sales_person'},
         {#{name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},#}
-        {name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
-            cellClass: function(grid, row, col, rowRenderIndex, colRenderIndex) {
+        {
+            name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
 
-                fd = new Date(grid.getCellValue(row,col));
+                fd = new Date(grid.getCellValue(row, col));
 
                 if (tdd.getTime() === fd.getTime()) {
                     return 'red';
                 }
-            }},
+            }
+        },
         {#{name: 'lastnoteadded', displayName: 'Last Note Added', cellFilter: 'date:\'yyyy-MM-dd\''},#}
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
@@ -121,15 +123,15 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         data: data[i].note
                     }
                     data[i].company_name;
-                    if(!data[i].company_name){
-                        data[i].company_name = data[i].first_name+" "+data[i].last_name;
-                        if(!data[i].first_name){
+                    if (!data[i].company_name) {
+                        data[i].company_name = data[i].first_name + " " + data[i].last_name;
+                        if (!data[i].first_name) {
                             data[i].company_name = data[i].last_name;
                         }
-                        if(!data[i].last_name){
+                        if (!data[i].last_name) {
                             data[i].company_name = data[i].first_name;
                         }
-                        if(!data[i].first_name && !data[i].last_name){
+                        if (!data[i].first_name && !data[i].last_name) {
                             data[i].company_name = "";
                         }
 

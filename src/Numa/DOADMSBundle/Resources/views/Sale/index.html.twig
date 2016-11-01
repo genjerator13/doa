@@ -1,19 +1,19 @@
-    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
 {% block content -%}
 <div class="box">
     <div class="box-header">
         <h3 class="box-title">Sale list</h3>
         <div class="box-tools">
-            
-                        <a href="{{ path('sale_new') }}" class="btn btn-primary">
-                            Create a new Sale
-                        </a>
-                    </div>
+
+            <a href="{{ path('sale_new') }}" class="btn btn-primary">
+                Create a new Sale
+            </a>
+        </div>
     </div>
     <div class="box-body table-responsive no-padding">
         <table class="table table-hover">
-        <thead>
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Vendor_id</th>
@@ -81,87 +81,88 @@
                 <th>Revenue_this_unit</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('sale_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.vendorid }}</td>
-                <td>{{ entity.itemid }}</td>
-                <td>{{ entity.salesperson }}</td>
-                <td>{{ entity.stocknr }}</td>
-                <td>{{ entity.vin }}</td>
-                <td>{{ entity.invoicenr }}</td>
-                <td>{% if entity.invoicedate %}{{ entity.invoicedate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.invoicaamt }}</td>
-                <td>{{ entity.relatedtaxes1 }}</td>
-                <td>{{ entity.relatedtaxes2 }}</td>
-                <td>{{ entity.delivery }}</td>
-                <td>{{ entity.clearup }}</td>
-                <td>{{ entity.glass }}</td>
-                <td>{{ entity.mechanical1 }}</td>
-                <td>{{ entity.mechanical2 }}</td>
-                <td>{{ entity.otherexp1 }}</td>
-                <td>{{ entity.otherexp2 }}</td>
-                <td>{{ entity.otherexp3 }}</td>
-                <td>{{ entity.otherexp4 }}</td>
-                <td>{{ entity.otherexp5 }}</td>
-                <td>{{ entity.totalunitcost }}</td>
-                <td>{{ entity.netgrain }}</td>
-                <td>{{ entity.protectpkg }}</td>
-                <td>{{ entity.warranty }}</td>
-                <td>{{ entity.docfees }}</td>
-                <td>{{ entity.adminfees }}</td>
-                <td>{{ entity.insurance }}</td>
-                <td>{{ entity.lifeins }}</td>
-                <td>{{ entity.disabilityins }}</td>
-                <td>{{ entity.feverse }}</td>
-                <td>{{ entity.misc1 }}</td>
-                <td>{{ entity.misc2 }}</td>
-                <td>{{ entity.misc3 }}</td>
-                <td>{{ entity.salescomms }}</td>
-                <td>{{ entity.totalsalecost }}</td>
-                <td>{{ entity.discrip1 }}</td>
-                <td>{{ entity.discrip2 }}</td>
-                <td>{{ entity.discrip3 }}</td>
-                <td>{{ entity.discrip4 }}</td>
-                <td>{{ entity.discrip5 }}</td>
-                <td>{{ entity.discrip6 }}</td>
-                <td>{{ entity.discrip7 }}</td>
-                <td>{{ entity.tax1out }}</td>
-                <td>{{ entity.tax2out }}</td>
-                <td>{{ entity.tradeintax }}</td>
-                <td>{{ entity.tax1in }}</td>
-                <td>{{ entity.tax2in }}</td>
-                <td>{{ entity.nettax }}</td>
-                <td>{{ entity.sellingprice }}</td>
-                <td>{{ entity.tradein }}</td>
-                <td>{{ entity.warranty1 }}</td>
-                <td>{{ entity.lifeinsur }}</td>
-                <td>{{ entity.disabilityins1 }}</td>
-                <td>{{ entity.adminfees1 }}</td>
-                <td>{{ entity.docfees1 }}</td>
-                <td>{{ entity.protectpkg1 }}</td>
-                <td>{{ entity.insurance1 }}</td>
-                <td>{{ entity.bankcommis }}</td>
-                <td>{{ entity.other1 }}</td>
-                <td>{{ entity.other2 }}</td>
-                <td>{{ entity.other3 }}</td>
-                <td>{{ entity.totalrevenue }}</td>
-                <td>{{ entity.revenuethisunit }}</td>
-                <td><ul>
-        <li>
-            <a href="{{ path('sale_show', { 'id': entity.id }) }}">show</a>
-        </li>
-        <li>
-            <a href="{{ path('sale_edit', { 'id': entity.id }) }}">edit</a>
-        </li>
-</ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    <td><a href="{{ path('sale_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                    <td>{{ entity.vendorid }}</td>
+                    <td>{{ entity.itemid }}</td>
+                    <td>{{ entity.salesperson }}</td>
+                    <td>{{ entity.stocknr }}</td>
+                    <td>{{ entity.vin }}</td>
+                    <td>{{ entity.invoicenr }}</td>
+                    <td>{% if entity.invoicedate %}{{ entity.invoicedate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                    <td>{{ entity.invoicaamt }}</td>
+                    <td>{{ entity.relatedtaxes1 }}</td>
+                    <td>{{ entity.relatedtaxes2 }}</td>
+                    <td>{{ entity.delivery }}</td>
+                    <td>{{ entity.clearup }}</td>
+                    <td>{{ entity.glass }}</td>
+                    <td>{{ entity.mechanical1 }}</td>
+                    <td>{{ entity.mechanical2 }}</td>
+                    <td>{{ entity.otherexp1 }}</td>
+                    <td>{{ entity.otherexp2 }}</td>
+                    <td>{{ entity.otherexp3 }}</td>
+                    <td>{{ entity.otherexp4 }}</td>
+                    <td>{{ entity.otherexp5 }}</td>
+                    <td>{{ entity.totalunitcost }}</td>
+                    <td>{{ entity.netgrain }}</td>
+                    <td>{{ entity.protectpkg }}</td>
+                    <td>{{ entity.warranty }}</td>
+                    <td>{{ entity.docfees }}</td>
+                    <td>{{ entity.adminfees }}</td>
+                    <td>{{ entity.insurance }}</td>
+                    <td>{{ entity.lifeins }}</td>
+                    <td>{{ entity.disabilityins }}</td>
+                    <td>{{ entity.feverse }}</td>
+                    <td>{{ entity.misc1 }}</td>
+                    <td>{{ entity.misc2 }}</td>
+                    <td>{{ entity.misc3 }}</td>
+                    <td>{{ entity.salescomms }}</td>
+                    <td>{{ entity.totalsalecost }}</td>
+                    <td>{{ entity.discrip1 }}</td>
+                    <td>{{ entity.discrip2 }}</td>
+                    <td>{{ entity.discrip3 }}</td>
+                    <td>{{ entity.discrip4 }}</td>
+                    <td>{{ entity.discrip5 }}</td>
+                    <td>{{ entity.discrip6 }}</td>
+                    <td>{{ entity.discrip7 }}</td>
+                    <td>{{ entity.tax1out }}</td>
+                    <td>{{ entity.tax2out }}</td>
+                    <td>{{ entity.tradeintax }}</td>
+                    <td>{{ entity.tax1in }}</td>
+                    <td>{{ entity.tax2in }}</td>
+                    <td>{{ entity.nettax }}</td>
+                    <td>{{ entity.sellingprice }}</td>
+                    <td>{{ entity.tradein }}</td>
+                    <td>{{ entity.warranty1 }}</td>
+                    <td>{{ entity.lifeinsur }}</td>
+                    <td>{{ entity.disabilityins1 }}</td>
+                    <td>{{ entity.adminfees1 }}</td>
+                    <td>{{ entity.docfees1 }}</td>
+                    <td>{{ entity.protectpkg1 }}</td>
+                    <td>{{ entity.insurance1 }}</td>
+                    <td>{{ entity.bankcommis }}</td>
+                    <td>{{ entity.other1 }}</td>
+                    <td>{{ entity.other2 }}</td>
+                    <td>{{ entity.other3 }}</td>
+                    <td>{{ entity.totalrevenue }}</td>
+                    <td>{{ entity.revenuethisunit }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('sale_show', { 'id': entity.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('sale_edit', { 'id': entity.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-{% endblock %}
+    {% endblock %}
