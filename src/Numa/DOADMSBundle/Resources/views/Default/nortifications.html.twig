@@ -1,50 +1,52 @@
 <li class="dropdown notifications-menu">
     <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
         <i class="fa fa-bell-o"></i>
-        <span class="label label-warning">{% if(count is defined) %}{{ count }}{% endif%}</span>
+        <span class="label label-warning">{% if(count is defined) %}{{ count }}{% endif %}</span>
     </a>
     <ul class="dropdown-menu">
         {% if(count is defined) %}
-        <li class="header">You have {{ count }} notifications</li>
-        <li>
-            <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
-                <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
-                    {% for webform in webforms %}
-                    <li>
-                    {% if webform.type|lower=="eprice" or webform.type|lower=="offer" or webform.type|lower=="contact" or webform.type|lower=="testdrive"  or webform.type|lower=="finance" %}
-                    <a href="{{ path('listingform_show', { 'id': webform.id }) }}">
-                    <i class="fa fa-warning text-aqua"></i>
-                    {{ webform.type|capitalize }} request from {{ webform.email }}
-                    </a>
-                    {% elseif webform.type|lower=="financing" %}
-                    <a href="{{ path('finance_show', { 'id': webform.id }) }}">
-                    <i class="fa fa-shopping-cart text-gray"></i>
-                    {{ webform.type|capitalize }} request from {{ webform.email }}
-                    </a>
-                    {% elseif webform.type|lower=="service" %}
-                    <a href="{{ path('servicerequest_show', { 'id': webform.id }) }}">
-                    <i class="fa fa-users text-yellow"></i>
-                    {{ webform.type|capitalize }} request from {{ webform.email }}
-                    </a>
-                    {% elseif webform.type|lower=="part" %}
-                    <a href="{{ path('partrequest_show', { 'id': webform.id }) }}">
-                    <i class="fa fa-users text-blue"></i>
-                    {{ webform.type|capitalize }} request from {{ webform.email }}
-                    </a>
-                    {% elseif webform.type|lower=="newsletter" %}
-                    <a href="{{ path('listingform_show', { 'id': webform.id }) }}">
-                    <i class="fa fa-users text-pink"></i>
-                    {{ webform.type|capitalize }} request from {{ webform.email }}
-                    </a>
-                    {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
-                <div class="slimScrollBar" style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px;"></div>
-                <div class="slimScrollRail" style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div>
-            </div>
-        </li>
-        {% endif%}
+            <li class="header">You have {{ count }} notifications</li>
+            <li>
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 200px;">
+                    <ul class="menu" style="overflow: hidden; width: 100%; height: 200px;">
+                        {% for webform in webforms %}
+                            <li>
+                                {% if webform.type|lower=="eprice" or webform.type|lower=="offer" or webform.type|lower=="contact" or webform.type|lower=="testdrive"  or webform.type|lower=="finance" %}
+                                    <a href="{{ path('listingform_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-warning text-aqua"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
+                                {% elseif webform.type|lower=="financing" %}
+                                    <a href="{{ path('finance_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-shopping-cart text-gray"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
+                                {% elseif webform.type|lower=="service" %}
+                                    <a href="{{ path('servicerequest_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-users text-yellow"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
+                                {% elseif webform.type|lower=="part" %}
+                                    <a href="{{ path('partrequest_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-users text-blue"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
+                                {% elseif webform.type|lower=="newsletter" %}
+                                    <a href="{{ path('listingform_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-users text-pink"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <div class="slimScrollBar"
+                         style="background: rgb(0, 0, 0) none repeat scroll 0% 0%; width: 3px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 195.122px;"></div>
+                    <div class="slimScrollRail"
+                         style="width: 3px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51) none repeat scroll 0% 0%; opacity: 0.2; z-index: 90; right: 1px;"></div>
+                </div>
+            </li>
+        {% endif %}
         <li class="footer">
             <a href="{{ path('dms_home') }}">View all</a>
         </li>

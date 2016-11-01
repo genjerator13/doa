@@ -1,19 +1,19 @@
 <h2>Part request from {{ entity.email }} </h2>
- <h4>Contact Information:</h4>
-    <p>First Name: {{ entity.custName }}</p>
-    <p>Last Name: {{ entity.custLastName }}</p>
-    <p>Contact Me By: {% if entity.contactBy == 0 %}Email{% elseif entity.contactBy == 1 %}Phone{% endif %}</p>
-    <p>Email: {{ entity.email }}</p>
-    <p>Phone: {{ entity.phone }}</p>
- <h4>Vehicle Information:</h4>
-    <p>Year: {{ entity.year }}</p>
-    <p>Make: {{ entity.make }}</p>
-    <p>Model: {{ entity.model }}</p>
-    <p>Vin: {{ entity.vin }}</p>
- <h4>Part Information:</h4>
-    <p>Part Number #: {{ entity.partNum }}</p>
-    <p>Part Description: {{ entity.partDesc }}</p>
-    <p>Comment: {{ entity.comment }}</p>
+<h4>Contact Information:</h4>
+<p>First Name: {{ entity.custName }}</p>
+<p>Last Name: {{ entity.custLastName }}</p>
+<p>Contact Me By: {% if entity.contactBy == 0 %}Email{% elseif entity.contactBy == 1 %}Phone{% endif %}</p>
+<p>Email: {{ entity.email }}</p>
+<p>Phone: {{ entity.phone }}</p>
+<h4>Vehicle Information:</h4>
+<p>Year: {{ entity.year }}</p>
+<p>Make: {{ entity.make }}</p>
+<p>Model: {{ entity.model }}</p>
+<p>Vin: {{ entity.vin }}</p>
+<h4>Part Information:</h4>
+<p>Part Number #: {{ entity.partNum }}</p>
+<p>Part Description: {{ entity.partDesc }}</p>
+<p>Comment: {{ entity.comment }}</p>
 
 {% include 'NumaDOADMSBundle:Emails:item.html.twig' %}
 {% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}

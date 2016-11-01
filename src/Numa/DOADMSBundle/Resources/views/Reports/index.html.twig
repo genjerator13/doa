@@ -1,73 +1,78 @@
 {% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% block content -%}
-<div class="box">
-    <div class="box-header">
-        {% if app.session.flashBag.has('danger') %}
-            <div class="alert alert-danger">
-                {% for msg in app.session.flashBag.get('danger') %}
-                    {{ msg }}
-                {% endfor %}
-            </div>
-        {% endif %}
-        <h3 class="box-title">Report list</h3>
-        <div class="box-tools">
-            {#{% if(customer_id is defined and customer_id is not empty) %}#}
-            {#<a href="{{ path('customer_addbilling',{'id': customer_id}) }}" class="btn btn-primary">#}
+    <div class="box">
+        <div class="box-header">
+            {% if app.session.flashBag.has('danger') %}
+                <div class="alert alert-danger">
+                    {% for msg in app.session.flashBag.get('danger') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <h3 class="box-title">Report list</h3>
+            <div class="box-tools">
+                {#{% if(customer_id is defined and customer_id is not empty) %}#}
+                {#<a href="{{ path('customer_addbilling',{'id': customer_id}) }}" class="btn btn-primary">#}
                 {#Create a new Billing#}
-            {#</a>#}
-            {#{% endif %}#}
+                {#</a>#}
+                {#{% endif %}#}
+            </div>
         </div>
-    </div>
-    <form class="col-md-12">
-        Date From:
-        <input type="date" class="datepicker" name="dateFrom">
-        Date To:
-        <input type="date" class="datepicker" name="dateTo">
+        <form class="col-md-12">
+            Date From:
+            <input type="date" class="datepicker" name="dateFrom">
+            Date To:
+            <input type="date" class="datepicker" name="dateTo">
 
-        <button class="btn btn-success" type="submit" name="filter">Filter</button>
-        <button class="btn btn-info" type="submit" name="purchase"><i class="glyphicon glyphicon-file"></i>Purchase Report </button>
-        {#<button class="btn btn-info" type="submit" name="inventory"><i class="glyphicon glyphicon-file"></i>Inventory Report</button>#}
-        <button class="btn btn-info" type="submit" name="sales"><i class="glyphicon glyphicon-file"></i>Sales Report</button>
-    </form>
+            <button class="btn btn-success" type="submit" name="filter">Filter</button>
+            <button class="btn btn-info" type="submit" name="purchase"><i class="glyphicon glyphicon-file"></i>Purchase
+                Report
+            </button>
+            {#<button class="btn btn-info" type="submit" name="inventory"><i class="glyphicon glyphicon-file"></i>Inventory Report</button>#}
+            <button class="btn btn-info" type="submit" name="sales"><i class="glyphicon glyphicon-file"></i>Sales Report
+            </button>
+        </form>
 
         {#<button class="btn btn-info" href="{{ path("billing_report_xls",{'id': dealer.id}) }}"><i class="glyphicon glyphicon-file"></i>Excel</button>#}
-    {% if billings is empty %}
-    <div>No Billing</div>
-    {% else %}
+        {% if billings is empty %}
+            <div>No Billing</div>
+        {% else %}
 
-    <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Date_created</th>
-                <th>Date_updated</th>
-                <th>Status</th>
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Date_created</th>
+                        <th>Date_updated</th>
+                        <th>Status</th>
 
-                <th>Comments</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for billing in billings %}
-                <tr>
-                    <td><a href="{{ path('billing_show', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
-                    <td>{% if billing.datecreated %}{{ billing.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                    <td>{{ billing.status }}</td>
+                        <th>Comments</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for billing in billings %}
+                        <tr>
+                            <td><a href="{{ path('billing_show', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
+                            <td>{% if billing.datecreated %}{{ billing.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{{ billing.status }}</td>
 
-                    <td>{{ billing.comments }}</td>
-                    <td>
-                        <a href="{{ path('billing_edit', { 'id': billing.id }) }}" class="btn btn-primary">Edit</a>
-                        <a href="{{ path('billing_print', { 'id': billing.id }) }}" class="btn btn-primary">Pdf</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                            <td>{{ billing.comments }}</td>
+                            <td>
+                                <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
+                                   class="btn btn-primary">Edit</a>
+                                <a href="{{ path('billing_print', { 'id': billing.id }) }}"
+                                   class="btn btn-primary">Pdf</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
     <script>
         $(function () {
             $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});

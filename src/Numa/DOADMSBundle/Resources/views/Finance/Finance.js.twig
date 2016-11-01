@@ -68,16 +68,16 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("finance_mass_delete") }}', {'data': JSON.stringify($scope.selected)})
                 .success(function (data) {
-                    i=1
-                    angular.forEach($scope.selected, function(value, key) {
+                    i = 1
+                    angular.forEach($scope.selected, function (value, key) {
                         $log.log(key + ': ' + value);
-                        $scope.gridOptions.data.splice(key-i, 1);
+                        $scope.gridOptions.data.splice(key - i, 1);
                         i++;
                     });
-                    $scope.selected={}
+                    $scope.selected = {}
                     $scope.gridApi.selection.clearSelectedRows();
-                    angular.forEach(data, function(data, index) {
-                        data.index = index+1;
+                    angular.forEach(data, function (data, index) {
+                        data.index = index + 1;
                         //data.push({"index":index+1})
                     })
                 });
@@ -86,8 +86,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
-                angular.forEach(data, function(row, index) {
-                    row.index = index+1;
+                angular.forEach(data, function (row, index) {
+                    row.index = index + 1;
                 })
                 $scope.gridOptions.data = data;
 
@@ -110,7 +110,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
             var msg = 'rows changed ' + rows.length;
             $log.log(rows);
-            angular.forEach(rows, function(value, key) {
+            angular.forEach(rows, function (value, key) {
                 $scope.selected[value.entity.index] = value.entity.id;
             });
             console.log($scope.selected);
