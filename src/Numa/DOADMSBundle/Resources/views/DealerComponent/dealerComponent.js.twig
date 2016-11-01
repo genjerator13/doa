@@ -115,10 +115,10 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         });
     };
 }]);
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance,$sce,params) {
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, $sce, params) {
 
     //$scope.help = params;
-    $scope.helpdesc =  $sce.trustAsHtml(params);
+    $scope.helpdesc = $sce.trustAsHtml(params);
 
     $scope.cancel = function () {
         $uibModalInstance.dismiss('cancel');
