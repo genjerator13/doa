@@ -20,6 +20,7 @@ class ListingFormOfferTradeInType extends AbstractType
             ->add('cust_officer', null, array('label'=>'Sales Person *', 'required'=>true))
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')
+            ->add('offer_amt')
             ->add('type','hidden',array('data'=>'offer trade in'))
             ->add('item_id','hidden')
             ->add('trade_in', 'checkbox')
