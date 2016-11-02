@@ -5027,4 +5027,33 @@ class Item
         }
         return null;
     }
+    /**
+     * @var string
+     */
+    private $vindecoder;
+
+
+    /**
+     * Set vindecoder
+     *
+     * @param string $vindecoder
+     *
+     * @return Item
+     */
+    public function setVindecoder($vindecoder)
+    {
+        $this->vindecoder = $vindecoder;
+
+        return $this;
+    }
+
+    /**
+     * Get vindecoder
+     *
+     * @return string
+     */
+    public function getVindecoder()
+    {
+        return $this->vindecoder;
+    }
 }
