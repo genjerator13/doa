@@ -368,14 +368,14 @@ class searchESParameters
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                         if($searchItem->getDbFieldName()=='dealer_id') {
-                            $dg = $this->container->get("numa.dms.user")->getDealerGroupIdByHost();
-                            if(!empty($dg)){
-                                $fieldQuery = new \Elastica\Query\Term();
-                                $fieldQuery->setTerm('dealerGroup', $dg);
-                                $boolQuery->addMust($fieldQuery);
-                            }else {
-                                $boolQuery->addMust($fieldQuery);
-                            }
+                            //$dg = $this->container->get("numa.dms.user")->getDealerGroupIdByHost();
+                            //if(!empty($dg)){
+                            //    $fieldQuery = new \Elastica\Query\Term();
+                            //    $fieldQuery->setTerm('dealerGroup', $dg);
+                            //    $boolQuery->addMust($fieldQuery);
+                            //}else {
+                            $boolQuery->addMust($fieldQuery);
+                            //}
 
                         }else{
                             $boolQuery->addShould($fieldQuery);
