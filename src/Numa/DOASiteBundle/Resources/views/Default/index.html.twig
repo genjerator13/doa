@@ -30,11 +30,11 @@
                             {% set words = item.ListingFieldListValue|split(' ', 2) %}
                             {% if key|lower=='vehicle' or key|lower=='car' %}
                             <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
-                               href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'bodyStyleSlug': item.ListingFieldListSlug|url_encode|lower}) }}">
+                               href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
                                 {% elseif key=='Marine' %}
                                 <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                    style=""
-                                   href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'boatTypeSlug': item.ListingFieldListSlug|url_encode|lower}) }}" class='xxx'">
+                                   href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}" class='xxx'">
                                     {% elseif key=='RVs' %}
                                     <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                        style=""
