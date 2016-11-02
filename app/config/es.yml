@@ -5,6 +5,7 @@ fos_elastica:
         app:
             types:
                 Item:
+
                     mappings:
                         id:
                           type: integer
@@ -30,8 +31,9 @@ fos_elastica:
                           type: integer
                         categoryName: ~
                         categorySubType:
-                          index: not_analyzed
+                          analyzer: standard
                           type: string
+
                         views: ~
                         VIN: ~
                         mileage:
