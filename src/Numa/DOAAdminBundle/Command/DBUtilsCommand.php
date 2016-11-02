@@ -15,6 +15,7 @@ use Numa\DOAAdminBundle\Entity\HomeTab;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importmapping;
 use Numa\DOAAdminBundle\Entity\CommandLog;
+use Guzzle\Http\Client;
 
 class DBUtilsCommand extends ContainerAwareCommand
 {
@@ -81,6 +82,9 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->pages($dealer_id);
         } elseif ($command == 'populate') {
             $this->populate();
+        } elseif ($command == 'vindecoder') {
+            $item_id = $feed_id;
+            $this->vindecoder($item_id);
         }
     }
 
@@ -682,6 +686,14 @@ class DBUtilsCommand extends ContainerAwareCommand
         $commandLog->setStatus('finished');
         $em->flush();
         $em->clear();
+    }
+    public function vindecoder($item_id){
+//        dump($item_id);die();
+        $client = new Client();
+//        $vin = ZFBERFCT9F6969566;
+        $response = $client->get('http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=2&vin=ZFBERFCT9F6969566')->send();
+         dump($response->xml()->VIN->Vehicle);die();
+        return $response->json();
     }
 
 }
