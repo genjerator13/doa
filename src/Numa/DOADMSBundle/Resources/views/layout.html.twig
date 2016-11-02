@@ -187,12 +187,12 @@
                                         Listing Forms</a>
                                 </li>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('partrequest') }}" class=""><i class="fa fa-cogs"></i>Part Request</a>
                                 </li>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS')  or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
                                 <li class="active">
                                     <a href="{{ path('servicerequest') }}" class=""><i class="fa fa-inbox"></i>Service
                                         Request</a>
@@ -319,7 +319,7 @@
                                     <a href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>Business Profile</a>
                                 </li>
-                            {% elseif(is_granted('ROLE_REGULAR_ADMIN_DMS')) %}
+                            {% elseif(is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS')) %}
                                 <li class="active">
                                     <a href="{{ path('dms_profile_edit', {'id': app.user.dealerId}) }}">
                                         <i class="fa fa-pencil-square-o"></i>Business Profile</a>
@@ -328,31 +328,35 @@
                                     <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>User Profile</a>
                                 </li>
-                            {% elseif(is_granted('ROLE_DEALER_PRINCIPAL')) %}
+                            {% elseif(is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SERVICE_DMS') or is_granted('ROLE_PARTS_DMS') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_WHOLESALE_DMS')) %}
+                                <li class="active">
+                                    <a href="{{ path('userprofile_edit', {'id': app.user.id}) }}">
+                                        <i class="fa fa-pencil-square-o"></i>User Profile</a>
+                                </li>
                             {% endif %}
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
                             <li class="active">
                                 <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
                             <li class="active">
                                 <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Website Pages</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
                             <li class="active">
                                 <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
                             <li class="">
                                 <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image
                                     Carousel (Default Theme Only)</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
                             <li class="">
                                 <a href="{{ path('component') }}" class=""><i class="fa fa-pencil-square-o"></i>Content
                                     Components</a>
