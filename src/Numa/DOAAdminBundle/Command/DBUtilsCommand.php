@@ -15,7 +15,6 @@ use Numa\DOAAdminBundle\Entity\HomeTab;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOAAdminBundle\Entity\Importmapping;
 use Numa\DOAAdminBundle\Entity\CommandLog;
-use Guzzle\Http\Client;
 
 class DBUtilsCommand extends ContainerAwareCommand
 {
@@ -30,7 +29,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             ->setDescription('fix listing fields table');
     }
 
-    function makeListingFromTemp()
+    public function makeListingFromTemp()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $custom = $em->getConnection()->prepare('SELECT * from listing_field_list_temp');
@@ -82,10 +81,11 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->pages($dealer_id);
         } elseif ($command == 'populate') {
             $this->populate();
-        } elseif ($command == 'vindecoder') {
-            $item_id = $feed_id;
-            $this->vindecoder($item_id);
+        }elseif ($command == 'videcoder') {
+            $item_id=$feed_id;
+            $this->videcoder($item_id);
         }
+
     }
 
     public function startCommand($em)
@@ -198,8 +198,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
                 }
                 $progresses[$id] = $count;
-                $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
-
+                
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
                 if ($count % 50 == 0) {
                     $logger->warning("FETCH FEED: flush 50");
@@ -269,7 +268,7 @@ class DBUtilsCommand extends ContainerAwareCommand
     /**
      * Creates array for tabs on homepage
      */
-    function makeHomeTabs($echo = true)
+    public function makeHomeTabs($echo = true)
     {
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
@@ -488,7 +487,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         //dump($memcache->get('hometabs'));
     }
 
-    function equalizeAllItems()
+    public function equalizeAllItems()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
@@ -686,14 +685,6 @@ class DBUtilsCommand extends ContainerAwareCommand
         $commandLog->setStatus('finished');
         $em->flush();
         $em->clear();
-    }
-    public function vindecoder($item_id){
-//        dump($item_id);die();
-        $client = new Client();
-//        $vin = ZFBERFCT9F6969566;
-        $response = $client->get('http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=2&vin=ZFBERFCT9F6969566')->send();
-         dump($response->xml()->VIN->Vehicle);die();
-        return $response->json();
     }
 
 }
