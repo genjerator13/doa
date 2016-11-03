@@ -6,16 +6,14 @@ use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
 use Numa\DOAAdminBundle\Lib\RemoteFeed;
-use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Numa\DOAAdminBundle\Entity\HomeTab;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Numa\DOAAdminBundle\Entity\Importmapping;
 use Numa\DOAAdminBundle\Entity\CommandLog;
-use Guzzle\Http\Client;
+use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
 class DBUtilsCommand extends ContainerAwareCommand
 {
@@ -687,13 +685,10 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         $em->clear();
     }
+
     public function vindecoder($item_id){
-//        dump($item_id);die();
-        $client = new Client();
-//        $vin = ZFBERFCT9F6969566;
-        $response = $client->get('http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=2&vin=ZFBERFCT9F6969566')->send();
-         dump($response->xml()->VIN->Vehicle);die();
-        return $response->json();
+        $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
+        dump($decodedVin);
     }
 
 }
