@@ -46,6 +46,8 @@ class DealerGroupController extends Controller
                 $dealer->setDealerGroup($entity);
             }
             $em->persist($entity);
+            $rq = $request->get("numa_doadmsbundle_dealergroup");
+            $pass= $rq["password"];
             if (!empty($pass)) {
                 $factory = $this->container->get('security.encoder_factory');
                 $encoder = $factory->getEncoder($entity);
