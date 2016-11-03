@@ -30,6 +30,21 @@ class FinanceRepository extends EntityRepository
         }
     }
 
+    public function findByDealerGroupId($dealer_group_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('finance')
+
+            ->add('from', 'NumaDOADMSBundle:Finance finance')
+            ->innerJoin('NumaDOAAdminBundle:Catalogrecords', 'd', "WITH", "d.id=finance.dealer_id")
+            ->where("d.dealer_group_id=:dealer_group_id")
+            ->setParameter('dealer_group_id', $dealer_group_id);
+
+        $res = $qb->getQuery()->getResult();
+
+        return $res;
+    }
+
 
 
 
