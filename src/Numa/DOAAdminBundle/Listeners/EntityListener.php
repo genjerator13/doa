@@ -153,6 +153,9 @@ class EntityListener
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+            $decodedvin = $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
+            $entity->setVindecoder($decodedvin);
+            $em->flush();
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ServiceRequest) {
