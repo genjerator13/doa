@@ -36,7 +36,7 @@ security:
         - { path: ^/dms/component, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_SALES, ROLE_SALE3_DMS] }
         - { path: ^/dms/pages, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_SALES, ROLE_SALE3_DMS] }
         - { path: ^/dms/profile, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES, ROLE_SALE3_DMS,ROLE_REGULAR_ADMIN_DMS] }
-        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS, ROLE_SALE3_DMS] }
+        - { path: ^/dms/finance, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_FINANCE_DMS, ROLE_SALE3_DMS,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/customer, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/vendor, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/listing_form, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES] }
