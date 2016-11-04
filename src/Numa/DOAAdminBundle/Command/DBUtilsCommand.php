@@ -28,7 +28,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             ->setDescription('fix listing fields table');
     }
 
-    function makeListingFromTemp()
+    public function makeListingFromTemp()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $custom = $em->getConnection()->prepare('SELECT * from listing_field_list_temp');
@@ -267,7 +267,7 @@ class DBUtilsCommand extends ContainerAwareCommand
     /**
      * Creates array for tabs on homepage
      */
-    function makeHomeTabs($echo = true)
+    public function makeHomeTabs($echo = true)
     {
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
@@ -486,7 +486,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         //dump($memcache->get('hometabs'));
     }
 
-    function equalizeAllItems()
+    public function equalizeAllItems()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
