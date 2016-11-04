@@ -12,6 +12,7 @@ namespace Numa\DOADMSBundle\Util;
 use Doctrine\Common\Collections\Collection;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
 class ListingLib
@@ -94,63 +95,74 @@ class ListingLib
         }
     }
 
-    public function decodeVin($vin){
-        $buzz = $this->container->get('buzz');
-        $error = "";
-        $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=2&vin=' . $vin;
-
-        $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
-
-        if($buzz->getLastResponse()->getStatusCode()!=200){
-            $error['ERROR']="SERVER ERROR";
-            return $error;
-        }
-        $dealerXml = new SimpleXMLElement($response->getContent());
-
-        $json = json_encode($dealerXml);
+    public function decodeVin($vin)
+    {
         $res = array();
-        if($buzz->getLastResponse()->getStatusCode()!=200){
-            $error['ERROR']="WRONG VIN";
-            return $error;
-        }
 
-        foreach ($dealerXml->VIN[0]->Vehicle->Item as $item) {
-            $array = json_decode(json_encode((array)$item), TRUE);
-            $itemXml = $array["@attributes"];
-            $itemValue = $itemXml['Value'];
-            $itemUnit = $itemXml['Unit'];
+        try {
+            $buzz = $this->container->get('buzz');
+            $error = "";
+            $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
 
-            $itemKey = $itemXml['Key'];
-            if ($itemValue != "N/A" && $itemValue != "No data") {
-                if (!empty($itemUnit)) {
-                    $itemValue = $itemValue . " " . $itemUnit;
-                }
-                $res[$itemKey] = $itemValue;
+            $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
+
+            if ($buzz->getLastResponse()->getStatusCode() != 200) {
+                $error['ERROR'] = "SERVER ERROR";
+                return $error;
             }
+            $dealerXml = new SimpleXMLElement($response->getContent());
 
+            $json = json_encode($dealerXml);
+
+            if ($buzz->getLastResponse()->getStatusCode() != 200) {
+                $error['ERROR'] = "WRONG VIN";
+                return $error;
+            }
+            if (!empty($dealerXml->VIN[0]->Vehicle)) {
+                foreach ($dealerXml->VIN[0]->Vehicle->Item as $item) {
+                    $array = json_decode(json_encode((array)$item), TRUE);
+                    $itemXml = $array["@attributes"];
+                    $itemValue = $itemXml['Value'];
+                    $itemUnit = $itemXml['Unit'];
+
+                    $itemKey = $itemXml['Key'];
+                    if ($itemValue != "N/A" && $itemValue != "No data") {
+                        if (!empty($itemUnit)) {
+                            $itemValue = $itemValue . " " . $itemUnit;
+                        }
+                        $res[$itemKey] = $itemValue;
+                    }
+
+                }
+            }
+        }catch(Exception $ex){
+            $error['ERROR'] = "NO CONNECTION";
+            return $error;
         }
         return $res;
     }
+
     public function vindecoder($item)
     {
-        $vin="";
+        $vin = "";
         $em = $this->container->get('doctrine.orm.entity_manager');
         if (!$item instanceof Item) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
         }
         if ($item instanceof Item) {
-            if(!empty($item->getVIN())){
+            if (!empty($item->getVIN())) {
                 $vin = $item->getVIN();
             }
         }
-        if(empty($vin)){
+
+        if (empty($vin)) {
             return;;
         }
 
         $decodedVin = $this->decodeVin($vin);
-        if(is_array($decodedVin)){
-            if(!array_key_exists("ERROR",$decodedVin)){
-                return json_encode($decodedVin,true);
+        if (is_array($decodedVin)) {
+            if (!array_key_exists("ERROR", $decodedVin)) {
+                return json_encode($decodedVin, true);
             }
         }
         return false;

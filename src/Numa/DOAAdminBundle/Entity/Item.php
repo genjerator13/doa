@@ -5056,4 +5056,14 @@ class Item
     {
         return $this->vindecoder;
     }
+
+    public function getVindecoderItems(){
+        if(!empty($this->getVindecoder())){
+            $array = json_decode($this->getVindecoder(),true);
+            if(!empty($array) && is_array($array)){
+                dump($array);
+            }
+        }
+        return $array;
+    }
 }
