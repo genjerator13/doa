@@ -25,6 +25,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                         $scope.new = "X";
                     }
                 }
+
                 $scope.billing_date = response.data.billing_date;
                 $scope.sales_person = response.data.sales_person;
                 $scope.trim = response.data.trim;
@@ -61,8 +62,8 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
                 $scope.other_misc1 = response.data.other_misc1;
                 $scope.other_misc2 = response.data.other_misc2;
-                $scope.other_misc1_name = response.data.other_misc1_name;
-                $scope.other_misc2_name = response.data.other_misc2_name;
+                $scope.other_misc1_name = "PST Tax";
+                $scope.other_misc2_name = "GST Tax";
                 $scope.taxes_paid_total = response.data.taxes_paid_total;
                 $scope.lien_on_trade_in = response.data.lien_on_trade_in;
                 $scope.total_due = response.data.total_due;
