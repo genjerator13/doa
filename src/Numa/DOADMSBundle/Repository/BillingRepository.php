@@ -31,7 +31,7 @@ class BillingRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b')
-            ->Where('b.dealer_id=:dealer_id');
+            ->Where('b.dealer_id IN (' . $dealer_id . ')');
             if(!empty($date) && empty($date1))
             {
                 $qb->andWhere('b.date_created > :date')
@@ -48,7 +48,6 @@ class BillingRepository extends EntityRepository
                     ->setParameter("date", $date)
                     ->setParameter("date1", $date1);
             }
-        $qb->setParameter("dealer_id", $dealer_id);
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
         return $res;

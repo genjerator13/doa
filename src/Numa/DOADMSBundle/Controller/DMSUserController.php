@@ -22,16 +22,12 @@ class DMSUserController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
-        if ($dealer instanceof Catalogrecords) {
-            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer' => $dealer));
-        } else {
-            $entities = $em->getRepository('NumaDOADMSBundle:DMSUser')->findAll();
-        }
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
 
         return $this->render('NumaDOADMSBundle:DMSUser:index.html.twig', array(
-            'entities' => $entities,
+            'dealer'=>$dealer,
+            'dealerPrincipal'=>$dealerPrincipal
         ));
     }
 

@@ -54,7 +54,7 @@
                     <tbody>
                     {% for billing in billings %}
                         <tr>
-                            <td><a href="{{ path('billing_show', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
+                            <td><a href="{{ path('billing_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
                             <td>{% if billing.datecreated %}{{ billing.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{{ billing.status }}</td>

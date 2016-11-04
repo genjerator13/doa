@@ -10,3 +10,7 @@ vendor_api_by_dealer:
     path:     /dealer/{dealer_id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:VendorREST:byDealer",_format: "json"}
     requirements: { _method: get }
+vendor_api_by_dealer_principal:
+    path:     /dealerprincipal/{dealer_group_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:VendorREST:byDealerPrincipal",_format: "json"}
+    requirements: { _method: get }

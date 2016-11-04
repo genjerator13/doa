@@ -106,4 +106,20 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
 
         return $qb->getQuery()->execute();
     }
+
+    public function findByDealerGroupId($dealer_group_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('user')
+
+            ->add('from', 'NumaDOADMSBundle:DMSUser user')
+            ->innerJoin('NumaDOAAdminBundle:Catalogrecords', 'd', "WITH", "d.id=user.dealer_id")
+            ->where("d.dealer_group_id=:dealer_group_id")
+//            ->andWhere("user.status NOT LIKE 'deleted' OR user.status IS NULL")
+            ->setParameter('dealer_group_id', $dealer_group_id);
+
+        $res = $qb->getQuery()->getResult();
+
+        return $res;
+    }
 }

@@ -37,7 +37,6 @@ class Reports
     );
     public function billingReportPurchaseXls($entities)
     {
-
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
         $rendererLibrary = 'mPDF';
         $rendererLibraryPath = (dirname(__FILE__) . '/../../../../vendor/mpdf/mpdf'); //works

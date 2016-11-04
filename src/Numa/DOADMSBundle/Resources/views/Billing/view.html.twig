@@ -5,21 +5,17 @@
             font-size: 11pt;
         }
 
-        /*div.page*/
-        /*{*/
-        /*page-break-after: always;*/
-        /*page-break-inside: avoid;*/
-        /*}*/
-        /*div.last-page*/
-        /*{*/
-        /*page-break-after: avoid;*/
-        /*page-break-inside: avoid;*/
-        /*}*/
-        /*test*/
-        /*test*/
+        div.page {
+            page-break-after: always;
+            page-break-inside: avoid;
+        }
+
+        div.last-page {
+            page-break-after: avoid;
+            page-break-inside: avoid;
+        }
     </style>
     <div class="page">
-    <div>
         <table cellspacing="0" border="0">
             <tr>
                 <td style="border-bottom: 1px solid #000000" colspan=4
@@ -951,7 +947,9 @@
             </tr>
         </table>
     </div>
-    <div class="" style="margin-top: 300px">
+
+    <div class="last-page">
+
         {% if dealer.termsText is defined %}
             {{ dealer.termsText()|raw }}
         {% endif %}
