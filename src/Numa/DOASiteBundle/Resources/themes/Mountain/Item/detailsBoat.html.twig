@@ -183,9 +183,9 @@
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
-                            {{ dump(item.getVindecoderItems()) }}
+
                             <ul class='option-lists'>
-                                {#{{ dump(item.ItemField) }}#}
+
                                 {% if item.categoryId()==1 %}
                                     {% for field in item.ItemField %}
                                         {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
