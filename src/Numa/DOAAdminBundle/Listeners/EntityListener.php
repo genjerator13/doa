@@ -123,7 +123,6 @@ class EntityListener
 //                $entity->setVindecoder($decodedvin);
 //                $entityManager->flush($entity);
                 $this->vinchange = true;
-                dump($this->vinchange);
             }
         }
 
