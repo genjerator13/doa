@@ -39,18 +39,18 @@
                 url: "{{ path("decode_vin_api") }}",
                 data: {vin: vin},
                 success: function (data, textStatus, jqXHR) {
-                    //console.log(jQuery.isEmptyObject(data.make));
-                    if (!jQuery.isEmptyObject(data.make.name)) {
-                        make.val(data.make.name);
+                    console.log(data);
+                    if (!jQuery.isEmptyObject(data.Make)) {
+                        make.val(data.Make);
                     }
-                    if (!jQuery.isEmptyObject(data.model.name)) {
-                        model.val(data.model.name);
+                    if (!jQuery.isEmptyObject(data.Model)) {
+                        model.val(data.Model);
                     }
-                    if (data.years[0].year != null) {
-                        year.val(data.years[0].year);
+                    if (data['Model Year']) {
+                        year.val(data['Model Year']);
                     }
-                    if (!jQuery.isEmptyObject(data.MPG.city)) {
-                        mpgCity.val(data.MPG.city);
+                    if (data['Model Year']) {
+                        year.val(data['Model Year']);
                     }
                     if (!jQuery.isEmptyObject(data.MPG.highway)) {
                         mpgHighway.val(data.MPG.highway);
