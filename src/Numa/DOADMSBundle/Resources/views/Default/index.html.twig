@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') %}
+    {% if not is_granted('ROLE_ADMIN') %}
         {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
     {% endif %}
 
