@@ -32,4 +32,19 @@ class FinanceRESTController extends Controller
         return $partRequest;
     }
 
+    /**
+     * @Rest\View
+     */
+    public function byDealerPrincipalAction($dealer_group_id)
+    {
+
+        $customer = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Finance')->findByDealerGroupId($dealer_group_id);
+        //dump($customer);die();
+        if (!$customer) {
+            //throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+
+        return $customer;
+    }
+
 }

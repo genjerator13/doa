@@ -49,4 +49,19 @@ class VendorRESTController extends Controller
 
         return $vendor;
     }
+
+    /**
+     * @Rest\View
+     */
+    public function byDealerPrincipalAction($dealer_group_id)
+    {
+
+        $vendor = $this->getDoctrine()->getRepository('NumaDOADMSBundle:Vendor')->findByDealerGroupId($dealer_group_id);
+        //dump($customer);die();
+        if (!$vendor) {
+            //throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+
+        return $vendor;
+    }
 }

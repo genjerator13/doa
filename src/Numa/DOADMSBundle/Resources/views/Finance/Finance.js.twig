@@ -1,8 +1,11 @@
 {# get the loged dealer #}
 {% set apicall="/api/finance/all.json" %}
-{% if dealer is not empty %}
+{% if dealerPrincipal is not empty %}
+{% set apicall="/api/finance/dealerprincipal/"~dealerPrincipal.id %}
+{% elseif dealer is not empty %}
 {% set apicall="/api/finance/"~dealer.id~"/dealer" %}
 {% endif %}
+
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 

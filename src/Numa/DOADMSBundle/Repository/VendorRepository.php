@@ -36,4 +36,20 @@ class VendorRepository extends EntityRepository {
         return $res;
     }
 
+    public function findByDealerGroupId($dealer_group_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('vend')
+
+            ->add('from', 'NumaDOADMSBundle:Vendor vend')
+            ->innerJoin('NumaDOAAdminBundle:Catalogrecords', 'd', "WITH", "d.id=vend.dealer_id")
+            ->where("d.dealer_group_id=:dealer_group_id")
+            ->andWhere("vend.status NOT LIKE 'deleted' OR vend.status IS NULL")
+            ->setParameter('dealer_group_id', $dealer_group_id);
+
+        $res = $qb->getQuery()->getResult();
+
+        return $res;
+    }
+
 }

@@ -23,9 +23,11 @@ class VendorController extends Controller
     public function indexAction()
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
 
         return $this->render('NumaDOADMSBundle:Vendor:index.html.twig', array(
-            'dealer'=>$dealer
+            'dealer'=>$dealer,
+            'dealerPrincipal'=>$dealerPrincipal
         ));
     }
     /**
