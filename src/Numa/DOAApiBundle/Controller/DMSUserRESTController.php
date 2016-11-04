@@ -42,4 +42,19 @@ class DMSUserRESTController extends Controller
         $users = $this->getDoctrine()->getRepository('NumaDOADMSBundle:DMSUser')->findBy(array('Dealer'=>$user));
         return $users;
     }
+
+    /**
+     * @Rest\View
+     */
+    public function byDealerPrincipalAction($dealer_group_id)
+    {
+
+        $customer = $this->getDoctrine()->getRepository('NumaDOADMSBundle:DMSUser')->findByDealerGroupId($dealer_group_id);
+        //dump($customer);die();
+        if (!$customer) {
+            //throw $this->createNotFoundException('Unable to find Customer entity.');
+        }
+
+        return $customer;
+    }
 }
