@@ -9,7 +9,10 @@
 namespace Numa\DOADMSBundle\Util;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\Criteria;
+use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Component\Config\Definition\Exception\Exception;
@@ -178,12 +181,40 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        if(!empty($vindecoderItems)) {
-            foreach ($vindecoderItems as $itemVin)
-            {
+        $itemFields = $em->getRepository("NumaDOAAdminBundle:ItemField")->findBy(array('item_id'=>$item->getId()));
 
+
+
+        if(!empty($vindecoderItems)) {
+            foreach ($vindecoderItems as $key=>$itemVin)
+            {
+                if(strtolower($itemVin)=="std.") {
+                    $criteria = new \Doctrine\Common\Collections\Criteria();
+                    $criteria->where(Criteria::expr()->eq("field_name", $key));
+                    $currentItemField=null;
+
+                    if(!empty($item->getItemField())) {
+                        $currentItemField = $item->getItemField()->matching($criteria);
+                    }
+                    if ($currentItemField instanceof  ArrayCollection && $currentItemField->first() instanceof ItemField) {
+                        //$currentItemField->first()->setFieldBooleanValue(true);
+
+                    } else {
+                        $if = new ItemField();
+                        $if->setFieldName($key);
+                        $if->setFieldType('boolean');
+                        $if->setFieldBooleanValue(true);
+                        $if->setFieldStringValue("true");
+                        $if->setFieldIntegerValue(1);
+                        $item->addItemField($if);
+                        $em->persist($if);
+                        $em->flush($item);
+                    }
+                }
             }
+            die();
         }
+
 
     }
 }
