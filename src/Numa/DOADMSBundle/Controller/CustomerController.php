@@ -122,15 +122,15 @@ class CustomerController extends Controller
      */
     public function editAction($id)
     {
-//        //getserializer
-//        $serializer = $this->get('jms_serializer');
-//        //create api client
-//        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
-//        $client = new Client($baseurl);
-//
-//        //getResponse
-//        $response = $client->get('/api/customer/'.$id)->send();
-//
+        //getserializer
+        $serializer = $this->get('jms_serializer');
+        //create api client
+        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
+        $client = new Client($baseurl);
+
+        //getResponse
+        $response = $client->get('/api/customer/'.$id)->send();
+
 //        //deserialize response
 //        $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
         $em = $this->getDoctrine()->getManager();

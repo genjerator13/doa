@@ -22,7 +22,7 @@ class EntityListener
 {
 
     protected $container;
-
+    protected $vinchange=false;
     public function __construct($container = null)
     {
         $this->container = $container;
@@ -41,7 +41,8 @@ class EntityListener
         foreach ($uow->getScheduledEntityUpdates() as $entity) {
 
             if ($entity instanceof Item) {
-                //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
+
+
             } elseif ($entity instanceof Billing) {
 
 
@@ -111,24 +112,20 @@ class EntityListener
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
-
-
-//        $entity = $args->getEntity();
-//        $entityManager = $args->getEntityManager();
 //
-//        if ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
-//            dump($entity->getPassword());
-//            $rawPass = $entity->getPassword();
-//            $this->setPassword($entity);
 //
-//            $pass = $entity->getPassword();
-//            if (!empty($rawPass)) {
-//
-//                //$args->setNewValue('password', $pass);
-//                dump($pass);
-//                dump($entity);die();
-//            }
-        // }
+        $entity = $args->getEntity();
+        $entityManager = $args->getEntityManager();
+        if ($entity instanceof Item) {
+            //$this->vinchange = false;
+            if($args->hasChangedField("VIN")){
+//                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
+//                $entity->setVindecoder($decodedvin);
+//                $entityManager->flush($entity);
+                $this->vinchange = true;
+                dump($this->vinchange);
+            }
+        }
 
     }
 
@@ -141,6 +138,12 @@ class EntityListener
 
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+            if($this->vinchange) {
+                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
+                $entity->setVindecoder($decodedvin);
+                $entityManager->flush($entity);
+            }
+
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
@@ -153,7 +156,8 @@ class EntityListener
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
-            $decodedvin = $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
+
+            $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
             $entity->setVindecoder($decodedvin);
             $em->flush();
         } elseif ($entity instanceof PartRequest) {
