@@ -212,7 +212,7 @@ class ListingLib
                     }
                 }
             }
-            die();
+            
         }
 
 

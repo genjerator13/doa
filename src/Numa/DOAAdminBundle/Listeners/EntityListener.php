@@ -160,7 +160,7 @@ class EntityListener
             $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
             $entity->setVindecoder($decodedvin);
             $em->flush();
-            $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
+            $this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ServiceRequest) {
