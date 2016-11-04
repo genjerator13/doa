@@ -160,11 +160,30 @@ class ListingLib
         }
 
         $decodedVin = $this->decodeVin($vin);
+
         if (is_array($decodedVin)) {
             if (!array_key_exists("ERROR", $decodedVin)) {
                 return json_encode($decodedVin, true);
             }
         }
         return false;
+    }
+
+    public function insertFromVinDecoder($item){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if (!$item instanceof Item) {
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
+        }
+        if (!$item instanceof Item) {
+            return;
+        }
+        $vindecoderItems = $item->getVindecoderItems();
+        if(!empty($vindecoderItems)) {
+            foreach ($vindecoderItems as $itemVin)
+            {
+
+            }
+        }
+
     }
 }
