@@ -18,16 +18,8 @@ class VinDecoderController extends Controller
 
     public function decodeVinAction(Request $request){
         $vin = trim($request->get("vin"));
-        //getserializer
-        $serializer = $this->get('jms_serializer');
-        //create api client
-       // $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
-        $client = new Client();
+        $decodedVin = $this->get("numa.dms.listing")->decodeVin($vin);
 
-        //getResponse
-        $response = $client->get('https://api.edmunds.com/api/vehicle/v2/vins/'.$vin.'?&fmt=json&api_key=t42a3577zdfuy63qu6fr7wu3')->send();
-
-        // dump($response->json());die();
-        return $response->json();
+        return $decodedVin;
     }
 }
