@@ -183,6 +183,7 @@
                         </div>
                         <div class="row">
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
+                            {{ dump(item.getVindecoderItems()) }}
                             <ul class='option-lists'>
                                 {#{{ dump(item.ItemField) }}#}
                                 {% if item.categoryId()==1 %}
