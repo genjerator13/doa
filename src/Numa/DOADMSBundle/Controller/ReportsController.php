@@ -26,28 +26,38 @@ class ReportsController extends Controller
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        if(empty($dealer)){
+        if (empty($dealer)) {
             $entities = null;
             $em->flush();
-            $this->addFlash("danger","You must be logged in like Dealer!");
-        }
-        else{
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
-        if($request->query->has('purchase')){
-            return  $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
-        }
+            $this->addFlash("danger", "You must be logged in like Dealer!");
+        } else {
+            $securityContext = $this->container->get('security.authorization_checker');
+            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
+                $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('dealer_group_id' => $dealer->getId()));
+                $dealer_ids = array();
+                foreach ($dealers as $dealer) {
+                    $dealer_ids[] = $dealer->getId();
+                }
+                $dealers = implode(",", $dealer_ids);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealers);
 
-        if($request->query->has('inventory')){
-            return  $this->get('Numa.Reports')->billingReportInventoryXls($entities);
-        }
+            } else {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
+            }
+            if ($request->query->has('purchase')) {
+                return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
+            }
 
-        if($request->query->has('sales')){
-            return  $this->get('Numa.Reports')->billingReportSalesXls($entities);
-        }
+            if ($request->query->has('inventory')) {
+                return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
+            }
+
+            if ($request->query->has('sales')) {
+                return $this->get('Numa.Reports')->billingReportSalesXls($entities);
+            }
         }
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'billings' => $entities,
-            'dealer'   => $dealer,
         ));
     }
 }

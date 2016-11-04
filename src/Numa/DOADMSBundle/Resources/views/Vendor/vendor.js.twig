@@ -1,6 +1,8 @@
 {# get the loged dealer #}
 {% set apicall="/api/vendor/all" %}
-{% if dealer is not empty %}
+{% if dealerPrincipal is not empty %}
+{% set apicall="/api/vendor/dealerprincipal/"~dealerPrincipal.id %}
+{% elseif dealer is not empty %}
 {% set apicall="/api/vendor/dealer/"~dealer.id %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}

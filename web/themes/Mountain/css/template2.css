@@ -6,15 +6,15 @@
 /*html, body { height: 100%; }*/
 
 body {
-    background: #111 url("../images/bg.jpg") center top no-repeat;
-    font: 14px 'Raleway', sans-serif;
+	background: #111 url("../images/bg.jpg") center top no-repeat;
+	font: 14px 'Raleway', sans-serif;
 }
 
 #wrapper {
-    margin: 0 auto;
-    max-width: 1020px;
-    min-height: 100%;
-    padding: 0 20px;
+	margin: 0 auto;
+	max-width: 1020px;
+	min-height: 100%;
+	padding: 0 20px;
 }
 
 /* ==========================================================================
@@ -24,65 +24,65 @@ body {
 .header { overflow: hidden; }
 
 .header .logo {
-    display: block;
-    float: left;
-    margin: 51px 0;
+	display: block;
+	float: left;
+	margin: 51px 0;
 }
 
 .social-media {
-    float: right;
-    margin: 47px 0 11px 0;
+	float: right;
+	margin: 47px 0 11px 0;
 }
 
 .social-media > * {
-    display: inline-block;
-    vertical-align: middle;
+	display: inline-block;
+	vertical-align: middle;
 }
 
 .connect-with-us {
-    color: #fff;
-    font: 16px 'Kaushan Script', cursive;
-    margin-right: 5px;
+	color: #fff;
+	font: 16px 'Kaushan Script', cursive;
+	margin-right: 5px;
 }
 
 .map {
-    background-color: #007cb3;
-    border: 3px solid #48a7e1;
-    -webkit-box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
-    box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
-    border-radius: 10px;
-    clear: right;
-    color: #fff;
-    display: block;
-    float: right;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 26px;
-    margin: 0 3px 0 10px;
-    padding: 1px 10px;
-    text-decoration: none;
-    text-transform: uppercase;
+	background-color: #007cb3;
+	border: 3px solid #48a7e1;
+	-webkit-box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
+  -moz-box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
+  box-shadow: 3px 3px 0 0 rgba(0,0,0,0.75);
+	border-radius: 10px;
+	clear: right;
+	color: #fff;
+	display: block;
+	float: right;
+	font-size: 22px;
+	font-weight: 300;
+	line-height: 26px;
+	margin: 0 3px 0 10px;
+	padding: 1px 10px;
+	text-decoration: none;
+	text-transform: uppercase;
 }
 
 .address {
-    color: #fff;
-    float: right;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 17px;
-    text-align: right;
-    text-transform: uppercase;
+	color: #fff;
+	float: right;
+	font-size: 17px;
+	font-weight: 700;
+	line-height: 17px;
+	text-align: right;
+	text-transform: uppercase;
 }
 
 .phone {
-    clear: right;
-    color: #fff;
-    float: right;
-    font-size: 41px;
-    font-weight: 700;
-    line-height: 33px;
-    margin-top: 5px;
+	clear: right;
+	color: #fff;
+	float: right;
+	font-size: 41px;
+	font-weight: 700;
+	line-height: 33px;
+	margin-top: 5px;
 }
 
 /* ==========================================================================
@@ -90,38 +90,38 @@ body {
    ========================================================================== */
 
 .main-menu {
-    background-color: #000;
-    background: -webkit-linear-gradient(#252525 50%, #000 50%);
-    background: -o-linear-gradient(#252525 50%, #000 50%);
-    background: -moz-linear-gradient(#252525 50%, #000 50%);
-    background: linear-gradient(#252525 50%, #000 50%);
-    margin: 0 20px;
-    padding: 14px;
-    position: relative;
-    top: 10px;
-    z-index: 1;
-    width: 1130px;
+	background-color: #000;
+	background: -webkit-linear-gradient(#252525 50%, #000 50%);
+  background: -o-linear-gradient(#252525 50%, #000 50%);
+  background: -moz-linear-gradient(#252525 50%, #000 50%);
+  background: linear-gradient(#252525 50%, #000 50%);
+	margin: 0 20px;
+	padding: 14px;
+	position: relative;
+	top: 10px;
+	z-index: 1;
+	width: 1130px;
 }
 
 .main-menu a {
-    color: #fff;
-    display: block;
-    text-decoration: none;
+	color: #fff;
+	display: block;
+	text-decoration: none;
 }
 
 .main-menu > ul {
-    display: table;
-    margin: 0 auto;
+	display: table;
+	margin: 0 auto;
 }
 
 .main-menu > ul > li {
-    border-left: 1px dotted #fff;
-    display: table-cell;
+	border-left: 1px dotted #fff;
+	display: table-cell;
 }
 
 .main-menu > ul > li.parent > a {
-    background: url("../images/small-arrow.png") right 15px center no-repeat;
-    padding-right: 29px;
+	background: url("../images/small-arrow.png") right 15px center no-repeat;
+	padding-right: 29px;
 }
 
 .main-menu > ul > li:first-child { border-left: none; }
@@ -129,23 +129,23 @@ body {
 .main-menu > ul > li:hover > ul { display: block; }
 
 .main-menu > ul > li > a {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 19px;
-    padding: 7.5px 15px;
-    text-transform: uppercase;
+	font-size: 16px;
+	font-weight: 700;
+	line-height: 19px;
+	padding: 7.5px 15px;
+	text-transform: uppercase;
 }
 
 .main-menu > ul > li:hover > a {
-    background-color: #252525;
-    color: #007cb3;
+	background-color: #252525;
+	color: #007cb3;
 }
 
 .main-menu ul ul {
-    background-color: #252525;
-    display: none;
-    list-style: none;
-    position: absolute;
+	background-color: #252525;
+	display: none;
+	list-style: none;
+	position: absolute;
 }
 
 .main-menu ul ul li { border-top: 1px solid #000; }
@@ -155,24 +155,24 @@ body {
 .main-menu ul ul a { padding: 8px 15px; }
 
 .main-menu ul ul a:hover {
-    background-color: #000;
-    color: #007cb3;
+	background-color: #000;
+	color: #007cb3;
 }
 
 .main-menu ul li ul li { position: relative; }
 .main-menu ul li ul li ul, .main-menu ul li:hover ul li ul { display: none; }
 .main-menu ul li ul li:hover ul {
-    display: block;
-    position: absolute;
-    left: 100%;
-    top: 0;
+	display: block;
+	position: absolute;
+	left: 100%;
+	top: 0;
 }
 .main-menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
 .main-menu ul li ul li:hover ul li a:hover { background:#007cb3 url('menu_images/hover_sub.gif') center left no-repeat; color: #fff; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
-    z-index: 0;
+	z-index: 0;
 }
 
 /* ==========================================================================
@@ -180,25 +180,25 @@ body {
    ========================================================================== */
 
 .mobile-menu {
-    background-color: #000;
-    display: none;
-    margin: 0 20px;
-    position: relative;
-    z-index: 1;
+	background-color: #000;
+	display: none;
+	margin: 0 20px;
+	position: relative;
+	z-index: 1;
 }
 
 .mobile-menu ul {
-    font-size: 16px;
-    line-height: 22px;
-    list-style: none;
+	font-size: 16px;
+	line-height: 22px;
+	list-style: none;
 }
 
 .mobile-menu .menu a,
 .mobile-menu .menu .separator {
-    color: #fff;
-    display: block;
-    text-decoration: none;
-    padding: 19px 20px;
+	color: #fff;
+	display: block;
+	text-decoration: none;
+	padding: 19px 20px;
 }
 
 .mobile-menu .menu li { border-top: 1px solid #111; }
@@ -206,8 +206,8 @@ body {
 .mobile-menu .menu > li:first-child { border-top: none; }
 
 .mobile-menu .menu > li > .separator {
-    background: #000 url("../images/mobile-menu-icon.png") 20px center no-repeat;
-    padding-left: 70px;
+	background: #000 url("../images/mobile-menu-icon.png") 20px center no-repeat;
+	padding-left: 70px;
 }
 
 .mobile-menu .menu ul ul { background-color: #111; }
@@ -297,7 +297,6 @@ body {
 /*border-bottom-color: #48a7e1;*/
 /*}*/
 
-
 .button a:hover h2 {
     color: #007cb3;
     -webkit-text-fill-color: #007cb3;
@@ -378,7 +377,9 @@ body {
     vertical-align: middle;
 }
 
-.browse li:nth-child(-n+2) { border-left: none; }
+.browse li:nth-child(-n+2) {
+    border-left: none;
+}
 
 .browse h2 {
     font-size: 32px;
@@ -408,7 +409,9 @@ body {
     text-decoration: none;
 }
 
-.browse li:last-child a { margin-right: 0; }
+.browse li:last-child a {
+    margin-right: 0;
+}
 
 .browse a:hover {
     /*background-image: url("../images/motorhome-over.png");*/
@@ -431,7 +434,9 @@ body {
    Banner
    ========================================================================== */
 
-.banner img { max-width: 100%; }
+.banner img {
+    max-width: 100%;
+}
 
 /* ==========================================================================
    Content
@@ -439,6 +444,7 @@ body {
 .input-group{
     margin-bottom: 15px;
 }
+
 .container {
     background-color: #fff;
     margin-top: -31px;
@@ -516,7 +522,9 @@ body {
     vertical-align: top;
 }
 
-.footer > div:first-child { border-left: none; }
+.footer > div:first-child {
+    border-left: none;
+}
 
 .footer .logo {
     display: block;
@@ -539,13 +547,21 @@ body {
     margin: 7px 0;
 }
 
-.hours p { text-transform: uppercase; }
+.hours p {
+    text-transform: uppercase;
+}
 
-.hours span { color: #a6a6a6; }
+.hours span {
+    color: #a6a6a6;
+}
 
-.quick-links ul { list-style: none; }
+.quick-links ul {
+    list-style: none;
+}
 
-.quick-links li { margin: 7px 0; }
+.quick-links li {
+    margin: 7px 0;
+}
 
 .footer a {
     color: #fff;
@@ -553,7 +569,9 @@ body {
     text-transform: uppercase;
 }
 
-.footer a:hover { color: #007cb3; }
+.footer a:hover {
+    color: #007cb3;
+}
 
 .other-info ul {
     display: table;
@@ -580,17 +598,21 @@ body {
     padding-left: 37px;
 }
 
-.footer .newsletter:hover { color: #b7b7b7; }
+.footer .newsletter:hover {
+    color: #b7b7b7;
+}
 
 .newsletter span {
     display: block;
     font-weight: 800;
 }
 
-.copyright { text-transform: uppercase; }
+.copyright {
+    text-transform: uppercase;
+}
 
 @media only screen
-and (max-width : 1023px) {
+and (max-width: 1023px) {
 
     .main-menu { padding: 14px 0; }
 
@@ -755,11 +777,13 @@ and (max-width : 767px) {
 .detailsContent .row {
     margin-bottom: 20px;
 }
+
 .detailsContent .retail_price {
     color: #f78f1e;
     text-decoration-line: line-through;
     font-size: 130%;
 }
+
 .detailsContent .price {
     font-size: 160%;
     font-weight: bold;
@@ -888,10 +912,12 @@ ul.techData li {
 #myCarousel_left {
     margin-left:0px;
 }
+
 #myCarousel_top {
     width: 1130px;
     margin-left: 0px;
 }
+
 #myCarousel_top .text_widget {
     left: 10px;
     position: absolute;
@@ -950,6 +976,7 @@ ul.techData li {
     max-height: 400px;
     min-height: 400px;
 }
+
 .carousel-fade .carousel-inner .item {
     opacity: 0;
     -webkit-transition-property: opacity;
@@ -957,19 +984,23 @@ ul.techData li {
     -o-transition-property: opacity;
     transition-property: opacity;
 }
+
 .carousel-fade .carousel-inner .active {
     opacity: 1;
 }
+
 .carousel-fade .carousel-inner .active.left,
 .carousel-fade .carousel-inner .active.right {
     left: 0;
     opacity: 0;
     z-index: 1;
 }
+
 .carousel-fade .carousel-inner .next.left,
 .carousel-fade .carousel-inner .prev.right {
     opacity: 1;
 }
+
 .carousel-fade .carousel-control {
     z-index: 2;
 }
