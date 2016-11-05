@@ -289,7 +289,8 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $this->deleteDealerTable('customer', $dealer_id);
             $this->deleteDealerTable('page', $dealer_id);
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:CatalogRecords d where d.id = ' . $dealer_id);
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:CatalogRecords d where d.id = :dealer_id);//' . $dealer_id);
+            $q->setParameter("dealer_id",$dealer_id);
             $numDeleted = $q->execute();
         }
     }
