@@ -435,7 +435,7 @@ trsteel_ckeditor:
     html_purifier:
         config:
             HTML.SafeIframe: true
-            URI.SafeIframeRegexp: '%%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|www\.google\.com)%%'
+            URI.SafeIframeRegexp: '%%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|www\.google\.com|www\.google\.ca)%%'
 #    filebrowser_image_browse_url:
 #        #url: /uploader/upload.php
 #        route: image_upload
