@@ -12,7 +12,7 @@ namespace Numa\DOADMSBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
-use Numa\DOAAdminBundle\Entity\User;
+use Numa\DOADMSBundle\Entity\DMSUser;
 use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -79,13 +79,17 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
-        $dealer =$one->getDealer();
+        if($one instanceof DMSUser) {
+            $dealer = $one->getDealer();
 
 
-        if($dealer instanceof Catalogrecords){
-            $dealer_host = $dealer->getSiteUrl();
-            if (strpos($dealer_host, $host) !== false || strpos($host,$dealer_host)!== false) {
-                return $one;
+            if ($dealer instanceof Catalogrecords) {
+                $dealer_host = $dealer->getSiteUrl();
+
+                if (strpos($dealer_host, $host) !== false || strpos($host, $dealer_host) !== false) {
+
+                    return $one;
+                }
             }
         }
         return null;
