@@ -26,9 +26,10 @@ class ItemRepository extends EntityRepository
     public function getItemFields($item_id)
     {
 
-        $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
+        $q = 'SELECT i FROM ItemField WHERE i.item_id=:item_id' ;//. $item_id;
         $query = $this->getEntityManager()
             ->createQuery($q);
+        $query->setParameter("item_id",$item_id);
         $res = $query->getResult();
         return $res;
     }
@@ -340,7 +341,8 @@ class ItemRepository extends EntityRepository
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id');// . $item_id);
+            $q->setParameter("item_id",$item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -350,7 +352,8 @@ class ItemRepository extends EntityRepository
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id . " AND  if.field_name like 'Image List'");
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id AND  if.field_name like "Image List"');
+            $q->setParameter("item_id",$item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -359,7 +362,8 @@ class ItemRepository extends EntityRepository
     {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = :feed_id');// . $feed_id);
+            $q->setParameter("feed_id",$feed_id);
             $numDeleted = $q->execute();
         }
     }
