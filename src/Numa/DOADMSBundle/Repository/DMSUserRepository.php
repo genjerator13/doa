@@ -9,7 +9,6 @@
 namespace Numa\DOADMSBundle\Repository;
 
 
-
 use Doctrine\ORM\EntityRepository;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\DMSUser;
@@ -27,17 +26,19 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
      * @var ContainerInterface
      */
     private $container;
+
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }
+
     public function loadUserByUsername($username)
     {
 
         $user = $this->findOneByUsernameOrEmail($username);
 
         if (!$user) {
-            throw new UsernameNotFoundException('No user found for username '.$username);
+            throw new UsernameNotFoundException('No user found for username ' . $username);
         }
 
         return $user;
@@ -69,7 +70,7 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
     public function findOneByUsernameOrEmail($username)
     {
         global $kernel;
-        if($kernel instanceOf \AppCache) $kernel = $kernel->getKernel();
+        if ($kernel instanceOf \AppCache) $kernel = $kernel->getKernel();
 
         $host = $kernel->getContainer()->get('numa.dms.user')->getCurrentSiteHost();
 
@@ -79,7 +80,7 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
             ->setParameter('email', $username)
             ->getQuery()
             ->getOneOrNullResult();
-        if($one instanceof DMSUser) {
+        if ($one instanceof DMSUser) {
             $dealer = $one->getDealer();
 
 
@@ -95,15 +96,16 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
         return null;
     }
 
-    public function updatePassword($user,$password){
+    public function updatePassword($user, $password)
+    {
         $factory = $this->container->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user);
 
         $encodedPassword = $encoder->encodePassword($password, $user->getSalt());
 
-        $qb=$this->createQueryBuilder('d')
+        $qb = $this->createQueryBuilder('d')
             ->update()
-            ->set('d.password',':pass')
+            ->set('d.password', ':pass')
             ->where('d.id= :id')
             ->setParameter('pass', $encodedPassword)
             ->setParameter('id', $user->getId());
@@ -111,11 +113,11 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
         return $qb->getQuery()->execute();
     }
 
-    public function findByDealerGroupId($dealer_group_id){
+    public function findByDealerGroupId($dealer_group_id)
+    {
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('user')
-
             ->add('from', 'NumaDOADMSBundle:DMSUser user')
             ->innerJoin('NumaDOAAdminBundle:Catalogrecords', 'd', "WITH", "d.id=user.dealer_id")
             ->where("d.dealer_group_id=:dealer_group_id")
