@@ -38,9 +38,9 @@
                             <td>{{ entity.comments }}</td>
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': entity.id }) }}"
-                                   class="btn btn-primary">Edit</a>
+                                   class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
                                 <a href="{{ path('billing_print', { 'id': entity.id }) }}"
-                                   class="btn btn-primary">Pdf</a>
+                                   class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
                                 <a href="{{ path('billing_delete', { 'id': entity.id }) }}" class="btn btn-danger"
                                    data-confirm="Billing # <strong>{{ entity.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">
                                     <i class="glyphicon glyphicon-remove"></i>Delete</a>
