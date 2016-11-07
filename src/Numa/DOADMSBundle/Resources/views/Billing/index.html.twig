@@ -41,6 +41,10 @@
                                    class="btn btn-primary">Edit</a>
                                 <a href="{{ path('billing_print', { 'id': entity.id }) }}"
                                    class="btn btn-primary">Pdf</a>
+                                <a href="{{ path('billing_delete', { 'id': entity.id }) }}" class="btn btn-danger"
+                                   data-confirm="Billing # <strong>{{ entity.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">
+                                    <i class="glyphicon glyphicon-remove"></i>Delete</a>
+
                             </td>
                         </tr>
                     {% endfor %}
@@ -49,4 +53,5 @@
             </div>
         {% endif %}
     </div>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}

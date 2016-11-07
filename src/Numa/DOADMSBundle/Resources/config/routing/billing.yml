@@ -27,7 +27,7 @@ billing_update:
 billing_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Billing:delete" }
-    requirements: { _method: post|delete }
+#    requirements: { _method: post|delete }
 billing_print:
     path:     /{id}/print
     defaults: { _controller: "NumaDOADMSBundle:Billing:print" }

@@ -246,7 +246,8 @@ class BillingController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+//        dump($form->isValid());die();
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
 
@@ -256,8 +257,8 @@ class BillingController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
-        return $this->redirect($this->generateUrl('billing'));
+//        }
+        return $this->redirect($this->generateUrl('customer'));
     }
 
     /**

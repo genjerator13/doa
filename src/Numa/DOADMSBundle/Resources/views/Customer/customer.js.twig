@@ -38,7 +38,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {
             name: 'logo',
             enableColumnResizing: true, width: 100, enableFiltering: false,
-            cellTemplate: '<a class="colorbox" href="#"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
+            cellTemplate: '<a class="colorbox" href="/dms/customers/{[{row.entity.id}]}/edit"><img class="image-angular" src="/{[{row.entity.logo}]}" alt="" height="100px" width="100px"></a>'
         },
         {name: 'name', enableColumnResizing: true},
         {name: 'home_phone'},
