@@ -732,6 +732,11 @@ and (max-width : 767px) {
 .detailsContent .option-lists{
 	margin-left: 50px;
 }
+
+.detailsContent .option-lists .checkbox .fieldCaption{
+	font-weight: bold;
+}
+
 .detailsContent h2.section{
 	height: 50px;
 	margin: 0px;
