@@ -63,10 +63,11 @@
 
             {% endblock %}
         </div>
+        {% block footer %}
+            {% include 'NumaDOASiteBundle::footer.html.twig' %}
+        {% endblock %}
     </div>
-    {% block footer %}
-        {% include 'NumaDOASiteBundle::footer.html.twig' %}
-    {% endblock %}
+
 </div>
 </body>
 </html>
