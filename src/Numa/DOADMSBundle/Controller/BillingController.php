@@ -42,12 +42,14 @@ class BillingController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $entity->setDealer($dealer);
+//        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+//        $entity->setDealer($dealer);
 
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
 
+        $dealer = $customer->getDealer();
+        $entity->setDealer($dealer);
         if ($form->isValid()) {
 
             if(!empty($entity->getItemId())) {
@@ -119,7 +121,8 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
-        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
+//        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
+        $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
         $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
 
@@ -243,7 +246,8 @@ class BillingController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+//        dump($form->isValid());die();
+//        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
 
@@ -253,8 +257,8 @@ class BillingController extends Controller
 
             $em->remove($entity);
             $em->flush();
-        }
-        return $this->redirect($this->generateUrl('billing'));
+//        }
+        return $this->redirect($this->generateUrl('customer'));
     }
 
     /**
