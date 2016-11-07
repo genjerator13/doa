@@ -732,8 +732,13 @@ and (max-width : 767px) {
 .detailsContent .option-lists{
 	margin-left: 50px;
 }
+
+.detailsContent .option-lists .checkbox .fieldCaption{
+	font-weight: bold;
+}
+
 .detailsContent h2.section{
-	height: 50px;
+
 	margin: 0px;
 	font-size: 130%;
 	padding: 10px;
@@ -741,6 +746,23 @@ and (max-width : 767px) {
 	color: black;
 	font-family:'Fjalla One','Open Sans', sans-serif;
 	border-bottom: 1px solid darkgray;
+}
+
+.detailsContent h2.section .fa{
+	padding: 0 10px 0 0;
+}
+
+.btn-group-vertical button{
+	border-radius: 0 !important;
+}
+
+.listing-buttons {
+	padding: 0;
+	position: relative;
+	right: 0;
+	text-align: right;
+	top: 0;
+	z-index: 1000;
 }
 
 .detailsContent .row {

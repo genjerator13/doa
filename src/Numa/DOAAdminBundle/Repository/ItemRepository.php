@@ -26,9 +26,10 @@ class ItemRepository extends EntityRepository
     public function getItemFields($item_id)
     {
 
-        $q = 'SELECT i FROM ItemField WHERE i.item_id=' . $item_id;
+        $q = 'SELECT i FROM ItemField WHERE i.item_id=:item_id' ;//. $item_id;
         $query = $this->getEntityManager()
             ->createQuery($q);
+        $query->setParameter("item_id",$item_id);
         $res = $query->getResult();
         return $res;
     }
@@ -152,7 +153,7 @@ class ItemRepository extends EntityRepository
             ->setParameter('subcatname', "%" . $subcatname . "%")
             ->setParameter('category', $cat);
 
-        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        $itemsQuery = $qb->getQuery();
         return $itemsQuery->getResult();
     }
 
@@ -172,12 +173,10 @@ class ItemRepository extends EntityRepository
                 $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
                 $qb->setParameter("name", "%" . $category . "%");
-            } else {
-                //return false;
             }
         }
 
-        $itemsQuery = $qb->getQuery(); //getOneOrNullResult();
+        $itemsQuery = $qb->getQuery();
         return $itemsQuery->getResult();
     }
 
@@ -213,8 +212,8 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
-        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        $itemsQuery = $qb->getQuery()->useResultCache(true);
 
         return $itemsQuery->getResult();
     }
@@ -248,8 +247,8 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
-        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        $itemsQuery = $qb->getQuery()->useResultCache(true);
 
         return $itemsQuery->getResult();
     }
@@ -261,12 +260,7 @@ class ItemRepository extends EntityRepository
             ->createQueryBuilder();
         $qb->select('i')->distinct()
             ->from('NumaDOAAdminBundle:Item', 'i');
-        if (empty($dealer_id)) {
-
-//        } elseif (is_numeric($dealer_id)) {
-//            $qb->where('i.dealer_id=:dealer');
-//            $qb->setParameter('dealer', $dealer_id);
-        } elseif (!empty($dealer_id)) {
+        if (!empty($dealer_id)) {
             $qb->Join("NumaDOAAdminBundle:Catalogrecords", "d", 'WITH', 'i.dealer_id=d.id');
             $qb->andWhere("d.username like :dealer");
             $qb->setParameter("dealer", $dealer_id);
@@ -286,8 +280,8 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-        //$qb->setParameter("dealer", "%" . $dealer_id . "%");
-        $itemsQuery = $qb->getQuery()->useResultCache(true); //getOneOrNullResult();
+
+        $itemsQuery = $qb->getQuery()->useResultCache(true);
 
         return $itemsQuery->getResult();
     }
@@ -295,7 +289,7 @@ class ItemRepository extends EntityRepository
 
     public function getAllListings($dealer_id = null)
     {
-        //$sql = "SELECT * FROM item";
+
         $dealers = $dealer_id;
         if (is_array($dealer_id)) {
             $dealers = implode(",", $dealer_id);
@@ -307,8 +301,6 @@ class ItemRepository extends EntityRepository
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
-        //$rows = $stmt->fetchAll();
-        //$json = json_encode($stmt);
         return $stmt;
     }
 
@@ -340,7 +332,8 @@ class ItemRepository extends EntityRepository
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id);
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id');
+            $q->setParameter("item_id",$item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -350,7 +343,8 @@ class ItemRepository extends EntityRepository
         $item_id = intval($item_id);
         if (!empty($item_id)) {
 
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = ' . $item_id . " AND  if.field_name like 'Image List'");
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id AND  if.field_name like "Image List"');
+            $q->setParameter("item_id",$item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -359,8 +353,9 @@ class ItemRepository extends EntityRepository
     {
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
-            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = ' . $feed_id);
-            $numDeleted = $q->execute();
+            $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = :feed_id');
+            $q->setParameter("feed_id",$feed_id);
+            $q->execute();
         }
     }
 
@@ -401,7 +396,6 @@ class ItemRepository extends EntityRepository
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
         $itemsQuery = $this->getEntityManager()
             ->createQuery($q)->setMaxResults(1);
-        //dump($itemsQuery->getOneOrNullResult());
         return $itemsQuery->getOneOrNullResult();
     }
 
@@ -423,7 +417,7 @@ class ItemRepository extends EntityRepository
         $qb->setParameter("find", "%" . $find . "%");
 
         $query = $qb->getQuery();
-        $res = $query->getResult(); //->getResult();
+        $res = $query->getResult();
         return $res;
     }
 
@@ -466,8 +460,6 @@ class ItemRepository extends EntityRepository
 
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingField() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingField()->getCaption(), $uniqueValue);
-                //dump($uniqueMapRow->getListingField()->getCaption());
-                //dump($uniqueValue);
             }
         }
         unset($uniqueMapRow);
@@ -484,7 +476,6 @@ class ItemRepository extends EntityRepository
 
         //seo
 
-
         if (!empty($feed_id)) {
             $item->setImportfeed($feed);
         }
@@ -499,7 +490,7 @@ class ItemRepository extends EntityRepository
                 $this->itemFieldsDeleted = true;
             }
         }
-        //dump($mapping);die();
+
         foreach ($mapping as $maprow) {
             //dump($maprow->getId());
             $property = $maprow->getSid();
@@ -531,16 +522,9 @@ class ItemRepository extends EntityRepository
 
                         $itemField->setListingfield($test);
                     }
-
-                    //$itemField->setListingfield($listingFields); //will set caption and type by listing field
-                    //$itemField->setFieldName($listingFields->getCaption());
-                    //$itemField->setFieldType($listingFields->getType());
                 }
 
                 $stringValue = trim($itemField->getFieldStringValue());
-                //dump($importItem);
-                //dump($property);
-                //die();
 
                 //if xml property has children then do each child
                 if (!empty($listingFieldsType) && $listingFieldsType == 'list') {

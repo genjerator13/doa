@@ -30,7 +30,7 @@ fos_elastica:
                           type: integer
                         categoryName: ~
                         categorySubType:
-                          index: not_analyzed
+                          analyzer: standard
                           type: string
                         views: ~
                         VIN: ~

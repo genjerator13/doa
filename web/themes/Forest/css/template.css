@@ -649,8 +649,14 @@ and (max-width : 767px) {
 .detailsContent .option-lists{
 	margin-left: 50px;
 }
+
+.detailsContent .option-lists .checkbox .fieldCaption{
+	font-weight: bold;
+}
+
+
 .detailsContent h2.section{
-	height: 50px;
+
 	margin: 0px;
 	font-size: 130%;
 	padding: 10px;
@@ -658,6 +664,10 @@ and (max-width : 767px) {
 	color: black;
 	font-family:'Fjalla One','Open Sans', sans-serif;
 	border-bottom: 1px solid darkgray;
+}
+
+.detailsContent h2.section .fa{
+	padding: 0 10px 0 0;
 }
 
 .detailsContent .row {
