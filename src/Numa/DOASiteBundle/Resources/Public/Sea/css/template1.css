@@ -543,6 +543,9 @@ body {
 .modal-dialog .offerTradeIn-content{
     min-width: 710px;
 }
+.btn-lightgrey{
+    background-color: lightgrey;
+}
 
 /* ==========================================================================
    Info

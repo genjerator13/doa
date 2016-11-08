@@ -244,27 +244,22 @@ class BillingController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $securityContext = $this->container->get('security.authorization_checker');
-
-
         $redirect = $request->query->get('redirect');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        if (!$securityContext->isGranted('ROLE_ADMIN') ||
-            !$securityContext->isGranted('ROLE_DMS_USER') ||
-            ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof  Catalogrecords && $entity->getDealerId()!=$dealer->getId())
-            ) {
-            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
+        if ((!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) ||
+            ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof Catalogrecords && $entity->getDealerId() != $dealer->getId())
+        ) {
+            throw $this->createAccessDeniedException("Only administrator may delete this Billing.");
         }
-        if (!$securityContext->isGranted('ROLE_DMS_USER')) {
-            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
-        }
+
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
         }
 
-        //$em->remove($entity);
-        //$em->flush();
+        $em->remove($entity);
+        $em->flush();
 
         if ($redirect == "reports") {
             return $this->redirect($this->generateUrl('reports'));
@@ -273,7 +268,7 @@ class BillingController extends Controller
     }
 
     /**
-     * Deletes a Billing entity.
+     * Print a Billing entity.
      *
      */
     public function printAction(Request $request, $id)
@@ -301,7 +296,7 @@ class BillingController extends Controller
     }
 
     /**
-     * Deletes a Billing entity.
+     * Print Inside a Billing entity.
      *
      */
     public function printInsideAction(Request $request, $id)
