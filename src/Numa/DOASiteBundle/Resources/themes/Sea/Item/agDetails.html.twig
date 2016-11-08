@@ -1,11 +1,12 @@
-{% set liclass="col-md-4 col-xs-4 col-sm-4 col-lg-4" %}
+{% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12" %}
     {% if item.getStatus() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
                 <label>
                     <span class="fieldCaption field-status">Status: </span>
-                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
+                </label>
+                <span class="fieldValue fieldValue-status">{{ item.getStatus() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getYear() is not empty %}
@@ -14,7 +15,8 @@
                 <label>
                     <span class="fieldCaption field-status">Year: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getYear() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getYear() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getMake() is not empty %}
@@ -23,7 +25,8 @@
                 <label>
                     <span class="fieldCaption field-status">Make Model: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getMake() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getMake() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getModel() is not empty %}
@@ -32,7 +35,8 @@
                 <label>
                     <span class="fieldCaption field-status">Model: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getModel() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getModel() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getVIN() is not empty %}
@@ -41,7 +45,8 @@
                 <label>
                     <span class="fieldCaption field-status">Serial #: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getVIN() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getVIN() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getAgApplication() is not empty %}#}
@@ -74,7 +79,8 @@
                 <label>
                     <span class="fieldCaption field-status">Drive Type: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getDriveType() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getDriveType() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getEngine() is not empty %}
@@ -83,7 +89,8 @@
                 <label>
                     <span class="fieldCaption field-status">Engine: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getEngine() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getEngine() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getHorsepower() is not empty %}
@@ -92,7 +99,8 @@
                 <label>
                     <span class="fieldCaption field-status">Horsepower: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getHorsepower() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getHorsepower() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getOfHours() is not empty %}#}
@@ -108,7 +116,8 @@
                 <label>
                     <span class="fieldCaption field-status">Remotes: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getRemotes() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getRemotes() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getPtoHorsepower() is not empty %}
@@ -117,7 +126,8 @@
                 <label>
                     <span class="fieldCaption field-status">PTO Horsepower: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getPtoHorsepower() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getPtoHorsepower() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getDBRHorsepower() is not empty %}
@@ -126,7 +136,8 @@
                 <label>
                     <span class="fieldCaption field-status">DBR Horsepower: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getDBRHorsepower() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getDBRHorsepower() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getFuelType() is not empty %}
@@ -135,7 +146,8 @@
                 <label>
                     <span class="fieldCaption field-status">Fuel Type: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getTransmission() is not empty %}
@@ -144,7 +156,8 @@
                 <label>
                     <span class="fieldCaption field-status">Transmission: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getTransmission() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getTransmission() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getOperatorStation() is not empty %}
@@ -153,7 +166,8 @@
                 <label>
                     <span class="fieldCaption field-status">Operator Station: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getOperatorStation() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getOperatorStation() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getSteeringType() is not empty %}
@@ -162,7 +176,8 @@
                 <label>
                     <span class="fieldCaption field-status">Steering Type: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getSteeringType() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getSteeringType() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getSpeedForward() is not empty %}
@@ -171,7 +186,8 @@
                 <label>
                     <span class="fieldCaption field-status">Speed Forward: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getSpeedForward() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getSpeedForward() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getSpeedReverse() is not empty %}
@@ -180,7 +196,8 @@
                 <label>
                     <span class="fieldCaption field-status">Speed Reverse: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getSpeedReverse() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getSpeedReverse() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getTireSize() is not empty %}
@@ -189,7 +206,8 @@
                 <label>
                     <span class="fieldCaption field-status">Tire Size: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getTireSize() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getTireSize() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getTireEquipment() is not empty %}
@@ -198,7 +216,8 @@
                 <label>
                     <span class="fieldCaption field-status">Tire Equipment: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getTireEquipment() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getTireEquipment() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getCuttingWidth() is not empty %}
@@ -207,7 +226,8 @@
                 <label>
                     <span class="fieldCaption field-status">Cutting Width: </span>
                 </label>
-            <span class="fieldValue fieldValue-status">{{ item.getCuttingWidth() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getCuttingWidth() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getExteriorColor() is not empty %}#}
