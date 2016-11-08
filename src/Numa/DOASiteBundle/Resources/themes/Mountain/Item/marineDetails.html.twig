@@ -1,4 +1,4 @@
-{% set liclass="col-md-4 col-xs-4 col-sm-4 col-lg-4" %}
+{% set liclass="col-lg-4 col-md-6 col-sm-6 col-xs-12" %}
     {% if item.getStatus() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
@@ -16,6 +16,7 @@
                     <span class="fieldCaption field-status">Year: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getYear() }}</span>
+            </div>
         </li>
     {% endif %}
     {% if item.getMake() is not empty %}
@@ -25,6 +26,7 @@
                     <span class="fieldCaption field-status">Make Model: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getMake() }}</span>
+            </div>
         </li>
     {% endif %}
 
@@ -35,6 +37,7 @@
                     <span class="fieldCaption field-status">Model: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getModel() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getType() is not empty %}#}
@@ -62,6 +65,7 @@
                     <span class="fieldCaption field-status">Beam: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getBeam() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getWeight() is not empty %}#}
@@ -89,6 +93,7 @@
                     <span class="fieldCaption field-status">Drive Type: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getDriveType() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getEngineType() is not empty %}#}
@@ -110,6 +115,7 @@
                     <span class="fieldCaption field-status">Horsepower: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getHorsepower() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getDisplacement() is not empty %}#}
@@ -143,6 +149,7 @@
                     <span class="fieldCaption field-status">Transmission: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getTransmission() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getExteriorColor() is not empty %}#}
@@ -158,6 +165,7 @@
                     <span class="fieldCaption field-status">Interior Color: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getInteriorColor() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getPassengers() is not empty %}#}
@@ -179,6 +187,7 @@
                     <span class="fieldCaption field-status">Trailer: </span>
                 </label>
                 <span class="fieldValue fieldValue-status">{{ item.getTrailer() }}</span>
+            </div>
         </li>
     {% endif %}
     {#{% if item.getInteriorColor() is not empty %}#}
