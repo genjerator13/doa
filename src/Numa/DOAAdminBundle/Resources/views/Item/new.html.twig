@@ -90,7 +90,6 @@
         {% set dealer=entity.getDealer() %}
         {% if dealer.getDmsStatus=="activated" and dealer.getSiteUrl() is not empty %}
             {% set detailUrl = "http://"~dealer.getSiteUrl()~detailUrl %}
-            {{ dump(detailUrl) }}
         {% endif %}
     {% endif %}
 
