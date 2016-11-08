@@ -87,6 +87,10 @@
         {% set action="Edit listing <small>#"~entity.id~" , "~entity.getMake()~" "~entity.getModel()~"</small>" %}
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
+        {% set dealer=entity.getDealer() %}
+        {% if dealer.getDmsStatus=="activated" and dealer.getSiteUrl() is not empty %}
+            {% set detailUrl = "http://"~dealer.getSiteUrl()~detailUrl %}
+        {% endif %}
     {% endif %}
 
     <section class="content" ng-app="myApp" ng-controller="myCtrl">
