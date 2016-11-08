@@ -88,7 +88,7 @@
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
         {% set dealer=entity.getDealer() %}
-        {% if dealer.getDmsStatus=="activated" and dealer.getSiteUrl() is not empty %}
+        {% if dealer is defined and dealer is not empty and dealer.getDmsStatus()=="activated" and dealer.getSiteUrl() is not empty %}
             {% set detailUrl = "http://"~dealer.getSiteUrl()~detailUrl %}
         {% endif %}
     {% endif %}
