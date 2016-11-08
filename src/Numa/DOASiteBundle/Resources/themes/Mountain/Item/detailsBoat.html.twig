@@ -185,27 +185,28 @@
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
 
                             <ul class='option-lists'>
-                                {#{{ dump(item.ItemField) }}#}
                                 {% if item.categoryId()==1 %}
-                                    {% for field in item.ItemField %}
-                                        {% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}
-                                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="checkbox">
-                                                    <label>
-                                                    <span class="fieldCaption field{{ field.fieldName }}"><b>{{ field.fieldName }}</b>
-                                                        : </span>
-                                                    </label>
-                                                    {% if field.fieldName=="Price" %}
-                                                        <span class="price">{{ item.getPriceString() }}</span>
-                                                    {% elseif field.fieldName|lower=="make model" %}
-                                                        <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
-                                                    {% else %}
-                                                        <span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>
-                                                    {% endif %}
-                                                </div>
-                                            </li>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {#{% for field in item.ItemField %}#}
+                                        {#{% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}#}
+                                            {#<li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">#}
+                                                {#<div class="checkbox">#}
+                                                    {#<label>#}
+                                                    {#<span class="fieldCaption field{{ field.fieldName }}"><b>{{ field.fieldName }}</b>#}
+                                                        {#: </span>#}
+                                                    {#</label>#}
+                                                    {#{% if field.fieldName=="Price" %}#}
+                                                        {#<span class="price">{{ item.getPriceString() }}</span>#}
+                                                    {#{% elseif field.fieldName|lower=="make model" %}#}
+                                                        {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
+                                                    {#{% else %}#}
+                                                        {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
+                                                    {#{% endif %}#}
+                                                {#</div>#}
+                                            {#</li>#}
+                                        {#{% endif %}#}
+                                    {#{% endfor %}#}
+
+                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
                                 {% elseif(item.categoryId()==2) %}
                                     {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
                                 {% elseif(item.categoryId()==3) %}
