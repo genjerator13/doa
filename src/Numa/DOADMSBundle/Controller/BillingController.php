@@ -52,7 +52,7 @@ class BillingController extends Controller
         $entity->setDealer($dealer);
         if ($form->isValid()) {
 
-            if(!empty($entity->getItemId())) {
+            if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
                 $entity->setItem($item);
             }
@@ -61,8 +61,8 @@ class BillingController extends Controller
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
-            if($form->getClickedButton()->getName()=="submitAndPrint"){
-                return $this->redirect($this->generateUrl('billing_print', array('id' =>$entity->getId())));
+            if ($form->getClickedButton()->getName() == "submitAndPrint") {
+                return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
@@ -126,7 +126,7 @@ class BillingController extends Controller
         $entity->setCustomerId($id);
         $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
 
-        if($dealer instanceof Catalogrecords) {
+        if ($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);
         }
 
@@ -137,7 +137,7 @@ class BillingController extends Controller
             'customer' => $customer,
             'dealer' => $dealer,
             'form' => $form->createView(),
-            'max_invoive_nr' =>$maxInvoiceNr,
+            'max_invoive_nr' => $maxInvoiceNr,
         ));
     }
 
@@ -174,7 +174,7 @@ class BillingController extends Controller
             'customer' => $customer,
             'dealer' => $dealer,
             'item' => $entity->getItem(),
-            'id'   => $id,
+            'id' => $id,
             'form' => $editForm->createView(),
         ));
     }
@@ -221,7 +221,7 @@ class BillingController extends Controller
             $em->flush();
             //return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
 
-            if($editForm->getClickedButton()->getName()=="submitAndPrint"){
+            if ($editForm->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
@@ -243,21 +243,32 @@ class BillingController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $securityContext = $this->container->get('security.authorization_checker');
 
-//        dump($form->isValid());die();
-//        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Billing entity.');
-            }
+        $redirect = $request->query->get('redirect');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        if (!$securityContext->isGranted('ROLE_ADMIN') ||
+            !$securityContext->isGranted('ROLE_DMS_USER') ||
+            ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof  Catalogrecords && $entity->getDealerId()!=$dealer->getId())
+            ) {
+            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
+        }
+        if (!$securityContext->isGranted('ROLE_DMS_USER')) {
+            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
+        }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Billing entity.');
+        }
 
-            $em->remove($entity);
-            $em->flush();
-//        }
+        //$em->remove($entity);
+        //$em->flush();
+
+        if ($redirect == "reports") {
+            return $this->redirect($this->generateUrl('reports'));
+        }
         return $this->redirect($this->generateUrl('customer'));
     }
 
@@ -272,7 +283,7 @@ class BillingController extends Controller
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
             'NumaDOADMSBundle:Billing:view.html.twig',
-            array('billing'=>$billing,
+            array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
@@ -283,8 +294,8 @@ class BillingController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Billing.pdf"'
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
             )
         );
     }
@@ -300,7 +311,7 @@ class BillingController extends Controller
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
             'NumaDOADMSBundle:Billing:view.html.twig',
-            array('billing'=>$billing,
+            array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
@@ -311,7 +322,7 @@ class BillingController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
+                'Content-Type' => 'application/pdf',
             )
         );
         $response->headers->set('Content-Type', 'application/pdf');
