@@ -611,7 +611,8 @@
                     valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan=2 align="left" bgcolor="#ffffff">
-                    {{ billing.otherMisc1Name }}
+                    {#{{ billing.otherMisc1Name }}#}
+                    <b>PST Tax</b>
                 </td>
                 <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.otherMisc1|localizedcurrency('USD') }}
@@ -627,7 +628,8 @@
                     colspan=3 align="center" valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000"
                     colspan=2 align="left" bgcolor="#ffffff">
-                    {{ billing.otherMisc2Name }}
+                    {#{{ billing.otherMisc2Name }}#}
+                    <b>GST Tax</b>
                 </td>
                 <td style="border-top: 1px solid #000000" align="right" colspan="2">
                     {{ billing.otherMisc2|localizedcurrency('USD') }}
