@@ -253,7 +253,7 @@ class DMSUserController extends Controller
     public function deleteAction(Request $request, $id)
     {
         $securityContext = $this->container->get('security.authorization_checker');
-        if (!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) {
+        if (!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')&& !$securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
             throw $this->createAccessDeniedException("Only administrator and user owner may delete this User.");
         }
 
