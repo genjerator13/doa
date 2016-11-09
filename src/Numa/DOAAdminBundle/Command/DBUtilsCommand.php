@@ -6,15 +6,14 @@ use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\DealerCategories;
 use Numa\DOAAdminBundle\Lib\RemoteFeed;
-use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Numa\DOAAdminBundle\Entity\HomeTab;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Numa\DOAAdminBundle\Entity\Importmapping;
 use Numa\DOAAdminBundle\Entity\CommandLog;
+use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
 class DBUtilsCommand extends ContainerAwareCommand
 {
@@ -29,7 +28,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             ->setDescription('fix listing fields table');
     }
 
-    public function makeListingFromTemp()
+    function makeListingFromTemp()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $custom = $em->getConnection()->prepare('SELECT * from listing_field_list_temp');
@@ -81,11 +80,10 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->pages($dealer_id);
         } elseif ($command == 'populate') {
             $this->populate();
-        }elseif ($command == 'videcoder') {
-            $item_id=$feed_id;
-            $this->videcoder($item_id);
+        } elseif ($command == 'vindecoder') {
+            $item_id = $feed_id;
+            $this->vindecoder($item_id);
         }
-
     }
 
     public function startCommand($em)
@@ -198,7 +196,8 @@ class DBUtilsCommand extends ContainerAwareCommand
 
                 }
                 $progresses[$id] = $count;
-                
+                $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
+
                 $memcache->set("command:progress:" . $this->commandLog->getId(), $count);
                 if ($count % 50 == 0) {
                     $logger->warning("FETCH FEED: flush 50");
@@ -268,7 +267,7 @@ class DBUtilsCommand extends ContainerAwareCommand
     /**
      * Creates array for tabs on homepage
      */
-    public function makeHomeTabs($echo = true)
+    function makeHomeTabs($echo = true)
     {
         $logger = $this->getContainer()->get('logger');
         if ($echo) {
@@ -487,7 +486,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         //dump($memcache->get('hometabs'));
     }
 
-    public function equalizeAllItems()
+    function equalizeAllItems()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findAll();
@@ -685,6 +684,11 @@ class DBUtilsCommand extends ContainerAwareCommand
         $commandLog->setStatus('finished');
         $em->flush();
         $em->clear();
+    }
+
+    public function vindecoder($item_id){
+        $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
+        dump($decodedVin);
     }
 
 }

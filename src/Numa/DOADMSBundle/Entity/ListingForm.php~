@@ -809,4 +809,33 @@ class ListingForm
     {
         return $this->accesories;
     }
+    /**
+     * @var string
+     */
+    private $offer_amt;
+
+
+    /**
+     * Set offerAmt
+     *
+     * @param string $offerAmt
+     *
+     * @return ListingForm
+     */
+    public function setOfferAmt($offerAmt)
+    {
+        $this->offer_amt = $offerAmt;
+
+        return $this;
+    }
+
+    /**
+     * Get offerAmt
+     *
+     * @return string
+     */
+    public function getOfferAmt()
+    {
+        return $this->offer_amt;
+    }
 }

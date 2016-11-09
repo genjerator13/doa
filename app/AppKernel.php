@@ -55,6 +55,7 @@ class AppKernel extends Kernel {
             new Liip\ThemeBundle\LiipThemeBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

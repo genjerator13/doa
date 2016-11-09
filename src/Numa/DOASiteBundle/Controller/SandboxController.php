@@ -55,12 +55,9 @@ class SandboxController extends Controller
     public function testAction()
     {
 
-        $em = $this->getDoctrine()->getManager();
-        $customer = $em->getRepository('NumaDOAStatsBundle:Stats')->find(7);
-//        dump($customer->getLastnoteadded());die();
-        $response = $this->render('NumaDOASiteBundle:Sandbox:test.html.twig', array());
+        $this->get("numa.dms.listing")->insertFromVinDecoder(29931);
+        die();
 
-        return $response;
     }
 
     public function elasticAction()

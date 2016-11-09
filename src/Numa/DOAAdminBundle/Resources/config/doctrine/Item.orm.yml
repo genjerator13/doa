@@ -494,6 +494,9 @@ Numa\DOAAdminBundle\Entity\Item:
         sale_id:
               type: integer
               nullable: true
+        vindecoder:
+              type: text
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
