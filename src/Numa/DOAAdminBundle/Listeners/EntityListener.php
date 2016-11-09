@@ -105,7 +105,7 @@ class EntityListener
                 $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
                 $entityManager->flush($entity);
-                $this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
+                //$this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
             }
 
         } elseif ($entity instanceof Billing) {
