@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Numa\Form\AutocompleteType;
 
-class DMSUserSubscriber implements EventSubscriberInterface
+class VendorSubscriber implements EventSubscriberInterface
 {
 
 
@@ -45,26 +45,14 @@ class DMSUserSubscriber implements EventSubscriberInterface
      */
     public function preSetData(FormEvent $event)
     {
-
-        $item = $event->getData();
-        $form = $event->getForm();
-
-        if(!$this->container->get('security.authorization_checker')->isGranted('ROLE_ADMIN') &&
-           !$this->container->get('security.authorization_checker')->isGranted('ROLE_BUSINES') &&
-           !$this->container->get('security.authorization_checker')->isGranted('ROLE_REGULAR_ADMIN_DMS')
-        )
-        {
-            
-            $form->remove('UserGroup');
-        }
-
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_DEALER_PRINCIPAL')) {
 
+            $form = $event->getForm();
             $em = $this->container->get("doctrine.orm.entity_manager");
             $dealerPrincipal = $this->container->get("numa.dms.user")->getSignedDealerPrincipal();
 
             if ($dealerPrincipal instanceof DealerGroup) {
-                $form->add('Dealer', 'entity', array(
+                $form->add('Catalogrecords', 'entity', array(
                     'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
                     'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
                 ));

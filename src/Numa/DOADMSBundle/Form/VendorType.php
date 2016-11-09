@@ -2,12 +2,17 @@
 
 namespace Numa\DOADMSBundle\Form;
 
+use Numa\DOADMSBundle\Events\VendorSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class VendorType extends AbstractType
 {
+    protected $container;
+    public function __construct($container = null){
+        $this->container = $container;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -41,6 +46,7 @@ class VendorType extends AbstractType
             ->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
 
         ;
+        $builder->addEventSubscriber(new VendorSubscriber($options['container']));
     }
     
     /**
@@ -59,5 +65,10 @@ class VendorType extends AbstractType
     public function getName()
     {
         return 'numa_doadmsbundle_vendor';
+    }
+
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }
