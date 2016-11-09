@@ -5,7 +5,13 @@
 {% block content %}
     <h1>Vendor creation</h1>
 
-    {{ form(form) }}
+    {{ form_start(form) }}
+    {% if(is_granted('ROLE_DEALER_PRINCIPAL')) %}
+        {{ form_row(form.Catalogrecords) }}
+    {% endif %}
+    {{ form_rest(form) }}
+    {{ form_end(form, {'render_rest': false}) }}
+    {#{{ form(form) }}#}
 
 
     <a href="{{ path('vendor') }}" class="btn btn-primary">
