@@ -323,7 +323,8 @@ class DMSUserController extends Controller
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS') ||
                 $securityContext->isGranted('ROLE_SALE2_DMS') ||
-                $securityContext->isGranted('ROLE_SALE3_DMS')
+                $securityContext->isGranted('ROLE_SALE3_DMS') ||
+                $securityContext->isGranted('ROLE_SALE4_DMS')
             )
             && $this->getUser()->getId() == $id
         ) {
