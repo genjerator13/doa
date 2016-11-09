@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -316,6 +317,14 @@ class DMSUserController extends Controller
             return true;
         } elseif ($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId() == $entity->getDealerId())) {
             return true;
+        } elseif ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL') && ($dealer instanceof DealerGroup && $entity instanceof DMSUser)) {
+            $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealer->getId());
+            foreach($dealers as $dealer){
+                if($dealer->getId() == $entity->getDealerId()){
+                    return true;
+                }
+            }
+            throw $this->createAccessDeniedException("You cannot edit this page!");
         } elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
