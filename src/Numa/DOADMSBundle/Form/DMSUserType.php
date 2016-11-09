@@ -21,7 +21,7 @@ class DMSUserType extends AbstractType
     {
         $builder
             ->add('username')
-            ->add('password','password')
+            ->add('password','password',array('required' => false))
             ->add('email')
             ->add('active')
 //            ->add('activation_key')
