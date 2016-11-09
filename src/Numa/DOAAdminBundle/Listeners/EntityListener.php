@@ -28,41 +28,6 @@ class EntityListener
         $this->container = $container;
     }
 
-    public function onFlush(OnFlushEventArgs $eventArgs)
-    {
-
-        $em = $eventArgs->getEntityManager();
-        $uow = $em->getUnitOfWork();
-        foreach ($uow->getScheduledEntityInsertions() as $entity) {
-            if ($entity instanceof Item) {
-                //$em->getRepository('NumaDOAAdminBundle:Item')->generateCoverPhotos();
-            }
-        }
-        foreach ($uow->getScheduledEntityUpdates() as $entity) {
-
-            if ($entity instanceof Item) {
-
-
-            } elseif ($entity instanceof Billing) {
-
-
-//                if(!empty($entity->getTidMake()) && !empty($entity->getTidModel())){
-//                    //check if vin exists already
-//                    $item = new Item();
-//                    //$item->set($entity->getTidKm());
-//
-//                    $item->setMake($entity->getTidMake());
-//                    $item->setModel($entity->getTidModel());
-//                    $item->setMillea($entity->getTidMilleage());
-//                    $item->setVin($entity->getTidVin());
-//                    $item->setYear($entity->getTidYear());
-//                    $item->setDealer($entity->getDealer());
-//                }
-            }
-        }
-    }
-
-
     public function prePersist(LifecycleEventArgs $args)
     {
         $entity = $args->getEntity();
@@ -141,6 +106,7 @@ class EntityListener
                 $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
                 $entityManager->flush($entity);
+                $this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
             }
 
         } elseif ($entity instanceof Billing) {
@@ -154,8 +120,9 @@ class EntityListener
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
+            //clear memcached for featured listings
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
-
+            //vindecoder
             $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
             $entity->setVindecoder($decodedvin);
             $em->flush();

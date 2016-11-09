@@ -181,9 +181,6 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        $itemFields = $em->getRepository("NumaDOAAdminBundle:ItemField")->findBy(array('item_id'=>$item->getId()));
-
-
 
         if(!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key=>$itemVin)
