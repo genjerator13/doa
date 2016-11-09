@@ -1,12 +1,19 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\User;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\User\UserLoaderInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * DealerGroup
  */
-class DealerGroup
+class DealerGroup   implements UserInterface
 {
     /**
      * @var integer
@@ -335,5 +342,45 @@ class DealerGroup
     public function getDealerCreator()
     {
         return $this->DealerCreator;
+    }
+
+    public function __toString() {
+        return $this->getUsername();
+    }
+
+    public function getRoles() {
+        return array('ROLE_DEALER_PRINCIPAL');
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {
+
+    }
+
+    public function equals(DealerGroup $user) {
+        return $user->getEmail() == $this->getEmail();
+    }
+
+    public function __sleep(){
+        return array('id', 'username', 'email');
+    }
+
+    public function getName(){
+        return $this>$this->getUsername();
+    }
+
+    public function getLogoUrl(){
+        return $this>$this->getUsername();
+    }
+
+    public function getLogo(){
+        return $this>$this->getUsername();
+    }
+
+    public function getUrl(){
+        return $this>$this->getUsername();
     }
 }

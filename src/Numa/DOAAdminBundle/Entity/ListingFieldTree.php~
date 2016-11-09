@@ -56,11 +56,11 @@ class ListingFieldTree
     {
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,14 +76,14 @@ class ListingFieldTree
     public function setListingFieldId($listingFieldId)
     {
         $this->listing_field_id = $listingFieldId;
-    
+
         return $this;
     }
 
     /**
      * Get listing_field_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getListingFieldId()
     {
@@ -99,14 +99,14 @@ class ListingFieldTree
     public function setParentId($parentId)
     {
         $this->parent_id = $parentId;
-    
+
         return $this;
     }
 
     /**
      * Get parent_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getParentId()
     {
@@ -122,14 +122,14 @@ class ListingFieldTree
     public function setOrder($order)
     {
         $this->order = $order;
-    
+
         return $this;
     }
 
     /**
      * Get order
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrder()
     {
@@ -145,14 +145,14 @@ class ListingFieldTree
     public function setLevel($level)
     {
         $this->level = $level;
-    
+
         return $this;
     }
 
     /**
      * Get level
      *
-     * @return integer 
+     * @return integer
      */
     public function getLevel()
     {
@@ -168,14 +168,14 @@ class ListingFieldTree
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -191,7 +191,7 @@ class ListingFieldTree
     public function addChildren(\Numa\DOAAdminBundle\Entity\ListingFieldTree $children)
     {
         $this->children[] = $children;
-    
+
         return $this;
     }
 
@@ -208,7 +208,7 @@ class ListingFieldTree
     /**
      * Get children
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getChildren()
     {
@@ -224,21 +224,22 @@ class ListingFieldTree
     public function setParent(\Numa\DOAAdminBundle\Entity\ListingFieldTree $parent = null)
     {
         $this->parent = $parent;
-    
+
         return $this;
     }
 
     /**
      * Get parent
      *
-     * @return \Numa\DOAAdminBundle\Entity\ListingFieldTree 
+     * @return \Numa\DOAAdminBundle\Entity\ListingFieldTree
      */
     public function getParent()
     {
         return $this->parent;
     }
-    
-    public function __toString() {
+
+    public function __toString()
+    {
         return $this->getName();
     }
 

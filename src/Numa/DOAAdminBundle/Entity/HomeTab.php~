@@ -73,7 +73,7 @@ class HomeTab
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -89,14 +89,14 @@ class HomeTab
     public function setCategoryId($categoryId)
     {
         $this->category_id = $categoryId;
-    
+
         return $this;
     }
 
     /**
      * Get category_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getCategoryId()
     {
@@ -112,14 +112,14 @@ class HomeTab
     public function setCategoryName($categoryName)
     {
         $this->category_name = $categoryName;
-    
+
         return $this;
     }
 
     /**
      * Get category_name
      *
-     * @return string 
+     * @return string
      */
     public function getCategoryName()
     {
@@ -135,14 +135,14 @@ class HomeTab
     public function setListingFieldListId($listingFieldListId)
     {
         $this->listing_field_list_id = $listingFieldListId;
-    
+
         return $this;
     }
 
     /**
      * Get listing_field_list_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getListingFieldListId()
     {
@@ -158,14 +158,14 @@ class HomeTab
     public function setListingFieldListValue($listingFieldListValue)
     {
         $this->listing_field_list_value = $listingFieldListValue;
-    
+
         return $this;
     }
 
     /**
      * Get listing_field_list_value
      *
-     * @return string 
+     * @return string
      */
     public function getListingFieldListValue()
     {
@@ -181,14 +181,14 @@ class HomeTab
     public function setPosition($position)
     {
         $this->position = $position;
-    
+
         return $this;
     }
 
     /**
      * Get position
      *
-     * @return integer 
+     * @return integer
      */
     public function getPosition()
     {
@@ -204,14 +204,14 @@ class HomeTab
     public function setLocation($location)
     {
         $this->location = $location;
-    
+
         return $this;
     }
 
     /**
      * Get location
      *
-     * @return string 
+     * @return string
      */
     public function getLocation()
     {
@@ -227,14 +227,14 @@ class HomeTab
     public function setCount($count)
     {
         $this->count = $count;
-    
+
         return $this;
     }
 
     /**
      * Get count
      *
-     * @return integer 
+     * @return integer
      */
     public function getCount()
     {
@@ -250,14 +250,14 @@ class HomeTab
     public function setIsPublic($isPublic)
     {
         $this->is_public = $isPublic;
-    
+
         return $this;
     }
 
     /**
      * Get is_public
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsPublic()
     {
@@ -273,14 +273,14 @@ class HomeTab
     public function setCreatedAt($createdAt)
     {
         $this->created_at = $createdAt;
-    
+
         return $this;
     }
 
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -296,14 +296,14 @@ class HomeTab
     public function setUpdatedAt($updatedAt)
     {
         $this->updated_at = $updatedAt;
-    
+
         return $this;
     }
 
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -319,30 +319,30 @@ class HomeTab
     public function setListingFieldLists(\Numa\DOAAdminBundle\Entity\ListingFieldLists $listingFieldLists = null)
     {
         $this->ListingFieldLists = $listingFieldLists;
-    
+
         return $this;
     }
 
     /**
      * Get ListingFieldLists
      *
-     * @return \Numa\DOAAdminBundle\Entity\ListingFieldLists 
+     * @return \Numa\DOAAdminBundle\Entity\ListingFieldLists
      */
     public function getListingFieldLists()
     {
         return $this->ListingFieldLists;
     }
-    
-        /**
+
+    /**
      * @ORM\PrePersist
      */
     public function setCreatedAtValue()
     {
-        if(!$this->getCreatedAt()) {
+        if (!$this->getCreatedAt()) {
             $this->created_at = new \DateTime();
         }
     }
- 
+
     /**
      * @ORM\PreUpdate
      */
@@ -350,6 +350,7 @@ class HomeTab
     {
         $this->updated_at = new \DateTime();
     }
+
     /**
      * @var \Numa\DOAAdminBundle\Entity\Category
      */
@@ -365,19 +366,20 @@ class HomeTab
     public function setCategory(\Numa\DOAAdminBundle\Entity\Category $category = null)
     {
         $this->Category = $category;
-    
+
         return $this;
     }
 
     /**
      * Get Category
      *
-     * @return \Numa\DOAAdminBundle\Entity\Category 
+     * @return \Numa\DOAAdminBundle\Entity\Category
      */
     public function getCategory()
     {
         return $this->Category;
     }
+
     /**
      * @var string
      */
@@ -407,6 +409,7 @@ class HomeTab
     {
         return $this->listing_field_list_slug;
     }
+
     /**
      * @var int
      */
@@ -466,7 +469,8 @@ class HomeTab
         return $this->Dealer;
     }
 
-    public function __sleep() {
+    public function __sleep()
+    {
 
         // these are field names to be serialized, others will be excluded
         // but note that you have to fill other field values by your own
