@@ -94,9 +94,6 @@ class Catalogcategory
     }
 
 
-
-
-
     /**
      * Add catalogrecord
      *
@@ -131,7 +128,8 @@ class Catalogcategory
         return $this->Catalogrecords;
     }
 
-    public function __toString(){
+    public function __toString()
+    {
         return $this->getName();
     }
 }

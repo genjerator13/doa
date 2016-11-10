@@ -185,6 +185,7 @@
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
 
                             <ul class='option-lists'>
+
                                 {% if item.categoryId()==1 %}
                                     {#{% for field in item.ItemField %}#}
                                         {#{% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}#}
@@ -214,6 +215,7 @@
                                 {% elseif(item.categoryId()==4) %}
                                     {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
                                 {% elseif(item.categoryId()==13) %}
+
                                     {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
                                 {% else %}
                                 {% endif %}

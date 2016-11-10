@@ -33,28 +33,51 @@
             fuelType = $('#numa_doaadminbundle_item_fuelType');
             transmission = $('#numa_doaadminbundle_item_transmission');
             engine = $('#numa_doaadminbundle_item_engine');
+            trim = $('#numa_doaadminbundle_item_trim');
+            stockNumber = $('#numa_doaadminbundle_item_stockNr');
             console.log(vin);
             $.ajax({
                 type: "POST",
                 url: "{{ path("decode_vin_api") }}",
                 data: {vin: vin},
                 success: function (data, textStatus, jqXHR) {
-                    //console.log(jQuery.isEmptyObject(data.make));
-                    if (!jQuery.isEmptyObject(data.make.name)) {
-                        make.val(data.make.name);
+                    console.log(data);
+                    if (data['Make']) {
+                        make.val(data['Make']);
                     }
-                    if (!jQuery.isEmptyObject(data.model.name)) {
-                        model.val(data.model.name);
+                    if (data['Model']) {
+                        model.val(data['Model']);
                     }
-                    if (data.years[0].year != null) {
-                        year.val(data.years[0].year);
+                    if (data['Model Year']) {
+                        year.val(data['Model Year']);
                     }
-                    if (!jQuery.isEmptyObject(data.MPG.city)) {
-                        mpgCity.val(data.MPG.city);
+                    if (data['Model Year']) {
+                        year.val(data['Model Year']);
                     }
-                    if (!jQuery.isEmptyObject(data.MPG.highway)) {
-                        mpgHighway.val(data.MPG.highway);
+                    if (data['Transmission-long']) {
+                        transmission.val(data['Transmission-long']);
                     }
+                    if (data['Engine Type']) {
+                        engine.val(data['Engine Type']);
+                    }
+                    if (data['Trim Level']) {
+                        trim.val(data['Trim Level']);
+                    }
+                    if (data['Fuel Economy-highway']) {
+                        mpgHighway.val(data['Fuel Economy-highway']);
+                    }
+                    if (data['Fuel Economy-city']) {
+                        mpgCity.val(data['Fuel Economy-city']);
+                    }
+                    if (data['Body Style']) {
+                        bodyDescription.val(data['Body Style']);
+                    }
+                    if (data['Driveline']) {
+                        driveType.val(data['Driveline']);
+                    }
+//                    if (data['Production Seq. Number']) {
+//                        stockNumber.val(data['Production Seq. Number']);
+//                    }
                     if (!jQuery.isEmptyObject(data.categories.market) && (data.categories.market == "Wagon" || data.categories.market == "Van" || data.categories.market == "Truck" || data.categories.market == "SUV" || data.categories.market == "Sedan" || data.categories.market == "Hatchback" || data.categories.market == "Crossover" || data.categories.market == "Coupe" || data.categories.market == "Convertible")) {
                         bodyStyle.val(data.categories.market);
                     }
@@ -64,26 +87,11 @@
                     else if (!jQuery.isEmptyObject(data.categories.vehicleStyle) && (data.categories.vehicleStyle == "Wagon" || data.categories.vehicleStyle == "Van" || data.categories.vehicleStyle == "Truck" || data.categories.vehicleStyle == "SUV" || data.categories.vehicleStyle == "Sedan" || data.categories.vehicleStyle == "Hatchback" || data.categories.vehicleStyle == "Crossover" || data.categories.vehicleStyle == "Coupe" || data.categories.vehicleStyle == "Convertible")) {
                         bodyStyle.val(data.categories.vehicleStyle);
                     }
-                    if (!jQuery.isEmptyObject(data.categories.vehicleStyle)) {
-                        bodyDescription.val(data.categories.vehicleStyle);
-                    }
                     if (!jQuery.isEmptyObject(data.numOfDoors)) {
                         doors.val(data.numOfDoors);
                     }
-                    if (!jQuery.isEmptyObject(data.drivenWheels)) {
-                        driveType.val(firstToUpperCase(data.drivenWheels));
-                    }
                     if (!jQuery.isEmptyObject(data.engine.type)) {
                         fuelType.val(firstToUpperCase(data.engine.type));
-                    }
-                    if (!jQuery.isEmptyObject(data.transmission.name)) {
-                        transmission.val(data.transmission.name);
-                    }
-                    else if (!jQuery.isEmptyObject(data.transmission.transmissionType)) {
-                        transmission.val(data.transmission.transmissionType);
-                    }
-                    if (!jQuery.isEmptyObject(data.engine.name)) {
-                        engine.val(data.engine.name);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
