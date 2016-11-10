@@ -1028,21 +1028,24 @@ class Item
      */
     public function getCategorySubType()
     {
+        $ret = "";
         if (!empty($this->getCategory())) {
             $cat = $this->getCategory();
             if ($cat->getId() == 1) {
-                return $this->getBodyStyle();
+                $ret = $this->getBodyStyle();
             } elseif ($cat->getId() == 2) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 3) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 4) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 13) {
-                return $this->getAgApplication();
+                $ret = $this->getAgApplication();
             }
         }
-        return "";
+        $ret = strtolower(str_replace(" / "," ",$ret));
+        $ret = strtolower(str_replace(" & "," ",$ret));
+        return $ret;
     }
 
 

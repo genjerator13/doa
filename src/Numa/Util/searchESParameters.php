@@ -171,6 +171,9 @@ class searchESParameters
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
         }
+        if(!empty($params['categorySubType'])){
+            $params['categorySubType'] = strtolower(str_replace("-"," ",$params['categorySubType']));
+        }
 
         foreach ($params as $key => $value) {
 
