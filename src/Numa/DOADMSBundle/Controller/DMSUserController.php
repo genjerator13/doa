@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -26,8 +27,8 @@ class DMSUserController extends Controller
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
 
         return $this->render('NumaDOADMSBundle:DMSUser:index.html.twig', array(
-            'dealer'=>$dealer,
-            'dealerPrincipal'=>$dealerPrincipal
+            'dealer' => $dealer,
+            'dealerPrincipal' => $dealerPrincipal
         ));
     }
 
@@ -267,17 +268,10 @@ class DMSUserController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find DMSUser entity.');
         }
-        if ($securityContext->isGranted('ROLE_DMS_USER')) {
-            $dealer = $this->get("numa.dms.user")->getSignedDealer();
-            if ($dealer instanceof Catalogrecords && $entity->getDealer() instanceof Catalogrecords){
-                if($dealer->getId()!=$entity->getDealer()->getId())
-                {
-                    throw $this->createAccessDeniedException("Only User owner may delete this user.");
-                }
-
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+            if (($dealer instanceof Catalogrecords && $entity->getDealer() instanceof Catalogrecords) && $dealer->getId() != $entity->getDealer()->getId()) {
+                throw $this->createAccessDeniedException("Only User owner may delete this user.");
             }
-            throw $this->createAccessDeniedException("Only administrator may delete this DealerGroup.");
-        }
 
         $em->remove($entity);
         $em->flush();
@@ -316,6 +310,14 @@ class DMSUserController extends Controller
             return true;
         } elseif ($securityContext->isGranted('ROLE_BUSINES') && ($dealer instanceof Catalogrecords && $entity instanceof DMSUser && $dealer->getId() == $entity->getDealerId())) {
             return true;
+        } elseif ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL') && ($dealer instanceof DealerGroup && $entity instanceof DMSUser)) {
+            $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealer->getId());
+            foreach ($dealers as $dealer) {
+                if ($dealer->getId() == $entity->getDealerId()) {
+                    return true;
+                }
+            }
+            throw $this->createAccessDeniedException("You cannot edit this page!");
         } elseif (($securityContext->isGranted('ROLE_PARTS_DMS') ||
                 $securityContext->isGranted('ROLE_SERVICE_DMS') ||
                 $securityContext->isGranted('ROLE_FINANCE_DMS') ||
@@ -323,7 +325,8 @@ class DMSUserController extends Controller
                 $securityContext->isGranted('ROLE_SALES') ||
                 $securityContext->isGranted('ROLE_REGULAR_ADMIN_DMS') ||
                 $securityContext->isGranted('ROLE_SALE2_DMS') ||
-                $securityContext->isGranted('ROLE_SALE3_DMS')
+                $securityContext->isGranted('ROLE_SALE3_DMS') ||
+                $securityContext->isGranted('ROLE_SALE4_DMS')
             )
             && $this->getUser()->getId() == $id
         ) {

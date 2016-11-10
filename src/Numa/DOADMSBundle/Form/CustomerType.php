@@ -9,10 +9,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CustomerType extends AbstractType
 {
-    public $securityContext;
     protected $container;
-    public function __construct($securityContext = null, $container = null){
-        $this->securityContext=$securityContext;
+    public function __construct($container = null){
         $this->container = $container;
     }
         /**

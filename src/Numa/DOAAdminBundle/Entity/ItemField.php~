@@ -7,7 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ItemField
  */
-class ItemField {
+class ItemField
+{
 
     /**
      * @var integer
@@ -63,7 +64,8 @@ class ItemField {
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         //$this->Listingfield = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
@@ -71,9 +73,10 @@ class ItemField {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -83,7 +86,8 @@ class ItemField {
      * @param integer $itemId
      * @return ItemField
      */
-    public function setItemId($itemId) {
+    public function setItemId($itemId)
+    {
         $this->item_id = $itemId;
 
         return $this;
@@ -92,9 +96,10 @@ class ItemField {
     /**
      * Get item_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getItemId() {
+    public function getItemId()
+    {
         return $this->item_id;
     }
 
@@ -104,7 +109,8 @@ class ItemField {
      * @param string $fieldName
      * @return ItemField
      */
-    public function setFieldName($fieldName) {
+    public function setFieldName($fieldName)
+    {
         $this->field_name = $fieldName;
 
         return $this;
@@ -113,9 +119,10 @@ class ItemField {
     /**
      * Get field_name
      *
-     * @return string 
+     * @return string
      */
-    public function getFieldName() {
+    public function getFieldName()
+    {
         return $this->field_name;
     }
 
@@ -125,7 +132,8 @@ class ItemField {
      * @param string $fieldType
      * @return ItemField
      */
-    public function setFieldType($fieldType) {
+    public function setFieldType($fieldType)
+    {
         $this->field_type = $fieldType;
 
         return $this;
@@ -134,9 +142,10 @@ class ItemField {
     /**
      * Get field_type
      *
-     * @return string 
+     * @return string
      */
-    public function getFieldType() {
+    public function getFieldType()
+    {
         return $this->field_type;
     }
 
@@ -146,7 +155,8 @@ class ItemField {
      * @param string $fieldStringValue
      * @return ItemField
      */
-    public function setFieldStringValue($fieldStringValue) {
+    public function setFieldStringValue($fieldStringValue)
+    {
         $this->field_string_value = $fieldStringValue;
 
         return $this;
@@ -155,9 +165,10 @@ class ItemField {
     /**
      * Get field_string_value
      *
-     * @return string 
+     * @return string
      */
-    public function getFieldStringValue() {
+    public function getFieldStringValue()
+    {
         return $this->field_string_value;
     }
 
@@ -167,7 +178,8 @@ class ItemField {
      * @param boolean $fieldBooleanValue
      * @return ItemField
      */
-    public function setFieldBooleanValue($fieldBooleanValue) {
+    public function setFieldBooleanValue($fieldBooleanValue)
+    {
         $this->field_boolean_value = $fieldBooleanValue;
 
         return $this;
@@ -176,9 +188,10 @@ class ItemField {
     /**
      * Get field_boolean_value
      *
-     * @return boolean 
+     * @return boolean
      */
-    public function getFieldBooleanValue() {
+    public function getFieldBooleanValue()
+    {
         return $this->field_boolean_value;
     }
 
@@ -188,7 +201,8 @@ class ItemField {
      * @param integer $fieldIntegerValue
      * @return ItemField
      */
-    public function setFieldIntegerValue($fieldIntegerValue) {
+    public function setFieldIntegerValue($fieldIntegerValue)
+    {
         $this->field_integer_value = $fieldIntegerValue;
 
         return $this;
@@ -197,9 +211,10 @@ class ItemField {
     /**
      * Get field_integer_value
      *
-     * @return integer 
+     * @return integer
      */
-    public function getFieldIntegerValue() {
+    public function getFieldIntegerValue()
+    {
         return $this->field_integer_value;
     }
 
@@ -209,7 +224,8 @@ class ItemField {
      * @param \DateTime $fieldDatetimeValue
      * @return ItemField
      */
-    public function setFieldDatetimeValue($fieldDatetimeValue) {
+    public function setFieldDatetimeValue($fieldDatetimeValue)
+    {
         $this->field_datetime_value = $fieldDatetimeValue;
 
         return $this;
@@ -218,9 +234,10 @@ class ItemField {
     /**
      * Get field_datetime_value
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
-    public function getFieldDatetimeValue() {
+    public function getFieldDatetimeValue()
+    {
         return $this->field_datetime_value;
     }
 
@@ -230,7 +247,8 @@ class ItemField {
      * @param integer $fieldId
      * @return ItemField
      */
-    public function setFieldId($fieldId) {
+    public function setFieldId($fieldId)
+    {
         $this->field_id = $fieldId;
 
         return $this;
@@ -239,9 +257,10 @@ class ItemField {
     /**
      * Get field_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getFieldId() {
+    public function getFieldId()
+    {
         return $this->field_id;
     }
 
@@ -251,7 +270,8 @@ class ItemField {
      * @param \Numa\DOAAdminBundle\Entity\Listingfield $listingfield
      * @return ItemField
      */
-    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null) {
+    public function setListingfield(\Numa\DOAAdminBundle\Entity\Listingfield $listingfield = null)
+    {
         if ($listingfield instanceof ListingField) {
             $this->Listingfield = $listingfield;
         }
@@ -263,9 +283,10 @@ class ItemField {
     /**
      * Get Listingfield
      *
-     * @return \Numa\DOAAdminBundle\Entity\Listingfield 
+     * @return \Numa\DOAAdminBundle\Entity\Listingfield
      */
-    public function getListingfield() {
+    public function getListingfield()
+    {
         return $this->Listingfield;
     }
 
@@ -280,7 +301,8 @@ class ItemField {
      * @param \Numa\DOAAdminBundle\Entity\Item $item
      * @return ItemField
      */
-    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null) {
+    public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
+    {
         $this->Item = $item;
 
         return $this;
@@ -289,22 +311,25 @@ class ItemField {
     /**
      * Get Item
      *
-     * @return \Numa\DOAAdminBundle\Entity\Item 
+     * @return \Numa\DOAAdminBundle\Entity\Item
      */
-    public function getItem() {
+    public function getItem()
+    {
         return $this->Item;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getFieldName();
     }
 
-    function setAllValues($value, $valueMapValues = "") {
+    function setAllValues($value, $valueMapValues = "")
+    {
 
         if (is_array($value)) {
             $value = json_encode($value, true);
         } else {
-            $value = (string) trim($value);
+            $value = (string)trim($value);
         }
 
         //process mapvalues map values
@@ -338,7 +363,8 @@ class ItemField {
      * @param integer $sortOrder
      * @return ItemField
      */
-    public function setSortOrder($sortOrder) {
+    public function setSortOrder($sortOrder)
+    {
         $this->sort_order = $sortOrder;
 
         return $this;
@@ -347,9 +373,10 @@ class ItemField {
     /**
      * Get sort_order
      *
-     * @return integer 
+     * @return integer
      */
-    public function getSortOrder() {
+    public function getSortOrder()
+    {
         return $this->sort_order;
     }
 
@@ -357,13 +384,14 @@ class ItemField {
      * Downloads image from $stringValue which could be UploadedFile
      * Function accepts p...
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $stringValue or string
-     * @param type $upload_url 
+     * @param type $upload_url
      * @param type $feed_sid
      * @param type $order
      * @param type $localy
      * @param type $uniqueValue
      */
-    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "") {
+    public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "")
+    {
         if (is_array($stringValue)) {
             $stringValue = $stringValue['url'];
         }
@@ -390,7 +418,7 @@ class ItemField {
             //make a folder if not exists
             $dir = $upload_path . "/" . $subfolder;
             if (!file_exists($dir)) {
-                mkdir($dir, 0777,true);
+                mkdir($dir, 0777, true);
             }
 
             //prepare filename for the image
@@ -455,7 +483,7 @@ class ItemField {
                         }
                         file_put_contents($img, $return);
                     } else {
-                        
+
                     }
 
                     curl_close($ch);
@@ -480,7 +508,8 @@ class ItemField {
      * @param integer $feedId
      * @return ItemField
      */
-    public function setFeedId($feedId) {
+    public function setFeedId($feedId)
+    {
         $this->feed_id = $feedId;
 
         return $this;
@@ -489,9 +518,10 @@ class ItemField {
     /**
      * Get feed_id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getFeedId() {
+    public function getFeedId()
+    {
         return $this->feed_id;
     }
 
@@ -506,7 +536,8 @@ class ItemField {
      * @param \double $fieldDoubleValue
      * @return ItemField
      */
-    public function setFieldDoubleValue($fieldDoubleValue) {
+    public function setFieldDoubleValue($fieldDoubleValue)
+    {
         $this->field_double_value = $fieldDoubleValue;
 
         return $this;
@@ -515,9 +546,10 @@ class ItemField {
     /**
      * Get field_double_value
      *
-     * @return double 
+     * @return double
      */
-    public function getFieldDoubleValue() {
+    public function getFieldDoubleValue()
+    {
         return $this->field_double_value;
     }
 

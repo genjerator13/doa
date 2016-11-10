@@ -49,12 +49,12 @@ class UserItem
      * @var \Numa\DOAAdminBundle\Entity\Item
      */
     private $Item;
-    
+
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -70,14 +70,14 @@ class UserItem
     public function setUserId($userId)
     {
         $this->user_id = $userId;
-    
+
         return $this;
     }
 
     /**
      * Get user_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserId()
     {
@@ -93,14 +93,14 @@ class UserItem
     public function setItemId($itemId)
     {
         $this->item_id = $itemId;
-    
+
         return $this;
     }
 
     /**
      * Get item_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getItemId()
     {
@@ -116,14 +116,14 @@ class UserItem
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -139,14 +139,14 @@ class UserItem
     public function setItemType($itemType)
     {
         $this->item_type = $itemType;
-    
+
         return $this;
     }
 
     /**
      * Get item_type
      *
-     * @return integer 
+     * @return integer
      */
     public function getItemType()
     {
@@ -162,14 +162,14 @@ class UserItem
     public function setDateCreated($dateCreated)
     {
         $this->date_created = $dateCreated;
-    
+
         return $this;
     }
 
     /**
      * Get date_created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -185,14 +185,14 @@ class UserItem
     public function setDateUpdated($dateUpdated)
     {
         $this->date_updated = $dateUpdated;
-    
+
         return $this;
     }
 
     /**
      * Get date_updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateUpdated()
     {
@@ -208,19 +208,20 @@ class UserItem
     public function setItem(\Numa\DOAAdminBundle\Entity\Item $item = null)
     {
         $this->Item = $item;
-    
+
         return $this;
     }
 
     /**
      * Get Item
      *
-     * @return \Numa\DOAAdminBundle\Entity\Item 
+     * @return \Numa\DOAAdminBundle\Entity\Item
      */
     public function getItem()
     {
         return $this->Item;
     }
+
     /**
      * @var \Numa\DOAAdminBundle\Entity\User
      */
@@ -236,14 +237,14 @@ class UserItem
     public function setUser(\Numa\DOAAdminBundle\Entity\User $user = null)
     {
         $this->User = $user;
-    
+
         return $this;
     }
 
     /**
      * Get User
      *
-     * @return \Numa\DOAAdminBundle\Entity\User 
+     * @return \Numa\DOAAdminBundle\Entity\User
      */
     public function getUser()
     {

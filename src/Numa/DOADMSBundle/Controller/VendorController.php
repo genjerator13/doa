@@ -44,8 +44,11 @@ class VendorController extends Controller
             $em = $this->getDoctrine()->getManager();
             $entity->upload();
 
-            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-            $entity->setCatalogrecords($dealer);
+            $securityContext = $this->container->get('security.authorization_checker');
+            if (!$securityContext->isGranted('ROLE_DEALER_PRINCIPAL')){
+                $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+                $entity->setCatalogrecords($dealer);
+            }
 
             $em->persist($entity);
             $em->flush();
