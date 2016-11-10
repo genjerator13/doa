@@ -645,7 +645,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }
 
         //generate all the pages
-        $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($id);
+        $this->container->get("Numa.DMSUtils")->generatePagesForDealer($id);
 
         return $this->redirect($this->generateUrl('dms_catalogs'));
 
