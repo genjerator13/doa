@@ -3,6 +3,19 @@ fos_elastica:
         default: { host: localhost, port: 9200 }
     indexes:
         app:
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            string_lowercase:
+                                tokenizer: keyword
+                                filter: [ lowercase , trim ]
+#                                char_filter: my_char_filter
+#                        char_filter:
+#                            my_char_filter:
+#                                type: pattern_replace
+#                                pattern: ["(\\w+) - (?=\\w)"]
+#                                replacement": ["$1 "]
             types:
                 Item:
 
@@ -31,7 +44,7 @@ fos_elastica:
                           type: integer
                         categoryName: ~
                         categorySubType:
-                          analyzer: standard
+                          analyzer: string_lowercase
                           type: string
 
                         views: ~
@@ -77,9 +90,10 @@ fos_elastica:
                         # propel and should be removed
                         driver: orm
                         model: Numa\DOAAdminBundle\Entity\Item
-                        provider: ~
+                        provider:
+                            query_builder_method: createIsActiveNonDeletedQueryBuilder
                         listener:
-                          insert: true
-                          update: true
-                          delete: true
+                            insert: true
+                            update: true
+                            delete: true
                         finder: ~

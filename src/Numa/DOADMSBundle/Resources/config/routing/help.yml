@@ -1,0 +1,8 @@
+help:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Vendor:index" }
+
+help_user_group:
+    path:     /user_group_permissions
+    defaults: { _controller: "NumaDOADMSBundle:Help:UserPermissionView" }
+
