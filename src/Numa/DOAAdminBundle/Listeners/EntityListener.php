@@ -21,7 +21,8 @@ class EntityListener
 {
 
     protected $container;
-    protected $vinchange=false;
+    protected $vinchange = false;
+
     public function __construct($container = null)
     {
         $this->container = $container;
@@ -82,7 +83,7 @@ class EntityListener
         $entityManager = $args->getEntityManager();
         if ($entity instanceof Item) {
             //$this->vinchange = false;
-            if($args->hasChangedField("VIN")){
+            if ($args->hasChangedField("VIN")) {
 //                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
 //                $entity->setVindecoder($decodedvin);
 //                $entityManager->flush($entity);
@@ -101,7 +102,7 @@ class EntityListener
 
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
-            if($this->vinchange) {
+            if ($this->vinchange) {
                 $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
                 $entityManager->flush($entity);
