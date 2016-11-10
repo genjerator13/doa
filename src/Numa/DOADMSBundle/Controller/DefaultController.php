@@ -13,13 +13,12 @@ class DefaultController extends Controller
         $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
         $em = $this->getDoctrine()->getManager();
         $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        if(empty($signedDealer)){
+        if (empty($signedDealer)) {
             $dealer = null;
-        }
-        else{
+        } else {
             $dealer = $signedDealer->getId();
         }
-        $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer,10,"read");
+        $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer, 10, "read");
 
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->countByDealer($signedDealer);
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findAllNotDeleted($signedDealer);
@@ -31,18 +30,19 @@ class DefaultController extends Controller
             'pages' => count($pages),
             'customers' => count($customers)));
     }
+
     public function notificationsAction()
     {
         $em = $this->getDoctrine()->getManager();
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer()->getId();
-        $dealer_id=null;
-        if($dealer instanceof Catalogrecords){
-            $dealer_id=$dealer->getId();
-            $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10,"read");
+        $dealer_id = null;
+        if ($dealer instanceof Catalogrecords) {
+            $dealer_id = $dealer->getId();
+            $webForms = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id, 10, "read");
 
-            $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id,10000,"read");
+            $webFormsCount = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer_id, 10000, "read");
 
-            return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array('webforms' => $webForms,"count"=>count($webFormsCount)));
+            return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array('webforms' => $webForms, "count" => count($webFormsCount)));
         }
 
         return $this->render('NumaDOADMSBundle:Default:nortifications.html.twig', array());
@@ -71,22 +71,25 @@ class DefaultController extends Controller
         return $this->render('NumaDOADMSBundle::dealerChooser.html.twig');
     }
 
-    public function themesAction(Request $request){
-        $ctheme="Default";
+    public function themesAction(Request $request)
+    {
+        $ctheme = "Default";
 
         $dealer = $this->get('Numa.Dms.User')->getSignedUser();
 
-        if($dealer instanceof Catalogrecords && !empty($dealer->getSiteTheme())){
+        if ($dealer instanceof Catalogrecords && !empty($dealer->getSiteTheme())) {
             $ctheme = $dealer->getSiteTheme();
         }
 
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$ctheme,"dealer"=>$dealer));
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig', array('theme' => $ctheme, "dealer" => $dealer));
     }
-    public function changeThemeAction(Request $request){
+
+    public function changeThemeAction(Request $request)
+    {
         $theme = $request->get('theme');
         $dealer = $this->get('Numa.Dms.User')->getSignedUser();
 
-        if($dealer instanceof Catalogrecords){
+        if ($dealer instanceof Catalogrecords) {
             $dealer->setSiteTheme($theme);
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -94,7 +97,7 @@ class DefaultController extends Controller
             $this->get('Numa.DMSUtils')->clearCache();
         }
 
-        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig',array('theme'=>$theme,"dealer"=>$dealer));
+        return $this->render('NumaDOADMSBundle:Themes:themes.html.twig', array('theme' => $theme, "dealer" => $dealer));
     }
 
     /**
