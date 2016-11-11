@@ -393,9 +393,12 @@ class ItemRepository extends EntityRepository
         if (is_array($value)) {
             return false;
         }
-        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=\'' . $uniqueField . '\' and if.field_string_value =\'' . $value . '\'';
+        $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=:uniquefield and if.field_string_value =:value';
         $itemsQuery = $this->getEntityManager()
-            ->createQuery($q)->setMaxResults(1);
+            ->createQuery($q)
+            ->setParameter("uniquefield",$uniqueField)
+            ->setParameter("value",$uniqueField)
+            ->setMaxResults(1);
         return $itemsQuery->getOneOrNullResult();
     }
 
@@ -424,8 +427,9 @@ class ItemRepository extends EntityRepository
     public function removeItemsByFeed($feed_id)
     {
         $feed_id = intval($feed_id);
-        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = ' . $feed_id);
-        $numDeleted = $q->execute();
+        $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = :feed_id')
+                   ->setParameter("feed_id",$feed_id);
+        $q->execute();
     }
 
     /**
