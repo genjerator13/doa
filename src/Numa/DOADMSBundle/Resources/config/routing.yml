@@ -108,3 +108,6 @@ NumaDOADMSBundle_supportform:
 NumaDOADMSBundle_dealergroup:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dealergroup.yml"
     prefix:   /dealergroup
+NumaDOADMSBundle_help:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/help.yml"
+    prefix:   /dealergroup

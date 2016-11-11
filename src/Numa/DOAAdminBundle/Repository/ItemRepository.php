@@ -859,5 +859,20 @@ SET i.cover_photo = iif.field_string_value";
         return null;
     }
 
+    /**
+     * @return QueryBuilder
+     * needed for elasti search
+     */
+    public function createIsActiveNonDeletedQueryBuilder() {
+        $queryBuilder = $this->getEntityManager()
+            ->createQueryBuilder()
+            ->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->where('i.active=1')
+            ->orderBy('i.id', 'DESC');
+
+        return $queryBuilder;
+    }
+
 
 }
