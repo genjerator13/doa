@@ -576,8 +576,6 @@ class ItemRepository extends EntityRepository
                         $item->proccessImagesFromRemote($stringValue, $maprow, $feed, $upload_path, $upload_url, $em, $uniqueValue);
                     }
                     $processed = true;
-                } else {
-
                 }
 
                 if (!empty($listingFieldsType) && $listingFieldsType == 'options') {
