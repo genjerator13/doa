@@ -107,11 +107,12 @@ class ListingFieldTreeRepository extends EntityRepository
         //$return = $this->get('memcache.default')->get('findOneByValueTreep' . $propertyName.:);
         //if ($return === false) {
         $q = 'SELECT t FROM NumaDOAAdminBundle:ListingfieldTree t WHERE
-                    ( t.listing_field_id = ' . $listing_field_id . ' AND
+                    ( t.listing_field_id = :listing_field_id AND
                     (t.name like :propertyname  OR
                      t.name like :propertyname2     )) ';
         $query = $this->getEntityManager()
             ->createQuery($q)
+            ->setParameter('listing_field_id',  $listing_field_id )
             ->setParameter('propertyname',  $propertyName )
             ->setParameter('propertyname2', "%" . $propertyName . "%")
             ->setMaxResults(1);
