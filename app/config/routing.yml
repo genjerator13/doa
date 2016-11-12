@@ -33,9 +33,9 @@ numa_doa_site:
 numa_doa_admin:
     resource: "@NumaDOAAdminBundle/Resources/config/routing.yml"
     prefix:   /admin
-login:
-    pattern:   /login
-    defaults:  { _controller: NumaDOAAdminBundle:Default:login }
+#login:
+#    pattern:   /login
+#    defaults:  { _controller: NumaDOAAdminBundle:Default:login }
 login_check:
     pattern:   /login_check
 logout:

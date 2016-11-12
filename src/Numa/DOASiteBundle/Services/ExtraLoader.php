@@ -23,18 +23,7 @@ class ExtraLoader implements LoaderInterface
     public function load($resource, $type = null)
     {
 
-//        if (true === $this->loaded) {
-//            throw new \RuntimeException('Do not add this loader twice');
-//        }
-////        $em = $this->container->get("doctrine.orm.entity_manager");
-//        $dealer = $this->container->get('security.token_storage')->getToken();
-//
-////        die();
-////        $pages = $em->getRepository("NumaDOAModuleBundle:Page")->findPagesByDealer($dealer->getId());
-////        dump($pages);
-////        die();
         $routes = new RouteCollection();
-//        dump($routes);die();
         $pattern = '/bbb';
         $defaults = array(
             '_controller' => 'NumaDOASiteBundle:Default:Index',
