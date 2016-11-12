@@ -34,7 +34,7 @@ class DefaultController extends Controller
     public function notificationsAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer()->getId();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealer_id = null;
         if ($dealer instanceof Catalogrecords) {
             $dealer_id = $dealer->getId();
