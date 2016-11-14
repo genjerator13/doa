@@ -206,23 +206,25 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>
     </div>
-    <div id="listing-content" class="col-md-8">
-        {#<div class="page_ads">#}
-        {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
+    <div class="row">
+        <div id="listing-content" class="col-md-8">
+            {#<div class="page_ads">#}
+            {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
 
-        {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
-        {#</div>#}
-        {% for item in pagerfanta %}
-            {% if queryUrl is defined %}
-                {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
-            {% else %}
-                {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
-            {% endif %}
+            {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
+            {#</div>#}
+            {% for item in pagerfanta %}
+                {% if queryUrl is defined %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                {% else %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+                {% endif %}
 
-        {% endfor %}
-    </div>
-    <div class="searchSideBar col-md-4">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+            {% endfor %}
+        </div>
+        <div class="searchSideBar col-md-4">
+            {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        </div>
     </div>
     <div class="col-md-12">
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
