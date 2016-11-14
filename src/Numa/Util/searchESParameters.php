@@ -346,7 +346,7 @@ class searchESParameters
         //$index = $this->get('fos_elastica.index.app.item');
         $finder = $this->container->get('fos_elastica.finder.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
-        $this->dump();
+        
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
 
