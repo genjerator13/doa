@@ -807,7 +807,6 @@ and (max-width : 767px) {
 .listing-right{
 	height: 100%;
 	position: relative;
-	min-height: 400px;
 	padding-right: 0;
 
 }
@@ -821,7 +820,7 @@ and (max-width : 767px) {
 	background: #fff;
 }
 .slideshow .pgwSlideshow .ps-list {
-	left: 580px;
+	left: 565px;
 	bottom: 147px;
 }
 .listing-images {
@@ -871,7 +870,7 @@ and (max-width : 767px) {
 	font-weight: bold;
 }
 ul.techData{
-	margin:20px 0 0 0;
+	margin:20px 0 20px 0;
 }
 
 ul.techData li {
@@ -923,6 +922,26 @@ ul.techData li {
 .bs-carousels {
 	float: left;
 }
+
+.item-row a.thumbnail {
+	margin-bottom:0;;
+}
+
+.container #listing-content .item-row h4 {
+	margin:0;
+}
+
+.searchResults .row, .detailsContent .row{
+	margin-right: 0;
+}
+.detailsContent .row{
+	margin-left: 0;
+}
+
+#video {
+
+}
+
 
 /*#myCarousel_left .classWithPad { margin-right:10px; }*/
 
