@@ -11,7 +11,7 @@
         {% set detailUrl = "details" %}
 
     {% endif %}
-    <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row margin-bottom" url="{{ path('item_compare') }}">
+    <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row bottom-margin" url="{{ path('item_compare') }}">
 
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <a href="{{ detailUrl }}" class="thumbnail  picture-detail">
@@ -46,7 +46,7 @@
                 </ul>
             {% endif %}
         </div>
-        <div class="col-lg-16 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="checkbox-inline top-buffer">
                 <label>
                     <input type="checkbox" class="compareAd"> Compare Ad
