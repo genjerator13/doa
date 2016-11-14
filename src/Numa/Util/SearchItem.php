@@ -68,6 +68,10 @@ class SearchItem {
         return $this->getType()=='string';
     }
 
+    public function isWildcard(){
+        return $this->getType()=='wildcard';
+    }
+
     public function isInt(){
         return $this->getType()=='int';
     }
