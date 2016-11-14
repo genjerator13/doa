@@ -37,11 +37,16 @@ class ListingFieldListsRepository extends EntityRepository
         if ($return === false) {
             $propertyName = str_replace("'", "", $propertyName);
             $q = 'SELECT l FROM NumaDOAAdminBundle:ListingfieldLists l WHERE 
-                     l.listing_field_id = ' . $listing_field_id . ' AND
-                     l.value like \'' . $propertyName . '\'  OR 
-                     l.value like \'%' . $propertyName . '%\'     ';
+                     l.listing_field_id = :listing_field_id AND
+                     l.value like :propertyname  OR
+                     l.value like :propertyname2 ';
             $query = $this->getEntityManager()
-                ->createQuery($q)->setMaxResults(1);
+                ->createQuery($q)
+                //->andWhere('cl.status like :status')
+                ->setParameter('listing_field_id',  $listing_field_id )
+                ->setParameter('propertyname',  $propertyName )
+                ->setParameter('propertyname2', "%" . $propertyName . "%")
+                ->setMaxResults(1);
             $res = $query->getOneOrNullResult(); //getOneOrNullResult();
             if ($this->memcache) {
                 $this->memcache->set($hash, $res);

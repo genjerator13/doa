@@ -36,13 +36,18 @@ class DmsUserLib
 
     public function getSignedUser()
     {
-        $dealer = $this->container->get('security.token_storage')->getToken()->getUser();
-        $session = $this->container->get('session');
-        $dealerIdSession = $session->get('dms_dealer_id');
-        if (!empty($dealerIdSession)) {
-            $dealer = $this->em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealerIdSession);
+
+        $token = $this->container->get('security.token_storage')->getToken();
+        if(!empty($token)) {
+            $dealer = $token->getUser();
+            $session = $this->container->get('session');
+            $dealerIdSession = $session->get('dms_dealer_id');
+            if (!empty($dealerIdSession)) {
+                $dealer = $this->em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealerIdSession);
+            }
+            return $dealer;
         }
-        return $dealer;
+        return null;
     }
 
     public function getSignedDealer()
@@ -58,7 +63,7 @@ class DmsUserLib
         }
 
         if($dealer instanceof DealerGroup ){
-            return $dealer;
+            return $dealer->getDealerCreator();
         }
         return null;
     }

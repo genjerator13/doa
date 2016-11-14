@@ -11,6 +11,12 @@
     {{ component.listingFieldInput(form.model,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.floorPlan,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.class,"", "form-group","col-sm-9") }}
+    <div class="form-group">
+        {{ form_label(form.type, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
+        <div class="col-sm-9">
+            {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
     {{ component.listingFieldInput(form.stockNr,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
@@ -33,12 +39,6 @@
         {{ form_label(form.engine, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">
             {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}
-        </div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.type, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
-        <div class="col-sm-9">
-            {{ form_widget(form.type, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
     <div class="form-group">
