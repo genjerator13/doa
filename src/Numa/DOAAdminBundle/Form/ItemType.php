@@ -68,7 +68,7 @@ class ItemType extends AbstractType
                 'choices' => $this->em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findAllBy('Body Style', 0, true),
                 'required' => true,
                 'empty_value' => 'Any Body Style',
-                'label' => "Body Style"devtoa
+                'label' => "Body Style"
             ))
             ->add('make')
             ->add('model')
