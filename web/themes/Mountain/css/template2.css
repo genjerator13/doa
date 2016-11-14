@@ -884,11 +884,11 @@ ul.techData li {
 }
 
 .picture-detail {
-	max-height: 246px;
+	/*max-height: 246px;*/
 
-	display: block;
-	width: 350px;
-	overflow: hidden;
+	/*display: block;*/
+	/*width: 350px;*/
+	/*overflow: hidden;*/
 }
 
 #listing-content .items {
@@ -899,6 +899,9 @@ ul.techData li {
 	border: 1px solid black;
 	min-height: 500px;
 	padding-top: 20px;
+}
+.bottom-margin {
+	margin-bottom: 20px;
 }
 
 /*.carousel {*/
