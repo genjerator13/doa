@@ -231,6 +231,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger->warning("FETCH FEED: END");
 
             $this->generateCoverPhotos();
+            $this->populate();
 
             die();
 
