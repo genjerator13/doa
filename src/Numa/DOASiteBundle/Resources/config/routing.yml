@@ -17,9 +17,13 @@ search_by_body_style:
 search_by_boat_type:
     path:  /browse_by_boat_type_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_rvs_class_type:
+    path:  /browse_by_{category}_class/{categorySubTypeWildcard}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_rvs_type:
     path:  /browse_by_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+
 search_by_type:
     path:  /browse_by_type_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
