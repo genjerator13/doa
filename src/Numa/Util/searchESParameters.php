@@ -358,7 +358,7 @@ class searchESParameters
                             //search by lowercase and upercase until i find better solution
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtolower($searchItem->getValue()) . '*');
-                            $boolQuery->addShould($fieldQuery);
+                            $boolQuery->addMust($fieldQuery);
 
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtoupper($searchItem->getValue()) . '*');
