@@ -1771,7 +1771,7 @@ class Item
     {
         if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
             $this->status = "New";
-        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use') {
+        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status=null) {
             $this->status = "Used";
         }
         return $this->status;
