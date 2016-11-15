@@ -65,6 +65,7 @@ class searchESParameters
             'typeString' => new SearchItem('type', 0, "string"),
             'typeSlug' => new SearchItem('type', 0, "listSlug"),
             'categorySubType' => new SearchItem('categorySubType', 0, "string"),
+            'categorySubTypeWildcard' => new SearchItem('categorySubType', 0, "wildcard"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatTypeSlug' => new SearchItem('type', 0, "listSlug"),
@@ -345,7 +346,7 @@ class searchESParameters
         //$index = $this->get('fos_elastica.index.app.item');
         $finder = $this->container->get('fos_elastica.finder.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
-
+        
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
 
@@ -386,7 +387,7 @@ class searchESParameters
                     } elseif ($searchItem->isCategory()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm('categoryName', $searchItem->getValue());
-                        $boolQuery->addShould($fieldQuery);
+                        $boolQuery->addMust($fieldQuery);
                     } elseif ($searchItem->isText()) {
                         $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
 
@@ -396,6 +397,10 @@ class searchESParameters
                         $boolQuery->addMust($fieldQuery);
                     } elseif ($searchItem->isRangeTo()) {
                         $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('lte' => $searchItem->getValue()));
+                        $boolQuery->addMust($fieldQuery);
+                    }elseif ($searchItem->isWildcard()) {
+                        $fieldQuery = new \Elastica\Query\Wildcard();
+                        $fieldQuery->setValue($searchItem->getDbFieldName(), "*".$searchItem->getValue()."*");
                         $boolQuery->addMust($fieldQuery);
                     }
                 }
