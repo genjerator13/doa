@@ -32,30 +32,31 @@
                             <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                href="{{ path('search_by_body_style',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
                                 {% elseif key=='Marine' %}
-                                <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
-                                   style=""
-                                   href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}" class='xxx'">
-                                    {% elseif key=='RVs' %}
                                     <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
                                        style=""
-                                       href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
-                                        {% elseif  key|lower=='motorsport' or key|lower=='ag' %}
-                                        <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
-                                           style=""
-                                           href="{{ path('search_by_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
-                                            {% endif %}
+                                       href="{{ path('search_by_boat_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}"
+                                       class='xxx'">
+                                {% elseif key=='RVs' %}
+                                <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
+                                   style=""
+                                   href="{{ path('search_by_rvs_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
+                                    {% elseif  key|lower=='motorsport' or key|lower=='ag' %}
+                                    <a class="imageLink {% if loop.index % 3==1 %}leftimage{% elseif(loop.index % 3==0) %}rightimage{% endif %}"
+                                       style=""
+                                       href="{{ path('search_by_type',{'category': key|url_encode|lower,'categorySubType': item.ListingFieldListSlug|url_encode|lower}) }}">
+                                        {% endif %}
 
-                                            {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
-                                            {% if file_existsx(imagefile) %}
-                                                <img class="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
-                                            {% else %}
-                                                <img class="" alt="{{ item.ListingFieldListValue|replace({'/': ''}) }}"
-                                                     src="{{ asset('images/no_image_available_small.png') }}">
-                                            {% endif %}
-                                            <div class="hometab-text">{{ item.ListingFieldListValue }} ({{ item.count }}
-                                                )
-                                            </div>
-                                        </a>
+                                        {% set imagefile = asset('images/'~ item.ListingFieldListValue|replace({'/': ''}) ~'.jpg') %}
+                                        {% if file_existsx(imagefile) %}
+                                            <img class="" alt="" src="{{ imagefile|imagine_filter('home_tab') }}">
+                                        {% else %}
+                                            <img class="" alt="{{ item.ListingFieldListValue|replace({'/': ''}) }}"
+                                                 src="{{ asset('images/no_image_available_small.png') }}">
+                                        {% endif %}
+                                        <div class=" ab-text">{{ item.ListingFieldListValue }} ({{ item.count }}
+                                            )
+                                        </div>
+                                    </a>
                         </div>
                     </div>
                 {% endfor %}
@@ -63,7 +64,7 @@
                 <br/>
                 {{ render_esi(controller('NumaDOASiteBundle:Default:carousel', { 'max': 5,'order':1 })) }}
                 <div class="clear"></div>
-                <h3 class="header" >Search By Category</h3>
+                <h3 class="header">Search By Category</h3>
 
                 {% if key|lower=='vehicle' or key|lower=='car' %}
                     <div class="" id="vehicle">
@@ -192,8 +193,8 @@
         </div>
     </div>
     <script>
-        var treeDataCar = '{{jsonCar|raw }}';
-        var treeDataRvs = '{{jsonRvs|raw }}';
+        var treeDataCar = '{{ jsonCar|raw }}';
+        var treeDataRvs = '{{ jsonRvs|raw }}';
 
         treeX = function (make, model, treeData) {
             $(make).change(function () {
