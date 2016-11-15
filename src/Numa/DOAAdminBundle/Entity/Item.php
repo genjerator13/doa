@@ -1043,8 +1043,8 @@ class Item
                 $ret = $this->getAgApplication();
             }
         }
-        $ret = strtolower(str_replace(" / "," ",$ret));
-        $ret = strtolower(str_replace(" & "," ",$ret));
+        $ret = strtolower(str_replace(" / ", " ", $ret));
+        $ret = strtolower(str_replace(" & ", " ", $ret));
         return $ret;
     }
 
@@ -5032,6 +5032,7 @@ class Item
         }
         return null;
     }
+
     /**
      * @var string
      */
@@ -5062,11 +5063,12 @@ class Item
         return $this->vindecoder;
     }
 
-    public function getVindecoderItems(){
-        $array=array();
-        if(!empty($this->getVindecoder())){
-            $array = json_decode($this->getVindecoder(),true);
-            if(!empty($array) && is_array($array)){
+    public function getVindecoderItems()
+    {
+        $array = array();
+        if (!empty($this->getVindecoder())) {
+            $array = json_decode($this->getVindecoder(), true);
+            if (!empty($array) && is_array($array)) {
                 return $array;
             }
         }
