@@ -882,11 +882,15 @@
                     <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
                         align="center"
                         valign=middle></td>
-                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2
-                        align="center"
-                        valign=bottom bgcolor="#E7E6E6"></td>
-                    <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom
-                        bgcolor="#DEEBF7"></td>
+                    <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
+                            DELIVERY</b></td>
+                    <td colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.payable_on_delivery, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -903,11 +907,12 @@
                     <td align="left" valign=bottom></td>
                     <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"
                         valign=bottom></td>
-                    <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
-                            DELIVERY</b></td>
-                    <td colspan=2
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
+                            FINANCE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.payable_on_delivery, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        {{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10 alignright'}}) }}
                         <span>
                             $
                         </span>
@@ -924,11 +929,12 @@
                     <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
                         valign=bottom bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
-                            FINANCE</b></td>
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
+                            INSURANCE</b>
+                    </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        {{ form_row(form.insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}
                         <span>
                             $
                         </span>
@@ -954,13 +960,12 @@
                         valign=bottom
                         bgcolor="#DEEBF7">{{ form_row(form.payableto, {'attr': {'class': 'col-md-12 '} }) }}
                     </td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
-                            INSURANCE</b>
-                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6" colspan="2"><b>DOC FEE</b></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        {{ form_row(form.bank_registration_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}
                         <span>
                             $
                         </span>
@@ -970,11 +975,10 @@
                     <td align="left" valign=bottom></td>
                 </tr>
                 <tr>
-                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" ; border-bottom: 1px
-                        solid #000000
-                    " colspan=2
-                    height="20"
-                    align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px  solid #000000"
+                        colspan=2
+                        height="20"
+                        align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
                     </td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
@@ -984,14 +988,10 @@
                         valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
                     <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
                         valign=bottom
-                        bgcolor="#E7E6E6"><b>BANK REGISTRATION FEE</b></td>
+                        bgcolor="#E7E6E6"></td>
                     <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
                     <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                         align="center" bgcolor="#DEEBF7">
-                        {{ form_row(form.bank_registration_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}
-                        <span>
-                            $
-                        </span>
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
@@ -1268,7 +1268,6 @@
 
             $('#numa_doadmsbundle_billing_tos_total').val(res1);
             $('#numa_doadmsbundle_billing_difference_payable').val(res1 - n5);
-            $('#numa_doadmsbundle_billing_tax3').val(res1 - n5 + (n6 + n7));
             $('#numa_doadmsbundle_billing_taxes_paid_total').val(n8 + n9);
             $('#numa_doadmsbundle_billing_total_due').val(res2);
             $('#numa_doadmsbundle_billing_payable_on_delivery').val(res2 - (n11 + n12));

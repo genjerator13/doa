@@ -737,11 +737,12 @@
                     colspan=3 align="center" valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-bottom: 1px dashed #000000" colspan=3 align="center" valign=middle>
                 </td>
-                <td style="border-left: 1px solid #000000" colspan=2
-                    align="center"
-                    valign=bottom bgcolor="#E7E6E6"></td>
-                <td colspan=2 align="center" valign=bottom
-                    bgcolor="#ffffff"></td>
+                <td style="border-left: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE
+                        ON DELIVERY</b></td>
+                <td colspan=2
+                    align="right" bgcolor="#ffffff">
+                    {{ billing.payableOnDelivery|localizedcurrency('USD') }}
+                </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -756,11 +757,12 @@
                 <td align="center" valign=middle colspan="3">
                     <b>SIGNATURE X</b>
                 </td>
-                <td style="border-left: 1px solid #000000" colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE
-                        ON DELIVERY</b></td>
-                <td colspan=2
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
+                        FINANCE</b></td>
+                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
                     align="right" bgcolor="#ffffff">
-                    {{ billing.payableOnDelivery|localizedcurrency('USD') }}
+                    {{ billing.balanceToFinance|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -773,12 +775,12 @@
                     colspan=3 align="center" valign=bottom bgcolor="#ffffff"></td>
                 <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3 align="left"
                     valign=bottom bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
-                        FINANCE</b></td>
-                <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>INSURANCE</b>
+                </td>
+                <td style="border-bottom: 1px solid #000000" colspan=2
                     align="right" bgcolor="#ffffff">
-                    {{ billing.balanceToFinance|localizedcurrency('USD') }}
+                    {{ billing.insurance|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -796,13 +798,12 @@
                     align="center"
                     valign=bottom bgcolor="#ffffff">{{ billing.payableto }}
                 </td>
-                <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000"
-                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
-                        INSURANCE</b>
-                </td>
+                <td style="border-left: 1px solid #000000; border-bottom: 1px solid #000000" align="left"
+                    valign=bottom
+                    bgcolor="#E7E6E6" colspan="2"><b>DOC FEE</b></td>
                 <td style="border-bottom: 1px solid #000000" colspan=2
                     align="right" bgcolor="#ffffff">
-                    {{ billing.insurance|localizedcurrency('USD') }}
+                    {{ billing.bankRegistrationFee|localizedcurrency('USD') }}
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
@@ -821,11 +822,9 @@
                     valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
                 <td style="border-left: 1px solid #000000" align="left"
                     valign=bottom
-                    bgcolor="#E7E6E6"><b>BANK REGISTRATION FEE</b></td>
-                <td align="left" valign=bottom bgcolor="#E7E6E6"><br></td>
+                     colspan="2"></td>
                 <td colspan=2
-                    align="right" bgcolor="#ffffff">
-                    {{ billing.bankRegistrationFee|localizedcurrency('USD') }}
+                    align="right">
                 </td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>

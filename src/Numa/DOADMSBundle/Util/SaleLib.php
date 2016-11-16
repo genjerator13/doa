@@ -29,7 +29,7 @@ class SaleLib
     public function createSaleByBilling(Billing $billing)
     {
 //        dump($billing->getItem());die();
-        if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getInsurance())) {
+        if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getInsurance()) || !empty($billing->getOtherMisc1()) || !empty($billing->getOtherMisc2())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
             $item = $billing->getItem();
@@ -47,6 +47,8 @@ class SaleLib
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
                 $sale->setInsurance1($billing->getInsurance());
+                $sale->setTax1In($billing->getOtherMisc1());
+                $sale->setTax2In($billing->getOtherMisc2());
 
                 $em->flush($sale);
                 $item->setSaleId($sale->getId());
