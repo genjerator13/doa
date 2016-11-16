@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Listeners;
 
 use Doctrine\Tests\ORM\Mapping\Cat;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
@@ -34,10 +35,16 @@ class LogoutListener implements LogoutSuccessHandlerInterface
     public function onLogoutSuccess(Request $request)
     {
         $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+
         if($dealer instanceof Catalogrecords){
             //dump($dealer);die();
+            //if(){
+
+            //}
             return new RedirectResponse($dealer->getAbsoluteSiteUrl());
         }
+
+        return new RedirectResponse("/");
 
 
     }

@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Util;
 
+use Doctrine\ORM\PersistentCollection;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -63,6 +64,11 @@ class DmsUserLib
         }
 
         if($dealer instanceof DealerGroup ){
+            if(empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection){
+                //dump($dealer->getDealer()->first());die();
+                return $dealer->getDealer()->first();
+
+            }
             return $dealer->getDealerCreator();
         }
         return null;
