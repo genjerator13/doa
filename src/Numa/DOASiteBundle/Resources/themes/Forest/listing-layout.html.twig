@@ -54,13 +54,16 @@
     <div class="content-wrapper">
         {% block content %}
         {% endblock %}
-        {% block footer %}
-            {% include 'NumaDOASiteBundle::footer.html.twig' %}
-        {% endblock %}
     </div>
 
 
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
 
+    <script>
+        jQuery('a.colorbox').colorbox();
+    </script>
 </div>
 </body>
 </html>
