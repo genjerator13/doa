@@ -303,8 +303,18 @@ body {
     display: block;
     float: left;
     margin: 0 10px 10px 0;
+    background-color: #f78f1e;
+    padding: 5px;
+    border-radius: 5px;
 
 }
+.left-arrow i.glyphicon{
+    font-size: 36px;
+    color: #fff;
+
+}
+
+
 
 .button-title {
     display: block;
