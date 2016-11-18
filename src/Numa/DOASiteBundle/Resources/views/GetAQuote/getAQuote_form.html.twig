@@ -7,9 +7,8 @@
     col-sm-7
 {%- endblock form_group_class %}
 {% block content %}
-    {#{% set dealer = getDealer() %}#}
-    {#{{ displayComponent('page_content',"HTML")|raw }}#}
-    <p>Enter your information below and a representative will contact you shortly.</p>
+    {% set dealer = getDealer() %}
+    {{ displayComponent('page_content',"HTML")|raw }}
     {{ form_start(form) }}
     {{ form_row(form.cust_name) }}
     {{ form_row(form.cust_last_name) }}
