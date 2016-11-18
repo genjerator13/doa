@@ -231,6 +231,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger->warning("FETCH FEED: END");
 
             $this->generateCoverPhotos();
+            $this->populate();
 
             die();
 
@@ -605,7 +606,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         $em->clear();
         $logger->warning("COVER PHOTOS FINISHED");
-        die();
+        //die();
     }
 
 
@@ -676,7 +677,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         //$em->clear();
         $logger = $this->getContainer()->get('logger');
-        $logger->error("TEST before populate");
+        $logger->warning("TEST before populate");
         $process = new \Symfony\Component\Process\Process($command);
         $process->run();
         $logger->error("TEST after populate");

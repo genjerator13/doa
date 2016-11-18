@@ -1043,8 +1043,8 @@ class Item
                 $ret = $this->getAgApplication();
             }
         }
-        $ret = strtolower(str_replace(" / "," ",$ret));
-        $ret = strtolower(str_replace(" & "," ",$ret));
+        $ret = strtolower(str_replace(" / ", " ", $ret));
+        $ret = strtolower(str_replace(" & ", " ", $ret));
         return $ret;
     }
 
@@ -1769,11 +1769,13 @@ class Item
      */
     public function getStatus()
     {
+        $this->status = "Used";
         if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
             $this->status = "New";
-        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use') {
-            $this->status = "Used";
         }
+//        elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status=null) {
+//            $this->status = "Used";
+//        }
         return $this->status;
     }
 
@@ -5030,6 +5032,7 @@ class Item
         }
         return null;
     }
+
     /**
      * @var string
      */
@@ -5060,11 +5063,12 @@ class Item
         return $this->vindecoder;
     }
 
-    public function getVindecoderItems(){
-        $array=array();
-        if(!empty($this->getVindecoder())){
-            $array = json_decode($this->getVindecoder(),true);
-            if(!empty($array) && is_array($array)){
+    public function getVindecoderItems()
+    {
+        $array = array();
+        if (!empty($this->getVindecoder())) {
+            $array = json_decode($this->getVindecoder(), true);
+            if (!empty($array) && is_array($array)) {
                 return $array;
             }
         }

@@ -16,9 +16,16 @@ search_by_body_style:
 search_by_boat_type:
     path:  /browse_by_boat_type_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_rvs_class_type:
+    path:  /browse_by_{category}_class/{categorySubTypeWildcard}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_ag_type:
+    path:  /browse_by_type_{category}/{categorySubType}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_rvs_type:
     path:  /browse_by_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+
 search_by_type:
     path:  /browse_by_type_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
@@ -173,6 +180,27 @@ finance_form:
 finance_success:
     path:  /financeSuccess
     defaults: { _controller: "NumaDOASiteBundle:Finance:success" }
+testDrive_form:
+    path:     /test_drive
+    defaults: { _controller: "NumaDOASiteBundle:TestDrive:testDrive" }
+testDrive_success:
+    path:  /test_driveSuccess
+    defaults: { _controller: "NumaDOASiteBundle:TestDrive:success" }
+tradeIn_form:
+    path:     /trade_in
+    defaults: { _controller: "NumaDOASiteBundle:TradeIn:tradeIn" }
+tradeIn_success:
+    path:  /trade_inSuccess
+    defaults: { _controller: "NumaDOASiteBundle:TradeIn:success" }
+getAQuote_form:
+    path:     /get_a_quote
+    defaults: { _controller: "NumaDOASiteBundle:GetAQuote:getAQuote" }
+getAQuote_success:
+    path:  /get_a_quoteSuccess
+    defaults: { _controller: "NumaDOASiteBundle:GetAQuote:success" }
+calculator:
+    path:     /calculator
+    defaults: { _controller: "NumaDOASiteBundle:Calculator:index" }
 about_us:
     path:     /about_us
     defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }
