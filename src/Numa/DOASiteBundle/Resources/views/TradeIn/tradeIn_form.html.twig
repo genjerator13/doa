@@ -31,16 +31,16 @@
     <p>Trade In Vehicle Information:</p>
     <div class="row">
         <div class="col-md-3">
-            {{ form_row(form.make) }}
+            {{ form_row(form.make, { 'label_attr': {'class': 'col-md-5'} }) }}
         </div>
         <div class="col-md-3">
-            {{ form_row(form.model) }}
+            {{ form_row(form.model, { 'label_attr': {'class': 'col-md-5'} }) }}
         </div>
-        <div class="col-md-3">
-            {{ form_row(form.year) }}
+        <div class="col-md-2 ">
+            {{ form_row(form.year, { 'label_attr': {'class': 'col-md-5'} }) }}
         </div>
-        <div class="col-md-3">
-            {{ form_row(form.kilometers) }}
+        <div class="col-md-4">
+            {{ form_row(form.kilometers, { 'label_attr': {'class': 'col-md-5'} }) }}
         </div>
     </div>
     {{ form_row(form.accesories) }}
