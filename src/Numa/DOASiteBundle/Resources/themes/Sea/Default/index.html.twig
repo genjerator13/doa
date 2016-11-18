@@ -8,14 +8,14 @@
     {% if images is not empty %}
         <div class="bs-example">
             <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                <!-- Carousel indicators -->
-                <ol class="carousel-indicators">
-                    {% for image in images %}
-                        <li data-target="#myCarousel" data-slide-to="{{ loop.index }}"
-                            class="{% if loop.first %}active{% endif %}"></li>
-                    {% endfor %}
+                {#<!-- Carousel indicators -->#}
+                {#<ol class="carousel-indicators">#}
+                    {#{% for image in images %}#}
+                        {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
+                            {#class="{% if loop.first %}active{% endif %}"></li>#}
+                    {#{% endfor %}#}
 
-                </ol>
+                {#</ol>#}
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     {% for image in images %}
