@@ -31,7 +31,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $activeTheme = $this->get('liip_theme.active_theme');
         $theme = strtolower($activeTheme->getName());
         if ($theme == "sea") {
-            return $this->redirectToRoute("search_used_vehicle");
+            //return $this->redirectToRoute("search_used_vehicle");
         } elseif ($theme == "default") {
             return $this->redirectToRoute("dms_home");
         }
