@@ -84,6 +84,17 @@ Numa\DOADMSBundle\Entity\ListingForm:
             type: string
             length: 255
             nullable: true
+        make_onsite:
+            type: string
+            length: 255
+            nullable: true
+        model_onsite:
+            type: string
+            length: 255
+            nullable: true
+        year_onsite:
+            type: integer
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords

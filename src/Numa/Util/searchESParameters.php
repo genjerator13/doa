@@ -363,8 +363,8 @@ class searchESParameters
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtoupper($searchItem->getValue()) . '*');
                             $boolQuery->addShould($fieldQuery);
-                        }elseif($searchItem->getDbFieldName() == 'categorySubType'){
-                            if($searchItem->getValue()=="class b c motorhome"){
+                        }elseif($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue()=="class b c motorhome"){
+
 
                                 $boolFilter = new \Elastica\Filter\BoolFilter();
                                 $fieldQuery = new \Elastica\Filter\Term();
@@ -378,8 +378,6 @@ class searchESParameters
                                 $boolFilter->addShould($fieldQuery);
                                 $boolFilter->addShould($fieldQuery2);
                                 $boolFilter->addShould($fieldQueryAll);
-                            }
-
                         }else {
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());

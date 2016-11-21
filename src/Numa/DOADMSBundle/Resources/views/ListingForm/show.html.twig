@@ -96,6 +96,24 @@
                         <td>{{ entity.comment }}</td>
                     </tr>
                 {% endif %}
+                {% if entity.makeOnsite %}
+                    <tr>
+                        <th>Make</th>
+                        <td>{{ entity.makeOnsite }}</td>
+                    </tr>
+                {% endif %}
+                {% if entity.modelOnsite %}
+                    <tr>
+                        <th>Model</th>
+                        <td>{{ entity.modelOnsite }}</td>
+                    </tr>
+                {% endif %}
+                {% if entity.yearOnsite %}
+                    <tr>
+                        <th>Year</th>
+                        <td>{{ entity.yearOnsite }}</td>
+                    </tr>
+                {% endif %}
                 {% if entity.itemId is not null and entity.item.getUrlDescription() is not null %}
                 <tr>
                     <th>Link to listing</th>
@@ -104,19 +122,20 @@
                     </td>
                 </tr>
                 {% endif %}
-                {% if entity.item.make is not null %}
+
+                {% if entity.item is not null and entity.item.make is not null %}
                 <tr>
                     <th>Make</th>
                     <td>{{ entity.item.make }}</td>
                 </tr>
                 {% endif %}
-                {% if entity.item.model is not null %}
+                {% if entity.item is not null and  entity.item.model is not null %}
                 <tr>
                     <th>Model</th>
                     <td>{{ entity.item.model }}</td>
                 </tr>
                 {% endif %}
-                {% if entity.item.year is not null %}
+                {% if entity.item is not null and  entity.item.year is not null %}
                 <tr>
                     <th>Year</th>
                     <td>{{ entity.item.year }}</td>
