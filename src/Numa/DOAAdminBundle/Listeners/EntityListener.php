@@ -104,9 +104,9 @@ class EntityListener
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
             if ($this->vinchange) {
-                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
-                $entity->setVindecoder($decodedvin);
-                $entityManager->flush($entity);
+                //$decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
+                //$entity->setVindecoder($decodedvin);
+                //$entityManager->flush($entity);
                 //$this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
             }
 
@@ -122,12 +122,12 @@ class EntityListener
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
             //clear memcached for featured listings
-            $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
+            //$this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
             //vindecoder
-            $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
-            $entity->setVindecoder($decodedvin);
-            $em->flush();
-            $this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
+            //$decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
+            //$entity->setVindecoder($decodedvin);
+            //$em->flush();
+            //$this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ServiceRequest) {
