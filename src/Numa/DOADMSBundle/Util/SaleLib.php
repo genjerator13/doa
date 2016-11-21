@@ -29,7 +29,7 @@ class SaleLib
     public function createSaleByBilling(Billing $billing)
     {
 //        dump($billing->getItem());die();
-        if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getInsurance()) || !empty($billing->getOtherMisc1()) || !empty($billing->getOtherMisc2()) || !empty($billing->getTax1()) || !empty($billing->getTax2()) || !empty($billing->getTax3())) {
+        if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getLifeInsurance()) || !empty($billing->getDisabilityInsurance()) || !empty($billing->getOtherMisc1()) || !empty($billing->getOtherMisc2()) || !empty($billing->getTaxt1Name()) || !empty($billing->getTaxt2Name()) || !empty($billing->getTaxt3Name()) || !empty($billing->getTax1()) || !empty($billing->getTax2()) || !empty($billing->getTax3())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
             $item = $billing->getItem();
@@ -46,9 +46,13 @@ class SaleLib
                 $sale->setAdminFees1($billing->getAdminFee());
                 $sale->setDocFees1($billing->getBankRegistrationFee());
                 $sale->setProtectPkg1($billing->getProtectionPkg());
-                $sale->setInsurance1($billing->getInsurance());
+                $sale->setLifeInsur($billing->getLifeInsurance());
+                $sale->setDisabilityIns1($billing->getDisabilityInsurance());
                 $sale->setTax1In($billing->getOtherMisc1());
                 $sale->setTax2In($billing->getOtherMisc2());
+                $sale->setOther1Des($billing->getTaxt1Name());
+                $sale->setOther2Des($billing->getTaxt2Name());
+                $sale->setOther3Des($billing->getTaxt3Name());
                 $sale->setOther1($billing->getTax1());
                 $sale->setOther2($billing->getTax2());
                 $sale->setOther3($billing->getTax3());
