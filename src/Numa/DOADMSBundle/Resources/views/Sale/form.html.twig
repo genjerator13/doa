@@ -176,7 +176,7 @@
             <td width="165px"></td>
             <td width="165px"></td>
             <td>
-                {% if entity.sale is defined and entity.sale.other1Des is not null %}
+                {% if entity.sale is not null and entity.sale.other1Des is not null %}
                     <label class="col-sm-12 control-label"> {{ entity.sale.other1Des|capitalize }}</label>
                 {% else %}
                     {{ form_label(form.other_1) }}
@@ -189,7 +189,7 @@
             <td>{{ form_widget(form.net_gain, {'attr': {'class': 'lightgray'}}) }}</td>
             <td colspan="2"></td>
             <td>
-                {% if entity.sale is defined and entity.sale.other2Des is not null %}
+                {% if entity.sale is not null and entity.sale.other2Des is not null %}
                     <label class="col-sm-12 control-label"> {{ entity.sale.other2Des|capitalize }}</label>
                 {% else %}
                     {{ form_label(form.other_2) }}
@@ -202,7 +202,7 @@
             <td><h2>TAXES</h2></td>
             <td></td>
             <td>
-                {% if entity.sale is defined and entity.sale.other3Des is not null %}
+                {% if entity.sale is not null and entity.sale.other3Des is not null %}
                     <label class="col-sm-12 control-label"> {{ entity.sale.other3Des|capitalize }}</label>
                 {% else %}
                     {{ form_label(form.other_3) }}
