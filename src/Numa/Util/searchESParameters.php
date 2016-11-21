@@ -371,10 +371,13 @@ class searchESParameters
                                 $fieldQuery->setTerm($searchItem->getDbFieldName(), "class b motorhome");
                                 $fieldQuery2 = new \Elastica\Filter\Term();
                                 $fieldQuery2->setTerm($searchItem->getDbFieldName(), "class c motorhome");
+                                $fieldQueryAll = new \Elastica\Filter\Term();
+                                $fieldQueryAll->setTerm($searchItem->getDbFieldName(), "class b c motorhome");
 //                                $boolQuery->addFilter($fieldQuery);
 //                                $boolQuery->addShould($fieldQuery2);
                                 $boolFilter->addShould($fieldQuery);
                                 $boolFilter->addShould($fieldQuery2);
+                                $boolFilter->addShould($fieldQueryAll);
                             }
 
                         }else {
