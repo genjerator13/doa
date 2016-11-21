@@ -229,6 +229,18 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
+        other_1_des:
+            type: string
+            length: 255
+            nullable: true
+        other_2_des:
+            type: string
+            length: 255
+            nullable: true
+        other_3_des:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Vendor:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor

@@ -838,4 +838,91 @@ class ListingForm
     {
         return $this->offer_amt;
     }
+    /**
+     * @var string
+     */
+    private $make_onsite;
+
+    /**
+     * @var string
+     */
+    private $model_onsite;
+
+    /**
+     * @var integer
+     */
+    private $year_onsite;
+
+
+    /**
+     * Set makeOnsite
+     *
+     * @param string $makeOnsite
+     *
+     * @return ListingForm
+     */
+    public function setMakeOnsite($makeOnsite)
+    {
+        $this->make_onsite = $makeOnsite;
+
+        return $this;
+    }
+
+    /**
+     * Get makeOnsite
+     *
+     * @return string
+     */
+    public function getMakeOnsite()
+    {
+        return $this->make_onsite;
+    }
+
+    /**
+     * Set modelOnsite
+     *
+     * @param string $modelOnsite
+     *
+     * @return ListingForm
+     */
+    public function setModelOnsite($modelOnsite)
+    {
+        $this->model_onsite = $modelOnsite;
+
+        return $this;
+    }
+
+    /**
+     * Get modelOnsite
+     *
+     * @return string
+     */
+    public function getModelOnsite()
+    {
+        return $this->model_onsite;
+    }
+
+    /**
+     * Set yearOnsite
+     *
+     * @param integer $yearOnsite
+     *
+     * @return ListingForm
+     */
+    public function setYearOnsite($yearOnsite)
+    {
+        $this->year_onsite = $yearOnsite;
+
+        return $this;
+    }
+
+    /**
+     * Get yearOnsite
+     *
+     * @return integer
+     */
+    public function getYearOnsite()
+    {
+        return $this->year_onsite;
+    }
 }

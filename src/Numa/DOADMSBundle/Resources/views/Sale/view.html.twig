@@ -165,21 +165,39 @@
         <td>{{ sale.totalUnitCost }}</td>
         <td width="165px"></td>
         <td width="165px"></td>
-        <td>Other 1</td>
+        <td>
+            {% if sale.other1Des is not null %}
+                {{ sale.other1Des|capitalize }}
+            {% else %}
+                Other 1
+            {% endif %}
+        </td>
         <td>{{ sale.other1 }}</td>
     </tr>
     <tr>
         <td>Net grain</td>
         <td>{{ sale.netGrain }}</td>
         <td colspan="2"></td>
-        <td>Other 2</td>
+        <td>
+            {% if sale.other2Des is not null %}
+                {{ sale.other2Des|capitalize }}
+            {% else %}
+                Other 2
+            {% endif %}
+        </td>
         <td>{{ sale.other2 }}</td>
     </tr>
     <tr>
         <td colspan="2"><h2>SALES COST RECAP</h2></td>
         <td><h2>TAXES</h2></td>
         <td></td>
-        <td>Other 3</td>
+        <td>
+            {% if sale.other3Des is not null %}
+                {{ sale.other3Des|capitalize }}
+            {% else %}
+                Other 3
+            {% endif %}
+        </td>
         <td>{{ sale.other3 }}</td>
     </tr>
     <tr>
