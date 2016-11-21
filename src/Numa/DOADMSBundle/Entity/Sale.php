@@ -2177,4 +2177,91 @@ class Sale
     {
         return $this->net_gain;
     }
+    /**
+     * @var string
+     */
+    private $other_1_des;
+
+    /**
+     * @var string
+     */
+    private $other_2_des;
+
+
+    /**
+     * Set other1Des
+     *
+     * @param string $other1Des
+     *
+     * @return Sale
+     */
+    public function setOther1Des($other1Des)
+    {
+        $this->other_1_des = $other1Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other1Des
+     *
+     * @return string
+     */
+    public function getOther1Des()
+    {
+        return $this->other_1_des;
+    }
+
+    /**
+     * Set other2Des
+     *
+     * @param string $other2Des
+     *
+     * @return Sale
+     */
+    public function setOther2Des($other2Des)
+    {
+        $this->other_2_des = $other2Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other2Des
+     *
+     * @return string
+     */
+    public function getOther2Des()
+    {
+        return $this->other_2_des;
+    }
+    /**
+     * @var string
+     */
+    private $other_3_des;
+
+
+    /**
+     * Set other3Des
+     *
+     * @param string $other3Des
+     *
+     * @return Sale
+     */
+    public function setOther3Des($other3Des)
+    {
+        $this->other_3_des = $other3Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other3Des
+     *
+     * @return string
+     */
+    public function getOther3Des()
+    {
+        return $this->other_3_des;
+    }
 }

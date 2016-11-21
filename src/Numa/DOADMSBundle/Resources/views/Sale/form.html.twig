@@ -175,21 +175,39 @@
             <td>{{ form_widget(form.total_unit_cost, {'attr': {'class': 'lightgray'}}) }}</td>
             <td width="165px"></td>
             <td width="165px"></td>
-            <td>{{ form_label(form.other_1) }}</td>
+            <td>
+                {% if entity.sale is defined and entity.sale.other1Des is not null %}
+                    <label class="col-sm-12 control-label"> {{ entity.sale.other1Des|capitalize }}</label>
+                {% else %}
+                    {{ form_label(form.other_1) }}
+                {% endif %}
+            </td>
             <td>{{ form_widget(form.other_1, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
             <td>{{ form_label(form.net_gain) }}</td>
             <td>{{ form_widget(form.net_gain, {'attr': {'class': 'lightgray'}}) }}</td>
             <td colspan="2"></td>
-            <td>{{ form_label(form.other_2) }}</td>
+            <td>
+                {% if entity.sale is defined and entity.sale.other2Des is not null %}
+                    <label class="col-sm-12 control-label"> {{ entity.sale.other2Des|capitalize }}</label>
+                {% else %}
+                    {{ form_label(form.other_2) }}
+                {% endif %}
+            </td>
             <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
             <td colspan="2"><h2>SALES COST RECAP</h2></td>
             <td><h2>TAXES</h2></td>
             <td></td>
-            <td>{{ form_label(form.other_3) }}</td>
+            <td>
+                {% if entity.sale is defined and entity.sale.other3Des is not null %}
+                    <label class="col-sm-12 control-label"> {{ entity.sale.other3Des|capitalize }}</label>
+                {% else %}
+                    {{ form_label(form.other_3) }}
+                {% endif %}
+            </td>
             <td>{{ form_widget(form.other_3, {'attr': {'class': 'sum4'}}) }}</td>
         </tr>
         <tr>
