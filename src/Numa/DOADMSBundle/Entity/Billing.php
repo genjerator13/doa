@@ -3253,4 +3253,64 @@ class Billing
         }
     }
 
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $life_insurance;
+
+    /**
+     * @var float
+     * @JMS\Expose
+     */
+    private $disability_insurance;
+
+
+    /**
+     * Set lifeInsurance
+     *
+     * @param float $lifeInsurance
+     *
+     * @return Billing
+     */
+    public function setLifeInsurance($lifeInsurance)
+    {
+        $this->life_insurance = $lifeInsurance;
+
+        return $this;
+    }
+
+    /**
+     * Get lifeInsurance
+     *
+     * @return float
+     */
+    public function getLifeInsurance()
+    {
+        return $this->life_insurance;
+    }
+
+    /**
+     * Set disabilityInsurance
+     *
+     * @param float $disabilityInsurance
+     *
+     * @return Billing
+     */
+    public function setDisabilityInsurance($disabilityInsurance)
+    {
+        $this->disability_insurance = $disabilityInsurance;
+
+        return $this;
+    }
+
+    /**
+     * Get disabilityInsurance
+     *
+     * @return float
+     */
+    public function getDisabilityInsurance()
+    {
+        return $this->disability_insurance;
+    }
 }
