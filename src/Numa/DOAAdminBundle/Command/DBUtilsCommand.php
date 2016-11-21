@@ -380,6 +380,15 @@ class DBUtilsCommand extends ContainerAwareCommand
                     if ($echo) {
                         echo $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n";
                     }
+
+                    if($value->getValue()=="Class B and C Motorhome"){
+
+                        $items1 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class B Motorhome", $dealer);
+                        $items2 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class C Motorhome", $dealer);
+                        $count = count($items1);
+                        $count = $count + count($items2);
+                        
+                    }
                     $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::" . $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
                     //$count = $items->count();
                     $hometab = new HomeTab();
