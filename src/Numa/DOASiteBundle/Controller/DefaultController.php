@@ -27,27 +27,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function indexAction(Request $request)
     {
-
-        $activeTheme = $this->get('liip_theme.active_theme');
-        $theme = strtolower($activeTheme->getName());
-        if ($theme == "sea") {
-            return $this->redirectToRoute("search_used_vehicle");
-        } elseif ($theme == "default") {
-            return $this->redirectToRoute("dms_home");
-        }
-
-        $host = $this->get('numa.dms.user')->getCurrentSiteHost();
-        if (!empty($this->dealer) && $this->dealer instanceof Catalogrecords) {
-            if (strpos($host, 'midcityautocentre.ca') !== false) {
-               return $this->redirectToRoute("search_used_vehicle");
-            }
-
-            if (strpos($host, 'midcityautocentre.com') !== false) {
-               return $this->redirectToRoute("search_used_vehicle");
-            }
-        }
-
-
         $nocache = false;
 
         $em = $this->getDoctrine()->getManager();

@@ -50,9 +50,8 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         if (!empty($request)) {
             $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
             $parameters = $request->query->all();
-            if(is_array($request->attributes->get('_route_params'))) {
-                $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
-            }
+
+            $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
 
         }
 
@@ -1160,7 +1159,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
         $param['sidebarForm'] = $sidebarForm->createView();
         $sidebarParam = $this->setSidebarSearchParams();
         $param = array_merge($param, $sidebarParam);
-
+        //dump($param);die();
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 
