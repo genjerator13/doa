@@ -42,15 +42,17 @@ class BillingController extends Controller
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $entity->setDealer($dealer);
+//        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+//        $entity->setDealer($dealer);
 
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
 
+        $dealer = $customer->getDealer();
+        $entity->setDealer($dealer);
         if ($form->isValid()) {
 
-            if(!empty($entity->getItemId())) {
+            if (!empty($entity->getItemId())) {
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
                 $entity->setItem($item);
             }
@@ -59,8 +61,8 @@ class BillingController extends Controller
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
-            if($form->getClickedButton()->getName()=="submitAndPrint"){
-                return $this->redirect($this->generateUrl('billing_print', array('id' =>$entity->getId())));
+            if ($form->getClickedButton()->getName() == "submitAndPrint") {
+                return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
             return $this->redirect($this->generateUrl('customer_edit', array('id' => $entity->getCustomerId())));
         }
@@ -119,11 +121,12 @@ class BillingController extends Controller
         $entity = new Billing();
 
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
-        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
+//        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
+        $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
         $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
 
-        if($dealer instanceof Catalogrecords) {
+        if ($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);
         }
 
@@ -134,7 +137,7 @@ class BillingController extends Controller
             'customer' => $customer,
             'dealer' => $dealer,
             'form' => $form->createView(),
-            'max_invoive_nr' =>$maxInvoiceNr,
+            'max_invoive_nr' => $maxInvoiceNr,
         ));
     }
 
@@ -171,7 +174,7 @@ class BillingController extends Controller
             'customer' => $customer,
             'dealer' => $dealer,
             'item' => $entity->getItem(),
-            'id'   => $id,
+            'id' => $id,
             'form' => $editForm->createView(),
         ));
     }
@@ -218,7 +221,7 @@ class BillingController extends Controller
             $em->flush();
             //return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
 
-            if($editForm->getClickedButton()->getName()=="submitAndPrint"){
+            if ($editForm->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
@@ -240,25 +243,32 @@ class BillingController extends Controller
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Billing entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        $securityContext = $this->container->get('security.authorization_checker');
+        $redirect = $request->query->get('redirect');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        if ((!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) ||
+            ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof Catalogrecords && $entity->getDealerId() != $dealer->getId())
+        ) {
+            throw $this->createAccessDeniedException("Only administrator may delete this Billing.");
         }
-        return $this->redirect($this->generateUrl('billing'));
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Billing entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+        if ($redirect == "reports") {
+            return $this->redirect($this->generateUrl('reports'));
+        }
+        return $this->redirect($this->generateUrl('customer'));
     }
 
     /**
-     * Deletes a Billing entity.
+     * Print a Billing entity.
      *
      */
     public function printAction(Request $request, $id)
@@ -268,7 +278,7 @@ class BillingController extends Controller
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
             'NumaDOADMSBundle:Billing:view.html.twig',
-            array('billing'=>$billing,
+            array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
@@ -279,14 +289,14 @@ class BillingController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
-                'Content-Disposition'   => 'attachment; filename="Billing.pdf"'
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
             )
         );
     }
 
     /**
-     * Deletes a Billing entity.
+     * Print Inside a Billing entity.
      *
      */
     public function printInsideAction(Request $request, $id)
@@ -296,7 +306,7 @@ class BillingController extends Controller
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
             'NumaDOADMSBundle:Billing:view.html.twig',
-            array('billing'=>$billing,
+            array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
                 'dealer' => $billing->getDealer(),
@@ -307,7 +317,7 @@ class BillingController extends Controller
             $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
             200,
             array(
-                'Content-Type'          => 'application/pdf',
+                'Content-Type' => 'application/pdf',
             )
         );
         $response->headers->set('Content-Type', 'application/pdf');

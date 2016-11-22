@@ -75,9 +75,9 @@
                     if (data['Driveline']) {
                         driveType.val(data['Driveline']);
                     }
-                    if (data['Production Seq. Number']) {
-                        stockNumber.val(data['Production Seq. Number']);
-                    }
+//                    if (data['Production Seq. Number']) {
+//                        stockNumber.val(data['Production Seq. Number']);
+//                    }
                     if (!jQuery.isEmptyObject(data.categories.market) && (data.categories.market == "Wagon" || data.categories.market == "Van" || data.categories.market == "Truck" || data.categories.market == "SUV" || data.categories.market == "Sedan" || data.categories.market == "Hatchback" || data.categories.market == "Crossover" || data.categories.market == "Coupe" || data.categories.market == "Convertible")) {
                         bodyStyle.val(data.categories.market);
                     }

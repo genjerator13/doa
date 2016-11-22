@@ -184,12 +184,9 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
         $securityContext = $this->container->get('security.authorization_checker');
         $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
-        if ($dealer instanceof Catalogrecords) {
+        if (!$securityContext->isGranted('ROLE_ADMIN') && $dealer instanceof Catalogrecords) {
 
-            if ($securityContext->isGranted('ROLE_DMS_USER') && $dealer->getId() != $id) {
-                throw $this->createAccessDeniedException('You cannot access this page!');
-            }
-            if (!$securityContext->isGranted('ROLE_DEALER_ADMIN') && $securityContext->isGranted('ROLE_BUSINES') && $dealer->getId() != $id) {
+            if ($dealer->getId() != $id) {
                 throw $this->createAccessDeniedException('You cannot access this page!');
             }
         }
@@ -648,7 +645,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         }
 
         //generate all the pages
-        $this->getContainer()->get("Numa.DMSUtils")->generatePagesForDealer($id);
+        $this->container->get("Numa.DMSUtils")->generatePagesForDealer($id);
 
         return $this->redirect($this->generateUrl('dms_catalogs'));
 

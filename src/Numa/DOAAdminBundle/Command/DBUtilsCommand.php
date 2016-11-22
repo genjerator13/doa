@@ -231,6 +231,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger->warning("FETCH FEED: END");
 
             $this->generateCoverPhotos();
+            $this->populate();
 
             die();
 
@@ -378,6 +379,15 @@ class DBUtilsCommand extends ContainerAwareCommand
 
                     if ($echo) {
                         echo $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n";
+                    }
+
+                    if($value->getValue()=="Class B and C Motorhome"){
+
+                        $items1 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class B Motorhome", $dealer);
+                        $items2 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class C Motorhome", $dealer);
+                        $count = count($items1);
+                        $count = $count + count($items2);
+                        
                     }
                     $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::" . $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
                     //$count = $items->count();
@@ -605,7 +615,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         $em->clear();
         $logger->warning("COVER PHOTOS FINISHED");
-        die();
+        //die();
     }
 
 
@@ -676,7 +686,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         //$em->clear();
         $logger = $this->getContainer()->get('logger');
-        $logger->error("TEST before populate");
+        $logger->warning("TEST before populate");
         $process = new \Symfony\Component\Process\Process($command);
         $process->run();
         $logger->error("TEST after populate");

@@ -62,9 +62,12 @@
                             <td>{{ billing.comments }}</td>
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
-                                   class="btn btn-primary">Edit</a>
+                                   class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
                                 <a href="{{ path('billing_print', { 'id': billing.id }) }}"
-                                   class="btn btn-primary">Pdf</a>
+                                   class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
+                                <a href="{{ path('billing_delete', { 'id': billing.id,"redirect":"reports" }) }}" class="btn btn-danger"
+                                   data-confirm="Billing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">
+                                    <i class="glyphicon glyphicon-remove"></i>Delete</a>
                             </td>
                         </tr>
                     {% endfor %}
@@ -73,6 +76,7 @@
             </div>
         {% endif %}
     </div>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
     <script>
         $(function () {
             $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});

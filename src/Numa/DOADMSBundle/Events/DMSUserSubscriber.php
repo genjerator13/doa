@@ -6,6 +6,7 @@ namespace Numa\DOADMSBundle\Events;
 
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\DealerGroup;
 use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -56,7 +57,22 @@ class DMSUserSubscriber implements EventSubscriberInterface
             
             $form->remove('UserGroup');
         }
-        //die();
+
+        if ($this->container->get('security.authorization_checker')->isGranted('ROLE_DEALER_PRINCIPAL')) {
+
+            $em = $this->container->get("doctrine.orm.entity_manager");
+            $dealerPrincipal = $this->container->get("numa.dms.user")->getSignedDealerPrincipal();
+
+            if ($dealerPrincipal instanceof DealerGroup) {
+                $form->add('Dealer', 'entity', array(
+                    'choices' => $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId()),
+                    'class' => "Numa\DOAAdminBundle\Entity\Catalogrecords"
+                ));
+            }
+
+            //if dealer have dealer group
+            //add select field with all the dealers from the group
+        }
 
     }
 

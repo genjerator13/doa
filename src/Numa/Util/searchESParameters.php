@@ -65,6 +65,7 @@ class searchESParameters
             'typeString' => new SearchItem('type', 0, "string"),
             'typeSlug' => new SearchItem('type', 0, "listSlug"),
             'categorySubType' => new SearchItem('categorySubType', 0, "string"),
+            'categorySubTypeWildcard' => new SearchItem('categorySubType', 0, "wildcard"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatTypeSlug' => new SearchItem('type', 0, "listSlug"),
@@ -170,6 +171,9 @@ class searchESParameters
         if (!empty($params['category_id']) && $params['category_id'] == 13 && !empty($params['typeString'])) {
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
+        }
+        if(!empty($params['categorySubType'])){
+            $params['categorySubType'] = strtolower(str_replace("-"," ",$params['categorySubType']));
         }
 
         foreach ($params as $key => $value) {
@@ -342,7 +346,7 @@ class searchESParameters
         //$index = $this->get('fos_elastica.index.app.item');
         $finder = $this->container->get('fos_elastica.finder.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
-
+        
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
 
@@ -354,12 +358,27 @@ class searchESParameters
                             //search by lowercase and upercase until i find better solution
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtolower($searchItem->getValue()) . '*');
-                            $boolQuery->addShould($fieldQuery);
+                            $boolQuery->addMust($fieldQuery);
 
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtoupper($searchItem->getValue()) . '*');
                             $boolQuery->addShould($fieldQuery);
-                        } else {
+                        }elseif($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue()=="class b c motorhome"){
+
+
+                                $boolFilter = new \Elastica\Filter\BoolFilter();
+                                $fieldQuery = new \Elastica\Filter\Term();
+                                $fieldQuery->setTerm($searchItem->getDbFieldName(), "class b motorhome");
+                                $fieldQuery2 = new \Elastica\Filter\Term();
+                                $fieldQuery2->setTerm($searchItem->getDbFieldName(), "class c motorhome");
+                                $fieldQueryAll = new \Elastica\Filter\Term();
+                                $fieldQueryAll->setTerm($searchItem->getDbFieldName(), "class b c motorhome");
+//                                $boolQuery->addFilter($fieldQuery);
+//                                $boolQuery->addShould($fieldQuery2);
+                                $boolFilter->addShould($fieldQuery);
+                                $boolFilter->addShould($fieldQuery2);
+                                $boolFilter->addShould($fieldQueryAll);
+                        }else {
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                             $boolQuery->addMust($fieldQuery);
@@ -383,7 +402,7 @@ class searchESParameters
                     } elseif ($searchItem->isCategory()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm('categoryName', $searchItem->getValue());
-                        $boolQuery->addShould($fieldQuery);
+                        $boolQuery->addMust($fieldQuery);
                     } elseif ($searchItem->isText()) {
                         $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
 
@@ -394,6 +413,10 @@ class searchESParameters
                     } elseif ($searchItem->isRangeTo()) {
                         $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('lte' => $searchItem->getValue()));
                         $boolQuery->addMust($fieldQuery);
+                    }elseif ($searchItem->isWildcard()) {
+                        $fieldQuery = new \Elastica\Query\Wildcard();
+                        $fieldQuery->setValue($searchItem->getDbFieldName(), "*".$searchItem->getValue()."*");
+                        $boolQuery->addMust($fieldQuery);
                     }
                 }
             }
@@ -402,7 +425,9 @@ class searchESParameters
         $fieldQuery = new \Elastica\Query\Term();
         $fieldQuery->setTerm('active', 1);
         $boolQuery->addMust($fieldQuery);
-
+        if(!empty($boolFilter)){
+            $boolQuery->addFilter($boolFilter);
+        }
 
 
 

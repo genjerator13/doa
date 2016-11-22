@@ -1028,21 +1028,24 @@ class Item
      */
     public function getCategorySubType()
     {
+        $ret = "";
         if (!empty($this->getCategory())) {
             $cat = $this->getCategory();
             if ($cat->getId() == 1) {
-                return $this->getBodyStyle();
+                $ret = $this->getBodyStyle();
             } elseif ($cat->getId() == 2) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 3) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 4) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 13) {
-                return $this->getAgApplication();
+                $ret = $this->getAgApplication();
             }
         }
-        return "";
+        $ret = strtolower(str_replace(" / ", " ", $ret));
+        $ret = strtolower(str_replace(" & ", " ", $ret));
+        return $ret;
     }
 
 
@@ -1766,11 +1769,13 @@ class Item
      */
     public function getStatus()
     {
+        $this->status = "Used";
         if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
             $this->status = "New";
-        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use') {
-            $this->status = "Used";
         }
+//        elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status=null) {
+//            $this->status = "Used";
+//        }
         return $this->status;
     }
 
@@ -5027,6 +5032,7 @@ class Item
         }
         return null;
     }
+
     /**
      * @var string
      */
@@ -5057,11 +5063,12 @@ class Item
         return $this->vindecoder;
     }
 
-    public function getVindecoderItems(){
-        $array=array();
-        if(!empty($this->getVindecoder())){
-            $array = json_decode($this->getVindecoder(),true);
-            if(!empty($array) && is_array($array)){
+    public function getVindecoderItems()
+    {
+        $array = array();
+        if (!empty($this->getVindecoder())) {
+            $array = json_decode($this->getVindecoder(), true);
+            if (!empty($array) && is_array($array)) {
                 return $array;
             }
         }

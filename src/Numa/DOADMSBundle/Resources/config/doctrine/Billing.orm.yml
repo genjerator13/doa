@@ -385,6 +385,12 @@ Numa\DOADMSBundle\Entity\Billing:
         total_balance_due:
             type: float
             nullable: true
+        life_insurance:
+            type: float
+            nullable: true
+        disability_insurance:
+            type: float
+            nullable: true
 
     manyToOne:
         Customer:

@@ -1248,6 +1248,21 @@ class Catalogrecords implements UserInterface
     }
 
     /**
+     * Get siteUrl
+     *
+     * @return string
+     */
+    public function getAbsoluteSiteUrl()
+    {
+        $res = $this->site_url;
+        if(strpos($this->site_url,"http://")===false){
+            $res= "http://".$res;
+        }
+
+        return $res;
+    }
+
+    /**
      * Set siteTheme
      *
      * @param string $siteTheme

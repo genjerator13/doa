@@ -303,8 +303,18 @@ body {
     display: block;
     float: left;
     margin: 0 10px 10px 0;
+    background-color: #f78f1e;
+    padding: 5px;
+    border-radius: 5px;
 
 }
+.left-arrow i.glyphicon{
+    font-size: 36px;
+    color: #fff;
+
+}
+
+
 
 .button-title {
     display: block;
@@ -543,6 +553,9 @@ body {
 .modal-dialog .offerTradeIn-content{
     min-width: 710px;
 }
+.btn-lightgrey{
+    background-color: lightgrey;
+}
 
 /* ==========================================================================
    Info
@@ -693,7 +706,9 @@ and (max-width : 1023px) {
         font-size: 21px;
         line-height: 21px;
     }
-
+    .welcome-content {
+        margin: 20px;
+    }
     .info > ul > li:first-child { display: none; }
 
 }
@@ -763,6 +778,13 @@ and (max-width : 767px) {
         display: block;
         margin: 20px;
     }
+
+    .welcome-content {
+        margin: 20px;
+    }
+    /*.row{*/
+        /*margin:5px;*/
+    /*}*/
 
     .links li:nth-child(even) { text-align: left; }
 
@@ -857,3 +879,10 @@ and (max-width : 767px) {
 .coupon-page-text{
     margin-bottom: 10px;
 }
+.bottom-margin{
+    margin-bottom: 20px;
+}
+/*.row{*/
+    /*margin-left:0;*/
+    /*margin-right:0;*/
+/*}*/

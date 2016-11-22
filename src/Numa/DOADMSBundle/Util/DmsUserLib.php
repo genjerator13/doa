@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Util;
 
+use Doctrine\ORM\PersistentCollection;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -36,13 +37,18 @@ class DmsUserLib
 
     public function getSignedUser()
     {
-        $dealer = $this->container->get('security.token_storage')->getToken()->getUser();
-        $session = $this->container->get('session');
-        $dealerIdSession = $session->get('dms_dealer_id');
-        if (!empty($dealerIdSession)) {
-            $dealer = $this->em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealerIdSession);
+
+        $token = $this->container->get('security.token_storage')->getToken();
+        if(!empty($token)) {
+            $dealer = $token->getUser();
+            $session = $this->container->get('session');
+            $dealerIdSession = $session->get('dms_dealer_id');
+            if (!empty($dealerIdSession)) {
+                $dealer = $this->em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealerIdSession);
+            }
+            return $dealer;
         }
-        return $dealer;
+        return null;
     }
 
     public function getSignedDealer()
@@ -58,7 +64,12 @@ class DmsUserLib
         }
 
         if($dealer instanceof DealerGroup ){
-            return $dealer;
+            if(empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection){
+                //dump($dealer->getDealer()->first());die();
+                return $dealer->getDealer()->first();
+
+            }
+            return $dealer->getDealerCreator();
         }
         return null;
     }
