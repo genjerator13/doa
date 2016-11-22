@@ -244,14 +244,14 @@ body {
 .b4,
 .b5 {
 	background-size: cover;
-	height: calc(50% - 10px);
+	height: 150px;
 	position: relative;
 }
 
 .button {
 	background-size: cover;
 	display: table-cell;
-	height: 302px;
+	height: 300px;
 	position: relative;
 	text-align: center;
 	overflow: hidden;
@@ -298,7 +298,7 @@ body {
 
 .button .button-text {
 	position: absolute;
-	top: 200px;
+	top: 50%;
 	width: 100%
 }
 
