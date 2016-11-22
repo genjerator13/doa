@@ -644,9 +644,9 @@ and (max-width : 1023px) {
 @media only screen
 and (max-width : 767px) {
 
-	.main-menu { display: none; }
+.main-menu { display: none; }
 
-	.mobile-menu { display: block; }
+.mobile-menu { display: block; }
 
 	.header { text-align: center; }
 
@@ -807,6 +807,7 @@ and (max-width : 767px) {
 .listing-right{
 	height: 100%;
 	position: relative;
+	min-height: 400px;
 	padding-right: 0;
 
 }
@@ -876,6 +877,10 @@ ul.techData{
 ul.techData li {
 	margin:0;
 	padding: 0px;
+}
+
+.top-buffer {
+	margin-top:20px;
 }
 
 .picture-detail {
