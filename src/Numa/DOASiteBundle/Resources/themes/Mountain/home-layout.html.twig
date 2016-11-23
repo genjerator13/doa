@@ -129,7 +129,7 @@
                                 <div class="click-here">Click Here</div>
                             {% endif %}
                         </div>
-                        {% if button2 is not empty and button1 is not empty and button2.src is defined %}
+                        {% if button2 is not empty and button2 is not empty and button2.src is defined %}
                             {{ component.image(button2.src, 'btn2', '', 'mountain_button',"100%","auto") }}
                         {% endif %}
                     </a>
@@ -154,7 +154,7 @@
             </div>
 
             <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="b4 ">
+                <div class="b4">
                     <a href="{% if button4 is not empty and button4.url is not empty %}{{ button4.url }}{% else %}#{% endif %}">
                         <div class="button-small-text">
                             {% if button4 is not empty and button4.carouselText is not empty %}
@@ -170,7 +170,6 @@
                 </div>
 
                 <div class="b5">
-
                     <a href="{% if button5 is not empty and button5.url is not empty %}{{ button5.url }}{% else %}#{% endif %}">
                         <div class="button-small-text">
                             {% if button5 is not empty and button5.carouselText is not empty %}
