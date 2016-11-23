@@ -247,6 +247,8 @@ class BillingController extends Controller
         $redirect = $request->query->get('redirect');
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
+        $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItem());
+        $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($entity->getItem()->getSaleId());
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         if ((!$securityContext->isGranted('ROLE_ADMIN') && !$securityContext->isGranted('ROLE_DMS_USER')) ||
             ($securityContext->isGranted('ROLE_DMS_USER') && $dealer instanceof Catalogrecords && $entity->getDealerId() != $dealer->getId())
@@ -257,7 +259,8 @@ class BillingController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
         }
-
+        $item->setSaleId(null);
+        $em->remove($sale);
         $em->remove($entity);
         $em->flush();
 
