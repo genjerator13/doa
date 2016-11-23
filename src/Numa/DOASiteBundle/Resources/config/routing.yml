@@ -202,6 +202,12 @@ getAQuote_success:
 calculator:
     path:     /calculator
     defaults: { _controller: "NumaDOASiteBundle:Calculator:index" }
+shoppingExpress_form:
+    path:     /shopping_express
+    defaults: { _controller: "NumaDOASiteBundle:ShoppingExpress:shoppingExpress" }
+shoppingExpress_success:
+    path:  /shopping_expressSuccess
+    defaults: { _controller: "NumaDOASiteBundle:ShoppingExpress:success" }
 about_us:
     path:     /about_us
     defaults: { _controller: "NumaDOASiteBundle:Default:aboutus" }
