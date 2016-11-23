@@ -57,39 +57,42 @@
     {% if pagerfanta is empty %}
         No results
     {% else %}
-        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12">
+                {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+            </div>
+        </div>
     {% endif %}
-    <p></p>
+    <div class="row bottom-margin">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">Number of listings per page:
+
+            {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+            <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}" name="searchSource"
+                   id="searchSource">
+
+            <script>
+                $('.listingsNumber').change(function () {
+                    lnr = parseInt(($(this).val()));
+                    {% if queryUrl is defined %}
+                    url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
+                    url = url.replace(/&amp;/g, '&');
+                    //console.log(url);
+                    //console.log("{{ queryUrl }}");
+                    window.location.href = url;
+                    {% else %}
 
 
-    <p><span class="left">Number of listings per page:</span>
-
-        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-        <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-        </select>
-        <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}" name="searchSource"
-               id="searchSource">
-
-        <script>
-            $('.listingsNumber').change(function () {
-                lnr = parseInt(($(this).val()));
-                {% if queryUrl is defined %}
-                url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
-                url = url.replace(/&amp;/g, '&');
-                //console.log(url);
-                //console.log("{{ queryUrl }}");
-                window.location.href = url;
-                {% else %}
-
-
-                console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
-                //window.open(url.replace("&amp;","&"));
-                {% endif %}
-            })
-        </script>
+                    console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
+                    //window.open(url.replace("&amp;","&"));
+                    {% endif %}
+                })
+            </script>
+        </div>
         {% set sortYearUrl %}
             {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
         {% endset %}
@@ -143,85 +146,91 @@
                 {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
             {% endset %}
         {% endif %}
-        <span class="sort">Sort by:
-                    <a href="{{ sortPicturesUrl }}">
-                        {% if sort_by=='pictures' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='pictures' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Photos
-                    </a>
-                     |
-                    <a href="{{ sortYearUrl }}">
-                        {% if sort_by=='year' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='year' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Year
-                    </a>
-                     |
-                    <a href="{{ sortMakeUrl }}">
-                        {% if sort_by=='make' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='make' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Make / Model
-                    </a>
-                     |
-                    <a href="{{ sortMileageUrl }}">
-                        {% if sort_by=='mileage' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='mileage' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Mileage
-                    </a>
-                     |
-                    <a href="{{ sortPriceUrl }}">
-                        {% if sort_by=='price' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='price' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Price
-                    </a>
-                     |
-                    <a href="{{ sortDateUrl }}">
-                        {% if sort_by=='date_created' and sort_order=='asc' %}
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i>
-                        {% elseif(sort_by=='date_created' and sort_order=='desc') %}
-                            <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
-                        {% endif %}
-                        Date
-                    </a>
-                </span>
-        <span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
-    </p>
-    <div id="listing-content" class="col-md-8">
-        {#<div class="page_ads">#}
-        {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
 
-        {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
-        {#</div>#}
-        {% for item in pagerfanta %}
-            {% if queryUrl is defined %}
-                {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
-            {% else %}
-                {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
-            {% endif %}
+        <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
+            Sort by:
+            <a href="{{ sortPicturesUrl }}">
+                {% if sort_by=='pictures' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='pictures' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Photos
+            </a>
+            |
+            <a href="{{ sortYearUrl }}">
+                {% if sort_by=='year' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='year' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Year
+            </a>
+            |
+            <a href="{{ sortMakeUrl }}">
+                {% if sort_by=='make' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='make' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Make / Model
+            </a>
+            |
+            <a href="{{ sortMileageUrl }}">
+                {% if sort_by=='mileage' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='mileage' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Mileage
+            </a>
+            |
+            <a href="{{ sortPriceUrl }}">
+                {% if sort_by=='price' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='price' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Price
+            </a>
+            |
+            <a href="{{ sortDateUrl }}">
+                {% if sort_by=='date_created' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='date_created' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Date
+            </a>
 
-        {% endfor %}
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>
     </div>
-    <div class="searchSideBar col-md-4">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+    <div class="row">
+        <div id="listing-content" class="col-md-8">
+            {#<div class="page_ads">#}
+            {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
+
+            {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
+            {#</div>#}
+            {% for item in pagerfanta %}
+                {% if queryUrl is defined %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                {% else %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="searchSideBar col-md-4">
+            {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        </div>
     </div>
     <div class="col-md-12">
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
     </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
