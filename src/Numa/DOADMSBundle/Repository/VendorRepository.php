@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Repository;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,13 +24,16 @@ class VendorRepository extends EntityRepository {
 
         return $res;
     }
-    public function findAllNotDeleted(){
+    public function findAllNotDeleted($dealer=null){
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('vend')
             ->add('from', 'NumaDOADMSBundle:Vendor vend')
             ->Where("vend.status NOT LIKE 'deleted' OR vend.status IS NULL");
-
+        if($dealer instanceof Catalogrecords ){
+            $qb->AndWhere("vend.dealer_id=:dealer_id");
+            $qb->setParameter("dealer_id",$dealer->getId());
+        }
         $res = $qb->getQuery()->getResult();
 //        dump($res);die();
 
