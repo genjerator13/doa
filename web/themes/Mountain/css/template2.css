@@ -228,23 +228,33 @@ body {
 	/*width: calc(100% + 40px);*/
 }
 
-.b1 a { background: url("../images/button1.jpg") center center no-repeat; }
-
-.b2 a{ background: url("../images/button2.jpg") center center no-repeat; }
-
-.b3 a { background: url("../images/button3.jpg") center center no-repeat; }
-
-.b4 {
-	background: url("../images/button4.jpg") center center no-repeat;
-
+.b1 a {
+	height: 425px;
+	background: url("../images/button1.jpg") center center no-repeat;
 }
 
-.b5 {	background: url("../images/button5.jpg") center center no-repeat; }
+.b2 a{
+	height: 425px;
+	background: url("../images/button2.jpg") center center no-repeat;
+}
 
-.b4,
-.b5 {
+.b3 a {
+	height: 425px;
+	background: url("../images/button3.jpg") center center no-repeat;
+}
 
-	min-height: 200px;
+.b4 a {
+	height: 200px;
+	background: url("../images/button4.jpg") center center no-repeat;
+}
+
+.b5 a {
+	height: 200px;
+	background: url("../images/button5.jpg") center center no-repeat;
+}
+
+.b4, .b5 {
+
 	position: relative;
 	margin-bottom: 20px;
 }
@@ -264,7 +274,7 @@ body {
 	color: #fff;
 	display: block;
 	min-height: 202px;
-	max-height: 402px;
+	max-height: 425px;
 	text-decoration: none;
 	position:relative;
 	overflow: hidden;
