@@ -7,7 +7,7 @@
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a href="{{ path('item_details', {'dealer':'aaa','itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
+                <a href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">{{ item.getItemFieldByName('year') }} {{ item.getMake() }} {{ item.getModel() }}</br>
 
 
                     {% set image = item.getImages2()|first %}

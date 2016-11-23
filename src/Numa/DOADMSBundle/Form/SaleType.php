@@ -14,9 +14,12 @@ class SaleType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $container = $options['container'];
+        $dealer = $container->get("numa.dms.user")->getSignedDealer();
+        $em = $container->get("doctrine.orm.entity_manager");
         $builder
             ->add('Vendor', 'entity',array(
-                //'choices'   => $this->em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted(),
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
                 'class' => 'Numa\DOADMSBundle\Entity\Vendor',
                 'required'  => false,
                 'empty_value' => 'Choose Vendor',
@@ -110,5 +113,10 @@ class SaleType extends AbstractType
     public function getName()
     {
         return 'numa_doadmsbundle_sale';
+    }
+
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }
