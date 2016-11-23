@@ -967,7 +967,7 @@ ul.techData li {
 	background: none;
 }
 
-.carousel .carousel-text {
+.carousel-inner .carousel-text {
 	bottom: 20px;
 
 	color: #fff;
@@ -982,7 +982,7 @@ ul.techData li {
 	z-index: 10;
 }
 
-.carousel .carousel-text-large {
+.carousel-inner .carousel-text-large {
 	bottom: 20px;
 
 	color: #fff;
@@ -996,7 +996,7 @@ ul.techData li {
 	z-index: 10;
 }
 
-.carousel .carousel-text a {
+.carousel-inner .carousel-text a {
 	/*border: 1px solid red;*/
 	color: #ffffff;
 	font-weight:bold;
@@ -1009,7 +1009,7 @@ ul.techData li {
 }
 
 
-.carouse .carousel-inner {
+.carousel-inner .carousel-inner {
 	max-height: 400px;
 	min-height: 400px;
 }
