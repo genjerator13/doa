@@ -71,10 +71,12 @@
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
 {% endblock %}
 <div class="content">
-    <div class="alertz hide alert"></div>
-{% block content %}
+    <div class="welcome-content">
+        <div class="alertz hide alert"></div>
+        {% block content %}
 
-{% endblock %}
+        {% endblock %}
+    </div>
 </div>
 {% block info %}
     <div class="info">
@@ -88,22 +90,22 @@
                     {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
                 </div>
                 {% if dealer.phone is defined and dealer.phone is not empty %}
-                <div class="phone">
-                    <span>Phone:</span> {{ dealer.phone }}<br>
-                </div>
+                    <div class="phone">
+                        <span>Phone:</span> {{ dealer.phone }}<br>
+                    </div>
                 {% endif %}
             </li>
             {% if dealer.ServiceHours is not empty %}
-            <li>
-                <h2>Hours Of Operation</h2>
-                {{ dealer.ServiceHours|raw }}
-            </li>
+                <li>
+                    <h2>Hours Of Operation</h2>
+                    {{ dealer.ServiceHours|raw }}
+                </li>
             {% endif %}
             {% if displayComponent('quick_links',"HTML","dealer") is not empty %}
-            <li>
-                <h2>Quick Links</h2>
-                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
-            </li>
+                <li>
+                    <h2>Quick Links</h2>
+                    {{ displayComponent('quick_links',"HTML","dealer")|raw }}
+                </li>
             {% endif %}
         </ul>
     </div>
