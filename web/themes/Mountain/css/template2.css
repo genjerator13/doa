@@ -244,12 +244,12 @@ body {
 }
 
 .b4 a {
-	height: 200px;
+	height: 202px;
 	background: url("../images/button4.jpg") center center no-repeat;
 }
 
 .b5 a {
-	height: 200px;
+	height: 202px;
 	background: url("../images/button5.jpg") center center no-repeat;
 }
 
@@ -273,7 +273,7 @@ body {
 	border-bottom: 6px solid #007cb3;
 	color: #fff;
 	display: block;
-	min-height: 202px;
+	min-height: 165px;
 	max-height: 425px;
 	text-decoration: none;
 	position:relative;
@@ -648,6 +648,27 @@ and (max-width : 1023px) {
 
 	.newsletter { margin: 10px 0 0 0; }
 
+}
+
+@media only screen and (min-width : 1000px) and (max-width : 1220px) {
+
+	.b4 a{
+		height: 165px;
+	}
+	.b5 a{
+		height: 165px;
+	}
+}
+
+
+@media only screen and (max-width : 360px) {
+
+	.b4 a{
+		height: 165px;
+	}
+	.b5 a{
+		height: 165px;
+	}
 }
 
 @media only screen

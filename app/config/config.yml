@@ -352,7 +352,7 @@ liip_imagine:
         mountain_small_button:
             quality: 100
             filters:
-                thumbnail: { size: [260, 196], mode: outbound }
+                thumbnail: { size: [260, 198], mode: outbound }
                 background: { color: '#FFFFFF' }
         mountain_browse:
             quality: 100
