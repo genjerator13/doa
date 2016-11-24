@@ -89,6 +89,17 @@ class SaleType extends AbstractType
             ->add('supplier',null,array('label'=>'Supplier 1'))
             ->add('supplier1',null,array('label'=>'Supplier 2'))
             ->add('supplier2',null,array('label'=>'Supplier 3'))
+            ->add('gst',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst1',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst2',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst3',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst4',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst5',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst6',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst7',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst8',null,array('attr' => array('maxlength' => '10')))
+            ->add('gst9',null,array('attr' => array('maxlength' => '10')))
+            ->add('unit_tax_other')
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')));
 
         //->add('item_id','hidden')

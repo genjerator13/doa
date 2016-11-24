@@ -241,6 +241,39 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
+        gst:
+            type: float
+            nullable: true
+        gst1:
+            type: float
+            nullable: true
+        gst2:
+            type: float
+            nullable: true
+        gst3:
+            type: float
+            nullable: true
+        gst4:
+            type: float
+            nullable: true
+        gst5:
+            type: float
+            nullable: true
+        gst6:
+            type: float
+            nullable: true
+        gst7:
+            type: float
+            nullable: true
+        gst8:
+            type: float
+            nullable: true
+        gst9:
+            type: float
+            nullable: true
+        unit_tax_other:
+            type: float
+            nullable: true
     manyToOne:
         Vendor:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor
