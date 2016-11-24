@@ -1482,7 +1482,7 @@ class Sale
      */
     public function getNetTax()
     {
-          return ($this->getTax1Out() + $this->getTax2Out() + $this->getTradeInTax())-($this->getTax1In() + $this->getTax2In());
+          return round(($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2);
 //        return $this->net_tax;
     }
 
@@ -2263,5 +2263,325 @@ class Sale
     public function getOther3Des()
     {
         return $this->other_3_des;
+    }
+    /**
+     * @var float
+     */
+    private $gst;
+
+    /**
+     * @var float
+     */
+    private $gst1;
+
+    /**
+     * @var float
+     */
+    private $gst2;
+
+    /**
+     * @var float
+     */
+    private $gst3;
+
+    /**
+     * @var float
+     */
+    private $gst4;
+
+    /**
+     * @var float
+     */
+    private $gst5;
+
+    /**
+     * @var float
+     */
+    private $gst6;
+
+    /**
+     * @var float
+     */
+    private $gst7;
+
+    /**
+     * @var float
+     */
+    private $gst8;
+
+    /**
+     * @var float
+     */
+    private $gst9;
+
+
+    /**
+     * Set gst
+     *
+     * @param float $gst
+     *
+     * @return Sale
+     */
+    public function setGst($gst)
+    {
+        $this->gst = $gst;
+
+        return $this;
+    }
+
+    /**
+     * Get gst
+     *
+     * @return float
+     */
+    public function getGst()
+    {
+        return $this->gst;
+    }
+
+    /**
+     * Set gst1
+     *
+     * @param float $gst1
+     *
+     * @return Sale
+     */
+    public function setGst1($gst1)
+    {
+        $this->gst1 = $gst1;
+
+        return $this;
+    }
+
+    /**
+     * Get gst1
+     *
+     * @return float
+     */
+    public function getGst1()
+    {
+        return $this->gst1;
+    }
+
+    /**
+     * Set gst2
+     *
+     * @param float $gst2
+     *
+     * @return Sale
+     */
+    public function setGst2($gst2)
+    {
+        $this->gst2 = $gst2;
+
+        return $this;
+    }
+
+    /**
+     * Get gst2
+     *
+     * @return float
+     */
+    public function getGst2()
+    {
+        return $this->gst2;
+    }
+
+    /**
+     * Set gst3
+     *
+     * @param float $gst3
+     *
+     * @return Sale
+     */
+    public function setGst3($gst3)
+    {
+        $this->gst3 = $gst3;
+
+        return $this;
+    }
+
+    /**
+     * Get gst3
+     *
+     * @return float
+     */
+    public function getGst3()
+    {
+        return $this->gst3;
+    }
+
+    /**
+     * Set gst4
+     *
+     * @param float $gst4
+     *
+     * @return Sale
+     */
+    public function setGst4($gst4)
+    {
+        $this->gst4 = $gst4;
+
+        return $this;
+    }
+
+    /**
+     * Get gst4
+     *
+     * @return float
+     */
+    public function getGst4()
+    {
+        return $this->gst4;
+    }
+
+    /**
+     * Set gst5
+     *
+     * @param float $gst5
+     *
+     * @return Sale
+     */
+    public function setGst5($gst5)
+    {
+        $this->gst5 = $gst5;
+
+        return $this;
+    }
+
+    /**
+     * Get gst5
+     *
+     * @return float
+     */
+    public function getGst5()
+    {
+        return $this->gst5;
+    }
+
+    /**
+     * Set gst6
+     *
+     * @param float $gst6
+     *
+     * @return Sale
+     */
+    public function setGst6($gst6)
+    {
+        $this->gst6 = $gst6;
+
+        return $this;
+    }
+
+    /**
+     * Get gst6
+     *
+     * @return float
+     */
+    public function getGst6()
+    {
+        return $this->gst6;
+    }
+
+    /**
+     * Set gst7
+     *
+     * @param float $gst7
+     *
+     * @return Sale
+     */
+    public function setGst7($gst7)
+    {
+        $this->gst7 = $gst7;
+
+        return $this;
+    }
+
+    /**
+     * Get gst7
+     *
+     * @return float
+     */
+    public function getGst7()
+    {
+        return $this->gst7;
+    }
+
+    /**
+     * Set gst8
+     *
+     * @param float $gst8
+     *
+     * @return Sale
+     */
+    public function setGst8($gst8)
+    {
+        $this->gst8 = $gst8;
+
+        return $this;
+    }
+
+    /**
+     * Get gst8
+     *
+     * @return float
+     */
+    public function getGst8()
+    {
+        return $this->gst8;
+    }
+
+    /**
+     * Set gst9
+     *
+     * @param float $gst9
+     *
+     * @return Sale
+     */
+    public function setGst9($gst9)
+    {
+        $this->gst9 = $gst9;
+
+        return $this;
+    }
+
+    /**
+     * Get gst9
+     *
+     * @return float
+     */
+    public function getGst9()
+    {
+        return $this->gst9;
+    }
+    /**
+     * @var float
+     */
+    private $unit_tax_other;
+
+
+    /**
+     * Set unitTaxOther
+     *
+     * @param float $unitTaxOther
+     *
+     * @return Sale
+     */
+    public function setUnitTaxOther($unitTaxOther)
+    {
+        $this->unit_tax_other = $unitTaxOther;
+
+        return $this;
+    }
+
+    /**
+     * Get unitTaxOther
+     *
+     * @return float
+     */
+    public function getUnitTaxOther()
+    {
+        return round($this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2);
+//        return $this->unit_tax_other;
     }
 }
