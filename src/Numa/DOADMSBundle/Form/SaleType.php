@@ -52,7 +52,7 @@ class SaleType extends AbstractType
             ->add('insurance')
             ->add('life_ins')
             ->add('disability_ins')
-            ->add('feverse',null,array('label'=>"Reverse"))
+            ->add('feverse',null,array('label'=>"Reserve"))
             ->add('misc_1')
             ->add('misc_2')
             ->add('misc_3')
