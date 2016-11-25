@@ -114,6 +114,7 @@ class ItemRESTController extends Controller
     {
 
         $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllListings($dealerid);
+
         $func = function($value) {
 
            $value['categorySubType']="aaa";
