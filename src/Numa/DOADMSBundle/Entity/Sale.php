@@ -831,7 +831,9 @@ class Sale
      */
     public function getTotalUnitCost()
     {
-        return round($this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2);
+
+        $this->total_unit_cost = round($this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2);
+        return $this->total_unit_cost;
 //        return $this->total_unit_cost;
     }
 
@@ -856,7 +858,7 @@ class Sale
      */
     public function getNetGrain()
     {
-          return round(($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2);
+        $this->net_grain = round(($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2);
 //        return $this->net_grain;
     }
 
@@ -1169,8 +1171,8 @@ class Sale
      */
     public function getTotalSaleCost()
     {
-        return round($this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2);
-//        return $this->total_sale_cost;
+        $this->total_sale_cost= round($this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2);
+        return $this->total_sale_cost;
     }
 
     /**
@@ -1482,8 +1484,8 @@ class Sale
      */
     public function getNetTax()
     {
-          return round(($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2);
-//        return $this->net_tax;
+        $this->net_tax = round(($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2);
+        return $this->net_tax;
     }
 
     /**
@@ -1819,8 +1821,8 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        return round($this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2);
-//        return $this->total_revenue;
+        $this->total_revenue = round($this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2);
+        return $this->total_revenue;
     }
 
     /**
@@ -1844,8 +1846,8 @@ class Sale
      */
     public function getRevenueThisUnit()
     {
-        return round($this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2);
-//        return $this->revenue_this_unit;
+        $this->revenue_this_unit = round($this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2);
+        return $this->revenue_this_unit;
     }
 
     /**
@@ -2581,7 +2583,7 @@ class Sale
      */
     public function getUnitTaxOther()
     {
-        return round($this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2);
-//        return $this->unit_tax_other;
+        $this->unit_tax_other = round($this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2);
+        return $this->unit_tax_other;
     }
 }
