@@ -62,7 +62,7 @@
         {% set images = displayComponent("homepage_carousel","carousel") %}
 
         {% if images is not empty %}
-            <div class="bs-carousels clearfix">
+            <div class="">
                 <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
                     <!-- Wrapper for carousel items -->
                     <div class="carousel-inner">
@@ -86,14 +86,6 @@
             </div>
         {% endif %}
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#myCarousel").carousel({
-                    interval: 8000,
-                    pause: false
-                });
-            });
-        </script>
 
         <div class="button-wrapper row">
             {% set button1 = displayComponent('mountain_button_1','image_object') %}
@@ -104,52 +96,52 @@
 
             <div class="button {% if button1 is empty %}b1{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
-                    <a href=" {% if button1 is not empty and button1.url is  defined %}{{ button1.url }}{% else %}#{% endif %}"
-                       class="">
-                        <div class="button-text">
-                            {% if button1 is not empty and button1.carouselText is  defined %}
-                                <h2>{{ button1.carouselText|striptags('<span>')|raw }}</h2>
-                                <div class="click-here">Click Here</div>
-                            {% endif %}
-                        </div>
-                        {% if button1 is not empty and button1 is not empty and button1.src is defined %}
-                            {{ component.image(button1.src, 'btn1', '', 'mountain_button',"100%","auto") }}
+                <a href=" {% if button1 is not empty and button1.url is  defined %}{{ button1.url }}{% else %}#{% endif %}"
+                   class="">
+                    <div class="button-text">
+                        {% if button1 is not empty and button1.carouselText is  defined %}
+                            <h2>{{ button1.carouselText|striptags('<span>')|raw }}</h2>
+                            <div class="click-here">Click Here</div>
                         {% endif %}
-                    </a>
+                    </div>
+                    {% if button1 is not empty and button1 is not empty and button1.src is defined %}
+                        {{ component.image(button1.src, 'btn1', '', 'mountain_button',"100%","auto") }}
+                    {% endif %}
+                </a>
 
             </div>
 
             <div class="button {% if button2 is empty %}b2{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
-                    <a href=" {% if button2 is not empty and button2.url is  defined %}{{ button2.url }}{% else %}#{% endif %}"
-                       class="">
-                        <div class="button-text">
-                            {% if button2 is not empty and button2.carouselText is defined %}
-                                <h2>{{ button2.carouselText|striptags('<span>')|raw }}</h2>
-                                <div class="click-here">Click Here</div>
-                            {% endif %}
-                        </div>
-                        {% if button2 is not empty and button2 is not empty and button2.src is defined %}
-                            {{ component.image(button2.src, 'btn2', '', 'mountain_button',"100%","auto") }}
+                <a href=" {% if button2 is not empty and button2.url is  defined %}{{ button2.url }}{% else %}#{% endif %}"
+                   class="">
+                    <div class="button-text">
+                        {% if button2 is not empty and button2.carouselText is defined %}
+                            <h2>{{ button2.carouselText|striptags('<span>')|raw }}</h2>
+                            <div class="click-here">Click Here</div>
                         {% endif %}
-                    </a>
+                    </div>
+                    {% if button2 is not empty and button2 is not empty and button2.src is defined %}
+                        {{ component.image(button2.src, 'btn2', '', 'mountain_button',"100%","auto") }}
+                    {% endif %}
+                </a>
 
             </div>
 
             <div class="button {% if button3 is empty %}b3{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
 
-                    <a href=" {% if button3 is not empty and button3.url is  defined %}{{ button3.url }}{% else %}#{% endif %}"
-                       class="">
-                        <div class="button-text">
-                            {% if button3 is not empty and button3.carouselText is defined %}
-                                <h2>{{ button3.carouselText|striptags('<span>')|raw }}</h2>
-                                <div class="click-here">Click Here</div>
-                            {% endif %}
-                        </div>
-                        {% if button3 is not empty and button3 is not empty and button3.src is defined %}
-                            {{ component.image(button3.src, 'btn3', '', 'mountain_button',"100%","auto") }}
+                <a href=" {% if button3 is not empty and button3.url is  defined %}{{ button3.url }}{% else %}#{% endif %}"
+                   class="">
+                    <div class="button-text">
+                        {% if button3 is not empty and button3.carouselText is defined %}
+                            <h2>{{ button3.carouselText|striptags('<span>')|raw }}</h2>
+                            <div class="click-here">Click Here</div>
                         {% endif %}
-                    </a>
+                    </div>
+                    {% if button3 is not empty and button3 is not empty and button3.src is defined %}
+                        {{ component.image(button3.src, 'btn3', '', 'mountain_button',"100%","auto") }}
+                    {% endif %}
+                </a>
 
             </div>
 
@@ -236,16 +228,15 @@
         <div class="clear"></div>
     </div>
     <div class="clear"></div>
+</div>
 </body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#myCarousel").carousel({
+            interval: 8000,
+            pause: false
+        });
+    });
+</script>
 </html>
 
-<script>
-    {#var button4 = "{{ button4 }}"#}
-    {#var button5 = "{{ button5 }}"#}
-    {#if (button4 != "") #}{#}#}
-    {#$('.b4').css("background-image", "url({{ button4 }})");#}
-    {#}#}
-    {#if (button5 != "") {#}
-    {#$('.b5').css("background-image", "url({{ button5 }})");#}
-    {#}#}
-</script>
