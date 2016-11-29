@@ -257,14 +257,15 @@ class BillingController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Billing entity.');
         }
-        if(!empty($entity->getItem())){
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItem());
-            if(!empty($entity->getItem()->getSaleId())){
-                $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($entity->getItem()->getSaleId());
-                $item->setSaleId(null);
-                $em->remove($sale);
-            }
-        }
+        //Delete Sale
+//        if(!empty($entity->getItem())){
+//            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItem());
+//            if(!empty($entity->getItem()->getSaleId())){
+//                $sale = $em->getRepository('NumaDOADMSBundle:Sale')->find($entity->getItem()->getSaleId());
+//                $item->setSaleId(null);
+//                $em->remove($sale);
+//            }
+//        }
         $em->remove($entity);
         $em->flush();
 
