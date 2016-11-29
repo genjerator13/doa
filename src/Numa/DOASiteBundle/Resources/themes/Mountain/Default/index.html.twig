@@ -18,7 +18,7 @@
     {% set images_left = displayComponent("homepage_left_carousel","carousel") %}
     {% set images_right = displayComponent("homepage_right_carousel","carousel") %}
 
-    <div class="bs-carousels clearfix row">
+    <div class="row">
 
         <div id="myCarousel_left" class="carousel-fade col-md-6 col-lg-6 col-sm-12 col-xs-12" data-ride="carousel">
             <div class="classWithPad">
@@ -86,14 +86,6 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#myCarousel").carousel({
-                interval: 8000,
-                pause: false
-            });
-        });
-    </script>
 {% endblock %}
 {% block content %}
 
