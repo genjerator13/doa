@@ -62,7 +62,7 @@
         {% set images = displayComponent("homepage_carousel","carousel") %}
 
         {% if images is not empty %}
-            <div class="">
+            <div class="bottom-margin">
                 <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
                     <!-- Wrapper for carousel items -->
                     <div class="carousel-inner">
@@ -87,7 +87,7 @@
         {% endif %}
 
 
-        <div class="button-wrapper row">
+        <div class="row">
             {% set button1 = displayComponent('mountain_button_1','image_object') %}
             {% set button2 = displayComponent('mountain_button_2','image_object') %}
             {% set button3 = displayComponent('mountain_button_3','image_object') %}
@@ -220,23 +220,11 @@
                 {{ displayComponent('page_content',"HTML")|raw }}
             </div>
         {% endblock %}
-
-
-        {% block footer %}
-            {% include 'NumaDOASiteBundle::footer.html.twig' %}
-        {% endblock %}
-        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
 </div>
 </body>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#myCarousel").carousel({
-            interval: 8000,
-            pause: false
-        });
-    });
-</script>
 </html>
 
