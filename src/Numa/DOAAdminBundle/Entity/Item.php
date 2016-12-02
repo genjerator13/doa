@@ -1758,7 +1758,7 @@ class Item
             $this->status = "Used";
         }
 
-        return $this;
+        //return $this;
     }
 
     /**
@@ -1769,10 +1769,12 @@ class Item
      */
     public function getStatus()
     {
-        $this->status = "Used";
-        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
-            $this->status = "New";
-        }
+
+//        $this->status = "Used";
+//        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
+//            $this->status = "New";
+//        }
+
 //        elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status=null) {
 //            $this->status = "Used";
 //        }
