@@ -1781,6 +1781,18 @@ class Item
         return $this->status;
     }
 
+    public function isUsed()
+    {
+
+
+        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
+            return 0;
+        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status = null) {
+            return 1;
+        }
+        return 1;
+    }
+
     /**
      * Set stock_nr
      *

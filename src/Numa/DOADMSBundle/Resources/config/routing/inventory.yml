@@ -28,6 +28,10 @@ dms_item_deactivate:
 dms_item_featured:
     path:     /featured
     defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeFeatured2" }
+dms_item_kijiji:
+    path:     /kijiji
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeKijiji" }
+
 dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }
