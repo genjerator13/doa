@@ -29,7 +29,7 @@ class ReportsController extends Controller
         if (empty($dealer)) {
             $entities = null;
             $em->flush();
-            $this->addFlash("danger", "You must be logged in like Dealer!");
+            $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
             $securityContext = $this->container->get('security.authorization_checker');
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
