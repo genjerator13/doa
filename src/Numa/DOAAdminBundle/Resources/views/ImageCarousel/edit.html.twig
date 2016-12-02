@@ -7,12 +7,16 @@
 
     {{ form(edit_form) }}
 
-    {% if(app.request.get('_dashboard')=='DMS') %}
+    {% if(app.request.get('_dashboard')=='DMS' and entity.componentId() is not empty) %}
         <a href="{{ path('component_edit', { 'id': entity.componentId() }) }}" class="btn btn-primary">
             Back to the component edit
         </a>
+    {% elseif(app.request.get('_dashboard')=='DMS' and entity.dealerComponentId() is not empty) %}
+        <a href="{{ path('dealercomponent_edit', { 'id': entity.dealerComponentId() }) }}" class="btn btn-primary">
+            Back to the dealer component edit
+        </a>
     {% else %}
-        <a href="{{ path('imagecarousel') }}" class="btn btn-primary">
+        <a href="{{ path('dms_imagecarousel') }}" class="btn btn-primary">
             Back to the carousel
         </a>
     {% endif %}

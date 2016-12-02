@@ -52,7 +52,8 @@ body {
 }
 
 .header .logo {
-	background: url("../images/logo-bg.png") center center no-repeat;
+	/*background: url("../images/logo-bg.png") center center no-repeat;*/
+	background-color: #000000;
 	position: absolute;
 		top: -18px;
 		left: 19px;
