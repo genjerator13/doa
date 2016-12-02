@@ -633,15 +633,21 @@ class ItemRepository extends EntityRepository
 
     public function findByIds($ids)
     {
+        $paramIds = $ids;
+        if(!is_array($ids)){
+            $paramIds = explode(",",$ids);
+        }
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->andWhere('i.id IN (:ids)')
-            ->where("i.id IN(:ids)")
-            ->setParameter('ids', array_values($ids));
+            ->setParameter('ids', $paramIds);
 
         $query = $qb->getQuery();
+
         $res = $query->getResult(); //->getResult();
+
         return $res;
     }
 
