@@ -205,7 +205,7 @@ class ListingLib
                         $if->setFieldIntegerValue(1);
                         $item->addItemField($if);
                         $em->persist($if);
-                        $em->flush($item);
+                        //$em->flush($item);
                     }
                 }
             }
