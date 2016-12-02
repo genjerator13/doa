@@ -354,7 +354,11 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-
+            if(!empty($entity->getVIN())) {
+                $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
+                $entity->setVindecoder($decodedvin);
+                $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
+            }
             $em->persist($entity);
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
@@ -363,6 +367,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity, $seoPost);
+
+
             $em->flush();
             //dump($request->get("redirect"));die();
             if ($request->get("redirect") == "images") {
@@ -538,24 +544,29 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $saleForm = $this->createForm(new SaleType(), $entity->getSale(), array(
             'method' => 'POST',
         ));
-
+        $oldVin = $entity->getVIN();
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //$sale = $entity->getSale();
-            //$sale->setItem($entity);
-            //$sale->setItemId($entity->getId());
+
+            if(!empty($entity->getVIN()) && $oldVin!=$entity->getVIN()) {
+                $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
+                $entity->setVindecoder($decodedvin);
+                $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
+            }
 
             if (empty($id)) {
+
                 $em->persist($entity);
             }
+
             $seoPost = $request->get("numa_doamodulebundle_seo");
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity, $seoPost);
-            //dump($entity->getItemField());
-            // die();
 
-            //die();
+            //$oldVin = $request->request->get('numa_doaadminbundle_item')['VIN'];
+
+
             $em->flush();
 
             if ($form->getClickedButton() != null && $form->getClickedButton()->getName() == "submitAndPrint") {
@@ -754,6 +765,20 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         $qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeFeatured($ids, true);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massMakeKijijiAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        //$qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeKijiji($ids, true);
+        $aa= $this->get('listing_api')->prepareListingsKijiji($ids);
+        dump($aa);
         die();
     }
 
