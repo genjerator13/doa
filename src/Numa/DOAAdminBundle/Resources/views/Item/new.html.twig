@@ -468,9 +468,15 @@
 
                         {% if(not is_granted('ROLE_BUSINES')) %}
                             {% if(app.request.get('_dashboard')=='DMS') %}
-                                <a href="{{ path('inventory') }}" class="btn btn-default">
-                                    Back to the list without saving
-                                </a>
+                                {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                                    <a href="{{ path('inventory_view') }}" class="btn btn-default">
+                                        Back to the list without saving
+                                    </a>
+                                {% else %}
+                                    <a href="{{ path('inventory') }}" class="btn btn-default">
+                                        Back to the list without saving
+                                    </a>
+                                {% endif %}
                             {% else %}
                                 <a href="{{ path('items') }}" class="btn btn-default">
                                     Back to the list without saving

@@ -202,6 +202,9 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+
+            $entity->upload();
+           // dump($entity);die();
             $em->flush();
             $redirect = 'imagecarousel_edit';
             if (strtoupper($this->dashboard) == 'DMS') {
@@ -236,7 +239,7 @@ class ImageCarouselController extends Controller implements DashboardDMSControll
             $em->persist($imagecarousel);
             $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
             $imagecarousel->setDealer($dealer);
-
+//            dump($imagecarousel);die();
             $em->flush();
             $file->move($imagecarousel->getUploadRootDir(), $file->getClientOriginalName());
         }

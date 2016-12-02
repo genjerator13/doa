@@ -87,14 +87,15 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}
+            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
                 <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
                 <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
             {% endif %}
             {% if(is_granted("ROLE_ADMIN")) %}
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
+                <button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>
             {% endif %}
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}
+            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
             {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>

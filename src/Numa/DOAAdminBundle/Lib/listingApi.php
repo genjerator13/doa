@@ -14,6 +14,8 @@
 
 namespace Numa\DOAAdminBundle\Lib;
 
+use Numa\DOAAdminBundle\Entity\Catalogcategory;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
 use Symfony\Component\HttpFoundation\Request;
@@ -101,17 +103,27 @@ class listingApi
             $res[strtolower($value)] = $item->get($name);
         }
         $tempImages = array();
-        if (!empty($res['images']['image'])) {
-            foreach ($res['images']['image'] as $image) {
+
+        $res['images']['image'] = processImages($res['images']['image']);
+
+
+        return $res;
+    }
+
+    public function processImages($images){
+        $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
+        $tempImages = array();
+        if (!empty($images)) {
+
+            foreach ($images as $image) {
+
                 if (substr($image, 0, 4) !== "http") {
                     $image = $host . $image;
                 }
                 $tempImages[] = $image;
             }
-            $res['images']['image'] = $tempImages;
         }
-
-        return $res;
+        return $tempImages;
     }
 
     public function prepareArrayItems($items)
@@ -206,7 +218,7 @@ class listingApi
 
                         if (is_array($value) && !empty($value)) {
 
-                            $value = implode("|", reset($value));
+                            $value = implode("|", $value);
                         }
                         $headers[$key] = $key;
                         $values[$itemkey][$key] = self::clearValueForCsv($value);
@@ -264,5 +276,59 @@ class listingApi
         }
 
         return str_replace("\n", "-", $value);
+    }
+
+    public function prepareListingsKijiji($ids){
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
+        $csvArrayRes = array();
+
+        foreach($items as $item){
+            if($item instanceof Item);
+
+            $dealer = $item->getDealer();
+            if($dealer instanceof Catalogrecords) {
+                $csvArray = array();
+                $csvArray['dealer_id'] = $dealer->getId();
+                $csvArray['dealer_name'] = $dealer->getName();
+                $csvArray['address'] = $dealer->getAddress();
+                $csvArray['phone'] = $dealer->getPhone();
+                $csvArray['postalcode'] = "";
+                $csvArray['email'] = $dealer->getEmail();
+                $csvArray['vehicle_id'] = $item->getId();
+                $csvArray['vin'] = $item->getVIN();
+                $csvArray['stockid'] = $item->getStockNr();
+                $csvArray['is_used'] = $item->isUsed();
+                $csvArray['is_certified'] = 0;
+                $csvArray['year'] = $item->getYear();
+                $csvArray['make'] = $item->getMake();
+                $csvArray['model'] = $item->getModel();
+                $csvArray['body'] = $item->getBodyStyle();
+                $csvArray['trim'] = $item->getTrim();
+                $csvArray['transmission'] = $item->getTransmission();
+                $csvArray['kilometers'] = $item->getMileage();
+                $csvArray['exterior_color'] = $item->getExteriorColor();
+                $csvArray['price'] = $item->getPrice();
+                $csvArray['model_code'] = "";
+                $csvArray['comments'] = $item->getSellerComment();
+                $csvArray['drivetrain'] = $item->getSellerComment();
+                $csvArray['videourl'] = $item->getSellerComment();
+                $imageList=array();
+                $images = $item->get("ImagesForApi");
+                if(!empty($images['image'])) {
+                    $images = $this->processImages($images['image']);
+                }
+
+                $csvArray['images'] = $images;
+                $csvArray['category'] = 0;
+
+                $csvArrayRes['listing'][]=$csvArray;
+            }
+        }
+        //dump($csvArrayRes);
+        $ret = $this->formatResponse($csvArrayRes,'csv');
+        file_put_contents($this->container->getParameter('upload_feed')."kijiji.csv",$ret->getContent());
+
+        return $ret;
     }
 }
