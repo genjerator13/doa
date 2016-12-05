@@ -104,7 +104,7 @@ class listingApi
         }
         $tempImages = array();
 
-        $res['images']['image'] = processImages($res['images']['image']);
+        $res['images']['image'] = $this->processImages($res['images']['image']);
 
 
         return $res;
@@ -115,11 +115,11 @@ class listingApi
         $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
         $tempImages = array();
         if (!empty($images)) {
-
             foreach ($images as $image) {
-
+                dump($host);
                 if (substr($image, 0, 4) !== "http") {
-                    $image = $host . $image;
+                    $scheme = $this->container->get('numa.dms.user')->getScheme();
+                    $image = $scheme."://".$host . $image;
                 }
                 $tempImages[] = $image;
             }
@@ -321,7 +321,7 @@ class listingApi
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image']);
                 }
-
+dump($images);die();
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
 

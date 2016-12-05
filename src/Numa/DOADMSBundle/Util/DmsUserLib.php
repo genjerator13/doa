@@ -96,9 +96,15 @@ class DmsUserLib
         $user = $this->getSignedUser();
         return in_array('ROLE_ADMIN',$user->getRoles());
     }
+
     public function getCurrentSiteHost(){
         $router = $this->container->get('router');
         return $router->getContext()->getHost();
+    }
+
+    public function getScheme(){
+        $router = $this->container->get('router');
+        return $router->getContext()->getScheme();
     }
 
     public function getDealerByHost(){
