@@ -133,7 +133,7 @@
             <div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
                 <a class="" href="{{ image.url }}">
                     {{ component.image('upload/dealers/'~image.src, "", '', 'mountain_browse') }}
-                    <br><span class="browse_icon_text">{{ image.carouselText|striptags }}</span>
+                    <span class="browse_icon_text">{{ image.carouselText|striptags }}</span>
                 </a>
             </div>
         {% endfor %}

@@ -401,12 +401,15 @@ body {
 	font-size: 14px;
 	font-weight: 700;
 	line-height: 16px;
-	margin: auto auto;
+	margin: 0 auto;
 	padding-top: 53px;
 	text-align: center;
 	text-decoration: none;
 }
-
+.browse a img {
+	display: block;
+	margin: 0 auto;
+}
 .browse li:last-child a { margin-right: 0; }
 
 .browse a:hover {
