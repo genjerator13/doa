@@ -262,16 +262,12 @@ class listingApi
     public static function clearValueForCsv($value)
     {
         if (is_numeric($value)) {
-            //dump($item);
         } elseif (is_string($value)) {
             $value = str_replace('"', " inches ", $value);
             $value = "\"" . $value . "\"";
         }
         if (is_string($value)) {
-            //$value = strip_tags('<li>', $value);
-
             $value = preg_replace("/<.*?>/", "", $value);
-            //dump($value);
         }
 
         return str_replace("\n", "-", $value);
@@ -318,8 +314,6 @@ class listingApi
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image']);
                 }
-                dump($images);
-                die();
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
 
