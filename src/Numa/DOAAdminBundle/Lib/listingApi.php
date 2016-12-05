@@ -102,8 +102,7 @@ class listingApi
         foreach ($map as $name => $value) {
             $res[strtolower($value)] = $item->get($name);
         }
-        $tempImages = array();
-
+        
         $res['images']['image'] = $this->processImages($res['images']['image']);
 
 
@@ -116,10 +115,9 @@ class listingApi
         $tempImages = array();
         if (!empty($images)) {
             foreach ($images as $image) {
-                dump($host);
                 if (substr($image, 0, 4) !== "http") {
                     $scheme = $this->container->get('numa.dms.user')->getScheme();
-                    $image = $scheme."://".$host . $image;
+                    $image = $scheme . "://" . $host . $image;
                 }
                 $tempImages[] = $image;
             }
@@ -321,7 +319,8 @@ class listingApi
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image']);
                 }
-dump($images);die();
+                dump($images);
+                die();
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
 
