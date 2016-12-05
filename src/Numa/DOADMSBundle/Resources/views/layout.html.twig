@@ -419,7 +419,7 @@
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                     <li class="treeview">
-                        <a href="{{ path('reports') }}">
+                        <a href="{{ path('dms_reports') }}">
                             <i class="fa fa-file-text"></i>
                             <span>REPORTS</span>
                         </a>
