@@ -110,7 +110,8 @@ class listingApi
         return $res;
     }
 
-    public function processImages($images){
+    public function processImages($images)
+    {
         $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
         $tempImages = array();
         if (!empty($images)) {
@@ -279,16 +280,17 @@ class listingApi
         return str_replace("\n", "-", $value);
     }
 
-    public function prepareListingsKijiji($ids){
+    public function prepareListingsKijiji($ids)
+    {
         $em = $this->container->get('doctrine');
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         $csvArrayRes = array();
 
-        foreach($items as $item){
-            if($item instanceof Item);
+        foreach ($items as $item) {
+            if ($item instanceof Item) ;
 
             $dealer = $item->getDealer();
-            if($dealer instanceof Catalogrecords) {
+            if ($dealer instanceof Catalogrecords) {
                 $csvArray = array();
                 $csvArray['dealer_id'] = $dealer->getId();
                 $csvArray['dealer_name'] = $dealer->getName();
@@ -314,21 +316,21 @@ class listingApi
                 $csvArray['comments'] = $item->getSellerComment();
                 $csvArray['drivetrain'] = $item->getSellerComment();
                 $csvArray['videourl'] = $item->getSellerComment();
-                $imageList=array();
+                $imageList = array();
                 $images = $item->get("ImagesForApi");
-                if(!empty($images['image'])) {
+                if (!empty($images['image'])) {
                     $images = $this->processImages($images['image']);
                 }
 
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
 
-                $csvArrayRes['listing'][]=$csvArray;
+                $csvArrayRes['listing'][] = $csvArray;
             }
         }
         //dump($csvArrayRes);
-        $ret = $this->formatResponse($csvArrayRes,'csv');
-        file_put_contents($this->container->getParameter('upload_feed')."kijiji.csv",$ret->getContent());
+        $ret = $this->formatResponse($csvArrayRes, 'csv');
+        file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
 
         return $ret;
     }

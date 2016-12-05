@@ -250,8 +250,8 @@
                                 </li>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     {#<li class="active">#}
-                                        {#<a href="{{ path('inventory_cost') }}" class=""><i class="fa fa-truck"></i>Listings#}
-                                            {#Cost View</a>#}
+                                    {#<a href="{{ path('inventory_cost') }}" class=""><i class="fa fa-truck"></i>Listings#}
+                                    {#Cost View</a>#}
                                     {#</li>#}
                                     <li class="active">
                                         <a href="{{ path('inventory_sales') }}" class=""><i class="fa fa-truck"></i>Listing
@@ -419,7 +419,7 @@
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                     <li class="treeview">
-                        <a href="{{ path('reports') }}">
+                        <a href="{{ path('dms_reports') }}">
                             <i class="fa fa-file-text"></i>
                             <span>REPORTS</span>
                         </a>
@@ -498,7 +498,8 @@
         <div class="tab-content">
             <!-- Home tab content -->
             {#<div class="tab-pane active" id="control-sidebar-home-tab">#}
-            <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view" target="_blank" class="btn btn-success">User Group Permissions</a>
+            <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view"
+               target="_blank" class="btn btn-success">User Group Permissions</a>
 
             <a href="{{ path('supportform_new') }}" class="btn btn-default">Support</a>
             {#</div><!-- /.tab-pane -->#}

@@ -1,3 +1,3 @@
-reports:
+dms_reports:
     path:     /
     defaults: { _controller: "NumaDOADMSBundle:Reports:index" }
