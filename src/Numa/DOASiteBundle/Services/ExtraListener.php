@@ -30,7 +30,7 @@ class ExtraListener
     private $twig;
     public $page;
 
-    public function __construct(ContainerInterface $container,$controller_resolver, $request_stack, $http_kernel)
+    public function __construct(ContainerInterface $container, $controller_resolver, $request_stack, $http_kernel)
     {
         $this->container = $container;
         $this->controller_resolver = $controller_resolver;
@@ -85,14 +85,14 @@ class ExtraListener
 
                 $theme = $dealer->getSiteTheme();
 
-                if(!(in_array($theme, $activeTheme->getThemes()))){
+                if (!(in_array($theme, $activeTheme->getThemes()))) {
                     $theme = $activeTheme->getThemes()[0];
                 }
 
                 $activeTheme->setName($theme);
                 $controllerObject->initializeDealer($dealer);
 
-            }else{
+            } else {
                 $activeTheme->setName('Default');
             }
 
@@ -118,7 +118,7 @@ class ExtraListener
         $routeName = $request->get('_route');
         //ignore if route starts with dms
 
-        if(!empty($routeName) && strpos(strtolower($routeName),"dms")!==0 && strpos(strtolower($routeName),"api")===false) {
+        if (!empty($routeName) && strpos(strtolower($routeName), "dms") !== 0 && strpos(strtolower($routeName), "api") === false) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $currentUrl = $request->getRequestUri();
             //myurl fix
@@ -128,7 +128,7 @@ class ExtraListener
 
             $dealer = $this->container->get("Numa.Dms.User")->getDealerByHost();
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
-            $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(),$page,$dealer);
+            $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
             //$response->set
 
             $response->setContent($html);
@@ -155,7 +155,7 @@ class ExtraListener
     public function preExecute(GetResponseForControllerResultEvent $event)
     {
 
-        $request    = $event->getRequest();
+        $request = $event->getRequest();
         $parameters = $event->getControllerResult();
         dump($parameters);
         die();
