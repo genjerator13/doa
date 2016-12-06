@@ -102,9 +102,8 @@ class listingApi
         foreach ($map as $name => $value) {
             $res[strtolower($value)] = $item->get($name);
         }
-        $tempImages = array();
-
-        $res['images']['image'] = processImages($res['images']['image']);
+        
+        $res['images']['image'] = $this->processImages($res['images']['image']);
 
 
         return $res;
@@ -115,11 +114,10 @@ class listingApi
         $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
         $tempImages = array();
         if (!empty($images)) {
-
             foreach ($images as $image) {
-
                 if (substr($image, 0, 4) !== "http") {
-                    $image = $host . $image;
+                    $scheme = $this->container->get('numa.dms.user')->getScheme();
+                    $image = $scheme . "://" . $host . $image;
                 }
                 $tempImages[] = $image;
             }
@@ -265,16 +263,12 @@ class listingApi
     public static function clearValueForCsv($value)
     {
         if (is_numeric($value)) {
-            //dump($item);
         } elseif (is_string($value)) {
             $value = str_replace('"', " inches ", $value);
             $value = "\"" . $value . "\"";
         }
         if (is_string($value)) {
-            //$value = strip_tags('<li>', $value);
-
             $value = preg_replace("/<.*?>/", "", $value);
-            //dump($value);
         }
 
         return str_replace("\n", "-", $value);
@@ -321,7 +315,6 @@ class listingApi
                 if (!empty($images['image'])) {
                     $images = $this->processImages($images['image']);
                 }
-
                 $csvArray['images'] = $images;
                 $csvArray['category'] = 0;
 
