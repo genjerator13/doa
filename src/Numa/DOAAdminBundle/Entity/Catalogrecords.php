@@ -1741,4 +1741,62 @@ class Catalogrecords implements UserInterface
     {
         return $this->DealerGroup;
     }
+    /**
+     * @var string
+     */
+    private $feul_economy;
+
+
+    /**
+     * Set feulEconomy
+     *
+     * @param string $feulEconomy
+     *
+     * @return Catalogrecords
+     */
+    public function setFeulEconomy($feulEconomy)
+    {
+        $this->feul_economy = $feulEconomy;
+
+        return $this;
+    }
+
+    /**
+     * Get feulEconomy
+     *
+     * @return string
+     */
+    public function getFeulEconomy()
+    {
+        return $this->feul_economy;
+    }
+    /**
+     * @var string
+     */
+    private $fuel_economy;
+
+
+    /**
+     * Set fuelEconomy
+     *
+     * @param string $fuelEconomy
+     *
+     * @return Catalogrecords
+     */
+    public function setFuelEconomy($fuelEconomy)
+    {
+        $this->fuel_economy = $fuelEconomy;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelEconomy
+     *
+     * @return string
+     */
+    public function getFuelEconomy()
+    {
+        return $this->fuel_economy;
+    }
 }
