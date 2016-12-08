@@ -242,6 +242,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
     private function createAggregation()
     {
+        $size = 200;
         $search = $this->get('fos_elastica.index.app.item');
 
 
@@ -252,15 +253,19 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //make
         $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
         $elasticaAggMake->setField('make');
+        $elasticaAggMake->setSize($size);
         //model
         $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
         $elasticaAggModel->setField('model');
+        $elasticaAggModel->setSize($size);
         //category
         $elasticaAggCategory = new \Elastica\Aggregation\Terms('category');
         $elasticaAggCategory->setField('categoryName');
+        $elasticaAggCategory->setSize($size);
         //categorySubType
         $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
+        $elasticaAggSubCat->setSize($size);
 
         //year
         $elasticaYear= new \Elastica\Aggregation\Terms('year');
