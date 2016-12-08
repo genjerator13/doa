@@ -83,6 +83,9 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'vindecoder') {
             $item_id = $feed_id;
             $this->vindecoder($item_id);
+        }elseif ($command == 'kijiji') {
+            $dealer_id = $feed_id;
+            $this->kijiji($dealer_id);
         }
     }
 
@@ -699,6 +702,10 @@ class DBUtilsCommand extends ContainerAwareCommand
     public function vindecoder($item_id){
         $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
         dump($decodedVin);
+    }
+
+    public function kijiji($dealer_id){
+        $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
     }
 
 }
