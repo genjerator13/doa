@@ -248,8 +248,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         $elasticaQuery = $this->searchParameters->getElasticaQuery();
 
-
-        //$elasticaQuery->setSize(550);
         //make
         $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
         $elasticaAggMake->setField('make');
@@ -271,6 +269,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaYear= new \Elastica\Aggregation\Terms('year');
         $elasticaYear->setField('year');
         $elasticaYear->setSize(20);
+        $elasticaYear->setOrder('_term',"desc");
         //price
         $elasticaPrice= new \Elastica\Aggregation\Range('price');
         $elasticaPrice->addRange(0,5000);
@@ -295,6 +294,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //yearStats
         $elasticaYearStats= new \Elastica\Aggregation\Stats('yearStats');
         $elasticaYearStats->setField('year');
+        //$elasticaYearStats->set
 
         //$elasticaYear->setOrder('year','desc');
 
@@ -324,7 +324,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         foreach($elasticaAggregs['categorySubType']['buckets'] as $sc){
             $result['subCat'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
-
         }
 
         foreach($elasticaAggregs['make']['buckets'] as $sc){
@@ -350,7 +349,4 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         return $result;
     }
-
-
-
 }
