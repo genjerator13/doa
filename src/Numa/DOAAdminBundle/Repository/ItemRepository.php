@@ -397,7 +397,7 @@ class ItemRepository extends EntityRepository
         $itemsQuery = $this->getEntityManager()
             ->createQuery($q)
             ->setParameter("uniquefield",$uniqueField)
-            ->setParameter("value",$uniqueField)
+            ->setParameter("value",$value)
             ->setMaxResults(1);
         return $itemsQuery->getOneOrNullResult();
     }
