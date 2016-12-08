@@ -62,6 +62,7 @@ class SandboxController extends Controller
 
     public function elasticAction()
     {
+        $size = 200;
         $search = $this->get('fos_elastica.index.app.item');
         //$search = $this->get('fos_elastica.finder.app.item');
         // index
@@ -76,16 +77,19 @@ class SandboxController extends Controller
 
         $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
         $elasticaAggMake->setField('make');
+        $elasticaAggMake->setSize($size);
         //categorySubType
         $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
+        $elasticaAggSubCat->setSize($size);
         //model
-        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('model');
-        $elasticaAggSubCat->setField('model');
+        $elasticaAggModel= new \Elastica\Aggregation\Terms('model');
+        $elasticaAggModel->setField('model');
+        $elasticaAggModel->setSize($size);
         //year
         $elasticaYear= new \Elastica\Aggregation\Terms('year');
         $elasticaYear->setField('year');
-        $elasticaYear->setSize(20);
+        $elasticaYear->setSize($size);
         //price
         $elasticaPrice= new \Elastica\Aggregation\Range('price');
         $elasticaPrice->addRange(0,5000);
