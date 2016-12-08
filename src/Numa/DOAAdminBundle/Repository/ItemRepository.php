@@ -180,7 +180,7 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
-    public function getItemByDealerAndCategory($dealer_id, $category = null)
+    public function getItemByDealerAndCategory($dealer_id, $category = null,$sold=null)
     {
 
         $qb = $this->getEntityManager()
@@ -212,7 +212,10 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-
+        if($sold!==null){
+            $qb->andWhere("i.sold=:sold");
+            $qb->setParameter("sold", $sold);
+        }
         $itemsQuery = $qb->getQuery()->useResultCache(true);
 
         return $itemsQuery->getResult();
