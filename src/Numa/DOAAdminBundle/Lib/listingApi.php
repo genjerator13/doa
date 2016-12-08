@@ -102,7 +102,7 @@ class listingApi
         foreach ($map as $name => $value) {
             $res[strtolower($value)] = $item->get($name);
         }
-        
+
         $res['images']['image'] = $this->processImages($res['images']['image']);
 
 
@@ -273,57 +273,83 @@ class listingApi
         return str_replace("\n", "-", $value);
     }
 
-    public function prepareListingsKijiji($ids)
+    public function prepareKijijiFromIds($ids)
     {
         $em = $this->container->get('doctrine');
+
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        $csvArrayRes = array();
-
-        foreach ($items as $item) {
-            if ($item instanceof Item) ;
-
-            $dealer = $item->getDealer();
-            if ($dealer instanceof Catalogrecords) {
-                $csvArray = array();
-                $csvArray['dealer_id'] = $dealer->getId();
-                $csvArray['dealer_name'] = $dealer->getName();
-                $csvArray['address'] = $dealer->getAddress();
-                $csvArray['phone'] = $dealer->getPhone();
-                $csvArray['postalcode'] = "";
-                $csvArray['email'] = $dealer->getEmail();
-                $csvArray['vehicle_id'] = $item->getId();
-                $csvArray['vin'] = $item->getVIN();
-                $csvArray['stockid'] = $item->getStockNr();
-                $csvArray['is_used'] = $item->isUsed();
-                $csvArray['is_certified'] = 0;
-                $csvArray['year'] = $item->getYear();
-                $csvArray['make'] = $item->getMake();
-                $csvArray['model'] = $item->getModel();
-                $csvArray['body'] = $item->getBodyStyle();
-                $csvArray['trim'] = $item->getTrim();
-                $csvArray['transmission'] = $item->getTransmission();
-                $csvArray['kilometers'] = $item->getMileage();
-                $csvArray['exterior_color'] = $item->getExteriorColor();
-                $csvArray['price'] = $item->getPrice();
-                $csvArray['model_code'] = "";
-                $csvArray['comments'] = $item->getSellerComment();
-                $csvArray['drivetrain'] = $item->getSellerComment();
-                $csvArray['videourl'] = $item->getSellerComment();
-                $imageList = array();
-                $images = $item->get("ImagesForApi");
-                if (!empty($images['image'])) {
-                    $images = $this->processImages($images['image']);
-                }
-                $csvArray['images'] = $images;
-                $csvArray['category'] = 0;
-
-                $csvArrayRes['listing'][] = $csvArray;
-            }
-        }
+        $csvArrayRes = $this->addItemsKijijiFeed($items);
         //dump($csvArrayRes);
         $ret = $this->formatResponse($csvArrayRes, 'csv');
         file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
-
         return $ret;
+    }
+
+    public function makeKijijiFromDealerId($dealer_id)
+    {
+        $em = $this->container->get('doctrine');
+
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id,null,0);
+        $csvArrayRes = $this->addItemsKijijiFeed($items);
+        dump($this->container->getParameter('upload_dealer'));
+        $ret = $this->formatResponse($csvArrayRes, 'csv');
+        $dir = $this->container->getParameter('upload_dealer')."/".$dealer_id;
+        if(!is_dir($dir)){
+            mkdir($dir);
+        }
+        file_put_contents($dir ."/". "kijiji.csv", $ret->getContent());
+        return $ret;
+    }
+
+    public function addItemsKijijiFeed($items)
+    {
+        $csvArrayRes = array();
+
+        foreach ($items as $item) {
+            $csvArrayRes['listing'][] = $this->addItemToKijijiFeed($item);
+        }
+        return $csvArrayRes;
+    }
+
+    public function addItemToKijijiFeed($item)
+    {
+        $csvArray = array();
+        if ($item instanceof Item && $item->getDealer() instanceof Catalogrecords) {
+            $dealer = $item->getDealer();
+
+            $csvArray['dealer_id'] = $dealer->getId();
+            $csvArray['dealer_name'] = $dealer->getName();
+            $csvArray['address'] = $dealer->getAddress();
+            $csvArray['phone'] = $dealer->getPhone();
+            $csvArray['postalcode'] = "";
+            $csvArray['email'] = $dealer->getEmail();
+            $csvArray['vehicle_id'] = $item->getId();
+            $csvArray['vin'] = $item->getVIN();
+            $csvArray['stockid'] = $item->getStockNr();
+            $csvArray['is_used'] = $item->isUsed();
+            $csvArray['is_certified'] = 0;
+            $csvArray['year'] = $item->getYear();
+            $csvArray['make'] = $item->getMake();
+            $csvArray['model'] = $item->getModel();
+            $csvArray['body'] = $item->getBodyStyle();
+            $csvArray['trim'] = $item->getTrim();
+            $csvArray['transmission'] = $item->getTransmission();
+            $csvArray['kilometers'] = $item->getMileage();
+            $csvArray['exterior_color'] = $item->getExteriorColor();
+            $csvArray['price'] = $item->getPrice();
+            $csvArray['model_code'] = "";
+            $csvArray['comments'] = $item->getSellerComment();
+            $csvArray['drivetrain'] = $item->getSellerComment();
+            $csvArray['videourl'] = $item->getSellerComment();
+            $imageList = array();
+            $images = $item->get("ImagesForApi");
+            if (!empty($images['image'])) {
+                $images = $this->processImages($images['image']);
+            }
+            $csvArray['images'] = $images;
+            $csvArray['category'] = 0;
+
+        }
+        return $csvArray;
     }
 }
