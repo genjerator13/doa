@@ -188,25 +188,73 @@
             </div>
         </li>
     {% endif %}
-    {% if item.getMpgCity() is not empty %}
-        <li class="{{ liclass }}">
-            <div class="checkbox">
-                <label>
-                    <span class="fieldCaption field-status">MPG - City: </span>
-                </label>
-                <span class="fieldValue fieldValue-status">{{ item.getMpgCity() }}</span>
-            </div>
-        </li>
-    {% endif %}
-    {% if item.getMpgHighway() is not empty %}
-        <li class="{{ liclass }}">
-            <div class="checkbox">
-                <label>
-                    <span class="fieldCaption field-status">MPG - Highway: </span>
-                </label>
-                <span class="fieldValue fieldValue-status">{{ item.getMpgHighway() }}</span>
-            </div>
-        </li>
+    {% if dealer.fuelEconomy == "km/L" %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getKmLCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getKmLHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+    {% elseif dealer.fuelEconomy == "L/100km" %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getLKmCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">Fuel Economy - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getLKmHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
+    {% else %}
+        {% if item.getMpgCity() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">MPG - City: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getMpgCity() }}</span>
+                </div>
+            </li>
+        {% endif %}
+
+        {% if item.getMpgHighway() is not empty %}
+            <li class="{{ liclass }}">
+                <div class="checkbox">
+                    <label>
+                        <span class="fieldCaption field-status">MPG - Highway: </span>
+                    </label>
+                    <span class="fieldValue fieldValue-status">{{ item.getMpgHighway() }}</span>
+                </div>
+            </li>
+        {% endif %}
     {% endif %}
     {% if item.getOther() is not empty %}
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">

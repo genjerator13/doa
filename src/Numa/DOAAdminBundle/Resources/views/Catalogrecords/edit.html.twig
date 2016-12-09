@@ -13,6 +13,7 @@
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme itemDefaultForm 'bootstrap_3_horizontal_layout.html.twig' %}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <h1>Edit Dealer</h1>
@@ -172,6 +173,7 @@
 
                     {{ form_start(itemDefaultForm) }}
                     {{ form_row(itemDefaultForm.default_listing_comment) }}
+                    {{ form_row(itemDefaultForm.fuel_economy) }}
                     <button type="submit" class="btn btn-primary">Update</button>
                     {{ form_rest(itemDefaultForm) }}
 

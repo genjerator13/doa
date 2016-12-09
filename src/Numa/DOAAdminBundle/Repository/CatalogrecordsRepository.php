@@ -303,4 +303,25 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $stmt->execute();
     }
 
+    /**
+     * @return array of dealers needed fo kijiji feed
+     */
+    public function findForKijiji()
+    {
+        //remove /page from $url
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->select('d')
+            ->add('from', 'NumaDOAAdminBundle:CatalogRecords d')
+            ->andWhere('d.dms_status like :dmsstatus')
+            ->setParameter('dmsstatus', "activated")
+            ->innerJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "d.id=i.dealer_id");
+
+        $dealers = $qb->getQuery()->getResult();
+
+
+        return $dealers;
+    }
+
 }

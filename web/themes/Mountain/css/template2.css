@@ -925,6 +925,16 @@ ul.techData li {
 	min-height: 500px;
 	padding-top: 20px;
 }
+
+.page_ads{
+	margin-top: 20px;
+}
+
+.page_ads .right-side-ads img{
+	margin-left: 25px;
+	margin-bottom: 15px;
+}
+
 .bottom-margin {
 	margin-bottom: 20px;
 }
