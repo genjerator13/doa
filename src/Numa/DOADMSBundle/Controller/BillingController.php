@@ -269,8 +269,8 @@ class BillingController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        if ($redirect == "reports") {
-            return $this->redirect($this->generateUrl('reports'));
+        if ($redirect == "dms_reports") {
+            return $this->redirect($this->generateUrl('dms_reports'));
         }
         return $this->redirect($this->generateUrl('customer'));
     }

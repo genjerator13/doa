@@ -157,6 +157,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        fuel_economy:
+            type: string
+            length: 255
+            nullable: true
 
     manyToOne:
         Catalogcategory:
