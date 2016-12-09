@@ -86,7 +86,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         return $this->searchParameters;
     }
 
-    public function generateTwigParams($request,$pagerFanta)
+    public function generateTwigParams($request,$pagerFanta, $ads)
     {
 
         $page = $request->get('page');
@@ -112,7 +112,8 @@ class ElasticSearchController extends Controller implements DealerSiteController
             'sort_by' => $this->searchParameters->getSortBy(),
             'sort_order' => $this->searchParameters->getSortOrder(),
             'dealer' => $this->dealer,
-            'pagerfanta'=>$pagerFanta
+            'pagerfanta'=>$pagerFanta,
+            'ads'=>$ads
         );
         $params = array_merge($params, $sidebarParam);
         return $params;
@@ -136,10 +137,35 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $this->searchParameters->createElasticSearchResults();
 
         $pagerFanta=$this->searchParameters->getPagerFanta();
-        $param = $this->generateTwigParams($request, $pagerFanta);
+//ADS
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $currentUrl = $request->getPathInfo();
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        if($dealer instanceof Catalogrecords){
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl, 'dealer_id' => $dealer->getId()));
+        }
+        else{
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl));
+        }
+
+        $ads = array();
+        if ($webpage instanceof Page) {
+
+            $ads = $webpage->getActiveAds();
+
+            if(!empty($ads) && !$ads->isEmpty()) {
+                $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
+            }
+        }
+//
+
+        $param = $this->generateTwigParams($request, $pagerFanta, $ads);
+
         if($request->isXmlHttpRequest()){
+
             return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
         }
+
         return $this->render('NumaDOASiteBundle:Search:default.html.twig', $param);
     }
 

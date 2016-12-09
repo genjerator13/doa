@@ -1,12 +1,19 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
-
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% block content -%}
 <div class="box box-default">
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Ads list</h1>
-    <a href="{{ path('ad_new') }}" class="btn btn-default">
-        Create a new entry
-    </a>
+    {% if(app.request.get('_dashboard')=='DMS') %}
+        <a href="{{ path('dms_ad_new') }}" class="btn btn-default">
+            Create a new entry
+        </a>
+    {% else %}
+        <a href="{{ path('ad_new') }}" class="btn btn-default">
+            Create a new entry
+        </a>
+    {% endif %}
     <table class="table table-striped">
         <thead>
             <tr>
@@ -51,9 +58,12 @@
                 <td>{{ entity.ratio }}</td>
                 <td>
                 <ul>
-
                     <li>
-                        <a href="{{ path('ad_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                        {% if(app.request.get('_dashboard')=='DMS') %}
+                            <a href="{{ path('dms_ad_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                        {% else %}
+                            <a href="{{ path('ad_edit', { 'id': entity.id }) }}" class="btn btn-primary">edit</a>
+                        {% endif %}
                     </li>
                 </ul>
                 </td>

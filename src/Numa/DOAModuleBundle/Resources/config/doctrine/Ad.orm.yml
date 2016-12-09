@@ -67,11 +67,21 @@ Numa\DOAModuleBundle\Entity\Ad:
         updatedAt:
             type: datetime
             nullable: true;
+        dealer_id:
+             type: integer
+             nullable: true
     oneToMany:
         PageAds:
             targetEntity: PageAds
             mappedBy: Ad
             cascade: [persist]
+    manyToOne:
+        Catalogrecords:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Ad
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

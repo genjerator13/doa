@@ -1,0 +1,30 @@
+{% if(ads is defined and ads is not empty) %}
+
+    <div class="right-side-ads">
+        {% for ad in ads %}
+            <a class="right-side-ad {{ ad.size }}" data-adid="{{ ad.id }}" href="{{ ad.url }}">
+                {% if ad.size =="size1" %}
+                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_300x250') }}
+                {% else %}
+                    {{ component.image(ad.photo, ad.size, ad.name, 'ad_300x600') }}
+                {% endif %}
+            </a>
+        {% endfor %}
+    </div>
+{% endif %}
+<script>
+    $(function () {
+        $(".right-side-ad").click(function (e) {
+            $.ajax({
+                        type: 'POST',
+                        url: '/ads/' + $(this).data("adid") + '/click',
+                        //data:
+                    })
+                    .done(function (data) {
+                        $('#ads').html(data);
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                    });
+        });
+    });
+</script>

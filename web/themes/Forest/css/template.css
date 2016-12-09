@@ -634,7 +634,8 @@ and (max-width : 767px) {
 
 
 #listing-content .row{
-	margin: 0px;
+	margin-right: 1px;
+	margin-bottom: 10px;
 	border: 1px solid lightslategray;
 }
 .row .items{
@@ -645,6 +646,14 @@ and (max-width : 767px) {
 	border: 1px solid black;
 	min-height: 500px;
 	padding-top: 20px;
+}
+
+.page_ads{
+	margin-top: 20px;
+}
+
+.page_ads .right-side-ads img{
+	margin-bottom: 15px;
 }
 
 .detailsContent .row{

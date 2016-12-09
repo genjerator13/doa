@@ -4,7 +4,9 @@
 
 namespace Numa\DOAModuleBundle\Events;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAModuleBundle\Entity\Component;
+use Proxies\__CG__\Numa\DOAModuleBundle\Entity\Ad;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -12,11 +14,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class AdsEventSubscriber implements EventSubscriberInterface
 {
 
-    //protected $em;
+    protected $container;
 
-    public function __construct()
+    public function __construct($container)
     {
-        //$this->em = $em;
+        $this->container = $container;
     }
 
     public static function getSubscribedEvents()
@@ -35,19 +37,25 @@ class AdsEventSubscriber implements EventSubscriberInterface
     {
         $data = $event->getData();
         $form = $event->getForm();
+        $em = $this->container->get("doctrine.orm.entity_manager");
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
 
-
-        if ($data instanceof Component) {
-            $type = $data->getType();
-            if (!empty($data->getType())) {
-                $form->add('value', null);
-                if (strtolower($type) == "text") {
-                    $form->add('value', 'textarea');
-                }elseif(strtolower($type) == "html"){
-                    $form->add('value', 'ckeditor');
-                }
-            }
+        if ($dealer instanceof Catalogrecords) {
+            $form->add('Pages', 'entity', array('label' => 'Pages',
+                'choices' => $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId()),
+                'class' => 'Numa\DOAModuleBundle\Entity\Page',
+                'property' => 'url',
+                'expanded' => true,
+                'multiple' => true,));
+        } else {
+            $form->add('Pages', 'entity', array('label' => 'Pages',
+                'choices' => $em->getRepository('NumaDOAModuleBundle:Page')->findBy(array('dealer_id' => NULL)),
+                'class' => 'Numa\DOAModuleBundle\Entity\Page',
+                'property' => 'url',
+                'expanded' => true,
+                'multiple' => true,));
         }
+
     }
 
 }

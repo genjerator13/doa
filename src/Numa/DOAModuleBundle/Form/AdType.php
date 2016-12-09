@@ -2,6 +2,7 @@
 
 namespace Numa\DOAModuleBundle\Form;
 
+use Numa\DOAModuleBundle\Events\AdsEventSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,6 +10,10 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class AdType extends AbstractType
 {
+    protected $container;
+    public function __construct($container = null){
+        $this->container = $container;
+    }
         /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -43,14 +48,13 @@ class AdType extends AbstractType
             ->add('file_import_source','file', array('label'=>'Photo Upload','required' => false, 'data_class' => null))
             ->add('page_id','hidden')
             ->add('body')
-            ->add('Pages' , 'entity' , array('label'=>'Pages',
-                'class'    => 'Numa\DOAModuleBundle\Entity\Page' ,
-                'property' => 'title' ,
-                'expanded' => true ,
-                'multiple' => true , ))
-
-
+//            ->add('Pages' , 'entity' , array('label'=>'Pages',
+//                'class'    => 'Numa\DOAModuleBundle\Entity\Page' ,
+//                'property' => 'url' ,
+//                'expanded' => true ,
+//                'multiple' => true , ))
         ;
+        $builder->addEventSubscriber(new AdsEventSubscriber($options['container']));
     }
     
     /**
@@ -70,5 +74,10 @@ class AdType extends AbstractType
     public function getName()
     {
         return 'numa_doamodulebundle_ad';
+    }
+
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }

@@ -2,6 +2,8 @@
 
 namespace Numa\DOAModuleBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\PageAds;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,8 +17,15 @@ use Numa\DOAModuleBundle\Form\AdType;
  * Ad controller.
  *
  */
-class AdController extends Controller
+class AdController extends Controller implements DashboardDMSControllerInterface
 {
+
+    public $dashboard;
+
+    public function initializeDashboard($dashboard)
+    {
+        $this->dashboard = $dashboard;
+    }
 
     /**
      * Lists all Ad entities.
@@ -25,11 +34,17 @@ class AdController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOAModuleBundle:Ad')->findAll();
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        if($dealer instanceof Catalogrecords){
+            $entities = $em->getRepository('NumaDOAModuleBundle:Ad')->findBy(array('dealer_id' => $dealer->getId()));
+        }
+        else{
+            $entities = $em->getRepository('NumaDOAModuleBundle:Ad')->findBy(array('dealer_id' => NULL));
+        }
 
         return $this->render('NumaDOAModuleBundle:Ad:index.html.twig', array(
             'entities' => $entities,
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -48,17 +63,19 @@ class AdController extends Controller
             $entity->upload();
             $em->persist($entity);
 
+            $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+            $entity->setCatalogrecords($dealer);
             $em->flush();
             if ($entity instanceof Ad) {
             }
             if ($request->isXmlHttpRequest()) {
 
                 $ids = array();
-                foreach($entity->getPages() as $page){
-                    $ids[]=$page->getId();
+                foreach ($entity->getPages() as $page) {
+                    $ids[] = $page->getId();
                 }
 
-                if(!in_array($entity->getPageId(),$ids)) {
+                if (!in_array($entity->getPageId(), $ids)) {
                     $pa = new PageAds();
                     $pa->setAd($entity);
                     $page = $em->getRepository('NumaDOAModuleBundle:Page')->find($entity->getPageId());
@@ -75,12 +92,18 @@ class AdController extends Controller
 
                 return $response;
             }
-            return $this->redirect($this->generateUrl('ad_index', array('id' => $entity->getId())));
+
+            $redirect = 'ad_index';
+            if (strtoupper($this->dashboard) == 'DMS') {
+                $redirect = 'dms_ad_index';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $entity->getId())));
         }
 
         return $this->render('NumaDOAModuleBundle:Ad:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -93,8 +116,12 @@ class AdController extends Controller
      */
     private function createCreateForm(Ad $entity)
     {
+        $redirect = 'ad_create';
+        if (strtoupper($this->dashboard) == 'DMS') {
+            $redirect = 'dms_ad_create';
+        }
         $form = $this->createForm(new AdType(), $entity, array(
-            'action' => $this->generateUrl('ad_create'),
+            'action' => $this->generateUrl($redirect),
             'method' => 'POST',
         ));
         //$form->remove('Pages');
@@ -117,6 +144,7 @@ class AdController extends Controller
         return $this->render('NumaDOAModuleBundle:Ad:new.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -188,6 +216,7 @@ class AdController extends Controller
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'dashboard' => $this->dashboard,
         ));
     }
 
@@ -224,8 +253,12 @@ class AdController extends Controller
      */
     private function createEditForm(Ad $entity)
     {
+        $redirect = 'ad_update';
+        if (strtoupper($this->dashboard) == 'DMS') {
+            $redirect = 'dms_ad_update';
+        }
         $form = $this->createForm(new AdType(), $entity, array(
-            'action' => $this->generateUrl('ad_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl($redirect, array('id' => $entity->getId())),
             'method' => 'POST',
             'csrf_protection' => false,
         ));
@@ -276,7 +309,11 @@ class AdController extends Controller
                 $entity->upload();
                 $em->flush();
             }
-            return $this->redirect($this->generateUrl('ad_edit', array('id' => $id)));
+            $redirect = 'ad_edit';
+            if (strtoupper($this->dashboard) == 'DMS') {
+                $redirect = 'dms_ad_edit';
+            }
+            return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         } else {
 
 
@@ -319,7 +356,11 @@ class AdController extends Controller
         $em->flush();
 
 
-        return $this->redirect($this->generateUrl('ad_index'));
+        $redirect = 'ad_index';
+        if (strtoupper($this->dashboard) == 'DMS') {
+            $redirect = 'dms_ad_index';
+        }
+        return $this->redirect($this->generateUrl($redirect));
     }
 
     /**
@@ -331,10 +372,15 @@ class AdController extends Controller
      */
     private function createDeleteForm($id)
     {
+        $redirect = 'ad_delete';
+        if (strtoupper($this->dashboard) == 'DMS') {
+            $redirect = 'dms_ad_delete';
+        }
+
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('ad_delete', array('id' => $id)))
+            ->setAction($this->generateUrl($redirect, array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->add('submit', 'submit', array('label' => 'Delete', 'attr' => array('class' => 'btn btn-danger')))
             ->getForm();
     }
 
