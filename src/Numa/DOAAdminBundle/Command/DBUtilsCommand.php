@@ -83,9 +83,12 @@ class DBUtilsCommand extends ContainerAwareCommand
         } elseif ($command == 'vindecoder') {
             $item_id = $feed_id;
             $this->vindecoder($item_id);
-        }elseif ($command == 'kijiji') {
+        } elseif ($command == 'kijiji') {
             $dealer_id = $feed_id;
             $this->kijiji($dealer_id);
+        } elseif ($command == 'kijiji_all') {
+
+            $this->kijijiAllDealers();
         }
     }
 
@@ -384,13 +387,13 @@ class DBUtilsCommand extends ContainerAwareCommand
                         echo $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n";
                     }
 
-                    if($value->getValue()=="Class B and C Motorhome"){
+                    if ($value->getValue() == "Class B and C Motorhome") {
 
                         $items1 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class B Motorhome", $dealer);
                         $items2 = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), "Class C Motorhome", $dealer);
                         $count = count($items1);
                         $count = $count + count($items2);
-                        
+
                     }
                     $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::" . $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
                     //$count = $items->count();
@@ -699,13 +702,92 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->clear();
     }
 
-    public function vindecoder($item_id){
+    public function vindecoder($item_id)
+    {
         $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
         dump($decodedVin);
     }
 
-    public function kijiji($dealer_id){
+    public function kijiji($dealer_id)
+    {
         $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
+    }
+
+    public function kijijiAllDealers()
+    {
+        $logger = $this->getContainer()->get('logger');
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $command = 'php app/console numa:dbutil kijiji_all';
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('feeds');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand($command);
+        $em->persist($commandLog);
+        $em->flush();
+
+
+        $description = "";
+        $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findForKijiji();
+        $feedsKijiji = array();
+        foreach ($dealers as $dealer) {
+            $logger->warning("Creating feed for dealer: ".$dealer->getUsername());
+            $commandLog->appendFullDetails("Creating feed for dealer: ".$dealer->getUsername());
+            $feedsKijiji[$dealer->getId()] = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
+        }
+        $logger->warning("Creating feed for dealer: ".$dealer->getUsername());
+        $commandLog->appendFullDetails("All feeds created locally for ".count($dealers)." dealers");
+        // set up basic connection
+        $ftp_server = "uploads.dealersonair.com";
+        $ftp_user_name = "testfolder.uploads";
+        $ftp_user_pass = "k3nt4k1";
+        $conn_id = ftp_connect($ftp_server);
+        $logger->warning("connect to ftp...");
+
+        $commandLog->appendFullDetails("connect to ftp...");
+        // login with username and password
+        $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+
+        // upload a file
+        //$dir =;
+        $dir = "dealers";
+        foreach($feedsKijiji as $key=>$feed) {
+            $contents_on_server = ftp_nlist($conn_id, ".");
+            if (!in_array($dir, $contents_on_server)) {
+                //dump("creating folder on FTP :" . $dir);
+                $logger->warning("creating folder on FTP :" . $dir);
+                $commandLog->appendFullDetails("creating folder on FTP :" . $dir);
+                //ftp_mkdir($conn_id, $dir);
+            }
+            $rootDealersFolder = ftp_nlist($conn_id, $dir);
+
+            $dealerFolder = $dir . "/" . $key;
+            if (!in_array($dealerFolder, $rootDealersFolder)) {
+                //dump("creating folder on FTP :" . $dealerFolder);
+                $logger->warning("creating folder on FTP :" . $dealerFolder);
+
+                $commandLog->appendFullDetails("creating folder on FTP :" . $dealerFolder);
+                ftp_mkdir($conn_id, $dealerFolder);
+            }
+            $fileToUpload = $dealerFolder . "/kijiji.csv";
+            //dump("uploading file on FTP :" . $fileToUpload."----".$feed);
+            $logger->warning("uploading file on FTP :" . $fileToUpload."----".$feed);
+
+            $commandLog->appendFullDetails("uploading file on FTP :" . $fileToUpload."----".$feed);
+            if (ftp_put($conn_id, $fileToUpload, $feed, FTP_ASCII)) {
+
+            } else {
+                //echo "There was a problem while uploading \n";
+            }
+        }
+
+        // close the connection/
+        ftp_close($conn_id);
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
     }
 
 }

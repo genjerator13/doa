@@ -3505,6 +3505,15 @@ class Item
         return $this->mpgCity;
     }
 
+    public function getKmLCity()
+    {
+        return round(intval($this->mpgCity) * 0.4251437075, 2)." km/L";
+    }
+
+    public function getLKmCity()
+    {
+        return round(235.21 / intval($this->mpgCity), 2)." L/100km";
+    }
     /**
      * Set mpgHighway
      *
@@ -3527,6 +3536,16 @@ class Item
     public function getMpgHighway()
     {
         return $this->mpgHighway;
+    }
+
+    public function getKmLHighway()
+    {
+        return round(intval($this->mpgHighway) * 0.4251437075, 2)." km/L";
+    }
+
+    public function getLKmHighway()
+    {
+        return round(235.21 / intval($this->mpgHighway), 2)." L/100km";
     }
 
     /**

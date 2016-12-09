@@ -339,4 +339,6 @@ class CommandLog
         }
         return $isRunning;
     }
+
+
 }

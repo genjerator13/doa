@@ -1,7 +1,8 @@
 {# get the loged dealer #}
 {% if(dealer is not empty) %}
 {% set apicall=path("component_all_api",{"dealer_id":dealer.id}) %}
-{#{% set apicall2=path("dealer_component_by_dealer_api",{"dealer_id":dealer.id}) %}#}
+{% else %}
+{% set apicall=path("component_api_all") %}
 {% endif %}
 
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}

@@ -727,4 +727,62 @@ class Ad
         $ratio = $this->views / $this->clicks;
         return number_format((float)$ratio, 2, '.', '');
     }
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Catalogrecords;
+
+
+    /**
+     * Set dealerId
+     *
+     * @param integer $dealerId
+     *
+     * @return Ad
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return integer
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set catalogrecords
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords
+     *
+     * @return Ad
+     */
+    public function setCatalogrecords(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null)
+    {
+        $this->Catalogrecords = $catalogrecords;
+
+        return $this;
+    }
+
+    /**
+     * Get catalogrecords
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getCatalogrecords()
+    {
+        return $this->Catalogrecords;
+    }
 }

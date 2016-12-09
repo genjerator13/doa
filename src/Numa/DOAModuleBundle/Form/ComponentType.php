@@ -3,6 +3,7 @@
 namespace Numa\DOAModuleBundle\Form;
 
 use Numa\DOAModuleBundle\Events\AdsEventSubscriber;
+use Numa\DOAModuleBundle\Events\ComponentEventSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,7 +28,7 @@ class ComponentType extends AbstractType
             $builder->add('helpdesc','ckeditor', array('label'=>'Help'));
         }
         ;
-        $builder->addEventSubscriber(new AdsEventSubscriber());
+        $builder->addEventSubscriber(new ComponentEventSubscriber());
     }
     
     /**

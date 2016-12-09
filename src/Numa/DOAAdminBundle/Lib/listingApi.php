@@ -285,20 +285,32 @@ class listingApi
         return $ret;
     }
 
+    /**
+     * @param $dealer_id
+     * @return file path of the created kijiji feed
+     */
     public function makeKijijiFromDealerId($dealer_id)
     {
+        $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
-
+        $filenameKijiji="";
+        $logger->warning("get items for dealer:".$dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id,null,0);
-        $csvArrayRes = $this->addItemsKijijiFeed($items);
-        dump($this->container->getParameter('upload_dealer'));
-        $ret = $this->formatResponse($csvArrayRes, 'csv');
-        $dir = $this->container->getParameter('upload_dealer')."/".$dealer_id;
-        if(!is_dir($dir)){
-            mkdir($dir);
+        if(!empty($items)) {
+            $csvArrayRes = $this->addItemsKijijiFeed($items);
+            $logger->warning("prepare kijiji feed:".$dealer_id);
+            $ret = $this->formatResponse($csvArrayRes, 'csv');
+            $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
+            if (!is_dir($dir)) {
+                mkdir($dir);
+            }
+
+            $filenameKijiji =$dir . "/" . "kijiji.csv";
+            $logger->warning("store kijiji feed on:".$filenameKijiji);
+            file_put_contents($filenameKijiji, $ret->getContent(),LOCK_EX);
         }
-        file_put_contents($dir ."/". "kijiji.csv", $ret->getContent());
-        return $ret;
+        $logger->warning("makeKijijiFromDealerId end:".$filenameKijiji);
+        return $filenameKijiji;
     }
 
     public function addItemsKijijiFeed($items)
