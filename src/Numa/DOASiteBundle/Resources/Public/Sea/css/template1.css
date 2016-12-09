@@ -501,6 +501,7 @@ body {
 
 .page_ads{
     margin-top: 20px;
+    float: right;
 }
 
 .page_ads .right-side-ads img{
