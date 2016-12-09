@@ -777,7 +777,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
         $em = $this->getDoctrine()->getManager();
         //$qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeKijiji($ids, true);
-        $this->get('listing_api')->prepareListingsKijiji($ids);
+        $this->get('listing_api')->prepareKijijiFromIds($ids);
         die();
     }
 

@@ -295,6 +295,22 @@ class SettingController extends Controller
     }
 
     /**
+     * make kijiji feed for all dealers
+     *
+     */
+    public function makeKijijiAllAction()
+    {
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil kijiji_all';
+        //php app/console numa:dbutil kijiji_all
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+
+
+        $this->addFlash('success', "Generating cover photos in progress.");
+        return $this->redirect($this->generateUrl('setting'));
+    }
+
+    /**
      * Finds and displays a Setting entity.
      *
      */

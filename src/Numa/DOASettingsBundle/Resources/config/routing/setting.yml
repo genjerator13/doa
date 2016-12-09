@@ -35,6 +35,9 @@ setting_cache_clear:
 setting_cover_images:
     path:     /cover_images
     defaults: { _controller: "NumaDOASettingsBundle:Setting:makeCoverImages" }
+setting_kijiji_all:
+    path:     /kijiji_all
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:makeKijijiAll" }
 setting_hometabs_refresh:
     path:     /hometabs_refresh
     defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }
