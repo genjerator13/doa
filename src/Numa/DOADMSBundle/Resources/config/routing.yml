@@ -111,3 +111,6 @@ NumaDOADMSBundle_dealergroup:
 NumaDOADMSBundle_help:
     resource: "@NumaDOADMSBundle/Resources/config/routing/help.yml"
     prefix:   /dealergroup
+dms_ads:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/ad.yml"
+    prefix:   /ads

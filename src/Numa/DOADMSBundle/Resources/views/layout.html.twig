@@ -346,6 +346,11 @@
                                 <a href="{{ path('dms_themes') }}" class=""><i class="fa fa-desktop"></i>Themes</a>
                             </li>
                         {% endif %}
+                        {% if is_granted('ROLE_ADMIN')or is_granted('ROLE_DMS_USER') %}
+                            <li class="active">
+                                <a href="{{ path('dms_ad_index') }}" class=""><i class="fa fa-buysellads"></i>Ads</a>
+                            </li>
+                        {% endif %}
                         {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
                             <li class="active">
                                 <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Website Pages</a>
