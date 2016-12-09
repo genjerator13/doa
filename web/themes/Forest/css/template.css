@@ -650,6 +650,7 @@ and (max-width : 767px) {
 
 .page_ads{
 	margin-top: 20px;
+	float: right;
 }
 
 .page_ads .right-side-ads img{
