@@ -499,6 +499,15 @@ body {
     padding-top: 20px;
 }
 
+.page_ads{
+    margin-top: 20px;
+}
+
+.page_ads .right-side-ads img{
+    margin-left: 10px;
+    margin-bottom: 15px;
+}
+
 .detailsContent .option-lists{
     margin-left: 50px;
 }

@@ -1,16 +1,25 @@
-{% extends 'NumaDOAAdminBundle::layout.html.twig' %}
+{% extends app.request.get('_dashboard')=='DMS'
+? 'NumaDOADMSBundle::layout.html.twig'
+: 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
     <h1>Ad edit</h1>
 
     {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('ad_index') }}">
-            Back to the list
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            {% if(app.request.get('_dashboard')=='DMS') %}
+                <a href="{{ path('dms_ad_index') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+            {% else %}
+                <a href="{{ path('ad_index') }}" class="btn btn-primary">
+                    Back to the list
+                </a>
+            {% endif %}
+        </li>
+    </ul>
+
+    {{ form(delete_form) }}
 {% endblock %}
