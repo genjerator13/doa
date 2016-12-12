@@ -161,6 +161,18 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        url_kijiji:
+            type: string
+            length: 255
+            nullable: true
+        username_kijiji:
+            type: string
+            length: 255
+            nullable: true
+        password_kijiji:
+            type: string
+            length: 255
+            nullable: true
 
     manyToOne:
         Catalogcategory:

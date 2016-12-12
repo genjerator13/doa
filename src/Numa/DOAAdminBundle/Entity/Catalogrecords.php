@@ -1799,4 +1799,91 @@ class Catalogrecords implements UserInterface
     {
         return $this->fuel_economy;
     }
+    /**
+     * @var string
+     */
+    private $url_kijiji;
+
+    /**
+     * @var string
+     */
+    private $username_kijiji;
+
+    /**
+     * @var string
+     */
+    private $password_kijiji;
+
+
+    /**
+     * Set urlKijiji
+     *
+     * @param string $urlKijiji
+     *
+     * @return Catalogrecords
+     */
+    public function setUrlKijiji($urlKijiji)
+    {
+        $this->url_kijiji = $urlKijiji;
+
+        return $this;
+    }
+
+    /**
+     * Get urlKijiji
+     *
+     * @return string
+     */
+    public function getUrlKijiji()
+    {
+        return $this->url_kijiji;
+    }
+
+    /**
+     * Set usernameKijiji
+     *
+     * @param string $usernameKijiji
+     *
+     * @return Catalogrecords
+     */
+    public function setUsernameKijiji($usernameKijiji)
+    {
+        $this->username_kijiji = $usernameKijiji;
+
+        return $this;
+    }
+
+    /**
+     * Get usernameKijiji
+     *
+     * @return string
+     */
+    public function getUsernameKijiji()
+    {
+        return $this->username_kijiji;
+    }
+
+    /**
+     * Set passwordKijiji
+     *
+     * @param string $passwordKijiji
+     *
+     * @return Catalogrecords
+     */
+    public function setPasswordKijiji($passwordKijiji)
+    {
+        $this->password_kijiji = $passwordKijiji;
+
+        return $this;
+    }
+
+    /**
+     * Get passwordKijiji
+     *
+     * @return string
+     */
+    public function getPasswordKijiji()
+    {
+        return $this->password_kijiji;
+    }
 }
