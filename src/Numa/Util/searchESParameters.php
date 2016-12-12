@@ -397,7 +397,7 @@ class searchESParameters
                             //}
 
                         }else{
-                            $boolQuery->addShould($fieldQuery);
+                            $boolQuery->addMust($fieldQuery);
                         }
                     } elseif ($searchItem->isCategory()) {
                         $fieldQuery = new \Elastica\Query\Term();
