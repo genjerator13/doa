@@ -41,6 +41,8 @@ fos_elastica:
                           type : date
                         dealer_id:
                           type: integer
+                        category_id:
+                          type: integer
                         categoryName: ~
                         categorySubType:
                           analyzer: string_lowercase
