@@ -1799,4 +1799,91 @@ class Catalogrecords implements UserInterface
     {
         return $this->fuel_economy;
     }
+    /**
+     * @var string
+     */
+    private $feed_kijiji_url;
+
+    /**
+     * @var string
+     */
+    private $feed_kijiji_username;
+
+    /**
+     * @var string
+     */
+    private $feed_kijiji_password;
+
+
+    /**
+     * Set feedKijijiUrl
+     *
+     * @param string $feedKijijiUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiUrl($feedKijijiUrl)
+    {
+        $this->feed_kijiji_url = $feedKijijiUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiUrl
+     *
+     * @return string
+     */
+    public function getFeedKijijiUrl()
+    {
+        return $this->feed_kijiji_url;
+    }
+
+    /**
+     * Set feedKijijiUsername
+     *
+     * @param string $feedKijijiUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiUsername($feedKijijiUsername)
+    {
+        $this->feed_kijiji_username = $feedKijijiUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiUsername
+     *
+     * @return string
+     */
+    public function getFeedKijijiUsername()
+    {
+        return $this->feed_kijiji_username;
+    }
+
+    /**
+     * Set feedKijijiPassword
+     *
+     * @param string $feedKijijiPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiPassword($feedKijijiPassword)
+    {
+        $this->feed_kijiji_password = $feedKijijiPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiPassword
+     *
+     * @return string
+     */
+    public function getFeedKijijiPassword()
+    {
+        return $this->feed_kijiji_password;
+    }
 }

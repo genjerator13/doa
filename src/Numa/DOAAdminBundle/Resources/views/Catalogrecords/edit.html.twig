@@ -14,6 +14,8 @@
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme site_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme itemDefaultForm 'bootstrap_3_horizontal_layout.html.twig' %}
+ {% form_theme feeds_form 'bootstrap_3_horizontal_layout.html.twig' %}
+
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
     <h1>Edit Dealer</h1>
@@ -28,6 +30,7 @@
             <li role="presentation"><a data-toggle="tab" href="#site">Site</a></li>
             <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
             <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
+            <li role="presentation"><a data-toggle="tab" href="#feeds">Feeds</a></li>
         </ul>
         <div class="nav-tabs-custom">
             <div class="tab-content">
@@ -178,6 +181,17 @@
                     {{ form_rest(itemDefaultForm) }}
 
                     {{ form_end(site_form) }}
+                </div>
+                <div id="feeds" class="tab-pane">
+
+                    {{ form_start(feeds_form) }}
+                    {{ form_row(feeds_form.feed_kijiji_url) }}
+                    {{ form_row(feeds_form.feed_kijiji_username) }}
+                    {{ form_row(feeds_form.feed_kijiji_password) }}
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    {{ form_rest(feeds_form) }}
+
+                    {{ form_end(feeds_form) }}
                 </div>
 
             </div>
