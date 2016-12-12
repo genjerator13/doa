@@ -14,6 +14,9 @@ services:
     Numa.Dms.Sale:
         class: Numa\DOADMSBundle\Util\SaleLib
         arguments:  [@service_container]
+    Numa.Dms.Command.Log:
+        class: Numa\DOADMSBundle\Util\CommandLogLib
+        arguments:  [@service_container]
     Numa.Form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:
