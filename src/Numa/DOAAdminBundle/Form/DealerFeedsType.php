@@ -25,7 +25,7 @@ class DealerFeedsType extends AbstractType
         $builder
             ->add('feed_kijiji_url', null, array('label' => 'Kijiji URL'))
             ->add('feed_kijiji_username', null, array('label' => 'Kijiji Username'))
-            ->add('feed_kijiji_password', 'password', array('label' => 'Kijiji Password'));
+            ->add('feed_kijiji_password', null, array('label' => 'Kijiji Password'));
 
     }
 
