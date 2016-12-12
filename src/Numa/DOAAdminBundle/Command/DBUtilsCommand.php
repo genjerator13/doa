@@ -707,10 +707,54 @@ class DBUtilsCommand extends ContainerAwareCommand
         $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
         dump($decodedVin);
     }
-
     public function kijiji($dealer_id)
     {
-        $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->find($dealer_id);
+        if($dealer instanceof Catalogrecords) {
+            $this->kijijiProcessDealer($dealer);
+        }
+    }
+    public function kijijiProcessDealer(Catalogrecords $dealer)
+    {
+        $dealer_id=$dealer->getId();
+        $logger = $this->getContainer()->get('logger');
+        $commandLog = $this->getContainer()->get('numa.dms.command.log');
+        $command = 'php app/console numa:dbutil kijiji ' . $dealer_id;
+        $clo = $commandLog->startNewCommand($command, "feeds");
+        $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
+        // set up basic connection
+
+        $ftp_server = $dealer->getFeedKijijiUrl();
+        $ftp_user_name = $dealer->getFeedKijijiUsername();
+        $ftp_user_pass = $dealer->getFeedKijijiPassword();
+        if(!empty($ftp_server)) {
+            $conn_id = ftp_connect($ftp_server);
+            $logger->warning("connect to ftp...");
+
+
+            $commandLog->append($clo, "connect to ftp...");
+            // login with username and password
+            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+
+            // upload a file
+            //$dir =;
+            $dir = "dealers";
+            $dealerFolder = $dir . "/" . $dealer_id;
+            $fileToUpload = $dealerFolder . "/kijiji.csv";
+            $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
+
+            $commandLog->append($clo, "uploading file on FTP :" . $feedsKijiji . "----");
+            if (ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
+
+            } else {
+                //echo "There was a problem while uploading \n";
+            }
+
+            // close the connection/
+            ftp_close($conn_id);
+            $commandLog->endCommand($clo);
+        }
     }
 
     public function kijijiAllDealers()
@@ -718,76 +762,20 @@ class DBUtilsCommand extends ContainerAwareCommand
         $logger = $this->getContainer()->get('logger');
 
         $em = $this->getContainer()->get('doctrine')->getManager();
+
+        $commandLog = $this->getContainer()->get('numa.dms.command.log');
         $command = 'php app/console numa:dbutil kijiji_all';
-        $commandLog = new CommandLog();
-        $commandLog->setCategory('feeds');
-        $commandLog->setStartedAt(new \DateTime());
-        $commandLog->setStatus('started');
-        $commandLog->setCommand($command);
-        $em->persist($commandLog);
-        $em->flush();
+        $clo = $commandLog->startNewCommand($command, "feeds");
 
-
-        $description = "";
         $dealers = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->findForKijiji();
-        $feedsKijiji = array();
+
         foreach ($dealers as $dealer) {
-            $logger->warning("Creating feed for dealer: ".$dealer->getUsername());
-            $commandLog->appendFullDetails("Creating feed for dealer: ".$dealer->getUsername());
-            $feedsKijiji[$dealer->getId()] = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
-        }
-        $logger->warning("Creating feed for dealer: ".$dealer->getUsername());
-        $commandLog->appendFullDetails("All feeds created locally for ".count($dealers)." dealers");
-        // set up basic connection
-        $ftp_server = "uploads.dealersonair.com";
-        $ftp_user_name = "testfolder.uploads";
-        $ftp_user_pass = "k3nt4k1";
-        $conn_id = ftp_connect($ftp_server);
-        $logger->warning("connect to ftp...");
-
-        $commandLog->appendFullDetails("connect to ftp...");
-        // login with username and password
-        $login_result = ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-
-        // upload a file
-        //$dir =;
-        $dir = "dealers";
-        foreach($feedsKijiji as $key=>$feed) {
-            $contents_on_server = ftp_nlist($conn_id, ".");
-            if (!in_array($dir, $contents_on_server)) {
-                //dump("creating folder on FTP :" . $dir);
-                $logger->warning("creating folder on FTP :" . $dir);
-                $commandLog->appendFullDetails("creating folder on FTP :" . $dir);
-                //ftp_mkdir($conn_id, $dir);
-            }
-            $rootDealersFolder = ftp_nlist($conn_id, $dir);
-
-            $dealerFolder = $dir . "/" . $key;
-            if (!in_array($dealerFolder, $rootDealersFolder)) {
-                //dump("creating folder on FTP :" . $dealerFolder);
-                $logger->warning("creating folder on FTP :" . $dealerFolder);
-
-                $commandLog->appendFullDetails("creating folder on FTP :" . $dealerFolder);
-                ftp_mkdir($conn_id, $dealerFolder);
-            }
-            $fileToUpload = $dealerFolder . "/kijiji.csv";
-            //dump("uploading file on FTP :" . $fileToUpload."----".$feed);
-            $logger->warning("uploading file on FTP :" . $fileToUpload."----".$feed);
-
-            $commandLog->appendFullDetails("uploading file on FTP :" . $fileToUpload."----".$feed);
-            if (ftp_put($conn_id, $fileToUpload, $feed, FTP_ASCII)) {
-
-            } else {
-                //echo "There was a problem while uploading \n";
-            }
+            $logger->warning("Creating feed for dealer: " . $dealer->getUsername());
+            $commandLog->append($clo,"Creating feed for dealer: " . $dealer->getUsername());
+            $this->kijijiProcessDealer($dealer);
         }
 
-        // close the connection/
-        ftp_close($conn_id);
-        $commandLog->setEndedAt(new \DateTime());
-        $commandLog->setStatus('finished');
-        $em->flush();
-        $em->clear();
+        $commandLog->endCommand($clo);
     }
 
 }
