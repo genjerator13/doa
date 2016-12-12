@@ -738,17 +738,12 @@ class DBUtilsCommand extends ContainerAwareCommand
             ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
             // upload a file
-            //$dir =;
-            $dir = "dealers";
-            $dealerFolder = $dir . "/" . $dealer_id;
-            $fileToUpload = $dealerFolder . "/kijiji.csv";
+            
             $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
 
             $commandLog->append($clo, "uploading file on FTP :" . $feedsKijiji . "----");
-            if (ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
-
-            } else {
-                //echo "There was a problem while uploading \n";
+            if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
+                $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
             }
 
             // close the connection/
