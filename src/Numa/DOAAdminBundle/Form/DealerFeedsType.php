@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class DealerKijijiType extends AbstractType
+class DealerFeedsType extends AbstractType
 {
 
     /**
@@ -23,9 +23,9 @@ class DealerKijijiType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url_kijiji', null, array('label' => 'URL'))
-            ->add('username_kijiji', null, array('label' => 'Username'))
-            ->add('password_kijiji', 'password', array('label' => 'Password'));
+            ->add('feed_kijiji_url', null, array('label' => 'Kijiji URL'))
+            ->add('feed_kijiji_username', null, array('label' => 'Kijiji Username'))
+            ->add('feed_kijiji_password', 'password', array('label' => 'Kijiji Password'));
 
     }
 
@@ -44,7 +44,7 @@ class DealerKijijiType extends AbstractType
      */
     public function getName()
     {
-        return 'numa_doaadminbundle_dealer_kijiji';
+        return 'numa_doaadminbundle_dealer_feeds';
     }
 
 }

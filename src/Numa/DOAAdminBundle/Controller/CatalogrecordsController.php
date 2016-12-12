@@ -4,7 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Coupon;
 use Numa\DOAAdminBundle\Form\DealerCouponsType;
-use Numa\DOAAdminBundle\Form\DealerKijijiType;
+use Numa\DOAAdminBundle\Form\DealerFeedsType;
 use Numa\DOAAdminBundle\Form\DealerSiteType;
 use Numa\DOAAdminBundle\Form\ItemDefaultType;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
@@ -201,7 +201,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $siteForm = $this->createDealerSiteForm($entity);
         $itemDefaultForm = $this->createItemDefaultForm($entity);
         $couponsForm = $this->createEditCouponsForm($entity);
-        $kijijiForm = $this->createDealerKijijiForm($entity);
+        $feedsForm = $this->createDealerFeedsForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
@@ -210,7 +210,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'site_form' => $siteForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
             'coupons_form' => $couponsForm->createView(),
-            'kijiji_form' => $kijijiForm->createView(),
+            'feeds_form' => $feedsForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
         ));
@@ -344,12 +344,12 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDealerKijijiForm(Catalogrecords $entity)
+    private function createDealerFeedsForm(Catalogrecords $entity)
     {
         $securityContext = $this->container->get('security.context');
-        $catalogForm = new DealerKijijiType();
+        $catalogForm = new DealerFeedsType();
         $catalogForm->setSecurityContext($securityContext);
-        $action = 'dms_catalogs_kijiji_update';
+        $action = 'dms_catalogs_feeds_update';
 
         $form = $this->createForm($catalogForm, $entity, array(
             'action' => $this->generateUrl($action, array('id' => $entity->getId())),
@@ -381,7 +381,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $siteForm = $this->createDealerSiteForm($entity);
         $editForm->handleRequest($request);
         $itemDefaultForm = $this->createItemDefaultForm($entity);
-        $kijijiForm = $this->createDealerKijijiForm($entity);
+        $feedsForm = $this->createDealerFeedsForm($entity);
 
         if ($editForm->isValid()) {
             if ($entity instanceof Catalogrecords) {
@@ -427,7 +427,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'site_form' => $siteForm->createView(),
-            'kijiji_form' => $kijijiForm->createView(),
+            'feeds_form' => $feedsForm->createView(),
             'itemDefaultForm' => $itemDefaultForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
@@ -547,17 +547,17 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      * Edits an existing Dealers Site parameters
      *
      */
-    public function updateKijijiAction(Request $request, $id)
+    public function updateFeedsAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
         $deleteForm = $this->createDeleteForm($id);
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
 
         $editForm = $this->createEditForm($entity);
-        $kijijiFrom = $this->createDealerKijijiForm($entity);
-        $kijijiFrom->handleRequest($request);
+        $feedsFrom = $this->createDealerFeedsForm($entity);
+        $feedsFrom->handleRequest($request);
 
-        if ($kijijiFrom->isValid()) {
+        if ($feedsFrom->isValid()) {
             if ($entity instanceof Catalogrecords) {
 
                 $em->flush();
@@ -571,7 +571,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
-            'kijiji_form' => $kijijiFrom->createView(),
+            'feeds_form' => $feedsFrom->createView(),
 
         ));
     }

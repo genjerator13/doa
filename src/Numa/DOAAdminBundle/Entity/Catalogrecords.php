@@ -1802,88 +1802,88 @@ class Catalogrecords implements UserInterface
     /**
      * @var string
      */
-    private $url_kijiji;
+    private $feed_kijiji_url;
 
     /**
      * @var string
      */
-    private $username_kijiji;
+    private $feed_kijiji_username;
 
     /**
      * @var string
      */
-    private $password_kijiji;
+    private $feed_kijiji_password;
 
 
     /**
-     * Set urlKijiji
+     * Set feedKijijiUrl
      *
-     * @param string $urlKijiji
+     * @param string $feedKijijiUrl
      *
      * @return Catalogrecords
      */
-    public function setUrlKijiji($urlKijiji)
+    public function setFeedKijijiUrl($feedKijijiUrl)
     {
-        $this->url_kijiji = $urlKijiji;
+        $this->feed_kijiji_url = $feedKijijiUrl;
 
         return $this;
     }
 
     /**
-     * Get urlKijiji
+     * Get feedKijijiUrl
      *
      * @return string
      */
-    public function getUrlKijiji()
+    public function getFeedKijijiUrl()
     {
-        return $this->url_kijiji;
+        return $this->feed_kijiji_url;
     }
 
     /**
-     * Set usernameKijiji
+     * Set feedKijijiUsername
      *
-     * @param string $usernameKijiji
+     * @param string $feedKijijiUsername
      *
      * @return Catalogrecords
      */
-    public function setUsernameKijiji($usernameKijiji)
+    public function setFeedKijijiUsername($feedKijijiUsername)
     {
-        $this->username_kijiji = $usernameKijiji;
+        $this->feed_kijiji_username = $feedKijijiUsername;
 
         return $this;
     }
 
     /**
-     * Get usernameKijiji
+     * Get feedKijijiUsername
      *
      * @return string
      */
-    public function getUsernameKijiji()
+    public function getFeedKijijiUsername()
     {
-        return $this->username_kijiji;
+        return $this->feed_kijiji_username;
     }
 
     /**
-     * Set passwordKijiji
+     * Set feedKijijiPassword
      *
-     * @param string $passwordKijiji
+     * @param string $feedKijijiPassword
      *
      * @return Catalogrecords
      */
-    public function setPasswordKijiji($passwordKijiji)
+    public function setFeedKijijiPassword($feedKijijiPassword)
     {
-        $this->password_kijiji = $passwordKijiji;
+        $this->feed_kijiji_password = $feedKijijiPassword;
 
         return $this;
     }
 
     /**
-     * Get passwordKijiji
+     * Get feedKijijiPassword
      *
      * @return string
      */
-    public function getPasswordKijiji()
+    public function getFeedKijijiPassword()
     {
-        return $this->password_kijiji;
+        return $this->feed_kijiji_password;
     }
 }
