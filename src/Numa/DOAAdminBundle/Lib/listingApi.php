@@ -308,6 +308,7 @@ class listingApi
             $filenameKijiji =$dir . "/" . "kijiji.csv";
             $logger->warning("store kijiji feed on:".$filenameKijiji);
             file_put_contents($filenameKijiji, $ret->getContent(),LOCK_EX);
+            chmod($filenameKijiji, 0755);   //
         }
         $logger->warning("makeKijijiFromDealerId end:".$filenameKijiji);
         return $filenameKijiji;
