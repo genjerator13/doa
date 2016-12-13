@@ -293,24 +293,24 @@ class listingApi
     {
         $logger = $this->container->get('logger');
         $em = $this->container->get('doctrine');
-        $filenameKijiji="";
-        $logger->warning("get items for dealer:".$dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id,null,0);
-        if(!empty($items)) {
+        $filenameKijiji = "";
+        $logger->warning("get items for dealer:" . $dealer_id);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, null, 0);
+        if (!empty($items)) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
-            $logger->warning("prepare kijiji feed:".$dealer_id);
+            $logger->warning("prepare kijiji feed:" . $dealer_id);
             $ret = $this->formatResponse($csvArrayRes, 'csv');
             $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
             if (!is_dir($dir)) {
                 mkdir($dir);
             }
 
-            $filenameKijiji =$dir . "/" . "kijiji.csv";
-            $logger->warning("store kijiji feed on:".$filenameKijiji);
-            file_put_contents($filenameKijiji, $ret->getContent(),LOCK_EX);
+            $filenameKijiji = $dir . "/" . "kijiji.csv";
+            $logger->warning("store kijiji feed on:" . $filenameKijiji);
+            file_put_contents($filenameKijiji, $ret->getContent(), LOCK_EX);
             chmod($filenameKijiji, 0755);   //
         }
-        $logger->warning("makeKijijiFromDealerId end:".$filenameKijiji);
+        $logger->warning("makeKijijiFromDealerId end:" . $filenameKijiji);
         return $filenameKijiji;
     }
 
@@ -351,9 +351,14 @@ class listingApi
             $csvArray['exterior_color'] = $item->getExteriorColor();
             $csvArray['price'] = $item->getPrice();
             $csvArray['model_code'] = "";
-            $csvArray['comments'] = $item->getSellerComment();
-            $csvArray['drivetrain'] = $item->getSellerComment();
-            $csvArray['videourl'] = $item->getSellerComment();
+            $csvArray['comments'] = $item->getCurrentSellerComment();
+            if (empty(trim(strip_tags($item->getCurrentSellerComment())))) {
+                $csvArray['comments'] = trim(strip_tags($dealer->getDefaultListingComment()));
+            }
+
+
+            $csvArray['drivetrain'] = $item->getDriveType();
+            $csvArray['videourl'] = $item->getVideoId();
             $imageList = array();
             $images = $item->get("ImagesForApi");
             if (!empty($images['image'])) {
