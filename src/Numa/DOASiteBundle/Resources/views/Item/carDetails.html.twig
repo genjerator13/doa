@@ -129,20 +129,14 @@
             <span class="fieldValue fieldValue">{{ item.getOther()|raw }}</span>
         </li>
     {% endif %}
-    {% if item.getSellerComment() is not empty %}
+    {% if item.currentSellerComment() is not empty %}
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             &nbsp;
         </li>
         <li class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="fieldCaption field">Seller Comments:</div>
             <span class="fieldValue fieldValue">
-                {% if item.sellerCommentActive == 0 %}
-                    {{ item.getSellerComment()|raw }}
-                {% elseif item.sellerCommentActive == 1 %}
-                    {{ item.getSellerComment1()|raw }}
-                {% elseif item.sellerCommentActive == 2 %}
-                    {{ item.getSellerComment2()|raw }}
-                {% endif %}
+                {{ item.currentSellerComment()|raw }}
             </span>
         </li>
     {% endif %}
