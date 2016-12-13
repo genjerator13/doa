@@ -5056,6 +5056,17 @@ class Item
         return $this->seller_comment_active;
     }
 
+    public  function getCurrentSellerComment(){
+        $comment = "";
+        if($this->getSellerCommentActive()==0) {
+            $comment = $this->getSellerComment();
+        }elseif($this->getSellerCommentActive()==1){
+            $comment = $this->getSellerComment1();
+        }elseif($this->getSellerCommentActive()==2){
+            $comment = $this->getSellerComment2();
+        }
+        return $comment;
+    }
     public function getDealerGroup()
     {
         if ($this->getDealer() instanceof Catalogrecords) {
