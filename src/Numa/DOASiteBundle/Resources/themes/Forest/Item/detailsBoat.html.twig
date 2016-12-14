@@ -172,13 +172,7 @@
                             <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
 
                             <p>
-                                {% if item.sellerCommentActive == 0 %}
-                                    {{ item.getSellerComment()|raw }}
-                                {% elseif item.sellerCommentActive == 1 %}
-                                    {{ item.getSellerComment1()|raw }}
-                                {% elseif item.sellerCommentActive == 2 %}
-                                    {{ item.getSellerComment2()|raw }}
-                                {% endif %}
+                                {{ item.currentSellerComment()|raw }}
                             </p>
                         </div>
                         <div class="row">

@@ -5065,6 +5065,9 @@ class Item
         }elseif($this->getSellerCommentActive()==2){
             $comment = $this->getSellerComment2();
         }
+        if(empty($comment) && $this->getDealer() instanceof Catalogrecords){
+            $comment = $this->getDealer()->getDefaultListingComment();
+        }
         return $comment;
     }
     public function getDealerGroup()
