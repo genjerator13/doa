@@ -124,11 +124,6 @@ class Sale
     /**
      * @var float
      */
-    private $net_grain;
-
-    /**
-     * @var float
-     */
     private $protect_pkg;
 
     /**
@@ -832,34 +827,9 @@ class Sale
     public function getTotalUnitCost()
     {
 
-        $this->total_unit_cost = round($this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2);
+        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2, '.', '');
         return $this->total_unit_cost;
 //        return $this->total_unit_cost;
-    }
-
-    /**
-     * Set netGrain
-     *
-     * @param float $netGrain
-     *
-     * @return Sale
-     */
-    public function setNetGrain($netGrain)
-    {
-        $this->net_grain = $netGrain;
-
-        return $this;
-    }
-
-    /**
-     * Get netGrain
-     *
-     * @return float
-     */
-    public function getNetGrain()
-    {
-        $this->net_grain = round(($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2);
-//        return $this->net_grain;
     }
 
     /**
@@ -1171,7 +1141,7 @@ class Sale
      */
     public function getTotalSaleCost()
     {
-        $this->total_sale_cost= round($this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2);
+        $this->total_sale_cost= number_format((float)$this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2, '.', '');
         return $this->total_sale_cost;
     }
 
@@ -1484,7 +1454,7 @@ class Sale
      */
     public function getNetTax()
     {
-        $this->net_tax = round(($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2);
+        $this->net_tax = number_format((float)($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2, '.', '');
         return $this->net_tax;
     }
 
@@ -1821,7 +1791,7 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        $this->total_revenue = round($this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2);
+        $this->total_revenue = number_format((float)$this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
         return $this->total_revenue;
     }
 
@@ -1846,7 +1816,7 @@ class Sale
      */
     public function getRevenueThisUnit()
     {
-        $this->revenue_this_unit = round($this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2);
+        $this->revenue_this_unit = number_format((float)$this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2, '.', '');
         return $this->revenue_this_unit;
     }
 
@@ -2177,6 +2147,7 @@ class Sale
      */
     public function getNetGain()
     {
+        $this->net_gain = number_format((float)($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2, '.', '');
         return $this->net_gain;
     }
     /**
@@ -2583,7 +2554,7 @@ class Sale
      */
     public function getUnitTaxOther()
     {
-        $this->unit_tax_other = round($this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2);
+        $this->unit_tax_other = number_format((float)$this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2, '.', '');
         return $this->unit_tax_other;
     }
 }
