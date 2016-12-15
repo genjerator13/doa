@@ -829,7 +829,6 @@ class Sale
 
         $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2, '.', '');
         return $this->total_unit_cost;
-//        return $this->total_unit_cost;
     }
 
     /**
@@ -1454,7 +1453,7 @@ class Sale
      */
     public function getNetTax()
     {
-        $this->net_tax = number_format((float)($this->getTax1In() + $this->getTax2In()) - ($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()),2, '.', '');
+        $this->net_tax = number_format((float)($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()) - ($this->getTax1In() + $this->getTax2In()),2, '.', '');
         return $this->net_tax;
     }
 
