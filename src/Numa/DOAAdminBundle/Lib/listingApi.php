@@ -109,14 +109,19 @@ class listingApi
         return $res;
     }
 
-    public function processImages($images)
+    public function processImages($images,$host=null)
     {
-        $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
+        $scheme="http";
+        if(empty($host)) {
+            $host = $this->container->get('numa.dms.user')->getHost();
+            $scheme = $this->container->get('numa.dms.user')->getScheme();
+
+        }
         $tempImages = array();
         if (!empty($images)) {
             foreach ($images as $image) {
                 if (substr($image, 0, 4) !== "http") {
-                    $scheme = $this->container->get('numa.dms.user')->getScheme();
+
                     $image = $scheme . "://" . $host . $image;
                 }
                 $tempImages[] = $image;
@@ -362,8 +367,9 @@ class listingApi
             $imageList = array();
             $images = $item->get("ImagesForApi");
             if (!empty($images['image'])) {
-                $images = $this->processImages($images['image']);
+                $images = $this->processImages($images['image'],$dealer->getSiteUrl());
             }
+            dump($images);
             $csvArray['images'] = $images;
             $csvArray['category'] = 0;
 
