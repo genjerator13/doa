@@ -721,14 +721,15 @@ class DBUtilsCommand extends ContainerAwareCommand
         $logger = $this->getContainer()->get('logger');
         $commandLog = $this->getContainer()->get('numa.dms.command.log');
         $command = 'php app/console numa:dbutil kijiji ' . $dealer_id;
-        $clo = $commandLog->startNewCommand($command, "feeds");
-        $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
+
         // set up basic connection
 
         $ftp_server = $dealer->getFeedKijijiUrl();
         $ftp_user_name = $dealer->getFeedKijijiUsername();
         $ftp_user_pass = $dealer->getFeedKijijiPassword();
         if(!empty($ftp_server)) {
+            $clo = $commandLog->startNewCommand($command, "feeds");
+            $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
             $conn_id = ftp_connect($ftp_server);
             $logger->warning("connect to ftp...");
 
