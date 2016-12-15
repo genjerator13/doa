@@ -46,7 +46,7 @@ class BillingType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'widget' => 'single_text',
-                'format' => 'dd-MM-yyyy',
+                'format' => 'yyyy-dd-MM',
                 'attr' => array('class' => 'datepicker')
             ))
             //->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
