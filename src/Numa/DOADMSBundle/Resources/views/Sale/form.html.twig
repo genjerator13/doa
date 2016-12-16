@@ -387,7 +387,7 @@
             if (isNaN(parseFloat(unittax))) {
                 unittax = 0;
             }
-            var saleNetTax = ((n1 + n2 + n3 + unittax) - (n4 + n5));
+            var saleNetTax = ((n1 + n2 + unittax) - ((n4 + n5) + n3));
             $('#numa_doaadminbundle_item_sale_net_tax').val(saleNetTax.toFixed(2));
         });
 
