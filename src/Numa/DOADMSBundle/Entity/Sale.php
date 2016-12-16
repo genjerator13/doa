@@ -1453,7 +1453,7 @@ class Sale
      */
     public function getNetTax()
     {
-        $this->net_tax = number_format((float)($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther() + $this->getTradeInTax()) - ($this->getTax1In() + $this->getTax2In()),2, '.', '');
+        $this->net_tax = number_format((float)($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther()) - (($this->getTax1In() + $this->getTax2In()) + $this->getTradeInTax()),2, '.', '');
         return $this->net_tax;
     }
 
