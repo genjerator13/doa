@@ -23,32 +23,28 @@ class Reports
     }
     //"columnLetter" =array("entity property","title")
     public $inventoryPurchaseFields = array(
-        "B"=>array("item_id","Listing ID"),
-        "C"=>array("tid_year","Year"),
-        "D"=>array("tid_make","Make"),
-        "E"=>array("tid_model","Model"),
-        "F"=>array("item:stock_nr","Stock #"),
-        "G"=>array("tid_vin","Vin #"),
-        "H"=>array("invoice_nr","Invoice #"),
-        "I"=>array("date_billing","Invoice Date"),
-        "J"=>array("amount","Invoice Amount"),
-        "K"=>array("less_trade_in","Trade In Value"),
-        "L"=>array("lien_on_trade_in","Lien On Trade In"),
+        "A"=>array("Vendor","Vendor"),
+        "B"=>array("item:vin","VIN #"),
+        "G"=>array("invoice_date","Inv Date"),
+        "H"=>array("invoice_nr","Inv #"),
+        "I"=>array("invoice_amt","Inv Amt"),
+        "J"=>array("total_cost_unit","Total Cost Unit"),
+        "L"=>array("id","ID"),
     );
 
     public $inventorySalesFields = array(
-        "B"=>array("customer","Customer Name"),
-        "C"=>array("date_billing","Date"),
-        "D"=>array("invoice_nr","Invoice #"),
-        "E"=>array("tid_year","Year"),
-        "F"=>array("tid_make","Make"),
-        "G"=>array("tid_model","Model"),
-        "H"=>array("item:stock_nr","Stock #"),
-        "I"=>array("tid_vin","Vin #"),
-        "J"=>array("sale_price","Sale Price"),
-        "K"=>array("less_trade_in","Less Trade In"),
-        "L"=>array("lien_on_trade_in","Lien On Trade In"),
-        "M"=>array("total_due","Total Due"),
+        "A"=>array("customer","Customer Name"),
+        "B"=>array("date_billing","Date"),
+        "C"=>array("invoice_nr","Invoice #"),
+        "D"=>array("tid_year","Year"),
+        "E"=>array("tid_make","Make"),
+        "F"=>array("tid_model","Model"),
+        "G"=>array("item:stock_nr","Stock #"),
+        "H"=>array("tid_vin","Vin #"),
+        "I"=>array("sale_price","Sale Price"),
+        "J"=>array("less_trade_in","Less Trade In"),
+        "K"=>array("lien_on_trade_in","Lien On Trade In"),
+        "L"=>array("total_due","Total Due"),
     );
 
     public function createPHPExcelObject($creator="",$title="",$subject="",$desc=""){
@@ -99,17 +95,17 @@ class Reports
         return $response;
     }
     public function createExcelHeaders($map,$phpExcelObject){
-        foreach($this->inventorySalesFields as $key=>$field){
-            $phpExcelObject->getActiveSheet()->setCellValue($key . "2", $field[1]);
+        foreach($map as $key=>$field){
+            $phpExcelObject->getActiveSheet()->setCellValue($key . "1", $field[1]);
         }
         return $phpExcelObject;
     }
     public function createExcelContent($entities,$map,$phpExcelObject){
         $phpExcelObject = $this->createExcelHeaders($map,$phpExcelObject);
         foreach($map as $key=>$field){
-            $i=3;
+            $i=2;
             foreach($entities as $entity) {
-                //dump($field);
+//                dump($entity);die();
                 $phpExcelObject->getActiveSheet()->setCellValue($key . $i, $entity->get($field[0]));
                 $i++;
             }

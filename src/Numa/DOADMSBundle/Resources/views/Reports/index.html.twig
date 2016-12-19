@@ -47,7 +47,7 @@
                         <th>Date_updated</th>
                         <th>Status</th>
 
-                        <th>Comments</th>
+                        {#<th>Comments</th>#}
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -59,7 +59,7 @@
                             <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{{ billing.status }}</td>
 
-                            <td>{{ billing.comments }}</td>
+                            {#<td>{{ billing.comments }}</td>#}
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
