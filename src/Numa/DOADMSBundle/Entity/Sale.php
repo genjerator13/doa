@@ -2556,4 +2556,25 @@ class Sale
         $this->unit_tax_other = number_format((float)$this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2, '.', '');
         return $this->unit_tax_other;
     }
+
+    public function get($property)
+    {
+        $propSplit = explode(":",$property);
+        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
+        if(count($propSplit)==2){
+            if(strtolower($propSplit[0])=='item'){
+                if($this->getItem() instanceof Item) {
+                    return $this->getItem()->get($propSplit[1]);
+                }else{
+                    return "";
+                }
+            }
+        }
+
+
+        if (method_exists($this, $function)) {
+            return $this->{$function}();
+        }
+    }
+
 }
