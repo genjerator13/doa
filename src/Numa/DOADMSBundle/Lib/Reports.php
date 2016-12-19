@@ -119,7 +119,7 @@ class Reports
 
     public function billingReportPurchaseXls($entities)
     {
-        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Purchase report","DOA Purchase report","DOA sales report");
+        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Purchase report","DOA Purchase report","DOA Purchase report");
         $phpExcelObject = $this->createExcelContent($entities,$this->inventoryPurchaseFields,$phpExcelObject);
         return $this->createExcelResponse($phpExcelObject,"Customer_Details_Report.xls");
     }
@@ -127,7 +127,7 @@ class Reports
 
     public function billingReportSalesXls($entities)
     {
-        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Purchase report","DOA Purchase report","DOA sales report");
+        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Sales report","DOA Sales report","DOA sales report");
         $phpExcelObject = $this->createExcelContent($entities,$this->inventorySalesFields,$phpExcelObject);
         return $this->createExcelResponse($phpExcelObject,"Customer_Sales_Report.xls");
     }
