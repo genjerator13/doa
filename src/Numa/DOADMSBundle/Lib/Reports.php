@@ -9,6 +9,8 @@
 namespace Numa\DOADMSBundle\Lib;
 
 
+use Doctrine\Common\Collections\Collection;
+
 class Reports
 {
     protected $container;
@@ -51,6 +53,14 @@ class Reports
         "M"=>array("total_due","Total Due"),
     );
 
+    /**
+     * Creates php excel object for the reports
+     * @param string $creator
+     * @param string $title
+     * @param string $subject
+     * @param string $desc
+     * @return mixed phpexcelobject
+     */
     public function createPHPExcelObject($creator="",$title="",$subject="",$desc=""){
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
         $rendererLibraryPath = (dirname(__FILE__) . '/../../../../vendor/mpdf/mpdf'); //works
@@ -69,9 +79,7 @@ class Reports
             $this->container->get('profiler')->disable();
         }
 
-
         $phpExcelObject = $this->container->get('phpexcel')->createPHPExcelObject();
-        //dump($phpExcelObject);
         $phpExcelObject->getProperties()->setCreator($creator)
             ->setLastModifiedBy($creator)
             ->setTitle($title)
@@ -82,6 +90,12 @@ class Reports
         return $phpExcelObject;
     }
 
+    /**
+     * creates excel response from the given phpexcelobject
+     * @param $phpExcelObject
+     * @param $filename response file name
+     * @return Response
+     */
     public function createExcelResponse($phpExcelObject,$filename){
 
         $download_path = $this->container->getParameter('upload_dealer');
@@ -98,18 +112,32 @@ class Reports
 
         return $response;
     }
+
+    /**
+     * Creates excel headers from the map array
+     * @param $map
+     * @param $phpExcelObject
+     * @return $phpExcelObject
+     */
     public function createExcelHeaders($map,$phpExcelObject){
         foreach($this->inventorySalesFields as $key=>$field){
             $phpExcelObject->getActiveSheet()->setCellValue($key . "2", $field[1]);
         }
         return $phpExcelObject;
     }
+
+    /**
+     * Creates excel content from the map array and entities
+     * @param $entities Collection
+     * @param $map array
+     * @param $phpExcelObject
+     * @return $phpExcelObject
+     */
     public function createExcelContent($entities,$map,$phpExcelObject){
         $phpExcelObject = $this->createExcelHeaders($map,$phpExcelObject);
         foreach($map as $key=>$field){
             $i=3;
             foreach($entities as $entity) {
-                //dump($field);
                 $phpExcelObject->getActiveSheet()->setCellValue($key . $i, $entity->get($field[0]));
                 $i++;
             }
@@ -117,6 +145,12 @@ class Reports
         return $phpExcelObject;
     }
 
+    /**
+     * creates purchase report
+     * @param $entities
+     * @return Response
+     *
+     */
     public function billingReportPurchaseXls($entities)
     {
         $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Purchase report","DOA Purchase report","DOA Purchase report");
@@ -124,7 +158,11 @@ class Reports
         return $this->createExcelResponse($phpExcelObject,"Customer_Details_Report.xls");
     }
 
-
+    /**
+     * Creatres Sale report
+     * @param $entities
+     * @return Response
+     */
     public function billingReportSalesXls($entities)
     {
         $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Sales report","DOA Sales report","DOA sales report");
