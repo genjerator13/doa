@@ -44,6 +44,7 @@ class ReportsController extends Controller
             } else {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
             }
+
             if ($request->query->has('purchase')) {
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
             }
