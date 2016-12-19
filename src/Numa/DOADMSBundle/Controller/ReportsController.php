@@ -39,10 +39,11 @@ class ReportsController extends Controller
                     $dealer_ids[] = $dealer->getId();
                 }
                 $dealers = implode(",", $dealer_ids);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealers);
+                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($date, $date1, $dealers);
 
             } else {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date, $date1, $dealer->getId());
+                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($date, $date1, $dealer->getId());
+//                dump($entities);die();
             }
 
             if ($request->query->has('purchase')) {
