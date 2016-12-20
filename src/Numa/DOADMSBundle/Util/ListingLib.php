@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\Criteria;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
@@ -138,7 +139,7 @@ class ListingLib
 
                 }
             }
-        }catch(Exception $ex){
+        } catch (Exception $ex) {
             $error['ERROR'] = "NO CONNECTION";
             return $error;
         }
@@ -172,7 +173,8 @@ class ListingLib
         return false;
     }
 
-    public function insertFromVinDecoder($item){
+    public function insertFromVinDecoder($item)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         if (!$item instanceof Item) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
@@ -182,18 +184,17 @@ class ListingLib
         }
         $vindecoderItems = $item->getVindecoderItems();
 
-        if(!empty($vindecoderItems)) {
-            foreach ($vindecoderItems as $key=>$itemVin)
-            {
-                if(strtolower($itemVin)=="std.") {
+        if (!empty($vindecoderItems)) {
+            foreach ($vindecoderItems as $key => $itemVin) {
+                if (strtolower($itemVin) == "std.") {
                     $criteria = new \Doctrine\Common\Collections\Criteria();
                     $criteria->where(Criteria::expr()->eq("field_name", $key));
-                    $currentItemField=null;
+                    $currentItemField = null;
 
-                    if(!empty($item->getItemField())) {
+                    if (!empty($item->getItemField())) {
                         $currentItemField = $item->getItemField()->matching($criteria);
                     }
-                    if ($currentItemField instanceof  ArrayCollection && $currentItemField->first() instanceof ItemField) {
+                    if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
                         //$currentItemField->first()->setFieldBooleanValue(true);
 
                     } else {
@@ -209,9 +210,39 @@ class ListingLib
                     }
                 }
             }
-            
+
+        }
+    }
+
+    public function getProperty($item,$property)
+    {
+        $function = $this->asFunction($property);
+        $splitName = explode(":", $property);
+
+        if (count($splitName) > 1) {
+
+            if (strtolower($splitName[0]) == "sale") {
+
+                if ($item->getSale() instanceof Sale) {
+
+                    $function = $this->asFunction($splitName[1]);
+
+                    if (method_exists($item->getSale(), $function)) {
+
+                        return $item->getSale()->{$function}();
+                    }
+                }
+            }
         }
 
+        if (method_exists($item, $function)) {
+            return $item->{$function}();
+        }
+    }
 
+    public function asFunction($property){
+
+        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
+        return $function;
     }
 }

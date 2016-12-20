@@ -11,11 +11,7 @@
             {% endif %}
             <h3 class="box-title">Report list</h3>
             <div class="box-tools">
-                {#{% if(customer_id is defined and customer_id is not empty) %}#}
-                {#<a href="{{ path('customer_addbilling',{'id': customer_id}) }}" class="btn btn-primary">#}
-                {#Create a new Billing#}
-                {#</a>#}
-                {#{% endif %}#}
+
             </div>
         </div>
         <form class="col-md-12">
@@ -47,7 +43,7 @@
                         <th>Date_updated</th>
                         <th>Status</th>
 
-                        <th>Comments</th>
+                        {#<th>Comments</th>#}
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -59,7 +55,7 @@
                             <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{{ billing.status }}</td>
 
-                            <td>{{ billing.comments }}</td>
+                            {#<td>{{ billing.comments }}</td>#}
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
