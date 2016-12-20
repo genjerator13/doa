@@ -11,6 +11,8 @@ use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
 use Numa\DOADMSBundle\Entity\DealerGroup;
+use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOADMSBundle\Entity\Vendor;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 
@@ -4849,64 +4851,6 @@ class Item
         return $this->total_cost;
     }
 
-    /**
-     * @var integer
-     */
-    private $vendor_id;
-
-    /**
-     * @var \Numa\DOADMSBundle\Entity\Vendor
-     */
-    private $Vendor;
-
-
-    /**
-     * Set vendorId
-     *
-     * @param integer $vendorId
-     *
-     * @return Item
-     */
-    public function setVendorId($vendorId)
-    {
-        $this->vendor_id = $vendorId;
-
-        return $this;
-    }
-
-    /**
-     * Get vendorId
-     *
-     * @return integer
-     */
-    public function getVendorId()
-    {
-        return $this->vendor_id;
-    }
-
-    /**
-     * Set vendor
-     *
-     * @param \Numa\DOADMSBundle\Entity\Vendor $vendor
-     *
-     * @return Item
-     */
-    public function setVendor(\Numa\DOADMSBundle\Entity\Vendor $vendor = null)
-    {
-        $this->Vendor = $vendor;
-
-        return $this;
-    }
-
-    /**
-     * Get vendor
-     *
-     * @return \Numa\DOADMSBundle\Entity\Vendor
-     */
-    public function getVendor()
-    {
-        return $this->Vendor;
-    }
 
     /**
      * @var integer
@@ -5120,5 +5064,14 @@ class Item
             }
         }
         return $array;
+    }
+
+    public function getVendor(){
+        if($this->getSale() instanceof Sale){
+            if($this->getSale()->getVendor() instanceof Vendor){
+                return  $this->getSale()->getVendor()->getCompanyName();
+            }
+        }
+        return "";
     }
 }
