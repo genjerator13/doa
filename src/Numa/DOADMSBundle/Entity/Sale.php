@@ -516,6 +516,19 @@ class Sale
     }
 
 
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime
+     */
+    public function getInvoiceDateFormated()
+    {
+        if($this->getInvoiceDate() instanceof \DateTime) {
+            return $this->invoice_date->format("Y-m-d");
+        }
+    }
+
+
 
     /**
      * Set relatedTaxes1

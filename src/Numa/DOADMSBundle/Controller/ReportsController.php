@@ -25,7 +25,7 @@ class ReportsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
         if (empty($dealer)) {
             $entities = null;
             $em->flush();
@@ -42,8 +42,8 @@ class ReportsController extends Controller
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($date, $date1, $dealers);
 
             } else {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($date, $date1, $dealer->getId());
-//                dump($entities);die();
+                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate2($date, $date1, $dealer->getId());
+                //dump($entities);die();
             }
 
             if ($request->query->has('purchase')) {
