@@ -21,12 +21,36 @@
             <input type="date" class="datepicker" name="dateTo">
 
             <button class="btn btn-success" type="submit" name="filter">Filter</button>
-            <button class="btn btn-info" type="submit" name="purchase"><i class="glyphicon glyphicon-file"></i>Purchase
-                Report
-            </button>
-            {#<button class="btn btn-info" type="submit" name="inventory"><i class="glyphicon glyphicon-file"></i>Inventory Report</button>#}
-            <button class="btn btn-info" type="submit" name="sales"><i class="glyphicon glyphicon-file"></i>Sales Report
-            </button>
+            <div class="col-md-12">
+                <button class="btn btn-info" type="submit" name="purchase">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Purchase Report
+                </button>
+                <button class="btn btn-info" type="submit" name="sales">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Sales Report
+                </button>
+                <button class="btn btn-info" type="submit" name="unitProfit">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Unit Profit Report
+                </button>
+                <button class="btn btn-info" type="submit" name="inventory">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Inventory Report
+                </button>
+                <button class="btn btn-info" type="submit" name="inventoryShort">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Inventory Report - Sales Copy
+                </button>
+                <button class="btn btn-info" type="submit" name="unitRevenue">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Unit Revenue Report
+                </button>
+                <button class="btn btn-info" type="submit" name="unitSalesCost">
+                    <i class="glyphicon glyphicon-file"></i>
+                    Unit Sales Cost Report
+                </button>
+            </div>
         </form>
 
         {#<button class="btn btn-info" href="{{ path("billing_report_xls",{'id': dealer.id}) }}"><i class="glyphicon glyphicon-file"></i>Excel</button>#}
@@ -61,7 +85,8 @@
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
                                 <a href="{{ path('billing_print', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
-                                <a href="{{ path('billing_delete', { 'id': billing.id,"redirect":"dms_reports" }) }}" class="btn btn-danger"
+                                <a href="{{ path('billing_delete', { 'id': billing.id,"redirect":"dms_reports" }) }}"
+                                   class="btn btn-danger"
                                    data-confirm="Billing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">
                                     <i class="glyphicon glyphicon-remove"></i>Delete</a>
                             </td>
