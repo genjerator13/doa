@@ -106,6 +106,7 @@ class Report
     public function createExcelHeaders(){
         foreach($this->mapFields as $key=>$field){
             $this->phpExcelObject->getActiveSheet()->setCellValue($key . "1", $field[1]);
+            $this->phpExcelObject->getActiveSheet()->getStyle($key . "1")->getFont()->setBold(true);
         }
         return $this->phpExcelObject;
     }
