@@ -50,8 +50,24 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
             }
 
+            if ($request->query->has('unitProfit')) {
+                return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
+            }
+
             if ($request->query->has('inventory')) {
                 return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
+            }
+
+            if ($request->query->has('inventoryShort')) {
+                return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
+            }
+
+            if ($request->query->has('unitRevenue')) {
+                return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
+            }
+
+            if ($request->query->has('unitSalesCost')) {
+                return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
             }
 
             if ($request->query->has('sales')) {

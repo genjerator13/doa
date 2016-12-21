@@ -50,7 +50,6 @@ class ReportService
         "L"=>array("total_due","Total Due"),
     );
 
-
     /**
      * creates purchase report
      * @param $entities
@@ -78,5 +77,75 @@ class ReportService
         $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Sales report","DOA Sales report","DOA sales report");
         $phpExcelObject = $this->createExcelContent($entities,$this->inventorySalesFields,$phpExcelObject);
         return $this->createExcelResponse($phpExcelObject,"Customer_Sales_Report.xls");
+    }
+
+    /**
+     * creates UnitProfit report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingUnitProfitReportXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $unitProfitReport = new UnitProfitReport($this->container);
+        $unitProfitReport->setEntities($entities);
+        return $unitProfitReport->createExcelResponse($filename);
+    }
+
+    /**
+     * creates Inventory report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingReportInventoryXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $inventoryReport = new InventoryReport($this->container);
+        $inventoryReport->setEntities($entities);
+        return $inventoryReport->createExcelResponse($filename);
+    }
+
+    /**
+     * creates InventoryShort report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingReportInventoryShortXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $inventoryReportShort = new InventoryReportShort($this->container);
+        $inventoryReportShort->setEntities($entities);
+        return $inventoryReportShort->createExcelResponse($filename);
+    }
+
+    /**
+     * creates UnitRevenue report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingUnitRevenueReportXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $unitRevenueReport = new UnitRevenueReport($this->container);
+        $unitRevenueReport->setEntities($entities);
+        return $unitRevenueReport->createExcelResponse($filename);
+    }
+
+    /**
+     * creates UnitSalesCost report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingUnitSalesCostReportXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $unitSalesCostReport = new UnitSalesCostReport($this->container);
+        $unitSalesCostReport->setEntities($entities);
+        return $unitSalesCostReport->createExcelResponse($filename);
     }
 }
