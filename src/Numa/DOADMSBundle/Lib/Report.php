@@ -30,15 +30,18 @@ class Report
         $this->container = $container;
     }
 
-    public function setContainer($container){
+    public function setContainer($container)
+    {
         $this->container = $container;
     }
 
-    public function setEntities($entities){
+    public function setEntities($entities)
+    {
         $this->entities = $entities;
     }
 
-    public function getEntities(){
+    public function getEntities()
+    {
         return $this->entities;
     }
 
@@ -50,13 +53,15 @@ class Report
      * @param string $desc
      * @return mixed phpexcelobject
      */
-    public function createPHPExcelObject(){
+    public function createPHPExcelObject()
+    {
         $rendererName = \PHPExcel_Settings::PDF_RENDERER_MPDF;
         $rendererLibraryPath = (dirname(__FILE__) . '/../../../../vendor/mpdf/mpdf'); //works
 
         if (!\PHPExcel_Settings::setPdfRenderer(
             $rendererName, $rendererLibraryPath
-        )) {
+        )
+        ) {
             die(
                 'NOTICE: Please set the $rendererName and $rendererLibraryPath values' .
                 '<br />' .
@@ -69,8 +74,7 @@ class Report
             ->setLastModifiedBy($this->creator)
             ->setTitle($this->title)
             ->setSubject($this->subject)
-            ->setDescription($this->desc)
-        ;
+            ->setDescription($this->desc);
         $this->phpExcelObject->setActiveSheetIndex(0);
         return $this->phpExcelObject;
     }
@@ -80,7 +84,8 @@ class Report
      * @param $filename response file name
      * @return Response
      */
-    public function createExcelResponse($filename){
+    public function createExcelResponse($filename)
+    {
         $this->createPHPExcelObject();
         $this->createExcelContent();
 
@@ -90,7 +95,7 @@ class Report
         // create the response
         $response = $this->container->get('phpexcel')->createStreamedResponse($writer);
         $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-        $response->headers->set('Content-Disposition', 'attachment;filename='.$filename);
+        $response->headers->set('Content-Disposition', 'attachment;filename=' . $filename);
         $response->headers->set('Pragma', 'public');
         $response->headers->set('Cache-Control', 'maxage=1');
         $writer = $this->container->get('phpexcel')->createWriter($this->phpExcelObject, 'Excel5');
@@ -103,8 +108,9 @@ class Report
      * Creates excel headers from the map array
      * @return $phpExcelObject
      */
-    public function createExcelHeaders(){
-        foreach($this->mapFields as $key=>$field){
+    public function createExcelHeaders()
+    {
+        foreach ($this->mapFields as $key => $field) {
             $this->phpExcelObject->getActiveSheet()->setCellValue($key . "1", $field[1]);
             $this->createExcelHeadersStyle($key, $this->phpExcelObject);
         }
@@ -115,21 +121,25 @@ class Report
      * Creates excel headers style
      * @return $phpExcelObject
      */
-    public function createExcelHeadersStyle($key, $phpExcelObject){
-        return $phpExcelObject->getActiveSheet()->getStyle($key . "1")->getFont()->setBold(true);
+    public function createExcelHeadersStyle($key, $phpExcelObject)
+    {
+        $phpExcelObject->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
+        $phpExcelObject->getActiveSheet()->getStyle($key . "1")->getFont()->setBold(true);
+        return $phpExcelObject;
     }
 
     /**
      * Creates excel content from the map array and entities
      * @param $entities Collection
      */
-    public function createExcelContent(){
+    public function createExcelContent()
+    {
         $this->createExcelHeaders();
-        foreach($this->mapFields as $key=>$field){
-            $this->row=2;
-            foreach($this->entities as $entity) {
+        foreach ($this->mapFields as $key => $field) {
+            $this->row = 2;
+            foreach ($this->entities as $entity) {
                 //dump($entity);die();
-                $this->setCellValue( $this->row,$key,$entity,$field);
+                $this->setCellValue($this->row, $key, $entity, $field);
                 $this->row++;
             }
         }
@@ -142,13 +152,14 @@ class Report
      * @param $entity
      * @param $field
      */
-    public function setCellValue($letter,$number,$entity,$field){
-        if($entity instanceof Item) {
+    public function setCellValue($letter, $number, $entity, $field)
+    {
+        if ($entity instanceof Item) {
             $this->phpExcelObject->getActiveSheet()->setCellValue($letter . $number, $entity->get($field[0]));
-        }elseif(is_array($entity)){
+        } elseif (is_array($entity)) {
             $this->phpExcelObject->getActiveSheet()->setCellValue($letter . $number, $entity->get($field[0]));
         }
     }
 
-   // public abstract function
+    // public abstract function
 }
