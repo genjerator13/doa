@@ -29,11 +29,6 @@ class UnitProfitReport extends Report
        $listing = $this->container->get('numa.dms.listing');
        $value   = $listing->getProperty($entity,$field[0]);
        $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
-        if ($number > "B" && $letter > 1) {
-            if (is_numeric($value)) {
-                $this->phpExcelObject->getActiveSheet()->getStyle($number . $letter)->getNumberFormat()->setFormatCode('0.00');
-            }
-        }
     }
 
     public function createTotals(){
@@ -58,6 +53,9 @@ class UnitProfitReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , $totalSaleCost);
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $revenueThisUnit);
 
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("C1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
