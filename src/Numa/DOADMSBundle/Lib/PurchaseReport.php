@@ -32,6 +32,11 @@ class PurchaseReport extends Report
        $listing = $this->container->get('numa.dms.listing');
        $value   = $listing->getProperty($entity,$field[0]);
        $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
+        if ($number > "H" && $letter > 2) {
+            if (is_numeric($value)) {
+                $this->phpExcelObject->getActiveSheet()->getStyle($number . $letter)->getNumberFormat()->setFormatCode('0.00');
+            }
+        }
     }
 
     public function createTotals(){
@@ -46,7 +51,7 @@ class PurchaseReport extends Report
         }
 
         $this->row++;
-        $this->phpExcelObject->getActiveSheet()->setCellValue("A".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalInvoiceAmt);
         $this->phpExcelObject->getActiveSheet()->setCellValue("j".$this->row , $totalUnitCost);
 
