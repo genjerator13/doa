@@ -125,6 +125,7 @@ class Report
     {
         $phpExcelObject->getActiveSheet()->getColumnDimension($key)->setAutoSize(true);
         $phpExcelObject->getActiveSheet()->getStyle($key . "1")->getFont()->setBold(true);
+        $phpExcelObject->getActiveSheet()->getStyle($key)->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_RIGHT);
         return $phpExcelObject;
     }
 
