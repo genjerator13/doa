@@ -46,10 +46,13 @@ class PurchaseReport extends Report
         }
 
         $this->row++;
-        $this->phpExcelObject->getActiveSheet()->setCellValue("A".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalInvoiceAmt);
         $this->phpExcelObject->getActiveSheet()->setCellValue("j".$this->row , $totalUnitCost);
 
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("I1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()

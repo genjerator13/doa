@@ -43,6 +43,9 @@ class InventoryReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalUnitCost);
 
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("F1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()

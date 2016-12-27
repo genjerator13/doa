@@ -53,6 +53,9 @@ class UnitProfitReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , $totalSaleCost);
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $revenueThisUnit);
 
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("C1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
