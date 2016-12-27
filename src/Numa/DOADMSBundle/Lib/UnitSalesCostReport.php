@@ -91,6 +91,9 @@ class UnitSalesCostReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("Q".$this->row , $salesComms);
         $this->phpExcelObject->getActiveSheet()->setCellValue("R".$this->row , $totalSaleCost);
 
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("F1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
