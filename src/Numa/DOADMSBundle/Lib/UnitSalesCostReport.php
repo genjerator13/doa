@@ -76,6 +76,7 @@ class UnitSalesCostReport extends Report
         }
 
         $this->row++;
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $warranty);
         $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $lifeIns);

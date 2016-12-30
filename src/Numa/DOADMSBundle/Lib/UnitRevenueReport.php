@@ -79,7 +79,7 @@ class UnitRevenueReport extends Report
         }
 
         $this->row++;
-//        $this->phpExcelObject->getActiveSheet()->getStyle("F2:H3")->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("E" . $this->row, "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("F" . $this->row, $sellingPrice);
         $this->phpExcelObject->getActiveSheet()->setCellValue("G" . $this->row, $warranty1);
