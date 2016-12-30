@@ -115,7 +115,7 @@ class listingApi
     {
         $scheme="http";
         if(empty($host)) {
-            $host = $this->container->get('numa.dms.user')->getHost();
+            $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
 
             $scheme = $this->container->get('numa.dms.user')->getScheme();
 
