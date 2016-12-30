@@ -103,8 +103,10 @@ class listingApi
             $res[strtolower($value)] = $item->get($name);
         }
 
-        $res['images']['image'] = $this->processImages($res['images']['image']);
 
+        if(!empty($res['images']['image'])) {
+            $res['images']['image'] = $this->processImages($res['images']['image']);
+        }
 
         return $res;
     }
@@ -114,6 +116,7 @@ class listingApi
         $scheme="http";
         if(empty($host)) {
             $host = $this->container->get('numa.dms.user')->getHost();
+
             $scheme = $this->container->get('numa.dms.user')->getScheme();
 
         }
@@ -221,7 +224,12 @@ class listingApi
                         //if the value is array implode it to value|value2|value3...
 
                         if (is_array($value) && !empty($value)) {
+                            if(key_exists('image',$value) ){
 
+                                $value = $value['image'];
+                            }elseif(key_exists('option',$value)){
+                                $value = $value['option'];
+                            }
                             $value = implode("|", $value);
                         }
                         $headers[$key] = $key;
