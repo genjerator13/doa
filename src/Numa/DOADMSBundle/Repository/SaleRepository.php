@@ -23,7 +23,8 @@ class SaleRepository extends EntityRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('s,i.make,i.year,i.model,i.VIN,i.stock_nr')
             ->from('NumaDOADMSBundle:Sale', 's')
-            ->Where('i.dealer_id IN (' . $dealer_id . ')');
+            ->Where('i.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('i.sale_id IS NOT NULL');
         if(!empty($date) && empty($date1))
         {
             $qb->andWhere('s.invoice_date > :date')
@@ -51,7 +52,8 @@ class SaleRepository extends EntityRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
-            ->Where('i.dealer_id IN (' . $dealer_id . ')');
+            ->Where('i.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('i.sale_id IS NOT NULL');
         $qb->join('NumaDOADMSBundle:Sale', 's');
         if(!empty($date) && empty($date1))
         {
