@@ -47,6 +47,7 @@ class UnitProfitReport extends Report
         }
 
         $this->row++;
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("B".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("C".$this->row , $totalRevenue);
         $this->phpExcelObject->getActiveSheet()->setCellValue("D".$this->row , $totalUnitCost);
