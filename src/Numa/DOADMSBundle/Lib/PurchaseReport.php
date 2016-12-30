@@ -46,6 +46,7 @@ class PurchaseReport extends Report
         }
 
         $this->row++;
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalInvoiceAmt);
         $this->phpExcelObject->getActiveSheet()->setCellValue("j".$this->row , $totalUnitCost);
