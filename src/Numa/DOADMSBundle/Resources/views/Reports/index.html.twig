@@ -66,7 +66,6 @@
                         <th>Date_created</th>
                         <th>Date_updated</th>
                         <th>Status</th>
-
                         {#<th>Comments</th>#}
                         <th>Actions</th>
                     </tr>
@@ -74,21 +73,21 @@
                     <tbody>
                     {% for billing in billings %}
                         <tr>
-                            <td><a href="{{ path('billing_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
+                            <td><a href="{{ path('dms_items_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
                             <td>{% if billing.datecreated %}{{ billing.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{{ billing.status }}</td>
 
                             {#<td>{{ billing.comments }}</td>#}
                             <td>
-                                <a href="{{ path('billing_edit', { 'id': billing.id }) }}"
+                                <a href="{{ path('dms_items_edit', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
-                                <a href="{{ path('billing_print', { 'id': billing.id }) }}"
+                                <a href="{{ path('sale_print_inside', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
-                                <a href="{{ path('billing_delete', { 'id': billing.id,"redirect":"dms_reports" }) }}"
-                                   class="btn btn-danger"
-                                   data-confirm="Billing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">
-                                    <i class="glyphicon glyphicon-remove"></i>Delete</a>
+                                {#<a href="{{ path('sale_delete', { 'id': billing.saleId,"redirect":"dms_reports" }) }}"#}
+                                {#class="btn btn-danger"#}
+                                {#data-confirm="Unit Profit Report for listing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">#}
+                                {#<i class="glyphicon glyphicon-remove"></i>Delete</a>#}
                             </td>
                         </tr>
                     {% endfor %}
