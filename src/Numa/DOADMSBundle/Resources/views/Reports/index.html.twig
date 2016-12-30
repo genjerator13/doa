@@ -66,7 +66,6 @@
                         <th>Date_created</th>
                         <th>Date_updated</th>
                         <th>Status</th>
-
                         {#<th>Comments</th>#}
                         <th>Actions</th>
                     </tr>
@@ -86,9 +85,9 @@
                                 <a href="{{ path('sale_print_inside', { 'id': billing.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-list-alt"></i>Pdf</a>
                                 {#<a href="{{ path('sale_delete', { 'id': billing.saleId,"redirect":"dms_reports" }) }}"#}
-                                   {#class="btn btn-danger"#}
-                                   {#data-confirm="Unit Profit Report for listing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">#}
-                                    {#<i class="glyphicon glyphicon-remove"></i>Delete</a>#}
+                                {#class="btn btn-danger"#}
+                                {#data-confirm="Unit Profit Report for listing # <strong>{{ billing.id }}</strong> will be deleted.<br>Are you sure you want to delete it?">#}
+                                {#<i class="glyphicon glyphicon-remove"></i>Delete</a>#}
                             </td>
                         </tr>
                     {% endfor %}
