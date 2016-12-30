@@ -85,10 +85,15 @@ class DmsUserLib
         return null;
     }
 
-    public function getHost($request)
+    public function getHost($request=null)
     {
         $dealer = $this->getSignedDealer();
+
         $url = empty($dealer)? $request->getHost():$dealer->getSiteUrl();
+        if(empty($url)){
+            $url = $this->getCurrentSiteHost();
+        }
+
         return $url;
     }
 
