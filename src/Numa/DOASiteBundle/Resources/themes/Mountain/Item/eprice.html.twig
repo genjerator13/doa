@@ -1,5 +1,7 @@
 {% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
-
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="error alert-danger"></div>
+{{ form_errors(epriceForm) }}
 {{ form_start(epriceForm) }}
 <div class="form-group">
     {{ form_label(epriceForm.cust_name,'First Name',{'label_attr': {'class': 'col-md-3'}}) }}
@@ -32,4 +34,6 @@
         {{ form_widget(epriceForm.comment) }}
     </div>
 </div>
+<div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
 {{ form_rest(epriceForm) }}
