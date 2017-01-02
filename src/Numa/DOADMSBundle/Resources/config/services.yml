@@ -23,3 +23,6 @@ services:
           - [setContainer, ['@service_container']]
         tags:
             - { name: form.type, alias: 'container_aware' }
+    google.captcha:
+        class: Numa\DOADMSBundle\Util\GoogleCaptchaLib
+        arguments:  [@service_container]

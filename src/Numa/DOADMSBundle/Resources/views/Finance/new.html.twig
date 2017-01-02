@@ -8,7 +8,7 @@
 {%- endblock form_group_class %}
 
 {% block content %}
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     {{ displayComponent('text',"HTML")|raw }}
 
     {{ displayComponent('page_content',"HTML")|raw }}
@@ -24,6 +24,7 @@
     <h5>
         How can we help with financing?
     </h5>
+    {{ form_errors(form) }}
     {{ form_start(form) }}
     <h4>Loan Information</h4>
     {{ form_row(form.applicant_type) }}
@@ -81,6 +82,8 @@
     <h4>Other Income</h4>
     {{ form_row(form.source) }}
     {{ form_row(form.other_monthly_income) }}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
     <p>
         I certify that I have provided true and accurate information in this form. By submitting this form, I authorize
         the dealer to begin a credit investigation, to process my application, and to forward my application to lenders,
