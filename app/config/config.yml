@@ -408,6 +408,9 @@ parameters:
         bad:  kuserhxvvkigyhsdsf
     router.request_context.host: dev.dealersonair.com
     router.request_context.scheme: https
+    google.captcha.url: https://www.google.com/recaptcha/api/siteverify
+    google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe
+
     #router.request_context.base_url: /
 gregwar_image: ~  
 endroid_qr_code:
