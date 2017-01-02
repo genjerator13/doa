@@ -30,6 +30,7 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
         $entity = new Finance();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
 

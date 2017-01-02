@@ -6,6 +6,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Form\ListingFormNewsletterType;
 use Numa\DOASiteBundle\Lib\DealerSiteControllerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
@@ -462,7 +463,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $entity = new ListingForm();
         $form = $this->createCreateContactForm($entity);
         $form->handleRequest($request);
-
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $listingForm = $form->getData();
@@ -473,8 +474,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         }
 
         $response = $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array(
-            'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
-
+            'contactForm' => $form->createView(),
             'dealer' => $this->dealer,
         ));
         return $response;
@@ -593,6 +593,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $form = $this->createNewsletterForm($entity);
         $form->handleRequest($request);
 
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $listingForm = $form->getData();
@@ -602,9 +603,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         }
 
-        $response = $this->render('NumaDOASiteBundle:Default:newsletter.html.twig', array(
-            'newsletterForm' => $this->createNewsletterForm(new ListingForm())->createView(),
-
+        $response = $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array(
+            'contactForm' => $form->createView(),
             'dealer' => $this->dealer,
         ));
         return $response;
