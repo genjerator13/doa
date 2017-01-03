@@ -17,6 +17,9 @@ services:
     Numa.Dms.Command.Log:
         class: Numa\DOADMSBundle\Util\CommandLogLib
         arguments:  [@service_container]
+    numa.dms.images:
+        class: Numa\DOADMSBundle\Util\ImageLib
+        arguments:  [@service_container]
     Numa.Form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:

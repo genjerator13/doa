@@ -146,6 +146,7 @@ class ReportService
         $filename = "Customer_Details_Report.xls";
         $unitSalesCostReport = new UnitSalesCostReport($this->container);
         $unitSalesCostReport->setEntities($entities);
+
         return $unitSalesCostReport->createExcelResponse($filename);
     }
 }

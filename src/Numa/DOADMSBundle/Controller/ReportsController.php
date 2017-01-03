@@ -59,6 +59,7 @@ class ReportsController extends Controller
             }
 
             if ($request->query->has('inventoryShort')) {
+                /* inventory report sales copy */
                 return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
             }
 
