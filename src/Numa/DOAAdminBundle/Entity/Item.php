@@ -864,6 +864,7 @@ class Item
         $if = $this->getItemField();
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
+            ->orderBy(array("sort_order"=>Criteria::ASC))
             ->setMaxResults(1);
         $images = $if->matching($criteria);
         if (!empty($images) && $images->first() instanceof ItemField) {

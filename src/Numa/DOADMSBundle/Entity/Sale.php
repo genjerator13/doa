@@ -2569,24 +2569,4 @@ class Sale
         return $this->unit_tax_other;
     }
 
-    public function get($property)
-    {
-        $propSplit = explode(":",$property);
-        $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
-        if(count($propSplit)==2){
-            if(strtolower($propSplit[0])=='item'){
-                if($this->getItem() instanceof Item) {
-                    return $this->getItem()->get($propSplit[1]);
-                }else{
-                    return "";
-                }
-            }
-        }
-
-
-        if (method_exists($this, $function)) {
-            return $this->{$function}();
-        }
-    }
-
 }
