@@ -58,9 +58,7 @@ class ReportService
      */
     public function billingReportPurchaseXls($entities)
     {
-//        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Purchase report","DOA Purchase report","DOA Purchase report");
-//        $phpExcelObject = $this->createExcelContent($entities,$this->inventoryPurchaseFields,$phpExcelObject);
-//        return $this->createExcelResponse($phpExcelObject,"Customer_Details_Report.xls");
+
         $filename = "Customer_Details_Report.xls";
         $purchaseReport = new PurchaseReport($this->container);
         $purchaseReport->setEntities($entities);
@@ -74,9 +72,10 @@ class ReportService
      */
     public function billingReportSalesXls($entities)
     {
-        $phpExcelObject = $this->createPHPExcelObject("DOA","DOA Sales report","DOA Sales report","DOA sales report");
-        $phpExcelObject = $this->createExcelContent($entities,$this->inventorySalesFields,$phpExcelObject);
-        return $this->createExcelResponse($phpExcelObject,"Customer_Sales_Report.xls");
+        $filename = "sale_report.xls";
+        $saleReport = new SaleReport($this->container);
+        $saleReport->setEntities($entities);
+        return $saleReport->createExcelResponse($filename);
     }
 
     /**
