@@ -36,13 +36,14 @@ class InventoryReportShort extends Report
 
             if (!empty($photo)) {
                 if ($this->container->get("numa.dms.images")->isLocalImage($photo)) {
+                    $size = $this->container->get("numa.dms.images")->fitIntoHeight($photo,  100);
                     $objDrawing = new \PHPExcel_Worksheet_Drawing();    //create object for Worksheet drawing
                     $objDrawing->setPath($photo);
                     $objDrawing->setOffsetX(5);                       //setOffsetX works properly
                     $objDrawing->setOffsetY(5);                       //setOffsetY works properly
                     $objDrawing->setCoordinates($number . $letter);        //set image to cell
-                    $objDrawing->setWidth(120);                 //set width, height
-                    $objDrawing->setHeight(80);
+                    $objDrawing->setWidth($size['width']);                 //set width, height
+                    $objDrawing->setHeight($size['height']);
                     $objDrawing->setWorksheet($this->phpExcelObject->getActiveSheet());
                     $this->phpExcelObject->getActiveSheet()->getColumnDimension("A")->setWidth(120);
                     $this->phpExcelObject->getActiveSheet()->getRowDimension($letter)->setRowHeight(80);
