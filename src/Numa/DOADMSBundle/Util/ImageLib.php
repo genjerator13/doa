@@ -56,4 +56,15 @@ class ImageLib
         }
         return true;
     }
+
+    public function fitIntoHeight($photo,$h){
+        $size = getimagesize($photo);
+        $height = $size[1];
+        $width = $size[0];
+        $res = array();
+        $res['height']=intval($h);
+        $res['width']=intval(($width*$h)/$height);
+
+        return $res;
+    }
 }
