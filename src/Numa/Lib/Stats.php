@@ -10,6 +10,7 @@ namespace Numa\Lib;
 
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Sale;
 
 class Stats
 {
@@ -40,6 +41,22 @@ class Stats
 
         $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,13,$dealer);
         $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
+
+        $start = new \DateTime('first day of this month');
+        $end = new \DateTime('tomorrow');
+        $totalSaleMade = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+        $countSaleMade = count($totalSaleMade);
+        $totalPurchaseCost = 0;
+        foreach($totalSaleMade as $sale){
+            if($sale instanceof Sale){
+                $totalPurchaseCost=$totalPurchaseCost+$sale->getTotalUnitCost();
+            }
+
+        }
+        //dump($totalPurchaseCost);
+
+
+
 
         $stats =
             array(

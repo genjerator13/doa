@@ -76,4 +76,26 @@ class SaleRepository extends EntityRepository {
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+
+    public function getCountSaleMadePeriod($dateStart=null,$dateEnd=null,$dealer_id){
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('s')
+            ->from('NumaDOADMSBundle:Sale', 's')
+            ->Where('i.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('i.sale_id IS NOT NULL')
+            ->innerJoin('NumaDOAAdminBundle:Item', 'i')
+        ;
+        //$dStart = new \DateTime('now')
+
+        if(!empty($dateStart) && !empty($dateEnd)){
+            $qb->where('s.date_created BETWEEN :start AND :end')
+                ->setParameter('start', $dateStart->format('Y-m-d'))
+                ->setParameter('end', $dateEnd->format('Y-m-d'));
+        }
+        $query = $qb->getQuery();
+        //dump($query);
+        $res = $query->getResult(); //->getResult();
+
+        return $res;
+    }
 }
