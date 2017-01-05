@@ -131,7 +131,6 @@ class Report
 
     /**
      * Creates excel content from the map array and entities
-     * @param $entities Collection
      */
     public function createExcelContent()
     {
