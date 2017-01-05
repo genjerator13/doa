@@ -15,25 +15,22 @@ class InventoryReportShort extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A" => array("photo", "Photo"),
-        "B" => array("stockNr", "Stock nr"),
-        "C" => array("vin", "VIN #"),
-        "D" => array("year", "Year"),
-        "E" => array("make", "Make"),
-        "F" => array("model", "Model"),
+        "A"=>array("stockNr","Stock nr"),
+        "B"=>array("vin","VIN #"),
+        "C"=>array("year","Year"),
+        "D"=>array("make","Make"),
+        "E"=>array("model","Model"),
 
     );
 
-    public function setCellValue($letter, $number, $entity, $field)
-    {
-        $this->setCellValueWithPhoto($letter, $number, $entity, $field);
+    public function setCellValue($letter,$number,$entity,$field){
+       $listing = $this->container->get('numa.dms.listing');
+       $value   = $listing->getProperty($entity,$field[0]);
+       $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
     public function createExcelContent()
     {
         parent::createExcelContent();
-        $this->phpExcelObject->getActiveSheet()->getColumnDimension("A")->setWidth(120);
     }
-
-
 }
