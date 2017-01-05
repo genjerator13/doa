@@ -121,6 +121,20 @@ class ReportService
     }
 
     /**
+     * creates InventoryPhoto report
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingReportInventoryPhotoXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $inventoryReportPhoto = new InventoryReportPhoto($this->container);
+        $inventoryReportPhoto->setEntities($entities);
+        return $inventoryReportPhoto->createExcelResponse($filename);
+    }
+
+    /**
      * creates UnitRevenue report
      * @param $entities
      * @return Response
