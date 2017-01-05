@@ -63,6 +63,10 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
             }
 
+            if ($request->query->has('inventoryPhoto')) {
+                return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
+            }
+
             if ($request->query->has('unitRevenue')) {
                 return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
             }

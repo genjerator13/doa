@@ -11,23 +11,22 @@ namespace Numa\DOADMSBundle\Lib;
 
 use Numa\DOADMSBundle\Entity\Sale;
 
-class InventoryReport extends Report
+class InventoryReportPhoto extends Report
 {
     //"columnLetter" =array("entity property","title")
-    public $mapFields = array(
-        "A"=>array("stockNr","Stock nr"),
-        "B"=>array("vin","VIN #"),
-        "C"=>array("year","Year"),
-        "D"=>array("make","Make"),
-        "E"=>array("model","Model"),
-        "F"=>array("sale:totalUnitCost","Total Cost Unit"),
 
+    public $mapFields = array(
+        "A" => array("photo", "Photo"),
+        "B" => array("stockNr", "Stock nr"),
+        "C" => array("vin", "VIN #"),
+        "D" => array("year", "Year"),
+        "E" => array("make", "Make"),
+        "F" => array("model", "Model"),
+        "G"=>array("sale:totalUnitCost","Total Cost Unit"),
     );
 
     public function setCellValue($letter,$number,$entity,$field){
-       $listing = $this->container->get('numa.dms.listing');
-       $value   = $listing->getProperty($entity,$field[0]);
-       $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
+        $this->setCellValueWithPhoto($letter, $number, $entity, $field);
     }
 
     public function createTotals(){
@@ -46,7 +45,7 @@ class InventoryReport extends Report
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle("F1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
