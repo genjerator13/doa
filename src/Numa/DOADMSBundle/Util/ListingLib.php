@@ -218,18 +218,25 @@ class ListingLib
     {
         $function = $this->asFunction($property);
         $splitName = explode(":", $property);
-
         if (count($splitName) > 1) {
-
             if (strtolower($splitName[0]) == "sale") {
 
                 if ($item->getSale() instanceof Sale) {
-
                     $function = $this->asFunction($splitName[1]);
-
                     if (method_exists($item->getSale(), $function)) {
-
                         return $item->getSale()->{$function}();
+                    }
+                }
+            }
+
+            if (strtolower($splitName[0]) == "billing") {
+                $em = $this->container->get('doctrine.orm.entity_manager');
+                $billing = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("Item"=>$item));
+
+                if ($billing instanceof Billing) {
+                    $function = $this->asFunction($splitName[1]);
+                    if (method_exists($billing, $function)) {
+                        return $billing->{$function}();
                     }
                 }
             }
