@@ -9,13 +9,14 @@
 namespace Numa\DOADMSBundle\Lib;
 
 
+use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Sale;
 
 class SaleReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A"=>array("sale:salesPerson","Sale Person"),
+        "A"=>array("billing:salesPerson","Sale Person"),
         "B"=>array("customer","Cust Name"),
         "C"=>array("VIN","Vin"),
         "C"=>array("stockNr","Stock nr"),
@@ -32,31 +33,32 @@ class SaleReport extends Report
        $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
-    public function createTotals(){
-
-        $totalInvoiceAmt=0;
-        $totalUnitCost=0;
-        foreach ($this->getEntities() as $entity) {
-            if($entity->getSale() instanceof Sale) {
-                $totalInvoiceAmt += $entity->getSale()->getInvoiceAmt();
-                $totalUnitCost += $entity->getSale()->getTotalUnitCost();
-            }
-        }
-
-        $this->row++;
-        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalInvoiceAmt);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("j".$this->row , $totalUnitCost);
-
-        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
-        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("I1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
-    }
-
     public function createExcelContent()
     {
-        parent::createExcelContent();
-        $this->createTotals();
+        $salesPersonArray = $this->prepareEntities();
+        dump($salesPersonArray);
+        $this->createExcelHeaders();
+        foreach ($this->mapFields as $key => $field) {
+            $this->row = 2;
+            foreach ($this->entities as $entity) {
+                //dump($entity);die();
+                $this->setCellValue($this->row, $key, $entity, $field);
+                $this->row++;
+            }
+        }
+        die();
+    }
+
+    public function prepareEntities(){
+        $res = array();
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        foreach($this->entities as $entity){
+            $sale = $entity->getSale();
+            if($sale instanceof Sale) {
+                dump($sale);
+                $res[]['sales_person'] = $sale->getSalesPerson();
+            }
+        }
     }
 }
