@@ -44,19 +44,25 @@ class Stats
 
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('tomorrow');
-        $totalSaleMade = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+        $totalSaleMade = 0;
+        if($dealer instanceof Catalogrecords){
+            $totalSaleMade = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+
+            foreach($totalSaleMade as $sale){
+                if($sale instanceof Sale){
+                    $totalPurchaseCost += $sale->getTotalUnitCost();
+                    $grossSalesRevenue += $sale->getTotalRevenue();
+                    $salesCost += $sale->getTotalSaleCost();
+                    $netSalesRevenue += $sale->getRevenueThisUnit();
+                }
+
+            }
+        }
         $countSaleMade = count($totalSaleMade);
         $totalPurchaseCost = 0;
-        foreach($totalSaleMade as $sale){
-            if($sale instanceof Sale){
-                $totalPurchaseCost=$totalPurchaseCost+$sale->getTotalUnitCost();
-            }
-
-        }
-        //dump($totalPurchaseCost);
-
-
-
+        $grossSalesRevenue = 0;
+        $salesCost = 0;
+        $netSalesRevenue = 0;
 
         $stats =
             array(
@@ -72,6 +78,11 @@ class Stats
                 'totalRvsViews'=>$totalRvsViews,
                 'totalAgsListings'=>$totalAgsListings,
                 'totalAgsViews'=>$totalAgsViews,
+                'countSaleMade' => $countSaleMade,
+                'totalPurchaseCost' => $totalPurchaseCost,
+                'grossSalesRevenue' => $grossSalesRevenue,
+                'salesCost' => $salesCost,
+                'netSalesRevenue' => $netSalesRevenue,
             );
         return $stats;
     }
