@@ -88,14 +88,12 @@ class SaleRepository extends EntityRepository {
         //$dStart = new \DateTime('now')
 
         if(!empty($dateStart) && !empty($dateEnd)){
-            $qb->where('s.date_created BETWEEN :start AND :end')
+            $qb->where('s.invoice_date BETWEEN :start AND :end')
                 ->setParameter('start', $dateStart->format('Y-m-d'))
                 ->setParameter('end', $dateEnd->format('Y-m-d'));
         }
         $query = $qb->getQuery();
-        //dump($query);
         $res = $query->getResult(); //->getResult();
-
         return $res;
     }
 }
