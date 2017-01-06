@@ -176,6 +176,69 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Unit Purchases This Month</h5><br>
+                        <span class="description-text">{{ stats.countSaleMade }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Total Purchase Cost This Month</h5><br>
+                        <span class="description-text">${{ stats.totalPurchaseCost }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Sales This Month</h5><br>
+                        <span class="description-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Gross Sales Revenue This Month</h5><br>
+                        <span class="description-text">${{ stats.grossSalesRevenue }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Sales Cost This Month</h5><br>
+                        <span class="description-text">${{ stats.salesCost }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+            <div class="box box-success box-solid">
+                <div class="box-body" style="display: block;">
+                    <div class="description-block border-right">
+                        <h5 class="description-header">Net Sales Revenue This Month</h5><br>
+                        <span class="description-text">${{ stats.netSalesRevenue }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {#<script src="https://code.highcharts.com/highcharts.js"></script>#}
     {#<script src="https://code.highcharts.com/modules/exporting.js"></script>#}
 
