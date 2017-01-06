@@ -29,7 +29,12 @@ class SaleType extends AbstractType
             ->add('stock_nr')
             ->add('vin')
             ->add('invoice_nr')
-            ->add('invoice_date')
+            ->add('invoice_date', 'date', array(
+                'required' => true,
+                'widget' => 'single_text',
+                'format' => 'yyyy-dd-MM',
+                'attr' => array('class' => 'datepicker')
+            ))
             ->add('invoice_amt')
             ->add('related_taxes_1',null,array('label'=>'Related Taxes 1'))
             ->add('related_taxes_2',null,array('label'=>'Related Taxes 2'))
