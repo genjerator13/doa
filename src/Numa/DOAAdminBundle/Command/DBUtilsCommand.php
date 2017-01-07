@@ -199,8 +199,8 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $count++;
                 if ($count % 200 == 0) {
                     $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-
                 }
+
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
 
