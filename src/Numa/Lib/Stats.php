@@ -47,6 +47,8 @@ class Stats
         $end = new \DateTime('tomorrow');
         $totalPurchaseCost = 0;
         $totalSaleGross = 0;
+        $totalSaleCost = 0;
+        $totalSaleRevenue = 0;
         $totalItems = array();
         $totalSales = array();
         if($dealer instanceof Catalogrecords){
@@ -61,7 +63,9 @@ class Stats
 
             foreach($totalSales as $sale){
                 if($sale instanceof Sale){
-                    $totalSaleGross += $sale->getTotalSaleCost();
+                    $totalSaleGross += $sale->getTotalRevenue();
+                    $totalSaleCost  += $sale->getTotalSaleCost();
+                    $totalSaleRevenue   += $sale->getRevenueThisUnit();
                 }
             }
         }
@@ -91,6 +95,8 @@ class Stats
                 'countSales' => $countSales,
                 'totalPurchaseCost' => $totalPurchaseCost,
                 'totalSaleGross' => $totalSaleGross,
+                'totalSaleCost' => $totalSaleCost,
+                'totalSaleRevenue' => $totalSaleRevenue,
                 'salesCost' => $salesCost,
                 'netSalesRevenue' => $netSalesRevenue,
             );
