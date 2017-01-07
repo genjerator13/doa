@@ -11,6 +11,7 @@ namespace Numa\Lib;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOAAdminBundle\Entity\Item;
 
 class Stats
 {
@@ -44,21 +45,29 @@ class Stats
 
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('tomorrow');
-        $totalSaleMade = 0;
+        $totalPurchaseCost = 0;
+        $totalSaleGross = 0;
+        $totalItems = array();
+        $totalSales = array();
         if($dealer instanceof Catalogrecords){
-            $totalSaleMade = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+            $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+            $totalItems = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($start,$end,$dealer->getId());
 
-            foreach($totalSaleMade as $sale){
-                if($sale instanceof Sale){
-                    $totalPurchaseCost += $sale->getTotalUnitCost();
-                    $grossSalesRevenue += $sale->getTotalRevenue();
-                    $salesCost += $sale->getTotalSaleCost();
-                    $netSalesRevenue += $sale->getRevenueThisUnit();
+            foreach($totalItems as $item){
+                if($item instanceof Item){
+                    $totalPurchaseCost += $item->getPrice();
                 }
+            }
 
+            foreach($totalSales as $sale){
+                if($sale instanceof Sale){
+                    $totalSaleGross += $sale->getTotalSaleCost();
+                }
             }
         }
-        $countSaleMade = count($totalSaleMade);
+
+        $countPurchased = count($totalItems);
+        $countSales = count($totalSales);
         $totalPurchaseCost = 0;
         $grossSalesRevenue = 0;
         $salesCost = 0;
@@ -78,9 +87,10 @@ class Stats
                 'totalRvsViews'=>$totalRvsViews,
                 'totalAgsListings'=>$totalAgsListings,
                 'totalAgsViews'=>$totalAgsViews,
-                'countSaleMade' => $countSaleMade,
+                'countPurchased' => $countPurchased,
+                'countSales' => $countSales,
                 'totalPurchaseCost' => $totalPurchaseCost,
-                'grossSalesRevenue' => $grossSalesRevenue,
+                'totalSaleGross' => $totalSaleGross,
                 'salesCost' => $salesCost,
                 'netSalesRevenue' => $netSalesRevenue,
             );
