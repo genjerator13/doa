@@ -1,3 +1,4 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 {% block content -%}
     <div class="box">
         <div class="box-header">
@@ -20,7 +21,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Date_created</th>
-                        <th>Date_updated</th>
+
                         <th>Status</th>
 
                         <th>Comments</th>
@@ -32,7 +33,6 @@
                         <tr>
                             <td><a href="{{ path('billing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
                             <td>{{ entity.status }}</td>
 
                             <td>{{ entity.comments }}</td>
