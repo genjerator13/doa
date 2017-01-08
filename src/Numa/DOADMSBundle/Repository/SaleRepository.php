@@ -74,6 +74,8 @@ class SaleRepository extends EntityRepository {
                 ->setParameter("date1", $date1);
         }
         $qb->orderBy("s.invoice_date","DESC");
+        $qb->andWhere('s.invoice_date is not null');
+
         $query = $qb->getQuery();
 
         $res = $query->getResult(); //->getResult();
