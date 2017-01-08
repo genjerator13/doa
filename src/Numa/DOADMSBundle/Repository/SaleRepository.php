@@ -51,18 +51,20 @@ class SaleRepository extends EntityRepository {
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
-            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->from('NumaDOADMSBundle:Sale', 's')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.sale_id IS NOT NULL');
-        $qb->join('NumaDOADMSBundle:Sale', 's');
+        //$qb->leftJoin('NumaDOAAdminBundle:Item', 'i');
+        $qb->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+
         if(!empty($date) && empty($date1))
         {
-            $qb->andWhere('s.invoice_date > :date')
+            $qb->andWhere('s.invoice_date >= :date')
                 ->setParameter("date", $date);
         }
         if(empty($date) && !empty($date1))
         {
-            $qb->andWhere('s.invoice_date < :date1')
+            $qb->andWhere('s.invoice_date <= :date1')
                 ->setParameter("date1", $date1);
         }
         if(!empty($date) && !empty($date1))
@@ -71,9 +73,11 @@ class SaleRepository extends EntityRepository {
                 ->setParameter("date", $date)
                 ->setParameter("date1", $date1);
         }
-
+        $qb->orderBy("s.invoice_date","DESC");
         $query = $qb->getQuery();
+
         $res = $query->getResult(); //->getResult();
+
         return $res;
     }
 

@@ -16,9 +16,9 @@
         </div>
         <form class="col-md-12">
             Date From:
-            <input type="date" class="datepicker" name="dateFrom">
+            <input type="date" class="datepicker" name="dateFrom" value="{{ date_start }}">
             Date To:
-            <input type="date" class="datepicker" name="dateTo">
+            <input type="date" class="datepicker" name="dateTo" value="{{ date_end }}">
 
             <button class="btn btn-success" type="submit" name="filter">Filter</button>
             <div class="col-md-12">
@@ -67,9 +67,12 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Date_created</th>
-                        <th>Date_updated</th>
-                        <th>Status</th>
+                        <th>Invoice Date</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Year</th>
+                        <th>Vin</th>
+                        <th>Stock Number</th>
                         {#<th>Comments</th>#}
                         <th>Actions</th>
                     </tr>
@@ -78,9 +81,12 @@
                     {% for billing in billings %}
                         <tr>
                             <td><a href="{{ path('dms_items_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
-                            <td>{% if billing.datecreated %}{{ billing.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{% if billing.dateupdated %}{{ billing.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{{ billing.status }}</td>
+                            <td>{% if billing.getSale().getInvoiceDate() %}{{ billing.getSale().getInvoiceDate()|date('Y-M-d') }}{% endif %}</td>
+                            <td>{{ billing.Make }}</td>
+                            <td>{{ billing.Model }}</td>
+                            <td>{{ billing.Year }}</td>
+                            <td>{{ billing.Vin }}</td>
+                            <td>{{ billing.stockNR }}</td>
 
                             {#<td>{{ billing.comments }}</td>#}
                             <td>
