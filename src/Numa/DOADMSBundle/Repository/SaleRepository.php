@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Repository;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -53,9 +54,8 @@ class SaleRepository extends EntityRepository {
         $qb->select('i')
             ->from('NumaDOADMSBundle:Sale', 's')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
-            ->andWhere('i.sale_id IS NOT NULL');
-        //$qb->leftJoin('NumaDOAAdminBundle:Item', 'i');
-        $qb->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+            ->andWhere('i.sale_id IS NOT NULL')
+            ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
 
         if(!empty($date) && empty($date1))
         {
@@ -98,6 +98,25 @@ class SaleRepository extends EntityRepository {
                 ->setParameter('start', $dateStart->format('Y-m-d'))
                 ->setParameter('end', $dateEnd->format('Y-m-d'));
         }
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
+    public function findByDealer($dealer)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('s,i.id as item_id,i.VIN as vin,i.stock_nr as stock_nr')
+            ->from('NumaDOADMSBundle:Sale', 's')
+            ->andWhere('i.sale_id IS NOT NULL')
+            ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+
+        if($dealer instanceof Catalogrecords) {
+            $qb->Where('i.dealer_id IN (' . $dealer->getId() . ')');
+        }
+
+        $qb->orderBy("s.id","DESC");
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
         return $res;

@@ -21,10 +21,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Date_created</th>
-
-                        <th>Status</th>
-
-                        <th>Comments</th>
+                        <th>Customer</th>
+                        <th>Item</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -33,9 +31,9 @@
                         <tr>
                             <td><a href="{{ path('billing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                            <td>{{ entity.status }}</td>
+                            <td>{{ entity.customer.name }}</td>
 
-                            <td>{{ entity.comments }}</td>
+                            <td>{% if entity.itemId is not empty %}<a href="{{ path("items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% endif %}</td>
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': entity.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>
