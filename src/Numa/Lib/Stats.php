@@ -62,8 +62,14 @@ class Stats
         $totalSaleGrossYear = 0;
         $totalSaleCostYear = 0;
         $totalSaleRevenueYear = 0;
+        $countPurchased = 0;
+        $countSales = 0;
+        $countPurchasedYear = 0;
+        $countSalesYear = 0;
         $totalItems = array();
         $totalSales = array();
+        $totalSalesYear = array();
+        $totalItemsYear = array();
         if($dealer instanceof Catalogrecords){
             $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
             $totalItems = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($start,$end,$dealer->getId());
