@@ -49,9 +49,6 @@ class Stats
         $startYear = new \DateTime('first day of january');
         $endYear = new \DateTime('last day of december');
 
-        dump($startYear);
-        dump($endYear);die();
-
         $countPurchased = 0;
         $countSales = 0;
         $totalPurchaseCost = 0;
