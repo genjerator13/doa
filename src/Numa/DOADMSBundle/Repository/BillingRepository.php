@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Repository;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -52,6 +53,21 @@ class BillingRepository extends EntityRepository
         $res = $query->getResult(); //->getResult();
         return $res;
     }
+
+    public function findByDealer($dealer)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('b')
+            ->from('NumaDOADMSBundle:Billing', 'b');
+        if($dealer instanceof Catalogrecords) {
+            $qb->Where('b.dealer_id IN (' . $dealer->getId() . ')');
+        }
+        $qb->orderBy("b.id","DESC");
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
+
     public function delete($ids)
     {
         if (!empty($ids)) {
