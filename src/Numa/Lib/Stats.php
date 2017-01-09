@@ -44,7 +44,7 @@ class Stats
         $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
 
         $start = new \DateTime('first day of this month');
-        $end = new \DateTime('tomorrow');
+        $end = new \DateTime('last day of this month');
 
         $startYear = new \DateTime('first day of january');
         $endYear = new \DateTime('last day of december');
