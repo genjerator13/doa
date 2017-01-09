@@ -44,38 +44,59 @@ class Stats
         $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
 
         $start = new \DateTime('first day of this month');
-        $end = new \DateTime('tomorrow');
+        $end = new \DateTime('last day of this month');
+
+        $startYear = new \DateTime('first day of january');
+        $endYear = new \DateTime('last day of december');
+
+        $countPurchased = 0;
+        $countSales = 0;
         $totalPurchaseCost = 0;
         $totalSaleGross = 0;
         $totalSaleCost = 0;
         $totalSaleRevenue = 0;
+
+        $countPurchasedYear = 0;
+        $countSalesYear = 0;
+        $totalPurchaseCostYear = 0;
+        $totalSaleGrossYear = 0;
+        $totalSaleCostYear = 0;
+        $totalSaleRevenueYear = 0;
+
         $totalItems = array();
         $totalSales = array();
+        $totalSalesYear = array();
+        $totalItemsYear = array();
+        
         if($dealer instanceof Catalogrecords){
             $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
             $totalItems = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($start,$end,$dealer->getId());
+            $totalSalesYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear,$endYear,$dealer->getId());
+            $totalItemsYear = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($startYear,$endYear,$dealer->getId());
 
-            foreach($totalItems as $item){
-                if($item instanceof Item){
-                    $totalPurchaseCost += $item->getPrice();
-                }
-            }
+            $countPurchased = count($totalItems);
+            $countSales = count($totalSales);
+
+            $countPurchasedYear = count($totalItemsYear);
+            $countSalesYear = count($totalSalesYear);
 
             foreach($totalSales as $sale){
                 if($sale instanceof Sale){
                     $totalSaleGross += $sale->getTotalRevenue();
                     $totalSaleCost  += $sale->getTotalSaleCost();
                     $totalSaleRevenue   += $sale->getRevenueThisUnit();
+                    $totalPurchaseCost += $sale->getTotalUnitCost();
+                }
+            }
+            foreach($totalSalesYear as $sale){
+                if($sale instanceof Sale){
+                    $totalSaleGrossYear += $sale->getTotalRevenue();
+                    $totalSaleCostYear  += $sale->getTotalSaleCost();
+                    $totalSaleRevenueYear   += $sale->getRevenueThisUnit();
+                    $totalPurchaseCostYear += $sale->getTotalUnitCost();
                 }
             }
         }
-
-        $countPurchased = count($totalItems);
-        $countSales = count($totalSales);
-        $totalPurchaseCost = 0;
-        $grossSalesRevenue = 0;
-        $salesCost = 0;
-        $netSalesRevenue = 0;
 
         $stats =
             array(
@@ -97,8 +118,12 @@ class Stats
                 'totalSaleGross' => $totalSaleGross,
                 'totalSaleCost' => $totalSaleCost,
                 'totalSaleRevenue' => $totalSaleRevenue,
-                'salesCost' => $salesCost,
-                'netSalesRevenue' => $netSalesRevenue,
+                'countPurchasedYear' => $countPurchasedYear,
+                'countSalesYear' => $countSalesYear,
+                'totalPurchaseCostYear' => $totalPurchaseCostYear,
+                'totalSaleGrossYear' => $totalSaleGrossYear,
+                'totalSaleCostYear' => $totalSaleCostYear,
+                'totalSaleRevenueYear' => $totalSaleRevenueYear,
             );
         return $stats;
     }
