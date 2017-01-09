@@ -435,13 +435,12 @@
         });
 
         $(function () {
+
+            $('.datepicker').datepicker({ dateFormat: 'yy-dd-mm'});
+
             if($(".datepicker").val() == "")
             {
-                $('.datepicker').datepicker({
-                    useCurrent: false, //this is important as the functions sets the default date value to the current value
-                    dateFormat: 'yy-dd-mm',
-                });
+                $('.datepicker').datepicker('setDate', new Date());
             }
-            $('.datepicker').datepicker('setDate', new Date());
         });
     </script>

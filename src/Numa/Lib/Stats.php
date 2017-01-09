@@ -44,10 +44,29 @@ class Stats
 
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('tomorrow');
+
+        $startYear = new \DateTime('first day of this year');
+        $endYear = new \DateTime('last day of december');
+
         $totalSaleMade = 0;
+        $countSaleMade = 0;
+        $totalPurchaseCost = 0;
+        $grossSalesRevenue = 0;
+        $salesCost = 0;
+        $netSalesRevenue = 0;
+
+        $totalSaleMadeYear = 0;
+        $countSaleMadeYear = 0;
+        $totalPurchaseCostYear = 0;
+        $grossSalesRevenueYear = 0;
+        $salesCostYear = 0;
+        $netSalesRevenueYear = 0;
+
         if($dealer instanceof Catalogrecords){
             $totalSaleMade = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
+            $totalSaleMadeYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear,$endYear,$dealer->getId());
 
+            $countSaleMade = count($totalSaleMade);
             foreach($totalSaleMade as $sale){
                 if($sale instanceof Sale){
                     $totalPurchaseCost += $sale->getTotalUnitCost();
@@ -57,12 +76,18 @@ class Stats
                 }
 
             }
+
+            $countSaleMadeYear = count($totalSaleMadeYear);
+            foreach($totalSaleMadeYear as $saleYear){
+                if($saleYear instanceof Sale){
+                    $totalPurchaseCostYear += $saleYear->getTotalUnitCost();
+                    $grossSalesRevenueYear += $saleYear->getTotalRevenue();
+                    $salesCostYear += $saleYear->getTotalSaleCost();
+                    $netSalesRevenueYear += $saleYear->getRevenueThisUnit();
+                }
+
+            }
         }
-        $countSaleMade = count($totalSaleMade);
-        $totalPurchaseCost = 0;
-        $grossSalesRevenue = 0;
-        $salesCost = 0;
-        $netSalesRevenue = 0;
 
         $stats =
             array(
@@ -83,6 +108,11 @@ class Stats
                 'grossSalesRevenue' => $grossSalesRevenue,
                 'salesCost' => $salesCost,
                 'netSalesRevenue' => $netSalesRevenue,
+                'countSaleMadeYear' => $countSaleMadeYear,
+                'totalPurchaseCostYear' => $totalPurchaseCostYear,
+                'grossSalesRevenueYear' => $grossSalesRevenueYear,
+                'salesCostYear' => $salesCostYear,
+                'netSalesRevenueYear' => $netSalesRevenueYear,
             );
         return $stats;
     }
