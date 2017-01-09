@@ -62,14 +62,12 @@ class Stats
         $totalSaleGrossYear = 0;
         $totalSaleCostYear = 0;
         $totalSaleRevenueYear = 0;
-        $countPurchased = 0;
-        $countSales = 0;
-        $countPurchasedYear = 0;
-        $countSalesYear = 0;
+
         $totalItems = array();
         $totalSales = array();
         $totalSalesYear = array();
         $totalItemsYear = array();
+        
         if($dealer instanceof Catalogrecords){
             $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
             $totalItems = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($start,$end,$dealer->getId());
@@ -82,22 +80,12 @@ class Stats
             $countPurchasedYear = count($totalItemsYear);
             $countSalesYear = count($totalSalesYear);
 
-            foreach($totalItems as $item){
-                if($item instanceof Item){
-                    $totalPurchaseCost += $item->getPrice();
-                }
-            }
-            foreach($totalItemsYear as $item){
-                if($item instanceof Item){
-                    $totalPurchaseCostYear += $item->getPrice();
-                }
-            }
-
             foreach($totalSales as $sale){
                 if($sale instanceof Sale){
                     $totalSaleGross += $sale->getTotalRevenue();
                     $totalSaleCost  += $sale->getTotalSaleCost();
                     $totalSaleRevenue   += $sale->getRevenueThisUnit();
+                    $totalPurchaseCost += $sale->getTotalUnitCost();
                 }
             }
             foreach($totalSalesYear as $sale){
@@ -105,10 +93,10 @@ class Stats
                     $totalSaleGrossYear += $sale->getTotalRevenue();
                     $totalSaleCostYear  += $sale->getTotalSaleCost();
                     $totalSaleRevenueYear   += $sale->getRevenueThisUnit();
+                    $totalPurchaseCostYear += $sale->getTotalUnitCost();
                 }
             }
         }
-
 
         $stats =
             array(
