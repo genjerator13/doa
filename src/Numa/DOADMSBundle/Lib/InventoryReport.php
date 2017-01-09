@@ -20,7 +20,8 @@ class InventoryReport extends Report
         "C"=>array("year","Year"),
         "D"=>array("make","Make"),
         "E"=>array("model","Model"),
-        "F"=>array("sale:totalUnitCost","Total Cost Unit"),
+        "F"=>array("price","Selling Price"),
+        "G"=>array("sale:totalUnitCost","Total Cost Unit"),
 
     );
 
@@ -33,7 +34,9 @@ class InventoryReport extends Report
     public function createTotals(){
 
         $totalUnitCost=0;
+        $totalSellingPrice=0;
         foreach ($this->getEntities() as $entity) {
+            $totalSellingPrice += $entity->getPrice();
             if($entity->getSale() instanceof Sale) {
                 $totalUnitCost += $entity->getSale()->getTotalUnitCost();
             }
@@ -42,7 +45,8 @@ class InventoryReport extends Report
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
         $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalUnitCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalSellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $totalUnitCost);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
