@@ -39,7 +39,7 @@ NumaDOADMSBundle_note:
     prefix:   /note
 NumaDOADMSBundle_billing:
     resource: "@NumaDOADMSBundle/Resources/config/routing/billing.yml"
-    prefix:   /billing
+    prefix:   /billings
 NumaDOADMSBundle_dmsuser:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dmsuser.yml"
     prefix:   /dmsuser
@@ -101,7 +101,7 @@ NumaDOADMSBundle_vendor:
     prefix:   /vendor
 NumaDOADMSBundle_sale:
     resource: "@NumaDOADMSBundle/Resources/config/routing/sale.yml"
-    prefix:   /sale
+    prefix:   /sales
 NumaDOADMSBundle_supportform:
     resource: "@NumaDOADMSBundle/Resources/config/routing/supportform.yml"
     prefix:   /supportform
