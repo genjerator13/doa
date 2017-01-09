@@ -23,8 +23,8 @@ class SaleController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDealer($dealer);
 
         return $this->render('NumaDOADMSBundle:Sale:index.html.twig', array(
             'entities' => $entities,

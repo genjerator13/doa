@@ -24,8 +24,8 @@ class BillingController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealer($dealer);
 
         return $this->render('NumaDOADMSBundle:Billing:index.html.twig', array(
             'entities' => $entities,
@@ -41,9 +41,6 @@ class BillingController extends Controller
         $entity = new Billing();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
-//        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-//        $entity->setDealer($dealer);
 
         $em = $this->getDoctrine()->getManager();
         $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
