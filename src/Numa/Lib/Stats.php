@@ -46,8 +46,11 @@ class Stats
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('tomorrow');
 
-        $startYear = new \DateTime('first day of this year');
+        $startYear = new \DateTime('first day of january');
         $endYear = new \DateTime('last day of december');
+
+        dump($startYear);
+        dump($endYear);die();
 
         $countPurchased = 0;
         $countSales = 0;
