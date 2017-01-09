@@ -30,7 +30,7 @@ class SaleType extends AbstractType
             ->add('vin')
             ->add('invoice_nr')
             ->add('invoice_date', 'date', array(
-                'required' => true,
+                'required' => false,
                 'widget' => 'single_text',
                 'format' => 'yyyy-dd-MM',
                 'attr' => array('class' => 'datepicker')
