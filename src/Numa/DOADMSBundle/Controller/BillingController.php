@@ -27,7 +27,7 @@ class BillingController extends Controller
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDealer($dealer);
 
-        return $this->render('NumaDOADMSBundle:Billing:index.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Billing:index_full.html.twig', array(
             'entities' => $entities,
         ));
     }
