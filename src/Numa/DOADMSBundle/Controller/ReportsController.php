@@ -28,23 +28,23 @@ class ReportsController extends Controller
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
         if (empty($dealer)) {
             $entities = null;
-            $em->flush();
+            //$em->flush();
             $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
             $securityContext = $this->container->get('security.authorization_checker');
+            $dealer_id = $dealer->getId();
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
                 $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('dealer_group_id' => $dealer->getId()));
                 $dealer_ids = array();
                 foreach ($dealers as $dealer) {
                     $dealer_ids[] = $dealer->getId();
                 }
-                $dealers = implode(",", $dealer_ids);
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($date, $date1, $dealers);
+                $dealer_id = implode(",", $dealer_ids);
 
-            } else {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate2($date, $date1, $dealer->getId());
-                //dump($entities);die();
             }
+            $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate2($date, $date1, $dealer_id);
+            //dump($entities);die();
+
 
             if ($request->query->has('purchase')) {
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
@@ -81,6 +81,8 @@ class ReportsController extends Controller
         }
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'billings' => $entities,
+            'date_start' => $date,
+            'date_end' => $date1,
         ));
     }
 }
