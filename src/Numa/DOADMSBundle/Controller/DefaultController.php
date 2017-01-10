@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats($request);
         $em = $this->getDoctrine()->getManager();
         $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
         if (empty($signedDealer)) {
