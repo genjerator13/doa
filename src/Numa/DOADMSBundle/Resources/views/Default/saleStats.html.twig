@@ -58,7 +58,20 @@
                 </div>
             </div>
         </div>
-    </div><div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+    </div>
+</div>
+<div class="row" style="margin-bottom: 20px; margin-left: 20px">
+    <form>
+        Date From:
+        <input type="date" class="datepicker1" name="dateFrom" value="{{ stats.date_start }}" required="required">
+        Date To:
+        <input type="date" class="datepicker2" name="dateTo" value="{{ stats.date_end }}" required="required">
+
+        <button class="btn btn-success" type="submit" name="filter">Filter</button>
+    </form>
+</div>
+<div class="row">
+    <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
         <div class="box box-success box-solid">
             <div class="box-body" style="display: block;">
                 <div class="description-block border-right">
@@ -119,3 +132,8 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('.datepicker1').datepicker({dateFormat: 'yy-mm-dd'});
+    $('.datepicker2').datepicker({dateFormat: 'yy-mm-dd'});
+</script>
