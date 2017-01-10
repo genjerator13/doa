@@ -409,7 +409,7 @@ class ItemRepository extends EntityRepository
      * @return bool|mixed
      * Finds items by stock# and VIn
      */
-    public function findItemsBy($find, $field = 'vin')
+    public function findItemsBy($find, $field = 'vin',$dealer_ids="")
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -418,6 +418,10 @@ class ItemRepository extends EntityRepository
             $qb->Where('i.VIN like :find');
         } else {
             $qb->where('i.stock_nr like :find');
+        }
+        if(!empty($dealer_ids)){
+            $qb->andWhere('i.dealer_id IN (:dealer_ids)')
+                ->setParameter('dealer_ids', $dealer_ids);;
         }
 
         $qb->setParameter("find", "%" . $find . "%");
