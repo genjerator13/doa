@@ -21,7 +21,7 @@ class Stats
     {
         $this->container = $container;
     }
-    public function dashboardStats(){
+    public function dashboardStats($request){
         $em = $this->container->get('doctrine.orm.entity_manager');
         $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
 
@@ -46,8 +46,16 @@ class Stats
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('last day of this month');
 
-        $startYear = new \DateTime('first day of january');
-        $endYear = new \DateTime('last day of december');
+        $dateFrom = $request->query->get('dateFrom');
+        $dateTo = $request->query->get('dateTo');
+        $startYear = new \DateTime($dateFrom);
+        $endYear = new \DateTime($dateTo);
+        if(empty($dateFrom) && empty($dateTo)){
+            $startYear = new \DateTime('first day of january');
+            $endYear = new \DateTime('last day of december');
+            $dateFrom = $startYear->format('Y-m-d');
+            $dateTo = $endYear->format('Y-m-d');
+        }
 
         $countPurchased = 0;
         $countSales = 0;
@@ -70,15 +78,15 @@ class Stats
         
         if($dealer instanceof Catalogrecords){
             $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
-            $totalItems = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($start,$end,$dealer->getId());
+            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($start,$end,$dealer->getId());
             $totalSalesYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear,$endYear,$dealer->getId());
-            $totalItemsYear = $em->getRepository('NumaDOAAdminBundle:Item')->findByDate($startYear,$endYear,$dealer->getId());
+            $totalBillingsYear = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startYear,$endYear,$dealer->getId());
 
-            $countPurchased = count($totalItems);
-            $countSales = count($totalSales);
+            $countPurchased = count($totalSales);
+            $countSales = count($totalBillings);
 
-            $countPurchasedYear = count($totalItemsYear);
-            $countSalesYear = count($totalSalesYear);
+            $countPurchasedYear = count($totalSalesYear);
+            $countSalesYear = count($totalBillingsYear);
 
             foreach($totalSales as $sale){
                 if($sale instanceof Sale){
@@ -124,6 +132,8 @@ class Stats
                 'totalSaleGrossYear' => $totalSaleGrossYear,
                 'totalSaleCostYear' => $totalSaleCostYear,
                 'totalSaleRevenueYear' => $totalSaleRevenueYear,
+                'date_start' => $dateFrom,
+                'date_end' => $dateTo,
             );
         return $stats;
     }
