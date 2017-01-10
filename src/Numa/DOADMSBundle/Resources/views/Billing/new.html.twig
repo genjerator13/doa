@@ -50,6 +50,11 @@
             <div class="box-header">
 
             </div>
+            {% if form_errors(form) is not empty %}
+                <div class="alert alert-danger">
+                    <strong>VEHICLE NOT FOUND!</strong>
+                </div>
+            {% endif %}
             <table cellspacing="0" border="0">
                 <colgroup span="3" width="80"></colgroup>
                 <colgroup width="56"></colgroup>
@@ -106,6 +111,7 @@
                         <input id="stock-autocomplete" auto-complete ui-items="names" type="text" size="35"
                                maxlength="50" ng-model="stock"
                                ng-change="change('stock')" class="changeable"/>
+
                     </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>

@@ -54,15 +54,12 @@ class DmsUserLib
     public function getSignedDealer()
     {
         $dealer = $this->getSignedUser();
-
         if($dealer instanceof Catalogrecords ){
             return $dealer;
         }
-
         if($dealer instanceof DMSUser ){
             return $dealer->getDealer();
         }
-
         if($dealer instanceof DealerGroup ){
             if(empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection){
                 //dump($dealer->getDealer()->first());die();
@@ -72,6 +69,23 @@ class DmsUserLib
             return $dealer->getDealerCreator();
         }
         return null;
+    }
+
+    /**
+     * @return dealers id based whatever dealer or dealer principal is signed
+     */
+    public function getAvailableDealers()
+    {
+        $dealer = $this->getSignedUser();
+        $dealer_id = "";
+        if($dealer instanceof Catalogrecords ){
+            $dealer_id = $dealer->getId();
+        }
+
+        if($dealer instanceof DealerGroup ){
+            $dealer_id=$this->getDealerIdsFromPrincipal($dealer);
+        }
+        return $dealer_id;
     }
 
     public function getSignedDealerPrincipal()
@@ -123,5 +137,16 @@ class DmsUserLib
             return $dealer->getDealerGroup()->getId();
         }
         return null;
+    }
+
+    public function getDealerIdsFromPrincipal(DealerGroup $principal){
+        $dealer_id = array();
+        if($principal instanceof DealerGroup){
+            foreach($principal->getDealer() as $dealer){
+                $dealer_id[]=$dealer->getId();
+            }
+        }
+
+        return implode(",",$dealer_id);
     }
 }
