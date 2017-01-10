@@ -136,7 +136,9 @@ class EntityListener
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
-            $entity->getItem()->setSold(true);
+            if(!empty($entity->getItem())){
+                $entity->getItem()->setSold(true);
+            }
             $em->flush();
 
         } elseif ($entity instanceof DealerGroup) {

@@ -171,14 +171,14 @@ class ItemRESTController extends Controller
         return $customers;
     }
 
-    /**
-     * @Rest\View
-     */
+
     public function listingByUniquesAction(Request $request, $id)
     {
         $field = $request->get('field');
-        $customers = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsBy($id, $field);
-        return $customers;
+        $dealer_id = $this->get("numa.dms.user")->getAvailableDealers();
+        $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsBy($id, $field,$dealer_id);
+
+        return $items;
     }
 
     public function addFeatureAction(Request $request)

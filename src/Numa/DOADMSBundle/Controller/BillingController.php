@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -47,6 +48,9 @@ class BillingController extends Controller
 
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
+        if(empty($entity->getItemId())){
+            $form->addError(new FormError('VEHICLE NOT FOUND'));
+        }
         if ($form->isValid()) {
 
             if (!empty($entity->getItemId())) {
