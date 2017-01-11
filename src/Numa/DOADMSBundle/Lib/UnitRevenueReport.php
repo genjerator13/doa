@@ -20,7 +20,7 @@ class UnitRevenueReport extends Report
         "C" => array("year", "Year"),
         "D" => array("make", "Make"),
         "E" => array("model", "Model"),
-        "F" => array("sale:sellingPrice", "Selling Price"),
+        "F" => array("sale:sellingPrice", "Sold For"),
         "G" => array("sale:warranty1", "Warranty"),
         "H" => array("sale:lifeInsur", "Life Ins"),
         "I" => array("sale:disabilityIns1", "Disability Ins"),
