@@ -54,6 +54,42 @@ class BillingRepository extends EntityRepository
         return $res;
     }
 
+
+
+    public function findByDateReports($dateStart, $dateEnd, $dealer_id, $sold)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->Where('i.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('i.sale_id IS NOT NULL')
+            ->leftJoin('NumaDOADMSBundle:Billing', 'b', "WITH", "i.id=b.item_id")
+            ->andWhere('i.sold = :sold')
+            ->setParameter('sold', $sold);
+        if(!empty($dateStart) && empty($dateEnd))
+        {
+            $qb->andWhere('b.date_billing >= :date')
+                ->setParameter('date', $dateStart->format('Y-m-d'));
+        }
+        if(empty($dateStart) && !empty($dateEnd))
+        {
+            $qb->andWhere('b.date_billing <= :date1')
+                ->setParameter('date1', $dateEnd->format('Y-m-d'));
+        }
+        if(!empty($dateStart) && !empty($dateEnd))
+        {
+            $qb->andWhere('b.date_billing BETWEEN :date AND :date1')
+                ->setParameter('date', $dateStart->format('Y-m-d'))
+                ->setParameter('date1', $dateEnd->format('Y-m-d'));
+        }
+        $qb->orderBy("b.date_billing","DESC");
+        $qb->andWhere('b.date_billing is not null');
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+
+        return $res;
+    }
+
     public function findByDealer($dealer)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
