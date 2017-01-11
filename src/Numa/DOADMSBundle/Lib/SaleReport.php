@@ -23,7 +23,7 @@ class SaleReport extends Report
         "D" => array("year", "Year"),
         "E" => array("make", "Make"),
         "F" => array("model", "Model"),
-        "G" => array("sale:sellingPrice", "Selling Price"),
+        "G" => array("sale:sellingPrice", "Sold For"),
         "H" => array("sale:totalRevenue", "Total Rev"),
     );
 

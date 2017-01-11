@@ -76,7 +76,7 @@ class SaleType extends AbstractType
             ->add('tax_1_in')
             ->add('tax_2_in')
             ->add('net_tax')
-            ->add('selling_price')
+            ->add('selling_price',null,array('label'=>'Sold for'))
             ->add('trade_in')
             ->add('warranty1',null,array('label'=>'Warranty'))
             ->add('life_insur')
