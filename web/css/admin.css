@@ -227,3 +227,7 @@ input[type="file"] {
     margin-bottom: 20px;
     margin-left: 20px
 }
+
+.saleStats .row .description-block{
+    height: 60px;
+}
