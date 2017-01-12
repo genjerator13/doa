@@ -320,7 +320,7 @@
                         {#<i class="fa fa-pencil-square-o"></i>Business Profile</a>#}
                         {#</li>#}
                         {% if not is_granted('ROLE_ADMIN') %}
-                            {% if (is_granted('ROLE_DMS_USER') ) %}
+                            {% if (is_granted('ROLE_DMS_USER') and is_granted('ROLE_REGULAR_ADMIN_DMS') == false ) %}
                                 <li class="active">
                                     <a href="{{ path('dms_profile_edit', {'id': app.user.id}) }}">
                                         <i class="fa fa-pencil-square-o"></i>Business Profile</a>
