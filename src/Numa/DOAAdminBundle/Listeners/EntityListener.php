@@ -138,6 +138,7 @@ class EntityListener
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             if(!empty($entity->getItem())){
                 $entity->getItem()->setSold(true);
+                $entity->getItem()->setActive(false);
             }
             $em->flush();
 

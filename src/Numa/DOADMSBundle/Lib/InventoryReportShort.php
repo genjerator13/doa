@@ -20,8 +20,26 @@ class InventoryReportShort extends Report
         "C"=>array("year","Year"),
         "D"=>array("make","Make"),
         "E"=>array("model","Model"),
+        "F"=>array("price","Selling Price"),
 
     );
+
+    public function createTotals(){
+
+        $totalSellingPrice=0;
+        foreach ($this->getEntities() as $entity) {
+            $totalSellingPrice += $entity->getPrice();
+        }
+
+        $this->row++;
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalSellingPrice);
+
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("F1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+    }
 
     public function setCellValue($letter,$number,$entity,$field){
        $listing = $this->container->get('numa.dms.listing');
@@ -32,5 +50,6 @@ class InventoryReportShort extends Report
     public function createExcelContent()
     {
         parent::createExcelContent();
+        $this->createTotals();
     }
 }
