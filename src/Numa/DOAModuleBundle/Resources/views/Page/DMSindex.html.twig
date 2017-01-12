@@ -23,9 +23,7 @@
     'js/angular/ui-grid.js'
     'js/angular/angular-confirm.min.js'
     'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-    'js/loading-bar.min.js'
-
-    %}
+    'js/loading-bar.min.js' %}
 
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
@@ -40,14 +38,16 @@
 
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
 
-<div class="box">
+    <div class="box">
     <div class="box-header">
         <div class="box-header">
             <h3 class="box-title">Pages list</h3>
             <div class="box-tools">
+                {% if is_granted('ROLE_ADMIN') == false %}
                     <a href="{{ path('dms_page_new') }}" class="btn btn-primary">
                         Create new Page
                     </a>
+                {% endif %}
             </div>
 
         </div>
@@ -74,4 +74,4 @@
     </div>
 
     {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
-    {% endblock %}
+{% endblock %}
