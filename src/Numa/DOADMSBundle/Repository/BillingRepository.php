@@ -32,7 +32,8 @@ class BillingRepository extends EntityRepository
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b')
-            ->Where('b.dealer_id IN (' . $dealer_id . ')');
+            ->Where('b.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('b.item_id IS NOT NULL');
             if(!empty($date) && empty($date1))
             {
                 $qb->andWhere('b.date_billing > :date')
