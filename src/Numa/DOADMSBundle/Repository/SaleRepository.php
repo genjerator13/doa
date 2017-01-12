@@ -19,16 +19,18 @@ class SaleRepository extends EntityRepository {
         }
     }
 
-    public function findByDate($dateStart, $dateEnd, $dealer_id, $sold)
+    public function findByDate($dateStart, $dateEnd, $dealer_id, $sold = null)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOADMSBundle:Sale', 's')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.sale_id IS NOT NULL')
-            ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id")
-            ->andWhere('i.sold = :sold')
-            ->setParameter('sold', $sold);
+            ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+        if(!is_null($sold)){
+            $qb->andWhere('i.sold = :sold')
+                ->setParameter('sold', $sold);
+        }
         if(!empty($dateStart) && empty($dateEnd))
         {
             $qb->andWhere('s.invoice_date >= :date')

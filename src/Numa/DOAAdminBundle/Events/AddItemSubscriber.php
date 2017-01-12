@@ -80,9 +80,6 @@ class AddItemSubscriber implements EventSubscriberInterface
             $cat = $this->category->getId();
         }
         $em = $this->container->get("doctrine.orm.entity_manager");
-        if($cat==1){
-            $form->add('status', 'choice', array('choices' => array('New' => 'New', "Used" => "Used"),"data"=>"Used"));
-        }
         foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB => $carFieldField) {
             $listingList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
             //dump($carFieldDB);
