@@ -124,11 +124,6 @@ class Sale
     /**
      * @var float
      */
-    private $net_grain;
-
-    /**
-     * @var float
-     */
     private $protect_pkg;
 
     /**
@@ -521,6 +516,19 @@ class Sale
     }
 
 
+    /**
+     * Get invoiceDate
+     *
+     * @return \DateTime
+     */
+    public function getInvoiceDateFormated()
+    {
+        if($this->getInvoiceDate() instanceof \DateTime) {
+            return $this->invoice_date->format("Y-m-d");
+        }
+    }
+
+
 
     /**
      * Set relatedTaxes1
@@ -543,7 +551,7 @@ class Sale
      */
     public function getRelatedTaxes1()
     {
-        return $this->related_taxes_1;
+        return number_format((float)$this->related_taxes_1,2, '.', '');
     }
 
     /**
@@ -567,7 +575,7 @@ class Sale
      */
     public function getRelatedTaxes2()
     {
-        return $this->related_taxes_2;
+        return number_format((float)$this->related_taxes_2,2, '.', '');
     }
 
     /**
@@ -591,7 +599,7 @@ class Sale
      */
     public function getDelivery()
     {
-        return $this->delivery;
+        return number_format((float)$this->delivery,2, '.', '');
     }
 
     /**
@@ -615,7 +623,7 @@ class Sale
      */
     public function getClearUp()
     {
-        return $this->clear_up;
+        return number_format((float)$this->clear_up,2, '.', '');
     }
 
     /**
@@ -639,7 +647,7 @@ class Sale
      */
     public function getGlass()
     {
-        return $this->glass;
+        return number_format((float)$this->glass,2, '.', '');
     }
 
     /**
@@ -663,7 +671,7 @@ class Sale
      */
     public function getMechanical1()
     {
-        return $this->mechanical_1;
+        return number_format((float)$this->mechanical_1,2, '.', '');
     }
 
     /**
@@ -687,7 +695,7 @@ class Sale
      */
     public function getMechanical2()
     {
-        return $this->mechanical_2;
+        return number_format((float)$this->mechanical_2,2, '.', '');
     }
 
     /**
@@ -711,7 +719,7 @@ class Sale
      */
     public function getOtherExp1()
     {
-        return $this->other_exp_1;
+        return number_format((float)$this->other_exp_1,2, '.', '');
     }
 
     /**
@@ -735,7 +743,7 @@ class Sale
      */
     public function getOtherExp2()
     {
-        return $this->other_exp_2;
+        return number_format((float)$this->other_exp_2,2, '.', '');
     }
 
     /**
@@ -759,7 +767,7 @@ class Sale
      */
     public function getOtherExp3()
     {
-        return $this->other_exp_3;
+        return number_format((float)$this->other_exp_3,2, '.', '');
     }
 
     /**
@@ -783,7 +791,7 @@ class Sale
      */
     public function getOtherExp4()
     {
-        return $this->other_exp_4;
+        return number_format((float)$this->other_exp_4,2, '.', '');
     }
 
     /**
@@ -807,7 +815,7 @@ class Sale
      */
     public function getOtherExp5()
     {
-        return $this->other_exp_5;
+        return number_format((float)$this->other_exp_5,2, '.', '');
     }
 
     /**
@@ -831,33 +839,9 @@ class Sale
      */
     public function getTotalUnitCost()
     {
-        return round($this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2);
-//        return $this->total_unit_cost;
-    }
 
-    /**
-     * Set netGrain
-     *
-     * @param float $netGrain
-     *
-     * @return Sale
-     */
-    public function setNetGrain($netGrain)
-    {
-        $this->net_grain = $netGrain;
-
-        return $this;
-    }
-
-    /**
-     * Get netGrain
-     *
-     * @return float
-     */
-    public function getNetGrain()
-    {
-          return round(($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2);
-//        return $this->net_grain;
+        $this->total_unit_cost = number_format((float)$this->getInvoiceAmt() + $this->getDelivery() + $this->getCleanUp() + $this->getGlass() + $this->getMechanical1() + $this->getMechanical2() + $this->getOtherExp1() + $this->getOtherExp2() + $this->getOtherExp3() + $this->getOtherExp4() + $this->getOtherExp5(),2, '.', '');
+        return $this->total_unit_cost;
     }
 
     /**
@@ -881,7 +865,7 @@ class Sale
      */
     public function getProtectPkg()
     {
-        return $this->protect_pkg;
+        return number_format((float)$this->protect_pkg,2, '.', '');
     }
 
     /**
@@ -905,7 +889,7 @@ class Sale
      */
     public function getWarranty()
     {
-        return $this->warranty;
+        return number_format((float)$this->warranty,2, '.', '');
     }
 
     /**
@@ -929,7 +913,7 @@ class Sale
      */
     public function getDocFees()
     {
-        return $this->doc_fees;
+        return number_format((float)$this->doc_fees,2, '.', '');
     }
 
     /**
@@ -953,7 +937,7 @@ class Sale
      */
     public function getAdminFees()
     {
-        return $this->admin_fees;
+        return number_format((float)$this->admin_fees,2, '.', '');
     }
 
     /**
@@ -977,7 +961,7 @@ class Sale
      */
     public function getInsurance()
     {
-        return $this->insurance;
+        return number_format((float)$this->insurance,2, '.', '');
     }
 
     /**
@@ -1001,7 +985,7 @@ class Sale
      */
     public function getLifeIns()
     {
-        return $this->life_ins;
+        return number_format((float)$this->life_ins,2, '.', '');
     }
 
     /**
@@ -1025,7 +1009,7 @@ class Sale
      */
     public function getDisabilityIns()
     {
-        return $this->disability_ins;
+        return number_format((float)$this->disability_ins,2, '.', '');
     }
 
     /**
@@ -1049,7 +1033,7 @@ class Sale
      */
     public function getFeverse()
     {
-        return $this->feverse;
+        return number_format((float)$this->feverse,2, '.', '');
     }
 
     /**
@@ -1073,7 +1057,7 @@ class Sale
      */
     public function getMisc1()
     {
-        return $this->misc_1;
+        return number_format((float)$this->misc_1,2, '.', '');
     }
 
     /**
@@ -1097,7 +1081,7 @@ class Sale
      */
     public function getMisc2()
     {
-        return $this->misc_2;
+        return number_format((float)$this->misc_2,2, '.', '');
     }
 
     /**
@@ -1121,7 +1105,7 @@ class Sale
      */
     public function getMisc3()
     {
-        return $this->misc_3;
+        return number_format((float)$this->misc_3,2, '.', '');
     }
 
     /**
@@ -1134,7 +1118,6 @@ class Sale
     public function setSalesComms($salesComms)
     {
         $this->sales_comms = $salesComms;
-
         return $this;
     }
 
@@ -1145,7 +1128,7 @@ class Sale
      */
     public function getSalesComms()
     {
-        return $this->sales_comms;
+        return number_format((float)$this->sales_comms,2, '.', '');
     }
 
     /**
@@ -1169,8 +1152,8 @@ class Sale
      */
     public function getTotalSaleCost()
     {
-        return round($this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2);
-//        return $this->total_sale_cost;
+        $this->total_sale_cost= number_format((float)$this->getProtectPkg() + $this->getWarranty() + $this->getDocFees() + $this->getAdminFees() + $this->getInsurance() + $this->getLifeIns() + $this->getDisabilityIns() + $this->getFeverse() + $this->getMisc1() + $this->getMisc2() + $this->getMisc3() + $this->getSalesComms(),2, '.', '');
+        return $this->total_sale_cost;
     }
 
     /**
@@ -1362,7 +1345,7 @@ class Sale
      */
     public function getTax1Out()
     {
-        return $this->tax_1_out;
+        return number_format((float)$this->tax_1_out,2, '.', '');
     }
 
     /**
@@ -1386,7 +1369,7 @@ class Sale
      */
     public function getTax2Out()
     {
-        return $this->tax_2_out;
+        return number_format((float)$this->tax_2_out,2, '.', '');
     }
 
     /**
@@ -1410,7 +1393,7 @@ class Sale
      */
     public function getTradeInTax()
     {
-        return $this->trade_in_tax;
+        return number_format((float)$this->trade_in_tax,2, '.', '');
     }
 
     /**
@@ -1434,7 +1417,7 @@ class Sale
      */
     public function getTax1In()
     {
-        return $this->tax_1_in;
+        return number_format((float)$this->tax_1_in,2, '.', '');
     }
 
     /**
@@ -1458,7 +1441,7 @@ class Sale
      */
     public function getTax2In()
     {
-        return $this->tax_2_in;
+        return number_format((float)$this->tax_2_in,2, '.', '');
     }
 
     /**
@@ -1482,8 +1465,8 @@ class Sale
      */
     public function getNetTax()
     {
-          return ($this->getTax1Out() + $this->getTax2Out() + $this->getTradeInTax())-($this->getTax1In() + $this->getTax2In());
-//        return $this->net_tax;
+        $this->net_tax = number_format((float)($this->getTax1Out() + $this->getTax2Out() + $this->getUnitTaxOther()) - (($this->getTax1In() + $this->getTax2In()) + $this->getTradeInTax()),2, '.', '');
+        return $this->net_tax;
     }
 
     /**
@@ -1507,7 +1490,7 @@ class Sale
      */
     public function getSellingPrice()
     {
-        return $this->selling_price;
+        return number_format((float)$this->selling_price,2, '.', '');
     }
 
     /**
@@ -1531,7 +1514,7 @@ class Sale
      */
     public function getTradeIn()
     {
-        return $this->trade_in;
+        return number_format((float)$this->trade_in,2, '.', '');
     }
 
     /**
@@ -1555,7 +1538,7 @@ class Sale
      */
     public function getWarranty1()
     {
-        return $this->warranty1;
+        return number_format((float)$this->warranty1,2, '.', '');
     }
 
     /**
@@ -1579,7 +1562,7 @@ class Sale
      */
     public function getLifeInsur()
     {
-        return $this->life_insur;
+        return number_format((float)$this->life_insur,2, '.', '');
     }
 
     /**
@@ -1603,7 +1586,7 @@ class Sale
      */
     public function getDisabilityIns1()
     {
-        return $this->disability_ins1;
+        return number_format((float)$this->disability_ins1,2, '.', '');
     }
 
     /**
@@ -1627,7 +1610,7 @@ class Sale
      */
     public function getAdminFees1()
     {
-        return $this->admin_fees1;
+        return number_format((float)$this->admin_fees1,2, '.', '');
     }
 
     /**
@@ -1651,7 +1634,7 @@ class Sale
      */
     public function getDocFees1()
     {
-        return $this->doc_fees1;
+        return number_format((float)$this->doc_fees1,2, '.', '');
     }
 
     /**
@@ -1675,7 +1658,7 @@ class Sale
      */
     public function getProtectPkg1()
     {
-        return $this->protect_pkg1;
+        return number_format((float)$this->protect_pkg1,2, '.', '');
     }
 
     /**
@@ -1699,7 +1682,7 @@ class Sale
      */
     public function getInsurance1()
     {
-        return $this->insurance1;
+        return number_format((float)$this->insurance1,2, '.', '');
     }
 
     /**
@@ -1723,7 +1706,7 @@ class Sale
      */
     public function getBankCommis()
     {
-        return $this->bank_commis;
+        return number_format((float)$this->bank_commis,2, '.', '');
     }
 
     /**
@@ -1747,7 +1730,7 @@ class Sale
      */
     public function getOther1()
     {
-        return $this->other_1;
+        return number_format((float)$this->other_1,2, '.', '');
     }
 
     /**
@@ -1771,7 +1754,7 @@ class Sale
      */
     public function getOther2()
     {
-        return $this->other_2;
+        return number_format((float)$this->other_2,2, '.', '');
     }
 
     /**
@@ -1795,7 +1778,7 @@ class Sale
      */
     public function getOther3()
     {
-        return $this->other_3;
+        return number_format((float)$this->other_3,2, '.', '');
     }
 
     /**
@@ -1819,8 +1802,8 @@ class Sale
      */
     public function getTotalRevenue()
     {
-        return round($this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2);
-//        return $this->total_revenue;
+        $this->total_revenue = number_format((float)$this->getSellingPrice() + $this->getTradeIn() + $this->getWarranty1() + $this->getLifeInsur() + $this->getDisabilityIns1() + $this->getAdminFees1() + $this->getDocFees1() + $this->getProtectPkg1() + $this->getInsurance1() + $this->getBankCommis() + $this->getOther1() + $this->getOther2() + $this->getOther3(),2, '.', '');
+        return $this->total_revenue;
     }
 
     /**
@@ -1844,8 +1827,8 @@ class Sale
      */
     public function getRevenueThisUnit()
     {
-        return round($this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2);
-//        return $this->revenue_this_unit;
+        $this->revenue_this_unit = number_format((float)$this->getTotalRevenue()-($this->getTotalUnitCost() + $this->getTotalSaleCost()),2, '.', '');
+        return $this->revenue_this_unit;
     }
 
     /**
@@ -2035,7 +2018,7 @@ class Sale
      */
     public function getInvoiceAmt()
     {
-        return $this->invoice_amt;
+        return number_format((float)$this->invoice_amt,2, '.', '');
     }
 
     /**
@@ -2059,7 +2042,7 @@ class Sale
      */
     public function getCleanUp()
     {
-        return $this->clean_up;
+        return number_format((float)$this->clean_up,2, '.', '');
     }
     /**
      * @var string
@@ -2175,6 +2158,415 @@ class Sale
      */
     public function getNetGain()
     {
+        $this->net_gain = number_format((float)($this->getSellingPrice() + $this->getTradeIn()) - $this->getTotalUnitCost(),2, '.', '');
         return $this->net_gain;
     }
+    /**
+     * @var string
+     */
+    private $other_1_des;
+
+    /**
+     * @var string
+     */
+    private $other_2_des;
+
+
+    /**
+     * Set other1Des
+     *
+     * @param string $other1Des
+     *
+     * @return Sale
+     */
+    public function setOther1Des($other1Des)
+    {
+        $this->other_1_des = $other1Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other1Des
+     *
+     * @return string
+     */
+    public function getOther1Des()
+    {
+        return $this->other_1_des;
+    }
+
+    /**
+     * Set other2Des
+     *
+     * @param string $other2Des
+     *
+     * @return Sale
+     */
+    public function setOther2Des($other2Des)
+    {
+        $this->other_2_des = $other2Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other2Des
+     *
+     * @return string
+     */
+    public function getOther2Des()
+    {
+        return $this->other_2_des;
+    }
+    /**
+     * @var string
+     */
+    private $other_3_des;
+
+
+    /**
+     * Set other3Des
+     *
+     * @param string $other3Des
+     *
+     * @return Sale
+     */
+    public function setOther3Des($other3Des)
+    {
+        $this->other_3_des = $other3Des;
+
+        return $this;
+    }
+
+    /**
+     * Get other3Des
+     *
+     * @return string
+     */
+    public function getOther3Des()
+    {
+        return $this->other_3_des;
+    }
+    /**
+     * @var float
+     */
+    private $gst;
+
+    /**
+     * @var float
+     */
+    private $gst1;
+
+    /**
+     * @var float
+     */
+    private $gst2;
+
+    /**
+     * @var float
+     */
+    private $gst3;
+
+    /**
+     * @var float
+     */
+    private $gst4;
+
+    /**
+     * @var float
+     */
+    private $gst5;
+
+    /**
+     * @var float
+     */
+    private $gst6;
+
+    /**
+     * @var float
+     */
+    private $gst7;
+
+    /**
+     * @var float
+     */
+    private $gst8;
+
+    /**
+     * @var float
+     */
+    private $gst9;
+
+
+    /**
+     * Set gst
+     *
+     * @param float $gst
+     *
+     * @return Sale
+     */
+    public function setGst($gst)
+    {
+        $this->gst = $gst;
+
+        return $this;
+    }
+
+    /**
+     * Get gst
+     *
+     * @return float
+     */
+    public function getGst()
+    {
+        return number_format((float)$this->gst,2, '.', '');
+    }
+
+    /**
+     * Set gst1
+     *
+     * @param float $gst1
+     *
+     * @return Sale
+     */
+    public function setGst1($gst1)
+    {
+        $this->gst1 = $gst1;
+
+        return $this;
+    }
+
+    /**
+     * Get gst1
+     *
+     * @return float
+     */
+    public function getGst1()
+    {
+        return number_format((float)$this->gst1,2, '.', '');
+    }
+
+    /**
+     * Set gst2
+     *
+     * @param float $gst2
+     *
+     * @return Sale
+     */
+    public function setGst2($gst2)
+    {
+        $this->gst2 = $gst2;
+
+        return $this;
+    }
+
+    /**
+     * Get gst2
+     *
+     * @return float
+     */
+    public function getGst2()
+    {
+        return number_format((float)$this->gst2,2, '.', '');
+    }
+
+    /**
+     * Set gst3
+     *
+     * @param float $gst3
+     *
+     * @return Sale
+     */
+    public function setGst3($gst3)
+    {
+        $this->gst3 = $gst3;
+
+        return $this;
+    }
+
+    /**
+     * Get gst3
+     *
+     * @return float
+     */
+    public function getGst3()
+    {
+        return number_format((float)$this->gst3,2, '.', '');
+    }
+
+    /**
+     * Set gst4
+     *
+     * @param float $gst4
+     *
+     * @return Sale
+     */
+    public function setGst4($gst4)
+    {
+        $this->gst4 = $gst4;
+
+        return $this;
+    }
+
+    /**
+     * Get gst4
+     *
+     * @return float
+     */
+    public function getGst4()
+    {
+        return number_format((float)$this->gst4,2, '.', '');
+    }
+
+    /**
+     * Set gst5
+     *
+     * @param float $gst5
+     *
+     * @return Sale
+     */
+    public function setGst5($gst5)
+    {
+        $this->gst5 = $gst5;
+
+        return $this;
+    }
+
+    /**
+     * Get gst5
+     *
+     * @return float
+     */
+    public function getGst5()
+    {
+        return number_format((float)$this->gst5,2, '.', '');
+    }
+
+    /**
+     * Set gst6
+     *
+     * @param float $gst6
+     *
+     * @return Sale
+     */
+    public function setGst6($gst6)
+    {
+        $this->gst6 = $gst6;
+
+        return $this;
+    }
+
+    /**
+     * Get gst6
+     *
+     * @return float
+     */
+    public function getGst6()
+    {
+        return number_format((float)$this->gst6,2, '.', '');
+    }
+
+    /**
+     * Set gst7
+     *
+     * @param float $gst7
+     *
+     * @return Sale
+     */
+    public function setGst7($gst7)
+    {
+        $this->gst7 = $gst7;
+
+        return $this;
+    }
+
+    /**
+     * Get gst7
+     *
+     * @return float
+     */
+    public function getGst7()
+    {
+        return number_format((float)$this->gst7,2, '.', '');
+    }
+
+    /**
+     * Set gst8
+     *
+     * @param float $gst8
+     *
+     * @return Sale
+     */
+    public function setGst8($gst8)
+    {
+        $this->gst8 = $gst8;
+
+        return $this;
+    }
+
+    /**
+     * Get gst8
+     *
+     * @return float
+     */
+    public function getGst8()
+    {
+        return number_format((float)$this->gst8,2, '.', '');
+    }
+
+    /**
+     * Set gst9
+     *
+     * @param float $gst9
+     *
+     * @return Sale
+     */
+    public function setGst9($gst9)
+    {
+        $this->gst9 = $gst9;
+
+        return $this;
+    }
+
+    /**
+     * Get gst9
+     *
+     * @return float
+     */
+    public function getGst9()
+    {
+        return number_format((float)$this->gst9,2, '.', '');
+    }
+    /**
+     * @var float
+     */
+    private $unit_tax_other;
+
+
+    /**
+     * Set unitTaxOther
+     *
+     * @param float $unitTaxOther
+     *
+     * @return Sale
+     */
+    public function setUnitTaxOther($unitTaxOther)
+    {
+        $this->unit_tax_other = $unitTaxOther;
+
+        return $this;
+    }
+
+    /**
+     * Get unitTaxOther
+     *
+     * @return float
+     */
+    public function getUnitTaxOther()
+    {
+        $this->unit_tax_other = number_format((float)$this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2, '.', '');
+        return $this->unit_tax_other;
+    }
+
 }

@@ -20,7 +20,7 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Date_created</th>
+                        <th>Date of Billing</th>
                         <th>Customer</th>
                         <th>Item</th>
                         <th>Actions</th>
@@ -30,7 +30,7 @@
                     {% for entity in entities %}
                         <tr>
                             <td><a href="{{ path('billing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                            <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                            <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-m-d') }}{% endif %}</td>
                             <td>{{ entity.customer.name }}</td>
 
                             <td>{% if entity.itemId is not empty %}<a href="{{ path("items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% endif %}</td>
