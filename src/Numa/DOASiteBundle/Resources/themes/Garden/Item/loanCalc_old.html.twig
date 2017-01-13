@@ -1,0 +1,87 @@
+<div id="dialog" title="Loan Calculator">
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Term of Loan</label>
+
+        <div class="form-group">
+
+            <select class="form-control" id="loanTerms">
+                {#<option value="3">3 month</option>#}
+                {#<option value="6">6 month</option>#}
+                {#<option value="9">9 month</option>#}
+                <option value="12">12 month (1 year)</option>
+                <option value="18">18 month</option>
+                <option value="24">24 month (2 year)</option>
+                <option value="36">36 month (3 year)</option>
+                <option value="48">48 month (4 year)</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="interestrate">Interest rate ( % )</label>
+        <input type="text" class="form-control" id="interestrate" placeholder="" onfocusout="calculateLoan()">
+    </div>
+    <div class="form-group">
+        <label for="loanamount">Loan Amount ( $ )</label>
+        <input type="text" class="form-control" id="loanamount" placeholder="" value="{{ item.price }}"  onfocusout="calculateLoan()">
+    </div>
+    <div class="form-group">
+        <label for="monthlypayment">Monthly payment</label>
+        <input type="text" class="form-control" id="monthlypayment" placeholder="">
+    </div>
+    <button id="calculateLoan" class="btn btn-success">Calculate</button>
+    <button id="close" class="btn right">Close</button>
+    </tbody>
+</div>
+
+<script>
+    $(function () {
+        $("#dialog").dialog({
+            autoOpen: false,
+            width: 500,
+            height: 500
+        });
+        $(".loan-calc").click(function () {
+            $("#dialog").dialog("open");
+        });
+
+        $("#close").click(function () {
+            $("#dialog").dialog("close");
+        });
+        $("#calculateLoan").click(function () {
+            calculateLoan();
+        });
+
+
+        $("#loanTerms").change(function(){
+            calculateLoan()
+        });
+
+
+
+    });
+    function calculateLoan(){
+        var months = $("#loanTerms").val();
+        var interest = $("#interestrate").val();
+        if(interest==""){
+            $("#interestrate").parent().addClass("has-error");
+            return;
+        }
+        var loanamount = $("#loanamount").val();
+        if(loanamount==""){
+            $("#loanamount").parent().addClass("has-error");
+            return;
+        }
+        interest  = parseFloat(interest)
+        var percent = interest/100;
+        var formulaup = loanamount*percent;
+        var formulasquares = Math.pow(1/(1+percent), months);;
+        var formuladown = 1 - formulasquares;
+        formula = formulaup/formuladown;
+        console.log(months);
+        console.log(percent);
+        console.log(loanamount);
+        console.log(formula);
+        $("#monthlypayment").val(formula.toFixed(2));
+    }
+</script>

@@ -71,10 +71,10 @@ class Stats
         $totalSaleCostYear = 0;
         $totalSaleRevenueYear = 0;
 
-        $totalItems = array();
         $totalSales = array();
+        $totalBillings = array();
         $totalSalesYear = array();
-        $totalItemsYear = array();
+        $totalBillingsYear = array();
         
         if($dealer instanceof Catalogrecords){
             $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());

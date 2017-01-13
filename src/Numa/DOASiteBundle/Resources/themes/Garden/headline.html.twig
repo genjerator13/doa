@@ -1,0 +1,19 @@
+<div class="header">
+
+    <div class="left-contact-info">
+        <div class="phone">{% if dealer is defined %}{{ dealer.phone }}{% endif %}</div>
+        <div class="address">{% if dealer is defined %}{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}{% endif %}</div>
+    </div>
+
+    <div class="logo">
+        <a class="logo" href="{{ path("homepage") }}">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+    </div>
+
+    <div class="right-contact-info">
+        <div class="phone">{% if dealer is defined %}{{ dealer.phone }}{% endif %}</div>
+        <div class="address">{% if dealer is defined %}{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}{% endif %}</div>
+    </div>
+
+</div>

@@ -1,0 +1,33 @@
+{% set liclass="col-md-12 col-xs-12 col-sm-12 col-lg-12" %}
+
+    {% if item.getAgApplication() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Ag Application: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getAgApplication() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getStockNr() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Stock Number: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getStockNr() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getType() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Type: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getType() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getMileage() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status">Mileage: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
+        </li>
+    {% endif %}
+    {% if item.getOfHours() is not empty %}
+        <li class="{{ liclass }}">
+            <span class="fieldCaption field-status"># of Hours: </span>
+            <span class="fieldValue fieldValue-status">{{ item.getOfHours() }}</span>
+
+        </li>
+    {% endif %}
