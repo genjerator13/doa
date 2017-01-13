@@ -1,0 +1,45 @@
+Numa\DOADMSBundle\Entity\DMSSetting:
+    type: entity
+    table: dms_setting
+    indexes:
+        type:
+            columns: [ type ]
+        name:
+            columns: [ name ]
+        string_value:
+            columns: [ string_value ]
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+            nullable: true
+        type:
+            type: string
+            length: 255
+            nullable: true
+        string_value:
+            type: string
+            length: 255
+            nullable: true
+        text_value:
+            type: text
+            nullable: true
+        boolean_value:
+            type: boolean
+            nullable: true
+        integer_value:
+            type: integer
+            nullable: true
+        double_value:
+            type: float
+            nullable: true
+        datetime_value:
+            type: datetime
+            nullable: true
+        sort_order:
+            type: integer
+            nullable: true

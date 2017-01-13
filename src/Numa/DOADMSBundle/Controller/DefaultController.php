@@ -118,4 +118,14 @@ class DefaultController extends Controller
         }
         return $this->render('NumaDOADMSBundle:Default:feeds.html.twig', array('dealer' => $dealer));
     }
+
+    /**
+     * Show the page with all feeds api
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function modelsAction()
+    {
+
+        return $this->render('DOADMSBundle:Default:models.html.twig');
+    }
 }

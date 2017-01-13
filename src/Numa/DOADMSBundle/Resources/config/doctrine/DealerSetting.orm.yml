@@ -1,0 +1,27 @@
+Numa\DOADMSBundle\Entity\DealerSetting:
+    type: entity
+    table: dealer_settings
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+        setting_id:
+            type: integer
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            cascade: [persist]
+            inversedBy: Setting
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        DMSSetting:
+            targetEntity: Numa\DOADMSBundle\Entity\DMSSetting
+            cascade: [persist]
+            inversedBy: Dealer
+            joinColumn:
+                name: setting_id
+                referencedColumnName: id

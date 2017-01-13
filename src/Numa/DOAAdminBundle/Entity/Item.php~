@@ -11,6 +11,8 @@ use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
 use Numa\DOADMSBundle\Entity\DealerGroup;
+use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOADMSBundle\Entity\Vendor;
 use Numa\DOAModuleBundle\Entity\Seo;
 
 
@@ -862,6 +864,7 @@ class Item
         $if = $this->getItemField();
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
+            ->orderBy(array("sort_order"=>Criteria::ASC))
             ->setMaxResults(1);
         $images = $if->matching($criteria);
         if (!empty($images) && $images->first() instanceof ItemField) {
@@ -1028,21 +1031,24 @@ class Item
      */
     public function getCategorySubType()
     {
+        $ret = "";
         if (!empty($this->getCategory())) {
             $cat = $this->getCategory();
             if ($cat->getId() == 1) {
-                return $this->getBodyStyle();
+                $ret = $this->getBodyStyle();
             } elseif ($cat->getId() == 2) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 3) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 4) {
-                return $this->getType();
+                $ret = $this->getType();
             } elseif ($cat->getId() == 13) {
-                return $this->getAgApplication();
+                $ret = $this->getAgApplication();
             }
         }
-        return "";
+        $ret = strtolower(str_replace(" / ", " ", $ret));
+        $ret = strtolower(str_replace(" & ", " ", $ret));
+        return $ret;
     }
 
 
@@ -1755,7 +1761,7 @@ class Item
             $this->status = "Used";
         }
 
-        return $this;
+        //return $this;
     }
 
     /**
@@ -1766,12 +1772,28 @@ class Item
      */
     public function getStatus()
     {
-        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
-            $this->status = "New";
-        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use') {
-            $this->status = "Used";
-        }
+
+//        $this->status = "Used";
+//        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
+//            $this->status = "New";
+//        }
+
+//        elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status=null) {
+//            $this->status = "Used";
+//        }
         return $this->status;
+    }
+
+    public function isUsed()
+    {
+
+
+        if (strtolower($this->status) == 'n' or strtolower($this->status) == 'new') {
+            return 0;
+        } elseif (strtolower($this->status) == 'u' or strtolower($this->status) == 'used' or strtolower($this->status) == 'use' or $this->status = null) {
+            return 1;
+        }
+        return 1;
     }
 
     /**
@@ -3486,6 +3508,15 @@ class Item
         return $this->mpgCity;
     }
 
+    public function getKmLCity()
+    {
+        return round(intval($this->mpgCity) * 0.4251437075, 2)." km/L";
+    }
+
+    public function getLKmCity()
+    {
+        return round(235.21 / intval($this->mpgCity), 2)." L/100km";
+    }
     /**
      * Set mpgHighway
      *
@@ -3508,6 +3539,16 @@ class Item
     public function getMpgHighway()
     {
         return $this->mpgHighway;
+    }
+
+    public function getKmLHighway()
+    {
+        return round(intval($this->mpgHighway) * 0.4251437075, 2)." km/L";
+    }
+
+    public function getLKmHighway()
+    {
+        return round(235.21 / intval($this->mpgHighway), 2)." L/100km";
     }
 
     /**
@@ -4050,6 +4091,7 @@ class Item
 //            return "<div class='retail_price'>Retail Price Was: <span class='retail_price_value'>".$this->getRetailPriceString()."</span></div>";
             return $this->getRetailPriceString();
         }
+        return $this->getPriceString();
     }
 
     /**
@@ -4811,64 +4853,6 @@ class Item
         return $this->total_cost;
     }
 
-    /**
-     * @var integer
-     */
-    private $vendor_id;
-
-    /**
-     * @var \Numa\DOADMSBundle\Entity\Vendor
-     */
-    private $Vendor;
-
-
-    /**
-     * Set vendorId
-     *
-     * @param integer $vendorId
-     *
-     * @return Item
-     */
-    public function setVendorId($vendorId)
-    {
-        $this->vendor_id = $vendorId;
-
-        return $this;
-    }
-
-    /**
-     * Get vendorId
-     *
-     * @return integer
-     */
-    public function getVendorId()
-    {
-        return $this->vendor_id;
-    }
-
-    /**
-     * Set vendor
-     *
-     * @param \Numa\DOADMSBundle\Entity\Vendor $vendor
-     *
-     * @return Item
-     */
-    public function setVendor(\Numa\DOADMSBundle\Entity\Vendor $vendor = null)
-    {
-        $this->Vendor = $vendor;
-
-        return $this;
-    }
-
-    /**
-     * Get vendor
-     *
-     * @return \Numa\DOADMSBundle\Entity\Vendor
-     */
-    public function getVendor()
-    {
-        return $this->Vendor;
-    }
 
     /**
      * @var integer
@@ -5018,6 +5002,20 @@ class Item
         return $this->seller_comment_active;
     }
 
+    public  function getCurrentSellerComment(){
+        $comment = "";
+        if($this->getSellerCommentActive()==0) {
+            $comment = $this->getSellerComment();
+        }elseif($this->getSellerCommentActive()==1){
+            $comment = $this->getSellerComment1();
+        }elseif($this->getSellerCommentActive()==2){
+            $comment = $this->getSellerComment2();
+        }
+        if(empty($comment) && $this->getDealer() instanceof Catalogrecords){
+            $comment = $this->getDealer()->getDefaultListingComment();
+        }
+        return $comment;
+    }
     public function getDealerGroup()
     {
         if ($this->getDealer() instanceof Catalogrecords) {
@@ -5026,5 +5024,56 @@ class Item
             }
         }
         return null;
+    }
+
+    /**
+     * @var string
+     */
+    private $vindecoder;
+
+
+    /**
+     * Set vindecoder
+     *
+     * @param string $vindecoder
+     *
+     * @return Item
+     */
+    public function setVindecoder($vindecoder)
+    {
+        $this->vindecoder = $vindecoder;
+
+        return $this;
+    }
+
+    /**
+     * Get vindecoder
+     *
+     * @return string
+     */
+    public function getVindecoder()
+    {
+        return $this->vindecoder;
+    }
+
+    public function getVindecoderItems()
+    {
+        $array = array();
+        if (!empty($this->getVindecoder())) {
+            $array = json_decode($this->getVindecoder(), true);
+            if (!empty($array) && is_array($array)) {
+                return $array;
+            }
+        }
+        return $array;
+    }
+
+    public function getVendor(){
+        if($this->getSale() instanceof Sale){
+            if($this->getSale()->getVendor() instanceof Vendor){
+                return  $this->getSale()->getVendor()->getCompanyName();
+            }
+        }
+        return "";
     }
 }

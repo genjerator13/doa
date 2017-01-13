@@ -204,6 +204,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             targetEntity: Numa\DOAAdminBundle\Entity\HomeTab
             mappedBy: Catalogrecords
             cascade: [persist]
+        DealerSetting:
+            targetEntity: Numa\DOADMSBundle\Entity\DealerSetting
+            mappedBy: Dealer
+            cascade: [persist]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

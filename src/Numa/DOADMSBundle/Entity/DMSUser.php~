@@ -794,6 +794,8 @@ class DMSUser  implements UserInterface
                 return array('ROLE_SALE2_DMS');
             }elseif ($groupName == 'sale3') {
                 return array('ROLE_SALE3_DMS');
+            }elseif ($groupName == 'sale4') {
+                return array('ROLE_SALE4_DMS');
             }
         }
         return array('ROLE_USER');
