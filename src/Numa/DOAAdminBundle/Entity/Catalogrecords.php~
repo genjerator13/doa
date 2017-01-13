@@ -1248,6 +1248,21 @@ class Catalogrecords implements UserInterface
     }
 
     /**
+     * Get siteUrl
+     *
+     * @return string
+     */
+    public function getAbsoluteSiteUrl()
+    {
+        $res = $this->site_url;
+        if(strpos($this->site_url,"http://")===false){
+            $res= "http://".$res;
+        }
+
+        return $res;
+    }
+
+    /**
      * Set siteTheme
      *
      * @param string $siteTheme
@@ -1725,5 +1740,150 @@ class Catalogrecords implements UserInterface
     public function getDealerGroup()
     {
         return $this->DealerGroup;
+    }
+    /**
+     * @var string
+     */
+    private $feul_economy;
+
+
+    /**
+     * Set feulEconomy
+     *
+     * @param string $feulEconomy
+     *
+     * @return Catalogrecords
+     */
+    public function setFeulEconomy($feulEconomy)
+    {
+        $this->feul_economy = $feulEconomy;
+
+        return $this;
+    }
+
+    /**
+     * Get feulEconomy
+     *
+     * @return string
+     */
+    public function getFeulEconomy()
+    {
+        return $this->feul_economy;
+    }
+    /**
+     * @var string
+     */
+    private $fuel_economy;
+
+
+    /**
+     * Set fuelEconomy
+     *
+     * @param string $fuelEconomy
+     *
+     * @return Catalogrecords
+     */
+    public function setFuelEconomy($fuelEconomy)
+    {
+        $this->fuel_economy = $fuelEconomy;
+
+        return $this;
+    }
+
+    /**
+     * Get fuelEconomy
+     *
+     * @return string
+     */
+    public function getFuelEconomy()
+    {
+        return $this->fuel_economy;
+    }
+    /**
+     * @var string
+     */
+    private $feed_kijiji_url;
+
+    /**
+     * @var string
+     */
+    private $feed_kijiji_username;
+
+    /**
+     * @var string
+     */
+    private $feed_kijiji_password;
+
+
+    /**
+     * Set feedKijijiUrl
+     *
+     * @param string $feedKijijiUrl
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiUrl($feedKijijiUrl)
+    {
+        $this->feed_kijiji_url = $feedKijijiUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiUrl
+     *
+     * @return string
+     */
+    public function getFeedKijijiUrl()
+    {
+        return $this->feed_kijiji_url;
+    }
+
+    /**
+     * Set feedKijijiUsername
+     *
+     * @param string $feedKijijiUsername
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiUsername($feedKijijiUsername)
+    {
+        $this->feed_kijiji_username = $feedKijijiUsername;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiUsername
+     *
+     * @return string
+     */
+    public function getFeedKijijiUsername()
+    {
+        return $this->feed_kijiji_username;
+    }
+
+    /**
+     * Set feedKijijiPassword
+     *
+     * @param string $feedKijijiPassword
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiPassword($feedKijijiPassword)
+    {
+        $this->feed_kijiji_password = $feedKijijiPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiPassword
+     *
+     * @return string
+     */
+    public function getFeedKijijiPassword()
+    {
+        return $this->feed_kijiji_password;
     }
 }

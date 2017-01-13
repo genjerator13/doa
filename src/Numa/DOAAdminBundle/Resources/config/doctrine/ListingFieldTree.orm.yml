@@ -24,6 +24,14 @@ Numa\DOAAdminBundle\Entity\ListingFieldTree:
             type: string
             length: 255
             nullable: true
+      floor_plan_image:
+            type: string
+            length: 255
+            nullable: true
+      logo_image:
+            type: string
+            length: 255
+            nullable: true
     oneToMany:
       children:
             targetEntity: ListingFieldTree

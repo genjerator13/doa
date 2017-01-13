@@ -3,6 +3,8 @@
 namespace Numa\DOAAdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Numa\DOADMSBundle\Entity\DealerComponent;
+use Numa\DOAModuleBundle\Entity\Component;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
@@ -348,11 +350,11 @@ class ImageCarousel
             : self::getUploadDir() . '/' . $this->path;
     }
 
-    public function getUploadRootDir()
+    public function getUploadRootDir($dealer=null,$component=null)
     {
         // the absolute directory path where uploaded
         // documents should be saved
-        $folder = __DIR__ . '/../../../../web/' . self::getUploadDir();
+        $folder = __DIR__ . '/../../../../web/' . self::getUploadDir($dealer,$component);
 //        if(!file_exists($folder)){
 //            mkdir($folder,777,true);
 //        }
@@ -364,11 +366,22 @@ class ImageCarousel
         return $this->getUploadRootDir() . "/" . $this->getSrc();
     }
 
-    public static function getUploadDir()
+    public static function getUploadDir($dealer=null,$component=null)
     {
         // get rid of the __DIR__ so it doesn't screw up
         // when displaying uploaded doc/image in the view.
-        return 'upload/carousel';
+        $uploadPath = 'upload/carousel';
+
+        if($dealer instanceof Catalogrecords && !empty($dealer->getId()) &&
+            ($component instanceof Component || $component instanceof DealerComponent)){
+
+            if($component instanceof Component){
+                $uploadPath = 'upload/dealers/'.$dealer->getId()."/component/".$component->getId();
+            }elseif($component instanceof DealerComponent){
+                $uploadPath = 'upload/dealers/'.$dealer->getId()."/dcomponent/".$component->getId();
+            }
+        }
+        return $uploadPath;
     }
 
     public function upload()
@@ -383,14 +396,24 @@ class ImageCarousel
 
         // move takes the target directory and then the
         // target filename to move to
+        $uploadDir = $this->getUploadRootDir();
+        $uploadSrc = "";
+        if($this->getDealer() instanceof Catalogrecords && $this->getComponent() instanceof Component) {
+            $uploadDir = $this->getUploadRootDir($this->getDealer(), $this->getComponent());
+            $uploadSrc = $this->getDealer()->getId()."/component/".$this->getComponent()->getId()."/";
+        }elseif($this->getDealer() instanceof Catalogrecords && $this->getDealerComponent() instanceof DealerComponent){
+            $uploadDir = $this->getUploadRootDir($this->getDealer(), $this->getDealerComponent());
+            $uploadSrc = $this->getDealer()->getId()."/dcomponent/".$this->getDealerComponent()->getId()."/";
+        }
         $this->getFile()->move(
-            $this->getUploadRootDir(),
+            $uploadDir,
             $this->getFile()->getClientOriginalName()
         );
 
         // set the path property to the filename where you've saved the file
         $this->path = $this->getFile()->getClientOriginalName();
-        $this->src = $this->getFile()->getClientOriginalName();
+
+        $this->src = $uploadSrc.$this->getFile()->getClientOriginalName();
         // clean up the file property as you won't need it anymore
         $this->file = null;
     }
