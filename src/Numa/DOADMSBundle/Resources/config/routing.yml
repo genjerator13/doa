@@ -7,6 +7,9 @@ dms_profile_edit:
 dms_inventory_feeds:
     path:  /feeds
     defaults: { _controller: "NumaDOADMSBundle:Default:feeds" }
+dms_models:
+    path:  /models
+    defaults: { _controller: "NumaDOADMSBundle:Default:models" }
 dms_customer:
     resource: "@NumaDOADMSBundle/Resources/config/routing/customer.yml"
     prefix:   /customers
