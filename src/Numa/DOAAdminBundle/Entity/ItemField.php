@@ -416,7 +416,8 @@ class ItemField
         }
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //make a folder if not exists
-            $dir = $upload_path . "/" . $subfolder;
+            $dir = $upload_path  . $subfolder;
+
             if (!file_exists($dir)) {
                 mkdir($dir, 0777, true);
             }
@@ -442,6 +443,7 @@ class ItemField
 
                 //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
+
                 if ($http) {
                     //get image via curl
                     $ch = curl_init();
@@ -459,7 +461,7 @@ class ItemField
                         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
                     }
                     $return = curl_exec($ch);
-                    //dump($return);die();
+
                     $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
                     if ($is200) {
                         //valid 
