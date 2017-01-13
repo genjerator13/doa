@@ -82,6 +82,7 @@ class SaleRepository extends EntityRepository {
         $qb->select('s,i.id as item_id,i.VIN as vin,i.stock_nr as stock_nr')
             ->from('NumaDOADMSBundle:Sale', 's')
             ->andWhere('i.sale_id IS NOT NULL')
+            ->andWhere('s.invoice_date IS NOT NULL')
             ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
 
         if($dealer instanceof Catalogrecords) {
