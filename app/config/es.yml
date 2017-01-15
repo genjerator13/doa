@@ -53,6 +53,8 @@ fos_elastica:
                         VIN: ~
                         mileage:
                           type: integer
+                        feed_id:
+                          type: integer
                         trim: ~
                         stock_nr: ~
                         transmission: ~
