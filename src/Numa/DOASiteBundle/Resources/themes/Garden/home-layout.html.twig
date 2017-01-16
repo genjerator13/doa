@@ -152,58 +152,9 @@
 
     </div>
 
-    <div class="section-wrapper">
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-        <div class="section">
-            <img src="images/vehicle1.jpg"/>
-            <h1>Vehicle</h1>
-            <p>Price: $10,999</p>
-        </div>
-
-    </div>
-
+    {% block featuredads %}
+        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 8,'order':1})) }}
+    {% endblock %}
 
     {% block footer %}
         {% include 'NumaDOASiteBundle::footer.html.twig' %}
