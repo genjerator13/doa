@@ -323,4 +323,20 @@ class SettingController extends Controller
         $this->addFlash('success', "Tabs on homepage refreshed.");
         return $this->redirect($this->generateUrl('setting'));
     }
+
+    /**
+     * elasticsearch populate
+     *
+     */
+    public function populateAction()
+    {
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil populate';
+
+
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+
+        $this->addFlash('success', "Elasticsearch populate done.");
+        return $this->redirect($this->generateUrl('setting'));
+    }
 }
