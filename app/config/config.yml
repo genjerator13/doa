@@ -131,6 +131,12 @@ assetic:
         theme_forest_css:
             inputs:
                - '%kernel.root_dir%/../web/themes/Forest/css/template.css'
+        theme_garden_css:
+            inputs:
+               - '%kernel.root_dir%/../web/themes/Garden/css/garden.css'
+        theme_garden_pgwslideshow_css:
+            inputs:
+               - '%kernel.root_dir%/../web/themes/Garden/css/pgwslideshow.css'
 
         #javascript
 
@@ -488,7 +494,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain','Forest']
+    themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden']
     active_theme: 'Default'
     assetic_integration: true
 
