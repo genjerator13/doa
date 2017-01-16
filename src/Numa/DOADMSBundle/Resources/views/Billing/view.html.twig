@@ -820,7 +820,7 @@
                 <td colspan=3 align="left"
                     valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
                 <td colspan=2 style="border-left: 1px solid #000000" align="left"
-                    valign=bottom
+                    valign=middle
                     bgcolor="#E7E6E6"><b>DISABILITY INSURANCE</b></td>
                 <td colspan=2
                     align="right" bgcolor="#ffffff">
@@ -846,7 +846,7 @@
                     {{ billing.address }}
                 </td>
                 <td style="border-left: 1px solid #000000; border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left"
-                    valign=bottom
+                    valign=middle
                     bgcolor="#E7E6E6" width="100"><b>DOC FEE</b></td>
                 <td align="left" valign=bottom bgcolor="#E7E6E6"  style="border-top: 1px solid #000000; border-bottom: 1px solid #000000"><br></td>
                 <td colspan=2
@@ -858,7 +858,7 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td height="20" align="left" valign=bottom></td>
+                <td height="30" align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td align="left" valign=bottom></td>
                 <td style="border-right: 1px solid #000000"
@@ -869,7 +869,7 @@
                     {{ billing.amount }}
                 </td>
                 <td style=" border-left: 1px solid #000000"
-                    colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL BALANCE DUE</b></td>
+                    colspan=2 align="left" valign=middle bgcolor="#E7E6E6"><b>TOTAL BALANCE DUE</b></td>
                 <td colspan=2
                     align="right" bgcolor="#ffffff">
                     {{ billing.totalBalanceDue|localizedcurrency('USD') }}
@@ -894,7 +894,9 @@
             </tr>
             <tr>
                 <td colspan=7 height="20" align="left" valign=bottom>THE PURCHASER
-                    ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND
+                    ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND IS
+                    IN
+                    FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
                 </td>
                 <td style="border-left: 1px solid #000000" align="center"
                     valign=bottom colspan=5><b>Approved By</b>
@@ -907,9 +909,7 @@
                 {#<td align="left" valign=bottom></td>#}
             </tr>
             <tr>
-                <td colspan=7 height="20" align="left" valign=bottom> IS
-                    IN
-                    FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
+                <td colspan=7 height="20" align="left" valign=bottom>
                 </td>
                 <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=4
                     align="center"
@@ -935,12 +935,35 @@
                 <td align="left" valign=bottom></td>
             </tr>
             <tr>
-                <td colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
+                <td align="left" height="20px" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=4 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
                         PURCHASERS
                         SIGNATURE X</b></td>
-                <td style="border-bottom: 1px dashed #000000" colspan=5 align="center" valign=bottom>
+                <td style="border-bottom: 1px dashed #000000" colspan=3 align="center" valign=bottom>
                 </td>
                 <td colspan=4 align="center" valign=bottom>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" height="20px" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=4 height="30" align="center" valign=bottom bgcolor="#E7E6E6"><b>
+                        CO-PURCHASERS
+                        SIGNATURE X</b></td>
+                <td style="border-bottom: 1px dashed #000000" colspan=3 align="center" valign=bottom>
+                </td>
+                <td colspan=4 align="center" valign=bottom>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" height="20px" valign=bottom></td>
+            </tr>
+            <tr>
+                <td colspan=12 align="center" height="40px" valign=bottom>
+                    <h3>We Thank You For Your Business</h3>
                 </td>
             </tr>
         </table>
