@@ -316,11 +316,30 @@ class SettingController extends Controller
      */
     public function refreshHometabsAction()
     {
-        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil hometabs';
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
+        $em = $this->getDoctrine()->getManager();
+        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "elasticsearch"), array('id' => 'desc'));
 
-        $this->addFlash('success', "Tabs on homepage refreshed.");
+        if ($lastCommand instanceof CommandLog) {
+            if ($lastCommand->isRunning()) {
+                die();
+            }
+        }
+        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console fos:elastica:populate';
+        $commandLog = new CommandLog();
+        $commandLog->setCategory('elasticsearch');
+        $commandLog->setStartedAt(new \DateTime());
+        $commandLog->setStatus('started');
+        $commandLog->setCommand($command);
+        $em->persist($commandLog);
+        $em->flush();
+        $process = new \Symfony\Component\Process\Process($command);
+        $process->start();
+        $commandLog->setEndedAt(new \DateTime());
+        $commandLog->setStatus('finished');
+        $em->flush();
+        $em->clear();
+
+        $this->addFlash('success', "Elasticsearch populate done.");
         return $this->redirect($this->generateUrl('setting'));
     }
 }
