@@ -282,3 +282,93 @@ and (max-width : 767px) {
 	.link span { display: inline-block; }
 
 }
+/*pgwslider */
+.slideshow .pgwSlideshow{
+	background: #fff;
+}
+.slideshow .pgwSlideshow .ps-list {
+	left: 620px;
+	bottom: 147px;
+}
+
+.detailsContent .row{
+	border: 1px solid darkgray;
+}
+.detailsContent .option-lists{
+	margin-left: 50px;
+}
+
+.detailsContent .option-lists .checkbox .fieldCaption{
+	font-weight: bold;
+}
+
+.detailsContent h2.section{
+
+	margin: 0px;
+	font-size: 130%;
+	padding: 10px;
+	background-color: lightgray;
+	color: black;
+	font-family:'Fjalla One','Open Sans', sans-serif;
+	border-bottom: 1px solid darkgray;
+}
+
+.detailsContent h2.section .fa{
+	padding: 0 10px 0 0;
+}
+
+.btn-group-vertical button{
+	border-radius: 0 !important;
+}
+
+.listing-buttons {
+	padding: 0;
+	position: relative;
+	right: 0;
+	text-align: right;
+	top: 0;
+	z-index: 1000;
+}
+
+.detailsContent .row {
+	margin-bottom: 20px;
+}
+.detailsContent .retail_price {
+	color: red;
+	text-decoration-line: line-through;
+	font-size: 130%;
+}
+.detailsContent .price {
+	font-size: 160%;
+	font-weight: bold;
+}
+
+.detailsContent .price-quote {
+	font-size: 130%;
+	font-weight: bold;
+}
+
+
+.title{
+	color: black;
+}
+.detailsContent  .left{
+	padding:0;
+	min-height: 400px;
+}
+.detailsContent .row{
+
+}
+.listing-right{
+	height: 100%;
+	position: relative;
+	min-height: 400px;
+	padding-right: 0;
+
+}
+.searchResults .row, .detailsContent .row{
+	margin-right: 0;
+}
+.detailsContent .row{
+	margin-left: 0;
+}
