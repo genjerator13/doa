@@ -41,3 +41,6 @@ setting_kijiji_all:
 setting_hometabs_refresh:
     path:     /hometabs_refresh
     defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }
+elasticksearch_populate:
+    path:     /elasticksearch populate
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:populate" }
