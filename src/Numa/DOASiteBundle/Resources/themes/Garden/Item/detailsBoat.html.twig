@@ -173,13 +173,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
+                            <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Description:</h2>
                             <p>
                                 {{ item.currentSellerComment()|raw }}
                             </p>
                         </div>
                         <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
+                            <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Details:</h2>
                             <ul class='option-lists'>
                                 {% if item.categoryId()==1 %}
                                 {#{% for field in item.ItemField %}#}
@@ -218,7 +218,7 @@
                         </div>
                         {% if (item.getOptions|length)>0 %}
                             <div class="row">
-                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+                                <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Features:</h2>
                                 <ul class='option-lists'>
 
                                     {% for field in item.ItemField %}

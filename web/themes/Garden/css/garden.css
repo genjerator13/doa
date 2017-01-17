@@ -287,7 +287,7 @@ and (max-width : 767px) {
 	background: #fff;
 }
 .slideshow .pgwSlideshow .ps-list {
-	left: 620px;
+	left: 610px;
 	bottom: 147px;
 }
 
@@ -302,7 +302,7 @@ and (max-width : 767px) {
 	font-weight: bold;
 }
 
-.detailsContent h2.section{
+.detailsContent h2.sectionItem{
 
 	margin: 0px;
 	font-size: 130%;
@@ -313,7 +313,7 @@ and (max-width : 767px) {
 	border-bottom: 1px solid darkgray;
 }
 
-.detailsContent h2.section .fa{
+.detailsContent h2.sectionItem .fa{
 	padding: 0 10px 0 0;
 }
 
@@ -371,4 +371,34 @@ and (max-width : 767px) {
 }
 .detailsContent .row{
 	margin-left: 0;
+}
+.detailsContent .row p{
+	padding: 10px;
+}
+.techData .fieldCaption {
+	font-weight: bold;
+}
+ul.techData{
+	margin:20px 0 0 0;
+}
+
+ul.techData li {
+	margin:0;
+	padding: 0px;
+}
+
+.container {
+	background-color: #fff;
+	padding: 51px 20px 20px 20px;
+	position: relative;
+	/*float: left;*/
+}
+.container:after {
+	border-bottom: 11px solid #004e8a;
+	content: "";
+	height: 1px;
+	position: absolute;
+	bottom: -11px;
+	left: 20px;
+	width: calc(100% - 40px);
 }
