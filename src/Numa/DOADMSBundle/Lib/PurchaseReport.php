@@ -22,7 +22,7 @@ class PurchaseReport extends Report
         "E"=>array("make","Make"),
         "F"=>array("model","Model"),
         "G"=>array("sale:invoiceDateFormated","Inv Date"),
-        "H"=>array("sale:id","Inv #"),
+        "H"=>array("sale:invoiceNr","Inv #"),
         "I"=>array("sale:invoiceAmt","Inv Amt"),
         "J"=>array("sale:totalUnitCost","Total Cost Unit"),
 
