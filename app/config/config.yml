@@ -398,6 +398,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [160, 120], mode: inbound }
                 background: { color: '#FFFFFF' }
+        garden_featured:
+            quality: 100
+            filters:
+                thumbnail: { size: [200, 140], mode: inbound }
+                background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web
