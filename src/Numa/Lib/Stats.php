@@ -93,7 +93,7 @@ class Stats
                     $totalSaleGross += $sale->getTotalRevenue();
                     $totalSaleCost  += $sale->getTotalSaleCost();
                     $totalPurchaseCost += $sale->getTotalUnitCost();
-                    if($sale->getSellingPrice() > 0){
+                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0){
                         $totalSaleRevenue += $sale->getRevenueThisUnit();
                     }
                 }
@@ -103,7 +103,7 @@ class Stats
                     $totalSaleGrossYear += $sale->getTotalRevenue();
                     $totalSaleCostYear += $sale->getTotalSaleCost();
                     $totalPurchaseCostYear += $sale->getTotalUnitCost();
-                    if($sale->getSellingPrice() > 0){
+                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0 ){
                         $totalSaleRevenueYear += $sale->getRevenueThisUnit();
                     }
                 }
