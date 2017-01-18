@@ -5076,4 +5076,43 @@ class Item
         }
         return "";
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $Billing;
+
+
+    /**
+     * Add billing
+     *
+     * @param \Numa\DOADMSBundle\Entity\Billing $billing
+     *
+     * @return Item
+     */
+    public function addBilling(\Numa\DOADMSBundle\Entity\Billing $billing)
+    {
+        $this->Billing[] = $billing;
+
+        return $this;
+    }
+
+    /**
+     * Remove billing
+     *
+     * @param \Numa\DOADMSBundle\Entity\Billing $billing
+     */
+    public function removeBilling(\Numa\DOADMSBundle\Entity\Billing $billing)
+    {
+        $this->Billing->removeElement($billing);
+    }
+
+    /**
+     * Get billing
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBilling()
+    {
+        return $this->Billing;
+    }
 }
