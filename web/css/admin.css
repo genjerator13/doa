@@ -1,10 +1,23 @@
 /*@import url("reset.css");*/
 
 /* layout styles */
-.themeactive{
-    border: 1px solid black;
-    border-radius: 10px;
+.theme{
+    padding: 10px;
 }
+.theme h4{
+    text-align: center;
+    color: #000000;
+}
+.theme .themeLink{
+    text-align: center;
+}
+.theme .themeLink a{
+    color: #3333ff;
+}
+.themeactive{
+    background-color: #737373;
+}
+
 .icon_tab{
     width: 42px;
     height: 42px;
