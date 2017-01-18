@@ -78,18 +78,20 @@ class SaleRepository extends EntityRepository {
     public function findByDealer($dealer)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('s,i.id as item_id,i.VIN as vin,i.stock_nr as stock_nr')
             ->from('NumaDOADMSBundle:Sale', 's')
             ->andWhere('i.sale_id IS NOT NULL')
+            ->andWhere('s.invoice_date IS NOT NULL')
             ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
 
         if($dealer instanceof Catalogrecords) {
-            $qb->Where('i.dealer_id IN (' . $dealer->getId() . ')');
+            $qb->andWhere('i.dealer_id IN (' . $dealer->getId() . ')');
         }
 
         $qb->orderBy("s.id","DESC");
         $query = $qb->getQuery();
+
+
         $res = $query->getResult(); //->getResult();
         return $res;
     }

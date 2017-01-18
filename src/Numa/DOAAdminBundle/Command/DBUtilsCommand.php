@@ -56,6 +56,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->getConnection()->getConfiguration()->setSQLLogger(null);
         $em->clear();
+
         if ($command == 'makelistfromtemp') {
             $this->makeListingFromTemp();
         } elseif ($command == 'hometabs') {
@@ -199,8 +200,8 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $count++;
                 if ($count % 200 == 0) {
                     $this->commandLog->setFullDetails($this->makeDetailsLog($createdItems));
-
                 }
+
                 $progresses[$id] = $count;
                 $sql = 'update command_log set current=' . $count . " where id=" . $this->commandLog->getId();
 
@@ -694,7 +695,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $logger = $this->getContainer()->get('logger');
         $logger->warning("TEST before populate");
         $process = new \Symfony\Component\Process\Process($command);
-        $process->run();
+        $process->start();
         $logger->error("TEST after populate");
         $commandLog->setEndedAt(new \DateTime());
         $commandLog->setStatus('finished');

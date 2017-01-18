@@ -92,16 +92,20 @@ class Stats
                 if($sale instanceof Sale){
                     $totalSaleGross += $sale->getTotalRevenue();
                     $totalSaleCost  += $sale->getTotalSaleCost();
-                    $totalSaleRevenue   += $sale->getRevenueThisUnit();
                     $totalPurchaseCost += $sale->getTotalUnitCost();
+                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0){
+                        $totalSaleRevenue += $sale->getRevenueThisUnit();
+                    }
                 }
             }
             foreach($totalSalesYear as $sale){
                 if($sale instanceof Sale){
                     $totalSaleGrossYear += $sale->getTotalRevenue();
-                    $totalSaleCostYear  += $sale->getTotalSaleCost();
-                    $totalSaleRevenueYear   += $sale->getRevenueThisUnit();
+                    $totalSaleCostYear += $sale->getTotalSaleCost();
                     $totalPurchaseCostYear += $sale->getTotalUnitCost();
+                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0 ){
+                        $totalSaleRevenueYear += $sale->getRevenueThisUnit();
+                    }
                 }
             }
         }

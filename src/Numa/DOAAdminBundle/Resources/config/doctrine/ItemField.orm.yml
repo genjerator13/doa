@@ -7,9 +7,6 @@ Numa\DOAAdminBundle\Entity\ItemField:
         field_name:
             columns: [ field_name ]
 
-
-#        field_name_value:
-#            columns: [ field_name,field_string_value key(10) ]
     id:
         id:
             type: integer

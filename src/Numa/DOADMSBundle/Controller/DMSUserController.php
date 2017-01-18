@@ -52,7 +52,6 @@ class DMSUserController extends Controller
                 $entity->setDealer($dealer);
             }
 
-
             $em->persist($entity);
             $rq = $request->get("numa_doadmsbundle_dmsuser");
             $pass = $rq["password"];
