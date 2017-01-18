@@ -551,6 +551,9 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
         if ($form->isValid()) {
 
+            $sale = $entity->getSale();
+            $sale->setItem($entity);
+
             if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
@@ -566,8 +569,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $seoService = $this->container->get("Numa.Seo");
             $seo = $seoService->prepareSeo($entity, $seoPost);
 
-            //$oldVin = $request->request->get('numa_doaadminbundle_item')['VIN'];
-
 
             $em->flush();
 
@@ -581,21 +582,20 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             return $this->redirectToRoute($redirect, array("id" => $entity->getId()));
         }
 
-        //sale form
-        //$saleForm = $this->createSaleEditForm($entity);
+
 
         $params = array(
             'entity' => $entity,
 
             'form' => $form->createView(),
-            'saleForm' => $saleForm->createView(),
+
             'category' => $entity->getCategory(),
             'seo' => $seoFormView,
             'dashboard' => $this->dashboard,
         );
         return $this->switchTemplateByCategory($category, $params);
 
-        //return $this->switchTemplateByCategory($category, $entity, $form, $entity->getCategory(),$seoFormView);
+
     }
 
     /**
@@ -777,8 +777,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     public function massMakeKijijiAction(Request $request)
     {
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-        $em = $this->getDoctrine()->getManager();
-        //$qb = $em->getRepository("NumaDOAAdminBundle:Item")->makeKijiji($ids, true);
         $this->get('listing_api')->prepareKijijiFromIds($ids);
         die();
     }
@@ -909,7 +907,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
         $form->handleRequest($request);
 
-        //if ($form->isValid()) {
+
         $em->flush();
         $redirect = 'items_edit';
         if (strtoupper($this->dashboard) == 'DMS') {
@@ -919,53 +917,9 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         //}
     }
 
-    public function renderFetch($array)
-    {
 
-    }
 
-    /**
-     * Creates a form to create a Sale entity.
-     *
-     * @param Sale $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createSaleCreateForm(Sale $entity)
-    {
-        $form = $this->createForm(new SaleType(), $entity, array(
-            'action' => $this->generateUrl('sale_create'),
-            'method' => 'POST',
-        ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
-        return $form;
-    }
-
-    /**
-     * Creates a form to edit a Sale entity.
-     *
-     * @param Sale $entity The entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createSaleEditForm(Item $item)
-    {
-        $action = $this->generateUrl('sale_new');
-        $sale = new Sale();
-        if ($item->getSale() instanceof Sale) {
-            $sale = $item->getSale();
-            $action = $this->generateUrl('sale_update', array('id' => $sale->getId()));
-        }
-        $form = $this->createForm(new SaleType(), $sale, array(
-            'action' => $action,
-            'method' => 'POST',
-        ));
-        //$form->add('item_id','hidden', array('data'=>$item->getId()));
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
 
 }

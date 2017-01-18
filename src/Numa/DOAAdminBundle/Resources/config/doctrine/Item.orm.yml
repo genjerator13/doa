@@ -543,10 +543,20 @@ Numa\DOAAdminBundle\Entity\Item:
                 name: item_id
                 referencedColumnName: id
                 onDelete: cascade
+        Billing:
+            targetEntity: Numa\DOADMSBundle\Entity\Billing
+            mappedBy: Item
+            cascade: ["persist"]
+            joinColumn:
+                name: item_id
+                referencedColumnName: id
+                onDelete: cascade
     oneToOne:
         Sale:
             targetEntity: Numa\DOADMSBundle\Entity\Sale
             cascade: ["persist","remove"]
+            inversedBy: Item
+            fetch: EAGER
             joinColumn:
                 name: sale_id
                 referencedColumnName: id

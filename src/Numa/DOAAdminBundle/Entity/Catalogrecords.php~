@@ -1886,4 +1886,43 @@ class Catalogrecords implements UserInterface
     {
         return $this->feed_kijiji_password;
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $DealerSetting;
+
+
+    /**
+     * Add dealerSetting
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerSetting $dealerSetting
+     *
+     * @return Catalogrecords
+     */
+    public function addDealerSetting(\Numa\DOADMSBundle\Entity\DealerSetting $dealerSetting)
+    {
+        $this->DealerSetting[] = $dealerSetting;
+
+        return $this;
+    }
+
+    /**
+     * Remove dealerSetting
+     *
+     * @param \Numa\DOADMSBundle\Entity\DealerSetting $dealerSetting
+     */
+    public function removeDealerSetting(\Numa\DOADMSBundle\Entity\DealerSetting $dealerSetting)
+    {
+        $this->DealerSetting->removeElement($dealerSetting);
+    }
+
+    /**
+     * Get dealerSetting
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDealerSetting()
+    {
+        return $this->DealerSetting;
+    }
 }

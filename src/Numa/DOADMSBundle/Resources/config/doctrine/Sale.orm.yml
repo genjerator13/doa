@@ -282,6 +282,10 @@ Numa\DOADMSBundle\Entity\Sale:
             joinColumn:
                 name: vendor_id
                 referencedColumnName: id
+    oneToOne:
+        Item:
+            targetEntity: Numa\DOAAdminBundle\Entity\Item
+            mappedBy: Sale
 
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]

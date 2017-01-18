@@ -266,4 +266,62 @@ class ListingFieldTree
     {
         $this->children->removeElement($child);
     }
+    /**
+     * @var string
+     */
+    private $floor_plan_image;
+
+    /**
+     * @var string
+     */
+    private $logo_image;
+
+
+    /**
+     * Set floorPlanImage
+     *
+     * @param string $floorPlanImage
+     *
+     * @return ListingFieldTree
+     */
+    public function setFloorPlanImage($floorPlanImage)
+    {
+        $this->floor_plan_image = $floorPlanImage;
+
+        return $this;
+    }
+
+    /**
+     * Get floorPlanImage
+     *
+     * @return string
+     */
+    public function getFloorPlanImage()
+    {
+        return $this->floor_plan_image;
+    }
+
+    /**
+     * Set logoImage
+     *
+     * @param string $logoImage
+     *
+     * @return ListingFieldTree
+     */
+    public function setLogoImage($logoImage)
+    {
+        $this->logo_image = $logoImage;
+
+        return $this;
+    }
+
+    /**
+     * Get logoImage
+     *
+     * @return string
+     */
+    public function getLogoImage()
+    {
+        return $this->logo_image;
+    }
 }
