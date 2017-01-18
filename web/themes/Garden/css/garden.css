@@ -402,3 +402,6 @@ ul.techData li {
 	left: 20px;
 	width: calc(100% - 40px);
 }
+.panel-info .panel-body .input-group{
+	margin-bottom: 15px;
+}
