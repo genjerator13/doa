@@ -405,3 +405,10 @@ ul.techData li {
 .panel-info .panel-body .input-group{
 	margin-bottom: 15px;
 }
+
+.modal-body .offerTradeIn div{
+	margin: 2px 0px;
+}
+.modal-dialog .offerTradeIn-content{
+	min-width: 710px;
+}

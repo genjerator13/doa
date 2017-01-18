@@ -10,44 +10,6 @@
     <div class="alert">
         <span id="alert-message"></span>
     </div>
-    <script>
-        $(document).ready(function () {
-            var name = "";
-            $(".theme").click(function () {
-                console.log(this);
-                $(".theme").removeClass("themeactive");
-                $(this).addClass("themeactive");
-
-                name = $(this).data("name");
-                console.log(name);
-
-            });
-
-            $("#change").click(function () {
-                $.ajax(
-                        {
-                            url: "{{ path('dms_change_themes') }}",
-                            type: "POST",
-                            data: {"theme": name},
-                            success: function (data, textStatus, jqXHR) {
-                                //alert(theme);
-                                //console.log (theme);
-                                //location.reload();
-                                $(".alert").addClass('alert-success');
-                                $(".alert").removeClass('alert-error');
-                                $("#alert-message").html("Theme successfully changed for {{ dealer.name }}. Current theme is " + name);
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                //alert("Error");
-                                $(".alert").addClass('alert-error');
-                                $(".alert").removeClass('alert-success');
-                                $("#alert-message").html("Theme successfully changed");
-                            }
-                        });
-            })
-        });
-
-    </script>
     <div>
         <div class="row">
             <div class="col-md-6 theme thumbnail {% if theme == "Default" %}themeactive{% endif %}" id="theme1"
@@ -88,5 +50,42 @@
     </div>
     <div class="clear"></div>
     <button id="change" class="btn btn-success">Change the theme</button>
+    <script>
+        $(document).ready(function () {
+            var name = "";
+            $(".theme").click(function () {
+                console.log(this);
+                $(".theme").removeClass("themeactive");
+                $(this).addClass("themeactive");
+
+                name = $(this).data("name");
+                console.log(name);
+
+            });
+
+            $("#change").click(function () {
+                $.ajax(
+                        {
+                            url: "{{ path('dms_change_themes') }}",
+                            type: "POST",
+                            data: {"theme": name},
+                            success: function (data, textStatus, jqXHR) {
+                                //alert(theme);
+                                //console.log (theme);
+                                //location.reload();
+                                $(".alert").addClass('alert-success');
+                                $(".alert").removeClass('alert-error');
+                                $("#alert-message").html("Theme successfully changed for {{ dealer.name }}. Current theme is " + name);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                //alert("Error");
+                                $(".alert").addClass('alert-error');
+                                $(".alert").removeClass('alert-success');
+                                $("#alert-message").html("Theme successfully changed");
+                            }
+                        });
+            })
+        });
+    </script>
 
 {% endblock %}
