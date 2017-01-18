@@ -21,27 +21,29 @@ class Stats
     {
         $this->container = $container;
     }
-    public function dashboardStats($request){
+
+    public function dashboardStats($request)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
 
-        $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,0,$dealer);
-        $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,0,$dealer);
+        $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 0, $dealer);
+        $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 0, $dealer);
 
-        $totalCarListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,1,$dealer);
-        $totalCarViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,1,$dealer);
+        $totalCarListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 1, $dealer);
+        $totalCarViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 1, $dealer);
 
-        $totalMarineListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,2,$dealer);
-        $totalMarineViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,2,$dealer);
+        $totalMarineListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 2, $dealer);
+        $totalMarineViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 2, $dealer);
 
-        $totalMotoListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,3,$dealer);
-        $totalMotoViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,3,$dealer);
+        $totalMotoListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 3, $dealer);
+        $totalMotoViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 3, $dealer);
 
-        $totalRvsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,4,$dealer);
-        $totalRvsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,4,$dealer);
+        $totalRvsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 4, $dealer);
+        $totalRvsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 4, $dealer);
 
-        $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1,0,13,$dealer);
-        $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1,0,13,$dealer);
+        $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 13, $dealer);
+        $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 13, $dealer);
 
         $start = new \DateTime('first day of this month');
         $end = new \DateTime('last day of this month');
@@ -50,7 +52,7 @@ class Stats
         $dateTo = $request->query->get('dateTo');
         $startYear = new \DateTime($dateFrom);
         $endYear = new \DateTime($dateTo);
-        if(empty($dateFrom) && empty($dateTo)){
+        if (empty($dateFrom) && empty($dateTo)) {
             $startYear = new \DateTime('first day of january');
             $endYear = new \DateTime('last day of december');
             $dateFrom = $startYear->format('Y-m-d');
@@ -71,16 +73,16 @@ class Stats
         $totalSaleCostYear = 0;
         $totalSaleRevenueYear = 0;
 
-        $totalItems = array();
         $totalSales = array();
+        $totalBillings = array();
         $totalSalesYear = array();
-        $totalItemsYear = array();
-        
-        if($dealer instanceof Catalogrecords){
-            $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start,$end,$dealer->getId());
-            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($start,$end,$dealer->getId());
-            $totalSalesYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear,$endYear,$dealer->getId());
-            $totalBillingsYear = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startYear,$endYear,$dealer->getId());
+        $totalBillingsYear = array();
+
+        if ($dealer instanceof Catalogrecords) {
+            $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start, $end, $dealer->getId());
+            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($start, $end, $dealer->getId());
+            $totalSalesYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear, $endYear, $dealer->getId());
+            $totalBillingsYear = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startYear, $endYear, $dealer->getId());
 
             $countPurchased = count($totalSales);
             $countSales = count($totalBillings);
@@ -88,22 +90,32 @@ class Stats
             $countPurchasedYear = count($totalSalesYear);
             $countSalesYear = count($totalBillingsYear);
 
-            foreach($totalSales as $sale){
-                if($sale instanceof Sale){
-                    $totalSaleGross += $sale->getTotalRevenue();
-                    $totalSaleCost  += $sale->getTotalSaleCost();
+            foreach ($totalSales as $sale) {
+                if ($sale instanceof Sale) {
                     $totalPurchaseCost += $sale->getTotalUnitCost();
-                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0){
+                }
+            }
+            foreach ($totalSalesYear as $sale) {
+                if ($sale instanceof Sale) {
+                    $totalPurchaseCostYear += $sale->getTotalUnitCost();
+                }
+            }
+            foreach ($totalBillings as $billing) {
+                $sale = $billing->getItem()->getSale();
+                if ($sale instanceof Sale) {
+                    $totalSaleCost += $sale->getTotalSaleCost();
+                    $totalSaleGross += $sale->getTotalRevenue();
+                    if (!empty($billing->getItem()->getSold())) {
                         $totalSaleRevenue += $sale->getRevenueThisUnit();
                     }
                 }
             }
-            foreach($totalSalesYear as $sale){
-                if($sale instanceof Sale){
-                    $totalSaleGrossYear += $sale->getTotalRevenue();
+            foreach ($totalBillingsYear as $billing) {
+                $sale = $billing->getItem()->getSale();
+                if ($billing->getItem()->getSale() instanceof Sale) {
                     $totalSaleCostYear += $sale->getTotalSaleCost();
-                    $totalPurchaseCostYear += $sale->getTotalUnitCost();
-                    if(!empty($sale->getSellingPrice()) && $sale->getSellingPrice() > 0 ){
+                    $totalSaleGrossYear += $sale->getTotalRevenue();
+                    if (!empty($billing->getItem()->getSold())) {
                         $totalSaleRevenueYear += $sale->getRevenueThisUnit();
                     }
                 }
@@ -114,16 +126,16 @@ class Stats
             array(
                 'totalListings' => $totalListings,
                 'totalViews' => $totalViews,
-                'totalCarListings'=>$totalCarListings,
-                'totalCarViews'=>$totalCarViews,
-                'totalMotoListings'=>$totalMotoListings,
-                'totalMotoViews'=>$totalMotoViews,
-                'totalMarineListings'=>$totalMarineListings,
-                'totalMarineViews'=>$totalMarineViews,
-                'totalRvsListings'=>$totalRvsListings,
-                'totalRvsViews'=>$totalRvsViews,
-                'totalAgsListings'=>$totalAgsListings,
-                'totalAgsViews'=>$totalAgsViews,
+                'totalCarListings' => $totalCarListings,
+                'totalCarViews' => $totalCarViews,
+                'totalMotoListings' => $totalMotoListings,
+                'totalMotoViews' => $totalMotoViews,
+                'totalMarineListings' => $totalMarineListings,
+                'totalMarineViews' => $totalMarineViews,
+                'totalRvsListings' => $totalRvsListings,
+                'totalRvsViews' => $totalRvsViews,
+                'totalAgsListings' => $totalAgsListings,
+                'totalAgsViews' => $totalAgsViews,
                 'countPurchased' => $countPurchased,
                 'countSales' => $countSales,
                 'totalPurchaseCost' => $totalPurchaseCost,
