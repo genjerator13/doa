@@ -22,10 +22,11 @@ class Stats
         $this->container = $container;
     }
 
-    public function dashboardStats($request)
-    {
+    public function listingStats(){
+
         $em = $this->container->get('doctrine.orm.entity_manager');
         $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+
 
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 0, $dealer);
         $totalViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 0, $dealer);
@@ -45,83 +46,6 @@ class Stats
         $totalAgsListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 13, $dealer);
         $totalAgsViews = $em->getRepository('NumaDOAAdminBundle:Item')->countAllViews(1, 0, 13, $dealer);
 
-        $start = new \DateTime('first day of this month');
-        $end = new \DateTime('last day of this month');
-
-        $dateFrom = $request->query->get('dateFrom');
-        $dateTo = $request->query->get('dateTo');
-        $startYear = new \DateTime($dateFrom);
-        $endYear = new \DateTime($dateTo);
-        if (empty($dateFrom) && empty($dateTo)) {
-            $startYear = new \DateTime('first day of january');
-            $endYear = new \DateTime('last day of december');
-            $dateFrom = $startYear->format('Y-m-d');
-            $dateTo = $endYear->format('Y-m-d');
-        }
-
-        $countPurchased = 0;
-        $countSales = 0;
-        $totalPurchaseCost = 0;
-        $totalSaleGross = 0;
-        $totalSaleCost = 0;
-        $totalSaleRevenue = 0;
-
-        $countPurchasedYear = 0;
-        $countSalesYear = 0;
-        $totalPurchaseCostYear = 0;
-        $totalSaleGrossYear = 0;
-        $totalSaleCostYear = 0;
-        $totalSaleRevenueYear = 0;
-
-        $totalSales = array();
-        $totalBillings = array();
-        $totalSalesYear = array();
-        $totalBillingsYear = array();
-
-        if ($dealer instanceof Catalogrecords) {
-            $totalSales = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($start, $end, $dealer->getId());
-            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($start, $end, $dealer->getId());
-            $totalSalesYear = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($startYear, $endYear, $dealer->getId());
-            $totalBillingsYear = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startYear, $endYear, $dealer->getId());
-
-            $countPurchased = count($totalSales);
-            $countSales = count($totalBillings);
-
-            $countPurchasedYear = count($totalSalesYear);
-            $countSalesYear = count($totalBillingsYear);
-
-            foreach ($totalSales as $sale) {
-                if ($sale instanceof Sale) {
-                    $totalPurchaseCost += $sale->getTotalUnitCost();
-                }
-            }
-            foreach ($totalSalesYear as $sale) {
-                if ($sale instanceof Sale) {
-                    $totalPurchaseCostYear += $sale->getTotalUnitCost();
-                }
-            }
-            foreach ($totalBillings as $billing) {
-                $sale = $billing->getItem()->getSale();
-                if ($sale instanceof Sale) {
-                    $totalSaleCost += $sale->getTotalSaleCost();
-                    $totalSaleGross += $sale->getTotalRevenue();
-                    if (!empty($billing->getItem()->getSold())) {
-                        $totalSaleRevenue += $sale->getRevenueThisUnit();
-                    }
-                }
-            }
-            foreach ($totalBillingsYear as $billing) {
-                $sale = $billing->getItem()->getSale();
-                if ($billing->getItem()->getSale() instanceof Sale) {
-                    $totalSaleCostYear += $sale->getTotalSaleCost();
-                    $totalSaleGrossYear += $sale->getTotalRevenue();
-                    if (!empty($billing->getItem()->getSold())) {
-                        $totalSaleRevenueYear += $sale->getRevenueThisUnit();
-                    }
-                }
-            }
-        }
-
         $stats =
             array(
                 'totalListings' => $totalListings,
@@ -135,22 +59,127 @@ class Stats
                 'totalRvsListings' => $totalRvsListings,
                 'totalRvsViews' => $totalRvsViews,
                 'totalAgsListings' => $totalAgsListings,
-                'totalAgsViews' => $totalAgsViews,
-                'countPurchased' => $countPurchased,
-                'countSales' => $countSales,
-                'totalPurchaseCost' => $totalPurchaseCost,
-                'totalSaleGross' => $totalSaleGross,
-                'totalSaleCost' => $totalSaleCost,
-                'totalSaleRevenue' => $totalSaleRevenue,
-                'countPurchasedYear' => $countPurchasedYear,
-                'countSalesYear' => $countSalesYear,
-                'totalPurchaseCostYear' => $totalPurchaseCostYear,
-                'totalSaleGrossYear' => $totalSaleGrossYear,
-                'totalSaleCostYear' => $totalSaleCostYear,
-                'totalSaleRevenueYear' => $totalSaleRevenueYear,
+                'totalAgsViews' => $totalAgsViews
+            );
+
+        return $stats;
+    }
+
+    public function calculatePurchases($dealer,$date_start,$date_end)
+    {
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $countPurchased = 0;
+        $totalPurchaseCost = 0;
+
+        if ($dealer instanceof Catalogrecords) {
+            $totalPurchases = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($date_start, $date_end, $dealer->getId());
+            $countPurchased = count($totalPurchases);
+            
+            foreach ($totalPurchases as $sale) {
+                if ($sale instanceof Sale) {
+                    $totalPurchaseCost += $sale->getTotalUnitCost();
+                }
+            }
+        }
+        return array('countPurchased'=>$countPurchased,
+                     'totalPurchaseCost'=>$totalPurchaseCost);
+    }
+
+    public function calculateSales($dealer, $date_start, $date_end){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $countSales = 0;
+
+        $totalSalesGross = 0;
+        $totalSalesCost = 0;
+        $totalSalesRevenue = 0;
+        if ($dealer instanceof Catalogrecords) {
+            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date_start, $date_end, $dealer->getId());
+            $countSales = count($totalBillings);
+            foreach ($totalBillings as $billing) {
+                $sale = $billing->getItem()->getSale();
+                if ($sale instanceof Sale) {
+                    $totalSalesCost += $sale->getTotalSaleCost();
+                    $totalSalesGross += $sale->getTotalRevenue();
+                    if (!empty($billing->getItem()->getSold())) {
+                        $totalSalesRevenue += $sale->getRevenueThisUnit();
+                    }
+                }
+            }
+        }
+        $stats=array(
+            'countSales'=>$countSales,
+            'totalSalesGross'=>$totalSalesGross,
+            'totalSalesCost'=>$totalSalesCost,
+            'totalSalesRevenue'=>$totalSalesRevenue,
+        );
+        return $stats;
+    }
+
+    public function calculatePurchasesByCurrentMonth($dealer){
+
+        $month_start = new \DateTime('first day of this month');
+        $month_end = new \DateTime('last day of this month');
+        return $this->calculatePurchases($dealer,$month_start,$month_end);
+    }
+
+
+    public function calculateSalesByCurrentMonth($dealer){
+
+        $month_start = new \DateTime('first day of this month');
+        $month_end = new \DateTime('last day of this month');
+        return $this->calculateSales($dealer,$month_start,$month_end);
+    }
+
+
+    public function dashboardStats($request)
+    {
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+
+        $dateFrom = $request->query->get('dateFrom');
+        $dateTo = $request->query->get('dateTo');
+
+        $startPeriod = new \DateTime($dateFrom);
+        $endPeriod = new \DateTime($dateTo);
+        if (empty($dateFrom) && empty($dateTo)) {
+            $startPeriod = new \DateTime('first day of january');
+            $endPeriod = new \DateTime('last day of december');
+            $dateFrom = $startPeriod->format('Y-m-d');
+            $dateTo = $endPeriod->format('Y-m-d');
+        }
+
+        $purchasesByPeriod = $this->calculatePurchases($dealer,$startPeriod,$endPeriod);
+        $salesByPeriod     = $this->calculateSales($dealer,$startPeriod,$endPeriod);
+
+        $purchaseCurrentMonth = $this->calculatePurchasesByCurrentMonth($dealer);
+        $salesCurrentMonth = $this->calculateSalesByCurrentMonth($dealer);
+
+        $stats =
+            array(
+                'countPurchased' => $purchaseCurrentMonth['countPurchased'],
+                'countSales' => $salesCurrentMonth['countSales'],
+                'totalPurchaseCost' => $purchaseCurrentMonth['totalPurchaseCost'],
+                'totalSaleGross' => $salesCurrentMonth['totalSalesGross'],
+                'totalSaleCost' => $salesCurrentMonth['totalSalesCost'],
+                'totalSaleRevenue' => $salesCurrentMonth['totalSalesRevenue'],
+                'countPurchasedYear' => $purchasesByPeriod['countPurchased'],
+                'countSalesYear' => $salesByPeriod['countSales'],
+                'totalPurchaseCostYear' => $purchasesByPeriod['totalPurchaseCost'],
+                'totalSaleGrossYear' => $salesByPeriod['totalSalesGross'],
+                'totalSaleCostYear' => $salesByPeriod['totalSalesCost'],
+                'totalSaleRevenueYear' => $salesByPeriod['totalSalesRevenue'],
                 'date_start' => $dateFrom,
                 'date_end' => $dateTo,
             );
         return $stats;
+    }
+
+    public function allStats($request){
+
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+
+        $listing = $this->listingStats($dealer);
+        $dashboardStats = $this->dashboardStats($request);
+        return array_merge($listing,$dashboardStats);
     }
 }
