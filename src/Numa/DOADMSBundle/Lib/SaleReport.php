@@ -16,8 +16,8 @@ class SaleReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A" => array("sale:salesPerson", "Sale Person"),
-        "B" => array("customer", "Cust Name"),
+        "A" => array("billing:salesPerson", "Sale Person"),
+        "B" => array("billing:customer", "Cust Name"),
         "C" => array("VIN", "Vin"),
         "C" => array("stockNr", "Stock nr"),
         "D" => array("year", "Year"),
@@ -30,7 +30,7 @@ class SaleReport extends Report
     public function setCellValue($letter, $number, $entity, $field)
     {
         $listing = $this->container->get('numa.dms.listing');
-        $value = $listing->getProperty($entity, $field[0]);
+        $value = $listing->getProperty($entity->getItem(), $field[0]);
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -39,9 +39,9 @@ class SaleReport extends Report
         $sellingPrice=0;
         $totalRevenue=0;
         foreach ($entities as $entity) {
-            if($entity->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getSale()->getSellingPrice();
-                $totalRevenue += $entity->getSale()->getTotalRevenue();
+            if($entity->getItem()->getSale() instanceof Sale) {
+                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
+                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
             }
         }
 
@@ -60,9 +60,9 @@ class SaleReport extends Report
         $sellingPrice=0;
         $totalRevenue=0;
         foreach ($this->getEntities() as $entity) {
-            if($entity->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getSale()->getSellingPrice();
-                $totalRevenue += $entity->getSale()->getTotalRevenue();
+            if($entity->getItem()->getSale() instanceof Sale) {
+                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
+                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
             }
         }
 
@@ -102,7 +102,7 @@ class SaleReport extends Report
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         foreach ($this->entities as $entity) {
-            $sale = $entity->getSale();
+            $sale = $entity->getItem()->getSale();
             if ($sale instanceof Sale) {
                 $res[$sale->getSalesPerson()][] = $entity;
             }
