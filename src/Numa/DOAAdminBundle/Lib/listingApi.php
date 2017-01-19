@@ -293,9 +293,13 @@ class listingApi
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         $csvArrayRes = $this->addItemsKijijiFeed($items);
         //dump($csvArrayRes);
-        $ret = $this->formatResponse($csvArrayRes, 'csv');
-        file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
-        return $ret;
+        //$ret = $this->formatResponse($csvArrayRes, 'csv');
+        //file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
+        $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
+        $localfile = $this->storeKijijiToLocalServer($items,$dealer->getId());
+
+        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
+
     }
 
     /**
@@ -309,6 +313,7 @@ class listingApi
         $filenameKijiji = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, null, 0);
+
         if (!empty($items)) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
             $logger->warning("prepare kijiji feed:" . $dealer_id);
@@ -323,8 +328,56 @@ class listingApi
             file_put_contents($filenameKijiji, $ret->getContent(), LOCK_EX);
             chmod($filenameKijiji, 0755);   //
         }
+
         $logger->warning("makeKijijiFromDealerId end:" . $filenameKijiji);
         return $filenameKijiji;
+    }
+
+    public function storeKijijiToLocalServer($items,$dealer_id){
+        $logger = $this->container->get('logger');
+        $em = $this->container->get('doctrine');
+        $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
+        $filenameKijiji = "";
+
+        if (!empty($items) && $dealer instanceof Catalogrecords) {
+            $csvArrayRes = $this->addItemsKijijiFeed($items);
+            $logger->warning("prepare kijiji feed:" . $dealer_id);
+            $ret = $this->formatResponse($csvArrayRes, 'csv');
+            $dir = $this->container->getParameter('upload_dealer') . "/" . $dealer_id;
+            if (!is_dir($dir)) {
+                mkdir($dir);
+            }
+
+            $filenameKijiji = $dir . "/" . "kijiji.csv";
+            $logger->warning("store kijiji feed on:" . $filenameKijiji);
+            file_put_contents($filenameKijiji, $ret->getContent(), LOCK_EX);
+            chmod($filenameKijiji, 0755);   //
+        }
+        return $filenameKijiji;
+    }
+
+    public function storeFeedToKijijiServer($items,$dealer,$localfile){
+        // set up basic connection
+
+        $ftp_server = $dealer->getFeedKijijiUrl();
+        $ftp_user_name = $dealer->getFeedKijijiUsername();
+        $ftp_user_pass = $dealer->getFeedKijijiPassword();
+        if(!empty($ftp_server)) {
+
+            //$feedsKijiji = $this->storeKijijiToLocalServer($items, $dealer->getId());
+            $conn_id = ftp_connect($ftp_server);
+            // login with username and password
+            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+
+            // upload a file
+            if (!ftp_put($conn_id, "kijiji.csv", $localfile, FTP_ASCII)) {
+                return "errror";
+            }
+
+            // close the connection/
+            ftp_close($conn_id);
+        }
+        return true;
     }
 
     public function addItemsKijijiFeed($items)
@@ -377,7 +430,7 @@ class listingApi
             if (!empty($images['image'])) {
                 $images = $this->processImages($images['image'],$dealer->getSiteUrl());
             }
-            dump($images);
+
             $csvArray['images'] = $images;
             $csvArray['category'] = 0;
 
