@@ -10,9 +10,11 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
-        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats($request);
-        $em = $this->getDoctrine()->getManager();
         $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        // $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats($request);
+        $stats = $this->get('Numa.Dashboard.Stats')->allStats($request);
+        $em = $this->getDoctrine()->getManager();
+
         if (empty($signedDealer)) {
             $dealer = null;
         } else {
