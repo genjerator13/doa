@@ -28,7 +28,7 @@ class DealerSetting
     private $Dealer;
 
     /**
-     * @var \Numa\DOAAdminBundle\Entity\DMSSettings
+     * @var \Numa\DOAAdminBundle\Entity\DMSSetting
      */
     private $Setting;
 
@@ -118,11 +118,11 @@ class DealerSetting
     /**
      * Set setting
      *
-     * @param \Numa\DOAAdminBundle\Entity\DMSSettings $setting
+     * @param \Numa\DOAAdminBundle\Entity\DMSSetting $setting
      *
      * @return DealerSetting
      */
-    public function setSetting(\Numa\DOAAdminBundle\Entity\DMSSettings $setting = null)
+    public function setSetting(\Numa\DOADMSBundle\Entity\DMSSetting $setting = null)
     {
         $this->Setting = $setting;
 
@@ -132,7 +132,7 @@ class DealerSetting
     /**
      * Get setting
      *
-     * @return \Numa\DOAAdminBundle\Entity\DMSSettings
+     * @return \Numa\DOAAdminBundle\Entity\DMSSetting
      */
     public function getSetting()
     {
@@ -151,10 +151,9 @@ class DealerSetting
      *
      * @return DealerSetting
      */
-    public function setDMSSetting(\Numa\DOAAdminBundle\Entity\DMSSetting $dMSSetting = null)
+    public function setDMSSetting(\Numa\DOADMSBundle\Entity\DMSSetting $DMSSetting = null)
     {
-        $this->DMSSetting = $dMSSetting;
-
+        $this->DMSSetting = $DMSSetting;
         return $this;
     }
 

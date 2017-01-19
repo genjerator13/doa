@@ -356,7 +356,7 @@
                                 <a href="{{ path('dms_page') }}" class=""><i class="fa fa-laptop"></i>Website Pages</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS')or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') %}
                             <li class="active">
                                 <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
                             </li>
@@ -464,7 +464,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                <a href="{{ path('dms_home') }}">Dealers on Air</a>
+                <a href="{{ path('dms_home') }}">DMS Complete</a>
                 <small>Dealers Management System Dashbard</small>
             </h1>
             {{ render_esi(controller('NumaDOADMSBundle:Default:dealerChooser')) }}

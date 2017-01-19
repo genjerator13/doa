@@ -137,6 +137,8 @@ class EntityListener
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             if(!empty($entity->getItem())){
+                $item = $entity->getItem();
+                $item->addBilling($entity);
                 $entity->getItem()->setSold(true);
                 $entity->getItem()->setActive(false);
             }

@@ -2569,4 +2569,9 @@ class Sale
         return $this->unit_tax_other;
     }
 
+//    public function __toString()
+//    {
+//        return $this->id."";
+//        // TODO: Implement __toString() method.
+//    }
 }
