@@ -426,7 +426,7 @@ class ItemRepository extends EntityRepository
 
         $qb->setParameter("find", "%" . $find . "%");
 
-        $qb->andWhere('i.sold IS NOT NULL AND i.sold = 0');
+        $qb->andWhere('i.sold = 0');
 
         $query = $qb->getQuery();
         $res = $query->getResult();
