@@ -102,9 +102,8 @@ class SaleReport extends Report
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         foreach ($this->entities as $entity) {
-            $sale = $entity->getItem()->getSale();
-            if ($sale instanceof Sale) {
-                $res[$sale->getSalesPerson()][] = $entity;
+            if ($entity instanceof Billing) {
+                $res[$entity->getSalesPerson()][] = $entity;
             }
         }
         return $res;
