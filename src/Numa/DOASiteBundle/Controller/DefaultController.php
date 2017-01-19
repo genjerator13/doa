@@ -448,7 +448,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     public function statisticsAction(Request $request)
     {
-        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        $stats = $this->get('Numa.Dashboard.Stats')->allStats($request);
         $stats['site'] = true;
         return $this->render('NumaDOASiteBundle:Default:statistics.html.twig', $stats);
     }

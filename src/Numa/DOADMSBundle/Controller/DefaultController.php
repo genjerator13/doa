@@ -11,21 +11,17 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $signedDealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        // $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats($request);
         $stats = $this->get('Numa.Dashboard.Stats')->allStats($request);
         $em = $this->getDoctrine()->getManager();
-
-        if (empty($signedDealer)) {
-            $dealer = null;
-        } else {
+        $dealer = null;
+        if (!empty($signedDealer)) {
             $dealer = $signedDealer->getId();
         }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer, 10, "read");
 
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->countByDealer($signedDealer);
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($signedDealer);
-        $components = $em->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id' => $dealer));
-
+ 
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
             'stats' => $stats,
