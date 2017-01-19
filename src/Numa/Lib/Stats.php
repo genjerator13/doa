@@ -74,7 +74,7 @@ class Stats
         if ($dealer instanceof Catalogrecords) {
             $totalPurchases = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($date_start, $date_end, $dealer->getId());
             $countPurchased = count($totalPurchases);
-
+            
             foreach ($totalPurchases as $sale) {
                 if ($sale instanceof Sale) {
                     $totalPurchaseCost += $sale->getTotalUnitCost();
@@ -95,6 +95,7 @@ class Stats
         $totalSalesRevenue = 0;
         if ($dealer instanceof Catalogrecords) {
             $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date_start, $date_end, $dealer->getId());
+            $countSales = count($totalBillings);
             foreach ($totalBillings as $billing) {
                 $sale = $billing->getItem()->getSale();
                 if ($sale instanceof Sale) {
