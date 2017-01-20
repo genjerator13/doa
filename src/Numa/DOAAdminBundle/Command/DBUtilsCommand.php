@@ -675,32 +675,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function populate()
     {
-        $em = $this->getContainer()->get('doctrine')->getManager();
-        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "elasticsearch"), array('id' => 'desc'));
-
-        if ($lastCommand instanceof CommandLog) {
-            if ($lastCommand->isRunning()) {
-                die();
-            }
-        }
-        $command = 'php app/console fos:elastica:populate';
-        $commandLog = new CommandLog();
-        $commandLog->setCategory('elasticsearch');
-        $commandLog->setStartedAt(new \DateTime());
-        $commandLog->setStatus('started');
-        $commandLog->setCommand($command);
-        $em->persist($commandLog);
-        $em->flush();
-        //$em->clear();
-        $logger = $this->getContainer()->get('logger');
-        $logger->warning("TEST before populate");
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
-        $logger->error("TEST after populate");
-        $commandLog->setEndedAt(new \DateTime());
-        $commandLog->setStatus('finished');
-        $em->flush();
-        $em->clear();
+        $em = $this->getContainer()->get('numa.dms.utils')->populateElasticSearch();
     }
 
     public function vindecoder($item_id)
