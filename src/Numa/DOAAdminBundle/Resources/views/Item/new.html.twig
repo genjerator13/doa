@@ -102,7 +102,7 @@
                 <li role="presentation" class="active"><a data-toggle="tab" href="#details">Listing details</a></li>
                 <li role="presentation"><a data-toggle="tab" href="#SEO">SEO</a></li>
                 {% if((is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_DEALER_PRINCIPAL')) and not is_granted("ROLE_NODMS_USER")) %}
-                    <li role="presentation"><a data-toggle="tab" href="#sale">Sale</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#sale">Purchase & Sales Recap</a></li>
                 {% endif %}
             </ul>
             <div class="tab-content">
