@@ -74,7 +74,7 @@ security:
         - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS,ROLE_FINANCE_DMS,ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS, ROLE_SALE4_DMS,ROLE_DEALER_PRINCIPAL] }
 #        - { path: ^/dms, roles: [ROLE_ADMIN,ROLE_DMS_USER, ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS, ROLE_SALE3_DMS] }
 #        - { path: ^/dms/, roles: [ROLE_ADMIN,ROLE_DMS_USER,ROLE_ACCOUNTING,ROLE_SALES,ROLE_PARTS_DMS,ROLE_SERVICE_DMS] }
-
+        - { path: ^/admin/featuredimport, roles: [ROLE_ADMIN] }
         - { path: ^/admin/items/additem/, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/items/additem, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
         - { path: ^/admin/itemsfield/[0-9]+/delete, roles: [ROLE_ADMIN, ROLE_BUSINES,ROLE_DEALER_ADMIN] }
