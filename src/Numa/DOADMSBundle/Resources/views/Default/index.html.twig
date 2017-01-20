@@ -74,7 +74,7 @@
 
     {% include 'NumaDOADMSBundle:Default:stats.html.twig' %}
     
-    {% if is_granted('ROLE_DMS_USER') %}
+    {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_ADMIN') %}
         {% include 'NumaDOADMSBundle:Default:saleStats.html.twig' %}
     {% endif %}
 {% endblock %}
