@@ -266,8 +266,8 @@ class ImportfeedController extends Controller implements DashboardDMSControllerI
 
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('feed_id' => $entity->getId()));
 
-        $this->get("Numa.Dms.Listing")->deleteItems($items);
-
+        $this->get("numa.dms.listing")->deleteItems($items);
+        $this->get("numa.dms.utils")->populateElasticSearch();
         //$this->addFlash('success', 'All the listing from the feed '+$id+" are removed and the images are deleted.");
         $request->getSession()->getFlashBag()->add('success', 'All the listing from the feed ' . $id . " are removed and the images are deleted.");
 
