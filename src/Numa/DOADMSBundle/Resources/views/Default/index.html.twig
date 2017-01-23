@@ -4,6 +4,7 @@
     <div class="page-header">
         <h1>Dashboard</h1>
     </div>
+
     <div class="row">
         <div class="col-lg-3 col-xs-6">
             <div class="small-box bg-aqua">
@@ -73,7 +74,7 @@
 
     {% include 'NumaDOADMSBundle:Default:stats.html.twig' %}
     
-    {% if is_granted('ROLE_DMS_USER') %}
+    {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_DEALER_PRINCIPAL') %}
         {% include 'NumaDOADMSBundle:Default:saleStats.html.twig' %}
     {% endif %}
 {% endblock %}

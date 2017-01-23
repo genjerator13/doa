@@ -20,6 +20,9 @@ services:
     numa.dms.images:
         class: Numa\DOADMSBundle\Util\ImageLib
         arguments:  [@service_container]
+    Numa.Dms.Utils:
+        class: Numa\DOADMSBundle\Util\UtilsLib
+        arguments:  [@service_container]
     Numa.Form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:

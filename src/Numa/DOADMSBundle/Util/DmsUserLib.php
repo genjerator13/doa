@@ -74,7 +74,7 @@ class DmsUserLib
     /**
      * @return dealers id based whatever dealer or dealer principal is signed
      */
-    public function getAvailableDealers()
+    public function getAvailableDealersIds()
     {
         $dealer = $this->getSignedUser();
         $dealer_id = "";
