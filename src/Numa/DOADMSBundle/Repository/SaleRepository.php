@@ -24,9 +24,11 @@ class SaleRepository extends EntityRepository {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOADMSBundle:Sale', 's')
-            ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.sale_id IS NOT NULL')
             ->leftJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "s.id=i.sale_id");
+        if(!empty($dealer_id)){
+            $qb->andWhere('i.dealer_id IN (' . $dealer_id . ')');
+        }
         if(!is_null($sold)){
             $qb->andWhere('i.sold = :sold')
                 ->setParameter('sold', $sold);
@@ -58,9 +60,11 @@ class SaleRepository extends EntityRepository {
     public function getCountSaleMadePeriod($dateStart=null,$dateEnd=null,$dealer_id){
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('s')
-            ->from('NumaDOADMSBundle:Sale', 's')
-            ->Where('i.dealer_id IN (' . $dealer_id . ')')
-            ->andWhere('i.sale_id IS NOT NULL')
+            ->from('NumaDOADMSBundle:Sale', 's');
+        if(!empty($dealer_id)) {
+            $qb->andWhere('i.dealer_id IN (' . $dealer_id . ')');
+        }
+        $qb->andWhere('i.sale_id IS NOT NULL')
             ->innerJoin('NumaDOAAdminBundle:Item', 'i')
         ;
         //$dStart = new \DateTime('now')
