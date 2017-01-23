@@ -7,7 +7,7 @@ use Pagerfanta\Pagerfanta,
 class Util {
 
     const yearMin = 1950;
-    const yearMax = 2016;
+    const yearMax = 2017;
 
     static function createYearRangeArray() {
         $ret = array();

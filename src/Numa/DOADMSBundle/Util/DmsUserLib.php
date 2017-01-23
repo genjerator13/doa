@@ -99,6 +99,17 @@ class DmsUserLib
         return null;
     }
 
+    public function getSignedDealerOrPrincipal()
+    {
+        $principal = $this->getSignedUser();
+
+        if($principal instanceof DealerGroup || $principal instanceof Catalogrecords){
+            return $principal;
+        }
+
+        return null;
+    }
+
     public function getHost($request=null)
     {
         $dealer = $this->getSignedDealer();
