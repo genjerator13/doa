@@ -189,7 +189,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
             foreach ($items as $importItem) {
 
-                $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em);
+                $item = $this->em->getRepository('NumaDOAAdminBundle:Item')->importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em,$logger);
 
                 if (!empty($item)) {
                     $createdItems[] = $item;
