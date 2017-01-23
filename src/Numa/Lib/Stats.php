@@ -25,7 +25,7 @@ class Stats
     public function listingStats(){
 
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealerOrPrincipal();
 
 
         $totalListings = $em->getRepository('NumaDOAAdminBundle:Item')->countAllListings(1, 0, 0, $dealer);
@@ -176,9 +176,7 @@ class Stats
 
     public function allStats($request){
 
-        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
-
-        $listing = $this->listingStats($dealer);
+        $listing = $this->listingStats();
         $dashboardStats = $this->dashboardStats($request);
         return array_merge($listing,$dashboardStats);
     }
