@@ -65,14 +65,14 @@ class Stats
         return $stats;
     }
 
-    public function calculatePurchases($dealer,$date_start,$date_end)
+    public function calculatePurchases($dealersIds,$date_start,$date_end)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $countPurchased = 0;
         $totalPurchaseCost = 0;
 
-        if ($dealer instanceof Catalogrecords) {
-            $totalPurchases = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($date_start, $date_end, $dealer->getId());
+        if (!empty($dealersIds)) {
+            $totalPurchases = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($date_start, $date_end, $dealersIds);
             $countPurchased = count($totalPurchases);
             
             foreach ($totalPurchases as $sale) {
@@ -85,7 +85,7 @@ class Stats
                      'totalPurchaseCost'=>$totalPurchaseCost);
     }
 
-    public function calculateSales($dealer, $date_start, $date_end){
+    public function calculateSales($dealersIds, $date_start, $date_end){
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $countSales = 0;
@@ -93,8 +93,8 @@ class Stats
         $totalSalesGross = 0;
         $totalSalesCost = 0;
         $totalSalesRevenue = 0;
-        if ($dealer instanceof Catalogrecords) {
-            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date_start, $date_end, $dealer->getId());
+        if (!empty($dealersIds)) {
+            $totalBillings = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($date_start, $date_end, $dealersIds);
             $countSales = count($totalBillings);
             foreach ($totalBillings as $billing) {
                 $sale = $billing->getItem()->getSale();
@@ -134,7 +134,7 @@ class Stats
 
     public function dashboardStats($request)
     {
-        $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
+        $dealersIds = $this->container->get('Numa.Dms.User')->getAvailableDealersIds();
 
         $dateFrom = $request->query->get('dateFrom');
         $dateTo = $request->query->get('dateTo');
@@ -148,11 +148,11 @@ class Stats
             $dateTo = $endPeriod->format('Y-m-d');
         }
 
-        $purchasesByPeriod = $this->calculatePurchases($dealer,$startPeriod,$endPeriod);
-        $salesByPeriod     = $this->calculateSales($dealer,$startPeriod,$endPeriod);
+        $purchasesByPeriod = $this->calculatePurchases($dealersIds,$startPeriod,$endPeriod);
+        $salesByPeriod     = $this->calculateSales($dealersIds,$startPeriod,$endPeriod);
 
-        $purchaseCurrentMonth = $this->calculatePurchasesByCurrentMonth($dealer);
-        $salesCurrentMonth = $this->calculateSalesByCurrentMonth($dealer);
+        $purchaseCurrentMonth = $this->calculatePurchasesByCurrentMonth($dealersIds);
+        $salesCurrentMonth = $this->calculateSalesByCurrentMonth($dealersIds);
 
         $stats =
             array(
