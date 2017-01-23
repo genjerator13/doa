@@ -175,7 +175,7 @@ class ItemRESTController extends Controller
     public function listingByUniquesAction(Request $request, $id)
     {
         $field = $request->get('field');
-        $dealer_id = $this->get("numa.dms.user")->getAvailableDealers();
+        $dealer_id = $this->get("numa.dms.user")->getAvailableDealersIds();
         $items = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->findItemsBy($id, $field,$dealer_id);
 
         return $items;
