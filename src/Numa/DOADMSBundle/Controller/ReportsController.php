@@ -38,21 +38,20 @@ class ReportsController extends Controller
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
         if (empty($dealer)) {
             $entities = null;
+            //$em->flush();
             $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
             $securityContext = $this->container->get('security.authorization_checker');
+            $dealer_id = $dealer->getId();
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
-                $dealerPrincipal = $this->container->get("numa.dms.user")->getSignedDealerPrincipal();
-                $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealersByDealerGroup($dealerPrincipal->getId());
+                $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('dealer_group_id' => $dealer->getId()));
                 $dealer_ids = array();
                 foreach ($dealers as $dealer) {
                     $dealer_ids[] = $dealer->getId();
                 }
                 $dealer_id = implode(",", $dealer_ids);
-            }else{
-                $dealer_id = $dealer->getId();
-            }
 
+            }
             $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
 
             if ($request->query->has('purchase')) {
