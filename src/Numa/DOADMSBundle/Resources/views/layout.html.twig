@@ -375,7 +375,7 @@
                         {% endif %}
                     </ul>
                 </li>
-                {% if is_granted('ROLE_ADMIN')  %}
+                {% if is_granted('ROLE_ADMIN') %}
                     <li class="treeview">
                         <a href="#">
                             <i class="fa fa-folder"></i>
@@ -503,9 +503,12 @@
         <div class="tab-content">
             <!-- Home tab content -->
             {#<div class="tab-pane active" id="control-sidebar-home-tab">#}
-            <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view"
-               target="_blank" class="btn btn-success">User Group Permissions</a>
-
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
+                <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view"
+                   target="_blank" class="btn btn-success">
+                    User Group Permissions
+                </a>
+            {% endif %}
             <a href="{{ path('supportform_new') }}" class="btn btn-default">Support</a>
             {#</div><!-- /.tab-pane -->#}
             <!-- Stats tab content -->
