@@ -16,43 +16,47 @@
         </div>
         <form class="col-md-12">
             Date From:
-            <input  class="datepicker" name="dateFrom" value="{{ date_start }}">
+            <input class="datepicker" name="dateFrom" value="{{ date_start }}">
             Date To:
-            <input  class="datepicker" name="dateTo" value="{{ date_end }}">
+            <input class="datepicker" name="dateTo" value="{{ date_end }}">
 
             <button class="btn btn-success" type="submit" name="filter">Filter</button>
             <div class="col-md-12">
-                <button class="btn btn-info" type="submit" name="purchase">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Purchase Report
-                </button>
-                <button class="btn btn-info" type="submit" name="sales">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Sales Report
-                </button>
-                <button class="btn btn-info" type="submit" name="unitProfit">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Unit Profit Report
-                </button>
-                <button class="btn btn-info" type="submit" name="inventory">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Inventory Report
-                </button>
-                <button class="btn btn-info" type="submit" name="inventoryPhoto">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Inventory Report with Photo
-                </button>
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') %}
+                    <button class="btn btn-info" type="submit" name="purchase">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Purchase Report
+                    </button>
+                    <button class="btn btn-info" type="submit" name="sales">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Sales Report
+                    </button>
+                    <button class="btn btn-info" type="submit" name="unitProfit">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Unit Profit Report
+                    </button>
+                    <button class="btn btn-info" type="submit" name="unitRevenue">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Unit Revenue Report
+                    </button>
+                    <button class="btn btn-info" type="submit" name="unitSalesCost">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Unit Sales Cost Report
+                    </button>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') %}
+                    <button class="btn btn-info" type="submit" name="inventory">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Inventory Report
+                    </button>
+                    <button class="btn btn-info" type="submit" name="inventoryPhoto">
+                        <i class="glyphicon glyphicon-file"></i>
+                        Inventory Report with Photo
+                    </button>
+                {% endif %}
                 <button class="btn btn-info" type="submit" name="inventoryShort">
                     <i class="glyphicon glyphicon-file"></i>
                     Inventory Report - Sales Copy
-                </button>
-                <button class="btn btn-info" type="submit" name="unitRevenue">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Unit Revenue Report
-                </button>
-                <button class="btn btn-info" type="submit" name="unitSalesCost">
-                    <i class="glyphicon glyphicon-file"></i>
-                    Unit Sales Cost Report
                 </button>
             </div>
         </form>

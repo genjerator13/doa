@@ -409,7 +409,7 @@ class ItemRepository extends EntityRepository
      * @return bool|mixed
      * Finds items by stock# and VIn
      */
-    public function findItemsBy($find, $field = 'vin',$dealer_ids="")
+    public function findItemsByUnique($find, $field = 'vin',$dealer_ids="")
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -425,6 +425,8 @@ class ItemRepository extends EntityRepository
         }
 
         $qb->setParameter("find", "%" . $find . "%");
+
+        $qb->andWhere('i.sold <> 1');
 
         $query = $qb->getQuery();
         $res = $query->getResult();
