@@ -19,11 +19,22 @@ class DefaultController extends Controller
         }
         $entities = $em->getRepository('NumaDOADMSBundle:ListingForm')->getAllFormsByDealer($dealer, 10, "read");
 
+        $curentDate = new \DateTime('-1 day');
+        $incomingDate = new \DateTime('+30 days');
+        $passedDate = new \DateTime('-30 days');
+
+        $dealerIds = $this->get('Numa.Dms.User')->getAvailableDealersIds();
+
+        $incomingReminders = $em->getRepository('NumaDOADMSBundle:Reminder')->findByDate($curentDate, $incomingDate, $dealerIds);
+        $passedReminders = $em->getRepository('NumaDOADMSBundle:Reminder')->findByDate($passedDate, $curentDate, $dealerIds);
+
         $pages = $em->getRepository('NumaDOAModuleBundle:Page')->countByDealer($signedDealer);
         $customers = $em->getRepository('NumaDOADMSBundle:Customer')->findByDealerId($signedDealer);
  
         return $this->render('NumaDOADMSBundle:Default:index.html.twig', array(
             'entities' => $entities,
+            'incomingReminders' => $incomingReminders,
+            'passedReminders' => $passedReminders,
             'stats' => $stats,
             'pages' => count($pages),
             'customers' => count($customers)));
