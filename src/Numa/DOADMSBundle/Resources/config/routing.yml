@@ -56,7 +56,7 @@ userprofile_update:
 
 NumaDOADMSBundle_reminder:
     resource: "@NumaDOADMSBundle/Resources/config/routing/reminder.yml"
-    prefix:   /reminder
+    prefix:   /reminders
 dms_settings:
     resource: "@NumaDOADMSBundle/Resources/config/routing/settings.yml"
     prefix:   /settings

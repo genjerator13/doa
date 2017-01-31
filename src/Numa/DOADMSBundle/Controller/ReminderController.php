@@ -22,9 +22,10 @@ class ReminderController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('NumaDOADMSBundle:Reminder')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $entities = $em->getRepository('NumaDOADMSBundle:Reminder')->findByCustomerDealer($dealer);
 
-        return $this->render('NumaDOADMSBundle:Reminder:index.html.twig', array(
+        return $this->render('NumaDOADMSBundle:Reminder:index_full.html.twig', array(
             'entities' => $entities,
         ));
     }
