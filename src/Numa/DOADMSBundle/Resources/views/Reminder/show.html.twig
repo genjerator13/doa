@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Reminder</h1>
 
     <table class="record_properties">
@@ -10,24 +10,20 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Customer_id</th>
-            <td>{{ entity.customerid }}</td>
+            <th>Customer Name</th>
+            <td>{{ entity.Customer.name }}</td>
         </tr>
         <tr>
             <th>Date</th>
             <td>{{ entity.date|date('Y-m-d H:i:s') }}</td>
         </tr>
         <tr>
-            <th>Date_created</th>
-            <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            <th>Comment</th>
+            <td>{{ entity.comment }}</td>
         </tr>
         <tr>
-            <th>Date_updated</th>
-            <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>{{ entity.status }}</td>
+            <th>Reminder Item</th>
+            <td>{{ entity.ReminderItem }}</td>
         </tr>
         </tbody>
     </table>
