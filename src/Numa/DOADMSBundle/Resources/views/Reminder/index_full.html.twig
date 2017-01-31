@@ -1,0 +1,51 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Reminder list</h3>
+            <div class="box-tools">
+
+                {#<a href="{{ path('customer_addreminder',{'id':customer_id}) }}" class="btn btn-primary">#}
+                    {#Create a new Reminder#}
+                {#</a>#}
+            </div>
+        </div>
+        {% if entities is empty %}
+            <div>No Reminders</div>
+        {% else %}
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Comment</th>
+                        <th>Item</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td><a href="{{ path('reminder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td><a href="{{ path('customer_edit', { 'id': entity.Customer.id }) }}">{{ entity.Customer.name }}</a></td>
+                            <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
+                            <td>{{ entity.comment }}</td>
+                            <td>{{ entity.ReminderItem }}</td>
+                            <td>
+                                <ul>
+                                    <li>
+                                        <a href="{{ path('reminder_edit', { 'id': entity.id }) }}"
+                                           class="btn btn-primary">Edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
