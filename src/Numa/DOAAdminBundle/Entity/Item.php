@@ -5115,4 +5115,33 @@ class Item
     {
         return $this->Billing;
     }
+    /**
+     * @var string
+     */
+    private $archive_status;
+
+
+    /**
+     * Set archiveStatus
+     *
+     * @param string $archiveStatus
+     *
+     * @return Item
+     */
+    public function setArchiveStatus($archiveStatus)
+    {
+        $this->archive_status = $archiveStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get archiveStatus
+     *
+     * @return string
+     */
+    public function getArchiveStatus()
+    {
+        return $this->archive_status;
+    }
 }

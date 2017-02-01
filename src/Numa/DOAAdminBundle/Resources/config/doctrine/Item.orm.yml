@@ -494,6 +494,10 @@ Numa\DOAAdminBundle\Entity\Item:
         vindecoder:
               type: text
               nullable: true
+        archive_status:
+              type: string
+              length: 32
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
