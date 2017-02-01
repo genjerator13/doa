@@ -895,7 +895,7 @@ SET i.cover_photo = iif.field_string_value";
             ->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->andWhere('i.active=1')
-            ->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>"archived"')
             ->orderBy('i.id', 'DESC');
 
         return $queryBuilder;
@@ -908,7 +908,7 @@ SET i.cover_photo = iif.field_string_value";
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.active=1')
-            ->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>"archived"')
             ->andWhere('i.sold=0');
 
         if(!empty($date) && empty($date1))
