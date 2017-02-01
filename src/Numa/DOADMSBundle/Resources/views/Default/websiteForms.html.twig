@@ -1,16 +1,16 @@
-<div class="box box-info">
+<div class="box box-info{% if entities is empty %} collapsed-box {% endif %}">
     <div class="box-header with-border">
         <h3 class="box-title">Website Forms</h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" type="button">
-                <i class="fa fa-minus"></i>
+                <i class="fa fa-{% if entities is empty %}plus{% else %}minus{% endif %}"></i>
             </button>
             <button class="btn btn-box-tool" data-widget="remove" type="button">
                 <i class="fa fa-times"></i>
             </button>
         </div>
     </div>
-    <div class="box-body" style="display: block;">
+    <div class="box-body" style="display: {% if entities is empty %}none{% else %}block{% endif %};">
         <div class="table-responsive">
             <table class="table no-margin">
                 <thead>
@@ -28,7 +28,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>
-                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive"  or entity.type|lower=="finance" %}
+                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive" or entity.type|lower=="finance" or entity.type|lower=="quote" or entity.type|lower=="tradein" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
@@ -73,7 +73,7 @@
 
                         <td>
 
-                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive"  or entity.type|lower=="finance" %}
+                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive"  or entity.type|lower=="finance" or entity.type|lower=="quote" or entity.type|lower=="tradein" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance_show', { 'id': entity.id }) }}"
@@ -95,7 +95,7 @@
             </table>
         </div>
     </div>
-    <div class="box-footer clearfix" style="display: block;">
+    <div class="box-footer clearfix" style="display: {% if entities is empty %}none{% else %}block{% endif %}block;">
         {#<a class="btn btn-sm btn-info btn-flat pull-left" href="javascript:void(0)">Place New Order</a>#}
         {#<a class="btn btn-sm btn-default btn-flat pull-right" href="javascript:void(0)">View All Orders</a>#}
     </div>
