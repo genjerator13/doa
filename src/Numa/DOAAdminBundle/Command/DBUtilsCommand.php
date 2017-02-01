@@ -680,7 +680,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
     public function vindecoder($item_id)
     {
-        $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder(17478);
+        $decodedVin = $this->getContainer()->get("numa.dms.listing")->vindecoder($item_id);
         dump($decodedVin);
     }
     public function kijiji($dealer_id)
