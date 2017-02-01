@@ -72,6 +72,8 @@
         {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
     {% endif %}
 
+    {% include 'NumaDOADMSBundle:Default:reminders.html.twig' %}
+
     {% include 'NumaDOADMSBundle:Default:stats.html.twig' %}
     
     {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_DEALER_PRINCIPAL') %}

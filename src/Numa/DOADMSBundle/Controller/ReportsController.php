@@ -43,14 +43,9 @@ class ReportsController extends Controller
         } else {
             $securityContext = $this->container->get('security.authorization_checker');
             $dealer_id = $dealer->getId();
-            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
-                $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('dealer_group_id' => $dealer->getId()));
-                $dealer_ids = array();
-                foreach ($dealers as $dealer) {
-                    $dealer_ids[] = $dealer->getId();
-                }
-                $dealer_id = implode(",", $dealer_ids);
 
+            if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
+                $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
             }
             $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
 

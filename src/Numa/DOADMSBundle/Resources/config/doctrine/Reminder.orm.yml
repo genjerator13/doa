@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\Reminder:
     type: entity
     table: reminder
-
+    repositoryClass: Numa\DOADMSBundle\Repository\ReminderRepository
     id:
         id:
             type: integer

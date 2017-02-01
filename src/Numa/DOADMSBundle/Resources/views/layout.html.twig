@@ -200,6 +200,19 @@
                                         Request</a>
                                 </li>
                             {% endif %}
+                            {% if (is_granted('ROLE_ADMIN') or
+                            is_granted('ROLE_REGULAR_ADMIN_DMS') or
+                            is_granted('ROLE_SALES') or
+                            is_granted('ROLE_SALE2_DMS') or
+                            is_granted('ROLE_DMS_USER') or
+                            is_granted('ROLE_SALE3_DMS') or
+                            is_granted('ROLE_SALE4_DMS') or
+                            is_granted('ROLE_DEALER_PRINCIPAL') ) %}
+                                <li class="active">
+                                    <a href="{{ path('reminder') }}" class=""><i class="fa fa-calendar"></i>
+                                        Reminders</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     </li>
                     {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_DMS_USER') or
@@ -504,7 +517,8 @@
             <!-- Home tab content -->
             {#<div class="tab-pane active" id="control-sidebar-home-tab">#}
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') %}
-                <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view"
+                {#<a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?guestaccesstoken=BdyRrzPq%2ftBM1RqK2PNWiIRD6ULTPl171Oa58IRRmbE%3d&docid=02762212412a1413bb2422dd85c44ed0b&action=view"#}
+                <a href="https://numacorp-my.sharepoint.com/personal/e_medjesi_numacorp_net/_layouts/15/WopiFrame.aspx?sourcedoc=%7B7f192f57-49ee-4c55-88ef-20f6bf2ac40b%7D&action=default"
                    target="_blank" class="btn btn-success">
                     User Group Permissions
                 </a>
