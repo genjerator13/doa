@@ -24,6 +24,8 @@ use Numa\DOAModuleBundle\Entity\Seo;
  */
 class Item
 {
+
+    const archived ="archived";
     //
     public static $fields = array(
         1 =>
