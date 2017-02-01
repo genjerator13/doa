@@ -5146,4 +5146,33 @@ class Item
     {
         return $this->archive_status;
     }
+    /**
+     * @var \DateTime
+     */
+    private $sold_date;
+
+
+    /**
+     * Set soldDate
+     *
+     * @param \DateTime $soldDate
+     *
+     * @return Item
+     */
+    public function setSoldDate($soldDate)
+    {
+        $this->sold_date = $soldDate;
+
+        return $this;
+    }
+
+    /**
+     * Get soldDate
+     *
+     * @return \DateTime
+     */
+    public function getSoldDate()
+    {
+        return $this->sold_date;
+    }
 }
