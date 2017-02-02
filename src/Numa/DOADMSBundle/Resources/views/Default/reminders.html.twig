@@ -45,7 +45,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ path('customer_edit', { 'id': incomingReminder.Customer.id }) }}">
-                                            {{ incomingReminder.Customer.name }}
+                                            {{ incomingReminder.Customer.getFullName() }}
                                         </a>
                                     </td>
                                     <td>{{ incomingReminder.date|date('Y-m-d') }}</td>
@@ -101,7 +101,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ path('customer_edit', { 'id': passedReminder.Customer.id }) }}">
-                                            {{ passedReminder.Customer.name }}
+                                            {{ passedReminder.Customer.getFullName() }}
                                         </a>
                                     </td>
                                     <td>{{ passedReminder.date|date('Y-m-d') }}</td>
