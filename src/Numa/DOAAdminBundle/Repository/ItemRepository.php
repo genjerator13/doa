@@ -935,4 +935,22 @@ SET i.cover_photo = iif.field_string_value";
         return $res;
     }
 
+    /**
+     * @return QueryBuilder
+     * needed for elasti search
+     */
+
+    public function findArchived()
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->andWhere('i.sold_date IS NOT NULL')
+            ->andWhere('i.sold = 1');
+
+        $query = $qb->getQuery();
+        $res = $query->getResult();
+        return $res;
+    }
+
 }

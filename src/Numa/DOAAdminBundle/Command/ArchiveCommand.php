@@ -8,6 +8,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ArchiveCommand extends ContainerAwareCommand
 {
@@ -33,7 +34,14 @@ class ArchiveCommand extends ContainerAwareCommand
     }
 
     public function archive(){
-        dump("AAAA");
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findArchived();
+        foreach($items as $item){
+            $item->setArchiveStatus('archived');
+            $em->flush();
+        }
+        dump(count($items));
     }
 
 }
