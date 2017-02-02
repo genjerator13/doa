@@ -81,6 +81,11 @@ class EntityListener
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
         if ($entity instanceof Item) {
+
+            if($entity->getSold() && empty($entity->getSoldDate())){
+                $entity->setSoldDate(new \DateTime());
+                $entityManager->flush();
+            }
             //$this->vinchange = false;
             if ($args->hasChangedField("VIN")) {
 //                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
@@ -102,6 +107,7 @@ class EntityListener
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
             if ($this->vinchange) {
+
                 //$decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
                 //$entity->setVindecoder($decodedvin);
                 //$entityManager->flush($entity);
