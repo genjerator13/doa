@@ -940,13 +940,17 @@ SET i.cover_photo = iif.field_string_value";
      * needed for elasti search
      */
 
-    public function findArchived()
+    public function findSoldForArchive()
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
-            ->andWhere('i.sold_date IS NOT NULL')
-            ->andWhere('i.sold = 1');
+            ->Where('i.sold_date IS NOT NULL')
+            ->andWhere('i.archive_status IS NULL')
+            ->andWhere('i.archived_date IS NULL')
+            ->andWhere('i.sold = 1')
+            ->andWhere('i.sold_date < :date')
+            ->setParameter("date", new \DateTime('-30 days'));
 
         $query = $qb->getQuery();
         $res = $query->getResult();

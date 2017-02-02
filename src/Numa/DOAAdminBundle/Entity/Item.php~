@@ -5146,4 +5146,62 @@ class Item
     {
         return $this->archive_status;
     }
+    /**
+     * @var \DateTime
+     */
+    private $sold_date;
+
+
+    /**
+     * Set soldDate
+     *
+     * @param \DateTime $soldDate
+     *
+     * @return Item
+     */
+    public function setSoldDate($soldDate)
+    {
+        $this->sold_date = $soldDate;
+
+        return $this;
+    }
+
+    /**
+     * Get soldDate
+     *
+     * @return \DateTime
+     */
+    public function getSoldDate()
+    {
+        return $this->sold_date;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $archived_date;
+
+
+    /**
+     * Set archivedDate
+     *
+     * @param \DateTime $archivedDate
+     *
+     * @return Item
+     */
+    public function setArchivedDate($archivedDate)
+    {
+        $this->archived_date = $archivedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get archivedDate
+     *
+     * @return \DateTime
+     */
+    public function getArchivedDate()
+    {
+        return $this->archived_date;
+    }
 }
