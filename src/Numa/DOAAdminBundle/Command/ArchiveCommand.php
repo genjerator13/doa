@@ -36,12 +36,11 @@ class ArchiveCommand extends ContainerAwareCommand
     public function archive(){
 
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSoldForArchive();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSoldForArchive(60);
         foreach($items as $item){
-            $item->setArchiveStatus('archived');
-            $item->setArchivedDate(new \DateTime());
-            $em->flush();
+            $this->getContainer()->get('numa.dms.listing')->archiveItem($item);
         }
+        $em->flush();
         dump(count($items));
     }
 
