@@ -46,7 +46,7 @@ class ItemRepository extends EntityRepository
 
         if (!$res2) {
 
-            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"'.Item::archived.'"';
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
@@ -212,6 +212,7 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
+        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
         if($sold!==null){
             $qb->andWhere("i.sold=:sold");
             $qb->setParameter("sold", $sold);
@@ -250,6 +251,8 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
+        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
+
 
         $itemsQuery = $qb->getQuery()->useResultCache(true);
 
@@ -282,7 +285,8 @@ class ItemRepository extends EntityRepository
                 return false;
             }
         }
-        $qb->andWhere("i.active=1");
+        $qb->andWhere("i.active=1")
+           ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
 
         $itemsQuery = $qb->getQuery()->useResultCache(true);
 
@@ -683,9 +687,11 @@ class ItemRepository extends EntityRepository
         if (!empty($category)) {
             $suffix .= " and i.category_id=" . $category;
         }
-        $sql = "select count(*) as count from item i WHERE i.active=$active and i.sold=$sold" . $suffix;
+        //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
+
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'".Item::archived."') and i.active=$active and i.sold=$sold" . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE d.dealer_group_id=".$dealer->getId()." and i.active=$active and i.sold=$sold" . $suffix;
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'".Item::archived."') and d.dealer_group_id=".$dealer->getId()." and i.active=$active and i.sold=$sold" . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -888,7 +894,8 @@ SET i.cover_photo = iif.field_string_value";
             ->createQueryBuilder()
             ->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
-            ->where('i.active=1')
+            ->andWhere('i.active=1')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'')
             ->orderBy('i.id', 'DESC');
 
         return $queryBuilder;
@@ -901,6 +908,7 @@ SET i.cover_photo = iif.field_string_value";
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.active=1')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'')
             ->andWhere('i.sold=0');
 
         if(!empty($date) && empty($date1))

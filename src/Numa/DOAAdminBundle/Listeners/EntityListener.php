@@ -15,7 +15,6 @@ use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
 use Numa\DOADMSBundle\Entity\ListingForm;
-use Numa\DOAModuleBundle\Entity\Seo;
 
 class EntityListener
 {
@@ -120,13 +119,9 @@ class EntityListener
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
-            //clear memcached for featured listings
-            //$this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
-            //vindecoder
-            //$decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
-            //$entity->setVindecoder($decodedvin);
-            //$em->flush();
-            //$this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
+            if($entity->getSold()){
+                $entity->setSoldDate(new \DateTime());
+            }
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ServiceRequest) {
@@ -139,8 +134,11 @@ class EntityListener
             if(!empty($entity->getItem())){
                 $item = $entity->getItem();
                 $item->addBilling($entity);
-                $entity->getItem()->setSold(true);
-                $entity->getItem()->setActive(false);
+                if($entity->getItem() instanceof Item) {
+                    $entity->getItem()->setSold(true);
+                    $entity->getItem()->setSoldDate(new \DateTime());
+                    $entity->getItem()->setActive(false);
+                }
             }
             $em->flush();
 
