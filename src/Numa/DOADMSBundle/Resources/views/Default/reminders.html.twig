@@ -10,18 +10,19 @@
             </button>
         </div>
     </div>
-    <div class="box-body" style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
+    <div class="box-body"
+         style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Incoming Reminders (next 30 days)</h3>
                     {#<div class="box-tools pull-right">#}
-                        {#<button class="btn btn-box-tool" data-widget="collapse" type="button">#}
-                            {#<i class="fa fa-minus"></i>#}
-                        {#</button>#}
-                        {#<button class="btn btn-box-tool" data-widget="remove" type="button">#}
-                            {#<i class="fa fa-times"></i>#}
-                        {#</button>#}
+                    {#<button class="btn btn-box-tool" data-widget="collapse" type="button">#}
+                    {#<i class="fa fa-minus"></i>#}
+                    {#</button>#}
+                    {#<button class="btn btn-box-tool" data-widget="remove" type="button">#}
+                    {#<i class="fa fa-times"></i>#}
+                    {#</button>#}
                     {#</div>#}
                 </div>
                 <div class="box-body" style="display: block;">
@@ -32,7 +33,7 @@
                                 <th>ID</th>
                                 <th>Customer Name</th>
                                 <th>Date</th>
-                                <th>Item</th>
+                                <th>Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -40,16 +41,20 @@
                             {% for incomingReminder in incomingReminders %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('reminder_show', { 'id': incomingReminder.id }) }}">{{ incomingReminder.id }}</a>
+                                        <a href="{{ path('reminder_edit', { 'id': incomingReminder.id }) }}">{{ incomingReminder.id }}</a>
                                     </td>
-                                    <td>{{ incomingReminder.Customer.name }}</td>
+                                    <td>
+                                        <a href="{{ path('customer_edit', { 'id': incomingReminder.Customer.id }) }}">
+                                            {{ incomingReminder.Customer.name }}
+                                        </a>
+                                    </td>
                                     <td>{{ incomingReminder.date|date('Y-m-d') }}</td>
                                     <td>{{ incomingReminder.ReminderItem }}</td>
                                     <td>
                                         <a href="{{ path('reminder_show', { 'id': incomingReminder.id }) }}"
                                            class="btn btn-primary">Show</a>
-                                        <a href="{{ path('reminder_edit', { 'id': incomingReminder.id }) }}"
-                                           class="btn btn-primary">Edit</a>
+                                        {#<a href="{{ path('reminder_edit', { 'id': incomingReminder.id }) }}"#}
+                                           {#class="btn btn-primary">Edit</a>#}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -68,12 +73,12 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Passed Reminders (last 30 days)</h3>
                     {#<div class="box-tools pull-right">#}
-                        {#<button class="btn btn-box-tool" data-widget="collapse" type="button">#}
-                            {#<i class="fa fa-minus"></i>#}
-                        {#</button>#}
-                        {#<button class="btn btn-box-tool" data-widget="remove" type="button">#}
-                            {#<i class="fa fa-times"></i>#}
-                        {#</button>#}
+                    {#<button class="btn btn-box-tool" data-widget="collapse" type="button">#}
+                    {#<i class="fa fa-minus"></i>#}
+                    {#</button>#}
+                    {#<button class="btn btn-box-tool" data-widget="remove" type="button">#}
+                    {#<i class="fa fa-times"></i>#}
+                    {#</button>#}
                     {#</div>#}
                 </div>
                 <div class="box-body" style="display: block;">
@@ -84,7 +89,7 @@
                                 <th>ID</th>
                                 <th>Customer Name</th>
                                 <th>Date</th>
-                                <th>Item</th>
+                                <th>Type</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
@@ -92,16 +97,20 @@
                             {% for passedReminder in passedReminders %}
                                 <tr>
                                     <td>
-                                        <a href="{{ path('reminder_show', { 'id': passedReminder.id }) }}">{{ passedReminder.id }}</a>
+                                        <a href="{{ path('reminder_edit', { 'id': passedReminder.id }) }}">{{ passedReminder.id }}</a>
                                     </td>
-                                    <td>{{ passedReminder.Customer.name }}</td>
+                                    <td>
+                                        <a href="{{ path('customer_edit', { 'id': passedReminder.Customer.id }) }}">
+                                            {{ passedReminder.Customer.name }}
+                                        </a>
+                                    </td>
                                     <td>{{ passedReminder.date|date('Y-m-d') }}</td>
                                     <td>{{ passedReminder.ReminderItem }}</td>
                                     <td>
                                         <a href="{{ path('reminder_show', { 'id': passedReminder.id }) }}"
                                            class="btn btn-primary">Show</a>
-                                        <a href="{{ path('reminder_edit', { 'id': passedReminder.id }) }}"
-                                           class="btn btn-primary">Edit</a>
+                                        {#<a href="{{ path('reminder_edit', { 'id': passedReminder.id }) }}"#}
+                                           {#class="btn btn-primary">Edit</a>#}
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -115,7 +124,8 @@
                 </div>
             </div>
         </div>
-        <div class="box-footer clearfix" style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
+        <div class="box-footer clearfix"
+             style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
             {#<a class="btn btn-sm btn-info btn-flat pull-left" href="javascript:void(0)">Place New Order</a>#}
             {#<a class="btn btn-sm btn-default btn-flat pull-right" href="javascript:void(0)">View All Orders</a>#}
         </div>
