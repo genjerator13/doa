@@ -68,6 +68,19 @@ class InventoryController extends Controller
             'dealer'=>$dealer
         ));
     }
+    /**
+     * Lists all Customer entities.
+     *
+     */
+    public function archivedAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $js = "archived";
+        return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
+            'js' => $js,
+            'dealer'=>$dealer
+        ));
+    }
 
     /**
      * Creates a new Customer entity.
