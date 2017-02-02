@@ -553,10 +553,13 @@ class Customer
 
     public function getFullName()
     {
-        if(empty($this->getFirstName() and empty($this->getLastName()))){
+        
+        if(empty($this->getFirstName()) && (empty($this->getLastName()))){
+
             return $this->getName();
         }
-        return ucfirst($this->getFirstName())." ".ucfirst(getLastName());
+
+        return ucfirst($this->getFirstName())." ".ucfirst($this->getLastName());
     }
     /**
      * @var \DateTime
