@@ -24,6 +24,8 @@ use Numa\DOAModuleBundle\Entity\Seo;
  */
 class Item
 {
+
+    const archived ="archived";
     //
     public static $fields = array(
         1 =>
@@ -5114,5 +5116,63 @@ class Item
     public function getBilling()
     {
         return $this->Billing;
+    }
+    /**
+     * @var string
+     */
+    private $archive_status;
+
+
+    /**
+     * Set archiveStatus
+     *
+     * @param string $archiveStatus
+     *
+     * @return Item
+     */
+    public function setArchiveStatus($archiveStatus)
+    {
+        $this->archive_status = $archiveStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get archiveStatus
+     *
+     * @return string
+     */
+    public function getArchiveStatus()
+    {
+        return $this->archive_status;
+    }
+    /**
+     * @var \DateTime
+     */
+    private $sold_date;
+
+
+    /**
+     * Set soldDate
+     *
+     * @param \DateTime $soldDate
+     *
+     * @return Item
+     */
+    public function setSoldDate($soldDate)
+    {
+        $this->sold_date = $soldDate;
+
+        return $this;
+    }
+
+    /**
+     * Get soldDate
+     *
+     * @return \DateTime
+     */
+    public function getSoldDate()
+    {
+        return $this->sold_date;
     }
 }
