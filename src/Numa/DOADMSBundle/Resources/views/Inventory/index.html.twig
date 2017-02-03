@@ -90,7 +90,7 @@
 
         <div ng-controller="MainCtrl">
 
-            {% if js != "archived" %}
+            {% if js is defined and js != "archived" %}
             {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
                 <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
                 <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
