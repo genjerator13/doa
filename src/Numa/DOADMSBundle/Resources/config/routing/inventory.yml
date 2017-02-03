@@ -10,6 +10,9 @@ inventory_cost:
 inventory_sales:
     path:     /sales
     defaults: { _controller: "NumaDOADMSBundle:Inventory:sales",_dashboard: "DMS" }
+inventory_archived:
+    path:     /archived
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:archived",_dashboard: "DMS" }
 dms_additem:
     pattern:  /additem
     defaults: { _controller: "NumaDOAAdminBundle:Item:additem",_dashboard: "DMS" }

@@ -3313,4 +3313,34 @@ class Billing
     {
         return $this->disability_insurance;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $work_order;
+
+
+    /**
+     * Set workOrder
+     *
+     * @param boolean $workOrder
+     *
+     * @return Billing
+     */
+    public function setWorkOrder($workOrder)
+    {
+        $this->work_order = $workOrder;
+
+        return $this;
+    }
+
+    /**
+     * Get workOrder
+     *
+     * @return boolean
+     */
+    public function getWorkOrder()
+    {
+        return $this->work_order;
+    }
 }
