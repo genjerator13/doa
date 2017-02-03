@@ -131,6 +131,7 @@ class BillingType extends AbstractType
             ->add('total_balance_due', null, array('label' => false, 'attr' => array('ng-model' => 'total_balance_due')))
             ->add('life_insurance', null, array('label' => false, 'attr' => array('ng-model' => 'life_insurance')))
             ->add('disability_insurance', null, array('label' => false, 'attr' => array('ng-model' => 'disability_insurance')))
+            ->add('work_order', 'checkbox', array('label' => 'Work Order', 'attr' => array('ng-model' => 'work_order')))
             ->add('submitxxx', 'submit', array('label' => 'Submit', 'attr' => array('class' => 'btn btn-primary')))
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')));
     }

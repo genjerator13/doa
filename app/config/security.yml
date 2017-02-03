@@ -55,6 +55,7 @@ security:
 
         # inventory Images (listings,items)
         - { path: ^/dms/inventory/view, roles: [ROLE_WHOLESALE_DMS, ROLE_SALE2_DMS,ROLE_DEALER_PRINCIPAL, ROLE_SALE4_DMS] }
+        - { path: ^/dms/inventory/archive, roles: [ROLE_ADMIN] }
         - { path: ^/dms/inventory/[0-9]+/edit, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS, ROLE_SALE4_DMS,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/inventory/[0-9]+/new, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS, ROLE_SALE4_DMS,ROLE_DEALER_PRINCIPAL] }
         - { path: ^/dms/inventory/[0-9]+/images, roles: [ROLE_ADMIN,ROLE_BUSINES,ROLE_DMS_USER,ROLE_SALES,ROLE_SALE2_DMS, ROLE_SALE3_DMS, ROLE_SALE4_DMS,ROLE_DEALER_PRINCIPAL] }

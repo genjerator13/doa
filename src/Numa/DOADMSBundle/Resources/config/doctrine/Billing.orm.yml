@@ -391,6 +391,9 @@ Numa\DOADMSBundle\Entity\Billing:
         disability_insurance:
             type: float
             nullable: true
+        work_order:
+            type: boolean
+            nullable: true
 
     manyToOne:
         Customer:
