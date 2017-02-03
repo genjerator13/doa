@@ -47,7 +47,7 @@ class ItemRepository extends EntityRepository
         if (!$res2) {
 
             //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
-            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 ;
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1' ;
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
