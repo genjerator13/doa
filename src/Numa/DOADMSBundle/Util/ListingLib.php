@@ -77,9 +77,9 @@ class ListingLib
         }
         $securityContext = $this->container->get('security.authorization_checker');
 
-        if (($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())) {
+        //if (($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())) {
 
-        } else {
+        //} else {
             if ($item instanceof Item) {
                 foreach ($item->getItemField() as $itemField) {
                     if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
@@ -96,7 +96,7 @@ class ListingLib
                 $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
                 $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
             }
-        }
+        //}
     }
 
     public function decodeVin($vin)
@@ -251,5 +251,17 @@ class ListingLib
 
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
         return $function;
+    }
+
+    public function archiveItem($item){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if(is_numeric($item)) {
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
+        }
+        if($item instanceof Item) {
+            $item->setArchiveStatus('archived');
+            $item->setArchivedDate(new \DateTime());
+
+        }
     }
 }

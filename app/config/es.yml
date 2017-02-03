@@ -85,6 +85,7 @@ fos_elastica:
                         sleeps: ~
                         slideOuts: ~
                         flooring: ~
+                        archiveStatus: ~
                         dealerGroup:
                             type: integer
 
