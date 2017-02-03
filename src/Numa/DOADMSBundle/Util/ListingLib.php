@@ -77,9 +77,9 @@ class ListingLib
         }
         $securityContext = $this->container->get('security.authorization_checker');
 
-        if (($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())) {
+        //if (($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())) {
 
-        } else {
+        //} else {
             if ($item instanceof Item) {
                 foreach ($item->getItemField() as $itemField) {
                     if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
@@ -96,7 +96,7 @@ class ListingLib
                 $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
                 $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
             }
-        }
+        //}
     }
 
     public function decodeVin($vin)
