@@ -26,10 +26,10 @@ class ItemRepository extends EntityRepository
     public function getItemFields($item_id)
     {
 
-        $q = 'SELECT i FROM ItemField WHERE i.item_id=:item_id' ;//. $item_id;
+        $q = 'SELECT i FROM ItemField WHERE i.item_id=:item_id';//. $item_id;
         $query = $this->getEntityManager()
             ->createQuery($q);
-        $query->setParameter("item_id",$item_id);
+        $query->setParameter("item_id", $item_id);
         $res = $query->getResult();
         return $res;
     }
@@ -46,7 +46,7 @@ class ItemRepository extends EntityRepository
 
         if (!$res2) {
 
-            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"'.Item::archived.'"';
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
@@ -54,7 +54,7 @@ class ItemRepository extends EntityRepository
             $query = $this->getEntityManager()
                 ->createQuery($q);
             // $query->useResultCache(true, 3600, 'featuredSelect_'.$dealer_id);
-            //dump($query);die();
+
             $res2 = $query->getArrayResult();
             $this->memcache->set('featured_' . $dealer_id, $res2);
 
@@ -180,7 +180,7 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
-    public function getItemByDealerAndCategory($dealer_id, $category = null,$sold=null)
+    public function getItemByDealerAndCategory($dealer_id, $category = null, $sold = null)
     {
 
         $qb = $this->getEntityManager()
@@ -212,8 +212,8 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
-        if($sold!==null){
+        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
+        if ($sold !== null) {
             $qb->andWhere("i.sold=:sold");
             $qb->setParameter("sold", $sold);
         }
@@ -251,7 +251,7 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1");
-        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
+        $qb->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
 
 
         $itemsQuery = $qb->getQuery()->useResultCache(true);
@@ -286,7 +286,7 @@ class ItemRepository extends EntityRepository
             }
         }
         $qb->andWhere("i.active=1")
-           ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'');
+            ->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
 
         $itemsQuery = $qb->getQuery()->useResultCache(true);
 
@@ -340,7 +340,7 @@ class ItemRepository extends EntityRepository
         if (!empty($item_id)) {
 
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id');
-            $q->setParameter("item_id",$item_id);
+            $q->setParameter("item_id", $item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -351,7 +351,7 @@ class ItemRepository extends EntityRepository
         if (!empty($item_id)) {
 
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if where if.item_id = :item_id AND  if.field_name like "Image List"');
-            $q->setParameter("item_id",$item_id);
+            $q->setParameter("item_id", $item_id);
             $numDeleted = $q->execute();
         }
     }
@@ -361,7 +361,7 @@ class ItemRepository extends EntityRepository
         $feed_id = intval($feed_id);
         if (!empty($feed_id)) {
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:ItemField if  where if.feed_id = :feed_id');
-            $q->setParameter("feed_id",$feed_id);
+            $q->setParameter("feed_id", $feed_id);
             $q->execute();
         }
     }
@@ -403,8 +403,8 @@ class ItemRepository extends EntityRepository
         $q = 'SELECT i FROM NumaDOAAdminBundle:Item i JOIN i.ItemField if WHERE if.field_name=:uniquefield and if.field_string_value =:value';
         $itemsQuery = $this->getEntityManager()
             ->createQuery($q)
-            ->setParameter("uniquefield",$uniqueField)
-            ->setParameter("value",$value)
+            ->setParameter("uniquefield", $uniqueField)
+            ->setParameter("value", $value)
             ->setMaxResults(1);
         return $itemsQuery->getOneOrNullResult();
     }
@@ -413,7 +413,7 @@ class ItemRepository extends EntityRepository
      * @return bool|mixed
      * Finds items by stock# and VIn
      */
-    public function findItemsByUnique($find, $field = 'vin',$dealer_ids="")
+    public function findItemsByUnique($find, $field = 'vin', $dealer_ids = "")
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -423,7 +423,7 @@ class ItemRepository extends EntityRepository
         } else {
             $qb->where('i.stock_nr like :find');
         }
-        if(!empty($dealer_ids)){
+        if (!empty($dealer_ids)) {
             $qb->andWhere('i.dealer_id IN (:dealer_ids)')
                 ->setParameter('dealer_ids', $dealer_ids);;
         }
@@ -441,7 +441,7 @@ class ItemRepository extends EntityRepository
     {
         $feed_id = intval($feed_id);
         $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:Item i where i.feed_id = :feed_id')
-                   ->setParameter("feed_id",$feed_id);
+            ->setParameter("feed_id", $feed_id);
         $q->execute();
     }
 
@@ -518,9 +518,7 @@ class ItemRepository extends EntityRepository
                 $listingField = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('id' => $maprow->getFieldSid()));
 
             }
-            //dump($listingField);
-            //check if there are predefined
-            //listing field in database (listing_field_lists)
+
             if (!empty($listingField) && !empty($importItem[$property])) {
 
                 $stringValue = $importItem[$property];
@@ -561,7 +559,7 @@ class ItemRepository extends EntityRepository
                 if (!empty($listingFieldsType) && $listingFieldsType == 'tree') {
                     //get listingFieldlist by ID and stringValue
                     $listingTree = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree')->findOneByValue($stringValue, $maprow->getListingField()->getId());
-                    //echo $stringValue.", ".$maprow->getListingFields()->getId();die(); {
+
                     if ($listingTree instanceof ListingFieldTree) {
                         $itemField->setFieldIntegerValue($listingTree->getId());
                     }
@@ -647,8 +645,8 @@ class ItemRepository extends EntityRepository
     public function findByIds($ids)
     {
         $paramIds = $ids;
-        if(!is_array($ids)){
-            $paramIds = explode(",",$ids);
+        if (!is_array($ids)) {
+            $paramIds = explode(",", $ids);
         }
 
         $qb = $this->getEntityManager()->createQueryBuilder();
@@ -689,9 +687,9 @@ class ItemRepository extends EntityRepository
         }
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
 
-        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'".Item::archived."') and i.active=$active and i.sold=$sold" . $suffix;
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and i.sold=$sold" . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'".Item::archived."') and d.dealer_group_id=".$dealer->getId()." and i.active=$active and i.sold=$sold" . $suffix;
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and i.sold=$sold" . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -712,7 +710,7 @@ class ItemRepository extends EntityRepository
         }
         $sql = "select sum(i.views) as count from item i WHERE i.active=$active and i.sold=$sold" . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select sum(i.views) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE d.dealer_group_id=".$dealer->getId()." and i.active=$active and i.sold=$sold" . $suffix;
+            $sql = "select sum(i.views) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and i.sold=$sold" . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -889,13 +887,14 @@ SET i.cover_photo = iif.field_string_value";
      * @return QueryBuilder
      * needed for elasti search
      */
-    public function createIsActiveNonDeletedQueryBuilder() {
+    public function createIsActiveNonDeletedQueryBuilder()
+    {
         $queryBuilder = $this->getEntityManager()
             ->createQueryBuilder()
             ->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->andWhere('i.active=1')
-            ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'')
             ->orderBy('i.id', 'DESC');
 
         return $queryBuilder;
@@ -908,21 +907,18 @@ SET i.cover_photo = iif.field_string_value";
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.active=1')
-            ->andWhere('i.archive_status is NULL or i.archive_status<>\''.Item::archived.'\'')
+            ->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'')
             ->andWhere('i.sold=0');
 
-        if(!empty($date) && empty($date1))
-        {
+        if (!empty($date) && empty($date1)) {
             $qb->andWhere('i.date_created > :date')
                 ->setParameter("date", $date);
         }
-        if(empty($date) && !empty($date1))
-        {
+        if (empty($date) && !empty($date1)) {
             $qb->andWhere('i.date_created < :date1')
                 ->setParameter("date1", $date1);
         }
-        if(!empty($date) && !empty($date1))
-        {
+        if (!empty($date) && !empty($date1)) {
             $qb->andWhere('i.date_created BETWEEN :date AND :date1')
                 ->setParameter("date", $date)
                 ->setParameter("date1", $date1);
@@ -930,7 +926,6 @@ SET i.cover_photo = iif.field_string_value";
 
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
-        //dump($query);die();
 
         return $res;
     }
@@ -940,7 +935,7 @@ SET i.cover_photo = iif.field_string_value";
      * needed for elasti search
      */
 
-    public function findSoldForArchive($days=30)
+    public function findSoldForArchive($days = 30)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -950,7 +945,7 @@ SET i.cover_photo = iif.field_string_value";
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
             ->andWhere('i.sold_date < :date')
-            ->setParameter("date", new \DateTime('-'.$days.' days'));
+            ->setParameter("date", new \DateTime('-' . $days . ' days'));
 
         $query = $qb->getQuery();
         $res = $query->getResult();

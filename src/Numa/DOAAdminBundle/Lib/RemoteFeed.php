@@ -68,6 +68,9 @@ class RemoteFeed extends ContainerAware
         if (self::URL == $this->entity->getImportMethod()) {
             $upload_path = "";
         }
+
+
+
         if (empty($this->properties)) {
 
             if (self::URL == $this->entity->getImportMethod() || self::UPLOAD == $this->entity->getImportMethod()) {
@@ -88,7 +91,6 @@ class RemoteFeed extends ContainerAware
                         }
                         curl_close($ch);
 
-                        // dump($local_file);die();
                         $xml_obj = simplexml_load_string($local_file, 'SimpleXMLElement', LIBXML_NOCDATA);
                     } else {
                         $xml_obj = simplexml_load_file($upload_path . $this->source, null, LIBXML_NOERROR);
@@ -127,7 +129,7 @@ class RemoteFeed extends ContainerAware
                             $this->properties[$property->getName()] = $property->getName();
 
                         }
-                        //die();
+
                         break;
                     }
 
@@ -169,7 +171,7 @@ class RemoteFeed extends ContainerAware
                         $row = fgetcsv($handle, 0, $delimeter);
                         //set the properties from header
                         foreach ($row as $hCell) {
-
+                            $hCell = preg_replace( '/[^[:print:]]/', '',trim($hCell));
                             $this->properties[$hCell] = $hCell;
                         }
                     }
@@ -254,7 +256,7 @@ class RemoteFeed extends ContainerAware
                         $c++;
                     }
                 }
-                //die();
+
                 if (!empty($temp)) {
                     $this->items = $temp;
                 }
@@ -299,11 +301,8 @@ class RemoteFeed extends ContainerAware
 
             $local_file = $upload_path . $this->entity->getID() . "/ftp_source.csv";
             if (strtolower(substr($this->entity->getImportSource(), 0, 6)) == "ftp://") {
-
-
                 if (!file_exists($upload_path . $this->entity->getID())) {
                     mkdir($upload_path . $this->entity->getID());
-                    echo $upload_path . $this->entity->getID();
                 }
 
 
@@ -344,7 +343,8 @@ class RemoteFeed extends ContainerAware
                     if ($rowCount > 0) {
                         foreach ($header as $key => $value) {
 
-                            $tmp[trim($value)] = $row[trim($key)];
+                            $value = preg_replace( '/[^[:print:]]/', '',trim($value));
+                            $tmp[$value] = $row[trim($key)];
 
                         }
                         if ($tmp['Mileage']) {
