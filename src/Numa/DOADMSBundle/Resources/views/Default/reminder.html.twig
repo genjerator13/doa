@@ -1,0 +1,44 @@
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">{{ title }} Reminders (next 30 days)</h3>
+    </div>
+    <div class="box-body" style="display: block;">
+        <div class="table-responsive">
+            <table class="table no-margin">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer Name</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reminder in reminders %}
+                    <tr>
+                        <td>
+                            <a href="{{ path('reminder_edit', { 'id': reminder.id }) }}">{{ reminder.id }}</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('customer_edit', { 'id': reminder.Customer.id }) }}">
+                                {{ reminder.Customer.name }}
+                            </a>
+                        </td>
+                        <td>{{ reminder.date|date('Y-m-d') }}</td>
+                        <td>{{ reminder.ReminderItem }}</td>
+                        <td>
+                            <a href="{{ path('reminder_show', { 'id': reminder.id }) }}"
+                               class="btn btn-primary">Show</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="box-footer clearfix" style="display: block;">
+        {#<a class="btn btn-sm btn-info btn-flat pull-left" href="javascript:void(0)">Place New Order</a>#}
+        {#<a class="btn btn-sm btn-default btn-flat pull-right" href="javascript:void(0)">View All Orders</a>#}
+    </div>
+</div>

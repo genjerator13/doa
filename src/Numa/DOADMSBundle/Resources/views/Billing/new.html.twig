@@ -167,10 +167,15 @@
                             {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
                         {% endif %}
                     </td>
-                    <td align="left" valign=bottom></td>
-                    <td align="left" valign=bottom></td>
-                    <td align="left" valign=bottom></td>
-                    <td align="left" valign=bottom></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6" colspan="3">
+                        {% if entity.id is null %}
+                            {{ form_widget(form.work_order) }}
+                        {% else %}
+                            {{ form_widget(form.work_order, {'attr': {'disabled': 'true'}}) }}
+                        {% endif %}
+                        {{ form_label(form.work_order) }}
+                    </td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>
                     <td align="left" valign=bottom></td>

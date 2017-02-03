@@ -31,14 +31,26 @@ class ArchiveCommand extends ContainerAwareCommand
         if ($command == 'archive') {
             $this->archive();
         }
+        elseif ($command == 'sold') {
+            $this->setSoldDate();
+        }
     }
 
     public function archive(){
-
         $em = $this->getContainer()->get('doctrine')->getManager();
         $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSoldForArchive(60);
         foreach($items as $item){
             $this->getContainer()->get('numa.dms.listing')->archiveItem($item);
+        }
+        $em->flush();
+        dump(count($items));
+    }
+
+    public function setSoldDate(){
+        $em = $this->getContainer()->get('doctrine')->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('sold' => true, 'sold_date' => null));
+        foreach($items as $item){
+            $this->getContainer()->get('numa.dms.listing')->setSoldDateItem($item);
         }
         $em->flush();
         dump(count($items));
