@@ -48,7 +48,7 @@ class BillingController extends Controller
 
         $dealer = $customer->getDealer();
         $entity->setDealer($dealer);
-        if(empty($entity->getItemId())){
+        if(empty($entity->getItemId()) && !($entity->getWorkOrder())){
             $form->addError(new FormError('VEHICLE NOT FOUND'));
         }
         if ($form->isValid()) {
