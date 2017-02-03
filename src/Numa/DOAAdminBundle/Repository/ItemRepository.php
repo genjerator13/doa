@@ -955,4 +955,21 @@ SET i.cover_photo = iif.field_string_value";
         return $res;
     }
 
+    public function getAllArchivedListings($dealer_id = null)
+    {
+
+        $dealers = $dealer_id;
+        if (is_array($dealer_id)) {
+            $dealers = implode(",", $dealer_id);
+        }
+
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status IS NOT NULL GROUP BY i.id ORDER BY i.id DESC";
+        if (!empty($dealer_id)) {
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id where i.dealer_id in (" . $dealers . ") AND i.archive_status IS NOT NULL GROUP BY i.id ORDER BY i.id DESC";
+        }
+
+        $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
+        return $stmt;
+    }
+
 }

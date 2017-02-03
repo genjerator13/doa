@@ -217,4 +217,13 @@ class ItemRESTController extends Controller
         }
         return $response;
     }
+
+    /**
+     * @Rest\View
+     */
+    public function allArchivedListingsAction()
+    {
+        $listings = $this->getDoctrine()->getRepository('NumaDOAAdminBundle:Item')->getAllArchivedListings();
+        return $listings;
+    }
 }
