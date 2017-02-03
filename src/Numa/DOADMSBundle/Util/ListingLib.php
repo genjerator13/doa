@@ -252,4 +252,16 @@ class ListingLib
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
         return $function;
     }
+
+    public function archiveItem($item){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if(is_numeric($item)) {
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
+        }
+        if($item instanceof Item) {
+            $item->setArchiveStatus('archived');
+            $item->setArchivedDate(new \DateTime());
+
+        }
+    }
 }

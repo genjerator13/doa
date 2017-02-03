@@ -29,7 +29,7 @@
                     {% for entity in entities %}
                         <tr>
                             <td><a href="{{ path('reminder_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                            <td><a href="{{ path('customer_edit', { 'id': entity.Customer.id }) }}">{{ entity.Customer.name }}</a></td>
+                            <td><a href="{{ path('customer_edit', { 'id': entity.Customer.id }) }}">{{ entity.Customer.getFullName() }}</a></td>
                             <td>{% if entity.date %}{{ entity.date|date('Y-m-d') }}{% endif %}</td>
                             <td>{{ entity.comment }}</td>
                             <td>{{ entity.ReminderItem }}</td>
