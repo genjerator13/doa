@@ -1,6 +1,20 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
 {% block content %}
-{{ form(contactForm) }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{ form_errors(contactForm) }}
+    {{ form_start(contactForm) }}
+
+    {{ form_row(contactForm.cust_name) }}
+    {{ form_row(contactForm.cust_last_name) }}
+    {{ form_row(contactForm.contact_by) }}
+    {{ form_row(contactForm.email) }}
+    {{ form_row(contactForm.phone) }}
+    {{ form_row(contactForm.comment) }}
+    {{ form_row(contactForm.type) }}
+    {{ form_row(contactForm.item_id) }}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
+    {{ form_end(contactForm) }}
 {% endblock %}
 
