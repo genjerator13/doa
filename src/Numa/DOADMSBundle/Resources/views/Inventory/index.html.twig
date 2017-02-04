@@ -89,8 +89,6 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-
-            {% if js != "archived" %}
             {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
                 <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
                 <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
@@ -101,7 +99,6 @@
             {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
                 {#<button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>#}
-            {% endif %}
             {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
