@@ -22,7 +22,7 @@
                         </td>
                         <td>
                             <a href="{{ path('customer_edit', { 'id': reminder.Customer.id }) }}">
-                                {{ reminder.Customer.name }}
+                                {{ reminder.Customer.getFullName() }}
                             </a>
                         </td>
                         <td>{{ reminder.date|date('Y-m-d') }}</td>
