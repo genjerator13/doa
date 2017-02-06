@@ -13,10 +13,10 @@
     <div class="box-body"
          style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
         <div class="col-md-6">
-            {% include 'NumaDOADMSBundle:Default:reminder.html.twig' with {'title': 'Incoming reminders (next 30 days)', 'reminders': incomingReminders} %}
+            {% include 'NumaDOADMSBundle:Default:reminder.html.twig' with {'title': 'Incoming Reminders (next 30 days)', 'reminders': incomingReminders} %}
         </div>
         <div class="col-md-6">
-            {% include 'NumaDOADMSBundle:Default:reminder.html.twig' with {'title': 'Passed Remainders (previous 30 days)', 'reminders': passedReminders} %}
+            {% include 'NumaDOADMSBundle:Default:reminder.html.twig' with {'title': 'Passed Reminders (previous 30 days)', 'reminders': passedReminders} %}
         </div>
         <div class="box-footer clearfix"
              style="display: {% if incomingReminders is empty and passedReminders is empty %}none{% else %}block{% endif %};">
