@@ -768,6 +768,7 @@ class DMSUser  implements UserInterface
     }
 
     public function getRoles() {
+
         if(!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
@@ -786,7 +787,7 @@ class DMSUser  implements UserInterface
             }elseif ($groupName == 'regular_admin') {
                 //return array('ROLE_REGULAR_ADMIN_DMS');
                 return array('ROLE_REGULAR_ADMIN_DMS','ROLE_DMS_USER', 'ROLE_BUSINES');
-            }elseif ($groupName == 'super_admin') {
+            }elseif ($groupName == 'admin') {
                 return array('ROLE_ADMIN');
             }elseif ($groupName == 'wholesale') {
                 return array('ROLE_WHOLESALE_DMS');
