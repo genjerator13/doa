@@ -129,13 +129,17 @@ class Emailer extends ContainerAware
         $email->setSubject($subject);
 
         $mailer = $this->container->get('mailer');
-        $emailFrom = 'general@dealersonair.com';
+        $emailFrom = $this->container->getParameter("email_from");
+
+       // $emailFrom = 'general@dealersonair.com';
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom($emailFrom)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
-            ->setTo($dealer->getEmail())
+            ->addBcc('vukradivojevic21@gmail.com')
+            //->setTo($dealer->getEmail())
+            ->setTo('e.medjesi@gmail.com')
             //->setTo("genjerator@outlook.com")
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {

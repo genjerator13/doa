@@ -69,7 +69,7 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
         $form->add('model', null, array('label'=>'Model *', 'required'=>true));
         $form->add('year', null, array('label'=>'Year *', 'required'=>true));
         $form->add('kilometers', null, array('label'=>'Kilometers *', 'required'=>true));
-        $form->add('accesories', null, array('label'=>'Accessories *', 'required'=>true));
+        $form->add('accessories', null, array('label'=>'Accessories *', 'required'=>true));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
