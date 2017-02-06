@@ -353,4 +353,24 @@ class SettingController extends Controller
         $this->get("numa.dms.utils")->populateElasticSearch();
         return $this->redirect($this->generateUrl('setting'));
     }
+
+    public function archiveItemsAction(){
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findSoldForArchive('-5 minutes');
+        foreach($items as $item){
+            $this->get('numa.dms.listing')->archiveItem($item);
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('setting'));
+    }
+
+    public function setSoldDateItemsAction(){
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('sold' => true, 'sold_date' => null));
+        foreach($items as $item){
+            $this->get('numa.dms.listing')->setSoldDateItem($item);
+        }
+        $em->flush();
+        return $this->redirect($this->generateUrl('setting'));
+    }
 }

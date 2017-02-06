@@ -44,3 +44,9 @@ setting_hometabs_refresh:
 elasticksearch_populate:
     path:     /elasticksearch populate
     defaults: { _controller: "NumaDOASettingsBundle:Setting:populate" }
+archiveItems:
+    path:     /archive_items
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:archiveItems" }
+setSoldDateItems:
+    path:     /set_sold_date_items
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:setSoldDateItems" }
