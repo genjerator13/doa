@@ -74,7 +74,7 @@ class InventoryController extends Controller
      */
     public function archivedAction()
     {
-        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealer = $this->get('Numa.Dms.User')->getAvailableDealersIds();
         $js = "archived";
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'js' => $js,

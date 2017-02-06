@@ -228,7 +228,7 @@ class DMSUserController extends Controller
                 if (!empty($pass)) {
                     $factory = $this->container->get('security.encoder_factory');
                     $encoder = $factory->getEncoder($entity);
-                    $plainPassword = $entity->getPassword();
+                    $plainPassword =$pass;
                     $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
                     $entity->setPassword($encodedPassword);
                 }

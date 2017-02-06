@@ -77,7 +77,7 @@ Numa\DOADMSBundle\Entity\ListingForm:
         kilometers:
             type: bigint
             nullable: true
-        accesories:
+        accessories:
             type: text
             nullable: true
         offer_amt:

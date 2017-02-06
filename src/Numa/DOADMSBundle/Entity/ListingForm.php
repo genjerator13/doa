@@ -661,12 +661,6 @@ class ListingForm
     private $kilometers;
 
     /**
-     * @var string
-     */
-    private $accesories;
-
-
-    /**
      * Set tradeIn
      *
      * @param integer $tradeIn
@@ -786,29 +780,7 @@ class ListingForm
         return $this->kilometers;
     }
 
-    /**
-     * Set accesories
-     *
-     * @param string $accesories
-     *
-     * @return ListingForm
-     */
-    public function setAccesories($accesories)
-    {
-        $this->accesories = $accesories;
 
-        return $this;
-    }
-
-    /**
-     * Get accesories
-     *
-     * @return string
-     */
-    public function getAccesories()
-    {
-        return $this->accesories;
-    }
     /**
      * @var string
      */
@@ -924,5 +896,34 @@ class ListingForm
     public function getYearOnsite()
     {
         return $this->year_onsite;
+    }
+    /**
+     * @var string
+     */
+    private $accessories;
+
+
+    /**
+     * Set accessories
+     *
+     * @param string $accessories
+     *
+     * @return ListingForm
+     */
+    public function setAccessories($accessories)
+    {
+        $this->accessories = $accessories;
+
+        return $this;
+    }
+
+    /**
+     * Get accessories
+     *
+     * @return string
+     */
+    public function getAccessories()
+    {
+        return $this->accessories;
     }
 }
