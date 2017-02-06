@@ -105,8 +105,11 @@ finance_api:
 support_form_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing/support_form.yml"
     prefix:   /support_form
-
-ArchivedListingsAll:
+archivedListingsAll:
     pattern:  /archived_listings/all.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:allArchivedListings",_format: "xml"}
+    requirements: { _method: get }
+archivedListingsByDealer:
+    pattern:  /archived_listings/{dealerid}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:ItemREST:allArchivedListingsByDealer",_format: "xml"}
     requirements: { _method: get }

@@ -939,7 +939,7 @@ SET i.cover_photo = iif.field_string_value";
      * needed for elasti search
      */
 
-    public function findSoldForArchive($days = 30)
+    public function findSoldForArchive($period = '-60 days')
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
@@ -949,7 +949,7 @@ SET i.cover_photo = iif.field_string_value";
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
             ->andWhere('i.sold_date < :date')
-            ->setParameter("date", new \DateTime('-' . $days . ' days'));
+            ->setParameter("date", new \DateTime($period));
 
         $query = $qb->getQuery();
         $res = $query->getResult();

@@ -65,7 +65,7 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
         $form->add('make_onsite', null, array('label'=>'Make *', 'required'=>true));
         $form->add('model_onsite', null, array('label'=>'Model *', 'required'=>true));
         $form->add('year_onsite', null, array('label'=>'Year *', 'required'=>true));
-        $form->add('accesories', null, array('label'=>'Accessories'));
+        $form->add('accessories', null, array('label'=>'Accessories'));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;

@@ -28,7 +28,7 @@ class ListingFormOfferTradeInType extends AbstractType
             ->add('model')
             ->add('year')
             ->add('kilometers')
-            ->add('accesories')
+            ->add('accessories')
             ->add('comment')
 //            ->add('date_created')
 //            ->add('date_updated')
