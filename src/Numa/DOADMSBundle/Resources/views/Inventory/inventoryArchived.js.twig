@@ -1,4 +1,7 @@
 {% set apicall="/api/archived_listings/all.json" %}
+{% if dealer is not empty %}
+{% set apicall="/api/archived_listings/"~dealer~"/dealer.json" %}
+{% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
 var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
