@@ -209,12 +209,22 @@ doctrine:
             string_functions:
                 GroupConcat: DoctrineExtensions\Query\Mysql\GroupConcat
 
+## Swiftmailer Configuration
+#swiftmailer:
+#    transport: %mailer_transport%
+#    host:      %mailer_host%
+#    username:  %mailer_user%
+#    password:  %mailer_password%
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    #transport: "%mailer_transport%"
+    transport:  smtp
+    encryption: ssl
+    auth_mode:  login
+    host:       smtp.gmail.com
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
 
 genemu_form:
     tinymce: 
@@ -410,7 +420,7 @@ parameters:
     router.request_context.scheme: https
     google.captcha.url: https://www.google.com/recaptcha/api/siteverify
     google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe
-
+    email_from: numatestsite@gmail.com
     #router.request_context.base_url: /
 gregwar_image: ~  
 endroid_qr_code:

@@ -16,7 +16,12 @@ class ReminderType extends AbstractType
     {
         $builder
             ->add('customer_id','hidden')
-            ->add('date','date')
+            ->add('date', 'date', array(
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'attr' => array('class' => 'datepicker')
+            ))
             ->add('comment','textarea', array('attr' => array('rows' => '5')))
             ->add('reminderItem','entity', array(
                 'class' => 'Numa\DOADMSBundle\Entity\ReminderItem',
