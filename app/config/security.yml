@@ -104,17 +104,17 @@ security:
         chain_provider:
             chain:
                 providers: [main, busines,dealerGroup, dms ]
-        main:
-            entity: { class: Numa\DOAAdminBundle\Entity\User }
+        dms:
+            entity: { class: Numa\DOADMSBundle\Entity\DMSUser}
         busines:
             entity: { class: Numa\DOAAdminBundle\Entity\Catalogrecords}
         dealerGroup:
             entity: { class: Numa\DOADMSBundle\Entity\DealerGroup}
-        dms:
-            entity: { class: Numa\DOADMSBundle\Entity\DMSUser}
+        main:
+            entity: { class: Numa\DOAAdminBundle\Entity\User }
 
     encoders:
-        Numa\DOAAdminBundle\Entity\User: sha512
-        Numa\DOAAdminBundle\Entity\Catalogrecords: sha512
         Numa\DOADMSBundle\Entity\DMSUser: sha512
+        Numa\DOAAdminBundle\Entity\Catalogrecords: sha512
         Numa\DOADMSBundle\Entity\DealerGroup: sha512
+        Numa\DOAAdminBundle\Entity\User: sha512
