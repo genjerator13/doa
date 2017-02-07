@@ -591,7 +591,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             //'csrf_protection' => false,
             //'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
-            'attr' => array('id' => "contact_form"),
+            'attr' => array('id' => "contactus_form"),
 
         ));
         $form->add('submit', 'submit', array('label' => 'Send'));

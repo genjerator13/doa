@@ -795,6 +795,18 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     }
 
     /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function massRecoverAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->recover($ids);
+        die();
+    }
+
+    /**
      * deactivate an Item entity.
      *
      */
@@ -916,10 +928,4 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         //}
     }
-
-
-
-
-
-
 }

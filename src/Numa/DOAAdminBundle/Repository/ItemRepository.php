@@ -961,13 +961,33 @@ SET i.cover_photo = iif.field_string_value";
             $dealers = implode(",", $dealer_id);
         }
 
-        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status IS NOT NULL GROUP BY i.id ORDER BY i.id DESC";
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status like 'archived' GROUP BY i.id ORDER BY i.id DESC";
         if (!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id where i.dealer_id in (" . $dealers . ") AND i.archive_status IS NOT NULL GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id where i.dealer_id in (" . $dealers . ") AND i.archive_status like 'archived' GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
+    }
+
+    /**
+     * @param $ids
+     * Recover Item list of ids separated by ,
+     */
+    public function recover($ids, $archiveStatus = "recovered")
+    {
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.sold', 'false')
+                ->set('i.sold_date', 'null')
+                ->set('i.archive_status', '?1')
+                ->setParameter(1, $archiveStatus)
+                ->set('i.archived_date', 'null')
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
     }
 
 }

@@ -182,7 +182,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
             'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
-            'attr' => array('id'=>"contact_form")
+            'attr' => array('id'=>"contactus_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
