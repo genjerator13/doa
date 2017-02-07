@@ -282,10 +282,6 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
 
@@ -295,9 +291,8 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
 
             $em->remove($entity);
             $em->flush();
-        }
 
-        return $this->redirect($this->generateUrl('page'));
+        return $this->redirect($this->generateUrl('dms_page'));
     }
 
     /**
@@ -310,7 +305,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('page_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('dms_page_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

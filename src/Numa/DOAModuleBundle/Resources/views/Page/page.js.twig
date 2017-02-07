@@ -40,11 +40,11 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //{name:'Actions',enableFiltering: false,cellTemplate:'<div><button ng-click="grid.appScope.doSomething(row)" class="btn btn-primary">Edit</button></div>'}
         {
             name: 'Actions',
-            width: 120,
+            width: 170,
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<a href="/dms/pages/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><span ng-if="row.entity.component[0].id!== undefined"><a href="/dms/component/{[{row.entity.component[0].id}]}/edit" class="btn btn-success" data-toggle="tooltip" title="Edit page content"><span class="glyphicon glyphicon-edit"/></a></span>'
+            cellTemplate: '<a href="/dms/pages/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><span class="glyphicon glyphicon-edit"/></a><span ng-if="row.entity.component[0].id!== undefined"><a href="/dms/component/{[{row.entity.component[0].id}]}/edit" class="btn btn-success" data-toggle="tooltip" title="Edit page content"><span class="glyphicon glyphicon-edit"/></a><a confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" data-toggle="tooltip" title="Delete"><span class="glyphicon glyphicon-remove"/></a></span>'
         }
         {#,#}
 
