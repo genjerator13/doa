@@ -29,16 +29,7 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script>
-        {% set includeJS='NumaDOADMSBundle:Inventory:inventory.js.twig' %}
-        {% if js is defined %}
-        {% if js == "view" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
-        {% elseif js == "cost" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
-        {% elseif js == "sales" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
-        {% endif %}
-        {% endif %}
+        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryArchived.js.twig' %}
 
         {% include includeJS %}
     </script>
@@ -64,22 +55,22 @@
     <div class="box">
     <div class="box-header">
         <div class="box-header">
-            <h3 class="box-title">Inventory list</h3>
+            <h3 class="box-title">Archived Inventory list</h3>
 
             <div class="box-tools">
-                {% if(app.request.get('_dashboard')=='DMS') %}
-                    {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}
-                        <a href="{{ path('dms_additem') }}" class="btn btn-primary">
-                            Create new Inventory
-                        </a>
-                    {% endif %}
-                {% else %}
-                    {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}
-                        <a href="{{ path('additem') }}" class="btn btn-primary">
-                            Create new Inventory
-                        </a>
-                    {% endif %}
-                {% endif %}
+                {#{% if(app.request.get('_dashboard')=='DMS') %}#}
+                    {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}#}
+                        {#<a href="{{ path('dms_additem') }}" class="btn btn-primary">#}
+                            {#Create new Inventory#}
+                        {#</a>#}
+                    {#{% endif %}#}
+                {#{% else %}#}
+                    {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}#}
+                        {#<a href="{{ path('additem') }}" class="btn btn-primary">#}
+                            {#Create new Inventory#}
+                        {#</a>#}
+                    {#{% endif %}#}
+                {#{% endif %}#}
             </div>
         </div>
     </div>
@@ -87,17 +78,17 @@
     <div class="box-body table-responsive no-padding" ng-app="app">
 
         <div ng-controller="MainCtrl">
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
-                <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
-                <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
-            {% endif %}
-            {% if(is_granted("ROLE_ADMIN")) %}
-                <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
-            {% endif %}
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
-                <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+            {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}#}
+                {#<button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>#}
+                {#<button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>#}
+            {#{% endif %}#}
+            {#{% if(is_granted("ROLE_ADMIN")) %}#}
+                {#<button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>#}
+            {#{% endif %}#}
+            {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}#}
+                <button type="button" class="btn btn-success" ng-click="setRecover()">Recover</button>
                 {#<button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>#}
-            {% endif %}
+            {#{% endif %}#}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
     </div>
