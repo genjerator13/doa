@@ -1069,7 +1069,7 @@ ul.techData li {
 }
 #loading-indicator {
 	display: none;
-	background-color: rgba(0, 0, 0, 0.5);
+	//background-color: rgba(0, 0, 0, 0.5);
 	height: 100%;
 	left: 0;
 	position: absolute;
