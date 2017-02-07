@@ -57,6 +57,9 @@ dms_item_images_add_video:
     pattern: /{id}/addvideo
     defaults: { _controller: "NumaDOAAdminBundle:Image:addVideo",_dashboard: "DMS" }
     requirements: { id: \d+ }
+dms_item_recover:
+    path:     /recover
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massRecover" }
 #inventory_new:
 #    path:     /new
 #    defaults: { _controller: "NumaDOADMSBundle:Inventory:new" }
