@@ -109,7 +109,7 @@
                             <div class='listing-right col-md-6'>
                                 <div class="listing-box-top">
                                     <div class="basic_data col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        {% if item.getRetailPriceCompared() is not null %}
+                                        {% if item.getRetailPriceCompared() is not empty and item.getRetailPriceCompared()>item.getPriceString() %}
                                             <div class='retail_price'>
                                                 Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPriceCompared() }}</span></div>
                                         {% endif %}
@@ -346,6 +346,8 @@
                                 var form = $('#'+id+'_form').serialize();
                                 console.log(form);
                                 $('#submit_'+id).attr("disabled", true);
+                                $("#loading-indicator").show();
+                                console.log($("#loading-indicator"));
                                 $.ajax({
                                     type: "POST",
                                     data: form+"{{ item.id }}",
@@ -354,50 +356,27 @@
                                         if(data.message=='error'){
                                             $("."+id+"_error").html(data.action);
                                         }else {
-                                            $('#testdrive').modal('toggle');
-                                            $("#testdrive input").val("");
+                                            $('#'+id).modal('toggle');
+                                            $("#"+id+" input").val("");
+                                            $("#"+id+" textarea").html("");
 
                                             $('.alertz').html("Successfully sent "+id+" form.");
                                             $('.alertz').addClass("alert-success");
-                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').removeClass("hide");
                                             $('.alertz').show();
+                                            console.log($('.alertz'));
                                             setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
                                         }
                                         $('#submit_'+id).attr("disabled", false);
+                                        $("#loading-indicator").hide();
                                     },
                                     done: function(){
                                         $('#submit_'+id).attr("disabled", false);
+                                        $("#loading-indicator").hide();
                                     }
 
                                 });
                             })
-
-
-
-                            {#$('#submit_offerTradeIn').click(function (e) {#}
-                                {#e.preventDefault();#}
-                                {#var form = $('#offerTradeIn_form').serialize();#}
-
-                                {#$.ajax({#}
-                                    {#type: "POST",#}
-                                    {#data: form+"{{ item.id }}",#}
-                                    {#url: '{{ path("listting_form_post") }}',#}
-                                    {#success:function(data) {#}
-                                        {#if(data.message=='error'){#}
-                                            {#$(".offerTradeIn_error").html(data.action);#}
-                                        {#}else {#}
-                                            {#$('#offerTradeIn').modal('toggle');#}
-                                            {#$('.alertz').html("Successfully sent offer trade in form.");#}
-                                            {#$('.alertz').addClass("alert-success");#}
-                                            {#$('.alertz').removeClass("dontshow");#}
-                                            {#$('.alertz').show();#}
-                                            {#setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);#}
-                                        {#}#}
-                                    {#}#}
-                                {#});#}
-                            {#})#}
-
-
                         });
                     </script>
                 {% endblock %}
