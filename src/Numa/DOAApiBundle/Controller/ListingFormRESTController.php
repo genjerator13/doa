@@ -72,7 +72,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
         if (!empty($request->request->get('contactus'))) {
             $data = $request->request->get('contactus');
             $form = new ListingFormContactType();
-            $id = "contact_form";
+            $id = "contactus_form";
 
         }
         if (!empty($request->request->get('testdrive'))) {
@@ -96,6 +96,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
 
         $entity = new ListingForm();
         $entity->setDealer($this->dealer);
+
         $form = $this->createForm($form, $entity, array(
             'csrf_protection' => false,
             'method' => 'POST',

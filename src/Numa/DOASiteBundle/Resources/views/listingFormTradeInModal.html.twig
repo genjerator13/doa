@@ -1,0 +1,92 @@
+<div class="modal fade" id="offerTradeIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content offerTradeIn-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Offer Trade In</h4>
+            </div>
+            <div class="modal-body">
+                {#{{ form(offerTradeInForm) }}#}
+                <div class="row  offerTradeIn">
+                    {{ form_start(offerTradeInForm) }}
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.cust_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.cust_name) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.cust_last_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.cust_last_name) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.email, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.email) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.phone, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.phone) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.cust_officer, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-9">
+                        {{ form_widget(offerTradeInForm.cust_officer, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.offer_amt, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-9">
+                        {{ form_widget(offerTradeInForm.offer_amt, { 'label_attr': {'class': 'col-md-12'} }) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_widget(offerTradeInForm.trade_in) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.make) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.make) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.model) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.model) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.year) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.year) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_label(offerTradeInForm.kilometers) }}
+                    </div>
+                    <div class="col-md-3">
+                        {{ form_widget(offerTradeInForm.kilometers) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row(offerTradeInForm.accessories) }}
+                    </div>
+                    <div class="col-md-12">
+                        {{ form_row(offerTradeInForm.comment) }}
+                    </div>
+                    {{ form_end(offerTradeInForm) }}
+                </div>
+            </div>
+            <div class="offerTradeIn_error"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary submitform" id="submit_offerTradeIn" data-id="offerTradeIn">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
