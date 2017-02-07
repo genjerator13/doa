@@ -3,7 +3,7 @@
 {% set apicall="/api/archived_listings/"~dealer~"/dealer.json" %}
 {% endif %}
 {% import 'NumaDOASiteBundle::components.html.twig' as component %}
-var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
 
 
 app.config(function ($interpolateProvider) {
@@ -23,11 +23,14 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         showGridFooter: true,
         showGridHeader: true,
         enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
         selectionRowHeaderWidth: 35,
         rowHeight: 150,
         enableColumnResizing: true,
 
     };
+    $scope.gridOptions.multiSelect = true;
     $scope.gridOptions.columnDefs = [
         {
             enableSorting: false,
@@ -170,61 +173,61 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.animationsEnabled = true;
 
 
-    $scope.setActivate = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_activate") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
+    {#$scope.setActivate = function () {#}
+        {#$log.log(JSON.stringify($scope.selected));#}
+        {#$http.post('{{ path("dms_item_recover") }}', {'data': JSON.stringify($scope.selected)})#}
+                {#.success(function (data) {#}
 
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].active = 1;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
-    }
-    $scope.setDeactivate = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_deactivate") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].active = 0;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
-    }
+                    {#angular.forEach($scope.selected, function (value, key) {#}
+                        {#$log.log(key + ': ' + value);#}
+                        {#$scope.gridOptions.data[key - 1].active = 1;#}
+                    {#});#}
+                    {#$scope.selected = {}#}
+                    {#$scope.gridApi.selection.clearSelectedRows();#}
+                {#});#}
+    {#}#}
+    {#$scope.setDeactivate = function () {#}
+        {#$log.log(JSON.stringify($scope.selected));#}
+        {#$http.post('{{ path("dms_item_deactivate") }}', {'data': JSON.stringify($scope.selected)})#}
+                {#.success(function (data) {#}
+                    {#angular.forEach($scope.selected, function (value, key) {#}
+                        {#$log.log(key + ': ' + value);#}
+                        {#$scope.gridOptions.data[key - 1].active = 0;#}
+                    {#});#}
+                    {#$scope.selected = {}#}
+                    {#$scope.gridApi.selection.clearSelectedRows();#}
+                {#});#}
+    {#}#}
 
-    $scope.setFeatured = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_featured") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
+    {#$scope.setFeatured = function () {#}
+        {#$log.log(JSON.stringify($scope.selected));#}
+        {#$http.post('{{ path("dms_item_featured") }}', {'data': JSON.stringify($scope.selected)})#}
+                {#.success(function (data) {#}
 
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data[key - 1].featured = 1;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
-    }
+                    {#angular.forEach($scope.selected, function (value, key) {#}
+                        {#$log.log(key + ': ' + value);#}
+                        {#$scope.gridOptions.data[key - 1].featured = 1;#}
+                    {#});#}
+                    {#$scope.selected = {}#}
+                    {#$scope.gridApi.selection.clearSelectedRows();#}
+                {#});#}
+    {#}#}
 
-    $scope.setKijiji = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_kijiji") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    angular.forEach($scope.selected, function (value, key) {
-                        $scope.gridOptions.data[key - 1].featured = 1;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                });
-    }
+    {#$scope.setKijiji = function () {#}
+        {#$log.log(JSON.stringify($scope.selected));#}
+        {#$http.post('{{ path("dms_item_kijiji") }}', {'data': JSON.stringify($scope.selected)})#}
+                {#.success(function (data) {#}
+                    {#angular.forEach($scope.selected, function (value, key) {#}
+                        {#$scope.gridOptions.data[key - 1].featured = 1;#}
+                    {#});#}
+                    {#$scope.selected = {}#}
+                    {#$scope.gridApi.selection.clearSelectedRows();#}
+                {#});#}
+    {#}#}
 
-    $scope.setDelete = function () {
+    $scope.setRecover = function () {
         $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
+        $http.post('{{ path("dms_item_recover") }}', {'data': JSON.stringify($scope.selected)})
                 .success(function (data) {
                     i = 1
                     angular.forEach($scope.selected, function (value, key) {
