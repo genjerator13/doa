@@ -59,6 +59,7 @@
     {% endblock %}
     <div class="container">
         <div class="content  clearfix">
+            <div class="alertz hide alert"></div>
             {% block content %}
 
             {% endblock %}
@@ -70,6 +71,9 @@
     <script>
         jQuery('a.colorbox').colorbox();
     </script>
+</div>
+<div id="loading-indicator" class="loading_info" style="">
+    <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
 </body>
 </html>
