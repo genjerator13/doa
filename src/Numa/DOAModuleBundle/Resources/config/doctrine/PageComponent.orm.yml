@@ -1,6 +1,7 @@
 Numa\DOAModuleBundle\Entity\PageComponent:
     type: entity
     table: page_component
+    repositoryClass: Numa\DOAModuleBundle\Repository\PageComponentRepository
     id:
         id:
             type: integer

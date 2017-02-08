@@ -282,15 +282,26 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
      */
     public function deleteAction(Request $request, $id)
     {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
-            }
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
 
-            $em->remove($entity);
-            $em->flush();
+        $pageComponents = $em->getRepository('NumaDOAModuleBundle:PageComponent')->findBy(array('page_id' => $id));
+
+        $pageComponentsIds = array();
+        $componentsIds = array();
+        foreach($pageComponents as $pageComponent){
+            $pageComponentsIds[] = $pageComponent->getId();
+            $componentsIds[] = $pageComponent->getComponentId();
+        }
+
+        $em->getRepository('NumaDOAModuleBundle:PageComponent')->delete(implode(",", $pageComponentsIds));
+        $em->getRepository('NumaDOAModuleBundle:Component')->delete(implode(",", $pageComponentsIds));
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('dms_page'));
     }

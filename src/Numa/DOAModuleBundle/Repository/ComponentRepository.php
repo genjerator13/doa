@@ -42,4 +42,20 @@ class ComponentRepository extends EntityRepository
         return $stmt;
     }
 
+    /**
+     * @param $ids
+     * Delete Componentx list of ids separated by ,
+     */
+    public function delete($ids)
+    {
+        if (!empty($ids)) {
+
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->delete('NumaDOAModuleBundle:Component', 'c')
+                ->where('c.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
 }
