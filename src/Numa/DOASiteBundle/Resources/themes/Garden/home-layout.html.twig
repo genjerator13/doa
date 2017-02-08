@@ -1,0 +1,171 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
+
+        {% stylesheets '@theme_garden_css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts 'js/jssor/jssor.slider.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery(".mobile-menu ul ul").hide();
+                /* hide sublinks */
+                jQuery(".separator").click(function () {
+                    jQuery(this).next().slideToggle(300);
+                    /* display sublinks */
+                });
+            });
+        </script>
+
+    {% endblock %}
+</head>
+
+<body>
+<div class="wrapper">
+
+    {% block mainmenu %}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% endblock %}
+
+    {% block mobilemenu %}
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+    {% endblock %}
+
+
+    {% block header %}
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
+    {% endblock %}
+
+    {% block banner %}
+
+        {% set images = displayComponent("homepage_carousel","carousel") %}
+
+        {% if images is not empty %}
+        <div class="bs-example">
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                {#<!-- Carousel indicators -->#}
+                {#<ol class="carousel-indicators">#}
+                {#{% for image in images %}#}
+                {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
+                {#class="{% if loop.first %}active{% endif %}"></li>#}
+                {#{% endfor %}#}
+
+                {#</ol>#}
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    {% for image in images %}
+                        <div class="item {% if loop.first %} active{% endif %}">
+                            {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}
+                            <div class="text_widget">{{ image.carouselText|raw }}</div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        <div class="content  clearfix">
+
+        </div>
+        {% endif %}
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#myCarousel").carousel({
+                    interval: 8000,
+                    pause: false
+                }).on('slide.bs.carousel', function (e) {
+                    var nextH = $(e.relatedTarget).height();
+                    console.log(nextH)
+                    console.log($(this).find('.active.item').parent())
+                    $(this).find('.active.item').parent().animate({
+                        height: nextH
+                    }, 500);
+                });
+            });
+        </script>
+    {% endblock %}
+
+    <div class="quick-links">
+        {% set quick_links = displayComponent('garden_quick_links',"template","dealer") %}
+        {% if quick_links != '' %}
+            {{ include(template_from_string(quick_links)) }}
+        {% endif %}
+        {#{% if quick_links == '' %}<div class="link">#}
+            {#<a href="">#}
+                {#<span class="specials icon"></span>#}
+                {#<span>Specials</span>#}
+            {#</a>#}
+        {#</div>#}
+
+            {#<div class="link">#}
+                {#<a href="">#}
+                    {#<span class="car-finder icon"></span>#}
+                    {#<span>Car Finder</span>#}
+                {#</a>#}
+            {#</div>#}
+
+            {#<div class="link">#}
+                {#<a href="">#}
+                    {#<span class="translate-site icon"></span>#}
+                    {#<span>Translate Site</span></a>#}
+            {#</div>#}
+
+            {#<div class="link">#}
+                {#<a href="">#}
+                    {#<span class="directions icon"></span>#}
+                    {#<span>Directions</span></a>#}
+            {#</div>#}
+
+            {#<div class="link">#}
+                {#<a href="">#}
+                    {#<span class="contact icon"></span>#}
+                    {#<span>Contact</span></a>#}
+            {#</div>#}
+        {#{% endif %}#}
+        {##}
+    </div>
+
+    {% block featuredads %}
+        {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 8,'order':1,'image_size':'garden_featured'})) }}
+    {% endblock %}
+
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
+
+</div>
+
+</body>
+
+</html>
