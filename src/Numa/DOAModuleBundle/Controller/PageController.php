@@ -282,22 +282,28 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
      */
     public function deleteAction(Request $request, $id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOAModuleBundle:Page')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Page entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        return $this->redirect($this->generateUrl('page'));
+        $pageComponents = $em->getRepository('NumaDOAModuleBundle:PageComponent')->findBy(array('page_id' => $id));
+
+        $pageComponentsIds = array();
+        $componentsIds = array();
+        foreach($pageComponents as $pageComponent){
+            $pageComponentsIds[] = $pageComponent->getId();
+            $componentsIds[] = $pageComponent->getComponentId();
+        }
+
+        $em->getRepository('NumaDOAModuleBundle:PageComponent')->delete(implode(",", $pageComponentsIds));
+        $em->getRepository('NumaDOAModuleBundle:Component')->delete(implode(",", $pageComponentsIds));
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('dms_page'));
     }
 
     /**
@@ -310,7 +316,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('page_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('dms_page_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
