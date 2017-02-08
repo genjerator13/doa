@@ -1067,6 +1067,25 @@ ul.techData li {
 .clear {
 	clear:both;
 }
+#loading-indicator {
+	display: none;
+	//background-color: rgba(0, 0, 0, 0.5);
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 10000;
+}
+
+.loading_info i {
+	left: 50%;
+	margin: auto;
+	position: fixed;
+	top: 50%;
+}
+
+
 @media (min-width: 1200px) {
 	.seven-cols .col-md-1,
 	.seven-cols .col-sm-1,

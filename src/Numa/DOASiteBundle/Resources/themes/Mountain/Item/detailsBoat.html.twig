@@ -109,7 +109,7 @@
                             <div class='listing-right col-md-6'>
                                 <div class="listing-box-top">
                                     <div class="basic_data col-lg-8 col-md-8 col-sm-8 col-xs-8">
-                                        {% if item.getRetailPriceCompared() is not null %}
+                                        {% if item.getRetailPriceCompared() is not empty and item.getRetailPriceCompared()>item.getPriceString() %}
                                             <div class='retail_price'>
                                                 Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPriceCompared() }}</span></div>
                                         {% endif %}
@@ -237,100 +237,7 @@
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:epriceForm,id:"eprice",modalTitle:"Get Eprice"}) }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:contactForm,id:"contactus",modalTitle:"Contact Us"}) }}
-
-                    <div class="modal fade" id="offerTradeIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content offerTradeIn-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Offer Trade In</h4>
-                                </div>
-                                <div class="modal-body">
-                                    {#{{ form(offerTradeInForm) }}#}
-                                    <div class="row  offerTradeIn">
-                                    {{ form_start(offerTradeInForm) }}
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.cust_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.cust_name) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.cust_last_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.cust_last_name) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.email, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.email) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.phone, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.phone) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.cust_officer, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-9">
-                                            {{ form_widget(offerTradeInForm.cust_officer, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.offer_amt, null, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-9">
-                                            {{ form_widget(offerTradeInForm.offer_amt, { 'label_attr': {'class': 'col-md-12'} }) }}
-                                        </div>
-                                        <div class="col-md-12">
-                                            {{ form_widget(offerTradeInForm.trade_in) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.make) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.make) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.model) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.model) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.year) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.year) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_label(offerTradeInForm.kilometers) }}
-                                        </div>
-                                        <div class="col-md-3">
-                                            {{ form_widget(offerTradeInForm.kilometers) }}
-                                        </div>
-                                        <div class="col-md-12">
-                                            {{ form_row(offerTradeInForm.accessories) }}
-                                        </div>
-                                        <div class="col-md-12">
-                                            {{ form_row(offerTradeInForm.comment) }}
-                                        </div>
-                                    {{ form_end(offerTradeInForm) }}
-                                    </div>
-                                </div>
-                                <div class="offerTradeIn_error"></div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary submitform" id="submit_offerTradeIn" data-id="offerTradeIn">Send</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    {{ include("NumaDOASiteBundle::listingFormTradeInModal.html.twig") }}
                     {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
 
@@ -346,6 +253,8 @@
                                 var form = $('#'+id+'_form').serialize();
                                 console.log(form);
                                 $('#submit_'+id).attr("disabled", true);
+                                $("#loading-indicator").show();
+                                console.log($("#loading-indicator"));
                                 $.ajax({
                                     type: "POST",
                                     data: form+"{{ item.id }}",
@@ -354,50 +263,27 @@
                                         if(data.message=='error'){
                                             $("."+id+"_error").html(data.action);
                                         }else {
-                                            $('#testdrive').modal('toggle');
-                                            $("#testdrive input").val("");
+                                            $('#'+id).modal('toggle');
+                                            $("#"+id+" input").val("");
+                                            $("#"+id+" textarea").html("");
 
                                             $('.alertz').html("Successfully sent "+id+" form.");
                                             $('.alertz').addClass("alert-success");
-                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').removeClass("hide");
                                             $('.alertz').show();
+                                            console.log($('.alertz'));
                                             setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
                                         }
                                         $('#submit_'+id).attr("disabled", false);
+                                        $("#loading-indicator").hide();
                                     },
                                     done: function(){
                                         $('#submit_'+id).attr("disabled", false);
+                                        $("#loading-indicator").hide();
                                     }
 
                                 });
                             })
-
-
-
-                            {#$('#submit_offerTradeIn').click(function (e) {#}
-                                {#e.preventDefault();#}
-                                {#var form = $('#offerTradeIn_form').serialize();#}
-
-                                {#$.ajax({#}
-                                    {#type: "POST",#}
-                                    {#data: form+"{{ item.id }}",#}
-                                    {#url: '{{ path("listting_form_post") }}',#}
-                                    {#success:function(data) {#}
-                                        {#if(data.message=='error'){#}
-                                            {#$(".offerTradeIn_error").html(data.action);#}
-                                        {#}else {#}
-                                            {#$('#offerTradeIn').modal('toggle');#}
-                                            {#$('.alertz').html("Successfully sent offer trade in form.");#}
-                                            {#$('.alertz').addClass("alert-success");#}
-                                            {#$('.alertz').removeClass("dontshow");#}
-                                            {#$('.alertz').show();#}
-                                            {#setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);#}
-                                        {#}#}
-                                    {#}#}
-                                {#});#}
-                            {#})#}
-
-
                         });
                     </script>
                 {% endblock %}
