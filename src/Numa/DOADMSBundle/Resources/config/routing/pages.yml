@@ -32,4 +32,3 @@ dms_page_update:
 dms_page_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOAModuleBundle:Page:delete",_dashboard:"DMS" }
-    requirements: { _method: post|delete }
