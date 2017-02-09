@@ -58,6 +58,8 @@ class Emailer extends ContainerAware
         $emailBody = $this->makeMessageBody($currentUrl, $data, $emailFrom);
 
         $twig = $this->container->get('twig');
+        $email_from = $this->container->getParameter("email_from");
+
         $globals = $twig->getGlobals();
 
         $subject = $globals['subject'];
@@ -67,7 +69,7 @@ class Emailer extends ContainerAware
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)
-            ->setFrom('general@dealersonair.com')
+            ->setFrom($email_from)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
             ->setCc($email)
@@ -137,9 +139,9 @@ class Emailer extends ContainerAware
             ->setFrom($emailFrom)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
-            ->addBcc('vukradivojevic21@gmail.com')
-            //->setTo($dealer->getEmail())
-            ->setTo('e.medjesi@gmail.com')
+            //->addBcc('vukradivojevic21@gmail.com')
+            ->setTo($dealer->getEmail())
+            //->setTo('e.medjesi@gmail.com')
             //->setTo("genjerator@outlook.com")
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {

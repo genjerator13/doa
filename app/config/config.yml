@@ -131,6 +131,12 @@ assetic:
         theme_forest_css:
             inputs:
                - '%kernel.root_dir%/../web/themes/Forest/css/template.css'
+        theme_garden_css:
+            inputs:
+               - '%kernel.root_dir%/../web/themes/Garden/css/garden.css'
+        theme_garden_pgwslideshow_css:
+            inputs:
+               - '%kernel.root_dir%/../web/themes/Garden/css/pgwslideshow.css'
 
         #javascript
 
@@ -402,6 +408,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [160, 120], mode: inbound }
                 background: { color: '#FFFFFF' }
+        garden_featured:
+            quality: 100
+            filters:
+                thumbnail: { size: [200, 140], mode: inbound }
+                background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
     web_path: %kernel.root_dir%/../web
@@ -498,7 +509,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain','Forest']
+    themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden']
     active_theme: 'Default'
     assetic_integration: true
 

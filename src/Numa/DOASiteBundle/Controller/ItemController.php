@@ -86,7 +86,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateDriveForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormDriveType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_drive'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
             'attr' => array('id'=>"testdrive_form")
         ));
@@ -104,11 +104,12 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateOfferForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormOfferType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_offer'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
             'attr' => array('id'=>"offer_form")
+
         ));
-       // $form->add('submit', 'submit', array('label' => 'Create'));
+
         return $form;
     }
 
@@ -122,7 +123,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateOfferTradeInForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormOfferTradeInType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_offer_trade_in'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
             'attr' => array('id'=>"offerTradeIn_form")
         ));
@@ -140,7 +141,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateEpriceForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_eprice'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
             'allow_extra_fields'=>true,
             'attr' => array('id'=>"eprice_form")
@@ -161,7 +162,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateFinanceForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_contact'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
             'attr' => array('id'=>"finance_form")
         ));
@@ -180,9 +181,9 @@ class ItemController extends Controller implements DealerSiteControllerInterface
     private function createCreateContactForm(ListingForm $entity)
     {
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
-            'action' => $this->generateUrl('listingform_create_contact'),
+            'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'attr' => array('id'=>"contactus_form")
+            'attr' => array('id'=>"contact_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
@@ -400,7 +401,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $listingForm->setItemId(intval($itemid));
         $epriceForm = $this->createCreateEpriceForm($listingForm);
         $epriceForm->add("item_id","hidden");
-        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('epriceForm' => $epriceForm->createView() ));
+        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id'=>$itemid,'epriceForm' => $epriceForm->createView() ));
     }
 
     public function manageAction()

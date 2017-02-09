@@ -1,0 +1,24 @@
+<div class="mobile-menu">
+
+    <ul class="menu">
+        <li><span class="separator">Menu</span>
+            {% set mainmenu = displayComponent('mainmenu',"template","dealer") %}
+            {% if mainmenu != 'enter this value of component in DMS' %}
+                {{ include(template_from_string(mainmenu)) }}
+            {% endif %}
+            {% if mainmenu == 'enter this value of component in DMS' %}
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/search">Inventory</a></li>
+                    <li><a href="/coupons">Specials</a></li>
+                    <li><a href="/search">Car Finder</a></li>
+                    <li><a href="/trade_in">Trade-In Value</a></li>
+                    <li><a href="/financing">Financing</a></li>
+                    <li><a href="/search">Directions</a></li>
+                    <li><a href="/contactus">Contact Us</a></li>
+                </ul>
+            {% endif %}
+        </li>
+    </ul>
+
+</div>

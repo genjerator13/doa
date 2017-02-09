@@ -186,4 +186,23 @@ class PageRepository extends EntityRepository
 
         return $components;
     }
+
+    public function delete($page_id,$dealer_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->delete(null,"p,pc")
+            ->add('from', 'NumaDOAModuleBundle:Page p')
+            ->where('p.dealer_id =:dealer_id')
+            ->andWhere('p.id = :page_id');
+        $qb->setParameter('dealer_id', $dealer_id);
+        $qb->setParameter('page_id', $page_id);
+        dump($qb->getQuery()->getSQL());
+        $qb->getQuery()->execute();
+        die();
+
+        $components = $qb->getQuery()->getResult();
+
+        return $components;
+    }
 }

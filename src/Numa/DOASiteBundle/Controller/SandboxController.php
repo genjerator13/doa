@@ -2,6 +2,9 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\Billing;
+use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,8 +57,8 @@ class SandboxController extends Controller
 
     public function testAction()
     {
-
-        $this->get("numa.dms.listing")->insertFromVinDecoder(29931);
+        $em = $this->getDoctrine()->getManager();
+        $cover = $em->getRepository("NumaDOAModuleBundle:Page")->delete(502,33);
         die();
 
     }

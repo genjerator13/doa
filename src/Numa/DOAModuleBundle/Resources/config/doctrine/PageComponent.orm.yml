@@ -19,10 +19,15 @@ Numa\DOAModuleBundle\Entity\PageComponent:
             joinColumn:
                 name: page_id
                 referencedColumnName: id
+                onDelete: CASCADE
         Component:
             targetEntity: Component
-            cascade: [persist]
+            cascade: [persist,remove]
             inversedBy: Page
+            onDelete: [cascade]
+            orphanRemoval: true
             joinColumn:
                 name: component_id
+                onDelete: CASCADE
                 referencedColumnName: id
+                orphanRemoval: true
