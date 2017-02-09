@@ -241,50 +241,7 @@
                     {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
 
+                    <script type="text/javascript" src="{{ asset("js/listing_form.js") }}"></script>
 
-                    <script>
-                        $(document).ready(function () {
-                            //$('#submit_'+id).attr("disabled", false);
-                            $('.submitform').click(function (e) {
-                                id = $(this).data('id');
-                                console.log(id);
-                                console.log($(this));
-                                e.preventDefault();
-                                var form = $('#'+id+'_form').serialize();
-                                console.log(form);
-                                $('#submit_'+id).attr("disabled", true);
-                                $("#loading-indicator").show();
-                                console.log($("#loading-indicator"));
-                                $.ajax({
-                                    type: "POST",
-                                    data: form+"{{ item.id }}",
-                                    url: '{{ path("listting_form_post") }}',
-                                    success:function(data) {
-                                        if(data.message=='error'){
-                                            $("."+id+"_error").html(data.action);
-                                        }else {
-                                            $('#'+id).modal('toggle');
-                                            $("#"+id+" input").val("");
-                                            $("#"+id+" textarea").html("");
-
-                                            $('.alertz').html("Successfully sent "+id+" form.");
-                                            $('.alertz').addClass("alert-success");
-                                            $('.alertz').removeClass("hide");
-                                            $('.alertz').show();
-                                            console.log($('.alertz'));
-                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
-                                        }
-                                        $('#submit_'+id).attr("disabled", false);
-                                        $("#loading-indicator").hide();
-                                    },
-                                    done: function(){
-                                        $('#submit_'+id).attr("disabled", false);
-                                        $("#loading-indicator").hide();
-                                    }
-
-                                });
-                            })
-                        });
-                    </script>
                 {% endblock %}
 
