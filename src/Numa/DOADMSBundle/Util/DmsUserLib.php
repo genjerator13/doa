@@ -80,10 +80,10 @@ class DmsUserLib
         $dealer_id = "";
         if($dealer instanceof Catalogrecords ){
             $dealer_id = $dealer->getId();
-        }
-
-        if($dealer instanceof DealerGroup ){
+        }elseif($dealer instanceof DealerGroup ){
             $dealer_id=$this->getDealerIdsFromPrincipal($dealer);
+        }elseif($dealer instanceof DMSUser){
+            $dealer_id=$dealer->getDealerId();
         }
         return $dealer_id;
     }
