@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div class="error alert-danger"></div>
-
+                {{ dump(form) }}
                 {{ form_errors(form) }}
                 {{ form_start(form) }}
                 {{ form_rest(form) }}
@@ -20,7 +20,7 @@
             <div class="{{ id }}_error alert-danger"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary submitform" id="submit_{{id}}" data-id="{{ id }}" data-item-id="{{ item_id }}">Send
+                <button type="button" class="btn btn-primary submitform" id="submit_{{id}}" data-id="{{ id }}" data-item-id="{{ item.id }}">Send
                 </button>
             </div>
         </div>
