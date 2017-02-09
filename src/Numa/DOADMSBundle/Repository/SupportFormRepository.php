@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Doctrine\ORM\EntityRepository;
 
-class ServiceRequestRepository extends EntityRepository
+class SupportFormRepository extends EntityRepository
 {
     /**
      * @param $ids
@@ -22,8 +22,8 @@ class ServiceRequestRepository extends EntityRepository
 
             $qb = $this->getEntityManager()
                 ->createQueryBuilder()
-                ->delete('NumaDOADMSBundle:ServiceRequest', 's')
-                ->where('s.id in (' . $ids . ")");
+                ->delete('NumaDOADMSBundle:SupportForm', 'sf')
+                ->where('sf.id in (' . $ids . ")");
             $qb->getQuery()->execute();
         }
     }

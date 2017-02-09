@@ -203,7 +203,7 @@ class VendorController extends Controller
         $entity = $em->getRepository('NumaDOADMSBundle:Vendor')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Customer entity.');
+            throw $this->createNotFoundException('Unable to find Vendor entity.');
         }
 
         $entity->setStatus('deleted');

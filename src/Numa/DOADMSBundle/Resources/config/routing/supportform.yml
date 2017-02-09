@@ -28,3 +28,7 @@ supportform_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:SupportForm:delete" }
     requirements: { _method: post|delete }
+
+supportform_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:SupportForm:massDelete" }

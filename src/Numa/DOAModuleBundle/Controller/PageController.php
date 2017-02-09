@@ -289,17 +289,6 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
-        $pageComponents = $em->getRepository('NumaDOAModuleBundle:PageComponent')->findBy(array('page_id' => $id));
-
-        $pageComponentsIds = array();
-        $componentsIds = array();
-        foreach($pageComponents as $pageComponent){
-            $pageComponentsIds[] = $pageComponent->getId();
-            $componentsIds[] = $pageComponent->getComponentId();
-        }
-
-        $em->getRepository('NumaDOAModuleBundle:PageComponent')->delete(implode(",", $pageComponentsIds));
-        $em->getRepository('NumaDOAModuleBundle:Component')->delete(implode(",", $pageComponentsIds));
         $em->remove($entity);
         $em->flush();
 

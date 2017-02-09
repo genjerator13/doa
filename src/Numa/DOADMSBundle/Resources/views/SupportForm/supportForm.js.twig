@@ -32,8 +32,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
         },
         {name: '_dealer.name', displayName: 'Dealer Name', enableColumnResizing: true},
-        {name: 'dms_user_name', displayName: 'User Name', enableColumnResizing: true},
-        {name: 'dms_user_group', displayName: 'User Group', enableColumnResizing: true, width: 100},
+        {name: '_d_m_s_user.username', displayName: 'User Name', enableColumnResizing: true},
+        {name: '_d_m_s_user._user_group', displayName: 'User Group', enableColumnResizing: true, width: 100},
         {name: 'subject', enableColumnResizing: true},
         {name: 'message', enableColumnResizing: true, width: 300},
         {name: 'created_at', enableColumnResizing: true, width: 80, cellFilter: 'date:\'yyyy-MM-dd\''},
@@ -53,43 +53,31 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
     $scope.animationsEnabled = true;
 
-    {#$scope.setDelete = function () {#}
-    {#$log.log(JSON.stringify($scope.selected));#}
-    {#$http.post('{{ path("servicerequest_mass_delete") }}', {'data': JSON.stringify($scope.selected)})#}
-    {#.success(function (data) {#}
-    {#i=1#}
-    {#angular.forEach($scope.selected, function(value, key) {#}
-    {#$log.log(key + ': ' + value);#}
-    {#$scope.gridOptions.data.splice(key-i, 1);#}
-    {#i++;#}
-    {#});#}
-    {#$scope.selected={}#}
-    {#$scope.gridApi.selection.clearSelectedRows();#}
-    {#angular.forEach(data, function(data, index) {#}
-    {#data.index = index+1;#}
-    {#//data.push({"index":index+1})#}
-    {#})#}
-    {#});#}
-    {#}#}
+    $scope.setDelete = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("supportform_mass_delete") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    i = 1
+                    angular.forEach($scope.selected, function (value, key) {
+                        $log.log(key + ': ' + value);
+                        $scope.gridOptions.data.splice(key - i, 1);
+                        i++;
+                    });
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                    angular.forEach(data, function (data, index) {
+                        data.index = index + 1;
+                        //data.push({"index":index+1})
+                    })
+                });
+    }
 
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})
             .success(function (data) {
-                for (i = 0; i < data.length; i++) {
-
-                    console.log(data[i]);
-                    if (data[i]._d_m_s_user != undefined) {
-                        data[i].dms_user_name = data[i]._d_m_s_user._first_name + " " + data[i]._d_m_s_user._user_group.name;
-                        data[i].dms_user_group = data[i]._d_m_s_user._user_group.name
-                    }
-                    else {
-                        data[i].dms_user_name = "Dealer";
-                        data[i].dms_user_group = "Dealer";
-                    }
-                    console.log(data[i]);
-                }
-                //console.log(data);
-                //$scope.gridOptions.data = data;
+                angular.forEach(data, function (row, index) {
+                    row.index = index + 1;
+                })
                 $scope.gridOptions.data = data;
 
             });
