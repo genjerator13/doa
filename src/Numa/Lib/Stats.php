@@ -74,7 +74,7 @@ class Stats
         if (!empty($dealersIds)) {
             $totalPurchases = $em->getRepository('NumaDOADMSBundle:Sale')->getCountSaleMadePeriod($date_start, $date_end, $dealersIds);
             $countPurchased = count($totalPurchases);
-            
+
             foreach ($totalPurchases as $sale) {
                 if ($sale instanceof Sale) {
                     $totalPurchaseCost += $sale->getTotalUnitCost();

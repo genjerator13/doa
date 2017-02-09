@@ -1,0 +1,600 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerTradeInForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+{% block title %}
+    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
+        <title>{{ seo.getTitle() }}</title>
+    {% else %}
+        {# default meta title #}
+        <title>{{ title }}: {{ item.getTitle() }}</title>
+    {% endif %}
+{% endblock title %}
+
+{% block description %}
+
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
+        <meta name="description" content="{{ seo.getDescription() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
+{% endblock description %}
+{% block keyword %}
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
+        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+    {% endif %}
+{% endblock keyword %}
+
+{% set images = item.getImages2() %}
+        {% set currentPath = app.request.uri %}
+            {% set dealer = item.getDealer() %}
+                {% block content %}
+                    <div class="detailsContent">
+                        {% for label, flashes in app.session.flashbag.all %}
+                            {% for flash in flashes %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ flash }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                        <h1 class="title">{{ item.getListingTitle() }} {% if (item.getSold()==1) %}
+                                <span class="badge">Sold</span>{% endif %}
+                        </h1>
+
+                        <div class="listing-images row">
+                            <div class="left col-md-6">
+
+                                {% if images|length==1 %}
+                                    {% set image = images|first %}
+                                    {% if ('http' not in image.fieldStringValue) %}
+                                        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+                                    {% else %}
+                                        {% set videoid="" %}
+                                        {% set img=image.fieldStringValue %}
+                                        {% if ('youtube' in image.fieldStringValue) %}
+                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                            {% set img=getYoutubeThumb(videoid) %}
+                                        {% endif %}
+
+                                        {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+                                    {% endif %}
+                                {% else %}
+                                    <div class="slideshow">
+                                        <ul class="pgwSlideshow">
+                                            {% for key,image in images %}
+                                                <li data-order="{{ image.sortOrder }}">
+                                                    {% if ('http' not in image.fieldStringValue) %}
+                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                                    {% else %}
+                                                        {% set videoid="" %}
+                                                        {% set img=image.fieldStringValue %}
+                                                        {% if ('youtube' in image.fieldStringValue) %}
+                                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                            {% set img=getYoutubeThumb(videoid) %}
+                                                        {% endif %}
+                                                        <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+
+
+                                        </ul>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('.pgwSlideshow').pgwSlideshow();
+
+                                            });
+
+
+                                        </script>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class='listing-right col-md-6'>
+                                <div class="listing-box-top">
+                                    <div class="basic_data col-md-6">
+                                        {% if item.getRetailPriceCompared() is not null %}
+                                            <div class='retail_price'>
+                                                Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPriceCompared() }}</span></div>
+                                        {% endif %}
+                                        {#{{ item.getRetailPriceCompared()|raw }}#}
+
+                                        {% if item.getPrice() is not null and item.getPrice() != 0 %}
+                                        <div class="price">Selling Price: {{ item.getPriceString() }}</div>
+                                        {% endif %}
+
+                                        {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 )%}
+                                            <div class="price-quote">Contact Us For A Quote</div>
+                                        {% endif %}
+
+
+                                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
+                                        <ul class="techData list-unstyled">
+                                            {% if item.categoryId()==1 %}
+                                                {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==2) %}
+                                                {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==3) %}
+                                                {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==4) %}
+                                                {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                                            {% elseif(item.categoryId()==13) %}
+                                                {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                                            {% else %}
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                    <div class="listing-buttons col-md-6">
+                                        <div class="btn-group-vertical">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#eprice">Get ePrice
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#finance">Apply for Financing
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#contactus">Contact us
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#offer">Make an Offer
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#offerTradeIn">Offer Trade In
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#loancalc">Payment Calculator
+                                            </button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                                    data-target="#testdrive">Schedule a Test Drive
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Description:</h2>
+                            <p>
+                                {{ item.currentSellerComment()|raw }}
+                            </p>
+                        </div>
+                        <div class="row">
+                            <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Details:</h2>
+                            <ul class='option-lists'>
+                                {% if item.categoryId()==1 %}
+                                {#{% for field in item.ItemField %}#}
+                                    {#{% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}#}
+                                        {#<li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">#}
+                                            {#<div class="checkbox">#}
+                                                {#<label>#}
+                                                    {#<span class="fieldCaption field{{ field.fieldName }}">{{ field.fieldName }}#}
+                                                        {#: </span>#}
+                                                {#</label>#}
+                                                {#{% if field.fieldName=="Price" %}#}
+                                                    {#<span class="price">{{ item.getPriceString() }}</span>#}
+                                                {#{% elseif field.fieldName|lower=="make model" %}#}
+                                                    {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
+                                                {#{% else %}#}
+                                                    {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
+                                                {#{% endif %}#}
+                                            {#</div>#}
+                                        {#</li>#}
+                                    {#{% endif %}#}
+                                {#{% endfor %}#}
+
+                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+                                {% elseif(item.categoryId()==2) %}
+                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                                {% elseif(item.categoryId()==3) %}
+                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                                {% elseif(item.categoryId()==4) %}
+                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                                {% elseif(item.categoryId()==13) %}
+                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                                {% else %}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                        {% if (item.getOptions|length)>0 %}
+                            <div class="row">
+                                <h2 class="sectionItem"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+                                <ul class='option-lists'>
+
+                                    {% for field in item.ItemField %}
+
+                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
+
+                                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        {{ field.fieldName }}
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        {% if(item.videoId is not empty) %}
+                            <h4>Video:</h4>
+                            <div id="video">
+                                <iframe width="600" height="400" src="https://www.youtube.com/embed/{{ item.videoId }}"
+                                        frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        {% endif %}
+
+                    </div>
+                    <!-- Button trigger modal -->
+
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="eprice" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Get ePrice</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(epriceForm) }}
+                                </div>
+                                <div class="eprice_error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_eprice">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="finance" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Apply for Financing</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(financeForm) }}
+                                </div>
+                                <div class="finance_error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_finance">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="contactus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Contact Us</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(contactForm) }}
+                                </div>
+                                <div class="contactus_error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_contact">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="offer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Make an Offer</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(offerForm) }}
+                                </div>
+                                <div class="offer_error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_offer">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="offerTradeIn" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content  offerTradeIn-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Make an Offer Trade In</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {#{{ form(offerTradeInForm) }}#}
+                                    <div class="row  offerTradeIn">
+                                        {{ form_start(offerTradeInForm) }}
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.cust_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.cust_name) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.cust_last_name, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.cust_last_name) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.email, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.email) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.phone, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.phone) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.cust_officer, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-9">
+                                            {{ form_widget(offerTradeInForm.cust_officer, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.offer_amt, null, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-9">
+                                            {{ form_widget(offerTradeInForm.offer_amt, { 'label_attr': {'class': 'col-md-12'} }) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form_widget(offerTradeInForm.trade_in) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.make) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.make) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.model) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.model) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.year) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.year) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_label(offerTradeInForm.kilometers) }}
+                                        </div>
+                                        <div class="col-md-3">
+                                            {{ form_widget(offerTradeInForm.kilometers) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form_row(offerTradeInForm.accesories) }}
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{ form_row(offerTradeInForm.comment) }}
+                                        </div>
+                                        {{ form_end(offerTradeInForm) }}
+                                    </div>
+                                </div>
+                                <div class="offerTradeIn_error"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_offerTradeIn">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
+                    <!-- Modal -->
+                    <div class="modal fade" id="testdrive" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Test Drive</h4>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form(driveForm) }}
+                                </div>
+                                <div class="testdrive_error">
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="submit_testdrive">Save changes
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            $('#submit_testdrive').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#testdrive_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".testdrive_error").html(data.action);
+                                        }else {
+                                            $('#testdrive').modal('toggle');
+                                            $('.alertz').html("Successfully sent test drive form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_offer').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#offer_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".offer_error").html(data.action);
+                                        }else {
+                                            $('#offer').modal('toggle');
+                                            $('.alertz').html("Successfully sent offer form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_offerTradeIn').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#offerTradeIn_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".offerTradeIn_error").html(data.action);
+                                        }else {
+                                            $('#offerTradeIn').modal('toggle');
+                                            $('.alertz').html("Successfully sent offer trade in form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_eprice').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#eprice_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".eprice_error").html(data.action);
+                                        }else {
+                                            $('#eprice').modal('toggle');
+                                            $('.alertz').html("Successfully sent eprice form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_finance').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#finance_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".finance_error").html(data.action);
+                                        }else {
+                                            $('#finance').modal('toggle');
+                                            $('.alertz').html("Successfully sent finance form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                            $('#submit_contact').click(function (e) {
+                                e.preventDefault();
+                                var form = $('#contact_form').serialize();
+
+                                $.ajax({
+                                    type: "POST",
+                                    data: form+"{{ item.id }}",
+                                    url: '{{ path("listting_form_post") }}',
+                                    success:function(data) {
+                                        if(data.message=='error'){
+                                            $(".contactus_error").html(data.action);
+                                        }else {
+                                            $('#contactus').modal('toggle');
+                                            $('.alertz').html("Successfully sent contact form.");
+                                            $('.alertz').addClass("alert-success");
+                                            $('.alertz').removeClass("dontshow");
+                                            $('.alertz').show();
+                                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
+                                        }
+                                    }
+                                });
+                            })
+
+                        });
+                    </script>
+                {% endblock %}
+
