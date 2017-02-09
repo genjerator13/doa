@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\SupportForm:
     type: entity
     table: support_form
-    #repositoryClass: Numa\DOADMSBundle\Repository\SupportFormRepository
+    repositoryClass: Numa\DOADMSBundle\Repository\SupportFormRepository
 
     id:
         id:

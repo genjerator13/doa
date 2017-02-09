@@ -227,4 +227,18 @@ class SupportFormController extends Controller
             ->getForm()
         ;
     }
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeleteAction(Request $request) {
+
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        dump($ids);die();
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository("NumaDOADMSBundle:SupportForm")->delete($ids);
+        die();
+    }
 }
