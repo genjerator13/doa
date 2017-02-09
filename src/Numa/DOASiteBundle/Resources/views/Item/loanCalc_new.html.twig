@@ -12,7 +12,7 @@
                 <div class="CalculatorHeader">
                     <div>Calculate Payment</div>
                 </div>
-                <div class="CalculatorMiddle">
+                <div class="CalculatorMiddle" onload="javascript:PaymentCalculator();alert('aaa')">
                     <div class="OverviewCalc">
                         Use this calculator if you know the price of your vehicle
                         <br>
@@ -190,6 +190,7 @@
     }
 </style>
 <script>
+    PaymentCalculator();
     function IsEmpty(a) {
         return a.value.length == 0
     }
