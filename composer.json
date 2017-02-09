@@ -57,7 +57,7 @@
         "guzzle/guzzle": "~3.9",
         "pugx/autocompleter-bundle": "^1.2",
         "knplabs/knp-snappy-bundle": "dev-master",
-        "liip/theme-bundle": "^1.4",
+        "liip/theme-bundle": "dev-master",
         "mpdf/mpdf": "dev-master",
         "liuggio/excelbundle": "~2.0",
         "friendsofsymfony/elastica-bundle": "dev-master",
