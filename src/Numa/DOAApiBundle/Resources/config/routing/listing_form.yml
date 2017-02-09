@@ -7,7 +7,7 @@ listing_form_by_dealer_api:
     defaults: { _controller: "NumaDOAApiBundle:ListingFormREST:byDealer",_format: "json"}
     requirements: { _method: get }
 
-listting_form_post:
-    pattern:  /post
+listing_form_post:
+    path:  /post
     defaults: { _controller: "NumaDOAApiBundle:ListingFormREST:postListingForm"}
     requirements: { _method: post }
