@@ -110,3 +110,10 @@ Numa\DOADMSBundle\Entity\DMSUser:
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
+    oneToMany:
+        SupportForm:
+            targetEntity: SupportForm
+            mappedBy: DMSUser
+            cascade: [persist,remove]
+            onDelete: CASCADE
+            orphanRemoval: true

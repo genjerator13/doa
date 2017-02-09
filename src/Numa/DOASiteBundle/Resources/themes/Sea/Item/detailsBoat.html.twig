@@ -254,7 +254,7 @@
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:contactForm,id:"contact",modalTitle:"Contact Us"}) }}
                     {{ include("NumaDOASiteBundle::listingFormTradeInModal.html.twig") }}
-                    {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
+                    {{ include("NumaDOASiteBundle:Item:loanCalc_new.html.twig",{price: item.price}) }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
 
                     <script type="text/javascript" src="{{ asset("js/listing_form.js") }}"></script>

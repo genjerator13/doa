@@ -837,4 +837,57 @@ class DMSUser  implements UserInterface
         }
         return "";
     }
+    /**
+     * @var \Numa\DOADMSBundle\Entity\SupportForm
+     */
+    private $SupportForm;
+
+
+    /**
+     * Set supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     *
+     * @return DMSUser
+     */
+    public function setSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm = null)
+    {
+        $this->SupportForm = $supportForm;
+
+        return $this;
+    }
+
+    /**
+     * Get supportForm
+     *
+     * @return \Numa\DOADMSBundle\Entity\SupportForm
+     */
+    public function getSupportForm()
+    {
+        return $this->SupportForm;
+    }
+
+    /**
+     * Add supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     *
+     * @return DMSUser
+     */
+    public function addSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm)
+    {
+        $this->SupportForm[] = $supportForm;
+
+        return $this;
+    }
+
+    /**
+     * Remove supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     */
+    public function removeSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm)
+    {
+        $this->SupportForm->removeElement($supportForm);
+    }
 }
