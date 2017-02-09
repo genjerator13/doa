@@ -10,7 +10,8 @@ imports:
 #        metadata_cache_driver: apc
 #        result_cache_driver: apc
 #        query_cache_driver: apc
-
+parameters:
+    email_from: general@dealersonair.com
 monolog:
     handlers:
         main:
