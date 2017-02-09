@@ -69,10 +69,10 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
             $id = "finance_form";
 
         }
-        if (!empty($request->request->get('contactus'))) {
-            $data = $request->request->get('contactus');
+        if (!empty($request->request->get('contact'))) {
+            $data = $request->request->get('contact');
             $form = new ListingFormContactType();
-            $id = "contactus_form";
+            $id = "contact_form";
 
         }
         if (!empty($request->request->get('testdrive'))) {

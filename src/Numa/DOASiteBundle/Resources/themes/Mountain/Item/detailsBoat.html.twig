@@ -149,7 +149,7 @@
                                                     data-target="#finance">Apply for Financing
                                             </button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#contactus">Contact us
+                                                    data-target="#contact">Contact us
                                             </button>
                                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                                     data-target="#offer">Make an Offer
@@ -235,8 +235,9 @@
 
 
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:epriceForm,id:"eprice",modalTitle:"Get Eprice"}) }}
+                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:offerForm,id:"offer",modalTitle:"Make an Offer"}) }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:contactForm,id:"contactus",modalTitle:"Contact Us"}) }}
+                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:contactForm,id:"contact",modalTitle:"Contact Us"}) }}
                     {{ include("NumaDOASiteBundle::listingFormTradeInModal.html.twig") }}
                     {{ include("NumaDOASiteBundle:Item:loanCalc.html.twig") }}
                     {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
