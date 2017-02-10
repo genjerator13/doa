@@ -119,6 +119,14 @@ class PageRepository extends EntityRepository
         if (stripos($url, "page") !== false) {
             $url = substr($url, 5, strlen($url) - 1);
         }
+        preg_match('/\/details\/([\d]*)/', $url, $matches, PREG_OFFSET_CAPTURE);
+        $itemid = null;
+
+        if(!empty($matches[0])){
+
+            $url = "/details/{number}/{description}";
+            $itemid = $matches[1][0];
+        }
 
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
@@ -138,10 +146,15 @@ class PageRepository extends EntityRepository
         }
 
         $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
-//        //dump($qb->getQuery());die();
+        //if page is not found check for listing details page
+
 //        if ($page instanceof Page) {
 //            return $page->getComponent();
 //        }
+
+        if(!empty($itemid)){
+            $page->setItemId($itemid);
+        }
 
         return $page;
     }

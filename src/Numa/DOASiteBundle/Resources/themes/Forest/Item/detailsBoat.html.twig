@@ -12,32 +12,6 @@
 {% block form_group_class -%}
     col-sm-9
 {%- endblock form_group_class %}
-{% block title %}
-    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
-        <title>{{ seo.getTitle() }}</title>
-    {% else %}
-        {# default meta title #}
-        <title>{{ title }}: {{ item.getTitle() }}</title>
-    {% endif %}
-{% endblock title %}
-
-{% block description %}
-
-    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
-        <meta name="description" content="{{ seo.getDescription() }}"/>
-    {% else %}
-        {# default meta description #}
-        {{ include("NumaDOASiteBundle::description.html.twig") }}
-    {% endif %}
-{% endblock description %}
-{% block keyword %}
-    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
-        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
-    {% else %}
-        {# default meta description #}
-        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
-    {% endif %}
-{% endblock keyword %}
 
 {% set images = item.getImages2() %}
         {% set currentPath = app.request.uri %}

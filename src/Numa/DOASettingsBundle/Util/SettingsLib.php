@@ -4,6 +4,7 @@ namespace Numa\DOASettingsBundle\Util;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAModuleBundle\Entity\Page;
+use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOASettingsBundle\Entity\Setting;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -215,7 +216,7 @@ class SettingsLib
         $titleTemplate = strip_tags($this->get('item_title'));
 
         if(empty($titleTemplate)){
-            $titleTemplate = strip_tags($item->getTitle());
+            $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaTitle($item));
         }
         preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
 
@@ -232,14 +233,16 @@ class SettingsLib
     public function generateItemDescription(Item $item){
         $titleTemplate = strip_tags($this->get('item_description'));
         if(empty($titleTemplate)){
-            $titleTemplate = strip_tags($item->getUrlDescription());
+            $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaDescription($item));
         }
         return $this->parseStringFormula($item, $titleTemplate);
     }
 
     public function getItemKeywords(Item $item){
         $titleTemplate = strip_tags($this->get('item_keywords'));
-
+        if(empty($titleTemplate)){
+            $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaKeywords($item));
+        }
         return $this->parseStringFormula($item, $titleTemplate);
     }
 
@@ -293,24 +296,41 @@ class SettingsLib
 
     public function getPageTitle($page,$dealer){
         $pageTitle="";
-        if ($page instanceof Page) {
-            $pageTitle = $page->getTitle();
-        }
+
 
         if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
             $pageTitle = $this->get('title', 'seo', $dealer);
         }
+
+        if ($page instanceof Page) {
+            $pageTitle = $page->getTitle();
+        }
+
+        if ($page instanceof Page && !empty($page->getItemId())) {
+            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if($seo instanceof Seo) {
+                $pageTitle = $seo->getTitle();
+            }
+        }
+
         return strip_tags($pageTitle);
     }
 
     public function getPageDescription($page,$dealer){
         $pageDescription="";
-        if ($page instanceof Page) {
-            $pageDescription = $page->getDescription();
-        }
+
 
         if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
             $pageDescription = $this->get('description', 'seo', $dealer);
+        }
+        if ($page instanceof Page) {
+            $pageDescription = $page->getDescription();
+        }
+        if ($page instanceof Page && !empty($page->getItemId())) {
+            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if($seo instanceof Seo) {
+                $pageDescription = $seo->getDescription();
+            }
         }
 
         return strip_tags($pageDescription);
@@ -318,14 +338,22 @@ class SettingsLib
 
     public function getPageKeywords($page, $dealer){
         $pageKeywords="";
-        if ($page instanceof Page) {
-            $pageKeywords = $page->getKeywords();
-        }
+
 
         if(empty($pageKeywords) && $dealer instanceof Catalogrecords) {
             $pageKeywords = $this->get('keywords', 'seo', $dealer);
         }
 
+        if ($page instanceof Page) {
+            $pageKeywords = $page->getKeywords();
+        }
+
+        if ($page instanceof Page && !empty($page->getItemId())) {
+            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if($seo instanceof Seo) {
+                $pageKeywords = $seo->getKeywords();
+            }
+        }
         return strip_tags($pageKeywords);
     }
 
@@ -334,7 +362,14 @@ class SettingsLib
         $pageTitle = $this->getPageTitle($page,$dealer);
         $pageDescription = $this->getPageDescription($page,$dealer);
         $pageKeyword = $this->getPageKeywords($page,$dealer);
-
+//
+//        dump($pageTitle);
+//        dump($pageDescription);
+//        dump($pageKeyword);
+//
+//        die();
+//        dump($html);
+//        die();
         $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
         $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
         $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);

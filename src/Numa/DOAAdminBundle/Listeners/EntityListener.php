@@ -128,6 +128,14 @@ class EntityListener
             if($entity->getSold()){
                 $entity->setSoldDate(new \DateTime());
             }
+            $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+
+            $seoService = $this->container->get("Numa.Seo");
+            $seo = $seoService->prepareSeo($entity);
+
+            $em->flush();
+
+
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ServiceRequest) {
