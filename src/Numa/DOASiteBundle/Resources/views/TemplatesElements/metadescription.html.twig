@@ -1,0 +1,6 @@
+{% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
+    <meta name="description" content="{{ seo.getDescription() }}"/>
+{% else %}
+    {# default meta description #}
+    {{ include("NumaDOASiteBundle::description.html.twig") }}
+{% endif %}
