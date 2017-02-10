@@ -39,213 +39,41 @@
     {% endif %}
 {% endblock keyword %}
 
-{% set images = item.getImages2() %}
-        {% set currentPath = app.request.uri %}
-            {% set dealer = item.getDealer() %}
-                {% block content %}
-                    <div class="detailsContent">
-                        {% for label, flashes in app.session.flashbag.all %}
-                            {% for flash in flashes %}
-                                <div class="alert alert-{{ label }}">
-                                    {{ flash }}
-                                </div>
-                            {% endfor %}
-                        {% endfor %}
-                        <h1 class="title">{{ item.getListingTitle() }} {% if (item.getSold()==1) %}
-                                <span class="badge">Sold</span>{% endif %}
-                        </h1>
+{% block content %}
+    <div class="detailsContent">
+        {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
+        {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
 
-                        <div class="listing-images row">
-                            <div class="left col-md-6">
+        <div class="listing-images row">
+            <div class="left col-md-6">
+                {% include "NumaDOASiteBundle:TemplatesElements:imageSlideshow.html.twig" %}
+            </div>
 
-                                {% if images|length==1 %}
-                                    {% set image = images|first %}
-                                    {% if ('http' not in image.fieldStringValue) %}
-                                        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
-                                    {% else %}
-                                        {% set videoid="" %}
-                                        {% set img=image.fieldStringValue %}
-                                        {% if ('youtube' in image.fieldStringValue) %}
-                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                            {% set img=getYoutubeThumb(videoid) %}
-                                        {% endif %}
+            <div class='listing-right col-md-6'>
+                <div class="listing-box-top">
+                    <div class="basic_data col-md-7">
+                        {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
 
-                                        {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
-                                    {% endif %}
-                                {% else %}
-                                    <div class="slideshow">
-                                        <ul class="pgwSlideshow">
-                                            {% for key,image in images %}
-                                                <li data-order="{{ image.sortOrder }}">
-                                                    {% if ('http' not in image.fieldStringValue) %}
-                                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
-                                                    {% else %}
-                                                        {% set videoid="" %}
-                                                        {% set img=image.fieldStringValue %}
-                                                        {% if ('youtube' in image.fieldStringValue) %}
-                                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                                            {% set img=getYoutubeThumb(videoid) %}
-                                                        {% endif %}
-                                                        <img data-video="{{ videoid }}" src="{{ img }}"/>
-
-                                                    {% endif %}
-                                                </li>
-                                            {% endfor %}
-
-
-                                        </ul>
-                                        <script>
-                                            $(document).ready(function () {
-                                                $('.pgwSlideshow').pgwSlideshow();
-
-                                            });
-
-
-                                        </script>
-                                    </div>
-                                {% endif %}
-                            </div>
-
-                            <div class='listing-right col-md-6'>
-                                <div class="listing-box-top">
-                                    <div class="basic_data col-md-6">
-                                        {% if item.getRetailPriceCompared() is not null %}
-                                            <div class='retail_price'>
-                                                Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPriceCompared() }}</span></div>
-                                        {% endif %}
-                                        {#{{ item.getRetailPriceCompared()|raw }}#}
-
-                                        {% if item.getPrice() is not null and item.getPrice() != 0 %}
-                                        <div class="price">Selling Price: {{ item.getPriceString() }}</div>
-                                        {% endif %}
-
-                                        {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 )%}
-                                            <div class="price-quote">Contact Us For A Quote</div>
-                                        {% endif %}
-
-
-                                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
-                                        <ul class="techData list-unstyled">
-                                            {% if item.categoryId()==1 %}
-                                                {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                                            {% elseif(item.categoryId()==2) %}
-                                                {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                                            {% elseif(item.categoryId()==3) %}
-                                                {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                                            {% elseif(item.categoryId()==4) %}
-                                                {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                                            {% elseif(item.categoryId()==13) %}
-                                                {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                                            {% else %}
-                                            {% endif %}
-                                        </ul>
-                                    </div>
-                                    <div class="listing-buttons col-md-6">
-                                        <div class="btn-group-vertical">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#eprice">Get ePrice
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#finance">Apply for Financing
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#contact">Contact us
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#offer">Make an Offer
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#offerTradeIn">Offer Trade In
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#loancalc">Payment Calculator
-                                            </button>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#testdrive">Schedule a Test Drive
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Description:</h2>
-
-                            <p>
-                                {{ item.currentSellerComment()|raw }}
-                            </p>
-                        </div>
-                        <div class="row">
-                            <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
-                            <ul class='option-lists'>
-                                {% if item.categoryId()==1 %}
-                                    {#{% for field in item.ItemField %}#}
-                                        {#{% if field.fieldName not in ignore_fields and field.fieldType!='boolean' and  field.fieldStringValue is not empty %}#}
-                                            {#<li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">#}
-                                                {#<div class="checkbox">#}
-                                                    {#<label>#}
-                                                    {#<span class="fieldCaption field{{ field.fieldName }}"><b>{{ field.fieldName }}</b>#}
-                                                        {#: </span>#}
-                                                    {#</label>#}
-                                                    {#{% if field.fieldName=="Price" %}#}
-                                                        {#<span class="price">{{ item.getPriceString() }}</span>#}
-                                                    {#{% elseif field.fieldName|lower=="make model" %}#}
-                                                        {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
-                                                    {#{% else %}#}
-                                                        {#<span class="fieldValue fieldValue{{ field.fieldStringValue }}">{{ field.fieldStringValue }}</span>#}
-                                                    {#{% endif %}#}
-                                                {#</div>#}
-                                            {#</li>#}
-                                        {#{% endif %}#}
-                                    {#{% endfor %}#}
-
-                                    {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
-                                {% elseif(item.categoryId()==2) %}
-                                    {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
-                                {% elseif(item.categoryId()==3) %}
-                                    {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
-                                {% elseif(item.categoryId()==4) %}
-                                    {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
-                                {% elseif(item.categoryId()==13) %}
-                                    {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
-                                {% else %}
-                                {% endif %}
-
-                            </ul>
-                        </div>
-                        {% if (item.getOptions|length)>0 %}
-                            <div class="row">
-                                <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
-                                <ul class='option-lists'>
-
-                                    {% for field in item.ItemField %}
-
-                                        {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
-
-                                            <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        {{ field.fieldName }}
-                                                    </label>
-                                                </div>
-                                            </li>
-                                        {% endif %}
-
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                        {% endif %}
-
-                        {% if(item.videoId is not empty) %}
-                            <h4>Video:</h4>
-                            <div id="video">
-                                <iframe width="600" height="400" src="https://www.youtube.com/embed/{{ item.videoId }}"
-                                        frameborder="0" allowfullscreen></iframe>
-                            </div>
-                        {% endif %}
-
+                        {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
+                        {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                     </div>
-                    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+                    <div class="listing-buttons col-md-5">
+                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'primary'} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        </div>
+        <div class="row">
+            {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+        </div>
 
-                {% endblock %}
+        {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+    </div>
+    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+
+{% endblock %}
 

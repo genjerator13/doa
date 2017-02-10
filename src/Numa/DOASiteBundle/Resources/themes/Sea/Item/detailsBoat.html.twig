@@ -61,7 +61,7 @@
                         {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                     </div>
                     <div class="listing-buttons col-md-5">
-                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" %}
+                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'warning'} %}
                     </div>
                 </div>
             </div>
@@ -72,7 +72,6 @@
         <div class="row">
             {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
         </div>
-
 
         {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
         {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
