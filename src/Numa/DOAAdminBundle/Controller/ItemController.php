@@ -342,7 +342,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             'method' => 'POST',
         ));
 
-        //$seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+        $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
+
         if (empty($seo)) {
             $seo = new Seo();
         }
@@ -361,14 +362,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
                 $entity->setVindecoder($decodedvin);
                 $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
             }
+
+            //$seoPost = $request->get("numa_doamodulebundle_seo");
+            //$seoService = $this->container->get("Numa.Seo");
+            //$seo = $seoService->prepareSeo($entity, $seoPost);
+
+
             $em->persist($entity);
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            $seoPost = $request->get("numa_doamodulebundle_seo");
 
-            $seoService = $this->container->get("Numa.Seo");
-            $seo = $seoService->prepareSeo($entity, $seoPost);
 
 
             $em->flush();
@@ -390,13 +394,12 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         //sale form
 
         // $saleForm = $this->createSaleCreateForm(new Sale());
-        //$entity->setSeo($seo);
+        $entity->setSeo($seo);
 
 
         $params = array(
             'entity' => $entity,
             'form' => $form->createView(),
-//            'saleForm' => $saleForm->createView(),
             'category' => $category,
             'seo' => $seoFormView,
             'dashboard' => $dashboard,
@@ -532,6 +535,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             if (empty($seo)) {
                 $seo = new Seo();
             }
+
             $entity->setSeo($seo);
 
             $seoForm = $this->createForm(new SeoType(), $seo, array(
@@ -567,8 +571,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
             $seoPost = $request->get("numa_doamodulebundle_seo");
             $seoService = $this->container->get("Numa.Seo");
-            $seo = $seoService->prepareSeo($entity, $seoPost);
 
+            $seo = $seoService->prepareSeo($entity, $seoPost);
 
             $em->flush();
 

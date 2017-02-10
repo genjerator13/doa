@@ -122,11 +122,12 @@ class ExtraListener
             $em = $this->container->get('doctrine.orm.entity_manager');
             $currentUrl = $request->getRequestUri();
             //myurl fix
-            if (substr($currentUrl, 0, 2) === "/d") {
-                $currentUrl = substr($currentUrl, 2, strlen($currentUrl) - 1);
-            }
+//            if (substr($currentUrl, 0, 2) === "/d") {
+//                $currentUrl = substr($currentUrl, 2, strlen($currentUrl) - 1);
+//            }
 
             $dealer = $this->container->get("Numa.Dms.User")->getDealerByHost();
+
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
             $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
             //$response->set
