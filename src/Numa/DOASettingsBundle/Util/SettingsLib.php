@@ -302,13 +302,13 @@ class SettingsLib
             $pageTitle = $this->get('title', 'seo', $dealer);
         }
 
-        if ($page instanceof Page) {
+        if ($page instanceof Page && !empty($page->getTitle())) {
             $pageTitle = $page->getTitle();
         }
 
         if ($page instanceof Page && !empty($page->getItemId())) {
             $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo) {
+            if($seo instanceof Seo && !empty($seo->getTitle())) {
                 $pageTitle = $seo->getTitle();
             }
         }
@@ -323,12 +323,12 @@ class SettingsLib
         if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
             $pageDescription = $this->get('description', 'seo', $dealer);
         }
-        if ($page instanceof Page) {
+        if ($page instanceof Page && !empty($page->getDescription())) {
             $pageDescription = $page->getDescription();
         }
         if ($page instanceof Page && !empty($page->getItemId())) {
             $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo) {
+            if($seo instanceof Seo && !empty($seo->getDescription())) {
                 $pageDescription = $seo->getDescription();
             }
         }
@@ -344,13 +344,13 @@ class SettingsLib
             $pageKeywords = $this->get('keywords', 'seo', $dealer);
         }
 
-        if ($page instanceof Page) {
+        if ($page instanceof Page && !empty($page->getKeywords())) {
             $pageKeywords = $page->getKeywords();
         }
 
         if ($page instanceof Page && !empty($page->getItemId())) {
             $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo) {
+            if($seo instanceof Seo && !empty($seo->getKeywords())) {
                 $pageKeywords = $seo->getKeywords();
             }
         }
