@@ -1,9 +1,9 @@
 {{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:epriceForm,id:"eprice",modalTitle:"Get Eprice"}) }}
-                    {{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:offerForm,id:"offer",modalTitle:"Make an Offer"}) }}
-                    {{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
-                    {{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:contactForm,id:"contact",modalTitle:"Contact Us"}) }}
-                    {{ include("NumaDOASiteBundle:ListingForms:listingFormTradeInModal.html.twig") }}
-                    {{ include("NumaDOASiteBundle:Item:loanCalc_new.html.twig",{price: item.price}) }}
-                    {{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
+{{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:offerForm,id:"offer",modalTitle:"Make an Offer"}) }}
+{{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
+{{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:contactForm,id:"contact",modalTitle:"Contact Us"}) }}
+{{ include("NumaDOASiteBundle:ListingForms:listingFormTradeInModal.html.twig") }}
+{{ include("NumaDOASiteBundle:Item:loanCalc_new.html.twig",{price: item.price}) }}
+{{ include("NumaDOASiteBundle:ListingForms:listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
 
 <script type="text/javascript" src="{{ asset("js/listing_form.js") }}"></script>

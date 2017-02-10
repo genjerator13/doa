@@ -30,9 +30,8 @@ class SeoLib
         if(empty($seo)){
             $seo = new Seo();
             $persists = true;
-            //$em->persist($seo);
-
         }
+
         if($seo instanceof Seo) {
             if (!empty($seoPosts)) {
                 if (!empty($seoPosts['title'])) {
@@ -64,8 +63,9 @@ class SeoLib
             $seo->setTitle("");
             $seo->setDescription("");
             $seo->setKeywords("");
-        }elseif(($seo->getAutogenerate()  && empty($seoPosts))){
+        }elseif(($seo->getAutogenerate() && empty($seoPosts))){
             $setting = $this->container->get("Numa.settings");
+
             $title = $setting->generateItemTitle($item);
             $description = $setting->generateItemDescription($item);
             $keywords = $setting->getItemKeywords($item);
@@ -73,7 +73,7 @@ class SeoLib
             $seo->setDescription($description);
             $seo->setKeywords($keywords);
         }
-        if($persists && !$seo->isEmpty()){
+        if($persists){
             $em->persist($seo);
         }
         return $seo;

@@ -183,7 +183,7 @@ body {
 	padding: 10px;
 }
 
-.section {
+.section-wrapper .section {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	box-sizing: border-box;
@@ -193,7 +193,7 @@ body {
 	text-align: center;
 }
 
-.section h1 {
+. section-wrapper .section h1 {
 	font-size: 16px;
 	font-weight: 500;
 	margin-top: 1em;
@@ -302,7 +302,7 @@ and (max-width : 767px) {
 	font-weight: bold;
 }
 
-.detailsContent h2.sectionItem{
+.detailsContent h2.section{
 
 	margin: 0px;
 	font-size: 130%;
@@ -313,7 +313,7 @@ and (max-width : 767px) {
 	border-bottom: 1px solid darkgray;
 }
 
-.detailsContent h2.sectionItem .fa{
+.detailsContent h2.section .fa{
 	padding: 0 10px 0 0;
 }
 
