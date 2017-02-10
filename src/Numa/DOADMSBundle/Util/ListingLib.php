@@ -273,4 +273,42 @@ class ListingLib
             $item->setSoldDate(new \DateTime());
         }
     }
+
+    public function getMetaTitle(Item $item)
+    {
+        $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
+        if ($item->getCategoryId() == 4) {
+            $desc = $desc . " " . $item->getFloorPlan();
+        } elseif ($item->getCategoryId() == 1) {
+            if (!empty($item->getTrim())) {
+                $desc .= " " . $item->slug($item->getTrim());
+            }
+        }
+        return $desc;
+    }
+
+    public function getListingTitle(Item $item)
+    {
+        $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($this->getModel());
+        if ($item->getCategoryId() == 4) {
+            $desc = $desc . " " . $item->getFloorPlan();
+        } elseif ($item->getCategoryId() == 1) {
+            if (!empty($item->getTrim())) {
+                $desc .= " " . $item->getTrim();
+            }
+        }
+        return $desc;
+    }
+
+    public function getMetaDescription(Item $item){
+        return $item->getCurrentSellerComment();
+    }
+
+    public function getMetaKeywords(Item $item){
+        $keywords = array();
+        $keywords[] = $this->getMetaTitle($item);
+
+
+        return implode(",",$keywords);
+    }
 }

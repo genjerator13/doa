@@ -17,16 +17,33 @@
     <script src='https://www.google.com/recaptcha/api.js'></script>
 {% endblock %}
 {% block title %}
-    {% include "@NumaDOASite/TemplatesElements/metatitle.html.twig" %}
+    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
+        <title>{{ seo.getTitle() }}</title>
+    {% else %}
+        {# default meta title #}
+        <title>{{ title }}: {{ item.getTitle() }}</title>
+    {% endif %}
 {% endblock title %}
 
 {% block description %}
-    {% include "@NumaDOASite/TemplatesElements/metadescription.html.twig" %}
+
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
+        <meta name="description" content="{{ seo.getDescription() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
 {% endblock description %}
 {% block keyword %}
-    {% include "@NumaDOASite/TemplatesElements/metadescription.html.twig" %}
-
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
+        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+    {% endif %}
 {% endblock keyword %}
+
+
 {% block content %}
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
@@ -35,6 +52,7 @@
             <div class="left col-md-6">
                 {% include "NumaDOASiteBundle:TemplatesElements:imageSlideshow.html.twig" %}
             </div>
+
             <div class='listing-right col-md-6'>
                 <div class="listing-box-top">
                     <div class="basic_data col-md-7">
@@ -42,7 +60,7 @@
                         {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                     </div>
                     <div class="listing-buttons col-md-5">
-                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" %}
+                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'warning'} %}
                     </div>
                 </div>
             </div>
