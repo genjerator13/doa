@@ -148,11 +148,7 @@ class PageRepository extends EntityRepository
         $page = $qb->getQuery()->setMaxResults(1)->getOneOrNullResult();
         //if page is not found check for listing details page
 
-//        if ($page instanceof Page) {
-//            return $page->getComponent();
-//        }
-
-        if(!empty($itemid)){
+        if($page instanceof Page && !empty($itemid)){
             $page->setItemId($itemid);
         }
 
