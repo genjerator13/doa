@@ -1,0 +1,23 @@
+{% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
+{% if (item.getOptions|length)>0 %}
+    <div class="row">
+        <h2 class="section"><i class="fa fa-cog"></i>Vehicle Features:</h2>
+        <ul class='option-lists'>
+
+            {% for field in item.ItemField %}
+
+                {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
+
+                    <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                        <div class="checkbox">
+                            <label>
+                                {{ field.fieldName }}
+                            </label>
+                        </div>
+                    </li>
+                {% endif %}
+
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
