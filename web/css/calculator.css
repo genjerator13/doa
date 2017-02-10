@@ -1,0 +1,121 @@
+.clearall {
+    min-height: 40px
+}
+
+.FinanceCalculatorBox {
+    margin-left: 100px;
+}
+
+.CalculatePayment {
+    float: left;
+}
+
+.AffordabilityCalculator {
+    float: right;
+    margin-right: 105px;
+}
+
+.CalculatePayment, .AffordabilityCalculator {
+    background-color: #f5f5f5;
+    width: 350px;
+    border: 3px solid #808284;
+}
+
+.CalculatorHeader {
+    margin: 2px;
+}
+
+.CalculatorHeader, .OverviewCalc, .Estimated {
+    text-align: center;
+}
+
+.CalculatorHeader div {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.CalculatorHeader, .DesiredPrice, .CalculatorInput {
+    background-color: #808284;
+    font-size: 12px;
+}
+
+.DesiredPrice {
+    margin: 0 10px 3px;
+    height: 44px;
+}
+
+.CalculatorInput {
+    margin: 0 10px;
+    height: 100%;
+    padding: 3px 0;
+    min-height: 150px;
+}
+
+.InputLabel input {
+    height: 24px;
+    width: 120px;
+    color: #000000;
+    border: 1px solid #333;
+    font-size: 12px;
+    float: right;
+    margin: 6px 20px 0 0;
+    text-indent: 4px;
+    padding: 2px 0 0 4px;
+    text-indent: 0px;
+}
+
+.CalculatedValue {
+    color: #C90000;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 5px 0 16px;
+}
+
+.Line {
+    height: 1px;
+    line-height: 1px;
+    font-size: 1px;
+    margin: 10px 5px;
+    border-bottom: 1px solid #333;
+}
+
+.OverviewCalc {
+    margin: 12px auto 14px auto;
+    font-size: 12px;
+}
+
+.InputLabel {
+    padding: 5px 0;
+    padding: 5px 0 0 0;
+    color: #E4E4E4;
+}
+
+.InputLabel div {
+    float: left;
+    margin: 11px 0 0 0;
+    text-align: right;
+    width: 155px;
+}
+
+.Estimated {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.Required {
+    font-size: 10px;
+    margin: 20px 10px 10px 0;
+    text-align: right;
+}
+
+.CalculatorLabel {
+    margin-top: 3px !important;
+    color: #E4E4E4;
+}
+
+.OverviewCalc, .Estimated, .Required {
+    color: #444;
+}
