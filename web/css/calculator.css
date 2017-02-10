@@ -56,6 +56,7 @@
 .InputLabel input {
     height: 24px;
     width: 120px;
+    color: #000000;
     border: 1px solid #333;
     font-size: 12px;
     float: right;
