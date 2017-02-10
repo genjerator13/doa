@@ -1,0 +1,6 @@
+{% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
+    <title>{{ seo.getTitle() }}</title>
+{% else %}
+    {# default meta title #}
+    <title>{{ title }}: {{ item.getTitle() }}</title>
+{% endif %}
