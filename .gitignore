@@ -15,7 +15,6 @@ web/bundles/*
 web/assetic/*
 web/media/*
 bin/*
-composer.lock
 
 # Configuration files
 app/config/parameters.ini

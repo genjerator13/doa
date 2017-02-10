@@ -1,0 +1,6 @@
+{% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
+    <meta name="keywords" content="{{ seo.getKeywords() }}"/>
+{% else %}
+    {# default meta description #}
+    {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+{% endif %}

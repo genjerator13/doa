@@ -1,0 +1,11 @@
+{% if item.getRetailPrice() is not empty and item.getRetailPrice()<item.getPrice() %}
+    <div class='retail_price'>
+        Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPrice() }}</span>
+    </div>
+{% endif %}
+{% if item.getPrice() is not empty and item.getPrice() > 0 %}
+    <div class="price">Selling Price: {{ item.getPriceString() }}</div>
+{% endif %}
+{% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}
+    <div class="price-quote">Contact Us For A Quote</div>
+{% endif %}
