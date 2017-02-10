@@ -245,15 +245,7 @@
                         {% endif %}
 
                     </div>
-                    <!-- Button trigger modal -->
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:epriceForm,id:"eprice",modalTitle:"Get Eprice"}) }}
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:offerForm,id:"offer",modalTitle:"Make an Offer"}) }}
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:financeForm,id:"finance",modalTitle:"Apply for Financing"}) }}
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:contactForm,id:"contact",modalTitle:"Contact Us"}) }}
-                    {{ include("NumaDOASiteBundle::listingFormTradeInModal.html.twig") }}
-                    {{ include("NumaDOASiteBundle:Item:loanCalc_new.html.twig",{price: item.price}) }}
-                    {{ include("NumaDOASiteBundle::listingFormModal.html.twig",{form:driveForm,id:"testdrive",modalTitle:"Test Drive"}) }}
+                    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
 
-                    <script type="text/javascript" src="{{ asset("js/listing_form.js") }}"></script>
                 {% endblock %}
 
