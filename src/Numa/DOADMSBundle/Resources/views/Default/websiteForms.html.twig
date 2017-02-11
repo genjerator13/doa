@@ -40,7 +40,11 @@
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% endif %}
                         </td>
-                        <td>{{ entity.cust_name }} {{ entity.cust_last_name }}</td>
+                        <td>
+                            <a href="{{ path('customer_edit', { 'id': entity.customer_id }) }}">
+                                {{ entity.cust_name }} {{ entity.cust_last_name }}
+                            </a>
+                        </td>
                         <td>{{ entity.email }}</td>
                         <td>{{ entity.date_created|date('Y-m-d') }}</td>
                         <td>
