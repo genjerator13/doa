@@ -326,14 +326,14 @@ liip_imagine:
             quality: 100
             filters:
                 relative_resize: { widen: 125 }    # Transforms 50x40 to 32x26
-        ad_300x250:
+        ad_350x265:
             quality: 100
             filters:
-                thumbnail: { size: [300, 250], mode: inbount }
-        ad_300x600:
+                thumbnail: { size: [350, 265], mode: inbount }
+        ad_350x555:
             quality: 100
             filters:
-                thumbnail: { size: [300, 600], mode: inbount }
+                thumbnail: { size: [350, 555], mode: inbount }
         sea_logo_home:
             quality: 100
             filters:
