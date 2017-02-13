@@ -283,4 +283,33 @@ class DMSSetting
     {
         return $this->sort_order;
     }
+    /**
+     * @var string
+     */
+    private $section;
+
+
+    /**
+     * Set section
+     *
+     * @param string $section
+     *
+     * @return DMSSetting
+     */
+    public function setSection($section)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return string
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
 }

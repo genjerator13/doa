@@ -1,0 +1,30 @@
+dmssetting:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:index" }
+
+dmssetting_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:show" }
+
+dmssetting_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:new" }
+
+dmssetting_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:create" }
+    requirements: { _method: post }
+
+dmssetting_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:edit" }
+
+dmssetting_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:update" }
+    requirements: { _method: post|put }
+
+dmssetting_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:DMSSetting:delete" }
+    requirements: { _method: post|delete }

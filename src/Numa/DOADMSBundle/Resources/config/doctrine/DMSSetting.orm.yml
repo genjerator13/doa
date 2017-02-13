@@ -43,3 +43,7 @@ Numa\DOADMSBundle\Entity\DMSSetting:
         sort_order:
             type: integer
             nullable: true
+        section:
+            type: string
+            length: 255
+            nullable: true
