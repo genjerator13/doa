@@ -16,6 +16,8 @@
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if item.getImage2() is defined and item.getImage2() is not empty %}
                         {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea', 350, 250) }}
+                    {% else %}
+                        {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
                     {% endif %}
                 </a>
             </div>
