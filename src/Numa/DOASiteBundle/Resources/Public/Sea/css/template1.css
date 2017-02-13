@@ -496,17 +496,21 @@ body {
 .searchSideBar{
     border: 1px solid black;
     min-height: 500px;
-    padding-top: 20px;
+    padding-top: 18px;
+}
+.searchSideBar .form-group{
+    margin-bottom: 13px;
 }
 
 .page_ads{
     margin-top: 20px;
     float: right;
+    width: 350px;
 }
 
 .page_ads .right-side-ads img{
-    margin-left: 10px;
-    margin-bottom: 15px;
+    /*margin-left: 10px;*/
+    margin-bottom: 22px;
 }
 
 .detailsContent .option-lists{
