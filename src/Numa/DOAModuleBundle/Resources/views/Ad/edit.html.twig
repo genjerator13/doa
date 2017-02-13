@@ -3,6 +3,7 @@
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Ad edit</h1>
 
     {{ form(edit_form) }}

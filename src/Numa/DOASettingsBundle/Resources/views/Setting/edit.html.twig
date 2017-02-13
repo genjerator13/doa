@@ -3,6 +3,7 @@
 : 'NumaDOAAdminBundle::layout.html.twig' %}
 {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
 {% block content %}
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <div class="box box-default">
         <h1>Setting edit</h1>
 
@@ -11,11 +12,11 @@
         <ul class="record_actions">
             <li>
                 {% if(app.request.get('_dashboard')=='DMS') %}
-                <a href="{{ path('dms_setting') }}" class="btn btn-default">
+                <a href="{{ path('dms_setting') }}" class="btn btn-primary">
                     Back to the list
                 </a>
                 {% else %}
-                <a href="{{ path('setting') }}" class="btn btn-default">
+                <a href="{{ path('setting') }}" class="btn btn-primary">
                     Back to the list
                 </a>
                 {% endif %}
