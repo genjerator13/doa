@@ -1,0 +1,65 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>DMSSetting</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ entity.type }}</td>
+            </tr>
+            <tr>
+                <th>String_value</th>
+                <td>{{ entity.stringvalue }}</td>
+            </tr>
+            <tr>
+                <th>Text_value</th>
+                <td>{{ entity.textvalue }}</td>
+            </tr>
+            <tr>
+                <th>Boolean_value</th>
+                <td>{{ entity.booleanvalue }}</td>
+            </tr>
+            <tr>
+                <th>Integer_value</th>
+                <td>{{ entity.integervalue }}</td>
+            </tr>
+            <tr>
+                <th>Double_value</th>
+                <td>{{ entity.doublevalue }}</td>
+            </tr>
+            <tr>
+                <th>Datetime_value</th>
+                <td>{{ entity.datetimevalue|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Sort_order</th>
+                <td>{{ entity.sortorder }}</td>
+            </tr>
+            <tr>
+                <th>Section</th>
+                <td>{{ entity.section }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+        <a href="{{ path('dmssetting') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+
+        <a href="{{ path('dmssetting_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            Edit
+        </a>
+
+{% endblock %}
