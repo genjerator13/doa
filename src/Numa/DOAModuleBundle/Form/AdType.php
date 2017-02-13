@@ -23,9 +23,20 @@ class AdType extends AbstractType
         $builder
             ->add('name')
             ->add('url')
-            ->add('start_date','date')
-            ->add('end_date','date')
-           // ->add('position','choice',)
+//            ->add('start_date','date')
+            ->add('start_date', 'date', array(
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'attr' => array('class' => 'datepicker')
+            ))
+//            ->add('end_date','date')
+            ->add('end_date', 'date', array(
+                'required' => false,
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+                'attr' => array('class' => 'datepicker')
+            ))
             ->add('position', 'choice', array(
                 'choices'  => array(
                     'leftside_ad' => 'Left Side',

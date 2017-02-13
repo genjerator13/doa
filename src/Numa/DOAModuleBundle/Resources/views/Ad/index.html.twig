@@ -6,11 +6,11 @@
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Ads list</h1>
     {% if(app.request.get('_dashboard')=='DMS') %}
-        <a href="{{ path('dms_ad_new') }}" class="btn btn-default">
+        <a href="{{ path('dms_ad_new') }}" class="btn btn-primary">
             Create a new entry
         </a>
     {% else %}
-        <a href="{{ path('ad_new') }}" class="btn btn-default">
+        <a href="{{ path('ad_new') }}" class="btn btn-primary">
             Create a new entry
         </a>
     {% endif %}

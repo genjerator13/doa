@@ -1,0 +1,61 @@
+    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content -%}
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">DMSSetting list</h3>
+        <div class="box-tools">
+            
+                        <a href="{{ path('dmssetting_new') }}" class="btn btn-primary">
+                            Create a new DMSSetting
+                        </a>
+                    </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>String_value</th>
+                <th>Text_value</th>
+                <th>Boolean_value</th>
+                <th>Integer_value</th>
+                <th>Double_value</th>
+                <th>Datetime_value</th>
+                <th>Sort_order</th>
+                <th>Section</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('dmssetting_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.stringvalue }}</td>
+                <td>{{ entity.textvalue }}</td>
+                <td>{{ entity.booleanvalue }}</td>
+                <td>{{ entity.integervalue }}</td>
+                <td>{{ entity.doublevalue }}</td>
+                <td>{% if entity.datetimevalue %}{{ entity.datetimevalue|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.sortorder }}</td>
+                <td>{{ entity.section }}</td>
+                <td><ul>
+        <li>
+            <a href="{{ path('dmssetting_show', { 'id': entity.id }) }}">show</a>
+        </li>
+        <li>
+            <a href="{{ path('dmssetting_edit', { 'id': entity.id }) }}">edit</a>
+        </li>
+</ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
