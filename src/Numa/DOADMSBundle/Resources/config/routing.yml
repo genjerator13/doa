@@ -117,3 +117,6 @@ NumaDOADMSBundle_help:
 dms_ads:
     resource: "@NumaDOADMSBundle/Resources/config/routing/ad.yml"
     prefix:   /ads
+NumaDOADMSBundle_dmssetting:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/dmssetting.yml"
+    prefix:   /dmssetting
