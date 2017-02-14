@@ -34,7 +34,6 @@ class ListingLib
 
     public function createListingByBillingTradeIn(Billing $billing)
     {
-//        dump($billing->getItem());die();
         if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
@@ -42,8 +41,6 @@ class ListingLib
 
             if (!$currentItem instanceof Item) {
                 $item = new Item();
-
-                //$item->set($entity->getTidKm());
                 $item->setCategory($billing->getItem()->getCategory());
                 $item->setMake($billing->getTidMake());
                 $item->setModel($billing->getTidModel());
@@ -77,26 +74,27 @@ class ListingLib
         }
         $securityContext = $this->container->get('security.authorization_checker');
 
-        if (($securityContext->isGranted('ROLE_ADMIN')) && ($item->getDealer()->getDmsStatus() == "activated") && ($item->getSold())) {
-
-        } else {
-            if ($item instanceof Item) {
-                foreach ($item->getItemField() as $itemField) {
-                    if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
-                        $web_path = $this->container->getParameter('web_path');
-                        $filename = $web_path . $itemField->getFieldStringValue();
-                        if (file_exists($filename) && is_file($filename)) {
-                            unlink($filename);
-                        }
-                        $em->remove($itemField);
+        if (!(($securityContext->isGranted('ROLE_ADMIN'))
+                && ($item->getDealer()->getDmsStatus() == "activated")
+                && ($item->getSold()))
+            && ($item instanceof Item)
+        ) {
+            foreach ($item->getItemField() as $itemField) {
+                if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
+                    $web_path = $this->container->getParameter('web_path');
+                    $filename = $web_path . $itemField->getFieldStringValue();
+                    if (file_exists($filename) && is_file($filename)) {
+                        unlink($filename);
                     }
+                    $em->remove($itemField);
                 }
-                $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
-                $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
-                $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
-                $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
             }
+            $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
+            $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
+            $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
+            $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
         }
+
     }
 
     public function decodeVin($vin)
@@ -214,7 +212,7 @@ class ListingLib
         }
     }
 
-    public function getProperty($item,$property)
+    public function getProperty($item, $property)
     {
         $function = $this->asFunction($property);
         $splitName = explode(":", $property);
@@ -231,7 +229,7 @@ class ListingLib
 
             if (strtolower($splitName[0]) == "billing") {
                 $em = $this->container->get('doctrine.orm.entity_manager');
-                $billing = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("Item"=>$item));
+                $billing = $em->getRepository('NumaDOADMSBundle:Billing')->findOneBy(array("Item" => $item));
 
                 if ($billing instanceof Billing) {
                     $function = $this->asFunction($splitName[1]);
@@ -247,30 +245,35 @@ class ListingLib
         }
     }
 
-    public function asFunction($property){
+    public function asFunction($property)
+    {
 
         $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($property));
         return $function;
     }
 
-    public function archiveItem($item){
+    public function archiveItem($item)
+    {
         $item = $this->getItem($item);
-        if($item instanceof Item) {
+        if ($item instanceof Item) {
             $item->setArchiveStatus('archived');
             $item->setArchivedDate(new \DateTime());
         }
     }
 
-    public function getItem($item){
+    public function getItem($item)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(is_numeric($item)) {
+        if (is_numeric($item)) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
         }
         return $item;
     }
-    public function setSoldDateItem($item){
+
+    public function setSoldDateItem($item)
+    {
         $item = $this->getItem($item);
-        if($item instanceof Item) {
+        if ($item instanceof Item) {
             $item->setSoldDate(new \DateTime());
         }
     }
@@ -301,15 +304,17 @@ class ListingLib
         return $desc;
     }
 
-    public function getMetaDescription(Item $item){
+    public function getMetaDescription(Item $item)
+    {
         return $item->getCurrentSellerComment();
     }
 
-    public function getMetaKeywords(Item $item){
+    public function getMetaKeywords(Item $item)
+    {
         $keywords = array();
         $keywords[] = $this->getMetaTitle($item);
 
 
-        return implode(",",$keywords);
+        return implode(",", $keywords);
     }
 }
