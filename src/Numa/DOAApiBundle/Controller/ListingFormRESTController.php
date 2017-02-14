@@ -48,7 +48,7 @@ class ListingFormRESTController extends Controller implements DealerSiteControll
      */
     public function byDealerAction($dealer_id)
     {
-        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id' => $dealer_id));
+        $listingForm = $this->getDoctrine()->getRepository('NumaDOADMSBundle:ListingForm')->findBy(array('dealer_id' => $dealer_id),array("id"=>"desc"));
         return $listingForm;
     }
 
