@@ -227,7 +227,7 @@
 
 </div>
 {% if dealer is defined and dealer.settingPurechat is not empty %}
-    {{ dealer.settingPurechat }}
+    {{ dealer.settingPurechat|raw }}
 {% endif %}
 </body>
 </html>
