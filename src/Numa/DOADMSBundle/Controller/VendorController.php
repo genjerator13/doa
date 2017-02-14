@@ -182,8 +182,8 @@ class VendorController extends Controller
             $entity->upload();
             $em->flush();
 
-            $this->addFlash("success","Vendor: ".$entity->getCompanyName()." successfully updated.");
-            return $this->redirect($this->generateUrl('vendor_edit', array('id' => $id)));
+            $this->addFlash("success","Vendor: #".$entity->getId()." successfully updated.");
+            return $this->redirect($this->generateUrl('vendor', array('id' => $id)));
         }
 
         return $this->render('NumaDOADMSBundle:Vendor:edit.html.twig', array(

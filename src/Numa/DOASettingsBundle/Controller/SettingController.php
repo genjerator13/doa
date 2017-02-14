@@ -209,6 +209,7 @@ class SettingController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->addFlash("success", "Setting: " . $entity->getName() . " successfully updated.");
             $redirect = 'setting_edit';
             if($dashboard =='DMS'){
                 $redirect = 'dms_setting_edit';

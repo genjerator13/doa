@@ -768,6 +768,7 @@ class DMSUser  implements UserInterface
     }
 
     public function getRoles() {
+
         if(!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
@@ -786,7 +787,7 @@ class DMSUser  implements UserInterface
             }elseif ($groupName == 'regular_admin') {
                 //return array('ROLE_REGULAR_ADMIN_DMS');
                 return array('ROLE_REGULAR_ADMIN_DMS','ROLE_DMS_USER', 'ROLE_BUSINES');
-            }elseif ($groupName == 'super_admin') {
+            }elseif ($groupName == 'admin') {
                 return array('ROLE_ADMIN');
             }elseif ($groupName == 'wholesale') {
                 return array('ROLE_WHOLESALE_DMS');
@@ -835,5 +836,58 @@ class DMSUser  implements UserInterface
             return $dealer->getUrl();
         }
         return "";
+    }
+    /**
+     * @var \Numa\DOADMSBundle\Entity\SupportForm
+     */
+    private $SupportForm;
+
+
+    /**
+     * Set supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     *
+     * @return DMSUser
+     */
+    public function setSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm = null)
+    {
+        $this->SupportForm = $supportForm;
+
+        return $this;
+    }
+
+    /**
+     * Get supportForm
+     *
+     * @return \Numa\DOADMSBundle\Entity\SupportForm
+     */
+    public function getSupportForm()
+    {
+        return $this->SupportForm;
+    }
+
+    /**
+     * Add supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     *
+     * @return DMSUser
+     */
+    public function addSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm)
+    {
+        $this->SupportForm[] = $supportForm;
+
+        return $this;
+    }
+
+    /**
+     * Remove supportForm
+     *
+     * @param \Numa\DOADMSBundle\Entity\SupportForm $supportForm
+     */
+    public function removeSupportForm(\Numa\DOADMSBundle\Entity\SupportForm $supportForm)
+    {
+        $this->SupportForm->removeElement($supportForm);
     }
 }
