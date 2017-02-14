@@ -24,7 +24,8 @@ class ItemDefaultType extends AbstractType
     {
         $builder
             ->add('default_listing_comment', 'ckeditor', array('label' => 'Default Listing Comment'))
-            ->add('fuel_economy', 'choice', array("choices" => array("mpg" => 'Miles per gallon (MPG)',"km/L" => "Kilometer per litre (km/L)", "L/100km" => "Liters per 100 kilometers (L/100km)")));
+            ->add('fuel_economy', 'choice', array("choices" => array("mpg" => 'Miles per gallon (MPG)',"km/L" => "Kilometer per litre (km/L)", "L/100km" => "Liters per 100 kilometers (L/100km)")))
+            ->add('setting_purechat', "textarea");
 
     }
 
