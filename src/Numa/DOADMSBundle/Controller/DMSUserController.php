@@ -233,7 +233,8 @@ class DMSUserController extends Controller
                     $entity->setPassword($encodedPassword);
                 }
                 $em->flush();
-
+                $this->addFlash("success", "User: " . $entity->getUsername() . " successfully updated.");
+                
                 return $this->redirect($this->generateUrl($redirectRoute, array('id' => $id)));
             }
 

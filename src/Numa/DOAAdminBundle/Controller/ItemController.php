@@ -573,6 +573,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $seo = $seoService->prepareSeo($entity, $seoPost);
 
             $em->flush();
+            $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated.");
 
             if ($form->getClickedButton() != null && $form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('sale_print_inside', array('id' => $entity->getId())));

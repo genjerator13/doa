@@ -3,6 +3,7 @@
 
 {% block content %}
 
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     <h1>Reminder edit</h1>
     <div class="nav-tabs-custom">
         <div class="tab-content">
@@ -11,7 +12,7 @@
 
 
                 <a href="{{ path('customer_edit', {'id': entity.customerId}) }}" class="btn btn-primary">
-                    Back to the list
+                    Back to the Customer edit
                 </a>
 
             </div>
