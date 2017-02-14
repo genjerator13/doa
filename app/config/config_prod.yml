@@ -12,6 +12,12 @@ imports:
 #        query_cache_driver: apc
 parameters:
     email_from: general@dealersonair.com
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+
 monolog:
     handlers:
         main:
