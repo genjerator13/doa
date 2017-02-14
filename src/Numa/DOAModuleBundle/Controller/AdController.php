@@ -308,6 +308,7 @@ class AdController extends Controller implements DashboardDMSControllerInterface
                 }
                 $entity->upload();
                 $em->flush();
+                $this->addFlash("success", "Ad: #" . $entity->getId() . " successfully updated.");
             }
             $redirect = 'ad_edit';
             if (strtoupper($this->dashboard) == 'DMS') {

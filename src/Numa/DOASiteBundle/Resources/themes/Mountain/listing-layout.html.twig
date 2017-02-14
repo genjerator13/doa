@@ -75,5 +75,8 @@
 <div id="loading-indicator" class="loading_info" style="">
     <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
 </div>
+{% if dealer is defined and dealer.settingPurechat is not empty %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
 </body>
 </html>

@@ -173,7 +173,9 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
-
+        setting_purechat:
+            type: text
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory

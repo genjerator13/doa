@@ -177,6 +177,7 @@ class ReminderController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
+            $this->addFlash("success", "Reminder: #" . $entity->getId() . " successfully updated.");
 
             return $this->redirect($this->generateUrl('reminder_edit', array('id' => $id)));
         }
