@@ -3,5 +3,8 @@ dms_sandbox_index:
     defaults: { _controller: "NumaDOADMSBundle:Sandbox:index" }
 dms_sandbox_oauth_redirect:
     path:     /oauth_redirect
-    defaults: { _controller: "NumaDOADMSBundle:Sandbox:index" }
+    defaults: { _controller: "NumaDOADMSBundle:Sandbox:oauth" }
 
+dms_sandbox_test:
+    path:     /test
+    defaults: { _controller: "NumaDOADMSBundle:Sandbox:test" }
