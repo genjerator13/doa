@@ -181,34 +181,42 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
+        $this->vinDecoderInsertion($item,$vindecoderItems);
 
+    }
+
+    public function vinDecoderInsertion($item,$vindecoderItems){
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                if (strtolower($itemVin) == "std.") {
-                    $criteria = new \Doctrine\Common\Collections\Criteria();
-                    $criteria->where(Criteria::expr()->eq("field_name", $key));
-                    $currentItemField = null;
-
-                    if (!empty($item->getItemField())) {
-                        $currentItemField = $item->getItemField()->matching($criteria);
-                    }
-                    if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
-                        //$currentItemField->first()->setFieldBooleanValue(true);
-
-                    } else {
-                        $if = new ItemField();
-                        $if->setFieldName($key);
-                        $if->setFieldType('boolean');
-                        $if->setFieldBooleanValue(true);
-                        $if->setFieldStringValue("true");
-                        $if->setFieldIntegerValue(1);
-                        $item->addItemField($if);
-                        $em->persist($if);
-                        //$em->flush($item);
-                    }
-                }
+                $this->vinDecoderInsertField($item,$itemVin,$key);
             }
+        }
+    }
 
+    public function vinDecoderInsertField($item, $itemVin,$key){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if (strtolower($itemVin) == "std.") {
+            $criteria = new \Doctrine\Common\Collections\Criteria();
+            $criteria->where(Criteria::expr()->eq("field_name", $key));
+            $currentItemField = null;
+
+            if (!empty($item->getItemField())) {
+                $currentItemField = $item->getItemField()->matching($criteria);
+            }
+            if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
+                //$currentItemField->first()->setFieldBooleanValue(true);
+
+            } else {
+                $if = new ItemField();
+                $if->setFieldName($key);
+                $if->setFieldType('boolean');
+                $if->setFieldBooleanValue(true);
+                $if->setFieldStringValue("true");
+                $if->setFieldIntegerValue(1);
+                $item->addItemField($if);
+                $em->persist($if);
+                //$em->flush($item);
+            }
         }
     }
 
@@ -218,7 +226,6 @@ class ListingLib
         $splitName = explode(":", $property);
         if (count($splitName) > 1) {
             if (strtolower($splitName[0]) == "sale") {
-
                 if ($item->getSale() instanceof Sale) {
                     $function = $this->asFunction($splitName[1]);
                     if (method_exists($item->getSale(), $function)) {
@@ -244,6 +251,10 @@ class ListingLib
             return $item->{$function}();
         }
     }
+
+
+
+
 
     public function asFunction($property)
     {
