@@ -1925,4 +1925,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->DealerSetting;
     }
+    /**
+     * @var string
+     */
+    private $setting_purechat;
+
+
+    /**
+     * Set settingPurechat
+     *
+     * @param string $settingPurechat
+     *
+     * @return Catalogrecords
+     */
+    public function setSettingPurechat($settingPurechat)
+    {
+        $this->setting_purechat = $settingPurechat;
+
+        return $this;
+    }
+
+    /**
+     * Get settingPurechat
+     *
+     * @return string
+     */
+    public function getSettingPurechat()
+    {
+        return $this->setting_purechat;
+    }
 }

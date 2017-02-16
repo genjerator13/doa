@@ -123,3 +123,6 @@ NumaDOADMSBundle_dmssetting:
 dms_sandbox:
     resource: "@NumaDOADMSBundle/Resources/config/routing/sandbox.yml"
     prefix:   /sandbox
+dms_quickbooks:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/quickbooks.yml"
+    prefix:   /qb

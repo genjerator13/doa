@@ -57,14 +57,13 @@ die();
 
         //$user = $server->getUserDetails($tokenCredentials);
         //dump($user);
-        $url = "https://sandbox-quickbooks.api.intuit.com/v3/company/123145730610364/account/1";
-        $url = "https://sandbox-quickbooks.api.intuit.com/v3/company/193514471433949/customer/1";
-        $client = $server->createHttpClient();
-
+        $url = "https://sandbox-quickbooks.api.intuit.com/v3/company/123145730610364/query?query=select%20%2A%20from%20customer";
+        //$url = "https://sandbox-quickbooks.api.intuit.com/v3/company/193514471433949/customer/1";
 
 
         $headers = $server->getHeaders($tokenCredentials, 'GET', $url);
         $headers['Accept'] = 'application/json';
+        //$buzz = $this->get("buzz")->get($url,$headers);
         $buzz = $this->get("buzz")->get($url,$headers);
         //dump($buzz->getContent());
         dump($tokenCredentials);
