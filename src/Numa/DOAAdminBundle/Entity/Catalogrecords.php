@@ -1954,4 +1954,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->setting_purechat;
     }
+    /**
+     * @var string
+     */
+    private $setting_ga;
+
+
+    /**
+     * Set settingGa
+     *
+     * @param string $settingGa
+     *
+     * @return Catalogrecords
+     */
+    public function setSettingGa($settingGa)
+    {
+        $this->setting_ga = $settingGa;
+
+        return $this;
+    }
+
+    /**
+     * Get settingGa
+     *
+     * @return string
+     */
+    public function getSettingGa()
+    {
+        return $this->setting_ga;
+    }
 }
