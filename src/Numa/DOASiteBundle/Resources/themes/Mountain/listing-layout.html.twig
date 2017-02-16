@@ -28,8 +28,6 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
-        {% include 'NumaDOASiteBundle::ga.html.twig' %}
-
         <script type="text/javascript">
             jQuery(document).ready(function () {
                 jQuery(".mobile-menu ul ul").hide();
@@ -43,6 +41,9 @@
     {% endblock %}
     {% block bodyBackground %}
         {% include "NumaDOASiteBundle::bodyBg.html.twig" %}
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
     {% endblock %}
 </head>
 
@@ -78,5 +79,6 @@
 {% if dealer is defined and dealer.settingPurechat is not empty %}
     {{ dealer.settingPurechat|raw }}
 {% endif %}
+
 </body>
 </html>
