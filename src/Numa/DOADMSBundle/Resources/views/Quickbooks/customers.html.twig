@@ -16,6 +16,7 @@
                         <th>Name</th>
                         <th>CompanyName</th>
                         <th>Email</th>
+                        <th>DMS Customer Link</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -36,6 +37,18 @@
                             <td>
                                 {% if customer.PrimaryEmailAddr is defined %}
                                     {{ customer.PrimaryEmailAddr.Address }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if(customer.dms_id is defined and customer.dms_id is not empty) %}
+                                    <a href="{{ path("customer_edit",{'id':customer.dms_id}) }}">
+                                        {% if customer.GivenName is defined and customer.FamilyName is defined %}
+                                            {{ customer.GivenName }} {{ customer.FamilyName }}
+                                        {% endif %}
+                                        {% if customer.CompanyName is defined %}
+                                            {{ customer.CompanyName }}
+                                        {% endif %}
+                                    </a>
                                 {% endif %}
                             </td>
                             <td>

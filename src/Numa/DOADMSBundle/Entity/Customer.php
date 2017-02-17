@@ -498,6 +498,10 @@ class Customer
     public function getDealer(){
         return $this->getCatalogrecords();
     }
+
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null){
+        return $this->setCatalogrecords($catalogrecords);
+    }
     /**
      * @ORM\PrePersist
      */

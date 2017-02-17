@@ -9,6 +9,7 @@
 namespace Numa\DOADMSBundle\Util;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -68,7 +69,7 @@ class QuickbooksLib
 
         if (!empty($customer)) {
             $em = $this->container->get('doctrine.orm.entity_manager');
-            $customerDMS = $em->getRepository(Customer::class)->findBy(array('qb_id' => $customer['Id']));
+            $customerDMS = $em->getRepository(Customer::class)->findOneBy(array('qb_id' => $customer['Id']));
 
             if (!$customerDMS instanceof Customer) {
                 $customerDMS = new Customer();
@@ -78,6 +79,11 @@ class QuickbooksLib
 //            foreach ($this->customerMap as $dmsprop => $qbprop) {
 //                $customerDMS->ge
 //            }
+
+            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+            if($dealer instanceof Catalogrecords){
+                $customerDMS->setDealer($dealer);
+            }
             if (!empty($customer['GivenName'])) {
                 $customerDMS->setFirstName($customer['GivenName']);
             }
