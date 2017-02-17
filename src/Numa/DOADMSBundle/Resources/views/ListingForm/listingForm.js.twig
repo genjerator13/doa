@@ -80,27 +80,53 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
 
     $scope.items = ['item1', 'item2', 'item3'];
-    $scope.selected = {};
+    $scope.selected = [];
 
     $scope.animationsEnabled = true;
 
     $scope.setDelete = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    i = 1
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data.splice(key - i, 1);
-                        i++;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                    angular.forEach(data, function (data, index) {
-                        data.index = index + 1;
-                        //data.push({"index":index+1})
-                    })
-                });
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            selected = $scope.selected.filter(function (element) {
+                return element !== undefined;
+            });
+            if (selected.length > 0) {
+                $http.post('{{ path("listingform_mass_delete") }}', {'data': JSON.stringify(selected)})
+                        .success(function (data) {
+                            i = 0;
+                            $log.log(selected);
+                            $log.log(selected.length + "aaaa");
+                            angular.forEach($scope.selected, function (value, key) {
+
+                                if(value!==undefined) {
+                                    $log.log(key + ': ' + value);
+                                    $scope.gridOptions.data.splice(key-i , 1);
+                                }
+                                i++;
+                            });
+                            $scope.selected = []
+                            $scope.gridApi.selection.clearSelectedRows();
+                            angular.forEach(data, function (data, index) {
+                                data.index = index + 1;
+                                //data.push({"index":index+1})
+                            })
+                        });
+            }
+        }, function () {
+            //cancel
+        });
     }
 
     var canceler = $q.defer();
@@ -123,17 +149,26 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
             var msg = 'row selected ' + row.isSelected;
 
-            $scope.selected[row.entity.index] = row.entity.id;
-            $log.log(row);
+
+            if(!row.isSelected){
+
+
+                $scope.selected[row.entity.index-1] = undefined;
+            }else{
+                $scope.selected[row.entity.index-1] = row.entity.id;
+            }
+            $log.log(row.entity);
+            console.log($scope.selected);
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
-            var msg = 'rows changed ' + rows.length;
-            $log.log(rows);
+
             angular.forEach(rows, function (value, key) {
                 $scope.selected[value.entity.index] = value.entity.id;
             });
-            console.log($scope.selected);
+            var msg = 'rows changed ' + rows.length;
+            $log.log(msg);
+            console.log($scope.selected.length);
         });
     };
 

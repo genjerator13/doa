@@ -55,6 +55,20 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.animationsEnabled = true;
 
     $scope.setDelete = function () {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
         selected = $scope.selected.filter(function (element) {
             return element !== undefined;
         });
@@ -80,6 +94,9 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         })
                     });
         }
+    }, function () {
+            //cancel
+        });
     }
 
     var canceler = $q.defer();
