@@ -74,24 +74,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         });
         if (selected.length > 0) {
             $http.post('{{ path("partrequest_mass_delete") }}', {'data': JSON.stringify(selected)})
-                    .success(function (data) {
-                        i = 0;
-                        $log.log(selected);
-                        $log.log(selected.length + "aaaa");
-                        angular.forEach($scope.selected, function (value, key) {
-
-                            if(value!==undefined) {
-                                $log.log(key + ': ' + value);
-                                $scope.gridOptions.data.splice(key-i , 1);
-                            }
-                            i++;
-                        });
-                        $scope.selected = []
-                        $scope.gridApi.selection.clearSelectedRows();
-                        angular.forEach(data, function (data, index) {
-                            data.index = index + 1;
-                            //data.push({"index":index+1})
-                        })
+                    .success(function () {
+                        apicall();
                     });
         }
     }, function () {
@@ -100,14 +84,17 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     }
 
     var canceler = $q.defer();
-    $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                angular.forEach(data, function (row, index) {
-                    row.index = index + 1;
-                })
-                $scope.gridOptions.data = data;
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    angular.forEach(data, function (row, index) {
+                        row.index = index + 1;
+                    })
+                    $scope.gridOptions.data = data;
 
-            });
+                });
+    };
+    apicall();
 
     $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
