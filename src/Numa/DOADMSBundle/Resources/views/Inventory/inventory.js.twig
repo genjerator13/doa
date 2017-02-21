@@ -268,43 +268,52 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     }
 
     $scope.setDelete = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    i = 1
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data.splice(key - i, 1);
-                        i++;
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
+            $http.post('{{ path("dms_item_delete") }}', {'data': JSON.stringify($scope.selected)})
+                    .success(function () {
+                        apicall();
                     });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                    angular.forEach(data, function (data, index) {
-                        data.index = index + 1;
-                        //data.push({"index":index+1})
-                    })
-                });
+        }, function () {
+            //cancel
+        });
     }
 
 
-
     var canceler = $q.defer();
-    $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                angular.forEach(data, function (row, index) {
 
-                    row.index = index + 1;
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    angular.forEach(data, function (row, index) {
 
-                    if (row.sold == 1) {
-                        row.sold = "Sold"
-                    } else {
-                        row.sold = "Not"
-                    }
+                        row.index = index + 1;
 
-                })
-                $scope.gridOptions.data = data;
+                        if (row.sold == 1) {
+                            row.sold = "Sold"
+                        } else {
+                            row.sold = "Not"
+                        }
 
-            });
+                    })
+                    $scope.gridOptions.data = data;
+
+                });
+    };
+    apicall();
 
     $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
