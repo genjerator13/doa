@@ -65,7 +65,9 @@
         "sensio/buzz-bundle": "dev-master",
         "league/oauth1-client": "^1.7",
         "wheniwork/oauth1-intuit": "^0.1.1",
-        "elliotchance/intuit-quickbooks": "dev-master"
+        "elliotchance/intuit-quickbooks": "dev-master",
+        "mediafigaro/google-analytics-api-symfony": "^1.0",
+        "google/apiclient": "^2.0"
     },
     "scripts": {
         "post-install-cmd": [
