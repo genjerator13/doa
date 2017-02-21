@@ -516,6 +516,8 @@ liip_theme:
     themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden']
     active_theme: 'Default'
     assetic_integration: true
+google_analytics_api:
+    google_analytics_json_key: "/home/genjerator/Downloads/My Project-5c94ecfcd7a7.json"
 
 #lsw_guzzle:
 #    clients:

@@ -1983,4 +1983,120 @@ class Catalogrecords implements UserInterface
     {
         return $this->setting_ga;
     }
+    /**
+     * @var string
+     */
+    private $qb_realm_id;
+
+    /**
+     * @var string
+     */
+    private $qb_identifier;
+
+    /**
+     * @var string
+     */
+    private $qb_token_credential;
+
+
+    /**
+     * Set qbRealmId
+     *
+     * @param string $qbRealmId
+     *
+     * @return Catalogrecords
+     */
+    public function setQbRealmId($qbRealmId)
+    {
+        $this->qb_realm_id = $qbRealmId;
+
+        return $this;
+    }
+
+    /**
+     * Get qbRealmId
+     *
+     * @return string
+     */
+    public function getQbRealmId()
+    {
+        return $this->qb_realm_id;
+    }
+
+    /**
+     * Set qbIdentifier
+     *
+     * @param string $qbIdentifier
+     *
+     * @return Catalogrecords
+     */
+    public function setQbIdentifier($qbIdentifier)
+    {
+        $this->qb_identifier = $qbIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Get qbIdentifier
+     *
+     * @return string
+     */
+    public function getQbIdentifier()
+    {
+        return $this->qb_identifier;
+    }
+
+    /**
+     * Set qbTokenCredential
+     *
+     * @param string $qbTokenCredential
+     *
+     * @return Catalogrecords
+     */
+    public function setQbTokenCredential($qbTokenCredential)
+    {
+        $this->qb_token_credential = $qbTokenCredential;
+
+        return $this;
+    }
+
+    /**
+     * Get qbTokenCredential
+     *
+     * @return string
+     */
+    public function getQbTokenCredential()
+    {
+        return $this->qb_token_credential;
+    }
+    /**
+     * @var string
+     */
+    private $qb_server;
+
+
+    /**
+     * Set qbServer
+     *
+     * @param string $qbServer
+     *
+     * @return Catalogrecords
+     */
+    public function setQbServer($qbServer)
+    {
+        $this->qb_server = $qbServer;
+
+        return $this;
+    }
+
+    /**
+     * Get qbServer
+     *
+     * @return string
+     */
+    public function getQbServer()
+    {
+        return $this->qb_server;
+    }
 }

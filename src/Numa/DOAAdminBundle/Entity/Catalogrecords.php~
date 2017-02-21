@@ -1954,4 +1954,120 @@ class Catalogrecords implements UserInterface
     {
         return $this->setting_purechat;
     }
+    /**
+     * @var string
+     */
+    private $setting_ga;
+
+
+    /**
+     * Set settingGa
+     *
+     * @param string $settingGa
+     *
+     * @return Catalogrecords
+     */
+    public function setSettingGa($settingGa)
+    {
+        $this->setting_ga = $settingGa;
+
+        return $this;
+    }
+
+    /**
+     * Get settingGa
+     *
+     * @return string
+     */
+    public function getSettingGa()
+    {
+        return $this->setting_ga;
+    }
+    /**
+     * @var string
+     */
+    private $qb_realm_id;
+
+    /**
+     * @var string
+     */
+    private $qb_identifier;
+
+    /**
+     * @var string
+     */
+    private $qb_token_credential;
+
+
+    /**
+     * Set qbRealmId
+     *
+     * @param string $qbRealmId
+     *
+     * @return Catalogrecords
+     */
+    public function setQbRealmId($qbRealmId)
+    {
+        $this->qb_realm_id = $qbRealmId;
+
+        return $this;
+    }
+
+    /**
+     * Get qbRealmId
+     *
+     * @return string
+     */
+    public function getQbRealmId()
+    {
+        return $this->qb_realm_id;
+    }
+
+    /**
+     * Set qbIdentifier
+     *
+     * @param string $qbIdentifier
+     *
+     * @return Catalogrecords
+     */
+    public function setQbIdentifier($qbIdentifier)
+    {
+        $this->qb_identifier = $qbIdentifier;
+
+        return $this;
+    }
+
+    /**
+     * Get qbIdentifier
+     *
+     * @return string
+     */
+    public function getQbIdentifier()
+    {
+        return $this->qb_identifier;
+    }
+
+    /**
+     * Set qbTokenCredential
+     *
+     * @param string $qbTokenCredential
+     *
+     * @return Catalogrecords
+     */
+    public function setQbTokenCredential($qbTokenCredential)
+    {
+        $this->qb_token_credential = $qbTokenCredential;
+
+        return $this;
+    }
+
+    /**
+     * Get qbTokenCredential
+     *
+     * @return string
+     */
+    public function getQbTokenCredential()
+    {
+        return $this->qb_token_credential;
+    }
 }

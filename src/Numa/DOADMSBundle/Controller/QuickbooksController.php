@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use \Numa\DOADMSBundle\Entity\Customer;
+use oasis\names\specification\ubl\schema\xsd\CommonAggregateComponents_2\CatalogueLine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,21 +17,26 @@ class QuickbooksController extends Controller
      */
     public function launchAction(Request $request)
     {
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        if($dealer instanceof Catalogrecords) {
+            if(empty($dealer->getQbServer())) {
+                $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
+                    'identifier' => $this->getParameter("qb_identifier"),
+                    'secret' => $this->getParameter("qb_secret"),
+                    'callback_uri' => $this->generateUrl("dms_quickbooks_oauth_redirect", array(), true),
+                ));
 
-        $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
-            'identifier'   => $this->getParameter("qb_identifier"),
-            'secret'       => $this->getParameter("qb_secret"),
-            'callback_uri' => $this->generateUrl("dms_quickbooks_oauth_redirect",array(),true),
-        ));
-
-        // Retrieve temporary credentials
-        $temporaryCredentials = $server->getTemporaryCredentials();
-        $this->get("session")->set("temporary_credentials",serialize($temporaryCredentials));
-        $this->get("session")->set("server",serialize($server));
+                // Retrieve temporary credentials
+                $temporaryCredentials = $server->getTemporaryCredentials();
+                $this->get("session")->set("temporary_credentials", serialize($temporaryCredentials));
+                $this->get("session")->set("server", serialize($server));
 //        dump($server);
 //        dump($temporaryCredentials);
 //        die();
-        $server->authorize($temporaryCredentials);
+                $dealer->setQbServer();
+            }
+            $server->authorize($temporaryCredentials);
+        }
         die();
         //$server = new \Wheniwork\OAuth1\Client\Server\Intuit()
 
@@ -40,25 +46,41 @@ class QuickbooksController extends Controller
     }
     public function oauthAction(Request $request)
     {
-        if (isset($_GET['oauth_token']) && isset($_GET['oauth_verifier'])) {
-            // Retrieve the temporary credentials we saved before
-            $temporaryCredentials = unserialize($this->get("session")->get("temporary_credentials"));
+        $oauth_token = $request->get('oauth_token');
+        $oauth_verifier = $request->get('oauth_verifier');
+        $realm_id = $request->get('realmId');
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
 
+        if(!empty($dealer->getQbTokenCredential())){
+            return $this->redirectToRoute("dms_quickbooks_index");
+        }
+
+        if (!empty($oauth_token) && !empty($oauth_verifier)) {
+
+
+
+            $server = $this->get("numa.dms.quickbooks")->getServer();
+
+            // Retrieve temporary credentials
+            $temporaryCredentials = $server->getTemporaryCredentials();
             // We will now retrieve token credentials from the server
-            $server = unserialize($this->get("session")->get('server'));
-
 
             $tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
 
-            $this->get("session")->set('token_credential',serialize($tokenCredentials));
-
+            //$this->get("session")->set('token_credential',serialize($tokenCredentials));
+            if($dealer instanceof Catalogrecords && !empty($realm_id)) {
+                $em = $this->getDoctrine()->getManager();
+                $dealer->setQbRealmId($realm_id);
+                $dealer->setQbTokenCredential(serialize($tokenCredentials));
+                $em->flush();
+            }
             return $this->redirectToRoute("dms_quickbooks_index");
         }
-die();
     }
 
     public function customersAction(){
-        $customers = $this->get("numa.dms.quickbooks")->callQueryApi("select * from customer ORDER BY Id DESC");
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $customers = $this->get("numa.dms.quickbooks")->callQueryApi($dealer,"select * from customer ORDER BY Id DESC");
 
         $customers = $customers['QueryResponse']['Customer'];
         $ids=array();

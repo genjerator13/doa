@@ -35,19 +35,20 @@ class QuickbooksLib
         $this->container = $container;
     }
 
-    public function callQueryApi($query, $format = "array")
+    public function callQueryApi($dealer,$query, $format = "array")
     {
 
         $urlSuffix = "query?query=" . urlencode($query);
-        return $this->callApi($urlSuffix, $format);
+        return $this->callApi($dealer, $urlSuffix, $format);
     }
 
-    public function callApi($urlSuffix, $format = "array")
+    public function callApi($dealer, $urlSuffix, $format = "array")
     {
-        $tokenCredentials = unserialize($this->container->get("session")->get('token_credential'));
-        $server = unserialize($this->container->get("session")->get('server'));
+        if($dealer instanceof Catalogrecords){}
+        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
+        $server = $this->getServer();
 
-        $url = self::sandboxUrl . $this->realmID . "/" . $urlSuffix;
+        $url = self::sandboxUrl . $dealer->getQbRealmId() . "/" . $urlSuffix;
 
         $headers = $server->getHeaders($tokenCredentials, 'GET', $url);
         $headers['Accept'] = 'application/json';
@@ -97,6 +98,16 @@ class QuickbooksLib
 
             $em->flush();
         }
+    }
+
+    public function getServer(){
+        $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
+            'identifier'   => $this->container->getParameter("qb_identifier"),
+            'secret'       => $this->container->getParameter("qb_secret"),
+            'callback_uri' => $this->container->get('router')->generate("dms_quickbooks_oauth_redirect",array(),true),
+        ));
+
+        return $server;
     }
 
 }
