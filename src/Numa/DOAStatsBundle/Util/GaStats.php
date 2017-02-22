@@ -16,13 +16,19 @@ class GaStats
         $this->container = $container;
     }
 
-    public function GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$dealer){
+    public function GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$dealer,$date){
 
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $entity = new \Numa\DOAStatsBundle\Entity\GaStats();
 
-        $entity->setDealer($dealer);
-
+        $entity = $em->getRepository('NumaDOAStatsBundle:GaStats')->FindByDateAndDealer(new \DateTime($date), $dealer);
+dump($entity instanceof \Numa\DOAStatsBundle\Entity\GaStats);die();
+        if(!($entity instanceof \Numa\DOAStatsBundle\Entity\GaStats)){
+            dump("A");
+            $entity = new \Numa\DOAStatsBundle\Entity\GaStats();
+            $em->persist($entity);
+            $entity->setDealer($dealer);
+        }
+        dump("B");
         $entity->setSessions($sessions);
         $entity->setBounceRate($bounceRate);
         $entity->setAvgTimeOnPage($avgTimeOnPage);
@@ -30,29 +36,32 @@ class GaStats
         $entity->setPercentNewVisits($percentNewVisits);
         $entity->setPageViews($pageViews);
         $entity->setAvgPageLoadTime($avgPageLoadTime);
+        $entity->setDateStats(new \DateTime($date));
 
-        $em->persist($entity);
         $em->flush();
 
     }
 
-    public function GaStats($dealer_id, $date)
+    public function GaStats($dealer_id, $date = 'today')
     {
+
         $em = $this->container->get('doctrine.orm.entity_manager');
+
+        $dateStart = date('Y-m-d', strtotime('-1 day', strtotime($date)));
 
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
         $analyticsService = $this->container->get('google_analytics_api.api');
         $analytics = $analyticsService->getAnalytics();
         $viewId = $dealer->getSettingGaView();
-        $sessions = $analyticsService->getSessionsDateRange($viewId,'1daysAgo','today');
-        $bounceRate = $analyticsService->getBounceRateDateRange($viewId,'1daysAgo','today');
-        $avgTimeOnPage = $analyticsService->getAvgTimeOnPageDateRange($viewId,'1daysAgo','today');
-        $pageViewsPerSession = $analyticsService->getPageviewsPerSessionDateRange($viewId,'1daysAgo','today');
-        $percentNewVisits = $analyticsService->getPercentNewVisitsDateRange($viewId,'1daysAgo','today');
-        $pageViews = $analyticsService->getPageViewsDateRange($viewId,'1daysAgo','today');
-        $avgPageLoadTime = $analyticsService->getAvgPageLoadTimeDateRange($viewId,'1daysAgo','today');
+        $sessions = $analyticsService->getSessionsDateRange($viewId,$dateStart,$date);
+        $bounceRate = $analyticsService->getBounceRateDateRange($viewId,$dateStart,$date);
+        $avgTimeOnPage = $analyticsService->getAvgTimeOnPageDateRange($viewId,$dateStart,$date);
+        $pageViewsPerSession = $analyticsService->getPageviewsPerSessionDateRange($viewId,$dateStart,$date);
+        $percentNewVisits = $analyticsService->getPercentNewVisitsDateRange($viewId,$dateStart,$date);
+        $pageViews = $analyticsService->getPageViewsDateRange($viewId,$dateStart,$date);
+        $avgPageLoadTime = $analyticsService->getAvgPageLoadTimeDateRange($viewId,$dateStart,$date);
 
-        $this->GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$dealer);
+        $this->GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$dealer,$date);
 
         die();
     }

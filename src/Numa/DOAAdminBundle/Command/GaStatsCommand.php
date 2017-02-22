@@ -29,8 +29,6 @@ class GaStatsCommand extends ContainerAwareCommand
         $param1 = $input->getArgument('param1');
         $param2 = $input->getArgument('param2');
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
         if ($command == 'gastats') {
             $this->GaStats($param1, $param2);
         }
