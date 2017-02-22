@@ -2099,4 +2099,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->qb_server;
     }
+    /**
+     * @var string
+     */
+    private $setting_ga_view;
+
+
+    /**
+     * Set settingGaView
+     *
+     * @param string $settingGaView
+     *
+     * @return Catalogrecords
+     */
+    public function setSettingGaView($settingGaView)
+    {
+        $this->setting_ga_view = $settingGaView;
+
+        return $this;
+    }
+
+    /**
+     * Get settingGaView
+     *
+     * @return string
+     */
+    public function getSettingGaView()
+    {
+        return $this->setting_ga_view;
+    }
 }
