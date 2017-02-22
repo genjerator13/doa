@@ -1,3 +1,6 @@
 numa_doa_stats_homepage:
     path:     /hello/{name}
     defaults: { _controller: NumaDOAStatsBundle:Default:index }
+google_analytics:
+    path:     /ga_stats
+    defaults: { _controller: NumaDOAStatsBundle:Default:getGaStats }

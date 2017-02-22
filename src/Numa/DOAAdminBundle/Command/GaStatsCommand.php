@@ -1,24 +1,49 @@
 <?php
 
-namespace Numa\DOAStatsBundle\Controller;
+namespace Numa\DOAAdminBundle\Command;
 
-use Guzzle\Http\Message\Request;
+
 use Numa\DOAStatsBundle\Entity\GaStats;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Validator\Constraints\NotNull;
 
-class DefaultController extends Controller
+class GaStatsCommand extends ContainerAwareCommand
 {
-    public function indexAction($name)
+
+    protected function configure()
     {
-        return $this->render('NumaDOAStatsBundle:Default:index.html.twig', array('name' => $name));
+        //set_error_handler( array( $this, 'myErrorHandler' ) );
+        $this
+            ->setName('numa:stats')
+            ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
+            ->addArgument('param1', InputArgument::OPTIONAL, 'param1');
+    }
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $command = $input->getArgument('function');
+        $param1 = $input->getArgument('param1');
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        if ($command == 'gastats') {
+            $this->GaStats($param1);
+        }
+//        elseif ($command == 'sold') {
+//            $this->setSoldDate();
+//        }
     }
 
-    public function setGaStats($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime){
-        $em = $this->getDoctrine()->getManager();
+    public function GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$param1){
 
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $entity = new GaStats();
 
-        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
+        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($param1);
+
         $entity->setDealer($dealer);
 
         $entity->setSessions($sessions);
@@ -33,7 +58,7 @@ class DefaultController extends Controller
         $em->flush();
 
     }
-    public function getGaStatsAction()
+    public function GaStats($param1)
     {
 //        $analyticsService = $this->get('google_analytics_api.api');
 //        $analytics = $analyticsService->getAnalytics();
@@ -47,13 +72,13 @@ class DefaultController extends Controller
 //// get some metrics (last 30 days, date format is yyyy-mm-dd)
 //        $sessions = $analyticsService->getSessionsDateRange($viewId,'30daysAgo','today');
         $analytics = $this->initializeAnalytics();
-        $response = $this->getReport($analytics);
+        $response = $this->report($analytics);
         //printResults($response);
 
 //        $this->printResults($response);
 
 
-        $analyticsService = $this->get('google_analytics_api.api');
+        $analyticsService = $this->getContainer()->get('google_analytics_api.api');
         $analytics = $analyticsService->getAnalytics();
         //dump($analytics);
         $viewId = '140601798';
@@ -66,7 +91,7 @@ class DefaultController extends Controller
         $pageViews = $analyticsService->getPageViewsDateRange($viewId,'1daysAgo','today');
         $avgPageLoadTime = $analyticsService->getAvgPageLoadTimeDateRange($viewId,'1daysAgo','today');
 
-        $this->setGaStats($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime);
+        $this->GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$param1);
 //        dump($sessions);
 //        dump($bounceRate);
 //        dump($avgTimeOnPage);
@@ -96,8 +121,9 @@ class DefaultController extends Controller
         $analytics = new \Google_Service_AnalyticsReporting($client);
 
         return $analytics;
+
     }
-    function getReport($analytics) {
+    function report($analytics) {
 
         // Replace with your view ID, for example XXXX.
         $VIEW_ID = "140601798";
@@ -120,6 +146,8 @@ class DefaultController extends Controller
 
         $body = new \Google_Service_AnalyticsReporting_GetReportsRequest();
         $body->setReportRequests( array( $request) );
+
         return $analytics->reports->batchGet( $body );
     }
+
 }
