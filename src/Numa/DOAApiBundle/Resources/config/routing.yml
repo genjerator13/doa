@@ -32,6 +32,9 @@ service_request_api:
 stats_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/stats.yml"
         prefix:   /stats
+ga_stats_api:
+        resource: "@NumaDOAApiBundle/Resources/config/routing/ga_stats.yml"
+        prefix:   /gastats
 page_api:
         resource: "@NumaDOAApiBundle/Resources/config/routing/page.yml"
         prefix:   /page

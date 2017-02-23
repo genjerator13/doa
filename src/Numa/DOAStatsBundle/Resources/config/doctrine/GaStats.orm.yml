@@ -46,6 +46,9 @@ Numa\DOAStatsBundle\Entity\GaStats:
             type: string
             length: 255
             nullable: true
+        date_stats:
+            type: datetime
+            nullable: true
         date_created:
             type: datetime
             nullable: true

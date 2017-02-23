@@ -517,7 +517,7 @@ liip_theme:
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:
-    google_analytics_json_key: "/home/genjerator/Downloads/My Project-5c94ecfcd7a7.json"
+    google_analytics_json_key: "%kernel.root_dir%/../app/data/My Project-5c94ecfcd7a7.json"
 
 #lsw_guzzle:
 #    clients:

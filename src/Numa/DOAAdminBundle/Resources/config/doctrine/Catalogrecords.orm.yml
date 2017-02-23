@@ -180,6 +180,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        setting_ga_view:
+            type: string
+            length: 255
+            nullable: true
         qb_realm_id:
             type: string
             length: 255
