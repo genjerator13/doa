@@ -39,7 +39,7 @@ class GaStats
         $em->flush();
     }
 
-    public function GaStats($dealer_id, $date = 'today')
+    public function GaStats($dealer_id, $date)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 

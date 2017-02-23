@@ -36,6 +36,10 @@ class GaStatsCommand extends ContainerAwareCommand
 
     public function GaStats($param1, $param2)
     {
+        if(empty($param2)){
+            $date = new \DateTime('today');
+            $param2 = $date->format("Y-m-d");
+        }
         $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($param1, $param2);
     }
 }
