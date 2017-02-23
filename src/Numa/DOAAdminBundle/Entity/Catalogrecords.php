@@ -2099,4 +2099,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->qb_server;
     }
+    /**
+     * @var string
+     */
+    private $qb_temp_token;
+
+
+    /**
+     * Set qbTempToken
+     *
+     * @param string $qbTempToken
+     *
+     * @return Catalogrecords
+     */
+    public function setQbTempToken($qbTempToken)
+    {
+        $this->qb_temp_token = $qbTempToken;
+
+        return $this;
+    }
+
+    /**
+     * Get qbTempToken
+     *
+     * @return string
+     */
+    public function getQbTempToken()
+    {
+        return $this->qb_temp_token;
+    }
 }

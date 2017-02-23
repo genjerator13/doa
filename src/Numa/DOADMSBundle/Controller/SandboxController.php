@@ -35,7 +35,8 @@ class SandboxController extends Controller
         //dump($analytics);
         $viewId = '140601798';
 // get some metrics (last 30 days, date format is yyyy-mm-dd)
-        $sessions = $analyticsService->getSessionsDateRange($viewId,'30daysAgo','today');
+        $sessions = $analyticsService->getSessionsDateRange($viewId,'yesterday','today');
+        $sessions2 = $analyticsService->getSessionsDateRange($viewId,'2daysAgo','yesterday');
         $bounceRate = $analyticsService->getBounceRateDateRange($viewId,'30daysAgo','today');
         $avgTimeOnPage = $analyticsService->getAvgTimeOnPageDateRange($viewId,'30daysAgo','today');
         $pageViewsPerSession = $analyticsService->getPageviewsPerSessionDateRange($viewId,'30daysAgo','today');
@@ -44,7 +45,7 @@ class SandboxController extends Controller
         $avgPageLoadTime = $analyticsService->getAvgPageLoadTimeDateRange($viewId,'30daysAgo','today');
 
         dump($sessions);
-        dump($bounceRate);
+        dump($sessions2);
         dump($avgTimeOnPage);
         dump($pageViewsPerSession);
         dump($percentNewVisits);

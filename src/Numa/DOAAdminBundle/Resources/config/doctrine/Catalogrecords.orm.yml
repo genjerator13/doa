@@ -195,6 +195,9 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
         qb_token_credential:
             type: text
             nullable: true
+        qb_temp_token:
+            type: text
+            nullable: true
         qb_server:
             type: text
             nullable: true

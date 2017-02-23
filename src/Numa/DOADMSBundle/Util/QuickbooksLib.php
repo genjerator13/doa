@@ -19,7 +19,7 @@ class QuickbooksLib
 {
     protected $container;
     const sandboxUrl = "https://sandbox-quickbooks.api.intuit.com/v3/company/";
-    public $realmID = "123145730610364";
+
     public $customerMap = array(
         'firstName' => 'GivenName',
         'lastName' => 'FamilyName',
@@ -46,7 +46,7 @@ class QuickbooksLib
     {
         if($dealer instanceof Catalogrecords){}
         $tokenCredentials = unserialize($dealer->getQbTokenCredential());
-        $server = $this->getServer();
+        $server = $this->getServer($dealer);
 
         $url = self::sandboxUrl . $dealer->getQbRealmId() . "/" . $urlSuffix;
 
@@ -77,10 +77,6 @@ class QuickbooksLib
                 $em->persist($customerDMS);
             }
 
-//            foreach ($this->customerMap as $dmsprop => $qbprop) {
-//                $customerDMS->ge
-//            }
-
             $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
             if($dealer instanceof Catalogrecords){
                 $customerDMS->setDealer($dealer);
@@ -100,13 +96,18 @@ class QuickbooksLib
         }
     }
 
-    public function getServer(){
-        $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
-            'identifier'   => $this->container->getParameter("qb_identifier"),
-            'secret'       => $this->container->getParameter("qb_secret"),
-            'callback_uri' => $this->container->get('router')->generate("dms_quickbooks_oauth_redirect",array(),true),
-        ));
-
+    public function getServer(Catalogrecords $dealer){
+        $server = unserialize($dealer->getQbServer());
+        if(empty($server)) {
+            $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
+                'identifier' => $this->container->getParameter("qb_identifier"),
+                'secret' => $this->container->getParameter("qb_secret"),
+                'callback_uri' => $this->container->get('router')->generate("dms_quickbooks_oauth_redirect", array(), true),
+            ));
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $dealer->setQbServer(serialize($server));
+            $em->flush();
+        }
         return $server;
     }
 

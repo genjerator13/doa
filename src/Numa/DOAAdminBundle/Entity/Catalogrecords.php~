@@ -2070,4 +2070,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->qb_token_credential;
     }
+    /**
+     * @var string
+     */
+    private $qb_server;
+
+
+    /**
+     * Set qbServer
+     *
+     * @param string $qbServer
+     *
+     * @return Catalogrecords
+     */
+    public function setQbServer($qbServer)
+    {
+        $this->qb_server = $qbServer;
+
+        return $this;
+    }
+
+    /**
+     * Get qbServer
+     *
+     * @return string
+     */
+    public function getQbServer()
+    {
+        return $this->qb_server;
+    }
 }
