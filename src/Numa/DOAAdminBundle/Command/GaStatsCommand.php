@@ -36,7 +36,6 @@ class GaStatsCommand extends ContainerAwareCommand
 
     public function GaStats($param1, $param2)
     {
-
         $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($param1, $param2);
     }
 }

@@ -21,14 +21,12 @@ class GaStats
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('NumaDOAStatsBundle:GaStats')->FindByDateAndDealer(new \DateTime($date), $dealer);
-dump($entity instanceof \Numa\DOAStatsBundle\Entity\GaStats);die();
+
         if(!($entity instanceof \Numa\DOAStatsBundle\Entity\GaStats)){
-            dump("A");
             $entity = new \Numa\DOAStatsBundle\Entity\GaStats();
             $em->persist($entity);
             $entity->setDealer($dealer);
         }
-        dump("B");
         $entity->setSessions($sessions);
         $entity->setBounceRate($bounceRate);
         $entity->setAvgTimeOnPage($avgTimeOnPage);
@@ -39,12 +37,10 @@ dump($entity instanceof \Numa\DOAStatsBundle\Entity\GaStats);die();
         $entity->setDateStats(new \DateTime($date));
 
         $em->flush();
-
     }
 
     public function GaStats($dealer_id, $date = 'today')
     {
-
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $dateStart = date('Y-m-d', strtotime('-1 day', strtotime($date)));
