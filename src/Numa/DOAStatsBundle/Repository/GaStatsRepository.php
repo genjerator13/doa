@@ -7,24 +7,29 @@ use Doctrine\ORM\EntityRepository;
 class GaStatsRepository extends EntityRepository
 {
 
-    public function getVisitorsByMonth()
+    public function getVisitorsByMonth($dealer_id, $todaysYear)
     {
         $sql = "SELECT SUM(sessions) as sessions ,
                 YEAR(`date_stats`) AS year,
                 month(`date_stats`) AS month
                 FROM `ga_stats`
+                WHERE dealer_id = $dealer_id
+                AND YEAR(`date_stats`) = $todaysYear
                 GROUP BY YEAR(`date_stats`) , month(`date_stats`)";
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $res;
     }
 
-    public function getVisitorsByDay()
+    public function getVisitorsByDay($dealer_id, $todaysYear, $todaysMonth)
     {
         $sql = "SELECT sessions,
                 YEAR(`date_stats`) AS year,
                 month(`date_stats`) AS month,
                 day(`date_stats`) AS day
                 FROM `ga_stats`
+                WHERE dealer_id = $dealer_id
+                AND YEAR(`date_stats`) = $todaysYear
+                AND month(`date_stats`) = $todaysMonth
                 GROUP BY YEAR(`date_stats`) , month(`date_stats`) , day(`date_stats`)";
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $res;

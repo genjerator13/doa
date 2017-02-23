@@ -16,24 +16,27 @@ class GaStatsRESTController extends Controller
      */
     public function monthAction()
     {
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByMonth();
-        $todaysDate = new \DateTime();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $todaysYear = intval(date_format(new \DateTime(), "Y"));
+
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByMonth($dealer->getId(), $todaysYear);
+
         foreach ($stats as $key => $value) {
-            if (intval($value['year']) === intval(date_format($todaysDate, "Y"))) {
-                $arr[] = array(intval($value['month']), intval($value['sessions']));
-            }
+            $arr[] = array(intval($value['month'] - 1), intval($value['sessions']));
         }
         return $arr;
     }
 
     public function dayAction()
     {
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay();
-        $todaysDate = new \DateTime();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $todaysYear = intval(date_format(new \DateTime(), "Y"));
+        $todaysMonth = intval(date_format(new \DateTime(), "n"));
+
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay($dealer->getId(), $todaysYear, $todaysMonth);
+
         foreach ($stats as $key => $value) {
-            if ((intval($value['month']) === intval(date_format($todaysDate, "n"))) && (intval($value['year']) === intval(date_format($todaysDate, "Y")))) {
-                $arr[] = array(intval($value['day']), intval($value['sessions']));
-            }
+            $arr[] = array(intval($value['day']), intval($value['sessions']));
         }
         return $arr;
     }
