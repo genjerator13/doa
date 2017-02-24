@@ -55,6 +55,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     $scope.animationsEnabled = true;
 
     $scope.setDelete = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
         var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
             templateUrl: 'myModalContent.html',
@@ -69,16 +75,12 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
 
         modalInstance.result.then(function (selectedItem) {
             //ok
-        selected = $scope.selected.filter(function (element) {
-            return element !== undefined;
-        });
-        if (selected.length > 0) {
+            $log.log(JSON.stringify($scope.selected));
             $http.post('{{ path("partrequest_mass_delete") }}', {'data': JSON.stringify(selected)})
                     .success(function () {
                         apicall();
                     });
-        }
-    }, function () {
+        }, function () {
             //cancel
         });
     }
@@ -105,10 +107,8 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //set gridApi on scope
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-            {#var msg = 'row selected ' + row.isSelected;#}
-            if(!row.isSelected){
-                $scope.selected[row.entity.index-1] = undefined;
-            }else{
+            $scope.selected[row.entity.index-1] = undefined;
+            if(row.isSelected){
                 $scope.selected[row.entity.index-1] = row.entity.id;
             }
         });
