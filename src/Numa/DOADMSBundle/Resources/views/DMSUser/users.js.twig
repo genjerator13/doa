@@ -38,12 +38,40 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnMenu: false,
             enableSorting: false,
             enableFiltering: false,
-            cellTemplate: '<ul class="list-inline"><li><a href="/dms/dmsuser/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i>Edit</a></li><li><a href="/dms/dmsuser/{[{row.entity.id}]}/delete" class="btn btn-danger" data-toggle="tooltip" title="Delete" data-confirm="Do you realy want to delete {[{row.entity.name}]} user?"><i class="glyphicon glyphicon-remove"></i>Delete</a></li></ul>'
+            cellTemplate: '<ul class="list-inline"><li><a href="/dms/dmsuser/{[{row.entity.id}]}/edit" class="btn btn-primary" data-toggle="tooltip" title="Edit"><i class="glyphicon glyphicon-edit"></i>Edit</a></li><li><a data-confirm="Are you sure, ?" ng-click="grid.appScope.delete(row)" class="btn btn-danger" title="Delete"><i class="glyphicon glyphicon-remove"></i>Delete</a></li></ul>'
         }
     ];
 
+    $scope.items = ['item1', 'item2', 'item3'];
+
     $scope.animationsEnabled = true;
 
+    $scope.delete = function (row) {
+        console.log(row.entity.id);
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+
+            $http.delete('/dms/dmsuser/' + row.entity.id + "/delete", {timeout: canceler.promise})
+                    .success(function (data) {
+                        var index = $scope.gridOptions.data.indexOf(row.entity);
+                        $scope.gridOptions.data.splice(index, 1);
+                    });
+        }, function () {
+            //cancel
+        });
+    }
 
     var canceler = $q.defer();
     $http.get('{{ apicall }}', {timeout: canceler.promise})

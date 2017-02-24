@@ -11,143 +11,144 @@
         </div>
     </div>
     <div class="box-body no-padding">
-            <div class="col-md-12">
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Unit Purchases This Month</h5><br>
-                                <span class="description-text">{{ stats.countPurchased }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Purchase Cost This Month</h5><br>
-                                <span class="description-text">${{ stats.totalPurchaseCost }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Sales This Month</h5><br>
-                                <span class="description-text">{{ stats.countSales }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Gross Sales This Month</h5><br>
-                                <span class="description-text">$ {{ stats.totalSaleGross }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Sales Cost This Month</h5><br>
-                                <span class="description-text">${{ stats.totalSaleCost }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Net Sales Rev. This Month</h5><br>
-                                <span class="description-text">${{ stats.totalSaleRevenue }}</span>
-                            </div>
+        <div class="col-md-12">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Unit Purchases This Month</h5><br>
+                            <span class="description-text">{{ stats.countPurchased }}</span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 saleStatsForm">
-                <form>
-                    Date From:
-                    <input type="date" class="datepicker" name="dateFrom" value="{{ stats.date_start }}"
-                           required="required">
-                    Date To:
-                    <input type="date" class="datepicker" name="dateTo" value="{{ stats.date_end }}"
-                           required="required">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Purchase Cost This Month</h5><br>
+                            <span class="description-text">${{ stats.totalPurchaseCost }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Sales This Month</h5><br>
+                            <span class="description-text">{{ stats.countSales }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Gross Sales This Month</h5><br>
+                            <span class="description-text">$ {{ stats.totalSaleGross }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Sales Cost This Month</h5><br>
+                            <span class="description-text">${{ stats.totalSaleCost }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Net Sales Rev. This Month</h5><br>
+                            <span class="description-text">${{ stats.totalSaleRevenue }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 saleStatsForm">
+            <form>
+                Date From:
+                <input type="date" class="datepicker" name="dateFrom" value="{{ stats.date_start }}"
+                       required="required">
+                Date To:
+                <input type="date" class="datepicker" name="dateTo" value="{{ stats.date_end }}"
+                       required="required">
 
-                    <button class="btn btn-success" type="submit" name="filter">Filter</button>
-                </form>
+                <button class="btn btn-success" type="submit" name="filter">Filter</button>
+            </form>
+        </div>
+        <div class="col-md-12">
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Unit Purchases This Year</h5><br>
+                            <span class="description-text">{{ stats.countPurchasedYear }}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-12">
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Unit Purchases This Year</h5><br>
-                                <span class="description-text">{{ stats.countPurchasedYear }}</span>
-                            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Purchase Cost This Year</h5><br>
+                            <span class="description-text">${{ stats.totalPurchaseCostYear }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Purchase Cost This Year</h5><br>
-                                <span class="description-text">${{ stats.totalPurchaseCostYear }}</span>
-                            </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Sales This Year</h5><br>
+                            <span class="description-text">{{ stats.countSalesYear }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Sales This Year</h5><br>
-                                <span class="description-text">{{ stats.countSalesYear }}</span>
-                            </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Gross Sales This Year</h5><br>
+                            <span class="description-text">$ {{ stats.totalSaleGrossYear }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Gross Sales This Year</h5><br>
-                                <span class="description-text">$ {{ stats.totalSaleGrossYear }}</span>
-                            </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Sales Cost This Year</h5><br>
+                            <span class="description-text">${{ stats.totalSaleCostYear }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Sales Cost This Year</h5><br>
-                                <span class="description-text">${{ stats.totalSaleCostYear }}</span>
-                            </div>
+            </div>
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
+                <div class="box box-success box-solid">
+                    <div class="box-body" style="display: block;">
+                        <div class="description-block border-right">
+                            <h5 class="description-header">Net Sales Rev. This Year</h5><br>
+                            <span class="description-text">${{ stats.totalSaleRevenueYear }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 clearfix">
-                    <div class="box box-success box-solid">
-                        <div class="box-body" style="display: block;">
-                            <div class="description-block border-right">
-                                <h5 class="description-header">Net Sales Rev. This Year</h5><br>
-                                <span class="description-text">${{ stats.totalSaleRevenueYear }}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
     </div>
-    <script>
-        $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
-    </script>
+</div>
+<script>
+    $('.datepicker').datepicker({dateFormat: 'yy-mm-dd'});
+</script>

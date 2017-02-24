@@ -432,6 +432,10 @@ parameters:
     google.captcha.url: https://www.google.com/recaptcha/api/siteverify
     google.captcha.secret: 6LcdLSoTAAAAACpaLQd60VZZg-duxcQh5y4TCQoe
     email_from: general@dealersonair.com
+    qb_identifier: qyprd5kDh2hG89BYGV3zawcxjF3srW
+    qb_secret: ysIIAnLN7z6XFi3mExYiVbOoPJnLB4UFoiWOPVIF
+
+
     #router.request_context.base_url: /
 gregwar_image: ~  
 endroid_qr_code:
@@ -512,6 +516,8 @@ liip_theme:
     themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden']
     active_theme: 'Default'
     assetic_integration: true
+google_analytics_api:
+    google_analytics_json_key: "%kernel.root_dir%/../app/data/My Project-5c94ecfcd7a7.json"
 
 #lsw_guzzle:
 #    clients:

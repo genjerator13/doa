@@ -27,4 +27,3 @@ reminder_update:
 reminder_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:Reminder:delete" }
-    requirements: { _method: post|delete }
