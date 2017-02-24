@@ -1,13 +1,13 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<div class="box box-danger" id="gaStats">
+<div class="box box-danger collapsed-box" id="gaStats">
     <div class="box-header with-border">
         <h3 class="box-title">Site Analytics</h3>
         <div class="box-tools pull-right">
-            <span class="label label-danger" id="msg"></span>
+            <span class="label label-warning" id="msg">Loading...</span>
             <button class="btn btn-box-tool" type="button" data-widget="collapse">
-                <i class="fa fa-minus" id="plus"></i>
+                <i class="fa fa-plus" id="minus"></i>
             </button>
             <button class="btn btn-box-tool" type="button" data-widget="remove">
                 <i class="fa fa-times"></i>
@@ -67,10 +67,14 @@
             options.series[0].data = data;
             var chart = new Highcharts.Chart(options);
         });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+            document.getElementById("gaStats").className = "box box-danger";
+            document.getElementById("minus").className = "fa fa-minus";
+        });
         jqxhr.fail(function() {
-            document.getElementById("msg").innerHTML = "Analytics EMPTY! ";
-            document.getElementById("gaStats").className += " collapsed-box";
-            document.getElementById("plus").className = "fa fa-plus";
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
         });
 
     });
@@ -127,10 +131,14 @@
             var chart = new Highcharts.Chart(options);
 
         });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+            document.getElementById("gaStats").className = "box box-danger";
+            document.getElementById("minus").className = "fa fa-minus";
+        });
         jqxhr.fail(function() {
-            document.getElementById("msg").innerHTML = "Analytics EMPTY! ";
-            document.getElementById("gaStats").className += " collapsed-box";
-            document.getElementById("plus").className = "fa fa-plus";
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
         });
 
     });
