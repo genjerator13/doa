@@ -274,6 +274,42 @@ Numa\DOADMSBundle\Entity\Sale:
         unit_tax_other:
             type: float
             nullable: true
+        sale_gst1:
+            type: float
+            nullable: true
+        sale_gst2:
+            type: float
+            nullable: true
+        sale_gst3:
+            type: float
+            nullable: true
+        sale_gst4:
+            type: float
+            nullable: true
+        sale_gst5:
+            type: float
+            nullable: true
+        sale_gst6:
+            type: float
+            nullable: true
+        sale_gst7:
+            type: float
+            nullable: true
+        sale_gst8:
+            type: float
+            nullable: true
+        sale_gst9:
+            type: float
+            nullable: true
+        sale_gst10:
+            type: float
+            nullable: true
+        sale_gst11:
+            type: float
+            nullable: true
+        sale_gst12:
+            type: float
+            nullable: true
     manyToOne:
         Vendor:
             targetEntity: Numa\DOADMSBundle\Entity\Vendor
