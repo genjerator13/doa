@@ -1,12 +1,13 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 
-<div class="box box-danger">
+<div class="box box-danger collapsed-box" id="gaStats">
     <div class="box-header with-border">
         <h3 class="box-title">Site Analytics</h3>
         <div class="box-tools pull-right">
+            <span class="label label-warning" id="msg">Loading...</span>
             <button class="btn btn-box-tool" type="button" data-widget="collapse">
-                <i class="fa fa-minus"></i>
+                <i class="fa fa-plus" id="minus"></i>
             </button>
             <button class="btn btn-box-tool" type="button" data-widget="remove">
                 <i class="fa fa-times"></i>
@@ -59,12 +60,21 @@
 
         };
 
-        $.getJSON('{{ path("ga_stats_api_month") }}', function (data) {
+        var jqxhr = $.getJSON('{{ path("ga_stats_api_month") }}', function (data) {
             var d = new Date();
             var n = d.getFullYear();
             options.series[0].name = n;
             options.series[0].data = data;
             var chart = new Highcharts.Chart(options);
+        });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+            document.getElementById("gaStats").className = "box box-danger";
+            document.getElementById("minus").className = "fa fa-minus";
+        });
+        jqxhr.fail(function() {
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
         });
 
     });
@@ -100,7 +110,7 @@
 
         };
 
-        $.getJSON('{{ path("ga_stats_api_day") }}', function (data) {
+        var jqxhr = $.getJSON('{{ path("ga_stats_api_day") }}', function (data) {
             var d = new Date();
             var month = new Array();
             month[0] = "Jan";
@@ -119,6 +129,16 @@
             options.series[0].name = n;
             options.series[0].data = data;
             var chart = new Highcharts.Chart(options);
+
+        });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+            document.getElementById("gaStats").className = "box box-danger";
+            document.getElementById("minus").className = "fa fa-minus";
+        });
+        jqxhr.fail(function() {
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
         });
 
     });

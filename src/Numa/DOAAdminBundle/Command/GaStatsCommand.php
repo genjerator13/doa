@@ -36,10 +36,25 @@ class GaStatsCommand extends ContainerAwareCommand
 
     public function GaStats($param1, $param2)
     {
-        if(empty($param2)){
-            $date = new \DateTime('today');
-            $param2 = $date->format("Y-m-d");
+        $em = $this->getContainer()->get('doctrine')->getManager();
+
+        if (empty($param2)) {
+            $todaysDate = new \DateTime('today');
+            $param2 = $todaysDate->format("Y-m-d");
         }
-        $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($param1, $param2);
+
+        if ($param1 === "all") {
+            $dealers = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findAll();
+            foreach($dealers as $dealer){
+                if(!empty($dealer->getSettingGaView())){
+                    $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($dealer, $param2);
+                }
+            }
+        } else{
+            $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($param1);
+            if(!empty($dealer->getSettingGaView())){
+                $this->getContainer()->get('Numa.Stats.GaStats')->GaStats($dealer, $param2);
+            }
+        }
     }
 }

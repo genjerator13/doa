@@ -44,8 +44,13 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findSeoByItem($item);
 
         $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>$item->getUrlDescription()),true);
+
         //get dealer
         $dealer = $item->getDealer();
+        $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
+        if($dealer !== $dealerFromHost){
+            throw $this->createNotFoundException('Listing not found!');
+        }
 
         //increase views and insert log
         $em->getRepository('NumaDOAAdminBundle:Item')->addView($itemId);
