@@ -36,10 +36,14 @@
                             <td>{{ entity.ReminderItem }}</td>
                             <td>{{ entity.Customer.salesPerson }}</td>
                             <td>
-                                <ul>
+                                <ul class="list-inline">
                                     <li>
                                         <a href="{{ path('reminder_edit', { 'id': entity.id }) }}"
                                            class="btn btn-primary">Edit</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('reminder_delete', { 'id': entity.id }) }}" data-confirm="Are you sure?"
+                                           class="btn btn-danger">Delete</a>
                                     </li>
                                 </ul>
                             </td>
@@ -50,4 +54,5 @@
             </div>
         {% endif %}
     </div>
+    {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}

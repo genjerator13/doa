@@ -20,7 +20,14 @@ class ListingFormDriveType extends AbstractType
             ->add('contact_by','choice',array('label'=>'Contact Me By *','choices'=>array('Email'=>'Email','Phone'=>'Phone')))
             ->add('email', null, array('label'=>'Email *', 'required' => true))
             ->add('phone')
-            ->add('date_drive', null, array('label'=>'Best Date *', 'required' => true,'years' => range(date('Y'), date('Y') +1)))
+            ->add('date_drive','date', array(
+                'label'=>'Best Date *',
+                'required' => true,
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')+1),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
+            ))
             ->add('type','hidden',array('data'=>'testdrive'))
             ->add('item_id','hidden')
 //            ->add('date_created')

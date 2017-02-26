@@ -12,6 +12,7 @@ namespace Numa\DOADMSBundle\Util;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -72,9 +73,13 @@ class ListingLib
         if (!$item instanceof Item) {
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
         }
+        if (!$item instanceof Item) {
+            return;
+        }
         $securityContext = $this->container->get('security.authorization_checker');
 
         if (!(($securityContext->isGranted('ROLE_ADMIN'))
+                && ($item->getDealer() instanceof Catalogrecords)
                 && ($item->getDealer()->getDmsStatus() == "activated")
                 && ($item->getSold()))
             && ($item instanceof Item)

@@ -197,17 +197,15 @@ class ReminderController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('NumaDOADMSBundle:Reminder')->find($id);
 
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Reminder entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Reminder entity.');
         }
+
+        $em->remove($entity);
+        $em->flush();
 
         return $this->redirect($this->generateUrl('reminder'));
     }

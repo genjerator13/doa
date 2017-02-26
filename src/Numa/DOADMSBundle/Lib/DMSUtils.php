@@ -9,6 +9,7 @@
 namespace Numa\DOADMSBundle\Lib;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
 use Numa\DOAModuleBundle\Entity\Page;
 
@@ -28,7 +29,11 @@ class DMSUtils
     public function attachCustomerByEmail($entity,$dealer,$email,$custName="",$custLastName="",$homePhone=""){
         $em = $this->container->get("doctrine.orm.entity_manager");
         if(!empty($email)) {
-            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $email, 'dealer_id' => $dealer->getId()));
+            $dealer_id=null;
+            if($dealer instanceof Catalogrecords){
+                $dealer_id=$dealer->getId();
+            }
+            $customer = $em->getRepository('NumaDOADMSBundle:Customer')->findOneBy(array('email' => $email, 'dealer_id' => $dealer_id));
 
             if(!empty($customer) && $customer->getStatus()=="deleted"){
                 $customer->setStatus(NULL);
