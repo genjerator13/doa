@@ -53,9 +53,9 @@ class QuickbooksController extends Controller
         $realm_id = $request->get('realmId');
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
 
-        if (!empty($dealer->getQbTokenCredential())) {
-            return $this->redirectToRoute("dms_quickbooks_index");
-        }
+//        if (!empty($dealer->getQbTokenCredential())) {
+//            return $this->redirectToRoute("dms_quickbooks_index");
+//        }
 
         if (!empty($oauth_token) && !empty($oauth_verifier)) {
 
