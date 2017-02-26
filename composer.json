@@ -67,7 +67,8 @@
         "wheniwork/oauth1-intuit": "^0.1.1",
         "elliotchance/intuit-quickbooks": "dev-master",
         "mediafigaro/google-analytics-api-symfony": "^1.0",
-        "google/apiclient": "^2.0"
+        "google/apiclient": "^2.0",
+        "consolibyte/quickbooks": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
