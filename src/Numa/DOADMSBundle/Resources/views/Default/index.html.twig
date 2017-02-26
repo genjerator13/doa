@@ -75,8 +75,12 @@
     {% include 'NumaDOADMSBundle:Default:reminders.html.twig' %}
 
     {% include 'NumaDOADMSBundle:Default:stats.html.twig' %}
-    
+
     {% if is_granted('ROLE_DMS_USER') or is_granted('ROLE_ADMIN') or is_granted('ROLE_DEALER_PRINCIPAL') %}
         {% include 'NumaDOADMSBundle:Default:saleStats.html.twig' %}
+    {% endif %}
+
+    {% if is_granted('ROLE_DMS_USER') and is_granted('ROLE_BUSINES') %}
+        {% include 'NumaDOADMSBundle:Default:googleAnalytics.html.twig' %}
     {% endif %}
 {% endblock %}

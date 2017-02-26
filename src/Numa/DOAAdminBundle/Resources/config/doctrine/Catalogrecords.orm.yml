@@ -180,6 +180,31 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        setting_ga_view:
+            type: string
+            length: 255
+            nullable: true
+        qb_realm_id:
+            type: string
+            length: 255
+            nullable: true
+        qb_identifier:
+            type: string
+            length: 255
+            nullable: true
+        qb_identifier:
+            type: string
+            length: 255
+            nullable: true
+        qb_token_credential:
+            type: text
+            nullable: true
+        qb_temp_token:
+            type: text
+            nullable: true
+        qb_server:
+            type: text
+            nullable: true
     manyToOne:
         Catalogcategory:
             targetEntity: Catalogcategory

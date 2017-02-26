@@ -188,7 +188,7 @@
         <td>{{ sale.other2 }}</td>
     </tr>
     <tr>
-        <td colspan="2"><h2>SALES COST RECAP</h2></td>
+        <td colspan="2"><h2>SALES COST RECAP</h2><p style="text-align: right; margin-right: 35px">GST Tax</p></td>
         <td><h2>TAXES</h2></td>
         <td></td>
         <td>
@@ -202,7 +202,7 @@
     </tr>
     <tr>
         <td>Protect PKG</td>
-        <td>{{ sale.protectPkg }}</td>
+        <td><div style="float:left">{{ sale.protectPkg }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst1 }}</div></td>
         <td>Tax 1 out</td>
         <td>{{ sale.tax1Out }}</td>
         <td>Total Revenue</td>
@@ -210,7 +210,7 @@
     </tr>
     <tr>
         <td>Warranty</td>
-        <td>{{ sale.warranty }}</td>
+        <td><div style="float:left">{{ sale.warranty }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst2 }}</div></td>
         <td>Tax 2 out</td>
         <td>{{ sale.tax2Out }}</td>
         <td width="165px"></td>
@@ -218,7 +218,7 @@
     </tr>
     <tr>
         <td>Doc Fees</td>
-        <td>{{ sale.docFees }}</td>
+        <td><div style="float:left">{{ sale.docFees }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst3 }}</div></td>
         <td>Unit tax other</td>
         <td>{{ sale.unitTaxOther }}</td>
         <td width="165px"></td>
@@ -226,7 +226,7 @@
     </tr>
     <tr>
         <td>Admin Fees</td>
-        <td>{{ sale.adminFees }}</td>
+        <td><div style="float:left">{{ sale.adminFees }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst4 }}</div></td>
         <td>Trade in tax</td>
         <td>{{ sale.tradeInTax }}</td>
         <td width="165px"></td>
@@ -234,7 +234,7 @@
     </tr>
     <tr>
         <td>Insurance</td>
-        <td>{{ sale.insurance }}</td>
+        <td><div style="float:left">{{ sale.insurance }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst5 }}</div></td>
         <td>Tax 1 In</td>
         <td>{{ sale.tax1In }}</td>
         <td width="165px"></td>
@@ -242,7 +242,7 @@
     </tr>
     <tr>
         <td>Life Ins</td>
-        <td>{{ sale.lifeIns }}</td>
+        <td><div style="float:left">{{ sale.lifeIns }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst6 }}</div></td>
         <td>Tax 2 In</td>
         <td>{{ sale.tax2In }}</td>
         <td width="165px"></td>
@@ -250,7 +250,7 @@
     </tr>
     <tr>
         <td>Disability Ins</td>
-        <td>{{ sale.disabilityIns }}</td>
+        <td><div style="float:left">{{ sale.disabilityIns }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst7 }}</div></td>
         <td>Net Tax</td>
         <td>{{ sale.netTax }}</td>
         <td width="165px"></td>
@@ -258,7 +258,7 @@
     </tr>
     <tr>
         <td>Feverse</td>
-        <td>{{ sale.feverse }}</td>
+        <td><div style="float:left">{{ sale.feverse }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst8 }}</div></td>
         <td width="165px"></td>
         <td width="165px"></td>
         <td width="165px"></td>
@@ -266,7 +266,7 @@
     </tr>
     <tr>
         <td>Misc 1</td>
-        <td>{{ sale.misc1 }}</td>
+        <td><div style="float:left">{{ sale.misc1 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst9 }}</div></td>
         <td width="165px"></td>
         <td width="165px"></td>
         <td width="165px"></td>
@@ -274,7 +274,7 @@
     </tr>
     <tr>
         <td>Misc 2</td>
-        <td>{{ sale.misc2 }}</td>
+        <td><div style="float:left">{{ sale.misc2 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst10 }}</div></td>
         <td width="165px"></td>
         <td width="165px"></td>
         <td width="165px"></td>
@@ -282,7 +282,7 @@
     </tr>
     <tr>
         <td>Misc 3</td>
-        <td>{{ sale.misc3 }}</td>
+        <td><div style="float:left">{{ sale.misc3 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst11 }}</div></td>
         <td width="165px"></td>
         <td width="165px"></td>
         <td width="165px"></td>
@@ -290,7 +290,7 @@
     </tr>
     <tr>
         <td>Sales Comms</td>
-        <td>{{ sale.salesComms }}</td>
+        <td><div style="float:left">{{ sale.salesComms }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst12 }}</div></td>
         <td width="165px"></td>
         <td width="165px"></td>
         <td width="165px"></td>

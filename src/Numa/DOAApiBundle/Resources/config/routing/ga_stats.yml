@@ -1,0 +1,12 @@
+ga_stats_api_month:
+    path:     /month.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:GaStatsREST:month",_format: "json"}
+    requirements: { _method: get }
+ga_stats_api_day:
+    path:     /day.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:GaStatsREST:day",_format: "json"}
+    requirements: { _method: get }
+ga_stats_api_test:
+    path:     /test.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:GaStatsREST:testdata",_format: "json"}
+    requirements: { _method: get }

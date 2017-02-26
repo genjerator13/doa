@@ -498,6 +498,10 @@ class Customer
     public function getDealer(){
         return $this->getCatalogrecords();
     }
+
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $catalogrecords = null){
+        return $this->setCatalogrecords($catalogrecords);
+    }
     /**
      * @ORM\PrePersist
      */
@@ -1068,5 +1072,34 @@ class Customer
     public function getStatus()
     {
         return $this->status;
+    }
+    /**
+     * @var integer
+     */
+    private $qb_id;
+
+
+    /**
+     * Set qbId
+     *
+     * @param integer $qbId
+     *
+     * @return Customer
+     */
+    public function setQbId($qbId)
+    {
+        $this->qb_id = $qbId;
+
+        return $this;
+    }
+
+    /**
+     * Get qbId
+     *
+     * @return integer
+     */
+    public function getQbId()
+    {
+        return $this->qb_id;
     }
 }

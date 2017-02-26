@@ -32,3 +32,6 @@ services:
     google.captcha:
         class: Numa\DOADMSBundle\Util\GoogleCaptchaLib
         arguments:  [@service_container]
+    numa.dms.quickbooks:
+        class: Numa\DOADMSBundle\Util\QuickbooksLib
+        arguments:  [@service_container]

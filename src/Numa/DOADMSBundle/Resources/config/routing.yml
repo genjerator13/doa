@@ -120,3 +120,9 @@ dms_ads:
 NumaDOADMSBundle_dmssetting:
     resource: "@NumaDOADMSBundle/Resources/config/routing/dmssetting.yml"
     prefix:   /dmssetting
+dms_sandbox:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/sandbox.yml"
+    prefix:   /sandbox
+dms_quickbooks:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/quickbooks.yml"
+    prefix:   /qb

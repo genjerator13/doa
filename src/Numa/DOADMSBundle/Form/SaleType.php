@@ -105,6 +105,18 @@ class SaleType extends AbstractType
             ->add('gst8',null,array('attr' => array('maxlength' => '10')))
             ->add('gst9',null,array('attr' => array('maxlength' => '10')))
             ->add('unit_tax_other')
+            ->add('sale_gst1',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst2',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst3',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst4',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst5',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst6',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst7',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst8',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst9',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst10',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst11',null,array('attr' => array('maxlength' => '10')))
+            ->add('sale_gst12',null,array('attr' => array('maxlength' => '10')))
             ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')));
 
         //->add('item_id','hidden')
