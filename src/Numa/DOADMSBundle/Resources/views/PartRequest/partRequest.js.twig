@@ -47,58 +47,55 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'part_num', enableColumnResizing: true, width: 100},
         {name: 'part_desc', enableColumnResizing: true, width: 100},
         {name: 'comment', enableColumnResizing: true, width: 100},
-
-        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
-        {name:'views',enableColumnResizing: true,width: 60},
-        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'_dealer.name',displayName:'Dealer'},
-        {
-            name:'sold',
-            enableColumnResizing: true,width: 50,
-            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },
-        {
-            name:'active',
-            enableColumnResizing: true,width: 60,
-            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },#}
-
     ];
 
     $scope.items = ['item1', 'item2', 'item3'];
-    $scope.selected = {};
+    $scope.selected = [];
 
     $scope.animationsEnabled = true;
 
     $scope.setDelete = function () {
-        $log.log(JSON.stringify($scope.selected));
-        $http.post('{{ path("partrequest_mass_delete") }}', {'data': JSON.stringify($scope.selected)})
-                .success(function (data) {
-                    i = 1
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data.splice(key - i, 1);
-                        i++;
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length > 0) {
+            $http.post('{{ path("partrequest_mass_delete") }}', {'data': JSON.stringify(selected)})
+                    .success(function () {
+                        apicall();
                     });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                    angular.forEach(data, function (data, index) {
-                        data.index = index + 1;
-                        //data.push({"index":index+1})
-                    })
-                });
+        }
+    }, function () {
+            //cancel
+        });
     }
 
     var canceler = $q.defer();
-    $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                angular.forEach(data, function (row, index) {
-                    row.index = index + 1;
-                })
-                $scope.gridOptions.data = data;
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    $scope.selected = [];
+                    angular.forEach(data, function (row, index) {
+                        row.index = index + 1;
+                    })
+                    $scope.gridOptions.data = data;
 
-            });
+                });
+    };
+    apicall();
 
     $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
@@ -108,19 +105,21 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //set gridApi on scope
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-            var msg = 'row selected ' + row.isSelected;
-
-            $scope.selected[row.entity.index] = row.entity.id;
-            $log.log(row);
+            {#var msg = 'row selected ' + row.isSelected;#}
+            if(!row.isSelected){
+                $scope.selected[row.entity.index-1] = undefined;
+            }else{
+                $scope.selected[row.entity.index-1] = row.entity.id;
+            }
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
-            var msg = 'rows changed ' + rows.length;
-            $log.log(rows);
             angular.forEach(rows, function (value, key) {
-                $scope.selected[value.entity.index] = value.entity.id;
+                $scope.selected[value.entity.index-1] =undefined;
+                if(value.isSelected) {
+                    $scope.selected[value.entity.index-1] = value.entity.id;
+                }
             });
-            console.log($scope.selected);
         });
     };
 

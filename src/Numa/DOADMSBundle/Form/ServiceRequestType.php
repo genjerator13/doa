@@ -20,7 +20,13 @@ class ServiceRequestType extends AbstractType
             ->add('contact_by','choice',array('label'=>'Contact Me By','choices'=>array('Email','Phone')))
             ->add('email', 'email', array('label'=>'Email *', 'required' => true))
             ->add('phone', null, array('label'=>'Phone *', 'required' => true))
-            ->add('date_appointment','date', array('label'=>'Preferred Appointment Date'))
+            ->add('date_appointment','date', array(
+                'label'=>'Preferred Appointment Date',
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')+1),
+                'months' => range(date('m'), 12),
+                'days' => range(date('d'), 31),
+            ))
             ->add('time_appointment','time', array('label'=>'Preferred Appointment Time'))
             ->add('make', null, array('label'=>'Make *', 'required' => true))
             ->add('model', null, array('label'=>'Model *', 'required' => true))
