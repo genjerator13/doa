@@ -1,0 +1,68 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">QuickBook Customers list</h3>
+
+        </div>
+        {% if customers is empty %}
+            <div>No QuickBook Customers</div>
+        {% else %}
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>CompanyName</th>
+                        <th>Email</th>
+                        <th>DMS Customer Link</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for customer in customers %}
+                        <tr {% if(customer.dms_id is defined and customer.dms_id is not empty) %}class="warning"{% endif %}>
+                            <td>{{ customer.Id }}</td>
+                            <td>
+                                {% if customer.GivenName is defined and customer.FamilyName is defined %}
+                                    {{ customer.GivenName }} {{ customer.FamilyName }}
+                                {% endif %}
+                            </td>
+
+                            <td>{% if customer.CompanyName is defined %}
+                                    {{ customer.CompanyName }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if customer.PrimaryEmailAddr is defined %}
+                                    {{ customer.PrimaryEmailAddr.Address }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if(customer.dms_id is defined and customer.dms_id is not empty) %}
+                                    <a href="{{ path("customer_edit",{'id':customer.dms_id}) }}">
+                                        {% if customer.GivenName is defined and customer.FamilyName is defined %}
+                                            {{ customer.GivenName }} {{ customer.FamilyName }}
+                                        {% endif %}
+                                        {% if customer.CompanyName is defined %}
+                                            {{ customer.CompanyName }}
+                                        {% endif %}
+                                    </a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if(customer.dms_id is defined and customer.dms_id is not empty) %}
+                                    <a class="btn btn-warning" href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Update Customer</a>
+                                {% else %}
+                                    <a class="btn btn-primary" href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Add customer to DMS</a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

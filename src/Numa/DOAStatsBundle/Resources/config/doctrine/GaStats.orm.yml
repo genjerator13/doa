@@ -1,0 +1,68 @@
+Numa\DOAStatsBundle\Entity\GaStats:
+    type: entity
+    table: ga_stats
+    repositoryClass: Numa\DOAStatsBundle\Repository\GaStatsRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+            nullable: true
+        sessions:
+            type: string
+            length: 255
+            nullable: true
+        sessions:
+            type: string
+            length: 255
+            nullable: true
+        bounceRate:
+            type: string
+            length: 255
+            nullable: true
+        avgTimeOnPage:
+            type: string
+            length: 255
+            nullable: true
+        pageViewsPerSession:
+            type: string
+            length: 255
+            nullable: true
+        percentNewVisits:
+            type: string
+            length: 255
+            nullable: true
+        pageViews:
+            type: string
+            length: 255
+            nullable: true
+        avgPageLoadTime:
+            type: string
+            length: 255
+            nullable: true
+        other:
+            type: string
+            length: 255
+            nullable: true
+        date_stats:
+            type: datetime
+            nullable: true
+        date_created:
+            type: datetime
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: GaStats
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]

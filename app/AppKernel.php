@@ -56,6 +56,8 @@ class AppKernel extends Kernel {
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
+            new MediaFigaro\GoogleAnalyticsApi\GoogleAnalyticsApi(),
+
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
