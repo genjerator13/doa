@@ -148,34 +148,6 @@ class SandboxController extends Controller
         return $analytics->reports->batchGet( $body );
     }
 
-    function printResults($reports) {
-        for ( $reportIndex = 0; $reportIndex < count( $reports ); $reportIndex++ ) {
-            $report = $reports[ $reportIndex ];
-            $header = $report->getColumnHeader();
-            $dimensionHeaders = $header->getDimensions();
-            $metricHeaders = $header->getMetricHeader()->getMetricHeaderEntries();
-            $rows = $report->getData()->getRows();
-
-            for ( $rowIndex = 0; $rowIndex < count($rows); $rowIndex++) {
-                $row = $rows[ $rowIndex ];
-                $dimensions = $row->getDimensions();
-                $metrics = $row->getMetrics();
-                for ($i = 0; $i < count($dimensionHeaders) && $i < count($dimensions); $i++) {
-                    print($dimensionHeaders[$i] . ": " . $dimensions[$i] . "\n");
-                }
-
-                for ($j = 0; $j < count( $metricHeaders ) && $j < count( $metrics ); $j++) {
-                    $entry = $metricHeaders[$j];
-                    $values = $metrics[$j];
-                    print("Metric type: " . $entry->getType() . "\n" );
-                    for ( $valueIndex = 0; $valueIndex < count( $values->getValues() ); $valueIndex++ ) {
-                        $value = $values->getValues()[ $valueIndex ];
-                        print($entry->getName() . ": " . $value . "\n");
-                    }
-                }
-            }
-        }
-    }
 
 
     public function oauthAction(Request $request)
@@ -200,49 +172,5 @@ class SandboxController extends Controller
 die();
     }
 
-    public function testAction(){
-        $tokenCredentials = unserialize($this->get("session")->get('token_credential'));
-        $server = unserialize($this->get("session")->get('server'));
-
-        //$user = $server->getUserDetails($tokenCredentials);
-        //dump($user);
-        $url = "https://sandbox-quickbooks.api.intuit.com/v3/company/123145730610364/query?query=select%20%2A%20from%20customer";
-        //$url = "https://sandbox-quickbooks.api.intuit.com/v3/company/193514471433949/customer/1";
-
-
-        $headers = $server->getHeaders($tokenCredentials, 'GET', $url);
-        $headers['Accept'] = 'application/json';
-        //$buzz = $this->get("buzz")->get($url,$headers);
-        $buzz = $this->get("buzz")->get($url,$headers);
-        //dump($buzz->getContent());
-        dump($tokenCredentials);
-        dump($buzz);
-        die();
-        return new JsonResponse(json_decode($buzz->getContent()));
-        die();
-        $response = $client->get($url, [
-            'headers' => $headers,
-        ]);
-        $content = $response->getBody()->getContents();
-        $json = json_decode((string) $response->getBody(), true);
-        $xml =  simplexml_load_string((string) $response->getBody());
-        $xml2 =  ((string) $response->getBody());
-dump($xml2);
-        die();
-        $fileContents = str_replace(array("\n", "\r", "\t"), '', $xml);
-
-        $fileContents = trim(str_replace('"', "'", $fileContents));
-
-        $simpleXml = simplexml_load_string($fileContents);
-        //dump($simpleXml);
-        $json = json_encode($xml);
-        //dump($json);
-        //dump($xml);
-        //$obj = json_decode($content);
-        //dump($obj);
-        //dump($content);
-        return new JsonResponse($json);
-
-    }
-
+   
 }

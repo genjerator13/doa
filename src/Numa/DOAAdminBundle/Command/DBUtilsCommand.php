@@ -17,10 +17,9 @@ use Symfony\Component\DependencyInjection\SimpleXMLElement;
 
 class DBUtilsCommand extends ContainerAwareCommand
 {
-
+    protected $command_log;
     protected function configure()
     {
-        //set_error_handler( array( $this, 'myErrorHandler' ) );
         $this
             ->setName('numa:dbutil')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
@@ -28,7 +27,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             ->setDescription('fix listing fields table');
     }
 
-    function makeListingFromTemp()
+    public function makeListingFromTemp()
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
         $custom = $em->getConnection()->prepare('SELECT * from listing_field_list_temp');
@@ -124,7 +123,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         //die("aaaaa");
     }
 
-    function myErrorHandler($errno, $errstr, $errfile, $errline)
+    public function myErrorHandler($errno, $errstr, $errfile, $errline)
     {
 
         $errorFullDetail = "Error: [$errno] $errstr<br />$errfile : $errline\n";
@@ -135,8 +134,6 @@ class DBUtilsCommand extends ContainerAwareCommand
         $this->em->clear();
         dump($errorFullDetail);
         exit(1);
-        //}
-        return true;
     }
 
     public function fetchFeed($id, $em)
@@ -145,7 +142,6 @@ class DBUtilsCommand extends ContainerAwareCommand
             $logger = $this->getContainer()->get('logger');
             $this->em = $em;
             error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
-            //set_error_handler(array($this, "myErrorHandler"), E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED);
             $conn = $em->getConnection();
 
             $this->commandLog = new CommandLog();
@@ -154,9 +150,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->commandLog->setStatus('started');
 
             $this->commandLog->setCommand($this->getName() . " fetchFeed " . $id);
-            //$logger->warning("FETCH FEED ".$this->getName() . " fetchFeed " . $id);
             $this->em->persist($this->commandLog);
-            //dump($this->commandLog);
             $this->em->flush();
             $logger->warning("FETCH FEED: Flush init command log");
             $memcache = $this->getContainer()->get('mymemcache');
