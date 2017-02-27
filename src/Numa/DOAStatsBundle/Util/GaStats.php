@@ -39,16 +39,17 @@ class GaStats
         $em->flush();
     }
 
-    public function GaStats($dealer_id, $date)
+    public function GaStats($dealer, $date)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         $dateStart = date('Y-m-d', strtotime('-1 day', strtotime($date)));
 
-        $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($dealer_id);
         $analyticsService = $this->container->get('google_analytics_api.api');
         $analytics = $analyticsService->getAnalytics();
+
         $viewId = $dealer->getSettingGaView();
+
         $sessions = $analyticsService->getSessionsDateRange($viewId,$dateStart,$date);
         $bounceRate = $analyticsService->getBounceRateDateRange($viewId,$dateStart,$date);
         $avgTimeOnPage = $analyticsService->getAvgTimeOnPageDateRange($viewId,$dateStart,$date);
@@ -59,6 +60,5 @@ class GaStats
 
         $this->GaStatsToDB($sessions,$bounceRate,$avgTimeOnPage,$pageViewsPerSession,$percentNewVisits,$pageViews,$avgPageLoadTime,$dealer,$date);
 
-        die();
     }
 }

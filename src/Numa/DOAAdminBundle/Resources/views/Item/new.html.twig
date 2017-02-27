@@ -467,20 +467,20 @@
                             </button>
                         </li>
 
-                        {% if(not is_granted('ROLE_BUSINES')) %}
+                        {% if(not is_granted('ROLE_NODMS_USER')) %}
                             {% if(app.request.get('_dashboard')=='DMS') %}
                                 {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE4_DMS') %}
                                     <a href="{{ path('inventory_view') }}" class="btn btn-default">
-                                        Back to the list without saving
+                                        Back to the Inventory list
                                     </a>
                                 {% else %}
                                     <a href="{{ path('inventory') }}" class="btn btn-default">
-                                        Back to the list without saving
+                                        Back to the Inventory list
                                     </a>
                                 {% endif %}
                             {% else %}
                                 <a href="{{ path('items') }}" class="btn btn-default">
-                                    Back to the list without saving
+                                    Back to the Inventory list
                                 </a>
                             {% endif %}
                         {% endif %}

@@ -80,7 +80,5 @@
         {% include 'NumaDOADMSBundle:Default:saleStats.html.twig' %}
     {% endif %}
 
-    {% if is_granted('ROLE_DMS_USER') and is_granted('ROLE_BUSINES') %}
-        {% include 'NumaDOADMSBundle:Default:googleAnalytics.html.twig' %}
-    {% endif %}
+    {% include 'NumaDOADMSBundle:Default:googleAnalytics.html.twig' %}
 {% endblock %}

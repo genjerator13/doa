@@ -26,8 +26,8 @@ class SaleType extends AbstractType
                 'label' => "Vendor", "required" => false
             ))
             ->add('sales_person')
-            ->add('stock_nr')
-            ->add('vin')
+            ->add('stock_nr',null,array('label'=>"Stock #"))
+            ->add('vin',null,array('label'=>"VIN #"))
             ->add('invoice_nr')
             ->add('invoice_date', 'date', array(
                 'required' => false,

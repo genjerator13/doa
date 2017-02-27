@@ -1,12 +1,16 @@
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
+{#<script src="https://code.highcharts.com/highcharts.js"></script>#}
+{#<script src="https://code.highcharts.com/modules/exporting.js"></script>#}
 
-<div class="box box-danger">
+<script type="text/javascript" src="{{ asset("js/highcharts.js") }}"></script>
+<script type="text/javascript" src="{{ asset("js/highcharts1.js") }}"></script>
+
+<div class="box box-danger" id="gaStats">
     <div class="box-header with-border">
         <h3 class="box-title">Site Analytics</h3>
         <div class="box-tools pull-right">
+            <span class="label label-warning" id="msg">Loading...</span>
             <button class="btn btn-box-tool" type="button" data-widget="collapse">
-                <i class="fa fa-minus"></i>
+                <i class="fa fa-minus" id="minus"></i>
             </button>
             <button class="btn btn-box-tool" type="button" data-widget="remove">
                 <i class="fa fa-times"></i>
@@ -18,7 +22,7 @@
             <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
         <div class="col-md-6">
-            <div id="container1" style="min-width: 310px; height: 400px; margin: 0px auto"></div>
+            <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
     </div>
 </div>
@@ -59,12 +63,21 @@
 
         };
 
-        $.getJSON('{{ path("ga_stats_api_month") }}', function (data) {
+        var jqxhr = $.getJSON('{{ path("ga_stats_api_month") }}', function (data) {
             var d = new Date();
             var n = d.getFullYear();
             options.series[0].name = n;
             options.series[0].data = data;
             var chart = new Highcharts.Chart(options);
+        });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+        });
+        jqxhr.fail(function() {
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
+            document.getElementById("gaStats").className += " collapsed-box";
+            document.getElementById("minus").className = "fa fa-plus";
         });
 
     });
@@ -100,7 +113,7 @@
 
         };
 
-        $.getJSON('{{ path("ga_stats_api_day") }}', function (data) {
+        var jqxhr = $.getJSON('{{ path("ga_stats_api_day") }}', function (data) {
             var d = new Date();
             var month = new Array();
             month[0] = "Jan";
@@ -119,6 +132,16 @@
             options.series[0].name = n;
             options.series[0].data = data;
             var chart = new Highcharts.Chart(options);
+
+        });
+        jqxhr.success(function() {
+            document.getElementById("msg").innerHTML = "";
+        });
+        jqxhr.fail(function() {
+            document.getElementById("msg").innerHTML = "Analytics EMPTY!";
+            document.getElementById("msg").className = "label label-danger";
+            document.getElementById("gaStats").className += " collapsed-box";
+            document.getElementById("minus").className = "fa fa-plus";
         });
 
     });
