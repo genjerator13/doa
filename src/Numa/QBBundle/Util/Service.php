@@ -64,9 +64,8 @@ class Service
         $this->quickbooksMenuUrl = 'http://doa.local/dms/quickbooks/menu';
 
 // This is a database connection string that will be used to store the OAuth credentials
-// $dsn = 'pgsql://username:password@hostname/database';
-// $dsn = 'mysql://username:password@hostname/database';
-        $dsn = 'mysqli://root:root@localhost/qb';
+
+        $dsn = 'mysqli://'.$this->container->getParameter("database_user").':'.$this->container->getParameter("database_password").'@localhost/'.$this->container->getParameter("database_name");
 
 // You should set this to an encryption key specific to your app
         $encryption_key = 'bcde1234';
@@ -134,22 +133,6 @@ class Service
             // No, they are not
             $this->isConnected = false;
         }
-//        $return =  array(
-//            'quickbooks_is_connected'=>$quickbooks_is_connected,
-//            'quickbooks_oauth_url'=>$quickbooks_oauth_url,
-//            'quickbooks_success_url'=>$quickbooks_success_url,
-//            'quickbooks_menu_url'=>$quickbooks_menu_url,
-//            //'CompanyInfoService'=>$quickbooks_CompanyInfo,
-//            //'realm'=>$realm,
-//            'IntuitAnywhere'=>$IntuitAnywhere,
-//            'the_tenant'=>$the_tenant,
-//            'the_username'=>$the_username,
-//            );
-//        if(!empty($quickbooks_CompanyInfo)){
-//            $return['CompanyInfoService'] = $quickbooks_CompanyInfo;
-//            $return['realm'] = $realm;
-//            $return['Context'] = $Context;
-//        }
         return $this;
     }
 
@@ -215,6 +198,4 @@ class Service
     {
         return $this->quickbooksSuccessUrl;
     }
-
-
 }

@@ -30,13 +30,12 @@ class GaStatsRESTController extends Controller
     public function dayAction()
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $todaysYear = intval(date_format(new \DateTime(), "Y"));
-        $todaysMonth = intval(date_format(new \DateTime(), "n"));
+        $day = new \DateTime();
 
-        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay($dealer->getId(), $todaysYear, $todaysMonth);
-
+        $stats = $this->getDoctrine()->getRepository('NumaDOAStatsBundle:GaStats')->getVisitorsByDay($dealer->getId(), $day,"-31days");
+        $i=1;
         foreach ($stats as $key => $value) {
-            $arr[] = array(intval($value['day']), intval($value['sessions']));
+            $arr[] = array(substr($value['date_stats'],0,10), intval($value['sessions']));
         }
         return $arr;
     }
