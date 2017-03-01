@@ -58,40 +58,31 @@
             <h3 class="box-title">Archived Inventory list</h3>
 
             <div class="box-tools">
-                {#{% if(app.request.get('_dashboard')=='DMS') %}#}
-                    {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}#}
-                        {#<a href="{{ path('dms_additem') }}" class="btn btn-primary">#}
-                            {#Create new Inventory#}
-                        {#</a>#}
-                    {#{% endif %}#}
-                {#{% else %}#}
-                    {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE@_DMS') %}#}
-                        {#<a href="{{ path('additem') }}" class="btn btn-primary">#}
-                            {#Create new Inventory#}
-                        {#</a>#}
-                    {#{% endif %}#}
-                {#{% endif %}#}
             </div>
         </div>
     </div>
 
     <div class="box-body table-responsive no-padding" ng-app="app">
-
         <div ng-controller="MainCtrl">
-            {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}#}
-                {#<button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>#}
-                {#<button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>#}
-            {#{% endif %}#}
-            {#{% if(is_granted("ROLE_ADMIN")) %}#}
-                {#<button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>#}
-            {#{% endif %}#}
-            {#{% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}#}
-                <button type="button" class="btn btn-success" ng-click="setRecover()">Recover</button>
-                {#<button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>#}
-            {#{% endif %}#}
+            <script type="text/ng-template" id="myModalContent.html">
+                <div ui-grid="row.entity.subGridOptions" style="height:150px;"></div>
+            </script>
+            <script type="text/ng-template" id="myModalContent.html">
+                <div class="modal-header">
+                    <h3 class="modal-title">Please confirm</h3>
+                </div>
+                <div class="modal-body">
+                    <h4 class="modal-title">Are you sure you want to recover?</h4>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                    <button class="btn btn-danger" type="button" ng-click="cancel()">Cancel</button>
+                </div>
+            </script>
+
+            <button type="button" class="btn btn-success" ng-click="setRecover()">Recover</button>
+
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
     </div>
-
-    {#{% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}#}
 {% endblock %}
