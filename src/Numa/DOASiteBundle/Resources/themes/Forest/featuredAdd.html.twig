@@ -7,13 +7,13 @@
                 {% set desc = item.getUrlDescription() %}
                 <a class="col-md-4 featured-ads-item text-center" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
 
-
                     {% set image = item.getImages2()|first %}
+                    {{ image.sortOrder }}
                     {% if images is empty %}
                         <img class="" alt="No photos"
                              src="{{ asset('images/no_image_available_small.png') }}"/>
                     {% else %}
-                        {% set image = item.getImages()|first["stringvalue"] %}
+                        {% set image = image.fieldStringValue %}
                         {% if ('http' not in image) %}
                             <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}"
                                  src="{{ image|imagine_filter('featured_forest') }}"/>
