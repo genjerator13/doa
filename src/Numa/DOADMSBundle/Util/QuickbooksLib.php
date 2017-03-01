@@ -18,13 +18,7 @@ use Numa\DOADMSBundle\Entity\Sale;
 class QuickbooksLib
 {
     protected $container;
-    const sandboxUrl = "https://sandbox-quickbooks.api.intuit.com/v3/company/";
 
-    public $customerMap = array(
-        'firstName' => 'GivenName',
-        'lastName' => 'FamilyName',
-        'name' => 'CompanyName',
-    );
 
     /**
      * ListingFormHandler constructor.
@@ -35,131 +29,60 @@ class QuickbooksLib
         $this->container = $container;
     }
 
-    public function callQueryApi($dealer,$query, $format = "array")
-    {
+    public function insertItem(Item $item){
+        $param = $this->get("numa.quickbooks")->init();
 
-        $urlSuffix = "query?query=" . urlencode($query);
-        return $this->callApi($dealer, $urlSuffix, $format);
-    }
+        $itemService = new \QuickBooks_IPP_Service_Item();
 
-    public function callApi($dealer, $urlSuffix, $format = "array")
-    {
-        if($dealer instanceof Catalogrecords){}
-        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
-        $server = $this->getServer($dealer);
+        $qbItem = new \QuickBooks_IPP_Object_Item();
+        $qbItem->setName();
+        $Customer->setTitle('Ms');
+        $Customer->setGivenName('Sha333nnon');
+        $Customer->setMiddleName('B333');
+        $Customer->setFamilyName('Palme343r');
+        $Customer->setDisplayName('Shann343on B Palmer ' . mt_rand(0, 1000));
 
-        $url = self::sandboxUrl . $dealer->getQbRealmId() . "/" . $urlSuffix;
+// Terms (e.g. Net 30, etc.)
+        $Customer->setSalesTermRef(4);
 
-        $headers = $server->getHeaders($tokenCredentials, 'GET', $url);
-        $headers['Accept'] = 'application/json';
+// Phone #
+        $PrimaryPhone = new \QuickBooks_IPP_Object_PrimaryPhone();
+        $PrimaryPhone->setFreeFormNumber('860-532-0089');
+        $Customer->setPrimaryPhone($PrimaryPhone);
 
-        $buzz = $this->container->get("buzz")->get($url, $headers);
-        $return = "";
-        if ($format == 'array') {
-            $return = json_decode($buzz->getContent(), true);
-        } elseif ($format == 'json') {
-            $return = $buzz->getContent();
-        } else {
-            throw new \Exception("Wrong format Exception");
+// Mobile #
+        $Mobile = new \QuickBooks_IPP_Object_Mobile();
+        $Mobile->setFreeFormNumber('860-53432-0033489');
+        $Customer->setMobile($Mobile);
+
+// Fax #
+        $Fax = new \QuickBooks_IPP_Object_Fax();
+        $Fax->setFreeFormNumber('860-53sdf2-0089df');
+        $Customer->setFax($Fax);
+
+// Bill address
+        $BillAddr = new \QuickBooks_IPP_Object_BillAddr();
+        $BillAddr->setLine1('72 E Blue Grass Road');
+        $BillAddr->setLine2('Suite D');
+        $BillAddr->setCity('Mt Pleasant');
+        $BillAddr->setCountrySubDivisionCode('MI');
+        $BillAddr->setPostalCode('48858');
+        $Customer->setBillAddr($BillAddr);
+
+// Email
+        $PrimaryEmailAddr = new \QuickBooks_IPP_Object_PrimaryEmailAddr();
+        $PrimaryEmailAddr->setAddress('suppdfgdfgort@consodfgdgfdfgblibyte.com');
+        $Customer->setPrimaryEmailAddr($PrimaryEmailAddr);
+
+        if ($resp = $CustomerService->add($param['Context'], $param['realm'], $Customer))
+        {
+            print('Our new customer ID is: [' . $resp . '] (name "' . $Customer->getDisplayName() . '")');
         }
-        return $return;
-    }
-
-    public function insertCustomerFromQB($customer)
-    {
-
-        if (!empty($customer)) {
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $customerDMS = $em->getRepository(Customer::class)->findOneBy(array('qb_id' => $customer['Id']));
-
-            if (!$customerDMS instanceof Customer) {
-                $customerDMS = new Customer();
-                $em->persist($customerDMS);
-            }
-
-            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
-            if($dealer instanceof Catalogrecords){
-                $customerDMS->setDealer($dealer);
-            }
-            if (!empty($customer['GivenName'])) {
-                $customerDMS->setFirstName($customer['GivenName']);
-            }
-            if (!empty($customer['FamilyName'])) {
-                $customerDMS->setLastName($customer['FamilyName']);
-            }
-            if (!empty($customer['CompanyName'])) {
-                $customerDMS->setName($customer['CompanyName']);
-            }
-            $customerDMS->setQbId($customer['Id']);
-
-            $em->flush();
+        else
+        {
+            print($CustomerService->lastError($param['Context']));
         }
-    }
-
-    public function getServer(Catalogrecords $dealer){
-        $server = unserialize($dealer->getQbServer());
-        if(empty($server)) {
-            $server = new \Wheniwork\OAuth1\Client\Server\Intuit(array(
-                'identifier' => $this->container->getParameter("qb_identifier"),
-                'secret' => $this->container->getParameter("qb_secret"),
-                'callback_uri' => $this->container->get('router')->generate("dms_quickbooks_oauth_redirect", array(), true),
-            ));
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $dealer->setQbServer(serialize($server));
-            $em->flush();
-        }
-        return $server;
-    }
-
-    public function createCustomer($format="json"){
-        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
-
-        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
-        $server = $this->getServer($dealer);
-        dump($server);
-        $url = self::sandboxUrl . $dealer->getQbRealmId() . "/customer";
-        $testJson = "{
-    \"BillAddr\": {
-        \"Line1\": \"123 Main Street\",
-        \"City\": \"Mountain View\",
-        \"Country\": \"USA\",
-        \"CountrySubDivisionCode\": \"CA\",
-        \"PostalCode\": \"94042\"
-    },
-    \"Notes\": \"Here are other details.\",
-    \"Title\": \"Mr\",
-    \"GivenName\": \"James\",
-    \"MiddleName\": \"B\",
-    \"FamilyName\": \"King\",
-    \"Suffix\": \"Jr\",
-    \"FullyQualifiedName\": \"King Groceries\",
-    \"CompanyName\": \"King Groceries\",
-    \"DisplayName\": \"King's Groceries\",
-    \"PrimaryPhone\": {
-        \"FreeFormNumber\": \"(555) 555-5555\"
-    },
-    \"PrimaryEmailAddr\": {
-        \"Address\": \"jdrew@myemail.com\"
-    }
-}";
-        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
-        $headers = $server->getHeaders($tokenCredentials, 'POST', $url);
-        $headers['Accept'] = 'application/json';
-        //$headers['Body'] = $testJson;
-
-        $buzz = $this->container->get("buzz")->post($url, $headers,$testJson);
-        dump($url);
-        dump($headers);
-        dump($buzz);
-        $return = "";
-        if ($format == 'array') {
-            $return = json_decode($buzz->getContent(), true);
-        } elseif ($format == 'json') {
-            $return = $buzz->getContent();
-        } else {
-            throw new \Exception("Wrong format Exception");
-        }
-        return $return;
+        return $this->render('NumaQBBundle:Default:customers.html.twig', array('customers' => $customers,'c'=>$Customer));
     }
 
 }
