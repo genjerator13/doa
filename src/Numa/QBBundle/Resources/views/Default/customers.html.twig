@@ -1,0 +1,11 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <div>
+        {% for customer in customers %}
+
+            Customer Id={{ customer.getId()}}  is named: {{ customer.getFullyQualifiedName()}} <br>
+        {% endfor %}
+        {{ dump(c) }}
+    </div>
+{% endblock %}

@@ -303,9 +303,9 @@ class ItemRepository extends EntityRepository
             $dealers = implode(",", $dealer_id);
         }
 
-        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id GROUP BY i.id ORDER BY i.id DESC";
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status <> 'archived' or i.archive_status is null GROUP BY i.id ORDER BY i.id DESC";
         if (!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id where i.dealer_id in (" . $dealers . ") GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.dealer_id in (" . $dealers . ") AND (i.archive_status <> 'archived' or i.archive_status is null) GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
@@ -944,11 +944,11 @@ SET i.cover_photo = iif.field_string_value";
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
-            ->Where('i.sold_date IS NOT NULL')
-            ->andWhere('i.archive_status <> :archiveStatus')
+            ->Where('i.archive_status <> :archiveStatus or i.archive_status is null')
             ->setParameter("archiveStatus", 'archived')
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
+            ->andWhere('i.sold_date IS NOT NULL')
             ->andWhere('i.sold_date < :date')
             ->setParameter("date", new \DateTime($period));
 

@@ -138,11 +138,19 @@ class ExtraListener
 
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-
         if ($event->getException() instanceof NotFoundHttpException) {
 
+            $requestUri = $event->getRequest()->getRequestUri();
+
             $request = new \Symfony\Component\HttpFoundation\Request();
-            $request->attributes->set('_controller', 'NumaDOASiteBundle:Default:error404');
+
+            if(substr($requestUri, 0, 5 ) === '/dms/'){
+                $request->attributes->set('_controller', 'NumaDOASiteBundle:Default:error404DMS');
+            }
+            else{
+                $request->attributes->set('_controller', 'NumaDOASiteBundle:Default:error404');
+            }
+
             $controller = $this->controller_resolver->getController($request);
 
             $path['_controller'] = $controller;
