@@ -57,7 +57,7 @@ class AppKernel extends Kernel {
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Sensio\Bundle\BuzzBundle\SensioBuzzBundle(),
             new MediaFigaro\GoogleAnalyticsApi\GoogleAnalyticsApi(),
-
+            new Numa\QBBundle\NumaQBBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

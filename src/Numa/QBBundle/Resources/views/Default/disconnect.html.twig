@@ -1,0 +1,13 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+    <div style="text-align: center; font-family: sans-serif; font-weight: bold;">
+        DISCONNECTED! Please wait...
+    </div>
+
+
+    <script type="text/javascript">
+        window.setTimeout('window.location = \'./\';', 2000);
+    </script>
+
+{% endblock %}
