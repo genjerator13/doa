@@ -226,43 +226,59 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
     {#}#}
 
     $scope.setRecover = function () {
-        $log.log(JSON.stringify($scope.selected));
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
         $http.post('{{ path("dms_item_recover") }}', {'data': JSON.stringify($scope.selected)})
                 .success(function (data) {
-                    i = 1
-                    angular.forEach($scope.selected, function (value, key) {
-                        $log.log(key + ': ' + value);
-                        $scope.gridOptions.data.splice(key - i, 1);
-                        i++;
-                    });
-                    $scope.selected = {}
-                    $scope.gridApi.selection.clearSelectedRows();
-                    angular.forEach(data, function (data, index) {
-                        data.index = index + 1;
-                        //data.push({"index":index+1})
-                    })
+                    apicall();
                 });
+        }, function () {
+            //cancel
+        });
     }
 
 
 
     var canceler = $q.defer();
-    $http.get('{{ apicall }}', {timeout: canceler.promise})
-            .success(function (data) {
-                angular.forEach(data, function (row, index) {
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    $scope.selected = [];
+                    angular.forEach(data, function (row, index) {
 
-                    row.index = index + 1;
+                        row.index = index + 1;
 
-                    if (row.sold == 1) {
-                        row.sold = "Sold"
-                    } else {
-                        row.sold = "Not"
-                    }
+                        if (row.sold == 1) {
+                            row.sold = "Sold"
+                        } else {
+                            row.sold = "Not"
+                        }
 
-                })
-                $scope.gridOptions.data = data;
+                    })
+                    $scope.gridOptions.data = data;
 
-            });
+                });
+    };
+    apicall();
 
     $scope.$on('$destroy', function () {
         canceler.resolve();  // Aborts the $http request if it isn't finished.
@@ -272,22 +288,23 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         //set gridApi on scope
         $scope.gridApi = gridApi;
         gridApi.selection.on.rowSelectionChanged($scope, function (row) {
-            var msg = 'row selected ' + row.isSelected;
-
-            $scope.selected[row.entity.index] = row.entity.id;
-            $log.log(row);
+            $scope.selected[row.entity.index-1] = undefined;
+            if(row.isSelected){
+                $scope.selected[row.entity.index-1] = row.entity.id;
+            }
         });
 
         gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
-            var msg = 'rows changed ' + rows.length;
-            $log.log(rows);
             angular.forEach(rows, function (value, key) {
-                $scope.selected[value.entity.index] = value.entity.id;
+                $scope.selected[value.entity.index-1] =undefined;
+                if(value.isSelected) {
+                    $scope.selected[value.entity.index-1] = value.entity.id;
+                }
             });
-            console.log($scope.selected);
         });
     };
 }]);
+
 app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
 
     $scope.items = items;
