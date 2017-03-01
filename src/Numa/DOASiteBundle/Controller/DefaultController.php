@@ -384,6 +384,12 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             'dealer' => $this->dealer,));
     }
 
+    public function error404DMSAction()
+    {
+        return $this->render('NumaDOASiteBundle:Errors:error404DMS.html.twig', array(
+            'dealer' => $this->dealer,));
+    }
+
     public function error500Action()
     {
         return $this->render('NumaDOASiteBundle:Errors:error500.html.twig', array(

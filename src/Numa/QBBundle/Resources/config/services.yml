@@ -1,0 +1,7 @@
+parameters:
+#    numa_qb.example.class: Numa\QBBundle\Example
+
+services:
+    numa.quickbooks:
+         class: Numa\QBBundle\Util\Service
+         arguments: [@service_container]

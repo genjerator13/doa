@@ -111,4 +111,55 @@ class QuickbooksLib
         return $server;
     }
 
+    public function createCustomer($format="json"){
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+
+        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
+        $server = $this->getServer($dealer);
+        dump($server);
+        $url = self::sandboxUrl . $dealer->getQbRealmId() . "/customer";
+        $testJson = "{
+    \"BillAddr\": {
+        \"Line1\": \"123 Main Street\",
+        \"City\": \"Mountain View\",
+        \"Country\": \"USA\",
+        \"CountrySubDivisionCode\": \"CA\",
+        \"PostalCode\": \"94042\"
+    },
+    \"Notes\": \"Here are other details.\",
+    \"Title\": \"Mr\",
+    \"GivenName\": \"James\",
+    \"MiddleName\": \"B\",
+    \"FamilyName\": \"King\",
+    \"Suffix\": \"Jr\",
+    \"FullyQualifiedName\": \"King Groceries\",
+    \"CompanyName\": \"King Groceries\",
+    \"DisplayName\": \"King's Groceries\",
+    \"PrimaryPhone\": {
+        \"FreeFormNumber\": \"(555) 555-5555\"
+    },
+    \"PrimaryEmailAddr\": {
+        \"Address\": \"jdrew@myemail.com\"
+    }
+}";
+        $tokenCredentials = unserialize($dealer->getQbTokenCredential());
+        $headers = $server->getHeaders($tokenCredentials, 'POST', $url);
+        $headers['Accept'] = 'application/json';
+        //$headers['Body'] = $testJson;
+
+        $buzz = $this->container->get("buzz")->post($url, $headers,$testJson);
+        dump($url);
+        dump($headers);
+        dump($buzz);
+        $return = "";
+        if ($format == 'array') {
+            $return = json_decode($buzz->getContent(), true);
+        } elseif ($format == 'json') {
+            $return = $buzz->getContent();
+        } else {
+            throw new \Exception("Wrong format Exception");
+        }
+        return $return;
+    }
+
 }

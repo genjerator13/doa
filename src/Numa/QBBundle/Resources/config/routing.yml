@@ -1,0 +1,24 @@
+numa_qb_homepage:
+    path:     /
+    defaults: { _controller: NumaQBBundle:Default:index }
+numa_qb_launch:
+    path:     /launch
+    defaults: { _controller: NumaQBBundle:Default:launch }
+numa_qb_oauth:
+    path:     /oauth
+    defaults: { _controller: NumaQBBundle:Default:oauth }
+numa_qb_desconect:
+    path:     /disconnect
+    defaults: { _controller: NumaQBBundle:Default:disconnect }
+numa_qb_reconect:
+    path:     /disconnect
+    defaults: { _controller: NumaQBBundle:Default:reconect }
+numa_qb_menu:
+    path:     /menu
+    defaults: { _controller: NumaQBBundle:Default:menu }
+numa_qb_customers:
+    path:     /customers
+    defaults: { _controller: NumaQBBundle:Default:customers }
+numa_qb_success:
+    path:     /success
+    defaults: { _controller: NumaQBBundle:Default:success }
