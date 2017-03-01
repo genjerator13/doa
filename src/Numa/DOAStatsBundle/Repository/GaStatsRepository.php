@@ -20,17 +20,21 @@ class GaStatsRepository extends EntityRepository
         return $res;
     }
 
-    public function getVisitorsByDay($dealer_id, $todaysYear, $todaysMonth)
+    public function getVisitorsByDay($dealer_id, $day,$period)
     {
-        $sql = "SELECT sessions,
+        $day = $day->format("Y-m-d");
+//        dump($day);
+//        die();
+        $sql = "SELECT sessions,date_stats,
                 YEAR(`date_stats`) AS year,
                 month(`date_stats`) AS month,
                 day(`date_stats`) AS day
                 FROM `ga_stats`
                 WHERE dealer_id = $dealer_id
-                AND YEAR(`date_stats`) = $todaysYear
-                AND month(`date_stats`) = $todaysMonth
-                GROUP BY YEAR(`date_stats`) , month(`date_stats`) , day(`date_stats`)";
+                AND `date_stats`>=$day
+                GROUP BY (31-DAY(`date_stats`))";
+        //                //AND YEAR(`date_stats`) = $todaysYear
+        //AND month(`date_stats`) = $todaysMonth
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $res;
     }

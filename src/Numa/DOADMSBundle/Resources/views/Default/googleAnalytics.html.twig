@@ -2,7 +2,6 @@
 {#<script src="https://code.highcharts.com/modules/exporting.js"></script>#}
 
 <script type="text/javascript" src="{{ asset("js/highcharts.js") }}"></script>
-<script type="text/javascript" src="{{ asset("js/highcharts1.js") }}"></script>
 
 <div class="box box-danger" id="gaStats">
     <div class="box-header with-border">
@@ -83,7 +82,7 @@
     });
 
     $(document).ready(function () {
-
+        var today = new Date()
         var options = {
             chart: {
                 renderTo: 'container1',
@@ -110,6 +109,16 @@
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
+            xAxis: {
+                tickInterval: 1,
+                labels: {
+                    enabled: true,
+                    formatter: function() {
+                        return this.value.toString().substring(0, 10);
+                    },
+                }
+            },
+
 
         };
 
@@ -128,9 +137,16 @@
             month[9] = "Oct";
             month[10] = "Nov";
             month[11] = "Dec";
+            console.log(data);
             var n = month[d.getMonth()];
             options.series[0].name = n;
             options.series[0].data = data;
+            options.xAxis.categories=[];
+            jQuery.each(data, function() {
+
+                console.log(this[0]);
+                options.xAxis.categories.push(this[0]);
+            });
             var chart = new Highcharts.Chart(options);
 
         });
