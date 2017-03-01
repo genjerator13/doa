@@ -11,6 +11,7 @@
 
 
                     {% set image = item.getImages2()|first %}
+
                     {% if images is empty %}
                         <img class="thumbnail" alt="No photos"
                              src="{{ asset('images/no_image_available_small.png') }}"/>
