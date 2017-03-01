@@ -153,43 +153,66 @@ class Service
         return $this;
     }
 
-    public function isConnected(){
+    public function menu()
+    {
+        $this->init();
+        die($this->getIntuitAnywhere()->widgetMenu($this->getUsername(), $this->getTenant()));
+    }
+
+    public function disconnect()
+    {
+        $qbo = $this->init();
+        $this->IntuitAnywhere->disconnect($this->getUsename(), $this->getTenant());
+        return $qbo;
+    }
+
+    public function isConnected()
+    {
         return $this->isConnected;
     }
 
-    public function getCompanyInfoService(){
+    public function getCompanyInfoService()
+    {
         return $this->quickbooksCompanyInfo;
     }
 
-    public function getIntuitAnywhere(){
+    public function getIntuitAnywhere()
+    {
         return $this->IntuitAnywhere;
     }
 
-    public function getRealm(){
+    public function getRealm()
+    {
         return $this->realm;
     }
 
-    public function getContext(){
+    public function getContext()
+    {
         return $this->getContext();
     }
 
-    public function getTenant(){
+    public function getTenant()
+    {
         return $this->tenant;
     }
 
-    public function getUsername(){
+    public function getUsername()
+    {
         return $this->username;
     }
 
-    public function getQuickbooksOauthUrl(){
+    public function getQuickbooksOauthUrl()
+    {
         return $this->quickbooksOauthUrl;
     }
 
-    public function getQuickbooksMenuUrl(){
+    public function getQuickbooksMenuUrl()
+    {
         return $this->quickbooksMenuUrl;
     }
 
-    public function getQuickbooksSuccessUrl(){
+    public function getQuickbooksSuccessUrl()
+    {
         return $this->quickbooksSuccessUrl;
     }
 

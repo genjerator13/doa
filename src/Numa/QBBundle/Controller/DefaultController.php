@@ -15,31 +15,22 @@ class DefaultController extends Controller
 
     public function menuAction()
     {
-        $param = $this->get("numa.quickbooks")->init();
-        $IntuitAnywhere = $param['IntuitAnywhere'];
-        $the_username = $param['the_username'];
-        $the_tenant = $param['the_tenant'];
-        die($IntuitAnywhere->widgetMenu($the_username, $the_tenant));
+        $this->get("numa.quickbooks")->menu();
     }
 
     public function disconnectAction()
     {
-        $param = $this->get("numa.quickbooks")->init();
-        $IntuitAnywhere = $param['IntuitAnywhere'];
-        $the_username = $param['the_username'];
-        $the_tenant = $param['the_tenant'];
-        if ($IntuitAnywhere->disconnect($the_username, $the_tenant)) {
+        $qbo = $this->get("numa.quickbooks")->disconect();
 
-        }
-        return $this->render('NumaQBBundle:Default:disconnect.html.twig', array('param' => $param));
+        return $this->render('NumaQBBundle:Default:disconnect.html.twig', array('param' => $qbo));
     }
 
     public function oauthAction()
     {
-        $param = $this->get("numa.quickbooks")->init();
-        $IntuitAnywhere = $param['IntuitAnywhere'];
-        $the_username = $param['the_username'];
-        $the_tenant = $param['the_tenant'];
+        $qbo = $this->get("numa.quickbooks")->init();
+        $IntuitAnywhere =$qbo->getIntuitAnywhere() ;
+        $the_username = $qbo->getUsername();
+        $the_tenant = $qbo->getTenant();
 
         if ($IntuitAnywhere->handle($the_username, $the_tenant)) {
             ; // The user has been connected, and will be redirected to $that_url automatically.
