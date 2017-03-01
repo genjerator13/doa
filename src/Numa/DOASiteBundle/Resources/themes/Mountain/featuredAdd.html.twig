@@ -12,7 +12,7 @@
                         <img class="thumbnail" alt="No photos"
                              src="{{ asset('images/no_image_available_small.png') }}"/>
                     {% else %}
-                        {% set image = item.getImages()|first["stringvalue"] %}
+                        {% set image = image.fieldStringValue %}
                         {% if ('http' not in image) %}
                             <img class="thumbnail" alt="{{ item.getMake() }} {{ item.getModel() }}"
                                  src="{{ image|imagine_filter('search_image') }}"/>
