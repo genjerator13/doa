@@ -171,7 +171,7 @@ class Service
 
     public function getContext()
     {
-        return $this->getContext();
+        return $this->Context;
     }
 
     public function getTenant()
