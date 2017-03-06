@@ -32,3 +32,13 @@ sale_delete:
 sale_print_inside:
     path:     /{id}/print_inside
     defaults: { _controller: "NumaDOADMSBundle:Sale:printInside" }
+
+sale_upload_related_docs:
+    path:     /{id}/upload_docs
+    defaults: { _controller: "NumaDOADMSBundle:Sale:uploadRelatedDocs" }
+sale_refresh_related_docs:
+    path:     /{id}/refresh_docs
+    defaults: { _controller: "NumaDOADMSBundle:Sale:refreshRelatedDocs" }
+sale_delete_related_docs:
+    path:     /{id}/delete_docs
+    defaults: { _controller: "NumaDOADMSBundle:Sale:deleteRelatedDocs" }
