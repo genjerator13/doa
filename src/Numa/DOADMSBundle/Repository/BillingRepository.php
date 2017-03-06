@@ -55,7 +55,33 @@ class BillingRepository extends EntityRepository
         return $res;
     }
 
-
+    public function findByDateNoItem($date, $date1, $dealer_id)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('b')
+            ->from('NumaDOADMSBundle:Billing', 'b')
+            ->Where('b.dealer_id IN (' . $dealer_id . ')')
+            ->andWhere('b.item_id IS NULL');
+        if(!empty($date) && empty($date1))
+        {
+            $qb->andWhere('b.date_billing > :date')
+                ->setParameter("date", $date);
+        }
+        if(empty($date) && !empty($date1))
+        {
+            $qb->andWhere('b.date_billing < :date1')
+                ->setParameter("date1", $date1);
+        }
+        if(!empty($date) && !empty($date1))
+        {
+            $qb->andWhere('b.date_billing BETWEEN :date AND :date1')
+                ->setParameter("date", $date)
+                ->setParameter("date1", $date1);
+        }
+        $query = $qb->getQuery();
+        $res = $query->getResult(); //->getResult();
+        return $res;
+    }
 
     public function findByDateReports($dateStart, $dateEnd, $dealer_id, $sold)
     {
