@@ -59,6 +59,7 @@ twig:
         title: CJVR Dealers On Air
         subject: Email from
         upload_feed_path: /upload/feeds/
+        upload_related_doc_path: /upload/related_docs/
     form_themes:
         - 'views/Form/fields.html.twig'
 #    form:
@@ -415,12 +416,14 @@ liip_imagine:
                 background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
+    related_docs_url: /upload/related_docs
     web_path: %kernel.root_dir%/../web
     images_path: %kernel.root_dir%/../web/images
     upload_path: %kernel.root_dir%/../web/upload/itemsimages/
     upload_feed: %kernel.root_dir%/../web/upload/feeds/
     upload_dealer: %kernel.root_dir%/../web/upload/dealers/
     upload_component: %kernel.root_dir%/../web/upload/component/
+    related_docs_path: %kernel.root_dir%/../web/upload/related_docs/
     iauto: %kernel.root_dir%/../web/iauto
     memcached.servers:
       - { host: 127.0.0.1, port: 11211 }

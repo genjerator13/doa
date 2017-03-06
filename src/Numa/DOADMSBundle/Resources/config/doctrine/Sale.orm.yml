@@ -322,7 +322,13 @@ Numa\DOADMSBundle\Entity\Sale:
         Item:
             targetEntity: Numa\DOAAdminBundle\Entity\Item
             mappedBy: Sale
-
+    oneToMany:
+        SaleRelatedDoc:
+            targetEntity: Numa\DOADMSBundle\Entity\SaleRelatedDoc
+            mappedBy: Sale
+            cascade: [persist,remove]
+            onDelete: CASCADE
+            orphanRemoval: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

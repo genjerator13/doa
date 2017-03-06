@@ -2922,4 +2922,54 @@ class Sale
     {
         return number_format((float)$this->sale_gst12,2, '.', '');
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $SaleRelatedDoc;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->SaleRelatedDoc = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     *
+     * @return Sale
+     */
+    public function addSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc[] = $saleRelatedDoc;
+
+        return $this;
+    }
+
+    /**
+     * Remove saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     */
+    public function removeSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc->removeElement($saleRelatedDoc);
+    }
+
+    /**
+     * Get saleRelatedDoc
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSaleRelatedDoc()
+    {
+        return $this->SaleRelatedDoc;
+    }
+
+    public function hasRelatedDocs(){
+        return count($this->SaleRelatedDoc)>0;
+    }
 }

@@ -100,12 +100,10 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
 
     public function uploadAction(Request $request, $id)
     {
-
         $em = $this->getDoctrine()->getManager();
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
-
 
         if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
             ($file->getMimeType() == 'image/jpeg' ||
@@ -124,20 +122,10 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
 
             $item->setDateUpdated(new \DateTime());
             $itemField->setItem($item);
-            //dump($itemField);
-//            $item->setCoverPhoto($item->getCoverImageSrc());
-//
-//            if(empty($item->getCoverImageSrc())){
-//                $item->setCoverPhoto($itemField->getFieldStringValue());
-//            }
 
             $itemField->setListingfield($ImageList);
             $em->persist($itemField);
             $em->flush();
-
-//            if(empty($item->getCoverPhoto())){
-//                $em->getRepository('NumaDOAAdminBundle:Item')->setCoverPhoto($item->getId(),$itemField->getFieldStringValue());
-//            }
             $em->getRepository("NumaDOAAdminBundle:Item")->generateCoverPhotos();
         }
         die();
