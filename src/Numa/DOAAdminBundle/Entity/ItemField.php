@@ -384,11 +384,12 @@ class ItemField
      * Downloads image from $stringValue which could be UploadedFile
      * Function accepts p...
      * @param \Symfony\Component\HttpFoundation\File\UploadedFile $stringValue or string
-     * @param type $upload_url
-     * @param type $feed_sid
-     * @param type $order
-     * @param type $localy
-     * @param type $uniqueValue
+     * @param string $upload_path
+     * @param string $upload_url
+     * @param integer $feed_sid
+     * @param integer $order
+     * @param boolean $localy
+     * @param string $uniqueValue
      */
     public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "")
     {
