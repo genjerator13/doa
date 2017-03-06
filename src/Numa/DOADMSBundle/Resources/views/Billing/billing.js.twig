@@ -173,5 +173,11 @@ app.config(function ($interpolateProvider) {
 });
 
 $(function () {
-    $(".datepicker").datepicker({dateFormat: 'yy-dd-mm'});
+
+    $('.datepicker').datepicker({ dateFormat: 'yy-dd-mm'});
+
+    if($(".datepicker").val() == "")
+    {
+        $('.datepicker').datepicker('setDate', new Date());
+    }
 });
