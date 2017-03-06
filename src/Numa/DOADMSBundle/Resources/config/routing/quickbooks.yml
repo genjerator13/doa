@@ -18,7 +18,9 @@ dms_quickbooks_test:
 dms_quickbooks_custmers:
     path:     /customers
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:customers" }
-
+dms_quickbooks_item:
+    path:     /additem/{item_id}
+    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:addItem" }
 dms_quickbooks_fetch_custmer:
     path:     /fetch_customer/{id}
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:fetchCustomerFromQB" }

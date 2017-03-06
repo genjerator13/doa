@@ -34,7 +34,7 @@
                 <tr>
                     <td>{{ entity[0].id }}</td>
                     <td>{{ entity[0].vendor }}</td>
-                    <td>{% if entity.item_id is not empty %}<a href="{{ path("items_edit",{'id':entity.item_id}) }}">{{ entity.item_id }}</a>{% endif %}</td>
+                    <td>{% if entity.item_id is not empty %}<a href="{{ path("dms_items_edit",{'id':entity.item_id}) }}">{{ entity.item_id }}</a>{% endif %}</td>
 
                     <td>{{ entity[0].salesperson }}</td>
                     <td>{{ entity.stock_nr }}</td>

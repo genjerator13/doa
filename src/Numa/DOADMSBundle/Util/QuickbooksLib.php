@@ -29,60 +29,50 @@ class QuickbooksLib
         $this->container = $container;
     }
 
-    public function insertItem(Item $item){
-        $param = $this->get("numa.quickbooks")->init();
+    public function insertItem(Item $item)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+
+        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
 
         $itemService = new \QuickBooks_IPP_Service_Item();
 
         $qbItem = new \QuickBooks_IPP_Object_Item();
-        $qbItem->setName();
-        $Customer->setTitle('Ms');
-        $Customer->setGivenName('Sha333nnon');
-        $Customer->setMiddleName('B333');
-        $Customer->setFamilyName('Palme343r');
-        $Customer->setDisplayName('Shann343on B Palmer ' . mt_rand(0, 1000));
+        $qbItem->setName($title);
+        $qbItem->setType('Inventory');
+        $qbItem->setIncomeAccountRef('67');
+        $qbItem->setExpenseAccountRef('84');
 
-// Terms (e.g. Net 30, etc.)
-        $Customer->setSalesTermRef(4);
+        $qbItem->setQtyOnHand(1);
+        $today = new \DateTime();;
 
-// Phone #
-        $PrimaryPhone = new \QuickBooks_IPP_Object_PrimaryPhone();
-        $PrimaryPhone->setFreeFormNumber('860-532-0089');
-        $Customer->setPrimaryPhone($PrimaryPhone);
+        $qbItem->setInvStartDate($today->format("Y-m-d"));
+        $qbItem->setTrackQtyOnHand(true);
+        $qbItem->setInventoryAssetAccount("aaaaa");
 
-// Mobile #
-        $Mobile = new \QuickBooks_IPP_Object_Mobile();
-        $Mobile->setFreeFormNumber('860-53432-0033489');
-        $Customer->setMobile($Mobile);
 
-// Fax #
-        $Fax = new \QuickBooks_IPP_Object_Fax();
-        $Fax->setFreeFormNumber('860-53sdf2-0089df');
-        $Customer->setFax($Fax);
+        $PurchaseOrderService = new \QuickBooks_IPP_Service_PurchaseOrder();
 
-// Bill address
-        $BillAddr = new \QuickBooks_IPP_Object_BillAddr();
-        $BillAddr->setLine1('72 E Blue Grass Road');
-        $BillAddr->setLine2('Suite D');
-        $BillAddr->setCity('Mt Pleasant');
-        $BillAddr->setCountrySubDivisionCode('MI');
-        $BillAddr->setPostalCode('48858');
-        $Customer->setBillAddr($BillAddr);
+        $pos = $PurchaseOrderService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM PurchaseOrder");
 
-// Email
-        $PrimaryEmailAddr = new \QuickBooks_IPP_Object_PrimaryEmailAddr();
-        $PrimaryEmailAddr->setAddress('suppdfgdfgort@consodfgdgfdfgblibyte.com');
-        $Customer->setPrimaryEmailAddr($PrimaryEmailAddr);
+//print_r($terms);
 
-        if ($resp = $CustomerService->add($param['Context'], $param['realm'], $Customer))
+        foreach ($pos as $PurchaseOrder)
         {
-            print('Our new customer ID is: [' . $resp . '] (name "' . $Customer->getDisplayName() . '")');
+            dump($PurchaseOrder);
+        }
+        die();
+
+
+        if ($resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem)) {
         }
         else
         {
-            print($CustomerService->lastError($param['Context']));
+            print($itemService->lastError($qbo->getContext()));
+            return false;
         }
-        return $this->render('NumaQBBundle:Default:customers.html.twig', array('customers' => $customers,'c'=>$Customer));
+        return $qbItem;
     }
 
 }
