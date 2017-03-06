@@ -53,15 +53,16 @@ class Service
 
         $sandbox = true;     // When you're using development tokens
         //$sandbox = false;    // When you're using production tokens
-
+        $router = $this->container->get("router");
+        
         // This is the URL of your OAuth auth handler page
-        $this->quickbooksOauthUrl = 'http://doa.local/dms/quickbooks/oauth';
+        $this->quickbooksOauthUrl = $router->generate("numa_qb_oauth",array(),true);
 
 // This is the URL to forward the user to after they have connected to IPP/IDS via OAuth
-        $this->quickbooksSuccessUrl = 'http://doa.local/dms/quickbooks/success';
+        $this->quickbooksSuccessUrl = $router->generate("numa_qb_success",array(),true);
 
 // This is the menu URL script
-        $this->quickbooksMenuUrl = 'http://doa.local/dms/quickbooks/menu';
+        $this->quickbooksMenuUrl = $router->generate("numa_qb_menu",array(),true);
 
 // This is a database connection string that will be used to store the OAuth credentials
 
@@ -171,7 +172,7 @@ class Service
 
     public function getContext()
     {
-        return $this->getContext();
+        return $this->Context;
     }
 
     public function getTenant()

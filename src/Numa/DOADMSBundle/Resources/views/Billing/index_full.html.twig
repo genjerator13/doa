@@ -29,11 +29,11 @@
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td><a href="{{ path('billing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td><a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-M-d') }}{% endif %}</td>
                             <td>{{ entity.customer }}</td>
 
-                            <td>{% if entity.itemId is not empty %}<a href="{{ path("items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% else %}WO{% endif %}</td>
+                            <td>{% if entity.itemId is not empty %}<a href="{{ path("dms_items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% else %}WO{% endif %}</td>
                             <td>
                                 <a href="{{ path('billing_edit', { 'id': entity.id }) }}"
                                    class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>Edit</a>

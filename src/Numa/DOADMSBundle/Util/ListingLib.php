@@ -257,10 +257,6 @@ class ListingLib
         }
     }
 
-
-
-
-
     public function asFunction($property)
     {
 
@@ -309,7 +305,7 @@ class ListingLib
 
     public function getListingTitle(Item $item)
     {
-        $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($this->getModel());
+        $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
         if ($item->getCategoryId() == 4) {
             $desc = $desc . " " . $item->getFloorPlan();
         } elseif ($item->getCategoryId() == 1) {
