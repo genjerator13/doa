@@ -88,6 +88,11 @@ class ReportsController extends Controller
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
                 return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
             }
+
+            if ($request->query->has('workOrder')) {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id);
+                return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
+            }
         }
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
             'billings' => $entities,

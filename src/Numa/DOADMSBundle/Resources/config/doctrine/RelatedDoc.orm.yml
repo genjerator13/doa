@@ -1,0 +1,38 @@
+Numa\DOADMSBundle\Entity\RelatedDoc:
+    type: entity
+    table: related_doc
+    #repositoryClass: Numa\DOADMSBundle\Repository\RelatedDocRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 255
+            nullable: true
+        name:
+            type: string
+            length: 255
+            nullable: true
+        descriptionx:
+            type: text
+            nullable: true
+        src:
+            type: string
+            length: 255
+            nullable: true
+        status:
+            type: string
+            length: 255
+            nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

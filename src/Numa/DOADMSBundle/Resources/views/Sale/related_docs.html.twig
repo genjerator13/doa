@@ -1,0 +1,17 @@
+{% if sale.SaleRelatedDoc is not empty %}
+    <table class="table">
+
+        {% for doc in sale.SaleRelatedDoc %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>
+                    <a href="{{ upload_related_doc_path }}{{ doc.relatedDoc.Src }}" target="_blank">{{ doc.relatedDoc.Name }}</a>
+                </td>
+                <td>
+                    <a href="#" class="remove_doc" data-id="{{ doc.id}}"><i class="glyphicon glyphicon-remove"></i></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+{% endif %}

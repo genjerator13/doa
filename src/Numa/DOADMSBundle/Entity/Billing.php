@@ -3245,8 +3245,15 @@ class Billing
                     return "";
                 }
             }
+            if(strtolower($propSplit[0])=='customer'){
+                if($this->getCustomer() instanceof Customer) {
+                    $function = 'get' . str_ireplace(array(" ", "_"), '', ucfirst($propSplit[1]));
+                    return $this->getCustomer()->{$function}();
+                }else{
+                    return "";
+                }
+            }
         }
-
 
         if (method_exists($this, $function)) {
             return $this->{$function}();
