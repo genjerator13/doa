@@ -162,4 +162,17 @@ class ReportService
 
         return $unitSalesCostReport->createExcelResponse($filename);
     }
+
+    /**
+     * Creatres workOrder report
+     * @param $entities
+     * @return Response
+     */
+    public function billingWorkOrderXls($entities)
+    {
+        $filename = "Customer_Details_Report.xls";
+        $workOrderReport = new WorkOrderReport($this->container);
+        $workOrderReport->setEntities($entities);
+        return $workOrderReport->createExcelResponse($filename);
+    }
 }

@@ -409,4 +409,33 @@ class GaStats
             $this->date_created = new \DateTime();
         }
     }
+    /**
+     * @var \DateTime
+     */
+    private $date_stats;
+
+
+    /**
+     * Set dateStats
+     *
+     * @param \DateTime $dateStats
+     *
+     * @return GaStats
+     */
+    public function setDateStats($dateStats)
+    {
+        $this->date_stats = $dateStats;
+
+        return $this;
+    }
+
+    /**
+     * Get dateStats
+     *
+     * @return \DateTime
+     */
+    public function getDateStats()
+    {
+        return $this->date_stats;
+    }
 }
