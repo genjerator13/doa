@@ -46,6 +46,7 @@ class ComponentRESTController extends Controller
     {
         $components = $this->getDoctrine()->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByDealerId($dealer_id);
         $dealerComponents = $this->getDoctrine()->getRepository('NumaDOADMSBundle:DealerComponent')->findBy(array('dealer_id'=>$dealer_id));
+
         $comp = array();
         foreach($components as $component){
             $temp = array();

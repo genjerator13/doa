@@ -3,6 +3,7 @@
 namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\Item;
 use \Numa\DOADMSBundle\Entity\Customer;
 use oasis\names\specification\ubl\schema\xsd\CommonAggregateComponents_2\CatalogueLine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -82,29 +83,21 @@ class QuickbooksController extends Controller
         }
     }
 
-    public function customersAction()
+    public function addItemAction(Request $request, $item_id)
     {
-        $dealer = $this->get('numa.dms.user')->getSignedDealer();
-        $customers = $this->get("numa.dms.quickbooks")->callQueryApi($dealer, "select * from customer ORDER BY Id DESC");
-
-        $customers = $customers['QueryResponse']['Customer'];
-        $ids = array();
-        $customers2 = array();
-        foreach ($customers as $customer) {
-            $ids[] = $customer['Id'];
-            $customers2[$customer['Id']] = $customer;
-        }
-
+        //$dealer = $this->get('numa.dms.user')->getSignedDealer();
         $em = $this->getDoctrine()->getManager();
-        $customerDMS = $em->getRepository(Customer::class)->findBy(array("qb_id" => $ids));
 
-        foreach ($customerDMS as $customerDMS) {
-            $customers2[$customerDMS->getQbId()]['dms_id'] = $customerDMS->getId();
-        }
-        //dump($customers2);die();
-        return $this->render('NumaDOADMSBundle:Quickbooks:customers.html.twig', array(
-            'customers' => $customers2,
-        ));
+        $item = $em->getRepository(Item::class)->find($item_id);
+
+        $qbItem = $this->get("numa.dms.quickbooks")->insertItem($item);
+        dump($qbItem);
+        die();
+    }
+
+    public function customersAction(Request $request, $item_id)
+    {
+
     }
 
     public function fetchCustomerFromQBAction(Request $request, $id)
