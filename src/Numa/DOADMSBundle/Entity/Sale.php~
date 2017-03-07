@@ -2938,11 +2938,11 @@ class Sale
     /**
      * Add saleRelatedDoc
      *
-     * @param \Numa\DOADMSBundle\Entity\SaleRelateDoc $saleRelatedDoc
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
      *
      * @return Sale
      */
-    public function addSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelateDoc $saleRelatedDoc)
+    public function addSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
     {
         $this->SaleRelatedDoc[] = $saleRelatedDoc;
 
@@ -2952,9 +2952,9 @@ class Sale
     /**
      * Remove saleRelatedDoc
      *
-     * @param \Numa\DOADMSBundle\Entity\SaleRelateDoc $saleRelatedDoc
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
      */
-    public function removeSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelateDoc $saleRelatedDoc)
+    public function removeSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
     {
         $this->SaleRelatedDoc->removeElement($saleRelatedDoc);
     }
@@ -2967,5 +2967,9 @@ class Sale
     public function getSaleRelatedDoc()
     {
         return $this->SaleRelatedDoc;
+    }
+
+    public function hasRelatedDocs(){
+        return count($this->SaleRelatedDoc)>0;
     }
 }
