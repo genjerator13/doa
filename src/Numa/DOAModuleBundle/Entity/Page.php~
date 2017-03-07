@@ -590,4 +590,13 @@ class Page
     {
         return $this->is_manual;
     }
+
+    protected $item_id;
+    public function setItemId($item_id){
+        $this->item_id = $item_id;
+    }
+
+    public function getItemId(){
+       return $this->item_id;
+    }
 }
