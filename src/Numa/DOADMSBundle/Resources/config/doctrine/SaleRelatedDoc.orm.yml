@@ -26,7 +26,9 @@ Numa\DOADMSBundle\Entity\SaleRelatedDoc:
                 referencedColumnName: id
         RelatedDoc:
             targetEntity: Numa\DOADMSBundle\Entity\RelatedDoc
-            cascade: [persist]
+            cascade: [persist,remove]
+            onDelete: CASCADE
+            orphanRemoval: true
             inversedBy: Sale
             joinColumn:
                 name: related_doc_id

@@ -107,4 +107,18 @@ class SaleLib
             $em->flush();
         }
     }
+
+    public function deleteRelatedDoc(RelatedDoc $doc){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        //$srelatedDoc = $em->getRepository(SaleRelatedDoc::class)->findBy(array('RelatedDoc'=>$doc));
+        //dump();die();
+        $file = $this->container->getParameter("related_docs_path").$doc->getSrc();
+
+        if(file_exists($file)){
+            unlink($file);
+        }
+        $em->remove($doc);
+        $em->flush();
+        die();
+    }
 }
