@@ -516,27 +516,31 @@
                     </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->
                 <script>
-                    function refreshSaleDocs(){
-                        $.ajax(
-                                {
-                                    url: "{{ absolute_url(path("sale_refresh_related_docs",{id:entity.sale.id})) }}",
-                                    type: "POST",
 
-                                    success: function (data, textStatus, jqXHR) {
-                                        $("#related_docs").html(data)
-                                    },
-                                    error: function (jqXHR, textStatus, errorThrown) {
-                                        //if fails
-                                    }
-                                });
-                    }
                     $(document).ready(function () {
+                        function refreshSaleDocs(){
+                            $("#related_docs").html("Loading please wait...")
+                            $.ajax(
+                                    {
+                                        url: "{{ absolute_url(path("sale_refresh_related_docs",{id:entity.sale.id})) }}",
+                                        type: "POST",
+
+                                        success: function (data, textStatus, jqXHR) {
+                                            $("#related_docs").html(data)
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            //if fails
+                                        }
+                                    });
+                        }
+
                         $('#sale_related_doc_upload').on('hidden.bs.modal', function () {
                             refreshSaleDocs()
                         })
 
-                        $('.remove_doc').on('click', function (e) {
+                        $('#related_docs').on('click','.remove_doc', function (e) {
                             e.preventDefault();
+                            alert("test")
                             id = $(this).data('id')
                             $.ajax(
                                 {
