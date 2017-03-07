@@ -2,6 +2,8 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOADMSBundle\Entity\RelatedDoc;
+use Numa\DOADMSBundle\Entity\SaleRelatedDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -254,5 +256,36 @@ class SaleController extends Controller
                 'Content-Disposition'   => 'attachment; filename="Sale.pdf"'
             )
         );
+    }
+
+    public function uploadRelatedDocsAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createFormBuilder()->getForm();
+        $form->handleRequest($request);
+        $file = $request->files->get('file');
+        $relatedDocUrl = $this->getParameter('related_docs_url');
+        $relatedDocPath = $this->getParameter('related_docs_path');
+        if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile){
+            $sale = $em->getRepository(Sale::class)->find(intval($id));
+            $upladed = $this->get("numa.dms.sale")->uploadRelatedDocs($sale, $file,$relatedDocUrl,$relatedDocPath);
+        }
+        die();
+    }
+
+    public function refreshRelatedDocsAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $sale = $em->getRepository(Sale::class)->find(intval($id));
+        if ($sale->hasRelatedDocs()){
+            return $this->render("NumaDOADMSBundle:Sale:related_docs.html.twig",array('sale'=>$sale));
+        }
+        die();
+    }
+
+    public function deleteRelatedDocsAction(Request $request, $id){
+        $em = $this->getDoctrine()->getManager();
+        $docid = $request->get('docid');
+        $saledoc = $em->getRepository(RelatedDoc::class)->find(intval($docid));
+        $this->get("numa.dms.sale")->deleteRelatedDoc($saledoc);
+        die();
     }
 }

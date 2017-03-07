@@ -488,10 +488,76 @@
                 </div>
             </div>
             </form>
+
+
+
+
+
             <div class="clear"></div>
 
             {% if entity.id is not empty %}
+                {% if entity.sale is not empty %}
+
+                <div class="modal fade" tabindex="-1" role="dialog" id="sale_related_doc_upload">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Upload Related Documents</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ path('sale_upload_related_docs',{id:entity.sale.id}) }}" method="post" class="dropzone" id="drop">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
                 <script>
+
+                    $(document).ready(function () {
+                        function refreshSaleDocs(){
+                            $("#related_docs").html("Loading please wait...")
+                            $.ajax(
+                                    {
+                                        url: "{{ absolute_url(path("sale_refresh_related_docs",{id:entity.sale.id})) }}",
+                                        type: "POST",
+
+                                        success: function (data, textStatus, jqXHR) {
+                                            $("#related_docs").html(data)
+                                        },
+                                        error: function (jqXHR, textStatus, errorThrown) {
+                                            //if fails
+                                        }
+                                    });
+                        }
+
+                        $('#sale_related_doc_upload').on('hidden.bs.modal', function () {
+                            refreshSaleDocs()
+                        })
+
+                        $('#related_docs').on('click','.remove_doc', function (e) {
+                            e.preventDefault();
+
+                            id = $(this).data('id')
+                            $.ajax(
+                                {
+                                    url: "{{ absolute_url(path("sale_delete_related_docs",{id:entity.sale.id})) }}",
+                                    data: {'docid':id},
+                                    type: "POST",
+
+                                    success: function (data, textStatus, jqXHR) {
+                                        refreshSaleDocs();
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        //if fails
+                                    }
+                                });
+                        });
+
+                    });
                     $(document).ready(function () {
                         $("#numa_doaadminbundle_item_Category").change(function (e) {
                             var form = $(this).closest('form');
@@ -501,7 +567,15 @@
                             form.submit();
                         });
                     });
+                    $(document).ready(function () {
+                        Dropzone.options.drop = {
+                            acceptedFiles: 'image/*',
+                            init: function () {
+                            }
+                        };
+                    });
                 </script>
+                    {% endif %}
             {% else %}
                 <script>
                     $("#addimages").on("click", function (e) {

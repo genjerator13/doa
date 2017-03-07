@@ -1,0 +1,35 @@
+Numa\DOADMSBundle\Entity\SaleRelatedDoc:
+    type: entity
+    table: sale_related_doc
+    #repositoryClass: Numa\DOADMSBundle\Repository\RelatedDocRepository
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        sale_id:
+            type: integer
+            nullable: true
+        related_doc_id:
+            type: integer
+            nullable: true
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]
+    manyToOne:
+        Sale:
+            targetEntity: Numa\DOADMSBundle\Entity\Sale
+            cascade: [persist]
+            inversedBy: RelatedDoc
+            joinColumn:
+                name: sale_id
+                referencedColumnName: id
+        RelatedDoc:
+            targetEntity: Numa\DOADMSBundle\Entity\RelatedDoc
+            cascade: [persist,remove]
+            onDelete: CASCADE
+            orphanRemoval: true
+            inversedBy: Sale
+            joinColumn:
+                name: related_doc_id
+                referencedColumnName: id        

@@ -2656,7 +2656,7 @@ class Sale
      */
     public function getSaleGst1()
     {
-        return $this->sale_gst1;
+        return number_format((float)$this->sale_gst1,2, '.', '');
     }
 
     /**
@@ -2680,7 +2680,7 @@ class Sale
      */
     public function getSaleGst2()
     {
-        return $this->sale_gst2;
+        return number_format((float)$this->sale_gst2,2, '.', '');
     }
 
     /**
@@ -2704,7 +2704,7 @@ class Sale
      */
     public function getSaleGst3()
     {
-        return $this->sale_gst3;
+        return number_format((float)$this->sale_gst3,2, '.', '');
     }
 
     /**
@@ -2728,7 +2728,7 @@ class Sale
      */
     public function getSaleGst4()
     {
-        return $this->sale_gst4;
+        return number_format((float)$this->sale_gst4,2, '.', '');
     }
 
     /**
@@ -2752,7 +2752,7 @@ class Sale
      */
     public function getSaleGst5()
     {
-        return $this->sale_gst5;
+        return number_format((float)$this->sale_gst5,2, '.', '');
     }
 
     /**
@@ -2776,7 +2776,7 @@ class Sale
      */
     public function getSaleGst6()
     {
-        return $this->sale_gst6;
+        return number_format((float)$this->sale_gst6,2, '.', '');
     }
 
     /**
@@ -2800,7 +2800,7 @@ class Sale
      */
     public function getSaleGst7()
     {
-        return $this->sale_gst7;
+        return number_format((float)$this->sale_gst7,2, '.', '');
     }
 
     /**
@@ -2824,7 +2824,7 @@ class Sale
      */
     public function getSaleGst8()
     {
-        return $this->sale_gst8;
+        return number_format((float)$this->sale_gst8,2, '.', '');
     }
 
     /**
@@ -2848,7 +2848,7 @@ class Sale
      */
     public function getSaleGst9()
     {
-        return $this->sale_gst9;
+        return number_format((float)$this->sale_gst9,2, '.', '');
     }
 
     /**
@@ -2872,7 +2872,7 @@ class Sale
      */
     public function getSaleGst10()
     {
-        return $this->sale_gst10;
+        return number_format((float)$this->sale_gst10,2, '.', '');
     }
 
     /**
@@ -2896,7 +2896,7 @@ class Sale
      */
     public function getSaleGst11()
     {
-        return $this->sale_gst11;
+        return number_format((float)$this->sale_gst11,2, '.', '');
     }
 
     /**
@@ -2920,6 +2920,56 @@ class Sale
      */
     public function getSaleGst12()
     {
-        return $this->sale_gst12;
+        return number_format((float)$this->sale_gst12,2, '.', '');
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $SaleRelatedDoc;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->SaleRelatedDoc = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     *
+     * @return Sale
+     */
+    public function addSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc[] = $saleRelatedDoc;
+
+        return $this;
+    }
+
+    /**
+     * Remove saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     */
+    public function removeSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc->removeElement($saleRelatedDoc);
+    }
+
+    /**
+     * Get saleRelatedDoc
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSaleRelatedDoc()
+    {
+        return $this->SaleRelatedDoc;
+    }
+
+    public function hasRelatedDocs(){
+        return count($this->SaleRelatedDoc)>0;
     }
 }

@@ -11,7 +11,10 @@ namespace Numa\DOADMSBundle\Util;
 
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\RelatedDoc;
 use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOADMSBundle\Entity\SaleRelatedDoc;
+use Symfony\Component\HttpFoundation\File\File;
 
 class SaleLib
 {
@@ -33,7 +36,7 @@ class SaleLib
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
             $item = $billing->getItem();
-            if($item instanceof Item) {
+            if ($item instanceof Item) {
                 $sale = $item->getSale();
 //                dump($item->getSaleId());
                 if (!$sale instanceof Sale) {
@@ -63,5 +66,54 @@ class SaleLib
                 $em->flush($item);
             }
         }
+    }
+
+    public function uploadRelatedDocs(Sale $sale, File $file, $upload_url, $upload_path)
+    {
+        $filename = $file->getClientOriginalName();
+
+        //make a folder if not exists
+        $dir = $upload_path.$sale->getId();
+
+        if (!file_exists($dir)) {
+            mkdir($dir, 0777, true);
+        }
+
+        //prepare filename for the image
+        $filename = $sale->getId() . "_" . $filename;
+        $filename = str_replace(array(" ", '%'), "-", $filename);
+
+        $dirandfile = $sale->getId()."/".$filename;
+
+        //full path to the uploaded image
+        $fullpathfile = $dir . "/" . $filename;
+
+        $filemoved = $file->move($dir, $filename);
+        if($filemoved instanceof File) {
+
+            $em = $this->container->get('doctrine.orm.entity_manager');
+            $relatedDoc = new RelatedDoc();
+            $relatedDoc->setName($filename);
+            $relatedDoc->setTitle($filename);
+            $relatedDoc->setSrc($dirandfile);
+
+            $saleRelatedDocs = new SaleRelatedDoc();
+            $saleRelatedDocs->setSale($sale);
+            $saleRelatedDocs->setRelatedDoc($relatedDoc);
+            $em->persist($relatedDoc);
+            $em->persist($saleRelatedDocs);
+            $em->flush();
+        }
+    }
+
+    public function deleteRelatedDoc(RelatedDoc $doc){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $file = $this->container->getParameter("related_docs_path").$doc->getSrc();
+
+        if(file_exists($file)){
+            unlink($file);
+        }
+        $em->remove($doc);
+        $em->flush();
     }
 }
