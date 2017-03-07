@@ -240,4 +240,50 @@ class RelatedDoc
     {
         // Add your code here
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $SaleRelatedDoc;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->SaleRelatedDoc = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     *
+     * @return RelatedDoc
+     */
+    public function addSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc[] = $saleRelatedDoc;
+
+        return $this;
+    }
+
+    /**
+     * Remove saleRelatedDoc
+     *
+     * @param \Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc
+     */
+    public function removeSaleRelatedDoc(\Numa\DOADMSBundle\Entity\SaleRelatedDoc $saleRelatedDoc)
+    {
+        $this->SaleRelatedDoc->removeElement($saleRelatedDoc);
+    }
+
+    /**
+     * Get saleRelatedDoc
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSaleRelatedDoc()
+    {
+        return $this->SaleRelatedDoc;
+    }
 }

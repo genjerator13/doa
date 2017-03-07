@@ -1,4 +1,4 @@
-{% if sale.SaleRelatedDoc is not empty %}
+{% if sale is defined and sale is not empty and sale.SaleRelatedDoc is not empty %}
     <table class="table">
 
         {% for doc in sale.SaleRelatedDoc %}

@@ -284,10 +284,8 @@ class SaleController extends Controller
     public function deleteRelatedDocsAction(Request $request, $id){
         $em = $this->getDoctrine()->getManager();
         $docid = $request->get('docid');
-        $saledoc = $em->getRepository(SaleRelatedDoc::class)->find(intval($docid));
-
-        $em->remove($saledoc);
-        $em->flush();
+        $saledoc = $em->getRepository(RelatedDoc::class)->find(intval($docid));
+        $this->get("numa.dms.sale")->deleteRelatedDoc($saledoc);
         die();
     }
 }
