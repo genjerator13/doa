@@ -460,6 +460,7 @@
             </tr>
 
         </table>
+        {% if entity.sale is defined %}
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sale_related_doc_upload">
             Upload Related Documents
         </button>
@@ -467,6 +468,7 @@
         <div id="related_docs" class="col-md-6">
             {% include "@NumaDOADMS/Sale/related_docs.html.twig" with {'sale':entity.sale}%}
         </div>
+        {% endif %}
         {{ form_row(form.submitAndPrint) }}
 
         <script>

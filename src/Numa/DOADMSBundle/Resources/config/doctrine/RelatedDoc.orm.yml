@@ -32,7 +32,13 @@ Numa\DOADMSBundle\Entity\RelatedDoc:
         date_updated:
              type: datetime
              nullable: true
-
+    oneToMany:
+        SaleRelatedDoc:
+            targetEntity: Numa\DOADMSBundle\Entity\SaleRelatedDoc
+            mappedBy: RelatedDoc
+            onDelete: CASCADE
+            orphanRemoval: true
+            cascade: [persist,remove]
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
