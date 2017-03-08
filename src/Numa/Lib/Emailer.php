@@ -31,7 +31,6 @@ class Emailer extends ContainerAware
         $this->container = $container;
     }
 
-
     public function sendEmail($request, $data, $dealer)
     {
         $errors = array();
@@ -78,9 +77,6 @@ class Emailer extends ContainerAware
             ->setBody($emailBody);
         if (empty($errors)) {
             $ok = $mailer->send($message);
-
-            //dump($emailFrom);
-            //dump($message);die();
             sleep(2);
         }
 
@@ -107,8 +103,6 @@ class Emailer extends ContainerAware
 
             $errors[] = "Invalid email!";
         }
-
-        //$emailFrom = $email;
         $emailTo = $dealer->getEmail();
         $email->setEmailTo($emailTo);
 
@@ -132,23 +126,16 @@ class Emailer extends ContainerAware
 
         $mailer = $this->container->get('mailer');
         $emailFrom = $this->container->getParameter("email_from");
-
-       // $emailFrom = 'general@dealersonair.com';
         $message = $mailer->createMessage()
             ->setSubject($subject)
             ->setFrom($emailFrom)
             ->addBcc('jim@dealersonair.com')
             ->addBcc('e.medjesi@gmail.com')
-            //->addBcc('vukradivojevic21@gmail.com')
             ->setTo($dealer->getEmail())
-            //->setTo('e.medjesi@gmail.com')
-            //->setTo("genjerator@outlook.com")
             ->setBody($emailBody, 'text/html');
         if (empty($errors)) {
             $ok = $mailer->send($message);
             $email->setStatus('Sent');
-            //dump($emailFrom);
-            //dump($message);die();
             sleep(2);
         } else {
             $email->setStatus('Error');
@@ -163,7 +150,6 @@ class Emailer extends ContainerAware
     public function makeMessageBody($currentUrl, $data, $emailFrom)
     {
         $body = "";
-        //dump($data);die();
         $body .= "URL: " . $currentUrl . " \n";
         $body .= "EMAIL FROM: " . $emailFrom . " \n";
         $body .= "Name: " . $this->stripUserComment($data['first_name']) . " " . $this->stripUserComment($data['last_name']) . " \n";
@@ -262,11 +248,6 @@ class Emailer extends ContainerAware
                     $repo->updatePassword($dealeruser, $password);
                 }
                 return true;
-                //dump($message);die();
-
-                //dump($emailFrom);
-                //dump($message);die();
-                //sleep(2);
             }
         }
         return false;
@@ -289,7 +270,7 @@ class Emailer extends ContainerAware
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)
-            ->setFrom('general@dealersonair.com')
+            ->setFrom('dealerinquiries@dmscomplete.com')
             ->addCc('jim@dealersonair.com')
             //->addCc('e.medjesi@gmail.com')
             ->addTo('e.medjesi@gmail.com')
@@ -299,11 +280,8 @@ class Emailer extends ContainerAware
 
         $ok = $mailer->send($message);
         if ($ok) {
-
             return true;
-
         }
-
         return false;
     }
 }
