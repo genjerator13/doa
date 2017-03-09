@@ -54,7 +54,7 @@ class Service
         $sandbox = true;     // When you're using development tokens
         //$sandbox = false;    // When you're using production tokens
         $router = $this->container->get("router");
-        
+
         // This is the URL of your OAuth auth handler page
         $this->quickbooksOauthUrl = $router->generate("numa_qb_oauth",array(),true);
 
@@ -130,6 +130,7 @@ class Service
             // Get some company info
             $this->CompanyInfoService = new \QuickBooks_IPP_Service_CompanyInfo();
             $this->quickbooksCompanyInfo = $this->CompanyInfoService->get($this->Context, $this->realm);
+            $this->container->get("session")->set("qb",1);
         } else {
             // No, they are not
             $this->isConnected = false;
@@ -147,12 +148,14 @@ class Service
     {
         $qbo = $this->init();
         $this->IntuitAnywhere->disconnect($this->getUsename(), $this->getTenant());
+        $this->container->get("session")->set("qb",0);
         return $qbo;
     }
 
     public function isConnected()
     {
-        return $this->isConnected;
+
+        return $this->isConnected || $this->container->get("session")->get("qb")==1;
     }
 
     public function getCompanyInfoService()
