@@ -54,7 +54,7 @@ class Service
         $sandbox = true;     // When you're using development tokens
         //$sandbox = false;    // When you're using production tokens
         $router = $this->container->get("router");
-        
+
         // This is the URL of your OAuth auth handler page
         $this->quickbooksOauthUrl = $router->generate("numa_qb_oauth",array(),true);
 
