@@ -1,6 +1,3 @@
-/**
- * Created by vladimir on 27.2.17..
- */
 /*
  Highcharts JS v5.0.7 (2017-01-17)
  Exporting module
@@ -9,6 +6,7 @@
 
  License: www.highcharts.com/license
  */
+
 (function(h){"object"===typeof module&&module.exports?module.exports=h:h(Highcharts)})(function(h){(function(f){var h=f.defaultOptions,n=f.doc,A=f.Chart,u=f.addEvent,F=f.removeEvent,D=f.fireEvent,q=f.createElement,B=f.discardElement,v=f.css,p=f.merge,C=f.pick,k=f.each,r=f.extend,G=f.isTouchDevice,E=f.win,H=f.Renderer.prototype.symbols;r(h.lang,{printChart:"Print chart",downloadPNG:"Download PNG image",downloadJPEG:"Download JPEG image",downloadPDF:"Download PDF document",downloadSVG:"Download SVG vector image",
     contextButtonTitle:"Chart context menu"});h.navigation={buttonOptions:{theme:{},symbolSize:14,symbolX:12.5,symbolY:10.5,align:"right",buttonSpacing:3,height:22,verticalAlign:"top",width:24}};p(!0,h.navigation,{menuStyle:{border:"1px solid #999999",background:"#ffffff",padding:"5px 0"},menuItemStyle:{padding:"0.5em 1em",background:"none",color:"#333333",fontSize:G?"14px":"11px",transition:"background 250ms, color 250ms"},menuItemHoverStyle:{background:"#335cad",color:"#ffffff"},buttonOptions:{symbolFill:"#666666",
     symbolStroke:"#666666",symbolStrokeWidth:3,theme:{fill:"#ffffff",stroke:"none",padding:5}}});h.exporting={type:"image/png",url:"https://export.highcharts.com/",printMaxWidth:780,scale:2,buttons:{contextButton:{className:"highcharts-contextbutton",menuClassName:"highcharts-contextmenu",symbol:"menu",_titleKey:"contextButtonTitle",menuItems:[{textKey:"printChart",onclick:function(){this.print()}},{separator:!0},{textKey:"downloadPNG",onclick:function(){this.exportChart()}},{textKey:"downloadJPEG",onclick:function(){this.exportChart({type:"image/jpeg"})}},
