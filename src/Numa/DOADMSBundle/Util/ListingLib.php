@@ -316,6 +316,8 @@ class ListingLib
         return $desc;
     }
 
+
+
     public function getMetaDescription(Item $item)
     {
         return $item->getCurrentSellerComment();

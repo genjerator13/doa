@@ -90,6 +90,9 @@ Numa\DOADMSBundle\Entity\Vendor:
             type: string
             length: 255
             nullable: true
+        qb_supplier_id:
+             type: integer
+             nullable: true
     manyToOne:
         Catalogrecords:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords

@@ -937,4 +937,33 @@ class Vendor
 
         return empty($this->company_name)?$this->first_name." ".$this->last_name:$this->company_name;
     }
+    /**
+     * @var integer
+     */
+    private $qb_supplier_id;
+
+
+    /**
+     * Set qbSupplierId
+     *
+     * @param integer $qbSupplierId
+     *
+     * @return Vendor
+     */
+    public function setQbSupplierId($qbSupplierId)
+    {
+        $this->qb_supplier_id = $qbSupplierId;
+
+        return $this;
+    }
+
+    /**
+     * Get qbSupplierId
+     *
+     * @return integer
+     */
+    public function getQbSupplierId()
+    {
+        return $this->qb_supplier_id;
+    }
 }

@@ -24,6 +24,7 @@ class VendorController extends Controller
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
+        //$qbo = $this->container->get("numa.quickbooks")->isConnected();
 
         return $this->render('NumaDOADMSBundle:Vendor:index.html.twig', array(
             'dealer'=>$dealer,

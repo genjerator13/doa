@@ -265,6 +265,25 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                 });
     }
 
+    $scope.addToQB = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_QB") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+    $scope.addToQBPO = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_QBPO") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+
+                    $scope.selected = {}
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+
     $scope.setDelete = function () {
         selected = $scope.selected.filter(function (element) {
             return element !== undefined;

@@ -13,6 +13,9 @@ use Doctrine\ORM\EntityRepository;
 
 class VendorRepository extends EntityRepository {
     public function findByDealerId($dealer_id){
+        if($dealer_id instanceof Catalogrecords){
+            $dealer_id = $dealer_id->getId();
+        }
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
         $qb->select('vend')
