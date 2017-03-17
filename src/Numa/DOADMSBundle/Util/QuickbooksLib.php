@@ -44,7 +44,6 @@ class QuickbooksLib
     public function addToQBPO($ids)
     {
         $em = $this->container->get('doctrine');
-
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         foreach($items as $item)
         {
@@ -58,18 +57,42 @@ class QuickbooksLib
 
         $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
 
-// Create our Purchase
         $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
         $qbPO->setTotalAmt($item->getPrice());
 
+        $qbItem = $this->insertItem($item);
+        dump($qbItem);
 
-        $line = new \QuickBooks_IPP_Object_Line();
-        $line->setQty(1);
-        $line->setItemRef(31);
-        $qbPO->addLine($line);
-        dump($qbPO);
+        $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setDetailType('ItemBasedExpenseLineDetail');
+
+        $Line->setAmount($item->getPrice());
+        $Line->setDescription($qbItem->getDescription());
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_ItemBasedExpenseLineDetail();
+        $SalesItemLineDetail->setItemRef($qbItem->getId());
+        $SalesItemLineDetail->setUnitPrice($item->getPrice());
+        $SalesItemLineDetail->setQty(1);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
+
+        $qbPO->addLine($Line);
+
+
+        //vendor
+        $sale   = $item->getSale();
+        dump($sale);
+        $vendor = false;
+        if($sale instanceof Sale){
+            $vendor = $sale->getVendor();
+        }
+        dump($vendor);
+        if($vendor instanceof Vendor){
+            $qbVendor = $this->dmsToQbVendor($vendor);
+            $qbPO->setVendorRef($qbVendor->getId());
+        }
+
+
         $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
-
+        dump($qbPO);
 
         if(!$resp)
         {
@@ -113,6 +136,7 @@ class QuickbooksLib
             $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(),$qbItem->getId(), $qbItem);
         }else{
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
+            $qbItem = $this->findQBItemByName($qbItem->getName());
         }
 
         if(!$resp)
@@ -193,7 +217,7 @@ class QuickbooksLib
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
             $resp = $VendorService->add($qbo->getContext(), $qbo->getRealm(), $qbVendor);
         }
-
+        return $qbVendor;
     }
 
     public function addSupplier(\QuickBooks_IPP_Object_Vendor $qbVendor, Vendor $vendor){
