@@ -155,8 +155,8 @@ class QuickbooksLib
     public function getQBDesc(Item $item){
         $qbdesc="";
         $qbdesc .=$this->setDescriptionProperty("Stock Number",$item->getStockNr());
-        $qbdesc .=$this->setDescriptionProperty("Body Style",$item->getStockNr());
-        $qbdesc .=$this->setDescriptionProperty("Trim",$item->getStockNr());
+        $qbdesc .=$this->setDescriptionProperty("Body Style",$item->getBodyStyle());
+        $qbdesc .=$this->setDescriptionProperty("Trim",$item->getTrim());
         $qbdesc .=$this->setDescriptionProperty("Body Description",$item->getBodyDescription());
         $qbdesc .=$this->setDescriptionProperty("Exteriour Color",$item->getExteriorColor());
         return $qbdesc;
