@@ -1,26 +1,23 @@
 dms_quickbooks_index:
     path:     /
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:index" }
-dms_quickbooks_launch:
-    path:     /launch
-    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:launch" }
-dms_quickbooks_disconect:
-    path:     /disconect
-    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:disconect" }
-dms_quickbooks_oauth_redirect:
-    path:     /oauth
-    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:oauth" }
 
 dms_quickbooks_test:
     path:     /test
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:landing" }
 
-dms_quickbooks_custmers:
-    path:     /customers
-    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:customers" }
+dms_quickbooks_suppliers:
+    path:     /suppliers
+    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:suppliers" }
 dms_quickbooks_item:
     path:     /additem/{item_id}
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:addItem" }
 dms_quickbooks_fetch_custmer:
     path:     /fetch_customer/{id}
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:fetchCustomerFromQB" }
+dms_quickbooks_qbttodms:
+    path:     /qbttodms_vendors
+    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:qbToDmsVendors" }
+dms_quickbooks_dmstoqb:
+    path:     /dmstoqb_vendors
+    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:dmsToQbVendors" }

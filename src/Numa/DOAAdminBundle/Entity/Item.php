@@ -5204,4 +5204,33 @@ class Item
     {
         return $this->archived_date;
     }
+    /**
+     * @var integer
+     */
+    private $qb_item_id;
+
+
+    /**
+     * Set qbItemId
+     *
+     * @param integer $qbItemId
+     *
+     * @return Item
+     */
+    public function setQbItemId($qbItemId)
+    {
+        $this->qb_item_id = $qbItemId;
+
+        return $this;
+    }
+
+    /**
+     * Get qbItemId
+     *
+     * @return integer
+     */
+    public function getQbItemId()
+    {
+        return $this->qb_item_id;
+    }
 }

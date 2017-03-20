@@ -222,7 +222,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key - 1].active = 1;
                     });
-                    $scope.selected = {}
+                    $scope.selected = []
                     $scope.gridApi.selection.clearSelectedRows();
                 });
     }
@@ -234,7 +234,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key - 1].active = 0;
                     });
-                    $scope.selected = {}
+                    $scope.selected = []
                     $scope.gridApi.selection.clearSelectedRows();
                 });
     }
@@ -248,7 +248,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                         $log.log(key + ': ' + value);
                         $scope.gridOptions.data[key - 1].featured = 1;
                     });
-                    $scope.selected = {}
+                    $scope.selected = []
                     $scope.gridApi.selection.clearSelectedRows();
                 });
     }
@@ -260,7 +260,31 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
                     angular.forEach($scope.selected, function (value, key) {
                         $scope.gridOptions.data[key - 1].featured = 1;
                     });
-                    $scope.selected = {}
+                    $scope.selected = []
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+
+    $scope.addToQB = function () {
+        $log.log(JSON.stringify($scope.selected));
+        $http.post('{{ path("dms_item_QB") }}', {'data': JSON.stringify($scope.selected)})
+                .success(function (data) {
+                    $scope.selected = []
+                    $scope.gridApi.selection.clearSelectedRows();
+                });
+    }
+    $scope.addToQBPO = function () {
+        $log.log($scope.selected);
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        $log.log(JSON.stringify(selected));
+        $http.post('{{ path("dms_item_QBPO") }}', {'data': JSON.stringify(selected)})
+                .success(function (data) {
+                    $scope.selected = []
                     $scope.gridApi.selection.clearSelectedRows();
                 });
     }

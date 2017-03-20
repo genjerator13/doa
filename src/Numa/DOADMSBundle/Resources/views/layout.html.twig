@@ -25,6 +25,14 @@
     {% block javascripts %}
         {% javascripts 'js/jquery/jquery.1.11.0.min.js' 'js/jquery/jquery.1.11.0.min.js' '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
+        {#{% if app.session.get('qb')==1 %}#}
+        {#<script type="text/javascript">#}
+            {#intuit.ipp.anywhere.setup({#}
+                {#menuProxy: '{{ param.getQuickbooksMenuUrl() }}',#}
+                {#grantUrl: '{{ param.getQuickbooksOauthUrl() }}'#}
+            {#});#}
+        {#</script>#}
+        {#{% endif %}#}
         {% endjavascripts %}
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -42,7 +50,7 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
-
+    <ipp:blueDot></ipp:blueDot>
     <!-- Main Header -->
     <header class="main-header">
 
@@ -293,9 +301,10 @@
                             {% if is_granted('ROLE_ADMIN') or
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_DMS_USER') or
-                            is_granted('ROLE_DEALER_PRINCIPAL')  %}
+                            is_granted('ROLE_DEALER_PRINCIPAL') %}
                                 <li class="active">
-                                    <a href="{{ path('inventory_archived') }}" class=""><i class="fa fa-list"></i>Archived Listings</a>
+                                    <a href="{{ path('inventory_archived') }}" class=""><i class="fa fa-list"></i>Archived
+                                        Listings</a>
                                 </li>
                             {% endif %}
 
@@ -493,6 +502,7 @@
         <section class="content">
 
             <!-- Your Page Content Here -->
+            {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
             {% block content %}
             {% endblock %}
 

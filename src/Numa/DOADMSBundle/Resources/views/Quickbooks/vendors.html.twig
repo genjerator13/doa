@@ -1,0 +1,107 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">QuickBook and DMS Vendors list</h3>
+
+        </div>
+        {#{{ dump(qbSuppliers[0]) }}#}
+        {% if qbSuppliers is empty %}
+            <div>No QuickBook Suppliers</div>
+        {% else %}
+            <div class="box-body table-responsive no-padding">
+                <div class="col-md-4">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>CompanyName</th>
+                            {#<th>CompanyName</th>#}
+                            {#<th>Email</th>#}
+                            {#<th>DMS Customer Link</th>#}
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for supplier in qbSuppliers %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ supplier.getId() }}</td>
+                                <td>
+                                    {% if supplier.getCompanyName() is defined %}
+                                        {{ supplier.getCompanyName() }}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {#{% if(customer.dms_id is defined and customer.dms_id is not empty) %}#}
+                                    {#<a class="btn btn-warning"#}
+                                    {#href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Update#}
+                                    {#Customer</a>#}
+                                    {#{% else %}#}
+                                    {#<a class="btn btn-primary"#}
+                                    {#href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Add#}
+                                    {#customer to DMS</a>#}
+                                    {#{% endif %}#}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-3">
+                    <ul>
+                        <li>
+                            <a href="{{ path('dms_quickbooks_qbttodms') }}" class="btn btn-success">Import all suppliers from QuickBooks -></a>
+                        </li>
+                        <li>
+                            <a href="{{ path('dms_quickbooks_dmstoqb') }}" class="btn btn-primary"><- Export all suppliers to QuickBooks</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Id</th>
+                            <th>CompanyName</th>
+                            {#<th>CompanyName</th>#}
+                            {#<th>Email</th>#}
+                            {#<th>DMS Customer Link</th>#}
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for vendor in vendors %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ vendor.getId() }}</td>
+                                <td>
+                                    {% if vendor.getCompanyName() is defined %}
+                                        {{ vendor.getCompanyName() }}
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {#{% if(customer.dms_id is defined and customer.dms_id is not empty) %}#}
+                                    {#<a class="btn btn-warning"#}
+                                    {#href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Update#}
+                                    {#Customer</a>#}
+                                    {#{% else %}#}
+                                    {#<a class="btn btn-primary"#}
+                                    {#href="{{ path("dms_quickbooks_fetch_custmer",{"id":customer.Id}) }}">Add#}
+                                    {#customer to DMS</a>#}
+                                    {#{% endif %}#}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+{% endblock %}
