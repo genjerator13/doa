@@ -100,6 +100,12 @@
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
                 {#<button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>#}
             {% endif %}
+            {% if is_granted("ROLE_ADMIN") and qbo.isConnected() %}
+                <button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") and qbo.isConnected() %}
+                <button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>
+            {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>
     </div>

@@ -34,7 +34,12 @@ dms_item_featured:
 dms_item_kijiji:
     path:     /kijiji
     defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeKijiji" }
-
+dms_item_QB:
+    path:     /addtoqb
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massAddToQB" }
+dms_item_QBPO:
+    path:     /addtoqbpo
+    defaults: { _controller: "NumaDOAAdminBundle:Item:massAddToQBPO" }
 dms_item_delete:
     path:     /delete
     defaults: { _controller: "NumaDOAAdminBundle:Item:massDelete2" }

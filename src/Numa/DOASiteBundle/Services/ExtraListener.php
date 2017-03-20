@@ -121,16 +121,18 @@ class ExtraListener
         if (!empty($routeName) && strpos(strtolower($routeName), "dms") !== 0 && strpos(strtolower($routeName), "api") === false) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $currentUrl = $request->getRequestUri();
-            //myurl fix
-//            if (substr($currentUrl, 0, 2) === "/d") {
-//                $currentUrl = substr($currentUrl, 2, strlen($currentUrl) - 1);
-//            }
+
 
             $dealer = $this->container->get("Numa.Dms.User")->getDealerByHost();
-
+            //$session =$this->container->get("session");
+            //$qbsession = $session->get("qb");
+            //$qbset = isset($qbsession);
+            //if(!isset($qbsession)){
+            //    $qbo = $this->container->get("numa.quickbooks")->init();
+            //dump($qbo);
+            //}
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
             $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
-            //$response->set
 
             $response->setContent($html);
         }
