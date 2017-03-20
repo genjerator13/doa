@@ -147,7 +147,7 @@ class Service
     public function disconnect()
     {
         $qbo = $this->init();
-        $this->IntuitAnywhere->disconnect($this->getUsename(), $this->getTenant());
+        $this->IntuitAnywhere->disconnect($this->getUsername(), $this->getTenant());
         $this->container->get("session")->set("qb",0);
         return $qbo;
     }

@@ -2,9 +2,11 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Doctrine\DBAL\VersionAwarePlatformDriver;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use \Numa\DOADMSBundle\Entity\Customer;
+use Numa\DOADMSBundle\Entity\Vendor;
 use oasis\names\specification\ubl\schema\xsd\CommonAggregateComponents_2\CatalogueLine;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -13,100 +15,71 @@ use Wheniwork\OAuth1\Client\Server\Intuit;
 
 class QuickbooksController extends Controller
 {
-    /**
-     * @param Request $request
-     */
-    public function launchAction(Request $request)
-    {
-        $dealer = $this->get('numa.dms.user')->getSignedDealer();
-
-        if (!$dealer instanceof Catalogrecords) {
-            die("dealer only");
-            //throw ("aaaaa");
-        }
-        $server               = $this->get("numa.dms.quickbooks")->getServer($dealer);
-
-        // Retrieve temporary credentials
-        $temporaryCredentials = $server->getTemporaryCredentials();
-        $em = $this->getDoctrine()->getManager();
-        $dealer->setQbTempToken(serialize($temporaryCredentials));
-        $em->flush();
-        //$this->get("session")->set("temporary_credentials", serialize($temporaryCredentials));
-        //$this->get("session")->set("server", serialize($server));
-
-
-        $server->authorize($temporaryCredentials);
-
-        die();
-        //$server = new \Wheniwork\OAuth1\Client\Server\Intuit()
-
-    }
 
     public function indexAction()
     {
         return $this->render('NumaDOADMSBundle:Quickbooks:index.html.twig');
     }
 
-    public function oauthAction(Request $request)
-    {
-        $oauth_token = $request->get('oauth_token');
-        $oauth_verifier = $request->get('oauth_verifier');
-        $realm_id = $request->get('realmId');
-        $dealer = $this->get('numa.dms.user')->getSignedDealer();
-
-//        if (!empty($dealer->getQbTokenCredential())) {
-//            return $this->redirectToRoute("dms_quickbooks_index");
-//        }
-
-        if (!empty($oauth_token) && !empty($oauth_verifier)) {
-
-            $server = $this->get("numa.dms.quickbooks")->getServer($dealer);
-
-            // Retrieve temporary credentials
-            $temporaryCredentials = $dealer->getQbTempToken();
-
-            // We will now retrieve token credentials from the server
-
-            $tokenCredentials = $server->getTokenCredentials(unserialize($temporaryCredentials), $_GET['oauth_token'], $_GET['oauth_verifier']);
-
-
-            //$this->get("session")->set('token_credential',serialize($tokenCredentials));
-            if ($dealer instanceof Catalogrecords && !empty($realm_id)) {
-                $em = $this->getDoctrine()->getManager();
-                $dealer->setQbRealmId($realm_id);
-                $dealer->setQbTokenCredential(serialize($tokenCredentials));
-                $em->flush();
-            }
-            dump($tokenCredentials);
-            die();
-            return $this->redirectToRoute("dms_quickbooks_index");
-        }
-    }
-
     public function addItemAction(Request $request, $item_id)
     {
-        //$dealer = $this->get('numa.dms.user')->getSignedDealer();
         $em = $this->getDoctrine()->getManager();
-
         $item = $em->getRepository(Item::class)->find($item_id);
 
         $qbItem = $this->get("numa.dms.quickbooks")->insertItem($item);
-        dump($qbItem);
-        die();
+        if($qbItem instanceof QuickBooks_IPP_Object_Item){
+            $qbItem=array();
+        }
+        return $this->render('NumaDOADMSBundle:Quickbooks:item.html.twig', array(
+            'item'=>$qbItem
+        ));
     }
 
-    public function customersAction(Request $request, $item_id)
+    public function suppliersAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $qbSuppliers = $this->get("numa.dms.quickbooks")->getAllSuppliers();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $vendors = $em->getRepository(Vendor::class)->findByDealerId($dealer->getId());
+        //dump($qbSuppliers);die();
 
+        return $this->render('NumaDOADMSBundle:Quickbooks:vendors.html.twig', array(
+            'qbSuppliers'=>$qbSuppliers,
+            'vendors'=>$vendors,
+        ));
     }
 
-    public function fetchCustomerFromQBAction(Request $request, $id)
-    {
-        $customer_id = intval($id);
-        $customer = $this->get("numa.dms.quickbooks")->callApi("customer/" . $customer_id);
-        $this->get("numa.dms.quickbooks")->insertCustomerFromQB($customer['Customer']);
-        return $this->redirectToRoute("dms_quickbooks_custmers");
-        die();
+    public function qbToDmsVendorsAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $qbSuppliers = $this->get("numa.dms.quickbooks")->getAllSuppliers();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        foreach($qbSuppliers as $supplier){
+            $qbid = $this->get("numa.dms.quickbooks")->parseId($supplier->getId());
+            $vendor = $em->getRepository(Vendor::class)->findOneBy(array("qb_supplier_id"=>$qbid));
+            if(!$vendor instanceof Vendor){
+                $vendor = new Vendor();
+                $em->persist($vendor);
+            }
+            $vendor->setQbSupplierId($qbid);
+            $vendor->setCatalogrecords($dealer);
+            $vendor->setCompanyName($supplier->getCompanyName());
+        }
+        $this->addFlash("success","All the suppliers from QuickBooks are imported to DMS");
+        $em->flush();
+        return $this->redirectToRoute('dms_quickbooks_suppliers');
     }
+
+    public function dmsToQbVendorsAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $vendors = $em->getRepository(Vendor::class)->findByDealerId($dealer->getId());
+        foreach($vendors as $vendor){
+            $vendor = $this->get("numa.dms.quickbooks")->dmsToQbVendor($vendor);
+        }
+        $this->addFlash("success","All the vendors from DMS are imported to QuickBooks");
+        $em->flush();
+        return $this->redirectToRoute('dms_quickbooks_suppliers');
+    }
+
 
 }

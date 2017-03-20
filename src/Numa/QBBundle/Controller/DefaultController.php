@@ -20,7 +20,7 @@ class DefaultController extends Controller
 
     public function disconnectAction()
     {
-        $qbo = $this->get("numa.quickbooks")->disconect();
+        $qbo = $this->get("numa.quickbooks")->disconnect();
 
         return $this->render('NumaQBBundle:Default:disconnect.html.twig', array('param' => $qbo));
     }

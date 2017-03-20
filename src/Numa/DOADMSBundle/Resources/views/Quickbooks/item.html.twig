@@ -1,0 +1,45 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block content -%}
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">QuickBook Item is created</h3>
+
+        </div>
+        {% if item is empty %}
+            <div>No QuickBook Item</div>
+        {% else %}
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>Property</th>
+                        <th>value</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Id</td>
+                        <td>{{ item.getId()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>{{ item.getName()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Description</td>
+                        <td>{{ item.getDescription()|nl2br}}</td>
+                    </tr>
+                    <tr>
+                        <td>Sku</td>
+                        <td>{{ item.getSku()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Type</td>
+                        <td>{{ item.getType()}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

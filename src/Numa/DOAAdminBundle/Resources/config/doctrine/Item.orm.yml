@@ -504,6 +504,9 @@ Numa\DOAAdminBundle\Entity\Item:
         sold_date:
               type: datetime
               nullable: true
+        qb_item_id:
+              type: integer
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]

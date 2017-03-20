@@ -36,6 +36,11 @@
         <h3 class="box-title">Vendor list</h3>
 
         <div class="box-tools">
+            {% if app.session.get('qb')==1 %}
+                <a href="{{ path('vendor_new') }}" class="btn btn-warning">
+                    Import Suppliers From QuickBooks
+                </a>
+            {% endif %}
             <a href="{{ path('vendor_new') }}" class="btn btn-primary">
                 Create new Vendor
             </a>
