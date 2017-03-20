@@ -58,7 +58,7 @@ class QuickbooksLib
         $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
 
         $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
-        $qbPO->setTotalAmt($item->getPrice());
+
 
         $qbItem = $this->insertItem($item);
         dump($qbItem);
@@ -74,7 +74,7 @@ class QuickbooksLib
         $SalesItemLineDetail->setQty(1);
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
-        $qbPO->addLine($Line);
+
 
 
         //vendor
@@ -83,7 +83,10 @@ class QuickbooksLib
         $vendor = false;
         if($sale instanceof Sale){
             $vendor = $sale->getVendor();
+            $qbPO->setTotalAmt($sale->getInvoiceAmt());
+            $Line->setAmount($sale->getInvoiceAmt());
         }
+        $qbPO->addLine($Line);
         dump($vendor);
         if($vendor instanceof Vendor){
             $qbVendor = $this->dmsToQbVendor($vendor);
