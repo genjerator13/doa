@@ -227,7 +227,7 @@ class Emailer extends ContainerAware
         $mailer = $this->container->get('mailer');
         $message = $mailer->createMessage()
             ->setSubject($subject)
-            ->setFrom('general@dealersonair.com')
+            ->setFrom('dealerinquiries@dmscomplete.com')
             ->addCc('jim@dealersonair.com')
             ->addCc('e.medjesi@gmail.com')
             ->setTo($email)
