@@ -79,7 +79,7 @@ class QuickbooksLib
 
         //vendor
         $sale   = $item->getSale();
-        dump($sale);
+
         $vendor = false;
         if($sale instanceof Sale){
             $vendor = $sale->getVendor();
@@ -87,7 +87,7 @@ class QuickbooksLib
             $Line->setAmount($sale->getInvoiceAmt());
         }
         $qbPO->addLine($Line);
-        dump($vendor);
+
         if($vendor instanceof Vendor){
             $qbVendor = $this->dmsToQbVendor($vendor);
             $qbPO->setVendorRef($qbVendor->getId());
