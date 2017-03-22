@@ -8,7 +8,7 @@
         col-sm-12
     {%- endblock form_group_class %}
 </div>
-<div class="row form-horizontal">
+<td class="row form-horizontal">
     <h1>UNIT PROFIT REPORT</h1>
     <table cellspacing="0" width="100%" border="0" class="itemsale table">
         <tr>
@@ -293,34 +293,64 @@
                 <td>{{ form_widget(form.total_revenue, {'attr': {'class': 'lightgray'}}) }}</td>
             </tr>
         </table>
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table">
+                    <tr>
+                    <tr ><td colspan="4"><h2>SALES COST RECAP</h2></td></tr>
+                    </tr>
+                    <tr>
+                        <td class="col-md-1">&nbsp;</td>
+                        <td class="col-md-2">Amount</td>
+                        <td class="col-md-2">GST</td>
+                        <td class="col-md-3">Vendor / Supplier Name</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.protect_pkg) }}</td>
+                        <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
+
+                        <td>
+                            {{ form_widget(form.Vendor_Protect_pkg) }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-3">
+                <table class="table">
+                    <tr><td colspan="2"><h2>TAXES</h2></td></tr>
+                    <tr>
+                        <td class="col-md-1">&nbsp;</td>
+                        <td class="col-md-1">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.tax_1_out) }}</td>
+                        <td>{{ form_widget(form.tax_1_out) }}</td>
+                    </tr>
+                    </table>
+            </div>
+        </div>
+
         <table class="table">
             <tr>
-                <td colspan="2" width="30%"><h2>SALES COST RECAP</h2></td>
-                <td width="20%">&nbsp;</td>
-                <td width="10%"><h2>TAXES</h2></td>
-                <td width="20%">&nbsp;</td>
+                <td colspan="4"><h2>SALES COST RECAP</h2></td>
+
+                <td colspan="2"><h2>TAXES</h2></td>
+
+            </tr>
+            <tr>
+                <td width="10%">&nbsp;</td>
+                <td width="10%">Amount</td>
+                <td width="10%">GST</td>
+                <td width="20%">Vendor / Supplier Name</td>
+                <td width="10%">&nbsp;</td>
+                <td width="10%">&nbsp;</td>
                 <td width="10%">&nbsp;</td>
             </tr>
             <tr>
-                <td></td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6"><p>Amount</p></div>
-                        <div class="col-md-6"><p>GST</p></div>
-                    </div>
-                </td>
-                <td><p>Vendor / Supplier Name</p></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
                 <td>{{ form_label(form.protect_pkg) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
+                <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
                 </td>
                 <td>
                     {{ form_widget(form.Vendor_Protect_pkg) }}
@@ -505,13 +535,14 @@
 
         </table>
         {% if entity.sale is defined %}
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#sale_related_doc_upload">
-            Upload Related Documents
-        </button>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+                    data-target="#sale_related_doc_upload">
+                Upload Related Documents
+            </button>
 
-        <div id="related_docs" class="col-md-6">
-            {% include "@NumaDOADMS/Sale/related_docs.html.twig" with {'sale':entity.sale}%}
-        </div>
+            <div id="related_docs" class="col-md-6">
+                {% include "@NumaDOADMS/Sale/related_docs.html.twig" with {'sale':entity.sale} %}
+            </div>
         {% endif %}
         {{ form_row(form.submitAndPrint) }}
 
