@@ -309,10 +309,95 @@
                         <td>{{ form_label(form.protect_pkg) }}</td>
                         <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
                         <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
-
+                        <td>{{ form_widget(form.Vendor_Protect_pkg) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.warranty) }}</td>
+                        <td>{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst2, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Warranty) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.doc_fees) }}</td>
+                        <td>{{ form_widget(form.doc_fees, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst3, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Doc_fees) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.admin_fees) }}</td>
+                        <td>{{ form_widget(form.admin_fees, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst4, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Admin_fees) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.insurance) }}</td>
+                        <td>{{ form_widget(form.insurance, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst5, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Insurance) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.life_ins) }}</td>
+                        <td>{{ form_widget(form.life_ins, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst6, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Life_ins) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.disability_ins) }}</td>
+                        <td>{{ form_widget(form.disability_ins, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst7, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Disability_ins) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.feverse) }}</td>
+                        <td>{{ form_widget(form.feverse, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst8, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Feverse) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.misc_1) }}</td>
+                        <td>{{ form_widget(form.misc_1, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst9, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Misc_1) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.misc_2) }}</td>
+                        <td>{{ form_widget(form.misc_2, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst10, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Misc_2) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.misc_3) }}</td>
+                        <td>{{ form_widget(form.misc_3, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst11, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Misc_3) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.sales_comms) }}</td>
+                        <td>{{ form_widget(form.sales_comms, {'attr': {'class': 'sum2'}}) }}</td>
+                        <td>{{ form_widget(form.sale_gst12, {'attr': {'class': 'sale_gst'}}) }}</td>
+                        <td>{{ form_widget(form.Vendor_Sales_comms) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.total_sale_cost) }}</td>
+                        <td>{{ form_widget(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}</td>
+                        <td></td>
+                        <td></td>
+                        <td>{{ form_label(form.revenue_this_unit) }}</td>
+                        <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
+                    </tr>
+                    <tr>
                         <td>
-                            {{ form_widget(form.Vendor_Protect_pkg) }}
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6"></div>
+                            </div>
                         </td>
+                        <td>
+
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
@@ -328,213 +413,34 @@
                         <td>{{ form_label(form.tax_1_out) }}</td>
                         <td>{{ form_widget(form.tax_1_out) }}</td>
                     </tr>
+                    <tr>
+                        <td>{{ form_label(form.tax_2_out) }}</td>
+                        <td>{{ form_widget(form.tax_2_out) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.unit_tax_other) }}</td>
+                        <td>{{ form_widget(form.unit_tax_other, {'attr': {'class': 'lightgray'}}) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.trade_in_tax) }}</td>
+                        <td>{{ form_widget(form.trade_in_tax) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.tax_1_in) }}</td>
+                        <td>{{ form_widget(form.tax_1_in) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.tax_2_in) }}</td>
+                        <td>{{ form_widget(form.tax_2_in) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ form_label(form.net_tax) }}</td>
+                        <td>{{ form_widget(form.net_tax, {'attr': {'class': 'lightgray'}}) }}</td>
+                    </tr>
                     </table>
             </div>
         </div>
 
-        <table class="table">
-            <tr>
-                <td colspan="4"><h2>SALES COST RECAP</h2></td>
-
-                <td colspan="2"><h2>TAXES</h2></td>
-
-            </tr>
-            <tr>
-                <td width="10%">&nbsp;</td>
-                <td width="10%">Amount</td>
-                <td width="10%">GST</td>
-                <td width="20%">Vendor / Supplier Name</td>
-                <td width="10%">&nbsp;</td>
-                <td width="10%">&nbsp;</td>
-                <td width="10%">&nbsp;</td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.protect_pkg) }}</td>
-                <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
-                <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Protect_pkg) }}
-                </td>
-                <td>{{ form_label(form.tax_1_out) }}</td>
-                <td>{{ form_widget(form.tax_1_out) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.warranty) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst2, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Warranty) }}
-                </td>
-                <td>{{ form_label(form.tax_2_out) }}</td>
-                <td>{{ form_widget(form.tax_2_out) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.doc_fees) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.doc_fees, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst3, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Doc_fees) }}
-                </td>
-                <td>{{ form_label(form.unit_tax_other) }}</td>
-                <td>{{ form_widget(form.unit_tax_other, {'attr': {'class': 'lightgray'}}) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.admin_fees) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.admin_fees, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst4, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Admin_fees) }}
-                </td>
-                <td>{{ form_label(form.trade_in_tax) }}</td>
-                <td>{{ form_widget(form.trade_in_tax) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.insurance) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.insurance, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst5, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Insurance) }}
-                </td>
-                <td>{{ form_label(form.tax_1_in) }}</td>
-                <td>{{ form_widget(form.tax_1_in) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.life_ins) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.life_ins, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst6, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Life_ins) }}
-                </td>
-                <td>{{ form_label(form.tax_2_in) }}</td>
-                <td>{{ form_widget(form.tax_2_in) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.disability_ins) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.disability_ins, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst7, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Disability_ins) }}
-                </td>
-                <td>{{ form_label(form.net_tax) }}</td>
-                <td>{{ form_widget(form.net_tax, {'attr': {'class': 'lightgray'}}) }}</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.feverse) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.feverse, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst8, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Feverse) }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.misc_1) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.misc_1, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst9, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Misc_1) }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.misc_2) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.misc_2, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst10, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Misc_2) }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.misc_3) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.misc_3, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst11, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Misc_3) }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.sales_comms) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.sales_comms, {'attr': {'class': 'sum2'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.sale_gst12, {'attr': {'class': 'sale_gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Sales_comms) }}
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.total_sale_cost) }}</td>
-                <td>{{ form_widget(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}</td>
-                <td></td>
-                <td></td>
-                <td>{{ form_label(form.revenue_this_unit) }}</td>
-                <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
-            </tr>
-
-        </table>
         {% if entity.sale is defined %}
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
                     data-target="#sale_related_doc_upload">
