@@ -2972,4 +2972,758 @@ class Sale
     public function hasRelatedDocs(){
         return count($this->SaleRelatedDoc)>0;
     }
+    /**
+     * @var integer
+     */
+    private $protect_pkg_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $warranty_vendor_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Protect_pkg;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Warranty;
+
+
+    /**
+     * Set protectPkgVendorId
+     *
+     * @param integer $protectPkgVendorId
+     *
+     * @return Sale
+     */
+    public function setProtectPkgVendorId($protectPkgVendorId)
+    {
+        $this->protect_pkg_vendor_id = $protectPkgVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get protectPkgVendorId
+     *
+     * @return integer
+     */
+    public function getProtectPkgVendorId()
+    {
+        return $this->protect_pkg_vendor_id;
+    }
+
+    /**
+     * Set warrantyVendorId
+     *
+     * @param integer $warrantyVendorId
+     *
+     * @return Sale
+     */
+    public function setWarrantyVendorId($warrantyVendorId)
+    {
+        $this->warranty_vendor_id = $warrantyVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get warrantyVendorId
+     *
+     * @return integer
+     */
+    public function getWarrantyVendorId()
+    {
+        return $this->warranty_vendor_id;
+    }
+
+    /**
+     * Set vendorProtectPkg
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorProtectPkg
+     *
+     * @return Sale
+     */
+    public function setVendorProtectPkg(\Numa\DOADMSBundle\Entity\Vendor $vendorProtectPkg = null)
+    {
+        $this->Vendor_Protect_pkg = $vendorProtectPkg;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorProtectPkg
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorProtectPkg()
+    {
+        return $this->Vendor_Protect_pkg;
+    }
+
+    /**
+     * Set vendorWarranty
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorWarranty
+     *
+     * @return Sale
+     */
+    public function setVendorWarranty(\Numa\DOADMSBundle\Entity\Vendor $vendorWarranty = null)
+    {
+        $this->Vendor_Warranty = $vendorWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorWarranty
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorWarranty()
+    {
+        return $this->Vendor_Warranty;
+    }
+    /**
+     * @var integer
+     */
+    private $doc_fees_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $admin_fees_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $insurance_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $life_ins_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $disability_ins_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $feverse_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $misc_1_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $misc_2_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $misc_3_vendor_id;
+
+    /**
+     * @var integer
+     */
+    private $sales_comms_vendor_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Doc_fees;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Admin_fees;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Insurance;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Life_ins;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Disability_ins;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Feverse;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Misc_1;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Misc_2;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Misc_3;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Sales_comms;
+
+
+    /**
+     * Set docFeesVendorId
+     *
+     * @param integer $docFeesVendorId
+     *
+     * @return Sale
+     */
+    public function setDocFeesVendorId($docFeesVendorId)
+    {
+        $this->doc_fees_vendor_id = $docFeesVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get docFeesVendorId
+     *
+     * @return integer
+     */
+    public function getDocFeesVendorId()
+    {
+        return $this->doc_fees_vendor_id;
+    }
+
+    /**
+     * Set adminFeesVendorId
+     *
+     * @param integer $adminFeesVendorId
+     *
+     * @return Sale
+     */
+    public function setAdminFeesVendorId($adminFeesVendorId)
+    {
+        $this->admin_fees_vendor_id = $adminFeesVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get adminFeesVendorId
+     *
+     * @return integer
+     */
+    public function getAdminFeesVendorId()
+    {
+        return $this->admin_fees_vendor_id;
+    }
+
+    /**
+     * Set insuranceVendorId
+     *
+     * @param integer $insuranceVendorId
+     *
+     * @return Sale
+     */
+    public function setInsuranceVendorId($insuranceVendorId)
+    {
+        $this->insurance_vendor_id = $insuranceVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get insuranceVendorId
+     *
+     * @return integer
+     */
+    public function getInsuranceVendorId()
+    {
+        return $this->insurance_vendor_id;
+    }
+
+    /**
+     * Set lifeInsVendorId
+     *
+     * @param integer $lifeInsVendorId
+     *
+     * @return Sale
+     */
+    public function setLifeInsVendorId($lifeInsVendorId)
+    {
+        $this->life_ins_vendor_id = $lifeInsVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get lifeInsVendorId
+     *
+     * @return integer
+     */
+    public function getLifeInsVendorId()
+    {
+        return $this->life_ins_vendor_id;
+    }
+
+    /**
+     * Set disabilityInsVendorId
+     *
+     * @param integer $disabilityInsVendorId
+     *
+     * @return Sale
+     */
+    public function setDisabilityInsVendorId($disabilityInsVendorId)
+    {
+        $this->disability_ins_vendor_id = $disabilityInsVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get disabilityInsVendorId
+     *
+     * @return integer
+     */
+    public function getDisabilityInsVendorId()
+    {
+        return $this->disability_ins_vendor_id;
+    }
+
+    /**
+     * Set feverseVendorId
+     *
+     * @param integer $feverseVendorId
+     *
+     * @return Sale
+     */
+    public function setFeverseVendorId($feverseVendorId)
+    {
+        $this->feverse_vendor_id = $feverseVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get feverseVendorId
+     *
+     * @return integer
+     */
+    public function getFeverseVendorId()
+    {
+        return $this->feverse_vendor_id;
+    }
+
+    /**
+     * Set misc1VendorId
+     *
+     * @param integer $misc1VendorId
+     *
+     * @return Sale
+     */
+    public function setMisc1VendorId($misc1VendorId)
+    {
+        $this->misc_1_vendor_id = $misc1VendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get misc1VendorId
+     *
+     * @return integer
+     */
+    public function getMisc1VendorId()
+    {
+        return $this->misc_1_vendor_id;
+    }
+
+    /**
+     * Set misc2VendorId
+     *
+     * @param integer $misc2VendorId
+     *
+     * @return Sale
+     */
+    public function setMisc2VendorId($misc2VendorId)
+    {
+        $this->misc_2_vendor_id = $misc2VendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get misc2VendorId
+     *
+     * @return integer
+     */
+    public function getMisc2VendorId()
+    {
+        return $this->misc_2_vendor_id;
+    }
+
+    /**
+     * Set misc3VendorId
+     *
+     * @param integer $misc3VendorId
+     *
+     * @return Sale
+     */
+    public function setMisc3VendorId($misc3VendorId)
+    {
+        $this->misc_3_vendor_id = $misc3VendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get misc3VendorId
+     *
+     * @return integer
+     */
+    public function getMisc3VendorId()
+    {
+        return $this->misc_3_vendor_id;
+    }
+
+    /**
+     * Set salesCommsVendorId
+     *
+     * @param integer $salesCommsVendorId
+     *
+     * @return Sale
+     */
+    public function setSalesCommsVendorId($salesCommsVendorId)
+    {
+        $this->sales_comms_vendor_id = $salesCommsVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get salesCommsVendorId
+     *
+     * @return integer
+     */
+    public function getSalesCommsVendorId()
+    {
+        return $this->sales_comms_vendor_id;
+    }
+
+    /**
+     * Set vendorDocFees
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorDocFees
+     *
+     * @return Sale
+     */
+    public function setVendorDocFees(\Numa\DOADMSBundle\Entity\Vendor $vendorDocFees = null)
+    {
+        $this->Vendor_Doc_fees = $vendorDocFees;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorDocFees
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorDocFees()
+    {
+        return $this->Vendor_Doc_fees;
+    }
+
+    /**
+     * Set vendorAdminFees
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorAdminFees
+     *
+     * @return Sale
+     */
+    public function setVendorAdminFees(\Numa\DOADMSBundle\Entity\Vendor $vendorAdminFees = null)
+    {
+        $this->Vendor_Admin_fees = $vendorAdminFees;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorAdminFees
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorAdminFees()
+    {
+        return $this->Vendor_Admin_fees;
+    }
+
+    /**
+     * Set vendorInsurance
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorInsurance
+     *
+     * @return Sale
+     */
+    public function setVendorInsurance(\Numa\DOADMSBundle\Entity\Vendor $vendorInsurance = null)
+    {
+        $this->Vendor_Insurance = $vendorInsurance;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorInsurance
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorInsurance()
+    {
+        return $this->Vendor_Insurance;
+    }
+
+    /**
+     * Set vendorLifeIns
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorLifeIns
+     *
+     * @return Sale
+     */
+    public function setVendorLifeIns(\Numa\DOADMSBundle\Entity\Vendor $vendorLifeIns = null)
+    {
+        $this->Vendor_Life_ins = $vendorLifeIns;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorLifeIns
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorLifeIns()
+    {
+        return $this->Vendor_Life_ins;
+    }
+
+    /**
+     * Set vendorDisabilityIns
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorDisabilityIns
+     *
+     * @return Sale
+     */
+    public function setVendorDisabilityIns(\Numa\DOADMSBundle\Entity\Vendor $vendorDisabilityIns = null)
+    {
+        $this->Vendor_Disability_ins = $vendorDisabilityIns;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorDisabilityIns
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorDisabilityIns()
+    {
+        return $this->Vendor_Disability_ins;
+    }
+
+    /**
+     * Set vendorFeverse
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorFeverse
+     *
+     * @return Sale
+     */
+    public function setVendorFeverse(\Numa\DOADMSBundle\Entity\Vendor $vendorFeverse = null)
+    {
+        $this->Vendor_Feverse = $vendorFeverse;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorFeverse
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorFeverse()
+    {
+        return $this->Vendor_Feverse;
+    }
+
+    /**
+     * Set vendorMisc1
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorMisc1
+     *
+     * @return Sale
+     */
+    public function setVendorMisc1(\Numa\DOADMSBundle\Entity\Vendor $vendorMisc1 = null)
+    {
+        $this->Vendor_Misc_1 = $vendorMisc1;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorMisc1
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorMisc1()
+    {
+        return $this->Vendor_Misc_1;
+    }
+
+    /**
+     * Set vendorMisc2
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorMisc2
+     *
+     * @return Sale
+     */
+    public function setVendorMisc2(\Numa\DOADMSBundle\Entity\Vendor $vendorMisc2 = null)
+    {
+        $this->Vendor_Misc_2 = $vendorMisc2;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorMisc2
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorMisc2()
+    {
+        return $this->Vendor_Misc_2;
+    }
+
+    /**
+     * Set vendorMisc3
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorMisc3
+     *
+     * @return Sale
+     */
+    public function setVendorMisc3(\Numa\DOADMSBundle\Entity\Vendor $vendorMisc3 = null)
+    {
+        $this->Vendor_Misc_3 = $vendorMisc3;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorMisc3
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorMisc3()
+    {
+        return $this->Vendor_Misc_3;
+    }
+
+    /**
+     * Set vendorSalesComms
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorSalesComms
+     *
+     * @return Sale
+     */
+    public function setVendorSalesComms(\Numa\DOADMSBundle\Entity\Vendor $vendorSalesComms = null)
+    {
+        $this->Vendor_Sales_comms = $vendorSalesComms;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorSalesComms
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorSalesComms()
+    {
+        return $this->Vendor_Sales_comms;
+    }
+    /**
+     * @var integer
+     */
+    private $delivery_vendor_id;
+
+    /**
+     * @var \Numa\DOADMSBundle\Entity\Vendor
+     */
+    private $Vendor_Delivery;
+
+
+    /**
+     * Set deliveryVendorId
+     *
+     * @param integer $deliveryVendorId
+     *
+     * @return Sale
+     */
+    public function setDeliveryVendorId($deliveryVendorId)
+    {
+        $this->delivery_vendor_id = $deliveryVendorId;
+
+        return $this;
+    }
+
+    /**
+     * Get deliveryVendorId
+     *
+     * @return integer
+     */
+    public function getDeliveryVendorId()
+    {
+        return $this->delivery_vendor_id;
+    }
+
+    /**
+     * Set vendorDelivery
+     *
+     * @param \Numa\DOADMSBundle\Entity\Vendor $vendorDelivery
+     *
+     * @return Sale
+     */
+    public function setVendorDelivery(\Numa\DOADMSBundle\Entity\Vendor $vendorDelivery = null)
+    {
+        $this->Vendor_Delivery = $vendorDelivery;
+
+        return $this;
+    }
+
+    /**
+     * Get vendorDelivery
+     *
+     * @return \Numa\DOADMSBundle\Entity\Vendor
+     */
+    public function getVendorDelivery()
+    {
+        return $this->Vendor_Delivery;
+    }
 }
