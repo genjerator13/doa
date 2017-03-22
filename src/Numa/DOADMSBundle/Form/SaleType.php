@@ -25,6 +25,160 @@ class SaleType extends AbstractType
                 'empty_value' => 'Choose Vendor',
                 'label' => "Vendor", "required" => false
             ))
+            ->add('Vendor_Delivery', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Clean_up', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Glass', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Mechanical_1', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Mechanical_2', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_1', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_2', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_3', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_4', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Other_exp_5', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Protect_pkg', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Warranty', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Doc_fees', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Admin_fees', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Insurance', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Life_ins', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Disability_ins', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Feverse', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Misc_1', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Misc_2', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Misc_3', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
+            ->add('Vendor_Sales_comms', 'entity',array(
+                'choices'   => $em->getRepository('NumaDOADMSBundle:Vendor')->findAllNotDeleted($dealer),
+                'class' => 'Numa\DOADMSBundle\Entity\Vendor',
+                'required'  => false,
+                'empty_value' => 'Choose Vendor',
+                'label' => "Vendor", "required" => false
+            ))
             ->add('sales_person')
             ->add('stock_nr',null,array('label'=>"Stock #"))
             ->add('vin',null,array('label'=>"VIN #"))

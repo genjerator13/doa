@@ -44,32 +44,62 @@ Numa\DOADMSBundle\Entity\Sale:
         delivery:
             type: float
             nullable: true
+        delivery_vendor_id:
+            type: integer
+            nullable: true
         clean_up:
             type: float
+            nullable: true
+        clean_up_vendor_id:
+            type: integer
             nullable: true
         glass:
             type: float
             nullable: true
+        glass_vendor_id:
+            type: integer
+            nullable: true
         mechanical_1:
             type: float
+            nullable: true
+        mechanical_1_vendor_id:
+            type: integer
             nullable: true
         mechanical_2:
             type: float
             nullable: true
+        mechanical_2_vendor_id:
+            type: integer
+            nullable: true
         other_exp_1:
             type: float
+            nullable: true
+        other_exp_1_vendor_id:
+            type: integer
             nullable: true
         other_exp_2:
             type: float
             nullable: true
+        other_exp_2_vendor_id:
+            type: integer
+            nullable: true
         other_exp_3:
             type: float
+            nullable: true
+        other_exp_3_vendor_id:
+            type: integer
             nullable: true
         other_exp_4:
             type: float
             nullable: true
+        other_exp_4_vendor_id:
+            type: integer
+            nullable: true
         other_exp_5:
             type: float
+            nullable: true
+        other_exp_5_vendor_id:
+            type: integer
             nullable: true
         total_unit_cost:
             type: float
@@ -80,38 +110,74 @@ Numa\DOADMSBundle\Entity\Sale:
         protect_pkg:
             type: float
             nullable: true
+        protect_pkg_vendor_id:
+            type: integer
+            nullable: true
         warranty:
             type: float
+            nullable: true
+        warranty_vendor_id:
+            type: integer
             nullable: true
         doc_fees:
             type: float
             nullable: true
+        doc_fees_vendor_id:
+            type: integer
+            nullable: true
         admin_fees:
             type: float
+            nullable: true
+        admin_fees_vendor_id:
+            type: integer
             nullable: true
         insurance:
             type: float
             nullable: true
+        insurance_vendor_id:
+            type: integer
+            nullable: true
         life_ins:
             type: float
+            nullable: true
+        life_ins_vendor_id:
+            type: integer
             nullable: true
         disability_ins:
             type: float
             nullable: true
+        disability_ins_vendor_id:
+            type: integer
+            nullable: true
         feverse:
             type: float
+            nullable: true
+        feverse_vendor_id:
+            type: integer
             nullable: true
         misc_1:
             type: float
             nullable: true
+        misc_1_vendor_id:
+            type: integer
+            nullable: true
         misc_2:
             type: float
+            nullable: true
+        misc_2_vendor_id:
+            type: integer
             nullable: true
         misc_3:
             type: float
             nullable: true
+        misc_3_vendor_id:
+            type: integer
+            nullable: true
         sales_comms:
             type: float
+            nullable: true
+        sales_comms_vendor_id:
+            type: integer
             nullable: true
         total_sale_cost:
             type: float
@@ -317,6 +383,160 @@ Numa\DOADMSBundle\Entity\Sale:
             cascade: ["persist"]
             joinColumn:
                 name: vendor_id
+                referencedColumnName: id
+        Vendor_Delivery:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: delivery_vendor_id
+                referencedColumnName: id
+        Vendor_Clean_up:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: clean_up_vendor_id
+                referencedColumnName: id
+        Vendor_Glass:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: glass_vendor_id
+                referencedColumnName: id
+        Vendor_Mechanical_1:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: mechanical_1_vendor_id
+                referencedColumnName: id
+        Vendor_Mechanical_2:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: mechanical_2_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_1:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_1_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_2:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_2_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_3:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_3_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_4:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_4_vendor_id
+                referencedColumnName: id
+        Vendor_Other_exp_5:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: other_exp_5_vendor_id
+                referencedColumnName: id
+        Vendor_Protect_pkg:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: protect_pkg_vendor_id
+                referencedColumnName: id
+        Vendor_Warranty:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: warranty_vendor_id
+                referencedColumnName: id
+        Vendor_Doc_fees:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: doc_fees_vendor_id
+                referencedColumnName: id
+        Vendor_Admin_fees:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: admin_fees_vendor_id
+                referencedColumnName: id
+        Vendor_Insurance:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: insurance_vendor_id
+                referencedColumnName: id
+        Vendor_Life_ins:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: life_ins_vendor_id
+                referencedColumnName: id
+        Vendor_Disability_ins:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: disability_ins_vendor_id
+                referencedColumnName: id
+        Vendor_Feverse:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: feverse_vendor_id
+                referencedColumnName: id
+        Vendor_Misc_1:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: misc_1_vendor_id
+                referencedColumnName: id
+        Vendor_Misc_2:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: misc_2_vendor_id
+                referencedColumnName: id
+        Vendor_Misc_3:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: misc_3_vendor_id
+                referencedColumnName: id
+        Vendor_Sales_comms:
+            targetEntity: Numa\DOADMSBundle\Entity\Vendor
+            inversedBy: Sale
+            cascade: ["persist"]
+            joinColumn:
+                name: sales_comms_vendor_id
                 referencedColumnName: id
     oneToOne:
         Item:
