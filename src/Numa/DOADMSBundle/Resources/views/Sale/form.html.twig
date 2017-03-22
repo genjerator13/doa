@@ -8,562 +8,552 @@
         col-sm-12
     {%- endblock form_group_class %}
 </div>
-<td class="row form-horizontal">
-    <h1>UNIT PROFIT REPORT</h1>
-    <table cellspacing="0" width="100%" border="0" class="itemsale table">
-        <tr>
-            <td colspan="1">
-                {{ form_label(form.Vendor) }}
-            </td>
-            <td colspan="1">
-                {{ form_widget(form.Vendor) }}
-            </td>
-            <td colspan="1">
-                {{ form_label(form.stock_nr) }}
-            </td>
-            <td colspan="1">
-                {{ entity.stockNr }}
-            </td>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="1">
-                {{ form_label(form.sales_person) }}
-            </td>
-            <td colspan="1">
-                {{ form_widget(form.sales_person) }}
-            </td>
-            <td colspan="1">
-                {{ form_label(form.vin) }}
-            </td>
-            <td colspan="1">
-                {{ entity.vin }}
-            </td>
-            <td colspan="2">
-                &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td width="10%">{{ form_label(form.invoice_nr) }}</td>
-            <td width="20%">{{ form_widget(form.invoice_nr) }}</td>
-            <td width="10%"></td>
-            <td width="20%"></td>
-            <td width="10%"></td>
-            <td width="20%"></td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.invoice_date) }}</td>
-            <td>{{ form_widget(form.invoice_date) }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.invoice_amt) }}</td>
-            <td>{{ form_widget(form.invoice_amt, {'attr': {'class': 'sum1'}}) }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.related_taxes_1) }}</td>
-            <td>{{ form_widget(form.related_taxes_1) }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td>{{ form_label(form.related_taxes_2) }}</td>
-            <td>{{ form_widget(form.related_taxes_2) }}</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+<h1>UNIT PROFIT REPORT</h1>
+<table cellspacing="0" width="100%" border="0" class="itemsale table">
+    <tr>
+        <td colspan="1">
+            {{ form_label(form.Vendor) }}
+        </td>
+        <td colspan="1">
+            {{ form_widget(form.Vendor) }}
+        </td>
+        <td colspan="1">
+            {{ form_label(form.stock_nr) }}
+        </td>
+        <td colspan="1">
+            {{ entity.stockNr }}
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td colspan="1">
+            {{ form_label(form.sales_person) }}
+        </td>
+        <td colspan="1">
+            {{ form_widget(form.sales_person) }}
+        </td>
+        <td colspan="1">
+            {{ form_label(form.vin) }}
+        </td>
+        <td colspan="1">
+            {{ entity.vin }}
+        </td>
+        <td colspan="2">
+            &nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td width="10%">{{ form_label(form.invoice_nr) }}</td>
+        <td width="20%">{{ form_widget(form.invoice_nr) }}</td>
+        <td width="10%"></td>
+        <td width="20%"></td>
+        <td width="10%"></td>
+        <td width="20%"></td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.invoice_date) }}</td>
+        <td>{{ form_widget(form.invoice_date) }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.invoice_amt) }}</td>
+        <td>{{ form_widget(form.invoice_amt, {'attr': {'class': 'sum1'}}) }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.related_taxes_1) }}</td>
+        <td>{{ form_widget(form.related_taxes_1) }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.related_taxes_2) }}</td>
+        <td>{{ form_widget(form.related_taxes_2) }}</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<table class="table">
+    <tr>
+        <td colspan="2"><h2>UNIT COST RECAP</h2>
+            <p style="text-align: right">GST Tax</p></td>
+        <td style="vertical-align:bottom"><p>Vendor / Supplier Name</p></td>
+        <td style="vertical-align:bottom"><p>Description</p></td>
+        <td colspan="2"><h2>UNIT REVENUE</h2></td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.delivery) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.delivery, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Delivery) }}
+        </td>
+        <td>{{ form_widget(form.supplier) }}</td>
+        <td>{{ form_label(form.selling_price) }}</td>
+        <td>{{ form_widget(form.selling_price, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.clean_up) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.clean_up, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst1, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Clean_up) }}
+        </td>
+        <td>{{ form_widget(form.supplier1) }}</td>
+        <td>{{ form_label(form.trade_in) }}</td>
+        <td>{{ form_widget(form.trade_in, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.glass) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.glass, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst2, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Glass) }}
+        </td>
+        <td>{{ form_widget(form.supplier2) }}</td>
+        <td>{{ form_label(form.warranty1) }}</td>
+        <td>{{ form_widget(form.warranty1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.mechanical_1) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.mechanical_1, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst3, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Mechanical_1) }}
+        </td>
+        <td>{{ form_widget(form.discrip1) }}</td>
+        <td>{{ form_label(form.life_insur) }}</td>
+        <td>{{ form_widget(form.life_insur, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.mechanical_2) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.mechanical_2, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst4, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Mechanical_2) }}
+        </td>
+        <td>{{ form_widget(form.discrip2) }}</td>
+        <td>{{ form_label(form.disability_ins1) }}</td>
+        <td>{{ form_widget(form.disability_ins1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.other_exp_1) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.other_exp_1, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst5, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Other_exp_1) }}
+        </td>
+        <td>{{ form_widget(form.discrip3) }}</td>
+        <td>{{ form_label(form.admin_fees1) }}</td>
+        <td>{{ form_widget(form.admin_fees1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.other_exp_2) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.other_exp_2, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst6, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Other_exp_2) }}
+        </td>
+        <td>{{ form_widget(form.discrip4) }}</td>
+        <td>{{ form_label(form.doc_fees1) }}</td>
+        <td>{{ form_widget(form.doc_fees1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.other_exp_3) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.other_exp_3, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst7, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Other_exp_3) }}
+        </td>
+        <td>{{ form_widget(form.discrip5) }}</td>
+        <td>{{ form_label(form.protect_pkg1) }}</td>
+        <td>{{ form_widget(form.protect_pkg1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.other_exp_4) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.other_exp_4, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst8, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Other_exp_4) }}
+        </td>
+        <td>{{ form_widget(form.discrip6) }}</td>
+        <td>{{ form_label(form.insurance1) }}</td>
+        <td>{{ form_widget(form.insurance1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.other_exp_5) }}</td>
+        <td>
+            <div class="row">
+                <div class="col-md-6">{{ form_widget(form.other_exp_5, {'attr': {'class': 'sum1'}}) }}</div>
+                <div class="col-md-6">{{ form_widget(form.gst9, {'attr': {'class': 'gst'}}) }}</div>
+            </div>
+        </td>
+        <td>
+            {{ form_widget(form.Vendor_Other_exp_5) }}
+        </td>
+        <td>{{ form_widget(form.discrip7) }}</td>
+        <td>{{ form_label(form.bank_commis) }}</td>
+        <td>{{ form_widget(form.bank_commis, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.total_unit_cost) }}</td>
+        <td>{{ form_widget(form.total_unit_cost, {'attr': {'class': 'lightgray'}}) }}</td>
+        <td></td>
+        <td></td>
+        <td>
+            {% if entity.sale is not null and entity.sale.other1Des is not null %}
+                <label class="col-sm-12 control-label"> {{ entity.sale.other1Des|capitalize }}</label>
+            {% else %}
+                {{ form_label(form.other_1) }}
+            {% endif %}
+        </td>
+        <td>{{ form_widget(form.other_1, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_label(form.net_gain) }}</td>
+        <td>{{ form_widget(form.net_gain, {'attr': {'class': 'lightgray'}}) }}</td>
+        <td colspan="2"></td>
+        <td>
+            {% if entity.sale is not null and entity.sale.other2Des is not null %}
+                <label class="col-sm-12 control-label"> {{ entity.sale.other2Des|capitalize }}</label>
+            {% else %}
+                {{ form_label(form.other_2) }}
+            {% endif %}
+        </td>
+        <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>
+            {% if entity.sale is not null and entity.sale.other3Des is not null %}
+                <label class="col-sm-12 control-label"> {{ entity.sale.other3Des|capitalize }}</label>
+            {% else %}
+                {{ form_label(form.other_3) }}
+            {% endif %}
+        </td>
+        <td>{{ form_widget(form.other_3, {'attr': {'class': 'sum4'}}) }}</td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{ form_label(form.total_revenue) }}</td>
+        <td>{{ form_widget(form.total_revenue, {'attr': {'class': 'lightgray'}}) }}</td>
+    </tr>
+</table>
+<div class="row">
+    <div class="col-md-6">
         <table class="table">
             <tr>
-                <td colspan="2"><h2>UNIT COST RECAP</h2>
-                    <p style="text-align: right">GST Tax</p></td>
-                <td style="vertical-align:bottom"><p>Vendor / Supplier Name</p></td>
-                <td style="vertical-align:bottom"><p>Description</p></td>
-                <td colspan="2"><h2>UNIT REVENUE</h2></td>
+            <tr>
+                <td colspan="4"><h2>SALES COST RECAP</h2></td>
+            </tr>
             </tr>
             <tr>
-                <td>{{ form_label(form.delivery) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.delivery, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Delivery) }}
-                </td>
-                <td>{{ form_widget(form.supplier) }}</td>
-                <td>{{ form_label(form.selling_price) }}</td>
-                <td>{{ form_widget(form.selling_price, {'attr': {'class': 'sum4'}}) }}</td>
+                <td class="col-md-2">&nbsp;</td>
+                <td class="col-md-2">Amount</td>
+                <td class="col-md-2">GST</td>
+                <td class="col-md-3">Vendor / Supplier Name</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.clean_up) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.clean_up, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst1, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Clean_up) }}
-                </td>
-                <td>{{ form_widget(form.supplier1) }}</td>
-                <td>{{ form_label(form.trade_in) }}</td>
-                <td>{{ form_widget(form.trade_in, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.protect_pkg) }}</td>
+                <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Protect_pkg) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.glass) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.glass, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst2, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Glass) }}
-                </td>
-                <td>{{ form_widget(form.supplier2) }}</td>
-                <td>{{ form_label(form.warranty1) }}</td>
-                <td>{{ form_widget(form.warranty1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.warranty) }}</td>
+                <td>{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst2, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Warranty) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.mechanical_1) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.mechanical_1, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst3, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Mechanical_1) }}
-                </td>
-                <td>{{ form_widget(form.discrip1) }}</td>
-                <td>{{ form_label(form.life_insur) }}</td>
-                <td>{{ form_widget(form.life_insur, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.doc_fees) }}</td>
+                <td>{{ form_widget(form.doc_fees, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst3, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Doc_fees) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.mechanical_2) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.mechanical_2, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst4, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Mechanical_2) }}
-                </td>
-                <td>{{ form_widget(form.discrip2) }}</td>
-                <td>{{ form_label(form.disability_ins1) }}</td>
-                <td>{{ form_widget(form.disability_ins1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.admin_fees) }}</td>
+                <td>{{ form_widget(form.admin_fees, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst4, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Admin_fees) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.other_exp_1) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.other_exp_1, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst5, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Other_exp_1) }}
-                </td>
-                <td>{{ form_widget(form.discrip3) }}</td>
-                <td>{{ form_label(form.admin_fees1) }}</td>
-                <td>{{ form_widget(form.admin_fees1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.insurance) }}</td>
+                <td>{{ form_widget(form.insurance, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst5, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Insurance) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.other_exp_2) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.other_exp_2, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst6, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Other_exp_2) }}
-                </td>
-                <td>{{ form_widget(form.discrip4) }}</td>
-                <td>{{ form_label(form.doc_fees1) }}</td>
-                <td>{{ form_widget(form.doc_fees1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.life_ins) }}</td>
+                <td>{{ form_widget(form.life_ins, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst6, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Life_ins) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.other_exp_3) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.other_exp_3, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst7, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Other_exp_3) }}
-                </td>
-                <td>{{ form_widget(form.discrip5) }}</td>
-                <td>{{ form_label(form.protect_pkg1) }}</td>
-                <td>{{ form_widget(form.protect_pkg1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.disability_ins) }}</td>
+                <td>{{ form_widget(form.disability_ins, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst7, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Disability_ins) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.other_exp_4) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.other_exp_4, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst8, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Other_exp_4) }}
-                </td>
-                <td>{{ form_widget(form.discrip6) }}</td>
-                <td>{{ form_label(form.insurance1) }}</td>
-                <td>{{ form_widget(form.insurance1, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.feverse) }}</td>
+                <td>{{ form_widget(form.feverse, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst8, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Feverse) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.other_exp_5) }}</td>
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">{{ form_widget(form.other_exp_5, {'attr': {'class': 'sum1'}}) }}</div>
-                        <div class="col-md-6">{{ form_widget(form.gst9, {'attr': {'class': 'gst'}}) }}</div>
-                    </div>
-                </td>
-                <td>
-                    {{ form_widget(form.Vendor_Other_exp_5) }}
-                </td>
-                <td>{{ form_widget(form.discrip7) }}</td>
-                <td>{{ form_label(form.bank_commis) }}</td>
-                <td>{{ form_widget(form.bank_commis, {'attr': {'class': 'sum4'}}) }}</td>
+                <td>{{ form_label(form.misc_1) }}</td>
+                <td>{{ form_widget(form.misc_1, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst9, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Misc_1) }}</td>
             </tr>
             <tr>
-                <td>{{ form_label(form.total_unit_cost) }}</td>
-                <td>{{ form_widget(form.total_unit_cost, {'attr': {'class': 'lightgray'}}) }}</td>
+                <td>{{ form_label(form.misc_2) }}</td>
+                <td>{{ form_widget(form.misc_2, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst10, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Misc_2) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.misc_3) }}</td>
+                <td>{{ form_widget(form.misc_3, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst11, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Misc_3) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.sales_comms) }}</td>
+                <td>{{ form_widget(form.sales_comms, {'attr': {'class': 'sum2'}}) }}</td>
+                <td>{{ form_widget(form.sale_gst12, {'attr': {'class': 'sale_gst'}}) }}</td>
+                <td>{{ form_widget(form.Vendor_Sales_comms) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.total_sale_cost) }}</td>
+                <td>{{ form_widget(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}</td>
                 <td></td>
                 <td></td>
-                <td>
-                    {% if entity.sale is not null and entity.sale.other1Des is not null %}
-                        <label class="col-sm-12 control-label"> {{ entity.sale.other1Des|capitalize }}</label>
-                    {% else %}
-                        {{ form_label(form.other_1) }}
-                    {% endif %}
-                </td>
-                <td>{{ form_widget(form.other_1, {'attr': {'class': 'sum4'}}) }}</td>
-            </tr>
-            <tr>
-                <td>{{ form_label(form.net_gain) }}</td>
-                <td>{{ form_widget(form.net_gain, {'attr': {'class': 'lightgray'}}) }}</td>
-                <td colspan="2"></td>
-                <td>
-                    {% if entity.sale is not null and entity.sale.other2Des is not null %}
-                        <label class="col-sm-12 control-label"> {{ entity.sale.other2Des|capitalize }}</label>
-                    {% else %}
-                        {{ form_label(form.other_2) }}
-                    {% endif %}
-                </td>
-                <td>{{ form_widget(form.other_2, {'attr': {'class': 'sum4'}}) }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    {% if entity.sale is not null and entity.sale.other3Des is not null %}
-                        <label class="col-sm-12 control-label"> {{ entity.sale.other3Des|capitalize }}</label>
-                    {% else %}
-                        {{ form_label(form.other_3) }}
-                    {% endif %}
-                </td>
-                <td>{{ form_widget(form.other_3, {'attr': {'class': 'sum4'}}) }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>{{ form_label(form.total_revenue) }}</td>
-                <td>{{ form_widget(form.total_revenue, {'attr': {'class': 'lightgray'}}) }}</td>
+                <td>{{ form_label(form.revenue_this_unit) }}</td>
+                <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
             </tr>
         </table>
-        <div class="row">
-            <div class="col-md-6">
-                <table class="table">
-                    <tr>
-                    <tr ><td colspan="4"><h2>SALES COST RECAP</h2></td></tr>
-                    </tr>
-                    <tr>
-                        <td class="col-md-2">&nbsp;</td>
-                        <td class="col-md-2">Amount</td>
-                        <td class="col-md-2">GST</td>
-                        <td class="col-md-3">Vendor / Supplier Name</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.protect_pkg) }}</td>
-                        <td>{{ form_widget(form.protect_pkg, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst1, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Protect_pkg) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.warranty) }}</td>
-                        <td>{{ form_widget(form.warranty, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst2, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Warranty) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.doc_fees) }}</td>
-                        <td>{{ form_widget(form.doc_fees, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst3, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Doc_fees) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.admin_fees) }}</td>
-                        <td>{{ form_widget(form.admin_fees, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst4, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Admin_fees) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.insurance) }}</td>
-                        <td>{{ form_widget(form.insurance, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst5, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Insurance) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.life_ins) }}</td>
-                        <td>{{ form_widget(form.life_ins, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst6, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Life_ins) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.disability_ins) }}</td>
-                        <td>{{ form_widget(form.disability_ins, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst7, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Disability_ins) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.feverse) }}</td>
-                        <td>{{ form_widget(form.feverse, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst8, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Feverse) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.misc_1) }}</td>
-                        <td>{{ form_widget(form.misc_1, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst9, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Misc_1) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.misc_2) }}</td>
-                        <td>{{ form_widget(form.misc_2, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst10, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Misc_2) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.misc_3) }}</td>
-                        <td>{{ form_widget(form.misc_3, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst11, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Misc_3) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.sales_comms) }}</td>
-                        <td>{{ form_widget(form.sales_comms, {'attr': {'class': 'sum2'}}) }}</td>
-                        <td>{{ form_widget(form.sale_gst12, {'attr': {'class': 'sale_gst'}}) }}</td>
-                        <td>{{ form_widget(form.Vendor_Sales_comms) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.total_sale_cost) }}</td>
-                        <td>{{ form_widget(form.total_sale_cost, {'attr': {'class': 'lightgray'}}) }}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ form_label(form.revenue_this_unit) }}</td>
-                        <td>{{ form_widget(form.revenue_this_unit, {'attr': {'class': 'lightgray'}}) }}</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="row">
-                                <div class="col-md-6"></div>
-                                <div class="col-md-6"></div>
-                            </div>
-                        </td>
-                        <td>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        <table class="table">
+            <tr>
+                <td colspan="2"><h2>TAXES</h2></td>
+            </tr>
+            <tr>
+                <td class="col-md-1">&nbsp;</td>
+                <td class="col-md-1">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.tax_1_out) }}</td>
+                <td>{{ form_widget(form.tax_1_out) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.tax_2_out) }}</td>
+                <td>{{ form_widget(form.tax_2_out) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.unit_tax_other) }}</td>
+                <td>{{ form_widget(form.unit_tax_other, {'attr': {'class': 'lightgray'}}) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.trade_in_tax) }}</td>
+                <td>{{ form_widget(form.trade_in_tax) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.tax_1_in) }}</td>
+                <td>{{ form_widget(form.tax_1_in) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.tax_2_in) }}</td>
+                <td>{{ form_widget(form.tax_2_in) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.net_tax) }}</td>
+                <td>{{ form_widget(form.net_tax, {'attr': {'class': 'lightgray'}}) }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-                        </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-            <div  class="col-md-1"></div>
-            <div class="col-md-3">
-                <table class="table">
-                    <tr><td colspan="2"><h2>TAXES</h2></td></tr>
-                    <tr>
-                        <td class="col-md-1">&nbsp;</td>
-                        <td class="col-md-1">&nbsp;</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.tax_1_out) }}</td>
-                        <td>{{ form_widget(form.tax_1_out) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.tax_2_out) }}</td>
-                        <td>{{ form_widget(form.tax_2_out) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.unit_tax_other) }}</td>
-                        <td>{{ form_widget(form.unit_tax_other, {'attr': {'class': 'lightgray'}}) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.trade_in_tax) }}</td>
-                        <td>{{ form_widget(form.trade_in_tax) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.tax_1_in) }}</td>
-                        <td>{{ form_widget(form.tax_1_in) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.tax_2_in) }}</td>
-                        <td>{{ form_widget(form.tax_2_in) }}</td>
-                    </tr>
-                    <tr>
-                        <td>{{ form_label(form.net_tax) }}</td>
-                        <td>{{ form_widget(form.net_tax, {'attr': {'class': 'lightgray'}}) }}</td>
-                    </tr>
-                    </table>
-            </div>
-        </div>
+{% if entity.sale is defined %}
+    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
+            data-target="#sale_related_doc_upload">
+        Upload Related Documents
+    </button>
 
-        {% if entity.sale is defined %}
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal"
-                    data-target="#sale_related_doc_upload">
-                Upload Related Documents
-            </button>
-
-            <div id="related_docs" class="col-md-6">
-                {% include "@NumaDOADMS/Sale/related_docs.html.twig" with {'sale':entity.sale} %}
-            </div>
-        {% endif %}
+    <div id="related_docs" class="col-md-6">
+        {% include "@NumaDOADMS/Sale/related_docs.html.twig" with {'sale':entity.sale} %}
+    </div>
+{% endif %}
         {{ form_row(form.submitAndPrint) }}
 
-        <script>
+<script>
 
-            $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input', function (e) {
-                $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
-            });
+    $('#numa_doaadminbundle_item_sale_related_taxes_2').on('input', function (e) {
+        $('#numa_doaadminbundle_item_sale_tax_2_out').val($('#numa_doaadminbundle_item_sale_related_taxes_2').val());
+    });
 
-            $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input', function (e) {
-                $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
-            });
+    $('#numa_doaadminbundle_item_sale_related_taxes_1').on('input', function (e) {
+        $('#numa_doaadminbundle_item_sale_tax_1_out').val($('#numa_doaadminbundle_item_sale_related_taxes_1').val());
+    });
 
-            $('.form-control').keyup(function () {
-                var sum = 0;
-                $('.sum1').each(function () {
-                    sum += Number($(this).val());
-                });
+    $('.form-control').keyup(function () {
+        var sum = 0;
+        $('.sum1').each(function () {
+            sum += Number($(this).val());
+        });
 
-                $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum.toFixed(2));
-            });
+        $('#numa_doaadminbundle_item_sale_total_unit_cost').val(sum.toFixed(2));
+    });
 
-            $('.form-control').keyup(function () {
-                var sum2 = 0;
-                $('.sum2').each(function () {
-                    sum2 += Number($(this).val());
-                });
-                $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2.toFixed(2));
-            });
+    $('.form-control').keyup(function () {
+        var sum2 = 0;
+        $('.sum2').each(function () {
+            sum2 += Number($(this).val());
+        });
+        $('#numa_doaadminbundle_item_sale_total_sale_cost').val(sum2.toFixed(2));
+    });
 
-            $('.form-control').keyup(function () {
-                var sumtaxunit = 0;
-                $('.gst').each(function () {
-                    sumtaxunit += Number($(this).val());
-                });
+    $('.form-control').keyup(function () {
+        var sumtaxunit = 0;
+        $('.gst').each(function () {
+            sumtaxunit += Number($(this).val());
+        });
 
-                $('#numa_doaadminbundle_item_sale_unit_tax_other').val(sumtaxunit.toFixed(2));
-            });
+        $('#numa_doaadminbundle_item_sale_unit_tax_other').val(sumtaxunit.toFixed(2));
+    });
 
-            $('.form-control').keyup(function () {
-                var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_1_out").value);
-                var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_2_out").value);
-                var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in_tax").value);
-                var n4 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_1_in").value);
-                var n5 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_2_in").value);
-                var unittax = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_unit_tax_other").value);
-                if (isNaN(parseFloat(n1))) {
-                    n1 = 0;
-                }
-                if (isNaN(parseFloat(n2))) {
-                    n2 = 0;
-                }
-                if (isNaN(parseFloat(n3))) {
-                    n3 = 0;
-                }
-                if (isNaN(parseFloat(n4))) {
-                    n4 = 0;
-                }
-                if (isNaN(parseFloat(n5))) {
-                    n5 = 0;
-                }
-                if (isNaN(parseFloat(unittax))) {
-                    unittax = 0;
-                }
-                var saleNetTax = ((n1 + n2 + unittax) - ((n4 + n5) + n3));
-                $('#numa_doaadminbundle_item_sale_net_tax').val(saleNetTax.toFixed(2));
-            });
+    $('.form-control').keyup(function () {
+        var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_1_out").value);
+        var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_2_out").value);
+        var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in_tax").value);
+        var n4 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_1_in").value);
+        var n5 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_tax_2_in").value);
+        var unittax = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_unit_tax_other").value);
+        if (isNaN(parseFloat(n1))) {
+            n1 = 0;
+        }
+        if (isNaN(parseFloat(n2))) {
+            n2 = 0;
+        }
+        if (isNaN(parseFloat(n3))) {
+            n3 = 0;
+        }
+        if (isNaN(parseFloat(n4))) {
+            n4 = 0;
+        }
+        if (isNaN(parseFloat(n5))) {
+            n5 = 0;
+        }
+        if (isNaN(parseFloat(unittax))) {
+            unittax = 0;
+        }
+        var saleNetTax = ((n1 + n2 + unittax) - ((n4 + n5) + n3));
+        $('#numa_doaadminbundle_item_sale_net_tax').val(saleNetTax.toFixed(2));
+    });
 
-            $('.form-control').keyup(function () {
-                var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
-                var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_selling_price").value);
-                var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in").value);
-                if (isNaN(parseFloat(n1))) {
-                    n1 = 0;
-                }
-                if (isNaN(parseFloat(n2))) {
-                    n2 = 0;
-                }
-                if (isNaN(parseFloat(n3))) {
-                    n3 = 0;
-                }
-                $('#numa_doaadminbundle_item_sale_net_gain').val(((n2 + n3) - n1).toFixed(2));
-            });
+    $('.form-control').keyup(function () {
+        var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
+        var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_selling_price").value);
+        var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_trade_in").value);
+        if (isNaN(parseFloat(n1))) {
+            n1 = 0;
+        }
+        if (isNaN(parseFloat(n2))) {
+            n2 = 0;
+        }
+        if (isNaN(parseFloat(n3))) {
+            n3 = 0;
+        }
+        $('#numa_doaadminbundle_item_sale_net_gain').val(((n2 + n3) - n1).toFixed(2));
+    });
 
-            $('.form-control').keyup(function () {
-                var sum4 = 0;
-                $('.sum4').each(function () {
-                    sum4 += Number($(this).val());
-                });
-                $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
-                //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
-            });
+    $('.form-control').keyup(function () {
+        var sum4 = 0;
+        $('.sum4').each(function () {
+            sum4 += Number($(this).val());
+        });
+        $('#numa_doaadminbundle_item_sale_total_revenue').val(sum4.toFixed(2));
+        //$('#numa_doaadminbundle_item_sale_revenue_this_unit').val(sum4.toFixed( 2 ));
+    });
 
-            $('.form-control').keyup(function () {
-                var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
-                var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
-                var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
+    $('.form-control').keyup(function () {
+        var n1 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_sale_cost").value);
+        var n2 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_revenue").value);
+        var n3 = parseFloat(document.getElementById("numa_doaadminbundle_item_sale_total_unit_cost").value);
 
-                if (isNaN(parseFloat(n1))) {
-                    n1 = 0;
-                }
-                if (isNaN(parseFloat(n2))) {
-                    n2 = 0;
-                }
-                if (isNaN(parseFloat(n3))) {
-                    n3 = 0;
-                }
+        if (isNaN(parseFloat(n1))) {
+            n1 = 0;
+        }
+        if (isNaN(parseFloat(n2))) {
+            n2 = 0;
+        }
+        if (isNaN(parseFloat(n3))) {
+            n3 = 0;
+        }
 
-                $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2 - (n3 + n1)).toFixed(2));
-            });
+        $('#numa_doaadminbundle_item_sale_revenue_this_unit').val((n2 - (n3 + n1)).toFixed(2));
+    });
 
-            $(function () {
+    $(function () {
 
-                $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
+        $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
 
-            });
-        </script>
+    });
+</script>
