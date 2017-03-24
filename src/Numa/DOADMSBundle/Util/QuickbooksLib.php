@@ -194,7 +194,9 @@ class QuickbooksLib
     public function getSupplier($name){
         $qbo = $this->container->get("numa.quickbooks")->init();
         $supplierService = new \QuickBooks_IPP_Service_Vendor();
-        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '".$name."'");
+
+        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '".addslashes($name)."'");
+
         if(!empty($items[0])) {
             return $items[0];
         }
@@ -207,9 +209,7 @@ class QuickbooksLib
 
 //        $itemService = new \QuickBooks_IPP_Service_Item();
 
-
         $qbVendor = $this->getSupplier($vendor->getCompanyName());
-
         if($qbVendor instanceof \QuickBooks_IPP_Object_Vendor){
             //update supplier
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
@@ -220,6 +220,11 @@ class QuickbooksLib
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
             $resp = $VendorService->add($qbo->getContext(), $qbo->getRealm(), $qbVendor);
         }
+        if(!$resp)
+        {
+//            dump($VendorService->lastError($qbo->getContext()));die();
+            return false;
+        }
         return $qbVendor;
     }
 
@@ -227,8 +232,33 @@ class QuickbooksLib
 
         $qbVendor->setCompanyName($vendor->getCompanyName());
         $qbVendor->setDisplayName($vendor->getCompanyName());
-        $qbVendor->setPrimaryPhone($vendor->getHomePhone());
-        $qbVendor->setPrimaryEmail($vendor->getEmail());
+        $qbVendor->setGivenName($vendor->getFirstName());
+        $qbVendor->setFamilyName($vendor->getLastName());
+
+        $Email = new \QuickBooks_IPP_Object_PrimaryEmailAddr();
+        $Email->setAddress($vendor->getEmail());
+        $qbVendor->setPrimaryEmailAddr($Email);
+
+        $PrimaryPhone = new \QuickBooks_IPP_Object_PrimaryPhone();
+        $PrimaryPhone->setFreeFormNumber($vendor->getHomePhone());
+        $qbVendor->setPrimaryPhone($PrimaryPhone);
+
+        $Fax = new \QuickBooks_IPP_Object_Fax();
+        $Fax->setFreeFormNumber($vendor->getFax());
+        $qbVendor->setFax($Fax);
+
+        $Mobile = new \QuickBooks_IPP_Object_Mobile();
+        $Mobile->setFreeFormNumber($vendor->getMobilePhone());
+        $qbVendor->setMobile($Mobile);
+
+        $BillAddr = new \QuickBooks_IPP_Object_BillAddr();
+        $BillAddr->setLine1($vendor->getAddress());
+        $BillAddr->setCity($vendor->getCity());
+        $BillAddr->setCountry($vendor->getCountry());
+        $BillAddr->setPostalCode($vendor->getZip());
+        $BillAddr->setState($vendor->getState());
+        $qbVendor->setBillAddr($BillAddr);
+
 
         return $qbVendor;
     }

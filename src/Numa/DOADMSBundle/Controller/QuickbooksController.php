@@ -56,6 +56,7 @@ class QuickbooksController extends Controller
         foreach($qbSuppliers as $supplier){
             $qbid = $this->get("numa.dms.quickbooks")->parseId($supplier->getId());
             $vendor = $em->getRepository(Vendor::class)->findOneBy(array("qb_supplier_id"=>$qbid));
+
             if(!$vendor instanceof Vendor){
                 $vendor = new Vendor();
                 $em->persist($vendor);
@@ -63,7 +64,36 @@ class QuickbooksController extends Controller
             $vendor->setQbSupplierId($qbid);
             $vendor->setCatalogrecords($dealer);
             $vendor->setCompanyName($supplier->getCompanyName());
+            $vendor->setFirstName($supplier->getGivenName());
+            $vendor->setLastName($supplier->getFamilyName());
+
+            if($supplier->getPrimaryEmailAddr()){
+                $vendor->setEmail($supplier->getPrimaryEmailAddr()->getAddress());
+            }
+
+            if($supplier->getPrimaryPhone()){
+                $vendor->setHomePhone($supplier->getPrimaryPhone()->getFreeFormNumber());
+            }
+
+            if($supplier->getMobile()){
+                $vendor->setMobilePhone($supplier->getMobile()->getFreeFormNumber());
+            }
+
+            if($supplier->getFax()){
+                $vendor->setFax($supplier->getFax()->getFreeFormNumber());
+            }
+
+            if($supplier->getBillAddr()){
+                $vendor->setCity($supplier->getBillAddr()->getCity());
+                $vendor->setCountry($supplier->getBillAddr()->getCountry());
+                $vendor->setZip($supplier->getBillAddr()->getPostalCode());
+                $vendor->setState($supplier->getBillAddr()->getCountrySubDivisionCode());
+                $vendor->setAddress($supplier->getBillAddr()->getLine1());
+            }
+
+            $vendor->setStatus(null);
         }
+
         $this->addFlash("success","All the suppliers from QuickBooks are imported to DMS");
         $em->flush();
         return $this->redirectToRoute('dms_quickbooks_suppliers');
@@ -76,6 +106,7 @@ class QuickbooksController extends Controller
         foreach($vendors as $vendor){
             $vendor = $this->get("numa.dms.quickbooks")->dmsToQbVendor($vendor);
         }
+
         $this->addFlash("success","All the vendors from DMS are imported to QuickBooks");
         $em->flush();
         return $this->redirectToRoute('dms_quickbooks_suppliers');
