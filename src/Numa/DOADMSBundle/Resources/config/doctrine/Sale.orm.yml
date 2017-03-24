@@ -182,31 +182,43 @@ Numa\DOADMSBundle\Entity\Sale:
         total_sale_cost:
             type: float
             nullable: true
-        discrip1:
+        desc_delivery:
             type: string
             length: 255
             nullable: true
-        discrip2:
+        desc_clean_up:
             type: string
             length: 255
             nullable: true
-        discrip3:
+        desc_glass:
             type: string
             length: 255
             nullable: true
-        discrip4:
+        desc_mechanical_1:
             type: string
             length: 255
             nullable: true
-        discrip5:
+        desc_mechanical_2:
             type: string
             length: 255
             nullable: true
-        discrip6:
+        desc_other_exp_1:
             type: string
             length: 255
             nullable: true
-        discrip7:
+        desc_other_exp_2:
+            type: string
+            length: 255
+            nullable: true
+        desc_other_exp_3:
+            type: string
+            length: 255
+            nullable: true
+        desc_other_exp_4:
+            type: string
+            length: 255
+            nullable: true
+        desc_other_exp_5:
             type: string
             length: 255
             nullable: true
@@ -283,18 +295,6 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
-        supplier:
-            type: string
-            length: 255
-            nullable: true
-        supplier1:
-            type: string
-            length: 255
-            nullable: true
-        supplier2:
-            type: string
-            length: 255
-            nullable: true
         other_1_des:
             type: string
             length: 255
@@ -307,73 +307,73 @@ Numa\DOADMSBundle\Entity\Sale:
             type: string
             length: 255
             nullable: true
-        gst:
+        gst_delivery:
             type: float
             nullable: true
-        gst1:
+        gst_clean_up:
             type: float
             nullable: true
-        gst2:
+        gst_glass:
             type: float
             nullable: true
-        gst3:
+        gst_mechanical_1:
             type: float
             nullable: true
-        gst4:
+        gst_mechanical_2:
             type: float
             nullable: true
-        gst5:
+        gst_other_exp_1:
             type: float
             nullable: true
-        gst6:
+        gst_other_exp_2:
             type: float
             nullable: true
-        gst7:
+        gst_other_exp_3:
             type: float
             nullable: true
-        gst8:
+        gst_other_exp_4:
             type: float
             nullable: true
-        gst9:
+        gst_other_exp_5:
             type: float
             nullable: true
         unit_tax_other:
             type: float
             nullable: true
-        sale_gst1:
+        gst_protect_pkg:
             type: float
             nullable: true
-        sale_gst2:
+        gst_warranty:
             type: float
             nullable: true
-        sale_gst3:
+        gst_doc_fees:
             type: float
             nullable: true
-        sale_gst4:
+        gst_admin_fees:
             type: float
             nullable: true
-        sale_gst5:
+        gst_insurance:
             type: float
             nullable: true
-        sale_gst6:
+        gst_life_ins:
             type: float
             nullable: true
-        sale_gst7:
+        gst_disability_ins:
             type: float
             nullable: true
-        sale_gst8:
+        gst_feverse:
             type: float
             nullable: true
-        sale_gst9:
+        gst_misc_1:
             type: float
             nullable: true
-        sale_gst10:
+        gst_misc_2:
             type: float
             nullable: true
-        sale_gst11:
+        gst_misc_3:
             type: float
             nullable: true
-        sale_gst12:
+        gst_sales_comms:
             type: float
             nullable: true
     manyToOne:

@@ -187,41 +187,6 @@ class Sale
     private $total_sale_cost;
 
     /**
-     * @var string
-     */
-    private $discrip1;
-
-    /**
-     * @var string
-     */
-    private $discrip2;
-
-    /**
-     * @var string
-     */
-    private $discrip3;
-
-    /**
-     * @var string
-     */
-    private $discrip4;
-
-    /**
-     * @var string
-     */
-    private $discrip5;
-
-    /**
-     * @var string
-     */
-    private $discrip6;
-
-    /**
-     * @var string
-     */
-    private $discrip7;
-
-    /**
      * @var float
      */
     private $tax_1_out;
@@ -1157,174 +1122,6 @@ class Sale
     }
 
     /**
-     * Set discrip1
-     *
-     * @param string $discrip1
-     *
-     * @return Sale
-     */
-    public function setDiscrip1($discrip1)
-    {
-        $this->discrip1 = $discrip1;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip1
-     *
-     * @return string
-     */
-    public function getDiscrip1()
-    {
-        return $this->discrip1;
-    }
-
-    /**
-     * Set discrip2
-     *
-     * @param string $discrip2
-     *
-     * @return Sale
-     */
-    public function setDiscrip2($discrip2)
-    {
-        $this->discrip2 = $discrip2;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip2
-     *
-     * @return string
-     */
-    public function getDiscrip2()
-    {
-        return $this->discrip2;
-    }
-
-    /**
-     * Set discrip3
-     *
-     * @param string $discrip3
-     *
-     * @return Sale
-     */
-    public function setDiscrip3($discrip3)
-    {
-        $this->discrip3 = $discrip3;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip3
-     *
-     * @return string
-     */
-    public function getDiscrip3()
-    {
-        return $this->discrip3;
-    }
-
-    /**
-     * Set discrip4
-     *
-     * @param string $discrip4
-     *
-     * @return Sale
-     */
-    public function setDiscrip4($discrip4)
-    {
-        $this->discrip4 = $discrip4;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip4
-     *
-     * @return string
-     */
-    public function getDiscrip4()
-    {
-        return $this->discrip4;
-    }
-
-    /**
-     * Set discrip5
-     *
-     * @param string $discrip5
-     *
-     * @return Sale
-     */
-    public function setDiscrip5($discrip5)
-    {
-        $this->discrip5 = $discrip5;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip5
-     *
-     * @return string
-     */
-    public function getDiscrip5()
-    {
-        return $this->discrip5;
-    }
-
-    /**
-     * Set discrip6
-     *
-     * @param string $discrip6
-     *
-     * @return Sale
-     */
-    public function setDiscrip6($discrip6)
-    {
-        $this->discrip6 = $discrip6;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip6
-     *
-     * @return string
-     */
-    public function getDiscrip6()
-    {
-        return $this->discrip6;
-    }
-
-    /**
-     * Set discrip7
-     *
-     * @param string $discrip7
-     *
-     * @return Sale
-     */
-    public function setDiscrip7($discrip7)
-    {
-        $this->discrip7 = $discrip7;
-
-        return $this;
-    }
-
-    /**
-     * Get discrip7
-     *
-     * @return string
-     */
-    public function getDiscrip7()
-    {
-        return $this->discrip7;
-    }
-
-    /**
      * Set tax1Out
      *
      * @param float $tax1Out
@@ -2044,83 +1841,6 @@ class Sale
     {
         return number_format((float)$this->clean_up,2, '.', '');
     }
-    /**
-     * @var string
-     */
-    private $supplier;
-
-    /**
-     * @var string
-     */
-    private $supplier1;
-
-    /**
-     * @var string
-     */
-    private $supplier2;
-
-
-    /**
-     * Set supplier
-     *
-     * @param string $supplier
-     *
-     * @return Sale
-     */
-    public function setSupplier($supplier)
-    {
-        $this->supplier = $supplier;
-
-        return $this;
-    }
-
-    /**
-     * Get supplier
-     *
-     * @return string
-     */
-    public function getSupplier()
-    {
-        return $this->supplier;
-    }
-
-    /**
-     * Set supplier1
-     *
-     * @param string $supplier1
-     *
-     * @return Sale
-     */
-    public function setSupplier1($supplier1)
-    {
-        $this->supplier1 = $supplier1;
-
-        return $this;
-    }
-
-    /**
-     * Get supplier1
-     *
-     * @return string
-     */
-    public function getSupplier1()
-    {
-        return $this->supplier1;
-    }
-
-    /**
-     * Set supplier2
-     *
-     * @param string $supplier2
-     *
-     * @return Sale
-     */
-    public function setSupplier2($supplier2)
-    {
-        $this->supplier2 = $supplier2;
-
-        return $this;
-    }
 
     /**
      * Get supplier2
@@ -2251,296 +1971,6 @@ class Sale
     /**
      * @var float
      */
-    private $gst;
-
-    /**
-     * @var float
-     */
-    private $gst1;
-
-    /**
-     * @var float
-     */
-    private $gst2;
-
-    /**
-     * @var float
-     */
-    private $gst3;
-
-    /**
-     * @var float
-     */
-    private $gst4;
-
-    /**
-     * @var float
-     */
-    private $gst5;
-
-    /**
-     * @var float
-     */
-    private $gst6;
-
-    /**
-     * @var float
-     */
-    private $gst7;
-
-    /**
-     * @var float
-     */
-    private $gst8;
-
-    /**
-     * @var float
-     */
-    private $gst9;
-
-
-    /**
-     * Set gst
-     *
-     * @param float $gst
-     *
-     * @return Sale
-     */
-    public function setGst($gst)
-    {
-        $this->gst = $gst;
-
-        return $this;
-    }
-
-    /**
-     * Get gst
-     *
-     * @return float
-     */
-    public function getGst()
-    {
-        return number_format((float)$this->gst,2, '.', '');
-    }
-
-    /**
-     * Set gst1
-     *
-     * @param float $gst1
-     *
-     * @return Sale
-     */
-    public function setGst1($gst1)
-    {
-        $this->gst1 = $gst1;
-
-        return $this;
-    }
-
-    /**
-     * Get gst1
-     *
-     * @return float
-     */
-    public function getGst1()
-    {
-        return number_format((float)$this->gst1,2, '.', '');
-    }
-
-    /**
-     * Set gst2
-     *
-     * @param float $gst2
-     *
-     * @return Sale
-     */
-    public function setGst2($gst2)
-    {
-        $this->gst2 = $gst2;
-
-        return $this;
-    }
-
-    /**
-     * Get gst2
-     *
-     * @return float
-     */
-    public function getGst2()
-    {
-        return number_format((float)$this->gst2,2, '.', '');
-    }
-
-    /**
-     * Set gst3
-     *
-     * @param float $gst3
-     *
-     * @return Sale
-     */
-    public function setGst3($gst3)
-    {
-        $this->gst3 = $gst3;
-
-        return $this;
-    }
-
-    /**
-     * Get gst3
-     *
-     * @return float
-     */
-    public function getGst3()
-    {
-        return number_format((float)$this->gst3,2, '.', '');
-    }
-
-    /**
-     * Set gst4
-     *
-     * @param float $gst4
-     *
-     * @return Sale
-     */
-    public function setGst4($gst4)
-    {
-        $this->gst4 = $gst4;
-
-        return $this;
-    }
-
-    /**
-     * Get gst4
-     *
-     * @return float
-     */
-    public function getGst4()
-    {
-        return number_format((float)$this->gst4,2, '.', '');
-    }
-
-    /**
-     * Set gst5
-     *
-     * @param float $gst5
-     *
-     * @return Sale
-     */
-    public function setGst5($gst5)
-    {
-        $this->gst5 = $gst5;
-
-        return $this;
-    }
-
-    /**
-     * Get gst5
-     *
-     * @return float
-     */
-    public function getGst5()
-    {
-        return number_format((float)$this->gst5,2, '.', '');
-    }
-
-    /**
-     * Set gst6
-     *
-     * @param float $gst6
-     *
-     * @return Sale
-     */
-    public function setGst6($gst6)
-    {
-        $this->gst6 = $gst6;
-
-        return $this;
-    }
-
-    /**
-     * Get gst6
-     *
-     * @return float
-     */
-    public function getGst6()
-    {
-        return number_format((float)$this->gst6,2, '.', '');
-    }
-
-    /**
-     * Set gst7
-     *
-     * @param float $gst7
-     *
-     * @return Sale
-     */
-    public function setGst7($gst7)
-    {
-        $this->gst7 = $gst7;
-
-        return $this;
-    }
-
-    /**
-     * Get gst7
-     *
-     * @return float
-     */
-    public function getGst7()
-    {
-        return number_format((float)$this->gst7,2, '.', '');
-    }
-
-    /**
-     * Set gst8
-     *
-     * @param float $gst8
-     *
-     * @return Sale
-     */
-    public function setGst8($gst8)
-    {
-        $this->gst8 = $gst8;
-
-        return $this;
-    }
-
-    /**
-     * Get gst8
-     *
-     * @return float
-     */
-    public function getGst8()
-    {
-        return number_format((float)$this->gst8,2, '.', '');
-    }
-
-    /**
-     * Set gst9
-     *
-     * @param float $gst9
-     *
-     * @return Sale
-     */
-    public function setGst9($gst9)
-    {
-        $this->gst9 = $gst9;
-
-        return $this;
-    }
-
-    /**
-     * Get gst9
-     *
-     * @return float
-     */
-    public function getGst9()
-    {
-        return number_format((float)$this->gst9,2, '.', '');
-    }
-    /**
-     * @var float
-     */
     private $unit_tax_other;
 
 
@@ -2565,7 +1995,7 @@ class Sale
      */
     public function getUnitTaxOther()
     {
-        $this->unit_tax_other = number_format((float)$this->getGst()+$this->getGst1()+$this->getGst2()+$this->getGst3()+$this->getGst4()+$this->getGst5()+$this->getGst6()+$this->getGst7()+$this->getGst8()+$this->getGst9(),2, '.', '');
+        $this->unit_tax_other = number_format((float)$this->getGstDelivery()+$this->getGstCleanUp()+$this->getGstGlass()+$this->getGstMechanical1()+$this->getGstMechanical2()+$this->getGstOtherExp1()+$this->getGstOtherExp2()+$this->getGstOtherExp3()+$this->getGstOtherExp4()+$this->getGstOtherExp5(),2, '.', '');
         return $this->unit_tax_other;
     }
 
@@ -2574,354 +2004,6 @@ class Sale
 //        return $this->id."";
 //        // TODO: Implement __toString() method.
 //    }
-    /**
-     * @var float
-     */
-    private $sale_gst1;
-
-    /**
-     * @var float
-     */
-    private $sale_gst2;
-
-    /**
-     * @var float
-     */
-    private $sale_gst3;
-
-    /**
-     * @var float
-     */
-    private $sale_gst4;
-
-    /**
-     * @var float
-     */
-    private $sale_gst5;
-
-    /**
-     * @var float
-     */
-    private $sale_gst6;
-
-    /**
-     * @var float
-     */
-    private $sale_gst7;
-
-    /**
-     * @var float
-     */
-    private $sale_gst8;
-
-    /**
-     * @var float
-     */
-    private $sale_gst9;
-
-    /**
-     * @var float
-     */
-    private $sale_gst10;
-
-    /**
-     * @var float
-     */
-    private $sale_gst11;
-
-    /**
-     * @var float
-     */
-    private $sale_gst12;
-
-
-    /**
-     * Set saleGst1
-     *
-     * @param float $saleGst1
-     *
-     * @return Sale
-     */
-    public function setSaleGst1($saleGst1)
-    {
-        $this->sale_gst1 = $saleGst1;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst1
-     *
-     * @return float
-     */
-    public function getSaleGst1()
-    {
-        return number_format((float)$this->sale_gst1,2, '.', '');
-    }
-
-    /**
-     * Set saleGst2
-     *
-     * @param float $saleGst2
-     *
-     * @return Sale
-     */
-    public function setSaleGst2($saleGst2)
-    {
-        $this->sale_gst2 = $saleGst2;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst2
-     *
-     * @return float
-     */
-    public function getSaleGst2()
-    {
-        return number_format((float)$this->sale_gst2,2, '.', '');
-    }
-
-    /**
-     * Set saleGst3
-     *
-     * @param float $saleGst3
-     *
-     * @return Sale
-     */
-    public function setSaleGst3($saleGst3)
-    {
-        $this->sale_gst3 = $saleGst3;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst3
-     *
-     * @return float
-     */
-    public function getSaleGst3()
-    {
-        return number_format((float)$this->sale_gst3,2, '.', '');
-    }
-
-    /**
-     * Set saleGst4
-     *
-     * @param float $saleGst4
-     *
-     * @return Sale
-     */
-    public function setSaleGst4($saleGst4)
-    {
-        $this->sale_gst4 = $saleGst4;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst4
-     *
-     * @return float
-     */
-    public function getSaleGst4()
-    {
-        return number_format((float)$this->sale_gst4,2, '.', '');
-    }
-
-    /**
-     * Set saleGst5
-     *
-     * @param float $saleGst5
-     *
-     * @return Sale
-     */
-    public function setSaleGst5($saleGst5)
-    {
-        $this->sale_gst5 = $saleGst5;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst5
-     *
-     * @return float
-     */
-    public function getSaleGst5()
-    {
-        return number_format((float)$this->sale_gst5,2, '.', '');
-    }
-
-    /**
-     * Set saleGst6
-     *
-     * @param float $saleGst6
-     *
-     * @return Sale
-     */
-    public function setSaleGst6($saleGst6)
-    {
-        $this->sale_gst6 = $saleGst6;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst6
-     *
-     * @return float
-     */
-    public function getSaleGst6()
-    {
-        return number_format((float)$this->sale_gst6,2, '.', '');
-    }
-
-    /**
-     * Set saleGst7
-     *
-     * @param float $saleGst7
-     *
-     * @return Sale
-     */
-    public function setSaleGst7($saleGst7)
-    {
-        $this->sale_gst7 = $saleGst7;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst7
-     *
-     * @return float
-     */
-    public function getSaleGst7()
-    {
-        return number_format((float)$this->sale_gst7,2, '.', '');
-    }
-
-    /**
-     * Set saleGst8
-     *
-     * @param float $saleGst8
-     *
-     * @return Sale
-     */
-    public function setSaleGst8($saleGst8)
-    {
-        $this->sale_gst8 = $saleGst8;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst8
-     *
-     * @return float
-     */
-    public function getSaleGst8()
-    {
-        return number_format((float)$this->sale_gst8,2, '.', '');
-    }
-
-    /**
-     * Set saleGst9
-     *
-     * @param float $saleGst9
-     *
-     * @return Sale
-     */
-    public function setSaleGst9($saleGst9)
-    {
-        $this->sale_gst9 = $saleGst9;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst9
-     *
-     * @return float
-     */
-    public function getSaleGst9()
-    {
-        return number_format((float)$this->sale_gst9,2, '.', '');
-    }
-
-    /**
-     * Set saleGst10
-     *
-     * @param float $saleGst10
-     *
-     * @return Sale
-     */
-    public function setSaleGst10($saleGst10)
-    {
-        $this->sale_gst10 = $saleGst10;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst10
-     *
-     * @return float
-     */
-    public function getSaleGst10()
-    {
-        return number_format((float)$this->sale_gst10,2, '.', '');
-    }
-
-    /**
-     * Set saleGst11
-     *
-     * @param float $saleGst11
-     *
-     * @return Sale
-     */
-    public function setSaleGst11($saleGst11)
-    {
-        $this->sale_gst11 = $saleGst11;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst11
-     *
-     * @return float
-     */
-    public function getSaleGst11()
-    {
-        return number_format((float)$this->sale_gst11,2, '.', '');
-    }
-
-    /**
-     * Set saleGst12
-     *
-     * @param float $saleGst12
-     *
-     * @return Sale
-     */
-    public function setSaleGst12($saleGst12)
-    {
-        $this->sale_gst12 = $saleGst12;
-
-        return $this;
-    }
-
-    /**
-     * Get saleGst12
-     *
-     * @return float
-     */
-    public function getSaleGst12()
-    {
-        return number_format((float)$this->sale_gst12,2, '.', '');
-    }
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
@@ -4247,5 +3329,962 @@ class Sale
     public function getVendorOtherExp5()
     {
         return $this->Vendor_Other_exp_5;
+    }
+
+    /**
+     * @var float
+     */
+    private $gst_delivery;
+
+    /**
+     * @var float
+     */
+    private $gst_clean_up;
+
+    /**
+     * @var float
+     */
+    private $gst_glass;
+
+    /**
+     * @var float
+     */
+    private $gst_mechanical_1;
+
+    /**
+     * @var float
+     */
+    private $gst_mechanical_2;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_1;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_2;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_3;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_4;
+
+    /**
+     * @var float
+     */
+    private $gst_other_exp_5;
+
+    /**
+     * @var float
+     */
+    private $gst_protect_pkg;
+
+    /**
+     * @var float
+     */
+    private $gst_warranty;
+
+    /**
+     * @var float
+     */
+    private $gst_doc_fees;
+
+    /**
+     * @var float
+     */
+    private $gst_admin_fees;
+
+    /**
+     * @var float
+     */
+    private $gst_insurance;
+
+    /**
+     * @var float
+     */
+    private $gst_life_ins;
+
+    /**
+     * @var float
+     */
+    private $gst_disability_ins;
+
+    /**
+     * @var float
+     */
+    private $gst_feverse;
+
+    /**
+     * @var float
+     */
+    private $gst_misc_1;
+
+    /**
+     * @var float
+     */
+    private $gst_misc_2;
+
+    /**
+     * @var float
+     */
+    private $gst_misc_3;
+
+    /**
+     * @var float
+     */
+    private $gst_sales_comms;
+
+    /**
+     * Set gstDelivery
+     *
+     * @param float $gstDelivery
+     *
+     * @return Sale
+     */
+    public function setGstDelivery($gstDelivery)
+    {
+        $this->gst_delivery = $gstDelivery;
+
+        return $this;
+    }
+
+    /**
+     * Get gstDelivery
+     *
+     * @return float
+     */
+    public function getGstDelivery()
+    {
+        return number_format((float)$this->gst_delivery,2, '.', '');
+    }
+
+    /**
+     * Set gstCleanUp
+     *
+     * @param float $gstCleanUp
+     *
+     * @return Sale
+     */
+    public function setGstCleanUp($gstCleanUp)
+    {
+        $this->gst_clean_up = $gstCleanUp;
+
+        return $this;
+    }
+
+    /**
+     * Get gstCleanUp
+     *
+     * @return float
+     */
+    public function getGstCleanUp()
+    {
+        return number_format((float)$this->gst_clean_up,2, '.', '');
+    }
+
+    /**
+     * Set gstGlass
+     *
+     * @param float $gstGlass
+     *
+     * @return Sale
+     */
+    public function setGstGlass($gstGlass)
+    {
+        $this->gst_glass = $gstGlass;
+
+        return $this;
+    }
+
+    /**
+     * Get gstGlass
+     *
+     * @return float
+     */
+    public function getGstGlass()
+    {
+        return number_format((float)$this->gst_glass,2, '.', '');
+    }
+
+    /**
+     * Set gstMechanical1
+     *
+     * @param float $gstMechanical1
+     *
+     * @return Sale
+     */
+    public function setGstMechanical1($gstMechanical1)
+    {
+        $this->gst_mechanical_1 = $gstMechanical1;
+
+        return $this;
+    }
+
+    /**
+     * Get gstMechanical1
+     *
+     * @return float
+     */
+    public function getGstMechanical1()
+    {
+        return number_format((float)$this->gst_mechanical_1,2, '.', '');
+    }
+
+    /**
+     * Set gstMechanical2
+     *
+     * @param float $gstMechanical2
+     *
+     * @return Sale
+     */
+    public function setGstMechanical2($gstMechanical2)
+    {
+        $this->gst_mechanical_2 = $gstMechanical2;
+
+        return $this;
+    }
+
+    /**
+     * Get gstMechanical2
+     *
+     * @return float
+     */
+    public function getGstMechanical2()
+    {
+        return number_format((float)$this->gst_mechanical_2,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp1
+     *
+     * @param float $gstOtherExp1
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp1($gstOtherExp1)
+    {
+        $this->gst_other_exp_1 = $gstOtherExp1;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp1
+     *
+     * @return float
+     */
+    public function getGstOtherExp1()
+    {
+        return number_format((float)$this->gst_other_exp_1,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp2
+     *
+     * @param float $gstOtherExp2
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp2($gstOtherExp2)
+    {
+        $this->gst_other_exp_2 = $gstOtherExp2;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp2
+     *
+     * @return float
+     */
+    public function getGstOtherExp2()
+    {
+        return number_format((float)$this->gst_other_exp_2,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp3
+     *
+     * @param float $gstOtherExp3
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp3($gstOtherExp3)
+    {
+        $this->gst_other_exp_3 = $gstOtherExp3;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp3
+     *
+     * @return float
+     */
+    public function getGstOtherExp3()
+    {
+        return number_format((float)$this->gst_other_exp_3,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp4
+     *
+     * @param float $gstOtherExp4
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp4($gstOtherExp4)
+    {
+        $this->gst_other_exp_4 = $gstOtherExp4;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp4
+     *
+     * @return float
+     */
+    public function getGstOtherExp4()
+    {
+        return number_format((float)$this->gst_other_exp_4,2, '.', '');
+    }
+
+    /**
+     * Set gstOtherExp5
+     *
+     * @param float $gstOtherExp5
+     *
+     * @return Sale
+     */
+    public function setGstOtherExp5($gstOtherExp5)
+    {
+        $this->gst_other_exp_5 = $gstOtherExp5;
+
+        return $this;
+    }
+
+    /**
+     * Get gstOtherExp5
+     *
+     * @return float
+     */
+    public function getGstOtherExp5()
+    {
+        return number_format((float)$this->gst_other_exp_5,2, '.', '');
+    }
+
+    /**
+     * Set gstProtectPkg
+     *
+     * @param float $gstProtectPkg
+     *
+     * @return Sale
+     */
+    public function setGstProtectPkg($gstProtectPkg)
+    {
+        $this->gst_protect_pkg = $gstProtectPkg;
+
+        return $this;
+    }
+
+    /**
+     * Get gstProtectPkg
+     *
+     * @return float
+     */
+    public function getGstProtectPkg()
+    {
+        return number_format((float)$this->gst_protect_pkg,2, '.', '');
+    }
+
+    /**
+     * Set gstWarranty
+     *
+     * @param float $gstWarranty
+     *
+     * @return Sale
+     */
+    public function setGstWarranty($gstWarranty)
+    {
+        $this->gst_warranty = $gstWarranty;
+
+        return $this;
+    }
+
+    /**
+     * Get gstWarranty
+     *
+     * @return float
+     */
+    public function getGstWarranty()
+    {
+        return number_format((float)$this->gst_warranty,2, '.', '');
+    }
+
+    /**
+     * Set gstDocFees
+     *
+     * @param float $gstDocFees
+     *
+     * @return Sale
+     */
+    public function setGstDocFees($gstDocFees)
+    {
+        $this->gst_doc_fees = $gstDocFees;
+
+        return $this;
+    }
+
+    /**
+     * Get gstDocFees
+     *
+     * @return float
+     */
+    public function getGstDocFees()
+    {
+        return number_format((float)$this->gst_doc_fees,2, '.', '');
+    }
+
+    /**
+     * Set gstAdminFees
+     *
+     * @param float $gstAdminFees
+     *
+     * @return Sale
+     */
+    public function setGstAdminFees($gstAdminFees)
+    {
+        $this->gst_admin_fees = $gstAdminFees;
+
+        return $this;
+    }
+
+    /**
+     * Get gstAdminFees
+     *
+     * @return float
+     */
+    public function getGstAdminFees()
+    {
+        return number_format((float)$this->gst_admin_fees,2, '.', '');
+    }
+
+    /**
+     * Set gstInsurance
+     *
+     * @param float $gstInsurance
+     *
+     * @return Sale
+     */
+    public function setGstInsurance($gstInsurance)
+    {
+        $this->gst_insurance = $gstInsurance;
+
+        return $this;
+    }
+
+    /**
+     * Get gstInsurance
+     *
+     * @return float
+     */
+    public function getGstInsurance()
+    {
+        return number_format((float)$this->gst_insurance,2, '.', '');
+    }
+
+    /**
+     * Set gstLifeIns
+     *
+     * @param float $gstLifeIns
+     *
+     * @return Sale
+     */
+    public function setGstLifeIns($gstLifeIns)
+    {
+        $this->gst_life_ins = $gstLifeIns;
+
+        return $this;
+    }
+
+    /**
+     * Get gstLifeIns
+     *
+     * @return float
+     */
+    public function getGstLifeIns()
+    {
+        return number_format((float)$this->gst_life_ins,2, '.', '');
+    }
+
+    /**
+     * Set gstDisabilityIns
+     *
+     * @param float $gstDisabilityIns
+     *
+     * @return Sale
+     */
+    public function setGstDisabilityIns($gstDisabilityIns)
+    {
+        $this->gst_disability_ins = $gstDisabilityIns;
+
+        return $this;
+    }
+
+    /**
+     * Get gstDisabilityIns
+     *
+     * @return float
+     */
+    public function getGstDisabilityIns()
+    {
+        return number_format((float)$this->gst_disability_ins,2, '.', '');
+    }
+
+    /**
+     * Set gstFeverse
+     *
+     * @param float $gstFeverse
+     *
+     * @return Sale
+     */
+    public function setGstFeverse($gstFeverse)
+    {
+        $this->gst_feverse = $gstFeverse;
+
+        return $this;
+    }
+
+    /**
+     * Get gstFeverse
+     *
+     * @return float
+     */
+    public function getGstFeverse()
+    {
+        return number_format((float)$this->gst_feverse,2, '.', '');
+    }
+
+    /**
+     * Set gstMisc1
+     *
+     * @param float $gstMisc1
+     *
+     * @return Sale
+     */
+    public function setGstMisc1($gstMisc1)
+    {
+        $this->gst_misc_1 = $gstMisc1;
+
+        return $this;
+    }
+
+    /**
+     * Get gstMisc1
+     *
+     * @return float
+     */
+    public function getGstMisc1()
+    {
+        return number_format((float)$this->gst_misc_1,2, '.', '');
+    }
+
+    /**
+     * Set gstMisc2
+     *
+     * @param float $gstMisc2
+     *
+     * @return Sale
+     */
+    public function setGstMisc2($gstMisc2)
+    {
+        $this->gst_misc_2 = $gstMisc2;
+
+        return $this;
+    }
+
+    /**
+     * Get gstMisc2
+     *
+     * @return float
+     */
+    public function getGstMisc2()
+    {
+        return number_format((float)$this->gst_misc_2,2, '.', '');
+    }
+
+    /**
+     * Set gstMisc3
+     *
+     * @param float $gstMisc3
+     *
+     * @return Sale
+     */
+    public function setGstMisc3($gstMisc3)
+    {
+        $this->gst_misc_3 = $gstMisc3;
+
+        return $this;
+    }
+
+    /**
+     * Get gstMisc3
+     *
+     * @return float
+     */
+    public function getGstMisc3()
+    {
+        return number_format((float)$this->gst_misc_3,2, '.', '');
+    }
+
+    /**
+     * Set gstSalesComms
+     *
+     * @param float $gstSalesComms
+     *
+     * @return Sale
+     */
+    public function setGstSalesComms($gstSalesComms)
+    {
+        $this->gst_sales_comms = $gstSalesComms;
+
+        return $this;
+    }
+
+    /**
+     * Get gstSalesComms
+     *
+     * @return float
+     */
+    public function getGstSalesComms()
+    {
+        return number_format((float)$this->gst_sales_comms,2, '.', '');
+    }
+    /**
+     * @var string
+     */
+    private $desc_mechanical_1;
+
+    /**
+     * @var string
+     */
+    private $desc_mechanical_2;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_1;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_2;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_3;
+
+    /**
+     * @var string
+     */
+    private $desc_other_exp_4;
+
+    /**
+     * @var string
+     */
+    private $desc_delivery;
+
+    /**
+     * @var string
+     */
+    private $desc_clean_up;
+
+    /**
+     * @var string
+     */
+    private $desc_glass;
+
+
+    /**
+     * Set descMechanical1
+     *
+     * @param string $descMechanical1
+     *
+     * @return Sale
+     */
+    public function setDescMechanical1($descMechanical1)
+    {
+        $this->desc_mechanical_1 = $descMechanical1;
+
+        return $this;
+    }
+
+    /**
+     * Get descMechanical1
+     *
+     * @return string
+     */
+    public function getDescMechanical1()
+    {
+        return $this->desc_mechanical_1;
+    }
+
+    /**
+     * Set descMechanical2
+     *
+     * @param string $descMechanical2
+     *
+     * @return Sale
+     */
+    public function setDescMechanical2($descMechanical2)
+    {
+        $this->desc_mechanical_2 = $descMechanical2;
+
+        return $this;
+    }
+
+    /**
+     * Get descMechanical2
+     *
+     * @return string
+     */
+    public function getDescMechanical2()
+    {
+        return $this->desc_mechanical_2;
+    }
+
+    /**
+     * Set descOtherExp1
+     *
+     * @param string $descOtherExp1
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp1($descOtherExp1)
+    {
+        $this->desc_other_exp_1 = $descOtherExp1;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp1
+     *
+     * @return string
+     */
+    public function getDescOtherExp1()
+    {
+        return $this->desc_other_exp_1;
+    }
+
+    /**
+     * Set descOtherExp2
+     *
+     * @param string $descOtherExp2
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp2($descOtherExp2)
+    {
+        $this->desc_other_exp_2 = $descOtherExp2;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp2
+     *
+     * @return string
+     */
+    public function getDescOtherExp2()
+    {
+        return $this->desc_other_exp_2;
+    }
+
+    /**
+     * Set descOtherExp3
+     *
+     * @param string $descOtherExp3
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp3($descOtherExp3)
+    {
+        $this->desc_other_exp_3 = $descOtherExp3;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp3
+     *
+     * @return string
+     */
+    public function getDescOtherExp3()
+    {
+        return $this->desc_other_exp_3;
+    }
+
+    /**
+     * Set descOtherExp4
+     *
+     * @param string $descOtherExp4
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp4($descOtherExp4)
+    {
+        $this->desc_other_exp_4 = $descOtherExp4;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp4
+     *
+     * @return string
+     */
+    public function getDescOtherExp4()
+    {
+        return $this->desc_other_exp_4;
+    }
+
+    /**
+     * Set descDelivery
+     *
+     * @param string $descDelivery
+     *
+     * @return Sale
+     */
+    public function setDescDelivery($descDelivery)
+    {
+        $this->desc_delivery = $descDelivery;
+
+        return $this;
+    }
+
+    /**
+     * Get descDelivery
+     *
+     * @return string
+     */
+    public function getDescDelivery()
+    {
+        return $this->desc_delivery;
+    }
+
+    /**
+     * Set descCleanUp
+     *
+     * @param string $descCleanUp
+     *
+     * @return Sale
+     */
+    public function setDescCleanUp($descCleanUp)
+    {
+        $this->desc_clean_up = $descCleanUp;
+
+        return $this;
+    }
+
+    /**
+     * Get descCleanUp
+     *
+     * @return string
+     */
+    public function getDescCleanUp()
+    {
+        return $this->desc_clean_up;
+    }
+
+    /**
+     * Set descGlass
+     *
+     * @param string $descGlass
+     *
+     * @return Sale
+     */
+    public function setDescGlass($descGlass)
+    {
+        $this->desc_glass = $descGlass;
+
+        return $this;
+    }
+
+    /**
+     * Get descGlass
+     *
+     * @return string
+     */
+    public function getDescGlass()
+    {
+        return $this->desc_glass;
+    }
+    /**
+     * @var string
+     */
+    private $discrip_other_exp_5;
+
+
+    /**
+     * Set discripOtherExp5
+     *
+     * @param string $discripOtherExp5
+     *
+     * @return Sale
+     */
+    public function setDiscripOtherExp5($discripOtherExp5)
+    {
+        $this->discrip_other_exp_5 = $discripOtherExp5;
+
+        return $this;
+    }
+
+    /**
+     * Get discripOtherExp5
+     *
+     * @return string
+     */
+    public function getDiscripOtherExp5()
+    {
+        return $this->discrip_other_exp_5;
+    }
+    /**
+     * @var string
+     */
+    private $desc_other_exp_5;
+
+
+    /**
+     * Set descOtherExp5
+     *
+     * @param string $descOtherExp5
+     *
+     * @return Sale
+     */
+    public function setDescOtherExp5($descOtherExp5)
+    {
+        $this->desc_other_exp_5 = $descOtherExp5;
+
+        return $this;
+    }
+
+    /**
+     * Get descOtherExp5
+     *
+     * @return string
+     */
+    public function getDescOtherExp5()
+    {
+        return $this->desc_other_exp_5;
     }
 }
