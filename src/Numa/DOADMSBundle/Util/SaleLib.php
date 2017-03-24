@@ -124,6 +124,7 @@ class SaleLib
             $class_methods = get_class_methods(Sale::class);
             $output = array_filter($class_methods, function ($f) { return stripos($f,"get")===0 && stripos($f,"vendorid")>0 && $f!="getVendorId"; });
             $props = array();
+            $byVendors = array();
             foreach($output as $vendorF){
                 $temp = array();
                 //$prop = str_replace("get","",$vendorF);
@@ -136,25 +137,29 @@ class SaleLib
                 if(method_exists($sale,$descF)) {
                     $desc = $sale->{$descF}();
                 }
+
                 if(!empty($vendorId)){
                     $em = $this->container->get('doctrine.orm.entity_manager');
                     dump($vendorId);
                     $vendor  =$em->getRepository(Vendor::class)->find($vendorId);
                     if($vendor instanceof Vendor){
+
                         $temp['vendor'] = $vendor;
                         $temp['amount'] = $amount;
+                        $temp['property'] = $prop;
                         if(method_exists($sale,$descF)) {
                             $desc = $sale->{$descF}();
                             $temp['desc']   = $desc;
                         }
 
+                        $byVendors[$vendorId][]=$temp;
                     }
                 }
                 $props[$prop] = $temp;
                 //dump($sale->{$vendorF}());
             }
         }
-        dump($props);
+        dump($byVendors);
         return $props;
     }
 }
