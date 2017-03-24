@@ -222,7 +222,7 @@ class QuickbooksLib
         }
         if(!$resp)
         {
-            dump($VendorService->lastError($qbo->getContext()));die();
+//            dump($VendorService->lastError($qbo->getContext()));die();
             return false;
         }
         return $qbVendor;
