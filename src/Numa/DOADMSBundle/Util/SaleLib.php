@@ -14,6 +14,7 @@ use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\RelatedDoc;
 use Numa\DOADMSBundle\Entity\Sale;
 use Numa\DOADMSBundle\Entity\SaleRelatedDoc;
+use Numa\DOADMSBundle\Entity\Vendor;
 use Symfony\Component\HttpFoundation\File\File;
 
 class SaleLib
@@ -124,13 +125,36 @@ class SaleLib
             $output = array_filter($class_methods, function ($f) { return stripos($f,"get")===0 && stripos($f,"vendorid")>0 && $f!="getVendorId"; });
             $props = array();
             foreach($output as $vendorF){
+                $temp = array();
                 //$prop = str_replace("get","",$vendorF);
                 $prop = str_replace("VendorId","",$vendorF);
-                dump($prop);
-                $props[$prop] = $vendorF;
+                $descF = str_replace("get","",$prop);
+                $descF = "getDesc".$descF;
+
+                $vendorId = $sale->{$vendorF}();
+                $amount   = $sale->{$prop}();
+                if(method_exists($sale,$descF)) {
+                    $desc = $sale->{$descF}();
+                }
+                if(!empty($vendorId)){
+                    $em = $this->container->get('doctrine.orm.entity_manager');
+                    dump($vendorId);
+                    $vendor  =$em->getRepository(Vendor::class)->find($vendorId);
+                    if($vendor instanceof Vendor){
+                        $temp['vendor'] = $vendor;
+                        $temp['amount'] = $amount;
+                        if(method_exists($sale,$descF)) {
+                            $desc = $sale->{$descF}();
+                            $temp['desc']   = $desc;
+                        }
+
+                    }
+                }
+                $props[$prop] = $temp;
                 //dump($sale->{$vendorF}());
             }
         }
+        dump($props);
         return $props;
     }
 }
