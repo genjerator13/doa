@@ -57,8 +57,9 @@ class BillingController extends Controller
                 $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($entity->getItemId());
                 $entity->setItem($item);
             }
-
-
+            if (empty($entity->getDateBilling())){
+                $entity->setDateBilling(new \DateTime('today'));
+            }
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
