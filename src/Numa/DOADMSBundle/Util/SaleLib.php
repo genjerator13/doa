@@ -116,4 +116,21 @@ class SaleLib
         $em->remove($doc);
         $em->flush();
     }
+
+    public function getAllVendors(Item $item){
+        $sale = $item->getSale();
+        if($sale instanceof Sale){
+            $class_methods = get_class_methods(Sale::class);
+            $output = array_filter($class_methods, function ($f) { return stripos($f,"get")===0 && stripos($f,"vendorid")>0 && $f!="getVendorId"; });
+            $props = array();
+            foreach($output as $vendorF){
+                //$prop = str_replace("get","",$vendorF);
+                $prop = str_replace("VendorId","",$vendorF);
+                dump($prop);
+                $props[$prop] = $vendorF;
+                //dump($sale->{$vendorF}());
+            }
+        }
+        return $props;
+    }
 }
