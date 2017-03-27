@@ -50,18 +50,13 @@ class QuickbooksLib
             $this->insertItemPO($item);
         }
     }
-    public function insertItemPO(Item $item)
+    public function createItemPO(Item $item)
     {
-        $qbo = $this->container->get("numa.quickbooks")->init();
-        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
-
-        $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
 
         $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
 
 
         $qbItem = $this->insertItem($item);
-        dump($qbItem);
 
         $Line = new \QuickBooks_IPP_Object_Line();
         $Line->setDetailType('ItemBasedExpenseLineDetail');
@@ -75,25 +70,34 @@ class QuickbooksLib
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
 
-
-
         //vendor
-        $sale   = $item->getSale();
-        dump($sale);
+        $sale = $item->getSale();
+
         $vendor = false;
-        if($sale instanceof Sale){
+        if ($sale instanceof Sale) {
             $vendor = $sale->getVendor();
             $qbPO->setTotalAmt($sale->getInvoiceAmt());
             $Line->setAmount($sale->getInvoiceAmt());
         }
         $qbPO->addLine($Line);
-        dump($vendor);
-        if($vendor instanceof Vendor){
+
+        if ($vendor instanceof Vendor) {
             $qbVendor = $this->dmsToQbVendor($vendor);
             $qbPO->setVendorRef($qbVendor->getId());
         }
 
+        return $qbPO;
+    }
 
+    public function insertItemPO(Item $item){
+        $qbo = $this->container->get("numa.quickbooks")->init();
+        $qbPO = $this->createItemPO($item);
+
+        $sale  = $item->getSale();
+        $sale->getAllVendors();
+
+
+        $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
         $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
         dump($qbPO);
 
@@ -103,6 +107,7 @@ class QuickbooksLib
             return false;
         }
     }
+
     public function insertItem(Item $item)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
@@ -194,7 +199,9 @@ class QuickbooksLib
     public function getSupplier($name){
         $qbo = $this->container->get("numa.quickbooks")->init();
         $supplierService = new \QuickBooks_IPP_Service_Vendor();
-        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '".$name."'");
+
+        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '".addslashes($name)."'");
+
         if(!empty($items[0])) {
             return $items[0];
         }
@@ -207,9 +214,7 @@ class QuickbooksLib
 
 //        $itemService = new \QuickBooks_IPP_Service_Item();
 
-
         $qbVendor = $this->getSupplier($vendor->getCompanyName());
-
         if($qbVendor instanceof \QuickBooks_IPP_Object_Vendor){
             //update supplier
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
@@ -220,21 +225,148 @@ class QuickbooksLib
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
             $resp = $VendorService->add($qbo->getContext(), $qbo->getRealm(), $qbVendor);
         }
+        if(!$resp)
+        {
+//            dump($VendorService->lastError($qbo->getContext()));die();
+            return false;
+        }
         return $qbVendor;
     }
 
+    /**
+     * @param \QuickBooks_IPP_Object_Vendor $qbVendor
+     * @param Vendor $vendor
+     * @return \QuickBooks_IPP_Object_Vendor
+     * Maps DMS vendor into QB vendors
+     */
     public function addSupplier(\QuickBooks_IPP_Object_Vendor $qbVendor, Vendor $vendor){
 
         $qbVendor->setCompanyName($vendor->getCompanyName());
         $qbVendor->setDisplayName($vendor->getCompanyName());
-        $qbVendor->setPrimaryPhone($vendor->getHomePhone());
-        $qbVendor->setPrimaryEmail($vendor->getEmail());
+        $qbVendor->setGivenName($vendor->getFirstName());
+        $qbVendor->setFamilyName($vendor->getLastName());
+
+        $Email = new \QuickBooks_IPP_Object_PrimaryEmailAddr();
+        $Email->setAddress($vendor->getEmail());
+        $qbVendor->setPrimaryEmailAddr($Email);
+
+        $PrimaryPhone = new \QuickBooks_IPP_Object_PrimaryPhone();
+        $PrimaryPhone->setFreeFormNumber($vendor->getHomePhone());
+        $qbVendor->setPrimaryPhone($PrimaryPhone);
+
+        $Fax = new \QuickBooks_IPP_Object_Fax();
+        $Fax->setFreeFormNumber($vendor->getFax());
+        $qbVendor->setFax($Fax);
+
+        $Mobile = new \QuickBooks_IPP_Object_Mobile();
+        $Mobile->setFreeFormNumber($vendor->getMobilePhone());
+        $qbVendor->setMobile($Mobile);
+
+        $BillAddr = new \QuickBooks_IPP_Object_BillAddr();
+        $BillAddr->setLine1($vendor->getAddress());
+        $BillAddr->setCity($vendor->getCity());
+        $BillAddr->setCountry($vendor->getCountry());
+        $BillAddr->setPostalCode($vendor->getZip());
+        $BillAddr->setState($vendor->getState());
+        $qbVendor->setBillAddr($BillAddr);
+
 
         return $qbVendor;
     }
 
+    /**
+     * @param $qbid
+     * @return int
+     * parse qb id into int  {-12}  => 12
+     */
     public function parseId($qbid){
         return intval(str_replace(array("{","}","-"),"",$qbid));
     }
 
+    /**
+     * @param $dealer
+     * imports all vendors from QB to DMS
+     */
+    public function qbToDMSVendors($dealer){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $qbSuppliers = $this->getAllSuppliers();
+
+        foreach($qbSuppliers as $supplier) {
+            $vendor = $this->createVendorFromQB($dealer, $supplier);
+        }
+        $em->flush();
+    }
+
+    /**
+     * @param $dealer
+     * @param $supplier
+     * @return Vendor
+     * Creates vendor from QB supplier
+     */
+    public function createVendorFromQB($dealer, $supplier){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $qbid = $this->parseId($supplier->getId());
+
+        $vendor = $em->getRepository(Vendor::class)->findOneBy(array("qb_supplier_id"=>$qbid));
+
+        if(!$vendor instanceof Vendor){
+            $vendor = new Vendor();
+            $em->persist($vendor);
+        }
+
+        $vendor->setQbSupplierId($qbid);
+        $vendor->setCatalogrecords($dealer);
+        $vendor->setCompanyName($supplier->getCompanyName());
+        $vendor->setFirstName($supplier->getGivenName());
+        $vendor->setLastName($supplier->getFamilyName());
+
+        if($supplier->getPrimaryEmailAddr()){
+            $vendor->setEmail($supplier->getPrimaryEmailAddr()->getAddress());
+        }
+
+        if($supplier->getPrimaryPhone()){
+            $vendor->setHomePhone($supplier->getPrimaryPhone()->getFreeFormNumber());
+        }
+
+        if($supplier->getMobile()){
+            $vendor->setMobilePhone($supplier->getMobile()->getFreeFormNumber());
+        }
+
+        if($supplier->getFax()){
+            $vendor->setFax($supplier->getFax()->getFreeFormNumber());
+        }
+
+        if($supplier->getBillAddr()){
+            $vendor->setCity($supplier->getBillAddr()->getCity());
+            $vendor->setCountry($supplier->getBillAddr()->getCountry());
+            $vendor->setZip($supplier->getBillAddr()->getPostalCode());
+            $vendor->setState($supplier->getBillAddr()->getCountrySubDivisionCode());
+            $vendor->setAddress($supplier->getBillAddr()->getLine1());
+        }
+
+        $vendor->setStatus(null);
+        return $vendor;
+    }
+
+    /**
+     * @param $vendors collection of dms Vendors
+     * Adds collection of vendors to QB
+     */
+    public function importVendorsToQB($vendors){
+        if(!empty($vendors)) {
+            foreach ($vendors as $vendor) {
+                $vendor = $this->dmsToQbVendor($vendor);
+            }
+        }
+    }
+
+    /**
+     * @param $dealer
+     * add (update) all dealers vendors to QB
+     */
+    public function importAllDealerVendorsToQB($dealer){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $vendors = $em->getRepository(Vendor::class)->findByDealerId($dealer->getId());
+        $this->importVendorsToQB($vendors);
+    }
 }

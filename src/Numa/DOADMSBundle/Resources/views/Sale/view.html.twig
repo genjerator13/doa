@@ -45,34 +45,34 @@
     <tr>
         <td>Invoice Date</td>
         <td>{{ sale.invoiceDate|date('Y-m-d') }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Invoice Amt</td>
         <td>{{ sale.invoiceAmt }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Taxes 1</td>
         <td>{{ sale.relatedTaxes1 }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Taxes 2</td>
         <td>{{ sale.relatedTaxes2 }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td colspan="2"><h2>UNIT COST RECAP</h2><p style="text-align: right; margin-right: 35px">GST Tax</p></td>
@@ -163,8 +163,8 @@
     <tr>
         <td>Total unit cost</td>
         <td>{{ sale.totalUnitCost }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
         <td>
             {% if sale.other1Des is not null %}
                 {{ sale.other1Des|capitalize }}
@@ -212,109 +212,110 @@
     <tr>
         <td colspan="2"><h2>SALES COST RECAP</h2><p style="text-align: right; margin-right: 35px">GST Tax</p></td>
         <td style="vertical-align:bottom; text-align: center"><p>Vendor / Supplier Name</p></td>
+        <td></td>
         <td><h2>TAXES</h2></td>
     </tr>
     <tr>
         <td>Protect PKG</td>
         <td><div style="float:left">{{ sale.protectPkg }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst1 }}</div></td>
         <td>{{ sale.vendorProtectPkg }}</td>
+        <td></td>
         <td>Tax 1 out</td>
         <td>{{ sale.tax1Out }}</td>
-        <td></td>
     </tr>
     <tr>
         <td>Warranty</td>
         <td><div style="float:left">{{ sale.warranty }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst2 }}</div></td>
         <td>{{ sale.vendorWarranty }}</td>
+        <td></td>
         <td>Tax 2 out</td>
         <td>{{ sale.tax2Out }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Doc Fees</td>
         <td><div style="float:left">{{ sale.docFees }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst3 }}</div></td>
         <td>{{ sale.vendorDocFees }}</td>
+        <td></td>
         <td>Unit tax other</td>
         <td>{{ sale.unitTaxOther }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Admin Fees</td>
         <td><div style="float:left">{{ sale.adminFees }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst4 }}</div></td>
         <td>{{ sale.vendorAdminFees }}</td>
+        <td></td>
         <td>Trade in tax</td>
         <td>{{ sale.tradeInTax }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Insurance</td>
         <td><div style="float:left">{{ sale.insurance }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst5 }}</div></td>
         <td>{{ sale.vendorInsurance }}</td>
+        <td></td>
         <td>Tax 1 In</td>
         <td>{{ sale.tax1In }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Life Ins</td>
         <td><div style="float:left">{{ sale.lifeIns }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst6 }}</div></td>
         <td>{{ sale.vendorLifeIns }}</td>
+        <td></td>
         <td>Tax 2 In</td>
         <td>{{ sale.tax2In }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Disability Ins</td>
         <td><div style="float:left">{{ sale.disabilityIns }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst7 }}</div></td>
         <td>{{ sale.vendorDisabilityIns }}</td>
+        <td></td>
         <td>Net Tax</td>
         <td>{{ sale.netTax }}</td>
-        <td width="165px"></td>
     </tr>
     <tr>
         <td>Feverse</td>
         <td><div style="float:left">{{ sale.feverse }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst8 }}</div></td>
         <td>{{ sale.vendorFeverse }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Misc 1</td>
         <td><div style="float:left">{{ sale.misc1 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst9 }}</div></td>
         <td>{{ sale.vendorMisc1 }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Misc 2</td>
         <td><div style="float:left">{{ sale.misc2 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst10 }}</div></td>
         <td>{{ sale.vendorMisc2 }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Misc 3</td>
         <td><div style="float:left">{{ sale.misc3 }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst11 }}</div></td>
         <td>{{ sale.vendorMisc3 }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Sales Comms</td>
         <td><div style="float:left">{{ sale.salesComms }}</div><div style="float:right; margin-right: 35px">{{ sale.saleGst12 }}</div></td>
         <td>{{ sale.vendorSalesComms }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
+        <td></td>
     </tr>
     <tr>
         <td>Total Sale Cost</td>
         <td>{{ sale.totalSaleCost }}</td>
-        <td width="165px"></td>
-        <td width="165px"></td>
+        <td></td>
+        <td></td>
         <td>Revenue This Unit</td>
         <td>{{ sale.revenueThisUnit }}</td>
     </tr>
