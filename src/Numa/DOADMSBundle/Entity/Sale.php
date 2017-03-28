@@ -4229,35 +4229,7 @@ class Sale
     {
         return $this->desc_glass;
     }
-    /**
-     * @var string
-     */
-    private $discrip_other_exp_5;
-
-
-    /**
-     * Set discripOtherExp5
-     *
-     * @param string $discripOtherExp5
-     *
-     * @return Sale
-     */
-    public function setDiscripOtherExp5($discripOtherExp5)
-    {
-        $this->discrip_other_exp_5 = $discripOtherExp5;
-
-        return $this;
-    }
-
-    /**
-     * Get discripOtherExp5
-     *
-     * @return string
-     */
-    public function getDiscripOtherExp5()
-    {
-        return $this->discrip_other_exp_5;
-    }
+    
     /**
      * @var string
      */
