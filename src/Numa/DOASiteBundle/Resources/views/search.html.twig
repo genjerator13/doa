@@ -17,7 +17,7 @@
             <li class="{% if route=='buyer_register' %}active{% endif %}">
                 {% if(app.session.get('dealer_id') is not defined or app.session.get('dealer_id') is empty) %}
                     {% if not is_granted('ROLE_USER') and  not is_granted('ROLE_BUSINES') %}
-                        <a href="{{ path('buyer_register') }}">Buyer Registration / Sign In</a>
+                        {#<a href="{{ path('buyer_register') }}">Buyer Registration / Sign In</a>#}
                     {% else %}
                         <a class="" href="{{ path('logout') }}"> Log Out </a>
                     {% endif %}
