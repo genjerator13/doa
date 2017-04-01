@@ -84,7 +84,7 @@
 {% block content %}
     {% set action="Add new listing" %}
     {% if entity.id is not empty %}
-        {% set action="Edit listing <small>#"~entity.id~" , "~entity.getMake()~" "~entity.getModel()~"</small>" %}
+        {% set action="Edit listing <small>#"~entity.id~" , "~entity.getYear()~" "~entity.getMake()~" "~entity.getModel()~"</small>" %}
         {% set desc = entity.getMake()~" "~entity.getModel()~" " %}
         {% set detailUrl = path('item_details', {'itemId': entity.id, 'description': desc|url_encode()}) %}
         {% set dealer=entity.getDealer() %}
