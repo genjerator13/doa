@@ -1,16 +1,16 @@
 <h2 class="section"><i class="fa fa-cog"></i>Vehicle Details:</h2>
 <ul class='option-lists'>
-    {#{% if item.categoryId()==1 %}#}
-        {#{% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}#}
-    {#{% elseif(item.categoryId()==2) %}#}
-        {#{% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}#}
-    {#{% elseif(item.categoryId()==3) %}#}
-        {#{% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}#}
-    {#{% elseif(item.categoryId()==4) %}#}
-        {#{% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}#}
-    {#{% elseif(item.categoryId()==13) %}#}
-        {#{% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}#}
-    {#{% else %}#}
-    {#{% endif %}#}
+    {% if item.categoryId()==1 %}
+        {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+    {% elseif(item.categoryId()==2) %}
+        {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+    {% elseif(item.categoryId()==3) %}
+        {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+    {% elseif(item.categoryId()==4) %}
+        {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+    {% elseif(item.categoryId()==13) %}
+        {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+    {% else %}
+    {% endif %}
 
 </ul>
