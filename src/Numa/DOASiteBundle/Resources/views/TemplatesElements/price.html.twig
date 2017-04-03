@@ -1,6 +1,6 @@
 {% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}
     <div class='retail_price'>
-        Retail Price Was: <span class='retail_price_value'>{{ item.getRetailPrice() }}</span>
+        Retail Price Was: <span class='retail_price_value'>{{ price(item.getRetailPrice(),false)|raw }}</span>
     </div>
 {% endif %}
 {% if item.getPrice() is not empty and item.getPrice() > 0 %}
