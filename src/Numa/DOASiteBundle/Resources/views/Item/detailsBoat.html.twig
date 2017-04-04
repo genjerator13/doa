@@ -50,32 +50,32 @@
                         <h2 class="section">{{ item.getListingTitle() }} <span
                                     classb="price">{{ item.getPriceString() }}</span>{% if (item.getSold()==1) %}
                             <span class="badge">Sold</span>{% endif %}</h2>
-<div class="row">
-                        <div class="slideshow">
+                        <div class="row">
+                            <div class="slideshow">
 
-                            <ul class="pgwSlideshow">
-                                {% for key,image in images %}
-                                    <li data-order="{{ image.sortOrder }}">
-                                        {% if ('http' not in image.fieldStringValue) %}
-                                            <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
-                                                 alt="image{{ key }}"/>
-                                        {% else %}
-                                            {% set videoid="" %}
-                                            {% set img=image.fieldStringValue %}
-                                            {% if ('youtube' in image.fieldStringValue) %}
-                                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                                {% set img=getYoutubeThumb(videoid) %}
+                                <ul class="pgwSlideshow">
+                                    {% for key,image in images %}
+                                        <li data-order="{{ image.sortOrder }}">
+                                            {% if ('http' not in image.fieldStringValue) %}
+                                                <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"
+                                                     alt="image{{ key }}"/>
+                                            {% else %}
+                                                {% set videoid="" %}
+                                                {% set img=image.fieldStringValue %}
+                                                {% if ('youtube' in image.fieldStringValue) %}
+                                                    {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                    {% set img=getYoutubeThumb(videoid) %}
+                                                {% endif %}
+                                                <img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>
+
+
                                             {% endif %}
-                                            <img data-video="{{ videoid }}" src="{{ img }}" alt="image{{ key }}"/>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
 
-
-                                        {% endif %}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-
+                            </div>
                         </div>
-</div>
                         {% if item.getItemFieldByName('youtube video id') is not empty %}
                             <div class='row'>
                                 <h4>Youtube video:</h4>
@@ -284,7 +284,7 @@
                                     {{ component.image(dealer.logoUrl, dealer.name, '', 'search_image') }}
                                     <p class="dealer-name">{{ dealer.name }}</p>
                                     {% if (dealer.hasCoupons()) %}
-                                    {#{% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}#}
+                                        {#{% if(dealer.getCoupon().count() is defined and dealer.getCoupon().count() is not empty) and dealer.getCoupon().count()>0 %}#}
                                         <a class="dealer-coupon-link"
                                            href="{{ path('dealer_coupons',{'dealername':dealer.username}) }}">SAVINGS
                                             COUPONS From This Dealer</a>
@@ -352,7 +352,7 @@
                                 <script>
                                     var geocoder = new google.maps.Geocoder();
                                     {% if (dealer is defined and dealer is not empty) %}
-                                    var address = "{{dealer.address}},{{dealer.city}}";
+                                    var address = "{{ dealer.address }},{{ dealer.city }}";
                                     {% else %}
                                     var address = "saskatoon";
                                     {% endif %}
@@ -379,7 +379,7 @@
                                         var marker = new google.maps.Marker({
                                             position: myLatlng,
                                             map: map, {% if (dealer is defined and dealer is not empty) %}
-                                            title: '{{dealer.name}}'
+                                            title: '{{ dealer.name }}'
                                             {% endif %}
                                         });
 
@@ -404,7 +404,7 @@
                                         if (!$(this).prop('checked')) {
                                             act = "remove";
                                         }
-                                        var jqxhr = $.post("{{path('item_savead')}}", {
+                                        var jqxhr = $.post("{{ path('item_savead') }}", {
                                             itemid: itemId,
                                             act: act
                                         }, function (data) {
