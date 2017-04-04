@@ -140,7 +140,7 @@ class SaleLib
 
                 if(!empty($vendorId)){
                     $em = $this->container->get('doctrine.orm.entity_manager');
-                    dump($vendorId);
+
                     $vendor  =$em->getRepository(Vendor::class)->find($vendorId);
                     if($vendor instanceof Vendor){
 
@@ -159,7 +159,7 @@ class SaleLib
                 //dump($sale->{$vendorF}());
             }
         }
-        dump($byVendors);
-        return $props;
+
+        return $byVendors;
     }
 }
