@@ -470,7 +470,7 @@ trsteel_ckeditor:
         route: image_browse
         route_parameters:
           type: image
-    extra_allowed_content: div(*)
+    extra_allowed_content: "span(*); div(*);i(*)"
     html_purifier:
         config:
             HTML.SafeIframe: true

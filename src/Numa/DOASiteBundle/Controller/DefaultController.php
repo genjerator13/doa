@@ -308,7 +308,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         }
 
         $featured = $itemrep->findFeatured($dealer_id, $max * 2);
-
         $items = array();
 
         if (!empty($featured)) {

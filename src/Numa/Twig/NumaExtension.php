@@ -85,7 +85,7 @@ class NumaExtension extends \Twig_Extension
         return 'numa_extension';
     }
 
-    public function price($price)
+    public function price($price,$html=true)
     {
         $price = intval($price);
         if (empty($price)) {
@@ -93,9 +93,12 @@ class NumaExtension extends \Twig_Extension
         } else {
             setlocale(LC_MONETARY, 'en_US');
             $price = money_format('%i', floatval($price));
-            $price = "$ " . number_format(floatval($price), 0, ",", ",");
+            $price = "$" . number_format(floatval($price), 0, ",", ",");
         }
-        $return = '<span class="price">' . $price . '</span>';
+        $return = $price;
+        if($html) {
+            $return = '<span class="price">' . $price . '</span>';
+        }
         return $return;
     }
 
