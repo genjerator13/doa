@@ -16,8 +16,8 @@
 }
 
 @font-face {
-    font-family: bauhaus93;
-    src: url(bauhaus93.ttf);
+    font-family: GOUDYSTO;
+    src: url(GOUDYSTO.ttf);
 }
 
 .left {
@@ -209,14 +209,22 @@ ul.tmp{
     height: 101px;
     position: absolute;
     top: 20px;
-    left: 420px;
+    left: 445px;
 }
 
 .logo-text {
-    font-family: bauhaus93;
+    font-family: GOUDYSTO;
     color: #ED7D31;
     font-size: 24px;
-    margin-top: -40px;
+    position: absolute;
+    left: 320px;
+    top: 20px;
+}
+
+.somespace {
+    padding-right: 100px;
+    font-family: GOUDYSTO;
+
 }
 
 .navbar{
@@ -758,3 +766,4 @@ iframe body{
     top: 150px;
     left: 250px;
 }
+
