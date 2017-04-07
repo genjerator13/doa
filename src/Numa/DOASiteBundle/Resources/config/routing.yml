@@ -100,6 +100,9 @@ item_qrcode:
 item_eprice:
     path:     /item/{itemid}/eprice
     defaults: { _controller: NumaDOASiteBundle:Item:eprice }
+item_finance:
+    path:     /item/{itemid}/finance
+    defaults: { _controller: NumaDOASiteBundle:Item:finance }
 item_details:
     path:     /details/{itemId}/{description}
     defaults: { _controller: NumaDOASiteBundle:Item:details }  
