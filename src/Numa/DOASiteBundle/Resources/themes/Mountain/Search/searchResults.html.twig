@@ -234,133 +234,73 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Get ePrice</h4>
+    {% include "@NumaDOASite/TemplatesElements/serchModals.html.twig" %}
 
-            </div>
-            <div class="modal-body">
-                <div class="te">Loading...</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="submit_eprice">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
+<script>
 
-    <script>
+    ajaxSearch = function () {
+        $("#sidebarSearch").submit();
+    }
+    $(document).on('change', '#sidebarSearch select', function () {
+        ajaxSearch();
+    });
+    $(document).on('change', '#sidebarSearch input', function () {
+        ajaxSearch();
+    });
 
-        ajaxSearch = function () {
-            $("#sidebarSearch").submit();
+
+</script>
+<script type="text/javascript">
+    num = 10;
+    {% if listing_per_page is defined %}
+    num = parseInt({{ listing_per_page }});
+    {% endif %}
+    $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+    {#$('select#numberoflisting').change(
+            function() {
+                var ss = $("#searchSource").val();
+                ss = ss + $("#numberoflisting").val()
+                console.log(ss);
+                $(this).closest('form').submit();
+
+            });#}
+</script>
+
+<script>
+    $(".saveAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        console.log(itemId);
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
         }
-        $(document).on('change', '#sidebarSearch select', function () {
-            ajaxSearch();
-        });
-        $(document).on('change', '#sidebarSearch input', function () {
-            ajaxSearch();
-        });
-
-
-    </script>
-    <script>
-        $(document).ready(function () {
-
-            var itemid;
-            $(".eprice").on('click', function () {
-
-                var modal = $('#eprice_modal');
-                itemid = $(this).data('itemid');
-                console.log(itemid);
-                modal.on('show.bs.modal', function () {
-                    $('#eprice_modal .modal-body').load('/item/' + itemid + '/eprice');
-                }).modal();
-            });
-
-            $('#submit_eprice').click(function (e) {
-                e.preventDefault();
-                var form = $('#eprice_form').serializeArray();
-
-                $.ajax({
-                    type: "POST",
-                    data: form,
-                    url: '{{ path("listing_form_post",{"form":'eprice' }) }}',
-                    success: function (data) {
-                        if (data.message == 'error') {
-                            $(".eprice_error").html(data.action);
-                        } else {
-                            $('#eprice_modal').modal('toggle');
-                            $('.alertz').html("Successfully sent eprice form.");
-                            $('.alertz').addClass("alert-success");
-                            $('.alertz').removeClass("dontshow");
-                            $('.alertz').show();
-                            setTimeout(function () {
-                                $('.alertz').fadeOut(1000);
-                            }, 3000);
-                        }
-                    }
-                })
-            })
-        });
-
-    </script>
-    <script type="text/javascript">
-        num = 10;
-        {% if listing_per_page is defined %}
-        num = parseInt({{ listing_per_page }});
-        {% endif %}
-        $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-        {#$('select#numberoflisting').change(
-                function() {
-                    var ss = $("#searchSource").val();
-                    ss = ss + $("#numberoflisting").val()
-                    console.log(ss);
-                    $(this).closest('form').submit();
-
-                });#}
-    </script>
-
-    <script>
-        $(".saveAd").on("click", function () {
-            var itemId = $(this).closest('.item-row').attr("data");
-            console.log(itemId);
-            var act = "add";
-            if (!$(this).prop('checked')) {
-                act = "remove";
+        var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.savedAds > 0) {
+                htmlx = "(" + data.savedAds + ")";
             }
-            var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
-                htmlx = "";
-                if (data.savedAds > 0) {
-                    htmlx = "(" + data.savedAds + ")";
-                }
-                $('.savedAds').html(htmlx);
-            })
+            $('.savedAds').html(htmlx);
+        })
 
-        });
-        $(".compareAd").on("click", function () {
-            var itemId = $(this).closest('.item-row').attr("data");
-            var url = $(this).closest('.item-row').attr("url");
+    });
+    $(".compareAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        var url = $(this).closest('.item-row').attr("url");
 
-            var act = "add";
-            if (!$(this).prop('checked')) {
-                act = "remove";
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
+        }
+        var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.comparedItes > 0) {
+                htmlx = "(" + data.comparedItes + ")";
             }
-            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
-                htmlx = "";
-                if (data.comparedItes > 0) {
-                    htmlx = "(" + data.comparedItes + ")";
-                }
-                $('.savedAds').html(htmlx);
-            })
+            $('.savedAds').html(htmlx);
+        })
 
-        });
-    </script>
+    });
+</script>
 </div>
 <!-- /.modal -->
 <div class="loadingmodal"></div>

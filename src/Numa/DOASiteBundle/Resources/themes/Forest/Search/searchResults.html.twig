@@ -282,65 +282,9 @@
             {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade" id="eprice_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Get ePrice</h4>
 
-                </div>
-                <div class="modal-body"><div class="te">Loading...</div></div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submit_eprice">Save changes</button>
-                </div>
-            </div>
-            <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-    <script>
-        $(document).ready(function () {
+    {% include "@NumaDOASite/TemplatesElements/serchModals.html.twig" %}
 
-            var itemid;
-            $(".eprice").on('click', function () {
-
-                var modal = $('#eprice_modal');
-                itemid = $(this).data('itemid');
-                console.log(itemid);
-                modal.on('show.bs.modal', function () {
-                    $('#eprice_modal .modal-body').load('/item/' + itemid + '/eprice');
-                }).modal();
-            });
-
-            $('#submit_eprice').click(function (e) {
-                e.preventDefault();
-                var form = $('#eprice_form').serializeArray();
-
-                $.ajax({
-                    type: "POST",
-                    data: form,
-                    url: '{{ path("listing_form_post",{"form":'eprice' }) }}',
-                    success:function(data) {
-                        if(data.message=='error'){
-                            $(".eprice_error").html(data.action);
-                        }else {
-                            $('#eprice_modal').modal('toggle');
-                            $('.alertz').html("Successfully sent eprice form.");
-                            $('.alertz').addClass("alert-success");
-                            $('.alertz').removeClass("dontshow");
-                            $('.alertz').show();
-                            setTimeout(function(){$('.alertz').fadeOut(1000); }, 3000);
-                        }
-                    }
-                })
-            })
-        });
-
-    </script>
     <script type="text/javascript">
         num = 10;
         {%if listing_per_page is defined %}

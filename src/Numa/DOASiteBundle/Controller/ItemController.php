@@ -152,8 +152,6 @@ class ItemController extends Controller implements DealerSiteControllerInterface
             'allow_extra_fields'=>true,
             'attr' => array('id'=>"eprice_form")
         ));
-
-
        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
@@ -170,6 +168,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
+            'allow_extra_fields'=>true,
             'attr' => array('id'=>"finance_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
@@ -408,6 +407,14 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $epriceForm = $this->createCreateEpriceForm($listingForm);
         $epriceForm->add("item_id","hidden");
         return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id'=>$itemid,'epriceForm' => $epriceForm->createView() ));
+    }
+
+    public function financeAction($itemid){
+        $listingForm = new ListingForm();
+        $listingForm->setItemId(intval($itemid));
+        $financeForm = $this->createCreateFinanceForm($listingForm);
+        $financeForm->add("item_id","hidden");
+        return $this->render('NumaDOASiteBundle:Item:finance.html.twig', array('item_id'=>$itemid,'financeForm' => $financeForm->createView() ));
     }
 
     public function manageAction()
