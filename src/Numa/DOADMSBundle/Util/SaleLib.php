@@ -120,11 +120,21 @@ class SaleLib
 
     public function getAllVendors(Item $item){
         $sale = $item->getSale();
+        $byVendors = array();
         if($sale instanceof Sale){
+            //vehvendor
+            $vehVendor = $sale->getVendor();
+            $amount    = $sale->getInvoiceAmt();
+            $temp = array();
+            $temp['vendor'] = $vehVendor;
+            $temp['amount'] = $amount;
+            $temp['property'] = "vehicle";
+            $byVendors[$vehVendor->getId()][]=$temp;
+
             $class_methods = get_class_methods(Sale::class);
             $output = array_filter($class_methods, function ($f) { return stripos($f,"get")===0 && stripos($f,"vendorid")>0 && $f!="getVendorId"; });
             $props = array();
-            $byVendors = array();
+
             foreach($output as $vendorF){
                 $temp = array();
                 //$prop = str_replace("get","",$vendorF);
@@ -156,8 +166,9 @@ class SaleLib
                     }
                 }
                 $props[$prop] = $temp;
-                //dump($sale->{$vendorF}());
+
             }
+
         }
 
         return $byVendors;

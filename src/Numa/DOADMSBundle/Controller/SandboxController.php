@@ -4,6 +4,7 @@ namespace Numa\DOADMSBundle\Controller;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
+use Numa\DOADMSBundle\Entity\Sale;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,9 +16,27 @@ class SandboxController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository(Item::class)->find(31806);
-        $this->get("numa.dms.sale")->getAllVendors($item);
+        $vendors =  $this->get("numa.dms.sale")->getAllVendors($item);
+        //$this->get('numa.dms.quickbooks')->createItemPO($item);
+
+        foreach ($vendors as $vendor){
+            $qbPO = $this->get('numa.dms.quickbooks')->createPurchaseOrder($vendor[0]['vendor']);
+            foreach($vendor as $vendorItem) {
+
+
+                $this->get('numa.dms.quickbooks')->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
+            }
+            $qbPO = $this->get('numa.dms.quickbooks')->insertPurchaseOrder($qbPO);
+        }
+
+        dump($vendors);
         die();
+
     }
+
+
+
+
     function initializeAnalytics()
     {
         // Creates and returns the Analytics Reporting service object.
@@ -61,30 +80,6 @@ class SandboxController extends Controller
         $body = new \Google_Service_AnalyticsReporting_GetReportsRequest();
         $body->setReportRequests( array( $request) );
         return $analytics->reports->batchGet( $body );
-    }
-
-
-
-    public function oauthAction(Request $request)
-    {
-        if (isset($_GET['oauth_token']) && isset($_GET['oauth_verifier'])) {
-            // Retrieve the temporary credentials we saved before
-            $temporaryCredentials = unserialize($this->get("session")->get("temporary_credentials"));
-
-            // We will now retrieve token credentials from the server
-            $server = unserialize($this->get("session")->get('server'));
-
-
-            $tokenCredentials = $server->getTokenCredentials($temporaryCredentials, $_GET['oauth_token'], $_GET['oauth_verifier']);
-            dump($tokenCredentials);
-            $this->get("session")->set('token_credential',serialize($tokenCredentials));
-            die();
-            dump($_GET['oauth_token']);
-            dump($_GET['oauth_verifier']);
-
-
-        }
-die();
     }
 
    
