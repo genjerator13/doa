@@ -52,11 +52,14 @@
                     </label>
                 </div>
                 <div>
+                    <a href="{{ detailUrl }}" class="btn btn-info"><span>Details</span></a>
                     <button type="button" class="btn btn-primary eprice" data-itemid="{{ item.id }}"><i
                                 class="fa fa-money"></i> Get ePrice
                     </button>
+                    <button type="button" class="btn btn-primary finance" data-itemid="{{ item.id }}">
+                        Finance
+                    </button>
                     {#<button type="button" class="btn btn-default">Save This Car</button>#}
-                    <a href="{{ detailUrl }}" class="btn btn-info"><span>View Details</span></a>
                     {#<button type="button" class="btn btn-default" data-toggle="modal"#}
                     {#data-target="#searchOther">Search Other#}
                     {#</button>#}

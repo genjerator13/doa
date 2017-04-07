@@ -29,12 +29,21 @@
                              class="tab-pane {% if loop.first %}active{% endif %}">
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Value</th>
-                                    <th>Section</th>
-                                    <th>Actions</th>
-                                </tr>
+                                {% if section.section!="QB" %}
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                        <th>Section</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <th>DMS name</th>
+                                        <th>QB Name</th>
+                                        <th>Section</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                {% endif %}
                                 </thead>
                                 <tbody>
 
@@ -42,7 +51,7 @@
                                     {% if section.section==entity.section %}
                                         <tr>
                                             <td>{{ entity.name }}</td>
-                                            <td>{{ entity.value }}</td>
+                                            <td>{{ entity.value|striptags }}</td>
                                             <td>{{ entity.section }}</td>
                                             <td>
                                                 <ul>
@@ -64,20 +73,6 @@
                                 {% endfor %}
                                 </tbody>
                             </table>
-                            <ul>
-                                <li>
-
-                                    {% if(app.request.get('_dashboard')=='DMS') %}
-                                        <a href="{{ path('dms_setting_new') }}" class="btn btn-success">
-                                            Create a new entry
-                                        </a>
-                                    {% else %}
-                                        <a href="{{ path('setting_new') }}" class="btn btn-success">
-                                            Create a new entry
-                                        </a>
-                                    {% endif %}
-                                </li>
-                            </ul>
                         </div>
 
                     {% endfor %}
@@ -92,9 +87,20 @@
                         {#<a class="btn btn-danger" href="{{ path('setSoldDateItems') }}">Set SoldDate Listings</a>#}
                         <a class="btn btn-danger" href="{{ path('archiveItems') }}">Archive Listings</a>
                     </div>
+
                 </div>
+
             </div>
         </div>
+        {% if(app.request.get('_dashboard')=='DMS') %}
+            <a href="{{ path('dms_setting_new') }}" class="btn btn-success">
+                Create a new entry
+            </a>
+        {% else %}
+            <a href="{{ path('setting_new') }}" class="btn btn-success">
+                Create a new entry
+            </a>
+        {% endif %}
     </section>
 
 {% endblock %}

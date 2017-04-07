@@ -53,11 +53,13 @@
                     </label>
                 </div>
                 <div>
+                    <a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>
                     <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
                                 class="fa fa-money"></i> Get ePrice
                     </button>
-                    {#<button type="button" class="btn btn-default">Save This Car</button>#}
-                    <a href="{{ detailUrl }}" class="btn btn-warning"><span>View Details</span></a>
+                    <button type="button" class="btn btn-success finance" data-itemid="{{ item.id }}">
+                        Finance
+                    </button>
                 </div>
                 {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
