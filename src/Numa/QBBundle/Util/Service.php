@@ -75,7 +75,13 @@ class Service
         $this->username = 'DO_NOT_CHANGE_ME';
 
 // The tenant that user is accessing within your own app
+        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+
         $this->tenant = 12345;
+
+        if($dealer instanceof Catalogrecords){
+            $this->tenant = $dealer->getId();
+        }
 
 // Initialize the database tables for storing OAuth information
         if (!\QuickBooks_Utilities::initialized($dsn)) {

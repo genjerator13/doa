@@ -35,8 +35,7 @@ class QuickbooksLib
         $em = $this->container->get('doctrine');
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        foreach($items as $item)
-        {
+        foreach ($items as $item) {
             $this->insertItem($item);
         }
     }
@@ -45,17 +44,63 @@ class QuickbooksLib
     {
         $em = $this->container->get('doctrine');
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        foreach($items as $item)
-        {
-            $this->insertItemPO($item);
+        foreach ($items as $item) {
+            $this->insertPurchaseOrdersForItem($item);
         }
     }
+
+    /**
+     * Creates QB Purchase Order object with Vendor referenced
+     * @param Vendor $vendor
+     * @return \QuickBooks_IPP_Object_PurchaseOrder
+     */
+    public function createPurchaseOrder(Vendor $vendor)
+    {
+        $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
+        $qbVendor = $this->dmsToQbVendor($vendor);
+        $qbPO->setVendorRef($qbVendor->getId());
+        return $qbPO;
+    }
+
+    public function addLineToPurchaseOrder($qbPO, $item, $amount, $qty = 1, $property = 'vehicle')
+    {
+        $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setDetailType('ItemBasedExpenseLineDetail');
+
+        $Line->setAmount($amount);
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_ItemBasedExpenseLineDetail();
+        if ($property == 'vehicle') {
+            $qbItem = $this->insertVehicleItem($item);
+
+        } else {
+            $qbService = $property;
+            if (stripos($property, "get") === 0) {
+                $qbService = strip_tags(strtolower(substr($property, 3)));
+            };
+            $settingLib = $this->container->get("numa.settings");
+            $qbServiceSetting = $settingLib->get($qbService);
+            if(!empty($qbServiceSetting)){
+                $qbService = strip_tags($qbServiceSetting);
+            }
+            dump($qbService);
+
+            $qbItem = $this->insertItem($qbService, $qbService, $qbService);
+            dump($qbItem);
+        }
+
+        $Line->setDescription($qbItem->getDescription());
+        $SalesItemLineDetail->setItemRef($qbItem->getId());
+        $SalesItemLineDetail->setUnitPrice($amount);
+        $SalesItemLineDetail->setQty($qty);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
+        $qbPO->addLine($Line);
+        return $qbPO;
+    }
+
     public function createItemPO(Item $item)
     {
-
         $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
-
-
         $qbItem = $this->insertItem($item);
 
         $Line = new \QuickBooks_IPP_Object_Line();
@@ -68,7 +113,6 @@ class QuickbooksLib
         $SalesItemLineDetail->setUnitPrice($item->getPrice());
         $SalesItemLineDetail->setQty(1);
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
-
 
         //vendor
         $sale = $item->getSale();
@@ -89,46 +133,79 @@ class QuickbooksLib
         return $qbPO;
     }
 
-    public function insertItemPO(Item $item){
+    public function insertItemPO(Item $item)
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $qbPO = $this->createItemPO($item);
 
-        $sale  = $item->getSale();
-        $sale->getAllVendors();
+        $sale = $item->getSale();
+        //$sale->getAllVendors();
 
 
         $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
         $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
-        dump($qbPO);
 
-        if(!$resp)
-        {
+        if (!$resp) {
             print($PurchaseService->lastError($qbo->getContext()));
             return false;
         }
+        return true;
     }
 
-    public function insertItem(Item $item)
+    public function insertPurchaseOrder(\QuickBooks_IPP_Object_PurchaseOrder $qbPO)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
+        $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
+
+        if (!$resp) {
+            print($PurchaseService->lastError($qbo->getContext()));
+            return false;
+        }
+        return true;
+    }
+
+    public function insertVehicleItem(Item $item)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
+        $desc = $this->getQBDesc($item);
+
+        //update Item with QB id reference
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $item->setQbItemId($item->getId());
+        $em->flush($item);
+
+        return $this->insertItem($title, $desc, $item->getVIN());
+    }
+
+    public function insertItem($title, $desc, $sku)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
 
-        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
-
+        //get QB service name from settings
+        //if not set
+        //search qb service based by property
+        //if not found create a new one
         $qbItem = $this->findQBItemByName($title);
-        $update=true;
-        if(empty($qbItem)){
+        $update = true;
+        if (empty($qbItem)) {
             $qbItem = new \QuickBooks_IPP_Object_Item();
-            $update=false;
+            $update = false;
+        }else{
+            $desc=$qbItem->getDescription();
+            $sku =$qbItem->getSKU();
         }
-        $qbdesc = $this->getQBDesc($item);
 
         $itemService = new \QuickBooks_IPP_Service_Item();
 
         $qbItem->setName($title);
-        $qbItem->setDesc($qbdesc);
-        $qbItem->setDescription($qbdesc);
-        $qbItem->setSku($item->getVIN());
+        $qbItem->setDesc($desc);
+        $qbItem->setDescription($desc);
+        $qbItem->setSku($sku);
         $qbItem->setType('Service');
         $qbItem->setIncomeAccountRef('67');
         $qbItem->setExpenseAccountRef('84');
@@ -138,95 +215,95 @@ class QuickbooksLib
 
         $qbItem->setInvStartDate($today->format("Y-m-d"));
         //$qbItem->setTrackQtyOnHand(true);
-        //$qbItem->setInventoryAssetAccount("aaaaa");
 
-        if($update){
-            $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(),$qbItem->getId(), $qbItem);
-        }else{
+        if ($update) {
+            $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
+        } else {
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
             $qbItem = $this->findQBItemByName($qbItem->getName());
         }
 
-        if(!$resp)
-        {
+        if (!$resp) {
             print($itemService->lastError($qbo->getContext()));
             return false;
         }
 
-        $em = $this->container->get('doctrine.orm.entity_manager');
 
-        $item->setQbItemId($qbItem->getId());
-        $em->flush($item);
         return $qbItem;
     }
 
-    public function getQBDesc(Item $item){
-        $qbdesc="";
-        $qbdesc .=$this->setDescriptionProperty("Stock Number",$item->getStockNr());
-        $qbdesc .=$this->setDescriptionProperty("Body Style",$item->getBodyStyle());
-        $qbdesc .=$this->setDescriptionProperty("Trim",$item->getTrim());
-        $qbdesc .=$this->setDescriptionProperty("Body Description",$item->getBodyDescription());
-        $qbdesc .=$this->setDescriptionProperty("Exteriour Color",$item->getExteriorColor());
+    public function getQBDesc(Item $item)
+    {
+        $qbdesc = "";
+        $qbdesc .= $this->setDescriptionProperty("Stock Number", $item->getStockNr());
+        $qbdesc .= $this->setDescriptionProperty("Body Style", $item->getBodyStyle());
+        $qbdesc .= $this->setDescriptionProperty("Trim", $item->getTrim());
+        $qbdesc .= $this->setDescriptionProperty("Body Description", $item->getBodyDescription());
+        $qbdesc .= $this->setDescriptionProperty("Exteriour Color", $item->getExteriorColor());
         return $qbdesc;
     }
 
-    public function setDescriptionProperty($title,$value){
+    public function setDescriptionProperty($title, $value)
+    {
 
-        return empty($value)?"":$title.":".$value."\n";
+        return empty($value) ? "" : $title . ":" . $value . "\n";
     }
 
-    public function findQBItemByName($name){
+    public function findQBItemByName($name)
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
-        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Item WHERE name = '".$name."'");
-        if(!empty($items[0])){
+        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Item WHERE name = '" . $name . "'");
+        if (!empty($items[0])) {
             return $items[0];
         }
         return false;
 
     }
 
-    public function getAllSuppliers(){
+    public function getAllSuppliers()
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
         $VendorService = new \QuickBooks_IPP_Service_Vendor();
 
-        $qbVendors = $VendorService->query($qbo->getContext(), $qbo->getRealm(),"SELECT * FROM Vendor ORDER BY CompanyName ");
+        $qbVendors = $VendorService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor ORDER BY CompanyName ");
 
         return $qbVendors;
     }
 
-    public function getSupplier($name){
+    public function getSupplier($name)
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $supplierService = new \QuickBooks_IPP_Service_Vendor();
 
-        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '".addslashes($name)."'");
+        $items = $supplierService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Vendor WHERE CompanyName = '" . addslashes($name) . "'");
 
-        if(!empty($items[0])) {
+        if (!empty($items[0])) {
             return $items[0];
         }
         return false;
     }
 
-    public function dmsToQbVendor(Vendor $vendor){
+    public function dmsToQbVendor(Vendor $vendor)
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $VendorService = new \QuickBooks_IPP_Service_Vendor();
 
 //        $itemService = new \QuickBooks_IPP_Service_Item();
 
         $qbVendor = $this->getSupplier($vendor->getCompanyName());
-        if($qbVendor instanceof \QuickBooks_IPP_Object_Vendor){
+        if ($qbVendor instanceof \QuickBooks_IPP_Object_Vendor) {
             //update supplier
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
-            $resp = $VendorService->update($qbo->getContext(), $qbo->getRealm(),$qbVendor->getId(), $qbVendor);
-        }else{
+            $resp = $VendorService->update($qbo->getContext(), $qbo->getRealm(), $qbVendor->getId(), $qbVendor);
+        } else {
             //insert new supplier
             $qbVendor = new \QuickBooks_IPP_Object_Vendor();
             $qbVendor = $this->addSupplier($qbVendor, $vendor);
             $resp = $VendorService->add($qbo->getContext(), $qbo->getRealm(), $qbVendor);
         }
-        if(!$resp)
-        {
+        if (!$resp) {
 //            dump($VendorService->lastError($qbo->getContext()));die();
             return false;
         }
@@ -239,7 +316,8 @@ class QuickbooksLib
      * @return \QuickBooks_IPP_Object_Vendor
      * Maps DMS vendor into QB vendors
      */
-    public function addSupplier(\QuickBooks_IPP_Object_Vendor $qbVendor, Vendor $vendor){
+    public function addSupplier(\QuickBooks_IPP_Object_Vendor $qbVendor, Vendor $vendor)
+    {
 
         $qbVendor->setCompanyName($vendor->getCompanyName());
         $qbVendor->setDisplayName($vendor->getCompanyName());
@@ -279,19 +357,21 @@ class QuickbooksLib
      * @return int
      * parse qb id into int  {-12}  => 12
      */
-    public function parseId($qbid){
-        return intval(str_replace(array("{","}","-"),"",$qbid));
+    public function parseId($qbid)
+    {
+        return intval(str_replace(array("{", "}", "-"), "", $qbid));
     }
 
     /**
      * @param $dealer
      * imports all vendors from QB to DMS
      */
-    public function qbToDMSVendors($dealer){
+    public function qbToDMSVendors($dealer)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $qbSuppliers = $this->getAllSuppliers();
 
-        foreach($qbSuppliers as $supplier) {
+        foreach ($qbSuppliers as $supplier) {
             $vendor = $this->createVendorFromQB($dealer, $supplier);
         }
         $em->flush();
@@ -303,13 +383,14 @@ class QuickbooksLib
      * @return Vendor
      * Creates vendor from QB supplier
      */
-    public function createVendorFromQB($dealer, $supplier){
+    public function createVendorFromQB($dealer, $supplier)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $qbid = $this->parseId($supplier->getId());
 
-        $vendor = $em->getRepository(Vendor::class)->findOneBy(array("qb_supplier_id"=>$qbid));
+        $vendor = $em->getRepository(Vendor::class)->findOneBy(array("qb_supplier_id" => $qbid));
 
-        if(!$vendor instanceof Vendor){
+        if (!$vendor instanceof Vendor) {
             $vendor = new Vendor();
             $em->persist($vendor);
         }
@@ -320,23 +401,23 @@ class QuickbooksLib
         $vendor->setFirstName($supplier->getGivenName());
         $vendor->setLastName($supplier->getFamilyName());
 
-        if($supplier->getPrimaryEmailAddr()){
+        if ($supplier->getPrimaryEmailAddr()) {
             $vendor->setEmail($supplier->getPrimaryEmailAddr()->getAddress());
         }
 
-        if($supplier->getPrimaryPhone()){
+        if ($supplier->getPrimaryPhone()) {
             $vendor->setHomePhone($supplier->getPrimaryPhone()->getFreeFormNumber());
         }
 
-        if($supplier->getMobile()){
+        if ($supplier->getMobile()) {
             $vendor->setMobilePhone($supplier->getMobile()->getFreeFormNumber());
         }
 
-        if($supplier->getFax()){
+        if ($supplier->getFax()) {
             $vendor->setFax($supplier->getFax()->getFreeFormNumber());
         }
 
-        if($supplier->getBillAddr()){
+        if ($supplier->getBillAddr()) {
             $vendor->setCity($supplier->getBillAddr()->getCity());
             $vendor->setCountry($supplier->getBillAddr()->getCountry());
             $vendor->setZip($supplier->getBillAddr()->getPostalCode());
@@ -352,8 +433,9 @@ class QuickbooksLib
      * @param $vendors collection of dms Vendors
      * Adds collection of vendors to QB
      */
-    public function importVendorsToQB($vendors){
-        if(!empty($vendors)) {
+    public function importVendorsToQB($vendors)
+    {
+        if (!empty($vendors)) {
             foreach ($vendors as $vendor) {
                 $vendor = $this->dmsToQbVendor($vendor);
             }
@@ -364,9 +446,24 @@ class QuickbooksLib
      * @param $dealer
      * add (update) all dealers vendors to QB
      */
-    public function importAllDealerVendorsToQB($dealer){
+    public function importAllDealerVendorsToQB($dealer)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $vendors = $em->getRepository(Vendor::class)->findByDealerId($dealer->getId());
         $this->importVendorsToQB($vendors);
+    }
+
+    public function insertPurchaseOrdersForItem(Item $item){
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+        foreach ($vendors as $vendor){
+            $qbPO = $this->container->get('numa.dms.quickbooks')->createPurchaseOrder($vendor[0]['vendor']);
+            foreach($vendor as $vendorItem) {
+                $this->container->get('numa.dms.quickbooks')->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
+            }
+            $qbPO = $this->container->get('numa.dms.quickbooks')->insertPurchaseOrder($qbPO);
+        }
+
+        dump($vendors);
+        die();
     }
 }

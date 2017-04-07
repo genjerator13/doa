@@ -1,0 +1,35 @@
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+
+{{ form_start(financeForm) }}
+<div class="form-group">
+    {{ form_label(financeForm.cust_name,'First Name',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(financeForm.cust_name) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(financeForm.cust_last_name,'Last Name',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(financeForm.cust_last_name) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(financeForm.email,'Email',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(financeForm.email) }}
+    </div>
+</div>
+<div class="form-group">
+    {{ form_label(financeForm.phone,'Phone',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(financeForm.phone) }}
+    </div>
+</div>
+
+<div class="form-group">
+    {{ form_label(financeForm.comment,'Comment',{'label_attr': {'class': 'col-md-3'}}) }}
+    <div class="col-md-9">
+        {{ form_widget(financeForm.comment) }}
+    </div>
+</div>
+{{ form_rest(financeForm) }}
