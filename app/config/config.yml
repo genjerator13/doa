@@ -56,7 +56,7 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     globals:
-        title: xm105 Auto Mall
+        title: XM105 FM Auto Mall
         subject: Email from
         upload_feed_path: /upload/feeds/
         upload_related_doc_path: /upload/related_docs/
