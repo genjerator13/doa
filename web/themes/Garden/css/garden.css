@@ -298,6 +298,59 @@ body {
 	text-decoration: none;
 }
 
+.bottom-menu li ul {
+	background-color: #fff;
+	display: none;
+	height: auto;
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	position: absolute;
+	width: 205px;
+	z-index: 200;
+}
+
+.bottom-menu li:hover ul {
+	display: block;
+}
+
+.bottom-menu li li {
+	display: block;
+	float: none;
+	margin: 0px;
+	padding: 0px;
+	width: 205px;
+}
+
+.bottom-menu li ul a {
+	display: block;
+	line-height: 20px;
+	font-size: 13px;
+	font-style: normal;
+	margin: 0px;
+	padding: 14px;
+	text-align: left;
+}
+
+.bottom-menu p {
+	clear: left;
+}
+
+.bottom-menu ul li ul li {
+	position: relative;
+}
+
+.bottom-menu ul li ul li ul, .bottom-menu ul li:hover ul li ul {
+	display: none;
+}
+
+.bottom-menu ul li ul li:hover ul {
+	display: block;
+	position: absolute;
+	left: 100%;
+	top: 0;
+}
+
 @media only screen
 and (max-width : 1023px) {
 
