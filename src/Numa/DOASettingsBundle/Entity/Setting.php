@@ -167,4 +167,91 @@ class Setting
     {
         return $this->Dealer;
     }
+    /**
+     * @var string
+     */
+    private $value2;
+
+    /**
+     * @var string
+     */
+    private $value3;
+
+    /**
+     * @var string
+     */
+    private $value4;
+
+
+    /**
+     * Set value2
+     *
+     * @param string $value2
+     *
+     * @return Setting
+     */
+    public function setValue2($value2)
+    {
+        $this->value2 = $value2;
+
+        return $this;
+    }
+
+    /**
+     * Get value2
+     *
+     * @return string
+     */
+    public function getValue2()
+    {
+        return $this->value2;
+    }
+
+    /**
+     * Set value3
+     *
+     * @param string $value3
+     *
+     * @return Setting
+     */
+    public function setValue3($value3)
+    {
+        $this->value3 = $value3;
+
+        return $this;
+    }
+
+    /**
+     * Get value3
+     *
+     * @return string
+     */
+    public function getValue3()
+    {
+        return $this->value3;
+    }
+
+    /**
+     * Set value4
+     *
+     * @param string $value4
+     *
+     * @return Setting
+     */
+    public function setValue4($value4)
+    {
+        $this->value4 = $value4;
+
+        return $this;
+    }
+
+    /**
+     * Get value4
+     *
+     * @return string
+     */
+    public function getValue4()
+    {
+        return $this->value4;
+    }
 }

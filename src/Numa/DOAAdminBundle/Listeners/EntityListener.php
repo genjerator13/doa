@@ -135,6 +135,8 @@ class EntityListener
 
             $em->flush();
 
+            //add item to QB
+            $this->container->get('numa.dms.quickbooks')->addToQB(array($entity->getId()));
 
         } elseif ($entity instanceof PartRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
