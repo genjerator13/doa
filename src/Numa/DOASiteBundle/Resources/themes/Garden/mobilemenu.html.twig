@@ -1,7 +1,7 @@
 <div class="mobile-menu">
 
     <ul class="menu">
-        <li><span class="separator">Menu</span>
+        <li><span class="separator"><i class="glyphicon glyphicon-align-justify"></i> Menu</span>
             {% set mainmenu = displayComponent('mainmenu',"template","dealer") %}
             {% if mainmenu != 'enter this value of component in DMS' %}
                 {{ include(template_from_string(mainmenu)) }}

@@ -80,13 +80,15 @@ class QuickbooksLib
             };
             $settingLib = $this->container->get("numa.settings");
             $qbServiceSetting = $settingLib->get($qbService);
+            $qbExpenseAccountSetting = $settingLib->getValue2($qbService);
+            $qbIncomeAccountSetting = $settingLib->getValue3($qbService);
             if(!empty($qbServiceSetting)){
                 $qbService = strip_tags($qbServiceSetting);
             }
-            dump($qbService);
 
-            $qbItem = $this->insertItem($qbService, $qbService, $qbService);
-            dump($qbItem);
+
+            $qbItem = $this->insertItem($qbService, $qbService, $qbService,$qbExpenseAccountSetting,$qbIncomeAccountSetting);
+            //dump($qbItem);
         }
 
         $Line->setDescription($qbItem->getDescription());
@@ -178,10 +180,10 @@ class QuickbooksLib
         $item->setQbItemId($item->getId());
         $em->flush($item);
 
-        return $this->insertItem($title, $desc, $item->getVIN());
+        return $this->insertItem($title, $desc, $item->getVIN(),false,false);
     }
 
-    public function insertItem($title, $desc, $sku)
+    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -199,6 +201,8 @@ class QuickbooksLib
             $desc=$qbItem->getDescription();
             $sku =$qbItem->getSKU();
         }
+        $eAccountO = $this->getAccount($qbExpenseAccount);
+        $iAccountO = $this->getAccount($qbIncomeAccount);
 
         $itemService = new \QuickBooks_IPP_Service_Item();
 
@@ -209,6 +213,13 @@ class QuickbooksLib
         $qbItem->setType('Service');
         $qbItem->setIncomeAccountRef('67');
         $qbItem->setExpenseAccountRef('84');
+        if(!empty($eAccountO)){
+            $qbItem->setExpenseAccountRef($eAccountO->getId()."");
+        }
+
+        if(!empty($iAccountO)){
+            $qbItem->setExpenseAccountRef($iAccountO->getId()."");
+        }
 
         $qbItem->setQtyOnHand(1);
         $today = new \DateTime();;
@@ -230,6 +241,19 @@ class QuickbooksLib
 
 
         return $qbItem;
+    }
+
+    public function getAccount($account){
+        if(!empty($account)) {
+            $qbo = $this->container->get("numa.quickbooks")->init();
+            $ItemService = new \QuickBooks_IPP_Service_Term();
+            $accountr = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Account WHERE name = '" . $account . "'");
+
+            if (!empty($accountr[0])) {
+                return $accountr[0];
+            }
+        }
+        return false;
     }
 
     public function getQBDesc(Item $item)
@@ -456,11 +480,11 @@ class QuickbooksLib
     public function insertPurchaseOrdersForItem(Item $item){
         $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
         foreach ($vendors as $vendor){
-            $qbPO = $this->container->get('numa.dms.quickbooks')->createPurchaseOrder($vendor[0]['vendor']);
+            $qbPO = $this->createPurchaseOrder($vendor[0]['vendor']);
             foreach($vendor as $vendorItem) {
-                $this->container->get('numa.dms.quickbooks')->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
+                $this->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
             }
-            $qbPO = $this->container->get('numa.dms.quickbooks')->insertPurchaseOrder($qbPO);
+            $qbPO = $this->insertPurchaseOrder($qbPO);
         }
 
         dump($vendors);

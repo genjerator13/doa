@@ -40,6 +40,8 @@
                                     <tr>
                                         <th>DMS name</th>
                                         <th>QB Name</th>
+                                        <th>Expense Account</th>
+                                        <th>Income Account</th>
                                         <th>Section</th>
                                         <th>Actions</th>
                                     </tr>
@@ -52,6 +54,8 @@
                                         <tr>
                                             <td>{{ entity.name }}</td>
                                             <td>{{ entity.value|striptags }}</td>
+                                            <td>{{ entity.value2|striptags }}</td>
+                                            <td>{{ entity.value3|striptags }}</td>
                                             <td>{{ entity.section }}</td>
                                             <td>
                                                 <ul>

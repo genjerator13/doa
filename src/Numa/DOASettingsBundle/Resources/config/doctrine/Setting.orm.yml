@@ -16,9 +16,23 @@ Numa\DOASettingsBundle\Entity\Setting:
         value:
             type: string
             length: 255
+            nullable: true
+        value2:
+            type: string
+            length: 255
+            nullable: true
+        value3:
+            type: string
+            length: 255
+            nullable: true
+        value4:
+            type: string
+            length: 255
+            nullable: true
         section:
             type: string
             length: 255
+            nullable: true
         dealer_id:
             type: integer
             nullable: true
