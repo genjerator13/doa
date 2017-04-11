@@ -4229,33 +4229,34 @@ class Sale
     {
         return $this->desc_glass;
     }
+    
     /**
      * @var string
      */
-    private $discrip_other_exp_5;
+    private $desc_other_exp_5;
 
 
     /**
-     * Set discripOtherExp5
+     * Set descOtherExp5
      *
-     * @param string $discripOtherExp5
+     * @param string $descOtherExp5
      *
      * @return Sale
      */
-    public function setDiscripOtherExp5($discripOtherExp5)
+    public function setDescOtherExp5($descOtherExp5)
     {
-        $this->discrip_other_exp_5 = $discripOtherExp5;
+        $this->desc_other_exp_5 = $descOtherExp5;
 
         return $this;
     }
 
     /**
-     * Get discripOtherExp5
+     * Get descOtherExp5
      *
      * @return string
      */
-    public function getDiscripOtherExp5()
+    public function getDescOtherExp5()
     {
-        return $this->discrip_other_exp_5;
+        return $this->desc_other_exp_5;
     }
 }
