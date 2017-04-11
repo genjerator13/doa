@@ -2,6 +2,7 @@
 
 namespace Numa\DOASettingsBundle\Form;
 
+use Numa\DOASettingsBundle\Events\SettingsSubscriber;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -19,6 +20,8 @@ class SettingType extends AbstractType
             ->add('value',"ckeditor")
             ->add('section')
         ;
+
+        $builder->addEventSubscriber(new SettingsSubscriber());
     }
     
     /**
