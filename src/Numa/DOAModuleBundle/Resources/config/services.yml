@@ -3,10 +3,10 @@ parameters:
 services:
     Numa.Seo:
          class: Numa\DOAModuleBundle\Lib\SeoLib
-         arguments: [@service_container]
+         arguments: ["@service_container"]
     Numa.WebComponent:
          class: Numa\DOAModuleBundle\Lib\ComponentLib
-         arguments: [@service_container]
+         arguments: ["@service_container"]
 #    Numa.Module.:
 #        class: Numa\DOAModuleBundle\Util\ModuleLib
 #        arguments: ["@service_container"]

@@ -3,12 +3,12 @@ services:
         class: Numa\Twig\NumaExtension
         tags:
            - { name: twig.extension } 
-        arguments:  [@service_container,@listener.requestresponse]
+        arguments:  ["@service_container","@listener.requestresponse"]
     Numa.Twig.Settings:
         class: Numa\DOASettingsBundle\Twig\SettingsExtension
         tags:
            - { name: twig.extension }
-        arguments:  [@Numa.Settings]
+        arguments:  ["@Numa.Settings"]
     twig.extension.text:
         class: Twig_Extensions_Extension_Text
         tags:
@@ -50,7 +50,7 @@ services:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: -10 }
            #- { name: kernel.event_listener, event: kernel.view, method: preExecute }
 
-        arguments: [ @service_container,@controller_resolver, @request_stack, @http_kernel ]
+        arguments: [ "@service_container","@controller_resolver", "@request_stack", "@http_kernel" ]
     Numa.ListingForms:
         class: Numa\DOASiteBundle\Services\ListingFormHandler
         arguments: ["@service_container" ]

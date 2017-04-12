@@ -13,6 +13,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\Category;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -28,12 +29,17 @@ class ListingLib
      * ListingFormHandler constructor.
      * @param ContainerInterface $container
      */
-    public function __construct($container) // this is @service_container
+    public function __construct($container = null) // this is @service_container
     {
         $this->container = $container;
     }
 
-    public function createListingByBillingTradeIn(Billing $billing)
+    /**
+     * If the billing from the $billing param has tidMake and TidModel entered, create new item
+     * @param Billing $billing
+     * @return bool (false if no item is created(already created or tidmake or tidmodel are not entered, true if item is created
+     */
+    public function createListingByBillingTradeIn(Billing $billing,$insertToDB=true)
     {
         if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
@@ -49,12 +55,23 @@ class ListingLib
                 $item->setVin($billing->getTidVin());
                 $item->setYear($billing->getTidYear());
                 $item->setDealer($billing->getDealer());
-                $em->persist($item);
-                $em->flush();
+                if($insertToDB) {
+                    $em->persist($item);
+                    $em->flush();
+                }
+                return true;
             }
         }
+        return false;
     }
 
+    public function insertItem(Item $item){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if(!empty($item->getId())){
+            $em->persist($item);
+        }
+        $em->flush();
+    }
     public function deleteItems($itemIds)
     {
         if (!is_array($itemIds)) {
@@ -186,19 +203,21 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        $this->vinDecoderInsertion($item,$vindecoderItems);
+        $this->vinDecoderInsertion($item, $vindecoderItems);
 
     }
 
-    public function vinDecoderInsertion($item,$vindecoderItems){
+    public function vinDecoderInsertion($item, $vindecoderItems)
+    {
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                $this->vinDecoderInsertField($item,$itemVin,$key);
+                $this->vinDecoderInsertField($item, $itemVin, $key);
             }
         }
     }
 
-    public function vinDecoderInsertField($item, $itemVin,$key){
+    public function vinDecoderInsertField($item, $itemVin, $key)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         if (strtolower($itemVin) == "std.") {
             $criteria = new \Doctrine\Common\Collections\Criteria();
@@ -290,14 +309,20 @@ class ListingLib
         }
     }
 
+    /**
+     * @param Item $item
+     * @return string
+     */
     public function getMetaTitle(Item $item)
     {
         $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
-        if ($item->getCategoryId() == 4) {
+        $cat = $item->getCategory();
+        if ($item->getCategoryId() == 4 || ($cat instanceof Category && $cat->getId()==4)) {
             $desc = $desc . " " . $item->getFloorPlan();
-        } elseif ($item->getCategoryId() == 1) {
+        } elseif ($item->getCategoryId() == 1|| ($cat instanceof Category && $cat->getId()==1)) {
             if (!empty($item->getTrim())) {
-                $desc .= " " . $item->slug($item->getTrim());
+                //$desc .= " " . $item->slug($item->getTrim());
+                $desc .= " " . $item->getTrim();
             }
         }
         return $desc;
@@ -315,7 +340,6 @@ class ListingLib
         }
         return $desc;
     }
-
 
 
     public function getMetaDescription(Item $item)

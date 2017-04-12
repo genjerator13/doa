@@ -4,7 +4,7 @@ parameters:
 services:
     Numa.Stats.GaStats:
         class: Numa\DOAStatsBundle\Util\GaStats
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
 #    numa_doa_stats.example:
 #        class: %numa_doa_stats.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

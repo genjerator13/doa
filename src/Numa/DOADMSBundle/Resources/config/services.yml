@@ -1,28 +1,28 @@
 services:
     Numa.Reports:
         class: Numa\DOADMSBundle\Lib\ReportService
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.UiGrid:
         class: Numa\DOADMSBundle\Lib\UiGrid
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.DMSUtils:
         class: Numa\DOADMSBundle\Lib\DMSUtils
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.Dms.Listing:
         class: Numa\DOADMSBundle\Util\ListingLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.Dms.Sale:
         class: Numa\DOADMSBundle\Util\SaleLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.Dms.Command.Log:
         class: Numa\DOADMSBundle\Util\CommandLogLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     numa.dms.images:
         class: Numa\DOADMSBundle\Util\ImageLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.Dms.Utils:
         class: Numa\DOADMSBundle\Util\UtilsLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     Numa.Form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:
@@ -31,7 +31,7 @@ services:
             - { name: form.type, alias: 'container_aware' }
     google.captcha:
         class: Numa\DOADMSBundle\Util\GoogleCaptchaLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
     numa.dms.quickbooks:
         class: Numa\DOADMSBundle\Util\QuickbooksLib
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
