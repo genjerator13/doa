@@ -7,7 +7,7 @@ services:
     memcached:
         class: Memcached
         calls:
-            - [ addServers, [ %memcached.servers% ]]
+            - [ addServers, [ '%memcached.servers%' ]]
 #        "endroid/qrcode-bundle": "dev-master",nelmio_api_doc: ~    
 #lsw_memcache:
 #    session:
@@ -33,7 +33,7 @@ framework:
     esi: { enabled: true }
 
     #translator:      { fallback: %locale% }
-    secret:          %secret%
+    secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -53,8 +53,8 @@ framework:
          enable_annotations: true
 # Twig Configuration
 twig:
-    debug:            %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
     globals:
         title: XM105 FM Auto Mall
         subject: Email from
@@ -67,7 +67,7 @@ twig:
 
 # Assetic Configuration
 assetic:
-    debug: %kernel.debug%
+    debug: "%kernel.debug%"
     use_controller: false
     bundles: ['NumaDOASiteBundle','NumaDOAAdminBundle','NumaDOADMSBundle','NumaDOAModuleBundle']
     filters:
@@ -75,7 +75,7 @@ assetic:
         less:
            node: /usr/local/bin/node
            node_paths: [/usr/local/lib/node_modules]
-           apply_to: "\.less$"
+           #apply_to: "\.less$"
 #        yui_css:
 #            jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar"
 #        yui_js:
@@ -194,12 +194,12 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   %database_driver%
-        host:     %database_host%
-        port:     %database_port%
-        dbname:   %database_name%
-        user:     %database_user%
-        password: %database_password%
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
         charset:  UTF8
         # if using pdo_sqlite as your database driver, add the path in parameters.yml
         # e.g. database_path: %kernel.root_dir%/data/data.db3
@@ -208,7 +208,7 @@ doctrine:
     orm:
         metadata_cache_driver: memcache
         query_cache_driver: memcache 
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
         filters:
             active_filter: Numa\DOASiteBundle\Filters\ActiveFilter
@@ -218,10 +218,10 @@ doctrine:
 
 ## Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
 # Swiftmailer Configuration
 #swiftmailer:
 #    #transport: "%mailer_transport%"
@@ -245,7 +245,7 @@ genemu_form:
         chars:            '0123456789'
         font_size:        24
         font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
-        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        font_dir:         "%kernel.root_dir%/../web/bundles/genemuform/fonts"
         fonts:            [ 'whoobub.ttf']
         background_color: 'DDDDDD'
         border_color:     '000000'
@@ -264,7 +264,7 @@ liip_imagine:
     resolvers:
         default:
             web_path:
-              web_root:  %kernel.root_dir%/../web
+              web_root:  "%kernel.root_dir%/../web"
               cache_prefix: media/cache
     filter_sets:
         search_image:
@@ -417,14 +417,14 @@ liip_imagine:
 parameters:
     upload_url: /upload/itemsimages
     related_docs_url: /upload/related_docs
-    web_path: %kernel.root_dir%/../web
-    images_path: %kernel.root_dir%/../web/images
-    upload_path: %kernel.root_dir%/../web/upload/itemsimages/
-    upload_feed: %kernel.root_dir%/../web/upload/feeds/
-    upload_dealer: %kernel.root_dir%/../web/upload/dealers/
-    upload_component: %kernel.root_dir%/../web/upload/component/
-    related_docs_path: %kernel.root_dir%/../web/upload/related_docs/
-    iauto: %kernel.root_dir%/../web/iauto
+    web_path: "%kernel.root_dir%/../web"
+    images_path: "%kernel.root_dir%/../web/images"
+    upload_path: "%kernel.root_dir%/../web/upload/itemsimages/"
+    upload_feed: "%kernel.root_dir%/../web/upload/feeds/"
+    upload_dealer: "%kernel.root_dir%/../web/upload/dealers/"
+    upload_component: "%kernel.root_dir%/../web/upload/component/"
+    related_docs_path: "%kernel.root_dir%/../web/upload/related_docs/"
+    iauto: "%kernel.root_dir%/../web/iauto"
     memcached.servers:
       - { host: 127.0.0.1, port: 11211 }
     antispam_button:
@@ -490,7 +490,7 @@ genemu_form:
         chars:            '0123456789'
         font_size:        24
         font_color:       ['252525', '8B8787', '550707', '3526E6', '88531E']
-        font_dir:         %kernel.root_dir%/../web/bundles/genemuform/fonts
+        font_dir:         "%kernel.root_dir%/../web/bundles/genemuform/fonts"
         fonts:            [ 'whoobub.ttf']
         background_color: 'DDDDDD'
         border_color:     '000000'

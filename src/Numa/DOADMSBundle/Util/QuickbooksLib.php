@@ -36,7 +36,7 @@ class QuickbooksLib
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         foreach ($items as $item) {
-            $this->insertItem($item);
+            //$this->insertItem($item);
         }
     }
 
@@ -86,9 +86,7 @@ class QuickbooksLib
                 $qbService = strip_tags($qbServiceSetting);
             }
 
-
             $qbItem = $this->insertItem($qbService, $qbService, $qbService,$qbExpenseAccountSetting,$qbIncomeAccountSetting);
-            //dump($qbItem);
         }
 
         $Line->setDescription($qbItem->getDescription());
@@ -179,7 +177,11 @@ class QuickbooksLib
         $em = $this->container->get('doctrine.orm.entity_manager');
         $item->setQbItemId($item->getId());
         $em->flush($item);
-
+//        //dump($item);
+//        dump($title);
+//        dump($desc);
+//        dump($item->getVIN());
+//        die();
         return $this->insertItem($title, $desc, $item->getVIN(),false,false);
     }
 
