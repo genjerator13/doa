@@ -4,7 +4,7 @@ parameters:
 services:
     user.listener:
         class: Numa\DOAAdminBundle\Listeners\EntityListener
-        arguments: [@service_container]
+        arguments: ["@service_container"]
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: postPersist }
@@ -16,25 +16,25 @@ services:
 
     login_success_handler:
         class: Numa\DOAAdminBundle\Listeners\AccessListener
-        arguments:  [@router, @security.token_storage, @security.authorization_checker]
+        arguments:  ["@router", "@security.token_storage", "@security.authorization_checker"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
     logout_success_handler:
         class: Numa\DOAAdminBundle\Listeners\LogoutListener
-        arguments:  [@service_container]
+        arguments:  ["@service_container"]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
     import_mapping:
         class: Numa\DOAAdminBundle\Controller\ImportmappingController
     mymemcache:
         class: Numa\DOAAdminBundle\Lib\MemcacheWrapper
-        arguments:  [@memcached,@service_container,@kernel]
+        arguments:  ["@memcached","@service_container","@kernel"]
     listing_api:
          class: Numa\DOAAdminBundle\Lib\listingApi
-         arguments: [@service_container]
+         arguments: ["@service_container"]
     xml:
          class: Numa\DOAAdminBundle\Lib\xml
-         arguments: [@service_container]
+         arguments: ["@service_container"]
 
 #         calls:
 #             - [setService, [@service_id]]

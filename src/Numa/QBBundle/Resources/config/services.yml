@@ -4,4 +4,4 @@ parameters:
 services:
     numa.quickbooks:
          class: Numa\QBBundle\Util\Service
-         arguments: [@service_container]
+         arguments: ["@service_container"]
