@@ -49,7 +49,8 @@
         </div>
     </div>
     <div class="clear"></div>
-    <button id="change" class="btn btn-success" {% if(is_granted("ROLE_ADMIN")) %}disabled="disabled"{% endif %}>Change the theme</button>
+
+    <button id="change" class="btn btn-success" {% if(dealer is not defined or dealer is empty) %}disabled="disabled"{% endif %}>Change the theme</button>
     <script>
         $(document).ready(function () {
             var name = "";
