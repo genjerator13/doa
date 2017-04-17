@@ -1,0 +1,7 @@
+class_name: AcceptanceTester
+modules:
+    enabled:
+        - WebDriver:
+            url: 'http://doa.local/' # put your local url
+            browser: firefox
+        - \Helper\Acceptance
