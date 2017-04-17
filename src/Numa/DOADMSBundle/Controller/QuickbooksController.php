@@ -70,5 +70,15 @@ class QuickbooksController extends Controller
         return $this->redirectToRoute('dms_quickbooks_suppliers');
     }
 
+    public function listingPreviewAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository(Item::class)->find(intval($id));
+        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+        return $this->render('NumaDOADMSBundle:Quickbooks:listingPreview.html.twig', array(
+            'QBPOs'=>$QBPOs,
+            'item'=>$item,
+        ));
+    }
+
 
 }

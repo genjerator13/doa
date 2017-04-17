@@ -1,0 +1,16 @@
+#class_name: FunctionalTester
+#modules:
+#    enabled:
+#        - \DOADMSBundle\Helper\Functional
+#class_name: FunctionalTester
+class_name: FunctionalTester
+modules:
+    enabled:
+        - Symfony:
+            app_path: '../../app'
+            var_path: '../../app'
+        - Doctrine2:
+            depends: Symfony
+         - \DOADMSBundle\Helper\Functional
+
+
