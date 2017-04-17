@@ -40,7 +40,18 @@ class QuickbooksLib
         }
     }
 
-    public function addToQBPO($ids)
+    public function addToQBPO($ids,$preview=false)
+    {
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
+        $qbpos=array();
+        foreach ($items as $item) {
+            $qbpos[] = $this->insertPurchaseOrdersForItem($item,$preview);
+        }
+        return $qbpos;
+    }
+
+    public function previewQBPO($ids)
     {
         $em = $this->container->get('doctrine');
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
@@ -86,7 +97,7 @@ class QuickbooksLib
                 $qbService = strip_tags($qbServiceSetting);
             }
 
-            $qbItem = $this->insertItem($qbService, $qbService, $qbService,$qbExpenseAccountSetting,$qbIncomeAccountSetting);
+            $qbItem = $this->insertItem($qbService, $qbService, $qbService,$qbExpenseAccountSetting,$qbIncomeAccountSetting,false,$amount);
         }
 
         $Line->setDescription($qbItem->getDescription());
@@ -176,16 +187,22 @@ class QuickbooksLib
         //update Item with QB id reference
         $em = $this->container->get('doctrine.orm.entity_manager');
         $item->setQbItemId($item->getId());
+        $sale = $item->getSale();
+        if($sale instanceof Sale){
+            $amount = $sale->getInvoiceAmt();
+        }
         $em->flush($item);
-//        //dump($item);
-//        dump($title);
-//        dump($desc);
-//        dump($item->getVIN());
-//        die();
-        return $this->insertItem($title, $desc, $item->getVIN(),false,false);
+
+        $qbItem = $this->findQBItemByName($title);
+        $update = true;
+        if (empty($qbItem)) {
+            $qbItem = new \QuickBooks_IPP_Object_Item();
+            $update = false;
+        }
+        return $this->insertItem($title, $desc, $item->getVIN(),false,false,false,$amount,"Inventory",true);
     }
 
-    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount)
+    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$type="Service",$trackQtyOnHand=false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -205,22 +222,30 @@ class QuickbooksLib
         }
         $eAccountO = $this->getAccount($qbExpenseAccount);
         $iAccountO = $this->getAccount($qbIncomeAccount);
+        $AAccountO = $this->getAccount($qbAssetAccount);
 
         $itemService = new \QuickBooks_IPP_Service_Item();
 
         $qbItem->setName($title);
         $qbItem->setDesc($desc);
         $qbItem->setDescription($desc);
+        $qbItem->setCost($amount);
+        $qbItem->setQtyOnHand(1);
         $qbItem->setSku($sku);
-        $qbItem->setType('Service');
+        $qbItem->setType($type);
+        $qbItem->setTrackQtyOnHand($trackQtyOnHand);
         $qbItem->setIncomeAccountRef('67');
         $qbItem->setExpenseAccountRef('84');
+        $qbItem->setAssetAccountRef('85');
         if(!empty($eAccountO)){
             $qbItem->setExpenseAccountRef($eAccountO->getId()."");
         }
 
         if(!empty($iAccountO)){
-            $qbItem->setExpenseAccountRef($iAccountO->getId()."");
+            $qbItem->setIncomeAccountRef($iAccountO->getId()."");
+        }
+        if(!empty($AAccountO)){
+            $qbItem->setExpenseAccountRef($AAccountO->getId()."");
         }
 
         $qbItem->setQtyOnHand(1);
@@ -235,13 +260,16 @@ class QuickbooksLib
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
             $qbItem = $this->findQBItemByName($qbItem->getName());
         }
-
+        dump($type);
+        dump($amount);
+        dump($qbItem);
         if (!$resp) {
-            print($itemService->lastError($qbo->getContext()));
+            print($itemService->lastError($qbo->getContext()));die();
             return false;
         }
 
 
+        //die();
         return $qbItem;
     }
 
@@ -479,17 +507,20 @@ class QuickbooksLib
         $this->importVendorsToQB($vendors);
     }
 
-    public function insertPurchaseOrdersForItem(Item $item){
+    public function insertPurchaseOrdersForItem(Item $item,$preview=false){
         $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+        $QBPOs   =  array();
         foreach ($vendors as $vendor){
             $qbPO = $this->createPurchaseOrder($vendor[0]['vendor']);
             foreach($vendor as $vendorItem) {
                 $this->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
             }
-            $qbPO = $this->insertPurchaseOrder($qbPO);
+            if(!$preview) {
+                $qbPO = $this->insertPurchaseOrder($qbPO);
+            }
+            $QBPOs[]=$qbPO;
         }
 
-        dump($vendors);
-        die();
+        return $QBPOs;
     }
 }
