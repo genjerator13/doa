@@ -71,7 +71,6 @@ class DMSUserRepository extends EntityRepository implements UserLoaderInterface,
     {
         global $kernel;
         if ($kernel instanceOf \AppCache) $kernel = $kernel->getKernel();
-
         $host = $kernel->getContainer()->get('numa.dms.user')->getCurrentSiteHost();
 
         $one = $this->createQueryBuilder('u')
