@@ -17,7 +17,7 @@
                             {% if v is defined %}
                                 <li>
                                     <div class="well">
-                                        <div><strong>{{ loop.index }}</strong></div>
+                                        <div><strong>Vendor {{ loop.index }}:</strong></div>
                                         <div><strong>{{ v.getCompanyName() }}</strong></div>
                                         <div>Address: {{ v.getAddress() }}</div>
                                         <div>City: {{ v.getCity() }}</div>
@@ -51,11 +51,14 @@
                         <th>Sku</th>
                         <th>Description</th>
                         <th>Price</th>
+                        <th>Expense Account</th>
+                        <th>Income Account</th>
+                        <th>Asset Account</th>
                         <th>Vendor</th>
                     </tr>
                     {% for vendor in vendors %}
-                        <tr colspan="5">
-                            <td><strong>{{ vendor[0]['vendor'].getCompanyName() }}</strong></td>
+                        <tr>
+                            <td colspan="5">Purchase Order {{ loop.index }}: <strong>{{ vendor[0]['vendor'].getCompanyName() }}</strong></td>
                         </tr>
                         {% for vitem in vendor %}
                             <tr>
@@ -63,6 +66,9 @@
                                 <td>{{ vitem.sku }}</td>
                                 <td>{{ vitem.description|nl2br }}</td>
                                 <td>{{ vitem.amount }}</td>
+                                <td>{{ vitem.ExpenseAccount }}</td>
+                                <td>{{ vitem.IncomeAccount }}</td>
+                                <td>{{ vitem.AssetAccount }}</td>
                                 <td>{{ vitem.vendor.getCompanyName() }}</td>
                             </tr>
                         {% endfor %}

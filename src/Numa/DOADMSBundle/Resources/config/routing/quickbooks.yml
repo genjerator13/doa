@@ -24,6 +24,9 @@ dms_quickbooks_dmstoqb:
 dms_quickbooks_listing_preview:
     path:     /listing/{id}/preview
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:listingPreview" }
+dms_quickbooks_listing_previewqb:
+    path:     /listing/{id}/previewqb
+    defaults: { _controller: "NumaDOADMSBundle:Quickbooks:listingPreviewQB" }
 dms_quickbooks_vendor_sync:
     path:     /vendor/{id}/{item_id}/sync
     defaults: { _controller: "NumaDOADMSBundle:Quickbooks:vendorSync" }

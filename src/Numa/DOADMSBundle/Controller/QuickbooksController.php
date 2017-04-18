@@ -87,6 +87,23 @@ class QuickbooksController extends Controller
         ));
     }
 
+    public function listingPreviewQBAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository(Item::class)->find(intval($id));
+
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item,true);
+        dump($vendors);
+
+//        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+        //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
+
+        return $this->render('NumaDOADMSBundle:Quickbooks:listingPreviewQB.html.twig', array(
+            // 'QBPOs'=>$QBPOs,
+            'item'=>$item,
+            'vendors'=>$vendors
+        ));
+    }
+
     public function vendorSyncAction(Request $request, $id,$item_id){
         $em = $this->getDoctrine()->getManager();
         $dealer = $this->get('numa.dms.user')->getSignedDealer();

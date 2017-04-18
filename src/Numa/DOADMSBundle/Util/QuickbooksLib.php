@@ -206,7 +206,7 @@ class QuickbooksLib
         return $this->insertItem($title, $desc, $item->getVIN(),$qbExpenseAccountSetting,$qbIncomeAccountSetting,$qbIncomeAccountSetting,$amount,"Inventory",true);
     }
 
-    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$type="Service",$trackQtyOnHand=false)
+    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$preview=false,$type="Service",$trackQtyOnHand=false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -259,10 +259,10 @@ class QuickbooksLib
         //$qbItem->setTrackQtyOnHand(true);
 
         if ($update) {
-            ////$resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
+            $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
         } else {
-            ///$resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
-            ////$qbItem = $this->findQBItemByName($qbItem->getName());
+            $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
+            $qbItem = $this->findQBItemByName($qbItem->getName());
         }
         dump($type);
         dump($amount);
