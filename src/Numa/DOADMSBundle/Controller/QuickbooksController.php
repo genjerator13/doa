@@ -92,7 +92,7 @@ class QuickbooksController extends Controller
         $item = $em->getRepository(Item::class)->find(intval($id));
 
         $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item,true);
-        dump($vendors);
+        //dump($vendors);
 
 //        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
         //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
