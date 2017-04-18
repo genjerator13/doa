@@ -73,12 +73,31 @@ class QuickbooksController extends Controller
     public function listingPreviewAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository(Item::class)->find(intval($id));
-        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+        //dump($vendors);
+
+//        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+        //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
+        //die();
         return $this->render('NumaDOADMSBundle:Quickbooks:listingPreview.html.twig', array(
-            'QBPOs'=>$QBPOs,
+           // 'QBPOs'=>$QBPOs,
             'item'=>$item,
+            'vendors'=>$vendors
         ));
     }
 
+    public function vendorSyncAction(Request $request, $id,$item_id){
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $vendor = $em->getRepository(Vendor::class)->findOneBy(array("Catalogrecords"=>$dealer,"id"=>$id));
 
+        if(!$vendor instanceof Vendor){
+            throw $this->createNotFoundException('Unable to find Vendor entity.');
+        }
+
+        $dealer = $this->get('numa.dms.quickbooks')->dmsToQbVendor($vendor);
+        $this->addFlash("Success","The vendor ".$vendor->getCompanyName()." is synchronized with QB.");
+        return $this->redirectToRoute("dms_quickbooks_listing_preview",array("id"=>$item_id));
+    }
 }

@@ -93,6 +93,7 @@ class QuickbooksLib
             $qbServiceSetting = $settingLib->get($qbService);
             $qbExpenseAccountSetting = $settingLib->getValue2($qbService);
             $qbIncomeAccountSetting = $settingLib->getValue3($qbService);
+
             if(!empty($qbServiceSetting)){
                 $qbService = strip_tags($qbServiceSetting);
             }
@@ -183,14 +184,11 @@ class QuickbooksLib
 
         $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
         $desc = $this->getQBDesc($item);
+        $amount = $this->getQBPrice($item);
 
         //update Item with QB id reference
         $em = $this->container->get('doctrine.orm.entity_manager');
         $item->setQbItemId($item->getId());
-        $sale = $item->getSale();
-        if($sale instanceof Sale){
-            $amount = $sale->getInvoiceAmt();
-        }
         $em->flush($item);
 
         $qbItem = $this->findQBItemByName($title);
@@ -199,7 +197,13 @@ class QuickbooksLib
             $qbItem = new \QuickBooks_IPP_Object_Item();
             $update = false;
         }
-        return $this->insertItem($title, $desc, $item->getVIN(),false,false,false,$amount,"Inventory",true);
+
+
+        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
+        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
+        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
+
+        return $this->insertItem($title, $desc, $item->getVIN(),$qbExpenseAccountSetting,$qbIncomeAccountSetting,$qbIncomeAccountSetting,$amount,"Inventory",true);
     }
 
     public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$type="Service",$trackQtyOnHand=false)
@@ -255,18 +259,18 @@ class QuickbooksLib
         //$qbItem->setTrackQtyOnHand(true);
 
         if ($update) {
-            $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
+            ////$resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
         } else {
-            $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
-            $qbItem = $this->findQBItemByName($qbItem->getName());
+            ///$resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
+            ////$qbItem = $this->findQBItemByName($qbItem->getName());
         }
         dump($type);
         dump($amount);
         dump($qbItem);
-        if (!$resp) {
-            print($itemService->lastError($qbo->getContext()));die();
-            return false;
-        }
+//        if (!$resp) {
+//            print($itemService->lastError($qbo->getContext()));die();
+//            return false;
+//        }
 
 
         //die();
@@ -295,6 +299,15 @@ class QuickbooksLib
         $qbdesc .= $this->setDescriptionProperty("Body Description", $item->getBodyDescription());
         $qbdesc .= $this->setDescriptionProperty("Exteriour Color", $item->getExteriorColor());
         return $qbdesc;
+    }
+
+    public function getQBPrice(Item $item)
+    {
+        $sale = $item->getSale();
+        if($sale instanceof Sale){
+            return $sale->getInvoiceAmt();
+        }
+        //throw exception
     }
 
     public function setDescriptionProperty($title, $value)
