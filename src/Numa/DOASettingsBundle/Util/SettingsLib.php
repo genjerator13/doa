@@ -86,7 +86,26 @@ class SettingsLib
             return "";
         }
 
-        $value = $setting->getValue2();
+        $value = $setting->getValue3();
+
+        return $value;
+    }
+
+    /**
+     * @param string $name Name of the setting.
+     * @return string|null Value of the setting.
+     * @throws \RuntimeException If the setting is not defined.
+     */
+    public function getValue4($name)
+    {
+        $setting = $this->getRepo()->findOneBy(array(
+            'name' => $name,
+        ));
+        if ($setting === null) {
+            return "";
+        }
+
+        $value = $setting->getValue4();
 
         return $value;
     }
