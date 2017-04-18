@@ -37,6 +37,7 @@ class SettingsSubscriber implements EventSubscriberInterface
             $form->add('value',null,array("label"=>"QB Name"));
             $form->add('value2',null,array("label"=>"Expense Account"));
             $form->add('value3',null,array("label"=>"Income Account"));
+            $form->add('value4',null,array("label"=>"Asset Account"));
             $form->add('section');
         }
 
