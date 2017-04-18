@@ -14,9 +14,15 @@
     bootstrap                   = "bootstrap.php.cache" >
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>../src/*/*Bundle/Tests</directory>
-            <directory>../src/*/Bundle/*Bundle/Tests</directory>
+        <!--<testsuite name="Project Test Suite">-->
+            <!--<directory>../src/*/*Bundle/Tests</directory>-->
+            <!--<directory>../src/*/Bundle/*Bundle/Tests</directory>-->
+        <!--</testsuite>-->
+        <testsuite name="Site">
+            <directory>../src/Numa/DOASiteBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="Smoke Test">
+            <directory>../src/Numa/SmokeTest</directory>
         </testsuite>
     </testsuites>
 
