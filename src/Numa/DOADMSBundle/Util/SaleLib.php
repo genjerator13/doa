@@ -127,6 +127,7 @@ class SaleLib
             $temp = array();
             $temp['vendor'] = $vehVendor;
             $temp['property'] = "vehicle";
+            $temp['docnum'] = "i_".$item->getId()."_".time();
             $temp['title'] = $this->container->get("numa.dms.listing")->getListingTitle($item);
             //qb get item from QB by title
 
@@ -178,6 +179,7 @@ class SaleLib
                         $temp['property'] = $prop;
                         $temp['title'] = $propname;
                         $temp['sku'] = "";
+                        $temp['docnum'] = "c_".$item->getId()."_".time();
                         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($prop);
                         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3($prop);
                         $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4($prop);

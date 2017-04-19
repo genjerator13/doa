@@ -92,7 +92,7 @@ class QuickbooksController extends Controller
         $item = $em->getRepository(Item::class)->find(intval($id));
 
         $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item,true);
-        //dump($vendors);
+
 
 //        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
         //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
@@ -101,6 +101,74 @@ class QuickbooksController extends Controller
             // 'QBPOs'=>$QBPOs,
             'item'=>$item,
             'vendors'=>$vendors
+        ));
+    }
+
+    public function listingProceedAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $itemDMS = $em->getRepository(Item::class)->find(intval($id));
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($itemDMS,true);
+        $newVendors=array();
+        $newExpenseAccount=array();
+        $newIncomeAccount=array();
+        $newAssetsAccount=array();
+        foreach($vendors as $vendor){
+            if(empty($vendor[0]['qbVendor'])) {
+                $newVendors[] =$vendor[0]['vendor'];
+
+            }
+            foreach($vendor as $item){
+                if(!empty($item['ExpenseAccount']) && empty($item['qbExpenseAccount'])){
+                    $newExpenseAccount[] = $item['ExpenseAccount'];
+                }
+                if(!empty($item['IncomeAccount']) && empty($item['qbIncomeAccount'])){
+                    $newIncomeAccount[] = $item['IncomeAccount'];
+                }
+                if(!empty($item['ExpenseAccount']) && empty($item['qbAssetAccount'])){
+                    $newAssetsAccount[] = $item['AssetAccount'];
+                }
+
+            }
+        }
+        //dump($vendors);die();
+        $addedVendors=array();
+        $addedIncomeAccount  = array();
+        $addedExpenseAccount = array();
+        $addedAssetAccount   = array();
+        foreach($newVendors as $vendor){
+            if($vendor instanceof Vendor){
+                $addedVendors[]=$this->get('numa.dms.quickbooks')->dmsToQbVendor($vendor);
+            }
+        }
+        foreach($newExpenseAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedIncomeAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Income");
+            }
+        }
+        foreach($newIncomeAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedExpenseAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Cost of Goods Sold");
+            }
+        }
+        foreach($newAssetsAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedAssetAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Current assets");
+            }
+        }
+//        dump($addedVendors);
+//        dump($addedIncomeAccount);
+//        dump($addedExpenseAccount);
+//        dump($addedAssetAccount);
+        //die();
+        $QBPOs=array();
+        $QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($itemDMS,false,$vendors);
+        //dump($QBPOs);
+        return $this->render('NumaDOADMSBundle:Quickbooks:listingAfterQB.html.twig', array(
+            'QBPOs'=>$QBPOs,
+            'addedVendors'=>$addedVendors,
+            'addedIncomeAccount'=>$addedIncomeAccount,
+            'addedExpenseAccount'=>$addedExpenseAccount,
+            'addedAssetAccount'=>$addedAssetAccount,
         ));
     }
 
