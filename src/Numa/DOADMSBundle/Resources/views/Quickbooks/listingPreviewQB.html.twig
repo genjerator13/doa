@@ -24,12 +24,12 @@
                                     <div>Phone: {{ v.getWorkPhone() }}</div>
                                     <div>Email: {{ v.getEmail() }}</div>
                                     {% if qbv is empty %}
-                                        <div>
-                                            <a class="btn btn-primary"
-                                               title="The vendor {{ v.getCompanyName() }} is not in your Quickbooks account.Do you want to insert it?"
-                                               href="{{ path('dms_quickbooks_vendor_sync',{id:v.id,item_id:item.id}) }}">Insert
-                                                "{{ v.getCompanyName() }}" to Quickbooks</a>
-                                        </div>
+                                        {#<div>#}
+                                            {#<a class="btn btn-primary"#}
+                                               {#title="The vendor {{ v.getCompanyName() }} is not in your Quickbooks account.Do you want to insert it?"#}
+                                               {#href="{{ path('dms_quickbooks_vendor_sync',{id:v.id,item_id:item.id}) }}">Insert#}
+                                                {#"{{ v.getCompanyName() }}" to Quickbooks</a>#}
+                                        {#</div>#}
                                         <span class="label label-warning">The vendor is new and will be inserted into Quickbooks</span>
                                     {% else %}
                                         <span class="label label-primary">The vendor is already in Quickbooks</span>
@@ -117,7 +117,7 @@
                     {% endfor %}
                 {% endfor %}
             </table>
-            <a class="btn btn-success" href="#">Proceed to Quickbooks</a>
+            <a class="btn btn-success" href="{{ path('dms_quickbooks_listing_proceed',{id:item.id}) }}">Upload to Quickbooks</a>
         </div>
     </div>
     </div>

@@ -175,7 +175,16 @@ class QuickbooksLib
             print($PurchaseService->lastError($qbo->getContext()));
             return false;
         }
-        return true;
+        //dump($qbPO->getDocNumber().":::::::::::::::::::::::::::::::::::");
+        if(!empty($qbPO->getDocNumber())){
+            $ItemService = new \QuickBooks_IPP_Service_Term();
+            $po = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM PurchaseOrder WHERE docNumber = '" . $qbPO->getDocNumber() . "'");
+        //    dump($po[0]);
+            if (!empty($po[0])) {
+                return $po[0];
+            }
+        }
+        return $qbPO;
     }
 
     public function insertVehicleItem(Item $item)
@@ -264,9 +273,9 @@ class QuickbooksLib
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
             $qbItem = $this->findQBItemByName($qbItem->getName());
         }
-        dump($type);
-        dump($amount);
-        dump($qbItem);
+        //dump($type);
+        //dump($amount);
+        //dump($qbItem);
 //        if (!$resp) {
 //            print($itemService->lastError($qbo->getContext()));die();
 //            return false;
@@ -520,11 +529,14 @@ class QuickbooksLib
         $this->importVendorsToQB($vendors);
     }
 
-    public function insertPurchaseOrdersForItem(Item $item,$preview=false){
-        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+    public function insertPurchaseOrdersForItem(Item $item,$preview=false,$vendors=false){
+        if(!empty($vendors)) {
+            $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item);
+        }
         $QBPOs   =  array();
         foreach ($vendors as $vendor){
             $qbPO = $this->createPurchaseOrder($vendor[0]['vendor']);
+            $qbPO->setDocNumber($vendor[0]['docnum']);
             foreach($vendor as $vendorItem) {
                 $this->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
             }
@@ -535,5 +547,26 @@ class QuickbooksLib
         }
 
         return $QBPOs;
+    }
+
+    public function addAccount($name,$type){
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $AccountService = new \QuickBooks_IPP_Service_Account();
+
+        $Account = new \QuickBooks_IPP_Object_Account();
+
+        $Account->setName($name);
+        $Account->setDescription($name);
+        $Account->setAccountType($type);
+
+        if ($resp = $AccountService->add($qbo->getContext(), $qbo->getRealm(), $Account))
+        {
+            return $Account;
+        }
+        //dump($name);
+        //dump($type);
+        //dump($Account);
+        return false;
     }
 }
