@@ -17,7 +17,7 @@ dealercomponent_create:
 
 dealercomponent_edit:
     path:     /{id}/edit
-    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:edit" }
+    defaults: { _controller: "NumaDOADMSBundle:DealerComponent:edit",_dashboard:"DMS" }
 
 dealercomponent_update:
     path:     /{id}/update

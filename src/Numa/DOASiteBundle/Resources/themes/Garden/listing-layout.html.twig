@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
         <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,700|Roboto:300,400,500,700" rel="stylesheet">
-        {% stylesheets '@bootstrap' '@colorbox_css' '@theme_garden_css' '@theme_garden_pgwslideshow_css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/Garden/css/garden.css' 'bundles/numadoasite/Garden/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' '@colorbox_js' 'js/jssor/jssor.slider.js' 'themes/Garden/js/pgwslideshow.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'js/jssor/jssor.slider.js' 'bundles/numadoasite/Garden/js/pgwslideshow.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 

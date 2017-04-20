@@ -28,32 +28,32 @@
     <div class="social-media">
         {% if dealer is defined and dealer.siteFacebook is not null %}
         <a class="facebook" href="{{ dealer.siteFacebook }}">
-            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/facebook.png' %}
+            {% image 'bundles/numadoasite/Forest/images/facebook.png' %}
             <img src="{{ asset_url }}" alt="Facebook"/>
             {% endimage %}
         </a>
         {% endif %}
         {% if dealer is defined and dealer.siteTwitter is not null %}
         <a class="twitter" href="{{ dealer.siteTwitter }}">
-            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/twitter.png' %}
+            {% image 'bundles/numadoasite/Forest/images/twitter.png' %}
             <img src="{{ asset_url }}" alt="Twitter"/>
             {% endimage %}</a>
         {% endif %}
         {% if dealer is defined and dealer.siteGoogle is not null %}
         <a class="google" href="{{ dealer.siteGoogle }}">
-            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/google.png' %}
+            {% image 'bundles/numadoasite/Forest/images/google.png' %}
             <img src="{{ asset_url }}" alt="Google"/>
             {% endimage %}</a>
         {% endif %}
         {% if dealer is defined and dealer.siteYoutube is not null %}
         <a class="youtube" href="{{ dealer.siteYoutube }}">
-            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/youtube.png' %}
+            {% image 'bundles/numadoasite/Forest/images/youtube.png' %}
             <img src="{{ asset_url }}" alt="Youtube"/>
             {% endimage %}</a>
         {% endif %}
         {% if dealer is defined and dealer.siteInstagram is not null %}
         <a class="instagram" href="{{ dealer.siteInstagram }}">
-            {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/instagram.png' %}
+            {% image 'bundles/numadoasite/Forest/images/instagram.png' %}
             <img src="{{ asset_url }}" alt="Instagram"/>
             {% endimage %}</a>
         {% endif %}
