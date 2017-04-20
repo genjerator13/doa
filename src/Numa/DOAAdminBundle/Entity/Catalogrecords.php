@@ -2157,4 +2157,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->setting_ga_view;
     }
+    /**
+     * @var string
+     */
+    private $site_googlemap;
+
+
+    /**
+     * Set siteGooglemap
+     *
+     * @param string $siteGooglemap
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteGooglemap($siteGooglemap)
+    {
+        $this->site_googlemap = $siteGooglemap;
+
+        return $this;
+    }
+
+    /**
+     * Get siteGooglemap
+     *
+     * @return string
+     */
+    public function getSiteGooglemap()
+    {
+        return $this->site_googlemap;
+    }
 }
