@@ -776,4 +776,8 @@ ol.carousel-indicators {
 	display: none;
 }
 
+.dontshow{
+	display:none;
+}
+
 

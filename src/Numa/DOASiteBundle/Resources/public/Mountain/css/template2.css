@@ -1067,6 +1067,11 @@ ul.techData li {
 .clear {
 	clear:both;
 }
+
+.dontshow{
+	display:none;
+}
+
 #loading-indicator {
 	display: none;
 	//background-color: rgba(0, 0, 0, 0.5);

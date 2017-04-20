@@ -547,3 +547,7 @@ ul.techData li {
 	min-height: 500px;
 	padding-top: 18px;
 }
+
+.dontshow{
+	display:none;
+}
