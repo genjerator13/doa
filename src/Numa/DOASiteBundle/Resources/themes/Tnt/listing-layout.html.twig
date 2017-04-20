@@ -1,0 +1,73 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+    <meta name="description" content=" " />
+    <meta name="keywords" content=" " />
+    {% block stylesheets %}
+        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/Tnt/css/tnt.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+    {% block javascripts %}
+        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' '@colorbox_js'%}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+
+        {% endjavascripts %}
+        {% include 'NumaDOASiteBundle::ga.html.twig' %}
+
+        <script type="text/javascript">
+            jQuery(document).ready(function () {
+                jQuery(".mobile-menu ul ul").hide();
+                /* hide sublinks */
+                jQuery(".separator").click(function () {
+                    jQuery(this).next().slideToggle(300);
+                    /* display sublinks */
+                });
+            });
+        </script>
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+</head>
+
+<body>
+{% block headline %}
+    {% include 'NumaDOASiteBundle::headline.html.twig' %}
+{% endblock %}
+
+{#{% block mainmenu %}#}
+    {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+{#{% endblock %}#}
+
+{% block mobilemenu %}
+    {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+{% endblock %}
+<div class="content clearfix">
+    <div class="alertz dontshow alert"></div>
+    {% block content %}
+
+    {% endblock %}
+</div>
+
+{% block footer %}
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
+{% endblock %}
+
+<script>
+    jQuery('a.colorbox').colorbox();
+</script>
+</body>
+</html>
