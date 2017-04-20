@@ -64,7 +64,7 @@
                  class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
                 <div class="textwidget">
                     <div class="cta">
-                        <a href="/all/" title="Shop for a Vehicle">
+                        <a href="{{ path("search_all") }}" title="Shop for a Vehicle">
                             <div class="ctaMain">
                                 <div class="ctaBg">
                                     <div class="ctaImg shopVehicle">
@@ -77,8 +77,8 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="/all/" title="Shop all Inventory">Shop all Inventory</a></li>
-                                <li><a href="/all/segment/featured/" title="Show me a Deal!">Show me a Deal!</a></li>
+                                <li><a href="{{ path("search_all") }}" title="Shop all Inventory">Shop all Inventory</a></li>
+                                <li><a href="#" title="Show me a Deal!">Show me a Deal!</a></li>
                             </ul>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                  class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
                 <div class="textwidget">
                     <div class="cta">
-                        <a href="/financial-services/apply/" title="Need a Car Loan">
+                        <a href="{{ path("finance_form") }}" title="Need a Car Loan">
                             <div class="ctaMain">
                                 <div class="ctaBg">
                                     <div class="ctaImg carLoan">
@@ -101,7 +101,7 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="/financial-services/apply/" title="Apply for Financing">Apply for
+                                <li><a href="{{ path("finance_form") }}" title="Apply for Financing">Apply for
                                         Financing</a></li>
                             </ul>
                         </div>
@@ -112,7 +112,7 @@
                  class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
                 <div class="textwidget">
                     <div class="cta">
-                        <a href="/contact/" title="Have a Question">
+                        <a href="{{ path("contactus") }}" title="Have a Question">
                             <div class="ctaMain">
                                 <div class="ctaBg">
                                     <div class="ctaImg haveQuestion">
@@ -125,7 +125,7 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="/contact/" title="Contact Us">Contact Us</a></li>
+                                <li><a href="{{ path("contactus") }}" title="Contact Us">Contact Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -135,7 +135,7 @@
                  class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
                 <div class="textwidget">
                     <div class="cta">
-                        <a href="/service/appointment/" title="Need to Service Your Vehicle">
+                        <a href="{{ path("service_form") }}" title="Need to Service Your Vehicle">
                             <div class="ctaMain">
                                 <div class="ctaBg">
                                     <div class="ctaImg serviceVehicle">
@@ -148,9 +148,9 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="/service/appointment/" title="Book an Appointment">Book an Appointment</a>
+                                <li><a href="{{ path("service_form") }}" title="Book an Appointment">Book an Appointment</a>
                                 </li>
-                                <li><a href="/contact/" title="Speak to a Tech">Speak to a Tech</a></li>
+                                <li><a href="{{ path("contactus") }}" title="Speak to a Tech">Speak to a Tech</a></li>
                             </ul>
                         </div>
                     </div>
@@ -159,33 +159,7 @@
         </div>
     </div>
 {% endblock %}
-{% block links %}
-    {#<div class="links">#}
 
-    {#<ul>#}
-    {#<li>#}
-    {#{% if displayComponent('sea_large_button5',"HTML") is not empty %}#}
-    {#{{ displayComponent('sea_large_button5',"HTML")|raw }}#}
-    {#{% else %}#}
-    {#<a href="{{ path("news") }}">#}
-    {#<span class="link-title"><span>Dealer</span> News</span>#}
-    {#<span class="click-here">Click Here</span>#}
-    {#</a>#}
-    {#{% endif %}#}
-    {#</li>#}
-    {#<li>#}
-    {#{% if displayComponent('sea_large_button6',"HTML") is not empty %}#}
-    {#{{ displayComponent('sea_large_button6',"HTML")|raw }}#}
-    {#{% else %}#}
-    {#<a href="{{ path('part_form') }}">#}
-    {#<span class="link-title"><span>Parts</span> Department</span>#}
-    {#<span class="click-here">Click Here</span>#}
-    {#</a>#}
-    {#{% endif %}#}
-    {#</li>#}
-    {#</ul>#}
-    {#</div>#}
-{% endblock %}
 {% block content %}
     <h1>Welcome to {{ dealer.name }}</h1>
     {{ dealer.description|raw }}
