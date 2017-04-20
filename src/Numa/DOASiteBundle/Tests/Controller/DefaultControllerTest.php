@@ -70,10 +70,21 @@ class DefaultControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertGreaterThan(
-            4,
+            9,
             $crawler->filter('span.price')->count()
         );
     }
+
+//    public function testFeatured()
+//    {
+//        $products = $this->em
+//            ->getRepository('NumaDOAAdminBundle:Item')
+//            ->findOneById(32195)
+//        ;
+//        dump($products);die();
+//
+//        $this->assertEquals(1, count($products));
+//    }
 
 //    public function testLoginForm()
 //    {
