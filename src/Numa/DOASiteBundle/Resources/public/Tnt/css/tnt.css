@@ -293,16 +293,16 @@ header.site-header .headerLogo a {
     width: 93px;
 }
 .ctaImg.shopVehicle {
-    background: transparent url("CTA.png") no-repeat scroll -211px 5px;
+    background: transparent url("../images/CTA.png") no-repeat scroll -211px 5px;
 }
 .ctaHolder:hover .ctaImg.shopVehicle {
-    background: transparent url("CTA.png") no-repeat scroll -211px -98px;
+    background: transparent url("../images/CTA.png") no-repeat scroll -211px -98px;
 }
 .ctaImg.carLoan {
-    background: transparent url("CTA.png") no-repeat scroll -5px 5px;
+    background: transparent url("../images/CTA.png") no-repeat scroll -5px 5px;
 }
 .ctaHolder:hover .ctaImg.carLoan {
-    background: transparent url("CTA.png") no-repeat scroll -108px 5px;
+    background: transparent url("../images/CTA.png") no-repeat scroll -108px 5px;
 }
 .ctaImg.haveQuestion {
     background: transparent url("../images/CTA.png") no-repeat scroll -5px -98px;
@@ -696,63 +696,97 @@ header.site-header .headerLogo a {
 /* ==========================================================================
    Footer
    ========================================================================== */
-
-.footer-wrapper {
-    background-color: #111;
-    padding: 20px;
+footer[role="contentinfo"] {
+    border-top: 1px solid #ededed;
+    clear: both;
+    font-size: 0.857143rem;
+    line-height: 2;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.71429rem;
+    /*max-width: 68.5714rem;*/
+    padding: 1.71429rem 0;
+}
+footer[role="contentinfo"] a {
+    color: #686868;
+}
+footer[role="contentinfo"] a:hover {
+    color: #21759b;
 }
 
-.footer {
-    color: #959595;
-    margin: 0 auto;
-    max-width: 1020px;
+.footerFirst {
+    background: #252525 none repeat scroll 0 0;
 }
 
-.footer ul {
-    display: table;
+.footerFirst .widget-title {
+    border-bottom: 1px solid #666666;
+    color: #ffffff;
+    font-size: 26px;
+    font-weight: normal;
+    line-height: 40px;
+    margin: 0 0 10px;
+    padding: 0;
+    text-transform: none;
 }
+.quickLinks ul {
+    margin: 0 0 10px;
 
-.footer li {
-    display: table-cell;
-    padding: 0 10px;
 }
-
-.footer a {
-    color: #f78f1e;
+.quickLinks li {
+    background: transparent url("../images/ftr-arw.png") no-repeat scroll 0 center;
+    border-bottom: 1px dotted #666;
+    float: left;
+    line-height: 29px;
+    margin: 0 5% 0 0;
+    padding: 0 0 0 5%;
+    width: 42.5%;
+    list-style: none;
+}
+.quickLinks a {
+    color: #666 !important;
+    font-size: 13px;
     font-weight: bold;
     text-decoration: none;
-    text-transform: uppercase;
 }
 
-.footer .bottom-menu {
-    border-bottom: 1px dotted #959595;
-    margin-bottom: 15px;
-    padding-bottom: 15px;
+.quickLinks p {
+    color: #666 !important;
+    font-size: 13px;
+    font-weight: bold;
+
 }
 
-.footer .bottom-menu ul {
-    margin: 0 auto;
+.quickLinks li.current-menu-item a {
+    color: #cccccc !important;
 }
-
-.footer .extra-menu {
-    margin-top: 5px;
+.quickLinks li.rightMenu {
+    margin: 0;
 }
-
-.footer .extra-menu li {
-    border-left: 2px solid #959595;
-    line-height: 14px;
-}
-
-.footer .extra-menu li:first-child {
-    border-left: none;
-    padding-left: 0;
-}
-
-#map {
-    height: 260px;
+footer .contactFooter a {
+    border-bottom: 1px dotted #ffffff;
+    line-height: 22px;
+    margin: 0 0 5px;
+    padding: 0 0 5px;
+    color: #fff !important;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;
+    padding-left: 25px;
+    text-decoration: none;
     width: 100%;
 }
 
+.footerSecond p{
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+}
+.footerSecond .dealerLogo {
+    float: right;
+}
+/* ==========================================================================
+   content
+   ========================================================================== */
 .content .panel-heading {
     background-color: black;
     color: #f78f1e;
