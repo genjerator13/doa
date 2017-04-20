@@ -1,0 +1,192 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block banner %}
+
+    {% set images = displayComponent("homepage_carousel","carousel") %}
+
+    {% if images is not empty %}
+        <div class="bscarousel">
+            <div id="tntcarousel" class="carousel slide" data-ride="carousel">
+                {#<!-- Carousel indicators -->#}
+                {#<ol class="carousel-indicators">#}
+                {#{% for image in images %}#}
+                {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
+                {#class="{% if loop.first %}active{% endif %}"></li>#}
+                {#{% endfor %}#}
+
+                {#</ol>#}
+                <!-- Wrapper for carousel items -->
+                <div class="carousel-inner">
+                    {% for image in images %}
+                        <div class="item {% if loop.first %} active{% endif %}">
+                            {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_tnt') }}
+                            <div class="text_widget">{{ image.carouselText|raw }}</div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+                <!-- Carousel controls -->
+                <a class="carousel-control left" href="#tntcarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="carousel-control right" href="#tntcarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
+            </div>
+        </div>
+    {% else %}
+        <div class="content  clearfix">
+
+        </div>
+    {% endif %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tntcarousel").carousel({
+                interval: 8000,
+                pause: false
+            }).on('slide.bs.carousel', function (e) {
+                var nextH = $(e.relatedTarget).height();
+                console.log(nextH)
+                console.log($(this).find('.active.item').parent())
+                $(this).find('.active.item').parent().animate({
+                    height: nextH
+                }, 500);
+            });
+        });
+    </script>
+{% endblock %}
+{% block buttons %}
+    <div class="homepageCTA">
+        <div class="container">
+            <div id="text-5"
+                 class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
+                <div class="textwidget">
+                    <div class="cta">
+                        <a href="/all/" title="Shop for a Vehicle">
+                            <div class="ctaMain">
+                                <div class="ctaBg">
+                                    <div class="ctaImg shopVehicle">
+                                    </div>
+                                </div>
+                                <div class="ctaDesc">
+                                    <p>Shop for a <span>Vehicle?</span></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ctaList">
+                            <ul>
+                                <li><a href="/all/" title="Shop all Inventory">Shop all Inventory</a></li>
+                                <li><a href="/all/segment/featured/" title="Show me a Deal!">Show me a Deal!</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="text-7"
+                 class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
+                <div class="textwidget">
+                    <div class="cta">
+                        <a href="/financial-services/apply/" title="Need a Car Loan">
+                            <div class="ctaMain">
+                                <div class="ctaBg">
+                                    <div class="ctaImg carLoan">
+                                    </div>
+                                </div>
+                                <div class="ctaDesc">
+                                    <p>Need a <span>Car Loan</span></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ctaList">
+                            <ul>
+                                <li><a href="/financial-services/apply/" title="Apply for Financing">Apply for
+                                        Financing</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="text-8"
+                 class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
+                <div class="textwidget">
+                    <div class="cta">
+                        <a href="/contact/" title="Have a Question">
+                            <div class="ctaMain">
+                                <div class="ctaBg">
+                                    <div class="ctaImg haveQuestion">
+                                    </div>
+                                </div>
+                                <div class="ctaDesc">
+                                    <p>Have a <span>Question</span></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ctaList">
+                            <ul>
+                                <li><a href="/contact/" title="Contact Us">Contact Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="text-6"
+                 class="widget-1 widget-first widget-last widget-odd ctaHolder widget-container multiple-sidebars widget widget_text">
+                <div class="textwidget">
+                    <div class="cta">
+                        <a href="/service/appointment/" title="Need to Service Your Vehicle">
+                            <div class="ctaMain">
+                                <div class="ctaBg">
+                                    <div class="ctaImg serviceVehicle">
+                                    </div>
+                                </div>
+                                <div class="ctaDesc">
+                                    <p>Need to Service <span>Your Vehicle</span></p>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="ctaList">
+                            <ul>
+                                <li><a href="/service/appointment/" title="Book an Appointment">Book an Appointment</a>
+                                </li>
+                                <li><a href="/contact/" title="Speak to a Tech">Speak to a Tech</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block links %}
+    {#<div class="links">#}
+
+    {#<ul>#}
+    {#<li>#}
+    {#{% if displayComponent('sea_large_button5',"HTML") is not empty %}#}
+    {#{{ displayComponent('sea_large_button5',"HTML")|raw }}#}
+    {#{% else %}#}
+    {#<a href="{{ path("news") }}">#}
+    {#<span class="link-title"><span>Dealer</span> News</span>#}
+    {#<span class="click-here">Click Here</span>#}
+    {#</a>#}
+    {#{% endif %}#}
+    {#</li>#}
+    {#<li>#}
+    {#{% if displayComponent('sea_large_button6',"HTML") is not empty %}#}
+    {#{{ displayComponent('sea_large_button6',"HTML")|raw }}#}
+    {#{% else %}#}
+    {#<a href="{{ path('part_form') }}">#}
+    {#<span class="link-title"><span>Parts</span> Department</span>#}
+    {#<span class="click-here">Click Here</span>#}
+    {#</a>#}
+    {#{% endif %}#}
+    {#</li>#}
+    {#</ul>#}
+    {#</div>#}
+{% endblock %}
+{% block content %}
+    <h1>Welcome to {{ dealer.name }}</h1>
+    {{ dealer.description|raw }}
+{% endblock %}

@@ -93,6 +93,7 @@ class QuickbooksLib
             $qbServiceSetting = $settingLib->get($qbService);
             $qbExpenseAccountSetting = $settingLib->getValue2($qbService);
             $qbIncomeAccountSetting = $settingLib->getValue3($qbService);
+
             if(!empty($qbServiceSetting)){
                 $qbService = strip_tags($qbServiceSetting);
             }
@@ -174,7 +175,16 @@ class QuickbooksLib
             print($PurchaseService->lastError($qbo->getContext()));
             return false;
         }
-        return true;
+        //dump($qbPO->getDocNumber().":::::::::::::::::::::::::::::::::::");
+        if(!empty($qbPO->getDocNumber())){
+            $ItemService = new \QuickBooks_IPP_Service_Term();
+            $po = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM PurchaseOrder WHERE docNumber = '" . $qbPO->getDocNumber() . "'");
+        //    dump($po[0]);
+            if (!empty($po[0])) {
+                return $po[0];
+            }
+        }
+        return $qbPO;
     }
 
     public function insertVehicleItem(Item $item)
@@ -183,14 +193,11 @@ class QuickbooksLib
 
         $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
         $desc = $this->getQBDesc($item);
+        $amount = $this->getQBPrice($item);
 
         //update Item with QB id reference
         $em = $this->container->get('doctrine.orm.entity_manager');
         $item->setQbItemId($item->getId());
-        $sale = $item->getSale();
-        if($sale instanceof Sale){
-            $amount = $sale->getInvoiceAmt();
-        }
         $em->flush($item);
 
         $qbItem = $this->findQBItemByName($title);
@@ -199,10 +206,16 @@ class QuickbooksLib
             $qbItem = new \QuickBooks_IPP_Object_Item();
             $update = false;
         }
-        return $this->insertItem($title, $desc, $item->getVIN(),false,false,false,$amount,"Inventory",true);
+
+
+        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
+        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
+        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
+
+        return $this->insertItem($title, $desc, $item->getVIN(),$qbExpenseAccountSetting,$qbIncomeAccountSetting,$qbIncomeAccountSetting,$amount,"Inventory",true);
     }
 
-    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$type="Service",$trackQtyOnHand=false)
+    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$preview=false,$type="Service",$trackQtyOnHand=false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -260,13 +273,13 @@ class QuickbooksLib
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
             $qbItem = $this->findQBItemByName($qbItem->getName());
         }
-        dump($type);
-        dump($amount);
-        dump($qbItem);
-        if (!$resp) {
-            print($itemService->lastError($qbo->getContext()));die();
-            return false;
-        }
+        //dump($type);
+        //dump($amount);
+        //dump($qbItem);
+//        if (!$resp) {
+//            print($itemService->lastError($qbo->getContext()));die();
+//            return false;
+//        }
 
 
         //die();
@@ -295,6 +308,15 @@ class QuickbooksLib
         $qbdesc .= $this->setDescriptionProperty("Body Description", $item->getBodyDescription());
         $qbdesc .= $this->setDescriptionProperty("Exteriour Color", $item->getExteriorColor());
         return $qbdesc;
+    }
+
+    public function getQBPrice(Item $item)
+    {
+        $sale = $item->getSale();
+        if($sale instanceof Sale){
+            return $sale->getInvoiceAmt();
+        }
+        //throw exception
     }
 
     public function setDescriptionProperty($title, $value)
@@ -507,11 +529,14 @@ class QuickbooksLib
         $this->importVendorsToQB($vendors);
     }
 
-    public function insertPurchaseOrdersForItem(Item $item,$preview=false){
-        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+    public function insertPurchaseOrdersForItem(Item $item,$preview=false,$vendors=false){
+        if(!empty($vendors)) {
+            $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item);
+        }
         $QBPOs   =  array();
         foreach ($vendors as $vendor){
             $qbPO = $this->createPurchaseOrder($vendor[0]['vendor']);
+            $qbPO->setDocNumber($vendor[0]['docnum']);
             foreach($vendor as $vendorItem) {
                 $this->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
             }
@@ -522,5 +547,26 @@ class QuickbooksLib
         }
 
         return $QBPOs;
+    }
+
+    public function addAccount($name,$type){
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $AccountService = new \QuickBooks_IPP_Service_Account();
+
+        $Account = new \QuickBooks_IPP_Object_Account();
+
+        $Account->setName($name);
+        $Account->setDescription($name);
+        $Account->setAccountType($type);
+
+        if ($resp = $AccountService->add($qbo->getContext(), $qbo->getRealm(), $Account))
+        {
+            return $Account;
+        }
+        //dump($name);
+        //dump($type);
+        //dump($Account);
+        return false;
     }
 }

@@ -1,0 +1,125 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% block content %}
+
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Integration with QuickBooks</h3>
+        </div>
+        <div class="box-body table-responsive">
+            {% if vendors|length>0 %}
+                <h2>Preparing purchase order{% if vendors|length>1 %}s{% endif %} for the following
+                    vendor{% if vendors|length>1 %}s{% endif %}:</h2>
+                <ul class="list-inline">
+                    {% for vendor in vendors %}
+                        {% set v = vendor[0]['vendor'] %}
+                        {% set qbv = vendor[0]['qbVendor'] %}
+                        {% if v is defined %}
+                            <li>
+                                <div class="well">
+                                    <div><strong>Vendor {{ loop.index }}:</strong></div>
+                                    <div><strong>{{ v.getCompanyName() }}</strong></div>
+                                    <div>Address: {{ v.getAddress() }}</div>
+                                    <div>City: {{ v.getCity() }}</div>
+                                    <div>Phone: {{ v.getWorkPhone() }}</div>
+                                    <div>Email: {{ v.getEmail() }}</div>
+                                    {% if qbv is empty %}
+                                        {#<div>#}
+                                            {#<a class="btn btn-primary"#}
+                                               {#title="The vendor {{ v.getCompanyName() }} is not in your Quickbooks account.Do you want to insert it?"#}
+                                               {#href="{{ path('dms_quickbooks_vendor_sync',{id:v.id,item_id:item.id}) }}">Insert#}
+                                                {#"{{ v.getCompanyName() }}" to Quickbooks</a>#}
+                                        {#</div>#}
+                                        <span class="label label-warning">The vendor is new and will be inserted into Quickbooks</span>
+                                    {% else %}
+                                        <span class="label label-primary">The vendor is already in Quickbooks</span>
+                                        {#<div>#}
+                                        {#<a class="btn btn-success"#}
+                                        {#title="Update all vendor data from DMS into Quickbooks"#}
+                                        {#href="{{ path('dms_quickbooks_vendor_sync',{id:v.id,item_id:item.id}) }}">Sync#}
+                                        {#"{{ v.getCompanyName() }}" with Quickbooks</a>#}
+                                        {#</div>#}
+                                    {% endif %}
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <h2>Following Listing{% if vendors|length>1 %}s{% endif %} will be inserted into Quickbooks:</h2>
+            <table class="table table-hover">
+                <tr>
+                    <th>Title</th>
+                    <th>Sku</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Expense Account</th>
+                    <th>Income Account</th>
+                    <th>Asset Account</th>
+                    <th>Vendor</th>
+                </tr>
+                {% for vendor in vendors %}
+                    <tr>
+                        <td colspan="5">Purchase Order {{ loop.index }}:
+                            <strong>{{ vendor[0]['vendor'].getCompanyName() }}</strong></td>
+                    </tr>
+                    {% for vitem in vendor %}
+                        <tr>
+                            <td>
+                                <div>{{ vitem.title }}</div>
+                                <div>
+                                    {% set prop = "Service" %}
+                                    {% if(vitem.property=="vehicle") %}
+                                        {% set prop = "Inventory" %}
+                                    {% endif %}
+                                    {% if vitem.qbItem is not empty %}
+                                        <span class="label label-primary">{{ prop }} is already in QB</span>
+                                    {% else %}
+                                        <span class="label label-warning">{{ prop }} will be inserted into QB</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>{{ vitem.sku }}</td>
+                            <td>{{ vitem.description|nl2br }}</td>
+                            <td>{{ vitem.amount }}</td>
+                            <td>
+                                {{ vitem.ExpenseAccount }}
+                                {% if vitem.qbExpenseAccount is not empty %}
+                                    <span class="label label-primary">Expense account is already in QB</span>
+                                {% else %}
+                                    {% if vitem.qbExpenseAccount|length>0 %}
+                                        <span class="label label-warning">Income account will be inserted into QB</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ vitem.IncomeAccount }}
+                                {% if vitem.qbIncomeAccount is not empty %}
+                                    <span class="label label-primary">Income account is already in QB</span>
+                                {% else %}
+                                    {% if vitem.qbIncomeAccount|length>0 %}
+                                        <span class="label label-warning">Income account will be inserted into QB</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ vitem.AssetAccount }}
+                                {% if vitem.qbAssetAccount is not empty %}
+                                    <span class="label label-primary">Asset account is already in QB</span>
+                                {% else %}
+                                    {% if vitem.qbAssetAccount|length>0 %}
+                                        <span class="label label-warning">Asset account will be inserted into QB</span>
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td>{{ vitem.vendor.getCompanyName() }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </table>
+            <a class="btn btn-success" href="{{ path('dms_quickbooks_listing_proceed',{id:item.id}) }}">Upload to Quickbooks</a>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+

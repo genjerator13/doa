@@ -118,17 +118,37 @@ class SaleLib
         $em->flush();
     }
 
-    public function getAllVendors(Item $item){
+    public function getAllVendors(Item $item,$qb=false){
         $sale = $item->getSale();
         $byVendors = array();
         if($sale instanceof Sale){
             //vehvendor
             $vehVendor = $sale->getVendor();
-            $amount    = $sale->getInvoiceAmt();
             $temp = array();
             $temp['vendor'] = $vehVendor;
-            $temp['amount'] = $amount;
             $temp['property'] = "vehicle";
+            $temp['docnum'] = "i_".$item->getId()."_".time();
+            $temp['title'] = $this->container->get("numa.dms.listing")->getListingTitle($item);
+            //qb get item from QB by title
+
+            $temp['description'] = $this->container->get("numa.dms.quickbooks")->getQBDesc($item);
+            $temp['amount'] = $this->container->get("numa.dms.quickbooks")->getQBPrice($item);
+            $temp['sku'] = $item->getStockNr();
+            $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
+            $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
+            $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
+            $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
+            //qb get ea from QB by title
+            $temp['IncomeAccount'] = $qbIncomeAccountSetting;
+            //qb get ia from QB by title
+            $temp['AssetAccount'] = $qbAssetAccountSetting;
+            //qb get aa from QB by title
+            $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks')->getSupplier($vehVendor->getCompanyName());
+            $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($temp['title']);
+            $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
+            $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
+            $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
+            //qb
             $byVendors[$vehVendor->getId()][]=$temp;
 
             $class_methods = get_class_methods(Sale::class);
@@ -139,8 +159,8 @@ class SaleLib
                 $temp = array();
                 //$prop = str_replace("get","",$vendorF);
                 $prop = str_replace("VendorId","",$vendorF);
-                $descF = str_replace("get","",$prop);
-                $descF = "getDesc".$descF;
+                $propname = str_replace("get","",$prop);
+                $descF = "getDesc".$propname;
 
                 $vendorId = $sale->{$vendorF}();
                 $amount   = $sale->{$prop}();
@@ -157,9 +177,24 @@ class SaleLib
                         $temp['vendor'] = $vendor;
                         $temp['amount'] = $amount;
                         $temp['property'] = $prop;
+                        $temp['title'] = $propname;
+                        $temp['sku'] = "";
+                        $temp['docnum'] = "c_".$item->getId()."_".time();
+                        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($prop);
+                        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3($prop);
+                        $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4($prop);
+                        $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
+                        $temp['IncomeAccount'] = $qbIncomeAccountSetting;
+                        $temp['AssetAccount'] = $qbAssetAccountSetting;
+                        $temp['description']   = "";
+                        $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($temp['title']);
+                        $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
+                        $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
+                        $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
+                        $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks')->getSupplier($vendor->getCompanyName());
                         if(method_exists($sale,$descF)) {
                             $desc = $sale->{$descF}();
-                            $temp['desc']   = $desc;
+                            $temp['description']   = $desc;
                         }
 
                         $byVendors[$vendorId][]=$temp;

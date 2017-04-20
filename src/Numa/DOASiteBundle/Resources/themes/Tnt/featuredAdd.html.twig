@@ -1,0 +1,31 @@
+{% if items is defined and items is not empty %}
+    <div class="featured-ads clearfix">
+
+        <div class="">
+            {% for item in items %}
+                {% set images = item.getImages() %}
+                {% set desc = item.getUrlDescription() %}
+                <a class="featured-ads-item {% if loop.index==3 %}third{% endif %} {% if loop.last %}last{% endif %}" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
+
+                    {% set image = item.getImages2()|first %}
+                    {% if images is empty %}
+                        <img class="" alt="No photos"
+                             src="{{ asset('images/no_image_available_small.png') }}"/>
+                    {% else %}
+                        {% set image = image.fieldStringValue %}
+                        {% if ('http' not in image) %}
+                            <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}"
+                                 src="{{ image|imagine_filter('tnt_featured') }}"/>
+                        {% else %}
+                            <img class="" alt="{{ item.getMake() }} {{ item.getModel() }}" src="{{ image }}"
+                                 width="175" height="175"/>
+                        {% endif %}
+
+                    {% endif %}
+                    {{ shortWord(item.year~" "~item.make~" "~item.model,50)}}</br>
+                    <span class="text-center price">{{ item.getPriceString() }}</span>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

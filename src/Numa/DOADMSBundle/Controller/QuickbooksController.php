@@ -73,12 +73,116 @@ class QuickbooksController extends Controller
     public function listingPreviewAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
         $item = $em->getRepository(Item::class)->find(intval($id));
-        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item);
+        //dump($vendors);
+
+//        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+        //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
+        //die();
         return $this->render('NumaDOADMSBundle:Quickbooks:listingPreview.html.twig', array(
-            'QBPOs'=>$QBPOs,
+           // 'QBPOs'=>$QBPOs,
             'item'=>$item,
+            'vendors'=>$vendors
         ));
     }
 
+    public function listingPreviewQBAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $item = $em->getRepository(Item::class)->find(intval($id));
 
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($item,true);
+
+
+//        $QBPOs = $this->get('numa.dms.quickbooks')->addToQBPO($id,true);
+        //$QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($item,true);
+
+        return $this->render('NumaDOADMSBundle:Quickbooks:listingPreviewQB.html.twig', array(
+            // 'QBPOs'=>$QBPOs,
+            'item'=>$item,
+            'vendors'=>$vendors
+        ));
+    }
+
+    public function listingProceedAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $itemDMS = $em->getRepository(Item::class)->find(intval($id));
+        $vendors =  $this->container->get("numa.dms.sale")->getAllVendors($itemDMS,true);
+        $newVendors=array();
+        $newExpenseAccount=array();
+        $newIncomeAccount=array();
+        $newAssetsAccount=array();
+        foreach($vendors as $vendor){
+            if(empty($vendor[0]['qbVendor'])) {
+                $newVendors[] =$vendor[0]['vendor'];
+
+            }
+            foreach($vendor as $item){
+                if(!empty($item['ExpenseAccount']) && empty($item['qbExpenseAccount'])){
+                    $newExpenseAccount[] = $item['ExpenseAccount'];
+                }
+                if(!empty($item['IncomeAccount']) && empty($item['qbIncomeAccount'])){
+                    $newIncomeAccount[] = $item['IncomeAccount'];
+                }
+                if(!empty($item['ExpenseAccount']) && empty($item['qbAssetAccount'])){
+                    $newAssetsAccount[] = $item['AssetAccount'];
+                }
+
+            }
+        }
+        //dump($vendors);die();
+        $addedVendors=array();
+        $addedIncomeAccount  = array();
+        $addedExpenseAccount = array();
+        $addedAssetAccount   = array();
+        foreach($newVendors as $vendor){
+            if($vendor instanceof Vendor){
+                $addedVendors[]=$this->get('numa.dms.quickbooks')->dmsToQbVendor($vendor);
+            }
+        }
+        foreach($newExpenseAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedIncomeAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Income");
+            }
+        }
+        foreach($newIncomeAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedExpenseAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Cost of Goods Sold");
+            }
+        }
+        foreach($newAssetsAccount as $account){
+            if($vendor instanceof Vendor){
+                $addedAssetAccount[]=$this->get('numa.dms.quickbooks')->addAccount($account,"Current assets");
+            }
+        }
+//        dump($addedVendors);
+//        dump($addedIncomeAccount);
+//        dump($addedExpenseAccount);
+//        dump($addedAssetAccount);
+        //die();
+        $QBPOs=array();
+        $QBPOs = $this->get('numa.dms.quickbooks')->insertPurchaseOrdersForItem($itemDMS,false,$vendors);
+        //dump($QBPOs);
+        return $this->render('NumaDOADMSBundle:Quickbooks:listingAfterQB.html.twig', array(
+            'QBPOs'=>$QBPOs,
+            'addedVendors'=>$addedVendors,
+            'addedIncomeAccount'=>$addedIncomeAccount,
+            'addedExpenseAccount'=>$addedExpenseAccount,
+            'addedAssetAccount'=>$addedAssetAccount,
+        ));
+    }
+
+    public function vendorSyncAction(Request $request, $id,$item_id){
+        $em = $this->getDoctrine()->getManager();
+        $dealer = $this->get('numa.dms.user')->getSignedDealer();
+        $vendor = $em->getRepository(Vendor::class)->findOneBy(array("Catalogrecords"=>$dealer,"id"=>$id));
+
+        if(!$vendor instanceof Vendor){
+            throw $this->createNotFoundException('Unable to find Vendor entity.');
+        }
+
+        $dealer = $this->get('numa.dms.quickbooks')->dmsToQbVendor($vendor);
+        $this->addFlash("Success","The vendor ".$vendor->getCompanyName()." is synchronized with QB.");
+        return $this->redirectToRoute("dms_quickbooks_listing_preview",array("id"=>$item_id));
+    }
 }
