@@ -1,6 +1,6 @@
 /**
  * PgwSlideshow - Version 2.0
- * YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY
+ *
  * Copyright 2014, Jonathan M. Piat
  * http://pgwjs.com - http://pagawa.com
  *
@@ -208,20 +208,4 @@
 .pgwSlideshow.narrow .ps-caption {
     font-size: 0.8rem;
     padding: 8px;
-}
-
-/*pgwslider */
-.slideshow .pgwSlideshow{
-    background: #fff;
-}
-.slideshow .pgwSlideshow .ps-list {
-    left: 489px;
-    bottom: 147px;
-}
-.listing-images {
-    position: relative;
-}
-
-.slideshow .ps-current {
-    min-height: 400px;
 }
