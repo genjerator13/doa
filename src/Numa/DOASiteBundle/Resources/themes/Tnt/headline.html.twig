@@ -1,0 +1,41 @@
+<header id="masthead" class="site-header" role="banner">
+    <div class="headerHolder">
+        <div class="headerLogo">
+            <div class="container">
+                {% if dealer is defined and dealer is not empty %}
+                    <a class="logo" href="{{ path("homepage") }}">
+                        {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="headerInfo">
+            {% if dealer is defined and dealer is not empty %}
+                <div class="container">
+                    <div class="headerInfoinner">
+                        <p class="headerAddress"><a href="{{ dealer.siteGooglemap }}" class="click-getdirections-sent"
+                                                    target="_blank"><i
+                                        class="glyphicon glyphicon-map-marker"></i>{{ dealer.address }}, <span
+                                        class="inlineBlock">{{ dealer.city }}, {{ dealer.state }}
+                                    , {{ dealer.zip }}</span></a></p>
+                        <p class="headerPhone"><a href="#"><i
+                                        class="glyphicon glyphicon-earphone"></i>{{ dealer.phone }}</a></p>
+                        <p class="headerFb"><a href="{{ dealer.siteFacebook }}" target="_blank">
+                                <i class="fa fa-facebook" aria-hidden="true"></i>
+                                Facebook</a>
+                        </p>
+                        {#<p class="headerLivechat"><a><img src="http://websites.edealer.ca/TNTAuto/chat.png" alt="Live Chat" title="Live Chat">LIVE CHAT <img src="http://websites.edealer.ca/TNTAuto/chat-more.png" alt="Live Chat" title="Live Chat"></a></p>#}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="headerMenu">
+
+                    {% block mainmenu %}
+                        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+                    {% endblock %}
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>

@@ -359,6 +359,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [644, 418], mode: inbount }
                 background: { color: '#FFFFFF' }
+        carousel_tnt:
+            quality: 100
+            filters:
+                thumbnail: { size: [1920, 670], mode: inbount }
+                background: { color: '#FFFFFF' }
         carousel_mountain:
             quality: 100
             filters:
@@ -408,6 +413,11 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [160, 120], mode: inbound }
+                background: { color: '#FFFFFF' }
+        tnt_featured:
+            quality: 100
+            filters:
+                thumbnail: { size: [175, 175], mode: outbound }
                 background: { color: '#FFFFFF' }
         garden_featured:
             quality: 100
@@ -470,7 +480,7 @@ trsteel_ckeditor:
         route: image_browse
         route_parameters:
           type: image
-    extra_allowed_content: "span(*); div(*); i(*)"
+    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*)"
     html_purifier:
         config:
             HTML.SafeIframe: true
@@ -516,7 +526,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden']
+    themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden', 'Tnt']
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:
