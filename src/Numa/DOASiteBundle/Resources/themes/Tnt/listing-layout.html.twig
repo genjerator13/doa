@@ -48,12 +48,12 @@
     {% include 'NumaDOASiteBundle::headline.html.twig' %}
 {% endblock %}
 
-{% block mainmenu %}
-    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
-{% endblock %}
+{#{% block mainmenu %}#}
+    {#{% include 'NumaDOASiteBundle::mainmenu.html.twig' %}#}
+{#{% endblock %}#}
 
 {% block mobilemenu %}
-    {#{% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}#}
+    {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
 {% endblock %}
 <div class="content clearfix">
     <div class="alertz dontshow alert"></div>
@@ -61,40 +61,6 @@
 
     {% endblock %}
 </div>
-{% block info %}
-
-    <div class="info">
-        <ul>
-            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
-            <li>
-                <h2>{{ dealer.name }}</h2>
-                <div class="address">
-                    {{ dealer.address }}<br>
-                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
-                </div>
-                <div class="phone">
-                    <span>Phone:</span> {{ dealer.phone }}<br>
-                </div>
-            </li>
-            {% if dealer.ServiceHours is not empty %}
-                <li>
-                    <h2>Hours Of Operation</h2>
-                    {{ dealer.ServiceHours|raw }}
-                </li>
-            {% endif %}
-            {% if displayComponent('quick_links',"HTML","dealer") is not empty %}
-                <li>
-                    <h2>Quick Links</h2>
-                    {{ displayComponent('quick_links',"HTML","dealer")|raw }}
-                </li>
-            {% endif %}
-        </ul>
-    </div>
-{% endblock %}
-
-{% block map %}
-    {% include '@NumaDOASite/map.html.twig' %}
-{% endblock %}
 
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
