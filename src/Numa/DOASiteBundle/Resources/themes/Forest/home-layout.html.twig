@@ -14,7 +14,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 
-        {% stylesheets '@theme_forest_css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets 'bundles/numadoasite/Forest/css/template3.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
@@ -72,7 +72,7 @@
         <div class="banner">
             {% block banner %}
             <div class="image">
-                {% image '@NumaDOASiteBundle/Resources/Public/Forest/images/banner.jpg' %}
+                {% image 'bundles/numadoasite/Forest/images/banner.jpg' %}
                 <img src="{{ asset_url }}"/>
                 {% endimage %}
             </div>

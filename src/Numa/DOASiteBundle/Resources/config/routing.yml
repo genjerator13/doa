@@ -41,6 +41,9 @@ search_new_vehicle:
 search_used_vehicle:
     path:  /browse_used
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,status:U }
+search_all:
+    path:  /all
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_ajax:
     path:  /searchajax
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:searchAjax, _locale: en,status:U }

@@ -11,7 +11,7 @@
     <meta name="keywords" content=" " />
 
     {% block stylesheets %}
-        {% stylesheets '@bootstrap' '@colorbox_css' '@theme_forest_css' '@NumaDOASiteBundle/Resources/Public/Forest/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/Forest/css/template3.css' 'bundles/numadoasite/Forest/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' '@colorbox_js' 'themes/Forest/js/pgwslideshow.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Forest/js/pgwslideshow.js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
         <script type="text/javascript">
