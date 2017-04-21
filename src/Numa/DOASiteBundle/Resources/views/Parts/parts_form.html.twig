@@ -6,9 +6,15 @@
 {% block form_group_class -%}
     col-sm-9
 {%- endblock form_group_class %}
-{% block content %}
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css"/>
+{% block javascripts %}
+    {{ parent() }}
     <script src="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.min.js"></script>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/bootstrap.tagsinput/0.4.2/bootstrap-tagsinput.css"/>
+
     <style type="text/css">
         .bootstrap-tagsinput {
             width: 100%;
@@ -17,6 +23,9 @@
             line-height: 2 !important;
         }
     </style>
+
+{% endblock %}
+{% block content %}
 
     {{ displayComponent('page_content',"HTML") }}
 

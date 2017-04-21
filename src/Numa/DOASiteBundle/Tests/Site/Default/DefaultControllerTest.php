@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Tests\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
@@ -11,14 +12,14 @@ class DefaultControllerTest extends WebTestCase
      * @var \Doctrine\ORM\EntityManager
      */
     private $em;
-
+    private $url;
     /**
      * {@inheritDoc}
      */
     protected function setUp()
     {
         self::bootKernel();
-
+        $this->url ="http://doa.local";
         $this->em = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
@@ -29,7 +30,7 @@ class DefaultControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/');
-
+        //dump($client);die();
         $this->assertTrue($crawler->filter('html:contains("Search By Body Style")')->count() > 0);
     }
 
@@ -51,52 +52,44 @@ class DefaultControllerTest extends WebTestCase
         $this->assertTrue($crawler->filter('html:contains("Featured Ads")')->count() > 0);
     }
 
-    public function testFeaturedDivs()
+
+    /**
+     * @dataProvider urlDefaultSiteProvider
+     */
+    public function testPageIsSuccessful($url)
     {
-        $client = static::createClient();
+        $client = self::createClient();
+        $client->request('GET', $url);
 
-        $crawler = $client->request('GET', '/');
-
-        $this->assertGreaterThan(
-            0,
-            $crawler->filter('h3.panel-title')->count()
-        );
+        $this->assertTrue($client->getResponse()->isSuccessful());
     }
 
-    public function testFeaturedItems()
+    public function urlDefaultSiteProvider()
     {
-        $client = static::createClient();
-
-        $crawler = $client->request('GET', '/');
-
-        $this->assertGreaterThan(
-            9,
-            $crawler->filter('span.price')->count()
+        return array(
+            array('/'),
+            array('/parts'),
+            array('/service'),
+            array('/contactus'),
+            array('/search-advanced'),
+            array('/categories'),
+            array('/seller/search'),
         );
     }
-
-//    public function testFeatured()
+    /**
+     * @dataProvider dealerProvider
+     */
+//    public function testDealerHomeIsSuccessful($dealer)
 //    {
-//        $products = $this->em
-//            ->getRepository('NumaDOAAdminBundle:Item')
-//            ->findOneById(32195)
-//        ;
-//        dump($products);die();
+//        dump($dealer);die();
+//        $client = self::createClient();
+//        $client->request('GET', $url);
 //
-//        $this->assertEquals(1, count($products));
+//        $this->assertTrue($client->getResponse()->isSuccessful());
 //    }
-
-//    public function testLoginForm()
-//    {
-//        $client = static::createClient();
-//
-//        $crawler = $client->request('GET', '/user/login');
-//        $form = $crawler->selectButton('Sign in')->form();
-//        $form['_username'] = 'Lucas';
-//        $form['_password'] = 'Hey there!';
-//        $crawler = $client->submit($form);
-//        dump($crawler);die();
-//        $this->assertTrue($crawler->filter('html:contains("Sign In")')->count() > 0);
+//    public function dealerProvider(){
+//        $dealers = $this->em->getRepository(Catalogrecords::class)->findAll();
+//        return $dealers;
 //    }
 
 }

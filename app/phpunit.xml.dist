@@ -18,11 +18,11 @@
             <!--<directory>../src/*/*Bundle/Tests</directory>-->
             <!--<directory>../src/*/Bundle/*Bundle/Tests</directory>-->
         <!--</testsuite>-->
-        <testsuite name="Site">
-            <directory>../src/Numa/DOASiteBundle/Tests</directory>
+        <testsuite name="DefaultSite">
+            <directory>../src/Numa/DOASiteBundle/Tests/Site/Default</directory>
         </testsuite>
-        <testsuite name="Smoke Test">
-            <directory>../src/Numa/SmokeTest</directory>
+        <testsuite name="DealerSite">
+            <directory>../src/Numa/DOASiteBundle/Tests/Site/Dealer</directory>
         </testsuite>
     </testsuites>
 
