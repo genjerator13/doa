@@ -18464,54 +18464,13 @@ img {
     padding: 0;
 }
 
+.maincontent .options-description-used .option-lists {
+    margin-left: 50px;
+}
 
-
-
-
-
-/*.maincontent .options-details-used-1 .vehicleInformation{*/
-    /*background-image: url("../images/tabs.png");*/
-    /*width: 100%;*/
-    /*margin: 0;*/
-    /*padding: 10px;*/
-    /*height:39px;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformationHeader{*/
-    /*margin-bottom: 15px;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformationHeader .colapse-button-new-detail{*/
-    /*background-attachment: scroll;*/
-    /*background-clip: border-box;*/
-    /*background-color: rgba(0, 0, 0, 0);*/
-    /*background-image: url("../images/icon-colapse-right-mobile.png");*/
-    /*background-origin: padding-box;*/
-    /*background-position: 3px center;*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: 20px 20px;*/
-    /*color: #fff;*/
-    /*font-size: 14px;*/
-    /*font-weight: 500;*/
-    /*padding: 0 0 0 30px;*/
-    /*width: 100%;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformationHeader .colapse-button-text {*/
-    /*color: #ffffff;*/
-    /*float: right;*/
-    /*font-size: 11px;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformation .pb-details-new {*/
-    /*background: white none repeat scroll 0 0;*/
-    /*border: 1px solid #e5e5e5;*/
-    /*color: black;*/
-    /*margin: 0 0 20px;*/
-    /*padding: 0;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformation .pb-details-new ul{*/
-    /*margin-left: 50px;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformation .pb-details-new ul li{*/
-    /*color: gray;*/
-/*}*/
-/*.maincontent .options-details-used-1 .vehicleInformation .pb-details-new ul li .fieldCaption{*/
-    /*font-weight:500;*/
-/*}*/
+.maincontent .options-description-used .option-lists li{
+    color: gray;
+}
+.maincontent .options-description-used .options-used .option-lists li .fieldCaption{
+    font-weight: 500;
+}
