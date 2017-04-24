@@ -42,189 +42,125 @@
         {{ include("NumaDOASiteBundle::keywords.html.twig") }}
     {% endif %}
 {% endblock keyword %}
-
-
 {% block content %}
     <div id="details-content" class="details-content">
-        {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
-        <div class="row heading-row">
-            <div class="col-xs-12 col-sm-12 col-md-veh-left-used margin-left-3 col-mobile-padding-10">
-                <h1 class="heading-year-make-model" itemprop="name">
-                    <span itemprop="releaseDate">2016</span>
-                    <span itemprop="manufacturer">Chevrolet</span>
-                    <span itemprop="model">Silverado 1500 LTZ w/2LZ 4x4 Crew Cab 5.75 ft. box</span>
-                </h1>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-veh-right-used margin-left-3 col-mobile-padding-10"></div>
+    {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
+    <div class="row heading-row">
+        <div class="col-xs-12 col-sm-12 col-md-veh-left-used margin-left-3 col-mobile-padding-10">
+            <h1 class="heading-year-make-model" itemprop="name">
+                {#<span itemprop="releaseDate">{{ item.year }}</span>#}
+                {#<span itemprop="manufacturer">{{ item.make }}</span>#}
+                <span itemprop="model">{{ item.getListingTitle }}</span>
+            </h1>
         </div>
-        <div class="row subheading-row">
-            <div class="col-xs-12 col-sm-12 col-md-veh-left-used col-mobile-3 details-used-six-dig">
-                <div class="headinggrey-1">
-                    <h2 class="headinggrey"></h2>
-                </div>
+        <div class="col-xs-12 col-sm-12 col-md-veh-right-used margin-left-3 col-mobile-padding-10"></div>
+    </div>
+    <div class="row subheading-row">
+        <div class="col-xs-12 col-sm-12 col-md-veh-left-used col-mobile-3 details-used-six-dig">
+            <div class="headinggrey-1">
+                <h2 class="headinggrey"></h2>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-veh-right-used col-mobile-3 details-used-six-dig">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-veh-right-used col-mobile-3 details-used-six-dig">
+            {% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}
+                <div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="CAD">
+                    <span class="vehicle-price-4">Retail Price: </span>
+                    <span class="vehicle-price-3">
+                    <span class="vehicle-price-2-new-used retailPrice" itemprop="price">
+                        {{ price(item.getRetailPrice(),false)|raw }}
+                    </span>
+                        </span>
+                    <div class="disclaimer-price-used">
+                        <p></p>
+                    </div>
+                </div>
+            {% endif %}
+            {% if item.getPrice() is not empty and item.getPrice() > 0 %}
                 <div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
                     <meta itemprop="priceCurrency" content="CAD">
                     <span class="vehicle-price-4"> Price: </span>
                     <span class="vehicle-price-3">
-                    <span class="vehicle-price-2-new-used" itemprop="price" "="">$47,900</span>
+                    <span class="vehicle-price-2-new-used" itemprop="price">
+                        {{ item.getPriceString() }}
+                    </span>
                     </span>
                     <div class="disclaimer-price-used">
                         <p></p>
                     </div>
                 </div>
+            {% endif %}
+            {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}
+                <div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">
+                    <meta itemprop="priceCurrency" content="CAD">
+                    <span class="vehicle-price-4"> Price: </span>
+                    <span class="vehicle-price-3">
+                    <span class="vehicle-price-2-new-used" itemprop="price">
+                        Contact Us For A Quote
+                    </span>
+                    </span>
+                    <div class="disclaimer-price-used">
+                        <p></p>
+                    </div>
+                </div>
+                {% endif %}
             </div>
             <div class="call-us-nmb call-phone phone-up">
                 <p class="call-us-label">
                     Call us:
                     <span id="phone-above" class="phone-nmb-used">
-                    <a class="number-phone click-phonecall-sent" title="tel:+1-306-763-8681" href="tel:+1-306-763-8681">306-763-8681</a>
+                    <a class="number-phone click-phonecall-sent" title="tel:{{ dealer.phone }}" href="tel:{{ dealer.phone }}">{{ dealer.phone }}</a>
                     </span>
                 </p>
             </div>
-            {#<div class="show-vehicle-count one-model">#}
-            {#<a class="show-model-count-link" href="#" role="button">#}
-            {#<div class="flame-span-container-used-vdp"#}
-            {#style="text-align: center; display: inline-block; float: left; height: 100%; display: inline;float: left;">#}
-            {#<span style="position: relative; margin: 0 auto !important;">#}
-            {#<img class="flame-used-vdp" src="https://static.edealer.ca/images/red-flame.png" alt="">#}
-            {#</span>#}
-            {#</div>#}
-            {#<div class="model-text-container-used-vdp">#}
-            {#<span class="model-text-used-vdp"#}
-            {#style="color: #ffffff;background-color: #000000;line-height: 21px;">25 views </span>#}
-            {#<br>#}
-            {#<span class="model-text-used-vdp"#}
-            {#style="color: #ffffff;background-color: #000000;line-height: 4px;font-size: 10px;">in the last 7 days</span>#}
-            {#</div>#}
-            {#</a>#}
-            {#</div>#}
+            <div class="row">
+            </div>
             <div class="row hr-row">
                 <hr width="100%">
             </div>
             <div class="row photo-slide-info-row">
                 <div class="col-xs-12 col-sm-12 col-md-veh-left-used">
+
+                    {% set images = item.getImages2() %}
+                    {% set currentPath = app.request.uri %}
+                    {% set dealer = item.getDealer() %}
+                    {% if images|length==1 %}
+                        {% set image = images|first %}
+                        {% if ('http' not in image.fieldStringValue) %}
+                            {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+                        {% else %}
+                            {% set videoid="" %}
+                            {% set img=image.fieldStringValue %}
+                            {% if ('youtube' in image.fieldStringValue) %}
+                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                {% set img=getYoutubeThumb(videoid) %}
+                            {% endif %}
+
+                            {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+                        {% endif %}
+                    {% else %}
                     <div class="slideshow">
                         <ul id="imgList" class="big" style="cursor: pointer;">
-                            <li>
-                                <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750218.jpeg"
-                                     alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                     title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                     data-order="0">
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750221.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                         data-order="2">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750227.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                         data-order="3">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750223.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                         data-order="4">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750220.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                         data-order="5">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750226.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                         data-order="6">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750219.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                         data-order="7">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750225.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                         data-order="8">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750224.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                         data-order="9">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750222.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                         data-order="10">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750234.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                         data-order="11">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750231.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                         data-order="12">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750232.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                         data-order="13">
-                                </a>
-                            </li>
+                            {% for key,image in images %}
+                                <li data-order="{{ image.sortOrder }}">
+                                    {% if ('http' not in image.fieldStringValue) %}
+                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                    {% else %}
+                                        {% set videoid="" %}
+                                        {% set img=image.fieldStringValue %}
+                                        {% if ('youtube' in image.fieldStringValue) %}
+                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                            {% set img=getYoutubeThumb(videoid) %}
+                                        {% endif %}
+                                        <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
                         </ul>
                         <div class="row image-bar-used">
                             <div class="image-bar-used-stock">
-                                <span title="">Stock #: 1747</span>
+                                <span title="">Stock #: {{ item.stockNr }}</span>
                             </div>
                         </div>
                         <ul id="slide-control" class="controls" style="cursor: pointer;">
@@ -238,97 +174,22 @@
                         <div class="auto-scrolx-dimension topContent autoScrollx">
                             <div class="slider-hortizontal-conteiner">
                                 <ul class="thumb">
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750218.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750221.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750227.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750223.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750220.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750226.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750219.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750225.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750224.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750222.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750234.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750231.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750232.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                             width="573" height="395">
-                                    </li>
+                                    {% for key,image in images %}
+                                        <li>
+                                            {% if ('http' not in image.fieldStringValue) %}
+                                                <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                            {% else %}
+                                                {% set videoid="" %}
+                                                {% set img=image.fieldStringValue %}
+                                                {% if ('youtube' in image.fieldStringValue) %}
+                                                    {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                    {% set img=getYoutubeThumb(videoid) %}
+                                                {% endif %}
+                                                <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -339,25 +200,29 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
+
+                <script src='{{ asset('bundles/numadoasite/Tnt/js/slideshow.js') }}'></script>
+
                 <div class="col-xs-12 col-sm-12 col-md-veh-right-used">
                     <div class="used-veh-basic-info">
                         <div class="bordergrey">
                             <div class="mileage-used info-top-margin mileage-six-dig-size-used ">
                                 Mileage:
-                                <span class="mileage-used-value" itemprop="mileageFromOdometer"> 23,000 km </span>
+                                <span class="mileage-used-value" itemprop="mileageFromOdometer"> {{ item.mileage }} </span>
                             </div>
                         </div>
                         <div class="bordergrey-name-phone">
                             <div class="mileage-used info-top-padding">
                                 <span class="glyphicon glyphicon-map-marker"></span>
-                                <span> TNT Auto </span>
+                                <span>{{ dealer.name }}</span>
                             </div>
                             <div class="mileage-used info-top-padding-phone" style="float: right;">
                                 <span class="glyphicon glyphicon-phone-alt"> </span>
                                 <span class="phone-nmb-used-1">
-                                <a class="click-phonecall-sent" title="tel:+1-306-763-8681"
-                                   href="tel://+1-306-763-8681">306-763-8681</a>
+                                <a class="click-phonecall-sent" title="tel:{{ dealer.phone }}"
+                                   href="tel://{{ dealer.phone }}">{{ dealer.phone }}</a>
                                 </span>
                             </div>
                         </div>
@@ -387,109 +252,70 @@
                             <tbody>
                             <tr class="tr-even-used">
                                 <td class="col-used-label">Body Style:</td>
-                                <td class="col-used-value" itemprop="bodyType"> Pickup</td>
+                                <td class="col-used-value" itemprop="bodyType">{{ item.bodyStyle }}</td>
                             </tr>
                             <tr class="tr-odd-used">
                                 <td class="col-used-label">Engine:</td>
-                                <td class="col-used-value" itemprop="vehicleEngine"> 5.3L 8cyl</td>
+                                <td class="col-used-value" itemprop="vehicleEngine"> {{ item.engine }}</td>
                             </tr>
                             <tr class="tr-even-used">
                                 <td class="col-used-label">Exterior:</td>
-                                <td class="col-used-value" itemprop="color"> Red</td>
+                                <td class="col-used-value" itemprop="color">{{ item.exteriorColor }}</td>
                             </tr>
                             <tr class="tr-odd-used">
                                 <td class="col-used-label">Interior:</td>
-                                <td class="col-used-value" itemprop="vehicleInteriorColor"> Black</td>
+                                <td class="col-used-value" itemprop="vehicleInteriorColor">{{ item.interiorColor }}</td>
                             </tr>
                             <tr class="tr-even-used">
                                 <td class="col-used-label">Fuel type:</td>
-                                <td class="col-used-value" itemprop="fuelType"> Gasoline</td>
+                                <td class="col-used-value" itemprop="fuelType">{{ item.fuelType }}</td>
                             </tr>
                             <tr class="tr-odd-used">
                                 <td class="col-used-label">Transmission:</td>
-                                <td class="col-used-value" itemprop="vehicleTransmission"> Automatic</td>
+                                <td class="col-used-value" itemprop="vehicleTransmission"> {{ item.transmission }}</td>
                             </tr>
                             <tr class="tr-even-used">
                                 <td class="col-used-label">Drivetrain:</td>
-                                <td class="col-used-value" itemprop="driveWheelConfiguration"> 4x4</td>
+                                <td class="col-used-value" itemprop="driveWheelConfiguration">{{ item.driveType }}</td>
                             </tr>
                             <tr class="tr-odd-used">
                                 <td class="col-used-label">Stock #:</td>
-                                <td class="col-used-value" itemprop="sku"> 1747</td>
+                                <td class="col-used-value" itemprop="sku">{{ item.stockNr }}</td>
                             </tr>
                             <tr class="tr-even-used">
                                 <td class="col-used-label">Trim Details:</td>
-                                <td class="col-used-value" style="font-size: 13px !important;"> LTZ w/2LZ 4x4 Crew Cab
-                                    5.75 ft. box
-                                </td>
+                                <td class="col-used-value" style="font-size: 13px !important;">{{ item.trim }}</td>
                             </tr>
                             </tbody>
                         </table>
                         <h5 id="dscLabel" class="description-used">Description</h5>
                         <div id="dscLess" class="description description-padding-0"
                              style=" overflow-y: hidden; display: block; padding-left: 0px;">
-                            LIKE NEW LOADED 2016 Chev Silverado 1500 LTZ!!!!! Heated and cooled leather seats, heated
-                            steering wheel, 8 inch touch screen display with navigation, dual climate control AND FULL
-                            FACTORY WARRANTY!!! This truck has it all!!!!!! Head down to TNT to check out this AMAZIN
+                                DESCRIPTION
                             <a id="readMore" style="cursor: pointer;color: #0087ce;">.....Read More</a>
                         </div>
+                        <div id="dscFull" class="description description-padding-0" style="overflow-y: hidden; display: none; padding-left: 0px;">
+                            <span itemprop="description">
+                                {{ item.currentSellerComment()|raw }}
+                            </span>
+                            <a id="readLess" style="cursor: pointer;color: #0087ce;">.....Read Less</a>
+                        </div>
+                        <script>
+                            jQuery("#readMore").click(function (){
+                                jQuery("#dscLess").css("display", "none");
+                                jQuery("#dscFull").css("display", "block");
+                            });
+                            jQuery("#readLess").click(function (){
+                                jQuery("#dscLess").css("display", "block");
+                                jQuery("#dscFull").css("display", "none");
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
             <div class="row hr-row">
                 <hr width="100%">
             </div>
-            {#<div class="row options-details-used-1">#}
-            {#<div class="row vehicleInformation">#}
-            {#<div class="vehicleInformationHeader">#}
-            {#<a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Vehicle#}
-            {#Details:</a>#}
-            {#<small class="colapse-button-text">[click to colapse]</small>#}
-            {#</div>#}
-            {#<div class="panel-body pb-details-new">#}
-            {#<ul class='option-lists'>#}
-            {#{% if item.categoryId()==1 %}#}
-            {#{% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==2) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==3) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==4) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==13) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}#}
-            {#{% else %}#}
-            {#{% endif %}#}
-
-            {#</ul>#}
-            {#</div>#}
-            {#</div>#}
-            {#<div class="row vehicleInformation">#}
-            {#<div class="vehicleInformationHeader">#}
-            {#<a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Vehicle Details:</a>#}
-            {#<small class="colapse-button-text">[click to colapse]</small>#}
-            {#</div>#}
-            {#<div id="collapseVehicleDetails" class="panel-collapse collapse in">#}
-            {#<div class="panel-body pb-details-new">#}
-            {#<ul class='option-lists'>#}
-            {#{% if item.categoryId()==1 %}#}
-            {#{% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==2) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==3) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==4) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}#}
-            {#{% elseif(item.categoryId()==13) %}#}
-            {#{% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}#}
-            {#{% else %}#}
-            {#{% endif %}#}
-
-            {#</ul>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
-            {#</div>#}
             <div class="row options-details-used-1">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-mobile-padding-10">
                     <div id="options-vdp">
@@ -500,7 +326,7 @@
                                         <div class="colapse-button-new-details" style="cursor: pointer;"
                                              href="#collapseVehicleDetails" data-parent="#accordion-options"
                                              data-toggle="collapse">
-                                            <a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Options</a>
+                                            <a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Vehicle Details</a>
                                             <small class="colapse-button-text">[click to collapse]</small>
                                         </div>
                                     </div>
@@ -542,7 +368,7 @@
                                         <div class="colapse-button-new-details" style="cursor: pointer;"
                                              href="#collapseVehicleTechSpecs" data-parent="#accordion-options"
                                              data-toggle="collapse">
-                                            <a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Options</a>
+                                            <a class="colapse-button-new-detail compare-filters-btn btn-lg collapsed">Vehicle Features</a>
                                             <small class="colapse-button-text">[click to collapse]</small>
                                         </div>
                                     </div>
