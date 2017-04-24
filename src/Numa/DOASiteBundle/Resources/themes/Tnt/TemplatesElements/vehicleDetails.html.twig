@@ -1,0 +1,34 @@
+<div id="vehicle-details" class="row listing-detail-panel">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div href="#collapseVehicleTechSpecs"
+                     data-toggle="collapse">
+                    <a class="collapsed"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>Vehicle
+                        Details</a>
+                    <small class="pull-right">[click to collapse]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="collapseVehicleTechSpecs" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+                <ul class='list-unstyled'>
+                    {% if item.categoryId()==1 %}
+                        {% include 'NumaDOASiteBundle:Item:carDetails.html.twig' %}
+                    {% elseif(item.categoryId()==2) %}
+                        {% include 'NumaDOASiteBundle:Item:marineDetails.html.twig' %}
+                    {% elseif(item.categoryId()==3) %}
+                        {% include 'NumaDOASiteBundle:Item:motoDetails.html.twig' %}
+                    {% elseif(item.categoryId()==4) %}
+                        {% include 'NumaDOASiteBundle:Item:rvsDetails.html.twig' %}
+                    {% elseif(item.categoryId()==13) %}
+                        {% include 'NumaDOASiteBundle:Item:agDetails.html.twig' %}
+                    {% else %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
