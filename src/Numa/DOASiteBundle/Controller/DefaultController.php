@@ -334,7 +334,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         if (!empty($featured)) {
             $items = array_slice($featured, $max);
         }
-
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
 
         if ($order == 1) {
@@ -347,6 +346,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         if (empty($image_size)) {
             $image_size = "search_image";
         }
+
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
         return $response;
     }

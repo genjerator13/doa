@@ -1232,6 +1232,7 @@ class SearchController extends Controller implements DealerSiteControllerInterfa
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
         //dump($params['year']->getValue());die();
+
         return $sidebarForm;
         //$param['sidebarForm'] = $sidebarForm->createView();
     }
