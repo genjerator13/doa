@@ -120,122 +120,43 @@
             </div>
             <div class="row photo-slide-info-row">
                 <div class="col-xs-12 col-sm-12 col-md-veh-left-used">
+
+                    {% set images = item.getImages2() %}
+                    {% set currentPath = app.request.uri %}
+                    {% set dealer = item.getDealer() %}
+                    {% if images|length==1 %}
+                        {% set image = images|first %}
+                        {% if ('http' not in image.fieldStringValue) %}
+                            {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+                        {% else %}
+                            {% set videoid="" %}
+                            {% set img=image.fieldStringValue %}
+                            {% if ('youtube' in image.fieldStringValue) %}
+                                {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                {% set img=getYoutubeThumb(videoid) %}
+                            {% endif %}
+
+                            {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
+                        {% endif %}
+                    {% else %}
                     <div class="slideshow">
                         <ul id="imgList" class="big" style="cursor: pointer;">
-                            <li>
-                                <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750218.jpeg"
-                                     alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                     title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                     data-order="0">
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750221.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                         data-order="2">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750227.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                         data-order="3">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750223.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                         data-order="4">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750220.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                         data-order="5">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750226.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                         data-order="6">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750219.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                         data-order="7">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750225.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                         data-order="8">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750224.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                         data-order="9">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750222.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                         data-order="10">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750234.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                         data-order="11">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750231.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                         data-order="12">
-                                </a>
-                            </li>
-                            <li>
-                                <a data-gal="prettyPhoto[gallery]"
-                                   title="2016 Chevrolet Silverado 1500 2LZ in Prince Albert">
-                                    <img onerror="imgError(this);" src="https://images.edealer.ca/2/37750232.jpeg"
-                                         alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                         title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                         data-order="13">
-                                </a>
-                            </li>
+                            {% for key,image in images %}
+                                <li data-order="{{ image.sortOrder }}">
+                                    {% if ('http' not in image.fieldStringValue) %}
+                                        <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                    {% else %}
+                                        {% set videoid="" %}
+                                        {% set img=image.fieldStringValue %}
+                                        {% if ('youtube' in image.fieldStringValue) %}
+                                            {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                            {% set img=getYoutubeThumb(videoid) %}
+                                        {% endif %}
+                                        <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
                         </ul>
                         <div class="row image-bar-used">
                             <div class="image-bar-used-stock">
@@ -253,97 +174,22 @@
                         <div class="auto-scrolx-dimension topContent autoScrollx">
                             <div class="slider-hortizontal-conteiner">
                                 <ul class="thumb">
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750218.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 1 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750221.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 2 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750227.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 3 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750223.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 4 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750220.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 5 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750226.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 6 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750219.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 7 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750225.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 8 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750224.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 9 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750222.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 10 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750234.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 11 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750231.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 12 of 13"
-                                             width="573" height="395">
-                                    </li>
-                                    <li>
-                                        <img itemprop="image" onerror="imgError(this);"
-                                             src="https://images.edealer.ca/2/37750232.jpeg"
-                                             alt="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                             title="2016 Chevrolet Silverado 1500 2LZ (Stk: 1747) in Prince Albert - Image 13 of 13"
-                                             width="573" height="395">
-                                    </li>
+                                    {% for key,image in images %}
+                                        <li>
+                                            {% if ('http' not in image.fieldStringValue) %}
+                                                <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
+                                            {% else %}
+                                                {% set videoid="" %}
+                                                {% set img=image.fieldStringValue %}
+                                                {% if ('youtube' in image.fieldStringValue) %}
+                                                    {% set videoid=getYoutubeId(image.fieldStringValue) %}
+                                                    {% set img=getYoutubeThumb(videoid) %}
+                                                {% endif %}
+                                                <img data-video="{{ videoid }}" src="{{ img }}"/>
+
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -354,7 +200,11 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
+
+                <script src='{{ asset('bundles/numadoasite/Tnt/js/slideshow.js') }}'></script>
+
                 <div class="col-xs-12 col-sm-12 col-md-veh-right-used">
                     <div class="used-veh-basic-info">
                         <div class="bordergrey">
