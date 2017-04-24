@@ -1,26 +1,23 @@
 {% set liclass="col-md-12 col-xs-12 col-sm-12 col-lg-12" %}
-
-    {% if item.getBodyStyle() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Body Style: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getBodyStyle() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getStockNr() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Stock Number: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getStockNr() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getMileage() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Mileage: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getExteriorColor() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Exterior Color: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getExteriorColor() }}</span>
-        </li>
-    {% endif %}
+<table class="table table-striped">
+    <tbody>
+    <tr class="">
+        <td class="table-col-1">Body Style:</td>
+        <td class="table-col-2" itemprop="bodyType">{{ item.getBodyStyle() }}</td>
+        <td class="table-col-1">Transmission:</td>
+        <td class="table-col-2">{{ item.getTransmission() }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Engine:</td>
+        <td class="table-col-2">{{ item.getEngine }}</td>
+        <td class="table-col-1">Stock #:</td>
+        <td class="table-col-2">{{ item.getStockNr }}</td>
+    </tr>
+    <tr class="">
+        <td class="table-col-1">Exterior Colour:</td>
+        <td class="table-col-2">{{ item.getExteriorColor() }}</td>
+        <td class="table-col-1">Trim:</td>
+        <td class="table-col-2">{{ item.getTrim() }}</td>
+    </tr>
+    </tbody>
+</table>
