@@ -1,0 +1,35 @@
+<div id="vehicle-feature" class="row listing-detail-panel">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div href="#collapseVehicleFeatures"
+                     data-toggle="collapse">
+                    <a class="collapsed"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>Vehicle
+                        Features</a>
+                    <small class="pull-right">[click to collapse]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="collapseVehicleFeatures" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO','Stock Number','Body Style','Mileage','Exterior Color'] %}
+                {% if (item.getOptions|length)>0 %}
+                    <ul class="list-unstyled">
+                        {% for field in item.ItemField %}
+                            {% if field.fieldName not in ignore_fields and field.fieldType=='boolean' and field.getFieldBooleanValue()==1 %}
+                                <li class="col-lg-4 col-md-6 col-sm-6 col-xs-12 features-item">
+                                    <div class="">
+                                        {{ field.fieldName }}
+                                        <i class="glyphicon glyphicon-ok pull-right"></i>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
