@@ -1,0 +1,77 @@
+{% form_theme sidebarForm _self %}
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{#{{ dump() }}#}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="searchBarHorisontal">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Year<span class="caret"></span></a>
+                    {% if year is not empty %}
+                        <ul class="dropdown-menu">
+                            {% for item in year %}
+                                <li class="selected-true">
+                                    <label class="checkbox">
+                                        <input checked="" type="checkbox">
+                                        <a href="#">{{ item }}</a>
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Make <span class="caret"></span></a>
+                    {% if make is not empty %}
+                        <ul class="dropdown-menu">
+                            {% for item in make %}
+                                <li><a href="#">{{ item }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Model<span class="caret"></span></a>
+                    {% if model is not empty %}
+                        <ul class="dropdown-menu">
+                            {% for item in model %}
+                                <li><a href="#">{{ item }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Body Style<span class="caret"></span></a>
+                    {% if bodyStyle is not empty %}
+                        <ul class="dropdown-menu">
+                            {% for item in bodyStyle %}
+                                <li><a href="#">{{ item }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Price <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                      </span>
+                </div><!-- /input-group -->
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>

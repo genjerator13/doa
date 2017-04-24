@@ -41,24 +41,20 @@ class ItemRepository extends EntityRepository
         }
 
         $dealer_id = empty($dealer_id) ? "" : $dealer_id;
-
         $res2 = $this->memcache->get('featured_' . $dealer_id);
 
         if (!$res2) {
-
             //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
             $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1' ;
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
-
             $query = $this->getEntityManager()
                 ->createQuery($q);
             // $query->useResultCache(true, 3600, 'featuredSelect_'.$dealer_id);
 
             $res2 = $query->getArrayResult();
             $this->memcache->set('featured_' . $dealer_id, $res2);
-
         }
 
         $count = count($res2);

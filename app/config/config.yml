@@ -359,10 +359,15 @@ liip_imagine:
             filters:
                 thumbnail: { size: [644, 418], mode: inbount }
                 background: { color: '#FFFFFF' }
-        carousel_tnt:
+        tnt_carousel:
             quality: 100
             filters:
-                thumbnail: { size: [1920, 670], mode: inbount }
+                thumbnail: { size: [1920, 600], mode: inbount }
+                background: { color: '#FFFFFF' }
+        tnt_carousel_bottom:
+            quality: 100
+            filters:
+                thumbnail: { size: [1020, 320], mode: inbount }
                 background: { color: '#FFFFFF' }
         carousel_mountain:
             quality: 100
