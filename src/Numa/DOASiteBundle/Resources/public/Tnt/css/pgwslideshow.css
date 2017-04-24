@@ -215,11 +215,11 @@
     background: #fff;
 }
 .slideshow .pgwSlideshow .ps-list {
-    left: 509px;
-    bottom: 147px;
+    bottom: 45px;
 }
 .listing-images {
     position: relative;
+    border: 1px solid #e1dfdf;
 }
 
 .slideshow .ps-current {
