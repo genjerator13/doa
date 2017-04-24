@@ -261,7 +261,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if(!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
-
         return $sidebarForm;
 
     }
@@ -278,6 +277,14 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaAggMake = new \Elastica\Aggregation\Terms('make');
         $elasticaAggMake->setField('make');
         $elasticaAggMake->setSize($size);
+        //trim
+        $elasticaAggTrim = new \Elastica\Aggregation\Terms('trim');
+        $elasticaAggTrim->setField('trim');
+        $elasticaAggTrim->setSize($size);
+        //bodyStyle
+        $elasticaAggBodyStyle = new \Elastica\Aggregation\Terms('bodyStyle');
+        $elasticaAggBodyStyle->setField('bodyStyle');
+        $elasticaAggBodyStyle->setSize($size);
         //model
         $elasticaAggModel = new \Elastica\Aggregation\Terms('model');
         $elasticaAggModel->setField('model');
@@ -330,6 +337,8 @@ class ElasticSearchController extends Controller implements DealerSiteController
         //$elasticaAggreg->setOrder('_count', 'desc');
 
         $elasticaQuery->addAggregation($elasticaAggMake);
+        $elasticaQuery->addAggregation($elasticaAggTrim);
+        $elasticaQuery->addAggregation($elasticaAggBodyStyle);
         $elasticaQuery->addAggregation($elasticaAggModel);
         $elasticaQuery->addAggregation($elasticaAggSubCat);
         $elasticaQuery->addAggregation($elasticaAggCategory);
@@ -354,6 +363,13 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
         foreach($elasticaAggregs['make']['buckets'] as $sc){
             $result['make'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        }
+
+        foreach($elasticaAggregs['trim']['buckets'] as $sc){
+            $result['trim'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        }
+        foreach($elasticaAggregs['bodyStyle']['buckets'] as $sc){
+            $result['bodyStyle'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
         }
 
         foreach($elasticaAggregs['model']['buckets'] as $sc){

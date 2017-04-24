@@ -77,7 +77,8 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="{{ path("search_all") }}" title="Shop all Inventory">Shop all Inventory</a></li>
+                                <li><a href="{{ path("search_all") }}" title="Shop all Inventory">Shop all Inventory</a>
+                                </li>
                                 <li><a href="#" title="Show me a Deal!">Show me a Deal!</a></li>
                             </ul>
                         </div>
@@ -148,7 +149,8 @@
                         </a>
                         <div class="ctaList">
                             <ul>
-                                <li><a href="{{ path("service_form") }}" title="Book an Appointment">Book an Appointment</a>
+                                <li><a href="{{ path("service_form") }}" title="Book an Appointment">Book an
+                                        Appointment</a>
                                 </li>
                                 <li><a href="{{ path("contactus") }}" title="Speak to a Tech">Speak to a Tech</a></li>
                             </ul>
@@ -161,19 +163,12 @@
 {% endblock %}
 
 {% block content %}
+
     {% set images = displayComponent("homepage_carousel_bottom","carousel") %}
 
     {% if images is not empty %}
         <div class="bscarousel">
             <div id="tntcarousel_bottom" class="carousel slide" data-ride="carousel">
-                {#<!-- Carousel indicators -->#}
-                {#<ol class="carousel-indicators">#}
-                {#{% for image in images %}#}
-                {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
-                {#class="{% if loop.first %}active{% endif %}"></li>#}
-                {#{% endfor %}#}
-
-                {#</ol>#}
                 <!-- Wrapper for carousel items -->
                 <div class="carousel-inner">
                     {% for image in images %}
@@ -198,6 +193,11 @@
 
         </div>
     {% endif %}
-    <h3 class="homeTitle">Welcome to {{ dealer.name }}</h3>
-    {{ dealer.description|raw }}
+    <div class="content">
+        <div class="welcome-content">
+            <div class="alertz hide alert"></div>
+            <h3 class="homeTitle">Welcome to {{ dealer.name }}</h3>
+            {{ dealer.description|raw }}
+        </div>
+    </div>
 {% endblock %}

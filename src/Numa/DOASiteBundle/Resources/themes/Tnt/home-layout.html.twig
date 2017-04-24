@@ -62,14 +62,11 @@
     <h3 class="homeTitle">Featured Used Vehicles</h3>
     {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
 {% endblock %}
-<div class="content">
-    <div class="welcome-content">
-        <div class="alertz hide alert"></div>
+
         {% block content %}
 
         {% endblock %}
-    </div>
-</div>
+
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}
 {% endblock %}

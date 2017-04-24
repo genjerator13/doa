@@ -522,8 +522,23 @@ header.site-header .headerLogo a {
     text-decoration: none;
 }
 
+.features-item {
+    border-bottom: 1px dotted #535353;
+    padding: 10px;
+}
+
+.features-item i{
+    color: #34B665;
+}
+
+
 .option-lists li {
-    color: #f78f1e;
+    color: gray;
+    list-style: none;
+}
+
+ .fieldCaption{
+    font-weight: bold;
 }
 
 .checkbox {
@@ -533,7 +548,7 @@ header.site-header .headerLogo a {
 /* listing detail */
 .detailsContent .row {
     margin: 0px;
-    border: 1px solid lightslategray;
+
 }
 
 .detailsContent .row p {
@@ -575,7 +590,6 @@ header.site-header .headerLogo a {
 
 .searchSideBar {
     border: 1px solid black;
-    min-height: 500px;
     padding-top: 18px;
 }
 
@@ -583,6 +597,13 @@ header.site-header .headerLogo a {
     margin-bottom: 13px;
 }
 
+#searchBarHorisontal ul ul li{
+    min-height: 30px;
+    border: 1px solid red;
+}
+#searchBarHorisontal .dropdown-menu {
+    padding: 0px;
+}
 .page_ads {
     margin-top: 20px;
     float: right;
@@ -659,7 +680,23 @@ header.site-header .headerLogo a {
 .btn-lightgrey {
     background-color: lightgrey;
 }
+.listing-detail-panel {
+    border: 1px solid lightslategray;
+}
 
+.listing-detail-panel a {
+    font-size: 18px;
+}
+.listing-detail-panel a,.listing-detail-panel small {
+    color: #fff;
+}
+.listing-detail-panel .panel-heading{
+    background-image: url("../images/tabs.png");
+    cursor: pointer;
+}
+.listing-detail-panel span {
+    margin-right: 10px;
+}
 /* ==========================================================================
    Info
    ========================================================================== */
@@ -816,19 +853,9 @@ footer .contactFooter a {
     font-weight: 600;
 }
 
-.bs-example {
-    margin-top: -10px;
-}
+#tntcarousel_bottom {
 
-#myCarousel .text_widget {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 100%;
-}
-
-#myCarousel .carousel-inner {
-    max-height: 500px;
+    height: 600px;
 }
 
 .techData .fieldCaption {
