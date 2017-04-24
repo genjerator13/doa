@@ -1,0 +1,21 @@
+<div id="vehicle-description" class="row listing-detail-panel">
+    <div class="panel-group">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div href="#collapseVehicleDesc"
+                     data-toggle="collapse">
+                    <a class="collapsed"><span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>Vehicle
+                        Description</a>
+                    <small class="pull-right">[click to collapse]</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="collapseVehicleDesc" class="panel-collapse collapse">
+        <div class="panel-body">
+            <div class="row">
+                {{ item.currentSellerComment()|raw }}
+            </div>
+        </div>
+    </div>
+</div>
