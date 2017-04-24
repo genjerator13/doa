@@ -575,7 +575,6 @@ header.site-header .headerLogo a {
 
 .searchSideBar {
     border: 1px solid black;
-    min-height: 500px;
     padding-top: 18px;
 }
 
@@ -583,6 +582,13 @@ header.site-header .headerLogo a {
     margin-bottom: 13px;
 }
 
+#searchBarHorisontal ul ul li{
+    min-height: 30px;
+    border: 1px solid red;
+}
+#searchBarHorisontal .dropdown-menu {
+    padding: 0px;
+}
 .page_ads {
     margin-top: 20px;
     float: right;
