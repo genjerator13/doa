@@ -485,6 +485,12 @@ header.site-header .headerLogo a {
 .panel-info .panel-body .input-group{
     margin-bottom: 10px;
 }
+.panel-info .panel-heading{
+    background: #FFF none repeat scroll 0 0;
+}
+.panel-info .panel-body .signInButton{
+    width: 100%;
+}
 
 .content .input-group {
     margin-bottom: 25px
@@ -1284,7 +1290,7 @@ and (max-width: 767px) {
 }
 
 .maincontent .slideshow .big img, .slideshow .big {
-    height: 510px;
+    height: 480px;
     width: 100%;
 }
 
