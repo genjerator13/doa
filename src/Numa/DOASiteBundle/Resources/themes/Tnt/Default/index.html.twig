@@ -7,7 +7,7 @@
 
     {% if images is not empty %}
         <div class="bscarousel">
-            <div id="tntcarousel" class="carousel slide" data-ride="carousel">
+            <div id="tnt-carousel" class="carousel slide" data-ride="carousel">
                 {#<!-- Carousel indicators -->#}
                 {#<ol class="carousel-indicators">#}
                 {#{% for image in images %}#}
@@ -27,10 +27,10 @@
 
                 </div>
                 <!-- Carousel controls -->
-                <a class="carousel-control left" href="#tntcarousel" data-slide="prev">
+                <a class="carousel-control left" href="#tnt-carousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="carousel-control right" href="#tntcarousel" data-slide="next">
+                <a class="carousel-control right" href="#tnt-carousel" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -41,21 +41,6 @@
         </div>
     {% endif %}
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $("#tntcarousel").carousel({
-                interval: 8000,
-                pause: false
-            }).on('slide.bs.carousel', function (e) {
-                var nextH = $(e.relatedTarget).height();
-                console.log(nextH)
-                console.log($(this).find('.active.item').parent())
-                $(this).find('.active.item').parent().animate({
-                    height: nextH
-                }, 500);
-            });
-        });
-    </script>
 {% endblock %}
 {% block buttons %}
     <div class="homepageCTA">
@@ -200,4 +185,11 @@
             {{ dealer.description|raw }}
         </div>
     </div>
+    <script type="text/javascript" src="{{ asset('js/carousel.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            startCarousel("#tnt-carousel", 8000);
+            startCarousel("#tnt-carousel-bottom", 8000);
+        });
+    </script>
 {% endblock %}
