@@ -59,7 +59,7 @@
             </div>
 
             <div class='listing-right col-md-5'>
-                <div class="col-md-12">
+                <div class="row">
                     <div class="row bordergrey">
                         <p>
                             Mileage:
@@ -69,7 +69,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div data="{{ item.id }}" id="item_{{ item.id }}" class="btn-orange-vehicles" url="{{ path('item_compare') }}"  style="border-top: 10px;">
+                        <div data="{{ item.id }}" id="item_{{ item.id }}" class="btn-black-vehicles" url="{{ path('item_compare') }}"  style="border-top: 10px;">
                             <span class="glyphicon glyphicon-check"></span> Add to compare
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row techData">
                     {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
             </div>
