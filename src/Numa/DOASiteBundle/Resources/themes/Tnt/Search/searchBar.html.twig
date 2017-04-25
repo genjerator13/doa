@@ -18,7 +18,7 @@
                 <li><span class="sort-by-label">Year</span></li>
                 <li class="divider"></li>
                 <li id="sortYearDesc" {% if sort_by=='year' and sort_order == 'asc' %}class="active"{% endif %}>
-                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc" >Newest
+                    <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc" >Newest
                         to Oldest</a></li>
                 <li id="sortYearAsc"  {% if sort_by=='year' and sort_order == 'desc' %}class="active"{% endif %}>
                     <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc">Oldest
