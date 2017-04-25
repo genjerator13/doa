@@ -285,6 +285,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $session = $this->getRequest()->getSession();
         $comparedItems = $session->get('comparedItem');
         $em = $this->getDoctrine()->getManager();
+        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
         $listingFields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllOrderedBy('order');
 
@@ -350,11 +351,13 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         }
 //        dump($optionsNames);
         //dump($options);die();
-        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array('fields' => $tempIncludedFields,
-                                                                                        'items' => $temp,
-                                                                                        'optionsNames'=> $optionsNames,
-                                                                                        'options'=> $options,
-                                                                                        ));
+        return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array(
+            'fields' => $tempIncludedFields,
+            'items' => $temp,
+            'optionsNames'=> $optionsNames,
+            'options'=> $options,
+            'dealer'=>$dealer,
+            ));
     }
 
     public function qrcodeAction(Request $request) {

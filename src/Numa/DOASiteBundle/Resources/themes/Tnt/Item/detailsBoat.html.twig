@@ -59,18 +59,23 @@
             </div>
 
             <div class='listing-right col-md-5'>
-                <div class="row">
-                    <div class="row bordergrey">
-                        <p>
-                            Mileage:
-                            {{ item.mileage }}
-                        </p>
+                {% if item.categoryId()==1 or item.categoryId()==3 or item.categoryId()==4 %}
+                    <div class="row">
+                        <div class="row bordergrey">
+                            <p>
+                                Mileage:
+                                {{ item.mileage }}
+                            </p>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
                 <div class="row">
                     <div class="col-md-4">
-                        <div data="{{ item.id }}" id="item_{{ item.id }}" class="btn-black-vehicles" url="{{ path('item_compare') }}"  style="border-top: 10px;">
-                            <span class="glyphicon glyphicon-check"></span> Add to compare
+                        <div class="btn-black-vehicles">
+                            <label>
+                                <input type="checkbox" class="compareAd" data-itemid="{{ item.id }}"
+                                       data-url="{{ path('item_compare') }}"> Add to compare
+                            </label>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -99,183 +104,42 @@
     </div>
     <!-- Button trigger modal -->
     {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+    <script>
+        $(".saveAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            console.log(itemId);
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post("{{ path('item_savead') }}", {
+                itemid: itemId,
+                act: act
+            }, function (data) {
+                htmlx = "";
+                if (data.savedAds > 0) {
+                    htmlx = "(" + data.savedAds + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+        $(".compareAd").on("click", function () {
+            var itemId = $(this).data("itemid");
+            var url = $(this).data("url");
+
+            var act = "add";
+            if (!$(this).prop('checked')) {
+                act = "remove";
+            }
+            var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+                htmlx = "";
+                if (data.comparedItes > 0) {
+                    htmlx = "(" + data.comparedItes + ")";
+                }
+                $('.savedAds').html(htmlx);
+            })
+
+        });
+    </script>
 {% endblock %}
-{#{% block content %}#}
-    {#<div id="details-content" class="details-content">#}
-        {#{% include "@NumaDOAAdmin/flashmsg.html.twig" %}#}
-        {#<div class="row heading-row">#}
-            {#<div class="col-xs-12 col-sm-12 col-md-veh-left-used margin-left-3 col-mobile-padding-10">#}
-                {#<h1 class="heading-year-make-model" itemprop="name">#}
-                    {#<span itemprop="releaseDate">{{ item.year }}</span>#}
-                    {#<span itemprop="manufacturer">{{ item.make }}</span>#}
-                    {#<span itemprop="model">{{ item.getListingTitle }}</span>#}
-                {#</h1>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-12 col-md-veh-right-used margin-left-3 col-mobile-padding-10"></div>#}
-        {#</div>#}
-        {#<div class="row subheading-row">#}
-            {#<div class="col-xs-12 col-sm-12 col-md-veh-left-used col-mobile-3 details-used-six-dig">#}
-                {#<div class="headinggrey-1">#}
-                    {#<h2 class="headinggrey"></h2>#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="col-xs-12 col-sm-12 col-md-veh-right-used col-mobile-3 details-used-six-dig">#}
-                {#{% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}#}
-                    {#<div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">#}
-                        {#<meta itemprop="priceCurrency" content="CAD">#}
-                        {#<span class="vehicle-price-4">Retail Price: </span>#}
-                    {#<span class="vehicle-price-3">#}
-                    {#<span class="vehicle-price-2-new-used retailPrice" itemprop="price">#}
-                        {#{{ price(item.getRetailPrice(),false)|raw }}#}
-                    {#</span>#}
-                        {#</span>#}
-                        {#<div class="disclaimer-price-used">#}
-                            {#<p></p>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#{% endif %}#}
-                {#{% if item.getPrice() is not empty and item.getPrice() > 0 %}#}
-                    {#<div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">#}
-                        {#<meta itemprop="priceCurrency" content="CAD">#}
-                        {#<span class="vehicle-price-4"> Price: </span>#}
-                    {#<span class="vehicle-price-3">#}
-                    {#<span class="vehicle-price-2-new-used" itemprop="price">#}
-                        {#{{ item.getPriceString() }}#}
-                    {#</span>#}
-                    {#</span>#}
-                        {#<div class="disclaimer-price-used">#}
-                            {#<p></p>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#{% endif %}#}
-                {#{% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}#}
-                    {#<div class="prices" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">#}
-                        {#<meta itemprop="priceCurrency" content="CAD">#}
-                        {#<span class="vehicle-price-4"> Price: </span>#}
-                    {#<span class="vehicle-price-3">#}
-                    {#<span class="vehicle-price-2-new-used" itemprop="price">#}
-                        {#Contact Us For A Quote#}
-                    {#</span>#}
-                    {#</span>#}
-                        {#<div class="disclaimer-price-used">#}
-                            {#<p></p>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#{% endif %}#}
-            {#</div>#}
-                {#<div class="col-xs-12 col-sm-12 col-md-veh-right-used">#}
-                    {#<div class="used-veh-basic-info">#}
-                        {#<div class="bordergrey">#}
-                            {#<div class="mileage-used info-top-margin mileage-six-dig-size-used ">#}
-                                {#Mileage:#}
-                                {#<span class="mileage-used-value"#}
-                                      {#itemprop="mileageFromOdometer"> {{ item.mileage }} </span>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="bordergrey-name-phone">#}
-                            {#<div class="mileage-used info-top-padding">#}
-                                {#<span class="glyphicon glyphicon-map-marker"></span>#}
-                                {#<span>{{ dealer.name }}</span>#}
-                            {#</div>#}
-                            {#<div class="mileage-used info-top-padding-phone" style="float: right;">#}
-                                {#<span class="glyphicon glyphicon-phone-alt"> </span>#}
-                                {#<span class="phone-nmb-used-1">#}
-                                {#<a class="click-phonecall-sent" title="tel:{{ dealer.phone }}"#}
-                                   {#href="tel://{{ dealer.phone }}">{{ dealer.phone }}</a>#}
-                                {#</span>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<div class="row margin-buttons-used buttons1">#}
-                            {#<div class="col-xs-12 col-sm-4 col-md-4 used-button-columns">#}
-                                {#<button id="compare_button_used" class="btn-grey-0 btn-grey-vehicles1 cube"#}
-                                        {#onclick="addToCompare(8184305);">Add to compare#}
-                                {#</button>#}
-                            {#</div>#}
-                            {#<div class="col-xs-12 col-sm-4 col-md-4 used-button-columns">#}
-                                {#<button id="apply-for-finance" class="btn-orange-vehicles1 dollar-sign"#}
-                                        {#data-toggle="modal" data-target="#apply-for-financing-Modal">Apply for Financing#}
-                                {#</button>#}
-                            {#</div>#}
-                            {#<div class="col-xs-12 col-sm-4 col-md-4 used-button-columns">#}
-                                {#<button id="request-info" class="btn-orange-vehicles1 i-sign">Request Information#}
-                                {#</button>#}
-                            {#</div>#}
-                            {#<div id="apply-for-financing-Modal" class="modal fade" tabindex="-1" role="dialog"#}
-                                 {#aria-labelledby="myModalLabel" aria-hidden="true">#}
-                                {#<div id="e-Price-Modal" class="modal fade" tabindex="-1" role="dialog"#}
-                                     {#aria-labelledby="myModalLabelePrice" aria-hidden="true">#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {#<table class="table mobile-margin">#}
-                            {#<tbody>#}
-                            {#<tr class="tr-even-used">#}
-                                {#<td class="col-used-label">Body Style:</td>#}
-                                {#<td class="col-used-value" itemprop="bodyType">{{ item.bodyStyle }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-odd-used">#}
-                                {#<td class="col-used-label">Engine:</td>#}
-                                {#<td class="col-used-value" itemprop="vehicleEngine"> {{ item.engine }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-even-used">#}
-                                {#<td class="col-used-label">Exterior:</td>#}
-                                {#<td class="col-used-value" itemprop="color">{{ item.exteriorColor }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-odd-used">#}
-                                {#<td class="col-used-label">Interior:</td>#}
-                                {#<td class="col-used-value" itemprop="vehicleInteriorColor">{{ item.interiorColor }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-even-used">#}
-                                {#<td class="col-used-label">Fuel type:</td>#}
-                                {#<td class="col-used-value" itemprop="fuelType">{{ item.fuelType }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-odd-used">#}
-                                {#<td class="col-used-label">Transmission:</td>#}
-                                {#<td class="col-used-value" itemprop="vehicleTransmission"> {{ item.transmission }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-even-used">#}
-                                {#<td class="col-used-label">Drivetrain:</td>#}
-                                {#<td class="col-used-value" itemprop="driveWheelConfiguration">{{ item.driveType }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-odd-used">#}
-                                {#<td class="col-used-label">Stock #:</td>#}
-                                {#<td class="col-used-value" itemprop="sku">{{ item.stockNr }}</td>#}
-                            {#</tr>#}
-                            {#<tr class="tr-even-used">#}
-                                {#<td class="col-used-label">Trim Details:</td>#}
-                                {#<td class="col-used-value" style="font-size: 13px !important;">{{ item.trim }}</td>#}
-                            {#</tr>#}
-                            {#</tbody>#}
-                        {#</table>#}
-                        {#<h5 id="dscLabel" class="description-used">Description</h5>#}
-                        {#<div id="dscLess" class="description description-padding-0"#}
-                             {#style=" overflow-y: hidden; display: block; padding-left: 0px;">#}
-                            {#DESCRIPTION#}
-                            {#<a id="readMore" style="cursor: pointer;color: #0087ce;">.....Read More</a>#}
-                        {#</div>#}
-                        {#<div id="dscFull" class="description description-padding-0"#}
-                             {#style="overflow-y: hidden; display: none; padding-left: 0px;">#}
-                            {#<span itemprop="description">#}
-                                {#{{ item.currentSellerComment()|raw }}#}
-                            {#</span>#}
-                            {#<a id="readLess" style="cursor: pointer;color: #0087ce;">.....Read Less</a>#}
-                        {#</div>#}
-                        {#<script>#}
-                            {#jQuery("#readMore").click(function () {#}
-                                {#jQuery("#dscLess").css("display", "none");#}
-                                {#jQuery("#dscFull").css("display", "block");#}
-                            {#});#}
-                            {#jQuery("#readLess").click(function () {#}
-                                {#jQuery("#dscLess").css("display", "block");#}
-                                {#jQuery("#dscFull").css("display", "none");#}
-                            {#});#}
-                        {#</script>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
-            {#<div class="row hr-row">#}
-                {#<hr width="100%">#}
-            {#</div>#}
-
-
-{#{% endblock %}#}
