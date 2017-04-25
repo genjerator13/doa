@@ -1418,3 +1418,25 @@ and (max-width: 767px) {
 .maincontent .btn-orange-vehicles span{
     font-size:14px;
 }
+
+
+#loading-indicator {
+    display: none;
+//background-color: rgba(0, 0, 0, 0.5);
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10000;
+}
+
+.loading_info i {
+    left: 50%;
+    margin: auto;
+    position: fixed;
+    top: 50%;
+}
+.detailsContent .listing-images{
+    margin-top: 20px;
+}
