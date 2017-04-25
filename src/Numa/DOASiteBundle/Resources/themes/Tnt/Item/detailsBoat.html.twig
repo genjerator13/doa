@@ -69,10 +69,9 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
-                                data-target="#finance">
-                            <span class="glyphicon glyphicon-usd"></span> Apply for Financing
-                        </button>
+                        <div data="{{ item.id }}" id="item_{{ item.id }}" class="btn-orange-vehicles" url="{{ path('item_compare') }}"  style="border-top: 10px;">
+                            <span class="glyphicon glyphicon-check"></span> Add to compare
+                        </div>
                     </div>
                     <div class="col-md-4">
                         <button type="button" class="btn-orange-vehicles" data-toggle="modal"
@@ -88,7 +87,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    {% include 'NumaDOASiteBundle:Item:carDetailsSmallLb.html.twig' %}
+                    {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
                 </div>
             </div>
         </div>

@@ -1391,6 +1391,12 @@ and (max-width: 767px) {
     border-radius:2px;
     word-wrap: break-word;
 }
+.maincontent .btn-orange-vehicles:hover
+{
+    color: #ffffff !important;
+    background-color: #D05301 !important;
+    border-color: none !important;
+}
 
 .maincontent .btn-orange-vehicles span{
     font-size:14px;
