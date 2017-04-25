@@ -37,6 +37,10 @@ Numa\DOADMSBundle\Entity\DealerComponent:
              type: string
              length: 255
              nullable: true
+        theme:
+             type: string
+             length: 255
+             nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords

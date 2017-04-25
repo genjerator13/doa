@@ -1,4 +1,4 @@
-{% set button1 = displayComponent(button,'image_object') %}
+{% set button1 = displayComponent(button,'image_object','page','forest') %}
 
 <div class="button {% if button1 is empty %}b{{ num }}{% endif %}">
     <a href=" {% if button1 is not empty and button1.url is not empty %}{{ button1.url }}{% else %}#{% endif %}" class="xxxx">
@@ -9,6 +9,6 @@
         {% endif %}
     </a>
     {% if button1 is not empty and button1 is not empty %}
-        {{ component.image(button1.src, 'btn'~num, '', 'forest_button') }}
+        {{ component.image(button1.src, 'btn'~num, '', 'forest_button','page','forest') }}
     {% endif %}
 </div>
