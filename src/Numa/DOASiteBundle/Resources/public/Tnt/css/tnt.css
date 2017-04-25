@@ -604,6 +604,20 @@ header.site-header .headerLogo a {
 #searchBarHorisontal .dropdown-menu {
     padding: 0px;
 }
+
+.shortDetails h4 a, .shortDetails h4{
+    color: #102938;
+}
+
+.shortDetails h4 .price-value {
+    color: #34b665;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 26px;
+    font-weight: normal;
+}
+
+
+
 .page_ads {
     margin-top: 20px;
     float: right;
@@ -860,6 +874,26 @@ footer .contactFooter a {
 
 .techData .fieldCaption {
     font-weight: bold;
+}
+
+.techData .table td{
+    padding: 3px;
+}
+
+.techData .table td.table-col-1{
+    color: #717070;
+    font-size: 12px ;
+    text-align: left;
+}
+.techData .table td.table-col-2 {
+    border: medium none;
+    color: #090909;
+    font-size: 12px ;
+    font-weight: bold;
+    text-align: left;
+}
+.techData .table td.table-col-2{
+
 }
 
 ul.techData {

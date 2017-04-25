@@ -150,15 +150,7 @@
     {% endif %}
     <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
     <span class="sort">Sort by:
-        {#<a href="{{ sortPicturesUrl }}">#}
-        {#{% if sort_by=='pictures' and sort_order=='asc' %}#}
-        {#<i class="glyphicon glyphicon-sort-by-attributes"></i>#}
-        {#{% elseif(sort_by=='pictures' and sort_order=='desc') %}#}
-        {#<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>#}
-        {#{% endif %}#}
-        {#Photos#}
-        {#</a>#}
-        {#|#}
+
         <a href="{{ sortYearUrl }}">
             {% if sort_by=='year' and sort_order=='asc' %}
                 <i class="glyphicon glyphicon-sort-by-attributes"></i>
@@ -194,15 +186,6 @@
                         {% endif %}
                         Price
                     </a>
-        {#|#}
-        {#<a href="{{ sortDateUrl }}">#}
-        {#{% if sort_by=='date_created' and sort_order=='asc' %}#}
-        {#<i class="glyphicon glyphicon-sort-by-attributes"></i>#}
-        {#{% elseif(sort_by=='date_created' and sort_order=='desc') %}#}
-        {#<i class="glyphicon glyphicon-sort-by-attributes-alt"></i>#}
-        {#{% endif %}#}
-        {#Date#}
-        {#</a>#}
                 </span>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">
@@ -211,42 +194,9 @@
 </div>
 
 {% endif %}
-{#<div class="row">#}
-    {#<div class="searchSidebar col-md-2">#}
-        {#{{ form(sidebarForm) }}#}
-        {#<script>#}
-            {#var treeDataCar = '{{jsonCar|raw }}';#}
-            {#//var treeDataRvs = '{{jsonRvs|raw }}';#}
 
-            {#treeX = function (make, model, treeData) {#}
-
-                {#$(make).change(function () {#}
-
-                    {#jsonTree = JSON.parse(treeData);#}
-
-                    {#var modelJson = jsonTree[$(make).val()];#}
-                    {#$(model).html($("<option />").val(0).text("Any Model"));#}
-                    {#$.each(modelJson, function (i) {#}
-                        {#var test = modelJson[i];#}
-                        {#var key = "";#}
-                        {#var value = "";#}
-                        {#for (var keyx in modelJson[i]) {#}
-                            {#key = keyx;#}
-                            {#value = test[keyx];#}
-                        {#}#}
-                        {#$(model).append($("<option />").val(value).text(value))#}
-                    {#});#}
-                {#});#}
-            {#}#}
-
-            {#$(document).ready(function () {#}
-                {#treeX('#make', '#model', treeDataCar);#}
-                {#//treeX('#makeRvs', '#modelRvs', treeDataRvs);#}
-            {#});#}
-        {#</script>#}
-    {#</div>#}
 <div class="row">
-    <div class="searchResults col-md-8">
+    <div class="searchResults col-md-9">
         {% if pagerfanta is not empty %}
             <div id="listing-content">
                 {#<div class="page_ads">#}
@@ -269,7 +219,7 @@
         {% endif %}
     </div>
 
-    <div class="searchSideBar col-md-4">
+    <div class="searchSideBar col-md-3">
         {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
     </div>
     <div class="page_ads">
