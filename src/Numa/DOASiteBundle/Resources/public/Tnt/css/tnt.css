@@ -646,15 +646,30 @@ header.site-header .headerLogo a {
     margin-bottom: 20px;
 }
 
-.detailsContent .retail_price {
-    color: #f78f1e;
-    text-decoration-line: line-through;
-    font-size: 130%;
-}
-
 .detailsContent .price {
-    font-size: 160%;
-    font-weight: bold;
+    color: #000000;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+}
+.detailsContent .price .price_value {
+    color: #2e9015;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 31px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+.detailsContent .price .retail_price_value {
+    color: red;
+    text-decoration:line-through;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 31px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-align: right;
 }
 
 .detailsContent .price-quote {
@@ -663,6 +678,7 @@ header.site-header .headerLogo a {
 }
 
 .title {
+    font-size: 24px;
     color: black;
 }
 
@@ -1332,4 +1348,23 @@ and (max-width: 767px) {
     font-size: 15px;
     font-weight: 600;
     height: 46px!important;
+}
+.maincontent .btn-orange-vehicles{
+    background-color: #ff6900;
+    border-color: none;
+    height: 40px;
+    margin-top: 0px;
+    min-width:113px;
+    width:100%;
+    border:none !important;
+    color:#ffffff;
+    font-size:12px;
+    font-weight:400;
+    text-align:center;
+    border-radius:2px;
+    word-wrap: break-word;
+}
+
+.maincontent .btn-orange-vehicles span{
+    font-size:14px;
 }
