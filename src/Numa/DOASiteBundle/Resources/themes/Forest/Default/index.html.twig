@@ -17,7 +17,7 @@
 {% endblock %}
 {% block banner %}
 
-    {% set images = displayComponent("forest_homepage_carousel","carousel") %}
+    {% set images = displayComponent("forest_homepage_carousel","carousel",'page','forest') %}
 
     <div class="bs-example">
         <div id="myCarousel" class="carousel slide carousel-fade" data-ride="carousel">
@@ -67,8 +67,8 @@
         {#{{ displayComponent('welcome_text',"HTML")|raw }}#}
     </div>
     <div class="brands">
-        {% set brands = displayComponent("forest_brands_images","carousel") %}
-        {% set brandstext = displayComponent("forest_brands_images","image_text") %}
+        {% set brands = displayComponent("forest_brands_images","carousel",'page','forest') %}
+        {% set brandstext = displayComponent("forest_brands_images","image_text",'page','forest') %}
 
         <h1>{% if brandstext is empty or brandstext is not defined %}
                 brands

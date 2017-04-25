@@ -61,7 +61,7 @@
 
     {% block banner %}
 
-        {% set images = displayComponent("homepage_carousel","carousel") %}
+        {% set images = displayComponent("homepage_carousel","carousel",'page','garden') %}
 
         {% if images is not empty %}
         <div class="bs-example">
@@ -121,39 +121,6 @@
         {% if quick_links != '' %}
             {{ include(template_from_string(quick_links)) }}
         {% endif %}
-        {#{% if quick_links == '' %}<div class="link">#}
-            {#<a href="">#}
-                {#<span class="specials icon"></span>#}
-                {#<span>Specials</span>#}
-            {#</a>#}
-        {#</div>#}
-
-            {#<div class="link">#}
-                {#<a href="">#}
-                    {#<span class="car-finder icon"></span>#}
-                    {#<span>Car Finder</span>#}
-                {#</a>#}
-            {#</div>#}
-
-            {#<div class="link">#}
-                {#<a href="">#}
-                    {#<span class="translate-site icon"></span>#}
-                    {#<span>Translate Site</span></a>#}
-            {#</div>#}
-
-            {#<div class="link">#}
-                {#<a href="">#}
-                    {#<span class="directions icon"></span>#}
-                    {#<span>Directions</span></a>#}
-            {#</div>#}
-
-            {#<div class="link">#}
-                {#<a href="">#}
-                    {#<span class="contact icon"></span>#}
-                    {#<span>Contact</span></a>#}
-            {#</div>#}
-        {#{% endif %}#}
-        {##}
     </div>
 
     {% block featuredads %}

@@ -143,7 +143,7 @@ class NumaExtension extends \Twig_Extension
         return $page;
     }
 
-    public function displayComponent($name, $type = "Text", $source = "page")
+    public function displayComponent($name, $type = "Text", $source = "page",$theme="")
     {
 
         $criteria = Criteria::create()
@@ -194,6 +194,7 @@ class NumaExtension extends \Twig_Extension
                     $comp = new Component();
                     $comp->setName($name);
                     $comp->setType($type);
+                    $comp->setTheme($theme);
                     $pc = new PageComponent();
                     $pc->setComponent($comp);
                     $pc->setPage($page);
@@ -206,6 +207,7 @@ class NumaExtension extends \Twig_Extension
                     $comp = new DealerComponent();
                     $comp->setDealer($dealer);
                     $comp->setName($name);
+                    $comp->setTheme($theme);
                     $comp->setType($type);
                     $em->persist($comp);
 
@@ -214,6 +216,10 @@ class NumaExtension extends \Twig_Extension
                 }
             }
         } else {
+            if(!empty($theme) && ($component instanceof Component || $component instanceof DealerComponent) && strtolower($component->getTheme())!==strtolower($theme)){
+                $component->setTheme($theme);
+                $em->flush();
+            }
             $value = $component->getValue();
 
         }
