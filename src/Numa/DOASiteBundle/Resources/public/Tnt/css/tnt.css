@@ -1277,7 +1277,7 @@ and (max-width: 767px) {
 }
 
 .maincontent .slideshow .big img, .slideshow .big {
-    height: 430px;
+    height: 480px;
     width: 100%;
 }
 
@@ -1390,6 +1390,24 @@ and (max-width: 767px) {
     border-radius:2px;
     word-wrap: break-word;
 }
+
+.maincontent .btn-black-vehicles{
+    background-color: black;
+    border-color: none;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 0px;
+    min-width:113px;
+    width:100%;
+    border:none !important;
+    color:#ffffff;
+    font-size:12px;
+    font-weight:400;
+    text-align:center;
+    border-radius:2px;
+    word-wrap: break-word;
+}
+
 .maincontent .btn-orange-vehicles:hover
 {
     color: #ffffff !important;
