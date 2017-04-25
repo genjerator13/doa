@@ -61,6 +61,11 @@
                             <a href="{{ detailUrl }}" class="btn btn-warning"><span>Details</span></a>
                         </div>
                     </li>
+                    <li>
+                        <button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i
+                                    class="fa fa-money"></i> Get ePrice
+                        </button>
+                    </li>
                 </ul>
                 {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">

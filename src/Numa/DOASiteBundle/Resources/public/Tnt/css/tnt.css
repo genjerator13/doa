@@ -470,6 +470,9 @@ header.site-header .headerLogo a {
 /* ==========================================================================
    Content
    ========================================================================== */
+.maincontent{
+    margin-top: 20px;
+}
 .content .panel-heading {
     background-color: black;
     color: #f78f1e;
@@ -479,10 +482,14 @@ header.site-header .headerLogo a {
 .content .panel-body {
     padding-top: 30px
 }
+.panel-info .panel-body .input-group{
+    margin-bottom: 10px;
+}
 
 .content .input-group {
     margin-bottom: 25px
 }
+
 
 .content {
     border-bottom: 1px dotted #959595;
@@ -887,9 +894,9 @@ footer .contactFooter a {
     font-weight: 600;
 }
 
-/*#tntcarousel_bottom {*/
-    /**/
-/*}*/
+#tntcarousel_bottom {
+    top: 20px;
+}
 
 .techData .fieldCaption {
     font-weight: bold;
@@ -1277,7 +1284,7 @@ and (max-width: 767px) {
 }
 
 .maincontent .slideshow .big img, .slideshow .big {
-    height: 480px;
+    height: 510px;
     width: 100%;
 }
 
