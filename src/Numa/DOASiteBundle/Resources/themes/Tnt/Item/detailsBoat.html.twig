@@ -45,15 +45,15 @@
 {% block content %}
     <div class="detailsContent">
         {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
-        <div class="row">
-            <div class="col-md-6">
-                {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
-            </div>
-            <div class="col-md-6">
-                {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-            </div>
-        </div>
         <div class="listing-images row">
+            <div class="row">
+                <div class="col-md-6">
+                    {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+                </div>
+                <div class="col-md-6">
+                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                </div>
+            </div>
             <div class="left col-md-7">
                 {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
             </div>

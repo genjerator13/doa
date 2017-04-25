@@ -1419,3 +1419,6 @@ and (max-width: 767px) {
 .maincontent .btn-orange-vehicles span{
     font-size:14px;
 }
+.detailsContent .listing-images{
+    margin-top: 20px;
+}
