@@ -4,7 +4,7 @@
 {% if images|length==1 %}
     {% set image = images|first %}
     {% if ('http' not in image.fieldStringValue) %}
-        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
+        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','640px') }}
     {% else %}
         {% set videoid="" %}
         {% set img=image.fieldStringValue %}
