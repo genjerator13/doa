@@ -215,6 +215,10 @@ header.site-header .headerLogo a {
     z-index: 0;
 }
 
+.pagination {
+    margin:0px;
+}
+
 /* ==========================================================================
    Mobile Menu
    ========================================================================== */
@@ -1093,8 +1097,31 @@ and (max-width: 767px) {
     font-weight: normal;
 }
 
+.search-bar .sorter .divider {
+    background-color: #e5e5e5;
+    height: 1px;
+    margin: 0;
+    overflow: hidden;
+}
+.search-bar .sorter .sort-dropdown {
+    border-radius: 0 ;
+    height: auto ;
+    margin: 6px -99px 0 0 ;
+    padding: 15px ;
+    width: 174px ;
+}
+
+.search-bar {
+    margin: 20px 0;
+
+}
+
 .dontshow {
     display: none;
+}
+
+.search-bar .nopadding{
+    padding:0;
 }
 
 .coupons-container {
