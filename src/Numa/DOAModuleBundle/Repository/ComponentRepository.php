@@ -58,4 +58,29 @@ class ComponentRepository extends EntityRepository
         }
     }
 
+    public function findDealerComponentByDealerId($dealer)
+    {
+        $dealer_id = $dealer;
+        $theme="";
+        if($dealer instanceof Catalogrecords){
+            $dealer_id = $dealer->getId();
+            $theme=$dealer->getSiteTheme();
+        }
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+
+        $qb->select('dc')
+            ->add('from', 'NumaDOADMSBundle:DealerComponent dc')
+            ->andWhere('dc.dealer_id like :dealer_id');
+        if(!empty($theme)) {
+            $qb->andWhere('dc.theme=:theme OR dc.theme IS NULL');
+            $qb->setParameter('theme', $dealer->getSiteTheme());
+        }
+        $qb->setParameter('dealer_id', $dealer->getId());
+
+        $components = $qb->getQuery()->getResult();
+
+        return $components;
+    }
+
 }

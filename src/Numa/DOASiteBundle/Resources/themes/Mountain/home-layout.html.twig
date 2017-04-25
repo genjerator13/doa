@@ -62,7 +62,7 @@
     {% endblock %}
     <div class="container">
 
-        {% set images = displayComponent("homepage_carousel","carousel") %}
+        {% set images = displayComponent("homepage_carousel","carousel","page","mountain") %}
 
         {% if images is not empty %}
             <div class="bottom-margin">
@@ -91,11 +91,11 @@
 
 
         <div class="row">
-            {% set button1 = displayComponent('mountain_button_1','image_object') %}
-            {% set button2 = displayComponent('mountain_button_2','image_object') %}
-            {% set button3 = displayComponent('mountain_button_3','image_object') %}
-            {% set button4 = displayComponent('mountain_button_4','image_object') %}
-            {% set button5 = displayComponent('mountain_button_5','image_object') %}
+            {% set button1 = displayComponent('mountain_button_1','image_object',"page","mountain") %}
+            {% set button2 = displayComponent('mountain_button_2','image_object',"page","mountain") %}
+            {% set button3 = displayComponent('mountain_button_3','image_object',"page","mountain") %}
+            {% set button4 = displayComponent('mountain_button_4','image_object',"page","mountain") %}
+            {% set button5 = displayComponent('mountain_button_5','image_object',"page","mountain") %}
 
             <div class="button {% if button1 is empty %}b1{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
 

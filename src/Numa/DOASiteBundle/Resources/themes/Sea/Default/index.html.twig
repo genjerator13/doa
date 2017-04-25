@@ -3,11 +3,11 @@
 
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel") %}
+    {% set images = displayComponent("homepage_carousel","carousel","page","sea") %}
 
     {% if images is not empty %}
         <div class="bs-example">
-            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div id="sea-carousel" class="carousel slide" data-ride="carousel">
                 {#<!-- Carousel indicators -->#}
                 {#<ol class="carousel-indicators">#}
                     {#{% for image in images %}#}
@@ -27,10 +27,10 @@
 
                 </div>
                 <!-- Carousel controls -->
-                <a class="carousel-control left" href="#myCarousel" data-slide="prev">
+                <a class="carousel-control left" href="#sea-carousel" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
-                <a class="carousel-control right" href="#myCarousel" data-slide="next">
+                <a class="carousel-control right" href="#sea-carousel" data-slide="next">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             </div>
@@ -41,29 +41,20 @@
         </div>
     {% endif %}
 
+    <script type="text/javascript" src="{{ asset('js/carousel.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#myCarousel").carousel({
-                interval: 8000,
-                pause: false
-            }).on('slide.bs.carousel', function (e) {
-                var nextH = $(e.relatedTarget).height();
-                console.log(nextH)
-                console.log( $(this).find('.active.item').parent() )
-                $(this).find('.active.item').parent().animate({
-                    height: nextH
-                }, 500);
-            });
+            startCarousel("#sea-carousel", 8000);
         });
     </script>
+
 {% endblock %}
 {% block buttons %}
     <div class="buttons">
-
         <ul>
             <li>
-                {% if displayComponent('sea_small_button1',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button1',"HTML")|raw }}
+                {% if displayComponent('sea_small_button1',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button1',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("search_new_vehicle") }}">
                     <span class="left-arrow">
@@ -75,8 +66,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button2',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button2',"HTML")|raw }}
+                {% if displayComponent('sea_small_button2',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("search_used_vehicle") }}">
                     <span class="left-arrow">
@@ -88,8 +79,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button3',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button3',"HTML")|raw }}
+                {% if displayComponent('sea_small_button3',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button3',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("finance_form") }}">
                     <span class="left-arrow">
@@ -101,8 +92,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button4',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button4',"HTML")|raw }}
+                {% if displayComponent('sea_small_button4',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button4',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("service_form") }}">
                     <span class="left-arrow">
@@ -122,8 +113,8 @@
 
         <ul>
             <li>
-                {% if displayComponent('sea_large_button5',"HTML") is not empty %}
-                    {{ displayComponent('sea_large_button5',"HTML")|raw }}
+                {% if displayComponent('sea_large_button5',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button5',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("news") }}">
                         <span class="link-title"><span>Dealer</span> News</span>
@@ -132,8 +123,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_large_button6',"HTML") is not empty %}
-                    {{ displayComponent('sea_large_button6',"HTML")|raw }}
+                {% if displayComponent('sea_large_button6',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button6',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path('part_form') }}">
                         <span class="link-title"><span>Parts</span> Department</span>
