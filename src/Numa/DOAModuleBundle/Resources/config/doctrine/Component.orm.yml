@@ -37,6 +37,10 @@ Numa\DOAModuleBundle\Entity\Component:
         date_created:
              type: datetime
              nullable: true
+        theme:
+             type: string
+             nullable: true
+             length: 255
         status:
              type: string
              length: 255
