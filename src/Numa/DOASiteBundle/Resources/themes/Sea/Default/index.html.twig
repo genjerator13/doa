@@ -56,14 +56,14 @@
             });
         });
     </script>
+    
 {% endblock %}
 {% block buttons %}
     <div class="buttons">
-
         <ul>
             <li>
-                {% if displayComponent('sea_small_button1',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button1',"HTML")|raw }}
+                {% if displayComponent('sea_small_button1',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button1',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("search_new_vehicle") }}">
                     <span class="left-arrow">
@@ -75,8 +75,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button2',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button2',"HTML")|raw }}
+                {% if displayComponent('sea_small_button2',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("search_used_vehicle") }}">
                     <span class="left-arrow">
@@ -88,8 +88,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button3',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button3',"HTML")|raw }}
+                {% if displayComponent('sea_small_button3',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button3',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("finance_form") }}">
                     <span class="left-arrow">
@@ -101,8 +101,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button4',"HTML") is not empty %}
-                    {{ displayComponent('sea_small_button4',"HTML")|raw }}
+                {% if displayComponent('sea_small_button4',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_small_button4',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("service_form") }}">
                     <span class="left-arrow">
@@ -122,8 +122,8 @@
 
         <ul>
             <li>
-                {% if displayComponent('sea_large_button5',"HTML") is not empty %}
-                    {{ displayComponent('sea_large_button5',"HTML")|raw }}
+                {% if displayComponent('sea_large_button5',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button5',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("news") }}">
                         <span class="link-title"><span>Dealer</span> News</span>
@@ -132,8 +132,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_large_button6',"HTML") is not empty %}
-                    {{ displayComponent('sea_large_button6',"HTML")|raw }}
+                {% if displayComponent('sea_large_button6',"HTML","page","sea") is not empty %}
+                    {{ displayComponent('sea_large_button6',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path('part_form') }}">
                         <span class="link-title"><span>Parts</span> Department</span>

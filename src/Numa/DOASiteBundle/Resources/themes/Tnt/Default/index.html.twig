@@ -3,7 +3,7 @@
 
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel") %}
+    {% set images = displayComponent("homepage_carousel","carousel","page","Tnt") %}
 
     {% if images is not empty %}
         <div class="bscarousel">
@@ -164,7 +164,7 @@
 
 {% block content %}
 
-    {% set images = displayComponent("homepage_carousel_bottom","carousel") %}
+    {% set images = displayComponent("homepage_carousel_bottom","carousel","page","Tnt") %}
 
     {% if images is not empty %}
         <div class="bscarousel">
