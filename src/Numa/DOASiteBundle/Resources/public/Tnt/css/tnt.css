@@ -887,9 +887,9 @@ footer .contactFooter a {
     font-weight: 600;
 }
 
-/*#tntcarousel_bottom {*/
-    /**/
-/*}*/
+#tntcarousel_bottom {
+    top: 20px;
+}
 
 .techData .fieldCaption {
     font-weight: bold;
