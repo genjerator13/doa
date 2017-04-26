@@ -129,3 +129,6 @@ dms_quickbooks:
 numa_qb:
     resource: "@NumaQBBundle/Resources/config/routing.yml"
     prefix:   /quickbooks
+NumaDOADMSBundle_financeservice:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/financeservice.yml"
+    prefix:   /financeservice

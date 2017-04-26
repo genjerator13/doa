@@ -1453,3 +1453,7 @@ and (max-width: 767px) {
 .detailsContent .listing-images{
     margin-top: 20px;
 }
+
+.container .row .inputGroup{
+    margin-bottom: 20px;
+}
