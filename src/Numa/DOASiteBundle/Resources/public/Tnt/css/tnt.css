@@ -470,6 +470,9 @@ header.site-header .headerLogo a {
 /* ==========================================================================
    Content
    ========================================================================== */
+.maincontent{
+    margin-top: 20px;
+}
 .content .panel-heading {
     background-color: black;
     color: #f78f1e;
@@ -479,10 +482,14 @@ header.site-header .headerLogo a {
 .content .panel-body {
     padding-top: 30px
 }
+.panel-info .panel-body .input-group{
+    margin-bottom: 10px;
+}
 
 .content .input-group {
     margin-bottom: 25px
 }
+
 
 .content {
     border-bottom: 1px dotted #959595;
