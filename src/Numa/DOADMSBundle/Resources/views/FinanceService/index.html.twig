@@ -1,137 +1,56 @@
-    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
 
-{% block content -%}
-<div class="box">
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:FinanceService:FinanceService.js.twig' %}
+    </script>
+{% endblock javascripts %}
+
+
+{% block content %}
+
+
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+    <div class="box">
     <div class="box-header">
-        <h3 class="box-title">FinanceService list</h3>
-        <div class="box-tools">
-            
-                        <a href="{{ path('financeservice_new') }}" class="btn btn-primary">
-                            Create a new FinanceService
-                        </a>
-                    </div>
-    </div>
-    <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Dealer_id</th>
-                <th>Customer_id</th>
-                <th>Cust_name</th>
-                <th>Cust_last_name</th>
-                <th>Preferred_contact</th>
-                <th>Email</th>
-                <th>Day_phone</th>
-                <th>Cell_phone</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip_code</th>
-                <th>Ssn_sin_nr</th>
-                <th>Birth_date</th>
-                <th>Residence_type</th>
-                <th>Monthly_payment</th>
-                <th>At_residence</th>
-                <th>Landlord_name</th>
-                <th>Landlord_phone</th>
-                <th>Employer_name</th>
-                <th>Employer_occupation</th>
-                <th>Employer_monthly_income</th>
-                <th>Employer_on_job</th>
-                <th>Employer_business_phone</th>
-                <th>Employer_address</th>
-                <th>Employer_city</th>
-                <th>Employer_state</th>
-                <th>Employer_zip</th>
-                <th>Supervisors_name</th>
-                <th>Other_name</th>
-                <th>Other_address</th>
-                <th>Other_city</th>
-                <th>Other_state</th>
-                <th>Other_zip</th>
-                <th>Other_home_phone</th>
-                <th>Other_work_phone</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Vehicle_type</th>
-                <th>Plate</th>
-                <th>Vin</th>
-                <th>Mileage</th>
-                <th>Financed_by</th>
-                <th>Message_text</th>
-                <th>Date_updated</th>
-                <th>Date_created</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('financeservice_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.dealerid }}</td>
-                <td>{{ entity.customerid }}</td>
-                <td>{{ entity.custname }}</td>
-                <td>{{ entity.custlastname }}</td>
-                <td>{{ entity.preferredcontact }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.dayphone }}</td>
-                <td>{{ entity.cellphone }}</td>
-                <td>{{ entity.address }}</td>
-                <td>{{ entity.city }}</td>
-                <td>{{ entity.state }}</td>
-                <td>{{ entity.zipcode }}</td>
-                <td>{{ entity.ssnsinnr }}</td>
-                <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.residencetype }}</td>
-                <td>{{ entity.monthlypayment }}</td>
-                <td>{% if entity.atresidence %}{{ entity.atresidence|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.landlordname }}</td>
-                <td>{{ entity.landlordphone }}</td>
-                <td>{{ entity.employername }}</td>
-                <td>{{ entity.employeroccupation }}</td>
-                <td>{{ entity.employermonthlyincome }}</td>
-                <td>{% if entity.employeronjob %}{{ entity.employeronjob|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.employerbusinessphone }}</td>
-                <td>{{ entity.employeraddress }}</td>
-                <td>{{ entity.employercity }}</td>
-                <td>{{ entity.employerstate }}</td>
-                <td>{{ entity.employerzip }}</td>
-                <td>{{ entity.supervisorsname }}</td>
-                <td>{{ entity.othername }}</td>
-                <td>{{ entity.otheraddress }}</td>
-                <td>{{ entity.othercity }}</td>
-                <td>{{ entity.otherstate }}</td>
-                <td>{{ entity.otherzip }}</td>
-                <td>{{ entity.otherhomephone }}</td>
-                <td>{{ entity.otherworkphone }}</td>
-                <td>{{ entity.make }}</td>
-                <td>{{ entity.model }}</td>
-                <td>{{ entity.year }}</td>
-                <td>{{ entity.vehicletype }}</td>
-                <td>{{ entity.plate }}</td>
-                <td>{{ entity.vin }}</td>
-                <td>{{ entity.mileage }}</td>
-                <td>{{ entity.financedby }}</td>
-                <td>{{ entity.messagetext }}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
-                <td><ul>
-        <li>
-            <a href="{{ path('financeservice_show', { 'id': entity.id }) }}">show</a>
-        </li>
-        <li>
-            <a href="{{ path('financeservice_edit', { 'id': entity.id }) }}">edit</a>
-        </li>
-</ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <div class="box-header">
+            <h3 class="box-title">Finance Service list</h3>
 
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding" ng-app="app">
+
+        <div ng-controller="MainCtrl">
+            {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
+
+            <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+        </div>
+    </div>
 {% endblock %}

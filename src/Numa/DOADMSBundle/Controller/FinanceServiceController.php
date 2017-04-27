@@ -21,12 +21,12 @@ class FinanceServiceController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('NumaDOADMSBundle:FinanceService')->findAll();
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
 
         return $this->render('NumaDOADMSBundle:FinanceService:index.html.twig', array(
-            'entities' => $entities,
+            'dealer'=>$dealer,
+            'dealerPrincipal'=>$dealerPrincipal
         ));
     }
     /**
@@ -220,5 +220,20 @@ class FinanceServiceController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+
+    /**
+     * @param Request $request
+     * Deactivates elected listings in datagrid on listing list page
+     */
+    public function massDeleteAction(Request $request) {
+
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+
+        $em = $this->getDoctrine()->getManager();
+
+        $qb = $em->getRepository("NumaDOADMSBundle:FinanceService")->delete($ids);
+        die();
     }
 }

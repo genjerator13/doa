@@ -28,3 +28,7 @@ financeservice_delete:
     path:     /{id}/delete
     defaults: { _controller: "NumaDOADMSBundle:FinanceService:delete" }
     requirements: { _method: post|delete }
+
+financeservice_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:massDelete" }

@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>FinanceService</h1>
 
     <table class="record_properties">
@@ -8,14 +8,6 @@
             <tr>
                 <th>Id</th>
                 <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Dealer_id</th>
-                <td>{{ entity.dealerid }}</td>
-            </tr>
-            <tr>
-                <th>Customer_id</th>
-                <td>{{ entity.customerid }}</td>
             </tr>
             <tr>
                 <th>Cust_name</th>

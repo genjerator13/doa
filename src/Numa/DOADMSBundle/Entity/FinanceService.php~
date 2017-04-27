@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * FinanceService
@@ -1489,4 +1490,3 @@ class FinanceService
         // Add your code here
     }
 }
-
