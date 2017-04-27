@@ -177,9 +177,14 @@ class PageRepository extends EntityRepository
         return null;
     }
 
-    public function findPageComponentByDealerId($dealer_id)
+    public function findPageComponentByDealerId($dealer)
     {
-
+        $dealer_id = $dealer;
+        $theme="";
+        if($dealer instanceof Catalogrecords){
+            $dealer_id = $dealer->getId();
+            $theme=$dealer->getSiteTheme();
+        }
         $qb = $this->getEntityManager()
             ->createQueryBuilder();
 
@@ -187,9 +192,12 @@ class PageRepository extends EntityRepository
             ->add('from', 'NumaDOAModuleBundle:Component c')
             ->join('c.PageComponent', 'pc')
             ->join('pc.Page', 'p')
-            ->where('p.dealer_id like :dealer_id');
-        $qb->setParameter('dealer_id', $dealer_id);
-//dump($qb->getQuery()->getSQL());die();
+            ->andWhere('p.dealer_id like :dealer_id');
+        if(!empty($theme)) {
+            $qb->andWhere('c.theme=:theme OR c.theme IS NULL');
+            $qb->setParameter('theme', $dealer->getSiteTheme());
+        }
+        $qb->setParameter('dealer_id', $dealer->getId());
 
         $components = $qb->getQuery()->getResult();
 
