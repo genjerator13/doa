@@ -101,6 +101,9 @@ class FinanceServiceController extends Controller
             throw $this->createNotFoundException('Unable to find FinanceService entity.');
         }
 
+        $entity->setStatus("Read");
+        $em->flush();
+
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:FinanceService:show.html.twig', array(
