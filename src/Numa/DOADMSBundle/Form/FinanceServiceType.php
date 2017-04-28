@@ -52,7 +52,7 @@ class FinanceServiceType extends AbstractType
             ->add('other_name', null, array('label'=>'* Name'))
             ->add('other_address', null, array('label'=>'* Address'))
             ->add('other_city', null, array('label'=> '* City'))
-            ->add('other_state','text',array('label'=>'* State/Prov'))
+            ->add('other_state', null,array('label'=>'* State/Prov'))
             ->add('other_zip', null, array('label'=> '* Zip/Postal'))
             ->add('other_home_phone', null, array('label'=> 'Home Phone'))
             ->add('other_work_phone', null, array('label'=> 'Work Phone'))
