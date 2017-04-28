@@ -9,7 +9,7 @@
 namespace Numa\Util\Component;
 
 
-class TextComponent implements ComponentView
+class TextComponent extends ComponentView
 {
     private $componentEntity;
 
@@ -20,7 +20,7 @@ class TextComponent implements ComponentView
 
     public function display()
     {
-        return $this->componentEntity->getValue();
+        return $this->componentWrapper($this->componentEntity,$this->componentEntity->getValue());
     }
 
 

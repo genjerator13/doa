@@ -142,35 +142,35 @@ body {
 	text-decoration: none;
 }
 
-.main-menu > ul {
+.main-menu  ul {
 	display: table;
 	font-size: 13px;
 	line-height: 16px;
 	padding: 29px 29px 30px 29px;
 }
 
-.main-menu > ul > li {
+.main-menu  ul > li {
 	border-left: 1px solid #676767;
 	display: table-cell;
 }
 
-.main-menu > ul > li > a { padding: 0 9px; }
+.main-menu  ul > li > a { padding: 0 9px; }
 
-.main-menu > ul > li:first-child { border-left: none; }
+.main-menu  ul > li:first-child { border-left: none; }
 
-.main-menu > ul > li:first-child > a {
+.main-menu  ul > li:first-child > a {
 	background: url("../images/home.png") left center no-repeat;
 	padding-left: 19px;
 }
 
-.main-menu > ul > li.parent > a {
+.main-menu  ul > li.parent > a {
 	background: url("../images/small-arrow.png") right 9px center no-repeat;
 	padding-right: 21px;
 }
 
-.main-menu > ul > li:hover > a { color: #004ca5; }
+.main-menu  ul > li:hover > a { color: #004ca5; }
 
-.main-menu > ul > li:hover ul { display: block; }
+.main-menu  ul > li:hover ul { display: block; }
 
 .main-menu ul ul {
 	background-color: #202020;
