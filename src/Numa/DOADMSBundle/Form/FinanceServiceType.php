@@ -15,9 +15,6 @@ class FinanceServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('dealer_id', 'hidden')
-            ->add('customer_id', 'hidden')
-
             ->add('cust_name', null, array('label'=> '* Name', 'required' => true))
             ->add('cust_last_name', null, array('label'=> '* Last Name', 'required' => true))
             ->add('preferred_contact','choice',array('label'=>'* Preferred Contact','choices'=>array('Email','Phone')))
@@ -65,8 +62,6 @@ class FinanceServiceType extends AbstractType
             ->add('mileage')
             ->add('financed_by')
             ->add('message_text','textarea', array('attr' => array('rows' => '10'), 'label'=> 'Summary Description Of Service Work'))
-            ->add('Dealer', 'hidden')
-            ->add('Customer', 'hidden')
         ;
     }
     
