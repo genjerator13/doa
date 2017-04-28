@@ -452,32 +452,33 @@ class ItemRepository extends EntityRepository
      * @param type $em
      * @return \Numa\DOAAdminBundle\Entity\Item|null
      */
-    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em, $logger)
+    public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em)
     {
         //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-        $logger->warning("111111");
+
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         if ($feed instanceof Importfeed) {
 
         }
-        $logger->warning("22222");
+
         $uniqueField = $feed->getUniqueField();
         $processed = false;
         $persist = false;
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
-        $logger->warning("333333");
+        if(empty($importItem[$uniqueField])){
+            return;
+        }
         if (!empty($importItem[$uniqueField])) {
             $uniqueValue = $importItem[$uniqueField];
         }
-        $logger->warning("444444");
         if (!empty($uniqueField)) {
+
             if (!empty($uniqueMapRow) && $uniqueMapRow->getListingField() instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
                 $item = $this->findItemByUniqueField($uniqueMapRow->getListingField()->getCaption(), $uniqueValue);
             }
         }
-        $logger->warning("55555");
         unset($uniqueMapRow);
         unset($uniqueField);
 
@@ -489,16 +490,15 @@ class ItemRepository extends EntityRepository
             $item = new Item();
 
         }
-        $logger->warning("6");
+
         //seo
 
         if (!empty($feed_id)) {
             $item->setImportfeed($feed);
         }
-
         $item->setSold(0);
         //clear all item fields if not photo feed
-        $logger->warning("77777");
+
         if (!$feed->getPhotoFeed()) {
             $this->removeAllItemFields($item->getId());
         } else {
@@ -507,11 +507,11 @@ class ItemRepository extends EntityRepository
                 $this->itemFieldsDeleted = true;
             }
         }
-        $logger->warning("88888");
+
         foreach ($mapping as $maprow) {
             //dump($maprow->getId());
             $property = $maprow->getSid();
-            $logger->warning("9999");
+
             $processed = false;
             $listingField = false;
             if (!empty($maprow->getFieldSid())) {
@@ -624,7 +624,7 @@ class ItemRepository extends EntityRepository
 
             }
 
-            $logger->warning("101010101");
+
             unset($itemField);
             unset($stringValue);
             unset($listingFieldsType);
@@ -632,11 +632,11 @@ class ItemRepository extends EntityRepository
         }//end mapping foreach
 
         $item->equalizeItemFields();
-        $logger->warning("11 11 11 11 11 ");
+
         if ($persist) {
             $em->persist($item);
         }
-        $logger->warning("end");
+
         //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }
