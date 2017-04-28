@@ -1,4 +1,4 @@
-{% set button1 = displayComponent(button,'image_object','page','forest') %}
+{% set button1 = displayComponent(button,'image','page','forest') %}
 
 <div class="button {% if button1 is empty %}b{{ num }}{% endif %}">
     <a href=" {% if button1 is not empty and button1.url is not empty %}{{ button1.url }}{% else %}#{% endif %}" class="xxxx">

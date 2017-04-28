@@ -82,6 +82,7 @@ class ComponentDispatch
 
             $componentxxx =new ImageComponent($component);
             $componentxxx->setContainer($this->container);
+            $componentxxx->setSettings($setting);
             return $componentxxx;
         }
 
