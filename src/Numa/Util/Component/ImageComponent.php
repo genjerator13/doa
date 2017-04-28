@@ -43,8 +43,8 @@ class ImageComponent extends ComponentView
             $template = true;
         }
 
-        if ($images[0] instanceof ImageCarousel) {
-            if ($src) {
+        if(!empty($images[0]) && $images[0] instanceof ImageCarousel){
+            if($src) {
                 $res = $images[0]->getSrc();
                 return "/upload/dealers/" . $res;
             }
