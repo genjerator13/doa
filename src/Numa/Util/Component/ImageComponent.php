@@ -35,7 +35,8 @@ class ImageComponent implements ComponentView
         if(!empty($this->setting['output']) && ($this->setting['output']=="src")){
             $src=true;
         }
-        if($images[0] instanceof ImageCarousel){
+
+        if(!empty($images[0]) && $images[0] instanceof ImageCarousel){
             if($src) {
                 $res = $images[0]->getSrc();
                 return "/upload/dealers/" . $res;
