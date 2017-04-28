@@ -364,4 +364,33 @@ class DealerComponent
     {
         return $this->help;
     }
+    /**
+     * @var string
+     */
+    private $theme;
+
+
+    /**
+     * Set theme
+     *
+     * @param string $theme
+     *
+     * @return DealerComponent
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
+     * Get theme
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
 }
