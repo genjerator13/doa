@@ -1,14 +1,14 @@
-{% set button1 = displayComponent(button,'image','page','forest') %}
-
-<div class="button {% if button1 is empty %}b{{ num }}{% endif %}">
-    <a href=" {% if button1 is not empty and button1.url is not empty %}{{ button1.url }}{% else %}#{% endif %}" class="xxxx">
-        {% if button1 is not empty and button1.carouselText is not empty %}
-            <h2>{{ button1.carouselText|striptags()|raw }}
+{#{% set button1 = displayComponent(button,'image','page','forest') %}#}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<div class="button {% if image is empty %}b{{ num }}{% endif %}">
+    <a href=" {% if image is not empty and image.url is not empty %}{{ image.url }}{% else %}#{% endif %}" class="xxxx">
+        {% if image is not empty and image.carouselText is not empty %}
+            <h2>{{ image.carouselText|striptags()|raw }}
                 <span>Click Here</span>
             </h2>
         {% endif %}
     </a>
-    {% if button1 is not empty and button1 is not empty %}
-        {{ component.image(button1.src, 'btn'~num, '', 'forest_button','page','forest') }}
+    {% if image is not empty and image is not empty %}
+        {{ component.image(image.src, 'btn'~num, '', 'forest_button','page','forest') }}
     {% endif %}
 </div>

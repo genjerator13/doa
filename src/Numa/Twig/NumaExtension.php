@@ -38,7 +38,7 @@ class NumaExtension extends \Twig_Extension
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
             'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
-            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
+            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent', array('is_safe' => array('html'))),
             'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),

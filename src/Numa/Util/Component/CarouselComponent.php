@@ -9,7 +9,7 @@
 namespace Numa\Util\Component;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class CarouselComponent implements ComponentView
+class CarouselComponent extends ComponentView
 {
     private $componentEntity;
     private $container;
@@ -53,7 +53,7 @@ class CarouselComponent implements ComponentView
 
 //        dump($html);
 //        die();
-        return $html;
+        return $this->componentWrapper($this->componentEntity,$html);
     }
 
 
