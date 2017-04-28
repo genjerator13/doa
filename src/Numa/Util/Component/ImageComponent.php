@@ -43,9 +43,6 @@ class ImageComponent extends ComponentView
             $template = true;
         }
 
-        if ($images[0] instanceof ImageCarousel) {
-            if ($src) {
-
         if(!empty($images[0]) && $images[0] instanceof ImageCarousel){
             if($src) {
                 $res = $images[0]->getSrc();
@@ -68,13 +65,11 @@ class ImageComponent extends ComponentView
         if (!empty($this->setting['template_params'])) {
             $template_params = $this->setting['template_params'];
         }
+
         $template_params['image'] = $image;
-
         if (!empty($this->setting['template'])) {
-
             $templating = $this->container->get('templating');
             $html = $templating->render($this->setting['template'], $template_params);
-
         }
         return $html;
     }
