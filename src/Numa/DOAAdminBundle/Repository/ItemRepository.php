@@ -467,6 +467,11 @@ class ItemRepository extends EntityRepository
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
+        dump($importItem[$uniqueField]);
+        if(empty($importItem[$uniqueField])){
+
+            return;
+        }
         if (!empty($importItem[$uniqueField])) {
             $uniqueValue = $importItem[$uniqueField];
         }
@@ -613,6 +618,7 @@ class ItemRepository extends EntityRepository
                             $persist = false;
                             return null;
                         }
+
                     }
 
                     unset($dealer);
