@@ -3,11 +3,11 @@
 
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel","page","Tnt") %}
+    {#{% set images = displayComponent("homepage_carousel","carousel","page","Tnt") %}#}
 
-    {% if images is not empty %}
-        <div class="bscarousel">
-            <div id="tnt-carousel" class="carousel slide" data-ride="carousel">
+    {#{% if images is not empty %}#}
+        {#<div class="bscarousel">#}
+            {#<div id="tnt-carousel" class="carousel slide" data-ride="carousel">#}
                 {#<!-- Carousel indicators -->#}
                 {#<ol class="carousel-indicators">#}
                 {#{% for image in images %}#}
@@ -16,31 +16,31 @@
                 {#{% endfor %}#}
 
                 {#</ol>#}
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    {% for image in images %}
-                        <div class="item {% if loop.first %} active{% endif %}">
-                            {{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel') }}
-                            <div class="text_widget">{{ image.carouselText|raw }}</div>
-                        </div>
-                    {% endfor %}
+                {#<!-- Wrapper for carousel items -->#}
+                {#<div class="carousel-inner">#}
+                    {#{% for image in images %}#}
+                        {#<div class="item {% if loop.first %} active{% endif %}">#}
+                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel') }}#}
+                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
 
-                </div>
-                <!-- Carousel controls -->
-                <a class="carousel-control left" href="#tnt-carousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="carousel-control right" href="#tnt-carousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-        </div>
-    {% else %}
-        <div class="content  clearfix">
+                {#</div>#}
+                {#<!-- Carousel controls -->#}
+                {#<a class="carousel-control left" href="#tnt-carousel" data-slide="prev">#}
+                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
+                {#</a>#}
+                {#<a class="carousel-control right" href="#tnt-carousel" data-slide="next">#}
+                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#{% else %}#}
+        {#<div class="content  clearfix">#}
 
-        </div>
-    {% endif %}
-
+        {#</div>#}
+    {#{% endif %}#}
+    {{displayComponent("homepage_carousel","carousel","page","Tnt",{'image_size':"tnt_carousel"})|raw  }}
 {% endblock %}
 {% block buttons %}
     <div class="homepageCTA">
@@ -149,35 +149,37 @@
 
 {% block content %}
 
-    {% set images = displayComponent("homepage_carousel_bottom","carousel","page","Tnt") %}
+    {#{% set images = displayComponent("homepage_carousel_bottom","carousel","page","Tnt") %}#}
 
-    {% if images is not empty %}
-        <div class="bscarousel">
-            <div id="tntcarousel_bottom" class="carousel slide" data-ride="carousel">
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    {% for image in images %}
-                        <div class="item {% if loop.first %} active{% endif %}">
-                            {{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel_bottom') }}
-                            <div class="text_widget">{{ image.carouselText|raw }}</div>
-                        </div>
-                    {% endfor %}
+{{displayComponent("homepage_carousel_bottom","carousel","page","Tnt",{'image_size':"tnt_carousel_bottom"})|raw  }}
+    {#{% if images is not empty %}#}
+        {#<div class="bscarousel">#}
+            {#<div id="tntcarousel_bottom" class="carousel slide" data-ride="carousel">#}
+                {#<!-- Wrapper for carousel items -->#}
+                {#<div class="carousel-inner">#}
+                    {#{% for image in images %}#}
+                        {#<div class="item {% if loop.first %} active{% endif %}">#}
+                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel_bottom') }}#}
+                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
 
-                </div>
-                <!-- Carousel controls -->
-                <a class="carousel-control left" href="#tntcarousel_bottom" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="carousel-control right" href="#tntcarousel_bottom" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-        </div>
-    {% else %}
-        <div class="content  clearfix">
+                {#</div>#}
+                {#<!-- Carousel controls -->#}
+                {#<a class="carousel-control left" href="#tntcarousel_bottom" data-slide="prev">#}
+                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
+                {#</a>#}
+                {#<a class="carousel-control right" href="#tntcarousel_bottom" data-slide="next">#}
+                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#{% else %}#}
+        {#<div class="content  clearfix">#}
 
-        </div>
-    {% endif %}
+        {#</div>#}
+    {#{% endif %}#}
+    {% include "NumaDOASiteBundle:TemplatesElements:carousel.html.twig" with {"carouselId":"tntcarousel_bottom","image_size":"tnt_carousel_bottom"} %}
     <div class="content">
         <div class="welcome-content">
             <div class="alertz hide alert"></div>

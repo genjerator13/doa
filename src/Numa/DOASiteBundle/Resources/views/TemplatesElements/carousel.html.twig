@@ -1,0 +1,28 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% if images is defined and images is not empty %}
+    <div class="bscarousel">
+        <div id="{{ carouselId }}" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for carousel items -->
+            <div class="carousel-inner">
+                {% for image in images %}
+                    <div class="item {% if loop.first %} active{% endif %}">
+                        {{ component.image('upload/dealers/'~image.src, "", '', image_size) }}
+                        <div class="text_widget">{{ image.carouselText|raw }}</div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <!-- Carousel controls -->
+            <a class="carousel-control left" href="#tntcarousel_bottom" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </a>
+            <a class="carousel-control right" href="#tntcarousel_bottom" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </a>
+        </div>
+    </div>
+{% else %}
+    <div class="content  clearfix">
+
+    </div>
+{% endif %}
