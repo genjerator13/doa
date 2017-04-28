@@ -98,7 +98,8 @@ class ListingLib
         if (!(($securityContext->isGranted('ROLE_ADMIN'))
                 && ($item->getDealer() instanceof Catalogrecords)
                 && ($item->getDealer()->getDmsStatus() == "activated")
-                && ($item->getSold()))
+                //&& ($item->getSold())
+            )
             && ($item instanceof Item)
         ) {
             foreach ($item->getItemField() as $itemField) {
