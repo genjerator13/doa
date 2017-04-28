@@ -95,13 +95,13 @@ class ListingLib
         }
         $securityContext = $this->container->get('security.authorization_checker');
 
-        if (!(($securityContext->isGranted('ROLE_ADMIN'))
-                && ($item->getDealer() instanceof Catalogrecords)
-                && ($item->getDealer()->getDmsStatus() == "activated")
-                //&& ($item->getSold())
-            )
-            && ($item instanceof Item)
-        ) {
+//        if (!(($securityContext->isGranted('ROLE_ADMIN'))
+//                && ($item->getDealer() instanceof Catalogrecords)
+//                && ($item->getDealer()->getDmsStatus() == "activated")
+//                //&& ($item->getSold())
+//            )
+//            && ($item instanceof Item)
+//        ) {
             foreach ($item->getItemField() as $itemField) {
                 if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
                     $web_path = $this->container->getParameter('web_path');
@@ -116,7 +116,7 @@ class ListingLib
             $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
             $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
             $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
-        }
+        //}
 
     }
 
