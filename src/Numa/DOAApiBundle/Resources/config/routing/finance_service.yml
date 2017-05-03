@@ -1,0 +1,12 @@
+finance_service_api_all:
+    path:     /all.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:FinanceServiceREST:all",_format: "json"}
+    requirements: { _method: get }
+finance_service_by_dealer_api:
+    path:     /{dealer_id}/dealer.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:FinanceServiceREST:byDealer",_format: "json"}
+    requirements: { _method: get }
+finance_service_api_by_dealer_principal:
+    path:     /dealerprincipal/{dealer_group_id}.{_format}
+    defaults: { _controller: "NumaDOAApiBundle:FinanceServiceREST:byDealerPrincipal",_format: "json"}
+    requirements: { _method: get }

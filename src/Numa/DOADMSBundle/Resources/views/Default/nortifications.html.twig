@@ -21,6 +21,11 @@
                                         <i class="fa fa-shopping-cart text-gray"></i>
                                         {{ webform.type|capitalize }} request from {{ webform.email }}
                                     </a>
+                                {% elseif webform.type|lower=="finance_service" %}
+                                    <a href="{{ path('financeservice_show', { 'id': webform.id }) }}">
+                                        <i class="fa fa-shopping-cart text-gray"></i>
+                                        {{ webform.type|capitalize }} request from {{ webform.email }}
+                                    </a>
                                 {% elseif webform.type|lower=="service" %}
                                     <a href="{{ path('servicerequest_show', { 'id': webform.id }) }}">
                                         <i class="fa fa-users text-yellow"></i>
