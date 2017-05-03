@@ -43,40 +43,18 @@
 {#</div>#}
 
 {% include "@NumaDOASite/TemplatesElements/searchModals.html.twig" %}
-
-<script type="text/javascript">
-    num = 10;
-    {% if listing_per_page is defined %}
-    num = parseInt({{ listing_per_page }});
-    {% endif %}
-    $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-    {#$('select#numberoflisting').change(
-            function() {
-                var ss = $("#searchSource").val();
-                ss = ss + $("#numberoflisting").val()
-                console.log(ss);
-                $(this).closest('form').submit();
-
-            });#}
-</script>
-
 <script>
-    $(".saveAd").on("click", function () {
-        var itemId = $(this).closest('.item-row').attr("data");
-        console.log(itemId);
-        var act = "add";
-        if (!$(this).prop('checked')) {
-            act = "remove";
-        }
-        var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
-            htmlx = "";
-            if (data.savedAds > 0) {
-                htmlx = "(" + data.savedAds + ")";
-            }
-            $('.savedAds').html(htmlx);
-        })
 
+    ajaxSearch = function () {
+        $("#sidebarSearch").submit();
+    }
+    $(document).on('change', '#sidebarSearch select', function () {
+        ajaxSearch();
     });
+    $(document).on('change', '#sidebarSearch input', function () {
+        ajaxSearch();
+    });
+
     $(".compareAd").on("click", function () {
         var itemId = $(this).closest('.item-row').attr("data");
         var url = $(this).closest('.item-row').attr("url");
