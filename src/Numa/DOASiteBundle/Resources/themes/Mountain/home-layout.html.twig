@@ -62,32 +62,34 @@
     {% endblock %}
     <div class="container">
 
-        {% set images = displayComponent("homepage_carousel","carousel","page","mountain") %}
+        {{ displayComponent("homepage_carousel","carousel",'page','mountain',{"image_size":"carousel_top_mountain"})|raw }}
 
-        {% if images is not empty %}
-            <div class="bottom-margin">
-                <div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">
-                    <!-- Wrapper for carousel items -->
-                    <div class="carousel-inner">
-                        {% for image in images %}
-                            <div class="item {% if loop.first %} active{% endif %}">
-                                {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain',"100%","auto") }}
-                                {% if image.carouselText is not empty %}
-                                    <div class="text_widget">{{ image.carouselText|raw }}</div>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Carousel controls -->
-                    <a class="carousel-control left" href="#myCarousel_top" data-slide="prev">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </a>
-                    <a class="carousel-control right" href="#myCarousel_top" data-slide="next">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </a>
-                </div>
-            </div>
-        {% endif %}
+        {#{% set images = displayComponent("homepage_carousel","carousel","page","mountain") %}#}
+
+        {#{% if images is not empty %}#}
+            {#<div class="bottom-margin">#}
+                {#<div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">#}
+                    {#<!-- Wrapper for carousel items -->#}
+                    {#<div class="carousel-inner">#}
+                        {#{% for image in images %}#}
+                            {#<div class="item {% if loop.first %} active{% endif %}">#}
+                                {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain',"100%","auto") }}#}
+                                {#{% if image.carouselText is not empty %}#}
+                                    {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
+                                {#{% endif %}#}
+                            {#</div>#}
+                        {#{% endfor %}#}
+                    {#</div>#}
+                    {#<!-- Carousel controls -->#}
+                    {#<a class="carousel-control left" href="#myCarousel_top" data-slide="prev">#}
+                        {#<span class="glyphicon glyphicon-chevron-left"></span>#}
+                    {#</a>#}
+                    {#<a class="carousel-control right" href="#myCarousel_top" data-slide="next">#}
+                        {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+                    {#</a>#}
+                {#</div>#}
+            {#</div>#}
+        {#{% endif %}#}
 
 
         <div class="row">
@@ -150,14 +152,14 @@
 
             <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <div class="b4">
-                    <a href="{% if button4 is not empty and button4.url is not empty %}{{ button4.url }}{% else %}#{% endif %}">
+                    <a href="{% if button4 is not empty and button4.url is defined %}{{ button4.url }}{% else %}#{% endif %}">
                         <div class="button-small-text">
-                            {% if button4 is not empty and button4.carouselText is not empty %}
+                            {% if button4 is not empty and button4.carouselText is defined %}
                                 <h2>{{ button4.carouselText|striptags('<span>')|raw }}</h2>
                                 <div class="click-here">Click Here</div>
                             {% endif %}
                         </div>
-                        {% if button4 is not empty and button4 is not empty %}
+                        {% if button4 is not empty and button4 is not empty and button4.src is defined %}
                             {{ component.image(button4.src, 'btn4', '', 'mountain_small_button',"100%","auto") }}
                         {% endif %}
                     </a>
@@ -165,14 +167,14 @@
                 </div>
 
                 <div class="b5">
-                    <a href="{% if button5 is not empty and button5.url is not empty %}{{ button5.url }}{% else %}#{% endif %}">
+                    <a href="{% if button5 is not empty and button5.url is defined %}{{ button5.url }}{% else %}#{% endif %}">
                         <div class="button-small-text">
-                            {% if button5 is not empty and button5.carouselText is not empty %}
+                            {% if button5 is not empty and button5.carouselText is defined %}
                                 <h2>{{ button5.carouselText|striptags('<span>')|raw }}</h2>
                                 <div class="click-here">Click Here</div>
                             {% endif %}
                         </div>
-                        {% if button5 is not empty and button5 is not empty %}
+                        {% if button5 is not empty and button5 is not empty and button5.src is defined %}
                             {{ component.image(button5.src, 'btn5', '', 'mountain_small_button',"100%","auto") }}
                         {% endif %}
                     </a>
