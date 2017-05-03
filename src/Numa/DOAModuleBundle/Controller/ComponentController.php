@@ -130,7 +130,7 @@ class ComponentController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
-        $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($id);
+        $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($entity);
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealer_id = 0;
         if($dealer instanceof Catalogrecords){
@@ -316,9 +316,11 @@ class ComponentController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         if($dealerComponent==1){
-            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealerComponent($id);
+            $dC = $em->getRepository('NumaDOADMSBundle:DealerComponent')->find($id);
+            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByDealerComponent($dealerComponent);
         }else{
-            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByComponent($id);
+            $c = $em->getRepository('NumaDOAModuleBundle:Component')->find($id);
+            $entities = $em->getRepository('NumaDOAAdminBundle:ImageCarousel')->findByComponent($c);
         }
 
         $uploadDir = Component::getUploadDir($dealer->getId(),$id);

@@ -8,6 +8,8 @@ use Doctrine\Common\Collections\Criteria;
 use Numa\DOAModuleBundle\Entity\Component;
 use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOAModuleBundle\Entity\PageComponent;
+use Numa\Util\Component\ComponentEntityInterface;
+use Numa\Util\Component\ComponentView;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\ImageCarousel;
@@ -36,7 +38,7 @@ class NumaExtension extends \Twig_Extension
             'getYoutubeId' => new \Twig_Function_Method($this, 'getYoutubeId'),
             'getYoutubeThumb' => new \Twig_Function_Method($this, 'getYoutubeThumb'),
             'getYoutubeEmbed' => new \Twig_Function_Method($this, 'getYoutubeEmbed'),
-            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent'),
+            'displayComponent' => new \Twig_Function_Method($this, 'displayComponent', array('is_safe' => array('html'))),
             'displayCarouselComponent' => new \Twig_Function_Method($this, 'displayCarouselComponent'),
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
@@ -143,7 +145,7 @@ class NumaExtension extends \Twig_Extension
         return $page;
     }
 
-    public function displayComponent($name, $type = "Text", $source = "page",$theme="")
+    public function displayComponent($name, $type = "Text", $source = "page",$theme="",$setting=array())
     {
 
         $criteria = Criteria::create()
@@ -188,6 +190,7 @@ class NumaExtension extends \Twig_Extension
             }
         }
 
+
         if (!($component instanceof Component) && !($component instanceof DealerComponent)) {
             if ($type != "image_text") {
                 if ($source == "page" && $page instanceof Page) {
@@ -227,14 +230,29 @@ class NumaExtension extends \Twig_Extension
             $value = "";
         }
 
+
+        if($type=="text" || strtolower($type)=="html"  || strtolower($type)=="template" || strtolower($type) == "carousel" || strtolower($type) == "image") {
+            $componentxxx = $this->container->get("numa.component")->getComponent($name, $type, $source, $theme,$setting);
+
+            if ($componentxxx instanceof ComponentView) {
+                $text = $componentxxx->display();
+                return $text;
+            }
+        }
+
+
         if (strtolower($type) == "carousel") {
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if ($component instanceof Component) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-            }elseif($component instanceof DealerComponent){
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
+//            if ($component instanceof Component) {
+//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+//            }elseif($component instanceof DealerComponent){
+//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
+//            }
+
+            if ($component instanceof ComponentEntityInterface ) {
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component);
             }
 
             return $images;
@@ -244,14 +262,14 @@ class NumaExtension extends \Twig_Extension
             $em = $this->container->get('doctrine.orm.entity_manager');
             $images = array();
 
-            if ($component instanceof Component ) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
+            if ($component instanceof ComponentEntityInterface ) {
+                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component);
             }
 
-            if ($component instanceof DealerComponent) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
-
-            }
+//            if ($component instanceof DealerComponent) {
+//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
+//
+//            }
 
 
             if (!empty($images[0])) {
@@ -269,27 +287,30 @@ class NumaExtension extends \Twig_Extension
                 return "/upload/dealers/" . $res;
             }
 
-        } elseif (strtolower($type) == "image") {
-
-//            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
-//            $value = "";
-//            if (!empty($matches[1])) {
-//                $value = $matches[1];
-//            }
-
         }elseif (strtolower($type) == "image_text") {
 
             if(!empty($component->getValue())) {
-                return $component->getValue();
+                return  $this->componentWrapper($component);;
             }
             return "";
         }
 
 
-        return $value;
+        return $this->componentWrapper($component);
     }
 
+    private function componentWrapper($component){
+        $id = "c-".$component->getId();
+        $class = "componentx";
+        $html = "";
+        if($component instanceof Component){
+            $id = "dc-".$component->getId();
+            $class = "dealer-componentx";
+        }
+        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
 
+        return $html;
+    }
     public function getDealer()
     {
         $session = $this->container->get('session');

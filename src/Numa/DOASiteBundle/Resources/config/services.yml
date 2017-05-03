@@ -35,6 +35,15 @@ services:
     Numa.Settings:
         class: Numa\DOASettingsBundle\Util\SettingsLib
         arguments: ["@doctrine.orm.entity_manager","@service_container"]
+    numa.component.text:
+        class: Numa\Util\Component\TextComponent
+        arguments: ["@service_container"]
+    numa.component.carousel:
+        class: Numa\Util\Component\CarouselComponent
+        arguments: ["@service_container"]
+    numa.component:
+        class: Numa\Util\Component\ComponentDispatch
+        arguments: ["@service_container"]
     numa.dynamicRouter.listener:
         class: Numa\DOASiteBundle\Services\ExtraLoader
         arguments: ["@service_container" , "@security.token_storage"]
