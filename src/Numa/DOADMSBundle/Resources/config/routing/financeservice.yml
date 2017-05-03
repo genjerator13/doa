@@ -1,0 +1,34 @@
+financeservice:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:index" }
+
+financeservice_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:show" }
+
+financeservice_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:new" }
+
+financeservice_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:create" }
+    requirements: { _method: post }
+
+financeservice_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:edit" }
+
+financeservice_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:update" }
+    requirements: { _method: post|put }
+
+financeservice_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:delete" }
+    requirements: { _method: post|delete }
+
+financeservice_mass_delete:
+    path:     /delete
+    defaults: { _controller: "NumaDOADMSBundle:FinanceService:massDelete" }
