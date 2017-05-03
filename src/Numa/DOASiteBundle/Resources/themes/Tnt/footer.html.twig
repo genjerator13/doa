@@ -2,7 +2,7 @@
     <div class="footerFirst">
         <div class="container">
             <div class="row-fluid">
-                <asside class="quickLinks col-md-3">
+                <asside class="quickLinks col-md-3 clearfix">
                     <h3 class="widget-title">Quick Links</h3>
                     <div class="menu-quick-links-container">
                         {% set bottommenu = displayComponent('bottommenu',"template","dealer") %}
@@ -20,7 +20,7 @@
                         {% endif %}
                     </div>
                 </asside>
-                <asside class="quickLinks col-md-3">
+                <asside class="quickLinks col-md-3 clearfix">
                     <h3 class="widget-title">Dealership Hours</h3>
                     <div class="menu-quick-links-container">
                         {% if dealer.ServiceHours is not empty %}
@@ -28,13 +28,13 @@
                         {% endif %}
                     </div>
                 </asside>
-                <asside class="quickLinks  col-md-3  ">
+                <asside class="quickLinks  col-md-3  clearfix">
                     <h3 class="widget-title">Location</h3>
                     <div class="menu-quick-links-container">
                         <iframe src="{{ dealer.siteGooglemap() }}" style="border:0" width="100%" height="160"></iframe>
                     </div>
                 </asside>
-                <asside class="quickLinks  col-md-3 ">
+                <asside class="quickLinks  col-md-3 clearfix">
                     <h3 class="widget-title">Contact Us</h3>
                     <div class="menu-quick-links-container contactFooter">
                         <div><a href="{{ dealer.siteGooglemap() }}"><i
