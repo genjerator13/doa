@@ -1,6 +1,6 @@
 <div class="container menu">
     <nav id="site-navigation" class="main-navigation" role="navigation" style="">
-        {% set mainmenu = displayComponent('mainmenu',"template","dealer") %}
+        {% set mainmenu = displayComponent('mainmenu',"HTML","dealer") %}
         {% if mainmenu != 'enter this value of component in DMS' %}
             {{ include(template_from_string(mainmenu)) }}
         {% endif %}
