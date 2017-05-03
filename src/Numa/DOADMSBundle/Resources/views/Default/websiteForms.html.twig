@@ -32,6 +32,8 @@
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            {% elseif entity.type|lower=="finance_service" %}
+                                <a href="{{ path('financeservice_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="service" %}
                                 <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="part" %}
@@ -66,6 +68,9 @@
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance') }}"><span
                                             class="label label-default">{{ entity.type }}</span></a>
+                            {% elseif entity.type|lower=="finance_service" %}
+                                <a href="{{ path('financeservice') }}"><span
+                                            class="label label-default">{{ entity.type }}</span></a>
                             {% elseif entity.type|lower=="newsletter" %}
                                 <a href="{{ path('listingform') }}"><span
                                             class="label label-primary">{{ entity.type }}</span></a>
@@ -81,6 +86,9 @@
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}" class="btn btn-primary">Show</a>
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance_show', { 'id': entity.id }) }}"
+                                   class="btn btn-primary">Show</a>
+                            {% elseif entity.type|lower=="finance_service" %}
+                                <a href="{{ path('financeservice_show', { 'id': entity.id }) }}"
                                    class="btn btn-primary">Show</a>
                             {% elseif entity.type|lower=="service" %}
                                 <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}"
