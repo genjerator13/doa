@@ -187,6 +187,12 @@ finance_form:
 finance_success:
     path:  /financeSuccess
     defaults: { _controller: "NumaDOASiteBundle:Finance:success" }
+finance_service_form:
+    path:     /finance_service
+    defaults: { _controller: "NumaDOASiteBundle:FinanceService:new" }
+finance_service_success:
+    path:  /finance_serviceSuccess
+    defaults: { _controller: "NumaDOASiteBundle:FinanceService:success" }
 testDrive_form:
     path:     /test_drive
     defaults: { _controller: "NumaDOASiteBundle:TestDrive:testDrive" }
