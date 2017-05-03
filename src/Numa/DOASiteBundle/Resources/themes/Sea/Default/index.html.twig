@@ -3,11 +3,13 @@
 
 {% block banner %}
 
-    {% set images = displayComponent("homepage_carousel","carousel","page","sea") %}
+    {{ displayComponent("homepage_carousel","carousel",'page','sea',{"image_size":"carousel_wide"})|raw }}
 
-    {% if images is not empty %}
-        <div class="bs-example">
-            <div id="sea-carousel" class="carousel slide" data-ride="carousel">
+    {#{% set images = displayComponent("homepage_carousel","carousel","page","sea") %}#}
+
+    {#{% if images is not empty %}#}
+        {#<div class="bs-example">#}
+            {#<div id="sea-carousel" class="carousel slide" data-ride="carousel">#}
                 {#<!-- Carousel indicators -->#}
                 {#<ol class="carousel-indicators">#}
                     {#{% for image in images %}#}
@@ -16,37 +18,37 @@
                     {#{% endfor %}#}
 
                 {#</ol>#}
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    {% for image in images %}
-                        <div class="item {% if loop.first %} active{% endif %}">
-                            {{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}
-                            <div class="text_widget">{{ image.carouselText|raw }}</div>
-                        </div>
-                    {% endfor %}
+                {#<!-- Wrapper for carousel items -->#}
+                {#<div class="carousel-inner">#}
+                    {#{% for image in images %}#}
+                        {#<div class="item {% if loop.first %} active{% endif %}">#}
+                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}#}
+                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
+                        {#</div>#}
+                    {#{% endfor %}#}
 
-                </div>
-                <!-- Carousel controls -->
-                <a class="carousel-control left" href="#sea-carousel" data-slide="prev">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-                <a class="carousel-control right" href="#sea-carousel" data-slide="next">
-                    <span class="glyphicon glyphicon-chevron-right"></span>
-                </a>
-            </div>
-        </div>
-    {% else %}
-        <div class="content  clearfix">
+                {#</div>#}
+                {#<!-- Carousel controls -->#}
+                {#<a class="carousel-control left" href="#sea-carousel" data-slide="prev">#}
+                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
+                {#</a>#}
+                {#<a class="carousel-control right" href="#sea-carousel" data-slide="next">#}
+                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+                {#</a>#}
+            {#</div>#}
+        {#</div>#}
+    {#{% else %}#}
+        {#<div class="content  clearfix">#}
 
-        </div>
-    {% endif %}
+        {#</div>#}
+    {#{% endif %}#}
 
-    <script type="text/javascript" src="{{ asset('js/carousel.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            startCarousel("#sea-carousel", 8000);
-        });
-    </script>
+    {#<script type="text/javascript" src="{{ asset('js/carousel.js') }}"></script>#}
+    {#<script type="text/javascript">#}
+        {#$(document).ready(function () {#}
+            {#startCarousel("#sea-carousel", 8000);#}
+        {#});#}
+    {#</script>#}
 
 {% endblock %}
 {% block buttons %}

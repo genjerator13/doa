@@ -1,7 +1,7 @@
 {% block bodyBackground %}
     <style type="text/css">
 
-        {% set imgBg = displayComponent('forest_site_background','Image','dealer','forest')   %}
+        {% set imgBg = displayComponent('forest_site_background','Image','dealer','forest',{"output":"src"})   %}
 
         {% if imgBg is not empty %}
         body{
