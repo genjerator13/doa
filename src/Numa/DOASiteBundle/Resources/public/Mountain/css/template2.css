@@ -109,26 +109,26 @@ body {
 	text-decoration: none;
 }
 
-.main-menu > ul {
+.main-menu > div > ul {
 	display: table;
 	margin: 0 auto;
 }
 
-.main-menu > ul > li {
+.main-menu > div  > ul > li {
 	border-left: 1px dotted #fff;
 	display: table-cell;
 }
 
-.main-menu > ul > li.parent > a {
+.main-menu > div  > ul > li.parent > a {
 	background: url("../images/small-arrow.png") right 15px center no-repeat;
 	padding-right: 29px;
 }
 
-.main-menu > ul > li:first-child { border-left: none; }
+.main-menu > div  > ul > li:first-child { border-left: none; }
 
-.main-menu > ul > li:hover > ul { display: block; }
+.main-menu > div  > ul > li:hover > ul { display: block; }
 
-.main-menu > ul > li > a {
+.main-menu > div  > ul > li > a {
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 19px;
@@ -136,7 +136,7 @@ body {
 	text-transform: uppercase;
 }
 
-.main-menu > ul > li:hover > a {
+.main-menu > div  > ul > li:hover > a {
 	background-color: #252525;
 	color: #007cb3;
 }
