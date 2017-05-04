@@ -225,3 +225,10 @@
 .slideshow .ps-current {
     min-height: 400px;
 }
+
+@media only screen
+and (max-width : 767px) {
+    .slideshow .pgwSlideshow .ps-list {
+        left: 0px;
+    }
+}
