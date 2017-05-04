@@ -22,21 +22,11 @@
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts 'js/jssor/jssor.slider.js' %}
+
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Tnt/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery(".mobile-menu ul ul").hide();
-                /* hide sublinks */
-                jQuery(".separator").click(function () {
-                    jQuery(this).next().slideToggle(300);
-                    /* display sublinks */
-                });
-            });
-        </script>
     {% endblock %}
     {% block ga %}
     {% include "NumaDOASiteBundle::ga.html.twig" %}
