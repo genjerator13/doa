@@ -684,13 +684,13 @@ body {
     margin-top: -10px;
 }
 
-#myCarousel .text_widget {
+.homepage_carousel .text_widget {
     position: absolute;
     top: 10px;
     left: 10px;
     width: 100%;
 }
-#myCarousel .carousel-inner {
+.homepage_carousel .carousel-inner {
     max-height: 500px;
 }
 

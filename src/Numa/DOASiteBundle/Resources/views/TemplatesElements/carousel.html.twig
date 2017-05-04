@@ -1,7 +1,7 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% if images is defined and images is not empty %}
     <div class="bscarousel">
-        <div id="{{ carouselId }}" class="carousel slide" data-ride="carousel">
+        <div id="{{ carouselId }}" class="carousel slide {{ class }}" data-ride="carousel">
             <!-- Wrapper for carousel items -->
             <div class="carousel-inner">
                 {% for image in images %}
