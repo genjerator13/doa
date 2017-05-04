@@ -28,17 +28,9 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery(".mobile-menu ul ul").hide();
-                /* hide sublinks */
-                jQuery(".separator").click(function () {
-                    jQuery(this).next().slideToggle(300);
-                    /* display sublinks */
-                });
-            });
-        </script>
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Garden/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
 
     {% endblock %}
 </head>
@@ -63,59 +55,6 @@
 
         {{ displayComponent("homepage_carousel","carousel",'page','garden',{"image_size":"carousel_wide"})|raw }}
 
-        {#{% set images = displayComponent("homepage_carousel","carousel",'page','garden') %}#}
-
-        {#{% if images is not empty %}#}
-        {#<div class="bs-example">#}
-            {#<div id="myCarousel" class="carousel slide" data-ride="carousel">#}
-                {#<!-- Carousel indicators -->#}
-                {#<ol class="carousel-indicators">#}
-                {#{% for image in images %}#}
-                {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
-                {#class="{% if loop.first %}active{% endif %}"></li>#}
-                {#{% endfor %}#}
-
-                {#</ol>#}
-                {#<!-- Wrapper for carousel items -->#}
-                {#<div class="carousel-inner">#}
-                    {#{% for image in images %}#}
-                        {#<div class="item {% if loop.first %} active{% endif %}">#}
-                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_wide') }}#}
-                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-
-                {#</div>#}
-                {#<!-- Carousel controls -->#}
-                {#<a class="carousel-control left" href="#myCarousel" data-slide="prev">#}
-                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-                {#</a>#}
-                {#<a class="carousel-control right" href="#myCarousel" data-slide="next">#}
-                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-                {#</a>#}
-            {#</div>#}
-        {#</div>#}
-        {#{% else %}#}
-        {#<div class="content  clearfix">#}
-
-        {#</div>#}
-        {#{% endif %}#}
-
-        {#<script type="text/javascript">#}
-            {#$(document).ready(function () {#}
-                {#$("#myCarousel").carousel({#}
-                    {#interval: 8000,#}
-                    {#pause: false#}
-                {#}).on('slide.bs.carousel', function (e) {#}
-                    {#var nextH = $(e.relatedTarget).height();#}
-                    {#console.log(nextH)#}
-                    {#console.log($(this).find('.active.item').parent())#}
-                    {#$(this).find('.active.item').parent().animate({#}
-                        {#height: nextH#}
-                    {#}, 500);#}
-                {#});#}
-            {#});#}
-        {#</script>#}
     {% endblock %}
 
     <div class="quick-links">
