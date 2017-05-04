@@ -613,7 +613,7 @@ and (max-width : 767px) {
 	padding: 10px;
 }
 
-.listing-buttons {
+.listing-buttons div {
 	padding: 0px;
 	text-align: right;
 	z-index:1000;
