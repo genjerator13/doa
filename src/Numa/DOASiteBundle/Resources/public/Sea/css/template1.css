@@ -34,7 +34,6 @@ body {
     margin: 0 auto;
     max-width: 1020px;
     padding: 0 20px;
-    height: 105px;
 }
 
 .logo {
@@ -132,6 +131,7 @@ body {
     display: table;
     padding: 0 10px;
     list-style: none;
+    margin-bottom: 0;
 }
 .menu li{
     float:left;
