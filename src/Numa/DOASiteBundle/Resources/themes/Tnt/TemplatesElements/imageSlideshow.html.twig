@@ -1,10 +1,12 @@
+<!-- images start -->
+
 {% set images = item.getImages2() %}
 {% set currentPath = app.request.uri %}
 {% set dealer = item.getDealer() %}
 {% if images|length==1 %}
     {% set image = images|first %}
     {% if ('http' not in image.fieldStringValue) %}
-        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','640px') }}
+        {{ component.image(image.fieldStringValue, 'image1', '', 'item_detail_image_single','510px') }}
     {% else %}
         {% set videoid="" %}
         {% set img=image.fieldStringValue %}
@@ -13,11 +15,11 @@
             {% set img=getYoutubeThumb(videoid) %}
         {% endif %}
 
-        {{ component.image(img, 'image1', '', 'item_detail_image_single','640px') }}
+        {{ component.image(img, 'image1', '', 'item_detail_image_single','510px') }}
     {% endif %}
 {% else %}
     <div class="slideshow">
-        <ul id="imgList" class="big">
+        <ul class="pgwSlideshow">
             {% for key,image in images %}
                 <li data-order="{{ image.sortOrder }}">
                     {% if ('http' not in image.fieldStringValue) %}
@@ -34,43 +36,16 @@
                     {% endif %}
                 </li>
             {% endfor %}
-        </ul>
-        <div class="row image-bar-used">
-            <div class="image-bar-used-stock">
-                <span title="">Stock #: {{ item.stockNr }}</span>
-            </div>
-        </div>
-        <ul id="slide-control" class="controls">
-            <li class="prev">
-                <em class="glyphicon glyphicon-chevron-left glyphicon-position"></em>
-            </li>
-            <li class="next">
-                <em class="glyphicon glyphicon-chevron-right glyphicon-position"></em>
-            </li>
-        </ul>
-        <div class="auto-scrolx-dimension topContent autoScrollx">
-            <div class="slider-hortizontal-conteiner">
-                <ul class="thumb">
-                    {% for key,image in images %}
-                        <li>
-                            {% if ('http' not in image.fieldStringValue) %}
-                                <img src="{{ image.fieldStringValue|imagine_filter('item_detail_image') }}"/>
-                            {% else %}
-                                {% set videoid="" %}
-                                {% set img=image.fieldStringValue %}
-                                {% if ('youtube' in image.fieldStringValue) %}
-                                    {% set videoid=getYoutubeId(image.fieldStringValue) %}
-                                    {% set img=getYoutubeThumb(videoid) %}
-                                {% endif %}
-                                <img data-video="{{ videoid }}" src="{{ img }}"/>
 
-                            {% endif %}
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
+
+        </ul>
+        <script>
+            $(document).ready(function () {
+                $('.pgwSlideshow').pgwSlideshow();
+
+            });
+
+
+        </script>
     </div>
 {% endif %}
-
-<script src='{{ asset('bundles/numadoasite/Tnt/js/slideshow.js') }}'></script>

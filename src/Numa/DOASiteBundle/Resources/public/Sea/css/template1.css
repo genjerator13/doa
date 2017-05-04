@@ -271,6 +271,7 @@ body {
     margin-top: -70px;
     position: relative;
     z-index: 1;
+    min-height: 70px;
 }
 
 .buttons ul {
