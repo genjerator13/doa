@@ -10,6 +10,10 @@
         {% endif %}
     </a>
     {% if image is not empty and image is not empty %}
-        {{ component.image("/upload/dealers/"~image.src, 'btn'~num, '', 'forest_button','page','forest') }}
+        {% if "upload/dealers" in image.src %}
+            {{ component.image(image.src, 'btn'~num, '', image_size,'page','forest') }}
+        {% else %}
+            {{ component.image("/upload/dealers/"~image.src, 'btn'~num, '', image_size,'page','forest') }}
+        {% endif %}
     {% endif %}
 </div>
