@@ -903,7 +903,21 @@ footer .contactFooter a {
 .bscarousel {
     min-height: 100px;
 }
-#tntcarousel_bottom {
+
+.homepage_carousel .text_widget {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+
+.homepage_carousel_bottom .text_widget {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+.homepage_carousel_bottom {
     top: 20px;
 }
 
