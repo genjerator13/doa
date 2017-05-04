@@ -15,9 +15,6 @@
 {% endblock %}
 {% block banner %}
 
-    {#{% set images_left = displayComponent("homepage_left_carousel","carousel") %}#}
-    {#{% set images_right = displayComponent("homepage_right_carousel","carousel") %}#}
-
     <div class="row">
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             {{ displayComponent("homepage_left_carousel","carousel",'page','mountain',{"image_size":"carousel_mountain", "class": "homepage_carousel"})|raw }}
@@ -25,72 +22,6 @@
         <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
             {{ displayComponent("homepage_right_carousel","carousel",'page','mountain',{"image_size":"carousel_mountain", "class": "homepage_carousel"})|raw }}
         </div>
-
-
-        {#<div id="myCarousel_left" class="carousel-fade col-md-6 col-lg-6 col-sm-12 col-xs-12" data-ride="carousel">#}
-            {#<div class="classWithPad">#}
-                {#<!-- Carousel indicators -->#}
-                {#<ol class="carousel-indicators">#}
-                    {#{% for image in images_left %}#}
-                        {#<li data-target="#myCarousel_left" data-slide-to="{{ loop.index }}"#}
-                            {#class="{% if loop.first %}active{% endif %}"></li>#}
-                    {#{% endfor %}#}
-
-                {#</ol>#}
-                {#<!-- Wrapper for carousel items -->#}
-                {#<div class="carousel-inner">#}
-                    {#{% for image in images_left %}#}
-                        {#<div class="item {% if loop.first %} active{% endif %}">#}
-                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_mountain',"100%") }}#}
-                            {#{% if image.carouselText is not empty %}#}
-                                {#<div class="carousel-text">{{ image.carouselText|raw }}</div>#}
-                            {#{% endif %}#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-                {#</div>#}
-            {#</div>#}
-            {#<!-- Carousel controls -->#}
-            {#<a class="carousel-control left" href="#myCarousel_left" data-slide="prev">#}
-                {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-            {#</a>#}
-            {#<a class="carousel-control right" href="#myCarousel_left" data-slide="next">#}
-                {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-            {#</a>#}
-
-        {#</div>#}
-
-        {#<div id="myCarousel_right" class="carousel-fade col-md-6 col-lg-6 col-sm-12 col-xs-12" data-ride="carousel">#}
-            {#<div class="classWithPad">#}
-                {#<!-- Carousel indicators -->#}
-                {#<ol class="carousel-indicators">#}
-                    {#{% for image in images_right %}#}
-                        {#<li data-target="#myCarousel_right" data-slide-to="{{ loop.index }}"#}
-                            {#class="{% if loop.first %}active{% endif %}"></li>#}
-                    {#{% endfor %}#}
-
-                {#</ol>#}
-                {#<!-- Wrapper for carousel items -->#}
-                {#<div class="carousel-inner">#}
-                    {#{% for image in images_right %}#}
-                        {#<div class="item {% if loop.first %} active{% endif %}">#}
-                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_mountain',"100%") }}#}
-                            {#{% if image.carouselText is not empty %}#}
-                                {#<div class="carousel-text">{{ image.carouselText|raw }}</div>#}
-                            {#{% endif %}#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-
-                {#</div>#}
-            {#</div>#}
-            {#<!-- Carousel controls -->#}
-            {#<a class="carousel-control left" href="#myCarousel_right" data-slide="prev">#}
-                {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-            {#</a>#}
-            {#<a class="carousel-control right" href="#myCarousel_right" data-slide="next">#}
-                {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-            {#</a>#}
-
-        {#</div>#}
     </div>
 
 {% endblock %}
@@ -102,7 +33,7 @@
 
         {#{{ displayComponent('welcome_text',"HTML")|raw }}#}
     </div>
-    </div>
+
 {% endblock %}
 
 {% block info %}

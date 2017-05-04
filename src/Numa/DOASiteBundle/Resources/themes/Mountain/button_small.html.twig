@@ -1,18 +1,6 @@
 {#{% set button1 = displayComponent(button,'image','page','forest') %}#}
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 
-{#<div class="button {% if image is empty %}b{{ num }}{% endif %}">#}
-    {#<a href=" {% if image is not empty and image.url is not empty %}{{ image.url }}{% else %}#{% endif %}" class="xxxx">#}
-        {#{% if image is not empty and image.carouselText is not empty %}#}
-            {#<h2>{{ image.carouselText|striptags()|raw }}#}
-                {#<span>Click Here</span>#}
-            {#</h2>#}
-        {#{% endif %}#}
-    {#</a>#}
-    {#{% if image is not empty and image is not empty %}#}
-        {#{{ component.image("/upload/dealers/"~image.src, 'btn'~num, '', 'forest_button','page','forest') }}#}
-    {#{% endif %}#}
-{#</div>#}
 <div class="b{{ num }}">
     <a href="{% if image is not empty and image.url is defined %}{{ image.url }}{% else %}#{% endif %}">
         <div class="button-small-text">
@@ -21,8 +9,8 @@
                 <div class="click-here">Click Here</div>
             {% endif %}
         </div>
-        {% if image is not empty and button4 is not empty and image.src is defined %}
-            {{ component.image(image.src, 'btn4', '', 'mountain_small_button',"100%","auto") }}
+        {% if image is not empty and image is not empty and image.src is defined %}
+            {{ component.image(image.src, 'btn'~num, '', 'mountain_small_button',"100%","auto") }}
         {% endif %}
     </a>
 
