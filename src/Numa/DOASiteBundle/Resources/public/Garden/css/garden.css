@@ -445,7 +445,7 @@ and (max-width : 767px) {
 	border-radius: 0 !important;
 }
 
-.listing-buttons {
+.listing-buttons div {
 	padding: 0;
 	position: relative;
 	right: 0;
