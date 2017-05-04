@@ -945,15 +945,15 @@ ul.techData li {
 /*!*margin-left: 20px;*!*/
 /*}*/
 
-#myCarousel_left {
+.homepage_carousel {
 	margin-bottom: 20px;
 }
-#myCarousel_top {
+.homepage_carousel {
 	/*width: 1130px;*/
 	margin-left: 0px;
 
 }
-#myCarousel_top .text_widget {
+.homepage_carousel .text_widget {
 	left: 10px;
 	position: absolute;
 	top: 10px;

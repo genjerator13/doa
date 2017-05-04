@@ -551,3 +551,10 @@ ul.techData li {
 .dontshow{
 	display:none;
 }
+
+.homepage_carousel .text_widget {
+	left: 10px;
+	position: absolute;
+	top: 10px;
+	width: 100%;
+}

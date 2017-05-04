@@ -40,7 +40,7 @@
 
         {#</div>#}
     {#{% endif %}#}
-    {{displayComponent("homepage_carousel","carousel","page","Tnt",{'image_size':"tnt_carousel"})|raw  }}
+    {{displayComponent("homepage_carousel","carousel","page","Tnt",{'image_size':"tnt_carousel", "class":"homepage_carousel"})|raw  }}
 {% endblock %}
 {% block buttons %}
     <div class="homepageCTA">
@@ -146,7 +146,7 @@
 
     {#{% set images = displayComponent("homepage_carousel_bottom","carousel","page","Tnt") %}#}
 
-{{displayComponent("homepage_carousel_bottom","carousel","page","Tnt",{'image_size':"tnt_carousel_bottom"})|raw  }}
+{{displayComponent("homepage_carousel_bottom","carousel","page","Tnt",{'image_size':"tnt_carousel_bottom", "class":"homepage_carousel_bottom"})|raw  }}
     {#{% if images is not empty %}#}
         {#<div class="bscarousel">#}
             {#<div id="tntcarousel_bottom" class="carousel slide" data-ride="carousel">#}
