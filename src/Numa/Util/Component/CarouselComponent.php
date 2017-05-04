@@ -43,10 +43,12 @@ class CarouselComponent extends ComponentView
         //dump($images);die();
         $templating  = $this->container->get('templating');
         $imageSize = $this->setting['image_size'];
+        $class = $this->setting['class'];
 
 
         $html = $templating->render('NumaDOASiteBundle:TemplatesElements:carousel.html.twig', array(
             'images' => $images,
+            'class' => $class,
             'carouselId' => $this->componentEntity->getName().$this->componentEntity->getId(),
             'image_size' => $imageSize,
         ));
