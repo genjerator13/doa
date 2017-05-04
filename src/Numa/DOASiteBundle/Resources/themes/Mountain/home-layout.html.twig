@@ -23,21 +23,9 @@
     {% block javascripts %}
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Mountain/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery(".mobile-menu ul ul").hide();
-                /* hide sublinks */
-                jQuery(".separator").click(function () {
-                    jQuery(this).next().slideToggle(300);
-                    /* display sublinks */
-                });
-            });
-        </script>
 
     {% endblock %}
     {% block bodyBackground %}

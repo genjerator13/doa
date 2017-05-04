@@ -21,22 +21,11 @@
     {% block javascripts %}
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Sea/js/pgwslideshow.js' %}
+        {% javascripts '@bootstrapx_js' '@colorbox_js' 'bundles/numadoasite/Sea/js/pgwslideshow.js' "bundles/numadoasite/Sea/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
 
         {% endjavascripts %}
         {% include 'NumaDOASiteBundle::ga.html.twig' %}
-
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery(".mobile-menu ul ul").hide();
-                /* hide sublinks */
-                jQuery(".separator").click(function () {
-                    jQuery(this).next().slideToggle(300);
-                    /* display sublinks */
-                });
-            });
-        </script>
     {% endblock %}
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}

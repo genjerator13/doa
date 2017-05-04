@@ -251,11 +251,11 @@ header.site-header .headerLogo a {
     cursor: pointer;
 }
 
-.mobile-menu .mobmenu > li:first-child {
+.mobile-menu .mobmenu > div > li:first-child {
     border-top: none;
 }
 
-.mobile-menu .mobmenu > li > .glyphicon {
+.mobile-menu .mobmenu > div > li > .glyphicon {
     font-size: 110%;
 }
 
