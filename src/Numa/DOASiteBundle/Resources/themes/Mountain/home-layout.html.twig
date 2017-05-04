@@ -55,168 +55,147 @@
         {#{% set images = displayComponent("homepage_carousel","carousel","page","mountain") %}#}
 
         {#{% if images is not empty %}#}
-            {#<div class="bottom-margin">#}
-                {#<div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">#}
-                    {#<!-- Wrapper for carousel items -->#}
-                    {#<div class="carousel-inner">#}
-                        {#{% for image in images %}#}
-                            {#<div class="item {% if loop.first %} active{% endif %}">#}
-                                {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain',"100%","auto") }}#}
-                                {#{% if image.carouselText is not empty %}#}
-                                    {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
-                                {#{% endif %}#}
-                            {#</div>#}
-                        {#{% endfor %}#}
-                    {#</div>#}
-                    {#<!-- Carousel controls -->#}
-                    {#<a class="carousel-control left" href="#myCarousel_top" data-slide="prev">#}
-                        {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-                    {#</a>#}
-                    {#<a class="carousel-control right" href="#myCarousel_top" data-slide="next">#}
-                        {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-                    {#</a>#}
-                {#</div>#}
-            {#</div>#}
+        {#<div class="bottom-margin">#}
+        {#<div id="myCarousel_top" class="carousel slide carousel-fade" data-ride="carousel">#}
+        {#<!-- Wrapper for carousel items -->#}
+        {#<div class="carousel-inner">#}
+        {#{% for image in images %}#}
+        {#<div class="item {% if loop.first %} active{% endif %}">#}
+        {#{{ component.image('upload/dealers/'~image.src, "", '', 'carousel_top_mountain',"100%","auto") }}#}
+        {#{% if image.carouselText is not empty %}#}
+        {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
+        {#{% endif %}#}
+        {#</div>#}
+        {#{% endfor %}#}
+        {#</div>#}
+        {#<!-- Carousel controls -->#}
+        {#<a class="carousel-control left" href="#myCarousel_top" data-slide="prev">#}
+        {#<span class="glyphicon glyphicon-chevron-left"></span>#}
+        {#</a>#}
+        {#<a class="carousel-control right" href="#myCarousel_top" data-slide="next">#}
+        {#<span class="glyphicon glyphicon-chevron-right"></span>#}
+        {#</a>#}
+        {#</div>#}
+        {#</div>#}
         {#{% endif %}#}
 
 
         <div class="row">
-            {% set button1 = displayComponent('mountain_button_1','image_object',"page","mountain") %}
-            {% set button2 = displayComponent('mountain_button_2','image_object',"page","mountain") %}
-            {% set button3 = displayComponent('mountain_button_3','image_object',"page","mountain") %}
-            {% set button4 = displayComponent('mountain_button_4','image_object',"page","mountain") %}
-            {% set button5 = displayComponent('mountain_button_5','image_object',"page","mountain") %}
+            {#{% set button1 = displayComponent('mountain_button_1','image_object',"page","mountain") %}#}
+            {#{% set button2 = displayComponent('mountain_button_2','image_object',"page","mountain") %}#}
+            {#{% set button3 = displayComponent('mountain_button_3','image_object',"page","mountain") %}#}
+            {#{% set button4 = displayComponent('mountain_button_4','image_object',"page","mountain") %}#}
+            {#{% set button5 = displayComponent('mountain_button_5','image_object',"page","mountain") %}#}
 
-            <div class="button {% if button1 is empty %}b1{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            {#<div class="button {% if button1 is empty %}b1{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
 
-                <a href=" {% if button1 is not empty and button1.url is  defined %}{{ button1.url }}{% else %}#{% endif %}"
-                   class="">
-                    <div class="button-text">
-                        {% if button1 is not empty and button1.carouselText is  defined %}
-                            <h2>{{ button1.carouselText|striptags('<span>')|raw }}</h2>
-                            <div class="click-here">Click Here</div>
-                        {% endif %}
-                    </div>
-                    {% if button1 is not empty and button1 is not empty and button1.src is defined %}
-                        {{ component.image(button1.src, 'btn1', '', 'mountain_button',"100%","auto") }}
-                    {% endif %}
-                </a>
+            {#<a href=" {% if button1 is not empty and button1.url is  defined %}{{ button1.url }}{% else %}#{% endif %}"#}
+            {#class="">#}
+            {#<div class="button-text">#}
+            {#{% if button1 is not empty and button1.carouselText is  defined %}#}
+            {#<h2>{{ button1.carouselText|striptags('<span>')|raw }}</h2>#}
+            {#<div class="click-here">Click Here</div>#}
+            {#{% endif %}#}
+            {#</div>#}
+            {#{% if button1 is not empty and button1 is not empty and button1.src is defined %}#}
+            {#{{ component.image(button1.src, 'btn1', '', 'mountain_button',"100%","auto") }}#}
+            {#{% endif %}#}
+            {#</a>#}
 
-            </div>
+            {#</div>#}
 
-            <div class="button {% if button2 is empty %}b2{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            {#<div class="button {% if button2 is empty %}b2{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
 
-                <a href=" {% if button2 is not empty and button2.url is  defined %}{{ button2.url }}{% else %}#{% endif %}"
-                   class="">
-                    <div class="button-text">
-                        {% if button2 is not empty and button2.carouselText is defined %}
-                            <h2>{{ button2.carouselText|striptags('<span>')|raw }}</h2>
-                            <div class="click-here">Click Here</div>
-                        {% endif %}
-                    </div>
-                    {% if button2 is not empty and button2 is not empty and button2.src is defined %}
-                        {{ component.image(button2.src, 'btn2', '', 'mountain_button',"100%","auto") }}
-                    {% endif %}
-                </a>
+            {#<a href=" {% if button2 is not empty and button2.url is  defined %}{{ button2.url }}{% else %}#{% endif %}"#}
+            {#class="">#}
+            {#<div class="button-text">#}
+            {#{% if button2 is not empty and button2.carouselText is defined %}#}
+            {#<h2>{{ button2.carouselText|striptags('<span>')|raw }}</h2>#}
+            {#<div class="click-here">Click Here</div>#}
+            {#{% endif %}#}
+            {#</div>#}
+            {#{% if button2 is not empty and button2 is not empty and button2.src is defined %}#}
+            {#{{ component.image(button2.src, 'btn2', '', 'mountain_button',"100%","auto") }}#}
+            {#{% endif %}#}
+            {#</a>#}
 
-            </div>
+            {#</div>#}
 
-            <div class="button {% if button3 is empty %}b3{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            {#<div class="button {% if button3 is empty %}b3{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
 
-                <a href=" {% if button3 is not empty and button3.url is  defined %}{{ button3.url }}{% else %}#{% endif %}"
-                   class="">
-                    <div class="button-text">
-                        {% if button3 is not empty and button3.carouselText is defined %}
-                            <h2>{{ button3.carouselText|striptags('<span>')|raw }}</h2>
-                            <div class="click-here">Click Here</div>
-                        {% endif %}
-                    </div>
-                    {% if button3 is not empty and button3 is not empty and button3.src is defined %}
-                        {{ component.image(button3.src, 'btn3', '', 'mountain_button',"100%","auto") }}
-                    {% endif %}
-                </a>
+            {#<a href=" {% if button3 is not empty and button3.url is  defined %}{{ button3.url }}{% else %}#{% endif %}"#}
+            {#class="">#}
+            {#<div class="button-text">#}
+            {#{% if button3 is not empty and button3.carouselText is defined %}#}
+            {#<h2>{{ button3.carouselText|striptags('<span>')|raw }}</h2>#}
+            {#<div class="click-here">Click Here</div>#}
+            {#{% endif %}#}
+            {#</div>#}
+            {#{% if button3 is not empty and button3 is not empty and button3.src is defined %}#}
+            {#{{ component.image(button3.src, 'btn3', '', 'mountain_button',"100%","auto") }}#}
+            {#{% endif %}#}
+            {#</a>#}
 
-            </div>
+            {#</div>#}
+            {{ displayComponent('mountain_button_1','image','page','mountain',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"mountain_button","num":1}}) }}
+            {{ displayComponent('mountain_button_2','image','page','mountain',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"mountain_button","num":2}}) }}
+            {{ displayComponent('mountain_button_3','image','page','mountain',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"mountain_button","num":3}}) }}
+            {{ displayComponent('mountain_button_4','image','page','mountain',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":4}}) }}
+            {{ displayComponent('mountain_button_5','image','page','mountain',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":5}}) }}
 
-            <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="b4">
-                    <a href="{% if button4 is not empty and button4.url is defined %}{{ button4.url }}{% else %}#{% endif %}">
-                        <div class="button-small-text">
-                            {% if button4 is not empty and button4.carouselText is defined %}
-                                <h2>{{ button4.carouselText|striptags('<span>')|raw }}</h2>
-                                <div class="click-here">Click Here</div>
-                            {% endif %}
-                        </div>
-                        {% if button4 is not empty and button4 is not empty and button4.src is defined %}
-                            {{ component.image(button4.src, 'btn4', '', 'mountain_small_button',"100%","auto") }}
-                        {% endif %}
-                    </a>
+            {#<div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">#}
+            {{ displayComponent('mountain_button_4','image','page','mountain',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":4}}) }}
+            {{ displayComponent('mountain_button_5','image','page','mountain',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":5}}) }}
 
-                </div>
 
-                <div class="b5">
-                    <a href="{% if button5 is not empty and button5.url is defined %}{{ button5.url }}{% else %}#{% endif %}">
-                        <div class="button-small-text">
-                            {% if button5 is not empty and button5.carouselText is defined %}
-                                <h2>{{ button5.carouselText|striptags('<span>')|raw }}</h2>
-                                <div class="click-here">Click Here</div>
-                            {% endif %}
-                        </div>
-                        {% if button5 is not empty and button5 is not empty and button5.src is defined %}
-                            {{ component.image(button5.src, 'btn5', '', 'mountain_small_button',"100%","auto") }}
-                        {% endif %}
-                    </a>
-
-                </div>
-
-            </div>
         </div>
-        {% block browse %}
-            <div class="browse">
-
-                <ul>
-                    <li><h2><span>Browse</span> by Type</h2></li>
-                    <li><a class="motorhome"
-                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a>
-                    </li>
-                    <li><a class="travel-trailer"
-                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel
-                            Trailer</a></li>
-                    <li><a class="fifth-wheel"
-                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth
-                            Wheel</a></li>
-                    <li><a class="toy-hauler"
-                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy
-                            Hauler</a></li>
-                    <li><a class="park-models"
-                           href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park
-                            Models</a></li>
-                </ul>
-
-            </div>
-        {% endblock %}
-        {% block banner %}
-
-            <div class="banner"><img src="images/banner.jpg"/></div>
-            <div class="banner">
-
-                <div class="image">
-                    {% image 'bundles/numadoasite/Mountain/images/banner.jpg' %}
-                    <img src="{{ asset_url }}" alt="Example"/>
-                    {% endimage %}
-                </div>
-
-            </div>
-        {% endblock %}
-        {% block content %}
-            <div class="content">
-                {{ displayComponent('page_content',"HTML")|raw }}
-            </div>
-        {% endblock %}
-        {% block footer %}
-            {% include 'NumaDOASiteBundle::footer.html.twig' %}
-        {% endblock %}
     </div>
+    {% block browse %}
+        <div class="browse">
+
+            <ul>
+                <li><h2><span>Browse</span> by Type</h2></li>
+                <li><a class="motorhome"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a>
+                </li>
+                <li><a class="travel-trailer"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel
+                        Trailer</a></li>
+                <li><a class="fifth-wheel"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth
+                        Wheel</a></li>
+                <li><a class="toy-hauler"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy
+                        Hauler</a></li>
+                <li><a class="park-models"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park
+                        Models</a></li>
+            </ul>
+
+        </div>
+    {% endblock %}
+    {% block banner %}
+
+        <div class="banner"><img src="images/banner.jpg"/></div>
+        <div class="banner">
+
+            <div class="image">
+                {% image 'bundles/numadoasite/Mountain/images/banner.jpg' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </div>
+
+        </div>
+    {% endblock %}
+    {% block content %}
+        <div class="content">
+            {{ displayComponent('page_content',"HTML")|raw }}
+        </div>
+    {% endblock %}
+    {% block footer %}
+        {% include 'NumaDOASiteBundle::footer.html.twig' %}
+    {% endblock %}
+</div>
 
 </div>
 {% if dealer is defined and dealer.settingPurechat is not empty %}
