@@ -1014,7 +1014,11 @@ and (max-width: 900px) {
     .ctaHolder:hover .ctaList {
         display: none;
     }
-    .logo,.ctaHolder .ctaList {
+    header.site-header .headerLogo a{
+        position: relative;
+
+    }
+    .ctaHolder .ctaList {
         display: none;
     }
     .featured-ads a {
