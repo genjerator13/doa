@@ -107,10 +107,11 @@
             {{ displayComponent('page_content',"HTML")|raw }}
         </div>
     {% endblock %}
-    {% block footer %}
-        {% include 'NumaDOASiteBundle::footer.html.twig' %}
-    {% endblock %}
+
 </div>
+{% block footer %}
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
+{% endblock %}
 
 </div>
 {% if dealer is defined and dealer.settingPurechat is not empty %}
