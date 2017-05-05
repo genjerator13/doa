@@ -667,7 +667,16 @@ and (max-width : 1023px) {
 		height: 165px;
 	}
 
+	.button {
+		display: block;
+		margin-bottom: 20px;
+		overflow: hidden;
+		height: 200px;
+	}
 
+	.button img{
+		width: 100%;
+	}
 }
 
 
