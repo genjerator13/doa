@@ -24,7 +24,12 @@
             {% endif %}
         </div>
         {% if image is not empty and image is not empty and image.src is defined %}
-            {{ component.image(image.src, 'btn'~num, '', 'mountain_button',"100%","auto") }}
+            {#{{ component.image(image.src, 'btn'~num, '', 'mountain_button',"100%","auto") }}#}
+            {% if "upload/dealers" in image.src %}
+                {{ component.image(image.src, 'btn'~num, '', 'mountain_button','page','mountain') }}
+            {% else %}
+                {{ component.image("/upload/dealers/"~image.src, 'btn'~num, '', 'mountain_button','page','mountain') }}
+            {% endif %}
         {% endif %}
     </a>
 </div>
