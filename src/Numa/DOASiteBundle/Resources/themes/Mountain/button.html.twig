@@ -14,7 +14,7 @@
     {#{% endif %}#}
 {#</div>#}
 
-<div class="button {% if image is empty %}b3{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
+<div class="button {% if image is empty %}b{{ num }}{% endif %} col-lg-3 col-md-3 col-sm-6 col-xs-12">
     <a href=" {% if image is not empty and image.url is  defined %}{{ image.url }}{% else %}#{% endif %}"
        class="">
         <div class="button-text">
@@ -24,7 +24,7 @@
             {% endif %}
         </div>
         {% if image is not empty and image is not empty and image.src is defined %}
-            {{ component.image(image.src, 'btn3', '', 'mountain_button',"100%","auto") }}
+            {{ component.image(image.src, 'btn'~num, '', 'mountain_button',"100%","auto") }}
         {% endif %}
     </a>
 </div>
