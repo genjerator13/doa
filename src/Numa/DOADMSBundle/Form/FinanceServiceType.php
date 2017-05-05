@@ -24,7 +24,7 @@ class FinanceServiceType extends AbstractType
             ->add('address', null, array('label'=>'* Address', 'required' => true))
             ->add('city', null, array('label'=>'* City', 'required' => true))
             ->add('state','text',array('label'=>'* State/Prov', 'required' => true))
-            ->add('zip_code', null, array('label'=>'* ZIP Code', 'required' => true))
+            ->add('zip_code', null, array('label'=>'* Zip/Postal', 'required' => true))
 
             ->add('ssn_sin_nr', null, array('label'=>'* SSN / SIN. No.', 'required' => true))
             ->add('birth_date', 'date', array('label'=>'* Date of Birth', 'required' => true,'years'       => range(date('Y')-16, date('Y') - 100, -1)))
