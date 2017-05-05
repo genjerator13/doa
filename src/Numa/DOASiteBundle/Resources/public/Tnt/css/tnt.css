@@ -480,6 +480,12 @@ header.site-header .headerLogo a {
     font-weight: 600;
 }
 
+.content  p img , .maincontent p img{
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+}
+
 .content .panel-body {
     padding-top: 30px
 }
@@ -1001,6 +1007,9 @@ and (max-width: 900px) {
     }
     .cta {
         margin-bottom: 20px;
+    }
+    .homepageCTA {
+        margin-top:10px;
     }
     .ctaHolder:hover .ctaList {
         display: none;
