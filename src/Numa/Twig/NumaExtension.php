@@ -300,16 +300,17 @@ class NumaExtension extends \Twig_Extension
     }
 
     private function componentWrapper($component){
-        $id = "c-".$component->getId();
-        $class = "componentx";
-        $html = "";
-        if($component instanceof Component){
-            $id = "dc-".$component->getId();
-            $class = "dealer-componentx";
-        }
-        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
+//        $id = "c-".$component->getId();
+//        $class = "componentx";
+//        $html = "";
+//        if($component instanceof Component){
+//            $id = "dc-".$component->getId();
+//            $class = "dealer-componentx";
+//        }
+//        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
 
-        return $html;
+        //return $html;
+        return $component->getValue();
     }
     public function getDealer()
     {

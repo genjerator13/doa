@@ -12,7 +12,8 @@ abstract class ComponentView {
             $id = "dc-".$component->getId();
             $class = "dealer-componentx";
         }
-        $htmlOut = '<div id="'.$id.'" class="'.$class.'">'.$html."</div>";
+        //$htmlOut = '<div id="'.$id.'" class="'.$class.'">'.$html."</div>";
+        $htmlOut = $html;
 
         return $htmlOut;
     }
