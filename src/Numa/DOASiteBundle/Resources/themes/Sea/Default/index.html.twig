@@ -11,7 +11,7 @@
     <div class="buttons">
         <ul>
             <li>
-                {% if displayComponent('sea_small_button1',"HTML","page","sea")|striptags is not empty %}
+                {% if displayComponent('sea_small_button1',"HTML","page","sea") is not empty %}
                     {{ displayComponent('sea_small_button1',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("search_new_vehicle") }}">
@@ -24,8 +24,8 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button2',"HTML","page","sea")|striptags is not empty %}
-                    {{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}
+                {% if displayComponent('sea_small_button2',"HTML","page","sea") is not empty %}
+                    ::{{ displayComponent('sea_small_button2',"HTML","page","sea")|raw }}::
                 {% else %}
                     <a href="{{ path("search_used_vehicle") }}">
                     <span class="left-arrow">
@@ -37,7 +37,7 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button3',"HTML","page","sea")|striptags is not empty %}
+                {% if displayComponent('sea_small_button3',"HTML","page","sea") is not empty %}
                     {{ displayComponent('sea_small_button3',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("finance_form") }}">
@@ -50,7 +50,7 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_small_button4',"HTML","page","sea")|striptags is not empty %}
+                {% if displayComponent('sea_small_button4',"HTML","page","sea") is not empty %}
                     {{ displayComponent('sea_small_button4',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("service_form") }}">
@@ -71,7 +71,7 @@
 
         <ul>
             <li>
-                {% if displayComponent('sea_large_button5',"HTML","page","sea")|striptags is not empty %}
+                {% if displayComponent('sea_large_button5',"HTML","page","sea") is not empty %}
                     {{ displayComponent('sea_large_button5',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path("news") }}">
@@ -81,7 +81,7 @@
                 {% endif %}
             </li>
             <li>
-                {% if displayComponent('sea_large_button6',"HTML","page","sea")|striptags is not empty %}
+                {% if displayComponent('sea_large_button6',"HTML","page","sea") is not empty %}
                     {{ displayComponent('sea_large_button6',"HTML","page","sea")|raw }}
                 {% else %}
                     <a href="{{ path('part_form') }}">
