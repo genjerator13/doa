@@ -190,7 +190,6 @@ class NumaExtension extends \Twig_Extension
             }
         }
 
-
         if (!($component instanceof Component) && !($component instanceof DealerComponent)) {
             if ($type != "image_text") {
                 if ($source == "page" && $page instanceof Page) {
@@ -231,7 +230,7 @@ class NumaExtension extends \Twig_Extension
         }
 
 
-        if($type=="text" || strtolower($type)=="html"  || strtolower($type)=="template" || strtolower($type) == "carousel" || strtolower($type) == "image") {
+        if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template" || strtolower($type) == "carousel" || strtolower($type) == "image") {
             $componentxxx = $this->container->get("numa.component")->getComponent($name, $type, $source, $theme,$setting);
 
             if ($componentxxx instanceof ComponentView) {
@@ -310,7 +309,10 @@ class NumaExtension extends \Twig_Extension
 //        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
 
         //return $html;
-        return $component->getValue();
+        //if($component instanceof ComponentEntityInterface) {
+            return $component->getValue();
+        //}
+        //return "";
     }
     public function getDealer()
     {
