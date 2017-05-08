@@ -136,16 +136,18 @@ class DealerComponentController extends Controller
         if (strtolower($entity->getType()) == "image") {
             $template = "NumaDOAModuleBundle:Component:image_edit.html.twig";
         }
-        $dc = $em->getRepository(DealerComponent::class)->find($id);
-        $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
-        return $this->render($template, array(
-            'uploadDir' => $uploadDir,
-            'dealerComponent' => true,
-            'entity' => $entity,
-            'entities' => $entities,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        ));
+        if (strtolower($entity->getType()) == "image" || (strtolower($entity->getType()) == "carousel") ) {
+            $dc = $em->getRepository(DealerComponent::class)->find($id);
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
+            return $this->render($template, array(
+                'uploadDir' => $uploadDir,
+                'dealerComponent' => true,
+                'entity' => $entity,
+                'entities' => $entities,
+                'edit_form' => $editForm->createView(),
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
 
 
         return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
