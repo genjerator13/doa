@@ -1,6 +1,7 @@
 Numa\DOAAdminBundle\Entity\ItemField:
     type: entity
     table: item_field
+    repositoryClass: Numa\DOAAdminBundle\Repository\ItemFieldRepository
     indexes:
         feed:
             columns: [ feed_id ]
