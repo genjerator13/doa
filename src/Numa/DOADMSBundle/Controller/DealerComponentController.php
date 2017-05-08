@@ -132,7 +132,8 @@ class DealerComponentController extends Controller
         $this->get('Numa.DMSUtils')->clearCache();
 
         if(strtolower($entity->getType())=="carousel"){
-            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
+            $dc  = $em->getRepository(DealerComponent::class)->find($id);
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
             return $this->render('NumaDOAModuleBundle:Component:carousel_edit.html.twig', array(
                 'uploadDir' => $uploadDir,
                 'dealerComponent' => true,
@@ -142,7 +143,8 @@ class DealerComponentController extends Controller
                 'delete_form' => $deleteForm->createView(),
             ));
         }elseif(strtolower($entity->getType())=="image"){
-            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
+            $dc  = $em->getRepository(DealerComponent::class)->find($id);
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
             return $this->render('NumaDOAModuleBundle:Component:image_edit.html.twig', array(
                 'uploadDir' => $uploadDir,
                 'dealerComponent' => true,

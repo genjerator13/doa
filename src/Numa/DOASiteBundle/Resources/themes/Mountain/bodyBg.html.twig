@@ -1,7 +1,6 @@
 {% block bodyBackground %}
     <style type="text/css">
-        {% set imgBg = displayComponent('site_background','Image','dealer')   %}
-
+        {% set imgBg = displayComponent('mountain_site_background','Image','dealer','muntain',{"output":"src"})   %}
         {% if imgBg is not empty %}
         body{
             background-image: url("{{ imgBg }}");
