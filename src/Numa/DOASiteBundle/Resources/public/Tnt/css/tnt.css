@@ -131,6 +131,10 @@ header.site-header .headerLogo a {
     background: transparent url("../images/contact.png") no-repeat scroll center 10px;
 }
 
+.headerMenu .main-navigation li.tire {
+    background: transparent url("../images/tire.png") no-repeat scroll center 10px;
+}
+
 .headerMenu .main-navigation li a, .headerMenu .main-navigation li a:focus, .headerMenu .main-navigation li a:active {
     border-bottom: 3px solid #252525;
     color: #ffffff !important;
@@ -160,7 +164,7 @@ header.site-header .headerLogo a {
     background: #252525 none repeat scroll 0 0;
     color: #ffffff !important;
     padding: 5px 30px;
-    width: 190px;
+    width: 230px;
 }
 .headerMenu .main-navigation li.current-menu-item > a, .headerMenu .main-navigation li.current-menu-parent > a, .headerMenu .main-navigation li a:hover, .headerMenu .main-navigation li a:focus {
     border-bottom: 3px solid #00be36;
