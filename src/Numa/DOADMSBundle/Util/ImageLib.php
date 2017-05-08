@@ -75,6 +75,8 @@ class ImageLib
         $dir    = 'upload/itemsimages'; // path from top
         $scanedFiles = scandir($dir);
         $files = array_diff($scanedFiles, array('.', '..'));
+        $delete=array();
+        $noDelete=array();
 
         foreach($files as $file){
             // "is_dir" only works from top directory, so append the $dir before the file
@@ -83,27 +85,44 @@ class ImageLib
                 $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
                 foreach ($filesFolder as $fileFolder) {
                     $img = $dir.'/'.$file.'/'.$fileFolder;
+                    //dump('/'.$img);
                     if(!in_array('/'.$img, $images)){
                         $this->deleteImage($img);
+                        $delete[]=$img;
+                        //dump("not EXISTS");
+                    }else{
+                        $noDelete[]=$img;
+//                        dump("EXISTS");
+//                        dump($img);
                     }
                 }
 
             } else{
                 $img = $dir.'/'.$file;
+                //dump('/'.$img);
                 if(!in_array('/'.$img, $images)){
                     $this->deleteImage($img);
+                    $delete[]=$img;
+                }else{
+                    //dump("EXISTS");
+                    $noDelete[]=$img;
                 }
             }
         }
+        dump("DELETE");
+        dump($delete);
+        dump("no DELETE");
+        dump($noDelete);
         die();
 
     }
     public function getAllImagesIntoArray(){
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->container->get('doctrine.orm.entity_manager');
         $images = $em->getRepository('NumaDOAAdminBundle:ItemField')->getLocalImages();
         $arrayImages = array();
         foreach($images as $image){
-            $arrayImages[] = $image->getFieldStringValue();
+
+            $arrayImages[] = str_replace("//","/",$image->getFieldStringValue());
         }
         return $arrayImages;
     }
@@ -111,7 +130,7 @@ class ImageLib
     public function deleteImage($filename){
         if(file_exists($filename)){
 //            unlink($filename);
-            dump($filename);
+            //dump($filename);
         }
     }
 }

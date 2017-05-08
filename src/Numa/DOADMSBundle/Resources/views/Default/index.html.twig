@@ -74,9 +74,9 @@
             </div>
         </div>
     </div>
-    {% if not is_granted('ROLE_ADMIN') %}
+    {#{% if not is_granted('ROLE_ADMIN') %}#}
         {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
-    {% endif %}
+    {#{% endif %}#}
 
     {% include 'NumaDOADMSBundle:Default:reminders.html.twig' %}
 
