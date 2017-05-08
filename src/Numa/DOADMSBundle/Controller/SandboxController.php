@@ -15,27 +15,48 @@ class SandboxController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $item = $em->getRepository(Item::class)->find(31806);
-        $vendors =  $this->get("numa.dms.sale")->getAllVendors($item);
-        //$this->get('numa.dms.quickbooks')->createItemPO($item);
 
-        foreach ($vendors as $vendor){
-            $qbPO = $this->get('numa.dms.quickbooks')->createPurchaseOrder($vendor[0]['vendor']);
-            foreach($vendor as $vendorItem) {
-
-
-                $this->get('numa.dms.quickbooks')->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
+        $images = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array("field_name"=>'Image List'));
+        $arrayImages = array();
+        foreach($images as $image){
+            if(substr($image->getFieldStringValue(), 0, 7 ) !== "http://"){
+                $arrayImages[] = $image->getFieldStringValue();
             }
-            $qbPO = $this->get('numa.dms.quickbooks')->insertPurchaseOrder($qbPO);
         }
 
-        dump($vendors);
+
+        $dir    = 'upload/itemsimages'; // path from top
+        $scanedFiles = scandir($dir);
+        $files = array_diff($scanedFiles, array('.', '..'));
+
+        foreach($files as $file){
+            // "is_dir" only works from top directory, so append the $dir before the file
+            if (is_dir($dir.'/'.$file)){
+                $scanedFilesFolder = scandir($dir.'/'.$file);
+                $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
+                foreach ($filesFolder as $fileFolder) {
+                    $img = $dir.'/'.$file.'/'.$fileFolder;
+                    if(in_array('/'.$img, $arrayImages)){
+                        dump($img);
+                    }
+                    else{
+                        dump($img.'DELETE');
+                    }
+                }
+
+            } else{
+                $img = $dir.'/'.$file;
+                if(in_array('/'.$img, $arrayImages)){
+                    dump($img);
+                }
+                else{
+                    dump($img.'DELETE');
+                }
+            }
+        }
         die();
 
     }
-
-
-
 
     function initializeAnalytics()
     {
@@ -56,6 +77,7 @@ class SandboxController extends Controller
 
         return $analytics;
     }
+
     function getReport($analytics) {
 
         // Replace with your view ID, for example XXXX.
@@ -82,5 +104,5 @@ class SandboxController extends Controller
         return $analytics->reports->batchGet( $body );
     }
 
-   
+
 }
