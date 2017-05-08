@@ -15,45 +15,10 @@ class SandboxController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
+        //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
+        $images = $this->get('numa.dms.images')->deleteImagesNotInDB();
+        //dump($images);
 
-        $images = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array("field_name"=>'Image List'));
-        $arrayImages = array();
-        foreach($images as $image){
-            if(substr($image->getFieldStringValue(), 0, 7 ) !== "http://"){
-                $arrayImages[] = $image->getFieldStringValue();
-            }
-        }
-
-
-        $dir    = 'upload/itemsimages'; // path from top
-        $scanedFiles = scandir($dir);
-        $files = array_diff($scanedFiles, array('.', '..'));
-
-        foreach($files as $file){
-            // "is_dir" only works from top directory, so append the $dir before the file
-            if (is_dir($dir.'/'.$file)){
-                $scanedFilesFolder = scandir($dir.'/'.$file);
-                $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
-                foreach ($filesFolder as $fileFolder) {
-                    $img = $dir.'/'.$file.'/'.$fileFolder;
-                    if(in_array('/'.$img, $arrayImages)){
-                        dump($img);
-                    }
-                    else{
-                        dump($img.'DELETE');
-                    }
-                }
-
-            } else{
-                $img = $dir.'/'.$file;
-                if(in_array('/'.$img, $arrayImages)){
-                    dump($img);
-                }
-                else{
-                    dump($img.'DELETE');
-                }
-            }
-        }
         die();
 
     }
