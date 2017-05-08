@@ -67,4 +67,51 @@ class ImageLib
 
         return $res;
     }
+
+
+    public function deleteImagesNotInDB()
+    {
+        $images = $this->getAllImagesIntoArray();
+        $dir    = 'upload/itemsimages'; // path from top
+        $scanedFiles = scandir($dir);
+        $files = array_diff($scanedFiles, array('.', '..'));
+
+        foreach($files as $file){
+            // "is_dir" only works from top directory, so append the $dir before the file
+            if (is_dir($dir.'/'.$file)){
+                $scanedFilesFolder = scandir($dir.'/'.$file);
+                $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
+                foreach ($filesFolder as $fileFolder) {
+                    $img = $dir.'/'.$file.'/'.$fileFolder;
+                    if(!in_array('/'.$img, $images)){
+                        $this->deleteImage($img);
+                    }
+                }
+
+            } else{
+                $img = $dir.'/'.$file;
+                if(!in_array('/'.$img, $images)){
+                    $this->deleteImage($img);
+                }
+            }
+        }
+        die();
+
+    }
+    public function getAllImagesIntoArray(){
+        $em = $this->getDoctrine()->getManager();
+        $images = $em->getRepository('NumaDOAAdminBundle:ItemField')->getLocalImages();
+        $arrayImages = array();
+        foreach($images as $image){
+            $arrayImages[] = $image->getFieldStringValue();
+        }
+        return $arrayImages;
+    }
+
+    public function deleteImage($filename){
+        if(file_exists($filename)){
+//            unlink($filename);
+            dump($filename);
+        }
+    }
 }
