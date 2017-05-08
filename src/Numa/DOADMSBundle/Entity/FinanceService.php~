@@ -5,52 +5,62 @@ use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * FinanceService
+ * Finance
+ * @JMS\ExclusionPolicy("ALL")
  */
 class FinanceService
 {
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $id;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $dealer_id;
 
     /**
      * @var integer
+     * @JMS\Expose
      */
     private $customer_id;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cust_last_name;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $preferred_contact;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $email;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $day_phone;
 
     /**
      * @var string
+     * @JMS\Expose
      */
     private $cell_phone;
 
@@ -246,6 +256,7 @@ class FinanceService
 
     /**
      * @var \DateTime
+     * @JMS\Expose
      */
     private $date_created;
 
@@ -1479,7 +1490,10 @@ class FinanceService
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -1487,6 +1501,9 @@ class FinanceService
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
 }
