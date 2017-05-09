@@ -152,20 +152,11 @@ class ListingLib
             if(empty($vinArray['VIN']['Vehicle'][0])){
                 $data=array();
                 $data[0] =$vinArray['VIN']['Vehicle'];
-                dump("sdsdsd");
+
             }
-//            //dump($vinArray['VIN']);
-//            dump($data);
-//die();
+
             foreach ($data as $key => $vehicle) {
-//                //dump($vehicle['Item']);
-//                $data =$vehicle;
-//                dump($data);
-//                if(!empty($vehicle['Item'])){
-//                    $data=$vehicle['Item'];
-//                }
-//                dump($data);
-//                die();
+
                 foreach ($vehicle['Item'] as $item) {
 
                     $itemXml = $item["@attributes"];
@@ -181,7 +172,7 @@ class ListingLib
                         $res[$key][$itemKey] = $itemValue;
                     }
                 }
-                ///}
+
             }
 
         } catch (Exception $ex) {
