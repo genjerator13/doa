@@ -10,17 +10,36 @@
     {#{{ component.listingFieldInput(form.VIN,"", "form-group","col-sm-9") }}#}
     <div class="form-group">
         {{ form_label(form.VIN) }}
-        <div class="col-sm-4">
+        <div class="col-sm-3">
             {{ form_widget(form.VIN) }}
         </div>
-        <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin</button>
+
+        <div id="trim-select" class="form-group col-sm-3"></div>
+        <div class="col-sm-3">
+            <button id="vin_submit_button" type="button" class="vin btn btn-success">Decode Vin xxx</button>
+        </div>
     </div>
-    <script>
+    <script type="text/javascript">
         function firstToUpperCase(str) {
             return str.substr(0, 1).toUpperCase() + str.substr(1);
         }
-        $('#vin_submit_button').click(function () {
-            vin = $('#numa_doaadminbundle_item_VIN').val();
+
+        $.fn.populateTrim = function (data) {
+
+            var s = $("<select id=\"trim\" name=\"trim\" class=\"form-control\" />");
+
+            $("<label for=\"trim\">Select Trims:</label>").appendTo(s);
+            $.each(data, function (key, value) {
+                trim = value['Trim Level'];
+                $("<option />", {value: key, text: trim}).appendTo(s);
+            });
+
+            $(this).append(s);
+
+        }
+        $.fn.fillFields = function (data) {
+            console.log("fillfields");
+            console.log(data);
             make = $('#numa_doaadminbundle_item_make');
             model = $('#numa_doaadminbundle_item_model');
             year = $('#numa_doaadminbundle_item_year');
@@ -35,68 +54,92 @@
             engine = $('#numa_doaadminbundle_item_engine');
             trim = $('#numa_doaadminbundle_item_trim');
             stockNumber = $('#numa_doaadminbundle_item_stockNr');
-            console.log(vin);
-            $.ajax({
-                type: "POST",
-                url: "{{ path("decode_vin_api") }}",
-                data: {vin: vin},
-                success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if (data['Make']) {
-                        make.val(data['Make']);
-                    }
-                    if (data['Model']) {
-                        model.val(data['Model']);
-                    }
-                    if (data['Model Year']) {
-                        year.val(data['Model Year']);
-                    }
-                    if (data['Model Year']) {
-                        year.val(data['Model Year']);
-                    }
-                    if (data['Transmission-long']) {
-                        transmission.val(data['Transmission-long']);
-                    }
-                    if (data['Engine Type']) {
-                        engine.val(data['Engine Type']);
-                    }
-                    if (data['Trim Level']) {
-                        trim.val(data['Trim Level']);
-                    }
-                    if (data['Fuel Economy-highway']) {
-                        mpgHighway.val(data['Fuel Economy-highway']);
-                    }
-                    if (data['Fuel Economy-city']) {
-                        mpgCity.val(data['Fuel Economy-city']);
-                    }
-                    if (data['Body Style']) {
-                        bodyDescription.val(data['Body Style']);
-                    }
-                    if (data['Driveline']) {
-                        driveType.val(data['Driveline']);
-                    }
-//                    if (data['Production Seq. Number']) {
-//                        stockNumber.val(data['Production Seq. Number']);
-//                    }
-                    if (!jQuery.isEmptyObject(data.categories.market) && (data.categories.market == "Wagon" || data.categories.market == "Van" || data.categories.market == "Truck" || data.categories.market == "SUV" || data.categories.market == "Sedan" || data.categories.market == "Hatchback" || data.categories.market == "Crossover" || data.categories.market == "Coupe" || data.categories.market == "Convertible")) {
-                        bodyStyle.val(data.categories.market);
-                    }
-                    else if (!jQuery.isEmptyObject(data.categories.vehicleType) && (data.categories.vehicleType == "Wagon" || data.categories.vehicleType == "Van" || data.categories.vehicleType == "Truck" || data.categories.vehicleType == "SUV" || data.categories.vehicleType == "Sedan" || data.categories.vehicleType == "Hatchback" || data.categories.vehicleType == "Crossover" || data.categories.vehicleType == "Coupe" || data.categories.vehicleType == "Convertible")) {
-                        bodyStyle.val(data.categories.vehicleType);
-                    }
-                    else if (!jQuery.isEmptyObject(data.categories.vehicleStyle) && (data.categories.vehicleStyle == "Wagon" || data.categories.vehicleStyle == "Van" || data.categories.vehicleStyle == "Truck" || data.categories.vehicleStyle == "SUV" || data.categories.vehicleStyle == "Sedan" || data.categories.vehicleStyle == "Hatchback" || data.categories.vehicleStyle == "Crossover" || data.categories.vehicleStyle == "Coupe" || data.categories.vehicleStyle == "Convertible")) {
-                        bodyStyle.val(data.categories.vehicleStyle);
-                    }
-                    if (!jQuery.isEmptyObject(data.numOfDoors)) {
-                        doors.val(data.numOfDoors);
-                    }
-                    if (!jQuery.isEmptyObject(data.engine.type)) {
-                        fuelType.val(firstToUpperCase(data.engine.type));
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert("Error, wrong VIN!");
-                }
+            if (data['Make']) {
+                make.val(data['Make']);
+            }
+            if (data['Model']) {
+                model.val(data['Model']);
+            }
+            if (data['Model Year']) {
+                year.val(data['Model Year']);
+            }
+            if (data['Model Year']) {
+                year.val(data['Model Year']);
+            }
+            if (data['Transmission-long']) {
+                transmission.val(data['Transmission-long']);
+            }
+            if (data['Engine Type']) {
+                engine.val(data['Engine Type']);
+            }
+            if (data['Trim Level']) {
+                trim.val(data['Trim Level']);
+            }
+            if (data['Fuel Economy-highway']) {
+                mpgHighway.val(data['Fuel Economy-highway']);
+            }
+            if (data['Fuel Economy-city']) {
+                mpgCity.val(data['Fuel Economy-city']);
+            }
+            if (data['Body Style']) {
+                bodyDescription.val(data['Body Style']);
+            }
+            if (data['Driveline']) {
+                driveType.val(data['Driveline']);
+            }
+            if (data['Production Seq. Number']) {
+                stockNumber.val(data['Production Seq. Number']);
+            }
+            if (!jQuery.isEmptyObject(data.categories) && !jQuery.isEmptyObject(data.categories.market) && (data.categories.market == "Wagon" || data.categories.market == "Van" || data.categories.market == "Truck" || data.categories.market == "SUV" || data.categories.market == "Sedan" || data.categories.market == "Hatchback" || data.categories.market == "Crossover" || data.categories.market == "Coupe" || data.categories.market == "Convertible")) {
+                bodyStyle.val(data.categories.market);
+            }
+            else if (!jQuery.isEmptyObject(data.categories) && !jQuery.isEmptyObject(data.categories.vehicleType) && (data.categories.vehicleType == "Wagon" || data.categories.vehicleType == "Van" || data.categories.vehicleType == "Truck" || data.categories.vehicleType == "SUV" || data.categories.vehicleType == "Sedan" || data.categories.vehicleType == "Hatchback" || data.categories.vehicleType == "Crossover" || data.categories.vehicleType == "Coupe" || data.categories.vehicleType == "Convertible")) {
+                bodyStyle.val(data.categories.vehicleType);
+            }
+            else if (!jQuery.isEmptyObject(data.categories) && !jQuery.isEmptyObject(data.categories.vehicleStyle) && (data.categories.vehicleStyle == "Wagon" || data.categories.vehicleStyle == "Van" || data.categories.vehicleStyle == "Truck" || data.categories.vehicleStyle == "SUV" || data.categories.vehicleStyle == "Sedan" || data.categories.vehicleStyle == "Hatchback" || data.categories.vehicleStyle == "Crossover" || data.categories.vehicleStyle == "Coupe" || data.categories.vehicleStyle == "Convertible")) {
+                bodyStyle.val(data.categories.vehicleStyle);
+            }
+            if (!jQuery.isEmptyObject(data.numOfDoors)) {
+                doors.val(data.numOfDoors);
+            }
+            if (!jQuery.isEmptyObject(data.engine) && !jQuery.isEmptyObject(data.engine.type)) {
+                fuelType.val(firstToUpperCase(data.engine.type));
+            }
+        }
+        var datax;
+        var oldvin;
+        $(document).ready(function () {
+            console.log("aaaaaa");
+
+            //$("#trim").click(function()
+            $(document).on('change', '#trim', function () {
+
+                $('#details form').fillFields(datax[$(this).val()]);
+            });
+            $('#vin_submit_button').click(function () {
+
+                vin = $('#numa_doaadminbundle_item_VIN').val();
+                //if (vin != oldvin) {
+                    oldvin = vin;
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ path("decode_vin_api") }}",
+                        data: {vin: vin},
+                        success: function (data, textStatus, jqXHR) {
+                            datax = data;
+                            $('#trim-select').html("");
+                            if(data.length==1){
+                                $('#details form').fillFields(datax[0]);
+                            }else {
+                                $('#trim-select').populateTrim(data);
+                            }
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert("Error, wrong VIN!");
+                        }
+                    });
+                //}
             });
         });
     </script>

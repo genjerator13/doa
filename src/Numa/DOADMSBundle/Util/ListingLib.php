@@ -39,7 +39,7 @@ class ListingLib
      * @param Billing $billing
      * @return bool (false if no item is created(already created or tidmake or tidmodel are not entered, true if item is created
      */
-    public function createListingByBillingTradeIn(Billing $billing,$insertToDB=true)
+    public function createListingByBillingTradeIn(Billing $billing, $insertToDB = true)
     {
         if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
@@ -55,7 +55,7 @@ class ListingLib
                 $item->setVin($billing->getTidVin());
                 $item->setYear($billing->getTidYear());
                 $item->setDealer($billing->getDealer());
-                if($insertToDB) {
+                if ($insertToDB) {
                     $em->persist($item);
                     $em->flush();
                 }
@@ -65,13 +65,15 @@ class ListingLib
         return false;
     }
 
-    public function insertItem(Item $item){
+    public function insertItem(Item $item)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(!empty($item->getId())){
+        if (!empty($item->getId())) {
             $em->persist($item);
         }
         $em->flush();
     }
+
     public function deleteItems($itemIds)
     {
         if (!is_array($itemIds)) {
@@ -102,20 +104,20 @@ class ListingLib
 //            )
 //            && ($item instanceof Item)
 //        ) {
-            foreach ($item->getItemField() as $itemField) {
-                if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
-                    $web_path = $this->container->getParameter('web_path');
-                    $filename = $web_path . $itemField->getFieldStringValue();
-                    if (file_exists($filename) && is_file($filename)) {
-                        unlink($filename);
-                    }
-                    $em->remove($itemField);
+        foreach ($item->getItemField() as $itemField) {
+            if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
+                $web_path = $this->container->getParameter('web_path');
+                $filename = $web_path . $itemField->getFieldStringValue();
+                if (file_exists($filename) && is_file($filename)) {
+                    unlink($filename);
                 }
+                $em->remove($itemField);
             }
-            $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
-            $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
-            $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
-            $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
+        }
+        $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
+        $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
+        $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
+        $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
         //}
 
     }
@@ -123,6 +125,7 @@ class ListingLib
     public function decodeVin($vin)
     {
         $res = array();
+        $trim = array();
 
         try {
             $buzz = $this->container->get('buzz');
@@ -138,32 +141,45 @@ class ListingLib
             $dealerXml = new SimpleXMLElement($response->getContent());
 
             $json = json_encode($dealerXml);
-
+            ;
             if ($buzz->getLastResponse()->getStatusCode() != 200) {
                 $error['ERROR'] = "WRONG VIN";
                 return $error;
             }
-            if (!empty($dealerXml->VIN[0]->Vehicle)) {
-                foreach ($dealerXml->VIN[0]->Vehicle->Item as $item) {
-                    $array = json_decode(json_encode((array)$item), TRUE);
-                    $itemXml = $array["@attributes"];
+            $vinArray = (json_decode($json,true));
+            $data =$vinArray['VIN']['Vehicle'];
+
+            if(empty($vinArray['VIN']['Vehicle'][0])){
+                $data=array();
+                $data[0] =$vinArray['VIN']['Vehicle'];
+
+            }
+
+            foreach ($data as $key => $vehicle) {
+
+                foreach ($vehicle['Item'] as $item) {
+
+                    $itemXml = $item["@attributes"];
                     $itemValue = $itemXml['Value'];
                     $itemUnit = $itemXml['Unit'];
 
                     $itemKey = $itemXml['Key'];
+
                     if ($itemValue != "N/A" && $itemValue != "No data") {
                         if (!empty($itemUnit)) {
                             $itemValue = $itemValue . " " . $itemUnit;
                         }
-                        $res[$itemKey] = $itemValue;
+                        $res[$key][$itemKey] = $itemValue;
                     }
-
                 }
+
             }
+
         } catch (Exception $ex) {
             $error['ERROR'] = "NO CONNECTION";
             return $error;
         }
+
         return $res;
     }
 
@@ -318,9 +334,9 @@ class ListingLib
     {
         $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
         $cat = $item->getCategory();
-        if ($item->getCategoryId() == 4 || ($cat instanceof Category && $cat->getId()==4)) {
+        if ($item->getCategoryId() == 4 || ($cat instanceof Category && $cat->getId() == 4)) {
             $desc = $desc . " " . $item->getFloorPlan();
-        } elseif ($item->getCategoryId() == 1|| ($cat instanceof Category && $cat->getId()==1)) {
+        } elseif ($item->getCategoryId() == 1 || ($cat instanceof Category && $cat->getId() == 1)) {
             if (!empty($item->getTrim())) {
                 //$desc .= " " . $item->slug($item->getTrim());
                 $desc .= " " . $item->getTrim();
