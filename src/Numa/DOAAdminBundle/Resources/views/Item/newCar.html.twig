@@ -7,7 +7,7 @@
             {{ form_widget(form.stockNr, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
-    {#{{ component.listingFieldInput(form.VIN,"", "form-group","col-sm-9") }}#}
+
     <div class="form-group">
         {{ form_label(form.VIN) }}
         <div class="col-sm-3">
@@ -109,9 +109,8 @@
         var datax;
         var oldvin;
         $(document).ready(function () {
-            console.log("aaaaaa");
 
-            //$("#trim").click(function()
+
             $(document).on('change', '#trim', function () {
 
                 $('#details form').fillFields(datax[$(this).val()]);
@@ -119,27 +118,27 @@
             $('#vin_submit_button').click(function () {
 
                 vin = $('#numa_doaadminbundle_item_VIN').val();
-                //if (vin != oldvin) {
-                    oldvin = vin;
-                    $.ajax({
-                        type: "POST",
-                        url: "{{ path("decode_vin_api") }}",
-                        data: {vin: vin},
-                        success: function (data, textStatus, jqXHR) {
-                            datax = data;
-                            $('#trim-select').html("");
-                            if(data.length==1){
-                                $('#details form').fillFields(datax[0]);
-                            }else {
-                                $('#trim-select').populateTrim(data);
-                            }
 
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert("Error, wrong VIN!");
+                oldvin = vin;
+                $("#loading-indicator").css("display","block");
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path("decode_vin_api") }}",
+                    data: {vin: vin},
+                    success: function (data, textStatus, jqXHR) {
+                        datax = data;
+                        $('#trim-select').html("");
+                        if (data.length == 1) {
+                            $('#details form').fillFields(datax[0]);
+                        } else {
+                            $('#trim-select').populateTrim(data);
                         }
-                    });
-                //}
+                        $("#loading-indicator").css("display","hidden");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error, wrong VIN!");
+                    }
+                });
             });
         });
     </script>
