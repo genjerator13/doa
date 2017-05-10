@@ -9,6 +9,11 @@
     'js/angular/angular-touch143.min.js' %}
     <script src="{{ asset_url }}"></script>
     <script>
+        {% if entity.id is empty %}
+        {%  set id = 0 %}
+        {% else %}
+        {%  set id = entity.id %}
+        {% endif %}
         var app = angular.module('myApp', []);
         app.config(function ($interpolateProvider) {
             $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
@@ -19,7 +24,7 @@
 
                 $scope.count++;
                 var data = {
-                    item_id: {{ entity.id }},
+                    item_id: {{ id }},
                     name: $scope.name,
                 };
                 console.log(data);
