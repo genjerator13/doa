@@ -2,44 +2,6 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 
 {% block banner %}
-
-    {#{% set images = displayComponent("homepage_carousel","carousel","page","Tnt") %}#}
-
-    {#{% if images is not empty %}#}
-        {#<div class="bscarousel">#}
-            {#<div id="tnt-carousel" class="carousel slide" data-ride="carousel">#}
-                {#<!-- Carousel indicators -->#}
-                {#<ol class="carousel-indicators">#}
-                {#{% for image in images %}#}
-                {#<li data-target="#myCarousel" data-slide-to="{{ loop.index }}"#}
-                {#class="{% if loop.first %}active{% endif %}"></li>#}
-                {#{% endfor %}#}
-
-                {#</ol>#}
-                {#<!-- Wrapper for carousel items -->#}
-                {#<div class="carousel-inner">#}
-                    {#{% for image in images %}#}
-                        {#<div class="item {% if loop.first %} active{% endif %}">#}
-                            {#{{ component.image('upload/dealers/'~image.src, "", '', 'tnt_carousel') }}#}
-                            {#<div class="text_widget">{{ image.carouselText|raw }}</div>#}
-                        {#</div>#}
-                    {#{% endfor %}#}
-
-                {#</div>#}
-                {#<!-- Carousel controls -->#}
-                {#<a class="carousel-control left" href="#tnt-carousel" data-slide="prev">#}
-                    {#<span class="glyphicon glyphicon-chevron-left"></span>#}
-                {#</a>#}
-                {#<a class="carousel-control right" href="#tnt-carousel" data-slide="next">#}
-                    {#<span class="glyphicon glyphicon-chevron-right"></span>#}
-                {#</a>#}
-            {#</div>#}
-        {#</div>#}
-    {#{% else %}#}
-        {#<div class="content  clearfix">#}
-
-        {#</div>#}
-    {#{% endif %}#}
     {{displayComponent("homepage_carousel","carousel","page","Tnt",{'image_size':"tnt_carousel", "class":"homepage_carousel"})|raw  }}
 {% endblock %}
 {% block buttons %}
