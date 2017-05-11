@@ -159,10 +159,8 @@ class BillingController extends Controller
             $customer = $em->getRepository('NumaDOADMSBundle:Customer')->find($entity->getCustomerId());
             $dealer = $customer->getDealer();
         }
-//        dump($customer);
-//        dump($dealer);
-//        dump($entity->getItemId());
-//        die();
+
+
 
 
         if (!$entity) {
@@ -180,7 +178,16 @@ class BillingController extends Controller
             'form' => $editForm->createView(),
         ));
     }
-
+    private function getBillingTemplate(){
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        $billingTemplate = $this->get('numa.settings')->get('billing_template',array(),$dealer);
+        $template = "NumaDOADMSBundle:Billing:view.html.twig";
+        if(!empty($billingTemplate)){
+            $template = "NumaDOADMSBundle:Billing:view_template2.html.twig";
+        }
+        
+        return $template;
+    }
     /**
      * Creates a form to edit a Billing entity.
      *
@@ -287,7 +294,7 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
-            'NumaDOADMSBundle:Billing:view.html.twig',
+            $this->getBillingTemplate(),
             array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
@@ -315,7 +322,7 @@ class BillingController extends Controller
         $em = $this->getDoctrine()->getManager();
         $billing = $em->getRepository('NumaDOADMSBundle:Billing')->find($id);
         $html = $this->renderView(
-            'NumaDOADMSBundle:Billing:view.html.twig',
+            $this->getBillingTemplate(),
             array('billing' => $billing,
                 'id' => $billing->getId(),
                 'customer' => $billing->getCustomer(),
