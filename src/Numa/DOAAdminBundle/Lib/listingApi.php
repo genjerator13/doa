@@ -311,7 +311,7 @@ class listingApi
         $em = $this->container->get('doctrine');
         $filenameKijiji = "";
         $logger->warning("get items for dealer:" . $dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, null, 0);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
 
         if (!empty($items)) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
