@@ -293,9 +293,7 @@ class listingApi
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         $csvArrayRes = $this->addItemsKijijiFeed($items);
-        //dump($csvArrayRes);
-        //$ret = $this->formatResponse($csvArrayRes, 'csv');
-        //file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
+
         $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
         $localfile = $this->storeKijijiToLocalServer($items,$dealer->getId());
 

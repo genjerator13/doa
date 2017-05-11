@@ -21,11 +21,14 @@ class SettingsLib
      * @var EntityRepository
      */
     protected $repo;
-    public function __construct(EntityManager $em,Container $container){
+
+    public function __construct(EntityManager $em, Container $container)
+    {
         $this->em = $em;
         $this->container = $container;
         $this->repo = null;
     }
+
     public function setEntityManager(EntityManager $em)
     {
         $this->em = $em;
@@ -37,18 +40,20 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function get($name,$map=array())
+    public function get($name, $map = array(), $dealer = null)
     {
-        $setting = $this->getRepo()->findOneBy(array(
+        $criteria = array(
             'name' => $name,
-        ));
+        );
+        $criteria['Dealer'] = $dealer;
+        $setting = $this->getRepo()->findOneBy($criteria);
         if ($setting === null) {
             return "";
         }
 
         $value = $setting->getValue();
-        if(!empty($map)) {
-            $value = $this->replaceRealValues($value,$map);
+        if (!empty($map)) {
+            $value = $this->replaceRealValues($value, $map);
         }
         return $value;
     }
@@ -110,8 +115,9 @@ class SettingsLib
         return $value;
     }
 
-    public function getSetting($name,$section="",$dealer=null){
-        return $this->getRepo()->getSingle($name,$section,$dealer);
+    public function getSetting($name, $section = "", $dealer = null)
+    {
+        return $this->getRepo()->getSingle($name, $section, $dealer);
     }
 
     /**
@@ -123,7 +129,7 @@ class SettingsLib
     public function getDealerForHost($host)
     {
         $setting = $this->getRepo()->findOneBy(array(
-            'name' => 'host','value'=>$host
+            'name' => 'host', 'value' => $host
         ));
         $dealer = $setting->getDealer();
         return $dealer;
@@ -135,9 +141,10 @@ class SettingsLib
      * NOT USED
      *
      */
-    public function activateTheme($host){
+    public function activateTheme($host)
+    {
         $dealer = $this->getDealerForHost($host);
-        $theme = $this->getRepo()->getSingle('theme','site',$dealer);
+        $theme = $this->getRepo()->getSingle('theme', 'site', $dealer);
         $activeTheme = $this->container->get('liip_theme.active_theme');
 
         $activeTheme->setName($theme->getValue());
@@ -150,14 +157,14 @@ class SettingsLib
      * @param string|null $value New value for the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function set($name, $value,$section="",$dealer_id=null)
+    public function set($name, $value, $section = "", $dealer_id = null)
     {
         $setting = $this->getRepo()->findOneBy(array(
             'name' => $name,
         ));
         $dealer = $this->container->get('Numa.Dms.User')->getSignedDealer();
         if ($setting === null) {
-            $setting= new Setting();
+            $setting = new Setting();
             $setting->setName($name);
             $setting->setValue($value);
             $setting->setDealer($dealer);
@@ -246,58 +253,63 @@ class SettingsLib
         return new \RuntimeException(sprintf('Setting "%s" couldn\'t be found.', $name));
     }
 
-    public function getSections($dealer=null){
+    public function getSections($dealer = null)
+    {
         $q = $this->em->createQueryBuilder();
         $q->select('s.section')
             ->distinct()
             ->from('NumaDOASettingsBundle:Setting', 's');
-        if($dealer instanceof Catalogrecords){
+        if ($dealer instanceof Catalogrecords) {
             $q->where('s.dealer_id=:dealer_id');
-            $q->setParameter('dealer_id',$dealer->getId());
+            $q->setParameter('dealer_id', $dealer->getId());
         }
-        $res=$q->getQuery();
+        $res = $q->getQuery();
         return $res->getArrayResult();
     }
 
-    public function replaceRealValues($subject,$map=array()){
+    public function replaceRealValues($subject, $map = array())
+    {
 
-        if(!empty($subject) && is_array($map) && !empty($map)){
-            foreach ($map as $search=>$replace){
-                $subject = str_ireplace("{{".$search."}}",$replace,$subject);
+        if (!empty($subject) && is_array($map) && !empty($map)) {
+            foreach ($map as $search => $replace) {
+                $subject = str_ireplace("{{" . $search . "}}", $replace, $subject);
             }
         }
         return $subject;
     }
 
-    public function generateItemTitle(Item $item){
+    public function generateItemTitle(Item $item)
+    {
         $titleTemplate = strip_tags($this->get('item_title'));
 
-        if(empty($titleTemplate)){
+        if (empty($titleTemplate)) {
             $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaTitle($item));
         }
         preg_match_all("/\{(.*?)\}/", $titleTemplate, $matches);
 
         $title = "";
         $replace = array();
-        foreach($matches[1] as $match){
+        foreach ($matches[1] as $match) {
             $replace[] = $item->get($match);
         }
 
-        $title =  str_replace($matches[0], $replace, $titleTemplate);
+        $title = str_replace($matches[0], $replace, $titleTemplate);
         return $title;
     }
 
-    public function generateItemDescription(Item $item){
+    public function generateItemDescription(Item $item)
+    {
         $titleTemplate = strip_tags($this->get('item_description'));
-        if(empty($titleTemplate)){
+        if (empty($titleTemplate)) {
             $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaDescription($item));
         }
         return $this->parseStringFormula($item, $titleTemplate);
     }
 
-    public function getItemKeywords(Item $item){
+    public function getItemKeywords(Item $item)
+    {
         $titleTemplate = strip_tags($this->get('item_keywords'));
-        if(empty($titleTemplate)){
+        if (empty($titleTemplate)) {
             $titleTemplate = strip_tags($this->container->get("numa.dms.listing")->getMetaKeywords($item));
         }
         return $this->parseStringFormula($item, $titleTemplate);
@@ -309,53 +321,56 @@ class SettingsLib
 
         $title = "";
         $replace = array();
-        foreach($matches[1] as $match){
-            if($match=='sitename') {
+        foreach ($matches[1] as $match) {
+            if ($match == 'sitename') {
                 $host = $this->container->get('router')->getContext()->getBaseUrl();
-                if(empty($host)) {
+                if (empty($host)) {
                     $host = $this->container->get('router')->getContext()->getHost();
                 }
                 $replace[] = $host;
-            }else{
+            } else {
                 $replace[] = $item->get($match);
             }
         }
 
-        $title =  str_replace($matches[0], $replace, $stringFormula);
+        $title = str_replace($matches[0], $replace, $stringFormula);
         return $title;
     }
 
-    public function createDealerUploadFolders($dealer_id){
+    public function createDealerUploadFolders($dealer_id)
+    {
         //upload to
-        $upload =$this->container->getParameter('upload_dealer').$dealer_id;
-        if(!is_dir($upload)) {
+        $upload = $this->container->getParameter('upload_dealer') . $dealer_id;
+        if (!is_dir($upload)) {
 
             if (!is_dir($this->container->getParameter('upload_dealer'))) {
-                mkdir($this->container->getParameter('upload_dealer'),777,true);
+                mkdir($this->container->getParameter('upload_dealer'), 777, true);
 
             }
-            mkdir($upload,0777,true);
+            mkdir($upload, 0777, true);
 
         }
     }
 
-    public function createDealerComponentUploadFolders($dealer_id,$component_id){
+    public function createDealerComponentUploadFolders($dealer_id, $component_id)
+    {
         //$this->createDealerUploadFolders($dealer_id);
-        $upload =$this->container->getParameter('upload_dealer').$dealer_id."/component/".$component_id;
-        if(!is_dir($this->container->getParameter('upload_dealer').$dealer_id."/component")){
-            mkdir($this->container->getParameter('upload_dealer').$dealer_id."/component",0777,true);
-            if(!is_dir($upload)){
-                mkdir($upload,0777,true);
+        $upload = $this->container->getParameter('upload_dealer') . $dealer_id . "/component/" . $component_id;
+        if (!is_dir($this->container->getParameter('upload_dealer') . $dealer_id . "/component")) {
+            mkdir($this->container->getParameter('upload_dealer') . $dealer_id . "/component", 0777, true);
+            if (!is_dir($upload)) {
+                mkdir($upload, 0777, true);
             }
 
         }
     }
 
-    public function getPageTitle($page,$dealer){
-        $pageTitle="";
+    public function getPageTitle($page, $dealer)
+    {
+        $pageTitle = "";
 
 
-        if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
+        if (empty($pageTitle) && $dealer instanceof Catalogrecords) {
             $pageTitle = $this->get('title', 'seo', $dealer);
         }
 
@@ -364,8 +379,8 @@ class SettingsLib
         }
 
         if ($page instanceof Page && !empty($page->getItemId())) {
-            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo && !empty($seo->getTitle())) {
+            $seo = $this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if ($seo instanceof Seo && !empty($seo->getTitle())) {
                 $pageTitle = $seo->getTitle();
             }
         }
@@ -373,19 +388,20 @@ class SettingsLib
         return strip_tags($pageTitle);
     }
 
-    public function getPageDescription($page,$dealer){
-        $pageDescription="";
+    public function getPageDescription($page, $dealer)
+    {
+        $pageDescription = "";
 
 
-        if(empty($pageTitle) && $dealer instanceof Catalogrecords) {
+        if (empty($pageTitle) && $dealer instanceof Catalogrecords) {
             $pageDescription = $this->get('description', 'seo', $dealer);
         }
         if ($page instanceof Page && !empty($page->getDescription())) {
             $pageDescription = $page->getDescription();
         }
         if ($page instanceof Page && !empty($page->getItemId())) {
-            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo && !empty($seo->getDescription())) {
+            $seo = $this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if ($seo instanceof Seo && !empty($seo->getDescription())) {
                 $pageDescription = $seo->getDescription();
             }
         }
@@ -393,11 +409,12 @@ class SettingsLib
         return strip_tags($pageDescription);
     }
 
-    public function getPageKeywords($page, $dealer){
-        $pageKeywords="";
+    public function getPageKeywords($page, $dealer)
+    {
+        $pageKeywords = "";
 
 
-        if(empty($pageKeywords) && $dealer instanceof Catalogrecords) {
+        if (empty($pageKeywords) && $dealer instanceof Catalogrecords) {
             $pageKeywords = $this->get('keywords', 'seo', $dealer);
         }
 
@@ -406,19 +423,20 @@ class SettingsLib
         }
 
         if ($page instanceof Page && !empty($page->getItemId())) {
-            $seo =$this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
-            if($seo instanceof Seo && !empty($seo->getKeywords())) {
+            $seo = $this->em->getRepository("NumaDOAModuleBundle:Seo")->findSeoByItem($page->getItemId());
+            if ($seo instanceof Seo && !empty($seo->getKeywords())) {
                 $pageKeywords = $seo->getKeywords();
             }
         }
         return strip_tags($pageKeywords);
     }
 
-    public function replaceSeoInPageHTML($html,$page,$dealer){
+    public function replaceSeoInPageHTML($html, $page, $dealer)
+    {
 
-        $pageTitle = $this->getPageTitle($page,$dealer);
-        $pageDescription = $this->getPageDescription($page,$dealer);
-        $pageKeyword = $this->getPageKeywords($page,$dealer);
+        $pageTitle = $this->getPageTitle($page, $dealer);
+        $pageDescription = $this->getPageDescription($page, $dealer);
+        $pageKeyword = $this->getPageKeywords($page, $dealer);
 //
 //        dump($pageTitle);
 //        dump($pageDescription);
