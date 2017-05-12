@@ -288,15 +288,16 @@ class listingApi
 
     public function prepareKijijiFromIds($ids)
     {
-        $em = $this->container->get('doctrine');
+        $em = $this->container->get('doctrine.orm.entity_manager');
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         $csvArrayRes = $this->addItemsKijijiFeed($items);
 
         $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
         $localfile = $this->storeKijijiToLocalServer($items,$dealer->getId());
-
-        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
+        $dealer->setFeedKijijiManual(1);
+        $em->flush();
+//        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
 
     }
 

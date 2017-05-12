@@ -2186,4 +2186,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_googlemap;
     }
+    /**
+     * @var boolean
+     */
+    private $feed_kijiji_manual;
+
+
+    /**
+     * Set feedKijijiManual
+     *
+     * @param boolean $feedKijijiManual
+     *
+     * @return Catalogrecords
+     */
+    public function setFeedKijijiManual($feedKijijiManual)
+    {
+        $this->feed_kijiji_manual = $feedKijijiManual;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiManual
+     *
+     * @return boolean
+     */
+    public function getFeedKijijiManual()
+    {
+        return $this->feed_kijiji_manual;
+    }
 }
