@@ -14,6 +14,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Category;
+use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -131,7 +133,8 @@ class ListingLib
             $buzz = $this->container->get('buzz');
             $error = "";
             $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
-
+            //testurl
+            //$url = "http://doa.local/upload/restxml.xml";
             $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
 
             if ($buzz->getLastResponse()->getStatusCode() != 200) {
@@ -172,6 +175,7 @@ class ListingLib
                         $res[$key][$itemKey] = $itemValue;
                     }
                 }
+                $res[$key]['itemfields'] = $this->formatItemFields($res[$key]);
 
             }
 
@@ -182,6 +186,23 @@ class ListingLib
 
         return $res;
     }
+
+    private function formatItemFields($res){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $itemFields = array();
+
+        foreach ($res as $key=>$item) {
+            if ($item == "Std." || $item == "Opt.") {
+                $listingField = $em->getRepository(ListingFieldLists::class)->getListingFieldIdFromString($key);
+
+                if($listingField instanceof Listingfield) {
+                    $itemFields[$listingField->getId()] = $item;
+                }
+            }
+        }
+        return $itemFields;
+    }
+
 
     public function vindecoder($item)
     {
