@@ -177,6 +177,9 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 255
             nullable: true
+        feed_kijiji_manual:
+            type: boolean
+            nullable: true
         setting_purechat:
             type: text
             nullable: true

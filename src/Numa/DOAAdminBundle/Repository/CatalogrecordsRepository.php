@@ -315,7 +315,9 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
         $qb->select('d')
             ->add('from', 'NumaDOAAdminBundle:CatalogRecords d')
             ->andWhere('d.dms_status like :dmsstatus')
+            ->andWhere('d.feed_kijiji_manual <> :kijijiManual')
             ->setParameter('dmsstatus', "activated")
+            ->setParameter('kijijiManual', 1)
             ->innerJoin('NumaDOAAdminBundle:Item', 'i', "WITH", "d.id=i.dealer_id");
 
         $dealers = $qb->getQuery()->getResult();

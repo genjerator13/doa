@@ -544,6 +544,7 @@ Numa\DOAAdminBundle\Entity\Item:
             targetEntity: ItemField
             mappedBy: Item
             cascade: ["persist","remove"]
+            indexBy: field_id
             joinColumn:
                 name: item_id
                 referencedColumnName: id
