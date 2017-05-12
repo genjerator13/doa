@@ -550,7 +550,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         ));
         $oldVin = $entity->getVIN();
         $form->handleRequest($request);
-
+        //dump($form);die();
         if ($form->isValid()) {
 
             $sale = $entity->getSale();
