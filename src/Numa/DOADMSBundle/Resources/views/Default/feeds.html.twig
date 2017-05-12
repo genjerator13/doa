@@ -87,5 +87,15 @@
                         href="{{ path('listingByDealerUsername', {'dealerid': username, '_format': 'json', 'category': 'Ag'}) }}">{{ url('homepage') |trim ('/') }}{{ path('listingByDealerUsername', {'dealerid': username, '_format': 'json', 'category': 'Ag'}) }}</a>
             </li>
         </ul>
+        <h4>Kijiji CSV</h4>
+        <ul>
+            <li>
+        {% if dealer.id is defined and dealer.id is not null %}
+            <a href="/upload/dealers/{{ dealer.id }}/kijiji.csv">Link to Kijiji.csv file</a>
+        {% else %}
+            <p>Choose a Dealer to see Kijiji.csv file</p>
+        {% endif %}
+            </li>
+        </ul>
     </div>
 {% endblock %}
