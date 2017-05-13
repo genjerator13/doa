@@ -286,7 +286,7 @@ class ListingLib
                 $item->addItemField($if);
                 $em->persist($if);
                 //dump($itemVin);die();
-                $em->flush($item);
+                $em->flush();
             }
         }
     }
