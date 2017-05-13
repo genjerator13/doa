@@ -468,7 +468,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $securityContext = $this->container->get('security.context');
 
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllByType('boolean', array(0, $categoryEntity->getId()));
-        //dump($fields);
+
 
         if (!empty($fields)) {
             //lop trough all the listing fields
@@ -541,8 +541,10 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             ));
             $seoFormView = $seoForm->createView();
         }
+
         $form = $this->createForm(new ItemType($this->getDoctrine()->getManager(), $securityContext, $this->getUser()), $entity, array(
             'method' => 'POST',
+            'allow_extra_fields' => true
         ));
 
         $saleForm = $this->createForm(new SaleType(), $entity->getSale(), array(
@@ -555,12 +557,13 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
             $sale = $entity->getSale();
             $sale->setItem($entity);
-
-            if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
+            //dump($entity);die();
+            //if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
+
                 $entity->setVindecoder($decodedvin);
                 $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
-            }
+            //}
 
             if (empty($id)) {
 

@@ -25,4 +25,16 @@ class ItemFieldRepository extends EntityRepository
         $res = $query->getResult();
         return $res;
     }
+    public function getItemFieldIdFromString($name,$item_id){
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $query = $qb->select('if')
+            ->from('NumaDOAAdminBundle:ItemField', 'if')
+            ->where('if.field_name like :name')
+            ->andWhere('if.item_id=:item_id')
+            ->setParameter('name', "%".$name."%")
+            ->setParameter('item_id', $item_id)
+            ->getQuery()->setMaxResults(1);
+        return $query->getOneOrNullResult();
+    }
 }
