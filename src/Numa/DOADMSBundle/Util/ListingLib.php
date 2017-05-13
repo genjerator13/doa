@@ -193,11 +193,11 @@ class ListingLib
 
         foreach ($res as $key=>$item) {
             if ($item == "Std." || $item == "Opt.") {
-                $listingField = $em->getRepository(ListingFieldLists::class)->getListingFieldIdFromString($key);
+                //$listingField = $em->getRepository(ItemField::class)->getItemFieldIdFromString($key,$item_id);
 
-                if($listingField instanceof Listingfield) {
-                    $itemFields[$listingField->getId()] = $item;
-                }
+                //if($listingField instanceof Listingfield) {
+                    $itemFields[] = $key;
+                //}
             }
         }
         return $itemFields;
@@ -241,22 +241,28 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        $this->vinDecoderInsertion($item, $vindecoderItems);
+
+        $this->vinDecoderInsertion($item, $vindecoderItems[0]);
 
     }
 
     public function vinDecoderInsertion($item, $vindecoderItems)
     {
+
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                $this->vinDecoderInsertField($item, $itemVin, $key);
+                if(!is_array($itemVin)) {
+                    $this->vinDecoderInsertField($item, $itemVin, $key);
+                }
             }
         }
+
     }
 
     public function vinDecoderInsertField($item, $itemVin, $key)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
+
         if (strtolower($itemVin) == "std.") {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             $criteria->where(Criteria::expr()->eq("field_name", $key));
@@ -265,6 +271,8 @@ class ListingLib
             if (!empty($item->getItemField())) {
                 $currentItemField = $item->getItemField()->matching($criteria);
             }
+
+
             if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
                 //$currentItemField->first()->setFieldBooleanValue(true);
 
@@ -277,7 +285,8 @@ class ListingLib
                 $if->setFieldIntegerValue(1);
                 $item->addItemField($if);
                 $em->persist($if);
-                //$em->flush($item);
+                //dump($itemVin);die();
+                $em->flush($item);
             }
         }
     }

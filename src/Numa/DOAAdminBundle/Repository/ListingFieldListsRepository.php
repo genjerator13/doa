@@ -173,16 +173,17 @@ class ListingFieldListsRepository extends EntityRepository
         return json_encode($jsonArray);
     }
 
-
-    public function getListingFieldIdFromString($name){
-        $qb = $this->getEntityManager()
-            ->createQueryBuilder();
-        $query = $qb->select('lf')
-            ->from('NumaDOAAdminBundle:Listingfield', 'lf')
-            ->where('lf.caption like :name')
-            ->setParameter('name', "%".$name."%")
-            ->getQuery()->setMaxResults(1);
-        return $query->getOneOrNullResult();
-    }
+//    public function getItemFieldIdFromString($name,$item_id){
+//        $qb = $this->getEntityManager()
+//            ->createQueryBuilder();
+//        $query = $qb->select('if')
+//            ->from('NumaDOAAdminBundle:Listingfield', 'if')
+//            ->where('if.field_name like :name')
+//            ->andWhere('if.item_id=:item_id')
+//            ->setParameter('name', "%".$name."%")
+//            ->setParameter('item_id', $item_id)
+//            ->getQuery()->setMaxResults(1);
+//        return $query->getOneOrNullResult();
+//    }
 
 }

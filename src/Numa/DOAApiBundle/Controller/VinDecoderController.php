@@ -18,7 +18,8 @@ class VinDecoderController extends Controller
 
     public function decodeVinAction(Request $request){
         $vin = trim($request->get("vin"));
-        $decodedVin = $this->get("numa.dms.listing")->decodeVin($vin);
+        $item_id = trim($request->get("item_id"));
+        $decodedVin = $this->get("numa.dms.listing")->decodeVin($vin,$item_id);
 
         return $decodedVin;
     }
