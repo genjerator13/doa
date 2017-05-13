@@ -2,3 +2,7 @@ decode_vin_api:
     path:     /
     defaults: { _controller: "NumaDOAApiBundle:VinDecoder:decodeVin",_format: "json"}
     requirements: { _method: post }
+decode_vin_api_one_vehicle:
+    path:     /v
+    defaults: { _controller: "NumaDOAApiBundle:VinDecoder:decodeVinOneVehicle",_format: "json"}
+    requirements: { _method: post }
