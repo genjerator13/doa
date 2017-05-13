@@ -44,7 +44,7 @@
         $.fn.fillFields = function (data) {
             console.log("fillfield");
             itemfields = data['itemfields'];
-            console.log(data);
+
             make = $('#numa_doaadminbundle_item_make');
             model = $('#numa_doaadminbundle_item_model');
             year = $('#numa_doaadminbundle_item_year');
@@ -113,7 +113,7 @@
 //            $.each(itemfields,function( index, value ) {
 //                checkboxId = "#numa_doaadminbundle_item_Itemfield_"+index+"_field_boolean_value";
 //                //$(checkboxId).prop('checked', true);
-            console.log(itemfields);
+
             $(".feature-name").each(function (index, value) {
                 //console.log(index);
                 feature = $(this).html();
@@ -123,49 +123,30 @@
                     $(this).prev().find("input").prop('checked', true);
                 }
             })
-//
-//            $.each(itemfields,function( index, value ) {
-//                if ($.inArray(value, checkboxList) >= 0) {
-//                    console.log("AAAAAA" + value);
-//                    //$(this).prev().find("input").prop('checked', true);
-//                } else {
-//                    console.log("BBBB" + value);
-//                    clone = $(".features li:first-child").clone();
-//                    clone.find(".feature-name").html(value);
-//                    input = clone.find(".feature-checkbox input");
-//                    input.prop('checked', true);
-//                    iii="numa_doaadminbundle_item_Itemfield_"+(150+index)+"_field_boolean_value";
-//                    nnn="numa_doaadminbundle_item[Itemfield]["+(150+index)+"][field_boolean_value]";
-//                    input.attr("id",iii);
-//                    input.attr("name",nnn);
-//                    console.log(nnn);
-//                    $(".features").append(clone);
-//                }
-//
-//            });
-//            else {
-//                checkboxId = "#numa_doaadminbundle_item_Itemfield_" + index + "_field_boolean_value";
-
-                //$(".features").append("::");
-//            }
-////            });
 
         }
         var datax;
         var oldvin;
         $(document).ready(function () {
 
-
-            var checkboxList = $(".features li")
-                    .map(function () {
-                        return $(this).find(".feature-name").html();
-                    })
-                    .get()
-                    ;
             //console.log(checkboxList);
             $(document).on('change', '#trim', function () {
-
                 $('#details form').fillFields(datax[$(this).val()]);
+                console.log($(this).val());
+                {% if id>0 %}
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path("decode_vin_api_one_vehicle") }}",
+                    data: {item_id:{{ id }},num:$(this).val() },
+                    success: function (data, textStatus, jqXHR) {
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error");
+                    }
+                });
+                {% endif %}
+
             });
             $('#vin_submit_button').click(function () {
 
