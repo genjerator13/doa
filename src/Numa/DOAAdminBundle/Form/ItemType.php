@@ -175,7 +175,8 @@ class ItemType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Numa\DOAAdminBundle\Entity\Item'
+            'data_class' => 'Numa\DOAAdminBundle\Entity\Item',
+             'allow_extra_fields' => true
         ));
     }
 
