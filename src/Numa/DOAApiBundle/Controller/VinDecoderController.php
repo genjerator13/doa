@@ -36,9 +36,11 @@ class VinDecoderController extends Controller
         if ($item instanceof Item) {
             $decodedvin = $item->getVindecoder();
             $aDecodedvin = json_decode($decodedvin,true);
-            $json = json_encode($aDecodedvin[$num]);
-            $item->setVindecoder($json);
-           $em->flush();
+            if(!empty($aDecodedvin[$num])) {
+                $json = json_encode($aDecodedvin[$num]);
+                $item->setVindecoder($json);
+                $em->flush();
+            }
             die();
         }
 
