@@ -9,6 +9,8 @@
 namespace Numa\Util;
 
 use Numa\Util\SearchItem;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * Description of searchParameters
@@ -344,8 +346,10 @@ class searchESParameters
     public function createElasticSearchResults()
     {
         //$index = $this->get('fos_elastica.index.app.item');
-        $finder = $this->container->get('fos_elastica.finder.app.item');
+        //$finder = $this->container->get('fos_elastica.finder.app.item');
+        $finder = $this->container->get('fos_elastica.index.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
+
         
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
@@ -446,7 +450,23 @@ class searchESParameters
         $elasticaQuery->addSort(array("sold" => 'asc'));
 
         $this->elasticaQuery = $elasticaQuery;
-        $this->pagerFanta = $finder->findPaginated($elasticaQuery);
+        //$this->pagerFanta = $finder->findPaginated($elasticaQuery);
+        $search = $finder->createSearch($elasticaQuery);
+        $this->pagerFanta = $finder->search();
+        $results = $this->pagerFanta->getResults();
+        $search->setQuery($elasticaQuery);
+        //$elasticaQuery->setFrom(20);
+
+        $elasticaQuery->setSize(10000);
+        $res= $search->search();
+      //$res->current()->
+        $adapter = new ArrayAdapter($res->getResults());
+        $this->pagerFanta = new Pagerfanta($adapter);
+//        dump( $res->getResults());
+//        dump( $res->current());
+//        dump( $res->next());
+//        dump( $res->current());
+//        die();
 
     }
 
