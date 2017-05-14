@@ -51,7 +51,7 @@ Numa\DOAAdminBundle\Entity\ItemField:
         Item:
             targetEntity: Item
             inversedBy: ItemField
-            cascade: ["persist","remove"]
+            cascade: ["persist"]
             joinColumn:
                 name: item_id
                 referencedColumnName: id
