@@ -122,7 +122,7 @@ class Emailer extends ContainerAware
         }elseif ($entity instanceof Finance) {
             $subject = "Finance Form Request from " . $customer->getFullName();
         }elseif ($entity instanceof FinanceService) {
-            $subject = "Financing request from ". $customer->getFullName()." customer" ;
+            $subject = "Financing Service request from ". $customer->getFullName()." customer" ;
         }
 
         $email->setSubject($subject);
