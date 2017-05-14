@@ -160,7 +160,6 @@ class ElasticSearchController extends Controller implements DealerSiteController
 //
 
         $param = $this->generateTwigParams($request, $pagerFanta, $ads);
-
         if($request->isXmlHttpRequest()){
 
             return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
