@@ -86,6 +86,10 @@ fos_elastica:
                         archiveStatus: ~
                         dealerGroup:
                             type: integer
+                        coverImageSrc: ~
+                        urlDescription: ~
+                        title: ~
+                        priceString: ~
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
