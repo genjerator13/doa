@@ -1,14 +1,6 @@
-{#{% extends is_granted('ROLE_BUSINES')#}
-{#? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')#}
-{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
-{#{% extends app.request.get('_dashboard')=='DMS'#}
-{#? 'NumaDOADMSBundle::layout.html.twig'#}
-{#: 'NumaDOAAdminBundle::layout.html.twig' %}#}
-
 {% extends is_granted('ROLE_BUSINES')
 ? (is_granted('ROLE_DMS_USER')?'NumaDOADMSBundle::layout.html.twig':'NumaDOASiteBundle::home-layout.html.twig')
 :(app.request.get('_dashboard')=='DMS'?'NumaDOADMSBundle::layout.html.twig':'NumaDOAAdminBundle::layout.html.twig') %}
-
 
  {% form_theme edit_form 'bootstrap_3_horizontal_layout.html.twig' %}
  {% form_theme coupons_form 'bootstrap_3_horizontal_layout.html.twig' %}
@@ -17,6 +9,38 @@
  {% form_theme feeds_form 'bootstrap_3_horizontal_layout.html.twig' %}
 
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+                    {% block stylesheets %}
+                        {{ parent() }}
+                        <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"
+                              type="text/css"
+                              rel="stylesheet"/>
+                        {% stylesheets
+                        'css/loading-bar.min.css'
+
+                        filter='cssrewrite' output='css/*.css' %}
+                        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+                        {% endstylesheets %}
+                    {% endblock stylesheets %}
+                    {% block javascripts %}
+                        {{ parent() }}
+                        {% javascripts
+                        '@colorbox_js'
+                        'js/angular/angular143.min.js'
+                        'js/angular/angular-touch143.min.js'
+                        'js/angular/angular-animate143.min.js'
+                        'js/angular/ui-grid.js'
+                        'js/angular/angular-confirm.min.js'
+                        'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+                        'js/loading-bar.min.js' %}
+
+                        <script src="{{ asset_url }}"></script>
+
+                        <script>
+                            {% include 'NumaDOADMSBundle:DealerComponent:dealerComponent.js.twig' %}
+                        </script>
+                        {% endjavascripts %}
+                    {% endblock javascripts %}
 {% block content %}
     <h1>Edit Dealer</h1>
 
@@ -102,39 +126,6 @@
 
                 </div>
                 <div id="component" class="tab-pane">
-                    {% block stylesheets %}
-                        {{ parent() }}
-                        <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css"
-                              type="text/css"
-                              rel="stylesheet"/>
-                        {% stylesheets
-                        'css/loading-bar.min.css'
-
-                        filter='cssrewrite' output='css/*.css' %}
-                        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
-                        {% endstylesheets %}
-                    {% endblock stylesheets %}
-                    {% block javascripts %}
-                        {{ parent() }}
-                        {% javascripts
-                        '@colorbox_js'
-                        'js/angular/angular143.min.js'
-                        'js/angular/angular-touch143.min.js'
-                        'js/angular/angular-animate143.min.js'
-                        'js/angular/ui-grid.js'
-                        'js/angular/angular-confirm.min.js'
-                        'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
-                        'js/loading-bar.min.js' %}
-
-                        <script src="{{ asset_url }}"></script>
-                        {% endjavascripts %}
-                        <script>
-                            {% include 'NumaDOADMSBundle:DealerComponent:dealerComponent.js.twig' %}
-                        </script>
-                    {% endblock javascripts %}
-
-
-
 
                     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
 
