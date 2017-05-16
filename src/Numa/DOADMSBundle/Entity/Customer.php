@@ -792,19 +792,38 @@ class Customer
     {
         $lastnoteadded="";
         $criteria = Criteria::create()
-
-            ->orderBy(array("date_remind" => "DESC"));
+            ->orderBy(array("date_created" => "DESC"));
         if($this->getNote()) {
             $lastnoteadded = $this->getNote()->matching($criteria);
         }
         $this->lastnoteadded = null;
         if(!empty($lastnoteadded) && !empty($lastnoteadded->first())) {
-            $this->lastnoteadded = $lastnoteadded->first()->getDateRemind();
+            $this->lastnoteadded = $lastnoteadded->first()->getDateCreated();
         }
 
         return $this->lastnoteadded;
+    }
 
+    /**
+     * Get $followup_date
+     *
+     * @return string
+     * @JMS\VirtualProperty
+     */
+    public function getFirstFollowUpDate()
+    {
+        $lastnoteadded="";
+        $criteria = Criteria::create()
+            ->orderBy(array("date_remind" => "ASC"));
+        if($this->getNote()) {
+            $lastnoteadded = $this->getNote()->matching($criteria);
+        }
+        $this->followup_date = null;
+        if(!empty($lastnoteadded) && !empty($lastnoteadded->first())) {
+            $this->followup_date = $lastnoteadded->first()->getDateRemind();
+        }
 
+        return $this->followup_date;
     }
 
 
