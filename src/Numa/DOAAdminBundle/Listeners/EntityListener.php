@@ -12,6 +12,7 @@ use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOADMSBundle\Entity\Billing;
+use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
@@ -147,7 +148,10 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
-        } elseif ($entity instanceof Billing) {
+        }elseif ($entity instanceof Finance) {
+            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+        }
+        elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             if(!empty($entity->getItem())){
