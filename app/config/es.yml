@@ -93,6 +93,8 @@ fos_elastica:
                         title: ~
                         lastUpdated: ~
                         priceString: ~
+                        length: ~
+                        engine: ~
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
