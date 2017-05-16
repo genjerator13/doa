@@ -7,9 +7,10 @@
     col-sm-7
 {%- endblock form_group_class %}
 {% block content %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content',"HTML")|raw }}
-    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{ form_errors(form) }}
     {{ form_start(form) }}
     {{ form_row(form.cust_name) }}
     {{ form_row(form.cust_last_name) }}
@@ -17,10 +18,20 @@
     {{ form_row(form.contact_by) }}
     {{ form_row(form.email) }}
     {{ form_row(form.phone) }}
-    {{ form_row(form.comment, { 'label': 'Question' }) }}
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.make_onsite) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.model_onsite) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.year_onsite) }}
+        </div>
+    </div>
+    {{ form_row(form.accessories) }}
+    {{ form_row(form.comment) }}
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
     {{ form_end(form) }}
-    {% set dealer = getDealer() %}
-    {{ displayComponent('page_content_bottom',"HTML")|raw }}
 
 {% endblock %}
