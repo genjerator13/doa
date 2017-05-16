@@ -9,7 +9,22 @@
 namespace Numa\DOASiteBundle\Search;
 
 
-class ItemRepository
-{
+use Elastica\Query;
+use FOS\ElasticaBundle\Repository;
 
+class ItemRepository extends Repository
+{
+    public function findItem($item_id) {
+
+
+        //$finder = $this->get('fos_elastica.finder.sava.blog');
+        $finder = $this->get('fos_elastica.index.app.item');
+
+        $query = new Query();
+        $innerQuery = new Query\MatchAll();
+
+        $query->setQuery($innerQuery);
+
+        return $this->find($query);
+    }
 }
