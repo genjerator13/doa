@@ -241,8 +241,9 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-
-        $this->vinDecoderInsertion($item, $vindecoderItems[0]);
+        if(!empty($vindecoderItems) && !empty($vindecoderItems[0])) {
+            $this->vinDecoderInsertion($item, $vindecoderItems[0]);
+        }
 
     }
 
