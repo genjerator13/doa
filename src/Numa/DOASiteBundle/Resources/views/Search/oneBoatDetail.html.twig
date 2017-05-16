@@ -1,11 +1,12 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    {% set images = item.getImages2() %}
-    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
+    {% set item = item.getData() %}
+    {% set image = item['coverImageSrc'] %}
+    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item['urlDescription']|url_encode()}) %}
     {% if searchQ is defined %}
-        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode(),'searchQ':searchQ}) %}
+        {% set detailUrl = path('item_details', {'itemId': item.id, 'description':  item['urlDescription']|url_encode(),'searchQ':searchQ}) %}
     {% endif %}
-    {% set dealer = item.getDealer() %}
+    {#{% set dealer = item.getDealer() %}#}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
     {% endif %}
@@ -13,7 +14,7 @@
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="picture-detail">
                 <a href="{{ detailUrl }}" class="thumbnail">
-                    {{ component.image(item.getCoverImageSrc(), item.getTitle(), '', 'search_image',120, 90) }}
+                    {{ component.image(image, item.getTitle(), '', 'search_image',120, 90) }}
                 </a>
             </div>
             <div class="shortDetails">
@@ -29,7 +30,7 @@
                         Stock Number: {{ item.StockNr }};
                     {% endif %}
                     Listing ID
-                    # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}
+                    # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category }} {% endif %}
                     "
                 </div>
                 <div>Posted by {{ dealer }} </div>
@@ -38,7 +39,7 @@
                 <span class="glyphicon glyphicon-earphone">{% if dealer %}{{ dealer.phone }}{% endif %}</span>
                 <br>
                 <a href="{{ detailUrl }}">View
-                    Details {% if dealer and app.user and app.user.getId()==dealer.id %}({{ item.views }} views){% endif %}</a>
+                    Details {% if dealer and app.user and app.user.getId()==item.dealer_id %}({{ item.views }} views){% endif %}</a>
 
                 <div class="checkbox-inline">
                     <label>
@@ -50,7 +51,7 @@
                         <input type="checkbox" class="compareAd"> Compare Ad
                     </label>
                 </div>
-                {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
+                {% if (dealer and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
                         {% if item.getActive() %}

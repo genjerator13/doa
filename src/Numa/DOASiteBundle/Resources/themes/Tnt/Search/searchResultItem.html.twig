@@ -9,7 +9,6 @@
     {#{% set dealer = item.getDealer() %}#}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
-
     {% endif %}
 
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
