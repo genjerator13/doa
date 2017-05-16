@@ -24,6 +24,7 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
         $entity = new PartRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
 
@@ -60,7 +61,7 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
 
         }
 
-        return $this->render('NumaDOASiteBundle:Parts:parts_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/Parts:parts_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -88,7 +89,8 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:Parts:parts_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'part_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
