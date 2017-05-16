@@ -5233,4 +5233,62 @@ class Item
     {
         return $this->qb_item_id;
     }
+    /**
+     * @var string
+     */
+    private $engine_VIN;
+
+    /**
+     * @var string
+     */
+    private $trailer_VIN;
+
+
+    /**
+     * Set engineVIN
+     *
+     * @param string $engineVIN
+     *
+     * @return Item
+     */
+    public function setEngineVIN($engineVIN)
+    {
+        $this->engine_VIN = $engineVIN;
+
+        return $this;
+    }
+
+    /**
+     * Get engineVIN
+     *
+     * @return string
+     */
+    public function getEngineVIN()
+    {
+        return $this->engine_VIN;
+    }
+
+    /**
+     * Set trailerVIN
+     *
+     * @param string $trailerVIN
+     *
+     * @return Item
+     */
+    public function setTrailerVIN($trailerVIN)
+    {
+        $this->trailer_VIN = $trailerVIN;
+
+        return $this;
+    }
+
+    /**
+     * Get trailerVIN
+     *
+     * @return string
+     */
+    public function getTrailerVIN()
+    {
+        return $this->trailer_VIN;
+    }
 }
