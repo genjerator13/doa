@@ -68,6 +68,9 @@ class ComponentDispatch
             }
         }
 
+        if(! $component instanceof ComponentEntityInterface){
+            return;
+        }
 
         if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template"){
             $componentxxx =new TextComponent($component);
