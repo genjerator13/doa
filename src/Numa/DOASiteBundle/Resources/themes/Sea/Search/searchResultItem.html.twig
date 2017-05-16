@@ -29,23 +29,20 @@
                     </a>
                 </h4>
 
-                {% if item.bodyStyle is defined and item.stock_nr is defined and item.exteriorColor is defined and item.mileage is defined %}
-                    {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
-                    <ul class="techData  list-unstyled">
-                        {% if item.category_id==1 %}
-                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                        {% elseif(item.category_id==2) %}
-                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                        {% elseif(item.category_id==3) %}
-                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                        {% elseif(item.category_id==4) %}
-                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                        {% elseif(item.category_id==13) %}
-                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                        {% else %}
-                        {% endif %}
-                    </ul>
-                {% endif %}
+                <ul class="techData  list-unstyled">
+                    {% if item.category_id==1 %}
+                        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                    {% elseif(item.category_id==2) %}
+                        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                    {% elseif(item.category_id==3) %}
+                        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                    {% elseif(item.category_id==4) %}
+                        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                    {% elseif(item.category_id==13) %}
+                        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                    {% else %}
+                    {% endif %}
+                </ul>
 
                 <div class="checkbox-inline">
                     <label>

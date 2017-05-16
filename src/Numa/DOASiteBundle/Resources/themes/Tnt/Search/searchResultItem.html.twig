@@ -32,23 +32,20 @@
                 <h4>Price: <span class="price-value">{{ item['priceString'] }}</span></h4>
                 <h4>Mileage: {{ item.mileage }}</h4>
 
-                {% if item.bodyStyle is defined and item.StockNr is defined and item.exteriorColor is defined  %}
-                    {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
-                    <ul class="techData  list-unstyled">
-                        {% if item.categoryId()==1 %}
-                            {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                        {% elseif(item.categoryId()==2) %}
-                            {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                        {% elseif(item.categoryId()==3) %}
-                            {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                        {% elseif(item.categoryId()==4) %}
-                            {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                        {% elseif(item.categoryId()==13) %}
-                            {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                        {% else %}
-                        {% endif %}
-                    </ul>
-                {% endif %}
+                <ul class="techData  list-unstyled">
+                    {% if item.categoryId()==1 %}
+                        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                    {% elseif(item.categoryId()==2) %}
+                        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                    {% elseif(item.categoryId()==3) %}
+                        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                    {% elseif(item.categoryId()==4) %}
+                        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                    {% elseif(item.categoryId()==13) %}
+                        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                    {% else %}
+                    {% endif %}
+                </ul>
                 <ul class="list-inline">
                     <li>
                         <div class="checkbox-inline">
