@@ -90,6 +90,7 @@ fos_elastica:
                         urlDescription: ~
                         title: ~
                         priceString: ~
+                        dealerName: ~
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel

@@ -1,0 +1,9 @@
+<h1>Offer from {{ entity.email }} </h1>
+<h4>Contact Information:</h4>
+<p>First Name: {{ entity.custName }}</p>
+<p>Last Name: {{ entity.custLastName }}</p>
+<p>Sales Person: {{ entity.custOfficer }}</p>
+<p>Email: {{ entity.email }}</p>
+<p>Phone: {{ entity.phone }}</p>
+{% include 'NumaDOADMSBundle:Emails:item.html.twig' %}
+{% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}
