@@ -80,6 +80,8 @@ class ItemType extends AbstractType
                 'label' => "Transmission", "required" => false
             ))
             ->add('VIN', null, array("label" => "VIN"))
+            ->add('engine_VIN', null, array("label" => "Engine VIN"))
+            ->add('trailer_VIN', null, array("label" => "Trailer VIN"))
             ->add('mileage')
             ->add('floorPlan', null, array("label" => "Floor Plan"))
             ->add('stockNr', null, array("label" => "Stock Number"))
