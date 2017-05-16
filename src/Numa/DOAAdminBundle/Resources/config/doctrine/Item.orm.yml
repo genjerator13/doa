@@ -173,6 +173,14 @@ Numa\DOAAdminBundle\Entity\Item:
               type: string
               length: 255
               nullable: true
+        engine_VIN:
+              type: string
+              length: 255
+              nullable: true
+        trailer_VIN:
+              type: string
+              length: 255
+              nullable: true
         transmission:
               type: string
               length: 255

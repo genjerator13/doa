@@ -69,52 +69,26 @@ class ImageLib
     }
 
 
-    public function deleteImagesNotInDB()
+    public function deleteImagesNotInDB2($path)
     {
         $images = $this->getAllImagesIntoArray();
-        $dir    = 'upload/itemsimages'; // path from top
-        $scanedFiles = scandir($dir);
-        $files = array_diff($scanedFiles, array('.', '..'));
-        $delete=array();
-        $noDelete=array();
+        if(is_file($path)) {
+            if(!in_array("/".$path, $images)){
+                $this->deleteImage($path);
+                $delete[]="/".$path;
+            }else{
+//dump("EXISTS");
+                $noDelete[]=$path;
+            }
+        }elseif(is_dir($path)){
+            $scanedFilesFolder = scandir($path);
+            $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
 
-        foreach($files as $file){
-            // "is_dir" only works from top directory, so append the $dir before the file
-            if (is_dir($dir.'/'.$file)){
-                $scanedFilesFolder = scandir($dir.'/'.$file);
-                $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
-                foreach ($filesFolder as $fileFolder) {
-                    $img = $dir.'/'.$file.'/'.$fileFolder;
-                    //dump('/'.$img);
-                    if(!in_array('/'.$img, $images)){
-                        $this->deleteImage($img);
-                        $delete[]=$img;
-                        //dump("not EXISTS");
-                    }else{
-                        $noDelete[]=$img;
-//                        dump("EXISTS");
-//                        dump($img);
-                    }
-                }
-
-            } else{
-                $img = $dir.'/'.$file;
-                //dump('/'.$img);
-                if(!in_array('/'.$img, $images)){
-                    $this->deleteImage($img);
-                    $delete[]=$img;
-                }else{
-                    //dump("EXISTS");
-                    $noDelete[]=$img;
-                }
+            foreach ($filesFolder as $fileFolder) {
+                $img = $path.'/'.$fileFolder;
+                $this->deleteImagesNotInDB2($img);
             }
         }
-        dump("DELETE");
-        dump($delete);
-        dump("no DELETE");
-        dump($noDelete);
-        die();
-
     }
     public function getAllImagesIntoArray(){
         $em = $this->container->get('doctrine.orm.entity_manager');

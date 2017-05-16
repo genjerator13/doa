@@ -5,6 +5,7 @@
     {{ component.listingFieldInput(form.retail_price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.price,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.stockNr,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.VIN,"Boat VIN", "form-group","col-sm-9") }}
     <div class="form-group">
         {{ form_label(form.type, 'Boat Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">
@@ -27,6 +28,7 @@
             {{ form_widget(form.engine, { 'attr': {'class': 'form-control'} }) }}
         </div>
     </div>
+    {{ component.listingFieldInput(form.engine_VIN,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.horsepower,"", "form-group","col-sm-9") }}
     <div class="form-group">
         {{ form_label(form.fuelType, 'Fuel Type', { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -54,4 +56,5 @@
     </div>
     {{ component.listingFieldInput(form.passengers,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.trailer,"", "form-group","col-sm-9") }}
+    {{ component.listingFieldInput(form.trailer_VIN,"", "form-group","col-sm-9") }}
 {% endblock %}
