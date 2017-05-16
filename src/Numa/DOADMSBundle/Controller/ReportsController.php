@@ -58,6 +58,11 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportSalesXls($entities);
             }
 
+            if ($request->query->has('salesCommision')) {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+                return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
+            }
+
             if ($request->query->has('unitProfit')) {
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
                 return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
