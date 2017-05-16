@@ -41,7 +41,7 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
 
         }
 
-        return $this->render('NumaDOASiteBundle:GetAQuote:getAQuote_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/GetAQuote:getAQuote_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -74,7 +74,8 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:GetAQuote:getAQuote_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'getAQuote_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

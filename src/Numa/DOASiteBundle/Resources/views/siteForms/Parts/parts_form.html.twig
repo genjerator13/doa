@@ -1,4 +1,4 @@
-{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
 {% block form_label_class -%}
     col-sm-3
@@ -53,6 +53,7 @@
     {{ form_row(form.part_num) }}
     <p class="help-block">Separate parts numbers by comma (",") in order to order more than one part </p>
     {{ form_row(form.part_desc) }}
+    {{ form_row(form.comment) }}
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
     {{ form_end(form) }}
 {% endblock %}

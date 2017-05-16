@@ -42,7 +42,7 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
 
         }
 
-        return $this->render('NumaDOASiteBundle:Service:service_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/Service:service_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -70,7 +70,8 @@ class ServiceController extends Controller implements DealerSiteControllerInterf
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:Service:service_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'service_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

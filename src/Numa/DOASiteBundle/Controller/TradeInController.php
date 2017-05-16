@@ -78,7 +78,8 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:siteForms/TradeIn:tradeIn_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'tradeIn_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

@@ -41,7 +41,7 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
 
         }
 
-        return $this->render('NumaDOASiteBundle:ShoppingExpress:shoppingExpress_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/ShoppingExpress:shoppingExpress_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -70,7 +70,8 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:ShoppingExpress:shoppingExpress_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'shoppingExpress_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

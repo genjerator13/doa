@@ -74,7 +74,8 @@ class TestDriveController extends Controller implements DealerSiteControllerInte
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:siteForms/TestDrive:testDrive_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'testDrive_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
