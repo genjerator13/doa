@@ -1,37 +1,6 @@
 {% set liclass="col-md-12 col-xs-12 col-sm-12 col-lg-12" %}
-
-    {% if item.type is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Boat Type: </span>
-            <span class="fieldValue fieldValue-status">{{ item.type }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.stock_nr is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Stock Number: </span>
-            <span class="fieldValue fieldValue-status">{{ item.stock_nr }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.hullDesign is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Hull Design: </span>
-            <span class="fieldValue fieldValue-status">{{ item.hullDesign }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.length is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Length (ft): </span>
-            <span class="fieldValue fieldValue-status">{{ item.length }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.engine is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Engine Type: </span>
-            <span class="fieldValue fieldValue-status">{{ item.egine }}</span>
-        </li>
-    {% endif %}
-
+{{ component.listingField(item.type,liclass, "Boat Type") }}
+{{ component.listingField(item.stock_nr,liclass, "Stock Number") }}
+{{ component.listingField(item.hullDesign,liclass, "Hull Design") }}
+{{ component.listingField(item.length,liclass, "Length (ft)") }}
+{{ component.listingField(item.engine,liclass, "Engine Type") }}

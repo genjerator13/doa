@@ -1,35 +1,6 @@
 {% set liclass="col-md-12 col-xs-12 col-sm-12 col-lg-12" %}
-
-    {% if item.type is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Type: </span>
-            <span class="fieldValue fieldValue-status">{{ item.type }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.stock_nr is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Stock Number: </span>
-            <span class="fieldValue fieldValue-status">{{ item.stock_nr }}</span>
-        </li>
-    {% endif %}
-    {% if item.mileage is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Mileage: </span>
-            <span class="fieldValue fieldValue-status">{{ item.mileage }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.exteriorColor is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Exterior Color: </span>
-            <span class="fieldValue fieldValue-status">{{ item.exteriorColor }}</span>
-        </li>
-    {% endif %}
-
-    {% if item.engine is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Engine: </span>
-            <span class="fieldValue fieldValue-status">{{ item.engine }}</span>
-        </li>
-    {% endif %}
+{{ component.listingField(item.type,liclass, "Type") }}
+{{ component.listingField(item.stock_nr,liclass, "Stock Number") }}
+{{ component.listingField(item.mileage,liclass, "Mileage") }}
+{{ component.listingField(item.exteriorColor,liclass, "Exterior Color") }}
+{{ component.listingField(item.engine,liclass, "Engine") }}
