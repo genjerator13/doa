@@ -54,7 +54,7 @@
                 {% if (dealer and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
-                        {% if item.getActive() %}
+                        {% if item.active %}
                             <li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>
                         {% else %}
                             <li><a href="{{ path('items_activate',{'id':item.id}) }}">Activate</a></li>
