@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: genjerator
- * Date: 19.12.16.
- * Time: 18.31
- */
 
 namespace Numa\DOADMSBundle\Lib;
 
@@ -12,7 +6,7 @@ namespace Numa\DOADMSBundle\Lib;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Sale;
 
-class SaleReport extends Report
+class SaleCommisionReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
@@ -25,6 +19,7 @@ class SaleReport extends Report
         "F" => array("model", "Model"),
         "G" => array("sale:sellingPrice", "Sold For"),
         "H" => array("sale:totalRevenue", "Total Rev"),
+        "I" => array("sale:salesComms", "Sales Comm"),
     );
 
     public function setCellValue($letter, $number, $entity, $field)
@@ -38,10 +33,12 @@ class SaleReport extends Report
 
         $sellingPrice=0;
         $totalRevenue=0;
+        $totalSalesComms=0;
         foreach ($entities as $entity) {
             if($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+                $totalSalesComms += $entity->getItem()->getSale()->getSalesComms();
             }
         }
 
@@ -49,6 +46,7 @@ class SaleReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "SUB-TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
         $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalSalesComms);
 
 //        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
 //        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
@@ -59,10 +57,12 @@ class SaleReport extends Report
 
         $sellingPrice=0;
         $totalRevenue=0;
+        $totalSalesComms=0;
         foreach ($this->getEntities() as $entity) {
             if($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+                $totalSalesComms += $entity->getItem()->getSale()->getSalesComms();
             }
         }
 
@@ -70,6 +70,7 @@ class SaleReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
         $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalSalesComms);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
