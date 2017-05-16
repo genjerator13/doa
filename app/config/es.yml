@@ -107,3 +107,4 @@ fos_elastica:
                             update: true
                             delete: true
                         finder: ~
+                        repository: Numa\DOASiteBundle\Search\ItemRepository
