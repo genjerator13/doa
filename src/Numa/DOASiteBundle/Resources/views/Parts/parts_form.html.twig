@@ -28,7 +28,7 @@
 {% block content %}
 
     {{ displayComponent('page_content',"HTML") }}
-
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {% if app.session.flashBag.has('success') %}
@@ -53,5 +53,6 @@
     {{ form_row(form.part_num) }}
     <p class="help-block">Separate parts numbers by comma (",") in order to order more than one part </p>
     {{ form_row(form.part_desc) }}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
     {{ form_end(form) }}
 {% endblock %}
