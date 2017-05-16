@@ -24,6 +24,7 @@ class ShoppingExpressController extends Controller implements DealerSiteControll
         $entity = new ListingForm();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();

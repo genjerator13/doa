@@ -10,6 +10,7 @@
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content',"HTML")|raw }}
     <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{ form_errors(form) }}
     {{ form_start(form) }}
     {{ form_row(form.cust_name) }}
     {{ form_row(form.cust_last_name) }}

@@ -24,6 +24,7 @@ class PartsController extends Controller implements DealerSiteControllerInterfac
         $entity = new PartRequest();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
 
