@@ -51,7 +51,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'sales_person'},
         {name: '_reminder.length', displayName: 'Reminder#', enableFiltering: false},
         {
-            name: 'followup_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
+            name: 'first_follow_up_date', displayName: 'Follow up Date', type: 'date', cellFilter: 'date:\'yyyy-MM-dd\'',
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
 
                 fd = new Date(grid.getCellValue(row, col));

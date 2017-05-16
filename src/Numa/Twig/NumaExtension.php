@@ -279,10 +279,7 @@ class NumaExtension extends \Twig_Extension
                 }
                 $uploadDir = "/" . ImageCarousel::getUploadDir();
                 $res = $images[0]->getSrc();
-//                dump($uploadDir."/dealers/".$res);
-//                // set button1 = "/upload/dealers/3/component/40/fast-cars-3.jpg"   %}
-//                //dump($res);
-//                //die();
+
                 return "/upload/dealers/" . $res;
             }
 
