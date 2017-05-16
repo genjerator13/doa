@@ -24,6 +24,7 @@ class TestDriveController extends Controller implements DealerSiteControllerInte
         $entity = new ListingForm();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -74,7 +75,8 @@ class TestDriveController extends Controller implements DealerSiteControllerInte
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:siteForms/TestDrive:testDrive_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'testDrive_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

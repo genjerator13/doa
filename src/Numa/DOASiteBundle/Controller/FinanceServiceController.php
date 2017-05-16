@@ -28,7 +28,7 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
         $entity = new FinanceService();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-//        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
 
@@ -47,7 +47,7 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
 
             return $this->redirectToRoute('finance_service_success');
         }
-        return $this->render('NumaDOASiteBundle:FinanceService:finance_service_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/FinanceService:finance_service_form.html.twig', array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
         ));
@@ -66,7 +66,8 @@ class FinanceServiceController extends Controller implements DealerSiteControlle
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:FinanceService:finance_service_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'finance_service_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
