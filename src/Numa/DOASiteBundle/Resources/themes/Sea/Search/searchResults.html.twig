@@ -249,7 +249,7 @@
 <div class="row">
     <div class="searchResults col-md-8">
         {% if pagerfanta is not empty %}
-            <div id="listing-content"><
+            <div id="listing-content">
                 {% for item in pagerfanta %}
                     {% set item = item.getData() %}
                     {% if queryUrl is defined %}

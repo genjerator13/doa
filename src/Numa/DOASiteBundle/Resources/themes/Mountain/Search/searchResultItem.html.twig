@@ -6,7 +6,7 @@
     {% if searchQ is defined %}
         {% set detailUrl = path('item_details', {'itemId': item.id, 'description':  item['urlDescription']|url_encode(),'searchQ':searchQ}) %}
     {% endif %}
-    {#{% set dealer = item.getDealer() %}#}
+    {% set dealer = item.dealerName %}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
 
@@ -63,7 +63,7 @@
                 {#</button>#}
             </div>
 
-            {% if (item.dealer_id is not empty and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
+            {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                 <ul class="list-inline">
                     <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
                     {% if item.active %}
