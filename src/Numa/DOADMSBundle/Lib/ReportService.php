@@ -79,6 +79,19 @@ class ReportService
     }
 
     /**
+     * Creatres SaleCommision report
+     * @param $entities
+     * @return Response
+     */
+    public function billingReportSalesCommisionXls($entities)
+    {
+        $filename = "sale_report.xls";
+        $saleCommisionReport = new SaleCommisionReport($this->container);
+        $saleCommisionReport->setEntities($entities);
+        return $saleCommisionReport->createExcelResponse($filename);
+    }
+
+    /**
      * creates UnitProfit report
      * @param $entities
      * @return Response
