@@ -208,6 +208,11 @@
                                         Request</a>
                                 </li>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                                <li class="active">
+                                    <a href="{{ path('financeservice') }}" class=""><i class="fa fa-inbox"></i>Financing Service</a>
+                                </li>
+                            {% endif %}
                             {% if (is_granted('ROLE_ADMIN') or
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or
@@ -389,7 +394,7 @@
                                 <a href="{{ path('dms_setting') }}" class=""><i class="fa fa-cog"></i>Settings</a>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                        {% if is_granted('ROLE_ADMIN') %}
                             <li class="">
                                 <a href="{{ path('dms_imagecarousel') }}" class=""><i class="fa fa-picture-o"></i>Image
                                     Carousel (Default Theme Only)</a>
@@ -463,6 +468,14 @@
                         <a href="{{ path('finance') }}">
                             <i class="fa fa-usd"></i>
                             <span>FINANCE</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_DEALER_PRINCIPAL') %}
+                    <li class="treeview">
+                        <a href="{{ path('financeservice') }}">
+                            <i class="fa fa-wrench"></i>
+                            <span>FINANCE SERVICE</span>
                         </a>
                     </li>
                 {% endif %}

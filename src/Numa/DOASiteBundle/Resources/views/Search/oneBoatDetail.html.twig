@@ -1,45 +1,45 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-    {% set images = item.getImages2() %}
-    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
+    {% set item = item.getData() %}
+    {% set image = item['coverImageSrc'] %}
+    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item['urlDescription']|url_encode()}) %}
     {% if searchQ is defined %}
-        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode(),'searchQ':searchQ}) %}
+        {% set detailUrl = path('item_details', {'itemId': item.id, 'description':  item['urlDescription']|url_encode(),'searchQ':searchQ}) %}
     {% endif %}
-    {% set dealer = item.getDealer() %}
+    {#{% set dealer = item.getDealer() %}#}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
-
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
             <div class="picture-detail">
                 <a href="{{ detailUrl }}" class="thumbnail">
-                    {{ component.image(item.getCoverImageSrc(), item.getTitle(), '', 'search_image',120, 90) }}
+                    {{ component.image(image, item.title, '', 'search_image',120, 90) }}
                 </a>
             </div>
             <div class="shortDetails">
                 <h4>
                     <a href="{{ detailUrl }}">
-                        {{ item.getTitle() }} {% if (item.getSold()==1) %}<span
+                        {{ item.title }} {% if (item.sold==1) %}<span
                                 class="badge">Sold</span>{% endif %}
                     </a>
                 </h4>
 
                 <div>
-                    {% if (item.StockNr) %}
-                        Stock Number: {{ item.StockNr }};
+                    {% if (item.stock_nr) %}
+                        Stock Number: {{ item.stock_nr }};
                     {% endif %}
                     Listing ID
-                    # {{ item.id }} {% if item.category is not empty %} in the category "{{ item.category.getName() }} {% endif %}
+                    # {{ item.id }} {% if item.categoryName is not empty %} in the category "{{ item.categoryName }} {% endif %}
                     "
                 </div>
-                <div>Posted by {{ dealer }} </div>
+                <div>Posted by {{ item.dealerName }} </div>
 
 
-                <span class="glyphicon glyphicon-earphone">{% if dealer %}{{ dealer.phone }}{% endif %}</span>
+                <span class="glyphicon glyphicon-earphone">{% if item.dealerPhone is not empty %}{{ item.dealerPhone }}{% endif %}</span>
                 <br>
                 <a href="{{ detailUrl }}">View
-                    Details {% if dealer and app.user and app.user.getId()==dealer.id %}({{ item.views }} views){% endif %}</a>
+                    Details {% if item.dealerName is not empty and app.user and app.user.getId()==item.dealer_id %}({{ item.views }} views){% endif %}</a>
 
                 <div class="checkbox-inline">
                     <label>
@@ -51,7 +51,7 @@
                         <input type="checkbox" class="compareAd"> Compare Ad
                     </label>
                 </div>
-                {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
+                {% if (dealer and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
                         {% if item.getActive() %}
@@ -66,11 +66,11 @@
             </div>
             <div class="main-details">
                 <ul class="list-inline">
-                    <li>{{ item.getItemFieldByName('mileage')|number_format(0, '.',',') }}
+                    <li>{{ item.mileage|number_format(0, '.',',') }}
 
-                    <li><span class="price">{{ item.getPriceString() }}</span>
+                    <li><span class="price">{{ item.priceString }}</span>
                     </li>
-                    <li>{{ item.lastUpdated()|date('Y-m-d') }}</li>
+                    <li>{{ item.lastUpdated|date('Y-m-d') }}</li>
                 </ul>
             </div>
 

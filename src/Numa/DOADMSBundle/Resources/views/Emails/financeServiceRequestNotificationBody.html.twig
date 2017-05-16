@@ -1,0 +1,8 @@
+<h2>Financing Service request from {{ entity.email }} </h2>
+<h4>Contact Information:</h4>
+<p>First Name: {{ entity.custName }}</p>
+<p>Last Name: {{ entity.custLastName }}</p>
+<p>Email: {{ entity.email }}</p>
+<p>Phone: {{ entity.DayPhone }}</p>
+
+{% include 'NumaDOADMSBundle:Emails:item.html.twig' %}

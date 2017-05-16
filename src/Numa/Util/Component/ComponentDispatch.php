@@ -68,8 +68,11 @@ class ComponentDispatch
             }
         }
 
+        if(! $component instanceof ComponentEntityInterface){
+            return;
+        }
 
-        if($type=="text" || strtolower($type)=="html"  || strtolower($type)=="template"){
+        if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template"){
             $componentxxx =new TextComponent($component);
             return $componentxxx;
         }elseif(strtolower($type)=="carousel"){
@@ -83,6 +86,7 @@ class ComponentDispatch
             $componentxxx =new ImageComponent($component);
             $componentxxx->setContainer($this->container);
             $componentxxx->setSettings($setting);
+
             return $componentxxx;
         }
 

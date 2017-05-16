@@ -5,7 +5,7 @@
             {% for item in items %}
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
-                <a class="col-md-2 featured-ads-item {% if loop.index==3 %}third{% endif %} {% if loop.last %}last{% endif %}" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
+                <a class="col-lg-2 col-md-2 col-sm-6 col-xs-12 featured-ads-item {% if loop.index==3 %}third{% endif %} {% if loop.last %}last{% endif %}" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
 
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}

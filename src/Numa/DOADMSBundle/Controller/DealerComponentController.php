@@ -25,6 +25,7 @@ class DealerComponentController extends Controller
         $em = $this->getDoctrine()->getManager();
         return $this->render('NumaDOADMSBundle:DealerComponent:index.html.twig');
     }
+
     /**
      * Creates a new DealerComponent entity.
      *
@@ -45,7 +46,7 @@ class DealerComponentController extends Controller
 
         return $this->render('NumaDOADMSBundle:DealerComponent:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -75,11 +76,11 @@ class DealerComponentController extends Controller
     public function newAction()
     {
         $entity = new DealerComponent();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:DealerComponent:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -100,7 +101,7 @@ class DealerComponentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:DealerComponent:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -124,26 +125,21 @@ class DealerComponentController extends Controller
         $deleteForm = $this->createDeleteForm($id);
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealer_id = 0;
-        if($dealer instanceof Catalogrecords){
+        if ($dealer instanceof Catalogrecords) {
             $dealer_id = $dealer->getId();
         }
-        $uploadDir = Component::getUploadDir($dealer_id,$id);
+        $uploadDir = Component::getUploadDir($dealer_id, $id);
         //clear the cache
         $this->get('Numa.DMSUtils')->clearCache();
+        $template = "NumaDOAModuleBundle:Component:carousel_edit.html.twig";
 
-        if(strtolower($entity->getType())=="carousel"){
-            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
-            return $this->render('NumaDOAModuleBundle:Component:carousel_edit.html.twig', array(
-                'uploadDir' => $uploadDir,
-                'dealerComponent' => true,
-                'entity' => $entity,
-                'entities' => $entities,
-                'edit_form' => $editForm->createView(),
-                'delete_form' => $deleteForm->createView(),
-            ));
-        }elseif(strtolower($entity->getType())=="image"){
-            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($id);
-            return $this->render('NumaDOAModuleBundle:Component:image_edit.html.twig', array(
+        if (strtolower($entity->getType()) == "image") {
+            $template = "NumaDOAModuleBundle:Component:image_edit.html.twig";
+        }
+        if (strtolower($entity->getType()) == "image" || (strtolower($entity->getType()) == "carousel") ) {
+            $dc = $em->getRepository(DealerComponent::class)->find($id);
+            $entities = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($dc);
+            return $this->render($template, array(
                 'uploadDir' => $uploadDir,
                 'dealerComponent' => true,
                 'entity' => $entity,
@@ -153,9 +149,10 @@ class DealerComponentController extends Controller
             ));
         }
 
+
         return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
 
@@ -163,12 +160,12 @@ class DealerComponentController extends Controller
     }
 
     /**
-    * Creates a form to edit a DealerComponent entity.
-    *
-    * @param DealerComponent $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a DealerComponent entity.
+     *
+     * @param DealerComponent $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(DealerComponent $entity)
     {
         $securityContext = $this->get('security.authorization_checker');
@@ -183,6 +180,7 @@ class DealerComponentController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing DealerComponent entity.
      *
@@ -207,10 +205,11 @@ class DealerComponentController extends Controller
         }
 
         return $this->render('NumaDOADMSBundle:DealerComponent:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
         ));
     }
+
     /**
      * Deletes a DealerComponent entity.
      *
@@ -248,7 +247,6 @@ class DealerComponentController extends Controller
             ->setAction($this->generateUrl('dealercomponent_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

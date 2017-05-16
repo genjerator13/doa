@@ -34,7 +34,6 @@ body {
     margin: 0 auto;
     max-width: 1020px;
     padding: 0 20px;
-    height: 105px;
 }
 
 .logo {
@@ -132,6 +131,7 @@ body {
     display: table;
     padding: 0 10px;
     list-style: none;
+    margin-bottom: 0;
 }
 .menu li{
     float:left;
@@ -271,6 +271,7 @@ body {
     margin-top: -70px;
     position: relative;
     z-index: 1;
+    min-height: 70px;
 }
 
 .buttons ul {
@@ -313,6 +314,7 @@ body {
     color: #fff;
 
 }
+
 
 
 
@@ -465,7 +467,7 @@ body {
     padding: 10px;
 }
 
-.listing-buttons {
+.listing-buttons div{
     padding: 0px;
     text-align: right;
     z-index:1000;
@@ -683,13 +685,13 @@ body {
     margin-top: -10px;
 }
 
-#myCarousel .text_widget {
+.homepage_carousel .text_widget {
     position: absolute;
     top: 10px;
     left: 10px;
     width: 100%;
 }
-#myCarousel .carousel-inner {
+.homepage_carousel .carousel-inner {
     max-height: 500px;
 }
 

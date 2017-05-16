@@ -1,0 +1,1281 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    <style>
+        td.opeq input {
+            width: 100%;
+        }
+
+        input.alignright {
+            text-align: right;
+        }
+    </style>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+    {#'@NumaDOADMSBundle/Resources/public/js/customer.js'#}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Billing:billing.js.twig' %}
+    </script>
+{% endblock javascripts %}
+{% block content %}
+    <div class="box" ng-app="myApp">
+        <div ng-controller="myCtrl">
+            {{ form_start(form) }}
+            {{ form_row(form.customer_id) }}
+            {{ form_row(form.dealer_id) }}
+            {{ form_row(form.item_id) }}
+
+            <div class="box-header">
+
+            </div>
+            {% if form_errors(form) is not empty %}
+                <div class="alert alert-danger">
+                    <strong>VEHICLE NOT FOUND!</strong>
+                </div>
+            {% endif %}
+            <table cellspacing="0" border="0">
+                <colgroup span="3" width="80"></colgroup>
+                <colgroup width="56"></colgroup>
+                <colgroup width="69"></colgroup>
+                <colgroup width="77"></colgroup>
+                <colgroup width="141"></colgroup>
+                <colgroup span="3" width="80"></colgroup>
+                <colgroup width="68"></colgroup>
+                <colgroup span="3" width="80"></colgroup>
+                <tr>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=4
+                        rowspan=4
+                        height="80" align="center" valign=middle>
+                        {% if dealer is defined and dealer is not empty and dealer.name is defined %}
+                            <h3><b>{{ dealer.name }}</b></h3>
+                        {% endif %}
+                    </td>
+                    <td style="border-left: 1px solid #000000" colspan=4 align="center" valign=top
+                        bgcolor="#E7E6E6">
+                        <h2><b><u>BILL OF SALE</u></b></h2></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>Invoice #</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7">
+                        {% if max_invoive_nr is defined %}
+                            {{ form_row(form.invoice_nr, {'value' : max_invoive_nr}) }}
+                        {% else %}
+                            {{ form_row(form.invoice_nr) }}
+                        {% endif %}
+                    </td>
+
+                    <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-left: 1px solid #000000" colspan=4 rowspan="7" align="center" valign=middle>
+
+                        {% if dealer is defined and dealer is not empty and dealer.logo is not empty %}
+                            {{ component.image(dealer.logo, dealer.name, '', 'billing_logo_image') }}
+                        {% elseif(dealer is defined and dealer is not empty and dealer.logoUrl is defined) %}
+                            {{ component.image(dealer.logoUrl, dealer.name, '', 'billing_logo_image') }}
+                        {% endif %}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>Stock #</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#FFF2CC">
+
+                        <input id="stock-autocomplete" auto-complete ui-items="names" type="text" size="35"
+                               maxlength="50" ng-model="stock"
+                               ng-change="change('stock')" class="changeable"/>
+
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>Dealer #</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.dealer_nr,{'attr':{'ng-model':'dealer_nr'}}) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>BUS #</b></td>
+                    </td>
+                    <td align="left" valign=bottom colspan="2" bgcolor="#FBE5D6">
+                        {% if dealer is defined and dealer is not empty and dealer.gst is defined %}
+                            {{ dealer.gst }}
+                        {% endif %}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td colspan=4 height="20" align="center" valign=bottom
+                        bgcolor="#E2F0D9">
+                        {% if dealer is defined and dealer is not empty and dealer.address is defined %}
+                            {{ dealer.address }}
+                        {% endif %}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>DATE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.date_billing) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                        bgcolor="#E2F0D9">
+                        {% if dealer is defined and dealer is not empty and dealer.zip is defined and dealer.state is defined %}
+                            {{ dealer.city }}, {{ dealer.zip }}, {{ dealer.state }}
+                        {% endif %}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6" colspan="3">
+                        {% if entity.id is null %}
+                            {{ form_widget(form.work_order) }}
+                        {% else %}
+                            {{ form_widget(form.work_order, {'attr': {'disabled': 'true'}}) }}
+                        {% endif %}
+                        {{ form_label(form.work_order) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                        bgcolor="#E2F0D9">
+                        {% if dealer is defined and dealer is not empty and dealer.phone is defined %}
+                            Phone: {{ dealer.phone }}
+                        {% endif %}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000" colspan=4 height="20" align="center" valign=bottom
+                        bgcolor="#E2F0D9">
+                        {% if dealer is defined and dealer is not empty and dealer.fax is defined %}
+                            Fax: {{ dealer.fax }}
+                        {% endif %}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000"
+                        align="left" valign=bottom></td>
+                    <td style="border-bottom: 1px solid #000000" align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000" colspan=4 height="20" align="left" valign=bottom
+                        bgcolor="#E7E6E6"><b>PURCHASER</b></td>
+                    <td align="left" valign=bottom bgcolor="#E7E6E6"></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=4 align="left"
+                        valign=bottom bgcolor="#E7E6E6"><b>ADDRESS</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                        valign=bottom bgcolor="#E7E6E6"><b>APT. NO.</b></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid #000000" colspan=5 height="20" align="center" valign=bottom
+                        bgcolor="#FFF2CC">{% if customer.name is not empty %}{{ customer.name }}{% else %}{{ customer.firstName }} {{ customer.lastName }}{% endif %}</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=4 align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.address }}</td>
+                    <td style="border-bottom: 1px solid #000000" colspan=2 align="center" valign=bottom
+                        bgcolor="#FFF2CC">
+                        {{ customer.address2 }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" colspan=4 height="20"
+                        align="left" valign=bottom bgcolor="#D9D9D9"><b>CITY</b></td>
+                    <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom
+                        bgcolor="#D9D9D9">
+                        <b>STATE / PROV</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#D9D9D9"><b>ZIP / POSTAL</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                        valign=bottom bgcolor="#D9D9D9"><b>BUYERS PHONE #</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                        valign=bottom bgcolor="#D9D9D9"><b>BUYERS FAX #</b></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=4
+                        height="20"
+                        align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.city }}</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#FFF2CC">{{ customer.state }}</td>
+                    <td style="border-left: 1px solid #000000" align="center" valign=bottom
+                        bgcolor="#FFF2CC">{{ customer.zip }}</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#FFF2CC">{{ customer.homePhone }}</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#FFF2CC">{{ customer.fax }}</td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="center" valign=bottom bgcolor="#E7E6E6">OPT.
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#E7E6E6">OPTIONAL EQUIPMENT
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>NEW</b></td>
+                    <td align="center" valign=bottom bgcolor="#F2F2F2"><span
+                                ng-bind="new">{% if(item is defined and item is not empty and item.Status|lower=="new") %}X{% endif %}</span>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>YEAR</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>MAKE</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                        valign=bottom bgcolor="#E7E6E6"><b>MODEL</b></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq1) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt1) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>USED</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center"
+                        valign=bottom
+                        bgcolor="#F2F2F2"><span
+                                ng-bind="used">{% if(item is defined and item is not empty and item.Status|lower=="used") %}X{% endif %}</span>
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="center" valign=bottom bgcolor="#F2F2F2">{[{listingyear}]}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">{[{listingmake}]}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#F2F2F2">{[{listingmodel}]}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq2) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt2) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>COLOR</b></td>
+                    <td align="center" valign=bottom bgcolor="#F2F2F2"><span
+                                ng-bind="color">{% if(item is defined and item is not empty) %}  {{ item.exteriorColor }}{% endif %}</span>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="center" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4
+                        align="center"
+                        valign=bottom bgcolor="#FFF2CC">
+
+                        <input type="text" ng-model="VIN" id="vin-autocomplete" ng-change="change('vin')"
+                               class="changeable"/>
+
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq3) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt3) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#E7E6E6"><b>ODOMETER
+                            READING</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#E7E6E6"><b>NEW
+                            WARRANTY</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7"> {{ form_row(form.new_warranty) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq4) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt4) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">{[{listingmileage}]}
+                    </td>
+                    <td style="border-left: 1px solid #000000" colspan=2 align="center" valign=bottom
+                        bgcolor="#E7E6E6">
+                        <b>USED WARRANTY</b></td>
+                    <td colspan=3 align="center" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.used_warranty) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq5) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt5) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>TRIM</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 align="center" valign=bottom bgcolor="#F2F2F2">{[{listingtrim}]}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=4
+                        align="center"
+                        valign=bottom bgcolor="#AFABAB"><b>TERMS OF SETTLEMENT</b></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq6) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt6) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#AFABAB"><b>TRADE-IN
+                            DESCRIPTION </b></td>
+                    <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>SALE
+                            PRICE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.sale_price, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq7) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt7) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2 align="left"
+                        valign=bottom bgcolor="#E7E6E6"><b>ADMIN FEE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.admin_fee, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq8) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt8) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>MAKE</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#E7E6E6"><b>MODEL</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>WARRANTY</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.warranty, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq9) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt9) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_make) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=2
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_model) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PROTECTION
+                            PKG</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.protection_pkg, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=1 height="20" align="left" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.opteq10) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7" class="opeq">
+                        {{ form_row(form.opt10) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>YEAR</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>MILEAGE</b></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6"><b>KM</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.tos_total, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq11) }}</td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt11) }}</td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        align="center" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.tid_year) }}
+                    </td>
+                    <td style="border-left: 1px solid #000000" align="center" valign=bottom bgcolor="#DEEBF7">
+                        {{ form_row(form.tid_milleage) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.tid_km) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS TRADE
+                            IN</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.less_trade_in, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq12) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt12) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>VIN #</b></td>
+                    <td style="border-top: 1px solid #000000" colspan=2 align="center" valign=bottom
+                        bgcolor="#DEEBF7">
+                        {{ form_row(form.tid_vin) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>DIFFERENCE
+                            PAYABLE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.difference_payable, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq13) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt13) }}</td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                        valign=bottom>I HEREBY TRANSFER TO DEALER ALL MY RIGHTS, TITLE AND
+                        OWNER-
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.taxt1_name, {'attr': {'value': 'TAX1'} }) }}
+
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.tax1, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq14) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7" class="opeq">{{ form_row(form.opt14) }}</td>
+                    <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                        SHIP
+                        IN THE ABOVE TRADE-IN AND I DECLARE I AM THE SOLE OWNER
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.taxt2_name, {'attr': {'value': 'TAX2'} }) }}
+
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.tax2, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq15) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt15) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="left"
+                        valign=bottom>AND POSSESSOR OF SAME AND THAT THERE IS NO LIEN,
+                        MORTGAGE,
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.taxt3_name, {'attr': {'value': 'TAX3'} }) }}
+
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+
+                        {{ form_row(form.tax3, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq16) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7" class="opeq">{{ form_row(form.opt16) }}</td>
+                    <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                        NOTE
+                        OR CLAIM OF ANY KIND OR NATURE ADVERSE TO MY RIGHTS
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+                        {#{{ form_row(form.other_misc1_name, {'attr': {'value': 'misc1'} }) }}#}
+                        <b>PST Tax</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+                        {{ form_row(form.other_misc1, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq17) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt17) }}</td>
+                    <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                        OF,
+                        UPON OR AGAINST SAID TRADE-IN OTHER THAN AS STATED
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+                        {#{{ form_row(form.other_misc2_name, {'attr': {'value': 'misc2'} }) }}#}
+                        <b>GST Tax</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="center" bgcolor="#FBE5D6">
+                        {{ form_row(form.other_misc2, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        height="20" align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq18) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7" class="opeq">{{ form_row(form.opt19) }}</td>
+                    <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+
+                        BELOW.
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TAXES PAID
+                            TOTAL</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.taxes_paid_total, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid #000000" height="20" align="left" valign=bottom
+                        bgcolor="#DEEBF7">{{ form_row(form.opteq20) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt20) }}</td>
+                    <td style="border-left: 1px solid #000000" colspan=3 align="left" valign=bottom>
+                        I/WE DECLARE THAT THE ODOMETER READING TO THE
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LIEN ON
+                            TRADE-IN </b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.lien_on_trade_in, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        height="20" align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq21) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt21) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="left"
+                        valign=bottom>
+                        BEST OF MY/OUR KNOWLEDGE ON THE SAID TRAD-IN
+                    </td>
+                    <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL
+                            DUE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.total_due, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq22) }}</td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt22) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="left"
+                        valign=bottom>
+                        WAS _____________________MI/KM AT THE TIME VEHICLE WAS
+                    </td>
+                    <td style="border-top: 1px solid #000000" colspan=2 align="left" valign=bottom
+                        bgcolor="#E7E6E6">
+                        <b>LESS TRADE-IN TAX</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.less_trade_in_tax, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        height="20" align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq23) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7" class="opeq">{{ form_row(form.opt23) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="left"
+                        valign=bottom bgcolor="#FFFFFF">
+                        TRADED IN TO THE ABOVE DEALER AND THIS
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>LESS
+                            DEPOSIT</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.less_deposit, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="left" valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq24) }}</td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"
+                        class="opeq">{{ form_row(form.opt24) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="left"
+                        valign=middle>
+                        CONSTITUTES THE TRUE MILEAGE OF KILOMETERS ON TRADE-IN.
+                    </td>
+                    <td colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>PAYABLE ON
+                            DELIVERY</b></td>
+                    <td colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.payable_on_delivery, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style=" border-right: 1px solid #000000" height="20"
+                        align="left"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.opteq25) }}</td>
+                    <td style="border-left: 1px solid #000000; border-right: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7" class="opeq">{{ form_row(form.opt25) }}</td>
+                    <td style="border-left: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td style="border-bottom: 1px solid #000000; border-right: 1px solid #000000" align="left"
+                        valign=bottom></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>BALANCE TO
+                            FINANCE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.balance_to_finance, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        height="20" align="left" valign=bottom bgcolor="#DEEBF7"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom bgcolor="#DEEBF7"></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                        valign=bottom bgcolor="#AFABAB"><b>LIEN PAYABLE TO</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>
+                            LIFE INSURANCE</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.life_insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000 border-bottom: 1px  solid #000000"
+                        colspan=2
+                        height="20"
+                        align="center" valign=bottom bgcolor="#E7E6E6"><b>TOTAL</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.total, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=3
+                        align="center"
+                        valign=bottom
+                        bgcolor="#DEEBF7">{{ form_row(form.payableto, {'attr': {'class': 'col-md-12 '} }) }}
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6" colspan="2"><b>DISABILITY INSURANCE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.disability_insurance, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-right: 1px solid #000000; border-bottom: 1px  solid #000000"
+                        colspan=2
+                        height="20"
+                        align="center" valign=bottom bgcolor="#E7E6E6"><b>LESS DISCOUNT</b>
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.less_discount) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=3 align="left"
+                        valign=bottom bgcolor="#AFABAB"><b>ADDRESS</b></td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom
+                        bgcolor="#E7E6E6" colspan="2"></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=2 height="20" align="center" valign=bottom bgcolor="#E7E6E6"><b>
+                            OPTIONS
+                            TOTAL COST</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.options_total_cost, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000"
+                        colspan=3 align="center" valign=bottom
+                        bgcolor="#DEEBF7">{{ form_row(form.address, {'attr': {'class': 'col-md-12'} }) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"><strong>E. &
+                            E.O.</Strong></td>
+                    <td style="border-top: 1px solid #000000" align="left" valign=bottom bgcolor="#E7E6E6"></td>
+                    <td align="left" valign=bottom bgcolor="#DEEBF7" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                        <br>
+                    </td>
+                    <td align="left" valign=bottom bgcolor="#DEEBF7" sdnum="1033;0;&quot;$&quot;#,##0.00">
+                        <br>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        align="left" valign=bottom bgcolor="#E7E6E6"><b>AMOUNT</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.amount) }}
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000"
+                        colspan=2 align="left" valign=bottom bgcolor="#E7E6E6"><b>TOTAL BALANCE
+                            DUE</b></td>
+                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" colspan=2
+                        align="center" bgcolor="#DEEBF7">
+                        {{ form_row(form.total_balance_due, {'attr': {'class': 'col-md-10 alignright'}}) }}
+                        <span>
+                            $
+                        </span>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000000" colspan=4 height="20" align="left" valign=bottom
+                        bgcolor="#AFABAB"><b>ACKNOWLEDGMENT OF CONDITIONS</b></td>
+                    <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" align="left"
+                        valign=bottom>
+                    </td>
+                    <td style="border-top: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td colspan=7 height="20" align="left" valign=bottom>THE PURCHASER
+                        ACKNOWLEDGES HAVING REVIEWED THE ABOVE TERMS AND CONDITIONS AND
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" align="center"
+                        valign=bottom colspan=4><b>Approved By</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border-right: 1px solid #000000" colspan=7 height="20" align="left" valign=bottom> IS
+                        IN
+                        FULL AGREEMENT BY AFFIXING HIS OR HER SIGNATURE
+                    </td>
+                    <td style="border-top: 1px solid #000000; border-left: 1px solid #000000" colspan=4
+                        align="center"
+                        valign=bottom bgcolor="#E7E6E6"><b>SALESPERSON'S NAME</b></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td style="border-right: 1px solid #000000" align="left" valign=bottom>
+                    </td>
+                    <td style="border-bottom: 1px solid #000000; border-left: 1px solid #000000" colspan=4
+                        align="center"
+                        valign=bottom bgcolor="#DEEBF7">{{ form_row(form.sales_person) }}
+                    </td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+
+                <tr>
+                    <td height="20" align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+                <tr>
+                    <td height="20" align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                    <td align="left" valign=bottom></td>
+                </tr>
+            </table>
+            <ul class="list-inline">
+                <li>
+                    {{ form_row(form.submitxxx) }}
+                </li>
+                <li>
+                    {{ form_row(form.submitAndPrint) }}
+                </li>
+            </ul>
+            </form>
+        </div>
+    </div>
+    <script>
+
+        $(document).ready(function () {
+            $('input').keydown(function (event) {
+
+                if (event.keyCode == 13) {
+                    /* FOCUS ELEMENT */
+                    var inputs = $(this).parents("form").eq(0).find(":input");
+                    var idx = inputs.index(this);
+
+                    if (idx == inputs.length - 1) {
+                        inputs[0].select()
+                    } else {
+                        inputs[idx + 1].focus(); //  handles submit buttons
+                        inputs[idx + 1].select();
+                    }
+                    return false;
+                }
+            });
+        });
+        $('.col-md-10').keyup(function () {
+            var n1 = parseFloat(document.getElementById("numa_doadmsbundle_billing_sale_price").value);
+            var n2 = parseFloat(document.getElementById("numa_doadmsbundle_billing_admin_fee").value);
+            var n3 = parseFloat(document.getElementById("numa_doadmsbundle_billing_warranty").value);
+            var n4 = parseFloat(document.getElementById("numa_doadmsbundle_billing_protection_pkg").value);
+
+            var n5 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_trade_in").value);
+
+            var n6 = parseFloat(document.getElementById("numa_doadmsbundle_billing_tax1").value);
+            var n7 = parseFloat(document.getElementById("numa_doadmsbundle_billing_tax2").value);
+            var n77 = parseFloat(document.getElementById("numa_doadmsbundle_billing_tax3").value);
+
+            var n8 = parseFloat(document.getElementById("numa_doadmsbundle_billing_other_misc1").value);
+            var n9 = parseFloat(document.getElementById("numa_doadmsbundle_billing_other_misc2").value);
+
+            var n10 = parseFloat(document.getElementById("numa_doadmsbundle_billing_lien_on_trade_in").value);
+
+            var n11 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_trade_in_tax").value);
+            var n12 = parseFloat(document.getElementById("numa_doadmsbundle_billing_less_deposit").value);
+
+            var n13 = parseFloat(document.getElementById("numa_doadmsbundle_billing_balance_to_finance").value);
+            var n14 = parseFloat(document.getElementById("numa_doadmsbundle_billing_life_insurance").value);
+            var n15 = parseFloat(document.getElementById("numa_doadmsbundle_billing_disability_insurance").value);
+            var n16 = parseFloat(document.getElementById("numa_doadmsbundle_billing_bank_registration_fee").value);
+
+            if (isNaN(parseFloat(n1))) {
+                n1 = 0;
+            }
+            if (isNaN(parseFloat(n2))) {
+                n2 = 0;
+            }
+            if (isNaN(parseFloat(n3))) {
+                n3 = 0;
+            }
+            if (isNaN(parseFloat(n4))) {
+                n4 = 0;
+            }
+            if (isNaN(parseFloat(n5))) {
+                n5 = 0;
+            }
+            if (isNaN(parseFloat(n6))) {
+                n6 = 0;
+            }
+            if (isNaN(parseFloat(n7))) {
+                n7 = 0;
+            }
+            if (isNaN(parseFloat(n77))) {
+                n77 = 0;
+            }
+            if (isNaN(parseFloat(n8))) {
+                n8 = 0;
+            }
+            if (isNaN(parseFloat(n9))) {
+                n9 = 0;
+            }
+            if (isNaN(parseFloat(n10))) {
+                n10 = 0;
+            }
+            if (isNaN(parseFloat(n11))) {
+                n11 = 0;
+            }
+            if (isNaN(parseFloat(n12))) {
+                n12 = 0;
+            }
+            if (isNaN(parseFloat(n13))) {
+                n13 = 0;
+            }
+            if (isNaN(parseFloat(n14))) {
+                n14 = 0;
+            }
+
+            if (isNaN(parseFloat(n15))) {
+                n15 = 0;
+            }
+
+            if (isNaN(parseFloat(n16))) {
+                n16 = 0;
+            }
+
+            var res1 = n1 + n2 + n3 + n4;
+            var res2 = res1 - n5 + (n6 + n7 + n77) + n8 + n9 + n10;
+
+            $('#numa_doadmsbundle_billing_tos_total').val(res1);
+            $('#numa_doadmsbundle_billing_difference_payable').val(res1 - n5);
+            $('#numa_doadmsbundle_billing_taxes_paid_total').val(n8 + n9);
+            $('#numa_doadmsbundle_billing_total_due').val(res2);
+            $('#numa_doadmsbundle_billing_payable_on_delivery').val(res2 - (n11 + n12));
+            $('#numa_doadmsbundle_billing_total_balance_due').val(((res2 - (n11 + n12)) - n13) + (n14 + n15 + n16));
+        });
+    </script>
+{% endblock %}

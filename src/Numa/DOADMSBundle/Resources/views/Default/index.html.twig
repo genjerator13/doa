@@ -15,7 +15,13 @@
                 <div class="icon">
                     <i class="fa fa-truck"></i>
                 </div>
-                <a class="small-box-footer" href="{{ path('inventory') }}">
+                <a class="small-box-footer" href="
+                {% if is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_WHOLESALE_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                    {{ path('inventory_view') }}
+                {% else %}
+                    {{ path('inventory') }}
+                {% endif %}
+                ">
                     More info
                     <i class="fa fa-arrow-circle-right"></i>
                 </a>
@@ -68,9 +74,9 @@
             </div>
         </div>
     </div>
-    {% if not is_granted('ROLE_ADMIN') %}
+    {#{% if not is_granted('ROLE_ADMIN') %}#}
         {% include 'NumaDOADMSBundle:Default:websiteForms.html.twig' %}
-    {% endif %}
+    {#{% endif %}#}
 
     {% include 'NumaDOADMSBundle:Default:reminders.html.twig' %}
 

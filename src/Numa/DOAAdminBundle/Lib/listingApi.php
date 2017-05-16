@@ -289,17 +289,16 @@ class listingApi
 
     public function prepareKijijiFromIds($ids)
     {
-        $em = $this->container->get('doctrine');
+        $em = $this->container->get('doctrine.orm.entity_manager');
 
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
         $csvArrayRes = $this->addItemsKijijiFeed($items);
-        //dump($csvArrayRes);
-        //$ret = $this->formatResponse($csvArrayRes, 'csv');
-        //file_put_contents($this->container->getParameter('upload_feed') . "kijiji.csv", $ret->getContent());
+
         $dealer = $this->container->get('numa.dms.user')->getSignedDealer();
         $localfile = $this->storeKijijiToLocalServer($items,$dealer->getId());
-
-        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
+        $dealer->setFeedKijijiManual(1);
+        $em->flush();
+//        $this->storeFeedToKijijiServer($items,$dealer,$localfile);
 
     }
 
@@ -313,7 +312,7 @@ class listingApi
         $em = $this->container->get('doctrine');
         $filenameKijiji = "";
         $logger->warning("get items for dealer:" . $dealer_id);
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, null, 0);
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
 
         if (!empty($items)) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);

@@ -73,7 +73,7 @@ class SaleReport extends Report
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("I1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()

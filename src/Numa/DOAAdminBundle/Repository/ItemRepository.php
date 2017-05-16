@@ -198,8 +198,8 @@ class ItemRepository extends EntityRepository
         if (!empty($category)) {
             if (is_numeric($category)) {
 
-                $qb->andWhere("i.category_id like :name");
-                $qb->setParameter("name", $category);
+                $qb->andWhere("i.category_id = :cat_id");
+                $qb->setParameter("cat_id", $category);
             } elseif (is_string($category)) {
                 $qb->innerJoin("NumaDOAAdminBundle:Category", "c", 'WITH', 'i.category_id=c.id');
                 $qb->andWhere("c.name like :name");
@@ -467,6 +467,9 @@ class ItemRepository extends EntityRepository
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
+        if(empty($importItem[$uniqueField])){
+            return;
+        }
         if (!empty($importItem[$uniqueField])) {
             $uniqueValue = $importItem[$uniqueField];
         }
@@ -613,6 +616,7 @@ class ItemRepository extends EntityRepository
                             $persist = false;
                             return null;
                         }
+
                     }
 
                     unset($dealer);

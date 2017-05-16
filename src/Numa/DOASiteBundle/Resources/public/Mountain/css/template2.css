@@ -114,21 +114,21 @@ body {
 	margin: 0 auto;
 }
 
-.main-menu > ul > li {
+.main-menu   > ul > li {
 	border-left: 1px dotted #fff;
 	display: table-cell;
 }
 
-.main-menu > ul > li.parent > a {
+.main-menu   > ul > li.parent > a {
 	background: url("../images/small-arrow.png") right 15px center no-repeat;
 	padding-right: 29px;
 }
 
-.main-menu > ul > li:first-child { border-left: none; }
+.main-menu   > ul > li:first-child { border-left: none; }
 
-.main-menu > ul > li:hover > ul { display: block; }
+.main-menu   > ul > li:hover > ul { display: block; }
 
-.main-menu > ul > li > a {
+.main-menu   > ul > li > a {
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 19px;
@@ -136,7 +136,7 @@ body {
 	text-transform: uppercase;
 }
 
-.main-menu > ul > li:hover > a {
+.main-menu  > ul > li:hover > a {
 	background-color: #252525;
 	color: #007cb3;
 }
@@ -646,7 +646,16 @@ and (max-width : 1023px) {
 	}
 
 	.newsletter { margin: 10px 0 0 0; }
+	.button {
+		display: block;
+		margin-bottom: 20px;
+		overflow: hidden;
+		height: 200px;
+	}
 
+	.button img{
+		width: 100%;
+	}
 }
 
 @media only screen and (min-width : 1000px) and (max-width : 1220px) {
@@ -656,6 +665,17 @@ and (max-width : 1023px) {
 	}
 	.b5 a{
 		height: 165px;
+	}
+
+	.button {
+		display: block;
+		margin-bottom: 20px;
+		overflow: hidden;
+		height: 200px;
+	}
+
+	.button img{
+		width: 100%;
 	}
 }
 
@@ -713,6 +733,12 @@ and (max-width : 767px) {
 	.button {
 		display: block;
 		margin-bottom: 20px;
+		overflow: hidden;
+		height: 200px;
+	}
+
+	.button img{
+		width: 100%;
 	}
 
 	.browse ul { display: block; }
@@ -791,7 +817,7 @@ and (max-width : 767px) {
 	border-radius: 0 !important;
 }
 
-.listing-buttons {
+.listing-buttons div {
 	padding: 0;
 	position: relative;
 	right: 0;
@@ -945,15 +971,15 @@ ul.techData li {
 /*!*margin-left: 20px;*!*/
 /*}*/
 
-#myCarousel_left {
+.homepage_carousel {
 	margin-bottom: 20px;
 }
-#myCarousel_top {
+.homepage_carousel {
 	/*width: 1130px;*/
 	margin-left: 0px;
 
 }
-#myCarousel_top .text_widget {
+.homepage_carousel .text_widget {
 	left: 10px;
 	position: absolute;
 	top: 10px;

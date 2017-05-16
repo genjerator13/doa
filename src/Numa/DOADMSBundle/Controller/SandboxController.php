@@ -15,27 +15,13 @@ class SandboxController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        $item = $em->getRepository(Item::class)->find(31806);
-        $vendors =  $this->get("numa.dms.sale")->getAllVendors($item);
-        //$this->get('numa.dms.quickbooks')->createItemPO($item);
+        //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
+        $images = $this->get('numa.dms.images')->deleteImagesNotInDB();
+        //dump($images);
 
-        foreach ($vendors as $vendor){
-            $qbPO = $this->get('numa.dms.quickbooks')->createPurchaseOrder($vendor[0]['vendor']);
-            foreach($vendor as $vendorItem) {
-
-
-                $this->get('numa.dms.quickbooks')->addLineToPurchaseOrder($qbPO, $item, $vendorItem['amount'],1, $vendorItem['property']);
-            }
-            $qbPO = $this->get('numa.dms.quickbooks')->insertPurchaseOrder($qbPO);
-        }
-
-        dump($vendors);
         die();
 
     }
-
-
-
 
     function initializeAnalytics()
     {
@@ -56,6 +42,7 @@ class SandboxController extends Controller
 
         return $analytics;
     }
+
     function getReport($analytics) {
 
         // Replace with your view ID, for example XXXX.
@@ -82,5 +69,5 @@ class SandboxController extends Controller
         return $analytics->reports->batchGet( $body );
     }
 
-   
+
 }

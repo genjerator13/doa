@@ -14,6 +14,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Category;
+use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -39,7 +41,7 @@ class ListingLib
      * @param Billing $billing
      * @return bool (false if no item is created(already created or tidmake or tidmodel are not entered, true if item is created
      */
-    public function createListingByBillingTradeIn(Billing $billing,$insertToDB=true)
+    public function createListingByBillingTradeIn(Billing $billing, $insertToDB = true)
     {
         if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
@@ -55,7 +57,7 @@ class ListingLib
                 $item->setVin($billing->getTidVin());
                 $item->setYear($billing->getTidYear());
                 $item->setDealer($billing->getDealer());
-                if($insertToDB) {
+                if ($insertToDB) {
                     $em->persist($item);
                     $em->flush();
                 }
@@ -65,13 +67,15 @@ class ListingLib
         return false;
     }
 
-    public function insertItem(Item $item){
+    public function insertItem(Item $item)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        if(!empty($item->getId())){
+        if (!empty($item->getId())) {
             $em->persist($item);
         }
         $em->flush();
     }
+
     public function deleteItems($itemIds)
     {
         if (!is_array($itemIds)) {
@@ -95,39 +99,42 @@ class ListingLib
         }
         $securityContext = $this->container->get('security.authorization_checker');
 
-        if (!(($securityContext->isGranted('ROLE_ADMIN'))
-                && ($item->getDealer() instanceof Catalogrecords)
-                && ($item->getDealer()->getDmsStatus() == "activated")
-                && ($item->getSold()))
-            && ($item instanceof Item)
-        ) {
-            foreach ($item->getItemField() as $itemField) {
-                if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
-                    $web_path = $this->container->getParameter('web_path');
-                    $filename = $web_path . $itemField->getFieldStringValue();
-                    if (file_exists($filename) && is_file($filename)) {
-                        unlink($filename);
-                    }
-                    $em->remove($itemField);
+//        if (!(($securityContext->isGranted('ROLE_ADMIN'))
+//                && ($item->getDealer() instanceof Catalogrecords)
+//                && ($item->getDealer()->getDmsStatus() == "activated")
+//                //&& ($item->getSold())
+//            )
+//            && ($item instanceof Item)
+//        ) {
+        foreach ($item->getItemField() as $itemField) {
+            if (stripos($itemField->getFieldType(), "array") !== false && stripos($itemField->getFieldStringValue(), "http") === false) {
+                $web_path = $this->container->getParameter('web_path');
+                $filename = $web_path . $itemField->getFieldStringValue();
+                if (file_exists($filename) && is_file($filename)) {
+                    unlink($filename);
                 }
+                $em->remove($itemField);
             }
-            $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
-            $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
-            $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
-            $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
         }
+        $em->getRepository("NumaDOADMSBundle:Billing")->delete($item->getId());
+        $em->getRepository("NumaDOADMSBundle:ListingForm")->deleteByItemId($item->getId());
+        $em->getRepository("NumaDOAAdminBundle:Item")->delete($item->getId());
+        $em->getRepository("NumaDOADMSBundle:Sale")->delete($item->getSaleId());
+        //}
 
     }
 
     public function decodeVin($vin)
     {
         $res = array();
+        $trim = array();
 
         try {
             $buzz = $this->container->get('buzz');
             $error = "";
             $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
-
+            //testurl
+            //$url = "http://doa.local/upload/restxml.xml";
             $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
 
             if ($buzz->getLastResponse()->getStatusCode() != 200) {
@@ -137,34 +144,65 @@ class ListingLib
             $dealerXml = new SimpleXMLElement($response->getContent());
 
             $json = json_encode($dealerXml);
-
+            ;
             if ($buzz->getLastResponse()->getStatusCode() != 200) {
                 $error['ERROR'] = "WRONG VIN";
                 return $error;
             }
-            if (!empty($dealerXml->VIN[0]->Vehicle)) {
-                foreach ($dealerXml->VIN[0]->Vehicle->Item as $item) {
-                    $array = json_decode(json_encode((array)$item), TRUE);
-                    $itemXml = $array["@attributes"];
+            $vinArray = (json_decode($json,true));
+            $data =$vinArray['VIN']['Vehicle'];
+
+            if(empty($vinArray['VIN']['Vehicle'][0])){
+                $data=array();
+                $data[0] =$vinArray['VIN']['Vehicle'];
+
+            }
+
+            foreach ($data as $key => $vehicle) {
+
+                foreach ($vehicle['Item'] as $item) {
+
+                    $itemXml = $item["@attributes"];
                     $itemValue = $itemXml['Value'];
                     $itemUnit = $itemXml['Unit'];
 
                     $itemKey = $itemXml['Key'];
+
                     if ($itemValue != "N/A" && $itemValue != "No data") {
                         if (!empty($itemUnit)) {
                             $itemValue = $itemValue . " " . $itemUnit;
                         }
-                        $res[$itemKey] = $itemValue;
+                        $res[$key][$itemKey] = $itemValue;
                     }
-
                 }
+                $res[$key]['itemfields'] = $this->formatItemFields($res[$key]);
+
             }
+
         } catch (Exception $ex) {
             $error['ERROR'] = "NO CONNECTION";
             return $error;
         }
+
         return $res;
     }
+
+    private function formatItemFields($res){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $itemFields = array();
+
+        foreach ($res as $key=>$item) {
+            if ($item == "Std." || $item == "Opt.") {
+                //$listingField = $em->getRepository(ItemField::class)->getItemFieldIdFromString($key,$item_id);
+
+                //if($listingField instanceof Listingfield) {
+                    $itemFields[] = $key;
+                //}
+            }
+        }
+        return $itemFields;
+    }
+
 
     public function vindecoder($item)
     {
@@ -203,22 +241,28 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        $this->vinDecoderInsertion($item, $vindecoderItems);
+
+        $this->vinDecoderInsertion($item, $vindecoderItems[0]);
 
     }
 
     public function vinDecoderInsertion($item, $vindecoderItems)
     {
+
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                $this->vinDecoderInsertField($item, $itemVin, $key);
+                if(!is_array($itemVin)) {
+                    $this->vinDecoderInsertField($item, $itemVin, $key);
+                }
             }
         }
+
     }
 
     public function vinDecoderInsertField($item, $itemVin, $key)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
+
         if (strtolower($itemVin) == "std.") {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             $criteria->where(Criteria::expr()->eq("field_name", $key));
@@ -227,6 +271,8 @@ class ListingLib
             if (!empty($item->getItemField())) {
                 $currentItemField = $item->getItemField()->matching($criteria);
             }
+
+
             if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
                 //$currentItemField->first()->setFieldBooleanValue(true);
 
@@ -239,7 +285,8 @@ class ListingLib
                 $if->setFieldIntegerValue(1);
                 $item->addItemField($if);
                 $em->persist($if);
-                //$em->flush($item);
+                //dump($itemVin);die();
+                $em->flush();
             }
         }
     }
@@ -317,9 +364,9 @@ class ListingLib
     {
         $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
         $cat = $item->getCategory();
-        if ($item->getCategoryId() == 4 || ($cat instanceof Category && $cat->getId()==4)) {
+        if ($item->getCategoryId() == 4 || ($cat instanceof Category && $cat->getId() == 4)) {
             $desc = $desc . " " . $item->getFloorPlan();
-        } elseif ($item->getCategoryId() == 1|| ($cat instanceof Category && $cat->getId()==1)) {
+        } elseif ($item->getCategoryId() == 1 || ($cat instanceof Category && $cat->getId() == 1)) {
             if (!empty($item->getTrim())) {
                 //$desc .= " " . $item->slug($item->getTrim());
                 $desc .= " " . $item->getTrim();

@@ -1,0 +1,161 @@
+{# get the loged dealer #}
+{% set apicall="/api/finance_service/all.json" %}
+{% if dealerPrincipal is not empty %}
+{% set apicall="/api/finance_service/dealerprincipal/"~dealerPrincipal.id %}
+{% elseif dealer is not empty %}
+{% set apicall="/api/finance_service/"~dealer.id~"/dealer" %}
+{% endif %}
+
+{% import 'NumaDOASiteBundle::components.html.twig' as component %}
+var app = angular.module('app', ['angular-loading-bar', 'ngTouch', 'ngAnimate', 'ui.grid', 'ui.grid.moveColumns', 'ui.grid.resizeColumns', 'ui.grid.selection', 'ui.grid.expandable', 'ui.bootstrap', 'ui.grid.pinning']);
+
+
+app.config(function ($interpolateProvider) {
+    $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
+
+app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConstants', '$q', '$uibModal', function ($scope, $http, $log, $timeout, uiGridConstants, $q, $uibModal) {
+    $scope.gridOptions = {
+        enableSorting: true,
+        showGridFooter: true,
+        enableFiltering: true,
+        enableRowSelection: true,
+        enableSelectAll: true,
+        selectionRowHeaderWidth: 35,
+        rowHeight: 50,
+        enableColumnResizing: true,
+    };
+    $scope.gridOptions.multiSelect = true;
+    $scope.gridOptions.columnDefs = [
+        {
+            name: 'id',
+            enableColumnResizing: true,
+            width: 30,
+            cellTemplate: '<a href="{[{row.entity.id}]}/show">{[{row.entity.id}]}</a>',
+
+        },
+        {name: 'cust_name', enableColumnResizing: true},
+        {name: 'cust_last_name', enableColumnResizing: true},
+        {
+            name:'preferred_contact',
+            enableColumnResizing: true,width: 50,
+            cellTemplate: '<span ng-if="row.entity.preferred_contact == \'0\'" class="glyphicon glyphicon-envelope"></span><span ng-if="row.entity.preferred_contact == \'1\'" class="glyphicon glyphicon-phone"></span>',
+        },
+        {
+            name: 'email',
+            enableColumnResizing: true,
+            cellTemplate: '<a href="mailto:{[{row.entity.email}]}">{[{row.entity.email}]}</a>',
+        },
+        {name: 'day_phone', enableColumnResizing: true},
+        {name: 'cell_phone', enableColumnResizing: true},
+        {name: 'date_created', enableColumnResizing: true, cellFilter: 'date: "yyyy-MM-dd | HH:mm"'},
+
+        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
+        {name:'views',enableColumnResizing: true,width: 60},
+        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
+        {name:'_dealer.name',displayName:'Dealer'},
+        {
+            name:'sold',
+            enableColumnResizing: true,width: 50,
+            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },
+        {
+            name:'active',
+            enableColumnResizing: true,width: 60,
+            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
+        },#}
+
+    ];
+
+    $scope.items = ['item1', 'item2', 'item3'];
+    $scope.selected = [];
+
+    $scope.animationsEnabled = true;
+
+    $scope.setDelete = function () {
+        selected = $scope.selected.filter(function (element) {
+            return element !== undefined;
+        });
+        if (selected.length == 0) {
+            return;
+        }
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalContent.html',
+            controller: 'ModalInstanceCtrl',
+
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            //ok
+            $log.log(JSON.stringify($scope.selected));
+            $http.post('{{ path("financeservice_mass_delete") }}', {'data': JSON.stringify(selected)})
+                    .success(function () {
+                        apicall();
+                    });
+        }, function () {
+            //cancel
+        });
+    }
+
+    var canceler = $q.defer();
+    var apicall = function () {
+        $http.get('{{ apicall }}', {timeout: canceler.promise})
+                .success(function (data) {
+                    $scope.selected = [];
+                    angular.forEach(data, function (row, index) {
+                        row.index = index + 1;
+                    })
+                    $scope.gridOptions.data = data;
+
+                });
+    };
+    apicall();
+
+    $scope.$on('$destroy', function () {
+        canceler.resolve();  // Aborts the $http request if it isn't finished.
+    });
+
+    $scope.gridOptions.onRegisterApi = function (gridApi) {
+        //set gridApi on scope
+        $scope.gridApi = gridApi;
+        gridApi.selection.on.rowSelectionChanged($scope, function (row) {
+            $scope.selected[row.entity.index-1] = undefined;
+            if(row.isSelected){
+                $scope.selected[row.entity.index-1] = row.entity.id;
+            }
+        });
+
+        gridApi.selection.on.rowSelectionChangedBatch($scope, function (rows) {
+            angular.forEach(rows, function (value, key) {
+                $scope.selected[value.entity.index-1] =undefined;
+                if(value.isSelected) {
+                    $scope.selected[value.entity.index-1] = value.entity.id;
+                }
+            });
+        });
+    };
+
+}]);
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+
+    $scope.items = items;
+    $scope.selected = {
+        item: $scope.items[0]
+    };
+
+    $scope.ok = function () {
+        $uibModalInstance.close($scope.selected.item);
+        return true;
+    };
+
+    $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+    };
+});

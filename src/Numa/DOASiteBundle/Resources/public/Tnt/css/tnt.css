@@ -43,7 +43,7 @@ body {
 
 header.site-header {
     background: #252525;
-    height: 128px;
+    height: 140px;
 }
 
 header.site-header .headerInfo {
@@ -83,7 +83,7 @@ header.site-header .headerInfoinner p.headerFb {
 
 
 header.site-header .headerLogo a {
-
+    z-index: 100;
     position: absolute;
     top: 0;
 
@@ -98,6 +98,7 @@ header.site-header .headerLogo a {
 .headerMenu nav.main-navigation {
     float: right;
     margin: 0;
+    z-index: 200;
 }
 .headerMenu nav.main-navigation ul {
     border: medium none;
@@ -130,6 +131,10 @@ header.site-header .headerLogo a {
     background: transparent url("../images/contact.png") no-repeat scroll center 10px;
 }
 
+.headerMenu .main-navigation li.tire {
+    background: transparent url("../images/tire.png") no-repeat scroll center 10px;
+}
+
 .headerMenu .main-navigation li a, .headerMenu .main-navigation li a:focus, .headerMenu .main-navigation li a:active {
     border-bottom: 3px solid #252525;
     color: #ffffff !important;
@@ -159,7 +164,7 @@ header.site-header .headerLogo a {
     background: #252525 none repeat scroll 0 0;
     color: #ffffff !important;
     padding: 5px 30px;
-    width: 190px;
+    width: 230px;
 }
 .headerMenu .main-navigation li.current-menu-item > a, .headerMenu .main-navigation li.current-menu-parent > a, .headerMenu .main-navigation li a:hover, .headerMenu .main-navigation li a:focus {
     border-bottom: 3px solid #00be36;
@@ -250,11 +255,11 @@ header.site-header .headerLogo a {
     cursor: pointer;
 }
 
-.mobile-menu .mobmenu > li:first-child {
+.mobile-menu .mobmenu > div > li:first-child {
     border-top: none;
 }
 
-.mobile-menu .mobmenu > li > .glyphicon {
+.mobile-menu .mobmenu > div > li > .glyphicon {
     font-size: 110%;
 }
 
@@ -293,16 +298,16 @@ header.site-header .headerLogo a {
     margin-left: 0;
 }
 .homepageCTA .ctaHolder {
-    display: block;
-    float: left;
-    margin: 0 0 0 2%;
-    width: 23.5%;
+    /*display: block;*/
+    /*float: left;*/
+    /*margin: 0 0 0 2%;*/
+    /*width: 23.5%;*/
 }
 .ctaHolder {
     position: relative;
 }
 .ctaMain {
-    min-width: 280px;
+    /*min-width: 280px;*/
     position: relative;
     text-align: center;
     text-transform: uppercase;
@@ -310,8 +315,8 @@ header.site-header .headerLogo a {
 }
 .ctaBg {
     background: transparent url("../images/cta-bg.png") no-repeat scroll center 0;
-    height: 110px;
-    width: 280px;
+    /*height: 110px;*/
+    /*width: 280px;*/
 }
 .ctaImg {
     height: 93px;
@@ -374,7 +379,7 @@ header.site-header .headerLogo a {
     color: #666666;
     display: none;
     min-height: 172px;
-    min-width: 280px;
+    /*min-width: 280px;*/
     opacity: 0.8;
     padding: 15px;
     position: absolute;
@@ -477,6 +482,13 @@ header.site-header .headerLogo a {
     background-color: black;
     color: #f78f1e;
     font-weight: 600;
+}
+
+.content  p img , .maincontent p img{
+    max-width: 100%;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
 }
 
 .content .panel-body {
@@ -899,8 +911,24 @@ footer .contactFooter a {
     color: #f78f1e;
     font-weight: 600;
 }
+.bscarousel {
+    min-height: 100px;
+}
 
-#tntcarousel_bottom {
+.homepage_carousel .text_widget {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+
+.homepage_carousel_bottom .text_widget {
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 100%;
+}
+.homepage_carousel_bottom {
     top: 20px;
 }
 
@@ -969,21 +997,38 @@ and (max-width: 1023px) {
 }
 
 @media only screen
-and (max-width: 767px) {
+and (max-width: 900px) {
 
     .listing-buttons {
         top: 20px;
     }
-
-    .header {
+    header.site-header  {
+        height: auto;
+    }
+    .headerHolder {
         text-align: center;
-    }
 
-    .logo {
-        float: none;
-        margin: 14px 0;
+        width: 100%;
     }
+    .cta {
+        margin-bottom: 20px;
+    }
+    .homepageCTA {
+        margin-top:10px;
+    }
+    .ctaHolder:hover .ctaList {
+        display: none;
+    }
+    header.site-header .headerLogo a{
+        position: relative;
 
+    }
+    .ctaHolder .ctaList {
+        display: none;
+    }
+    .featured-ads a {
+        margin-botom: 20px;
+    }
     .header .address {
         float: none;
         margin: 5px 0;
@@ -1093,6 +1138,7 @@ and (max-width: 767px) {
 .featured-ads a {
     text-align: left;
     font-size: 16px;
+    min-height: 50px;
 }
 .featured-ads .third {
     margin-right: 20px;
@@ -1452,4 +1498,8 @@ and (max-width: 767px) {
 }
 .detailsContent .listing-images{
     margin-top: 20px;
+}
+
+.container .row .inputGroup{
+    margin-bottom: 20px;
 }

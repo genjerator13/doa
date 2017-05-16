@@ -24,6 +24,7 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
         $entity = new ListingForm();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -41,7 +42,7 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
 
         }
 
-        return $this->render('NumaDOASiteBundle:TradeIn:tradeIn_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/TradeIn:tradeIn_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -78,7 +79,8 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:TradeIn:tradeIn_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'tradeIn_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

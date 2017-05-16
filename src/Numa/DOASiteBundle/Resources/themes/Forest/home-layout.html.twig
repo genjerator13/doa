@@ -23,20 +23,9 @@
 
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        {% javascripts '@bootstrapx_js' 'js/jssor/jssor.slider.js' %}
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Mountain/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
-
-        <script type="text/javascript">
-            jQuery(document).ready(function () {
-                jQuery(".mobile-menu ul ul").hide();
-                /* hide sublinks */
-                jQuery(".separator").click(function () {
-                    jQuery(this).next().slideToggle(300);
-                    /* display sublinks */
-                });
-            });
-        </script>
 
     {% endblock %}
     {% block bodyBackground %}
@@ -83,13 +72,10 @@
 
         <div class="button-wrapper">
             {{ displayComponent('forest_button_1','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_1","num":1}}) }}
-            {{ displayComponent('forest_button_2','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_2","num":1}}) }}
-            {{ displayComponent('forest_button_3','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_3","num":1}}) }}
-            {{ displayComponent('forest_button_4','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_4","num":1}}) }}
-            {#{% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_1',"num":1} %}#}
-            {#{% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_2',"num":2} %}#}
-            {#{% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_3',"num":3} %}#}
-            {#{% include 'NumaDOASiteBundle::button.html.twig' with {'button': 'forest_button_4',"num":4} %}#}
+            {{ displayComponent('forest_button_2','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_2","num":2}}) }}
+            {{ displayComponent('forest_button_3','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_3","num":3}}) }}
+            {{ displayComponent('forest_button_4','image','page','forest',{"template":"NumaDOASiteBundle::button.html.twig","template_params":{"button":"forest_button_4","num":4}}) }}
+
         </div>
         {% block content %}
         <div class="content-wrapper">
