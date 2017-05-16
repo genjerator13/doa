@@ -6,20 +6,25 @@
 {% block form_group_class -%}
     col-sm-9
 {%- endblock form_group_class %}
+
 {% block content %}
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    <h1>Request Financing</h1>
-    <p>
-        Thank you For Visiting Our Site. We Welcome The Chance To Find You The Perfect Financing Solution For Your Purchase. Please Take A Moment And Complete Our Secure Application. Once submitted, We Will Contact You Soon.
+    {{ displayComponent('text',"HTML")|raw }}
 
-        Need Assistance? Please Call Us At (870) 565-4353 Thank You!
-    </p>
+    {{ displayComponent('page_content',"HTML")|raw }}
+    {#<h1>Request Financing</h1>#}
+    {#<p>#}
+    {#Thank you For Visiting Our Site. We Welcome The Chance To Find You The Perfect Financing Solution For Your Purchase. Please Take A Moment And Complete Our Secure Application. Once submitted, We Will Contact You Soon.#}
+
+    {#Need Assistance? Please Call Us At (870) 565-4353 Thank You!#}
+    {#</p>#}
     <p>
         * Indicates required field
     </p>
     <h5>
         How can we help with financing?
     </h5>
+    {{ form_errors(form) }}
     {{ form_start(form) }}
     <h4>Loan Information</h4>
     {{ form_row(form.applicant_type) }}
@@ -77,10 +82,13 @@
     <h4>Other Income</h4>
     {{ form_row(form.source) }}
     {{ form_row(form.other_monthly_income) }}
-    <p>
-        I certify that I have provided true and accurate information in this form. By submitting this form, I authorize the dealer to begin a credit investigation, to process my application, and to forward my application to lenders, financial institutions, or other third parties in order to process my application.
-    </p>
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
+    <p>
+        I certify that I have provided true and accurate information in this form. By submitting this form, I authorize
+        the dealer to begin a credit investigation, to process my application, and to forward my application to lenders,
+        financial institutions, or other third parties in order to process my application.
+    </p>
     {{ form_end(form) }}
 
 {% endblock %}
