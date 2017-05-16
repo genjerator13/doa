@@ -49,7 +49,7 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
             return $this->redirectToRoute('finance_success');
         }
-        return $this->render('NumaDOADMSBundle:Finance:new.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/Finance:finance_form.html.twig', array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
         ));
@@ -68,7 +68,8 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:Finance:finance_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'finance_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));

@@ -24,6 +24,7 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
         $entity = new ListingForm();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
+        $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -41,7 +42,7 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
 
         }
 
-        return $this->render('NumaDOASiteBundle:GetAQuote:getAQuote_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/GetAQuote:getAQuote_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -74,7 +75,8 @@ class GetAQuoteController extends Controller implements DealerSiteControllerInte
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:GetAQuote:getAQuote_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms:success.html.twig', array(
+            'path'=>'getAQuote_form',
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
