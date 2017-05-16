@@ -9,6 +9,7 @@
 {% block content %}
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content',"HTML")|raw }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     {{ form_start(form) }}
     {{ form_row(form.cust_name) }}
     {{ form_row(form.cust_last_name) }}
@@ -17,7 +18,9 @@
     {{ form_row(form.email) }}
     {{ form_row(form.phone) }}
     {{ form_row(form.comment, { 'label': 'Question' }) }}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
     {{ form_end(form) }}
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content_bottom',"HTML")|raw }}
+
 {% endblock %}

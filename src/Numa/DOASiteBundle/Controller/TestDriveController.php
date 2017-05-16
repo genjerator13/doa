@@ -41,7 +41,7 @@ class TestDriveController extends Controller implements DealerSiteControllerInte
 
         }
 
-        return $this->render('NumaDOASiteBundle:TestDrive:testDrive_form.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/TestDrive:testDrive_form.html.twig', array(
             'entity' => $entity,
             'dealer' => $this->dealer,
             'form'   => $form->createView(),
@@ -74,7 +74,7 @@ class TestDriveController extends Controller implements DealerSiteControllerInte
     public function successAction(){
         $message = "Success";
 
-        return $this->render('NumaDOASiteBundle:TestDrive:testDrive_success.html.twig', array(
+        return $this->render('NumaDOASiteBundle:siteForms/TestDrive:testDrive_success.html.twig', array(
             'message'=>$message,
             'dealer' => $this->dealer,
         ));
