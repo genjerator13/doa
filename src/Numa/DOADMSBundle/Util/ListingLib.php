@@ -14,6 +14,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Category;
+use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOAAdminBundle\Entity\ListingFieldLists;
 use Numa\DOAAdminBundle\Entity\ItemField;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
@@ -131,7 +133,8 @@ class ListingLib
             $buzz = $this->container->get('buzz');
             $error = "";
             $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
-
+            //testurl
+            //$url = "http://doa.local/upload/restxml.xml";
             $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
 
             if ($buzz->getLastResponse()->getStatusCode() != 200) {
@@ -172,6 +175,7 @@ class ListingLib
                         $res[$key][$itemKey] = $itemValue;
                     }
                 }
+                $res[$key]['itemfields'] = $this->formatItemFields($res[$key]);
 
             }
 
@@ -182,6 +186,23 @@ class ListingLib
 
         return $res;
     }
+
+    private function formatItemFields($res){
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        $itemFields = array();
+
+        foreach ($res as $key=>$item) {
+            if ($item == "Std." || $item == "Opt.") {
+                //$listingField = $em->getRepository(ItemField::class)->getItemFieldIdFromString($key,$item_id);
+
+                //if($listingField instanceof Listingfield) {
+                    $itemFields[] = $key;
+                //}
+            }
+        }
+        return $itemFields;
+    }
+
 
     public function vindecoder($item)
     {
@@ -220,22 +241,28 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-        $this->vinDecoderInsertion($item, $vindecoderItems);
+
+        $this->vinDecoderInsertion($item, $vindecoderItems[0]);
 
     }
 
     public function vinDecoderInsertion($item, $vindecoderItems)
     {
+
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                $this->vinDecoderInsertField($item, $itemVin, $key);
+                if(!is_array($itemVin)) {
+                    $this->vinDecoderInsertField($item, $itemVin, $key);
+                }
             }
         }
+
     }
 
     public function vinDecoderInsertField($item, $itemVin, $key)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
+
         if (strtolower($itemVin) == "std.") {
             $criteria = new \Doctrine\Common\Collections\Criteria();
             $criteria->where(Criteria::expr()->eq("field_name", $key));
@@ -244,6 +271,8 @@ class ListingLib
             if (!empty($item->getItemField())) {
                 $currentItemField = $item->getItemField()->matching($criteria);
             }
+
+
             if ($currentItemField instanceof ArrayCollection && $currentItemField->first() instanceof ItemField) {
                 //$currentItemField->first()->setFieldBooleanValue(true);
 
@@ -256,7 +285,8 @@ class ListingLib
                 $if->setFieldIntegerValue(1);
                 $item->addItemField($if);
                 $em->persist($if);
-                //$em->flush($item);
+                //dump($itemVin);die();
+                $em->flush();
             }
         }
     }

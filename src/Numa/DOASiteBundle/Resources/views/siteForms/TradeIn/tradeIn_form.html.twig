@@ -7,6 +7,7 @@
     col-sm-7
 {%- endblock form_group_class %}
 {% block content %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content',"HTML")|raw }}
 
@@ -45,6 +46,7 @@
     </div>
     {{ form_row(form.accessories) }}
     {{ form_row(form.comment) }}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
     {{ form_end(form) }}
 
 {% endblock %}

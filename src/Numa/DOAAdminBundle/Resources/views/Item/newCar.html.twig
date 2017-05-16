@@ -1,6 +1,10 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% block content %}
-
+    {% if entity.id is empty %}
+        {% set id = 0 %}
+    {% else %}
+        {% set id = entity.id %}
+    {% endif %}
     <div class="form-group">
         {{ form_label(form.stockNr, null, { 'label_attr': {'class': 'col-sm-3'} }) }}
         <div class="col-sm-9">
@@ -38,8 +42,9 @@
 
         }
         $.fn.fillFields = function (data) {
-            console.log("fillfields");
-            console.log(data);
+            console.log("fillfield");
+            itemfields = data['itemfields'];
+
             make = $('#numa_doaadminbundle_item_make');
             model = $('#numa_doaadminbundle_item_model');
             year = $('#numa_doaadminbundle_item_year');
@@ -105,35 +110,66 @@
             if (!jQuery.isEmptyObject(data.engine) && !jQuery.isEmptyObject(data.engine.type)) {
                 fuelType.val(firstToUpperCase(data.engine.type));
             }
+//            $.each(itemfields,function( index, value ) {
+//                checkboxId = "#numa_doaadminbundle_item_Itemfield_"+index+"_field_boolean_value";
+//                //$(checkboxId).prop('checked', true);
+
+            $(".feature-name").each(function (index, value) {
+                //console.log(index);
+                feature = $(this).html();
+                //console.log(feature+":::");
+                if ($.inArray(feature, itemfields) >= 0) {
+
+                    $(this).prev().find("input").prop('checked', true);
+                }
+            })
+
         }
         var datax;
         var oldvin;
         $(document).ready(function () {
 
-
+            //console.log(checkboxList);
             $(document).on('change', '#trim', function () {
-
                 $('#details form').fillFields(datax[$(this).val()]);
+                console.log($(this).val());
+                {% if id>0 %}
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path("decode_vin_api_one_vehicle") }}",
+                    data: {item_id:{{ id }},num:$(this).val() },
+                    success: function (data, textStatus, jqXHR) {
+                       
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert("Error");
+                    }
+                });
+                {% endif %}
+
             });
             $('#vin_submit_button').click(function () {
 
                 vin = $('#numa_doaadminbundle_item_VIN').val();
 
                 oldvin = vin;
-                $("#loading-indicator").css("display","block");
+                $("#loading-indicator").css("display", "block");
+
                 $.ajax({
                     type: "POST",
                     url: "{{ path("decode_vin_api") }}",
-                    data: {vin: vin},
+                    data: {vin: vin, item_id:{{ id }} },
                     success: function (data, textStatus, jqXHR) {
                         datax = data;
                         $('#trim-select').html("");
+
+
                         if (data.length == 1) {
                             $('#details form').fillFields(datax[0]);
                         } else {
                             $('#trim-select').populateTrim(data);
                         }
-                        $("#loading-indicator").css("display","hidden");
+                        $("#loading-indicator").css("display", "hidden");
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert("Error, wrong VIN!");

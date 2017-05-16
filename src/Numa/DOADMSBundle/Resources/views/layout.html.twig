@@ -208,6 +208,11 @@
                                         Request</a>
                                 </li>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                                <li class="active">
+                                    <a href="{{ path('financeservice') }}" class=""><i class="fa fa-inbox"></i>Financing Service</a>
+                                </li>
+                            {% endif %}
                             {% if (is_granted('ROLE_ADMIN') or
                             is_granted('ROLE_REGULAR_ADMIN_DMS') or
                             is_granted('ROLE_SALES') or

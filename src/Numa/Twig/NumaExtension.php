@@ -309,10 +309,10 @@ class NumaExtension extends \Twig_Extension
 //        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
 
         //return $html;
-        //if($component instanceof ComponentEntityInterface) {
+        if($component instanceof ComponentEntityInterface) {
             return $component->getValue();
-        //}
-        //return "";
+        }
+        return "";
     }
     public function getDealer()
     {
