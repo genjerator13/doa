@@ -1,3 +1,4 @@
+
 <div class="row">
     {% if pagerfanta is not empty %}
 
@@ -248,13 +249,9 @@
 <div class="row">
     <div class="searchResults col-md-8">
         {% if pagerfanta is not empty %}
-            <div id="listing-content">
-                {#<div class="page_ads">#}
-                {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
-
-                {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
-                {#</div>#}
+            <div id="listing-content"><
                 {% for item in pagerfanta %}
+                    {% set item = item.getData() %}
                     {% if queryUrl is defined %}
                         {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
                     {% else %}
