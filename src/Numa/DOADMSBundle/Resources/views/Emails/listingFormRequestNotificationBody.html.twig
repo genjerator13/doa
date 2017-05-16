@@ -10,5 +10,7 @@
     {% include 'NumaDOADMSBundle:Emails:offerBodyTemplate.html.twig' %}
 {% elseif(entity.type|lower == "offer trade in") %}
     {% include 'NumaDOADMSBundle:Emails:offerTradeInBodyTemplate.html.twig' %}
+{% elseif(entity.type|lower == "quote") %}
+    {% include 'NumaDOADMSBundle:Emails:quoteBodyTemplate.html.twig' %}
 {% endif %}
 {% include 'NumaDOADMSBundle:Emails:emailBodyFooter.html.twig' %}
