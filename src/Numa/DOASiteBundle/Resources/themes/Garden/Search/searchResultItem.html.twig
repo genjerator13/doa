@@ -14,7 +14,7 @@
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
             <div class="picture-detail col-md-6">
                 <a href="{{ detailUrl }}" class="thumbnail">
-                    {% if item.getImage2() is defined and item.getImage2() is not empty %}
+                    {% if image is defined and image is not empty %}
                         {{ component.image(image, item['title'], '', 'search_image_sea', 350, 250) }}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
