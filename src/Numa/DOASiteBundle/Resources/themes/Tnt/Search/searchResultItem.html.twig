@@ -33,15 +33,15 @@
                 <h4>Mileage: {{ item.mileage }}</h4>
 
                 <ul class="techData  list-unstyled">
-                    {% if item.categoryId()==1 %}
+                    {% if item.category_id==1 %}
                         {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==2) %}
+                    {% elseif(item.categoryId==2) %}
                         {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==3) %}
+                    {% elseif(item.category_id==3) %}
                         {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==4) %}
+                    {% elseif(item.category_id==4) %}
                         {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==13) %}
+                    {% elseif(item.category_id==13) %}
                         {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
                     {% else %}
                     {% endif %}
