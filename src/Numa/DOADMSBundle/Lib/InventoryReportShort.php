@@ -20,7 +20,8 @@ class InventoryReportShort extends Report
         "C"=>array("year","Year"),
         "D"=>array("make","Make"),
         "E"=>array("model","Model"),
-        "F"=>array("price","Selling Price"),
+        "F"=>array("mileage","Mileage"),
+        "G"=>array("price","Selling Price"),
 
     );
 
@@ -33,12 +34,12 @@ class InventoryReportShort extends Report
 
         $this->row++;
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalSellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $totalSellingPrice);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("F1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function setCellValue($letter,$number,$entity,$field){
