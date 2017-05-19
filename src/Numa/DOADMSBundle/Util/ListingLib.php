@@ -132,51 +132,55 @@ class ListingLib
         try {
             $buzz = $this->container->get('buzz');
             $error = "";
-            $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
-            //testurl
-            //$url = "http://doa.local/upload/restxml.xml";
-            $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
+            if (!empty($vin)) {
+                $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
+                //testurl
+                //$url = "http://doa.local/upload/restxml.xml";
+                $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
 
-            if ($buzz->getLastResponse()->getStatusCode() != 200) {
-                $error['ERROR'] = "SERVER ERROR";
-                return $error;
-            }
-            $dealerXml = new SimpleXMLElement($response->getContent());
+                if ($buzz->getLastResponse()->getStatusCode() != 200) {
+                    $error['ERROR'] = "SERVER ERROR";
+                    return $error;
+                }
+                $dealerXml = new SimpleXMLElement($response->getContent());
 
-            $json = json_encode($dealerXml);
-            ;
-            if ($buzz->getLastResponse()->getStatusCode() != 200) {
-                $error['ERROR'] = "WRONG VIN";
-                return $error;
-            }
-            $vinArray = (json_decode($json,true));
-            $data =$vinArray['VIN']['Vehicle'];
+                $json = json_encode($dealerXml);;
+                if ($buzz->getLastResponse()->getStatusCode() != 200) {
+                    $error['ERROR'] = "WRONG VIN";
+                    return $error;
+                }
 
-            if(empty($vinArray['VIN']['Vehicle'][0])){
-                $data=array();
-                $data[0] =$vinArray['VIN']['Vehicle'];
+                $vinArray = (json_decode($json, true));
+                if (!empty($vinArray)) {
+                    $data = $vinArray['VIN']['Vehicle'];
 
-            }
+                    if (empty($vinArray['VIN']['Vehicle'][0])) {
+                        $data = array();
+                        $data[0] = $vinArray['VIN']['Vehicle'];
 
-            foreach ($data as $key => $vehicle) {
+                    }
 
-                foreach ($vehicle['Item'] as $item) {
+                    foreach ($data as $key => $vehicle) {
 
-                    $itemXml = $item["@attributes"];
-                    $itemValue = $itemXml['Value'];
-                    $itemUnit = $itemXml['Unit'];
+                        foreach ($vehicle['Item'] as $item) {
 
-                    $itemKey = $itemXml['Key'];
+                            $itemXml = $item["@attributes"];
+                            $itemValue = $itemXml['Value'];
+                            $itemUnit = $itemXml['Unit'];
 
-                    if ($itemValue != "N/A" && $itemValue != "No data") {
-                        if (!empty($itemUnit)) {
-                            $itemValue = $itemValue . " " . $itemUnit;
+                            $itemKey = $itemXml['Key'];
+
+                            if ($itemValue != "N/A" && $itemValue != "No data") {
+                                if (!empty($itemUnit)) {
+                                    $itemValue = $itemValue . " " . $itemUnit;
+                                }
+                                $res[$key][$itemKey] = $itemValue;
+                            }
                         }
-                        $res[$key][$itemKey] = $itemValue;
+                        $res[$key]['itemfields'] = $this->formatItemFields($res[$key]);
+
                     }
                 }
-                $res[$key]['itemfields'] = $this->formatItemFields($res[$key]);
-
             }
 
         } catch (Exception $ex) {
@@ -187,16 +191,17 @@ class ListingLib
         return $res;
     }
 
-    private function formatItemFields($res){
+    private function formatItemFields($res)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $itemFields = array();
 
-        foreach ($res as $key=>$item) {
+        foreach ($res as $key => $item) {
             if ($item == "Std." || $item == "Opt.") {
                 //$listingField = $em->getRepository(ItemField::class)->getItemFieldIdFromString($key,$item_id);
 
                 //if($listingField instanceof Listingfield) {
-                    $itemFields[] = $key;
+                $itemFields[] = $key;
                 //}
             }
         }
@@ -241,8 +246,9 @@ class ListingLib
             return;
         }
         $vindecoderItems = $item->getVindecoderItems();
-
-        $this->vinDecoderInsertion($item, $vindecoderItems[0]);
+        if (!empty($vindecoderItems) && !empty($vindecoderItems[0])) {
+            $this->vinDecoderInsertion($item, $vindecoderItems[0]);
+        }
 
     }
 
@@ -251,7 +257,7 @@ class ListingLib
 
         if (!empty($vindecoderItems)) {
             foreach ($vindecoderItems as $key => $itemVin) {
-                if(!is_array($itemVin)) {
+                if (!is_array($itemVin)) {
                     $this->vinDecoderInsertField($item, $itemVin, $key);
                 }
             }

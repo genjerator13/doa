@@ -35,7 +35,6 @@ class CustomerType extends AbstractType
             ->add('mobile_phone')
             ->add('fax')
             ->add('email')
-            ->add('followup_date','date')
             ->add('file_import_source', 'file', array('label'=>'Picture','required' => false, 'data_class' => null))
 
         ;

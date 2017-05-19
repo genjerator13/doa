@@ -9,11 +9,15 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     {% if id is defined and id is not empty %}
     $http.get("/api/billing/{{ id }}/single")
             .then(function (response) {
-                console.log(response.data._item);
+
                 if (response.data._item) {
+
                     $scope.VIN = response.data._item._v_i_n;
                     $scope.stock = response.data._item.stock_nr;
                     $scope.item_id = response.data._item.id;
+                    $scope.listingyear = response.data._item.year;
+                    $scope.listingmake = response.data._item.make;
+                    $scope.listingmodel = response.data._item.model;
 
                     $scope.color = response.data._item.exterior_color;
                     $scope.new = "";
