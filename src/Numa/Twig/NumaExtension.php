@@ -21,6 +21,7 @@ class NumaExtension extends \Twig_Extension
 
     protected $container;
     protected $extraListener;
+
     public function __construct(ContainerInterface $container = null, ExtraListener $extraListener)
     {
         $this->container = $container;
@@ -87,7 +88,7 @@ class NumaExtension extends \Twig_Extension
         return 'numa_extension';
     }
 
-    public function price($price,$html=true)
+    public function price($price, $html = true)
     {
         $price = intval($price);
         if (empty($price)) {
@@ -98,7 +99,7 @@ class NumaExtension extends \Twig_Extension
             $price = "$" . number_format(floatval($price), 0, ",", ",");
         }
         $return = $price;
-        if($html) {
+        if ($html) {
             $return = '<span class="price">' . $price . '</span>';
         }
         return $return;
@@ -136,16 +137,16 @@ class NumaExtension extends \Twig_Extension
             $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
         }
         $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
-        $dealer_id=null;
+        $dealer_id = null;
         if ($dealer instanceof Catalogrecords) {
-            $dealer_id=$dealer->getId();
+            $dealer_id = $dealer->getId();
         }
-        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageByUrl2($pathinfo,$dealer->getId());
+        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageByUrl2($pathinfo, $dealer->getId());
 
         return $page;
     }
 
-    public function displayComponent($name, $type = "Text", $source = "page",$theme="",$setting=array())
+    public function displayComponent($name, $type = "Text", $source = "page", $theme = "", $setting = array())
     {
 
         $criteria = Criteria::create()
@@ -190,35 +191,34 @@ class NumaExtension extends \Twig_Extension
             }
         }
 
-        if (!($component instanceof Component) && !($component instanceof DealerComponent)) {
-            if ($type != "image_text") {
-                if ($source == "page" && $page instanceof Page) {
-                    $comp = new Component();
-                    $comp->setName($name);
-                    $comp->setType($type);
-                    $comp->setTheme($theme);
-                    $pc = new PageComponent();
-                    $pc->setComponent($comp);
-                    $pc->setPage($page);
-                    $em->persist($comp);
-                    $em->persist($pc);
-                    $em->flush();
-                    $value = $comp->getValue();
-                } elseif ($source == "dealer") {
+        if (!($component instanceof ComponentEntityInterface)) {
 
-                    $comp = new DealerComponent();
-                    $comp->setDealer($dealer);
-                    $comp->setName($name);
-                    $comp->setTheme($theme);
-                    $comp->setType($type);
-                    $em->persist($comp);
+            if ($source == "page" && $page instanceof Page) {
+                $comp = new Component();
+                $comp->setName($name);
+                $comp->setType($type);
+                $comp->setTheme($theme);
+                $pc = new PageComponent();
+                $pc->setComponent($comp);
+                $pc->setPage($page);
+                $em->persist($comp);
+                $em->persist($pc);
+                $em->flush();
+                $value = $comp->getValue();
+            } elseif ($source == "dealer") {
 
-                    $em->flush();
-                    $value = $comp->getValue();
-                }
+                $comp = new DealerComponent();
+                $comp->setDealer($dealer);
+                $comp->setName($name);
+                $comp->setTheme($theme);
+                $comp->setType($type);
+                $em->persist($comp);
+
+                $em->flush();
+                $value = $comp->getValue();
             }
         } else {
-            if(!empty($theme) && ($component instanceof Component || $component instanceof DealerComponent) && strtolower($component->getTheme())!==strtolower($theme)){
+            if (!empty($theme) && ($component instanceof Component || $component instanceof DealerComponent) && strtolower($component->getTheme()) !== strtolower($theme)) {
                 $component->setTheme($theme);
                 $em->flush();
             }
@@ -230,72 +230,19 @@ class NumaExtension extends \Twig_Extension
         }
 
 
-        if(strtolower($type)=="text" || strtolower($type)=="html"  || strtolower($type)=="template" || strtolower($type) == "carousel" || strtolower($type) == "image") {
-            $componentxxx = $this->container->get("numa.component")->getComponent($name, $type, $source, $theme,$setting);
+        $componentxxx = $this->container->get("numa.component")->getComponent($name, $type, $source, $theme, $setting);
 
-            if ($componentxxx instanceof ComponentView) {
-                $text = $componentxxx->display();
-                return $text;
-            }
+        if ($componentxxx instanceof ComponentView) {
+
+            $text = $componentxxx->display();
+            return $text;
         }
+        return "";
 
-
-        if (strtolower($type) == "carousel") {
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $images = array();
-
-//            if ($component instanceof Component) {
-//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component->getId());
-//            }elseif($component instanceof DealerComponent){
-//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
-//            }
-
-            if ($component instanceof ComponentEntityInterface ) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component);
-            }
-
-            return $images;
-        } elseif (strtolower($type) == "template") {
-
-        } elseif ((strtolower($type) == "image" || strtolower($type) == "image_object") && ($component instanceof Component || $component instanceof DealerComponent)) {
-            $em = $this->container->get('doctrine.orm.entity_manager');
-            $images = array();
-
-            if ($component instanceof ComponentEntityInterface ) {
-                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($component);
-            }
-
-//            if ($component instanceof DealerComponent) {
-//                $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByDealerComponent($component->getId());
-//
-//            }
-
-
-            if (!empty($images[0])) {
-                if(strtolower($type) == "image_object"){
-                    $image = $images[0];
-                    $image->setSrc("/upload/dealers/".$image->getSrc());
-                    return $image;
-                }
-                $uploadDir = "/" . ImageCarousel::getUploadDir();
-                $res = $images[0]->getSrc();
-
-                return "/upload/dealers/" . $res;
-            }
-
-        }elseif (strtolower($type) == "image_text") {
-
-            if(!empty($component->getValue())) {
-                return  $this->componentWrapper($component);;
-            }
-            return "";
-        }
-
-
-        return $this->componentWrapper($component);
     }
 
-    private function componentWrapper($component){
+    private function componentWrapper($component)
+    {
 //        $id = "c-".$component->getId();
 //        $class = "componentx";
 //        $html = "";
@@ -306,11 +253,12 @@ class NumaExtension extends \Twig_Extension
 //        $html = '<div id="'.$id.'" class="'.$class.'">'.$component->getValue()."</div>";
 
         //return $html;
-        if($component instanceof ComponentEntityInterface) {
+        if ($component instanceof ComponentEntityInterface) {
             return $component->getValue();
         }
         return "";
     }
+
     public function getDealer()
     {
         $session = $this->container->get('session');
