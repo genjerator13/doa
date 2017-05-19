@@ -131,12 +131,14 @@ class NumaExtension extends \Twig_Extension
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $request = $this->container->get("request");
-        $host = trim(strip_tags($request->getHost()));
+ //       $host = trim(strip_tags($request->getHost()));
         $pathinfo = $request->getPathInfo();
         if (substr($pathinfo, 0, 2) === "/d") {
             $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
         }
-        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+//        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
+
         $dealer_id = null;
         if ($dealer instanceof Catalogrecords) {
             $dealer_id = $dealer->getId();
@@ -148,7 +150,6 @@ class NumaExtension extends \Twig_Extension
 
     public function displayComponent($name, $type = "Text", $source = "page", $theme = "", $setting = array())
     {
-
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
         if (strtolower($type) == "carousel") {
@@ -162,9 +163,9 @@ class NumaExtension extends \Twig_Extension
             $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
         }
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $host = trim(strip_tags($request->getHost()));
-        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
-
+        //$host = trim(strip_tags($request->getHost()));
+        //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
         $dealer_id = null;
         $page = null;

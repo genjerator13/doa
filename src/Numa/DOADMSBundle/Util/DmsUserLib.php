@@ -138,7 +138,24 @@ class DmsUserLib
         $host = $this->getCurrentSiteHost();
         //check if www
         $host = str_replace("www.","",$host);
-        return $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+
+        $serializer = $this->container->get('serializer');
+
+        $mDealer=$this->container->get('mymemcache')->get('dealer_'.$host);
+
+
+        if(empty($mDealer)){
+            $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+            $mDealer  = $serializer->serialize($desDealer,"json");
+
+            $this->container->get('mymemcache')->set('dealer_'.$host,$mDealer);
+            //dump($mDealer);die();
+        }else{
+            $desDealer = $serializer->deserialize($mDealer,Catalogrecords::class,"json");
+
+        }
+
+        return $desDealer;
     }
 
     public function getDealerGroupIdByHost(){
@@ -160,4 +177,5 @@ class DmsUserLib
 
         return implode(",",$dealer_id);
     }
+
 }
