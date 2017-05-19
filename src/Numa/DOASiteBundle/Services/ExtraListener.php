@@ -132,6 +132,7 @@ class ExtraListener
             //    $qbo = $this->container->get("numa.quickbooks")->init();
             //dump($qbo);
             //}
+
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
             $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
 
