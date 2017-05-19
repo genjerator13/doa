@@ -1,5 +1,12 @@
 /* web/themes/Garden/ccc/garden.css */
 
+@font-face {
+	font-family: "Franklin Gothic Heavy";
+	font-style: normal;
+	font-weight: 400;
+	src: url("../fonts/Franklin Gothic Heavy Regular.ttf") format("ttf");
+
+}
 * {
 	margin: 0;
 	padding: 0;
@@ -166,7 +173,13 @@ body {
 
 .header > div { box-sizing: border-box; }
 
-.header .logo { text-align: center; }
+.header .logo {
+	text-align: center;
+	font-size: 54px;
+	font-weight: 600;
+	color: #b20808;
+	text-decoration: none;
+}
 
 .header .logo img { max-width: 100%; }
 
