@@ -28,7 +28,7 @@
                 {% for entity in entities %}
                     <tr>
                         <td>
-                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive" or entity.type|lower=="finance" or entity.type|lower=="quote" or entity.type|lower=="tradein" %}
+                            {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive" or entity.type|lower=="finance" or entity.type|lower=="quote" or entity.type|lower=="tradein" or entity.type|lower=="shoppingexpress" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="financing" %}
                                 <a href="{{ path('finance_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
@@ -38,6 +38,8 @@
                                 <a href="{{ path('servicerequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="part" %}
                                 <a href="{{ path('partrequest_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
+                            {% elseif entity.type|lower=="newsletter" %}
+                                <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% elseif entity.type|lower=="newsletter" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
                             {% endif %}
