@@ -394,6 +394,10 @@ liip_imagine:
             filters:
                 thumbnail: { size: [115, 45], mode: inbound }
                 background: { color: '#FFFFFF' }
+        mountain_logo_home:
+            quality: 100
+            filters:
+                relative_resize: { widen: 290 }
 #        brands_forest:
 #            quality: 100
 #            filters:
