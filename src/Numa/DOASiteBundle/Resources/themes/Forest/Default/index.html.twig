@@ -29,10 +29,9 @@
     </div>
     <div class="brands">
         {% set brands = displayComponent("forest_brands_images","carousel",'page','forest',{"output":"list"}) %}
-        {% set brandstext = displayComponent("forest_brands_images","image_text",'page','forest') %}
-
+        {% set brandstext = displayComponent("forest_brands_images","image",'page','forest',{"output":"image_text"}) %}
         <h1>{% if brandstext is empty or brandstext is not defined %}
-                Brands xx
+                Brands
             {% else %}
                 {{ brandstext|raw }}
             {% endif %}
@@ -67,7 +66,7 @@
                 </div>
             </li>
             <li>
-                {{ displayComponent('hours_of_operation',"HTML")|raw }}
+                {{ displayComponent('hours_of_operation',"HTML","dealer")|raw }}
             </li>
             <li>
                 {{ displayComponent('quick_links',"HTML","dealer")|raw }}

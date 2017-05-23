@@ -54,184 +54,196 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $em = $this->getDoctrine()->getManager();
         $hometabs_key = "hometabs_";
         $dealer_id = null;
-        if (!empty($this->dealer)) {
-            $dealer_id = $this->dealer->getId();
-            $hometabs_key = "hometabs_" . $this->dealer->getId();
+        $activeTheme = $this->container->get('liip_theme.active_theme');
+
+        if (strtolower($activeTheme->getName()) == "default") {
+
+            if (!empty($this->dealer)) {
+                $dealer_id = $this->dealer->getId();
+                $hometabs_key = "hometabs_" . $this->dealer->getId();
+            }
+            //dump($hometabs_key);
+            $hometabs = $this->get('mymemcache')->get($hometabs_key);
+
+            if (empty($hometabs)) {
+                $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findByDealer($dealer_id);
+
+                $this->get('mymemcache')->set($hometabs_key, $hometabs);
+                $nocache = true;
+                //$this->get('memcache.default')->set('jsonCar', $jsonCar);
+            }
+
+            $tabs = array();
+            foreach ($hometabs as $tab) {
+                $cat = $tab->getCategoryName();
+                $tabs[$cat][] = $tab;
+            }
+
+            $vehCategory = 1;
+            $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
+            $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
+            $lftreec->setMemcached($this->get('mymemcache'));
+            $lflistc->setMemcached($this->get('mymemcache'));
+
+            $jsonCar = $lftreec->getJsonTreeModels(614);
+
+            $jsonRvs = $lftreec->getJsonTreeModels(760);
+            $vehicleChoices = $lflistc->findAllBy('Body Style', 1, true, true);
+            $vehicleModel = $lflistc->findAllBy('Model', 1, true, false);
+            $vehicleMake = $lftreec->findAllBy(614, 1, true, false);
+
+            //die();
+
+            $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                'csrf_protection' => false,
+            ))
+                ->setMethod('GET')
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+                ->add('bodyStyle', 'choice', array(
+                    'choices' => $vehicleChoices,
+                    'empty_value' => 'Any Body Style',
+                    'label' => "Body Style", "required" => false
+                ))
+                ->add('model', 'choice', array(
+                    'choices' => $vehicleModel,
+                    'empty_value' => 'Any Model',
+                    'label' => "Model", "required" => false
+                ))
+                ->add('make', 'choice', array(
+                    'choices' => $vehicleMake,
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
+                ->add('priceTo', 'text', array('label' => 'to', "required" => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(), "required" => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax), "required" => false))
+                ->add('category_id', 'hidden', array('data' => 1))
+                ->getForm();
+
+            $marinaBoatType = $lflistc->findAllBy('Boat Type', 2, true, true);
+            $marinaBoatMake = $lflistc->findAllBy('Boat Make', 2, true, true);
+
+            $marineForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                'csrf_protection' => false,
+            ))
+                ->setMethod('GET')
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+                ->add('boatType', 'choice', array(
+                    'choices' => $marinaBoatType,
+                    'empty_value' => 'Any type',
+                    'label' => "Type", "required" => false
+                ))
+                ->add('boatMake', 'choice', array(
+                    'choices' => $marinaBoatMake,
+                    'empty_value' => 'Any make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('boatModel', 'text', array('label' => 'Model', "required" => false))
+                ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
+                ->add('priceTo', 'text', array('label' => 'to', "required" => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray()))
+                ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax)))
+                ->add('category_id', 'hidden', array('data' => 2))
+                ->getForm();
+
+
+            $rvMake = $lftreec->findAllBy(760, 4, true, true);
+            $rvClasses = $lflistc->findAllBy('type', 4, true, true);
+
+
+            $rvsForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                'csrf_protection' => false,
+            ))
+                ->setMethod('GET')
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+                ->add('modelRvs', 'choice', array('label' => 'Model', 'required' => false))
+                ->add('makeRvs', 'choice', array(
+                    'choices' => $rvMake,
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('category_id', 'hidden', array('data' => 4, 'required' => false))
+                ->add('floorPlan', 'text', array('label' => 'Floor Plan', "required" => false))
+                ->add('class', 'choice', array(
+                    'choices' => $rvClasses,
+                    'empty_value' => 'Any class',
+                    'required' => false,
+                    'label' => "Class", "required" => false
+                ))
+                ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
+                ->add('priceTo', 'text', array('label' => 'to', "required" => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(), 'required' => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'required' => false, 'preferred_choices' => array(Util::yearMax)))
+                ->getForm();
+
+            $motoMake = $lflistc->findAllBy('make', 3, true, false);
+            $motoType = $lflistc->findAllBy('type', 3, true, true);
+
+            $motorsportForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                'csrf_protection' => false,
+            ))
+                ->setMethod('GET')
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+                ->add('typeString', 'choice', array('label' => 'Type', 'choices' => $motoType, 'empty_value' => 'Any Type'))
+                ->add('Model', 'text', array('label' => 'Model', 'required' => false))
+                ->add('make', 'choice', array(
+                    'choices' => $motoMake,
+                    'empty_value' => 'Any Make',
+                    'label' => "Make", "required" => false
+                ))
+                ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
+                ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
+                ->add('category_id', 'hidden', array('data' => 3))
+                ->getForm();
+
+            $agModel = $lflistc->findAllBy('Ag Application', 13, true);
+
+            $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+                'csrf_protection' => false,
+            ))
+                ->setMethod('GET')
+                ->setAction($this->get('router')->generate('search_dispatch'))
+                ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+                //->add('agApplication', 'choice', array('label' => ''))
+                //->add('agApplication', 'choice', array('label' => 'Ag Application', 'choices' => $agModel, 'empty_value' => 'Any Ag Application', 'required' => false))
+                ->add('Model', 'choice', array('label' => 'Model', 'required' => false))
+                //->add('Make', 'choice', array('label' => 'Make','required'=>false))
+                ->add('ag_applicationString', 'choice', array('label' => 'Type', 'choices' => $agModel, 'empty_value' => 'Any Make', 'required' => false))
+                ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
+                ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
+                ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
+                ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
+                ->getForm();
+
+            $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => "/"));
+
+            $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
+                'webpage' => $webpage,
+                'tabs' => $tabs,
+                'jsonCar' => $jsonCar,
+                'jsonRvs' => $jsonRvs,
+                'vehicleForm' => $vehicleForm->createView(),
+                'motorsportForm' => $motorsportForm->createView(),
+                'rvsForm' => $rvsForm->createView(),
+                'agForm' => $agForm->createView(),
+
+                'dealer' => $this->dealer,
+                'marineForm' => $marineForm->createView()));
+
+
+        }else{
+            $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
+
+                'dealer' => $this->dealer,
+            ));
         }
-        //dump($hometabs_key);
-        $hometabs = $this->get('mymemcache')->get($hometabs_key);
-
-        if (empty($hometabs)) {
-            $hometabs = $em->getRepository('NumaDOAAdminBundle:HomeTab')->findByDealer($dealer_id);
-
-            $this->get('mymemcache')->set($hometabs_key, $hometabs);
-            $nocache = true;
-            //$this->get('memcache.default')->set('jsonCar', $jsonCar);
-        }
-
-        $tabs = array();
-        foreach ($hometabs as $tab) {
-            $cat = $tab->getCategoryName();
-            $tabs[$cat][] = $tab;
-        }
-
-        $vehCategory = 1;
-        $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
-        $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
-        $lftreec->setMemcached($this->get('mymemcache'));
-        $lflistc->setMemcached($this->get('mymemcache'));
-
-        $jsonCar = $lftreec->getJsonTreeModels(614);
-
-        $jsonRvs = $lftreec->getJsonTreeModels(760);
-        $vehicleChoices = $lflistc->findAllBy('Body Style', 1, true, true);
-        $vehicleModel = $lflistc->findAllBy('Model', 1, true, false);
-        $vehicleMake = $lftreec->findAllBy(614, 1, true, false);
-
-        //die();
-
-        $vehicleForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
-            'csrf_protection' => false,
-        ))
-            ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch'))
-            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-            ->add('bodyStyle', 'choice', array(
-                'choices' => $vehicleChoices,
-                'empty_value' => 'Any Body Style',
-                'label' => "Body Style", "required" => false
-            ))
-            ->add('model', 'choice', array(
-                'choices' => $vehicleModel,
-                'empty_value' => 'Any Model',
-                'label' => "Model", "required" => false
-            ))
-            ->add('make', 'choice', array(
-                'choices' => $vehicleMake,
-                'empty_value' => 'Any Make',
-                'label' => "Make", "required" => false
-            ))
-            ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
-            ->add('priceTo', 'text', array('label' => 'to', "required" => false))
-            ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(), "required" => false))
-            ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax), "required" => false))
-            ->add('category_id', 'hidden', array('data' => 1))
-            ->getForm();
-
-        $marinaBoatType = $lflistc->findAllBy('Boat Type', 2, true, true);
-        $marinaBoatMake = $lflistc->findAllBy('Boat Make', 2, true, true);
-
-        $marineForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
-            'csrf_protection' => false,
-        ))
-            ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch'))
-            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-            ->add('boatType', 'choice', array(
-                'choices' => $marinaBoatType,
-                'empty_value' => 'Any type',
-                'label' => "Type", "required" => false
-            ))
-            ->add('boatMake', 'choice', array(
-                'choices' => $marinaBoatMake,
-                'empty_value' => 'Any make',
-                'label' => "Make", "required" => false
-            ))
-            ->add('boatModel', 'text', array('label' => 'Model', "required" => false))
-            ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
-            ->add('priceTo', 'text', array('label' => 'to', "required" => false))
-            ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray()))
-            ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'preferred_choices' => array(Util::yearMax)))
-            ->add('category_id', 'hidden', array('data' => 2))
-            ->getForm();
-
-
-        $rvMake = $lftreec->findAllBy(760, 4, true, true);
-        $rvClasses = $lflistc->findAllBy('type', 4, true, true);
-
-
-        $rvsForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
-            'csrf_protection' => false,
-        ))
-            ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch'))
-            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-            ->add('modelRvs', 'choice', array('label' => 'Model', 'required' => false))
-            ->add('makeRvs', 'choice', array(
-                'choices' => $rvMake,
-                'empty_value' => 'Any Make',
-                'label' => "Make", "required" => false
-            ))
-            ->add('category_id', 'hidden', array('data' => 4, 'required' => false))
-            ->add('floorPlan', 'text', array('label' => 'Floor Plan', "required" => false))
-            ->add('class', 'choice', array(
-                'choices' => $rvClasses,
-                'empty_value' => 'Any class',
-                'required' => false,
-                'label' => "Class", "required" => false
-            ))
-            ->add('priceFrom', 'text', array('label' => 'Price from', "required" => false))
-            ->add('priceTo', 'text', array('label' => 'to', "required" => false))
-            ->add('yearFrom', 'choice', array('label' => 'Year from', 'choices' => Util::createYearRangeArray(), 'required' => false))
-            ->add('yearTo', 'choice', array('label' => 'to', 'choices' => Util::createYearRangeArray(), 'required' => false, 'preferred_choices' => array(Util::yearMax)))
-            ->getForm();
-
-        $motoMake = $lflistc->findAllBy('make', 3, true, false);
-        $motoType = $lflistc->findAllBy('type', 3, true, true);
-
-        $motorsportForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
-            'csrf_protection' => false,
-        ))
-            ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch'))
-            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-            ->add('typeString', 'choice', array('label' => 'Type', 'choices' => $motoType, 'empty_value' => 'Any Type'))
-            ->add('Model', 'text', array('label' => 'Model', 'required' => false))
-            ->add('make', 'choice', array(
-                'choices' => $motoMake,
-                'empty_value' => 'Any Make',
-                'label' => "Make", "required" => false
-            ))
-            ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
-            ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
-            ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
-            ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
-            ->add('category_id', 'hidden', array('data' => 3))
-            ->getForm();
-
-        $agModel = $lflistc->findAllBy('Ag Application', 13, true);
-
-        $agForm = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
-            'csrf_protection' => false,
-        ))
-            ->setMethod('GET')
-            ->setAction($this->get('router')->generate('search_dispatch'))
-            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-            //->add('agApplication', 'choice', array('label' => ''))
-            //->add('agApplication', 'choice', array('label' => 'Ag Application', 'choices' => $agModel, 'empty_value' => 'Any Ag Application', 'required' => false))
-            ->add('Model', 'choice', array('label' => 'Model', 'required' => false))
-            //->add('Make', 'choice', array('label' => 'Make','required'=>false))
-            ->add('ag_applicationString', 'choice', array('label' => 'Type', 'choices' => $agModel, 'empty_value' => 'Any Make', 'required' => false))
-            ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
-            ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
-            ->add('yearFrom', 'choice', array('label' => 'Year from', 'required' => false))
-            ->add('yearTo', 'choice', array('label' => 'to', 'required' => false))
-            ->getForm();
-
-        $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => "/"));
-
-        $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
-            'webpage' => $webpage,
-            'tabs' => $tabs,
-            'jsonCar' => $jsonCar,
-            'jsonRvs' => $jsonRvs,
-            'vehicleForm' => $vehicleForm->createView(),
-            'motorsportForm' => $motorsportForm->createView(),
-            'rvsForm' => $rvsForm->createView(),
-            'agForm' => $agForm->createView(),
-
-            'dealer' => $this->dealer,
-            'marineForm' => $marineForm->createView()));
 
         if (!$nocache) {
             $response->setPublic();
@@ -241,7 +253,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    public function categoriesAction()
+    public
+    function categoriesAction()
     {
 
         //$stopwatch = new Stopwatch();
@@ -268,7 +281,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Default:categories.html.twig', array('categories' => $categories));
     }
 
-    public function categoryAction(request $request)
+    public
+    function categoryAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcategory');
@@ -283,7 +297,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
 
-    public function catalogAction(request $request)
+    public
+    function catalogAction(request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcatalog');
@@ -296,7 +311,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Default:dealerShow.html.twig', array('dealer' => $dealer, 'emailForm' => $emailForm->createView()));
     }
 
-    public function searchAction(Request $request, $route = "")
+    public
+    function searchAction(Request $request, $route = "")
     {
         $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
             'csrf_protection' => false,
@@ -309,12 +325,14 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
 
-    public function sidebarMenuAction()
+    public
+    function sidebarMenuAction()
     {
         return $this->render('NumaDOASiteBundle::sidebarMenu.html.twig');
     }
 
-    public function featuredAddAction($max, $order = 1, $image_size = "")
+    public
+    function featuredAddAction($max, $order = 1, $image_size = "")
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -351,7 +369,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    public function carouselAction($max, $order = 1)
+    public
+    function carouselAction($max, $order = 1)
     {
 
         $em = $this->getDoctrine()->getManager();
@@ -371,31 +390,36 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    public function accessDeniedAction()
+    public
+    function accessDeniedAction()
     {
         return $this->render('NumaDOASiteBundle:Errors:accessDenied.html.twig', array(
             'dealer' => $this->dealer,));
     }
 
-    public function error404Action()
+    public
+    function error404Action()
     {
         return $this->render('NumaDOASiteBundle:Errors:error404.html.twig', array(
             'dealer' => $this->dealer,));
     }
 
-    public function error404DMSAction()
+    public
+    function error404DMSAction()
     {
         return $this->render('NumaDOASiteBundle:Errors:error404DMS.html.twig', array(
             'dealer' => $this->dealer,));
     }
 
-    public function error500Action()
+    public
+    function error500Action()
     {
         return $this->render('NumaDOASiteBundle:Errors:error500.html.twig', array(
             'dealer' => $this->dealer,));
     }
 
-    public function emailDealerForm($request)
+    public
+    function emailDealerForm($request)
     {
         $data = array();
         $form = $this->createFormBuilder($data)
@@ -410,7 +434,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         if ($request->isMethod('POST')) {
             $form->bind($request);
 
-            // $data is a simply array with your form fields 
+            // $data is a simply array with your form fields
             // like "query" and "category" as defined above.
             $data = $form->getData();
             if (!empty($data['dealer'])) {
@@ -440,7 +464,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $form;
     }
 
-    public function searchSellerAction(Request $request)
+    public
+    function searchSellerAction(Request $request)
     {
 
         $form = $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
@@ -472,19 +497,22 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(), 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
     }
 
-    public function statisticsAction(Request $request)
+    public
+    function statisticsAction(Request $request)
     {
         $stats = $this->get('Numa.Dashboard.Stats')->allStats($request);
         $stats['site'] = true;
         return $this->render('NumaDOASiteBundle:Default:statistics.html.twig', $stats);
     }
 
-    public function aboutusAction(Request $request)
+    public
+    function aboutusAction(Request $request)
     {
         return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer' => $this->dealer));
     }
 
-    public function contactUsAction(Request $request)
+    public
+    function contactUsAction(Request $request)
     {
         $entity = new ListingForm();
         $form = $this->createCreateContactForm($entity);
@@ -507,12 +535,14 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
 
-    public function newsAction(Request $request)
+    public
+    function newsAction(Request $request)
     {
         return $this->render('NumaDOASiteBundle:Static:content.html.twig', array('dealer' => $this->dealer));
     }
 
-    public function uploadImageAction(Request $request)
+    public
+    function uploadImageAction(Request $request)
     {
         //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
         //return $this->render('NumaDOASiteBundle::upload.html.twig');
@@ -538,7 +568,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
     }
 
-    public function browseImageAction(Request $request)
+    public
+    function browseImageAction(Request $request)
     {
         if ($this->container->has('profiler')) {
             $this->container->get('profiler')->disable();
@@ -579,7 +610,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         //return $this->render('NumaDOASiteBundle:Static:content.html.twig',array('components'=>$components));
     }
 
-    public function contactusAjaxAction()
+    public
+    function contactusAjaxAction()
     {
         $response = $this->render('NumaDOASiteBundle::mainmenu.html.twig', array(
             'contactForm' => $this->createCreateContactForm(new ListingForm())->createView(),
@@ -589,7 +621,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $response;
     }
 
-    private function createCreateContactForm(ListingForm $entity)
+    private
+    function createCreateContactForm(ListingForm $entity)
     {
         $listingForm = new ListingForm();
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
@@ -603,7 +636,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $form;
     }
 
-    public function contactSuccessAction()
+    public
+    function contactSuccessAction()
     {
         $message = "Success";
 
@@ -613,7 +647,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         ));
     }
 
-    public function newsletterAction(Request $request)
+    public
+    function newsletterAction(Request $request)
     {
         $entity = new ListingForm();
         $form = $this->createNewsletterForm($entity);
@@ -637,7 +672,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         //return $this->render('NumaDOASiteBundle:Default:contactus.html.twig', array('dealer'=>$this->dealer ));
     }
 
-    private function createNewsletterForm(ListingForm $entity)
+    private
+    function createNewsletterForm(ListingForm $entity)
     {
         $listingForm = new ListingForm();
         $form = $this->createForm(new ListingFormNewsletterType(), $entity, array(
@@ -651,7 +687,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         return $form;
     }
 
-    public function newsletterSuccessAction()
+    public
+    function newsletterSuccessAction()
     {
         $message = "Success";
 

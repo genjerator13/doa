@@ -1,80 +1,19 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% set liclass="col-md-6 col-xs-6 col-sm-6 col-lg-6" %}
-{{ component.listingField(item.getStatus(),liclass, "Status") }}
+{{ component.listingField(item.status,liclass, "Status") }}
+{{ component.listingField(item.year,liclass, "Year") }}
+{{ component.listingField(item.make,liclass, "Make") }}
+{{ component.listingField(item.model,liclass, "Model") }}
+{{ component.listingField(item.stock_nr,liclass, "Stock #") }}
+{{ component.listingField(item.agApplication,liclass, "Ag Application") }}
+{{ component.listingField(item.type,liclass, "Type") }}
+{{ component.listingField(item.mileage,liclass, "Mileage") }}
+{{ component.listingField(item.priceString,liclass, "Price String") }}
+{{ component.listingField(item.driveType,liclass, "Drive Type") }}
+{{ component.listingField(item.engine,liclass, "Engine") }}
+{{ component.listingField(item.horsePower,liclass, "Horse Power") }}
+{{ component.listingField(item.ofHours,liclass, "Hours") }}
 
-    {% if item.getYear() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Year: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getYear() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getMake() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Make Model: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getMake() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getModel() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Model: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getModel() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getStockNr() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Stock Number: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getStockNr() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getAgApplication() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Ag Application: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getAgApplication() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getType() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Type: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getType() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getMileage() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Mileage: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getPrice() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Price: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getPriceString() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getDriveType() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Drive Type: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getDriveType() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getEngine() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Engine: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getEngine() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getHorsepower() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Horsepower: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getHorsepower() }}</span>
-        </li>
-    {% endif %}
-    {% if item.getOfHours() is not empty %}
-        <li class="{{ liclass }}">
-            <span class="fieldCaption field-status">Hours: </span>
-            <span class="fieldValue fieldValue-status">{{ item.getOfHours() }}</span>
-
-        </li>
-    {% endif %}
     {% if item.getFuelType() is not empty %}
         <li class="{{ liclass }}">
             <span class="fieldCaption field-status">Fuel Type: </span>

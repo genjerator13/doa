@@ -264,6 +264,7 @@
             {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
             {#</div>#}
             {% for item in pagerfanta %}
+                {% set item = item.getData() %}
                 {% if queryUrl is defined %}
                     {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
                 {% else %}
