@@ -326,8 +326,13 @@ body {
 	width: 75%;
 }
 
+.b1 h2,
+.b2 h2,
+.b3 h2,
 .b4 h2,
-.b5 h2 { margin-top: 38px; }
+.b5 h2,
+.b6 h2,
+.b7 h2 { margin-top: 38px; }
 
 .click-here {
 	background-color: #47a7e1;
@@ -645,10 +650,7 @@ and (max-width : 1023px) {
 
 @media only screen and (min-width : 1000px) and (max-width : 1220px) {
 
-	.b4 a{
-		height: 165px;
-	}
-	.b5 a{
+	.b1 a,.b2 a,.b3 a,.b4 a,.b5 a,.b6 a,.b7 a,.b8 a{
 		height: 165px;
 	}
 
@@ -667,10 +669,7 @@ and (max-width : 1023px) {
 
 @media only screen and (max-width : 360px) {
 
-	.b4 a{
-		height: 165px;
-	}
-	.b5 a{
+	.b1 a,.b2 a,.b3 a,.b4 a,.b5 a,.b6 a,.b7 a,.b8 a{
 		height: 165px;
 	}
 }
