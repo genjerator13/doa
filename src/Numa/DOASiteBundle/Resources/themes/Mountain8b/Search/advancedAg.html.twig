@@ -1,0 +1,104 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+
+{% block content %}
+    <h2>Advanced Search Ag</h2>
+    <div id="searchtags"></div>
+    <div id="searchform">
+        {{ form_start(form,{ 'attr': {'class': 'form-horizontal','role':'form','name':'advancedsearchrvs'}}) }}
+        {{ form_errors(form) }}
+        <h3>Find Your Ag</h3>
+        <div class="row">
+            {{ form_row(form.make,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.model,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.agApplication,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.distance,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6 choice','class':'input-group  input-group-sm' }) }}       
+            {{ form_row(form.zip,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm'}) }}
+        </div>    
+        <div class="row">    
+            {{ form_row(form.yearFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.yearTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">    
+            {{ form_row(form.priceFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.priceTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>        
+        <div class="row">
+            {{ form_row(form.keyword,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+            
+        </div>
+        <div class="row">
+            {{ form_row(form.engine,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.horsepower,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.hours,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.fueltype,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>   
+        <div class="row">
+            {{ form_row(form.transmission,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>  
+        <div class="row">
+            {{ form_row(form.stering,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.speedForward,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.speedReverse,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>  
+        <div class="row">
+            {{ form_row(form.tireSize,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.tireEquipment,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.cuttingWidthFrom,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>
+        <div class="row">
+            {{ form_row(form.cuttingWidthTo,{ 'attr': {'class': 'form-control'},'groupclass':'col-sm-6','class':'input-group  input-group-sm' }) }}
+        </div>          
+        <div class="row">
+            {{ form_row(form.withPicture,{ 'attr': {'class': ''},'groupclass':'col-sm-4','class':'input-group  input-group-sm' }) }}
+            {{ form_row(form.isSold,{ 'attr': {'class': ''},'groupclass':'col-sm-3','class':'input-group  input-group-sm' }) }}
+        </div> 
+        <br><br>
+        <div class="form-group">
+            <div class="col-sm-4"></div>
+            <button class="btn btn-default  col-sm-4 " type="submit">Search</button>
+        </div>
+    </div>
+    <script>
+        var treeData = '{{json|raw }}';
+
+        treeX = function(make, model, treeData) {
+            $(make).change(function() {
+                jsonTree = JSON.parse(treeData);
+                var modelJson = jsonTree[$(make).val()];
+                $(model).html($("<option />").val(0).text("Any Model"));
+                $.each(modelJson, function(i) {
+                    var test = modelJson[i];
+                    var key = "";
+                    var value = "";
+                    for (var keyx in modelJson[i]) {
+                        key = keyx;
+                        value = test[keyx];
+                    }
+                    $(model).append($("<option />").val(key).text(value))
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            treeX('#make', '#model', treeData);
+        });
+    </script>
+{% endblock %}
