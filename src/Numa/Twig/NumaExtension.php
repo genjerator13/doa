@@ -44,6 +44,7 @@ class NumaExtension extends \Twig_Extension
             'getDealer' => new \Twig_Function_Method($this, 'getDealer'),
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
             'getPage' => new \Twig_Function_Method($this, 'getPage'),
+            'isLocalHost' => new \Twig_Function_Method($this, 'isLocalHost'),
         );
     }
 
@@ -284,7 +285,10 @@ class NumaExtension extends \Twig_Extension
             $ret = $ret . " " . $word;
         }
         return $ret;
+    }
 
+    public function isLocalHost(){
+        return $this->container->get("numa.dms.user")->isLocalHost();
     }
 
 }
