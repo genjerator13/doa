@@ -1,50 +1,47 @@
 {% import "NumaDOASiteBundle::components.html.twig" as component %}
 {% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
 {% block content %}
-    {% set images = item.getImages2() %}
-    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode()}) %}
+    {% set image = item['coverImageSrc'] %}
+    {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item['urlDescription']|url_encode()}) %}
     {% if searchQ is defined %}
-        {% set detailUrl = path('item_details', {'itemId': item.id, 'description': item.getUrlDescription()|url_encode(),'searchQ':searchQ}) %}
+        {% set detailUrl = path('item_details', {'itemId': item.id, 'description':  item['urlDescription']|url_encode(),'searchQ':searchQ}) %}
     {% endif %}
-    {% set dealer = item.getDealer() %}
+    {% set dealer = item.dealerName %}
     {% if detailUrl is empty %}
         {% set detailUrl = "details" %}
 
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row bottom-margin" url="{{ path('item_compare') }}">
-
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <a href="{{ detailUrl }}" class="thumbnail  picture-detail">
-                {% if item.getImage2() is defined and item.getImage2() is not empty %}
-                    {{ component.image(item.getImage2().getFieldStringValue(), item.getTitle(), '', 'search_image_sea',350) }}
+                {% if image is defined and image is not empty %}
+                    {{ component.image(image, item['title'], '', 'search_image_sea',350) }}
+                {% else %}
+                    {{ component.image(null, 'No image', '', 'search_image_sea', 350) }}
                 {% endif %}
             </a>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
             <h4>
-                <a href="{{ detailUrl }}"><span>{{ item.getTitle() }}</span>
-                    {{ item.getPriceString() }} {% if (item.getSold()==1) %}<span
+                <a href="{{ detailUrl }}"><span>{{ item['title'] }}</span>
+                    {{ item.priceString }} {% if (item.sold==1) %}<span
                             class="badge">Sold</span>{% endif %}
                 </a>
             </h4>
-
-            {% if item.bodyStyle is defined and item.StockNr is defined and item.exteriorColor is defined and item.getItemFieldByName('mileage') is defined %}
-                {% set ignore_fields = ['Image List','dealer','YouTube Video ID','Price','Seller Comment','IW_NO'] %}
-                <ul class="techData  list-unstyled">
-                    {% if item.categoryId()==1 %}
-                        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==2) %}
-                        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==3) %}
-                        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==4) %}
-                        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
-                    {% elseif(item.categoryId()==13) %}
-                        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
-                    {% else %}
-                    {% endif %}
-                </ul>
-            {% endif %}
+            <ul class="techData  list-unstyled">
+                {% if item.category_id==1 %}
+                    {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+                {% elseif(item.category_id==2) %}
+                    {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+                {% elseif(item.category_id==3) %}
+                    {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+                {% elseif(item.category_id==4) %}
+                    {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+                {% elseif(item.category_id==13) %}
+                    {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+                {% else %}
+                {% endif %}
+            </ul>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="checkbox-inline top-buffer">
@@ -66,10 +63,10 @@
                 {#</button>#}
             </div>
 
-            {% if (dealer and app.user and app.user.getId()==dealer.id) or is_granted("ROLE_DEALER_ADMIN") %}
+            {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                 <ul class="list-inline">
                     <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
-                    {% if item.getActive() %}
+                    {% if item.active %}
                         <li><a href="{{ path('items_deactivate',{'id':item.id}) }}">Deactivate</a></li>
                     {% else %}
                         <li><a href="{{ path('items_activate',{'id':item.id}) }}">Activate</a></li>

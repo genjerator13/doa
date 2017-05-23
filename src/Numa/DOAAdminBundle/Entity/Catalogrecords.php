@@ -1214,11 +1214,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $site_url;
 
     /**
      * @var string
+     * @expose
      */
     private $site_theme;
 
@@ -1227,7 +1229,6 @@ class Catalogrecords implements UserInterface
      * Set siteUrl
      *
      * @param string $siteUrl
-     *
      * @return Catalogrecords
      */
     public function setSiteUrl($siteUrl)
@@ -1494,6 +1495,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
      */
     private $Component;
 
