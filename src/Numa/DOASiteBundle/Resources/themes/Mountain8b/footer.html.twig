@@ -1,0 +1,94 @@
+<div class="footer">
+
+    <div class="contact-info">
+
+        <a class="logo" href="{{ path("homepage") }}">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+
+        <p>{{ dealer.address }}<br/>{{ dealer.city }}, {{ dealer.state }}, {{ dealer.country }}</p>
+
+        <p>
+            {% if dealer.phone is not null %}
+            Phone: {{ dealer.phone }}<br/>
+            {% endif %}
+            {% if dealer.fax is not null %}
+            Fax: {{ dealer.fax }}
+            {% endif %}
+        </p>
+
+        <p><a href="">Map and Hours</a></p>
+
+    </div>
+
+
+        <div class="quick-links">
+            <h3>Quick Links</h3>
+            {% set quick_links = displayComponent('quick_links',"template","dealer") %}
+            {% if quick_links != '' %}
+                {{ include(template_from_string(quick_links)) }}
+            {% endif %}
+            {% if quick_links == '' %}
+
+            <ul>
+                <li><a href="{{ path("search_new_vehicle") }}">New Inventory</a></li>
+                <li><a href="{{ path("search_used_vehicle") }}">Pre-Owned Inventory</a></li>
+                <li><a href="{{ path("finance_form") }}">Get Financed</a></li>
+                <li><a href="{{ path('part_form') }}">Parts Department</a></li>
+                <li><a href="">Customer Testimonials</a></li>
+                {% if not(is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN')) %}
+                    <li><a href="{{ path("dms_home") }}">Dealer Login</a></li>
+                {% endif %}
+                {% if is_granted('ROLE_USER') or is_granted('ROLE_BUSINES') or is_granted('ROLE_ADMIN') %}
+                    <li><a class="btn btn-danger btn-xs" href="{{ path('logout') }}">Dealer Logout</a></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </div>
+    {% if dealer.ServiceHours != "" %}
+    <div class="hours">
+
+        <h3>Hours</h3>
+        {{ dealer.ServiceHours|raw }}
+
+    </div>
+    {% endif %}
+    <div class="other-info">
+        <a class="facebook" href="{{ dealer.siteFacebook }}">
+
+            {% image 'bundles/numadoasite/Mountain/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+        {% if dealer.siteYoutube is not null %}
+        <a class="youtube" href="{{ dealer.siteYoutube }}">
+
+            {% image 'bundles/numadoasite/Mountain/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+        {% endif %}
+        <a class="newsletter" href="/newsletter"><span>E-Newsletter</span> Sign-Up</a>
+
+        {%  set extramenu = displayComponent('extramenu',"template","dealer") %}
+        {% if extramenu != 'enter this value of component in DMS' %}
+            {{ include(template_from_string(extramenu)) }}
+        {% endif %}
+        {% if extramenu == 'enter this value of component in DMS' %}
+        <ul>
+            <li><a href="">Policy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Privacy</a></li>
+            <li><a href="">Terms</a></li>
+            <li><a href="">Site Map</a></li>
+        </ul>
+        {% endif %}
+
+        <div class="copyright">Copyright &copy; 2017 {{ dealer.name }}.<br/>All Rights Reserved</div>
+        <div class="content">
+            <a href="http://www.dmscomplete.com/">Powered By DMS Complete</a>
+        </div>
+
+    </div>
+
+</div>

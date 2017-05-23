@@ -1,0 +1,31 @@
+<div class="header">
+    {% if dealer is defined and dealer is not empty %}
+        <a href="{{ path("homepage") }}">
+        {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+        </a>
+    {% endif %}
+    <div class="social-media">
+
+        <div class="connect-with-us">Connect with Us</div>
+
+        <a class="facebook" href="{{ dealer.siteFacebook }}">
+            {% image 'bundles/numadoasite/Mountain/images/facebook.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+
+        {% if dealer.siteYoutube is not null %}
+        <a class="youtube" href="{{ dealer.siteYoutube }}">
+            {% image 'bundles/numadoasite/Mountain/images/youtube.png' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </a>
+        {% endif %}
+    </div>
+
+    <a class="map" href="{{ path('site_page',{'url':"map"}) }}">Map</a>
+    <div class="address">{{ dealer.address }}<br />{{ dealer.city }}, {{ dealer.state }}</div>
+
+    <div class="phone">{{ dealer.phone }}</div>
+
+</div>

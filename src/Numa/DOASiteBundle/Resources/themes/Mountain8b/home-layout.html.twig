@@ -1,0 +1,130 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+    <title>Dealers on Air</title>
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+
+        {% stylesheets 'bundles/numadoasite/Mountain8b/css/template2.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Mountain8b/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+    {% block bodyBackground %}
+        {% include "NumaDOASiteBundle::bodyBg.html.twig" %}
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+</head>
+
+<body>
+<div id="wrapper">
+    {% block header %}
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
+    {% endblock %}
+    {% block mainmenu %}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% endblock %}
+
+    {% block mobilemenu %}
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+    {% endblock %}
+    <div class="container">
+
+        {{ displayComponent("homepage_carousel","carousel",'page','mountain',{"image_size":"carousel_top_mountain", "class": "homepage_carousel"})|raw }}
+
+        <div class="row">
+
+            <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                {{ displayComponent('mountain_button_1','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":1}}) }}
+                {{ displayComponent('mountain_button_2','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":2}}) }}
+            </div>
+            <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                {{ displayComponent('mountain_button_3','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":3}}) }}
+                {{ displayComponent('mountain_button_4','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":4}}) }}
+            </div>
+            <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                {{ displayComponent('mountain_button_5','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":5}}) }}
+                {{ displayComponent('mountain_button_6','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":6}}) }}
+            </div>
+            <div class="button  col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                {{ displayComponent('mountain_button_7','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":7}}) }}
+                {{ displayComponent('mountain_button_8','image','page','mountain8b',{"template":"NumaDOASiteBundle::button_small.html.twig","template_params":{"button":"mountain_small_button","num":8}}) }}
+            </div>
+        </div>
+
+    {% block browse %}
+        <div class="browse">
+
+            <ul>
+                <li><h2><span>Browse</span> by Type</h2></li>
+                <li><a class="motorhome"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'class-c-motorhome'}) }}">Motorhome</a>
+                </li>
+                <li><a class="travel-trailer"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer'}) }}">Travel
+                        Trailer</a></li>
+                <li><a class="fifth-wheel"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': '5th-wheel'}) }}">Fifth
+                        Wheel</a></li>
+                <li><a class="toy-hauler"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'travel-trailer-toy-hauler'}) }}">Toy
+                        Hauler</a></li>
+                <li><a class="park-models"
+                       href="{{ path('search_by_rvs_type',{'category': 'rvs','rvsTypeSlug': 'pop-up'}) }}">Park
+                        Models</a></li>
+            </ul>
+
+        </div>
+    </div>
+    {% endblock %}
+    {% block banner %}
+
+        <div class="banner"><img src="images/banner.jpg"/></div>
+        <div class="banner">
+
+            <div class="image">
+                {% image 'bundles/numadoasite/Mountain/images/banner.jpg' %}
+                <img src="{{ asset_url }}" alt="Example"/>
+                {% endimage %}
+            </div>
+
+        </div>
+    {% endblock %}
+    {% block content %}
+        <div class="content">
+            {{ displayComponent('page_content',"HTML")|raw }}
+        </div>
+    {% endblock %}
+
+</div>
+{% block footer %}
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
+{% endblock %}
+
+</div>
+{% if dealer is defined and dealer.settingPurechat is not empty %}
+    {{ dealer.settingPurechat|raw }}
+{% endif %}
+</body>
+</html>
+
