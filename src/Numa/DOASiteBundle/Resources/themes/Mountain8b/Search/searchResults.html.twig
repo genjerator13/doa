@@ -1,0 +1,306 @@
+<div class="searchResults">
+    <div class="saved-search">
+        <a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save
+            this Search</a>
+        <a href="{{ path('compared_listings') }}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View
+            comparision results</a>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="">
+                        <div class="input-group">
+                            <div class="form-group  ">
+                                <label>Set search name:</label>
+                                <input type="search" class="form-control" required="required" name="savesearch"
+                                       id="savesearch">
+                            </div>
+                                    <span class="input-group-btn">
+                                        <a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>
+                                        <script>
+                                            $('a.ajaxSaveSearch').on('click', function () {
+
+                                                //$(this).parent().parent().html("aaaa");
+                                                //alert("aaa");
+                                                var savesearch = $("#savesearch").val();
+                                                var jqxhr = $.post("{{ path('search_save') }}", {
+                                                    name: savesearch,
+                                                    url: document.URL
+                                                }, function (data) {
+                                                    htmlx = "";
+
+                                                    if (data.savedSearch > 0) {
+                                                        htmlx = "(" + data.savedSearch + ")";
+                                                    }
+                                                    $('.savedSearch').html(htmlx);
+                                                    $('.modal-body').html("Search saved");
+                                                    setTimeout(function () {
+                                                        $('#saveSearch').modal('hide');
+                                                    }, 5000);
+
+                                                })
+                                            })
+                                        </script>
+                                    </span>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    {% if pagerfanta is empty %}
+        No results
+    {% else %}
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-sm-12">
+                {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+            </div>
+        </div>
+    {% endif %}
+    <div class="row bottom-margin">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">Number of listings per page:
+
+            {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+            <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}" name="searchSource"
+                   id="searchSource">
+
+            <script>
+                $('.listingsNumber').change(function () {
+                    lnr = parseInt(($(this).val()));
+                    {% if queryUrl is defined %}
+                    url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
+                    url = url.replace(/&amp;/g, '&');
+                    //console.log(url);
+                    //console.log("{{ queryUrl }}");
+                    window.location.href = url;
+                    {% else %}
+
+
+                    console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
+                    //window.open(url.replace("&amp;","&"));
+                    {% endif %}
+                })
+            </script>
+        </div>
+        {% set sortYearUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
+        {% endset %}
+        {% if sort_by=='year' and sort_order == 'asc' %}
+            {% set sortYearUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortPriceUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc
+        {% endset %}
+        {% if sort_by=='price' and sort_order == 'asc' %}
+            {% set sortPriceUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortPicturesUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc
+        {% endset %}
+        {% if sort_by=='pictures' and sort_order == 'asc' %}
+            {% set sortPicturesUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortMakeUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
+        {% endset %}
+        {% if sort_by=='make' and sort_order == 'asc' %}
+            {% set sortPriceUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortMileageUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc
+        {% endset %}
+        {% if sort_by=='mileage' and sort_order == 'asc' %}
+            {% set sortMileageUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        {% set sortDateUrl %}
+            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
+        {% endset %}
+        {% if sort_by=='date_created' and sort_order == 'asc' %}
+            {% set sortDateUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
+            {% endset %}
+        {% endif %}
+
+        <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
+            Sort by:
+            <a href="{{ sortPicturesUrl }}">
+                {% if sort_by=='pictures' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='pictures' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Photos
+            </a>
+            |
+            <a href="{{ sortYearUrl }}">
+                {% if sort_by=='year' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='year' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Year
+            </a>
+            |
+            <a href="{{ sortMakeUrl }}">
+                {% if sort_by=='make' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='make' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Make / Model
+            </a>
+            |
+            <a href="{{ sortMileageUrl }}">
+                {% if sort_by=='mileage' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='mileage' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Mileage
+            </a>
+            |
+            <a href="{{ sortPriceUrl }}">
+                {% if sort_by=='price' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='price' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Price
+            </a>
+            |
+            <a href="{{ sortDateUrl }}">
+                {% if sort_by=='date_created' and sort_order=='asc' %}
+                    <i class="glyphicon glyphicon-sort-by-attributes"></i>
+                {% elseif(sort_by=='date_created' and sort_order=='desc') %}
+                    <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>
+                {% endif %}
+                Date
+            </a>
+
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">{{ pagerfanta|length }} listings found</div>
+    </div>
+    <div class="row">
+        <div id="listing-content" class="col-md-8">
+            {#<div class="page_ads">#}
+            {#<iframe  height="150px" width="150px;" src="http://doa.local/ads/50" frameborder="0"></iframe>#}
+
+            {#{% include 'NumaDOASiteBundle:Ads:right-sidebar.html.twig' %}#}
+            {#</div>#}
+            {% for item in pagerfanta %}
+                {% set item = item.getData() %}
+                {% if queryUrl is defined %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                {% else %}
+                    {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="searchSideBar col-md-4">
+            {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        </div>
+        <div class="page_ads col-md-4">
+            {% include 'NumaDOASiteBundle:Ads:themes-right-sidebar.html.twig' %}
+        </div>
+    </div>
+    <div class="col-md-12">
+        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
+    </div>
+</div>
+
+{% include "@NumaDOASite/TemplatesElements/searchModals.html.twig" %}
+
+<script>
+
+    ajaxSearch = function () {
+        $("#sidebarSearch").submit();
+    }
+    $(document).on('change', '#sidebarSearch select', function () {
+        ajaxSearch();
+    });
+    $(document).on('change', '#sidebarSearch input', function () {
+        ajaxSearch();
+    });
+
+
+</script>
+<script type="text/javascript">
+    num = 10;
+    {% if listing_per_page is defined %}
+    num = parseInt({{ listing_per_page }});
+    {% endif %}
+    $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
+    {#$('select#numberoflisting').change(
+            function() {
+                var ss = $("#searchSource").val();
+                ss = ss + $("#numberoflisting").val()
+                console.log(ss);
+                $(this).closest('form').submit();
+
+            });#}
+</script>
+
+<script>
+    $(".saveAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        console.log(itemId);
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
+        }
+        var jqxhr = $.post("{{ path('item_savead') }}", {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.savedAds > 0) {
+                htmlx = "(" + data.savedAds + ")";
+            }
+            $('.savedAds').html(htmlx);
+        })
+
+    });
+    $(".compareAd").on("click", function () {
+        var itemId = $(this).closest('.item-row').attr("data");
+        var url = $(this).closest('.item-row').attr("url");
+
+        var act = "add";
+        if (!$(this).prop('checked')) {
+            act = "remove";
+        }
+        var jqxhr = $.post(url, {itemid: itemId, act: act}, function (data) {
+            htmlx = "";
+            if (data.comparedItes > 0) {
+                htmlx = "(" + data.comparedItes + ")";
+            }
+            $('.savedAds').html(htmlx);
+        })
+
+    });
+</script>
+<!-- /.modal -->
+<div class="loadingmodal"></div>
