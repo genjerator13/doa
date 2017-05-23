@@ -729,7 +729,7 @@ and (max-width: 767px) {
     z-index: 1000;
     position: relative;
     top: 0px;
-    right: 0px;
+    right: 15px;
 }
 
 .listing-buttons button {

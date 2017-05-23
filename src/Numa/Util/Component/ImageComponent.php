@@ -34,28 +34,22 @@ class ImageComponent extends ComponentView
 
         $em = $this->container->get("doctrine.orm.entity_manager");
         $images = $em->getRepository("NumaDOAAdminBundle:ImageCarousel")->findByComponent($this->componentEntity);
-        $src = false;
-        $template = false;
-        if (!empty($this->setting['output']) && ($this->setting['output'] == "src")) {
-            $src = true;
-        }
-        if (!empty($this->setting['template'])) {
-            $template = true;
-        }
 
         if(!empty($images[0]) && $images[0] instanceof ImageCarousel){
-            if ($template) {
+            if (!empty($this->setting['template'])) {
                 $html = $this->processSetting($images[0]);
-//dump($html);
                 return $this->componentWrapper($this->componentEntity,$html);
             }
-            if($src) {
+            if (!empty($this->setting['output']) && ($this->setting['output'] == "src")) {
                 $res = $images[0]->getSrc();
                 $templating  = $this->container->get('templating');
 
                 return "/upload/dealers/" . $res;
             }
 
+            if (!empty($this->setting['output']) && ($this->setting['output'] == "image_text")) {
+                return $this->componentEntity->getValue();
+            }
 
             return $images[0];
         }

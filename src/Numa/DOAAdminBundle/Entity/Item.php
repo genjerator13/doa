@@ -1209,6 +1209,18 @@ class Item
         return $this->dealer_id;
     }
 
+    public function getDealerName(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getName();
+        }
+    }
+
+    public function getDealerPhone(){
+        if($this->getDealer() instanceof Catalogrecords){
+            return $this->getDealer()->getPhone();
+        }
+    }
+
     /**
      * Set Dealer
      *

@@ -42,6 +42,8 @@ fos_elastica:
                           type : date
                         dealer_id:
                           type: integer
+                        dealerName: ~
+                        dealerPhone: ~
                         category_id:
                           type: integer
                         categoryName: ~
@@ -88,6 +90,14 @@ fos_elastica:
                         archiveStatus: ~
                         dealerGroup:
                             type: integer
+                        coverImageSrc: ~
+                        urlDescription: ~
+                        title: ~
+                        lastUpdated: ~
+                        priceString: ~
+                        length: ~
+                        engine: ~
+                        agApplication: ~
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
@@ -102,3 +112,4 @@ fos_elastica:
                             update: true
                             delete: true
                         finder: ~
+                        repository: Numa\DOASiteBundle\Search\ItemRepository
