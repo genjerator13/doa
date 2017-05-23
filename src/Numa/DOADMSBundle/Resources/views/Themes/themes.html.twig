@@ -32,6 +32,13 @@
                 <div class="themeLink"><a href="http://mountain.dealersonair.com" target="_blank">Mountain Theme
                         Demo</a></div>
             </div>
+            <div class="col-md-6 theme thumbnail {% if theme == "Mountain8b" %}themeactive{% endif %}" id="theme3"
+                 data-name="Mountain8b">
+                {{ component.image('images/themes/theme3.jpg', 'theme1', 'thumbnail', 'themes_image','400px') }}
+                <h4>Mountain 8 buttons Theme</h4>
+                <div class="themeLink"><a href="http://mountain8b.dealersonair.com" target="_blank">Mountain 8 buttons Theme
+                        Demo</a></div>
+            </div>
             <div class="col-md-6 theme thumbnail {% if theme == "Forest" %}themeactive{% endif %}" id="theme4"
                  data-name="Forest">
                 {{ component.image('images/themes/theme4.jpg', 'theme1', 'thumbnail', 'themes_image','400px') }}
@@ -46,6 +53,7 @@
                 <div class="themeLink"><a href="http://garden.dealersonair.com" target="_blank">Garden Theme Demo</a>
                 </div>
             </div>
+            {% if is_granted("ROLE_ADMIN") %}
             <div class="col-md-6 theme thumbnail {% if theme == "Tnt" %}themeactive{% endif %}" id="theme5"
                  data-name="Tnt">
                 {{ component.image('images/themes/theme_tnt.png', 'theme1', 'thumbnail', 'themes_image','400px') }}
@@ -53,6 +61,7 @@
                 <div class="themeLink"><a href="http://tnt.dealersonair.com" target="_blank">Tnt Theme Demo</a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
     <div class="clear"></div>
