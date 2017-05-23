@@ -349,11 +349,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $logo;
 
     /**
      * @var string
+     * @Expose
      */
     private $logo_url;
 
