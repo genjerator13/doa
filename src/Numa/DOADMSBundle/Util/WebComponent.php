@@ -41,8 +41,9 @@ class WebComponent
             $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
         }
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $host = trim(strip_tags($request->getHost()));
-        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+        //$host = trim(strip_tags($request->getHost()));
+        //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+        $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
 
         $dealer_id = null;

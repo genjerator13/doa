@@ -1,14 +1,14 @@
 <ul class="techData list-unstyled">
     {% if item.categoryId()==1 %}
-        {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
+        {% include 'NumaDOASiteBundle:Item:carDetailsSmallDB.html.twig' %}
     {% elseif(item.categoryId()==2) %}
-        {% include 'NumaDOASiteBundle:Item:marineDetailsSmall.html.twig' %}
+        {% include 'NumaDOASiteBundle:Item:marineDetailsSmallDB.html.twig' %}
     {% elseif(item.categoryId()==3) %}
-        {% include 'NumaDOASiteBundle:Item:motoDetailsSmall.html.twig' %}
+        {% include 'NumaDOASiteBundle:Item:motoDetailsSmallDB.html.twig' %}
     {% elseif(item.categoryId()==4) %}
-        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmall.html.twig' %}
+        {% include 'NumaDOASiteBundle:Item:rvsDetailsSmallDB.html.twig' %}
     {% elseif(item.categoryId()==13) %}
-        {% include 'NumaDOASiteBundle:Item:agDetailsSmall.html.twig' %}
+        {% include 'NumaDOASiteBundle:Item:agDetailsSmallDB.html.twig' %}
     {% else %}
     {% endif %}
 </ul>
