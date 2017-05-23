@@ -397,7 +397,7 @@ liip_imagine:
         mountain_logo_home:
             quality: 100
             filters:
-                relative_resize: { widen: 290 }
+                relative_resize: { widen: 215 }
 #        brands_forest:
 #            quality: 100
 #            filters:
