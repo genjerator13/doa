@@ -187,4 +187,9 @@ class DmsUserLib
         return implode(",", $dealer_id);
     }
 
+    public function isLocalHost(){
+        $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
+        return (strpos($host, '.local') !== false);
+    }
+
 }
