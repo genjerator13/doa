@@ -45,6 +45,7 @@ Numa\DOADMSBundle\Entity\DealerComponent:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
             inversedBy: dealer_component
+            #cascade: ["persist"]
             joinColumn:
                 name: dealer_id
                 referencedColumnName: id
