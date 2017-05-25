@@ -23,7 +23,7 @@ class DealerSiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('site_theme', 'choice', array('label' => "Theme", "choices" => array('Default' => "Default", "Sea" => "Sea", "Mountain" => "Mountain", "Mountain8b" => "Mountain8b", "Forest" => "Forest", "Garden" => "Garden", "Tnt" => "Tnt")))
+            ->add('site_theme', 'choice', array('label' => "Theme", "choices" => array('Default' => "Default", "Sea" => "Sea", "Mountain" => "Mountain", "Mountain8b" => "Mountain8b", "Forest" => "Forest", "Garden" => "Garden")))
             ->add('site_url', null, array('label' => 'URL'))
             ->add('site_facebook', null, array('label' => 'Facebook'))
             ->add('site_youtube', null, array('label' => 'Youtube'))
