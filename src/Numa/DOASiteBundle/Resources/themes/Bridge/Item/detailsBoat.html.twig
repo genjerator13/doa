@@ -1,0 +1,80 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme driveForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme epriceForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme financeForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme contactForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerForm with ['bootstrap_3_horizontal_layout.html.twig',_self] %}
+{% form_theme offerTradeInForm with ['bootstrap_3_horizontal_layout.html.twig'] %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+{% endblock %}
+{% block title %}
+    {% if(seo is not empty and seo.getTitle() is not empty and seo.getActive()) %}
+        <title>{{ seo.getTitle() }}</title>
+    {% else %}
+        {# default meta title #}
+        <title>{{ title }}: {{ item.getTitle() }}</title>
+    {% endif %}
+{% endblock title %}
+
+{% block description %}
+
+    {% if(seo is not empty and seo.getDescription() is not empty and seo.getActive()) %}
+        <meta name="description" content="{{ seo.getDescription() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::description.html.twig") }}
+    {% endif %}
+{% endblock description %}
+{% block keyword %}
+    {% if(seo is not empty and seo.getKeywords() is not empty and seo.getActive()) %}
+        <meta name="keywords" content="{{ seo.getKeywords() }}"/>
+    {% else %}
+        {# default meta description #}
+        {{ include("NumaDOASiteBundle::keywords.html.twig") }}
+    {% endif %}
+{% endblock keyword %}
+
+
+{% block content %}
+    <div class="detailsContent">
+        {% include "@NumaDOAAdmin/flashmsg.html.twig" %}
+        {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
+        <div class="listing-images row">
+            <div class="left col-md-6">
+                {% include "NumaDOASiteBundle:TemplatesElements:imageSlideshow.html.twig" %}
+            </div>
+
+            <div class='listing-right col-md-6'>
+                <div class="listing-box-top">
+                    <div class="basic_data col-md-7">
+                        {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
+                        {% include "@NumaDOASite/TemplatesElements/vehicleSmallDetails.html.twig" %}
+                    </div>
+                    <div class="listing-buttons col-md-5">
+                        {% include "@NumaDOASite/TemplatesElements/listingFormButtons.html.twig" with {'buttonClass': 'warning'} %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% include "@NumaDOASite/TemplatesElements/vehicleDescription.html.twig" %}
+        </div>
+        <div class="row">
+            {% include "@NumaDOASite/TemplatesElements/vehicleDetails.html.twig" %}
+        </div>
+        {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
+        {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+    </div>
+    <!-- Button trigger modal -->
+    {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
+{% endblock %}
+

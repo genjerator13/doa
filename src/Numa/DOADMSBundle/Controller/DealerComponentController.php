@@ -199,8 +199,9 @@ class DealerComponentController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->flush();
 
+            $em->flush();
+            $this->container->get('mymemcache')->deleteDealerCache($entity->getDealer());
             return $this->redirect($this->generateUrl('dealercomponent_edit', array('id' => $id)));
         }
 
