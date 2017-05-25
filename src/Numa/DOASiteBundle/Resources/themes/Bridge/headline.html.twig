@@ -1,0 +1,43 @@
+<div class="content">
+    {% if dealer is defined and dealer is not empty %}
+    <a class="logo" href="{{ path("homepage") }}">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+    </a>
+    <div class="contact-info">
+        <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}</div>
+        <a class="map-and-hours" href=""></a>
+
+        <div class="phone">{{ dealer.phone }}
+            <div class="social-media">
+                {% if dealer.siteFacebook is not null %}
+                    <a class="facebook" href="{{ dealer.siteFacebook }}">
+                        <img alt="Facebook" src="/images/49b512a_facebook_1.png">
+                    </a>
+                {% endif %}
+                {% if dealer.siteTwitter is not null %}
+                    <a class="twitter" href="{{ dealer.siteTwitter }}">
+                        <img alt="Twitter" src="/images/61f39f0_twitter_1.png">
+                    </a>
+                {% endif %}
+                {% if dealer.siteGoogle is not null %}
+                    <a class="google" href="{{ dealer.siteGoogle }}">
+                        <img alt="Google" src="/images/73f6fc5_google_1.png">
+                    </a>
+                {% endif %}
+                {% if dealer.siteYoutube is not null %}
+                    <a class="youtube" href="{{ dealer.siteYoutube }}">
+                        <img alt="Youtube" src="/images/cb8d7e1_youtube_1.png">
+                    </a>
+                {% endif %}
+                {% if dealer.siteInstagram is not null %}
+                    <a class="instagram" href="{{ dealer.siteInstagram }}">
+                        <img alt="Instagram" src="/images/d68d708_instagram_1.png">
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+
+
+    </div>
+    {% endif %}
+</div>

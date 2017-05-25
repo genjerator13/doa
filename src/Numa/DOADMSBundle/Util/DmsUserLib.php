@@ -127,7 +127,8 @@ class DmsUserLib
     public function getCurrentSiteHost()
     {
         $router = $this->container->get('router');
-        return $router->getContext()->getHost();
+        $host = str_replace("www.", "", $router->getContext()->getHost());
+        return $host;
     }
 
     public function getScheme()
@@ -141,7 +142,7 @@ class DmsUserLib
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
         //check if www
-        $host = str_replace("www.", "", $host);
+        //$host = str_replace("www.", "", $host);
 
         $serializer = $this->container->get('serializer');
 
@@ -153,7 +154,7 @@ class DmsUserLib
             $mDealer = $serializer->serialize($desDealer, "json");
 
             $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
-            //dump($mDealer);die();
+
         } else {
             $desDealer=null;
 

@@ -1,0 +1,149 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    {% include 'NumaDOASiteBundle::favicons.html.twig' %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0"/>
+
+    <title>Dealers on Air</title>
+    <meta name="description" content=" "/>
+    <meta name="keywords" content=" "/>
+    {% block stylesheets %}
+
+        {% stylesheets '@bootstrap'  'bundles/numadoasite/Bridge/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
+        <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+        {% endstylesheets %}
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Tnt/js/mobilemenu.js" %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+    {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+</head>
+
+<body>
+<header class="site-header">
+    {% block headline %}
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
+    {% endblock %}
+
+    {% block mainmenu %}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% endblock %}
+
+    {% block mobilemenu %}
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+    {% endblock %}
+</header>
+{% block banner %}
+    <div class="banner">
+
+        <div class="image">
+            {% image 'bundles/numadoasite/Sea/images/banner.jpg' %}
+            <img src="{{ asset_url }}" alt="Example"/>
+            {% endimage %}
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block featuredads %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
+{% endblock %}
+<main class="site-content layout-full-width-no-padding">
+    <section class="splash keyword-search-on " style="background-image:url(https://i0.wp.com/www.truxrus.com/wp-content/uploads/sites/245/2016/09/chevrolet-hero-1.jpg?ssl=1);">
+
+        <div class="hero-content">
+            <div class="group">
+                <h2>Browse Our Huge Stock of Commercial Trucks and Vans</h2>
+
+                <div class="container">
+                    <form action="/inventory/search" id="querySearchForm" class="keyword-search-form">
+                        <div class="row">
+                            <div class="the-input">
+                                <label class="sr-only" for="query">Find a vehicle</label>
+                                <input class="form-control" name="query" placeholder="Search by make, model or keyword" type="text">
+                            </div>
+                            <div class="button-col">
+                                <button type="submit" id="quickSearchSubmit" class="btn quick-search-button">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <a href="/inventory/used/2015-ford-f-350-saskatoon-saskatchewan/10835845" class="btn btn-primary">Shop Flat Decks</a>
+
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Cargo%20Van" class="btn btn-primary">Shop Cargo Vans</a>
+
+                <a href="/" class="btn btn-primary">Shop Cube Vans</a>
+
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-primary">Shop Chassis Cabs</a>
+
+
+            </div>
+        </div>
+    </section>
+    <div class="content">
+        <div class="alertz hide alert"></div>
+        {% block content %}
+
+        {% endblock %}
+
+        {% block info %}
+            <div class="info">
+                <ul>
+                    <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+                    <li>
+                        <h2>{{ dealer.name }}</h2>
+
+                        <div class="address">
+                            {{ dealer.address }}<br>
+                            {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
+                        </div>
+                        {% if dealer.phone is defined and dealer.phone is not empty %}
+                            <div class="phone">
+                                <span>Phone:</span> {{ dealer.phone }}<br>
+                            </div>
+                        {% endif %}
+                    </li>
+                    {% if dealer.ServiceHours is not empty %}
+                        <li>
+                            <h2>Hours Of Operation</h2>
+                            {{ dealer.ServiceHours|raw }}
+                        </li>
+                    {% endif %}
+                    {% if displayComponent('quick_links',"HTML","dealer") is not empty %}
+                        <li>
+                            <h2>Quick Links</h2>
+                            {{ displayComponent('quick_links',"HTML","dealer")|raw }}
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        {% endblock %}
+
+        {% block map %}
+            {% include '@NumaDOASite/map.html.twig' %}
+        {% endblock %}
+    </div>
+</main>
+
+{% block footer %}
+    {% include 'NumaDOASiteBundle::footer.html.twig' %}
+{% endblock %}
+<div id="loading-indicator" class="loading_info">
+    <i class="fa fa-spinner fa-pulse fa-spin fa-5x"></i>
+</div>
+</body>
+</html>
