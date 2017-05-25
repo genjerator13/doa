@@ -405,6 +405,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
                 }
 
                 $em->flush();
+                $this->container->get('mymemcache')->deleteDealerCache($entity);
                 $this->addFlash("success", "Dealer: " . $entity->getName() . " successfully updated.");
                 $securityContext = $this->container->get('security.context');
 //                if ($securityContext->isGranted('ROLE_DEALER_ADMIN') || $securityContext->isGranted('ROLE_BUSINES') ) {
