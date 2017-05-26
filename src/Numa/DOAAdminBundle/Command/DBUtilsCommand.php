@@ -700,25 +700,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         if(!empty($ftp_server)) {
             $clo = $commandLog->startNewCommand($command, "feeds");
             $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
-//            $conn_id = ftp_connect($ftp_server);
-//            $logger->warning("connect to ftp...");
-//
-//
-//            $commandLog->append($clo, "connect to ftp...");
-//            // login with username and password
-//            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
-//
-//            // upload a file
-//
-//            $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
-//
-//            $commandLog->append($clo, "uploading file on FTP :" . $feedsKijiji . "----");
-//            if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
-//                $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
-//            }
-//
-//            // close the connection/
-//            ftp_close($conn_id);
+
             $commandLog->endCommand($clo);
         }
     }
