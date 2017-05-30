@@ -330,7 +330,169 @@ header .content{
     color: black;
 }
 
+/* listing detail */
+.detailsContent .row {
+    margin: 0px;
+    border: 1px solid lightslategray;
+}
+.detailsContent .row p{
+    padding: 10px;
+}
 
+.listing-buttons div{
+    padding: 0px;
+    text-align: right;
+    z-index:1000;
+    position: relative;
+    top: 0px;
+    right:0px;
+}
+
+.listing-buttons button{
+    text-align: right;
+    font-weight: bold;
+
+}
+
+.listing-box-top {
+    min-height: 200px;
+}
+
+
+#listing-content .row{
+    margin: 0px;
+    border: 1px solid lightslategray;
+}
+.row .items{
+    padding: 15px 0 0 0;
+}
+.items .picture-detail .noPhoto{
+    width: 320px;
+    height: 220px;
+}
+.searchSideBar{
+    border: 1px solid black;
+    min-height: 500px;
+    padding-top: 18px;
+}
+.searchSideBar .form-group{
+    margin-bottom: 13px;
+}
+
+.page_ads{
+    margin-top: 20px;
+    float: right;
+    width: 350px;
+}
+
+.page_ads .right-side-ads img{
+    /*margin-left: 10px;*/
+    margin-bottom: 22px;
+}
+
+.detailsContent .option-lists{
+    margin-left: 50px;
+}
+.detailsContent h2.section{
+    margin: 0px;
+    font-size: 130%;
+    padding: 5px;
+    background-color: #111111;
+    color: #c51633;
+    font-family:'Fjalla One','Open Sans', sans-serif;
+}
+
+.detailsContent .row {
+    margin-bottom: 20px;
+}
+.detailsContent .retail_price {
+    color: #c51633;
+    text-decoration-line: line-through;
+    font-size: 130%;
+}
+.detailsContent .price {
+    font-size: 160%;
+    font-weight: bold;
+}
+
+.detailsContent .price-quote {
+    font-size: 130%;
+    font-weight: bold;
+}
+
+
+.title{
+    color: black;
+}
+.detailsContent  .left{
+    padding:0;
+    min-height: 400px;
+}
+.detailsContent .row{
+
+}
+.listing-right{
+    height: 100%;
+    position: relative;
+    min-height: 400px;
+    padding-right: 0;
+
+}
+.modal-body .offerTradeIn div{
+    margin: 2px 0px;
+}
+.modal-dialog .offerTradeIn-content{
+    min-width: 710px;
+}
+.btn-lightgrey{
+    background-color: lightgrey;
+}
+
+/* ==========================================================================
+   Info
+   ========================================================================== */
+
+.info { margin: 20px 0; }
+
+.info > ul {
+    border-spacing: 20px;
+    display: table;
+    margin: 0 auto;
+    max-width: 1060px;
+    width: 100%;
+}
+
+.info > ul > li {
+    color: #858585;
+    display: table-cell;
+    font-weight: 300;
+    vertical-align: top;
+}
+
+.info h2 {
+    color: #000;
+    font-size: 17px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-family:"Fjalla One",'Open Sans', sans-serif;
+}
+
+.info a {
+    background: url("../images/orange-small-arrow.png") left center no-repeat;
+    /*color: #c51633;*/
+    padding-left: 8px;
+    text-decoration: none;
+    font-family:"Fjalla One",'Open Sans', sans-serif;
+}
+
+.info a:hover { text-decoration: underline; }
+
+/*.info span { color: #c51633; }*/
+
+.info img { max-width: 100%; }
+
+.info li { list-style: none; }
 
 /* ==========================================================================
    Footer
@@ -342,6 +504,7 @@ header .content{
 }
 
 .footer {
+    padding-top: 70px;
     color: #fff;
     margin: 0 auto;
     max-width: 1020px;
@@ -370,7 +533,7 @@ header .content{
 
 .footer a {
     /*color: #c51633;*/
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -394,7 +557,9 @@ header .content{
     /*border-left: none;*/
     /*padding-left: 0;*/
 }
-
+.footer .copyright{
+    paddin-top: 70px;
+}
 #map {
     height: 260px;
     width: 100%;
