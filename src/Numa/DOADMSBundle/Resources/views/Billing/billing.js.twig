@@ -1,3 +1,4 @@
+//var app = angular.module('myApp', ['angular-loading-bar']);
 var app = angular.module('myApp', []);
 var names = [];
 
@@ -115,7 +116,21 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.find = $scope.VIN;
         }
 
+        console.log($scope.find);
+        if($scope.find.length == 0){
+            $scope.listingyear = "";
+            $scope.listingmake = "";
+            $scope.listingmodel = "";
+            $scope.listingmileage = "";
+            $scope.listingtrim = "";
+            $scope.VIN = "";
+            $scope.stock = "";
+            $scope.item_id = "";
 
+            $scope.color = "";
+            $scope.new = "";
+            $scope.used = "";
+        }
         if ($scope.find.length > 2) {
 
             $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
@@ -165,9 +180,11 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                             }
 
                         }
+
                     });
 
         }
+
     }
 
 });

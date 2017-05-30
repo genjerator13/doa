@@ -699,12 +699,41 @@ class DBUtilsCommand extends ContainerAwareCommand
         $ftp_user_pass = $dealer->getFeedKijijiPassword();
         if(!empty($ftp_server)) {
             $clo = $commandLog->startNewCommand($command, "feeds");
-            $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer_id);
+
+            $logger->warning("connect to ftp...");
+
+
+            $commandLog->append($clo, "connect to ftp...");
+            $feedsKijiji=$this->uploadToKijijiServer($dealer);
+            $commandLog->append($clo, "uploading file on FTP :" . $feedsKijiji . "----");
+            // close the connection/
 
             $commandLog->endCommand($clo);
         }
     }
 
+    public function uploadToKijijiServer(Catalogrecords $dealer){
+        $logger = $this->getContainer()->get('logger');
+
+        $ftp_server = $dealer->getFeedKijijiUrl();
+        $ftp_user_name = $dealer->getFeedKijijiUsername();
+        $ftp_user_pass = $dealer->getFeedKijijiPassword();
+
+        $conn_id = ftp_connect($ftp_server);
+        // login with username and password
+        ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+
+        // upload a file
+        $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
+
+        $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
+
+        ftp_close($conn_id);
+        if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
+            $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
+        }
+        return $feedsKijiji;
+    }
     public function kijijiAllDealers()
     {
         $logger = $this->getContainer()->get('logger');

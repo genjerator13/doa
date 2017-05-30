@@ -211,7 +211,7 @@ class ItemRepository extends EntityRepository
         $qb->andWhere("i.active=1");
         $qb->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
         if ($sold !== null) {
-            $qb->andWhere("i.sold=:sold");
+            $qb->andWhere("i.sold=:sold or i.sold is null");
             $qb->setParameter("sold", $sold);
         }
         $itemsQuery = $qb->getQuery()->useResultCache(true);
@@ -427,7 +427,7 @@ class ItemRepository extends EntityRepository
 
         $qb->setParameter("find", "%" . $find . "%");
 
-        $qb->andWhere('i.sold <> 1');
+        $qb->andWhere('i.sold <> 1 or i.sold is null');
 
         $query = $qb->getQuery();
         $res = $query->getResult();
@@ -686,10 +686,13 @@ class ItemRepository extends EntityRepository
             $suffix .= " and i.category_id=" . $category;
         }
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
-
-        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and i.sold=$sold" . $suffix;
+        $soldSQL = "i .sold=$sold ";
+        if($sold==0){
+            $soldSQL = " i.sold=0 OR i.sold is null ";
+        }
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and ".$soldSQL . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and i.sold=$sold" . $suffix;
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and".$soldSQL . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -908,7 +911,7 @@ SET i.cover_photo = iif.field_string_value";
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.active=1')
             ->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'')
-            ->andWhere('i.sold=0');
+            ->andWhere('i.sold=0 or i.sold is null');
 
         if (!empty($date) && empty($date1)) {
             $qb->andWhere('i.date_created > :date')
@@ -944,7 +947,7 @@ SET i.cover_photo = iif.field_string_value";
             ->setParameter("archiveStatus", 'archived')
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
-            ->andWhere('i.sold_date IS NOT NULL')
+           // ->andWhere('i.sold_date IS NOT NULL')//????
             ->andWhere('i.sold_date < :date')
             ->setParameter("date", new \DateTime($period));
 
