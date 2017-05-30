@@ -3,13 +3,14 @@
 namespace Numa\DOAAdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats();
+        $stats = $this->get('Numa.Dashboard.Stats')->dashboardStats($request);
         return $this->render('NumaDOAAdminBundle:Default:index.html.twig',
             $stats);
     }

@@ -1,4 +1,5 @@
-var app = angular.module('myApp', ['angular-loading-bar']);
+//var app = angular.module('myApp', ['angular-loading-bar']);
+var app = angular.module('myApp', []);
 var names = [];
 
 app.controller('myCtrl', function ($scope, $http, $element) {
@@ -130,7 +131,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.new = "";
             $scope.used = "";
         }
-        if ($scope.find.length > 1) {
+        if ($scope.find.length > 2) {
 
             $http.get("/api/listings/" + $scope.find + "/uniques.json?field=" + field)
                     .then(function (response) {
