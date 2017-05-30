@@ -718,19 +718,22 @@ class DBUtilsCommand extends ContainerAwareCommand
         $ftp_server = $dealer->getFeedKijijiUrl();
         $ftp_user_name = $dealer->getFeedKijijiUsername();
         $ftp_user_pass = $dealer->getFeedKijijiPassword();
+        $feedsKijiji="";
+        if(!empty($ftp_server)) {
+            $conn_id = ftp_connect($ftp_server);
+            // login with username and password
+            ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
 
-        $conn_id = ftp_connect($ftp_server);
-        // login with username and password
-        ftp_login($conn_id, $ftp_user_name, $ftp_user_pass);
+            // upload a file
+            $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
 
-        // upload a file
-        $feedsKijiji = $this->getContainer()->get('listing_api')->makeKijijiFromDealerId($dealer->getId());
+            $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
 
-        $logger->warning("uploading file on FTP :" . $feedsKijiji . "----");
 
-        ftp_close($conn_id);
-        if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
-            $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
+            if (!ftp_put($conn_id, "kijiji.csv", $feedsKijiji, FTP_ASCII)) {
+                $logger->error("ERROR uploading file on FTP :" . $feedsKijiji . "----");
+            }
+            ftp_close($conn_id);
         }
         return $feedsKijiji;
     }
