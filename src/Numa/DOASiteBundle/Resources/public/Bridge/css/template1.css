@@ -568,6 +568,7 @@ main {
 }
 
 .footer {
+    padding-top: 70px;
     color: #fff;
     margin: 0 auto;
     max-width: 1020px;
@@ -596,7 +597,7 @@ main {
 
 .footer a {
     /*color: #c51633;*/
-    font-weight: bold;
+    /*font-weight: bold;*/
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -618,6 +619,9 @@ main {
 /*.footer .extra-menu li:first-child {*/
     /*border-left: none;*/
     /*padding-left: 0;*/
+}
+.footer .copyright{
+    paddin-top: 70px;
 }
 #map {
     height: 260px;

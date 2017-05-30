@@ -1,7 +1,7 @@
 <div class="footer-wrapper">
     <div class="footer">
         <div class="row">
-            <div class="col-md-8 bottom-menu">
+            <div class="col-md-6 bottom-menu">
                 {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
                 {% if bottommenu != '' %}
                     {{ include(template_from_string(bottommenu)) }}
@@ -29,11 +29,13 @@
                     {#</ul>#}
                 {#{% endif %}#}
             </div>
+            <div class="col-md-2">
+            </div>
             <div class="col-md-4">
                 <h4>{{ dealer.name }}</h4>
             </div>
         </div>
-        <div class="row">
+        <div class="row copyright" >
             <div class="pull-right">
                 <a href="http://www.dmscomplete.com/">Powered By DMS Complete</a>
             </div>
