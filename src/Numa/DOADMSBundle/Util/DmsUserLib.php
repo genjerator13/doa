@@ -144,24 +144,24 @@ class DmsUserLib
         //check if www
         //$host = str_replace("www.", "", $host);
 
-        $serializer = $this->container->get('serializer');
+        //$serializer = $this->container->get('serializer');
 
-        $mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
+        //$mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
 
 
-        if (empty($mDealer)) {
+        //if (empty($mDealer)) {
             $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
-            $mDealer = $serializer->serialize($desDealer, "json");
-
-            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
-
-        } else {
-            $desDealer=null;
-
-            if (!empty($mDealer) && $mDealer!="null") {
-                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
-            }
-        }
+//            $mDealer = $serializer->serialize($desDealer, "json");
+//
+//            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
+//
+//        } else {
+//            $desDealer=null;
+//
+//            if (!empty($mDealer) && $mDealer!="null") {
+//                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
+//            }
+//        }
 
         return $desDealer;
     }
