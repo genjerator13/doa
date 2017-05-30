@@ -11,19 +11,6 @@ body {
     position: relative;
 }
 
-/*@font-face {*/
-    /*font-family: 'Fjalla One';*/
-    /*src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2");*/
-/*}*/
-
-@font-face {
-    font-family: "Fjalla One";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2") format("woff2");
-
-}
-
 /* ==========================================================================
    Header
    ========================================================================== */
@@ -54,19 +41,6 @@ header .address {
     font-weight: 300;
     line-height: 19px;
     margin-top: 28px;
-    text-transform: uppercase;
-}
-
-header .map-and-hours {
-    border-bottom: 1px dotted #f78f1e;
-    clear: right;
-    color: #f78f1e;
-    display: block;
-    float: right;
-    font-weight: 700;
-    line-height: 19px;
-    margin: 4px 0 4px 10px;
-    text-decoration: none;
     text-transform: uppercase;
 }
 
@@ -221,43 +195,11 @@ header .content{
 
 .mobile-menu .mobmenu ul ul li:first-child { border-top: none; }
 
-/* ==========================================================================
-   Banner
-   ========================================================================== */
-
-.banner {
-    position: relative;
-    z-index: 0;
-}
-
-.banner img { max-width: 100%; }
-
-/* ==========================================================================
-   Buttons
-   ========================================================================== */
-
-
-/* ==========================================================================
-   Company Logos
-   ========================================================================== */
-
-.company-logos {
-    margin: 20px auto;
-    max-width: 1020px;
-    text-align: center;
-}
-
-.company-logos img {
-    padding: 0 20px;
-    vertical-align: middle;
-}
 
 /* ==========================================================================
    Content
    ========================================================================== */
-main {
-    margin-top: 145px;
-}
+
 .splash {
     background-attachment: fixed;
     background-size: cover;
@@ -315,6 +257,18 @@ main {
     text-align: center;
     font-size: 40px;
     font-weight: 700;
+    color: black;
+    margin-bottom: 50px;
+}
+.featured-ads-item{
+    font-size: 15px;
+    color: #78838c;
+}
+.featured-ads-item .retailPrice{
+    text-decoration:line-through;
+}
+.featured-ads-item .price{
+    color: red;
 }
 .colorblock-section.has-background-img {
     background-attachment: fixed;
@@ -328,18 +282,19 @@ main {
 }
 
 
-.content .panel-heading{
+.maincontent .panel-heading{
     background-color: black;
     color: #f78f1e;
     font-weight: 600;
 }
-.content .panel-body{
+.maincontent .panel-body{
     padding-top:30px
 }
-.content .input-group{
+.maincontent .input-group{
     margin-bottom: 25px
 }
-.content {
+
+.maincontent {
     border-bottom: 1px dotted #959595;
     color: #535353;
     font-weight: 300;
@@ -348,33 +303,26 @@ main {
     /*padding: 0 20px 20px 20px;*/
 }
 
-.content h1 {
+.maincontent h1 {
     color: #000;
     font-size: 26px;
     margin-bottom: 0.5em;
     font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
-.content p { margin: 1em 0; }
+.maincontent p { margin: 1em 0; }
 
-.content a {
+.maincontent a {
     color: #f78f1e;
     text-decoration: none;
 }
-.content a span{
+.maincontent a span{
      color: black;
      text-decoration: none;
  }
 
-.content a:hover { text-decoration: underline; }
+.maincontent a:hover { text-decoration: underline; }
 
-.read-more {
-    background: url("../images/small-double-arrow.png") right center no-repeat;
-    color: #f78f1e;
-    font-weight: 600;
-    padding-right: 20px;
-    text-decoration: none;
-}
 .option-lists li{
     color: #f78f1e;
 }
@@ -450,7 +398,7 @@ main {
     font-size: 130%;
     padding: 5px;
     background-color: #111111;
-    color: #f78f1e;
+    color: #c51633;
     font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
@@ -458,7 +406,7 @@ main {
     margin-bottom: 20px;
 }
 .detailsContent .retail_price {
-    color: #f78f1e;
+    color: #c51633;
     text-decoration-line: line-through;
     font-size: 130%;
 }
@@ -532,7 +480,7 @@ main {
 
 .info a {
     background: url("../images/orange-small-arrow.png") left center no-repeat;
-    color: #f78f1e;
+    /*color: #c51633;*/
     padding-left: 8px;
     text-decoration: none;
     font-family:"Fjalla One",'Open Sans', sans-serif;
@@ -540,7 +488,7 @@ main {
 
 .info a:hover { text-decoration: underline; }
 
-.info span { color: #f78f1e; }
+/*.info span { color: #c51633; }*/
 
 .info img { max-width: 100%; }
 
@@ -551,17 +499,32 @@ main {
    ========================================================================== */
 
 .footer-wrapper {
-    background-color: #111;
+    background-color: #232323;
     padding: 20px;
 }
 
 .footer {
-    color: #959595;
+    padding-top: 70px;
+    color: #fff;
     margin: 0 auto;
     max-width: 1020px;
 }
 
-.footer ul { display: table; }
+.footer a{
+    color: #fff;
+}
+
+.footer a:hover{
+    text-decoration: none;
+    color: #c51633;
+}
+.footer h4{
+    color: #c51633;
+}
+
+.footer ul {
+  list-style-type: none;
+}
 
 .footer li {
     display: table-cell;
@@ -569,8 +532,8 @@ main {
 }
 
 .footer a {
-    color: #f78f1e;
-    font-weight: bold;
+    /*color: #c51633;*/
+    /*font-weight: bold;*/
     text-decoration: none;
     text-transform: uppercase;
 }
@@ -581,20 +544,22 @@ main {
     padding-bottom: 15px;
 }
 
-.footer .bottom-menu ul { margin: 0 auto; }
+/*.footer .bottom-menu ul { margin: 0 auto; }*/
 
-.footer .extra-menu { margin-top: 5px; }
+/*.footer .extra-menu { margin-top: 5px; }*/
 
-.footer .extra-menu li {
-    border-left: 2px solid #959595;
-    line-height: 14px;
+/*.footer .extra-menu li {*/
+    /*border-left: 2px solid #959595;*/
+    /*line-height: 14px;*/
+/*}*/
+
+/*.footer .extra-menu li:first-child {*/
+    /*border-left: none;*/
+    /*padding-left: 0;*/
 }
-
-.footer .extra-menu li:first-child {
-    border-left: none;
-    padding-left: 0;
+.footer .copyright{
+    paddin-top: 70px;
 }
-
 #map {
     height: 260px;
     width: 100%;
@@ -617,18 +582,6 @@ main {
 }
 .homepage_carousel .carousel-inner {
     max-height: 500px;
-}
-
-.techData .fieldCaption {
-    font-weight: bold;
-}
-ul.techData{
-    margin:20px 0 0 0;
-}
-
-ul.techData li {
-    margin:0;
-    padding: 0px;
 }
 
 
@@ -742,22 +695,8 @@ and (max-width : 767px) {
 
 }
 
-
-
-
-
-.btn-sea {
-    background-color: #111;
-    color: #f78f1e;
-}
-
-.btn-sea:hover {
-    background-color: #111222;
-    color: #f78f77;
-}
 .featured-ads {
-    margin: 0px auto;
-
+    margin: 0 auto 40px;
     max-width: 1020px;
     text-align: center;
 }
@@ -812,7 +751,7 @@ and (max-width : 767px) {
 .coupon-container a.coupon-print{
     font-size: 22px;
     float: right;
-    color: #F78F1E;
+    color: #c51633;
 }
 
 .coupon-container a.coupon-print:hover{
@@ -829,7 +768,7 @@ and (max-width : 767px) {
     /*margin-left:0;*/
     /*margin-right:0;*/
 /*}*/
-.btn-bridge{
+.btn-bridge-red{
     display: inline-block;
     margin: 8px;
     background-color: #c51633;
@@ -840,8 +779,28 @@ and (max-width : 767px) {
     padding: 12px 40px;
     text-transform: uppercase;
 }
-.btn-bridge:hover{
+.btn-bridge-red:hover{
     background-color: #8a0f24;
     border-color: #8a0f24;
     color: #fff;
 }
+.btn-bridge-black{
+    display: inline-block;
+    margin: 8px;
+    background-color: #232323;
+    border-color: #232323;
+    color: #fff;
+    border-radius: 0;
+    color: #fff;
+    padding: 12px 40px;
+    text-transform: uppercase;
+}
+.btn-bridge-black:hover{
+    background-color: black;
+    border-color: black;
+    color: #fff;
+}
+.welcome-text{
+    color: white;
+}
+
