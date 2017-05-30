@@ -291,9 +291,31 @@ main {
 }
 .splash .hero-content {
     position: relative;
-    top: 40%;
+    top: 230px;
+    height: 700px;
 }
-
+.splash h1, .splash h2, .splash h3, .splash p {
+    color: #fff;
+    text-shadow: 0 0 1rem #333;
+}
+.splash h2 {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.the-input input{
+    font-size: 20px;
+    height: 60px;
+    line-height: 20px;
+}
+.hero-content .buttons{
+    margin-top: 30px;
+}
+.featured-header {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 700;
+}
 .colorblock-section.has-background-img {
     background-attachment: fixed;
     background-size: cover;
@@ -807,3 +829,19 @@ and (max-width : 767px) {
     /*margin-left:0;*/
     /*margin-right:0;*/
 /*}*/
+.btn-bridge{
+    display: inline-block;
+    margin: 8px;
+    background-color: #c51633;
+    border-color: #c51633;
+    color: #fff;
+    border-radius: 0;
+    color: #fff;
+    padding: 12px 40px;
+    text-transform: uppercase;
+}
+.btn-bridge:hover{
+    background-color: #8a0f24;
+    border-color: #8a0f24;
+    color: #fff;
+}
