@@ -12,7 +12,7 @@
     <meta name="keywords" content=" "/>
     {% block stylesheets %}
 
-        {% stylesheets '@bootstrap'  'bundles/numadoasite/Bridge/css/template1.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap'  'bundles/numadoasite/Bridge/css/bridge.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
@@ -22,7 +22,7 @@
     {% block javascripts %}
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Tnt/js/mobilemenu.js" %}
+        {% javascripts '@bootstrapx_js' "bundles/numadoasite/Bridge/js/mobilemenu.js" %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
 

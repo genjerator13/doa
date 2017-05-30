@@ -11,25 +11,13 @@ body {
     position: relative;
 }
 
-/*@font-face {*/
-    /*font-family: 'Fjalla One';*/
-    /*src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2");*/
-/*}*/
-
-@font-face {
-    font-family: "Fjalla One";
-    font-style: normal;
-    font-weight: 400;
-    src: url("https://fonts.gstatic.com/s/fjallaone/v4/SHXJdWnWW6HDq-6DpcG8PyEAvth_LlrfE80CYdSH47w.woff2") format("woff2");
-
-}
-
 /* ==========================================================================
    Header
    ========================================================================== */
 .clear {
     clear: both;
 }
+
 header.site-header {
     background-color: #fff;
     color: #818e92;
@@ -221,43 +209,11 @@ header .content{
 
 .mobile-menu .mobmenu ul ul li:first-child { border-top: none; }
 
-/* ==========================================================================
-   Banner
-   ========================================================================== */
-
-.banner {
-    position: relative;
-    z-index: 0;
-}
-
-.banner img { max-width: 100%; }
-
-/* ==========================================================================
-   Buttons
-   ========================================================================== */
-
-
-/* ==========================================================================
-   Company Logos
-   ========================================================================== */
-
-.company-logos {
-    margin: 20px auto;
-    max-width: 1020px;
-    text-align: center;
-}
-
-.company-logos img {
-    padding: 0 20px;
-    vertical-align: middle;
-}
 
 /* ==========================================================================
    Content
    ========================================================================== */
-main {
-    margin-top: 145px;
-}
+
 .splash {
     background-attachment: fixed;
     background-size: cover;
@@ -328,18 +284,19 @@ main {
 }
 
 
-.content .panel-heading{
+.maincontent .panel-heading{
     background-color: black;
     color: #f78f1e;
     font-weight: 600;
 }
-.content .panel-body{
+.maincontent .panel-body{
     padding-top:30px
 }
-.content .input-group{
+.maincontent .input-group{
     margin-bottom: 25px
 }
-.content {
+
+.maincontent {
     border-bottom: 1px dotted #959595;
     color: #535353;
     font-weight: 300;
@@ -348,33 +305,26 @@ main {
     /*padding: 0 20px 20px 20px;*/
 }
 
-.content h1 {
+.maincontent h1 {
     color: #000;
     font-size: 26px;
     margin-bottom: 0.5em;
     font-family:'Fjalla One','Open Sans', sans-serif;
 }
 
-.content p { margin: 1em 0; }
+.maincontent p { margin: 1em 0; }
 
-.content a {
+.maincontent a {
     color: #f78f1e;
     text-decoration: none;
 }
-.content a span{
+.maincontent a span{
      color: black;
      text-decoration: none;
  }
 
-.content a:hover { text-decoration: underline; }
+.maincontent a:hover { text-decoration: underline; }
 
-.read-more {
-    background: url("../images/small-double-arrow.png") right center no-repeat;
-    color: #f78f1e;
-    font-weight: 600;
-    padding-right: 20px;
-    text-decoration: none;
-}
 .option-lists li{
     color: #f78f1e;
 }
@@ -716,3 +666,4 @@ and (max-width : 767px) {
     border-color: #8a0f24;
     color: #fff;
 }
+
