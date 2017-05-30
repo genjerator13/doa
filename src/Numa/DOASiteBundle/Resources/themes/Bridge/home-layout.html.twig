@@ -75,21 +75,21 @@
                                 <input class="form-control" name="query" placeholder="Search by make, model or keyword" type="text">
                             </div>
                             <div class="col-md-4">
-                                <button type="submit" id="quickSearchSubmit" class="btn btn-bridge">Search</button>
+                                <button type="submit" id="quickSearchSubmit" class="btn btn-bridge-red">Search</button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="buttons">
-                <a href="/inventory/used/2015-ford-f-350-saskatoon-saskatchewan/10835845" class="btn btn-bridge">Flat Decks</a>
+                <a href="/inventory/used/2015-ford-f-350-saskatoon-saskatchewan/10835845" class="btn btn-bridge-red">Flat Decks</a>
 
-                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Cargo%20Van" class="btn btn-bridge">Cargo Vans</a>
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Cargo%20Van" class="btn btn-bridge-red">Cargo Vans</a>
 
-                <a href="/" class="btn btn-bridge">Cube Vans</a>
+                <a href="/" class="btn btn-bridge-red">Cube Vans</a>
 
-                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge">Chassis Cabs</a>
-                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge">Chassis Cabs</a>
-                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge">Chassis Cabs</a>
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
+                <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
                 </div>
 
             </div>
@@ -100,7 +100,8 @@
         {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
     {% endblock %}
     <section class="colorblock-section has-background-img home-colorblock color-light" style="background-image:url(https://i2.wp.com/www.truxrus.com/wp-content/uploads/sites/245/2016/09/home-vans-img-background.jpg?ssl=1); ">
-        <div class="inner">
+        <div class="container welcome-text">
+            <div class="row">
             <div class="title-block">
                 <h2>Used Commercial Vehicles in Saskatoon, Saskatchewan</h2>
             </div>
@@ -118,47 +119,13 @@
                         </ul>
                     </div>
                 </div>
-                <p>
-                </p>			</div>
-        </div>
+            </div>
+            </div>
     </section>
     <div class="content">
         <div class="alertz hide alert"></div>
         {% block content %}
 
-        {% endblock %}
-
-        {% block info %}
-            <div class="info">
-                <ul>
-                    <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
-                    <li>
-                        <h2>{{ dealer.name }}</h2>
-
-                        <div class="address">
-                            {{ dealer.address }}<br>
-                            {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
-                        </div>
-                        {% if dealer.phone is defined and dealer.phone is not empty %}
-                            <div class="phone">
-                                <span>Phone:</span> {{ dealer.phone }}<br>
-                            </div>
-                        {% endif %}
-                    </li>
-                    {% if dealer.ServiceHours is not empty %}
-                        <li>
-                            <h2>Hours Of Operation</h2>
-                            {{ dealer.ServiceHours|raw }}
-                        </li>
-                    {% endif %}
-                    {% if displayComponent('quick_links',"HTML","dealer") is not empty %}
-                        <li>
-                            <h2>Quick Links</h2>
-                            {{ displayComponent('quick_links',"HTML","dealer")|raw }}
-                        </li>
-                    {% endif %}
-                </ul>
-            </div>
         {% endblock %}
 
         {% block map %}
