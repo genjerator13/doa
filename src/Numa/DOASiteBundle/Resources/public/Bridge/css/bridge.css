@@ -148,7 +148,6 @@ header .content{
     top: 0;
 }
 .menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
-.menu ul li ul li:hover ul li a:hover { background:#ca9875 url('menu_images/hover_sub.gif') center left no-repeat; color: #fff; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
 
@@ -333,7 +332,6 @@ header .content{
 /* listing detail */
 .detailsContent .row {
     margin: 0px;
-    border: 1px solid lightslategray;
 }
 .detailsContent .row p{
     padding: 10px;
@@ -448,51 +446,6 @@ header .content{
     background-color: lightgrey;
 }
 
-/* ==========================================================================
-   Info
-   ========================================================================== */
-
-.info { margin: 20px 0; }
-
-.info > ul {
-    border-spacing: 20px;
-    display: table;
-    margin: 0 auto;
-    max-width: 1060px;
-    width: 100%;
-}
-
-.info > ul > li {
-    color: #858585;
-    display: table-cell;
-    font-weight: 300;
-    vertical-align: top;
-}
-
-.info h2 {
-    color: #000;
-    font-size: 17px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-transform: uppercase;
-    font-family:"Fjalla One",'Open Sans', sans-serif;
-}
-
-.info a {
-    background: url("../images/orange-small-arrow.png") left center no-repeat;
-    /*color: #c51633;*/
-    padding-left: 8px;
-    text-decoration: none;
-    font-family:"Fjalla One",'Open Sans', sans-serif;
-}
-
-.info a:hover { text-decoration: underline; }
-
-/*.info span { color: #c51633; }*/
-
-.info img { max-width: 100%; }
-
-.info li { list-style: none; }
 
 /* ==========================================================================
    Footer
