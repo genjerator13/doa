@@ -689,7 +689,7 @@ class ItemRepository extends EntityRepository
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
         $soldSQL = "i .sold=$sold ";
         if($sold==0){
-            $soldSQL = " i.sold=0 OR i.sold is null ";
+            $soldSQL = " (i.sold=0 OR i.sold is null) ";
         }
         $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and ".$soldSQL . $suffix;
         if ($dealer instanceof DealerGroup) {
