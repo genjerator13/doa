@@ -75,8 +75,9 @@ class ExtraListener
             $request = $event->getRequest();
             //$session = $request->getSession();
             $em = $this->container->get('doctrine.orm.entity_manager');
-            $host = trim(strip_tags($request->getHost()));
-            $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+            //$host = trim(strip_tags($request->getHost()));
+            //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+            $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
             $activeTheme = $this->container->get('liip_theme.active_theme');
 
@@ -131,6 +132,7 @@ class ExtraListener
             //    $qbo = $this->container->get("numa.quickbooks")->init();
             //dump($qbo);
             //}
+
             $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($currentUrl, $dealer);
             $html = $this->container->get('Numa.Settings')->replaceSeoInPageHTML($response->getContent(), $page, $dealer);
 

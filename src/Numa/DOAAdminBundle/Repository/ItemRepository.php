@@ -211,7 +211,7 @@ class ItemRepository extends EntityRepository
         $qb->andWhere("i.active=1");
         $qb->andWhere('i.archive_status is NULL or i.archive_status<>\'' . Item::archived . '\'');
         if ($sold !== null) {
-            $qb->andWhere("i.sold=:sold");
+            $qb->andWhere("i.sold=:sold or i.sold is null");
             $qb->setParameter("sold", $sold);
         }
         $itemsQuery = $qb->getQuery()->useResultCache(true);

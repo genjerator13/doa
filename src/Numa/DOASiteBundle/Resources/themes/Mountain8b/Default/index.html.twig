@@ -1,0 +1,86 @@
+{% extends 'NumaDOASiteBundle::home-layout.html.twig' %}
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
+{% block headline %}
+    <div class="header">
+        <a class="logo" href="">
+            {{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}
+        </a>
+        <div class="contact-info">
+            <div class="address">{{ dealer.address }} &middot; {{ dealer.city }}, {{ dealer.state }}
+            </div>
+            <a class="map-and-hours" href="{{ path('site_page',{'url':"map"}) }}">Map &amp; Hours</a>
+            <div class="phone">{{ dealer.phone }}</div>
+        </div>
+    </div>
+{% endblock %}
+{% block banner %}
+
+    <div class="row">
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            {{ displayComponent("homepage_left_carousel","carousel",'page','mountain',{"image_size":"carousel_mountain", "class": "homepage_carousel"})|raw }}
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+            {{ displayComponent("homepage_right_carousel","carousel",'page','mountain',{"image_size":"carousel_mountain", "class": "homepage_carousel"})|raw }}
+        </div>
+    </div>
+
+{% endblock %}
+{% block content %}
+
+    <div class="content">
+        <h1>Welcome to {{ dealer.name }}</h1>
+        {{ dealer.description|raw }}
+
+        {#{{ displayComponent('welcome_text',"HTML")|raw }}#}
+    </div>
+
+{% endblock %}
+
+{% block info %}
+    <div class="info">
+        <ul>
+            <li>{{ component.image(dealer.logoUrl, dealer.name, '', 'sea_logo_home') }}</li>
+            <li>
+                <h2>{{ dealer.name }}</h2>
+
+                <div class="address">
+                    {{ dealer.address }}<br>
+                    {{ dealer.city }}, {{ dealer.state }} {#· S7B 2K4#}
+                </div>
+                <div class="phone">
+                    <span>Phone:</span> {{ dealer.phone }}<br>
+                </div>
+            </li>
+            <li>
+                {{ dealer.ServiceHours|raw }}
+            </li>
+            <li>
+                {{ displayComponent('quick_links',"HTML","dealer")|raw }}
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block browse %}
+
+    {% set browse_images = displayComponent("browse_icons","carousel",'page','mountain8b',{"output":"list"}) %}
+    <div class="browse row seven-cols">
+
+        <div class="col-lg-1 col-md-3 col-sm-4 col-xs-6"><h2><span>Browse</span> by Type</h2></div>
+
+        {% for image in browse_images %}
+            <div class="col-lg-1 col-md-3 col-sm-4 col-xs-6">
+                <a class="" href="{{ image.url }}">
+                    {{ component.image('upload/dealers/'~image.src, "", '', 'mountain_browse') }}
+                    <span class="browse_icon_text">{{ image.carouselText|striptags }}</span>
+                </a>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+
+{% block featuredads %}
+    {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
+{% endblock %}

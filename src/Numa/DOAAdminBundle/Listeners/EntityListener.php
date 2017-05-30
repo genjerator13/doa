@@ -7,9 +7,11 @@ use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use \Numa\DOAAdminBundle\Entity\Item as Item;
 use \Numa\DOAAdminBundle\Entity\ItemField as ItemField;
+use Numa\DOADMSBundle\Entity\DealerComponent;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Finance;
@@ -82,9 +84,10 @@ class EntityListener
 //
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
+
         if ($entity instanceof Item) {
 
-            if($entity->getSold() && empty($entity->getSoldDate())){
+            if ($entity->getSold() && empty($entity->getSoldDate())) {
                 $entity->setSoldDate(new \DateTime());
                 $entityManager->flush();
             }
@@ -119,6 +122,11 @@ class EntityListener
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
+        }elseif ($entity instanceof Catalogrecords) {
+            $this->container->get('mymemcache')->deleteDealerCache($entity);
+        } elseif ($entity instanceof DealerComponent) {
+
+            $this->container->get('mymemcache')->deleteDealerCache($entity->getDealer());
         }
     }
 
@@ -127,7 +135,7 @@ class EntityListener
         $entity = $args->getEntity();
         $em = $args->getEntityManager();
         if ($entity instanceof Item) {
-            if($entity->getSold()){
+            if ($entity->getSold()) {
                 $entity->setSoldDate(new \DateTime());
             }
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
@@ -148,16 +156,15 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
-        }elseif ($entity instanceof Finance) {
+        } elseif ($entity instanceof Finance) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
-        }
-        elseif ($entity instanceof Billing) {
+        }  elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
-            if(!empty($entity->getItem())){
+            if (!empty($entity->getItem())) {
                 $item = $entity->getItem();
                 $item->addBilling($entity);
-                if($entity->getItem() instanceof Item) {
+                if ($entity->getItem() instanceof Item) {
                     $entity->getItem()->setSold(true);
                     $entity->getItem()->setSoldDate(new \DateTime());
                     $entity->getItem()->setActive(false);

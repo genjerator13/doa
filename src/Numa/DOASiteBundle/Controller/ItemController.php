@@ -49,7 +49,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
 
-        if($dealer !== $dealerFromHost && isset($dealerFromHost)){
+        if($dealer->getId() !== $dealerFromHost->getId() && isset($dealerFromHost)){
             throw $this->createNotFoundException('Listing not found!');
         }
 

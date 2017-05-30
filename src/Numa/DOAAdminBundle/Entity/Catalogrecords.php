@@ -148,6 +148,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $description;
 
@@ -176,11 +177,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $address;
 
     /**
      * @var string
+     * @Expose
      */
     private $phone;
 
@@ -316,6 +319,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $fax;
 
@@ -349,11 +353,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $logo;
 
     /**
      * @var string
+     * @Expose
      */
     private $logo_url;
 
@@ -496,36 +502,43 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $city;
 
     /**
      * @var string
+     * @Expose
      */
     private $zip;
 
     /**
      * @var string
+     * @Expose
      */
     private $state;
 
     /**
      * @var string
+     * @Expose
      */
     private $ShowRoomHours;
 
     /**
      * @var string
+     * @Expose
      */
     private $ServiceHours;
 
     /**
      * @var string
+     * @Expose
      */
     private $PartsHours;
 
     /**
      * @var string
+     * @Expose
      */
     private $AdminHours;
 
@@ -739,6 +752,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $contact;
 
@@ -1214,11 +1228,13 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $site_url;
 
     /**
      * @var string
+     * @expose
      */
     private $site_theme;
 
@@ -1227,7 +1243,6 @@ class Catalogrecords implements UserInterface
      * Set siteUrl
      *
      * @param string $siteUrl
-     *
      * @return Catalogrecords
      */
     public function setSiteUrl($siteUrl)
@@ -1288,6 +1303,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $country;
 
@@ -1318,26 +1334,31 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var string
+     * @Expose
      */
     private $site_facebook;
 
     /**
      * @var string
+     * @Expose
      */
     private $site_youtube;
 
     /**
      * @var string
+     * @Expose
      */
     private $site_google;
 
     /**
      * @var string
+     * @Expose
      */
     private $site_twiter;
 
     /**
      * @var string
+     * @Expose
      */
     private $site_instagram;
 
@@ -1494,6 +1515,7 @@ class Catalogrecords implements UserInterface
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @Expose
      */
     private $Component;
 

@@ -39,7 +39,7 @@ class DmsUserLib
     {
 
         $token = $this->container->get('security.token_storage')->getToken();
-        if(!empty($token)) {
+        if (!empty($token)) {
             $dealer = $token->getUser();
             $session = $this->container->get('session');
             $dealerIdSession = $session->get('dms_dealer_id');
@@ -54,14 +54,14 @@ class DmsUserLib
     public function getSignedDealer()
     {
         $dealer = $this->getSignedUser();
-        if($dealer instanceof Catalogrecords ){
+        if ($dealer instanceof Catalogrecords) {
             return $dealer;
         }
-        if($dealer instanceof DMSUser ){
+        if ($dealer instanceof DMSUser) {
             return $dealer->getDealer();
         }
-        if($dealer instanceof DealerGroup ){
-            if(empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection){
+        if ($dealer instanceof DealerGroup) {
+            if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
                 //dump($dealer->getDealer()->first());die();
                 return $dealer->getDealer()->first();
 
@@ -78,12 +78,12 @@ class DmsUserLib
     {
         $dealer = $this->getSignedUser();
         $dealer_id = "";
-        if($dealer instanceof Catalogrecords ){
+        if ($dealer instanceof Catalogrecords) {
             $dealer_id = $dealer->getId();
-        }elseif($dealer instanceof DealerGroup ){
-            $dealer_id=$this->getDealerIdsFromPrincipal($dealer);
-        }elseif($dealer instanceof DMSUser){
-            $dealer_id=$dealer->getDealerId();
+        } elseif ($dealer instanceof DealerGroup) {
+            $dealer_id = $this->getDealerIdsFromPrincipal($dealer);
+        } elseif ($dealer instanceof DMSUser) {
+            $dealer_id = $dealer->getDealerId();
         }
         return $dealer_id;
     }
@@ -92,7 +92,7 @@ class DmsUserLib
     {
         $principal = $this->container->get('security.token_storage')->getToken()->getUser();
 
-        if($principal instanceof DealerGroup ){
+        if ($principal instanceof DealerGroup) {
             return $principal;
         }
 
@@ -103,61 +103,94 @@ class DmsUserLib
     {
         $principal = $this->getSignedUser();
 
-        if($principal instanceof DealerGroup || $principal instanceof Catalogrecords){
+        if ($principal instanceof DealerGroup || $principal instanceof Catalogrecords) {
             return $principal;
         }
 
         return null;
     }
 
-    public function getHost($request=null)
+    public function getHost($request = null)
     {
         $dealer = $this->getSignedDealer();
-        $url = empty($dealer)? $request->getHost():$dealer->getSiteUrl();
+        $url = empty($dealer) ? $request->getHost() : $dealer->getSiteUrl();
 
         return $url;
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         $user = $this->getSignedUser();
-        return in_array('ROLE_ADMIN',$user->getRoles());
+        return in_array('ROLE_ADMIN', $user->getRoles());
     }
 
-    public function getCurrentSiteHost(){
+    public function getCurrentSiteHost()
+    {
         $router = $this->container->get('router');
-        return $router->getContext()->getHost();
+        $host = str_replace("www.", "", $router->getContext()->getHost());
+        return $host;
     }
 
-    public function getScheme(){
+    public function getScheme()
+    {
         $router = $this->container->get('router');
         return $router->getContext()->getScheme();
     }
 
-    public function getDealerByHost(){
+    public function getDealerByHost()
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $host = $this->getCurrentSiteHost();
         //check if www
-        $host = str_replace("www.","",$host);
-        return $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+        //$host = str_replace("www.", "", $host);
+
+        $serializer = $this->container->get('serializer');
+
+        $mDealer = $this->container->get('mymemcache')->get('dealer_' . $host);
+
+
+        if (empty($mDealer)) {
+            $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+            $mDealer = $serializer->serialize($desDealer, "json");
+
+            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
+
+        } else {
+            $desDealer=null;
+
+            if (!empty($mDealer) && $mDealer!="null") {
+                $desDealer = $serializer->deserialize($mDealer, Catalogrecords::class, "json");
+            }
+        }
+
+        return $desDealer;
     }
 
-    public function getDealerGroupIdByHost(){
+    public function getDealerGroupIdByHost()
+    {
 
         $dealer = $this->getDealerByHost();
-        if($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup){
+        if ($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup) {
             return $dealer->getDealerGroup()->getId();
         }
         return null;
     }
 
-    public function getDealerIdsFromPrincipal(DealerGroup $principal){
+    public function getDealerIdsFromPrincipal(DealerGroup $principal)
+    {
         $dealer_id = array();
-        if($principal instanceof DealerGroup){
-            foreach($principal->getDealer() as $dealer){
-                $dealer_id[]=$dealer->getId();
+        if ($principal instanceof DealerGroup) {
+            foreach ($principal->getDealer() as $dealer) {
+                $dealer_id[] = $dealer->getId();
             }
         }
 
-        return implode(",",$dealer_id);
+        return implode(",", $dealer_id);
     }
+
+    public function isLocalHost(){
+        $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
+        return (strpos($host, '.local') !== false);
+    }
+
 }

@@ -9,6 +9,8 @@
 namespace Numa\Util;
 
 use Numa\Util\SearchItem;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 
 /**
  * Description of searchParameters
@@ -344,8 +346,10 @@ class searchESParameters
     public function createElasticSearchResults()
     {
         //$index = $this->get('fos_elastica.index.app.item');
-        $finder = $this->container->get('fos_elastica.finder.app.item');
+        //$finder = $this->container->get('fos_elastica.finder.app.item');
+        $finder = $this->container->get('fos_elastica.index.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
+
         
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
@@ -373,8 +377,6 @@ class searchESParameters
                                 $fieldQuery2->setTerm($searchItem->getDbFieldName(), "class c motorhome");
                                 $fieldQueryAll = new \Elastica\Filter\Term();
                                 $fieldQueryAll->setTerm($searchItem->getDbFieldName(), "class b c motorhome");
-//                                $boolQuery->addFilter($fieldQuery);
-//                                $boolQuery->addShould($fieldQuery2);
                                 $boolFilter->addShould($fieldQuery);
                                 $boolFilter->addShould($fieldQuery2);
                                 $boolFilter->addShould($fieldQueryAll);
@@ -387,15 +389,7 @@ class searchESParameters
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                         if($searchItem->getDbFieldName()=='dealer_id') {
-                            //$dg = $this->container->get("numa.dms.user")->getDealerGroupIdByHost();
-                            //if(!empty($dg)){
-                            //    $fieldQuery = new \Elastica\Query\Term();
-                            //    $fieldQuery->setTerm('dealerGroup', $dg);
-                            //    $boolQuery->addMust($fieldQuery);
-                            //}else {
                             $boolQuery->addMust($fieldQuery);
-                            //}
-
                         }else{
                             $boolQuery->addMust($fieldQuery);
                         }
@@ -430,24 +424,27 @@ class searchESParameters
         }
 
 
-
         $elasticaQuery = new \Elastica\Query();
         $elasticaQuery->setQuery($boolQuery);
-        //dump($this->container);
 
-//        if ($this->sort_by == 'date_created') {
-//            $elasticaQuery->addSort(array("date_created" => "asc"));
-//        } else {
         if (!empty($this->sort_by)) {
 
             $elasticaQuery->addSort(array($this->sort_by => $this->sort_order));
         }
-        //}
+
         $elasticaQuery->addSort(array("sold" => 'asc'));
 
         $this->elasticaQuery = $elasticaQuery;
-        $this->pagerFanta = $finder->findPaginated($elasticaQuery);
 
+        $search = $finder->createSearch($elasticaQuery);
+        $this->pagerFanta = $finder->search();
+        $results = $this->pagerFanta->getResults();
+        $search->setQuery($elasticaQuery);
+
+        $elasticaQuery->setSize(10000);
+        $res= $search->search();
+        $adapter = new ArrayAdapter($res->getResults());
+        $this->pagerFanta = new Pagerfanta($adapter);
     }
 
     public function getPagerFanta()

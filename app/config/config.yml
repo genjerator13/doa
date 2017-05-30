@@ -394,6 +394,10 @@ liip_imagine:
             filters:
                 thumbnail: { size: [86, 44], mode: outbound }
                 background: { color: '#FFFFFF' }
+        mountain_logo_home:
+            quality: 100
+            filters:
+                relative_resize: { widen: 215 }
 #        brands_forest:
 #            quality: 100
 #            filters:
@@ -531,7 +535,7 @@ knp_snappy:
         options:    []
 liip_theme:
     #themes: ['Default', 'Mountain']
-    themes: ['Default', 'Sea', 'Mountain','Forest', 'Garden', 'Tnt']
+    themes: ['Default', 'Sea', 'Mountain', 'Mountain8b','Forest', 'Garden', 'Tnt', 'Bridge']
     active_theme: 'Default'
     assetic_integration: true
 google_analytics_api:

@@ -14,13 +14,15 @@
 
 namespace Numa\DOAAdminBundle\Lib;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
+
 class MemcacheWrapper
 {
 
     public $memcached;
     private $container;
     private $kernel;
-
+    const dealerPrefix = "dealer_";
     public function __construct($memcached, $container, $kernel)
     {
         $this->memcached = $memcached;
@@ -52,6 +54,13 @@ class MemcacheWrapper
     public function makeKey($key)
     {
         return md5($this->kernel->getRootDir()) . ":" . $key;
+    }
+
+    public function deleteDealerCache(Catalogrecords $dealer){
+        $dealerHost = str_replace("www.", "", $dealer->getSiteUrl());
+        $key = $this::dealerPrefix.$dealerHost;
+
+        return $this->delete($key);
     }
 
 }
