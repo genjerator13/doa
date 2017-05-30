@@ -30,8 +30,11 @@ class SaleRepository extends EntityRepository {
             $qb->andWhere('i.dealer_id IN (' . $dealer_id . ')');
         }
         if(!is_null($sold)){
-            $qb->andWhere('i.sold = :sold')
-                ->setParameter('sold', $sold);
+            if($sold==0){
+                $qb->andWhere('i.sold = 0 OR i.sold is null');
+            }elseif($sold==1){
+                $qb->andWhere('i.sold = 1');
+            }
         }
         if(!empty($dateStart) && empty($dateEnd))
         {
