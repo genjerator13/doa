@@ -70,7 +70,7 @@ class ComponentRESTController extends Controller
             $temp['value'] = $dealerComponent->getValue();
             $temp['pages_names'] = "All Pages";
             $temp['helpdesc'] = $dealerComponent->getHelpdesc();
-            $temp['theme'] = $component->getTheme();
+            $temp['theme'] = $dealerComponent->getTheme();
             $comp[]=$temp;
         }
 //        dump(json_encode($comp));
