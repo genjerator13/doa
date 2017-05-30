@@ -174,9 +174,10 @@ body {
 .header > div { box-sizing: border-box; }
 
 .header .logo {
-	text-align: center;
-	font-size: 54px;
-	font-weight: 600;
+	text-align: top;
+	vertical-align: middle;
+	font-size: 60px;
+	font-weight: 700;
 	color: #b20808;
 	text-decoration: none;
 }
