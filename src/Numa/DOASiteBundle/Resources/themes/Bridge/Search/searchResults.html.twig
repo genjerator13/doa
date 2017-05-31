@@ -247,15 +247,18 @@
         {#</script>#}
     {#</div>#}
 <div class="row">
-    <div class="searchResults col-md-8">
+    <div class="searchSideBar col-md-3">
+        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+    </div>
+    <div class="searchResults col-md-9">
         {% if pagerfanta is not empty %}
             <div id="listing-content">
                 {% for item in pagerfanta %}
                     {% set item = item.getData() %}
                     {% if queryUrl is defined %}
-                        {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item,'searchQ':queryUrl}) }}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItemBridge.html.twig",{'item':item,'searchQ':queryUrl}) }}
                     {% else %}
-                        {{ include("NumaDOASiteBundle:Search:searchResultItem.html.twig",{'item':item}) }}
+                        {{ include("NumaDOASiteBundle:Search:searchResultItemBridge.html.twig",{'item':item}) }}
                     {% endif %}
 
                 {% endfor %}
@@ -264,10 +267,6 @@
         {% else %}
             No Result...
         {% endif %}
-    </div>
-
-    <div class="searchSideBar col-md-4">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
     </div>
     <div class="page_ads">
         {% include 'NumaDOASiteBundle:Ads:themes-right-sidebar.html.twig' %}
