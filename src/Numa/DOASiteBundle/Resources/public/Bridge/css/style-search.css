@@ -1,0 +1,63 @@
+.searchSideBar{
+    border: 1px solid black;
+    min-height: 500px;
+    padding-top: 18px;
+}
+.searchSideBar .form-group{
+    margin-bottom: 13px;
+}
+
+.page_ads{
+    margin-top: 20px;
+    float: right;
+    width: 350px;
+}
+
+.page_ads .right-side-ads img{
+    /*margin-left: 10px;*/
+    margin-bottom: 22px;
+}
+
+.searchSidebar label{
+    font-weight: normal;
+}
+
+.row .items{
+    padding: 15px 0 0 0;
+}
+.items .picture-detail .noPhoto{
+    width: 320px;
+    height: 220px;
+}
+.shortDetails{
+    color: #818e92;
+}
+.shortDetails h4 a{
+    color: black;
+    font-weight: 600;
+    font-size: 23px;
+}
+
+#listing-content .item-row{
+    margin: 0px;
+    border: 1px solid lightslategray;
+}
+#listing-content .item-row:hover{
+    background-color: #eee;
+}
+.techData .fieldValue{
+    color: #78838c;
+    font-weight: 700;
+}
+.shortDetails .price{
+    font-size: 30px;
+    font-weight: 600;
+    color: #c51633;
+}
+.shortDetails .retailPrice{
+    font-size: 16px;
+    text-decoration:line-through;
+}
+.shortDetails .priceDetails{
+    text-align: right;
+}
