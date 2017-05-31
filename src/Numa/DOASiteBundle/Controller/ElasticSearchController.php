@@ -19,17 +19,19 @@ use Doctrine\ORM\EntityRepository;
 use Numa\Util\searchParameters;
 use Symfony\Component\Stopwatch\Stopwatch;
 
-class ElasticSearchController extends Controller implements DealerSiteControllerInterface{
+class ElasticSearchController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
 
     public $items;
     public $query;
     public $twigParams;
-    public function initializeDealer($dealer){
+
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
-
 
 
     protected $searchParameters;
@@ -71,7 +73,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
 
-        if($this->dealer instanceof Catalogrecords){
+        if ($this->dealer instanceof Catalogrecords) {
             $parameters['dealer_id'] = $this->dealer->getId();
             $parameters['dealer'] = $this->dealer;
         }
@@ -86,7 +88,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         return $this->searchParameters;
     }
 
-    public function generateTwigParams($request,$pagerFanta, $ads)
+    public function generateTwigParams($request, $pagerFanta, $ads)
     {
 
         $page = $request->get('page');
@@ -105,15 +107,15 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $sidebarParam = $this->createAggregation();
         $params = array(
             'sidebarForm' => $sidebarForm->createView(),
-            'page'=>$page,
+            'page' => $page,
             'listing_per_page' => $number,
             'queryUrl' => $this->queryUrl,
             'queryUrlNoSort' => $this->queryUrlNoSort,
             'sort_by' => $this->searchParameters->getSortBy(),
             'sort_order' => $this->searchParameters->getSortOrder(),
             'dealer' => $this->dealer,
-            'pagerfanta'=>$pagerFanta,
-            'ads'=>$ads
+            'pagerfanta' => $pagerFanta,
+            'ads' => $ads
         );
         $params = array_merge($params, $sidebarParam);
         return $params;
@@ -132,19 +134,19 @@ class ElasticSearchController extends Controller implements DealerSiteController
         return $html;
     }
 
-    private function doSearch(Request $request,$params=array()){
+    private function doSearch(Request $request, $params = array())
+    {
         $this->initSearchParams($request);
         $this->searchParameters->createElasticSearchResults();
 
-        $pagerFanta=$this->searchParameters->getPagerFanta();
+        $pagerFanta = $this->searchParameters->getPagerFanta();
 //ADS
         $em = $this->container->get('doctrine.orm.entity_manager');
         $currentUrl = $request->getPathInfo();
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
-        if($dealer instanceof Catalogrecords && !empty($dealer)){
+        if ($dealer instanceof Catalogrecords && !empty($dealer)) {
             $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl, 'dealer_id' => $dealer->getId()));
-        }
-        else{
+        } else {
             $webpage = $em->getRepository("NumaDOAModuleBundle:Page")->findOneBy(array('url' => $currentUrl));
         }
 
@@ -153,14 +155,14 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
             $ads = $webpage->getActiveAds();
 
-            if(!empty($ads) && !$ads->isEmpty()) {
+            if (!empty($ads) && !$ads->isEmpty()) {
                 $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
             }
         }
 //
 
         $param = $this->generateTwigParams($request, $pagerFanta, $ads);
-        if($request->isXmlHttpRequest()){
+        if ($request->isXmlHttpRequest()) {
 
             return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
         }
@@ -174,41 +176,42 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $this->doSearch($request);
     }
 
-    public function createSidebarForm(){
+    public function createSidebarForm()
+    {
         $sidebarType = new SidebarSearchType();
         $sidebarParam = $this->createAggregation();
 
 
-        $sidebarForm = $this->container->get('form.factory')->create($sidebarType,null,array(
+        $sidebarForm = $this->container->get('form.factory')->create($sidebarType, null, array(
             'action' => $this->generateUrl('search_dispatch'),
-            'attr' => array('id'=>'sidebarSearch'),
+            'attr' => array('id' => 'sidebarSearch'),
             'method' => 'GET'));
 
 
-        if(!empty($sidebarParam['category'])) {
+        if (!empty($sidebarParam['category'])) {
             $category = array('' => 'Choose Category');
             $category += $sidebarParam['category'];
             $sidebarForm->add('category', 'choice', array('label' => 'Category', 'choices' => $category, "required" => false));
         }
-        if(!empty($sidebarParam['subCat'])) {
+        if (!empty($sidebarParam['subCat'])) {
             $subCat = array('' => 'Choose Subcategory');
             $subCat += $sidebarParam['subCat'];
             $sidebarForm->add('categorySubType', 'choice', array('label' => 'Sub Category', 'choices' => $subCat, "required" => false));
         }
-        if(!empty($sidebarParam['make'])) {
+        if (!empty($sidebarParam['make'])) {
             $make = array('' => 'Choose Make');
             $make += $sidebarParam['make'];
             $sidebarForm->add('make_string', 'choice', array('label' => 'Make', 'choices' => $make, "required" => false));
         }
 
 
-        if(!empty($sidebarParam['model'])) {
+        if (!empty($sidebarParam['model'])) {
             $model = array('' => 'Choose Model');
             $model += $sidebarParam['model'];
             $sidebarForm->add('model', 'choice', array('label' => 'Model', 'choices' => $model, "required" => false));
         }
 
-        if(!empty($sidebarParam['year'])) {
+        if (!empty($sidebarParam['year'])) {
             $yearFrom = $sidebarParam['year'];
             ksort($yearFrom);
             $sidebarForm->add('yearFrom', 'choice', array('label' => 'Year From', 'choices' => $yearFrom, "required" => false));
@@ -217,47 +220,47 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm->add('yearTo', 'choice', array('label' => 'Year To', 'choices' => $yearTo, "required" => false));
         }
 
-        $sidebarForm->add('mileageFrom','text',array('label'=>'Mileage From',"required"=>false));
+        $sidebarForm->add('mileageFrom', 'text', array('label' => 'Mileage From', "required" => false));
 
-        $sidebarForm->add('mileageTo','text',array('label'=>'Mileage To',"required"=>false));
+        $sidebarForm->add('mileageTo', 'text', array('label' => 'Mileage To', "required" => false));
 
-        $sidebarForm->add('priceFrom','text',array('label'=>'Price From',"required"=>false));
+        $sidebarForm->add('priceFrom', 'text', array('label' => 'Price From', "required" => false));
 
-        $sidebarForm->add('priceTo','text',array('label'=>'Price To',"required"=>false));
+        $sidebarForm->add('priceTo', 'text', array('label' => 'Price To', "required" => false));
 
-        $sidebarForm->add('search','submit');
-        $sidebarForm->add('reset','reset');
+        $sidebarForm->add('search', 'submit');
+        $sidebarForm->add('reset', 'reset');
 
         $params = $this->searchParameters->getParams();
 
-        if(!empty($params['category']) && !empty($params['category']->getValue())) {
+        if (!empty($params['category']) && !empty($params['category']->getValue())) {
             $sidebarForm->get('category')->setData($params['category']->getValue());
         }
-        if(!empty($params['categorySubType']) && !empty($params['categorySubType']->getValue())) {
+        if (!empty($params['categorySubType']) && !empty($params['categorySubType']->getValue())) {
             $sidebarForm->get('categorySubType')->setData($params['categorySubType']->getValue());
         }
-        if(!empty($params['yearFrom']) && !empty($params['yearFrom']->getValue())) {
+        if (!empty($params['yearFrom']) && !empty($params['yearFrom']->getValue())) {
             $sidebarForm->get('yearFrom')->setData($params['yearFrom']->getValue());
         }
-        if(!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
+        if (!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
             $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
         }
-        if(!empty($params['make_string']) && !empty($params['make_string']->getValue())) {
+        if (!empty($params['make_string']) && !empty($params['make_string']->getValue())) {
             $sidebarForm->get('make_string')->setData($params['make_string']->getValue());
         }
-        if(!empty($params['model']) && !empty($params['model']->getValue())) {
+        if (!empty($params['model']) && !empty($params['model']->getValue())) {
             $sidebarForm->get('model')->setData($params['model']->getValue());
         }
-        if(!empty($params['mileageFrom']) && !empty($params['mileageFrom']->getValue())) {
+        if (!empty($params['mileageFrom']) && !empty($params['mileageFrom']->getValue())) {
             $sidebarForm->get('mileageFrom')->setData($params['mileageFrom']->getValue());
         }
-        if(!empty($params['mileageTo']) && !empty($params['mileageTo']->getValue())) {
+        if (!empty($params['mileageTo']) && !empty($params['mileageTo']->getValue())) {
             $sidebarForm->get('mileageTo')->setData($params['mileageTo']->getValue());
         }
-        if(!empty($params['priceFrom']) && !empty($params['priceFrom']->getValue())) {
+        if (!empty($params['priceFrom']) && !empty($params['priceFrom']->getValue())) {
             $sidebarForm->get('priceFrom')->setData($params['priceFrom']->getValue());
         }
-        if(!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
+        if (!empty($params['priceTo']) && !empty($params['priceTo']->getValue())) {
             $sidebarForm->get('priceTo')->setData($params['priceTo']->getValue());
         }
         return $sidebarForm;
@@ -293,38 +296,38 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaAggCategory->setField('categoryName');
         $elasticaAggCategory->setSize($size);
         //categorySubType
-        $elasticaAggSubCat= new \Elastica\Aggregation\Terms('categorySubType');
+        $elasticaAggSubCat = new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
         $elasticaAggSubCat->setSize($size);
 
         //year
-        $elasticaYear= new \Elastica\Aggregation\Terms('year');
+        $elasticaYear = new \Elastica\Aggregation\Terms('year');
         $elasticaYear->setField('year');
         $elasticaYear->setSize(20);
-        $elasticaYear->setOrder('_term',"desc");
+        $elasticaYear->setOrder('_term', "desc");
         //price
-        $elasticaPrice= new \Elastica\Aggregation\Range('price');
-        $elasticaPrice->addRange(0,5000);
-        $elasticaPrice->addRange(5000,10000);
-        $elasticaPrice->addRange(10000,15000);
-        $elasticaPrice->addRange(15000,20000);
-        $elasticaPrice->addRange(20000,30000);
-        $elasticaPrice->addRange(30000,40000);
-        $elasticaPrice->addRange(40000,50000);
-        $elasticaPrice->addRange(50000,60000);
-        $elasticaPrice->addRange(70000,80000);
-        $elasticaPrice->addRange(80000,90000);
-        $elasticaPrice->addRange(90000,100000);
-        $elasticaPrice->addRange(100000,1000000);
+        $elasticaPrice = new \Elastica\Aggregation\Range('price');
+        $elasticaPrice->addRange(0, 5000);
+        $elasticaPrice->addRange(5000, 10000);
+        $elasticaPrice->addRange(10000, 15000);
+        $elasticaPrice->addRange(15000, 20000);
+        $elasticaPrice->addRange(20000, 30000);
+        $elasticaPrice->addRange(30000, 40000);
+        $elasticaPrice->addRange(40000, 50000);
+        $elasticaPrice->addRange(50000, 60000);
+        $elasticaPrice->addRange(70000, 80000);
+        $elasticaPrice->addRange(80000, 90000);
+        $elasticaPrice->addRange(90000, 100000);
+        $elasticaPrice->addRange(100000, 1000000);
         $elasticaPrice->setField('price');
         //priceStats
-        $elasticaPriceStats= new \Elastica\Aggregation\Stats('priceStats');
+        $elasticaPriceStats = new \Elastica\Aggregation\Stats('priceStats');
         $elasticaPriceStats->setField('price');
         //mileageStats
-        $elasticaMileageStats= new \Elastica\Aggregation\Stats('mileageStats');
+        $elasticaMileageStats = new \Elastica\Aggregation\Stats('mileageStats');
         $elasticaMileageStats->setField('mileage');
         //yearStats
-        $elasticaYearStats= new \Elastica\Aggregation\Stats('yearStats');
+        $elasticaYearStats = new \Elastica\Aggregation\Stats('yearStats');
         $elasticaYearStats->setField('year');
         //$elasticaYearStats->set
 
@@ -356,37 +359,49 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaAggregs = $elasticaResultSet->getAggregations();
         $result = array();
 
-        foreach($elasticaAggregs['categorySubType']['buckets'] as $sc){
-            $result['subCat'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['categorySubType']['buckets'] as $sc) {
+            $result['subCat'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
-        foreach($elasticaAggregs['make']['buckets'] as $sc){
-            $result['make'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['make']['buckets'] as $sc) {
+            $result['make'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
-        foreach($elasticaAggregs['trim']['buckets'] as $sc){
-            $result['trim'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['trim']['buckets'] as $sc) {
+            $result['trim'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
-        foreach($elasticaAggregs['bodyStyle']['buckets'] as $sc){
-            $result['bodyStyle'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
-        }
-
-        foreach($elasticaAggregs['model']['buckets'] as $sc){
-            $result['model'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['bodyStyle']['buckets'] as $sc) {
+            $result['bodyStyle'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
-        foreach($elasticaAggregs['year']['buckets'] as $sc){
-            $result['year'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['model']['buckets'] as $sc) {
+            $result['model'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
-        foreach($elasticaAggregs['category']['buckets'] as $sc){
-            $result['category'][$sc['key']]=$sc['key']." (".$sc['doc_count'].")";
+        foreach ($elasticaAggregs['year']['buckets'] as $sc) {
+            $result['year'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
 
-            $result['mileageStats']['min']=intval($elasticaAggregs['mileageStats']['min']);
-            $result['mileageStats']['max']=intval($elasticaAggregs['mileageStats']['max']);
-            $result['priceStats']['min']=intval($elasticaAggregs['priceStats']['min']);
-            $result['priceStats']['max']=intval($elasticaAggregs['priceStats']['max']);
+        foreach ($elasticaAggregs['category']['buckets'] as $sc) {
+            $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+        foreach ($elasticaAggregs['price']['buckets'] as $sc) {
+            $temp=array();
+            $temp['from'] = $sc['from'];
+            $temp['to'] = $sc['to'];
+            $temp['count'] = $sc['doc_count'];
+            $result['price'][]=$temp;
+        }
+        foreach ($elasticaAggregs['category']['buckets'] as $sc) {
+
+            $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+        }
+
+
+        $result['mileageStats']['min'] = intval($elasticaAggregs['mileageStats']['min']);
+        $result['mileageStats']['max'] = intval($elasticaAggregs['mileageStats']['max']);
+        $result['priceStats']['min'] = intval($elasticaAggregs['priceStats']['min']);
+        $result['priceStats']['max'] = intval($elasticaAggregs['priceStats']['max']);
 
         return $result;
     }

@@ -1,0 +1,27 @@
+{% form_theme sidebarForm _self %}
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+<ul>
+{% for amake in make %}
+    <li>{{ amake }}</li>
+{% endfor %}
+</ul>
+<ul>
+    {% for item in bodyStyle %}
+        <li><a href="{{ path('search_by_body_style',{'categorySubType':'van'}) }}>{{ item }}</a></li>
+    {% endfor %}
+</ul>
+<ul>
+    {% for item in year %}
+        <li>{{ item }}</li>
+    {% endfor %}
+</ul>
+
+<ul>
+
+    {% for item in price %}
+
+        <li>{{ price(item['from'],true)|raw  }} - {{ price(item['to'],true)|raw  }} ( {{ item.count }} )</li>
+    {% endfor %}
+</ul>

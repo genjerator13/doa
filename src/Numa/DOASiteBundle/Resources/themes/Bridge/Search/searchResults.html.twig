@@ -197,43 +197,10 @@
 </div>
 
 {% endif %}
-{#<div class="row">#}
-    {#<div class="searchSidebar col-md-2">#}
-        {#{{ form(sidebarForm) }}#}
-        {#<script>#}
-            {#var treeDataCar = '{{jsonCar|raw }}';#}
-            {#//var treeDataRvs = '{{jsonRvs|raw }}';#}
 
-            {#treeX = function (make, model, treeData) {#}
-
-                {#$(make).change(function () {#}
-
-                    {#jsonTree = JSON.parse(treeData);#}
-
-                    {#var modelJson = jsonTree[$(make).val()];#}
-                    {#$(model).html($("<option />").val(0).text("Any Model"));#}
-                    {#$.each(modelJson, function (i) {#}
-                        {#var test = modelJson[i];#}
-                        {#var key = "";#}
-                        {#var value = "";#}
-                        {#for (var keyx in modelJson[i]) {#}
-                            {#key = keyx;#}
-                            {#value = test[keyx];#}
-                        {#}#}
-                        {#$(model).append($("<option />").val(value).text(value))#}
-                    {#});#}
-                {#});#}
-            {#}#}
-
-            {#$(document).ready(function () {#}
-                {#treeX('#make', '#model', treeDataCar);#}
-                {#//treeX('#makeRvs', '#modelRvs', treeDataRvs);#}
-            {#});#}
-        {#</script>#}
-    {#</div>#}
 <div class="row">
     <div class="searchSideBar col-md-3">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        {% include 'NumaDOASiteBundle:Search:searchSidebarLinked.html.twig' %}
     </div>
     <div class="searchResults col-md-9">
         {% if pagerfanta is not empty %}
