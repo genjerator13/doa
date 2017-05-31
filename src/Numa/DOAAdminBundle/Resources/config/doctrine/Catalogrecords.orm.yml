@@ -158,8 +158,7 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             length: 511
             nullable: true
         default_listing_comment:
-            type: string
-            length: 255
+            type: text
             nullable: true
         fuel_economy:
             type: string

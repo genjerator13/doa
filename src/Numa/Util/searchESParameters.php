@@ -174,8 +174,8 @@ class searchESParameters
             $params['ag_applicationString'] = $params['typeString'];
             unset($params['typeString']);
         }
-        if(!empty($params['categorySubType'])){
-            $params['categorySubType'] = strtolower(str_replace("-"," ",$params['categorySubType']));
+        if (!empty($params['categorySubType'])) {
+            $params['categorySubType'] = strtolower(str_replace("-", " ", $params['categorySubType']));
         }
 
         foreach ($params as $key => $value) {
@@ -189,7 +189,7 @@ class searchESParameters
                 }
             }
         }
-        //dump($this->params);die();
+
     }
 
     public function set($key, $value)
@@ -350,7 +350,7 @@ class searchESParameters
         $finder = $this->container->get('fos_elastica.index.app.item');
         $boolQuery = new \Elastica\Query\BoolQuery();
 
-        
+
         foreach ($this->params as $key => $searchItem) {
             if ($searchItem instanceof SearchItem) {
 
@@ -367,20 +367,21 @@ class searchESParameters
                             $fieldQuery = new \Elastica\Query\Wildcard();
                             $fieldQuery->setValue('status', strtoupper($searchItem->getValue()) . '*');
                             $boolQuery->addShould($fieldQuery);
-                        }elseif($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue()=="class b c motorhome"){
+                        } elseif ($searchItem->getDbFieldName() == 'categorySubType' && $searchItem->getValue() == "class b c motorhome") {
 
 
-                                $boolFilter = new \Elastica\Filter\BoolFilter();
-                                $fieldQuery = new \Elastica\Filter\Term();
-                                $fieldQuery->setTerm($searchItem->getDbFieldName(), "class b motorhome");
-                                $fieldQuery2 = new \Elastica\Filter\Term();
-                                $fieldQuery2->setTerm($searchItem->getDbFieldName(), "class c motorhome");
-                                $fieldQueryAll = new \Elastica\Filter\Term();
-                                $fieldQueryAll->setTerm($searchItem->getDbFieldName(), "class b c motorhome");
-                                $boolFilter->addShould($fieldQuery);
-                                $boolFilter->addShould($fieldQuery2);
-                                $boolFilter->addShould($fieldQueryAll);
-                        }else {
+                            $boolFilter = new \Elastica\Filter\BoolFilter();
+                            $fieldQuery = new \Elastica\Filter\Term();
+                            $fieldQuery->setTerm($searchItem->getDbFieldName(), "class b motorhome");
+                            $fieldQuery2 = new \Elastica\Filter\Term();
+                            $fieldQuery2->setTerm($searchItem->getDbFieldName(), "class c motorhome");
+                            $fieldQueryAll = new \Elastica\Filter\Term();
+                            $fieldQueryAll->setTerm($searchItem->getDbFieldName(), "class b c motorhome");
+                            $boolFilter->addShould($fieldQuery);
+                            $boolFilter->addShould($fieldQuery2);
+                            $boolFilter->addShould($fieldQueryAll);
+                        }
+                        else {
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                             $boolQuery->addMust($fieldQuery);
@@ -388,9 +389,9 @@ class searchESParameters
                     } elseif ($searchItem->isInt()) {
                         $fieldQuery = new \Elastica\Query\Term();
                         $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
-                        if($searchItem->getDbFieldName()=='dealer_id') {
+                        if ($searchItem->getDbFieldName() == 'dealer_id') {
                             $boolQuery->addMust($fieldQuery);
-                        }else{
+                        } else {
                             $boolQuery->addMust($fieldQuery);
                         }
                     } elseif ($searchItem->isCategory()) {
@@ -400,16 +401,20 @@ class searchESParameters
                     } elseif ($searchItem->isText()) {
                         $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
 
-                        $boolQuery->addShould($fieldQuery);
+                        $boolQuery->addMust($fieldQuery);
                     } elseif ($searchItem->isRangeFrom()) {
                         $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('gte' => $searchItem->getValue()));
                         $boolQuery->addMust($fieldQuery);
                     } elseif ($searchItem->isRangeTo()) {
                         $fieldQuery = new \Elastica\Query\Range($searchItem->getDbFieldName(), array('lte' => $searchItem->getValue()));
                         $boolQuery->addMust($fieldQuery);
-                    }elseif ($searchItem->isWildcard()) {
+                    } elseif ($searchItem->isWildcard()) {
                         $fieldQuery = new \Elastica\Query\Wildcard();
-                        $fieldQuery->setValue($searchItem->getDbFieldName(), "*".$searchItem->getValue()."*");
+                        $fieldQuery->setValue($searchItem->getDbFieldName(), "*" . $searchItem->getValue() . "*");
+                        $boolQuery->addMust($fieldQuery);
+                    }elseif ($searchItem->isAll()) {
+                        $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
+
                         $boolQuery->addMust($fieldQuery);
                     }
                 }
@@ -419,7 +424,7 @@ class searchESParameters
         $fieldQuery = new \Elastica\Query\Term();
         $fieldQuery->setTerm('active', 1);
         $boolQuery->addMust($fieldQuery);
-        if(!empty($boolFilter)){
+        if (!empty($boolFilter)) {
             $boolQuery->addFilter($boolFilter);
         }
 
@@ -442,7 +447,7 @@ class searchESParameters
         $search->setQuery($elasticaQuery);
 
         $elasticaQuery->setSize(10000);
-        $res= $search->search();
+        $res = $search->search();
         $adapter = new ArrayAdapter($res->getResults());
         $this->pagerFanta = new Pagerfanta($adapter);
     }
@@ -451,6 +456,7 @@ class searchESParameters
     {
         return $this->pagerFanta;
     }
+
     public function getElasticaQuery()
     {
         return $this->elasticaQuery;
