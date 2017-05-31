@@ -34,6 +34,8 @@ fos_elastica:
                         type: ~
                         price:
                           type: integer
+                        retailPrice:
+                          type: integer
                         active:
                           type : boolean
                         featured:
@@ -95,6 +97,7 @@ fos_elastica:
                         title: ~
                         lastUpdated: ~
                         priceString: ~
+                        retailPriceString: ~
                         length: ~
                         engine: ~
                         agApplication: ~

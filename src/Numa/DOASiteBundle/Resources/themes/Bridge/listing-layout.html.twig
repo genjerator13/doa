@@ -11,7 +11,7 @@
     <meta name="description" content=" " />
     <meta name="keywords" content=" " />
     {% block stylesheets %}
-        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/Bridge/css/bridge.css' 'bundles/numadoasite/Bridge/css/pgwslideshow.css'  filter='cssrewrite' output='css/*.css' %}
+        {% stylesheets '@bootstrap' '@colorbox_css' 'bundles/numadoasite/Bridge/css/bridge.css' 'bundles/numadoasite/Bridge/css/pgwslideshow.css' 'bundles/numadoasite/Bridge/css/style-search.css'  filter='cssrewrite' output='css/*.css' %}
         <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
         {% endstylesheets %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
@@ -34,25 +34,27 @@
 
 <body>
 <body>
-{% block headline %}
-    {% include 'NumaDOASiteBundle::headline.html.twig' %}
-{% endblock %}
+<header class="site-header">
+    {% block headline %}
+        {% include 'NumaDOASiteBundle::headline.html.twig' %}
+    {% endblock %}
 
-{% block mainmenu %}
-    {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
-{% endblock %}
+    {% block mainmenu %}
+        {% include 'NumaDOASiteBundle::mainmenu.html.twig' %}
+    {% endblock %}
 
-{% block mobilemenu %}
-    {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
-{% endblock %}
-<div class="maincontent content-margin">
-    <div class="container">
+    {% block mobilemenu %}
+        {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
+    {% endblock %}
+</header>
+{#<div class="maincontent content-margin">#}
+    <div class="container maincontent">
         <div class="alertz dontshow alert"></div>
         {% block content %}
 
         {% endblock %}
     </div>
-</div>
+{#</div>#}
 
 {% block footer %}
     {% include 'NumaDOASiteBundle::footer.html.twig' %}

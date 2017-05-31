@@ -347,3 +347,65 @@
         width: 1170px;
     }
 }
+
+.techData .table td.table-col-1 {
+    color: #717070;
+    font-size: 12px;
+    text-align: left;
+}
+
+.techData .table td.table-col-2 {
+    color: #090909;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.techData .table td {
+    padding: 3px;
+}
+
+.pricing .box {
+    background: #e5e5e5 none repeat scroll 0 0;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+    color: #606971;
+    margin: 0;
+    padding: 0.5rem 1rem;
+}
+.pricing{
+    margin-bottom:20px;
+}
+.pricing .box .col1{
+    text-align: left;
+}
+.pricing .box .col2{
+    text-align: right;
+}
+
+.pricing .box .wasprice{
+    margin:0px;
+}
+.pricing .box .ourprice{
+    margin:0px;
+}
+
+.pricing .box .ourprice .col2{
+    font-size: 200%;
+    color: #2ece32;
+}
+
+.pricing .wasprice .col2{
+    color: #0275d8;
+    text-align: right;
+}
+.pricing .discount {
+    border-bottom: 1px solid #bfbfbf;
+}
+.pricing .discount .col2{
+    color: #0275d8;
+    font-weight: bold;
+}
+
+.pricing .discount small{
+    font-size: 70%;
+}
