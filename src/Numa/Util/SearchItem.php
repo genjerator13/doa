@@ -95,6 +95,10 @@ class SearchItem {
     public function isRangeTo(){
         return $this->getType()=='rangeTo';
     }
+
+    public function isAll(){
+        return $this->getDbFieldName()=='all';
+    }
 ///
 //
 //

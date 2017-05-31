@@ -9,12 +9,13 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\Util\Component\ComponentEntityInterface;
 
 /**
  * Component
  * @JMS\ExclusionPolicy("ALL")
  */
-class Component
+class Component implements ComponentEntityInterface
 {
     /**
      * @var int
