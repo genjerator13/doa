@@ -1,202 +1,89 @@
 
-<div class="row">
-    {% if pagerfanta is not empty %}
+{#<div class="row">#}
+    {#{% if pagerfanta is not empty %}#}
 
-    <div class="saved-search col-md-12">
-        <a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save
-            this Search</a>
-        <a href="{{ path('compared_listings') }}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View
-            comparision results</a>
-    </div>
-</div>
+    {#<div class="saved-search col-md-12">#}
+        {#<a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save#}
+            {#this Search</a>#}
+        {#<a href="{{ path('compared_listings') }}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View#}
+            {#comparision results</a>#}
+    {#</div>#}
+{#</div>#}
 
 <!-- Modal -->
-<div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form action="">
-                    <div class="input-group">
-                        <div class="form-group  ">
-                            <label>Set search name:</label>
-                            <input type="search" class="form-control" required="required"
-                                   name="savesearch"
-                                   id="savesearch">
-                        </div>
-                                    <span class="input-group-btn">
-                                        <a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>
-                                        <script>
-                                            $('a.ajaxSaveSearch').on('click', function () {
+{#<div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"#}
+     {#aria-hidden="true">#}
+    {#<div class="modal-dialog">#}
+        {#<div class="modal-content">#}
+            {#<div class="modal-body">#}
+                {#<form action="">#}
+                    {#<div class="input-group">#}
+                        {#<div class="form-group  ">#}
+                            {#<label>Set search name:</label>#}
+                            {#<input type="search" class="form-control" required="required"#}
+                                   {#name="savesearch"#}
+                                   {#id="savesearch">#}
+                        {#</div>#}
+                                    {#<span class="input-group-btn">#}
+                                        {#<a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>#}
+                                        {#<script>#}
+                                            {#$('a.ajaxSaveSearch').on('click', function () {#}
 
-                                                //$(this).parent().parent().html("aaaa");
-                                                //alert("aaa");
-                                                var savesearch = $("#savesearch").val();
-                                                var jqxhr = $.post("{{ path('search_save') }}", {
-                                                    name: savesearch,
-                                                    url: document.URL
-                                                }, function (data) {
-                                                    htmlx = "";
+                                                {#//$(this).parent().parent().html("aaaa");#}
+                                                {#//alert("aaa");#}
+                                                {#var savesearch = $("#savesearch").val();#}
+                                                {#var jqxhr = $.post("{{ path('search_save') }}", {#}
+                                                    {#name: savesearch,#}
+                                                    {#url: document.URL#}
+                                                {#}, function (data) {#}
+                                                    {#htmlx = "";#}
 
-                                                    if (data.savedSearch > 0) {
-                                                        htmlx = "(" + data.savedSearch + ")";
-                                                    }
-                                                    $('.savedSearch').html(htmlx);
-                                                    $('.modal-body').html("Search saved");
-                                                    setTimeout(function () {
-                                                        $('#saveSearch').modal('hide');
-                                                    }, 5000);
+                                                    {#if (data.savedSearch > 0) {#}
+                                                        {#htmlx = "(" + data.savedSearch + ")";#}
+                                                    {#}#}
+                                                    {#$('.savedSearch').html(htmlx);#}
+                                                    {#$('.modal-body').html("Search saved");#}
+                                                    {#setTimeout(function () {#}
+                                                        {#$('#saveSearch').modal('hide');#}
+                                                    {#}, 5000);#}
 
-                                                })
-                                            })
-                                        </script>
-                                    </span>
-                    </div>
-                </form>
-            </div>
+                                                {#})#}
+                                            {#})#}
+                                        {#</script>#}
+                                    {#</span>#}
+                    {#</div>#}
+                {#</form>#}
+            {#</div>#}
 
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
-    </div>
-</div>
-
-
-<div class="row">
-    <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">
-        <span class="left">Number of listings per page:</span>
-
-        {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
-        <select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-        </select>
-        <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"
-               name="searchSource"
-               id="searchSource">
-    </div>
-    <script>
-        $('.listingsNumber').change(function () {
-            lnr = parseInt(($(this).val()));
-            {% if queryUrl is defined %}
-            url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
-            url = url.replace(/&amp;/g, '&');
-            //console.log(url);
-            //console.log("{{ queryUrl }}");
-            window.location.href = url;
-            {% else %}
+        {#</div>#}
+    {#</div>#}
+{#</div>#}
+{#<div class="row">#}
+    {#<div class="col-md-12">#}
+        {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
+    {#</div>#}
+{#</div>#}
 
 
-            console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
-            //window.open(url.replace("&amp;","&"));
-            {% endif %}
-        })
-    </script>
-    {% set sortYearUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
-    {% endset %}
-    {% if sort_by=='year' and sort_order == 'asc' %}
-        {% set sortYearUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc
-        {% endset %}
-    {% endif %}
+{#<div class="row">#}
+    {#<div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">#}
+        {#<span class="left">Number of listings per page:</span>#}
 
-    {% set sortPriceUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc
-    {% endset %}
-    {% if sort_by=='price' and sort_order == 'asc' %}
-        {% set sortPriceUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc
-        {% endset %}
-    {% endif %}
+        {#{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}#}
+        {#<select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">#}
+            {#<option value="10">10</option>#}
+            {#<option value="20">20</option>#}
+            {#<option value="50">50</option>#}
+        {#</select>#}
+        {#<input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"#}
+               {#name="searchSource"#}
+               {#id="searchSource">#}
+    {#</div>#}
 
-    {% set sortPicturesUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc
-    {% endset %}
-    {% if sort_by=='pictures' and sort_order == 'asc' %}
-        {% set sortPicturesUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc
-        {% endset %}
-    {% endif %}
 
-    {% set sortMakeUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
-    {% endset %}
-    {% if sort_by=='make' and sort_order == 'asc' %}
-        {% set sortPriceUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc
-        {% endset %}
-    {% endif %}
+{#</div>#}
 
-    {% set sortMileageUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc
-    {% endset %}
-    {% if sort_by=='mileage' and sort_order == 'asc' %}
-        {% set sortMileageUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=desc
-        {% endset %}
-    {% endif %}
-
-    {% set sortDateUrl %}
-        {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
-    {% endset %}
-    {% if sort_by=='date_created' and sort_order == 'asc' %}
-        {% set sortDateUrl %}
-            {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
-        {% endset %}
-    {% endif %}
-    <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
-        <button data-toggle="dropdown"  type="button" class="btn btn-default">
-            <img src="{{ asset("bundles/numadoasite/Tnt/images/Sort-By.png") }}" alt="Sort By" title="Sort By"> Sort By
-        </button>
-        <ul role="menu" class="dropdown-menu sort-dropdown">
-            <li><span class="sort-by-label">Year</span></li>
-            <li class="divider"></li>
-            <li id="sortYearDesc" {% if sort_by=='year' and sort_order == 'desc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc" >Newest
-                    to Oldest</a></li>
-            <li id="sortYearAsc"  {% if sort_by=='year' and sort_order == 'asc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc">Oldest
-                    to Newest</a></li>
-            <br>
-            <li><span class="sort-by-label">Price</span></li>
-            <li class="divider"></li>
-            <li id="sortPriceAsc"  {% if sort_by=='price' and sort_order == 'asc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc">Lowest
-                    to Highest</a></li>
-            <li id="sortPriceDesc" {% if sort_by=='price' and sort_order == 'desc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=Desc">Highest
-                    to Lowest</a></li>
-            <br>
-            <li><span class="sort-by-label">Mileage</span></li>
-            <li class="divider"></li>
-            <li id="sortMileageAsc" {% if sort_by=='mileage' and sort_order == 'asc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc" >Lowest
-                    to Highest</a></li>
-            <li id="sortMileageDesc" {% if sort_by=='mileage' and sort_order == 'desc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=Desc">Highest
-                    to Lowest</a></li>
-            <br>
-            <li><span class="sort-by-label">Make</span></li>
-            <li class="divider"></li>
-            <li id="sortMakeAsc" {% if sort_by=='make' and sort_order == 'asc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc">A to
-                    Z</a></li>
-            <li id="sortMakeDesc" {% if sort_by=='make' and sort_order == 'desc' %}class="active"{% endif %}>
-                <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc">Z
-                    to A</a></li>
-        </ul>
-    </div>
-    <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12 clearfix">
-        <span class="text-right pull-right">{{ pagerfanta|length }} listings found</span>
-    </div>
-</div>
-
-{% endif %}
+{#{% endif %}#}
 {#<div class="row">#}
     {#<div class="searchSidebar col-md-2">#}
         {#{{ form(sidebarForm) }}#}
@@ -236,6 +123,141 @@
         {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
     </div>
     <div class="searchResults col-md-9">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-sm-12">
+                <span class="listinsFound">{{ pagerfanta|length }} listings found</span>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-6 col-sm-12">
+                {#<span class="left">Number of listings per page:</span>#}
+
+                {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                <ul class="listingsNumber list-inline" id="numberoflisting" name="listings_per_page">
+                    <li><a class="listinsPP {% if listing_per_page == 5 %}active{% endif %}" href="#5" data-value="5">5</a></li>
+                    <li><a class="listinsPP {% if listing_per_page == 10 %}active{% endif %}" href="#10" data-value="10">10</a></li>
+                    <li><a class="listinsPP {% if listing_per_page == 20 %}active{% endif %}" href="#20" data-value="20">20</a></li>
+                    <li><a class="listinsPP {% if listing_per_page == 50 %}active{% endif %}" href="#50" data-value="50">50</a></li>
+                    <li><a class="listinsPP {% if listing_per_page == 100 %}active{% endif %}" href="#100" data-value="100">100</a></li>
+                </ul>
+                <input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"
+                       name="searchSource"
+                       id="searchSource">
+            </div>
+            <script>
+                $('.listinsPP').click(function () {
+                    lnr = parseInt(($(this).data('value')));
+
+                    {% if queryUrl is defined %}
+                    url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
+                    url = url.replace(/&amp;/g, '&');
+                    //console.log(url);
+                    //console.log("{{ queryUrl }}");
+                    window.location.href = url;
+                    {% else %}
+
+
+                    console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
+                    //window.open(url.replace("&amp;","&"));
+                    {% endif %}
+                })
+            </script>
+            {% set sortYearUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc
+            {% endset %}
+            {% if sort_by=='year' and sort_order == 'asc' %}
+                {% set sortYearUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc
+                {% endset %}
+            {% endif %}
+
+            {% set sortPriceUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc
+            {% endset %}
+            {% if sort_by=='price' and sort_order == 'asc' %}
+                {% set sortPriceUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=desc
+                {% endset %}
+            {% endif %}
+
+            {% set sortPicturesUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=asc
+            {% endset %}
+            {% if sort_by=='pictures' and sort_order == 'asc' %}
+                {% set sortPicturesUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=pictures&sort_order=desc
+                {% endset %}
+            {% endif %}
+
+            {% set sortMakeUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc
+            {% endset %}
+            {% if sort_by=='make' and sort_order == 'asc' %}
+                {% set sortPriceUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc
+                {% endset %}
+            {% endif %}
+
+            {% set sortMileageUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc
+            {% endset %}
+            {% if sort_by=='mileage' and sort_order == 'asc' %}
+                {% set sortMileageUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=desc
+                {% endset %}
+            {% endif %}
+
+            {% set sortDateUrl %}
+                {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=asc
+            {% endset %}
+            {% if sort_by=='date_created' and sort_order == 'asc' %}
+                {% set sortDateUrl %}
+                    {{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=date_created&sort_order=desc
+                {% endset %}
+            {% endif %}
+            <div class="col-lg-5 col-md-5 col-sm-6 col-sm-12 sort clearfix">
+                <button data-toggle="dropdown"  type="button" class="btn btn-default">
+                    <img src="{{ asset("bundles/numadoasite/Tnt/images/Sort-By.png") }}" alt="Sort By" title="Sort By"> Sort By
+                </button>
+                <ul role="menu" class="dropdown-menu sort-dropdown">
+                    <li><span class="sort-by-label">Year</span></li>
+                    <li class="divider"></li>
+                    <li id="sortYearDesc" {% if sort_by=='year' and sort_order == 'desc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=desc" >Newest
+                            to Oldest</a></li>
+                    <li id="sortYearAsc"  {% if sort_by=='year' and sort_order == 'asc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=year&sort_order=asc">Oldest
+                            to Newest</a></li>
+                    <br>
+                    <li><span class="sort-by-label">Price</span></li>
+                    <li class="divider"></li>
+                    <li id="sortPriceAsc"  {% if sort_by=='price' and sort_order == 'asc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=asc">Lowest
+                            to Highest</a></li>
+                    <li id="sortPriceDesc" {% if sort_by=='price' and sort_order == 'desc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=price&sort_order=Desc">Highest
+                            to Lowest</a></li>
+                    <br>
+                    <li><span class="sort-by-label">Mileage</span></li>
+                    <li class="divider"></li>
+                    <li id="sortMileageAsc" {% if sort_by=='mileage' and sort_order == 'asc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=asc" >Lowest
+                            to Highest</a></li>
+                    <li id="sortMileageDesc" {% if sort_by=='mileage' and sort_order == 'desc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=mileage&sort_order=Desc">Highest
+                            to Lowest</a></li>
+                    <br>
+                    <li><span class="sort-by-label">Make</span></li>
+                    <li class="divider"></li>
+                    <li id="sortMakeAsc" {% if sort_by=='make' and sort_order == 'asc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=asc">A to
+                            Z</a></li>
+                    <li id="sortMakeDesc" {% if sort_by=='make' and sort_order == 'desc' %}class="active"{% endif %}>
+                        <a href="{{ path('search_dispatch') }}?{{ queryUrlNoSort }}&sort_by=make&sort_order=desc">Z
+                            to A</a></li>
+                </ul>
+            </div>
+        </div>
+
+
         {% if pagerfanta is not empty %}
             <div id="listing-content">
                 {% for item in pagerfanta %}
