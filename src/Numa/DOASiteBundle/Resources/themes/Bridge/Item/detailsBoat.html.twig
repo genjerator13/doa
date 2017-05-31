@@ -30,9 +30,9 @@
                 <div class="col-md-6">
                     {% include "NumaDOASiteBundle:TemplatesElements:title.html.twig" %}
                 </div>
-                <div class="col-md-6">
-                    {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
-                </div>
+                {#<div class="col-md-6">#}
+                {#{% include "@NumaDOASite/TemplatesElements/price.html.twig" %}#}
+                {#</div>#}
             </div>
             <div class="left col-md-7">
                 {% include "@NumaDOASite/TemplatesElements/imageSlideshow.html.twig" %}
@@ -42,30 +42,26 @@
                 {% if item.categoryId()==1 or item.categoryId()==3 or item.categoryId()==4 %}
                     <div class="row">
                         <div class="row bordergrey">
-                            <p>
-                                Mileage:
-                                {{ item.mileage }}
-                            </p>
+                            {% include "@NumaDOASite/TemplatesElements/price.html.twig" %}
                         </div>
                     </div>
                 {% endif %}
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="btn-black-vehicles">
-                            <label>
-                                <input type="checkbox" class="compareAd" data-itemid="{{ item.id }}"
-                                       data-url="{{ path('item_compare') }}"> Add to compare
-                            </label>
-                        </div>
+
+                        <button type="button" class="btn-bridge-black btn smaller">
+                            <span class="glyphicon glyphicon-usd"></span> Apply for Leasing
+                        </button>
+
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#finance">
                             <span class="glyphicon glyphicon-usd"></span> Apply for Financing
                         </button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#contact">
                             <span class="glyphicon glyphicon-info-sign"></span> Request Information
                         </button>
@@ -76,19 +72,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#offerTradeIn">
                             Offer Trade In
                         </button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#offer">
                             Make an Offer
                         </button>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn-orange-vehicles" data-toggle="modal"
+                        <button type="button" class="btn-bridge-red btn smaller" data-toggle="modal"
                                 data-target="#testdrive">
                             Test Drive
                         </button>

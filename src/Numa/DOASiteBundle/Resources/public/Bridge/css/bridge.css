@@ -688,10 +688,7 @@ and (max-width : 767px) {
 .bottom-margin{
     margin-bottom: 20px;
 }
-/*.row{*/
-    /*margin-left:0;*/
-    /*margin-right:0;*/
-/*}*/
+
 .btn-bridge-red{
     display: inline-block;
     margin: 8px;
@@ -703,6 +700,14 @@ and (max-width : 767px) {
     padding: 12px 40px;
     text-transform: uppercase;
 }
+.btn-bridge-red.smaller, .btn-bridge-black.smaller {
+    padding: 6px 20px;
+    font-size: 80%;
+    width: 100%;
+    white-space: normal;
+    margin: 0px;
+}
+
 .btn-bridge-red:hover{
     background-color: #8a0f24;
     border-color: #8a0f24;
