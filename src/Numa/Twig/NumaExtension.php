@@ -211,6 +211,7 @@ class NumaExtension extends \Twig_Extension
 
                 $comp = new DealerComponent();
                 $dealer = $em->getRepository(Catalogrecords::class)->find($dealer->getId());
+
                 $comp->setDealer($dealer);
                 $comp->setName($name);
                 $comp->setTheme($theme);
