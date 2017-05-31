@@ -20,8 +20,9 @@ class UnitProfitReport extends Report
         "B"=>array("vin","VIN #"),
         "C"=>array("sale:totalRevenue","Total Rev"),
         "D"=>array("sale:totalUnitCost","Unit Cost"),
-        "E"=>array("sale:totalSaleCost","Sale Cost"),
-        "F"=>array("sale:revenueThisUnit","Rev This Unit"),
+        "E"=>array("sale:tradeIn","Trade In"),
+        "F"=>array("sale:totalSaleCost","Sale Cost"),
+        "G"=>array("sale:revenueThisUnit","Rev This Unit"),
 
     );
 
@@ -37,12 +38,14 @@ class UnitProfitReport extends Report
         $totalUnitCost=0;
         $totalSaleCost=0;
         $revenueThisUnit=0;
+        $tradeIn=0;
         foreach ($this->getEntities() as $entity) {
             if($entity->getSale() instanceof Sale) {
                 $totalRevenue += $entity->getSale()->getTotalRevenue();
                 $totalUnitCost += $entity->getSale()->getTotalUnitCost();
                 $totalSaleCost += $entity->getSale()->getTotalSaleCost();
                 $revenueThisUnit += $entity->getSale()->getRevenueThisUnit();
+                $tradeIn += $entity->getSale()->getTradeIn();
             }
         }
 
@@ -51,8 +54,9 @@ class UnitProfitReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue("B".$this->row , "TOTAL:");
         $this->phpExcelObject->getActiveSheet()->setCellValue("C".$this->row , $totalRevenue);
         $this->phpExcelObject->getActiveSheet()->setCellValue("D".$this->row , $totalUnitCost);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , $totalSaleCost);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $revenueThisUnit);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("E".$this->row , $tradeIn);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , $totalSaleCost);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $revenueThisUnit);
 
         $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
