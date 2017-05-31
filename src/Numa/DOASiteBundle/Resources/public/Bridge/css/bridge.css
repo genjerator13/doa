@@ -250,7 +250,12 @@ header .content{
     line-height: 20px;
 }
 .hero-content .buttons{
+    display: flex;
     margin-top: 30px;
+}
+.hero-content .buttons .button {
+    flex-grow: 1;
+    text-align: center;
 }
 .featured-header {
     text-align: center;
