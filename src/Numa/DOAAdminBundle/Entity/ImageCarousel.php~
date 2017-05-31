@@ -624,4 +624,10 @@ class ImageCarousel
     {
         return $this->Dealer_component;
     }
+
+    public function __toString()
+    {
+        return $this->getImageSrc();
+        // TODO: Implement __toString() method.
+    }
 }

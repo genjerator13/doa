@@ -2,11 +2,12 @@
 
 namespace Numa\DOADMSBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Numa\Util\Component\ComponentEntityInterface;
 
 /**
  * DealerComponent
  */
-class DealerComponent
+class DealerComponent  implements ComponentEntityInterface
 {
     /**
      * @var integer
