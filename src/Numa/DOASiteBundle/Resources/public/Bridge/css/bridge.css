@@ -325,6 +325,10 @@ header .content{
 .maincontent {
     margin-top: 250px;
 }
+.maincontent a {
+    color: #c51633;
+    text-decoration: none;
+}
 
 .option-lists li{
     /*color: #f78f1e;*/

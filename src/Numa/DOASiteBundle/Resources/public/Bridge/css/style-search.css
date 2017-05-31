@@ -61,3 +61,41 @@
 .shortDetails .priceDetails{
     text-align: right;
 }
+.shortDetails .youSave{
+    color: #232323;
+    border-bottom: 1px dotted;
+    margin-bottom: 30px;
+}
+.shortDetails a{
+    text-decoration: none;
+}
+.priceDetails .viewVehicle{
+    margin-top: 20px;
+}
+.items .onSpecial{
+    background-color: #c51633;
+    border-color: #c51633;
+    border-radius: 0;
+    color: #fff;
+    display: inline-block;
+    margin: 8px;
+    padding: 12px 40px;
+
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.42857;
+    cursor: pointer;
+    -moz-user-select: none;
+    background-image: none;
+
+    font-weight: 700;
+    float: left;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+    text-decoration: none;
+}

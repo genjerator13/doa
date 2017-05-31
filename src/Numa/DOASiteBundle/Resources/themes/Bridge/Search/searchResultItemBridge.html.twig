@@ -12,6 +12,9 @@
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
+            {% if item.featured %}
+                <a href="{{ detailUrl }}" class="onSpecial">On Special</a>
+            {% endif %}
             <div class="picture-detail col-md-4">
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
@@ -22,7 +25,7 @@
                 </a>
             </div>
             <div class="shortDetails col-md-8">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <h4>
                         <a href="{{ detailUrl }}"><span>{{ item.title }}</span>
                             {#{{ item.priceString }} #}
@@ -47,26 +50,35 @@
                         {% endif %}
                     </ul>
                 </div>
-                <div class="col-md-3 priceDetails">
-                    {% if item.price > item.retailPrice and item.retailPrice is not null %}<span class="retailPrice">Was {{ item.retailPriceString }}</span>{% endif %}
+                <div class="col-md-4 priceDetails">
+                    {% if item.retailPrice > item.price and item.retailPriceString is not null %}
+                        <span class="retailPrice">Was {{ item.retailPriceString }}</span>
+                    {% endif %}
                     <span class="price">{{ item.priceString }}</span>
+                    {% if item.retailPrice > item.price and item.retailPrice is not null %}
+                        </br><span class="youSave">
+                        <i class="glyphicon glyphicon-info-sign"></i> You Save
+                        {% set savePrice = item.retailPrice - item.price %}
+                        ${{ savePrice|number_format(0, '.') }}
+                    </span>
+                    {% endif %}
                     {#<div class="checkbox-inline">#}
                         {#<label>#}
                             {#<input type="checkbox" class="compareAd"> Compare Ad#}
                         {#</label>#}
                     {#</div>#}
-                    <div>
-                        <a href="{{ detailUrl }}" class="btn btn-bridge-red"><span>View</br> Vehicle</span></a>
+                    {#<div>#}
+                        <button href="{{ detailUrl }}" class="btn btn-bridge-red viewVehicle">View</br> Vehicle</button>
                         {#<button type="button" class="btn btn-success eprice" data-itemid="{{ item.id }}"><i#}
                                     {#class="fa fa-money"></i> Get ePrice#}
                         {#</button>#}
                         {#<button type="button" class="btn btn-success finance" data-itemid="{{ item.id }}">#}
                             {#Finance#}
                         {#</button>#}
-                    </div>
+                    {#</div>#}
                 </div>
             </div>
-            <div class="row">
+            <div class="col-md-12">
                 {% if (item.dealerName and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
