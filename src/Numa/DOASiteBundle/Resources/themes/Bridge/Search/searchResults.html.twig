@@ -1,126 +1,6 @@
-
-{#<div class="row">#}
-    {#{% if pagerfanta is not empty %}#}
-
-    {#<div class="saved-search col-md-12">#}
-        {#<a data-toggle="modal" data-target="#saveSearch"><i class="glyphicon glyphicon-floppy-disk"></i>Save#}
-            {#this Search</a>#}
-        {#<a href="{{ path('compared_listings') }}" target="_blank"><i class="glyphicon glyphicon-th-list"></i>View#}
-            {#comparision results</a>#}
-    {#</div>#}
-{#</div>#}
-
-<!-- Modal -->
-{#<div class="modal fade" id="saveSearch" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"#}
-     {#aria-hidden="true">#}
-    {#<div class="modal-dialog">#}
-        {#<div class="modal-content">#}
-            {#<div class="modal-body">#}
-                {#<form action="">#}
-                    {#<div class="input-group">#}
-                        {#<div class="form-group  ">#}
-                            {#<label>Set search name:</label>#}
-                            {#<input type="search" class="form-control" required="required"#}
-                                   {#name="savesearch"#}
-                                   {#id="savesearch">#}
-                        {#</div>#}
-                                    {#<span class="input-group-btn">#}
-                                        {#<a class="btn btn-default ajaxSaveSearch" type="submit">Save</a>#}
-                                        {#<script>#}
-                                            {#$('a.ajaxSaveSearch').on('click', function () {#}
-
-                                                {#//$(this).parent().parent().html("aaaa");#}
-                                                {#//alert("aaa");#}
-                                                {#var savesearch = $("#savesearch").val();#}
-                                                {#var jqxhr = $.post("{{ path('search_save') }}", {#}
-                                                    {#name: savesearch,#}
-                                                    {#url: document.URL#}
-                                                {#}, function (data) {#}
-                                                    {#htmlx = "";#}
-
-                                                    {#if (data.savedSearch > 0) {#}
-                                                        {#htmlx = "(" + data.savedSearch + ")";#}
-                                                    {#}#}
-                                                    {#$('.savedSearch').html(htmlx);#}
-                                                    {#$('.modal-body').html("Search saved");#}
-                                                    {#setTimeout(function () {#}
-                                                        {#$('#saveSearch').modal('hide');#}
-                                                    {#}, 5000);#}
-
-                                                {#})#}
-                                            {#})#}
-                                        {#</script>#}
-                                    {#</span>#}
-                    {#</div>#}
-                {#</form>#}
-            {#</div>#}
-
-        {#</div>#}
-    {#</div>#}
-{#</div>#}
-{#<div class="row">#}
-    {#<div class="col-md-12">#}
-        {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
-    {#</div>#}
-{#</div>#}
-
-
-{#<div class="row">#}
-    {#<div class="col-lg-4 col-md-4 col-sm-6 col-sm-12  bottom-margin">#}
-        {#<span class="left">Number of listings per page:</span>#}
-
-        {#{% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}#}
-        {#<select class="listingsNumber c-select" id="numberoflisting" name="listings_per_page">#}
-            {#<option value="10">10</option>#}
-            {#<option value="20">20</option>#}
-            {#<option value="50">50</option>#}
-        {#</select>#}
-        {#<input type="hidden" value="{% if queryUrl is defined %}{{ queryUrl }}{% endif %}"#}
-               {#name="searchSource"#}
-               {#id="searchSource">#}
-    {#</div>#}
-
-
-{#</div>#}
-
-{#{% endif %}#}
-{#<div class="row">#}
-    {#<div class="searchSidebar col-md-2">#}
-        {#{{ form(sidebarForm) }}#}
-        {#<script>#}
-            {#var treeDataCar = '{{jsonCar|raw }}';#}
-            {#//var treeDataRvs = '{{jsonRvs|raw }}';#}
-
-            {#treeX = function (make, model, treeData) {#}
-
-                {#$(make).change(function () {#}
-
-                    {#jsonTree = JSON.parse(treeData);#}
-
-                    {#var modelJson = jsonTree[$(make).val()];#}
-                    {#$(model).html($("<option />").val(0).text("Any Model"));#}
-                    {#$.each(modelJson, function (i) {#}
-                        {#var test = modelJson[i];#}
-                        {#var key = "";#}
-                        {#var value = "";#}
-                        {#for (var keyx in modelJson[i]) {#}
-                            {#key = keyx;#}
-                            {#value = test[keyx];#}
-                        {#}#}
-                        {#$(model).append($("<option />").val(value).text(value))#}
-                    {#});#}
-                {#});#}
-            {#}#}
-
-            {#$(document).ready(function () {#}
-                {#treeX('#make', '#model', treeDataCar);#}
-                {#//treeX('#makeRvs', '#modelRvs', treeDataRvs);#}
-            {#});#}
-        {#</script>#}
-    {#</div>#}
 <div class="row">
     <div class="searchSideBar col-md-3">
-        {% include 'NumaDOASiteBundle:Search:searchSidebar.html.twig' %}
+        {% include 'NumaDOASiteBundle:Search:searchSidebarLinked.html.twig' %}
     </div>
     <div class="searchResults col-md-9">
         <div class="row">
@@ -276,14 +156,7 @@
         {% endif %}
         {{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}
     </div>
-    {#<div class="page_ads">#}
-        {#{% include 'NumaDOASiteBundle:Ads:themes-right-sidebar.html.twig' %}#}
-    {#</div>#}
-    {#<div class="col-md-12">#}
-        {#{{ pagerfanta(pagerfanta, 'twitter_bootstrap3') }}#}
-    {#</div>#}
 </div>
-{#</div>#}
 
 {% include "@NumaDOASite/TemplatesElements/searchModals.html.twig" %}
 
@@ -293,14 +166,7 @@
     num = parseInt({{ listing_per_page }});
     {% endif %}
     $('select#numberoflisting option[value=' + num + ']').prop('selected', true)
-    {#$('select#numberoflisting').change(
-            function() {
-                var ss = $("#searchSource").val();
-                ss = ss + $("#numberoflisting").val()
-                console.log(ss);
-                $(this).closest('form').submit();
 
-            });#}
 </script>
 
 <script>
