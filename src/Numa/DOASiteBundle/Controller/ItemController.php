@@ -2,6 +2,7 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Form\SendEmailType;
 use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Form\ListingFormContactType;
@@ -49,7 +50,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
 
-        if($dealer->getId() !== $dealerFromHost->getId() && isset($dealerFromHost)){
+        if(($dealer instanceof Catalogrecords && $dealer->getId() !== $dealerFromHost->getId()) && isset($dealerFromHost)){
             throw $this->createNotFoundException('Listing not found!');
         }
 

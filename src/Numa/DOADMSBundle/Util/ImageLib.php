@@ -132,4 +132,17 @@ class ImageLib
         }
         return $filename;
     }
+
+    public function cleanUrl($url){
+        $url = str_replace("//","/");
+
+
+        $pattern = '/(\w+) (\d+), (\d+)/i';
+        $pattern = '/\/(app)(.*)\/\..\//i';
+        $replacement = '${1}1,$3';
+        $test =  preg_replace($pattern, $replacement, $url);
+        dump();
+
+        return $url;
+    }
 }
