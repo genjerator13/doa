@@ -1,0 +1,10 @@
+{% form_theme form 'NumaDOASiteBundle::bootstrap3form.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': '','role':'search'}}) }}
+    <div class="{{ inputClass }}">
+    {{ form_row(form.text,{ 'attr': {'class': 'form-control', 'placeholder': 'Search by make, model or keyword'} }) }}
+    </div>
+    <div class="{{ buttonClass }}">
+        <button class="{{ button }}" type="submit">Search</button>
+    </div>
+</form>
