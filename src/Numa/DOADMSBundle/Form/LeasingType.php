@@ -41,7 +41,7 @@ class LeasingType extends AbstractType
             ->add('city', null, array('label'=> '* City', 'required' => true))
             ->add('state', null, array('label'=> '* State/Prov', 'required' => true))
             ->add('zip_code', null, array('label'=> '* ZIP Code', 'required' => true))
-            ->add('at_residence', 'date', array('label'=> '* Years at curent residence'))
+            ->add('at_residence', null, array('label'=> '* Years at curent residence', 'max_length'=>4))
             ->add('ssn_sin_nr', null, array('label'=> '* SSN/SIN. No.', 'required' => true))
             ->add('birth_date', 'date', array('label'=>'Date of Birth','years'       => range(date('Y')-16, date('Y') - 100, -1)))
             ->add('material_status', null, array('label'=> 'Material Status'))

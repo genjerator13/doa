@@ -125,7 +125,8 @@ Numa\DOADMSBundle\Entity\Leasing:
             length: 255
             nullable: true
         at_residence:
-            type: datetime
+            type: integer
+            length: 4
             nullable: true
         real_estate:
             type: string
@@ -139,7 +140,6 @@ Numa\DOADMSBundle\Entity\Leasing:
             type: string
             length: 255
             nullable: true
-
         employer_company:
             type: string
             length: 255
