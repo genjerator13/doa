@@ -150,7 +150,9 @@ header .content{
 .menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-
+    background-color: #c51633;
+    border-color: #c51633;
+    color: #fff;
     z-index: 0;
 }
 
@@ -250,7 +252,12 @@ header .content{
     line-height: 20px;
 }
 .hero-content .buttons{
+    display: flex;
     margin-top: 30px;
+}
+.hero-content .buttons .button {
+    flex-grow: 1;
+    text-align: center;
 }
 .featured-header {
     text-align: center;
@@ -478,6 +485,10 @@ header .content{
 
 .footer .copyright{
     paddin-top: 70px;
+}
+
+.footer .text{
+    color: #818e92;
 }
 #map {
     height: 260px;

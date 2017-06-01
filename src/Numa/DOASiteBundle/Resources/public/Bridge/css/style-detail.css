@@ -413,3 +413,20 @@
 .pricing .discount small{
     font-size: 70%;
 }
+.features-item {
+    border-bottom: 1px dotted #535353;
+    padding: 10px;
+}
+
+.features-item i{
+    color: #34B665;
+}
+
+.option-lists li {
+    color: gray;
+    list-style: none;
+}
+
+.fieldCaption{
+    font-weight: bold;
+}

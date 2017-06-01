@@ -12,15 +12,16 @@
     {% endif %}
     <div data="{{ item.id }}" id="item_{{ item.id }}" class="row item-row" url="{{ path('item_compare') }}">
         <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 items">
-            {% if item.featured %}
-                <a href="{{ detailUrl }}" class="onSpecial">On Special</a>
-            {% endif %}
+
             <div class="picture-detail col-md-4">
                 <a href="{{ detailUrl }}" class="thumbnail">
                     {% if image is defined and image is not empty %}
                         {{ component.image(image, item.title, '', 'search_image_sea', 350, 250) }}
                     {% else %}
                         {{ component.image(null, 'No image', '', 'search_image_sea', 350, 250) }}
+                    {% endif %}
+                    {% if item.featured %}
+                        <a href="{{ detailUrl }}" class="onSpecial">On Special</a>
                     {% endif %}
                 </a>
             </div>
