@@ -192,6 +192,12 @@ finance_service_form:
 finance_service_success:
     path:  /finance_serviceSuccess
     defaults: { _controller: "NumaDOASiteBundle:FinanceService:success" }
+leasing_form:
+    path:     /leasing
+    defaults: { _controller: "NumaDOASiteBundle:Leasing:new" }
+leasing_success:
+    path:  /leasingSuccess
+    defaults: { _controller: "NumaDOASiteBundle:Leasing:success" }
 testDrive_form:
     path:     /test_drive
     defaults: { _controller: "NumaDOASiteBundle:TestDrive:testDrive" }

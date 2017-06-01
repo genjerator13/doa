@@ -1,0 +1,272 @@
+Numa\DOADMSBundle\Entity\Leasing:
+    type: entity
+    table: leasing
+#    repositoryClass: Numa\DOADMSBundle\Repository\LeasingRepository
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        dealer_id:
+            type: integer
+            nullable: true
+        customer_id:
+            type: integer
+            nullable: true
+        company_name:
+            type: string
+            length: 255
+            nullable: true
+        company_contact:
+            type: string
+            length: 255
+            nullable: true
+        company_preferred_contact:
+            type: string
+            length: 255
+            nullable: true
+        company_email:
+            type: string
+            length: 255
+            nullable: true
+        company_day_phone:
+            type: string
+            length: 255
+            nullable: true
+        company_cell_phone:
+            type: string
+            length: 255
+            nullable: true
+        company_fax:
+            type: string
+            length: 255
+            nullable: true
+        company_address:
+            type: string
+            length: 255
+            nullable: true
+        company_city:
+            type: string
+            length: 255
+            nullable: true
+        company_zip_code:
+            type: string
+            length: 255
+            nullable: true
+        company_type_of_business:
+            type: string
+            length: 255
+            nullable: true
+        company_in_business_since:
+            type: datetime
+            nullable: true
+        company_legal_structure:
+            type: string
+            length: 255
+            nullable: true
+        company_land:
+            type: string
+            length: 255
+            nullable: true
+        cust_first_name:
+            type: string
+            length: 255
+            nullable: true
+        cust_last_name:
+            type: string
+            length: 255
+            nullable: true
+        preferred_contact:
+            type: string
+            length: 255
+            nullable: true
+        email:
+            type: string
+            length: 255
+            nullable: true
+        day_phone:
+            type: string
+            length: 255
+            nullable: true
+        cell_phone:
+            type: string
+            length: 255
+            nullable: true
+        address:
+            type: string
+            length: 255
+            nullable: true
+        city:
+            type: string
+            length: 255
+            nullable: true
+        state:
+            type: string
+            length: 255
+            nullable: true
+        zip_code:
+            type: string
+            length: 255
+            nullable: true
+        ssn_sin_nr:
+            type: string
+            length: 255
+            nullable: true
+        birth_date:
+            type: datetime
+            nullable: true
+        material_status:
+            type: string
+            length: 255
+            nullable: true
+        residence_type:
+            type: string
+            length: 255
+            nullable: true
+        monthly_payment:
+            type: string
+            length: 255
+            nullable: true
+        at_residence:
+            type: datetime
+            nullable: true
+        real_estate:
+            type: string
+            length: 255
+            nullable: true
+        landlord_phone:
+            type: string
+            length: 255
+            nullable: true
+        mortgage_balance:
+            type: string
+            length: 255
+            nullable: true
+        previous_bankruptcy:
+            type: string
+            length: 255
+            nullable: true
+
+        employer_company:
+            type: string
+            length: 255
+            nullable: true
+        employer_type_of_business:
+            type: string
+            length: 255
+            nullable: true
+        employer_position:
+            type: string
+            length: 255
+            nullable: true
+        employer_on_job:
+            type: datetime
+            nullable: true
+        employer_business_phone:
+            type: string
+            length: 255
+            nullable: true
+        employer_address:
+            type: string
+            length: 255
+            nullable: true
+        employer_city:
+            type: string
+            length: 255
+            nullable: true
+        employer_state:
+            type: string
+            length: 255
+            nullable: true
+        employer_zip:
+            type: string
+            length: 255
+            nullable: true
+        employer_previous_address:
+            type: string
+            length: 255
+            nullable: true
+        employer_previous_city:
+            type: string
+            length: 255
+            nullable: true
+        employer_previous_state:
+            type: string
+            length: 255
+            nullable: true
+        employer_previous_zip:
+            type: string
+            length: 255
+            nullable: true
+        vendor_company:
+            type: string
+            length: 255
+            nullable: true
+        vendor_address:
+            type: string
+            length: 255
+            nullable: true
+        vendor_city:
+            type: string
+            length: 255
+            nullable: true
+        vendor_contact:
+            type: string
+            length: 255
+            nullable: true
+        vendor_phone:
+            type: string
+            length: 255
+            nullable: true
+        vendor_email:
+            type: string
+            length: 255
+            nullable: true
+        make:
+            type: string
+            length: 255
+            nullable: true
+        model:
+            type: string
+            length: 255
+            nullable: true
+        year:
+            type: string
+            length: 255
+            nullable: true
+        vehicle_type:
+            type: string
+            length: 255
+            nullable: true
+        message_text:
+            type: string
+            length: 255
+            nullable: true
+        date_updated:
+             type: datetime
+             nullable: true
+        date_created:
+             type: datetime
+             nullable: true
+        status:
+             type: string
+             length: 255
+             nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: Leasing
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
+        Customer:
+            targetEntity: Numa\DOADMSBundle\Entity\Customer
+            inversedBy: Leasing
+            joinColumn:
+                name: customer_id
+                referencedColumnName: id
+
+    lifecycleCallbacks:
+        prePersist: [ setCreatedAtValue ]
+        preUpdate: [ setUpdatedAtValue ]

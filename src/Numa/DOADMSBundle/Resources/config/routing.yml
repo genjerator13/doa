@@ -132,3 +132,6 @@ numa_qb:
 NumaDOADMSBundle_financeservice:
     resource: "@NumaDOADMSBundle/Resources/config/routing/financeservice.yml"
     prefix:   /financeservice
+NumaDOADMSBundle_leasing:
+    resource: "@NumaDOADMSBundle/Resources/config/routing/leasing.yml"
+    prefix:   /leasing

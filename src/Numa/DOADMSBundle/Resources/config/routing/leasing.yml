@@ -1,0 +1,30 @@
+leasing:
+    path:     /
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:index" }
+
+leasing_show:
+    path:     /{id}/show
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:show" }
+
+leasing_new:
+    path:     /new
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:new" }
+
+leasing_create:
+    path:     /create
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:create" }
+    requirements: { _method: post }
+
+leasing_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:edit" }
+
+leasing_update:
+    path:     /{id}/update
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:update" }
+    requirements: { _method: post|put }
+
+leasing_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NumaDOADMSBundle:Leasing:delete" }
+    requirements: { _method: post|delete }

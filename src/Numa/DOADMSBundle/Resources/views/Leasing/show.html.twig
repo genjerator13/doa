@@ -1,0 +1,277 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>Leasing</h1>
+
+    <table class="record_properties">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>Dealer_id</th>
+                <td>{{ entity.dealerid }}</td>
+            </tr>
+            <tr>
+                <th>Customer_id</th>
+                <td>{{ entity.customerid }}</td>
+            </tr>
+            <tr>
+                <th>Company_name</th>
+                <td>{{ entity.companyname }}</td>
+            </tr>
+            <tr>
+                <th>Company_contact</th>
+                <td>{{ entity.companycontact }}</td>
+            </tr>
+            <tr>
+                <th>Company_preferred_contact</th>
+                <td>{{ entity.companypreferredcontact }}</td>
+            </tr>
+            <tr>
+                <th>Company_email</th>
+                <td>{{ entity.companyemail }}</td>
+            </tr>
+            <tr>
+                <th>Company_day_phone</th>
+                <td>{{ entity.companydayphone }}</td>
+            </tr>
+            <tr>
+                <th>Company_cell_phone</th>
+                <td>{{ entity.companycellphone }}</td>
+            </tr>
+            <tr>
+                <th>Company_fax</th>
+                <td>{{ entity.companyfax }}</td>
+            </tr>
+            <tr>
+                <th>Company_address</th>
+                <td>{{ entity.companyaddress }}</td>
+            </tr>
+            <tr>
+                <th>Company_city</th>
+                <td>{{ entity.companycity }}</td>
+            </tr>
+            <tr>
+                <th>Company_zip_code</th>
+                <td>{{ entity.companyzipcode }}</td>
+            </tr>
+            <tr>
+                <th>Company_type_of_business</th>
+                <td>{{ entity.companytypeofbusiness }}</td>
+            </tr>
+            <tr>
+                <th>Company_in_business_since</th>
+                <td>{{ entity.companyinbusinesssince|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Company_legal_structure</th>
+                <td>{{ entity.companylegalstructure }}</td>
+            </tr>
+            <tr>
+                <th>Company_land</th>
+                <td>{{ entity.companyland }}</td>
+            </tr>
+            <tr>
+                <th>Cust_first_name</th>
+                <td>{{ entity.custfirstname }}</td>
+            </tr>
+            <tr>
+                <th>Cust_last_name</th>
+                <td>{{ entity.custlastname }}</td>
+            </tr>
+            <tr>
+                <th>Preferred_contact</th>
+                <td>{{ entity.preferredcontact }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ entity.email }}</td>
+            </tr>
+            <tr>
+                <th>Day_phone</th>
+                <td>{{ entity.dayphone }}</td>
+            </tr>
+            <tr>
+                <th>Cell_phone</th>
+                <td>{{ entity.cellphone }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ entity.address }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ entity.city }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ entity.state }}</td>
+            </tr>
+            <tr>
+                <th>Zip_code</th>
+                <td>{{ entity.zipcode }}</td>
+            </tr>
+            <tr>
+                <th>Ssn_sin_nr</th>
+                <td>{{ entity.ssnsinnr }}</td>
+            </tr>
+            <tr>
+                <th>Birth_date</th>
+                <td>{{ entity.birthdate|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Material_status</th>
+                <td>{{ entity.materialstatus }}</td>
+            </tr>
+            <tr>
+                <th>Residence_type</th>
+                <td>{{ entity.residencetype }}</td>
+            </tr>
+            <tr>
+                <th>Monthly_payment</th>
+                <td>{{ entity.monthlypayment }}</td>
+            </tr>
+            <tr>
+                <th>At_residence</th>
+                <td>{{ entity.atresidence|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Real_estate</th>
+                <td>{{ entity.realestate }}</td>
+            </tr>
+            <tr>
+                <th>Landlord_phone</th>
+                <td>{{ entity.landlordphone }}</td>
+            </tr>
+            <tr>
+                <th>Mortgage_balance</th>
+                <td>{{ entity.mortgagebalance }}</td>
+            </tr>
+            <tr>
+                <th>Previous_bankruptcy</th>
+                <td>{{ entity.previousbankruptcy }}</td>
+            </tr>
+            <tr>
+                <th>Employer_company</th>
+                <td>{{ entity.employercompany }}</td>
+            </tr>
+            <tr>
+                <th>Employer_tpe_of_business</th>
+                <td>{{ entity.employertpeofbusiness }}</td>
+            </tr>
+            <tr>
+                <th>Employer_position</th>
+                <td>{{ entity.employerposition }}</td>
+            </tr>
+            <tr>
+                <th>Employer_on_job</th>
+                <td>{{ entity.employeronjob|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Employer_business_phone</th>
+                <td>{{ entity.employerbusinessphone }}</td>
+            </tr>
+            <tr>
+                <th>Employer_address</th>
+                <td>{{ entity.employeraddress }}</td>
+            </tr>
+            <tr>
+                <th>Employer_city</th>
+                <td>{{ entity.employercity }}</td>
+            </tr>
+            <tr>
+                <th>Employer_state</th>
+                <td>{{ entity.employerstate }}</td>
+            </tr>
+            <tr>
+                <th>Employer_zip</th>
+                <td>{{ entity.employerzip }}</td>
+            </tr>
+            <tr>
+                <th>Employer_previous_address</th>
+                <td>{{ entity.employerpreviousaddress }}</td>
+            </tr>
+            <tr>
+                <th>Employer_previous_city</th>
+                <td>{{ entity.employerpreviouscity }}</td>
+            </tr>
+            <tr>
+                <th>Employer_previous_state</th>
+                <td>{{ entity.employerpreviousstate }}</td>
+            </tr>
+            <tr>
+                <th>Employer_previous_zip</th>
+                <td>{{ entity.employerpreviouszip }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_company</th>
+                <td>{{ entity.vendorcompany }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_address</th>
+                <td>{{ entity.vendoraddress }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_city</th>
+                <td>{{ entity.vendorcity }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_contact</th>
+                <td>{{ entity.vendorcontact }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_phone</th>
+                <td>{{ entity.vendorphone }}</td>
+            </tr>
+            <tr>
+                <th>Vendor_email</th>
+                <td>{{ entity.vendoremail }}</td>
+            </tr>
+            <tr>
+                <th>Make</th>
+                <td>{{ entity.make }}</td>
+            </tr>
+            <tr>
+                <th>Model</th>
+                <td>{{ entity.model }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ entity.year }}</td>
+            </tr>
+            <tr>
+                <th>Vehicle_type</th>
+                <td>{{ entity.vehicletype }}</td>
+            </tr>
+            <tr>
+                <th>Message_text</th>
+                <td>{{ entity.messagetext }}</td>
+            </tr>
+            <tr>
+                <th>Date_updated</th>
+                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Date_created</th>
+                <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ entity.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+        
+        <a href="{{ path('leasing') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+
+        <a href="{{ path('leasing_edit', { 'id': entity.id }) }}" class="btn btn-default">
+            Edit
+        </a>
+
+{% endblock %}

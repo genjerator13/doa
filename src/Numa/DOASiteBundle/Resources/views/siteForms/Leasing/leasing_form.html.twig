@@ -1,0 +1,182 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+
+{% block content %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{ displayComponent('page_title',"Text","page","tnt")|raw }}
+    <div class="coupon-page-text">
+        {{ displayComponent('page_content',"HTML","page","tnt")|raw }}
+    </div>
+    <p>
+        * Indicates required field
+    </p>
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+
+    <h4>Lease Applicant</h4>
+    <p></p>
+    {{ form_row(form.company_name) }}
+    {{ form_row(form.company_contact) }}
+    {{ form_row(form.company_preferred_contact) }}
+    {{ form_row(form.company_email) }}
+    {{ form_row(form.company_day_phone) }}
+    {{ form_row(form.company_cell_phone) }}
+    {{ form_row(form.company_address) }}
+    {{ form_row(form.company_city) }}
+    {#{{ form_row(form.company_state) }}#}
+    {{ form_row(form.company_zip_code) }}
+    {{ form_row(form.company_type_of_business) }}
+    {{ form_row(form.company_in_business_since) }}
+    {{ form_row(form.company_legal_structure) }}
+    {{ form_row(form.company_land) }}
+
+    <h4>Personal Information</h4>
+    <p></p>
+    {{ form_row(form.cust_first_name) }}
+    {{ form_row(form.cust_last_name) }}
+    {{ form_row(form.preferred_contact) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.day_phone) }}
+    {{ form_row(form.cell_phone) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.state) }}
+    {{ form_row(form.zip_code) }}
+    {{ form_row(form.ssn_sin_nr) }}
+    {{ form_row(form.birth_date) }}
+    {{ form_row(form.material_status) }}
+    {{ form_row(form.residence_type) }}
+    {{ form_row(form.monthly_payment) }}
+    {{ form_row(form.at_residence) }}
+    {{ form_row(form.real_estate) }}
+    {{ form_row(form.landlord_phone) }}
+    {{ form_row(form.mortgage_balance) }}
+    {{ form_row(form.previous_bankruptcy) }}
+
+    <h4>Previous Employment</h4>
+    <p></p>
+    {{ form_row(form.employer_company) }}
+    {{ form_row(form.employer_type_of_business) }}
+    {{ form_row(form.employer_position) }}
+    {{ form_row(form.employer_on_job) }}
+    {{ form_row(form.employer_business_phone) }}
+    {{ form_row(form.employer_address) }}
+    {{ form_row(form.employer_city) }}
+    {{ form_row(form.employer_state) }}
+    {{ form_row(form.employer_zip) }}
+
+    <h4>Previous Address</h4>
+    <p></p>
+    {{ form_row(form.employer_previous_address) }}
+    {{ form_row(form.employer_previous_city) }}
+    {{ form_row(form.employer_previous_state) }}
+    {{ form_row(form.employer_previous_zip) }}
+    {{ form_row(form.employer_previous_zip) }}
+
+    <h4>Vendor Information</h4>
+    <p></p>
+    {{ form_row(form.vendor_company) }}
+    {{ form_row(form.vendor_address) }}
+    {{ form_row(form.vendor_city) }}
+    {{ form_row(form.vendor_contact) }}
+    {{ form_row(form.vendor_phone) }}
+    {{ form_row(form.vendor_email) }}
+
+    <h4>Equipment Description</h4>
+    <p></p>
+    <div class="row">
+        <div class="col-md-3 inputGroup">
+            {{ form_widget(form.make, {'attr': {'placeholder': 'Make'} }) }}
+        </div>
+        <div class="col-md-3 inputGroup">
+            {{ form_widget(form.model, {'attr': {'placeholder': 'Model'} }) }}
+        </div>
+        <div class="col-md-3 inputGroup">
+            {{ form_widget(form.year, {'attr': {'placeholder': 'Year'} }) }}
+        </div>
+        <div class="col-md-3 inputGroup">
+            {{ form_widget(form.vehicle_type, {'attr': {'placeholder': 'Vehicle Type'} }) }}
+        </div>
+    </div>
+
+    <p>Additional Information</p>
+    {{ form_row(form.message_text) }}
+
+
+    {#<div class="row">#}
+        {#<div class="col-md-6">#}
+            {#{{ form_row(form.landlord_name) }}#}
+        {#</div>#}
+        {#<div class="col-md-6">#}
+            {#{{ form_row(form.landlord_phone) }}#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<h4>Employment Information</h4>#}
+    {#{{ form_row(form.employer_name) }}#}
+    {#{{ form_row(form.employer_occupation) }}#}
+    {#{{ form_row(form.employer_monthly_income) }}#}
+    {#{{ form_row(form.employer_on_job) }}#}
+    {#{{ form_row(form.employer_business_phone) }}#}
+    {#{{ form_row(form.employer_address) }}#}
+    {#{{ form_row(form.employer_city) }}#}
+    {#{{ form_row(form.employer_state) }}#}
+    {#{{ form_row(form.employer_zip) }}#}
+    {#{{ form_row(form.supervisors_name) }}#}
+
+    {#<p>#}
+        {#If You Are Not The Owner Of The Vehicle, Provide Owner Details#}
+    {#</p>#}
+
+    {#{{ form_row(form.other_name) }}#}
+    {#{{ form_row(form.other_address) }}#}
+    {#{{ form_row(form.other_city) }}#}
+    {#{{ form_row(form.other_state) }}#}
+    {#{{ form_row(form.other_zip) }}#}
+    {#<div>#}
+        {#<div class="col-md-6">#}
+            {#{{ form_row(form.other_home_phone) }}#}
+        {#</div>#}
+        {#<div class="col-md-6">#}
+            {#{{ form_row(form.other_work_phone) }}#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<h4>Vehicle Information</h4>#}
+    {#<div class="row">#}
+        {#<div class="col-md-3 inputGroup">#}
+            {#{{ form_widget(form.make, {'attr': {'placeholder': 'Make'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3 inputGroup">#}
+            {#{{ form_widget(form.model, {'attr': {'placeholder': 'Model'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3 inputGroup">#}
+            {#{{ form_widget(form.year, {'attr': {'placeholder': 'Year'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3 inputGroup">#}
+            {#{{ form_widget(form.vehicle_type, {'attr': {'placeholder': 'Vehicle Type'} }) }}#}
+        {#</div>#}
+    {#</div>#}
+    {#<div class="row">#}
+        {#<div class="col-md-4 inputGroup">#}
+            {#{{ form_widget(form.plate, {'attr': {'placeholder': 'Plate #'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-4 inputGroup">#}
+            {#{{ form_widget(form.vin, {'attr': {'placeholder': 'VIN #'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-4 inputGroup">#}
+            {#{{ form_widget(form.mileage, {'attr': {'placeholder': 'Mileage'} }) }}#}
+        {#</div>#}
+    {#</div>#}
+    {#{{ form_row(form.financed_by) }}#}
+    {#{{ form_row(form.message_text) }}#}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+    {{ form_end(form) }}
+
+{% endblock %}
