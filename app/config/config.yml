@@ -433,6 +433,11 @@ liip_imagine:
             filters:
                 thumbnail: { size: [200, 140], mode: inbound }
                 background: { color: '#FFFFFF' }
+        bridge_logo:
+            quality: 100
+            filters:
+                thumbnail: { size: [135, 135], mode: inbount }
+                background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
     related_docs_url: /upload/related_docs
