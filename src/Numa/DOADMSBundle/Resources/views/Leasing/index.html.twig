@@ -1,0 +1,56 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
+
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Leasing:Leasing.js.twig' %}
+    </script>
+{% endblock javascripts %}
+
+
+{% block content %}
+
+
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+    <div class="box">
+    <div class="box-header">
+        <div class="box-header">
+            <h3 class="box-title">Leasing list</h3>
+
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding" ng-app="app">
+
+        <div ng-controller="MainCtrl">
+            {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
+
+            <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+        </div>
+    </div>
+{% endblock %}
