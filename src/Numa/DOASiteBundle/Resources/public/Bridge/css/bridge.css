@@ -150,7 +150,9 @@ header .content{
 .menu ul li ul li:hover ul li a { background: none; color: #6d6d6d; }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-
+    background-color: #c51633;
+    border-color: #c51633;
+    color: #fff;
     z-index: 0;
 }
 
