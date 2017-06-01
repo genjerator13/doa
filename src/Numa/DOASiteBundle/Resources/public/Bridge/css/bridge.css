@@ -484,6 +484,10 @@ header .content{
 .footer .copyright{
     paddin-top: 70px;
 }
+
+.footer .text{
+    color: #818e92;
+}
 #map {
     height: 260px;
     width: 100%;
