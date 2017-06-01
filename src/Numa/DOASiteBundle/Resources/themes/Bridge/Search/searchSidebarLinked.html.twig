@@ -1,0 +1,80 @@
+{% form_theme sidebarForm _self %}
+{#{% form_theme sidebarForm with ['bootstrap_3_horizontal_layout.html.twig', _self] %}#}
+{{ form_start(sidebarForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+{% if make is defined %}
+    <div id="makes" class="">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div href="#collapseMakes"
+                         data-toggle="collapse">
+                        <a class="collapsed">Makes</a>
+                        <span class="glyphicon glyphicon-play-circle" aria-hidden="true"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="collapseMakes" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div class="row">
+                    <ul>
+                        {% for item in make %}
+                            <li><a href="{{ path('search_by_make',{'make_string':item['value']}) }}">{{ item['value'] }}
+                                    ( {{ item['count'] }} )</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{#<div>Makes</div>#}
+    {#<div>#}
+        {#<ul>#}
+            {#{% for item in make %}#}
+                {#<li><a href="{{ path('search_by_make',{'make_string':item['value']}) }}">{{ item['value'] }}#}
+                        {#( {{ item['count'] }} )</a></li>#}
+            {#{% endfor %}#}
+        {#</ul>#}
+    {#</div>#}
+{% endif %}
+
+{% if bodyStyle is defined %}
+    <div>Bodystyle</div>
+    <div>
+        <ul>
+            {% for item in bodyStyle %}
+                <li>
+                    <a href="{{ path('search_only_by_body_style',{'categorySubType':item['value']}) }}">{{ item['value'] }}
+                        ( {{ item['count'] }} )</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if year is defined %}
+    <div>Year</div>
+    <div>
+        <ul>
+            {% for item in year %}
+                <li><a href="{{ path('search_by_year',{'year':item['value']}) }}">{{ item['value'] }}
+                        ( {{ item['count'] }}
+                        )</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+{% if make is defined %}
+    <div>Price</div>
+    <div>
+        <ul>
+            {% for item in price %}
+
+                <li><a href="#">{{ price(item['from'],true)|raw }} - {{ price(item['to'],true)|raw }} ( {{ item.count }}
+                        )</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}

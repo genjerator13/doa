@@ -61,3 +61,42 @@
 .shortDetails .priceDetails{
     text-align: right;
 }
+.shortDetails .youSave{
+    color: #232323;
+    border-bottom: 1px dotted;
+    margin-bottom: 30px;
+}
+.shortDetails a{
+    text-decoration: none;
+}
+.priceDetails .viewVehicle{
+    margin-top: 20px;
+}
+.items .onSpecial{
+    background-color: #c51633;
+    color: #fff;
+    margin: 8px;
+    padding: 12px 40px;
+    text-align: center;
+    width: 242px;
+    font-weight: 700;
+    position: absolute;
+    top: 126px;
+    left: 12px;
+}
+.listinsFound{
+    margin-left: 30px;
+    font-size: 16px;
+    color: #818e92;
+}
+.listingsNumber .listinsPP{
+    font-size: 18px;
+    padding: 5px;
+}
+.listingsNumber .listinsPP:hover, .listingsNumber .active, .sort .active a:hover, .sort .active a{
+    background-color: #c51633;
+    color: #fff;
+}
+.sort .dropdown-menu{
+    z-index: 800;
+}

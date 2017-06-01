@@ -114,7 +114,8 @@
 {% endblock %}
 
 </div>
-{% if dealer is defined and dealer.settingPurechat is not empty %}
+
+{% if dealer is defined and dealer.settingPurechat is not empty and not isLocalHost() %}
     {{ dealer.settingPurechat|raw }}
 {% endif %}
 </body>
