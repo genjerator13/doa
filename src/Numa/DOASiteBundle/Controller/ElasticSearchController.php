@@ -159,9 +159,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
                 $em->getRepository('NumaDOAModuleBundle:Ad')->addView($ads);
             }
         }
-//
+
 
         $param = $this->generateTwigParams($request, $pagerFanta, $ads);
+
         if ($request->isXmlHttpRequest()) {
 
             return $this->render('NumaDOASiteBundle:Search:searchResults.html.twig', $param);
@@ -198,27 +199,14 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $subCat += $sidebarParam['subCat'];
             $sidebarForm->add('categorySubType', 'choice', array('label' => 'Sub Category', 'choices' => $subCat, "required" => false));
         }
-        if (!empty($sidebarParam['make'])) {
-            $make = array('' => 'Choose Make');
-            $make += $sidebarParam['make'];
-            $sidebarForm->add('make_string', 'choice', array('label' => 'Make', 'choices' => $make, "required" => false));
-        }
 
+        //$sidebarForm = $this->addSidebarFormField('categorySubType','Sub Category',$sidebarForm,$sidebarParam['subCat'],"Choose Subcategory");
+        $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], "Choose Year From");
+        $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], "Choose Year To");
 
-        if (!empty($sidebarParam['model'])) {
-            $model = array('' => 'Choose Model');
-            $model += $sidebarParam['model'];
-            $sidebarForm->add('model', 'choice', array('label' => 'Model', 'choices' => $model, "required" => false));
-        }
+        $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], "Choose Model");
+        $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
 
-        if (!empty($sidebarParam['year'])) {
-            $yearFrom = $sidebarParam['year'];
-            ksort($yearFrom);
-            $sidebarForm->add('yearFrom', 'choice', array('label' => 'Year From', 'choices' => $yearFrom, "required" => false));
-
-            $yearTo = $sidebarParam['year'];
-            $sidebarForm->add('yearTo', 'choice', array('label' => 'Year To', 'choices' => $yearTo, "required" => false));
-        }
 
         $sidebarForm->add('mileageFrom', 'text', array('label' => 'Mileage From', "required" => false));
 
@@ -245,6 +233,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         if (!empty($params['yearTo']) && !empty($params['yearTo']->getValue())) {
             $sidebarForm->get('yearTo')->setData($params['yearTo']->getValue());
         }
+
         if (!empty($params['make_string']) && !empty($params['make_string']->getValue())) {
             $sidebarForm->get('make_string')->setData($params['make_string']->getValue());
         }
@@ -265,6 +254,28 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
         return $sidebarForm;
 
+    }
+
+    private function addSidebarFormField($field, $label, $form, $param, $emptyValue)
+    {
+
+        if (!empty($param)) {
+            $result = array();
+            $resulta = array();
+            array_walk($param, function (&$val, $key) use (&$result) {
+                $result[$val['value']] = $val['value'] . " ( " . $val['count'] . " ) ";
+            });
+            if (!empty($emptyValue)) {
+                $resulta[""] = $emptyValue;
+            }
+            $resulta += $result;
+            if ($field == "yearFrom") {
+                ksort($resulta);
+            }
+            $form->add($field, 'choice', array('label' => $label, 'choices' => $resulta, "required" => false));
+        }
+
+        return $form;
     }
 
     private function createAggregation()
@@ -364,33 +375,49 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
 
         foreach ($elasticaAggregs['make']['buckets'] as $sc) {
-            $result['make'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['make'][] = $temp;
         }
 
         foreach ($elasticaAggregs['trim']['buckets'] as $sc) {
             $result['trim'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
         foreach ($elasticaAggregs['bodyStyle']['buckets'] as $sc) {
-            $result['bodyStyle'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['bodyStyle'][] = $temp;
         }
 
         foreach ($elasticaAggregs['model']['buckets'] as $sc) {
-            $result['model'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            //$result['model'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['model'][] = $temp;
         }
 
         foreach ($elasticaAggregs['year']['buckets'] as $sc) {
-            $result['year'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['year'][] = $temp;
         }
 
         foreach ($elasticaAggregs['category']['buckets'] as $sc) {
             $result['category'][$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
         }
         foreach ($elasticaAggregs['price']['buckets'] as $sc) {
-            $temp=array();
+            $temp = array();
             $temp['from'] = $sc['from'];
             $temp['to'] = $sc['to'];
             $temp['count'] = $sc['doc_count'];
-            $result['price'][]=$temp;
+            $result['price'][] = $temp;
         }
         foreach ($elasticaAggregs['category']['buckets'] as $sc) {
 
