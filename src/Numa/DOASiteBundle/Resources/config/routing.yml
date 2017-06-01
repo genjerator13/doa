@@ -10,8 +10,17 @@ search_by_category:
 search_by_category_make:
     path:  /browse_by_{category}/make/{make_string}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_make:
+    path:  /browse_by_make/{make_string}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_by_year:
+    path:  /browse_by_year/{year}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{categorySubType}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_only_by_body_style:
+    path:  /browse_by_body_style/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_boat_type:
     path:  /browse_by_boat_type_{category}/{categorySubType}
