@@ -1,0 +1,15 @@
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+
+{% form_theme form 'bootstrap_3_horizontal_layout.html.twig' %}
+
+{% block content %}
+    <h1>Leasing creation</h1>
+
+    {{ form(form) }}
+
+        
+        <a href="{{ path('leasing') }}" class="btn btn-primary" >
+            Back to the list
+        </a>
+
+{% endblock %}
