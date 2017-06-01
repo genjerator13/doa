@@ -1,17 +1,37 @@
-{% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}
-    <div class='price'>
-        Retail Price Was:
-        <span class='retail_price_value'>{{ price(item.getRetailPrice(),false)|raw }}</span>
+{#{% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}#}
+    {#<div class='price'>#}
+        {#Retail Price Was:#}
+        {#<span class='retail_price_value'>{{ price(item.getRetailPrice(),false)|raw }}</span>#}
+    {#</div>#}
+{#{% endif %}#}
+{#{% if item.getPrice() is not empty and item.getPrice() > 0 %}#}
+    {#<div class="price">#}
+        {#Selling Price:#}
+        {#<span class='price_value'>{{ item.getPriceString() }}</span>#}
+    {#</div>#}
+{#{% endif %}#}
+{#{% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}#}
+    {#<div class="price">#}
+        {#Contact Us For A Quote#}
+    {#</div>#}
+{#{% endif %}#}
+<div class="pricing">
+    <div class="box">
+        <div class="row wasprice">
+            <span class="col-md-6 col1">Was</span>
+            <span class="col-md-6 col2">$12,900</span>
+        </div>
+        <div class="row discount">
+            <span class="col-md-6 col1" ><small>Total Discounts</small></span>
+            <span class="col-md-6 col2">-$4,600</span>
+        </div>
+        <div class="row ourprice">
+            <span class="col-md-6 price-title col1">Our Price</span>
+            <span class="col-md-6 col2">$7,900</span>
+        </div>
+        <div class="row tax">
+            <span class="col-md-6 col1">&nbsp;</span>
+            <span class="col-md-6 col2"><small>+ tax and licensing</small></span>
+        </div>
     </div>
-{% endif %}
-{% if item.getPrice() is not empty and item.getPrice() > 0 %}
-    <div class="price">
-        Selling Price:
-        <span class='price_value'>{{ item.getPriceString() }}</span>
-    </div>
-{% endif %}
-{% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}
-    <div class="price">
-        Contact Us For A Quote
-    </div>
-{% endif %}
+</div>

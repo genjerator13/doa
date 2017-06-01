@@ -480,24 +480,9 @@ header .content{
     margin-bottom: 50px;
     padding-bottom: 15px;
 }
+
 .footer .copyright{
     paddin-top: 70px;
-}
-.footer .text {
-    color: #818e92;
-}
-/*.footer .bottom-menu ul { margin: 0 auto; }*/
-
-/*.footer .extra-menu { margin-top: 5px; }*/
-
-/*.footer .extra-menu li {*/
-    /*border-left: 2px solid #959595;*/
-    /*line-height: 14px;*/
-/*}*/
-
-/*.footer .extra-menu li:first-child {*/
-    /*border-left: none;*/
-    /*padding-left: 0;*/
 }
 #map {
     height: 260px;
@@ -699,10 +684,7 @@ and (max-width : 767px) {
 .bottom-margin{
     margin-bottom: 20px;
 }
-/*.row{*/
-    /*margin-left:0;*/
-    /*margin-right:0;*/
-/*}*/
+
 .btn-bridge-red{
     display: inline-block;
     margin: 8px;
@@ -714,6 +696,14 @@ and (max-width : 767px) {
     padding: 12px 40px;
     text-transform: uppercase;
 }
+.btn-bridge-red.smaller, .btn-bridge-black.smaller {
+    padding: 6px 20px;
+    font-size: 80%;
+    width: 100%;
+    white-space: normal;
+    margin: 0px;
+}
+
 .btn-bridge-red:hover{
     background-color: #8a0f24;
     border-color: #8a0f24;
