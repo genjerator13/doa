@@ -348,6 +348,10 @@ liip_imagine:
                 relative_resize: { widen: 606 }
                 background: { color: '#FFFFFF' }
                 #thumbnail: { size: [210, 140], mode: outbound }
+        inventory_cover:
+            quality: 80
+            filters:
+                thumbnail: { size: [140, 140], mode: inbount }
         carousel_wide:
             quality: 100
             filters:
@@ -436,7 +440,7 @@ liip_imagine:
         bridge_logo:
             quality: 100
             filters:
-                thumbnail: { size: [135, 135], mode: inbount }
+                thumbnail: { size: [135, 135], mode: outbound }
                 background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
