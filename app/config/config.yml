@@ -440,7 +440,8 @@ liip_imagine:
         bridge_logo:
             quality: 100
             filters:
-                thumbnail: { size: [135, 135], mode: outbound }
+                relative_resize: { heighten: 135 }
+#                thumbnail: { size: [120, 90], mode: outbound }
                 background: { color: '#FFFFFF' }
 parameters:
     upload_url: /upload/itemsimages
