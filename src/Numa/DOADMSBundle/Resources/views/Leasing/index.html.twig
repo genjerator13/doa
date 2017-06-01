@@ -1,167 +1,56 @@
-    {% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" type="text/css"
+          rel="stylesheet"/>
+    {% stylesheets
+    'css/loading-bar.min.css'
 
-{% block content -%}
-<div class="box">
+    filter='cssrewrite' output='css/*.css' %}
+    <link href="{{ asset_url }}" type="text/css" rel="stylesheet"/>
+    {% endstylesheets %}
+{% endblock stylesheets %}
+{% block javascripts %}
+    {{ parent() }}
+    {% javascripts
+    '@colorbox_js'
+    'js/angular/angular143.min.js'
+    'js/angular/angular-touch143.min.js'
+    'js/angular/angular-animate143.min.js'
+
+    'js/angular/ui-grid.js'
+    'js/angular/angular-confirm.min.js'
+    'js/angular/ui-bootstrap-tpls-1.2.2.min.js'
+    'js/loading-bar.min.js' %}
+
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    <script>
+        {% include 'NumaDOADMSBundle:Leasing:Leasing.js.twig' %}
+    </script>
+{% endblock javascripts %}
+
+
+{% block content %}
+
+
+    {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
+
+    <div class="box">
     <div class="box-header">
-        <h3 class="box-title">Leasing list</h3>
-        <div class="box-tools">
-            
-                        <a href="{{ path('leasing_new') }}" class="btn btn-primary">
-                            Create a new Leasing
-                        </a>
-                    </div>
-    </div>
-    <div class="box-body table-responsive no-padding">
-        <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Dealer_id</th>
-                <th>Customer_id</th>
-                <th>Company_name</th>
-                <th>Company_contact</th>
-                <th>Company_preferred_contact</th>
-                <th>Company_email</th>
-                <th>Company_day_phone</th>
-                <th>Company_cell_phone</th>
-                <th>Company_fax</th>
-                <th>Company_address</th>
-                <th>Company_city</th>
-                <th>Company_zip_code</th>
-                <th>Company_type_of_business</th>
-                <th>Company_in_business_since</th>
-                <th>Company_legal_structure</th>
-                <th>Company_land</th>
-                <th>Cust_first_name</th>
-                <th>Cust_last_name</th>
-                <th>Preferred_contact</th>
-                <th>Email</th>
-                <th>Day_phone</th>
-                <th>Cell_phone</th>
-                <th>Address</th>
-                <th>City</th>
-                <th>State</th>
-                <th>Zip_code</th>
-                <th>Ssn_sin_nr</th>
-                <th>Birth_date</th>
-                <th>Material_status</th>
-                <th>Residence_type</th>
-                <th>Monthly_payment</th>
-                <th>At_residence</th>
-                <th>Real_estate</th>
-                <th>Landlord_phone</th>
-                <th>Mortgage_balance</th>
-                <th>Previous_bankruptcy</th>
-                <th>Employer_company</th>
-                <th>Employer_tpe_of_business</th>
-                <th>Employer_position</th>
-                <th>Employer_on_job</th>
-                <th>Employer_business_phone</th>
-                <th>Employer_address</th>
-                <th>Employer_city</th>
-                <th>Employer_state</th>
-                <th>Employer_zip</th>
-                <th>Employer_previous_address</th>
-                <th>Employer_previous_city</th>
-                <th>Employer_previous_state</th>
-                <th>Employer_previous_zip</th>
-                <th>Vendor_company</th>
-                <th>Vendor_address</th>
-                <th>Vendor_city</th>
-                <th>Vendor_contact</th>
-                <th>Vendor_phone</th>
-                <th>Vendor_email</th>
-                <th>Make</th>
-                <th>Model</th>
-                <th>Year</th>
-                <th>Vehicle_type</th>
-                <th>Message_text</th>
-                <th>Date_updated</th>
-                <th>Date_created</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('leasing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.dealerid }}</td>
-                <td>{{ entity.customerid }}</td>
-                <td>{{ entity.companyname }}</td>
-                <td>{{ entity.companycontact }}</td>
-                <td>{{ entity.companypreferredcontact }}</td>
-                <td>{{ entity.companyemail }}</td>
-                <td>{{ entity.companydayphone }}</td>
-                <td>{{ entity.companycellphone }}</td>
-                <td>{{ entity.companyfax }}</td>
-                <td>{{ entity.companyaddress }}</td>
-                <td>{{ entity.companycity }}</td>
-                <td>{{ entity.companyzipcode }}</td>
-                <td>{{ entity.companytypeofbusiness }}</td>
-                <td>{% if entity.companyinbusinesssince %}{{ entity.companyinbusinesssince|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.companylegalstructure }}</td>
-                <td>{{ entity.companyland }}</td>
-                <td>{{ entity.custfirstname }}</td>
-                <td>{{ entity.custlastname }}</td>
-                <td>{{ entity.preferredcontact }}</td>
-                <td>{{ entity.email }}</td>
-                <td>{{ entity.dayphone }}</td>
-                <td>{{ entity.cellphone }}</td>
-                <td>{{ entity.address }}</td>
-                <td>{{ entity.city }}</td>
-                <td>{{ entity.state }}</td>
-                <td>{{ entity.zipcode }}</td>
-                <td>{{ entity.ssnsinnr }}</td>
-                <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.materialstatus }}</td>
-                <td>{{ entity.residencetype }}</td>
-                <td>{{ entity.monthlypayment }}</td>
-                <td>{% if entity.atresidence %}{{ entity.atresidence|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.realestate }}</td>
-                <td>{{ entity.landlordphone }}</td>
-                <td>{{ entity.mortgagebalance }}</td>
-                <td>{{ entity.previousbankruptcy }}</td>
-                <td>{{ entity.employercompany }}</td>
-                <td>{{ entity.employertpeofbusiness }}</td>
-                <td>{{ entity.employerposition }}</td>
-                <td>{% if entity.employeronjob %}{{ entity.employeronjob|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.employerbusinessphone }}</td>
-                <td>{{ entity.employeraddress }}</td>
-                <td>{{ entity.employercity }}</td>
-                <td>{{ entity.employerstate }}</td>
-                <td>{{ entity.employerzip }}</td>
-                <td>{{ entity.employerpreviousaddress }}</td>
-                <td>{{ entity.employerpreviouscity }}</td>
-                <td>{{ entity.employerpreviousstate }}</td>
-                <td>{{ entity.employerpreviouszip }}</td>
-                <td>{{ entity.vendorcompany }}</td>
-                <td>{{ entity.vendoraddress }}</td>
-                <td>{{ entity.vendorcity }}</td>
-                <td>{{ entity.vendorcontact }}</td>
-                <td>{{ entity.vendorphone }}</td>
-                <td>{{ entity.vendoremail }}</td>
-                <td>{{ entity.make }}</td>
-                <td>{{ entity.model }}</td>
-                <td>{{ entity.year }}</td>
-                <td>{{ entity.vehicletype }}</td>
-                <td>{{ entity.messagetext }}</td>
-                <td>{% if entity.dateupdated %}{{ entity.dateupdated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if entity.datecreated %}{{ entity.datecreated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.status }}</td>
-                <td><ul>
-        <li>
-            <a href="{{ path('leasing_show', { 'id': entity.id }) }}">show</a>
-        </li>
-        <li>
-            <a href="{{ path('leasing_edit', { 'id': entity.id }) }}">edit</a>
-        </li>
-</ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+        <div class="box-header">
+            <h3 class="box-title">Leasing list</h3>
 
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding" ng-app="app">
+
+        <div ng-controller="MainCtrl">
+            {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
+
+            <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
+
+            <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
+        </div>
+    </div>
 {% endblock %}

@@ -1,7 +1,7 @@
 Numa\DOADMSBundle\Entity\Leasing:
     type: entity
     table: leasing
-#    repositoryClass: Numa\DOADMSBundle\Repository\LeasingRepository
+    repositoryClass: Numa\DOADMSBundle\Repository\LeasingRepository
 
     id:
         id:
@@ -124,18 +124,10 @@ Numa\DOADMSBundle\Entity\Leasing:
             type: string
             length: 255
             nullable: true
-        monthly_payment:
-            type: string
-            length: 255
-            nullable: true
         at_residence:
             type: datetime
             nullable: true
         real_estate:
-            type: string
-            length: 255
-            nullable: true
-        landlord_phone:
             type: string
             length: 255
             nullable: true

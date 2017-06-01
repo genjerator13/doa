@@ -164,11 +164,6 @@ class Leasing
     private $residence_type;
 
     /**
-     * @var string
-     */
-    private $monthly_payment;
-
-    /**
      * @var \DateTime
      */
     private $at_residence;
@@ -177,11 +172,6 @@ class Leasing
      * @var string
      */
     private $real_estate;
-
-    /**
-     * @var string
-     */
-    private $landlord_phone;
 
     /**
      * @var string
@@ -197,11 +187,6 @@ class Leasing
      * @var string
      */
     private $employer_company;
-
-    /**
-     * @var string
-     */
-    private $employer_tpe_of_business;
 
     /**
      * @var string
@@ -1070,30 +1055,6 @@ class Leasing
     }
 
     /**
-     * Set monthlyPayment
-     *
-     * @param string $monthlyPayment
-     *
-     * @return Leasing
-     */
-    public function setMonthlyPayment($monthlyPayment)
-    {
-        $this->monthly_payment = $monthlyPayment;
-
-        return $this;
-    }
-
-    /**
-     * Get monthlyPayment
-     *
-     * @return string
-     */
-    public function getMonthlyPayment()
-    {
-        return $this->monthly_payment;
-    }
-
-    /**
      * Set atResidence
      *
      * @param \DateTime $atResidence
@@ -1139,30 +1100,6 @@ class Leasing
     public function getRealEstate()
     {
         return $this->real_estate;
-    }
-
-    /**
-     * Set landlordPhone
-     *
-     * @param string $landlordPhone
-     *
-     * @return Leasing
-     */
-    public function setLandlordPhone($landlordPhone)
-    {
-        $this->landlord_phone = $landlordPhone;
-
-        return $this;
-    }
-
-    /**
-     * Get landlordPhone
-     *
-     * @return string
-     */
-    public function getLandlordPhone()
-    {
-        return $this->landlord_phone;
     }
 
     /**
@@ -1235,30 +1172,6 @@ class Leasing
     public function getEmployerCompany()
     {
         return $this->employer_company;
-    }
-
-    /**
-     * Set employerTpeOfBusiness
-     *
-     * @param string $employerTpeOfBusiness
-     *
-     * @return Leasing
-     */
-    public function setEmployerTpeOfBusiness($employerTpeOfBusiness)
-    {
-        $this->employer_tpe_of_business = $employerTpeOfBusiness;
-
-        return $this;
-    }
-
-    /**
-     * Get employerTpeOfBusiness
-     *
-     * @return string
-     */
-    public function getEmployerTpeOfBusiness()
-    {
-        return $this->employer_tpe_of_business;
     }
 
     /**
@@ -1922,5 +1835,34 @@ class Leasing
     public function setUpdatedAtValue()
     {
         // Add your code here
+    }
+    /**
+     * @var string
+     */
+    private $employer_type_of_business;
+
+
+    /**
+     * Set employerTypeOfBusiness
+     *
+     * @param string $employerTypeOfBusiness
+     *
+     * @return Leasing
+     */
+    public function setEmployerTypeOfBusiness($employerTypeOfBusiness)
+    {
+        $this->employer_type_of_business = $employerTypeOfBusiness;
+
+        return $this;
+    }
+
+    /**
+     * Get employerTypeOfBusiness
+     *
+     * @return string
+     */
+    public function getEmployerTypeOfBusiness()
+    {
+        return $this->employer_type_of_business;
     }
 }

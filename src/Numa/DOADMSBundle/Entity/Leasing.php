@@ -164,11 +164,6 @@ class Leasing
     private $residence_type;
 
     /**
-     * @var string
-     */
-    private $monthly_payment;
-
-    /**
      * @var \DateTime
      */
     private $at_residence;
@@ -177,11 +172,6 @@ class Leasing
      * @var string
      */
     private $real_estate;
-
-    /**
-     * @var string
-     */
-    private $landlord_phone;
 
     /**
      * @var string
@@ -1065,30 +1055,6 @@ class Leasing
     }
 
     /**
-     * Set monthlyPayment
-     *
-     * @param string $monthlyPayment
-     *
-     * @return Leasing
-     */
-    public function setMonthlyPayment($monthlyPayment)
-    {
-        $this->monthly_payment = $monthlyPayment;
-
-        return $this;
-    }
-
-    /**
-     * Get monthlyPayment
-     *
-     * @return string
-     */
-    public function getMonthlyPayment()
-    {
-        return $this->monthly_payment;
-    }
-
-    /**
      * Set atResidence
      *
      * @param \DateTime $atResidence
@@ -1134,30 +1100,6 @@ class Leasing
     public function getRealEstate()
     {
         return $this->real_estate;
-    }
-
-    /**
-     * Set landlordPhone
-     *
-     * @param string $landlordPhone
-     *
-     * @return Leasing
-     */
-    public function setLandlordPhone($landlordPhone)
-    {
-        $this->landlord_phone = $landlordPhone;
-
-        return $this;
-    }
-
-    /**
-     * Get landlordPhone
-     *
-     * @return string
-     */
-    public function getLandlordPhone()
-    {
-        return $this->landlord_phone;
     }
 
     /**
@@ -1884,7 +1826,10 @@ class Leasing
      */
     public function setCreatedAtValue()
     {
-        // Add your code here
+        if (!$this->getDateCreated()) {
+            $this->date_created = new \DateTime();
+            $this->date_updated = new \DateTime();
+        }
     }
 
     /**
@@ -1892,7 +1837,10 @@ class Leasing
      */
     public function setUpdatedAtValue()
     {
-        // Add your code here
+        if(empty($this->dontupdate)){
+
+            $this->date_updated = new \DateTime();
+        }
     }
     /**
      * @var string

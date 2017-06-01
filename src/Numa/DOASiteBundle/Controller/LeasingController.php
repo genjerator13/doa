@@ -32,7 +32,7 @@ class LeasingController extends Controller implements DealerSiteControllerInterf
 
             $em   = $this->getDoctrine()->getManager();
 
-            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getDayPhone());
+            $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustFirstName(),$entity->getCustLastName(),$entity->getDayPhone());
 
             $entity->setDealer($this->dealer);
 

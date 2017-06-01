@@ -1,6 +1,6 @@
-{% extends '::base.html.twig' %}
+{% extends 'NumaDOADMSBundle::layout.html.twig' %}
 
-{% block body -%}
+{% block content -%}
     <h1>Leasing</h1>
 
     <table class="record_properties">
@@ -9,14 +9,14 @@
                 <th>Id</th>
                 <td>{{ entity.id }}</td>
             </tr>
-            <tr>
-                <th>Dealer_id</th>
-                <td>{{ entity.dealerid }}</td>
-            </tr>
-            <tr>
-                <th>Customer_id</th>
-                <td>{{ entity.customerid }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Dealer_id</th>#}
+                {#<td>{{ entity.dealerid }}</td>#}
+            {#</tr>#}
+            {#<tr>#}
+                {#<th>Customer_id</th>#}
+                {#<td>{{ entity.customerid }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Company_name</th>
                 <td>{{ entity.companyname }}</td>
@@ -27,7 +27,13 @@
             </tr>
             <tr>
                 <th>Company_preferred_contact</th>
-                <td>{{ entity.companypreferredcontact }}</td>
+                <td>
+                    {% if entity.companypreferredcontact == 0 %}
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-earphone"></i>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Company_email</th>
@@ -83,7 +89,13 @@
             </tr>
             <tr>
                 <th>Preferred_contact</th>
-                <td>{{ entity.preferredcontact }}</td>
+                <td>
+                    {% if entity.preferredcontact == 0 %}
+                        <i class="glyphicon glyphicon-envelope"></i>
+                    {% else %}
+                        <i class="glyphicon glyphicon-earphone"></i>
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Email</th>
@@ -130,20 +142,12 @@
                 <td>{{ entity.residencetype }}</td>
             </tr>
             <tr>
-                <th>Monthly_payment</th>
-                <td>{{ entity.monthlypayment }}</td>
-            </tr>
-            <tr>
                 <th>At_residence</th>
                 <td>{{ entity.atresidence|date('Y-m-d H:i:s') }}</td>
             </tr>
             <tr>
                 <th>Real_estate</th>
                 <td>{{ entity.realestate }}</td>
-            </tr>
-            <tr>
-                <th>Landlord_phone</th>
-                <td>{{ entity.landlordphone }}</td>
             </tr>
             <tr>
                 <th>Mortgage_balance</th>
@@ -159,7 +163,7 @@
             </tr>
             <tr>
                 <th>Employer_tpe_of_business</th>
-                <td>{{ entity.employertpeofbusiness }}</td>
+                <td>{{ entity.employertypeofbusiness }}</td>
             </tr>
             <tr>
                 <th>Employer_position</th>
@@ -249,10 +253,10 @@
                 <th>Message_text</th>
                 <td>{{ entity.messagetext }}</td>
             </tr>
-            <tr>
-                <th>Date_updated</th>
-                <td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>
-            </tr>
+            {#<tr>#}
+                {#<th>Date_updated</th>#}
+                {#<td>{{ entity.dateupdated|date('Y-m-d H:i:s') }}</td>#}
+            {#</tr>#}
             <tr>
                 <th>Date_created</th>
                 <td>{{ entity.datecreated|date('Y-m-d H:i:s') }}</td>
