@@ -470,12 +470,16 @@
                             <span>FINANCE</span>
                         </a>
                     </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                     <li class="treeview">
                         <a href="{{ path('financeservice') }}">
                             <i class="fa fa-wrench"></i>
                             <span>FINANCE SERVICE</span>
+                        </a>
+                    </li>
+                    <li class="treeview">
+                        <a href="{{ path('leasing') }}">
+                            <i class="fa fa-usd"></i>
+                            <span>LEASING</span>
                         </a>
                     </li>
                 {% endif %}

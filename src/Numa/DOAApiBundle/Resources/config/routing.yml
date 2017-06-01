@@ -108,6 +108,9 @@ finance_api:
 finance_service_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing/finance_service.yml"
     prefix:   /finance_service
+leasing_api:
+    resource: "@NumaDOAApiBundle/Resources/config/routing/leasing.yml"
+    prefix:   /leasing
 support_form_api:
     resource: "@NumaDOAApiBundle/Resources/config/routing/support_form.yml"
     prefix:   /support_form
