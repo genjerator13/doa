@@ -324,6 +324,19 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             ->getForm();
         return $this->render('NumaDOASiteBundle::search.html.twig', array('form' => $form->createView(), 'route' => $route));
     }
+    public
+    function searchFormAction(Request $request, $inputClass="", $buttonClass="", $button="")
+    {
+        $form = $this->get('form.factory')->createNamedBuilder('', 'form', null, array(
+            'csrf_protection' => false,
+        ))
+            ->setMethod('GET')
+            ->setAction($this->get('router')->generate('search_dispatch'))
+            ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
+            ->add('text', 'search', array('label' => false))
+            ->getForm();
+        return $this->render('NumaDOASiteBundle::searchForm.html.twig', array('form' => $form->createView(), 'inputClass' => $inputClass, 'buttonClass' => $buttonClass, 'button' => $button));
+    }
 
     public
     function sidebarMenuAction()

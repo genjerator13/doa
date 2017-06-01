@@ -67,20 +67,12 @@
                 <h2>Browse Our Huge Stock of Commercial Trucks and Vans</h2>
 
                 <div class="container">
-                    <form action="/inventory/search" id="querySearchForm" class="keyword-search-form">
-                        <div class="row">
-                            <div class="col-md-2"></div>
-                            <div class="col-md-6 the-input">
-                                <label class="sr-only" for="query">Find a vehicle</label>
-                                <input class="form-control" name="query" placeholder="Search by make, model or keyword" type="text">
-                            </div>
-                            <div class="col-md-4">
-                                <button type="submit" id="quickSearchSubmit" class="btn btn-bridge-red">Search</button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                            {{ render_esi(controller('NumaDOASiteBundle:Default:searchForm',{'inputClass': 'col-md-6 the-input', 'buttonClass': 'col-md-4', 'button': 'btn btn-bridge-red'})) }}
+                    </div>
                 </div>
-                <div class="buttons">
+                <div class="buttons container">
                     <div class="button">
                         <a href="/inventory/used/2015-ford-f-350-saskatoon-saskatchewan/10835845" class="btn btn-bridge-red">Flat Decks</a>
                     </div>
@@ -131,7 +123,7 @@
             </div>
             </div>
     </section>
-    <div class="content">
+    <div class="container">
         <div class="alertz hide alert"></div>
         {% block content %}
 
