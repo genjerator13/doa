@@ -2,6 +2,7 @@
 
 namespace Numa\DOADMSBundle\Controller;
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -19,18 +20,52 @@ class InventoryController extends Controller
      * Lists all Customer entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
         $qbo = $this->container->get("numa.quickbooks")->init();
 
+        $em = $this->getDoctrine()->getManager();
+        $items = $em->getRepository(Item::class)->findAllByDealer($dealer->getId());
+        $imagine = $this->get('liip_imagine.filter.manager');
+        $cacheManager = $this->get('liip_imagine.cache.manager');
+        $filter = "inventory_cover";
+        $cachedPath = $this->get('kernel')->getRootDir() . '/../web/media/cache/' . $filter . "/";
+        $origPath = $upload_path = $this->container->getParameter('web_path');
+
+        foreach ($items as $item) {
+
+
+            $image = $item->getCoverPhoto();
+            $cachedImage = $cachedPath . $image;
+            $origImage = $origPath . $image;
+
+            if (file_exists($origImage) && !file_exists($cachedImage)) {
+                $processedImage = $this->container->get('liip_imagine.data.manager')->find('inventory_cover', $image);
+
+
+                $newimage_string = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover')->getContent();
+//                dump($cachedImage);
+//                dump($origImage);
+
+                $f = file_put_contents($cachedImage, $newimage_string);
+
+
+//            }
+//        }
+            }
+        }
+        //die();
+
+
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
-            'dealer'=>$dealer,
-            'dealerPrincipal'=>$dealerPrincipal,
-            'qbo'=>$qbo,
+            'dealer' => $dealer,
+            'dealerPrincipal' => $dealerPrincipal,
+            'qbo' => $qbo,
         ));
     }
+
     /**
      * Lists all Customer entities.
      *
@@ -41,9 +76,10 @@ class InventoryController extends Controller
         $js = "view";
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'js' => $js,
-            'dealer'=>$dealer
+            'dealer' => $dealer
         ));
     }
+
     /**
      * Lists all Customer entities.
      *
@@ -54,9 +90,10 @@ class InventoryController extends Controller
         $js = "cost";
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'js' => $js,
-            'dealer'=>$dealer
+            'dealer' => $dealer
         ));
     }
+
     /**
      * Lists all Customer entities.
      *
@@ -67,9 +104,10 @@ class InventoryController extends Controller
         $js = "sales";
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'js' => $js,
-            'dealer'=>$dealer
+            'dealer' => $dealer
         ));
     }
+
     /**
      * Lists all Customer entities.
      *
@@ -78,7 +116,7 @@ class InventoryController extends Controller
     {
         $dealer = $this->get('Numa.Dms.User')->getAvailableDealersIds();
         return $this->render('NumaDOADMSBundle:Inventory:indexArchive.html.twig', array(
-            'dealer'=>$dealer
+            'dealer' => $dealer
         ));
     }
 
@@ -102,7 +140,7 @@ class InventoryController extends Controller
 
         return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -132,11 +170,11 @@ class InventoryController extends Controller
     public function newAction()
     {
         $entity = new Customer();
-        $form   = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity);
 
         return $this->render('NumaDOADMSBundle:Customer:new.html.twig', array(
             'entity' => $entity,
-            'form'   => $form->createView(),
+            'form' => $form->createView(),
         ));
     }
 
@@ -157,7 +195,7 @@ class InventoryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOAAdminBundle:Customer:show.html.twig', array(
-            'entity'      => $entity,
+            'entity' => $entity,
             'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -171,11 +209,11 @@ class InventoryController extends Controller
         //getserializer
         $serializer = $this->get('jms_serializer');
         //create api client
-        $baseurl = $this->container->get('router')->getContext()->getScheme()."://".$this->container->get('router')->getContext()->getHost();
+        $baseurl = $this->container->get('router')->getContext()->getScheme() . "://" . $this->container->get('router')->getContext()->getHost();
         $client = new Client($baseurl);
 
         //getResponse
-        $response = $client->get('/api/customer/'.$id)->send();
+        $response = $client->get('/api/customer/' . $id)->send();
 
         //deserialize response
         $entity = $serializer->deserialize(json_encode($response->json()), 'Numa\DOADMSBundle\Entity\Customer', 'json');
@@ -192,19 +230,19 @@ class InventoryController extends Controller
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('NumaDOADMSBundle:Customer:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-    * Creates a form to edit a Customer entity.
-    *
-    * @param Customer $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
+     * Creates a form to edit a Customer entity.
+     *
+     * @param Customer $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createEditForm(Customer $entity)
     {
         $form = $this->createForm(new CustomerType(), $entity, array(
@@ -216,6 +254,7 @@ class InventoryController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Customer entity.
      *
@@ -237,16 +276,17 @@ class InventoryController extends Controller
         if ($editForm->isValid()) {
             $entity->upload();
             $em->flush();
-            $this->addFlash("success","Customer: ".$entity->getName()." successfully updated.");
+            $this->addFlash("success", "Customer: " . $entity->getName() . " successfully updated.");
             return $this->redirect($this->generateUrl('customer', array('id' => $id)));
         }
 
         return $this->render('NumaDOAAdminBundle:Customer:edit.html.twig', array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
+
     /**
      * Deletes a Customer entity.
      *
@@ -256,7 +296,7 @@ class InventoryController extends Controller
         $form = $this->createDeleteForm($id);
         $form->handleRequest($request);
 
-        if (count($form->getErrors(true)==0)) {
+        if (count($form->getErrors(true) == 0)) {
             $em = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('NumaDOADMSBundle:Customer')->find($id);
 
@@ -267,9 +307,9 @@ class InventoryController extends Controller
             $em->remove($entity);
             $em->flush();
 
-        }else{
+        } else {
 
-            foreach($form->getErrors(true) as $error){
+            foreach ($form->getErrors(true) as $error) {
                 dump($error->getMessage());
             }
 
@@ -291,8 +331,7 @@ class InventoryController extends Controller
             ->setAction($this->generateUrl('customer_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+            ->getForm();
     }
 
 }
