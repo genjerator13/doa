@@ -27,7 +27,7 @@ class InventoryController extends Controller
         $qbo = $this->container->get("numa.quickbooks")->init();
 
         $em = $this->getDoctrine()->getManager();
-        $items = $em->getRepository(Item::class)->findAllByDealer($dealer->getId());
+        $items = $em->getRepository(Item::class)->findAllByDealer($dealer);
         $imagine = $this->get('liip_imagine.filter.manager');
         $cacheManager = $this->get('liip_imagine.cache.manager');
         $filter = "inventory_cover";
