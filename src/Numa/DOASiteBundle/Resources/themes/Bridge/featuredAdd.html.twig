@@ -6,7 +6,7 @@
                 {% set images = item.getImages() %}
                 {% set desc = item.getUrlDescription() %}
                 <a class="featured-ads-item {% if loop.index==3 %}third{% endif %} {% if loop.last %}last{% endif %}" href="{{ path('item_details', {'itemId': item.id, 'description': desc}) }}">
-
+                    <div class="image">
                     {% set image = item.getImages2()|first %}
                     {% if images is empty %}
                         <img class="" alt="No photos"
@@ -22,9 +22,10 @@
                         {% endif %}
 
                     {% endif %}
-                    <h5>{{ shortWord(item.year~" "~item.make~" "~item.model,50)}}</h5></br>
-                    <span class="text-center price">{{ item.getPriceString() }}</span></br>
-                    <span class="text-center retailPrice">{{ item.getRetailPriceString() }}</span></br>
+                    </div>
+                    <h5>{{ shortWord(item.year~" "~item.make~" "~item.model,50)}}</h5>
+                    <span class="text-center price">{{ item.getPriceString() }} </span>
+                    <span class="text-center retailPrice">{{ item.getRetailPriceString() }}</span>
                     <button class="btn btn-bridge-red">View</button>
                 </a>
             {% endfor %}
