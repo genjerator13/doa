@@ -26,38 +26,6 @@ class InventoryController extends Controller
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
         $qbo = $this->container->get("numa.quickbooks")->init();
 
-        $em = $this->getDoctrine()->getManager();
-        $items = $em->getRepository(Item::class)->findAllByDealer($dealer);
-        $imagine = $this->get('liip_imagine.filter.manager');
-        $cacheManager = $this->get('liip_imagine.cache.manager');
-        $filter = "inventory_cover";
-        $cachedPath = $this->get('kernel')->getRootDir() . '/../web/media/cache/' . $filter . "/";
-        $origPath = $upload_path = $this->container->getParameter('web_path');
-
-        foreach ($items as $item) {
-
-
-            $image = $item->getCoverPhoto();
-            $cachedImage = $cachedPath . $image;
-            $origImage = $origPath . $image;
-
-            if (file_exists($origImage) && !file_exists($cachedImage)) {
-                $processedImage = $this->container->get('liip_imagine.data.manager')->find('inventory_cover', $image);
-
-
-                $newimage_string = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover')->getContent();
-//                dump($cachedImage);
-//                dump($origImage);
-
-                $f = file_put_contents($cachedImage, $newimage_string);
-
-
-//            }
-//        }
-            }
-        }
-        //die();
-
 
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'dealer' => $dealer,

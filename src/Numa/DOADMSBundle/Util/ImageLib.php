@@ -113,7 +113,9 @@ class ImageLib
         $origPath = $upload_path = $this->container->getParameter('web_path');
 
         $image = $filename;
+
         $cachedImage = $cachedPath . $image;
+        $cachedImage = $this->cleanUrl($cachedImage);
         $cachedImageUrl = $cachedImageUrl.$image;
         $origImage = $origPath . $image;
 
@@ -131,5 +133,11 @@ class ImageLib
             return $cachedImageUrl;
         }
         return $filename;
+    }
+
+    public function cleanUrl($url){
+        $result = str_replace('app/../', '', $url);
+        $result = str_replace('//', '/', $url);
+        return $result;
     }
 }
