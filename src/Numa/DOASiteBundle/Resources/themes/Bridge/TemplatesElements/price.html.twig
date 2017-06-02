@@ -14,15 +14,6 @@
                 <span class="col-md-6 col1"><small>Total Discounts</small></span>
                 <span class="col-md-6 col2">-{{ price((item.getRetailPrice()-item.getPrice),false)|raw }}</span>
             </div>
-            <div class="row ourprice">
-                <span class="col-md-6 price-title col1">Our Price</span>
-                <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
-            </div>
-            <div class="row tax">
-                <span class="col-md-6 col1">&nbsp;</span>
-                <span class="col-md-6 col2"><small>+ tax and licensing</small></span>
-            </div>
-
         {% endif %}
         {% if item.getPrice() is not empty and item.getPrice() > 0 %}
             <div class="row ourprice">
