@@ -45,7 +45,7 @@ class ItemRepository extends EntityRepository
 
         if (!$res2) {
             //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
-            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1' ;
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
@@ -467,7 +467,7 @@ class ItemRepository extends EntityRepository
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
-        if(empty($importItem[$uniqueField])){
+        if (empty($importItem[$uniqueField])) {
             return;
         }
         if (!empty($importItem[$uniqueField])) {
@@ -688,12 +688,12 @@ class ItemRepository extends EntityRepository
         }
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
         $soldSQL = "i .sold=$sold ";
-        if($sold==0){
+        if ($sold == 0) {
             $soldSQL = " (i.sold=0 OR i.sold is null) ";
         }
-        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and ".$soldSQL . $suffix;
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and " . $soldSQL . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and".$soldSQL . $suffix;
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and" . $soldSQL . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -857,11 +857,37 @@ ORDER BY sort_order
 )iif ON i.id = iif.item_id
 SET i.cover_photo = iif.field_string_value";
 
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt;
-        //$stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
-        //return $stmt;
+
+        /** @var ImagineController */
+        $imagine = $this
+            ->container
+            ->get('liip_imagine.controller');
+
+        /** @var RedirectResponse */
+        $imagemanagerResponse = $imagine
+            ->filterAction(
+                $this->request,         // http request
+                'uploads/foo.jpg',      // original image you want to apply a filter to
+                'my_thumb'              // filter defined in config.yml
+            );
+
+        /** @var CacheManager */
+        $cacheManager = $this
+            ->container
+            ->get('liip_imagine.cache.manager');
+
+        /** @var string */
+        $sourcePath = $cacheManager
+            ->getBrowserPath(
+                'uploads/foo.jpg',
+                'my_thumb'
+            );
+
+        // ..
 
 
     }
@@ -948,10 +974,30 @@ SET i.cover_photo = iif.field_string_value";
             ->setParameter("archiveStatus", 'archived')
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
-           // ->andWhere('i.sold_date IS NOT NULL')//????
+            // ->andWhere('i.sold_date IS NOT NULL')//????
             ->andWhere('i.sold_date < :date')
             ->setParameter("date", new \DateTime($period));
 
+        $query = $qb->getQuery();
+        $res = $query->getResult();
+        return $res;
+    }
+
+    /**
+     * @return QueryBuilder
+     * needed for elasti search
+     */
+
+    public function findAllByDealer($dealer)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if ($dealer instanceof Catalogrecords) {
+
+            $qb->Where('i.dealer_id = :dealerId')
+                ->setParameter("dealerId", $dealer->getId());
+        }
         $query = $qb->getQuery();
         $res = $query->getResult();
         return $res;
@@ -974,24 +1020,5 @@ SET i.cover_photo = iif.field_string_value";
         return $stmt;
     }
 
-    /**
-     * @param $ids
-     * Recover Item list of ids separated by ,
-     */
-    public function recover($ids, $archiveStatus = "recovered")
-    {
-        if (!empty($ids)) {
-            $qb = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.sold', 'false')
-                ->set('i.sold_date', 'null')
-                ->set('i.archive_status', '?1')
-                ->setParameter(1, $archiveStatus)
-                ->set('i.archived_date', 'null')
-                ->where('i.id in (' . $ids . ")");
-            $qb->getQuery()->execute();
-        }
-    }
 
 }
