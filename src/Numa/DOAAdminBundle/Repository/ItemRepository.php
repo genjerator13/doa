@@ -45,7 +45,7 @@ class ItemRepository extends EntityRepository
 
         if (!$res2) {
             //$q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1 and i.archive_status is NULL or i.archive_status<>"' . Item::archived . '"';
-            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1' ;
+            $q = 'SELECT i  FROM NumaDOAAdminBundle:item i WHERE i.featured=1 AND i.active=1';
             if (!empty($dealer_id)) {
                 $q = $q . " AND i.dealer_id=" . intval($dealer_id);
             }
@@ -467,7 +467,7 @@ class ItemRepository extends EntityRepository
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
         $uniqueValue = "";
-        if(empty($importItem[$uniqueField])){
+        if (empty($importItem[$uniqueField])) {
             return;
         }
         if (!empty($importItem[$uniqueField])) {
@@ -688,12 +688,12 @@ class ItemRepository extends EntityRepository
         }
         //->andWhere('i.archive_status is NULL or i.archive_status<>"archived')
         $soldSQL = "i .sold=$sold ";
-        if($sold==0){
+        if ($sold == 0) {
             $soldSQL = " (i.sold=0 OR i.sold is null) ";
         }
-        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and ".$soldSQL . $suffix;
+        $sql = "select count(*) as count from item i WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and i.active=$active and " . $soldSQL . $suffix;
         if ($dealer instanceof DealerGroup) {
-            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and".$soldSQL . $suffix;
+            $sql = "select count(*) as count from item i left join catalog_records d ON d.id = i.dealer_id WHERE (i.archive_status is NULL or i.archive_status<>'" . Item::archived . "') and d.dealer_group_id=" . $dealer->getId() . " and i.active=$active and" . $soldSQL . $suffix;
         }
 
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
@@ -858,7 +858,6 @@ ORDER BY sort_order
 SET i.cover_photo = iif.field_string_value";
 
 
-
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt;
@@ -975,7 +974,7 @@ SET i.cover_photo = iif.field_string_value";
             ->setParameter("archiveStatus", 'archived')
             ->andWhere('i.archived_date IS NULL')
             ->andWhere('i.sold = 1')
-           // ->andWhere('i.sold_date IS NOT NULL')//????
+            // ->andWhere('i.sold_date IS NOT NULL')//????
             ->andWhere('i.sold_date < :date')
             ->setParameter("date", new \DateTime($period));
 
@@ -989,14 +988,16 @@ SET i.cover_photo = iif.field_string_value";
      * needed for elasti search
      */
 
-    public function findAllByDealer($dealerId)
+    public function findAllByDealer($dealer)
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
-            ->from('NumaDOAAdminBundle:Item', 'i')
-            ->Where('i.dealer_id = :dealerId')
-            ->setParameter("dealerId", $dealerId);
+            ->from('NumaDOAAdminBundle:Item', 'i');
+        if ($dealer instanceof Catalogrecords) {
 
+            $qb->Where('i.dealer_id = :dealerId')
+                ->setParameter("dealerId", $dealer->getId());
+        }
         $query = $qb->getQuery();
         $res = $query->getResult();
         return $res;
@@ -1018,7 +1019,6 @@ SET i.cover_photo = iif.field_string_value";
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $stmt;
     }
-
 
 
 }
