@@ -132,12 +132,13 @@ class ItemRESTController extends Controller
                     $value['categorySubType']= $value["ag_application"];
                 }
             }
-
+            $value['cover_photo']=$this->container->get("numa.dms.images")->shrinkCoverImage($value['cover_photo'],"inventory_cover");
             return $value;
 
         };
-        //dump($listings);die();
+
         $listings = array_map($func, $listings);
+        //dump($listings);die();
         return $listings;
     }
 

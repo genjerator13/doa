@@ -857,11 +857,38 @@ ORDER BY sort_order
 )iif ON i.id = iif.item_id
 SET i.cover_photo = iif.field_string_value";
 
+
+
         $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
         $stmt->execute();
         return $stmt;
-        //$stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
-        //return $stmt;
+
+        /** @var ImagineController */
+        $imagine = $this
+            ->container
+            ->get('liip_imagine.controller');
+
+        /** @var RedirectResponse */
+        $imagemanagerResponse = $imagine
+            ->filterAction(
+                $this->request,         // http request
+                'uploads/foo.jpg',      // original image you want to apply a filter to
+                'my_thumb'              // filter defined in config.yml
+            );
+
+        /** @var CacheManager */
+        $cacheManager = $this
+            ->container
+            ->get('liip_imagine.cache.manager');
+
+        /** @var string */
+        $sourcePath = $cacheManager
+            ->getBrowserPath(
+                'uploads/foo.jpg',
+                'my_thumb'
+            );
+
+        // ..
 
 
     }
@@ -957,6 +984,24 @@ SET i.cover_photo = iif.field_string_value";
         return $res;
     }
 
+    /**
+     * @return QueryBuilder
+     * needed for elasti search
+     */
+
+    public function findAllByDealer($dealerId)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+        $qb->select('i')
+            ->from('NumaDOAAdminBundle:Item', 'i')
+            ->Where('i.dealer_id = :dealerId')
+            ->setParameter("dealerId", $dealerId);
+
+        $query = $qb->getQuery();
+        $res = $query->getResult();
+        return $res;
+    }
+
     public function getAllArchivedListings($dealer_id = null)
     {
 
@@ -974,24 +1019,6 @@ SET i.cover_photo = iif.field_string_value";
         return $stmt;
     }
 
-    /**
-     * @param $ids
-     * Recover Item list of ids separated by ,
-     */
-    public function recover($ids, $archiveStatus = "recovered")
-    {
-        if (!empty($ids)) {
-            $qb = $this->getEntityManager()
-                ->createQueryBuilder()
-                ->update('NumaDOAAdminBundle:Item', 'i')
-                ->set('i.sold', 'false')
-                ->set('i.sold_date', 'null')
-                ->set('i.archive_status', '?1')
-                ->setParameter(1, $archiveStatus)
-                ->set('i.archived_date', 'null')
-                ->where('i.id in (' . $ids . ")");
-            $qb->getQuery()->execute();
-        }
-    }
+
 
 }

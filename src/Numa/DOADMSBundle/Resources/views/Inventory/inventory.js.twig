@@ -1,3 +1,4 @@
+{% import "NumaDOASiteBundle::components.html.twig" as component %}
 {# get the loged dealer #}
 {% set apicall="/api/listings/all.json" %}
 {% if dealerPrincipal is defined and dealerPrincipal is not empty and dealerPrincipal is not null %}
@@ -40,7 +41,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableFiltering: false,
             name: 'photo',
             enableColumnResizing: true, width: 150,
-            cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit"><span ng-if="row.entity.photo !== \'\'"><img class="image-angular2" src="{[{row.entity.photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></span></a>',
+            cellTemplate: '<a href="{% if is_granted('ROLE_BUSINES') and not(is_granted('ROLE_DMS_USER')) %}{{ path('items') }}{% else %}{{ path('inventory') }}{% endif %}{[{row.entity.id}]}/edit"><span ng-if="row.entity.cover_photo !== \'\'"><img class="image-angular2" src="{[{row.entity.cover_photo}]}" alt="{[{row.entity.name}]}" height="140px" width="140px" ></span></a>',
             cellClass: function (grid, row, col, rowRenderIndex, colRenderIndex) {
                 return 'other-cells ' + getClassName(grid, row, col, 'featured');
             },
