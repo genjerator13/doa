@@ -18,6 +18,7 @@ use Numa\DOAAdminBundle\Entity\User;
 use Numa\DOADMSBundle\Entity\Email;
 use Numa\DOADMSBundle\Entity\Finance;
 use Numa\DOADMSBundle\Entity\FinanceService;
+use Numa\DOADMSBundle\Entity\Leasing;
 use Numa\DOADMSBundle\Entity\ListingForm;
 use Numa\DOADMSBundle\Entity\PartRequest;
 use Numa\DOADMSBundle\Entity\ServiceRequest;
@@ -122,7 +123,9 @@ class Emailer extends ContainerAware
         }elseif ($entity instanceof Finance) {
             $subject = "Finance Form Request from " . $customer->getFullName();
         }elseif ($entity instanceof FinanceService) {
-            $subject = "Financing Service request from ". $customer->getFullName()." customer" ;
+            $subject = "Financing Service Request from ". $customer->getFullName()." customer" ;
+        }elseif ($entity instanceof Leasing) {
+            $subject = "Leasing Request from " . $customer->getFullName();
         }
 
         $email->setSubject($subject);
@@ -187,6 +190,11 @@ class Emailer extends ContainerAware
             ));
         }elseif ($entity instanceof FinanceService) {
             $html = $templating->render('NumaDOADMSBundle:Emails:financeServiceRequestNotificationBody.html.twig', array(
+                'entity' => $entity,
+
+            ));
+        }elseif ($entity instanceof Leasing) {
+            $html = $templating->render('NumaDOADMSBundle:Emails:leasingRequestNotificationBody.html.twig', array(
                 'entity' => $entity,
 
             ));
