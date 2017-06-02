@@ -1,11 +1,6 @@
 <div class="pricing">
     <div class="box">
         {% if item.getRetailPrice() is not empty and item.getRetailPrice()>item.getPrice() and item.getPrice() is not empty %}
-            <div class='price'>
-                Retail Price Was:
-                <span class='retail_price_value'>{{ price(item.getRetailPrice(),false)|raw }}</span>
-            </div>
-
             <div class="row wasprice">
                 <span class="col-md-6 col1">Was</span>
                 <span class="col-md-6 col2">{{ price(item.getRetailPrice(),false)|raw }}</span>
@@ -14,8 +9,6 @@
                 <span class="col-md-6 col1"><small>Total Discounts</small></span>
                 <span class="col-md-6 col2">-{{ price((item.getRetailPrice()-item.getPrice),false)|raw }}</span>
             </div>
-        {% endif %}
-        {% if item.getPrice() is not empty and item.getPrice() > 0 %}
             <div class="row ourprice">
                 <span class="col-md-6 price-title col1">Our Price</span>
                 <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
@@ -24,6 +17,18 @@
                 <span class="col-md-6 col1">&nbsp;</span>
                 <span class="col-md-6 col2"><small>+ tax and licensing</small></span>
             </div>
+
+        {% else %}
+            {% if item.getPrice() is not empty and item.getPrice() > 0 %}
+                <div class="row ourprice">
+                    <span class="col-md-6 price-title col1">Our Price</span>
+                    <span class="col-md-6 col2">{{ item.getPriceString() }}</span>
+                </div>
+                <div class="row tax">
+                    <span class="col-md-6 col1">&nbsp;</span>
+                    <span class="col-md-6 col2"><small>+ tax and licensing</small></span>
+                </div>
+            {% endif %}
         {% endif %}
         {% if (item.getRetailPrice() is null or item.getRetailPrice() == 0) and (item.getPrice() is null or item.getPrice() == 0 ) %}
             <div class="price">

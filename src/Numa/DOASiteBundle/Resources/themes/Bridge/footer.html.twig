@@ -1,6 +1,12 @@
+
+    {% block map %}
+        {% include '@NumaDOASite/map.html.twig' %}
+    {% endblock %}
+</div>
+
 <div class="footer-wrapper">
     <div class="footer">
-        <div class="row">
+
             <div class="col-md-6 bottom-menu">
                 {%  set bottommenu = displayComponent('bottommenu',"template","dealer") %}
                 {% if bottommenu != '' %}
@@ -15,19 +21,6 @@
                         <li><a href="{{ path("contactus") }}">Contact Us</a></li>
                     </ul>
                 {% endif %}
-
-                {#{%  set extramenu = displayComponent('extramenu',"template","dealer") %}#}
-                {#{% if extramenu != '' %}#}
-                    {#{{ include(template_from_string(extramenu)) }}#}
-                {#{% endif %}#}
-                {#{% if extramenu == '' %}#}
-                    {#<ul>#}
-                        {#<li><a href="#">Policy</a></li>#}
-                        {#<li><a href="#">Privacy</a></li>#}
-                        {#<li><a href="#">Terms</a></li>#}
-                        {#<li><a href="#">Sitemap</a></li>#}
-                    {#</ul>#}
-                {#{% endif %}#}
             </div>
             <div class="col-md-1">
             </div>
