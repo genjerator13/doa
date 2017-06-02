@@ -108,41 +108,40 @@ class ImageLib
         }
     }
     public function shrinkCoverImage($filename,$filter){
-        $cachedImageUrl = "/media/cache/" . $filter ;
-        $cachedPath = $this->container->get('kernel')->getRootDir() . "/../web".$cachedImageUrl;
-        $origPath = $upload_path = $this->container->getParameter('web_path');
+        if(!empty($filename)) {
+            $cachedImageUrl = "/media/cache/" . $filter;
+            $cachedPath = $this->container->get('kernel')->getRootDir() . "/../web" . $cachedImageUrl;
+            $origPath = $upload_path = $this->container->getParameter('web_path');
 
-        $image = $filename;
-        $cachedImage = $cachedPath . $image;
-        $cachedImageUrl = $cachedImageUrl.$image;
-        $origImage = $origPath . $image;
+            $image = $filename;
+            $cachedImage = $this->cleanUrl($cachedPath . $image);
+            $cachedImageUrl = $cachedImageUrl . $image;
+            $origImage = $this->cleanUrl($origPath . $image);
 
-        if (file_exists($origImage) && !file_exists($cachedImage)) {
-            $processedImage = $this->container->get('liip_imagine.data.manager')->find('inventory_cover', $image);
+            if (file_exists($origImage) && !file_exists($cachedImage)) {
+
+                $processedImage = $this->container->get('liip_imagine.data.manager')->find('inventory_cover', $image);
 
 
-            $newimage_string = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover')->getContent();
-            $f = file_put_contents($cachedImage, $newimage_string);
-            return $cachedImage;
+                $newimage = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover');
+                $newimage_string = $newimage->getContent();
+                $this->container->get('liip_imagine.cache.manager')->store($newimage, $filename,$filter);
+                $image = $this->container->get('liip_imagine.cache.manager')->getBrowserPath($filename,$filter);
 
-        }
+                return $image;
 
-        if(file_exists($cachedImage)){
-            return $cachedImageUrl;
+            }
+
+            if (file_exists($cachedImage)) {
+                return $cachedImageUrl;
+            }
         }
         return $filename;
     }
 
     public function cleanUrl($url){
-        $url = str_replace("//","/");
-
-
-        $pattern = '/(\w+) (\d+), (\d+)/i';
-        $pattern = '/\/(app)(.*)\/\..\//i';
-        $replacement = '${1}1,$3';
-        $test =  preg_replace($pattern, $replacement, $url);
-        dump();
-
-        return $url;
+        $result = str_replace('app/../', '', $url);
+        $result = str_replace('//', '/', $result);
+        return $result;
     }
 }
