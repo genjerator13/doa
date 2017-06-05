@@ -383,12 +383,26 @@ class ListingLib
 
     public function getListingTitle(Item $item)
     {
-        $desc = $item->getYear() . " " . $item->slug($item->getMake()) . " " . $item->slug($item->getModel());
-        if ($item->getCategoryId() == 4) {
-            $desc = $desc . " " . $item->getFloorPlan();
-        } elseif ($item->getCategoryId() == 1) {
-            if (!empty($item->getTrim())) {
-                $desc .= " " . $item->getTrim();
+        return $this->getListingTitleRaw($item->getYear(),$item->getMake(),$item->getModel(),$item->getCategoryId(),$item->getFlorPane(),$item->getTrim());
+    }
+
+    public function getListingTitleFromArray($item)
+    {
+        return $this->getListingTitleRaw($item['year'],$item['make'],$item['model'],$item['category_id'],$item['florpane'],$item['trim']);
+    }
+
+    public function getListingTitleFromArrayNoTrim($item)
+    {
+        return $this->getListingTitleRaw($item['year'],$item['make'],$item['model'],$item['category_id'],$item['florpane'],"");
+    }
+
+    public function getListingTitleRaw($year, $make, $model,$category,$florpane,$trim){
+        $desc = $year . " " . $make . " " . $this->slug($model);
+        if ($category == 4) {
+            $desc = $desc . " " . $florpane;
+        } elseif ($category == 1) {
+            if (!empty($trim)) {
+                $desc .= " " . $trim;
             }
         }
         return $desc;
@@ -407,5 +421,12 @@ class ListingLib
 
 
         return implode(",", $keywords);
+    }
+
+    function Slug($string)
+    {
+        $string = str_replace('/', '-', $string);
+
+        return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
 }
