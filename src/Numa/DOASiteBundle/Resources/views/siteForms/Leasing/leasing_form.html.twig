@@ -9,10 +9,7 @@
 
 {% block content %}
     <script src='https://www.google.com/recaptcha/api.js'></script>
-    {{ displayComponent('page_title',"Text","page","tnt")|raw }}
-    <div class="coupon-page-text">
-        {{ displayComponent('page_content',"HTML","page","tnt")|raw }}
-    </div>
+    {{ displayComponent('page_content',"HTML")|raw }}
     <p>
         * Indicates required field
     </p>
