@@ -632,6 +632,11 @@ and (max-width : 767px) {
         min-height: 0px;
     }
 
+    .items .onSpecial{
+        width: 303px !important;
+        bottom: 0px !important;
+    }
+
 }
 
 .featured-ads {
