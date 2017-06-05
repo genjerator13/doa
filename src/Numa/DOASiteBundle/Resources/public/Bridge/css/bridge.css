@@ -611,6 +611,18 @@ and (max-width : 767px) {
 
     .bottom-menu { display: none; }
 
+    .maincontent .searchSideBar .mobile-search{
+        display: block !important;
+    }
+
+    .maincontent .searchSideBar .web-search{
+        display: none !important;
+    }
+
+    .maincontent .searchSideBar{
+        min-height: 0px;
+    }
+
 }
 
 .featured-ads {

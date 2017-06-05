@@ -47,6 +47,9 @@
 .searchSideBar #collapsequicksearch {
     padding: 20px;
 }
+.maincontent .searchSideBar .mobile-search{
+    display: none;
+}
 
 .collapse {
     cursor: pointer;
