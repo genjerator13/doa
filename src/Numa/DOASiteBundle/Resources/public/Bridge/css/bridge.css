@@ -665,7 +665,7 @@ and (max-width : 767px) {
     border-color: #c51633;
     color: #fff;
     border-radius: 0;
-    color: #fff;
+    color: #fff !important;
     padding: 12px 40px;
     text-transform: uppercase;
 }
@@ -689,7 +689,7 @@ and (max-width : 767px) {
     border-color: #232323;
     color: #fff;
     border-radius: 0;
-    color: #fff;
+    color: #fff !important;
     padding: 12px 40px;
     text-transform: uppercase;
 }
