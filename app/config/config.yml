@@ -60,6 +60,7 @@ twig:
         subject: Email from
         upload_feed_path: /upload/feeds/
         upload_related_doc_path: /upload/related_docs/
+        listing: "@numa.dms.listing"
     form_themes:
         - 'views/Form/fields.html.twig'
 #    form:
