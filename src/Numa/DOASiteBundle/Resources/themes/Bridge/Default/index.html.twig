@@ -14,6 +14,6 @@
 
     <h1>Welcome to {{ dealer.name }}</h1>
     {{ dealer.description|raw }}
-    <button class="btn btn-bridge-red" href="/about-us/">Learn more</button>
-    <button class="btn btn-bridge-black" href="/about-us/">Learn more</button>
+    <a class="btn btn-bridge-red" href="{{ path("search_all") }}">Browse Inventory</a>
+    <a class="btn btn-bridge-black" href="{{ path("about_us") }}">Learn more</a>
 {% endblock %}
