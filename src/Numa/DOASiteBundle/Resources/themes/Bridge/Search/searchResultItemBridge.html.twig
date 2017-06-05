@@ -28,14 +28,14 @@
             <div class="shortDetails col-md-8">
                 <div class="col-md-8">
                     <h4>
-                        <a href="{{ detailUrl }}"><span>{{ item.title }}</span>
-                            {#{{ item.priceString }} #}
+                        <a href="{{ detailUrl }}"><span>{{ listing.getListingTitleFromArrayNoTrim(item) }}</span>
                             {% if (item.sold==1) %}
                                 <span class="badge">Sold</span>
                             {% endif %}
                         </a>
                     </h4>
-
+                    <div class="trim">{{ item['trim'] }}</div>
+                    <div class="body-description">{{ item['bodyDescription'] }}</div>
                     <ul class="techData  list-unstyled">
                         {% if item.category_id==1 %}
                             {% include 'NumaDOASiteBundle:Item:carDetailsSmall.html.twig' %}
