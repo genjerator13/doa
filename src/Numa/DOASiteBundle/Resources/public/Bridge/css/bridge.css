@@ -189,8 +189,8 @@ header .content{
 .mobile-menu .mobmenu > li > .glyphicon {
     font-size: 110%;
 }
-.mobile-menu .mobmenu li ul {
-    display: none;
+.mobile-menu .mobmenu li ul li ul{
+    display: block !important;
 }
 .mobile-menu .mobmenu ul ul { background-color: #222; }
 
