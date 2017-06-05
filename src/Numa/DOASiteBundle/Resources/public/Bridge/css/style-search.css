@@ -118,6 +118,13 @@
 .priceDetails .viewVehicle{
     margin-top: 20px;
 }
+
+.shortDetails .trim {
+    color: #000;
+}
+.shortDetails .body-style {
+    color: #8B8C8B;
+}
 .items .onSpecial{
     background-color: #c51633;
     color: #fff;
@@ -127,7 +134,7 @@
     width: 242px;
     font-weight: 700;
     position: absolute;
-    top: 126px;
+    bottom: 17px;
     left: 12px;
 }
 .listinsFound{

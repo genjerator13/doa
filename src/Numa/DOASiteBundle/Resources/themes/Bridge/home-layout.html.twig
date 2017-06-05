@@ -46,9 +46,24 @@
         {% include 'NumaDOASiteBundle::mobilemenu.html.twig' %}
     {% endblock %}
 </header>
+{% set imgBg = displayComponent('homepage_image_top','Image','dealer','bridge',{"output":"src"})   %}
+{% set imgBgStyle = ''%}
 
-<main class="site-content layout-full-width-no-padding">
-    <section class="splash keyword-search-on " style="background-image:url(https://i0.wp.com/www.truxrus.com/wp-content/uploads/sites/245/2016/09/chevrolet-hero-1.jpg?ssl=1);">
+{% if imgBg is not empty %}
+    {% set imgBgStyle = 'style="background-image: url(\''~imgBg|raw~'\')"'%}
+{% endif %}
+
+{% set imgBg2 = displayComponent('homepage_image_bottom','Image','dealer','bridge',{"output":"src"})   %}
+{% set imgBgStyle2 = ''%}
+{{ dump(imgBg) }}
+{{ dump(imgBg2) }}
+{% if imgBg2 is not empty %}
+    {% set imgBgStyle2 = 'style="background-image: url(\''~imgBg2|raw~'\')"'%}
+{% endif %}
+{{ dump(imgBgStyle|raw) }}
+{{ dump(imgBgStyle2|raw) }}
+<main class="site-content">
+    <section class="splash" {{ imgBgStyle|raw }}>
 
         <div class="hero-content">
             <div class="group">
@@ -88,7 +103,7 @@
         <h2 class="featured-header" style="padding-top: 25px;">Vehicles on Special</h2>
         {{ render_esi(controller('NumaDOASiteBundle:Default:featuredAdd', { 'max': 6,'order':1 })) }}
     {% endblock %}
-    <section class="colorblock-section has-background-img home-colorblock color-light" style="background-image:url(https://i2.wp.com/www.truxrus.com/wp-content/uploads/sites/245/2016/09/home-vans-img-background.jpg?ssl=1); ">
+    <section class="colorblock-section" {{ imgBgStyle|raw }}>
         <div class="container welcome-text">
             <div class="row">
             <div class="title-block">

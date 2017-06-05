@@ -283,19 +283,28 @@ header .content{
 }
 .featured-ads-item .price{
     color: red;
-    height: 30px;
-    display: block;
 }
-.colorblock-section.has-background-img {
+.featured-ads-item .price-container{
+    height: 30px;
+}
+
+.colorblock-section {
     background-attachment: fixed;
     background-size: cover;
-}
-.home-colorblock {
     padding: 7rem 0;
-}
-.colorblock-section {
     padding: 3.5rem 1.5rem;
+    color: #fff;
+    backgrount-color: #000;
 }
+.colorblock-section h2 {
+    color: #fff;
+}
+/*.home-colorblock {*/
+
+/*}*/
+/*.colorblock-section {*/
+    /*padding: 3.5rem 1.5rem;*/
+/*}*/
 
 
 .maincontent {
