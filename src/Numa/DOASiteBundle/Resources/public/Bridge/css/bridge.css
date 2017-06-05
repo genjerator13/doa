@@ -189,7 +189,9 @@ header .content{
 .mobile-menu .mobmenu > li > .glyphicon {
     font-size: 110%;
 }
-
+.mobile-menu .mobmenu li ul li ul{
+    display: block !important;
+}
 .mobile-menu .mobmenu ul ul { background-color: #222; }
 
 .mobile-menu .mobmenu ul ul li { border-top: 1px solid #333; }
@@ -517,6 +519,19 @@ and (max-width : 1023px) {
 
 @media only screen
 and (max-width : 767px) {
+    header.site-header {
+        position: static;
+    }
+
+    header.site-header .container{
+        margin-bottom: 20px;
+    }
+    .maincontent{
+        margin-top: 0px;
+    }
+    .splash .hero-content {
+        top: 0px;
+    }
 
     .listing-buttons { top: 20px; }
 
@@ -571,6 +586,12 @@ and (max-width : 767px) {
         font-size: 28px;
         line-height: 26px;
     }
+    .hero-content .buttons {
+        display: block;
+    }
+    .splash .hero-content {
+        height: auto;
+    }
 
     .links { margin-top: 0; }
 
@@ -598,6 +619,18 @@ and (max-width : 767px) {
     }
 
     .bottom-menu { display: none; }
+
+    .maincontent .searchSideBar .mobile-search{
+        display: block !important;
+    }
+
+    .maincontent .searchSideBar .web-search{
+        display: none !important;
+    }
+
+    .maincontent .searchSideBar{
+        min-height: 0px;
+    }
 
 }
 

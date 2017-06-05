@@ -250,6 +250,9 @@ body {
     background: url("../images/mobile-menu-icon.png") 20px center no-repeat;
     padding-left: 70px;
 }
+.mobile-menu .menu li ul li ul{
+    display: block !important;
+}
 
 .mobile-menu .menu ul ul {
     background-color: rgba(0, 0, 0, 0.25);

@@ -210,6 +210,10 @@ body {
 	padding-left: 70px;
 }
 
+.mobile-menu .menu li ul li ul{
+	display: block !important;
+}
+
 .mobile-menu .menu ul ul { background-color: #111; }
 
 .mobile-menu .menu ul ul li { border-top: 1px solid #222; }

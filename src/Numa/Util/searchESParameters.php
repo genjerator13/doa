@@ -91,6 +91,7 @@ class searchESParameters
             'fuelType' => new SearchItem('fuel_type', 0, 'int'),
             'dealer_id' => new SearchItem('dealer_id', 0, 'int'),
             'feed_id' => new SearchItem('feed_id', 0, 'int'),
+            'featured' => new SearchItem('featured', 0, 'int'),
             //
             'VIN' => new SearchItem('VIN', 0, 'string'),
         );
