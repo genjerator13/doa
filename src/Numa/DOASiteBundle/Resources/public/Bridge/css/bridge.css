@@ -752,3 +752,6 @@ and (max-width : 767px) {
 .content-block {
     color: #fff;
 }
+.row .panel-info .panel-body .input-group{
+    margin-bottom: 20px;
+}
