@@ -26,7 +26,6 @@ class InventoryController extends Controller
         $dealerPrincipal = $this->get('Numa.Dms.User')->getSignedDealerPrincipal();
         $qbo = $this->container->get("numa.quickbooks")->init();
 
-
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
             'dealer' => $dealer,
             'dealerPrincipal' => $dealerPrincipal,

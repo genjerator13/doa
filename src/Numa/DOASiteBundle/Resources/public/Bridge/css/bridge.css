@@ -273,8 +273,16 @@ header .content{
 .featured-ads-item .retailPrice{
     text-decoration:line-through;
 }
+.featured-ads-item h5 {
+    height: 32px
+}
+.featured-ads-item .image {
+    min-height: 120px;
+}
 .featured-ads-item .price{
     color: red;
+    height: 30px;
+    display: block;
 }
 .colorblock-section.has-background-img {
     background-attachment: fixed;
@@ -287,47 +295,6 @@ header .content{
     padding: 3.5rem 1.5rem;
 }
 
-
-/*.maincontent .panel-heading{*/
-    /*background-color: black;*/
-    /*!*color: #f78f1e;*!*/
-    /*font-weight: 600;*/
-/*}*/
-/*.maincontent .panel-body{*/
-    /*padding-top:30px*/
-/*}*/
-/*.maincontent .input-group{*/
-    /*margin-bottom: 25px*/
-/*}*/
-
-/*.maincontent {*/
-    /*border-bottom: 1px dotted #959595;*/
-    /*color: #535353;*/
-    /*font-weight: 300;*/
-    /*margin: 40px auto 20px auto;*/
-    /*max-width: 1020px;*/
-    /*!*padding: 0 20px 20px 20px;*!*/
-/*}*/
-
-/*.maincontent h1 {*/
-    /*color: #000;*/
-    /*font-size: 26px;*/
-    /*margin-bottom: 0.5em;*/
-    /*font-family:'Fjalla One','Open Sans', sans-serif;*/
-/*}*/
-
-/*.maincontent p { margin: 1em 0; }*/
-
-/*.maincontent a {*/
-    /*!*color: #f78f1e;*!*/
-    /*text-decoration: none;*/
-/*}*/
-/*.maincontent a span{*/
-     /*color: black;*/
-     /*text-decoration: none;*/
- /*}*/
-
-/*.maincontent a:hover { text-decoration: underline; }*/
 
 .maincontent {
     margin-top: 250px;
@@ -735,3 +702,6 @@ and (max-width : 767px) {
     color: white;
 }
 
+.content-block {
+    color: #fff;
+}
