@@ -19,10 +19,10 @@ search_by_year:
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_featured:
     path:  /featured
-    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,featured:1 }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,featured: 1 }
 search_featured2:
     path:  /specials
-    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,featured:1 }
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,featured: 1 }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
