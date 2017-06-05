@@ -17,7 +17,7 @@ class LeasingType extends AbstractType
         $builder
 //            ->add('dealer_id','hidden')
 //            ->add('customer_id','hidden')
-            ->add('company_name', null, array('label'=> '* Compan Operation Name', 'required' => true))
+            ->add('company_name', null, array('label'=> '* Company Operation Name', 'required' => true))
             ->add('company_contact', null, array('label'=> '* Contact', 'required' => true))
             ->add('company_preferred_contact','choice',array('label'=>'* Preferred Contact','choices'=>array('Email','Phone')))
             ->add('company_email', null, array('label'=> '* Email', 'required' => true))

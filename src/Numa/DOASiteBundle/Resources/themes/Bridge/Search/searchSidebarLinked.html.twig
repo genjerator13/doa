@@ -11,16 +11,12 @@
                 <input placeholder="" name="text" value="" type="text">
                 <button class="btn btn-bridge-red">Go</button>
             </form>
+            <a class="btn btn-bridge-red" href="{{ path("search_all") }}">Reset</a>
         </div>
     </div>
 </div>
 
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':make,'title':'Makes','route':'search_by_make','field':'make_string'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_only_by_body_style','field':'categorySubType'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':year,'title':'Year','route':'search_by_year','field':'year'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':price,'title':'Price','route':'aaaaaa','field':'price'}) }}
-
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':make,'title':'Makes','route':'search_by_make','field':'make_string'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_only_by_body_style','field':'categorySubType'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':year,'title':'Year','route':'search_by_year','field':'year'}) }}
-{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroupMobile.html.twig",{'group':price,'title':'Price','route':'aaaaaa','field':'price'}) }}
+{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':make,'title':'Makes','route':'search_all','field':'make_string'}) }}
+{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':bodyStyle,'title':'Bodystyle','route':'search_all','field':'categorySubType'}) }}
+{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':year,'title':'Year','route':'search_all','field':'year'}) }}
+{{ include("NumaDOASiteBundle:Search:searchSidebarLinkedGroup.html.twig",{'group':price,'title':'Price','route':'search_all','field':'price'}) }}
