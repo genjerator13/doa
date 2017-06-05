@@ -55,13 +55,9 @@
 
 {% set imgBg2 = displayComponent('homepage_image_bottom','Image','dealer','bridge',{"output":"src"})   %}
 {% set imgBgStyle2 = ''%}
-{{ dump(imgBg) }}
-{{ dump(imgBg2) }}
 {% if imgBg2 is not empty %}
     {% set imgBgStyle2 = 'style="background-image: url(\''~imgBg2|raw~'\')"'%}
 {% endif %}
-{{ dump(imgBgStyle|raw) }}
-{{ dump(imgBgStyle2|raw) }}
 <main class="site-content">
     <section class="splash" {{ imgBgStyle|raw }}>
 
