@@ -1,7 +1,8 @@
 {% if group is defined %}
     {% set queryParams = app.request.query.all %}
+    {% set route        = app.request.attributes.get('_route') %}
 
-    <div id="{{ field }}" class="">
+    <div id="{{ field }}" class="web-search">
 
         <div href="#collapse{{ field }}" data-toggle="collapse" class="group-header">
             <a class="collapsed">{{ title }}</a>
