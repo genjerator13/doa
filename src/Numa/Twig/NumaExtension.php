@@ -134,9 +134,9 @@ class NumaExtension extends \Twig_Extension
         $request = $this->container->get("request");
  //       $host = trim(strip_tags($request->getHost()));
         $pathinfo = $request->getPathInfo();
-        if (substr($pathinfo, 0, 2) === "/d") {
-            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-        }
+//        if (substr($pathinfo, 0, 2) === "/d") {
+//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+//        }
 //        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
