@@ -175,6 +175,7 @@ class NumaExtension extends \Twig_Extension
 
         if ($dealer instanceof Catalogrecords) {
             if ($source == "page") {
+
                 $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageComponentByUrl($pathinfo, $dealer->getId());
                 if ($page instanceof Page) {
                     $components = $page->getComponent();

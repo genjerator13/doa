@@ -91,6 +91,9 @@
 
         {% include "@NumaDOASite/TemplatesElements/vehicleFeatures.html.twig" %}
         {% include "@NumaDOASite/TemplatesElements/video.html.twig" %}
+        <div class="disclaimer">
+        {{ displayComponent('details_disclaimer','html','page','bridge')   }}
+        </div>
     </div>
     <!-- Button trigger modal -->
     {{ include("NumaDOASiteBundle:ListingForms:listingForms.html.twig") }}
