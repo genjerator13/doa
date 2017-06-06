@@ -134,7 +134,7 @@ class BillingController extends Controller
 
         $form = $this->createCreateForm($entity);
 
-        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
+        return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'customer' => $customer,
             'dealer' => $dealer,
@@ -178,15 +178,19 @@ class BillingController extends Controller
             'form' => $editForm->createView(),
         ));
     }
-    private function getBillingTemplate(){
+    private function getBillingTemplate($view=true){
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        $billingTemplate = $this->get('numa.settings')->get('billing_template2',array(),$dealer);
+        $billingTemplate = $this->get('numa.settings')->get('billing_template',array(),$dealer);
         $template = "NumaDOADMSBundle:Billing:view.html.twig";
+        $tt = "new";
+        if($view){
+            $tt = "view";
+        }
         if(strip_tags($billingTemplate)=="template2"){
-            $template = "NumaDOADMSBundle:Billing:view_template2.html.twig";
+            $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
         }
         elseif(strip_tags($billingTemplate)=="template3"){
-            $template = "NumaDOADMSBundle:Billing:view_template3.html.twig";
+            $template = "NumaDOADMSBundle:Billing:".$tt."_template3.html.twig";
         }
         
         return $template;
