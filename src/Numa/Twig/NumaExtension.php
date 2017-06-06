@@ -160,9 +160,9 @@ class NumaExtension extends \Twig_Extension
 
         $pathinfo = $request->getPathInfo();
 
-        if (substr($pathinfo, 0, 2) === "/d") {
-            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-        }
+//        if (substr($pathinfo, 0, 2) === "/d") {
+//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
+//        }
         $em = $this->container->get('doctrine.orm.entity_manager');
         //$host = trim(strip_tags($request->getHost()));
         //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
