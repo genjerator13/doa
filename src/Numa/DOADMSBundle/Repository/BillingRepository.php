@@ -33,7 +33,10 @@ class BillingRepository extends EntityRepository
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b')
             ->Where('b.dealer_id IN (' . $dealer_id . ')')
-            ->andWhere('b.item_id IS NOT NULL');
+            ->andWhere('b.item_id IS NOT NULL')
+            ->andWhere('b.active=1')
+
+        ;
             if(!empty($date) && empty($date1))
             {
                 $qb->andWhere('b.date_billing > :date')
@@ -61,7 +64,8 @@ class BillingRepository extends EntityRepository
         $qb->select('b')
             ->from('NumaDOADMSBundle:Billing', 'b')
             ->Where('b.dealer_id IN (' . $dealer_id . ')')
-            ->andWhere('b.item_id IS NULL');
+            ->andWhere('b.item_id IS NULL')
+            ->andWhere('b.active=1');
         if(!empty($date) && empty($date1))
         {
             $qb->andWhere('b.date_billing > :date')
@@ -92,6 +96,7 @@ class BillingRepository extends EntityRepository
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.sale_id IS NOT NULL')
+            ->andWhere('b.active=1')
             ->leftJoin('NumaDOADMSBundle:Billing', 'b', "WITH", "i.id=b.item_id");
         if($sold==0){
             $qb->andWhere('i.sold = 0 OR i.sold is null');
