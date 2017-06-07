@@ -394,6 +394,10 @@ Numa\DOADMSBundle\Entity\Billing:
         work_order:
             type: boolean
             nullable: true
+        active:
+            type: boolean
+            options:
+                default: true
 
     manyToOne:
         Customer:
