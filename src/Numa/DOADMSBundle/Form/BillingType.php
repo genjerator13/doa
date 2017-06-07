@@ -50,6 +50,7 @@ class BillingType extends AbstractType
                 'attr' => array('class' => 'datepicker')
             ))
             //->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
+            ->add('active', null, array('label' => "Active"))
             ->add('opt1', null, array('label' => false, 'attr' => array('ng-model' => 'opt1')))
             ->add('opteq1', null, array('label' => false, 'attr' => array('maxlength' => 4, 'size' => 4, 'ng-model' => 'opteq1')))
             ->add('opt2', null, array('label' => false, 'attr' => array('ng-model' => 'opt2')))
