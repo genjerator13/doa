@@ -149,7 +149,7 @@ class NumaExtension extends \Twig_Extension
         return $page;
     }
 
-    public function displayComponent($name, $type = "Text", $source = "page", $theme = "", $setting = array())
+    public function displayComponent($name, $type = "Text", $source = "page", $theme = null, $setting = array())
     {
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
