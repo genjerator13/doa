@@ -28,7 +28,7 @@
                     </thead>
                     <tbody>
                     {% for entity in entities %}
-                        <tr>
+                        <tr  {% if not entity.active %}class="danger"{% endif %}>
                             <td><a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-M-d') }}{% endif %}</td>
                             <td>{{ entity.customer }}</td>
