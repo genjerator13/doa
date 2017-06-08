@@ -71,6 +71,22 @@ class SaleLib
         }
     }
 
+    public function setListingSoldIfActive(Billing $billing){
+        if (!empty($billing->getItem())) {
+            $item = $billing->getItem();
+            $item->addBilling($billing);
+            if ($billing->getItem() instanceof Item && $billing->getActive()) {
+                $em = $this->container->get('doctrine.orm.entity_manager');
+
+                $billing->getItem()->setSold(true);
+                $billing->getItem()->setSoldDate(new \DateTime());
+                $billing->getItem()->setActive(false);
+                $em->flush();
+            }
+        }
+
+    }
+
     public function uploadRelatedDocs(Sale $sale, File $file, $upload_url, $upload_path)
     {
         $filename = $file->getClientOriginalName();

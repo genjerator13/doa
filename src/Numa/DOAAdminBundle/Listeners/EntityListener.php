@@ -123,6 +123,7 @@ class EntityListener
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
+            $this->container->get("Numa.Dms.Listing")->setListingSoldIfActive($entity);
         }elseif ($entity instanceof Catalogrecords) {
             $this->container->get('mymemcache')->deleteDealerCache($entity);
         } elseif ($entity instanceof DealerComponent) {
@@ -164,17 +165,7 @@ class EntityListener
         }  elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
-            if (!empty($entity->getItem())) {
-                $item = $entity->getItem();
-                $item->addBilling($entity);
-                if ($entity->getItem() instanceof Item && $entity->getActive()) {
-                    $entity->getItem()->setSold(true);
-                    $entity->getItem()->setSoldDate(new \DateTime());
-                    $entity->getItem()->setActive(false);
-                }
-            }
-            $em->flush();
-
+            $this->container->get("Numa.Dms.Listing")->setListingSoldIfActive($entity);
         } elseif ($entity instanceof DealerGroup) {
             $entity->setDealerCreator($this->container->get("numa.dms.user")->getSignedDealer());
             $em->flush();
