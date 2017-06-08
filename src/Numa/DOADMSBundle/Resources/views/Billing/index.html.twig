@@ -29,7 +29,7 @@
                     <tbody>
                     {% for entity in entities %}
                         <tr>
-                            <td><a href="{{ path('billing_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                            <td><a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-m-d') }}{% endif %}</td>
                             <td>{{ entity.customer.getFullName() }}</td>
 
@@ -53,3 +53,4 @@
     </div>
     {% include 'NumaDOAAdminBundle::deleteConfirm.js.twig' %}
 {% endblock %}
+
