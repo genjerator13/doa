@@ -17,14 +17,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ItemController extends Controller implements DealerSiteControllerInterface{
+class ItemController extends Controller implements DealerSiteControllerInterface
+{
 
     public $dealer;
-    public function initializeDealer($dealer){
+
+    public function initializeDealer($dealer)
+    {
         $this->dealer = $dealer;
     }
 
-    public function detailsAction(Request $request) {
+    public function detailsAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $itemId = $request->get('itemId');
         $searchQ = $request->query->get('searchQ');
@@ -44,13 +48,16 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         }
         $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findSeoByItem($item);
 
-        $url = $this->generateUrl('item_details',array('itemId'=>$item->getId(),'description'=>$item->getUrlDescription()),true);
+        $url = $this->generateUrl('item_details', array('itemId' => $item->getId(), 'description' => $item->getUrlDescription()), true);
 
         //get dealer
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
 
-        if(($dealer instanceof Catalogrecords && $dealer->getId() !== $dealerFromHost->getId()) && isset($dealerFromHost)){
+        if (
+            ($dealer instanceof Catalogrecords && $dealerFromHost instanceof Catalogrecords &&
+                ($dealer->getId() !== $dealerFromHost->getId())) &&
+            isset($dealerFromHost) ){
             throw $this->createNotFoundException('Listing not found!');
         }
 
@@ -65,8 +72,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
 
             $response = $this->render('NumaDOASiteBundle:Item:detailsBoat.html.twig', array(
                 'item' => $item,
-                'seo'  => $seo,
-                'url'  => $url,
+                'seo' => $seo,
+                'url' => $url,
                 'dealer' => $dealer,
                 'print' => $print,
                 'searchQ' => $searchQ,
@@ -95,7 +102,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormDriveType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'attr' => array('id'=>"testdrive_form")
+            'attr' => array('id' => "testdrive_form")
         ));
         //$form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
@@ -113,7 +120,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormOfferType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'attr' => array('id'=>"offer_form")
+            'attr' => array('id' => "offer_form")
 
         ));
 
@@ -132,7 +139,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormOfferTradeInType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'attr' => array('id'=>"offerTradeIn_form")
+            'attr' => array('id' => "offerTradeIn_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
@@ -150,10 +157,10 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormEpriceType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'allow_extra_fields'=>true,
-            'attr' => array('id'=>"eprice_form")
+            'allow_extra_fields' => true,
+            'attr' => array('id' => "eprice_form")
         ));
-       // $form->add('submit', 'submit', array('label' => 'Create'));
+        // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
@@ -169,8 +176,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormFinanceType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'allow_extra_fields'=>true,
-            'attr' => array('id'=>"finance_form")
+            'allow_extra_fields' => true,
+            'attr' => array('id' => "finance_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
@@ -189,13 +196,14 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
             'action' => $this->generateUrl('listing_form_post'),
             'method' => 'POST',
-            'attr' => array('id'=>"contact_form")
+            'attr' => array('id' => "contact_form")
         ));
         // $form->add('submit', 'submit', array('label' => 'Create'));
         return $form;
     }
 
-    public function saveadAction(Request $request) {
+    public function saveadAction(Request $request)
+    {
 
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
@@ -210,18 +218,18 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         if ($item instanceof \Numa\DOAAdminBundle\Entity\Item || $user instanceof Numa\DOAAdminBundle\Entity\User) {
 
             $userItem = $em->getRepository('NumaDOAAdminBundle:UserItem')
-                    ->findOneBy(array('User' => $user,
-                'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
+                ->findOneBy(array('User' => $user,
+                    'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
             $userItems = $em->getRepository('NumaDOAAdminBundle:UserItem')
-                    ->findBy(array('User' => $user,
-                'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
+                ->findBy(array('User' => $user,
+                    'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
             $userItemsCount = count($userItems);
 
             if ($act == 'add') {
                 $userItemExists = $em->getRepository('NumaDOAAdminBundle:UserItem')
-                        ->findOneBy(array('User' => $user,
-                    'Item' => $item,
-                    'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
+                    ->findOneBy(array('User' => $user,
+                        'Item' => $item,
+                        'item_type' => \Numa\DOAAdminBundle\Entity\UserItem::SAVED_AD));
 
                 if (empty($userItemExists)) {
                     $userItem = new \Numa\DOAAdminBundle\Entity\UserItem();
@@ -245,7 +253,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $response;
     }
 
-    public function compareAction(Request $request) {
+    public function compareAction(Request $request)
+    {
         $em = $this->getDoctrine()->getManager();
         $user = $this->container->get('security.context')->getToken()->getUser();
         $itemid = intval($request->get('itemid'));
@@ -282,7 +291,8 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $this->redirect($this->generateUrl('compared_listings'));
     }
 
-    public function comparedListingAction(Request $request) {
+    public function comparedListingAction(Request $request)
+    {
         $session = $this->getRequest()->getSession();
         $comparedItems = $session->get('comparedItem');
         $em = $this->getDoctrine()->getManager();
@@ -290,7 +300,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
 
         $listingFields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllOrderedBy('order');
 
-       
+
         $comparedItemsArray = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('id' => $comparedItems));
 
         $temp = array();
@@ -299,52 +309,52 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $options = array();
         $optionsNames = array();
 
-        foreach($comparedItemsArray as $item){
+        foreach ($comparedItemsArray as $item) {
 
-            foreach($listingFields as $field){
-                $t=array();
+            foreach ($listingFields as $field) {
+                $t = array();
                 $t['name'] = $field->getCaption();
                 $t['type'] = $field->getType();
                 $t['value'] = $item->get($field->getCaption());
 
-                if($field->getType()=='date'){
-                    $t['format']='yyyy mm dd';
-                }elseif($field->getType()=='array'){
+                if ($field->getType() == 'date') {
+                    $t['format'] = 'yyyy mm dd';
+                } elseif ($field->getType() == 'array') {
                     $values = $item->get($field->getCaption());
-                    if(!empty($values->first())) {
-                        $t['type']  = 'image';
+                    if (!empty($values->first())) {
+                        $t['type'] = 'image';
                         $t['value'] = $values->first();
                     }
                 }
                 $itemOptions = $item->getOptions();
 
-                if(!empty($itemOptions)) {
+                if (!empty($itemOptions)) {
 
                     foreach ($itemOptions as $option) {
-                        $optName = strtolower(str_replace(array(" ",")","("),"_",$option->getFieldName()));
-                        $tmpOption['name']=$option->getFieldName();
-                        $tmpOption['value']=true;
-                        $optionsNames[$optName]=$option->getFieldName();
+                        $optName = strtolower(str_replace(array(" ", ")", "("), "_", $option->getFieldName()));
+                        $tmpOption['name'] = $option->getFieldName();
+                        $tmpOption['value'] = true;
+                        $optionsNames[$optName] = $option->getFieldName();
                         $options[$item->getId()][$optName] = $tmpOption;
                     }
                 }
 
-                if(stripos(strtolower($field->getCaption()),'dealer')!==false){
+                if (stripos(strtolower($field->getCaption()), 'dealer') !== false) {
                     $t['type'] = 'dealer';
                     $t['value'] = $item->getDealer()->getName();
                 }
 
-                if(!empty($t['value'])) {
+                if (!empty($t['value'])) {
 
                     $temp[$item->getId()]['list'][$field->getId()] = $t;
                     $temp[$item->getId()]['item'] = $item;
                 }
-                $includedFields[$field->getId()]=false;
-                $includedFields[$field->getId()]=$includedFields[$field->getId()] || !empty($t['value']);
-                if($includedFields[$field->getId()]==true){
+                $includedFields[$field->getId()] = false;
+                $includedFields[$field->getId()] = $includedFields[$field->getId()] || !empty($t['value']);
+                if ($includedFields[$field->getId()] == true) {
 
-                    $tempIncludedFields[$field->getId()]['id']=$field->getId();
-                    $tempIncludedFields[$field->getId()]['name']=$field->getCaption();
+                    $tempIncludedFields[$field->getId()]['id'] = $field->getId();
+                    $tempIncludedFields[$field->getId()]['name'] = $field->getCaption();
                 }
             }
 
@@ -355,49 +365,51 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $this->render('NumaDOASiteBundle:Item:comparedListings.html.twig', array(
             'fields' => $tempIncludedFields,
             'items' => $temp,
-            'optionsNames'=> $optionsNames,
-            'options'=> $options,
-            'dealer'=>$dealer,
-            ));
+            'optionsNames' => $optionsNames,
+            'options' => $options,
+            'dealer' => $dealer,
+        ));
     }
 
-    public function qrcodeAction(Request $request) {
+    public function qrcodeAction(Request $request)
+    {
         $link = $request->get('link');
         return $this->redirect($this->generateUrl('endroid_qrcode', array(
-                            'text' => $link,
-                            'extension' => 'png',
-                            'size' => 500
+            'text' => $link,
+            'extension' => 'png',
+            'size' => 500
         )));
     }
 
-    public function emailDealerForm($request, $dealer) {
+    public function emailDealerForm($request, $dealer)
+    {
         $data = array();
         $form = $this->createFormBuilder($data)
-                ->add('comments', 'textarea')
-                ->add('first_name', 'text')
-                ->add('last_name', 'text')
-                ->add('email', 'email')
-                ->add('dealer', 'hidden')
-                ->add('captcha', 'genemu_captcha',array('mapped' => false,))
-                //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
-                ->getForm();
+            ->add('comments', 'textarea')
+            ->add('first_name', 'text')
+            ->add('last_name', 'text')
+            ->add('email', 'email')
+            ->add('dealer', 'hidden')
+            ->add('captcha', 'genemu_captcha', array('mapped' => false,))
+            //->addEventListener(FormEvents::PRE_BIND, array($listener, 'ensureCaptchaField'), -10)
+            ->getForm();
         $form = $this->createForm(new SendEmailType($this->container), $data);
 
         $form->handleRequest($request);
         if ($form->isValid() && $request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
-            $data= $form->getData();
+            $data = $form->getData();
 //            dump($form);
 //            dump($request);die();
             $mymailer = $this->get('Numa.Emailer');
-            $messageParam = $mymailer->sendEmail($request,$data, $dealer);
-            if(empty($messageParam['errors'])){
+            $messageParam = $mymailer->sendEmail($request, $data, $dealer);
+            if (empty($messageParam['errors'])) {
                 $this->addFlash('success', "Email has been sent!");
             }
 
             return $this->redirect($messageParam['redirectto']);
-        }else{
+        } else {
 
-            if(!empty($form->getErrors()->count())) {
+            if (!empty($form->getErrors()->count())) {
                 $this->addFlash('danger', "Captcha code invalid, please try again to send email.");
             }
 
@@ -405,20 +417,22 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         return $form;
     }
 
-    public function epriceAction($itemid){
+    public function epriceAction($itemid)
+    {
         $listingForm = new ListingForm();
         $listingForm->setItemId(intval($itemid));
         $epriceForm = $this->createCreateEpriceForm($listingForm);
-        $epriceForm->add("item_id","hidden");
-        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id'=>$itemid,'epriceForm' => $epriceForm->createView() ));
+        $epriceForm->add("item_id", "hidden");
+        return $this->render('NumaDOASiteBundle:Item:eprice.html.twig', array('item_id' => $itemid, 'epriceForm' => $epriceForm->createView()));
     }
 
-    public function financeAction($itemid){
+    public function financeAction($itemid)
+    {
         $listingForm = new ListingForm();
         $listingForm->setItemId(intval($itemid));
         $financeForm = $this->createCreateFinanceForm($listingForm);
-        $financeForm->add("item_id","hidden");
-        return $this->render('NumaDOASiteBundle:Item:finance.html.twig', array('item_id'=>$itemid,'financeForm' => $financeForm->createView() ));
+        $financeForm->add("item_id", "hidden");
+        return $this->render('NumaDOASiteBundle:Item:finance.html.twig', array('item_id' => $itemid, 'financeForm' => $financeForm->createView()));
     }
 
     public function manageAction()
@@ -426,7 +440,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $em = $this->getDoctrine()->getManager();
 
         return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
-            'dealer'=>$this->get("numa.dms.user")->getSignedDealer()
+            'dealer' => $this->get("numa.dms.user")->getSignedDealer()
         ));
     }
 
