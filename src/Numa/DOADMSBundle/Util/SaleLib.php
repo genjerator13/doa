@@ -32,7 +32,9 @@ class SaleLib
 
     public function createSaleByBilling(Billing $billing)
     {
-//        dump($billing->getItem());die();
+        if (!$billing->getActive()) {
+            return false;
+        }
         if (!empty($billing->getSalePrice()) || !empty($billing->getWarranty()) || !empty($billing->getAdminFee()) || !empty($billing->getBankRegistrationFee()) || !empty($billing->getProtectionPkg()) || !empty($billing->getLifeInsurance()) || !empty($billing->getDisabilityInsurance()) || !empty($billing->getOtherMisc1()) || !empty($billing->getOtherMisc2()) || !empty($billing->getTaxt1Name()) || !empty($billing->getTaxt2Name()) || !empty($billing->getTaxt3Name()) || !empty($billing->getTax1()) || !empty($billing->getTax2()) || !empty($billing->getTax3()) || !empty($billing->getSalesPerson())) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
@@ -74,7 +76,7 @@ class SaleLib
         $filename = $file->getClientOriginalName();
 
         //make a folder if not exists
-        $dir = $upload_path.$sale->getId();
+        $dir = $upload_path . $sale->getId();
 
         if (!file_exists($dir)) {
             mkdir($dir, 0777, true);
@@ -84,13 +86,13 @@ class SaleLib
         $filename = $sale->getId() . "_" . $filename;
         $filename = str_replace(array(" ", '%'), "-", $filename);
 
-        $dirandfile = $sale->getId()."/".$filename;
+        $dirandfile = $sale->getId() . "/" . $filename;
 
         //full path to the uploaded image
         $fullpathfile = $dir . "/" . $filename;
 
         $filemoved = $file->move($dir, $filename);
-        if($filemoved instanceof File) {
+        if ($filemoved instanceof File) {
 
             $em = $this->container->get('doctrine.orm.entity_manager');
             $relatedDoc = new RelatedDoc();
@@ -107,27 +109,29 @@ class SaleLib
         }
     }
 
-    public function deleteRelatedDoc(RelatedDoc $doc){
+    public function deleteRelatedDoc(RelatedDoc $doc)
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
-        $file = $this->container->getParameter("related_docs_path").$doc->getSrc();
+        $file = $this->container->getParameter("related_docs_path") . $doc->getSrc();
 
-        if(file_exists($file)){
+        if (file_exists($file)) {
             unlink($file);
         }
         $em->remove($doc);
         $em->flush();
     }
 
-    public function getAllVendors(Item $item,$qb=false){
+    public function getAllVendors(Item $item, $qb = false)
+    {
         $sale = $item->getSale();
         $byVendors = array();
-        if($sale instanceof Sale){
+        if ($sale instanceof Sale) {
             //vehvendor
             $vehVendor = $sale->getVendor();
             $temp = array();
             $temp['vendor'] = $vehVendor;
             $temp['property'] = "vehicle";
-            $temp['docnum'] = "i_".$item->getId()."_".time();
+            $temp['docnum'] = "i_" . $item->getId() . "_" . time();
             $temp['title'] = $this->container->get("numa.dms.listing")->getListingTitle($item);
             //qb get item from QB by title
 
@@ -149,55 +153,57 @@ class SaleLib
             $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
             $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
             //qb
-            $byVendors[$vehVendor->getId()][]=$temp;
+            $byVendors[$vehVendor->getId()][] = $temp;
 
             $class_methods = get_class_methods(Sale::class);
-            $output = array_filter($class_methods, function ($f) { return stripos($f,"get")===0 && stripos($f,"vendorid")>0 && $f!="getVendorId"; });
+            $output = array_filter($class_methods, function ($f) {
+                return stripos($f, "get") === 0 && stripos($f, "vendorid") > 0 && $f != "getVendorId";
+            });
             $props = array();
 
-            foreach($output as $vendorF){
+            foreach ($output as $vendorF) {
                 $temp = array();
                 //$prop = str_replace("get","",$vendorF);
-                $prop = str_replace("VendorId","",$vendorF);
-                $propname = str_replace("get","",$prop);
-                $descF = "getDesc".$propname;
+                $prop = str_replace("VendorId", "", $vendorF);
+                $propname = str_replace("get", "", $prop);
+                $descF = "getDesc" . $propname;
 
                 $vendorId = $sale->{$vendorF}();
-                $amount   = $sale->{$prop}();
-                if(method_exists($sale,$descF)) {
+                $amount = $sale->{$prop}();
+                if (method_exists($sale, $descF)) {
                     $desc = $sale->{$descF}();
                 }
 
-                if(!empty($vendorId)){
+                if (!empty($vendorId)) {
                     $em = $this->container->get('doctrine.orm.entity_manager');
 
-                    $vendor  =$em->getRepository(Vendor::class)->find($vendorId);
-                    if($vendor instanceof Vendor){
+                    $vendor = $em->getRepository(Vendor::class)->find($vendorId);
+                    if ($vendor instanceof Vendor) {
 
                         $temp['vendor'] = $vendor;
                         $temp['amount'] = $amount;
                         $temp['property'] = $prop;
                         $temp['title'] = $propname;
                         $temp['sku'] = "";
-                        $temp['docnum'] = "c_".$item->getId()."_".time();
+                        $temp['docnum'] = "c_" . $item->getId() . "_" . time();
                         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($prop);
                         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3($prop);
                         $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4($prop);
                         $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
                         $temp['IncomeAccount'] = $qbIncomeAccountSetting;
                         $temp['AssetAccount'] = $qbAssetAccountSetting;
-                        $temp['description']   = "";
+                        $temp['description'] = "";
                         $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($temp['title']);
                         $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
                         $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
                         $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
                         $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks')->getSupplier($vendor->getCompanyName());
-                        if(method_exists($sale,$descF)) {
+                        if (method_exists($sale, $descF)) {
                             $desc = $sale->{$descF}();
-                            $temp['description']   = $desc;
+                            $temp['description'] = $desc;
                         }
 
-                        $byVendors[$vendorId][]=$temp;
+                        $byVendors[$vendorId][] = $temp;
                     }
                 }
                 $props[$prop] = $temp;
