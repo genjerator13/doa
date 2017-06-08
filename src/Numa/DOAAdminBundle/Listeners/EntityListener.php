@@ -167,7 +167,7 @@ class EntityListener
             if (!empty($entity->getItem())) {
                 $item = $entity->getItem();
                 $item->addBilling($entity);
-                if ($entity->getItem() instanceof Item) {
+                if ($entity->getItem() instanceof Item && $entity->getActive()) {
                     $entity->getItem()->setSold(true);
                     $entity->getItem()->setSoldDate(new \DateTime());
                     $entity->getItem()->setActive(false);
