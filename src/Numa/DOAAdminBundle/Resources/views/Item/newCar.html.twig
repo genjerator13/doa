@@ -190,6 +190,14 @@
     {{ component.listingFieldInput(form.mileage,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.trim,"", "form-group","col-sm-9") }}
     {{ component.listingFieldInput(form.bodyStyle,"", "form-group","col-sm-9") }}
+    <div id="sub_category_type" class="form-group hidden">
+        <label id="labelType" class="col-sm-3 col-sm-2 control-label required" for="numa_doaadminbundle_item_sub_category_type">
+
+        </label>
+        <div class="col-sm-9">
+            {{ form_widget(form.sub_category_type, { 'attr': {'class': 'form-control'} }) }}
+        </div>
+    </div>
     {{ component.listingFieldInput(form.bodyDescription,"", "form-group","col-sm-9") }}
     <div class="form-group">
         {{ form_label(form.exteriorColor, 'Exterior Color', { 'label_attr': {'class': 'col-sm-3'} }) }}
@@ -237,4 +245,46 @@
     {{ component.listingFieldInput(form.mpgHighway,"", "form-group","col-sm-9") }}
 
     {{ component.listingFieldInput(form.iwNo,"", "form-group","col-sm-9") }}
+    <script>
+        document.getElementById("numa_doaadminbundle_item_bodyStyle").onchange = function() {
+            insertSelects();
+        };
+        $( document ).ready(function() {
+            insertSelects();
+
+        });
+        function insertSelects(){
+
+            var select = document.getElementById("numa_doaadminbundle_item_bodyStyle");
+            var category = select.value;
+
+            var options = [];
+            if(category == "Truck"){
+                var options = ["Pickup","Chassis Cab","Flat Deck"];
+                document.getElementById("sub_category_type").classList.remove('hidden');
+                document.getElementById("labelType").innerHTML = "Truck Type";
+            } else if(category == "Van"){
+                var options = ["Cube Van","Cargo Van","Passenger Van"];
+                document.getElementById("sub_category_type").classList.remove('hidden');
+                document.getElementById("labelType").innerHTML = "Van Type";
+            }else {
+                document.getElementById("sub_category_type").classList.add('hidden');
+            }
+
+            var selectType = document.getElementById('numa_doaadminbundle_item_sub_category_type');
+
+            document.getElementById('numa_doaadminbundle_item_sub_category_type').options.length = 0;
+            for(var i = 0; i < options.length; i++) {
+                var opt = document.createElement('option');
+                opt.innerHTML = options[i];
+                opt.value = options[i];
+                {% if entity is defined and entity.subCategoryType is not null %}
+                if (options[i] == {{ entity.subCategoryType|json_encode()|raw }}){
+                    opt.selected = true;
+                }
+                {% endif %}
+                selectType.appendChild(opt);
+            }
+        };
+    </script>
 {% endblock %}
