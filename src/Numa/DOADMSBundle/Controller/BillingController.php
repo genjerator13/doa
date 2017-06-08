@@ -169,7 +169,7 @@ class BillingController extends Controller
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
+        return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
             'customer' => $customer,
             'dealer' => $dealer,
