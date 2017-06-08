@@ -62,12 +62,7 @@ class LeasingType extends AbstractType
             ->add('employer_previous_city', null, array('label'=> 'City'))
             ->add('employer_previous_state', null, array('label'=> 'State/Prov'))
             ->add('employer_previous_zip', null, array('label'=> 'Zip/Postal'))
-            ->add('vendor_company', null, array('label'=> 'Company'))
-            ->add('vendor_address', null, array('label'=> 'Address'))
-            ->add('vendor_city', null, array('label'=> 'City / Prov / Postal'))
-            ->add('vendor_contact', null, array('label'=> 'Contact'))
-            ->add('vendor_phone', null, array('label'=> 'Phone / Fax'))
-            ->add('vendor_email', null, array('label'=> 'Email'))
+
             ->add('make')
             ->add('model')
             ->add('year')
