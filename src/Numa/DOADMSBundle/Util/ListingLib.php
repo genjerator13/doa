@@ -43,7 +43,7 @@ class ListingLib
      */
     public function createListingByBillingTradeIn(Billing $billing, $insertToDB = true)
     {
-        if (!empty($billing->getTidMake()) && !empty($billing->getTidModel())) {
+        if (!empty($billing->getTidMake()) && !empty($billing->getTidModel()) && $billing->getActive()) {
             $em = $this->container->get('doctrine.orm.entity_manager');
             //check if vin exists already
             $currentItem = $em->getRepository("NumaDOAAdminBundle:Item")->findOneBy(array('VIN' => $billing->getTidVin()));
