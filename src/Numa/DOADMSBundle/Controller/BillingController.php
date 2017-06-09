@@ -181,11 +181,13 @@ class BillingController extends Controller
     private function getBillingTemplate($view=true){
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $billingTemplate = $this->get('numa.settings')->get('billing_template',array(),$dealer);
-        $template = "NumaDOADMSBundle:Billing:view.html.twig";
+
         $tt = "new";
         if($view){
             $tt = "view";
         }
+        $template = "NumaDOADMSBundle:Billing:".$tt.".html.twig";
+
         if(strip_tags($billingTemplate)=="template2"){
             $template = "NumaDOADMSBundle:Billing:".$tt."_template2.html.twig";
         }
