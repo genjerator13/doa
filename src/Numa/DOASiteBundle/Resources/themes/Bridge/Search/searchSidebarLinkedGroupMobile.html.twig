@@ -1,6 +1,7 @@
 {% if group is defined %}
     {% set queryParams = app.request.query.all %}
     {% set route        = app.request.attributes.get('_route') %}
+    {% set routeParams        = app.request.attributes.get('_route_params') %}
     <div id="{{ field }}m" class="mobile-search">
 
         <div href="#collapse{{ field }}m" data-toggle="collapse" class="group-header collapsed">
@@ -13,6 +14,7 @@
                     {% if field=="make_string" %}
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({make_string: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
                             <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
@@ -20,6 +22,7 @@
                     {% if field=="categorySubType" %}
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({categorySubType: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
                             <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
@@ -27,6 +30,7 @@
                     {% if field=="year" %}
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({year: item['value']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
                             <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
@@ -34,6 +38,7 @@
                     {% if field=="price" %}
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({priceTo: item['to'],priceFrom:item['from']}) %}
+                            {% set queryParams = queryParams|merge(routeParams) %}
                             <li>
                                 <a href="{{ path(route,queryParams) }}">{{ price(item['from'],true)|raw }}
                                     - {{ price(item['to'],true)|raw }} ( {{ item.count }}

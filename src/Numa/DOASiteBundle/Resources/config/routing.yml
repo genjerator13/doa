@@ -23,6 +23,9 @@ search_featured:
 search_featured2:
     path:  /specials
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en,featured: 1 }
+search_by_truck_van_type:
+    path:  /browse_by_truck_van_type/{truckVanTypeWildcard}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_by_body_style:
     path:  /browse_by_body_style_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
@@ -38,6 +41,7 @@ search_by_rvs_class_type:
 search_by_ag_type:
     path:  /browse_by_type_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+
 search_by_rvs_type:
     path:  /browse_by_{category}/{categorySubType}
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
