@@ -515,6 +515,10 @@ Numa\DOAAdminBundle\Entity\Item:
         qb_item_id:
               type: integer
               nullable: true
+        sub_category_type:
+              type: string
+              length: 255
+              nullable: true
     lifecycleCallbacks:
         prePersist: [ setCreatedAtValue ]
         preUpdate: [ setUpdatedAtValue ]
