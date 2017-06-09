@@ -200,13 +200,17 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $sidebarForm->add('categorySubType', 'choice', array('label' => 'Sub Category', 'choices' => $subCat, "required" => false));
         }
 
-        //$sidebarForm = $this->addSidebarFormField('categorySubType','Sub Category',$sidebarForm,$sidebarParam['subCat'],"Choose Subcategory");
-        $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], "Choose Year From");
-        $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], "Choose Year To");
+        if (!empty($sidebarParam['year'])) {
+            $sidebarForm = $this->addSidebarFormField('yearFrom', 'Year From', $sidebarForm, $sidebarParam['year'], "Choose Year From");
+            $sidebarForm = $this->addSidebarFormField('yearTo', 'Year To', $sidebarForm, $sidebarParam['year'], "Choose Year To");
+        }
 
-        $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], "Choose Model");
-        $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
-
+        if (!empty($sidebarParam['model'])) {
+            $sidebarForm = $this->addSidebarFormField('model', 'Model', $sidebarForm, $sidebarParam['model'], "Choose Model");
+        }
+        if (!empty($sidebarParam['make'])) {
+            $sidebarForm = $this->addSidebarFormField('make_string', 'Make', $sidebarForm, $sidebarParam['make'], "Choose Make");
+        }
 
         $sidebarForm->add('mileageFrom', 'text', array('label' => 'Mileage From', "required" => false));
 
