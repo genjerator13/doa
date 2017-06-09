@@ -99,6 +99,10 @@ class SearchItem {
     public function isAll(){
         return $this->getDbFieldName()=='all';
     }
+
+    public function isQueryString(){
+        return $this->getDbFieldName()=='query_string';
+    }
 ///
 //
 //

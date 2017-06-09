@@ -73,22 +73,22 @@
                 </div>
                 <div class="buttons container">
                     <div class="button">
-                        <a href="/inventory/used/2015-ford-f-350-saskatoon-saskatchewan/10835845" class="btn btn-bridge-red">Flat Decks</a>
+                        <a href="{{ path("search_by_truck_van_type",{'truckVanTypeWildcard':"flat decks"}) }}" class="btn btn-bridge-red">Flat Decks</a>
                     </div>
                     <div class="button">
-                        <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Cargo%20Van" class="btn btn-bridge-red">Cargo Vans</a>
+                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"cargo van"}) }}" class="btn btn-bridge-red">Cargo Vans</a>
                     </div>
                     <div class="button">
-                        <a href="/" class="btn btn-bridge-red">Cube Vans</a>
+                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"cube van"}) }}" class="btn btn-bridge-red">Cube Vans</a>
                     </div>
                     <div class="button">
-                        <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
+                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"passenger cab"}) }}" class="btn btn-bridge-red">Passenger Vans</a>
                     </div>
                     <div class="button">
-                        <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
+                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"chassis cabs"}) }}" class="btn btn-bridge-red">Chassis Cabs</a>
                     </div>
                     <div class="button">
-                        <a href="/inventory/search?stock_type=USED&amp;page=1&amp;page_length=20&amp;body_type=Chassis%20Cab" class="btn btn-bridge-red">Chassis Cabs</a>
+                        <a href="{{ path("search_by_truck_van_type",{truckVanTypeWildcard:"pickup"}) }}" class="btn btn-bridge-red">Pickup</a>
                     </div>
                 </div>
 

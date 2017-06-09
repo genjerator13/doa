@@ -68,6 +68,8 @@ class searchESParameters
             'typeSlug' => new SearchItem('type', 0, "listSlug"),
             'categorySubType' => new SearchItem('categorySubType', 0, "string"),
             'categorySubTypeWildcard' => new SearchItem('categorySubType', 0, "wildcard"),
+            'truckVanType' => new SearchItem('truckVanType', 0, "string"),
+            'truckVanTypeWildcard' => new SearchItem('truckVanType', 0, "wildcard"),
             'ag_applicationString' => new SearchItem('ag_application', 0, "string"),
             'boatTypeString' => new SearchItem('type', 0, "string"),
             'boatTypeSlug' => new SearchItem('type', 0, "listSlug"),
@@ -386,6 +388,7 @@ class searchESParameters
                             $fieldQuery = new \Elastica\Query\Term();
                             $fieldQuery->setTerm($searchItem->getDbFieldName(), $searchItem->getValue());
                             $boolQuery->addMust($fieldQuery);
+
                         }
                     } elseif ($searchItem->isInt()) {
                         $fieldQuery = new \Elastica\Query\Term();
@@ -417,7 +420,15 @@ class searchESParameters
                         $fieldQuery = new \Elastica\Query\QueryString($searchItem->getValue());
 
                         $boolQuery->addMust($fieldQuery);
+                    }elseif ($searchItem->isQueryString()) {
+                        $fieldQuery = new \Elastica\Query\QueryString();
+                        $fieldQuery->setDefaultField($searchItem->getDbFieldName());
+                        $fieldQuery->setQuery($searchItem->getValue());
+                        $boolQuery->addMust($fieldQuery);
                     }
+
+
+
                 }
             }
         }
@@ -432,7 +443,6 @@ class searchESParameters
 
         $elasticaQuery = new \Elastica\Query();
         $elasticaQuery->setQuery($boolQuery);
-
         if (!empty($this->sort_by)) {
 
             $elasticaQuery->addSort(array($this->sort_by => $this->sort_order));
