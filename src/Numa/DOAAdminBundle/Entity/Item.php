@@ -5333,4 +5333,8 @@ class Item
     {
         return $this->sub_category_type;
     }
+
+    public function getTruckVanType(){
+        return strtolower($this->getSubCategoryType());
+    }
 }
