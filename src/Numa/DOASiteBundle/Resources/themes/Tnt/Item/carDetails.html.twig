@@ -78,16 +78,16 @@
             </div>
         </li>
     {% endif %}
-    {% if item.getVin() is not empty %}
-        <li class="{{ liclass }}">
-            <div class="checkbox">
-                <label>
-                    <span class="fieldCaption field-status">VIN: </span>
-                </label>
-                <span class="fieldValue fieldValue-status">{{ item.getVin() }}</span>
-            </div>
-        </li>
-    {% endif %}
+    {#{% if item.getVin() is not empty %}#}
+        {#<li class="{{ liclass }}">#}
+            {#<div class="checkbox">#}
+                {#<label>#}
+                    {#<span class="fieldCaption field-status">VIN: </span>#}
+                {#</label>#}
+                {#<span class="fieldValue fieldValue-status">{{ item.getVin() }}</span>#}
+            {#</div>#}
+        {#</li>#}
+    {#{% endif %}#}
     {% if item.getMileage() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
