@@ -153,3 +153,7 @@
 .sort .dropdown-menu{
     z-index: 800;
 }
+
+.trim {
+    font-weight: bold;
+}
