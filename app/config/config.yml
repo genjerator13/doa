@@ -61,6 +61,7 @@ twig:
         upload_feed_path: /upload/feeds/
         upload_related_doc_path: /upload/related_docs/
         listing: "@numa.dms.listing"
+        dealerService: "@numa.dms.dealer"
     form_themes:
         - 'views/Form/fields.html.twig'
 #    form:
