@@ -314,6 +314,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaAggSubCat = new \Elastica\Aggregation\Terms('categorySubType');
         $elasticaAggSubCat->setField('categorySubType');
         $elasticaAggSubCat->setSize($size);
+        //truckVanType
+        $elasticatruckVanType = new \Elastica\Aggregation\Terms('truckVanType');
+        $elasticatruckVanType->setField('truckVanType');
+        $elasticatruckVanType->setSize($size);
 
         //year
         $elasticaYear = new \Elastica\Aggregation\Terms('year');
@@ -364,6 +368,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
         $elasticaQuery->addAggregation($elasticaPriceStats);
         $elasticaQuery->addAggregation($elasticaMileageStats);
         $elasticaQuery->addAggregation($elasticaYearStats);
+        $elasticaQuery->addAggregation($elasticatruckVanType);
 
         // ResultSet
 
@@ -396,6 +401,14 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $temp['value'] = $sc['key'];
             $temp['count'] = $sc['doc_count'];
             $result['bodyStyle'][] = $temp;
+        }
+
+        foreach ($elasticaAggregs['truckVanType']['buckets'] as $sc) {
+            $temp = array();
+            //$temp[$sc['key']] = $sc['key'] . " (" . $sc['doc_count'] . ")";
+            $temp['value'] = $sc['key'];
+            $temp['count'] = $sc['doc_count'];
+            $result['truckVanType'][] = $temp;
         }
 
         foreach ($elasticaAggregs['model']['buckets'] as $sc) {
