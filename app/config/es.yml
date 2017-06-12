@@ -101,6 +101,9 @@ fos_elastica:
                         agApplication: ~
                         florpane: ~
                         bodyDescription: ~
+                        truckVanType:
+                            analyzer: string_lowercase
+                            type: string
 
                     persistence:
                         # the driver can be orm, mongodb, phpcr or propel
