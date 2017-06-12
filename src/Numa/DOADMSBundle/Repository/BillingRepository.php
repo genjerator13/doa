@@ -20,11 +20,17 @@ class BillingRepository extends EntityRepository
             $prefix= "where dealer_id=$dealer_id";
         }
         $sql = "SELECT MAX( invoice_nr )+1 FROM billing".$prefix;
+
         $res = $this->getEntityManager()->getConnection()->fetchArray($sql);
         if (!empty($res[0])) {
             return $res[0];
         }
         return false;
+    }
+
+    public function generateInvoiceNumber($dealer_id){
+        $val = $dealer_id.time();
+        return hash('crc32', $val);
     }
 
     public function findByDate($date, $date1, $dealer_id)
