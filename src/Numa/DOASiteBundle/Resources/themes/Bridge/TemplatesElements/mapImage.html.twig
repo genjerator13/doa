@@ -5,11 +5,9 @@
        class="">
         {% if image is not empty and image is not empty and image.src is defined %}
             {% if "upload/dealers" in image.src %}
-                
-                <img src="{{ image.src}}"/>
+                <img src="{{ image.src}}" class="img-responsive"/>
             {% else %}
-
-                <img src="{{ "/upload/dealers/"~image.src}}"/>
+                <img src="{{ "/upload/dealers/"~image.src}}" class="img-responsive"/>
             {% endif %}
         {% endif %}
     </a>

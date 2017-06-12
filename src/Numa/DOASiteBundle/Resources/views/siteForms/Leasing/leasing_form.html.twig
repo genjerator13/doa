@@ -103,6 +103,8 @@
     {{ form_row(form.message_text) }}
 
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
-    {{ form_end(form) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form, {'render_rest': false}) }}
+    {#{{ form_end(form) }}#}
 
 {% endblock %}
