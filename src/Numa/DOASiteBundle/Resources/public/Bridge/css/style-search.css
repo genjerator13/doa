@@ -78,6 +78,9 @@
 .shortDetails{
     color: #818e92;
 }
+.shortDetails h4{
+    margin-bottom: 0;
+}
 .shortDetails h4 a{
     color: black;
     font-weight: 600;
@@ -90,6 +93,9 @@
 }
 #listing-content .item-row:hover{
     background-color: #eee;
+}
+.body-description {
+    margin-bottom: 10px;
 }
 .techData .fieldValue{
     color: #78838c;
