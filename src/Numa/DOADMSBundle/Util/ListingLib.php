@@ -135,7 +135,12 @@ class ListingLib
             if (!empty($vin)) {
                 $url = 'http://ws.vinquery.com/restxml.aspx?accesscode=c2bd1b1e-5895-446b-8842-6ffaa4bc4633&reportType=1&vin=' . $vin;
                 //testurl
-                //$url = "http://doa.local/upload/restxml.xml";
+//                $dealer=$this->container->get("numa.dms.user")->getSignedDealer();
+//                $isCommercialDealer=$this->container->get("numa.dms.dealer")->isCommercialDealer($dealer);
+//dump($isCommercialDealer);die();
+//                if($isCommercialDealer) {
+//                    $url = "http://doa.local/upload/restxml_extended.xml";
+//                }
                 $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
 
                 if ($buzz->getLastResponse()->getStatusCode() != 200) {
