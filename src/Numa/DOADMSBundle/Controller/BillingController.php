@@ -126,7 +126,8 @@ class BillingController extends Controller
 //        $dealer = $this->get("Numa.Dms.User")->getSignedDealer();
         $dealer = $customer->getDealer();
         $entity->setCustomerId($id);
-        $maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
+        //$maxInvoiceNr = $em->getRepository('NumaDOADMSBundle:Billing')->maxInvoiceNr($entity->getDealerId());
+        $maxInvoiceNr = strtoupper($em->getRepository('NumaDOADMSBundle:Billing')->generateInvoiceNumber($entity->getDealerId()));
 
         if ($dealer instanceof Catalogrecords) {
             $entity->setDealer($dealer);
