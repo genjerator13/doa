@@ -39,8 +39,10 @@
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({truckVanType: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
+                            {% if(item['value']){ %}
                             <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
                                     ( {{ item['count'] }} )</a></li>
+                            {% endif %}
                         {% endfor %}
                     {% endif %}
                     {% if field=="price" %}
