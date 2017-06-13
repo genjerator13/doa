@@ -1070,17 +1070,17 @@ class ListingForm
      *
      * @param UploadedFile $file
      */
-    public function setImage1Src(\Symfony\Component\HttpFoundation\File\File $imageSrc = null)
+    public function setImage1Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
     {
         $this->image1Src = $imageSrc;
     }
 
-    public function setImage2Src(\Symfony\Component\HttpFoundation\File\File $imageSrc = null)
+    public function setImage2Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
     {
         $this->image2Src = $imageSrc;
     }
 
-    public function setImage3Src(\Symfony\Component\HttpFoundation\File\File $imageSrc = null)
+    public function setImage3Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
     {
         $this->image3Src = $imageSrc;
     }
@@ -1148,13 +1148,11 @@ class ListingForm
             $this->getImage3src()->move(
                 $this->getUploadRootDir($id), $this->getImage3Src()->getClientOriginalName()
             );
-            $this->image2 = $this->getUploadDir($id) . "/" . $this->getImage3Src()->getClientOriginalName();
+            $this->image3 = $this->getUploadDir($id) . "/" . $this->getImage3Src()->getClientOriginalName();
         }
 
         $this->image1Src = null;
         $this->image2Src = null;
         $this->image3Src = null;
     }
-
-
 }

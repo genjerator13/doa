@@ -12,13 +12,22 @@
             %}
                 <div class="uploaded-images">
                     {% if (entity.image1 is defined and  entity.image1 is not empty) %}
-                        <a href="{{ asset(entity.image1) }}">{{ component.image(entity.image1, '', '', 'billing_logo_image') }}</a>
+                        <a href="{{ asset(entity.image1) }}">
+                            {#{{ component.image(entity.image1, '', '', 'billing_logo_image') }}#}
+                            <img src="{{ asset(entity.image1) }}" height="250px" />
+                        </a>
                     {% endif %}
                     {% if (entity.image2 is defined and  entity.image2 is not empty) %}
-                        <a href="{{ asset(entity.image2) }}">{{ component.image(entity.image2, '', '', 'billing_logo_image') }}</a>
+                        <a href="{{ asset(entity.image2) }}">
+                            {#{{ component.image(entity.image2, '', '', 'billing_logo_image') }}#}
+                            <img src="{{ asset(entity.image2) }}" height="250px" />
+                        </a>
                     {% endif %}
                     {% if (entity.image3 is defined and  entity.image3 is not empty) %}
-                        <a href="{{ asset(entity.image3) }}">{{ component.image(entity.image3, '', '', 'billing_logo_image') }}</a>
+                        <a href="{{ asset(entity.image3) }}">
+                            {#{{ component.image(entity.image3, '', '', 'billing_logo_image') }}#}
+                            <img src="{{ asset(entity.image3) }}" height="250px" />
+                        </a>
                     {% endif %}
                 </div>
             {% endif %}
