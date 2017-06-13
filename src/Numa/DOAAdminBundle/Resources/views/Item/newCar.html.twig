@@ -246,7 +246,7 @@
     {{ component.listingFieldInput(form.mpgHighway,"", "form-group","col-sm-9") }}
 
     {{ component.listingFieldInput(form.iwNo,"", "form-group","col-sm-9") }}
-    {% if dealerService.isCommercialDealer(dealer) %}
+    {% if dealer is defined and dealerService.isCommercialDealer(dealer) %}
         <script>
             document.getElementById("numa_doaadminbundle_item_bodyStyle").onchange = function () {
                 insertSelects();
