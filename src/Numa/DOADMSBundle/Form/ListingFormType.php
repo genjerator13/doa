@@ -25,6 +25,9 @@ class ListingFormType extends AbstractType
             ->add('dealer_id','hidden')
             ->add('customer_id','hidden')
             ->add('item_id','hidden')
+            ->add('image1src','file',array('required' => false))
+            ->add('image2src','file',array('required' => false))
+            ->add('image3src','file',array('required' => false))
 //            ->add('date_created')
 //            ->add('date_updated')
 //            ->add('status')
@@ -40,7 +43,8 @@ class ListingFormType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm'
+            'data_class' => 'Numa\DOADMSBundle\Entity\ListingForm',
+            'csrf_protection' => false,
             //'data_class' => null
         ));
     }
