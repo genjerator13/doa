@@ -155,7 +155,7 @@ class EntityListener
         } elseif ($entity instanceof ServiceRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
-            $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+            //$this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof Finance) {
