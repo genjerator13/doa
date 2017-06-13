@@ -25,9 +25,10 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
         $form = $this->get('google.captcha')->proccessGoogleCaptcha($request, $form);
-
+        $dealer = $this->get("numa.dms.user")->getDealerByHost();
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->upload($dealer);
 
             $this->get("Numa.DMSUtils")->attachCustomerByEmail($entity,$this->dealer,$entity->getEmail(),$entity->getCustName(),$entity->getCustLastName(),$entity->getPhone());
 
@@ -71,6 +72,9 @@ class TradeInController extends Controller implements DealerSiteControllerInterf
         $form->add('year', null, array('label'=>'Year *', 'required'=>true));
         $form->add('kilometers', null, array('label'=>'Kilometers *', 'required'=>true));
         $form->add('accessories', null, array('label'=>'Accessories *', 'required'=>true));
+        $form->add('image1', 'file', array('label'=>'Image 1', 'required'=>false));
+        $form->add('image2', 'file', array('label'=>'Image 2', 'required'=>false));
+        $form->add('image3', 'file', array('label'=>'Image 3', 'required'=>false));
         $form->add('submit', 'submit', array('label' => 'Send'));
 
         return $form;
