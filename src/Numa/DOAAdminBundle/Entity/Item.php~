@@ -5303,4 +5303,38 @@ class Item
     {
         return $this->trailer_VIN;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $sub_category_type;
+
+
+    /**
+     * Set subCategoryType
+     *
+     * @param string $subCategoryType
+     *
+     * @return Item
+     */
+    public function setSubCategoryType($subCategoryType)
+    {
+        $this->sub_category_type = $subCategoryType;
+
+        return $this;
+    }
+
+    /**
+     * Get subCategoryType
+     *
+     * @return string
+     */
+    public function getSubCategoryType()
+    {
+        return $this->sub_category_type;
+    }
+
+    public function getTruckVanType(){
+        return strtolower($this->getSubCategoryType());
+    }
 }

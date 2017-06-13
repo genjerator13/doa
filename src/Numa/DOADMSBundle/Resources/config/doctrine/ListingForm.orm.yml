@@ -95,6 +95,18 @@ Numa\DOADMSBundle\Entity\ListingForm:
         year_onsite:
             type: integer
             nullable: true
+        image1:
+            type: string
+            length: 255
+            nullable: true
+        image2:
+            type: string
+            length: 255
+            nullable: true
+        image3:
+            type: string
+            length: 255
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
