@@ -1117,7 +1117,7 @@ class ListingForm
             $this->getImage1src()->move(
                 $this->getUploadRootDir($id), $this->getImage3Src()->getClientOriginalName()
             );
-            $this->image2 = $this->getUploadDir($id) . "/" . $this->getImage2Src()->getClientOriginalName();
+            $this->image3 = $this->getUploadDir($id) . "/" . $this->getImage3Src()->getClientOriginalName();
         }
 
         $this->image1Src = null;
