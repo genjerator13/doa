@@ -32,6 +32,7 @@
     {{ form_row(form.date_drive) }}
     {{ form_row(form.comment) }}
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
-    {{ form_end(form) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form, {'render_rest': false}) }}
 
 {% endblock %}
