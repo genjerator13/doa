@@ -20,7 +20,8 @@
     {{ form_row(form.phone) }}
     {{ form_row(form.comment, { 'label': 'Question' }) }}
     <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
-    {{ form_end(form) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form, {'render_rest': false}) }}
     {% set dealer = getDealer() %}
     {{ displayComponent('page_content_bottom',"HTML")|raw }}
 
