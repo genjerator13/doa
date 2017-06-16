@@ -501,9 +501,10 @@ trsteel_ckeditor:
         route: image_browse
         route_parameters:
           type: image
-    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*)"
+    extra_allowed_content: "span(*); div(*); i(*); ul(*); li(*); a(*)"
     html_purifier:
         config:
+            Attr.AllowedFrameTargets: ['_blank']
             HTML.SafeIframe: true
             URI.SafeIframeRegexp: '%%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/|player\.vimeo\.com/video/|www\.google\.com|www\.google\.ca)%%'
 #    filebrowser_image_browse_url:
