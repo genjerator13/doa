@@ -7,6 +7,7 @@ use JMS\Serializer\Annotation\SerializedName;
 use JMS\Serializer\Annotation\XmlRoot;
 use JMS\Serializer\Annotation\Expose;
 use JMS\Serializer\Annotation as JMS;
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -925,5 +926,202 @@ class ListingForm
     public function getAccessories()
     {
         return $this->accessories;
+    }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $image1;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $image2;
+
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $image3;
+
+
+    /**
+     * Set image1
+     *
+     * @param string $image1
+     *
+     * @return ListingForm
+     */
+    public function setImage1($image1)
+    {
+        $this->image1 = $image1;
+
+        return $this;
+    }
+
+    /**
+     * Get image1
+     *
+     * @return string
+     */
+    public function getImage1()
+    {
+        return $this->image1;
+    }
+
+    /**
+     * Set image2
+     *
+     * @param string $image2
+     *
+     * @return ListingForm
+     */
+    public function setImage2($image2)
+    {
+        $this->image2 = $image2;
+
+        return $this;
+    }
+
+    /**
+     * Get image2
+     *
+     * @return string
+     */
+    public function getImage2()
+    {
+        return $this->image2;
+    }
+
+    /**
+     * Set image3
+     *
+     * @param string $image3
+     *
+     * @return ListingForm
+     */
+    public function setImage3($image3)
+    {
+        $this->image3 = $image3;
+
+        return $this;
+    }
+
+    /**
+     * Get image3
+     *
+     * @return string
+     */
+    public function getImage3()
+    {
+        return $this->image3;
+    }
+
+    public function getAbsolutePath()
+    {
+        return null === $this->getImage1() || null === $this->getImage2() || null === $this->getImage3()  ? null : $this->getUploadRootDir() . '/' . $this->logo;
+    }
+
+
+    protected function getUploadRootDir($id="")
+    {
+        // the absolute directory path where uploaded
+        // documents should be saved
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir($id);
+    }
+
+    protected function getUploadDir($id)
+    {
+        // get rid of the __DIR__ so it doesn't screw up
+        // when displaying uploaded doc/image in the view.
+        return 'upload/dealers/' . $id.'/listing_form';
+    }
+
+    public $image1Src;
+    public $image2Src;
+    public $image3Src;
+
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setImage1Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
+    {
+        $this->image1Src = $imageSrc;
+    }
+
+    public function setImage2Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
+    {
+        $this->image2Src = $imageSrc;
+    }
+
+    public function setImage3Src(\Symfony\Component\HttpFoundation\File\UploadedFile $imageSrc = null)
+    {
+        $this->image3Src = $imageSrc;
+    }
+
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getImage1Src()
+    {
+        return $this->image1Src;
+    }
+
+    public function getImage2Src()
+    {
+        return $this->image2Src;
+    }
+    public function getImage3Src()
+    {
+        return $this->image3Src;
+    }
+
+    public function upload($dealer)
+    {
+        // the file property can be empty if the field is not required
+
+        if (null === $this->getImage1src() && null === $this->getImage2src() && null === $this->getImage3src()) {
+            return;
+        }
+        $id="";
+        if($dealer instanceof Catalogrecords){
+            $id = $dealer->getId();
+        }
+
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+
+        if(!empty($this->getImage1src())) {
+
+            $this->getImage1src()->move(
+                $this->getUploadRootDir($id), $this->getImage1Src()->getClientOriginalName()
+            );
+            $this->image1 = $this->getUploadDir($id) . "/" . $this->getImage1Src()->getClientOriginalName();
+        }
+
+        if(!empty($this->getImage2src())) {
+            $this->getImage2src()->move(
+                $this->getUploadRootDir($id), $this->getImage2Src()->getClientOriginalName()
+            );
+            $this->image2 = $this->getUploadDir($id) . "/" . $this->getImage2Src()->getClientOriginalName();
+        }
+
+        if(!empty($this->getImage3src())) {
+            $this->getImage3src()->move(
+                $this->getUploadRootDir($id), $this->getImage3Src()->getClientOriginalName()
+            );
+            $this->image3 = $this->getUploadDir($id) . "/" . $this->getImage3Src()->getClientOriginalName();
+        }
+
+        $this->image1Src = null;
+        $this->image2Src = null;
+        $this->image3Src = null;
     }
 }
