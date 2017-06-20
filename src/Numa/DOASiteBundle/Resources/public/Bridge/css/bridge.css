@@ -618,7 +618,7 @@ and (max-width : 767px) {
         margin: 20px;
     }
 
-    .bottom-menu { display: none; }
+    /*.bottom-menu { display: none; }*/
 
     .maincontent .searchSideBar .mobile-search{
         display: block !important;
@@ -636,7 +636,11 @@ and (max-width : 767px) {
         width: 303px !important;
         bottom: 0px !important;
     }
-
+    .page-text img {
+        min-width: 100% !important;
+        width: 100% !important;
+        height: auto !important;
+    }
 }
 
 .featured-ads {
@@ -760,3 +764,5 @@ and (max-width : 767px) {
     min-width: 100%;
     width: 100%;
 }
+
+
