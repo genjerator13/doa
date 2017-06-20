@@ -15,7 +15,7 @@
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({make_string: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
                     {% endif %}
@@ -23,7 +23,7 @@
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({categorySubType: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
                     {% endif %}
@@ -31,7 +31,7 @@
                         {% for item in group %}
                             {% set queryParams = queryParams|merge({year: item['value']}) %}
                             {% set queryParams = queryParams|merge(routeParams) %}
-                            <li><a href="{{ path(route,queryParams) }}">{{ item['value'] }}
+                            <li><a href="{{ path(route,queryParams) }}">{{ item['value']|capitalize }}
                                     ( {{ item['count'] }} )</a></li>
                         {% endfor %}
                     {% endif %}
