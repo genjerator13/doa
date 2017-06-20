@@ -60,22 +60,6 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
         {name: 'comment', enableColumnResizing: true},
         {name: 'type', enableColumnResizing: true},
 
-        {#{name:'_category.name',displayName:'Category',enableColumnResizing: true,width: 90},
-        {name:'views',enableColumnResizing: true,width: 60},
-        {name:'activation_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'expiration_date',enableColumnResizing: true,type: 'date', cellFilter: 'date:\'yyyy-MM-dd\''},
-        {name:'_dealer.name',displayName:'Dealer'},
-        {
-            name:'sold',
-            enableColumnResizing: true,width: 50,
-            cellTemplate: '<span ng-if="row.entity.sold == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.sold == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },
-        {
-            name:'active',
-            enableColumnResizing: true,width: 60,
-            cellTemplate: '<span ng-if="row.entity.active == \'0\'" class="glyphicon glyphicon-remove"></span><span ng-if="row.entity.active == \'1\'" class="glyphicon glyphicon-ok"></span>',
-        },#}
-
     ];
 
 

@@ -119,7 +119,9 @@ class Emailer extends ContainerAware
         }elseif ($entity instanceof ListingForm) {
 
             $subject = ucfirst($entity->getType())." Request from " . $customer->getFullName();
-
+            if($entity->getSpam()){
+                return;
+            }
         }elseif ($entity instanceof Finance) {
             $subject = "Finance Form Request from " . $customer->getFullName();
         }elseif ($entity instanceof FinanceService) {

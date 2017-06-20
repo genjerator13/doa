@@ -53,11 +53,11 @@ class ListingFormRepository extends EntityRepository
 
         }
 //        $sql = "SELECT dealer_id, id, cust_name, cust_last_name, email, date_created, status FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " UNION SELECT dealer_id, id, cust_name, email, date_created, status FROM `finance` WHERE dealer_id = " . intval($dealer_id) . "";
-        $sql = "(SELECT dealer_id, id, customer_id, cust_name,cust_last_name, email, date_created, status,type FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
-UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"part\" FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql." )
-UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"service\" FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
-UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"financing\" FROM `finance` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
-UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"finance_service\" FROM `finance_service` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
+        $sql = "(SELECT dealer_id, id, customer_id, cust_name,cust_last_name, email, date_created, status,type,spam FROM `listing_form` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
+UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"part\",\"0\" FROM `part_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql." )
+UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"service\",\"0\" FROM `service_request` WHERE dealer_id = " . intval($dealer_id) . " ".$stautusSql.")
+UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"financing\",\"0\" FROM `finance` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
+UNION (SELECT dealer_id, id, customer_id, cust_name, cust_last_name, email, date_created, status,\"finance_service\",\"0\" FROM `finance_service` WHERE dealer_id =" . intval($dealer_id) . " ".$stautusSql.")
 order by date_created desc ".$limitSql;
 
 
