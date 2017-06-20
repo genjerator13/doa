@@ -14,7 +14,7 @@
         <div class="table-responsive">
             <table class="table no-margin">
                 <thead>
-                <tr>
+                <tr >
                     <th>ID</th>
                     <th>Customer Name</th>
                     <th>Email</th>
@@ -26,7 +26,8 @@
                 </thead>
                 <tbody>
                 {% for entity in entities %}
-                    <tr>
+
+                    <tr {% if entity.spam is defined and entity.spam %} class="danger" {% endif %}>
                         <td>
                             {% if entity.type|lower=="eprice" or entity.type|lower=="offer" or entity.type|lower=="offer trade in" or entity.type|lower=="contact" or entity.type|lower=="testdrive" or entity.type|lower=="finance" or entity.type|lower=="quote" or entity.type|lower=="tradein" or entity.type|lower=="shoppingexpress" %}
                                 <a href="{{ path('listingform_show', { 'id': entity.id }) }}">{{ entity.id }}</a>
@@ -49,7 +50,7 @@
                                 {{ entity.cust_name }} {{ entity.cust_last_name }}
                             </a>
                         </td>
-                        <td>{{ entity.email }}</td>
+                        <td>{{ entity.email }} {% if entity.spam is defined and entity.spam %} (SPAM) {% endif %}</td>
                         <td>{{ entity.date_created|date('Y-m-d') }}</td>
                         <td>
                             {% if entity.type|lower=="eprice" %}
