@@ -641,6 +641,9 @@ and (max-width : 767px) {
         width: 100% !important;
         height: auto !important;
     }
+    #offerTradeIn .modal-dialog .offerTradeIn-content {
+        min-width: 100%;
+    }
 }
 
 .featured-ads {
