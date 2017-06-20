@@ -1155,4 +1155,34 @@ class ListingForm
         $this->image2Src = null;
         $this->image3Src = null;
     }
+    /**
+     * @var boolean
+     * @JMS\Expose
+     */
+    private $spam=false;
+
+
+    /**
+     * Set spam
+     *
+     * @param boolean $spam
+     *
+     * @return ListingForm
+     */
+    public function setSpam($spam)
+    {
+        $this->spam = $spam;
+
+        return $this;
+    }
+
+    /**
+     * Get spam
+     *
+     * @return boolean
+     */
+    public function getSpam()
+    {
+        return $this->spam;
+    }
 }

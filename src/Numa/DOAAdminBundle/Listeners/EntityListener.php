@@ -53,7 +53,12 @@ class EntityListener
                     $entity->setFieldStringValue($value);
                 }
             }
-        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+        }elseif ($entity instanceof ListingForm) {
+            $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
+            $entity->setSpam($spam);
+        }
+
+        elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
             $this->setPassword($entity);
         }
@@ -65,18 +70,11 @@ class EntityListener
         $encoder = $factory->getEncoder($entity);
         $plainPassword = $entity->getPassword();
         $encodedPassword = $encoder->encodePassword($plainPassword, $entity->getSalt());
-//        dump($plainPassword);
-//        dump($encodedPassword);
-//        dump($entity);
-        //die();
         if (!empty($plainPassword)) {
 
             $entity->setPassword($encodedPassword);
-
         }
         return $encodedPassword;
-        //dump($entity);
-        //die();
     }
 
     public function preUpdate(PreUpdateEventArgs $args)
@@ -155,7 +153,9 @@ class EntityListener
         } elseif ($entity instanceof ServiceRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
-            //$this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+            if(!$entity->getSpam()) {
+                $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
+            }
         } elseif ($entity instanceof FinanceService) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof Finance) {

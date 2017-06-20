@@ -107,6 +107,11 @@ Numa\DOADMSBundle\Entity\ListingForm:
             type: string
             length: 255
             nullable: true
+        spam:
+            type: boolean
+            options:
+               default: false
+            nullable: true
     manyToOne:
         Dealer:
             targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
