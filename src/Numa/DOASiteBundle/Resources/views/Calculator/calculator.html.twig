@@ -1,10 +1,12 @@
 {% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
 {% block content %}
     {% set dealer = getDealer() %}
-    {{ displayComponent('page_content',"HTML")|raw }}
 
-    <div class="FinanceCalculatorBox">
-        <div class="CalculatePayment">
+    <div class="page-text">
+        {{ displayComponent('page_content',"HTML")|raw }}
+    </div>
+    <div class="FinanceCalculatorBox row">
+        <div class="CalculatePayment col-md-6 col-sm-12">
             <div class="CalculatorHeader">
                 <div> Calculate Payment</div>
             </div>
@@ -71,7 +73,7 @@
                 <div class="Required"> * = Required</div>
             </div>
         </div>
-        <div class="AffordabilityCalculator">
+        <div class="AffordabilityCalculator col-md-6 col-sm-12">
             <div class="CalculatorHeader">
                 <div> Affordability Calculator</div>
             </div>
