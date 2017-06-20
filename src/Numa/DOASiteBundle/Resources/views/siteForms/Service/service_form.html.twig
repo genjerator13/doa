@@ -9,7 +9,9 @@
 {% block content %}
     {% set dealer = getDealer() %}
 
-    {{ displayComponent('page_content',"HTML") }}
+    <div class="page-text">
+        {{ displayComponent('page_content',"HTML")|raw }}
+    </div>
     <script src='https://www.google.com/recaptcha/api.js'></script>
 
     {{ form_errors(form) }}
