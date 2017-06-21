@@ -266,3 +266,6 @@ news:
 site_inventory:
     path:     /manage_inventory
     defaults: { _controller: "NumaDOASiteBundle:Item:manage" }
+external_file:
+    path:     /{filename}.html
+    defaults: { _controller: "NumaDOASiteBundle:External:file" }
