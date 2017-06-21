@@ -33,6 +33,7 @@ class ExternalController extends Controller
         $response->sendHeaders();
 
         $response->setContent(file_get_contents($filename));
+        return $response;
     }
 
 
