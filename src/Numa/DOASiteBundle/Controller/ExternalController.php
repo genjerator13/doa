@@ -13,8 +13,9 @@ class ExternalController extends Controller
 
     public function fileAction($filename)
     {
+        $filename = $filename.".html";
         $path = $this->getParameter('web_path');
-        $file = $path."/".$filename.".html";
+        $file = $path."/".$filename;
         if(!file_exists($file)){
             throw $this->createNotFoundException("File not found!");
         }
