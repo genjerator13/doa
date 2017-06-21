@@ -2,20 +2,9 @@
 
 namespace Numa\DOASiteBundle\Controller;
 
-use Numa\DOAAdminBundle\Entity\Item;
-use Numa\DOADMSBundle\Entity\Billing;
-use Numa\DOADMSBundle\Entity\Sale;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityRepository;
-use Numa\Util\Util as Util;
-//use Guzzle
-use Guzzle\Http\Client;
-use Lsw\GuzzleBundle\LswGuzzleBundle;
 
-use Elastica\Query;
-use Elastica\Query\Elastica_Query_Terms;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Response;
 
 
