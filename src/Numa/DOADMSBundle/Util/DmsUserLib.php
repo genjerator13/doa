@@ -131,6 +131,19 @@ class DmsUserLib
         return $host;
     }
 
+    public function getCurrentSiteHostWWW($host=null)
+    {
+        if(empty($host)) {
+            $router = $this->container->get('router');
+            $host = $router->getContext()->getHost();
+        }
+
+        if(stripos($host,"www")===false){
+            $host="www.".$host;
+        }
+        return $host;
+    }
+
     public function getScheme()
     {
         $router = $this->container->get('router');
