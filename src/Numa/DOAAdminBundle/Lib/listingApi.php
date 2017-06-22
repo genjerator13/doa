@@ -115,21 +115,21 @@ class listingApi
     {
         $scheme="http";
         if(empty($host)) {
-            $host = $this->container->get('numa.dms.user')->getCurrentSiteHost();
 
             $scheme = $this->container->get('numa.dms.user')->getScheme();
-
         }
+        $host = $this->container->get('numa.dms.user')->getCurrentSiteHostWWW($host);
         $tempImages = array();
+
         if (!empty($images)) {
             foreach ($images as $image) {
                 if (substr($image, 0, 4) !== "http") {
-
                     $image = $scheme . "://" . $host . $image;
                 }
                 $tempImages[] = $image;
             }
         }
+
         return $tempImages;
     }
 
@@ -427,6 +427,7 @@ class listingApi
             $csvArray['videourl'] = $item->getVideoId();
             $imageList = array();
             $images = $item->get("ImagesForApi");
+
             if (!empty($images['image'])) {
                 $images = $this->processImages($images['image'],$dealer->getSiteUrl());
             }
