@@ -45,6 +45,7 @@ class NumaExtension extends \Twig_Extension
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
             'getPage' => new \Twig_Function_Method($this, 'getPage'),
             'isLocalHost' => new \Twig_Function_Method($this, 'isLocalHost'),
+            'addWWW' => new \Twig_Function_Method($this, 'addWWW'),
         );
     }
 
@@ -292,6 +293,15 @@ class NumaExtension extends \Twig_Extension
 
     public function isLocalHost(){
         return $this->container->get("numa.dms.user")->isLocalHost();
+    }
+
+    public function addWWW($url){
+
+        if(stripos($url,"www")===false && stripos($url,"dealersonair")===false){
+            $url = str_replace("http://","http://www.",$url);
+        }
+
+        return $url;
     }
 
 }
