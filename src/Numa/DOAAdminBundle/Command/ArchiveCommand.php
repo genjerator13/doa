@@ -47,7 +47,7 @@ class ArchiveCommand extends ContainerAwareCommand
             $this->getContainer()->get('numa.dms.listing')->archiveItem($item);
         }
         $em->flush();
-        dump(count($items));
+        dump(count($items));die();
     }
 
     public function setSoldDate(){
