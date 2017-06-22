@@ -135,7 +135,7 @@
                                     <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
                                        class="itemControls deactivate">Activate</a>
                                 {% endif %}
-                                | <a target="_blank" href="{{ detailUrl }}" class="itemControls view">View Listing</a>
+                                | <a target="_blank" href="{{ addWWW(detailUrl) }}" class="itemControls view">View Listing</a>
                             {% endif %}
                             {% if entity.id is not empty %}
                             |

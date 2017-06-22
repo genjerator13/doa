@@ -71,17 +71,17 @@ listingsAll:
     requirements: { _method: get }
 
 listingsAll:
-    pattern:  /listings/{category}/category.{_format}
+    path:  /listings/{category}/category.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsAll",_format: "xml"}
     requirements: { _method: get }
 
 listingByDealer2:
-    pattern:  /listings2/{dealerid}/dealer.{_format}
+    path:  /listings2/{dealerid}/dealer.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingsByDealer2",_format: "xml"}
     requirements: { _method: get }
 
 listing2:
-    pattern:  /listing2/{id}.{_format}
+    path:  /listing2/{id}.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listing2",_format: "xml"}
     requirements: { _method: get }
 
