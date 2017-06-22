@@ -138,7 +138,7 @@ class DmsUserLib
             $host = $router->getContext()->getHost();
         }
 
-        if(stripos($host,"www")===false){
+        if(stripos($host,"www")===false && stripos($host,"dealersonair.com")===false){
             $host="www.".$host;
         }
         return $host;
