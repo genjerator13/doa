@@ -393,6 +393,7 @@ class ItemField
      */
     public function handleImage($stringValue, $upload_path, $upload_url, $feed_sid, $order = 0, $localy = false, $uniqueValue = "")
     {
+
         if (is_array($stringValue)) {
             $stringValue = $stringValue['url'];
         }
@@ -415,6 +416,7 @@ class ItemField
         } elseif (is_string($feed_sid)) {
             $subfolder = $feed_sid;
         }
+
         if ((!empty($url) && $localy) || $url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
             //make a folder if not exists
             $dir = $upload_path  . $subfolder;
@@ -435,19 +437,24 @@ class ItemField
             $img = $dir . "/" . $filename;
             $img_url = $upload_url . "/" . $subfolder . "/" . $filename;
 
+
             if ($url instanceof \Symfony\Component\HttpFoundation\File\UploadedFile) {
                 // move the file to upload folder
                 $file = $url->move($dir, $filename);
+
             } elseif ((!empty($url) && $localy) && is_string($feed_sid)) {
+
                 copy($stringValue, $img);
             } else if (!file_exists($img)) {
                 //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
 
                 if ($http) {
+
                     //get image via curl
                     $ch = curl_init();
                     curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
                     //curl_setopt($ch, CURLOPT_NOBODY, 1);
                     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
@@ -463,8 +470,9 @@ class ItemField
                     $return = curl_exec($ch);
 
                     $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
-                    $is301 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 301;
-                    if ($is200 || $is301) {
+
+
+                    if ($is200) {
                         //valid 
                         if (empty($ext)) {
                             $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
@@ -483,11 +491,10 @@ class ItemField
                             }
                             $img = $img . "." . $ext;
                             $img_url = $img_url . "." . $ext;
+                            dump($img_url);die();
                         }
 
                         file_put_contents($img, $return);
-                    } else {
-
                     }
 
                     curl_close($ch);
