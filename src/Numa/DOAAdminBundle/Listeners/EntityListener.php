@@ -53,12 +53,10 @@ class EntityListener
                     $entity->setFieldStringValue($value);
                 }
             }
-        }elseif ($entity instanceof ListingForm) {
+        } elseif ($entity instanceof ListingForm) {
             $spam = $this->container->get('numa.dms.text')->isSpam($entity->getComment());
             $entity->setSpam($spam);
-        }
-
-        elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
+        } elseif ($entity instanceof User || $entity instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords || $entity instanceof DMSUser) {
 
             $this->setPassword($entity);
         }
@@ -79,8 +77,6 @@ class EntityListener
 
     public function preUpdate(PreUpdateEventArgs $args)
     {
-//
-//
         $entity = $args->getEntity();
         $entityManager = $args->getEntityManager();
 
@@ -90,11 +86,7 @@ class EntityListener
                 $entity->setSoldDate(new \DateTime());
                 $entityManager->flush();
             }
-            //$this->vinchange = false;
             if ($args->hasChangedField("VIN")) {
-//                $decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
-//                $entity->setVindecoder($decodedvin);
-//                $entityManager->flush($entity);
                 $this->vinchange = true;
             }
         }
@@ -105,27 +97,15 @@ class EntityListener
     {
 
         $entity = $args->getEntity();
-
-        $entityManager = $args->getEntityManager();
-
         if ($entity instanceof Item) {
             $this->container->get('mymemcache')->delete('featured_' . $entity->getDealerId());
-            if ($this->vinchange) {
-
-                //$decodedvin = $this->container->get("numa.dms.listing")->vindecoder($entity);
-                //$entity->setVindecoder($decodedvin);
-                //$entityManager->flush($entity);
-                //$this->container->get("numa.dms.listing")->insertFromVinDecoder($entity);
-            }
-
         } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             $this->container->get("Numa.Dms.Sale")->setListingSoldIfActive($entity);
-        }elseif ($entity instanceof Catalogrecords) {
+        } elseif ($entity instanceof Catalogrecords) {
             $this->container->get('mymemcache')->deleteDealerCache($entity);
         } elseif ($entity instanceof DealerComponent) {
-
             $this->container->get('mymemcache')->deleteDealerCache($entity->getDealer());
         }
     }
@@ -153,7 +133,7 @@ class EntityListener
         } elseif ($entity instanceof ServiceRequest) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof ListingForm) {
-            if(!$entity->getSpam()) {
+            if (!$entity->getSpam()) {
                 $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
             }
         } elseif ($entity instanceof FinanceService) {
@@ -162,7 +142,7 @@ class EntityListener
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
         } elseif ($entity instanceof Leasing) {
             $this->container->get('Numa.Emailer')->sendNotificationEmail($entity, $entity->getDealer(), $entity->getCustomer());
-        }  elseif ($entity instanceof Billing) {
+        } elseif ($entity instanceof Billing) {
             $this->container->get("Numa.Dms.Listing")->createListingByBillingTradeIn($entity);
             $this->container->get("Numa.Dms.Sale")->createSaleByBilling($entity);
             $this->container->get("Numa.Dms.Sale")->setListingSoldIfActive($entity);

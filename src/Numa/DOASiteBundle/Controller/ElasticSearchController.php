@@ -50,17 +50,17 @@ class ElasticSearchController extends Controller implements DealerSiteController
         }
         $parameters = array();
 
-        if (!empty($request)) {
-            $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
-            $parameters = $request->query->all();
-
-            $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
-
-        }
-
         if (!empty($additionalParams)) {
             $parameters = array_merge($parameters, $additionalParams);
         }
+
+        if (!empty($request)) {
+            $this->searchParameters->setListingPerPage($request->query->get('listings_per_page'));
+            $parametersq = $request->query->all();
+            $parameters = array_merge($parameters, $parametersq);
+            $parameters = array_merge($parameters, $request->attributes->get('_route_params'));
+        }
+
         //set the search source, where from the search came from URL
         if (!empty($parameters['searchSource'])) {
             $aSearchSource = explode('&', $parameters['searchSource']);
@@ -136,7 +136,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
     private function doSearch(Request $request, $params = array())
     {
-        $this->initSearchParams($request);
+        //
+
+        $additionParams = array("sort_by"=>"price","sort_order"=>"asc");
+        $this->initSearchParams($request,$additionParams);
         $this->searchParameters->createElasticSearchResults();
 
         $pagerFanta = $this->searchParameters->getPagerFanta();
