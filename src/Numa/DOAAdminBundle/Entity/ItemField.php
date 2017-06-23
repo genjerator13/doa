@@ -441,7 +441,6 @@ class ItemField
             } elseif ((!empty($url) && $localy) && is_string($feed_sid)) {
                 copy($stringValue, $img);
             } else if (!file_exists($img)) {
-
                 //check if image starts with http
                 $http = substr($url, 0, 4) == 'http';
 
@@ -464,7 +463,8 @@ class ItemField
                     $return = curl_exec($ch);
 
                     $is200 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200;
-                    if ($is200) {
+                    $is301 = curl_getinfo($ch, CURLINFO_HTTP_CODE) == 301;
+                    if ($is200 || $is301) {
                         //valid 
                         if (empty($ext)) {
                             $content_type = curl_getinfo($ch, CURLINFO_CONTENT_TYPE);
@@ -484,6 +484,7 @@ class ItemField
                             $img = $img . "." . $ext;
                             $img_url = $img_url . "." . $ext;
                         }
+
                         file_put_contents($img, $return);
                     } else {
 
