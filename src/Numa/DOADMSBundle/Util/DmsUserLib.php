@@ -131,6 +131,12 @@ class DmsUserLib
         return $host;
     }
 
+    public function isTruxrusDomain()
+    {
+        $host = $this->getCurrentSiteHost();
+        return stripos($host,"truxrus")!==false;
+    }
+
     public function getCurrentSiteHostWWW($host=null)
     {
         if(empty($host)) {

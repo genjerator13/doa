@@ -137,8 +137,10 @@ class ElasticSearchController extends Controller implements DealerSiteController
     private function doSearch(Request $request, $params = array())
     {
         //
-
-        $additionParams = array("sort_by"=>"price","sort_order"=>"asc");
+        $additionParams=array();
+        if($this->get("numa.dms.user")->isTruxrusDomain()) {
+            $additionParams = array("sort_by" => "price", "sort_order" => "asc");
+        }
         $this->initSearchParams($request,$additionParams);
         $this->searchParameters->createElasticSearchResults();
 
