@@ -29,14 +29,7 @@
                     {% if queryUrl is defined %}
                     url = "{{ path('search_dispatch') }}?{{ queryUrl }}&listings_per_page=" + lnr;
                     url = url.replace(/&amp;/g, '&');
-                    //console.log(url);
-                    //console.log("{{ queryUrl }}");
                     window.location.href = url;
-                    {% else %}
-
-
-                    console.log({{ path('search_dispatch') }} ? listings_per_page = "+lnr);
-                    //window.open(url.replace("&amp;","&"));
                     {% endif %}
                 })
             </script>
