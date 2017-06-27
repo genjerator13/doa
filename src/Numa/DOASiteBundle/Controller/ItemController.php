@@ -400,8 +400,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         $form->handleRequest($request);
         if ($form->isValid() && $request->isMethod('POST') && $dealer instanceof \Numa\DOAAdminBundle\Entity\Catalogrecords && $dealer->getEmail()) {
             $data = $form->getData();
-//            dump($form);
-//            dump($request);die();
+
             $mymailer = $this->get('Numa.Emailer');
             $messageParam = $mymailer->sendEmail($request, $data, $dealer);
             if (empty($messageParam['errors'])) {

@@ -176,6 +176,9 @@
                             {{ form_row(form.sold) }}
                             {{ form_row(form.active) }}
                             {{ form_row(form.featured) }}
+                            {% if (category.getName()|lower=="car") %}
+                                {{ form_row(form.feed_kijiji_include) }}
+                            {% endif %}
                             <div class="form-group">
                                 {{ form_label(form.year) }}
                                 <div class="col-sm-9">
