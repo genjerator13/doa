@@ -76,6 +76,20 @@ class InventoryController extends Controller
     }
 
     /**
+     * Lists all listings for kijiji
+     *
+     */
+    public function kijijiAction()
+    {
+        $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
+        $js = "kijiji";
+        return $this->render('NumaDOADMSBundle:Inventory:index.html.twig', array(
+            'js' => $js,
+            'dealer' => $dealer
+        ));
+    }
+
+    /**
      * Lists all Customer entities.
      *
      */
