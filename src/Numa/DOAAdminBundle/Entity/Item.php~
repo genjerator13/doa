@@ -1406,6 +1406,7 @@ class Item
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
+
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getImportfeed(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
