@@ -312,7 +312,11 @@ class listingApi
         $filenameKijiji = "";
         $logger->warning("get items for dealer:" . $dealer_id);
         $items = $em->getRepository("NumaDOAAdminBundle:Item")->getItemByDealerAndCategory($dealer_id, 1, 0);
-
+        $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
+        if($dealer->getFeedKijijiManual()){
+            $items = $em->getRepository("NumaDOAAdminBundle:Item")->getManualKijijiItems($dealer_id);
+        }
+        
         if (!empty($items)) {
             $csvArrayRes = $this->addItemsKijijiFeed($items);
             $logger->warning("prepare kijiji feed:" . $dealer_id);
