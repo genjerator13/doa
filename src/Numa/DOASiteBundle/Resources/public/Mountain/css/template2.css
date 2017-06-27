@@ -259,13 +259,9 @@ body {
 }
 
 .button {
-
-	/*display: table-cell;*/
-
 	position: relative;
 	text-align: center;
 	margin-bottom: 20px;
-
 }
 
 .button a {
@@ -281,24 +277,10 @@ body {
 	background-size: cover;
 }
 
-/*.button a:hover {*/
-/*background-color: rgba(0,124,179,.5);*/
-/*border-bottom-color: #48a7e1;*/
-/*}*/
-
 .button a:hover .click-here {
 	background-color: #007cb3;
 	color: #fff;
 }
-
-/*.button a.xxxx:hover {*/
-/*display: block;*/
-/*height: 100%;*/
-/*width: 100% ;*/
-/*background-color: rgba(0,124,179,.5);*/
-/*border-bottom-color: #48a7e1;*/
-/*}*/
-
 
 .button a:hover h2 {
 	color: #007cb3;
@@ -365,8 +347,8 @@ body {
    ========================================================================== */
 
 .browse {
-	margin: -80px 0 26px 0;
 	text-transform: uppercase;
+	margin-bottom: 20px;
 }
 
 .browse ul {
@@ -387,6 +369,7 @@ body {
 	font-weight: 800;
 	line-height: 32px;
 	text-align: right;
+	margin-top: 10px;
 }
 
 .browse h2 span {
@@ -405,7 +388,7 @@ body {
 	font-weight: 700;
 	line-height: 16px;
 	margin: 0 auto;
-	padding-top: 53px;
+	padding-top: 10px;
 	text-align: center;
 	text-decoration: none;
 }
@@ -424,17 +407,11 @@ body {
 	white-space: nowrap;
 }
 
-/*.browse .travel-trailer { background-image: url("../images/travel-trailer.png"); }*/
-/*.browse .travel-trailer:hover { background-image: url("../images/travel-trailer-over.png"); }*/
 
-/*.browse .fifth-wheel { background-image: url("../images/fifth-wheel.png"); }*/
-/*.browse .fifth-wheel:hover { background-image: url("../images/fifth-wheel-over.png"); }*/
-
-/*.browse .toy-hauler { background-image: url("../images/toy-hauler.png"); }*/
-/*.browse .toy-hauler:hover { background-image: url("../images/toy-hauler-over.png"); }*/
-
-/*.browse .park-models { background-image: url("../images/park-models.png"); }*/
-/*.browse .park-models:hover { background-image: url("../images/park-models-over.png"); }*/
+.col-7{
+	width: 14%;
+	float: left;
+}
 
 /* ==========================================================================
    Banner
@@ -453,7 +430,7 @@ body {
 	margin-top: -31px;
 	padding: 51px 20px 20px 20px;
 	position: relative;
-	/*float: left;*/
+
 }
 
 .content {
@@ -651,9 +628,7 @@ and (max-width : 1023px) {
 	.newsletter { margin: 10px 0 0 0; }
 	.button {
 		display: block;
-		margin-bottom: 20px;
 		overflow: hidden;
-		height: 200px;
 	}
 
 	.button img{
@@ -672,9 +647,7 @@ and (max-width : 1023px) {
 
 	.button {
 		display: block;
-		margin-bottom: 20px;
 		overflow: hidden;
-		height: 200px;
 	}
 
 	.button img{
@@ -682,16 +655,6 @@ and (max-width : 1023px) {
 	}
 }
 
-
-@media only screen and (max-width : 360px) {
-
-	.b4 a{
-		height: 165px;
-	}
-	.b5 a{
-		height: 165px;
-	}
-}
 
 @media only screen
 and (max-width : 767px) {
@@ -737,7 +700,6 @@ and (max-width : 767px) {
 		display: block;
 		margin-bottom: 20px;
 		overflow: hidden;
-		height: 200px;
 	}
 
 	.button img{
@@ -786,8 +748,22 @@ and (max-width : 767px) {
 		border-left: none;
 		padding-left: 0;
 	}
-
+	.col-7{
+		width: 25%;
+		float: left;
+	}
 }
+
+@media only screen and (max-width : 360px) {
+
+	.b4 a{
+		height: 165px;
+	}
+	.b5 a{
+		height: 165px;
+	}
+}
+
 
 
 .detailsContent .row{
@@ -936,15 +912,6 @@ ul.techData li {
 .top-buffer {
 	margin-top:20px;
 }
-
-.picture-detail {
-	/*max-height: 246px;*/
-
-	/*display: block;*/
-	/*width: 350px;*/
-	/*overflow: hidden;*/
-}
-
 #listing-content .items {
 	height: 270px;
 }
@@ -968,11 +935,6 @@ ul.techData li {
 .bottom-margin {
 	margin-bottom: 20px;
 }
-
-/*.carousel {*/
-/*max-height: 400px;*/
-/*!*margin-left: 20px;*!*/
-/*}*/
 
 .homepage_carousel {
 	margin-bottom: 20px;
@@ -1012,9 +974,6 @@ ul.techData li {
 
 }
 
-
-/*#myCarousel_left .classWithPad { margin-right:10px; }*/
-
 .carousel-control.right {
 	background: none;
 }
@@ -1025,7 +984,6 @@ ul.techData li {
 
 .carousel-inner .carousel-text {
 	bottom: 20px;
-
 	color: #fff;
 	left: 15%;
 	padding-bottom: 40px;
