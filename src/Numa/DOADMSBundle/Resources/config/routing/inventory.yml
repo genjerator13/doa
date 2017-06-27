@@ -10,6 +10,9 @@ inventory_cost:
 inventory_sales:
     path:     /sales
     defaults: { _controller: "NumaDOADMSBundle:Inventory:sales",_dashboard: "DMS" }
+inventory_kijiji:
+    path:     /kijiji
+    defaults: { _controller: "NumaDOADMSBundle:Inventory:kijiji",_dashboard: "DMS" }
 inventory_archived:
     path:     /archived
     defaults: { _controller: "NumaDOADMSBundle:Inventory:archived",_dashboard: "DMS" }
@@ -34,6 +37,12 @@ dms_item_featured:
 dms_item_kijiji:
     path:     /kijiji
     defaults: { _controller: "NumaDOAAdminBundle:Item:massMakeKijiji" }
+dms_item_feed_kijiji_add:
+    path:     /kijiji_add
+    defaults: { _controller: "NumaDOAAdminBundle:Item:kijijiAdd" }
+dms_item_feed_kijiji_remove:
+    path:     /kijiji_remove
+    defaults: { _controller: "NumaDOAAdminBundle:Item:kijijiRemove" }
 dms_item_QB:
     path:     /addtoqb
     defaults: { _controller: "NumaDOAAdminBundle:Item:massAddToQB" }

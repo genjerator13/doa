@@ -219,6 +219,19 @@ class ItemRepository extends EntityRepository
         return $itemsQuery->getResult();
     }
 
+    public function getManualKijijiItems($dealer_id)
+    {
+        $qb = $this->getEntityManager()
+            ->createQueryBuilder();
+        $qb->select('i')->distinct()->from('NumaDOAAdminBundle:Item', 'i');
+        $qb->andWhere("i.dealer_id like :dealer");
+        $qb->andWhere("i.feed_kijiji_include=1");
+        $qb->setParameter("dealer", $dealer_id);
+        $itemsQuery = $qb->getQuery();
+
+        return $itemsQuery->getResult();
+    }
+
     public function getItemByDealerGroupAndCategory($dealer_group_id, $category = null)
     {
 
@@ -299,9 +312,9 @@ class ItemRepository extends EntityRepository
             $dealers = implode(",", $dealer_id);
         }
 
-        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status <> 'archived' or i.archive_status is null GROUP BY i.id ORDER BY i.id DESC";
+        $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice,feed_kijiji_include as kijiji FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.archive_status <> 'archived' or i.archive_status is null GROUP BY i.id ORDER BY i.id DESC";
         if (!empty($dealer_id)) {
-            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.dealer_id in (" . $dealers . ") AND (i.archive_status <> 'archived' or i.archive_status is null) GROUP BY i.id ORDER BY i.id DESC";
+            $sql = "SELECT DISTINCT i. * , i.cover_photo as photo,c.name as category, s.invoice_nr as saleInvoiceNr, s.invoice_date as saleInvoiceDate, s.invoice_amt as saleInvoiceAmt, s.total_unit_cost as saleTotalUnitCost, s.selling_price as saleSellingPrice,feed_kijiji_include as kijiji FROM item AS i left JOIN category c ON i.category_id = c.id LEFT JOIN sale s ON i.sale_id = s.id WHERE i.dealer_id in (" . $dealers . ") AND (i.archive_status <> 'archived' or i.archive_status is null) GROUP BY i.id ORDER BY i.id DESC";
         }
 
         $stmt = $this->getEntityManager()->getConnection()->fetchAll($sql);
@@ -825,6 +838,24 @@ class ItemRepository extends EntityRepository
                 ->createQueryBuilder()
                 ->update('NumaDOAAdminBundle:Item', 'i')
                 ->set('i.featured', $featured)
+                ->where('i.id in (' . $ids . ")");
+            $qb->getQuery()->execute();
+        }
+    }
+
+    /**
+     * @param $ids
+     * @param $active
+     * Activate or deactivate (depends by $active param) list of ids separated by ,
+     */
+    public function includeKijiji($ids, $kijiji = true)
+    {
+
+        if (!empty($ids)) {
+            $qb = $this->getEntityManager()
+                ->createQueryBuilder()
+                ->update('NumaDOAAdminBundle:Item', 'i')
+                ->set('i.feed_kijiji_include', $kijiji)
                 ->where('i.id in (' . $ids . ")");
             $qb->getQuery()->execute();
         }

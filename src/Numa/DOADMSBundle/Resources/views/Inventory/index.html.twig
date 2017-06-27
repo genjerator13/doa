@@ -31,13 +31,15 @@
     <script>
         {% set includeJS='NumaDOADMSBundle:Inventory:inventory.js.twig' %}
         {% if js is defined %}
-        {% if js == "view" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
-        {% elseif js == "cost" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
-        {% elseif js == "sales" %}
-        {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
-        {% endif %}
+            {% if js == "view" %}
+                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryView.js.twig' %}
+            {% elseif js == "cost" %}
+                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryCost.js.twig' %}
+            {% elseif js == "sales" %}
+                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventorySales.js.twig' %}
+            {% elseif js == "kijiji" %}
+                {% set includeJS= 'NumaDOADMSBundle:Inventory:inventoryKijiji.js.twig' %}
+            {% endif %}
         {% endif %}
 
         {% include includeJS %}
@@ -53,6 +55,7 @@
             height: 100%;
             width: 100%;
         }
+
         .ui-grid-viewport {
             overflow-anchor: none;
         }
@@ -92,22 +95,26 @@
         <div ng-controller="MainCtrl">
             {% include 'NumaDOADMSBundle::angularDeleteConfirm.html.twig' %}
 
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
+            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') and not js=='kijiji' %}
                 <button type="button" class="btn btn-success" ng-click="setActivate()">Activate</button>
                 <button type="button" class="btn btn-warning" ng-click="setDeactivate()">Deactivate</button>
             {% endif %}
-            {% if(is_granted("ROLE_ADMIN")) %}
+            {% if(is_granted("ROLE_ADMIN")) and not js=='kijiji' %}
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
             {% endif %}
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') %}
+            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') and not js=='kijiji' %}
                 <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
                 <button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>
             {% endif %}
-            {% if is_granted("ROLE_ADMIN") and qbo.isConnected() %}
+            {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not js=='kijiji' %}
                 <button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>
             {% endif %}
-            {% if is_granted("ROLE_ADMIN") and qbo.isConnected() %}
+            {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not js=='kijiji'  %}
                 <button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>
+            {% endif %}
+            {% if not is_granted('ROLE_DMS_USER') and js=='kijiji' %}
+                <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
+                <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>
             {% endif %}
             <div id="grid1" ui-grid="gridOptions" ui-grid-selection ui-grid-pinning class="grid"></div>
         </div>

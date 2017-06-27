@@ -778,6 +778,30 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
     /**
      * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function kijijiAddAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeKijiji($ids, true);
+        die();
+    }
+
+    /**
+     * @param Request $request
+     * Activates elected listings in datagrid on listing list page
+     */
+    public function kijijiRemoveAction(Request $request)
+    {
+        $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository("NumaDOAAdminBundle:Item")->includeKijiji($ids, 0);
+        die();
+    }
+
+    /**
+     * @param Request $request
      * Kijiji selected listings in datagrid on listing list page
      */
     public function massMakeKijijiAction(Request $request)

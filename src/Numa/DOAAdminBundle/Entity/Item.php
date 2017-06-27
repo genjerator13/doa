@@ -1406,6 +1406,7 @@ class Item
                 }
                 $itemField->setFeedId($feed->getId());
                 //$itemField->setItem($this);
+
                 $itemField->handleImage($picture, $upload_path, $upload_url, $this->getImportfeed(), $order, $localy, $uniqueValue);
                 $em->persist($itemField);
                 $this->addItemField($itemField);
@@ -5336,5 +5337,34 @@ class Item
 
     public function getTruckVanType(){
         return strtolower($this->getSubCategoryType());
+    }
+    /**
+     * @var boolean
+     */
+    private $feed_kijiji_include = true;
+
+
+    /**
+     * Set feedKijijiInclude
+     *
+     * @param boolean $feedKijijiInclude
+     *
+     * @return Item
+     */
+    public function setFeedKijijiInclude($feedKijijiInclude)
+    {
+        $this->feed_kijiji_include = $feedKijijiInclude;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiInclude
+     *
+     * @return boolean
+     */
+    public function getFeedKijijiInclude()
+    {
+        return $this->feed_kijiji_include;
     }
 }
