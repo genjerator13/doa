@@ -3758,6 +3758,11 @@ class Item
         return $this->getImages2();
     }
 
+    public function countImages()
+    {
+        return count($this->getImages2());
+    }
+
     /**
      * @var string
      * @JMS\Expose
