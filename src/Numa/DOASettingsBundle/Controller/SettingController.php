@@ -302,15 +302,11 @@ class SettingController extends Controller
      */
     public function makeKijijiAllAction()
     {
-        $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil kijiji_all';
-        //php app/console numa:dbutil kijiji_all
-        $process = new \Symfony\Component\Process\Process($command);
-        $process->start();
-
-
-        $this->addFlash('success', "Generating kijiji feed finished.");
+        $this->get("numa.dms.utils")->kijiji();
         return $this->redirect($this->generateUrl('dms_setting'));
     }
+
+
 
     /**
      * make kijiji feed for all dealers
@@ -319,15 +315,7 @@ class SettingController extends Controller
     public function makeKijijiCurrentAction()
     {
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
-        if($dealer instanceof Catalogrecords) {
-            $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil kijiji '.$dealer->getId();
-            //php app/console numa:dbutil kijiji_all
-            $process = new \Symfony\Component\Process\Process($command);
-            $process->start();
-
-
-            $this->addFlash('success', "Generating kijiji feed finished.");
-        }
+        $this->get("numa.dms.utils")->kijiji($dealer);
         return $this->redirect($this->generateUrl('dms_setting'));
     }
 
