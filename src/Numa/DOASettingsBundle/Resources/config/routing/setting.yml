@@ -38,6 +38,9 @@ setting_cover_images:
 setting_kijiji_all:
     path:     /kijiji_all
     defaults: { _controller: "NumaDOASettingsBundle:Setting:makeKijijiAll" }
+setting_kijiji_current:
+    path:     /kijiji_current
+    defaults: { _controller: "NumaDOASettingsBundle:Setting:makeKijijiCurrent" }
 setting_hometabs_refresh:
     path:     /hometabs_refresh
     defaults: { _controller: "NumaDOASettingsBundle:Setting:refreshHometabs" }
