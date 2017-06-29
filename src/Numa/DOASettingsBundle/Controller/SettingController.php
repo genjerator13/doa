@@ -308,7 +308,7 @@ class SettingController extends Controller
         $process->start();
 
 
-        $this->addFlash('success', "Generating cover photos in progress.");
+        $this->addFlash('success', "Generating kijiji feed finished.");
         return $this->redirect($this->generateUrl('dms_setting'));
     }
 
@@ -326,7 +326,7 @@ class SettingController extends Controller
             $process->start();
 
 
-            $this->addFlash('success', "Generating cover photos in progress.");
+            $this->addFlash('success', "Generating kijiji feed finished.");
         }
         return $this->redirect($this->generateUrl('dms_setting'));
     }
