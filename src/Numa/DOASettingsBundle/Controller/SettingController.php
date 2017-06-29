@@ -309,7 +309,26 @@ class SettingController extends Controller
 
 
         $this->addFlash('success', "Generating cover photos in progress.");
-        return $this->redirect($this->generateUrl('setting'));
+        return $this->redirect($this->generateUrl('dms_setting'));
+    }
+
+    /**
+     * make kijiji feed for all dealers
+     *
+     */
+    public function makeKijijiCurrentAction()
+    {
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
+        if($dealer instanceof Catalogrecords) {
+            $command = 'php ' . $this->get('kernel')->getRootDir() . '/console numa:dbutil kijiji '.$dealer->getId();
+            //php app/console numa:dbutil kijiji_all
+            $process = new \Symfony\Component\Process\Process($command);
+            $process->start();
+
+
+            $this->addFlash('success', "Generating cover photos in progress.");
+        }
+        return $this->redirect($this->generateUrl('dms_setting'));
     }
 
     /**
