@@ -16,8 +16,9 @@ class SandboxController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //$images = $this->get('numa.dms.images')->getAllImagesIntoArray();
-        $images = $this->get('numa.dms.images')->deleteImagesNotInDB();
-        //dump($images);
+        $image_path=$this->getParameter("upload_path");
+        $images = $this->get('numa.dms.images')->deleteImages($image_path);
+        dump($images);
 
         die();
 
