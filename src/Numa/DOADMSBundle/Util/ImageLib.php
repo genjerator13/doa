@@ -14,6 +14,8 @@ use Numa\DOAAdminBundle\Entity\Item;
 class ImageLib
 {
     protected $container;
+    protected $delete=array();
+    protected $nodelete=array();
 
     /**
      * ListingFormHandler constructor.
@@ -71,14 +73,17 @@ class ImageLib
 
     public function deleteImagesNotInDB2($path)
     {
+
         $images = $this->getAllImagesIntoArray();
+//        dump($images);
+//        die();
         if(is_file($path)) {
             if(!in_array("/".$path, $images)){
                 $this->deleteImage($path);
-                $delete[]="/".$path;
+                $this->delete[]="/".$path;
             }else{
-//dump("EXISTS");
-                $noDelete[]=$path;
+
+                $this->nodelete[]=$path;
             }
         }elseif(is_dir($path)){
             $scanedFilesFolder = scandir($path);
@@ -89,6 +94,11 @@ class ImageLib
                 $this->deleteImagesNotInDB2($img);
             }
         }
+    }
+
+    public function deleteImages($path){
+        $this->deleteImagesNotInDB2($path);
+        return array("delete"=>$this->delete, "nodelete"=>$this->nodelete);
     }
     public function getAllImagesIntoArray(){
         $em = $this->container->get('doctrine.orm.entity_manager');
