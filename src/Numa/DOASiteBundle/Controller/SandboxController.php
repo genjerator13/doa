@@ -33,9 +33,9 @@ class SandboxController extends Controller
 //        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
 //        curl_exec($handle);
 //        die();
-        $em = $this->getDoctrine()->getManager();
-        $cover = $em->getRepository("NumaDOAAdminBundle:Item")->getCoverPhoto(40044);
-        dump($cover);
+        $text = "dfsdf sf s sf ssdf truxrus.local sdsd";
+        $spam = $this->get('numa.dms.text')->isSpam($text);
+        dump($spam);
         die();
     }
 
