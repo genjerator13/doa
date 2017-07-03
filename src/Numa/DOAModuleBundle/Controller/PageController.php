@@ -52,7 +52,7 @@ class PageController extends Controller implements DashboardDMSControllerInterfa
 //        $dealer = $this->get('security.token_storage')->getToken()->getUser();
 //        $entities = $em->getRepository('NumaDOAModuleBundle:Page')->findPagesByDealer($dealer->getId());
         $dealer = $this->get('Numa.Dms.User')->getSignedDealer();
-        $url = $this->get('Numa.Dms.User')->getHost($request);
+        $url = $this->get('Numa.Dms.User')->getCurrentSiteHostWWW($dealer->getSiteUrl());
 
         $render = 'NumaDOAModuleBundle:Page:index.html.twig';
         if($this->dashboard =='DMS'){
