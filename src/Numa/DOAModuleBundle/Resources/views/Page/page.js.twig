@@ -34,7 +34,7 @@ app.controller('MainCtrl', ['$scope', '$http', '$log', '$timeout', 'uiGridConsta
             enableColumnResizing: true,
             enableFiltering: false,
             width: 90,
-            cellTemplate: '<div ng-if="row.entity.is_manual==true"><a href="http://{{ url }}/page{[{row.entity.url}]}">Link to page</a></div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined"><a href="http://{{ url }}{[{row.entity.url}]}">Link to page</a></div>'
+            cellTemplate: '<div ng-if="row.entity.is_manual==true"><a target="_blank" href="http://{{ url }}/page{[{row.entity.url}]}">Link to page</a></div><div ng-if="row.entity.is_manual==false || row.entity.is_manual==undefined"><a target="_blank" href="http://{{ url }}{[{row.entity.url}]}">Link to page</a></div>'
         },
         {
             name: 'Actions',
