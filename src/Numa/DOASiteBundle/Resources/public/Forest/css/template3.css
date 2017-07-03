@@ -415,6 +415,9 @@ body {
     line-height: 1.3em;
     margin: 1em 0;
 }
+.content-wrapper table {
+    margin: 0 auto;
+}
 
 .content {
     box-sizing: border-box;
