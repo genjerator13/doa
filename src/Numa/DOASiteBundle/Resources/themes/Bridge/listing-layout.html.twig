@@ -30,10 +30,12 @@
     {% block ga %}
         {% include "NumaDOASiteBundle::ga.html.twig" %}
     {% endblock %}
+    {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
 </head>
 
 <body>
 <body>
+{% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <header class="site-header">
     {% block headline %}
         {% include 'NumaDOASiteBundle::headline.html.twig' %}
