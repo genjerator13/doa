@@ -2237,4 +2237,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->feed_kijiji_manual;
     }
+    /**
+     * @var string
+     */
+    private $site_google_tag;
+
+
+    /**
+     * Set siteGoogleTag
+     *
+     * @param string $siteGoogleTag
+     *
+     * @return Catalogrecords
+     */
+    public function setSiteGoogleTag($siteGoogleTag)
+    {
+        $this->site_google_tag = $siteGoogleTag;
+
+        return $this;
+    }
+
+    /**
+     * Get siteGoogleTag
+     *
+     * @return string
+     */
+    public function getSiteGoogleTag()
+    {
+        return $this->site_google_tag;
+    }
 }

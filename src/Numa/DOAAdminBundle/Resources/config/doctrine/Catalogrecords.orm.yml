@@ -157,6 +157,10 @@ Numa\DOAAdminBundle\Entity\Catalogrecords:
             type: string
             length: 511
             nullable: true
+        site_google_tag:
+            type: string
+            length: 255
+            nullable: true
         default_listing_comment:
             type: text
             nullable: true
