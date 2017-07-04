@@ -63,6 +63,9 @@ search_used_vehicle:
 search_all:
     path:  /all
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
+search_under_price:
+    path:  /under_{priceTo}
+    defaults: { _controller: NumaDOASiteBundle:ElasticSearch:search, _locale: en }
 search_ajax:
     path:  /searchajax
     defaults: { _controller: NumaDOASiteBundle:ElasticSearch:searchAjax, _locale: en,status:U }
