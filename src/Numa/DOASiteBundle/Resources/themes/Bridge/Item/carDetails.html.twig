@@ -79,13 +79,13 @@
         </li>
     {% endif %}
 
-    {% if item.getMileage() is not empty %}
+    {% if item.getFuelType() is not empty %}
         <li class="{{ liclass }}">
             <div class="checkbox">
                 <label>
-                    <span class="fieldCaption field-status">Mileage: </span>
+                    <span class="fieldCaption field-status">Fuel Type: </span>
                 </label>
-                <span class="fieldValue fieldValue-status">{{ item.getMileage() }}</span>
+                <span class="fieldValue fieldValue-status">{{ item.getFuelType() }}</span>
             </div>
         </li>
     {% endif %}
