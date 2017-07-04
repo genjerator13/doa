@@ -3758,6 +3758,11 @@ class Item
         return $this->getImages2();
     }
 
+    public function countImages()
+    {
+        return count($this->getImages2());
+    }
+
     /**
      * @var string
      * @JMS\Expose
@@ -5337,5 +5342,34 @@ class Item
 
     public function getTruckVanType(){
         return strtolower($this->getSubCategoryType());
+    }
+    /**
+     * @var boolean
+     */
+    private $feed_kijiji_include = true;
+
+
+    /**
+     * Set feedKijijiInclude
+     *
+     * @param boolean $feedKijijiInclude
+     *
+     * @return Item
+     */
+    public function setFeedKijijiInclude($feedKijijiInclude)
+    {
+        $this->feed_kijiji_include = $feedKijijiInclude;
+
+        return $this;
+    }
+
+    /**
+     * Get feedKijijiInclude
+     *
+     * @return boolean
+     */
+    public function getFeedKijijiInclude()
+    {
+        return $this->feed_kijiji_include;
     }
 }
