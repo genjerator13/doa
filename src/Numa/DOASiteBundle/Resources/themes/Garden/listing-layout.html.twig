@@ -24,9 +24,14 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
     {% endblock %}
+    {% block ga %}
+        {% include "NumaDOASiteBundle::ga.html.twig" %}
+    {% endblock %}
+    {% include "NumaDOASiteBundle::google_tag_head.html.twig" %}
 </head>
 
 <body>
+{% include "NumaDOASiteBundle::google_tag_body.html.twig" %}
 <div class="wrapper">
 
     {% block mainmenu %}
