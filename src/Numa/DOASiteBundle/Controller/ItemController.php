@@ -53,7 +53,7 @@ class ItemController extends Controller implements DealerSiteControllerInterface
         //get dealer
         $dealer = $item->getDealer();
         $dealerFromHost = $this->container->get("numa.dms.user")->getDealerByHost();
-
+//test
         if (
             ($dealer instanceof Catalogrecords && $dealerFromHost instanceof Catalogrecords &&
                 ($dealer->getId() !== $dealerFromHost->getId())) &&
