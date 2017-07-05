@@ -51,7 +51,7 @@
                         <input type="checkbox" class="compareAd"> Compare Ad
                     </label>
                 </div>
-                {% if (dealer and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") %}
+                {% if (dealer and app.user and app.user.getId()==item.dealer_id) or is_granted("ROLE_DEALER_ADMIN") or is_granted("ROLE_BUSINES") %}
                     <ul class="list-inline">
                         <li><a href="{{ path('items_edit',{'id':item.id}) }}">Edit</a></li>
                         {% if item.active %}
