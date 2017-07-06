@@ -71,34 +71,52 @@ class ImageLib
     }
 
 
-    public function deleteImagesNotInDB2($path)
+    public function deleteImagesNotInDB()
     {
-
         $images = $this->getAllImagesIntoArray();
-//        dump($images);
-//        die();
-        if(is_file($path)) {
-            if(!in_array("/".$path, $images)){
-                $this->deleteImage($path);
-                $this->delete[]="/".$path;
-            }else{
+        $dir    = 'upload/itemsimages'; // path from top
+        $scanedFiles = scandir($dir);
+        $files = array_diff($scanedFiles, array('.', '..'));
+        $delete=array();
+        $noDelete=array();
 
-                $this->nodelete[]=$path;
-            }
-        }elseif(is_dir($path)){
-            $scanedFilesFolder = scandir($path);
-            $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
+        foreach($files as $file){
+            // "is_dir" only works from top directory, so append the $dir before the file
+            if (is_dir($dir.'/'.$file)){
+                $scanedFilesFolder = scandir($dir.'/'.$file);
+                $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
+                foreach ($filesFolder as $fileFolder) {
+                    $img = $dir.'/'.$file.'/'.$fileFolder;
+                    //dump('/'.$img);
+                    if(!in_array('/'.$img, $images)){
+                        $this->deleteImage($img);
+                        $delete[]=$img;
+                        //dump("not EXISTS");
+                    }else{
+                        $noDelete[]=$img;
+//                        dump("EXISTS");
+//                        dump($img);
+                    }
+                }
 
-            foreach ($filesFolder as $fileFolder) {
-                $img = $path.'/'.$fileFolder;
-                $this->deleteImagesNotInDB2($img);
+            } else{
+                $img = $dir.'/'.$file;
+                //dump('/'.$img);
+                if(!in_array('/'.$img, $images)){
+                    $this->deleteImage($img);
+                    $delete[]=$img;
+                }else{
+                    //dump("EXISTS");
+                    $noDelete[]=$img;
+                }
             }
         }
-    }
+        dump("DELETE");
+        dump($delete);
+        dump("no DELETE");
+        dump($noDelete);
+        die();
 
-    public function deleteImages($path){
-        $this->deleteImagesNotInDB2($path);
-        return array("delete"=>$this->delete, "nodelete"=>$this->nodelete);
     }
     public function getAllImagesIntoArray(){
         $em = $this->container->get('doctrine.orm.entity_manager');
