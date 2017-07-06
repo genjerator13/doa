@@ -71,7 +71,7 @@ class ImageLib
     }
 
 
-    public function deleteImagesNotInDB()
+    public function deleteImagesNotInDB($path)
     {
         $images = $this->getAllImagesIntoArray();
         $dir    = 'upload/itemsimages'; // path from top
@@ -89,8 +89,8 @@ class ImageLib
                     $img = $dir.'/'.$file.'/'.$fileFolder;
                     //dump('/'.$img);
                     if(!in_array('/'.$img, $images)){
-                        $this->deleteImage($img);
-                        $delete[]=$img;
+                        //$this->deleteImage($img);
+                        $delete[]=$path."/".$img;
                         //dump("not EXISTS");
                     }else{
                         $noDelete[]=$img;
@@ -103,8 +103,8 @@ class ImageLib
                 $img = $dir.'/'.$file;
                 //dump('/'.$img);
                 if(!in_array('/'.$img, $images)){
-                    $this->deleteImage($img);
-                    $delete[]=$img;
+                    //$this->deleteImage($img);
+                    $delete[]=$path."/".$img;
                 }else{
                     //dump("EXISTS");
                     $noDelete[]=$img;
@@ -113,8 +113,11 @@ class ImageLib
         }
         dump("DELETE");
         dump($delete);
-        dump("no DELETE");
-        dump($noDelete);
+        foreach ($delete as $item) {
+            $this->deleteImage($item);
+        }
+        //dump("no DELETE");
+        //dump($noDelete);
         die();
 
     }
@@ -131,8 +134,10 @@ class ImageLib
 
     public function deleteImage($filename){
         if(file_exists($filename)){
-//            unlink($filename);
-            //dump($filename);
+            unlink($filename);
+            dump($filename);
+        }else{
+            dump("AAAA");
         }
     }
     public function shrinkCoverImage($filename,$filter){
