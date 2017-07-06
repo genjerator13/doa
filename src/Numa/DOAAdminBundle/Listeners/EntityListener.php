@@ -84,8 +84,9 @@ class EntityListener
 
             if ($entity->getSold() && empty($entity->getSoldDate())) {
                 $entity->setSoldDate(new \DateTime());
-                $entityManager->flush();
+                //$entityManager->flush();
             }
+//            dump($entity);die();
             if ($args->hasChangedField("VIN")) {
                 $this->vinchange = true;
             }
