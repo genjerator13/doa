@@ -112,7 +112,7 @@
             {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and js is defined and  not js=='kijiji'  %}
                 <button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>
             {% endif %}
-            {% if not is_granted('ROLE_DMS_USER') and js is defined and js=='kijiji' %}
+            {% if is_granted('ROLE_DMS_USER') and js is defined and js=='kijiji' %}
                 <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
                 <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>
             {% endif %}
