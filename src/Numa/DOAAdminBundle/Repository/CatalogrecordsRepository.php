@@ -264,7 +264,13 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             //dump($sql);
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
+
             //
+            $sql = "DELETE FROM billing WHERE item_id IN (SELECT id FROM item WHERE dealer_id =" . $dealer_id . ")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
+
 //
             $sql = "DELETE FROM reminder WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =" . $dealer_id . ")";
             //dump($sql);
@@ -289,9 +295,10 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
 
             //dump("item");
             $this->deleteDealerTable('item', $dealer_id);
+
             $this->deleteDealerTable('import_feed', $dealer_id);
             $this->deleteDealerTable('customer', $dealer_id);
-            $this->deleteDealerTable('customer', $dealer_id);
+
             $this->deleteDealerTable('page', $dealer_id);
 
             $q = $this->getEntityManager()->createQuery('delete from NumaDOAAdminBundle:CatalogRecords d where d.id = :dealer_id');//' . $dealer_id);
