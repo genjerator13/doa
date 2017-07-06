@@ -265,7 +265,11 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
             $stmt->execute();
             //
-
+//
+            $sql = "DELETE FROM reminder WHERE customer_id IN (SELECT id FROM customer WHERE dealer_id =" . $dealer_id . ")";
+            //dump($sql);
+            $stmt = $this->getEntityManager()->getConnection()->prepare($sql);
+            $stmt->execute();
 
             $sql = "UPDATE item set sale_id = NULL where dealer_id=" . $dealer_id;
             //dump($sql);
@@ -286,6 +290,7 @@ class CatalogrecordsRepository extends EntityRepository implements UserProviderI
             //dump("item");
             $this->deleteDealerTable('item', $dealer_id);
             $this->deleteDealerTable('import_feed', $dealer_id);
+            $this->deleteDealerTable('customer', $dealer_id);
             $this->deleteDealerTable('customer', $dealer_id);
             $this->deleteDealerTable('page', $dealer_id);
 
