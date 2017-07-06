@@ -128,6 +128,7 @@ class ListingLib
     {
         $res = array();
         $trim = array();
+        $logger = $this->container->get('logger');
 
         try {
             $buzz = $this->container->get('buzz');
@@ -142,7 +143,12 @@ class ListingLib
 //                    $url = "http://doa.local/upload/restxml_extended.xml";
 //                }
                 $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
-
+                $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+                $dealer_id=0;
+                if($dealer instanceof Catalogrecords){
+                    $dealer_id=$dealer->getId();
+                }
+                $logger->addWarning("VIN DECODER vinquery CALL   :".$vin.":::::dealer_id:::::::".$dealer_id);
                 if ($buzz->getLastResponse()->getStatusCode() != 200) {
                     $error['ERROR'] = "SERVER ERROR";
                     return $error;
