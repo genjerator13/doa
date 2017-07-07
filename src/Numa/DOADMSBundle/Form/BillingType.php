@@ -25,6 +25,7 @@ class BillingType extends AbstractType
             ->add('trim', null, array('label' => false, 'attr' => array('ng-model' => 'trim')))
             ->add('tid_make', null, array('label' => false, 'attr' => array('ng-model' => 'tid_make')))
             ->add('tid_model', null, array('label' => false, 'attr' => array('ng-model' => 'tid_model')))
+            ->add('tid_color', null, array('label' => false, 'attr' => array('ng-model' => 'tid_color')))
             ->add('tid_year', null, array('label' => false, 'attr' => array('ng-model' => 'tid_year')))
             ->add('tid_milleage', null, array('label' => false, 'attr' => array('ng-model' => 'tid_milleage')))
             ->add('tid_km', null, array('label' => false, 'attr' => array('ng-model' => 'tid_km')))
