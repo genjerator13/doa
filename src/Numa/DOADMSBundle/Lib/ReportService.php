@@ -24,30 +24,31 @@ class ReportService
     {
         $this->container = $container;
     }
+
     //"columnLetter" =array("entity property","title")
     public $inventoryPurchaseFields = array(
-        "A"=>array("Vendor","Vendor"),
-        "B"=>array("item:vin","VIN #"),
-        "G"=>array("invoice_date","Inv Date"),
-        "H"=>array("invoice_nr","Inv #"),
-        "I"=>array("invoice_amt","Inv Amt"),
-        "J"=>array("total_cost_unit","Total Cost Unit"),
-        "L"=>array("id","ID"),
+        "A" => array("Vendor", "Vendor"),
+        "B" => array("item:vin", "VIN #"),
+        "G" => array("invoice_date", "Inv Date"),
+        "H" => array("invoice_nr", "Inv #"),
+        "I" => array("invoice_amt", "Inv Amt"),
+        "J" => array("total_cost_unit", "Total Cost Unit"),
+        "L" => array("id", "ID"),
     );
 
     public $inventorySalesFields = array(
-        "A"=>array("customer","Customer Name"),
-        "B"=>array("date_billing","Date"),
-        "C"=>array("invoice_nr","Invoice #"),
-        "D"=>array("tid_year","Year"),
-        "E"=>array("tid_make","Make"),
-        "F"=>array("tid_model","Model"),
-        "G"=>array("item:stock_nr","Stock #"),
-        "H"=>array("tid_vin","Vin #"),
-        "I"=>array("sale_price","Sale Price"),
-        "J"=>array("less_trade_in","Less Trade In"),
-        "K"=>array("lien_on_trade_in","Lien On Trade In"),
-        "L"=>array("total_due","Total Due"),
+        "A" => array("customer", "Customer Name"),
+        "B" => array("date_billing", "Date"),
+        "C" => array("invoice_nr", "Invoice #"),
+        "D" => array("tid_year", "Year"),
+        "E" => array("tid_make", "Make"),
+        "F" => array("tid_model", "Model"),
+        "G" => array("item:stock_nr", "Stock #"),
+        "H" => array("tid_vin", "Vin #"),
+        "I" => array("sale_price", "Sale Price"),
+        "J" => array("less_trade_in", "Less Trade In"),
+        "K" => array("lien_on_trade_in", "Lien On Trade In"),
+        "L" => array("total_due", "Total Due"),
     );
 
     /**
