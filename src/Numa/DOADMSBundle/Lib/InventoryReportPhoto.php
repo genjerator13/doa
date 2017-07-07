@@ -25,7 +25,8 @@ class InventoryReportPhoto extends Report
         "G"=>array("sale:totalUnitCost","Total Cost Unit"),
     );
 
-    public function setCellValue($letter,$number,$entity,$field){
+    public function setCellValue($letter, $number, $entity, $field)
+    {
         $this->setCellValueWithPhoto($letter, $number, $entity, $field);
     }
 
