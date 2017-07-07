@@ -134,6 +134,20 @@ class ReportService
     }
 
     /**
+     * creates InventoryShort report with photo
+     * @param $entities
+     * @return Response
+     *
+     */
+    public function billingReportInventoryShortPhotoXls($entities)
+    {
+        $filename = "Inventory_report_with_photo.xls";
+        $inventoryReportShortPhoto = new InventoryReportShortPhoto($this->container);
+        $inventoryReportShortPhoto->setEntities($entities);
+        return $inventoryReportShortPhoto->createExcelResponse($filename);
+    }
+
+    /**
      * creates InventoryPhoto report
      * @param $entities
      * @return Response
