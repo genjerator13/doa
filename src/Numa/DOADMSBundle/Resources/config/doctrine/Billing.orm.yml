@@ -40,6 +40,10 @@ Numa\DOADMSBundle\Entity\Billing:
             type: string
             length: 255
             nullable: true
+        tid_color:
+            type: string
+            length: 255
+            nullable: true
         tid_year:
             type: integer
             nullable: true
