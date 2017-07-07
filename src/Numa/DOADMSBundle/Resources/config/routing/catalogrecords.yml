@@ -1,32 +1,32 @@
 dms_catalogs:
-    pattern:  /
+    path:  /
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:index",_dashboard:"DMS" }
 dms_catalogs_show:
-    pattern:  /{id}/show
+    path:  /{id}/show
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:show",_dashboard:"DMS" }
 dms_catalogs_new:
-    pattern:  /new
+    path:  /new
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:new",_dashboard:"DMS" }
 dms_catalogs_create:
-    pattern:  /create
+    path:  /create
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:create",_dashboard:"DMS" }
     requirements: { _method: post }
 dms_catalogs_edit:
-    pattern:  /{id}/edit
+    path:  /{id}/edit
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:edit",_dashboard:"DMS" }
 dms_catalogs_update:
-    pattern:  /{id}/update
+    path:  /{id}/update
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:update",_dashboard:"DMS" }
     requirements: { _method: post|put }
 dms_catalogs_activate:
-    pattern:  /{id}/activate
+    path:  /{id}/activate
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:activateDealer",_dashboard:"DMS" }
 dms_catalogs_delete:
-    pattern:  /{id}/delete
+    path:  /{id}/delete
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:delete",_dashboard:"DMS" }
 #    requirements: { _method: post|delete }
 dms_catalog_import_csv:
-    pattern:  /proccessCSV
+    path:  /proccessCSV
     defaults: { _controller: "NumaDOAAdminBundle:Catalogrecords:proccessImportCSV",_dashboard:"DMS" }
     requirements: { _method: post }
 dms_coupons_update:
