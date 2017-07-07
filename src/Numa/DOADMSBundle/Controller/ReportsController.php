@@ -79,6 +79,12 @@ class ReportsController extends Controller
                 return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
             }
 
+            if ($request->query->has('inventoryShortPhoto')) {
+                /* inventory report sales copy */
+                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                return $this->get('Numa.Reports')->billingReportInventoryShortPhotoXls($entities);
+            }
+
             if ($request->query->has('inventoryPhoto')) {
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
                 return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
