@@ -43,9 +43,12 @@ class ImageCommand extends ContainerAwareCommand
         $files = array_diff($scanedFiles, array('.', '..'));
 
         foreach ($files as $file) {
-            $filename = $dir."/".$file;
-            dump($filename);
-            $this->getContainer()->get("numa.dms.images")->downsizeImage($filename, "downscale_resize");
+            $filename = $dir . "/" . $file;
+            if (is_file($filename) && file_exists($filename)) {
+
+                dump($filename);
+                $this->getContainer()->get("numa.dms.images")->downsizeImage($filename, "downscale_resize");
+            }
         }
 
         die();
