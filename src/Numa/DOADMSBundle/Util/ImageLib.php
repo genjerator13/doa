@@ -9,6 +9,7 @@
 namespace Numa\DOADMSBundle\Util;
 
 
+use Imagine\Image\Box;
 use Numa\DOAAdminBundle\Entity\Item;
 
 class ImageLib
@@ -176,5 +177,20 @@ class ImageLib
         $result = str_replace('app/../', '', $url);
         $result = str_replace('//', '/', $result);
         return $result;
+    }
+
+    public function downsizeImage($path,$filter){
+        $container = $this->container; // the DI container, if keeping this function in controller just use $container = $this
+        $imagine = $container->get('liip_imagine');
+        $filterManager = $container->get('liip_imagine.filter.manager');
+
+        $image = $imagine->open($path);
+        if($image instanceof \Imagine\Gd\Image){}
+        $width = $image->getSize()->getWidth();
+        $height = $image->getSize()->getHeight();
+        $ratio = $height/$width;
+        if($image->getSize()->getWidth()>1920){
+            $image->resize(new Box(1920,1920*$ratio))->save($path);
+        }
     }
 }
