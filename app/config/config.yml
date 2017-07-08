@@ -325,10 +325,11 @@ liip_imagine:
 #            filters:
 #                thumbnail: { size: [120, 120], mode: inbound }
 #                background: { color: '#FFFFFF' }
-        ad_130x130:
-            quality: 100
+        downscale_resize:
             filters:
-                relative_resize: { widen: 125 }    # Transforms 50x40 to 32x26
+                downscale:
+                    # input 3960x2560px -> output 1980x1280px
+                    max: [1980, 1280]
         ad_350x265:
             quality: 100
             filters:
