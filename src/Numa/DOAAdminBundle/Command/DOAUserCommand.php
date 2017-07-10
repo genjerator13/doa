@@ -36,9 +36,6 @@ class DOAUserCommand extends ContainerAwareCommand
         $user->setUsername($email);
         $user->setUserGroup($userGroup);
         // encode the password in LISTENER
-        //$factory = $this->getContainer()->get('security.encoder_factory');
-        //$encoder = $factory->getEncoder($user);
-        //$encodedPassword = $encoder->encodePassword($password, $user->getSalt());
         $user->setPassword($password);
         $em->persist($user);
         $em->flush();

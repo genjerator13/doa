@@ -238,7 +238,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            //dump($resultCode);die();
+
             return $this->redirect($this->generateUrl('items_show', array('id' => $entity->getId())));
         }
 
@@ -322,10 +322,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
             }
 
-            //die();
             //remove all existing item fields TO DO add this to ItemField repository            
             $oldItemFields = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('item_id' => $item_id, 'field_type' => 'boolean'));
-            //dump($oldItemFields);die();
             foreach ($oldItemFields as $oldone) {
                 $em->remove($oldone);
             }
@@ -357,22 +355,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             if (!empty($entity->getVIN())) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
                 $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
             }
 
-            //$seoPost = $request->get("numa_doamodulebundle_seo");
-            //$seoService = $this->container->get("Numa.Seo");
-            //$seo = $seoService->prepareSeo($entity, $seoPost);
-
-
             $em->persist($entity);
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-
 
 
             $em->flush();
@@ -393,7 +386,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         }
         //sale form
 
-        // $saleForm = $this->createSaleCreateForm(new Sale());
         $entity->setSeo($seo);
 
 
@@ -554,18 +546,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         ));
         $oldVin = $entity->getVIN();
         $form->handleRequest($request);
-        //dump($form);die();
         if ($form->isValid()) {
 
             $sale = $entity->getSale();
             $sale->setItem($entity);
-            //dump($entity);die();
-            //if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
+
+            if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
 
                 $entity->setVindecoder($decodedvin);
                 $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
-            //}
+            }
 
             if (empty($id)) {
 
@@ -589,7 +580,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             }
             return $this->redirectToRoute($redirect, array("id" => $entity->getId()));
         }
-
 
 
         $params = array(
@@ -649,7 +639,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $command = new \Numa\DOAAdminBundle\Command\DBUtilsCommand();
             $command->setContainer($this->container);
             $resultCode = $command->makeHomeTabs(false);
-            //dump($resultCode);die();
+
             $redirect = 'items_edit';
             if (strtoupper($this->dashboard) == 'DMS') {
                 $redirect = 'dms_items_edit';
@@ -823,6 +813,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $this->get('numa.dms.quickbooks')->addToQB($ids);
         die();
     }
+
     /**
      * @param Request $request
      * Add selected listings in datagrid on listing list page
