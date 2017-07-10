@@ -104,13 +104,13 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
         $form = $this->createFormBuilder()->getForm();
         $form->handleRequest($request);
         $file = $request->files->get('file');
+        $order = $request->request->get('order');
 
         if ($file instanceof \Symfony\Component\HttpFoundation\File\UploadedFile &&
             ($file->getMimeType() == 'image/jpeg' ||
                 $file->getMimeType() == 'image/png' ||
                 $file->getMimeType() == 'image/gif')
         ) {
-
             $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
             $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
 
@@ -118,7 +118,7 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
             $upload_path = $this->container->getParameter('upload_path');
             $itemField = new ItemField();
 
-            $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), $item->countImages(), true, $item->getId() . '_' . time());
+            $itemField->handleImage($file, $upload_path, $upload_url, $item->getImportFeed(), $order, true, $item->getId() . '_' . time());
 
             $item->setDateUpdated(new \DateTime());
             $itemField->setItem($item);
