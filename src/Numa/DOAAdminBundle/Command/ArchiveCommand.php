@@ -15,7 +15,6 @@ class ArchiveCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        //set_error_handler( array( $this, 'myErrorHandler' ) );
         $this
             ->setName('numa:archive')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
