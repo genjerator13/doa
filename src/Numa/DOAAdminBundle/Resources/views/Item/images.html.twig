@@ -23,12 +23,8 @@
         {% endif %}
         {#{{ form_end(addimages) }}#}
         <form action="{{ path('item_images_upload',{id:item.id}) }}" method="post" class="dropzone" id="drop">
-            {#{{ form_widget(form.file) }}#}
-            {#<input type="submit" value="Upload" />#}
         </form>
-        {#<div class="row">#}
-        {#{{ form(addVideoForm) }}#}
-        {#</div>#}
+
         <div id="item-images">
             <div class="row">
                 {{ form_start(addVideoForm) }}
@@ -107,6 +103,10 @@
                     this.on("queuecomplete", function (file) {
 
                         location.reload();
+                    });
+                    this.on("sending", function(file, xhr, formData) {
+                        // Will send the filesize along with the file as POST data.
+                        formData.append("order", Date.now());
                     });
                 }
             };
