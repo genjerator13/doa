@@ -3,6 +3,7 @@
 namespace Numa\DOAAdminBundle\Command;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Customer;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -19,77 +20,67 @@ class UsersCommand extends ContainerAwareCommand
         $this
             ->setName('numa:user')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
-            ->addArgument('param1', InputArgument::OPTIONAL, 'param1');
+            ->addArgument('param1', InputArgument::OPTIONAL, 'param1')
+            ->addArgument('param2', InputArgument::OPTIONAL, 'param2');
     }
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $command = $input->getArgument('function');
-        $param1 = $input->getArgument('param1');
+        $csvPath = $input->getArgument('param1');
+        $dealer_id  = $input->getArgument('param2');
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
-        if ($command == 'archive') {
-            $this->archive($param1);
-        }
-        elseif ($command == 'sold') {
-            $this->setSoldDate();
+        if ($command == 'csv') {
+            $this->importFromCsv($csvPath,$dealer_id);
         }
     }
 
-    public function importFromCsv()
+    public function importFromCsv($csvPath, $dealer_id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $csv = array_map('str_getcsv', file('/var/www/cbc/clients.csv'));
-
+        $em = $this->getContainer()->get("doctrine.orm.default_entity_manager");
+        //$csv = array_map('str_getcsv', file('/var/www/doa/customers.csv'));
+        $csv = array_map('str_getcsv', file($csvPath));
         $i=0;
-
         $header=array();
+
         foreach ($csv as $key=>$row) {
+
             if($i==0){
                 $header=$row;
-            }else{
-                $customer = $em->getRepository(Customer::class)->findOneBy(array("clientNum"=>$row[2]));
+            }else if($i>1){
 
+                $customer = $em->getRepository(Customer::class)->findOneBy(array("name"=>$row[0]));
+                $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
+                if(!$dealer instanceof Catalogrecords){
+                    dump("NOT A DEALER");die();
+                }
                 if(!($customer instanceof Customer)){
                     $customer=new Customer();
-                    $customer->setEmail(time()+$i."");
-
                     $em->persist($customer);
                     //dump($i."user NOT exists");
                 }
-                $user->setActive(true);
-                $user->setEnabled(true);
-                $user->setClientOldId($row[0]);
-                $user->setName($row[1]);
-                $user->setClientNum($row[2]);
-                $user->setAddress($row[3]);
-                $user->setPhone($row[4]);
-                $user->setCity($row[5]);
-                $user->setPostalCode($row[6]);
-                $user->setFax($row[7]);
-
-                $user->setContactPerson($row[9]);
-                $user->setUsername($row[2]);
-                $user->setUsernameCanonical($row[2]);
-                $pass=$row[11];
-                if(empty($pass)) {
-                    $pass="empty";
+                $customer->setDealer($dealer);
+                $customer->setName($row[0]);
+                $customer->setAddress($row[1]);
+                $customer->setCity($row[2]);
+                $customer->setState($row[3]);
+                $customer->setZip($row[4]);
+                //if email
+                if(filter_var($row[5], FILTER_VALIDATE_EMAIL)) {
+                    $customer->setEmail($row[5]);
                 }
-                $user->setPlainPassword($pass);
 
-                $user->setUserGroup($usergroup);
-                //dump($user);
-                $userupdater = $this->get("fos_user.util.password_updater")->hashPassword($user);
-                //dump($user);
-                $em->flush($user);
-//die();
-
-
+                ///
+                $customer->setHomePhone($row[6]);
+                $customer->setMobilePhone($row[7]);
+                $customer->setFax($row[8]);
             }
-
             $i++;
-
+            if($i%50==0){
+                dump($i);
+                $em->flush();
+            }
         }
+        $em->flush();
 
 
 
