@@ -29,7 +29,7 @@ class WebComponent
 
     public function getComponent($name, $type = "Text", $source = "page"){
         $criteria = Criteria::create()
-            ->where(Criteria::expr()->eq("name", $name));//->getMaxResults(1);
+            ->where(Criteria::expr()->eq("name", $name));
         if (strtolower($type) == "carousel") {
             $criteria->andWhere(Criteria::expr()->eq("name", $name));
         }
@@ -37,12 +37,9 @@ class WebComponent
 
         $pathinfo = $request->getPathInfo();
 
-//        if (substr($pathinfo, 0, 2) === "/d") {
-//            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
-//        }
+
         $em = $this->container->get('doctrine.orm.entity_manager');
-        //$host = trim(strip_tags($request->getHost()));
-        //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
 
@@ -137,22 +134,13 @@ class WebComponent
                     $image->setSrc("/upload/dealers/".$image->getSrc());
                     return $image;
                 }
-                $uploadDir = "/" . ImageCarousel::getUploadDir();
                 $res = $images[0]->getSrc();
-//                dump($uploadDir."/dealers/".$res);
-//                // set button1 = "/upload/dealers/3/component/40/fast-cars-3.jpg"   %}
-//                //dump($res);
-//                //die();
+
                 return "/upload/dealers/" . $res;
             }
 
         } elseif (strtolower($type) == "image") {
 
-//            preg_match("/\<img.+src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)\>/", $value, $matches);
-//            $value = "";
-//            if (!empty($matches[1])) {
-//                $value = $matches[1];
-//            }
 
         }elseif (strtolower($type) == "image_text") {
 
