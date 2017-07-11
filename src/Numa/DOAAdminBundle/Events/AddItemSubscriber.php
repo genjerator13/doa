@@ -38,7 +38,6 @@ class AddItemSubscriber implements EventSubscriberInterface
     }
 
 
-
     public function postSubmitData(FormEvent $event)
     {
         $item = $event->getData();
