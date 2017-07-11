@@ -46,9 +46,6 @@ class Autonet extends Curl
 
         $json = json_encode($dealerXml);
         $array = json_decode($json, TRUE);
-
-        $res = array();
-
         return $array;
     }
 
@@ -132,7 +129,7 @@ class Autonet extends Curl
             }
         }
         $photosXml .= "</photos>\n";
-        //dump($photosXml);die();
+
         return $photosXml;
     }
 

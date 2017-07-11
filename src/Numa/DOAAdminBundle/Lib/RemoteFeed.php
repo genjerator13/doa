@@ -97,7 +97,7 @@ class RemoteFeed extends ContainerAware
                     }
 
 
-                    //simplexml_load_file('url', null, LIBXML_NOERROR);
+
                     $rootNode = $this->entity->getRootNode();
                     if (!empty($rootNode)) {
                         $xmlSource = $xml_obj->xpath($this->entity->getRootNode());
@@ -107,24 +107,21 @@ class RemoteFeed extends ContainerAware
                     }
 
                     foreach ($xmlSource as $child) {
-                        // dump($xmlSource);
 
                         foreach ($child->children() as $property) {
 
                             if ($property instanceof \SimpleXMLElement) {
-                                //foreach($property->children() as $innerproperty){
+
                                 $array = json_decode(json_encode($property), TRUE);
                                 foreach ($array as $key => $prop) {
                                     if (is_string($prop)) {
-                                        //dump($property->getName() . "::" . $prop . ":::" . $key);
-                                        //dump($prop);
+
                                         if (!empty($key)) {
                                             $this->properties[$property->getName() . "_" . $key] = $property->getName() . "_" . $key;
                                         }
                                     }
                                 }
 
-                                //}
                             }
                             $this->properties[$property->getName()] = $property->getName();
 
@@ -185,7 +182,6 @@ class RemoteFeed extends ContainerAware
         if (self::URL == $this->entity->getImportMethod()) {
             if (self::XML == $this->entity->getImportFormat()) {
                 $xml_obj = simplexml_load_file($this->source);
-                //$this->items = self::xml2array($xml_obj->children());
                 $this->items = json_decode(json_encode((array)$xml_obj), 1);
                 if (!empty($this->items['item'])) {
                     $this->items = $this->items['item'];
@@ -238,7 +234,7 @@ class RemoteFeed extends ContainerAware
                 $xmlSource = $xml_obj->children();
             }
 
-            ///$this->items = self::xml2array($xmlSource);
+
 
             $this->items = json_decode(json_encode((array)$xml_obj), 1);
 
@@ -268,7 +264,6 @@ class RemoteFeed extends ContainerAware
                 }
             }
 
-            //$arrayItem = $this->xml2array($this->items);
             $temp = $this->items;
 
             foreach ($temp as $itemkey => $item) {
@@ -277,10 +272,7 @@ class RemoteFeed extends ContainerAware
                     if (is_array($prop)) {
                         foreach ($prop as $keyvalue => $value) {
                             if (is_string($value)) {
-
-                                //dump($key.":".$keyvalue . ":" . $value);
                                 $this->items[$itemkey][$key . "_" . $keyvalue] = $value;
-
                             }
                         }
 
@@ -374,12 +366,7 @@ class RemoteFeed extends ContainerAware
     static function getFtpConnection($uri)
     {
         // Split FTP URI into:
-        // $match[0] = ftp://username:password@sld.domain.tld/path1/path2/
-        // $match[1] = ftp://
-        // $match[2] = username
-        // $match[3] = password
-        // $match[4] = sld.domain.tld
-        // $match[5] = /path1/path2/
+
         preg_match("/ftp:\/\/(.*?):(.*?)@(.*?)\/(.*)/i", $uri, $match);
 
         // Set up a connection
@@ -389,7 +376,7 @@ class RemoteFeed extends ContainerAware
         // Login
         if (ftp_login($conn, $match[1], $match[2])) {
             // Change the dir
-            //ftp_chdir($conn, $match[5]);
+
             ftp_pasv($conn, true);
             // Return the resource
             return array('conn' => $conn, 'filepath' => $match[4]);
@@ -436,22 +423,4 @@ class RemoteFeed extends ContainerAware
                 break;
         }
     }
-
-    /*
-      public function xml2array($xml) {
-      $arr = array();
-
-      foreach ($xml as $element) {
-      $tag = $element->getName();
-      $e = get_object_vars($element);
-      if (!empty($e)) {
-      $arr[$tag] = $element instanceof SimpleXMLElement ? xml2array($element) : $e;
-      } else {
-      $arr[$tag] = trim($element);
-      }
-      }
-
-      return $arr;
-      }
-     */
 }
