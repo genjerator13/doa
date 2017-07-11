@@ -14,11 +14,9 @@
 
 namespace Numa\DOAAdminBundle\Lib;
 
-use Numa\DOAAdminBundle\Entity\Catalogcategory;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Listingfield;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\Container;
 
@@ -428,7 +426,7 @@ class listingApi
 
             $csvArray['drivetrain'] = $item->getDriveType();
             $csvArray['videourl'] = $item->getVideoId();
-            $imageList = array();
+
             $images = $item->get("ImagesForApi");
 
             if (!empty($images['image'])) {

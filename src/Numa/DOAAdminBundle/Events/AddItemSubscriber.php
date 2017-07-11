@@ -7,9 +7,6 @@ namespace Numa\DOAAdminBundle\Events;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\DealerGroup;
-use Symfony\Component\DependencyInjection\ContainerAware;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -76,7 +73,7 @@ class AddItemSubscriber implements EventSubscriberInterface
         $em = $this->container->get("doctrine.orm.entity_manager");
         foreach (\Numa\DOAAdminBundle\Entity\Item::$fields[$cat] as $carFieldDB => $carFieldField) {
             $listingList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneByProperty($carFieldDB, $cat, true);
-            //dump($carFieldDB);
+
             if ($listingList instanceof \Numa\DOAAdminBundle\Entity\Listingfield) {
 
                 $type = $listingList->getType();
