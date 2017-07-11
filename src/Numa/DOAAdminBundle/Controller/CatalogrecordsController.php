@@ -180,7 +180,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
      */
     public function editAction($id, Request $request)
     {
-        $limitCoupons = 2;
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($id);
         $securityContext = $this->container->get('security.authorization_checker');
@@ -254,8 +253,6 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         ));
 
         $form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
-        //$form->add('submit', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary left',)));
-
         return $form;
     }
 
