@@ -672,9 +672,8 @@ class Customer
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @JMS\Accessor(getter="getBilling",setter="setBilling")
-     * @JMS\Type("ArrayCollection<Numa\DOADMSBundle\Entity\Billing>")
-     * @JMS\EXPOSE
+
+
      */
     private $Billing;
 
@@ -707,7 +706,6 @@ class Customer
      * Get Billing
      *
      * @return \Doctrine\Common\Collections\Collection
-     * @JMS\VirtualProperty
      */
     public function getBilling()
     {
