@@ -15,7 +15,6 @@ class ImageCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        //set_error_handler( array( $this, 'myErrorHandler' ) );
         $this
             ->setName('numa:image')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
@@ -26,21 +25,18 @@ class ImageCommand extends ContainerAwareCommand
     {
         $command = $input->getArgument('function');
         $param1 = $input->getArgument('param1');
-
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
         if ($command == 'resize') {
             $this->resize($param1);
         }
     }
 
-    public function resize($period)
+    public function resize()
     {
         $image_path = $this->getContainer()->getParameter("web_path");
         $dir = $image_path . '/upload/itemsimages'; // path from top
-        $scanedFiles = scandir($dir);
+        $scannedFiles = scandir($dir);
 
-        $files = array_diff($scanedFiles, array('.', '..'));
+        $files = array_diff($scannedFiles, array('.', '..'));
 
         foreach ($files as $file) {
             $filename = $dir . "/" . $file;
@@ -50,9 +46,6 @@ class ImageCommand extends ContainerAwareCommand
                 $this->getContainer()->get("numa.dms.images")->downsizeImage($filename, "downscale_resize");
             }
         }
-
-        die();
-
     }
 
 }
