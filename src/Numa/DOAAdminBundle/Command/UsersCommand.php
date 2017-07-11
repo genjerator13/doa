@@ -37,26 +37,20 @@ class UsersCommand extends ContainerAwareCommand
     public function importFromCsv($csvPath, $dealer_id)
     {
         $em = $this->getContainer()->get("doctrine.orm.default_entity_manager");
-        //$csv = array_map('str_getcsv', file('/var/www/doa/customers.csv'));
         $csv = array_map('str_getcsv', file($csvPath));
         $i=0;
-        $header=array();
 
         foreach ($csv as $key=>$row) {
-
-            if($i==0){
-                $header=$row;
-            }else if($i>1){
+            if($i>1){
 
                 $customer = $em->getRepository(Customer::class)->findOneBy(array("name"=>$row[0]));
                 $dealer = $em->getRepository(Catalogrecords::class)->find($dealer_id);
                 if(!$dealer instanceof Catalogrecords){
-                    dump("NOT A DEALER");die();
+                    dump("NOT A DEALER");
                 }
                 if(!($customer instanceof Customer)){
                     $customer=new Customer();
                     $em->persist($customer);
-                    //dump($i."user NOT exists");
                 }
                 $customer->setDealer($dealer);
                 $customer->setName($row[0]);
@@ -81,10 +75,6 @@ class UsersCommand extends ContainerAwareCommand
             }
         }
         $em->flush();
-
-
-
-        die("finished importing ".$i);
     }
 
 }
