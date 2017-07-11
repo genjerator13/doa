@@ -15,7 +15,6 @@ class GaStatsCommand extends ContainerAwareCommand
 
     protected function configure()
     {
-        //set_error_handler( array( $this, 'myErrorHandler' ) );
         $this
             ->setName('numa:stats')
             ->addArgument('function', InputArgument::OPTIONAL, 'Command name')
