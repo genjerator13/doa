@@ -892,34 +892,6 @@ SET i.cover_photo = iif.field_string_value";
         $stmt->execute();
         return $stmt;
 
-        /** @var ImagineController */
-        $imagine = $this
-            ->container
-            ->get('liip_imagine.controller');
-
-        /** @var RedirectResponse */
-        $imagemanagerResponse = $imagine
-            ->filterAction(
-                $this->request,         // http request
-                'uploads/foo.jpg',      // original image you want to apply a filter to
-                'my_thumb'              // filter defined in config.yml
-            );
-
-        /** @var CacheManager */
-        $cacheManager = $this
-            ->container
-            ->get('liip_imagine.cache.manager');
-
-        /** @var string */
-        $sourcePath = $cacheManager
-            ->getBrowserPath(
-                'uploads/foo.jpg',
-                'my_thumb'
-            );
-
-        // ..
-
-
     }
 
     public function updateCoverPhoto($item_id)
