@@ -48,20 +48,14 @@ class AddItemSubscriber implements EventSubscriberInterface
     public function postSubmitData(FormEvent $event)
     {
         $item = $event->getData();
-        $form = $event->getForm();
 
         if ($item instanceof Item) {
             $seo = $item->getSeo();
             if ($seo instanceof Seo && !$seo->isEmpty() && !$seo->getAutogenerate()) {
 
-            } else {
-
-                //$setting = $this->container->get("numa.settings");
-                //dump($seo);die();
-
             }
         }
-        //die();
+
     }
 
     /**
@@ -100,21 +94,14 @@ class AddItemSubscriber implements EventSubscriberInterface
                     foreach ($listingLists as $key => $value) {
                         $values[$value->getValue()] = $value->getValue();
                     }
-                    //if the value is not in the list addi it
-                    //if() {
-                    // dump($carFieldDB);
-                    //die();
-                    //}
+
                     if (!in_array($selected, $values)) {
                         $values[$selected] = $selected;
                     }
 
                     //make form name from db name TODO function for that
 
-                    //$form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
-
                     if ($carFieldDB == "ag_application" || $carFieldDB == "Boat Type" || ($carFieldField == "type" && ($cat = 4 || $cat == 3))) {
-
                         $form->add($carFieldField, 'choice', array('choices' => $values, 'data' => $selected, 'required' => false));
                     } else {
                         $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
@@ -132,12 +119,10 @@ class AddItemSubscriber implements EventSubscriberInterface
                     }
                     //make form name from db name TODO function for that
 
-
                     $form->add($carFieldField, AutocompleteType::class, array('choices' => $values, 'data' => $selected, 'required' => false));
                 }
             }
         }
-        //die();
 
         if ($this->dealerID instanceof Catalogrecords) {
 
@@ -172,9 +157,7 @@ class AddItemSubscriber implements EventSubscriberInterface
         }
 
         foreach ($item->getItemField() as $itemfield) {
-            if ($itemfield->getFieldType() == 'boolean') {
-
-            } else {
+            if ($itemfield->getFieldType() != 'boolean') {
                 $item->removeItemField($itemfield);
             }
         }
