@@ -109,8 +109,6 @@ class DBUtilsCommand extends ContainerAwareCommand
             $this->fetchFeed($feedId, $em);
         }
         $logger->addWarning("startCommand END: " . count($commands));
-        //echo "aaaaa";
-        //die();
     }
 
     public function fetchFeed2($feed_id)
@@ -119,15 +117,12 @@ class DBUtilsCommand extends ContainerAwareCommand
         $Controller = new \Numa\DOAAdminBundle\Controller\ImportmappingController();
 
         $Controller->fetchAction(null, $feed_id);
-        //print_r($feed_id);
-        //die("aaaaa");
     }
 
     public function myErrorHandler($errno, $errstr, $errfile, $errline)
     {
 
         $errorFullDetail = "Error: [$errno] $errstr<br />$errfile : $errline\n";
-        //dump($errorFullDetail);
         $this->commandLog->setStatus("ERROR");
         $this->commandLog->setFullDetails($errorFullDetail);
         $this->em->flush();
@@ -276,8 +271,7 @@ class DBUtilsCommand extends ContainerAwareCommand
             print_r("Making home tabs\n");
         }
         $logger->warning("HOMETABS: Start echo:" . $echo);
-        //$aCategories = array(1, 2, 3, 4, 13);
-        //$this->getContainer()->get('doctrine')->resetEntityManager();
+
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         //only active listings
@@ -291,7 +285,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         //remove old hometabs
         $em->getRepository('NumaDOAAdminBundle:HomeTab')->deleteAllHomeTabs();
         $logger->warning("HOMETABS: delete old hometabs");
-        //dump($dealers);die();
+
         //make all tabs for all listings
         $memcache = $this->getContainer()->get('mymemcache');
         foreach ($categories as $cat) {
@@ -341,7 +335,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                         echo $count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n";
                     }
                     $logger->addWarning("makeHomeTabForCategory:" . $count . ":" . $subCat->getId() . ":" . $value->getId() . ":" . $value->getValue() . "\n");
-                    //$count = $items->count();
+
                     $hometab = new HomeTab();
 
 
@@ -358,11 +352,9 @@ class DBUtilsCommand extends ContainerAwareCommand
                     }
                     $logger->addWarning("makeHomeTabForCategory hometabs persists for CAT=2");
                     $em->persist($hometab);
-                    //print_r($key);
+
                 }
 
-                //die();
-                //$em->flush();
             }
         } else if ($cat->getId() == 4 || $cat->getId() == 3) {
             //RV
@@ -391,7 +383,7 @@ class DBUtilsCommand extends ContainerAwareCommand
 
                     }
                     $logger->addWarning("makeHomeTabForCategory CAT=4 and 3::" . $subCat->getCaption() . " : " . $subCat->getId() . ":" . $value->getId() . " : " . $value->getValue() . "\n");
-                    //$count = $items->count();
+
                     $hometab = new HomeTab();
                     if ($dealer instanceof Catalogrecords) {
                         $logger->addWarning("makeHomeTabForCategory hometabs dealers CAT=4 and 3::");
@@ -405,9 +397,9 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $hometab->setCount($count);
                     $em->persist($hometab);
                     $logger->addWarning("makeHomeTabForCategory hometabs persists CAT=4 and 3::");
-                    //print_r($key);
+
                 }
-                //$em->flush();
+
             }
         } else if ($cat->getId() == 1) {
             //find subcategory of category(car and body style)
@@ -421,7 +413,6 @@ class DBUtilsCommand extends ContainerAwareCommand
                 foreach ($list as $key => $value) {
                     $logger->warning("makeHomeTabForCategory 1 foreach inside: " . $value);
                     //count each and put to hometabs
-                    //$items = $em->getRepository('NumaDOAAdminBundle:Item')->findBy(array('Category' => $cat, 'body_style' => $value->getValue()));
                     $items = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), $value->getValue(), $dealer);
 
                     $count = count($items);
@@ -449,7 +440,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $em->persist($hometab);
                     $logger->warning("makeHomeTabForCategory 1 persists");
                 }
-                //$em->flush();
+
             }
         } else if ($cat->getId() == 13) {
             //Ag
@@ -461,8 +452,6 @@ class DBUtilsCommand extends ContainerAwareCommand
                 $list = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists')->findBy(array('listing_field_id' => $subCat->getId()));
                 foreach ($list as $key => $value) {
                     $logger->warning("makeHomeTabForCategory inside values loop CAT=13");
-                    //$items = $em->getRepository('NumaDOAAdminBundle:ItemField')->findBy(array('field_id' => $subCat->getId(), 'field_integer_value' => $value->getId()));
-                    //$items = $em->getRepository('NumaDOAAdminBundle:Item')->getItemBySubCats($cat->getId(), $value->getValue());
                     $items = $em->getRepository('NumaDOAAdminBundle:Item')->getByCategoryTypeDealer($cat->getId(), $value->getValue(), $dealer);
                     $count = count($items);
                     if ($echo) {
@@ -483,7 +472,7 @@ class DBUtilsCommand extends ContainerAwareCommand
                     $hometab->setCount($count);
                     $logger->warning("makeHomeTabForCategory hometab persists CAT=13::::");
                     $em->persist($hometab);
-                    //print_r($key);
+
                 }
 
             }
@@ -493,8 +482,6 @@ class DBUtilsCommand extends ContainerAwareCommand
         $logger->warning("makeHomeTabForCategory 1 flush");
         $em->clear();
 
-
-        //dump($memcache->get('hometabs'));
     }
 
     function equalizeAllItems()
@@ -616,7 +603,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         $em->flush();
         $em->clear();
         $logger->warning("COVER PHOTOS FINISHED");
-        //die();
+
     }
 
 
@@ -695,8 +682,7 @@ class DBUtilsCommand extends ContainerAwareCommand
         // set up basic connection
 
         $ftp_server = $dealer->getFeedKijijiUrl();
-        $ftp_user_name = $dealer->getFeedKijijiUsername();
-        $ftp_user_pass = $dealer->getFeedKijijiPassword();
+
         if(!empty($ftp_server)) {
             $clo = $commandLog->startNewCommand($command, "feeds");
 

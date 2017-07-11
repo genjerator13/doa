@@ -40,8 +40,6 @@ class ImageController extends Controller implements DashboardDMSControllerInterf
         $em = $this->getDoctrine()->getManager();
 
         $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($id);
-        $ImageList = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findOneBy(array('caption' => 'Image List'));
-        //\Doctrine\Common\Util\Debug::dump($ImageList->getId());
         $criteria = Criteria::create()
             ->where(Criteria::expr()->eq("fieldName", "Image List"))
             ->orderBy(array('sortOrder' => Criteria::ASC));

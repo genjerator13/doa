@@ -25,8 +25,6 @@ class ArchiveCommand extends ContainerAwareCommand
         $command = $input->getArgument('function');
         $param1 = $input->getArgument('param1');
 
-        $em = $this->getContainer()->get('doctrine')->getManager();
-
         if ($command == 'archive') {
             $this->archive($param1);
         }
@@ -46,7 +44,7 @@ class ArchiveCommand extends ContainerAwareCommand
             $this->getContainer()->get('numa.dms.listing')->archiveItem($item);
         }
         $em->flush();
-        dump(count($items));die();
+        dump(count($items));
     }
 
     public function setSoldDate(){

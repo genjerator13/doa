@@ -467,15 +467,12 @@ class ItemRepository extends EntityRepository
      */
     public function importRemoteItem($importItem, $mapping, $feed_id, $upload_url, $upload_path, $em)
     {
-        //echo "Memory usage in importRemoteItem before: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
-
         $feed = $em->getRepository('NumaDOAAdminBundle:Importfeed')->find($feed_id);
         if ($feed instanceof Importfeed) {
 
         }
 
         $uniqueField = $feed->getUniqueField();
-        $processed = false;
         $persist = false;
 
         $uniqueMapRow = $em->getRepository('NumaDOAAdminBundle:Importmapping')->findMapRow($feed->getId(), $uniqueField);
@@ -522,7 +519,6 @@ class ItemRepository extends EntityRepository
         }
 
         foreach ($mapping as $maprow) {
-            //dump($maprow->getId());
             $property = $maprow->getSid();
 
             $processed = false;
@@ -650,7 +646,6 @@ class ItemRepository extends EntityRepository
             $em->persist($item);
         }
 
-        //echo "Memory usage  in importRemoteItem after: " . (memory_get_usage() / 1024) . " KB" . PHP_EOL . "<br>";
         return $item;
     }
 
