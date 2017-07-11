@@ -18,13 +18,9 @@ class SettingsSubscriber implements EventSubscriberInterface
     {
         // Tells the dispatcher that you want to listen on the form.pre_set_data
         // event and that the preSetData method should be called.
-        return array(FormEvents::PRE_SET_DATA => 'preSetData', FormEvents::PRE_SUBMIT => 'preSubmitData');
+        return array(FormEvents::PRE_SET_DATA => 'preSetData');
     }
 
-    public function preSubmitData(FormEvent $event)
-    {
-
-    }
 
     public function preSetData(FormEvent $event)
     {
