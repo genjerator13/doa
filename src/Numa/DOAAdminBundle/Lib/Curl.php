@@ -77,14 +77,10 @@ class Curl
     {
         $this->process = curl_init($this->getFullPath());
 
-        //curl_setopt($process, CURLOPT_HTTPHEADER, array('Content-Type: application/xml'));
-        //curl_setopt($process, CURLOPT_HEADER, 1);
         if (!empty($this->username) && !empty($this->password)) {
             curl_setopt($this->process, CURLOPT_USERPWD, $this->username . ":" . $this->password);
         }
-        //curl_setopt($process, CURLOPT_TIMEOUT, 30);
-        //curl_setopt($process, CURLOPT_POST, 1);
-        //curl_setopt($process, CURLOPT_POSTFIELDS, $payloadName);
+
         curl_setopt($this->process, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($this->process, CURLOPT_SSL_VERIFYPEER, 0);
         curl_setopt($this->process, CURLOPT_RETURNTRANSFER, TRUE);
@@ -103,9 +99,9 @@ class Curl
     public function call()
     {
         $this->init();
-        $return = "";
+
         $return = curl_exec($this->process);
-        //dump(curl_error($this->process));
+
         return $return;
     }
 

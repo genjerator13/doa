@@ -2,7 +2,7 @@
 namespace Numa\DOAAdminBundle\Lib;
 
 use  Doctrine\Common\Collections\ArrayCollection;
-use Numa\DOAAdminBundle\Lib\Option;
+
 
 class OptionsDecorator
 {
@@ -30,12 +30,11 @@ class OptionsDecorator
     {
 
         $optionsArray = array();
-        //dump($source);//
+
         if (is_string($source)) {
 
             $test = json_decode($source, true);
-            //dump(112);
-            //dump($test);
+
             if (is_array($test)) {
 
                 if (!empty($test['attribute'])) {
@@ -57,8 +56,7 @@ class OptionsDecorator
             $optionsFinal = $optionsArray;
         }
 
-        //dump($optionsArray);
-        //dump(113);
+
         foreach ($optionsFinal as $key => $optionXXX) {
             //dump($optionXXX);
             $option = new Option();
@@ -97,9 +95,6 @@ class OptionsDecorator
                 $option->setName($name);
                 $this->addOption($option);
             }
-            //dump($option);
-
         }
-        //dump(114);
     }
 }
