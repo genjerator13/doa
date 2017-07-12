@@ -3380,4 +3380,34 @@ class Billing
     {
         return $this->active;
     }
+    /**
+     * @var string
+     * @JMS\Expose
+     */
+    private $tid_color;
+
+
+    /**
+     * Set tidColor
+     *
+     * @param string $tidColor
+     *
+     * @return Billing
+     */
+    public function setTidColor($tidColor)
+    {
+        $this->tid_color = $tidColor;
+
+        return $this;
+    }
+
+    /**
+     * Get tidColor
+     *
+     * @return string
+     */
+    public function getTidColor()
+    {
+        return $this->tid_color;
+    }
 }
