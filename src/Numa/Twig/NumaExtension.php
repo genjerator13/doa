@@ -45,6 +45,7 @@ class NumaExtension extends \Twig_Extension
             'shortWord' => new \Twig_Function_Method($this, 'shortWord'),
             'getPage' => new \Twig_Function_Method($this, 'getPage'),
             'isLocalHost' => new \Twig_Function_Method($this, 'isLocalHost'),
+            'isQBReady' => new \Twig_Function_Method($this, 'isQBReady'),
             'addWWW' => new \Twig_Function_Method($this, 'addWWW'),
         );
     }
@@ -133,19 +134,18 @@ class NumaExtension extends \Twig_Extension
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $request = $this->container->get("request");
- //       $host = trim(strip_tags($request->getHost()));
+
         $pathinfo = $request->getPathInfo();
 //        if (substr($pathinfo, 0, 2) === "/d") {
 //            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
 //        }
-//        $dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
         $dealer_id = null;
         if ($dealer instanceof Catalogrecords) {
             $dealer_id = $dealer->getId();
         }
-        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageByUrl2($pathinfo, $dealer->getId());
+        $page = $em->getRepository('NumaDOAModuleBundle:Page')->findPageByUrl2($pathinfo, $dealer_id);
 
         return $page;
     }
@@ -165,8 +165,7 @@ class NumaExtension extends \Twig_Extension
 //            $pathinfo = substr($pathinfo, 2, strlen($pathinfo) - 1);
 //        }
         $em = $this->container->get('doctrine.orm.entity_manager');
-        //$host = trim(strip_tags($request->getHost()));
-        //$dealer = $em->getRepository("NumaDOAAdminBundle:Catalogrecords")->getDealerByHost($host);
+
         $dealer = $this->container->get("numa.dms.user")->getDealerByHost();
 
         $dealer_id = null;
@@ -293,6 +292,10 @@ class NumaExtension extends \Twig_Extension
 
     public function isLocalHost(){
         return $this->container->get("numa.dms.user")->isLocalHost();
+    }
+
+    public function isQBReady(Catalogrecords $dealer){
+        return $this->container->get("numa.dms.user")->isQBReady($dealer);
     }
 
     public function addWWW($url){
