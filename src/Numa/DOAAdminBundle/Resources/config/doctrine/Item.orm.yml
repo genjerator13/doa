@@ -515,6 +515,10 @@ Numa\DOAAdminBundle\Entity\Item:
         qb_item_id:
               type: integer
               nullable: true
+        qb_post_include:
+            type: boolean
+            options:
+               default: true
         sub_category_type:
               type: string
               length: 255

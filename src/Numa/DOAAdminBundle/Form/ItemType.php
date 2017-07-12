@@ -6,6 +6,7 @@ use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Numa\DOADMSBundle\Form\SaleType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Numa\DOAAdminBundle\Events\AddItemSubscriber;
@@ -167,7 +168,15 @@ class ItemType extends AbstractType
             ->add('pto_horsepower')
             ->add('dbrhorsepower')
             ->add('remotes')
-            ->add('tire_size');
+            ->add('tire_size')
+            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks'));
+//        , CheckboxType::class, array(
+//                'label'    => 'Post to quickbox',
+//                'mapped' => false,
+//                'data' => true,
+//                'required' => false,
+//            ))
+            ;
 
         $builder->addEventSubscriber(new AddItemSubscriber($options['container'], $this->securityContext, $this->dealerID, $this->category));
 
