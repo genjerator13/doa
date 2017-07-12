@@ -11,12 +11,11 @@
 
 {% endblock %}
 {% block content %}
-    {% if (param.isConnected()) %}
-        <ipp:blueDot></ipp:blueDot>
-    {% endif %}
+
     <div>
         <p>
             QuickBooks connection status:
+
             {% if (param.isConnected()) %}
         <div style="border: 2px solid green; text-align: center; padding: 8px; color: green;">
             CONNECTED!<br>
