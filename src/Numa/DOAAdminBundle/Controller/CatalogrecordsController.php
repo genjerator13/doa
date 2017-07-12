@@ -203,6 +203,8 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
         $feedsForm = $this->createDealerFeedsForm($entity);
 
         $deleteForm = $this->createDeleteForm($id);
+        $qbo = $this->get("numa.quickbooks")->init();
+
         return $this->render('NumaDOAAdminBundle:Catalogrecords:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $editForm->createView(),
@@ -212,6 +214,7 @@ class CatalogrecordsController extends Controller implements DashboardDMSControl
             'feeds_form' => $feedsForm->createView(),
             'delete_form' => $deleteForm->createView(),
             'dashboard' => $this->dashboard,
+            'qbo' => $qbo,
         ));
     }
 

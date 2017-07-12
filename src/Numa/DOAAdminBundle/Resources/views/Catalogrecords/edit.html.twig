@@ -43,7 +43,6 @@
                     {% endblock javascripts %}
 {% block content %}
     <h1>Edit Dealer</h1>
-
     {% include 'NumaDOAAdminBundle::flashmsg.html.twig' %}
     {{ component.image(entity.logoUrl, entity.name, 'well', 'search_image') }}
 
@@ -55,6 +54,9 @@
             <li role="presentation"><a data-toggle="tab" href="#component">Component</a></li>
             <li role="presentation"><a data-toggle="tab" href="#settings">Settings</a></li>
             <li role="presentation"><a data-toggle="tab" href="#feeds">Feeds</a></li>
+            {% if isQBReady(entity) %}
+                <li role="presentation"><a data-toggle="tab" href="#quickbooks">Quickbooks</a></li>
+            {% endif %}
         </ul>
         <div class="nav-tabs-custom">
             <div class="tab-content">
@@ -194,9 +196,17 @@
                     {{ form_end(feeds_form) }}
 
                 </div>
+                {% if isQBReady(entity) %}
+                <div id="quickbooks" class="tab-pane">
 
-            </div>
-
+                    {% if qbo.isConnected() %}
+                        <div class="alert alert-success">You are connected to Quickbooks</div>
+                    {% else %}
+                        <div class="alert alert-warning">You are not connected to Quickbooks, please follow the link below in order to connect to Quickbooks.</div>
+                        <div><a class="btn btn-primary" href="{{ path('numa_qb_homepage') }}">Connect to quickbooks</a></div>
+                    {% endif %}
+                </div>
+                {% endif %}
         </div>
     </div>
 {% endblock %}
