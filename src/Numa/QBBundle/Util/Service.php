@@ -33,6 +33,7 @@ class Service
     protected $tenant;
     protected $username;
     protected $isConnected;
+    protected $dealer;
 
 
     /**
@@ -75,12 +76,12 @@ class Service
         $this->username = 'DO_NOT_CHANGE_ME';
 
 // The tenant that user is accessing within your own app
-        $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        $this->dealer = $this->container->get("numa.dms.user")->getSignedDealer();
 
         $this->tenant = 12345;
 
-        if($dealer instanceof Catalogrecords){
-            $this->tenant = $dealer->getId();
+        if($this->dealer instanceof Catalogrecords){
+            $this->tenant = $this->dealer ->getId();
         }
 
 // Initialize the database tables for storing OAuth information
@@ -101,9 +102,11 @@ class Service
         $this->IntuitAnywhere = new \QuickBooks_IPP_IntuitAnywhere($dsn, $encryption_key, $oauth_consumer_key, $oauth_consumer_secret, $this->quickbooksOauthUrl, $this->quickbooksSuccessUrl);
 
 // Are they connected to QuickBooks right now?
+
         if ($this->IntuitAnywhere->check($this->username, $this->tenant) and
             $this->IntuitAnywhere->test($this->username, $this->tenant)
         ) {
+
             // Yes, they are
             $this->isConnected = true;
 
@@ -136,9 +139,10 @@ class Service
             // Get some company info
             $this->CompanyInfoService = new \QuickBooks_IPP_Service_CompanyInfo();
             $this->quickbooksCompanyInfo = $this->CompanyInfoService->get($this->Context, $this->realm);
-            $this->container->get("session")->set("qb",1);
+            $this->container->get("session")->set("qb",array($this->dealer->getId()=>1));
         } else {
             // No, they are not
+
             $this->isConnected = false;
         }
         return $this;
@@ -154,14 +158,15 @@ class Service
     {
         $qbo = $this->init();
         $this->IntuitAnywhere->disconnect($this->getUsername(), $this->getTenant());
-        $this->container->get("session")->set("qb",0);
+        $session = $this->container->get("session")->get("qb");
+        $session[$this->dealer->getId()]=0;
+        $this->container->get("session")->set("qb",$session);
         return $qbo;
     }
 
     public function isConnected()
     {
-
-        return $this->isConnected || $this->container->get("session")->get("qb")==1;
+        return $this->isConnected || !empty($this->container->get("session")->get("qb")[$this->dealer->getId()]);
     }
 
     public function getCompanyInfoService()
