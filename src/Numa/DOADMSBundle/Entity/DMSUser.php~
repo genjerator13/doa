@@ -1,6 +1,7 @@
 <?php
 
 namespace Numa\DOADMSBundle\Entity;
+
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\User;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("username")
  * @UniqueEntity("email")
  */
-class DMSUser  implements UserInterface
+class DMSUser implements UserInterface
 {
     /**
      * @var integer
@@ -31,7 +32,6 @@ class DMSUser  implements UserInterface
 
     /**
      * @var string
-
      */
     private $password;
 
@@ -143,14 +143,14 @@ class DMSUser  implements UserInterface
 
     public function __construct()
     {
-        $this->active=true;
-        $this->trusted_user=true;
+        $this->active = true;
+        $this->trusted_user = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -173,7 +173,7 @@ class DMSUser  implements UserInterface
     /**
      * Get username
      *
-     * @return string 
+     * @return string
      */
     public function getUsername()
     {
@@ -196,7 +196,7 @@ class DMSUser  implements UserInterface
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -219,7 +219,7 @@ class DMSUser  implements UserInterface
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -242,7 +242,7 @@ class DMSUser  implements UserInterface
     /**
      * Get user_group_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getUserGroupId()
     {
@@ -265,7 +265,7 @@ class DMSUser  implements UserInterface
     /**
      * Get registration_date
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getRegistrationDate()
     {
@@ -288,7 +288,7 @@ class DMSUser  implements UserInterface
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -311,7 +311,7 @@ class DMSUser  implements UserInterface
     /**
      * Get contract_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getContractId()
     {
@@ -334,7 +334,7 @@ class DMSUser  implements UserInterface
     /**
      * Get activation_key
      *
-     * @return string 
+     * @return string
      */
     public function getActivationKey()
     {
@@ -357,7 +357,7 @@ class DMSUser  implements UserInterface
     /**
      * Get verification_key
      *
-     * @return string 
+     * @return string
      */
     public function getVerificationKey()
     {
@@ -380,7 +380,7 @@ class DMSUser  implements UserInterface
     /**
      * Get trusted_user
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getTrustedUser()
     {
@@ -403,7 +403,7 @@ class DMSUser  implements UserInterface
     /**
      * Get balance
      *
-     * @return integer 
+     * @return integer
      */
     public function getBalance()
     {
@@ -426,7 +426,7 @@ class DMSUser  implements UserInterface
     /**
      * Get FirstName
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -449,7 +449,7 @@ class DMSUser  implements UserInterface
     /**
      * Get LastName
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -472,7 +472,7 @@ class DMSUser  implements UserInterface
     /**
      * Get Address
      *
-     * @return string 
+     * @return string
      */
     public function getAddress()
     {
@@ -495,7 +495,7 @@ class DMSUser  implements UserInterface
     /**
      * Get City
      *
-     * @return string 
+     * @return string
      */
     public function getCity()
     {
@@ -518,7 +518,7 @@ class DMSUser  implements UserInterface
     /**
      * Get PostalCode
      *
-     * @return string 
+     * @return string
      */
     public function getPostalCode()
     {
@@ -541,7 +541,7 @@ class DMSUser  implements UserInterface
     /**
      * Get PhoneNumber
      *
-     * @return string 
+     * @return string
      */
     public function getPhoneNumber()
     {
@@ -564,7 +564,7 @@ class DMSUser  implements UserInterface
     /**
      * Get DisplayEmail
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getDisplayEmail()
     {
@@ -587,7 +587,7 @@ class DMSUser  implements UserInterface
     /**
      * Get State
      *
-     * @return string 
+     * @return string
      */
     public function getState()
     {
@@ -610,7 +610,7 @@ class DMSUser  implements UserInterface
     /**
      * Get DealershipLogo
      *
-     * @return string 
+     * @return string
      */
     public function getDealershipLogo()
     {
@@ -633,7 +633,7 @@ class DMSUser  implements UserInterface
     /**
      * Get date_created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreated()
     {
@@ -656,7 +656,7 @@ class DMSUser  implements UserInterface
     /**
      * Get date_updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateUpdated()
     {
@@ -679,12 +679,13 @@ class DMSUser  implements UserInterface
     /**
      * Get UserGroup
      *
-     * @return \Numa\DOADMSBundle\Entity\UserGroup 
+     * @return \Numa\DOADMSBundle\Entity\UserGroup
      */
     public function getUserGroup()
     {
         return $this->UserGroup;
     }
+
     /**
      * @ORM\PrePersist
      */
@@ -701,11 +702,12 @@ class DMSUser  implements UserInterface
      */
     public function setUpdatedAtValue()
     {
-        if(empty($this->dontupdate)){
+        if (empty($this->dontupdate)) {
 
             $this->date_updated = new \DateTime();
         }
     }
+
     /**
      * @var integer
      */
@@ -733,7 +735,7 @@ class DMSUser  implements UserInterface
     /**
      * Get dealer_id
      *
-     * @return integer 
+     * @return integer
      */
     public function getDealerId()
     {
@@ -763,80 +765,89 @@ class DMSUser  implements UserInterface
         return $this->Dealer;
     }
 
-    public function __toString() {
+    public function __toString()
+    {
         return $this->getUsername();
     }
 
-    public function getRoles() {
-
-        if(!empty($this->getUserGroup())) {
+    public function getRoles()
+    {
+        $role = array('ROLE_USER');
+        if (!empty($this->getUserGroup())) {
             $groupName = strtolower($this->getUserGroup()->getName());
 
             if ($groupName == 'accounting') {
-                return array('ROLE_ACCOUNTING');
+                $role =array('ROLE_ACCOUNTING');
             } elseif ($groupName == 'sales_user') {
-                return array('ROLE_SALES');
+                $role =array('ROLE_SALES');
             } elseif ($groupName == 'manager') {
-                return array('ROLE_MANAGER');
-            }elseif ($groupName == 'service_user') {
-                return array('ROLE_SERVICE_DMS');
-            }elseif ($groupName == 'parts_user') {
-                return array('ROLE_PARTS_DMS');
-            }elseif ($groupName == 'finance_user') {
-                return array('ROLE_FINANCE_DMS');
-            }elseif ($groupName == 'regular_admin') {
-                //return array('ROLE_REGULAR_ADMIN_DMS');
-                return array('ROLE_REGULAR_ADMIN_DMS','ROLE_DMS_USER', 'ROLE_BUSINES');
-            }elseif ($groupName == 'admin') {
-                return array('ROLE_ADMIN');
-            }elseif ($groupName == 'wholesale') {
-                return array('ROLE_WHOLESALE_DMS');
-            }elseif ($groupName == 'sale2') {
-                return array('ROLE_SALE2_DMS');
-            }elseif ($groupName == 'sale3') {
-                return array('ROLE_SALE3_DMS');
-            }elseif ($groupName == 'sale4') {
-                return array('ROLE_SALE4_DMS');
+                $role = array('ROLE_MANAGER');
+            } elseif ($groupName == 'service_user') {
+                $role = array('ROLE_SERVICE_DMS');
+            } elseif ($groupName == 'parts_user') {
+                $role = array('ROLE_PARTS_DMS');
+            } elseif ($groupName == 'finance_user') {
+                $role = array('ROLE_FINANCE_DMS');
+            } elseif ($groupName == 'regular_admin') {
+                $role = array('ROLE_REGULAR_ADMIN_DMS', 'ROLE_DMS_USER', 'ROLE_BUSINES');
+            } elseif ($groupName == 'admin') {
+                $role = array('ROLE_ADMIN');
+            } elseif ($groupName == 'wholesale') {
+                $role = array('ROLE_WHOLESALE_DMS');
+            } elseif ($groupName == 'sale2') {
+                $role = array('ROLE_SALE2_DMS');
+            } elseif ($groupName == 'sale3') {
+                $role = array('ROLE_SALE3_DMS');
+            } elseif ($groupName == 'sale4') {
+                $role = array('ROLE_SALE4_DMS');
             }
         }
-        return array('ROLE_USER');
+        return $role;
     }
 
-    public function getSalt() {
+    public function getSalt()
+    {
         return null;
     }
 
-    public function eraseCredentials() {
+    public function eraseCredentials()
+    {
 
     }
 
-    public function equals(User $user) {
+    public function equals(User $user)
+    {
         return $user->getEmail() == $this->getEmail();
     }
 
-    public function __sleep(){
+    public function __sleep()
+    {
         return array('id', 'username', 'email');
     }
 
-    public function getName(){
-        return $this->getFirstName()." ".$this->getLastName();
+    public function getName()
+    {
+        return $this->getFirstName() . " " . $this->getLastName();
     }
 
-    public function getLogoUrl(){
-        $dealer=$this->getDealer();
-        if($dealer instanceof Catalogrecords){
+    public function getLogoUrl()
+    {
+        $dealer = $this->getDealer();
+        if ($dealer instanceof Catalogrecords) {
             return $dealer->getLogoUrl();
         }
         return "";
     }
 
-    public function getUrl(){
-        $dealer=$this->getDealer();
-        if($dealer instanceof Catalogrecords){
+    public function getUrl()
+    {
+        $dealer = $this->getDealer();
+        if ($dealer instanceof Catalogrecords) {
             return $dealer->getUrl();
         }
         return "";
     }
+
     /**
      * @var \Numa\DOADMSBundle\Entity\SupportForm
      */

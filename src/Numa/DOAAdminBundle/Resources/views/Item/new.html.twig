@@ -11,9 +11,9 @@
     {% endjavascripts %}
     <script>
         {% if entity.id is empty %}
-        {%  set id = 0 %}
+        {% set id = 0 %}
         {% else %}
-        {%  set id = entity.id %}
+        {% set id = entity.id %}
         {% endif %}
         var app = angular.module('myApp', []);
         app.config(function ($interpolateProvider) {
@@ -135,7 +135,8 @@
                                     <a href="{{ path('items_activate', {'id': entity.id,'redirect':'item'}) }}"
                                        class="itemControls deactivate">Activate</a>
                                 {% endif %}
-                                | <a target="_blank" href="{{ addWWW(detailUrl) }}" class="itemControls view">View Listing</a>
+                                | <a target="_blank" href="{{ addWWW(detailUrl) }}" class="itemControls view">View
+                                Listing</a>
                             {% endif %}
                             {% if entity.id is not empty %}
                             |
@@ -176,9 +177,20 @@
                             {{ form_row(form.sold) }}
                             {{ form_row(form.active) }}
                             {{ form_row(form.featured) }}
-                            {#{% if (category.getName()|lower=="car") %}#}
-                                {#{{ form_row(form.feed_kijiji_include) }}#}
-                            {#{% endif %}#}
+
+                            {% if (isQBReady(entity.Dealer) and qbo.isConnected()) %}
+                                <div class="form-group">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <div class="checkbox">
+                                            <label>
+                                                {{ form_widget(form.qb_post_include) }}
+
+                                                {{ form.qb_post_include.vars.label }}</label></div>
+                                    </div>
+                                </div>
+                                {#{{ form_row(form.qb_post_include) }}#}
+                            {% endif %}
                             <div class="form-group">
                                 {{ form_label(form.year) }}
                                 <div class="col-sm-9">
@@ -299,7 +311,7 @@
                                                 {{ form_widget(field.field_boolean_value) }}
                                             {% endif %}
                                         </span>
-                                        <span class="feature-name">{{ field.vars.value.getFieldName() }}</span>
+                                            <span class="feature-name">{{ field.vars.value.getFieldName() }}</span>
 
                                         </li>
                                     {% endfor %}
@@ -452,7 +464,7 @@
                             form.attr('action', '{{ (app.request.get('_dashboard')=='DMS')?path("dms_item_category_change",{id:entity.id}):path("item_category_change",{id:entity.id}) }}');
                             console.log(form.attr('action'));
                             form.submit();
-                            $("#loading-indicator").css("display","block");
+                            $("#loading-indicator").css("display", "block");
                         });
 
                         Dropzone.options.drop = {
