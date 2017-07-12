@@ -162,6 +162,11 @@ class ListingLib
                 }
 
                 $vinArray = (json_decode($json, true));
+                if(!empty($vinArray['VIN']['@attributes']['Status']) && $vinArray['VIN']['@attributes']['Status']=='FAILED'){
+                    $error['ERROR'] = "WRONG VIN";
+                    return $error;
+                }
+
                 if (!empty($vinArray)) {
                     $data = $vinArray['VIN']['Vehicle'];
 

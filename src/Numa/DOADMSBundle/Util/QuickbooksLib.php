@@ -9,10 +9,8 @@
 namespace Numa\DOADMSBundle\Util;
 
 
-use Numa\DOAAdminBundle\Entity\Catalogrecords;
-use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOAAdminBundle\Entity\Item;
-use Numa\DOADMSBundle\Entity\Customer;
+
 use Numa\DOADMSBundle\Entity\Sale;
 use Numa\DOADMSBundle\Entity\Vendor;
 
@@ -195,12 +193,14 @@ class QuickbooksLib
         $desc = $this->getQBDesc($item);
         $amount = $this->getQBPrice($item);
 
-        //update Item with QB id reference
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        $item->setQbItemId($item->getId());
-        $em->flush($item);
+//        //update Item with QB id reference
+//        $em = $this->container->get('doctrine.orm.entity_manager');
+//        $item->setQbItemId($item->getId());
+//dump($item);die();
+//        $em->flush();
 
         $qbItem = $this->findQBItemByName($title);
+
         $update = true;
         if (empty($qbItem)) {
             $qbItem = new \QuickBooks_IPP_Object_Item();
@@ -215,7 +215,7 @@ class QuickbooksLib
         return $this->insertItem($title, $desc, $item->getVIN(),$qbExpenseAccountSetting,$qbIncomeAccountSetting,$qbIncomeAccountSetting,$amount,"Inventory",true);
     }
 
-    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount,$preview=false,$type="Service",$trackQtyOnHand=false)
+    public function insertItem($title, $desc, $sku,$qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount,$amount, $type="Service",$trackQtyOnHand=false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -229,9 +229,6 @@ class QuickbooksLib
         if (empty($qbItem)) {
             $qbItem = new \QuickBooks_IPP_Object_Item();
             $update = false;
-        }else{
-            $desc=$qbItem->getDescription();
-            $sku =$qbItem->getSKU();
         }
         $eAccountO = $this->getAccount($qbExpenseAccount);
         $iAccountO = $this->getAccount($qbIncomeAccount);
@@ -273,16 +270,12 @@ class QuickbooksLib
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
             $qbItem = $this->findQBItemByName($qbItem->getName());
         }
-        //dump($type);
-        //dump($amount);
-        //dump($qbItem);
-//        if (!$resp) {
-//            print($itemService->lastError($qbo->getContext()));die();
-//            return false;
-//        }
 
+        if (!$resp) {
+            print($itemService->lastError($qbo->getContext()));die();
+            return false;
+        }
 
-        //die();
         return $qbItem;
     }
 

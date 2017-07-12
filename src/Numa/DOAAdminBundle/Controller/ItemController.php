@@ -367,7 +367,14 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
 
             $em->flush();
-            //dump($request->get("redirect"));die();
+            // to QB
+            $suffix='.';
+            $qb = $this->isSeccesfullyUpdatedToQB($entity);
+            if ($qb){
+                $suffix  =" and it has been posted to Quickbooks.";
+            }
+            $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully inserted".$suffix);
+
             if ($request->get("redirect") == "images") {
                 $redirect = 'item_images';
                 if (strtoupper($this->dashboard) == 'DMS') {
@@ -385,14 +392,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         //sale form
 
         $entity->setSeo($seo);
+        $dealer =  $this->get('Numa.Dms.User')->getSignedDealer();
+        $entity->setDealer($dealer);
 
-
+        $qbo = $this->get("numa.quickbooks")->init();
         $params = array(
             'entity' => $entity,
             'form' => $form->createView(),
             'category' => $category,
             'seo' => $seoFormView,
             'dashboard' => $dashboard,
+            'qbo'=>$qbo
         );
         return $this->switchTemplateByCategory($cat_id, $params);
     }
@@ -565,9 +575,17 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $seoService = $this->container->get("Numa.Seo");
 
             $seo = $seoService->prepareSeo($entity, $seoPost);
+            $suffix = ".";
 
             $em->flush();
-            $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated.");
+            // to QB
+            $item=$em->getRepository(Item::class)->find($entity->getId());
+            $qb = $this->isSeccesfullyUpdatedToQB($item);
+            if ($qb){
+                $suffix  =" and it has been posted to Quickbooks.";
+            }
+
+            $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated".$suffix);
 
             if ($form->getClickedButton() != null && $form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('sale_print_inside', array('id' => $entity->getId())));
@@ -579,16 +597,16 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             return $this->redirectToRoute($redirect, array("id" => $entity->getId()));
         }
 
-
+        $qbo = $this->get("numa.quickbooks")->init();
         $params = array(
             'entity' => $entity,
-
             'form' => $form->createView(),
-
             'category' => $entity->getCategory(),
             'seo' => $seoFormView,
             'dashboard' => $this->dashboard,
+            'qbo'=>$qbo
         );
+
         return $this->switchTemplateByCategory($category, $params);
 
 
@@ -969,5 +987,18 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         }
         return $this->redirect($this->generateUrl($redirect, array('id' => $id)));
         //}
+    }
+
+    private function isSeccesfullyUpdatedToQB(Item $item){
+
+        if($item->getQbPostInclude()){
+
+            $qbItem = $this->get('numa.dms.quickbooks')->insertVehicleItem($item);
+
+            if($qbItem instanceof \QuickBooks_IPP_Object_Item){
+                return true;
+            }
+        }
+        return false;
     }
 }
