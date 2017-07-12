@@ -102,10 +102,7 @@
             {% if(is_granted("ROLE_ADMIN")) and js is defined and not js=='kijiji' %}
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
             {% endif %}
-            {% if not is_granted('ROLE_WHOLESALE_DMS') and not is_granted('ROLE_SALE2_DMS') and not kijiji %}
-                <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
-                <button type="button" class="btn btn-primary" ng-click="setKijiji()">Make Kijiji feed</button>
-            {% endif %}
+
             {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}
                 <button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>
             {% endif %}

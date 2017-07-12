@@ -212,4 +212,14 @@ class DmsUserLib
         return (strpos($host, '.local') !== false);
     }
 
+    public function isDevServer(){
+        $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
+        return (strpos($host, 'dev.dealersonair') !== false);
+    }
+
+    public function isQBReady(Catalogrecords $dealer){
+
+        return $this->isLocalHost() || $this->isDevServer() || $dealer->getUsername()=="qbautodealer";
+    }
+
 }
