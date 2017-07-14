@@ -1185,25 +1185,7 @@
         </div>
     </div>
     <script>
-        //    $(document).ready(function(){
-        //        $('input').live("keypress", function(e) {
-        //            /* ENTER PRESSED*/
-        //            alert("aaa");
-        //            if (e.keyCode == 13) {
-        //                /* FOCUS ELEMENT */
-        //                var inputs = $(this).parents("form").eq(0).find(":input");
-        //                var idx = inputs.index(this);
-        //
-        //                if (idx == inputs.length - 1) {
-        //                    inputs[0].select()
-        //                } else {
-        //                    inputs[idx + 1].focus(); //  handles submit buttons
-        //                    inputs[idx + 1].select();
-        //                }
-        //                return false;
-        //            }
-        //        });
-        //    })
+
         $(document).ready(function () {
             $('input').keydown(function (event) {
 
@@ -1221,8 +1203,19 @@
                     return false;
                 }
             });
+
+            $( form[name="numa_doadmsbundle_billing"]).submit(function() {
+                calculate();
+                return true; // return false to cancel form action
+            });
+            calculate();
         });
-        $('.col-md-10').keyup(function () {
+        $('.col-md-10').change(function () {
+            calculate()
+        });
+
+        function calculate() {
+            console.log("calculating");
             var n1 = parseFloat(document.getElementById("numa_doadmsbundle_billing_sale_price").value);
             var n2 = parseFloat(document.getElementById("numa_doadmsbundle_billing_admin_fee").value);
             var n3 = parseFloat(document.getElementById("numa_doadmsbundle_billing_warranty").value);
@@ -1310,6 +1303,6 @@
             $('#numa_doadmsbundle_billing_total_due').val(res2);
             $('#numa_doadmsbundle_billing_payable_on_delivery').val(res2 - (n11 + n12));
             $('#numa_doadmsbundle_billing_total_balance_due').val(((res2 - (n11 + n12)) - n13) + (n14 + n15));
-        });
+        }
     </script>
 {% endblock %}
