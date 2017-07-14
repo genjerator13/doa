@@ -166,7 +166,8 @@ class Service
 
     public function isConnected()
     {
-        return $this->isConnected || !empty($this->container->get("session")->get("qb")[$this->dealer->getId()]);
+
+        return $this->isConnected || ($this->dealer instanceof Catalogrecords && !empty($this->container->get("session")->get("qb")[$this->dealer->getId()]));
     }
 
     public function getCompanyInfoService()
