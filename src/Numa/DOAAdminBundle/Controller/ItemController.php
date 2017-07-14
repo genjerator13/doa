@@ -581,10 +581,13 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             // to QB
             $item=$em->getRepository(Item::class)->find($entity->getId());
             $qb = $this->isSeccesfullyUpdatedToQB($item);
+
             if ($qb){
                 $suffix  =" and it has been posted to Quickbooks.";
             }
-
+            if($item->getQbPostInclude()) {
+                $this->get("numa.dms.quickbooks")->insertItemPO($entity);
+            }
             $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated".$suffix);
 
             if ($form->getClickedButton() != null && $form->getClickedButton()->getName() == "submitAndPrint") {
