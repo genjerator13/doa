@@ -27,10 +27,10 @@
         <script type="text/javascript" src="{{ asset_url }}"></script>
         {#{% if app.session.get('qb')==1 %}#}
         {#<script type="text/javascript">#}
-            {#intuit.ipp.anywhere.setup({#}
-                {#menuProxy: '{{ param.getQuickbooksMenuUrl() }}',#}
-                {#grantUrl: '{{ param.getQuickbooksOauthUrl() }}'#}
-            {#});#}
+        {#intuit.ipp.anywhere.setup({#}
+        {#menuProxy: '{{ param.getQuickbooksMenuUrl() }}',#}
+        {#grantUrl: '{{ param.getQuickbooksOauthUrl() }}'#}
+        {#});#}
         {#</script>#}
         {#{% endif %}#}
         {% endjavascripts %}
@@ -76,6 +76,15 @@
                     {% endif %}
                     <!-- /.messages-menu -->
                     <!-- Messages: style can be found in dropdown.less-->
+                    {% if quickbooksService.isConnected() %}
+                    <li class="dropdown messages-menu">
+                        <!-- Menu toggle button -->
+                        <a target="_blank" href="{{ url('homepage') }}">
+                            <i class="fa fa-link"></i>
+                            <span class="">Connected to Quickbooks</span>
+                        </a>
+                    {% endif %}
+                    </li><!-- /.messages-menu -->
                     <li class="dropdown messages-menu">
                         <!-- Menu toggle button -->
                         <a target="_blank" href="{{ url('homepage') }}">
@@ -210,7 +219,8 @@
                             {% endif %}
                             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
                                 <li class="active">
-                                    <a href="{{ path('financeservice') }}" class=""><i class="fa fa-inbox"></i>Financing Service</a>
+                                    <a href="{{ path('financeservice') }}" class=""><i class="fa fa-inbox"></i>Financing
+                                        Service</a>
                                 </li>
                             {% endif %}
                             {% if (is_granted('ROLE_ADMIN') or
@@ -275,7 +285,8 @@
                                         Listings</a>
                                 </li>
                                 <li class="active">
-                                    <a href="{{ path('inventory_kijiji') }}" class=""><i class="fa fa-truck"></i>Listings Kijiji View</a>
+                                    <a href="{{ path('inventory_kijiji') }}" class=""><i class="fa fa-truck"></i>Listings
+                                        Kijiji View</a>
                                 </li>
                                 {% if is_granted('ROLE_ADMIN') %}
 
