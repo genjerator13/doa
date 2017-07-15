@@ -1294,15 +1294,15 @@
 //                n16 = 0;
 //            }
 
-            var res1 = n1 + n2 + n3 + n4;
-            var res2 = res1 - n5 + (n6 + n7 + n77) + n8 + n9 + n10;
+            var res1 = (n1 + n2 + n3 + n4).toFixed(2);
+            var res2 = (res1 - n5 + (n6 + n7 + n77) + n8 + n9 + n10).toFixed(2);
 
             $('#numa_doadmsbundle_billing_tos_total').val(res1);
-            $('#numa_doadmsbundle_billing_difference_payable').val(res1 - n5);
-            $('#numa_doadmsbundle_billing_taxes_paid_total').val(n8 + n9);
+            $('#numa_doadmsbundle_billing_difference_payable').val(res1 - n5.toFixed(2));
+            $('#numa_doadmsbundle_billing_taxes_paid_total').val((n8 + n9).toFixed(2));
             $('#numa_doadmsbundle_billing_total_due').val(res2);
-            $('#numa_doadmsbundle_billing_payable_on_delivery').val(res2 - (n11 + n12));
-            $('#numa_doadmsbundle_billing_total_balance_due').val(((res2 - (n11 + n12)) - n13) + (n14 + n15));
+            $('#numa_doadmsbundle_billing_payable_on_delivery').val((res2 - (n11 + n12)).toFixed(2));
+            $('#numa_doadmsbundle_billing_total_balance_due').val((((res2 - (n11 + n12)) - n13) + (n14 + n15)).toFixed(2));
         }
     </script>
 {% endblock %}
