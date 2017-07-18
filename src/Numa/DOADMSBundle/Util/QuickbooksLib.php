@@ -308,14 +308,6 @@ class QuickbooksLib
         $desc = $this->getQBDesc($item);
         $amount = $this->getQBPrice($item);
 
-        $qbItem = $this->findQBItemByName($title);
-
-        $update = true;
-        if (empty($qbItem)) {
-            $qbItem = new \QuickBooks_IPP_Object_Item();
-            $update = false;
-        }
-
         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
@@ -332,11 +324,10 @@ class QuickbooksLib
         //if not set
         //search qb service based by property
         //if not found create a new one
-        $qbItem = $this->findQBItemByName($title);
-        $update = true;
+        $qbItem = $this->findQBItemBySku($sku);
+
         if (empty($qbItem)) {
             $qbItem = new \QuickBooks_IPP_Object_Item();
-            $update = false;
         }
         $eAccountO = $this->getAccount($qbExpenseAccount);
         $iAccountO = $this->getAccount($qbIncomeAccount);
@@ -372,11 +363,10 @@ class QuickbooksLib
         $qbItem->setInvStartDate($today->format("Y-m-d"));
         //$qbItem->setTrackQtyOnHand(true);
 
-        if ($update) {
+        if (!empty($qbItem->getId())) {
             $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
         } else {
             $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
-            $qbItem = $this->findQBItemByName($qbItem->getName());
         }
 
         if (!$resp) {
@@ -433,6 +423,18 @@ class QuickbooksLib
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
         $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Item WHERE name = '" . $name . "'");
+        if (!empty($items[0])) {
+            return $items[0];
+        }
+        return false;
+
+    }
+
+    public function findQBItemBySku($sku)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+        $ItemService = new \QuickBooks_IPP_Service_Term();
+        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Item WHERE sku = '" . $sku . "'");
         if (!empty($items[0])) {
             return $items[0];
         }

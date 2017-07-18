@@ -178,7 +178,7 @@
                             {{ form_row(form.active) }}
                             {{ form_row(form.featured) }}
 
-                            {% if (isQBReady(entity.Dealer) and qbo.isConnected()) %}
+                            {% if entity.Dealer is defined and entity.Dealer is not empty and (isQBReady(entity.Dealer) and qbo.isConnected()) %}
                                 <div class="form-group">
                                     <div class="col-sm-2"></div>
                                     <div class="col-sm-10">
