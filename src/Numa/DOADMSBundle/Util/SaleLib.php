@@ -214,13 +214,14 @@ class SaleLib
                         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($prop);
                         $qbIncomeAccountSetting  = $this->container->get("numa.settings")->getValue3($prop);
                         $qbAssetAccountSetting   = $this->container->get("numa.settings")->getValue4($prop);
-                        $qbAPAccountSetting   = $this->container->get("numa.settings")->getValue5($prop);
+//                        $qbAPAccountSetting   = $this->container->get("numa.settings")->getValue5($prop);
 
                         $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
                         $temp['IncomeAccount'] = $qbIncomeAccountSetting;
                         $temp['AssetAccount'] = $qbAssetAccountSetting;
-                        $temp['description'] = "";
-                        $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($temp['title']);
+                        $temp['description'] =$this->container->get("numa.dms.quickbooks")->getQBDesc($item);
+
+                        $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($this->container->get("numa.dms.listing")->getListingTitle($item));
                         $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
                         $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
                         $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
