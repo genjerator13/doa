@@ -45,7 +45,7 @@ class Service
         $this->container = $container;
     }
 
-    public function init()
+    public function init($dealer=null)
     {
         $token = '1c83db3db8f0fb44bfba721b5589dd1ed557';
         $oauth_consumer_key = 'qyprd5kDh2hG89BYGV3zawcxjF3srW';
@@ -77,6 +77,9 @@ class Service
 
 // The tenant that user is accessing within your own app
         $this->dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        if($dealer instanceof Catalogrecords) {
+            $this->dealer=$dealer;
+        }
 
         $this->tenant = 12345;
 
