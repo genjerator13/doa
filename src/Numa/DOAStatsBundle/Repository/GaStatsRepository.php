@@ -31,12 +31,13 @@ class GaStatsRepository extends EntityRepository
                 day(`date_stats`) AS day
                 FROM `ga_stats`
                 WHERE dealer_id = $dealer_id
-                AND `date_stats`>=$day
+                AND `date_stats`>='$day'
                 GROUP BY (31-DAY(`date_stats`))
                 ORDER BY date_stats
                 ";
         //                //AND YEAR(`date_stats`) = $todaysYear
         //AND month(`date_stats`) = $todaysMonth
+
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $res;
     }
