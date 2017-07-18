@@ -103,12 +103,12 @@
                 <button type="button" class="btn btn-warning" ng-click="setFeatured()">Make Featured</button>
             {% endif %}
             <button type="button" class="btn btn-danger" ng-click="setDelete()">Delete</button>
-            {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}
-                <button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>
-            {% endif %}
-            {% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji  %}
-                <button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>
-            {% endif %}
+            {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji %}#}
+                {#<button type="button" class="btn btn-danger" ng-click="addToQB()">Add to QB</button>#}
+            {#{% endif %}#}
+            {#{% if is_granted("ROLE_ADMIN") and qbo is defined and qbo.isConnected() and not kijiji  %}#}
+                {#<button type="button" class="btn btn-danger" ng-click="addToQBPO()">Add to QB as PO</button>#}
+            {#{% endif %}#}
             {% if kijiji %}
                 <button type="button" class="btn btn-danger" ng-click="setKijijiRemove()">Remove from kijiji feed</button>
                 <button type="button" class="btn btn-primary" ng-click="setKijijiAdd()">Add to Kijiji feed</button>

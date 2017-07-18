@@ -29,10 +29,13 @@ class QuickbooksLib
         $this->container = $container;
     }
 
-    public function setDealer(Catalogrecords $dealer){
+    public function setDealer(Catalogrecords $dealer)
+    {
         $this->dealer = $dealer;
     }
-    public function getDealer(){
+
+    public function getDealer()
+    {
         return $this->dealer;
     }
 
@@ -116,6 +119,28 @@ class QuickbooksLib
         return $qbPO;
     }
 
+    public function addLineToBill($qbBill,$property, $amount, $description)
+    {
+        $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setDetailType('AccountBasedExpenseLineDetail');
+
+        $Line->setAmount($amount);
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
+
+
+        //$settingLib = $this->container->get("numa.settings");
+
+        $Line->setDescription($description);
+        $AccountBasedExpenseLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
+        $AccountBasedExpenseLineDetail->setAccountRef('{-17}');
+
+        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
+
+        $qbBill->addLine($Line);
+        return $qbBill;
+    }
+
     public function createItemPO(Item $item)
     {
         $qbPODocNumber = $this->generateQBPODocNumber($item);
@@ -148,7 +173,7 @@ class QuickbooksLib
         }
         $qbPO->setLine(null);
         //if (empty($qbPO->getID())) {
-            $qbPO->addLine($Line);
+        $qbPO->addLine($Line);
         //}
 
         if ($vendor instanceof Vendor) {
@@ -185,7 +210,7 @@ class QuickbooksLib
     {
         $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
 
-        $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item,true);
+        $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item, true);
         $QBBills = array();
 
         foreach ($vendors as $vendor) {
@@ -193,40 +218,35 @@ class QuickbooksLib
             $QBBills[] = $QBBill;
         }
 
+        $this->insertQBBills($QBBills);
 
-//        if (!$resp) {
-//            return false;
-//        }
         return true;
     }
 
-    public function createQBBill($item,$vendorArray){
+    public function createQBBill($item, $vendorArray)
+    {
         $vendor = $vendorArray[0]['vendor'];
+        $property = $vendorArray[0]['property'];
+        $qbVendor = $vendorArray[0]['qbVendor'];
+        $qbItem = $vendorArray[0]['qbItem'];
+
         $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
-        $docNumber = $this->generateQBBillDocNumber($item,$property);
+
+        $docNumber = $this->generateQBBillDocNumber($item, $property);
         $qbBill = $this->findQBBillByDocNumber($docNumber);
 
         if (!$qbBill instanceof \QuickBooks_IPP_Object_Bill) {
             $qbBill = new \QuickBooks_IPP_Object_Bill();
         }
-        $qbVendor = $this->getSupplier($vendor->getCompanyName());
         $qbBill->setDocNumber($docNumber);
         $qbBill->setVendorRef($qbVendor->getId());
-        $qbBill->setAPAccountRef("{31}");
+        $qbBill->setItemRef($qbItem->getId());
+        foreach ($vendorArray as $vendorItem) {
+
+            $this->addLineToBill($qbBill,$property, $vendorItem['amount'], "test");
+        }
 
 
-        $Line = new QuickBooks_IPP_Object_Line();
-        $Line->setAmount(650);
-        $Line->setDetailType('AccountBasedExpenseLineDetail');
-
-        $AccountBasedExpenseLineDetail = new QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
-        $AccountBasedExpenseLineDetail->setAccountRef('{-17}');
-
-        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
-
-        $Bill->addLine($Line);
-
-        dump($qbBill);die();
         return $qbBill;
     }
 
@@ -235,8 +255,9 @@ class QuickbooksLib
      * @param $docNumber
      * @return
      */
-    public function findQBBillByDocNumber($docNumber){
-        return $this->findQBByDocNumber('Bill',$docNumber);
+    public function findQBBillByDocNumber($docNumber)
+    {
+        return $this->findQBByDocNumber('Bill', $docNumber);
     }
 
     /**
@@ -249,7 +270,7 @@ class QuickbooksLib
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
-        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM ".$QBentity." WHERE DocNumber = '" . $docNumber . "'");
+        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM " . $QBentity . " WHERE DocNumber = '" . $docNumber . "'");
         if (!empty($items[0])) {
             return $items[0];
         }
@@ -421,7 +442,7 @@ class QuickbooksLib
 
     public function findQBPOByDocNumber($docNumber)
     {
-        return $this->findQBByDocNumber('PurchaseOrder',$docNumber);
+        return $this->findQBByDocNumber('PurchaseOrder', $docNumber);
     }
 
     public function getAllSuppliers()
@@ -674,8 +695,38 @@ class QuickbooksLib
         return $item->getDealerId() . "_" . $item->getId();
     }
 
-    public function generateQBBillDocNumber(Item $item,$property)
+    public function generateQBBillDocNumber(Item $item, $property)
     {
-        return $item->getDealerId() . "_" . $item->getId()."_".$property;
+
+        if (stripos($property, "get") === 0) {
+            $property = strip_tags(strtolower(substr($property, 3)));
+        };
+        return $item->getDealerId() . "_" . $item->getId() . "_" . $property;
+    }
+
+    public function insertQBBill(\QuickBooks_IPP_Object_Bill $qbBill){
+        $BillService = new \QuickBooks_IPP_Service_Bill();
+        $qbo = $this->container->get("numa.quickbooks")->init();
+        if(empty($qbBill->getId())) {
+            if ($resp = $BillService->add($qbo->getContext(), $qbo->getRealm(), $qbBill)) {
+                return $qbBill;
+            } else {
+                dump('Bill add failed...? ' . $BillService->lastError());
+                return false;
+            }
+        }else{
+            if ($resp = $BillService->update($qbo->getContext(), $qbo->getRealm(),$qbBill->getId(), $qbBill)) {
+                return $qbBill;
+            } else {
+                dump('Bill update failed...? ' . $BillService->lastError());
+                return false;
+            }
+        }
+    }
+    public function insertQBBills($qbBills){
+        foreach ($qbBills as $qbBill) {
+            $this->insertQBBill($qbBill);
+        }
+        
     }
 }

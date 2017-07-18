@@ -25,4 +25,16 @@ class QuickbooksLibTest extends KernelTestCase
         $ql->insertItemBills($item);
         //$this->assertEquals("SV Crew Cab LWB 5AT 4WD", $title);
     }
+    public function testCreateQBBill2(){
+
+        $dealer = $this->em->getRepository(Catalogrecords::class)->find(33);
+        $ql = new QuickbooksLib($this->container);
+
+        $ql->setDealer($dealer);
+        //dump($this->container);die();
+        $item = $this->em->getRepository(Item::class)->find(32500);
+        $ql->insertItemBills($item);
+        //$this->assertEquals("SV Crew Cab LWB 5AT 4WD", $title);
+    }
+
 }
