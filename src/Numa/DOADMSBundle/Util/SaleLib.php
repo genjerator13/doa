@@ -159,7 +159,7 @@ class SaleLib
 
                 $temp['description'] = $this->container->get("numa.dms.quickbooks")->getQBDesc($item);
                 $temp['amount'] = $this->container->get("numa.dms.quickbooks")->getQBPrice($item);
-                $temp['sku'] = $item->getStockNr();
+                $temp['sku'] = $item->getVIN();
                 $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
                 $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
                 $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
@@ -171,7 +171,7 @@ class SaleLib
                 //qb get aa from QB by title
 
                 $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks')->dmsToQbVendor($vehVendor);
-                $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($temp['title']);
+                $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemBySku($item->getVIN());
                 $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
                 $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
                 $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
@@ -221,7 +221,7 @@ class SaleLib
                         $temp['AssetAccount'] = $qbAssetAccountSetting;
                         $temp['description'] =$this->container->get("numa.dms.quickbooks")->getQBDesc($item);
 
-                        $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemByName($this->container->get("numa.dms.listing")->getListingTitle($item));
+                        $temp['qbItem'] = $this->container->get("numa.dms.quickbooks")->findQBItemBySku($item->getVIN());
                         $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbExpenseAccountSetting);
                         $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbIncomeAccountSetting);
                         $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks")->getAccount($qbAssetAccountSetting);
