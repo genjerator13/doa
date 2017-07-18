@@ -947,4 +947,10 @@
             </tr>
         </table>
     </div>
+    <div class="last-page">
+
+        {% if dealer.termsText is defined %}
+            {{ dealer.termsText()|raw }}
+        {% endif %}
+    </div>
 {% endblock %}
