@@ -586,8 +586,9 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
                 $suffix  =" and it has been posted to Quickbooks.";
             }
             if($item->getQbPostInclude()) {
-                $this->get("numa.dms.quickbooks")->insertItemPO($entity);
-                $this->get("numa.dms.quickbooks")->insertItemBills($entity);
+                $okInsertPO = $this->get("numa.dms.quickbooks")->insertItemPO($entity);
+                $okInsertBills =$this->get("numa.dms.quickbooks")->insertItemBills($entity);
+
             }
             $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated".$suffix);
 
