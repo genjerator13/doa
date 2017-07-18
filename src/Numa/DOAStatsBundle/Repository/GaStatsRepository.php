@@ -37,7 +37,7 @@ class GaStatsRepository extends EntityRepository
                 ";
         //                //AND YEAR(`date_stats`) = $todaysYear
         //AND month(`date_stats`) = $todaysMonth
-        
+
         $res = $this->getEntityManager()->getConnection()->fetchAll($sql);
         return $res;
     }
