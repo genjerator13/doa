@@ -9,6 +9,7 @@
 namespace Numa\DOADMSBundle\Util;
 
 
+use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 
 use Numa\DOADMSBundle\Entity\Sale;
@@ -17,7 +18,7 @@ use Numa\DOADMSBundle\Entity\Vendor;
 class QuickbooksLib
 {
     protected $container;
-
+    protected $dealer;
 
     /**
      * ListingFormHandler constructor.
@@ -26,6 +27,13 @@ class QuickbooksLib
     public function __construct($container) // this is @service_container
     {
         $this->container = $container;
+    }
+
+    public function setDealer(Catalogrecords $dealer){
+        $this->dealer = $dealer;
+    }
+    public function getDealer(){
+        return $this->dealer;
     }
 
     public function addToQB($ids)
@@ -158,21 +166,94 @@ class QuickbooksLib
         $qbPO = $this->createItemPO($item);
 
         $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
-        dump($qbPO);
+
         if (!empty($qbPO->getId())) {
-            dump("update");
+
             $resp = $PurchaseService->update($qbo->getContext(), $qbo->getRealm(), $qbPO->getId(), $qbPO);
         } else {
-            dump("new");
+
             $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
         }
 
         if (!$resp) {
-            dump($PurchaseService->lastError($qbo->getContext()));
-            die();
             return false;
         }
         return true;
+    }
+
+    public function insertItemBills(Item $item)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
+
+        $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item,true);
+        $QBBills = array();
+
+        foreach ($vendors as $vendor) {
+            $QBBill = $this->createQBBill($item, $vendor);
+            $QBBills[] = $QBBill;
+        }
+
+
+//        if (!$resp) {
+//            return false;
+//        }
+        return true;
+    }
+
+    public function createQBBill($item,$vendorArray){
+        $vendor = $vendorArray[0]['vendor'];
+        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
+        $docNumber = $this->generateQBBillDocNumber($item,$property);
+        $qbBill = $this->findQBBillByDocNumber($docNumber);
+
+        if (!$qbBill instanceof \QuickBooks_IPP_Object_Bill) {
+            $qbBill = new \QuickBooks_IPP_Object_Bill();
+        }
+        $qbVendor = $this->getSupplier($vendor->getCompanyName());
+        $qbBill->setDocNumber($docNumber);
+        $qbBill->setVendorRef($qbVendor->getId());
+        $qbBill->setAPAccountRef("{31}");
+
+
+        $Line = new QuickBooks_IPP_Object_Line();
+        $Line->setAmount(650);
+        $Line->setDetailType('AccountBasedExpenseLineDetail');
+
+        $AccountBasedExpenseLineDetail = new QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
+        $AccountBasedExpenseLineDetail->setAccountRef('{-17}');
+
+        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
+
+        $Bill->addLine($Line);
+
+        dump($qbBill);die();
+        return $qbBill;
+    }
+
+    /**
+     * Finds a QB bill by doc number or if there is no bill with that QB number, creates a new one
+     * @param $docNumber
+     * @return
+     */
+    public function findQBBillByDocNumber($docNumber){
+        return $this->findQBByDocNumber('Bill',$docNumber);
+    }
+
+    /**
+     * Find QB entity by docnumber
+     * @param $QBentity
+     * @param $docNumber
+     * @return bool
+     */
+    public function findQBByDocNumber($QBentity, $docNumber)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+        $ItemService = new \QuickBooks_IPP_Service_Term();
+        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM ".$QBentity." WHERE DocNumber = '" . $docNumber . "'");
+        if (!empty($items[0])) {
+            return $items[0];
+        }
+        return false;
     }
 
     public function insertPurchaseOrder(\QuickBooks_IPP_Object_PurchaseOrder $qbPO)
@@ -206,12 +287,6 @@ class QuickbooksLib
         $desc = $this->getQBDesc($item);
         $amount = $this->getQBPrice($item);
 
-//        //update Item with QB id reference
-//        $em = $this->container->get('doctrine.orm.entity_manager');
-//        $item->setQbItemId($item->getId());
-//dump($item);die();
-//        $em->flush();
-
         $qbItem = $this->findQBItemByName($title);
 
         $update = true;
@@ -219,7 +294,6 @@ class QuickbooksLib
             $qbItem = new \QuickBooks_IPP_Object_Item();
             $update = false;
         }
-
 
         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
@@ -347,13 +421,7 @@ class QuickbooksLib
 
     public function findQBPOByDocNumber($docNumber)
     {
-        $qbo = $this->container->get("numa.quickbooks")->init();
-        $ItemService = new \QuickBooks_IPP_Service_Term();
-        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM PurchaseOrder WHERE DocNumber = '" . $docNumber . "'");
-        if (!empty($items[0])) {
-            return $items[0];
-        }
-        return false;
+        return $this->findQBByDocNumber('PurchaseOrder',$docNumber);
     }
 
     public function getAllSuppliers()
@@ -367,6 +435,11 @@ class QuickbooksLib
         return $qbVendors;
     }
 
+    /**
+     * Returns QB vendor object for requested name, if notfound returns false
+     * @param $name
+     * @return \QuickBooks_IPP_Service_Vendor|false
+     */
     public function getSupplier($name)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
@@ -380,6 +453,12 @@ class QuickbooksLib
         return false;
     }
 
+    /**
+     * For a DMS Vendor entity returns QB vendor object
+     * If the DMS vendor name exists just update, else crete new QB vendor record
+     * @param Vendor $vendor
+     * @return bool|false|\QuickBooks_IPP_Object_Vendor
+     */
     public function dmsToQbVendor(Vendor $vendor)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
@@ -593,5 +672,10 @@ class QuickbooksLib
     public function generateQBPODocNumber(Item $item)
     {
         return $item->getDealerId() . "_" . $item->getId();
+    }
+
+    public function generateQBBillDocNumber(Item $item,$property)
+    {
+        return $item->getDealerId() . "_" . $item->getId()."_".$property;
     }
 }
