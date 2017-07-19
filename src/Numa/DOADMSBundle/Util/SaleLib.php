@@ -231,7 +231,7 @@ class SaleLib
                             $temp['description'] = $desc;
                         }
 
-                        $byVendors[$vendorId][] = $temp;
+                        $byVendors[][] = $temp;
                     }
                 }
                 $props[$prop] = $temp;
