@@ -218,7 +218,8 @@ class QuickbooksLib
             $QBBills[] = $QBBill;
         }
 
-        $this->insertQBBills($QBBills);
+        $done = $this->insertQBBills($QBBills);
+
 
         return true;
     }
@@ -241,6 +242,7 @@ class QuickbooksLib
         $qbBill->setDocNumber($docNumber);
         $qbBill->setVendorRef($qbVendor->getId());
         $qbBill->setItemRef($qbItem->getId());
+        $qbBill->setLine(null);
         foreach ($vendorArray as $vendorItem) {
 
             $this->addLineToBill($qbBill,$property, $vendorItem['amount'], "test");
@@ -724,11 +726,13 @@ class QuickbooksLib
                 return false;
             }
         }
+        return $qbBill;
     }
     public function insertQBBills($qbBills){
+        $done = array();
         foreach ($qbBills as $qbBill) {
-            $this->insertQBBill($qbBill);
+            $done[] = $this->insertQBBill($qbBill);
         }
-        
+        return $done;
     }
 }
