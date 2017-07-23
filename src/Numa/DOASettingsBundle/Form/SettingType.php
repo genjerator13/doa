@@ -21,7 +21,9 @@ class SettingType extends AbstractType
             ->add('section')
         ;
 
-        $builder->addEventSubscriber(new SettingsSubscriber());
+
+        $builder->addEventSubscriber(new SettingsSubscriber($options['container']));
+
     }
     
     /**
@@ -40,5 +42,10 @@ class SettingType extends AbstractType
     public function getName()
     {
         return 'numa_doasettingsbundle_setting';
+    }
+
+    public function getParent()
+    {
+        return 'container_aware';
     }
 }
