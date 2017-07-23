@@ -19,7 +19,7 @@ class QuickbooksLibTest extends KernelTestCase
         $ql = new QuickbooksAccountLib($this->container);
         $ql->setDealer($dealer);
 
-        $list = $ql->listAllAccounts();
+        $list = $ql->listAllAccounts($dealer);
         dump($list);
         $this->assertGreaterThan(1,count($list));
     }
