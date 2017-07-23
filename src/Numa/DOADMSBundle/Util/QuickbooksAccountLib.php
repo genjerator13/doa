@@ -35,11 +35,15 @@ class QuickbooksAccountLib
         return $this->dealer;
     }
 
-    public function listAllAccounts(){
-        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
+    public function listAllAccounts(Catalogrecords $dealer){
+
+        $qbo = $this->container->get("numa.quickbooks")->init($dealer);
         $ItemService = new \QuickBooks_IPP_Service_Term();
         $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Account");
-        return $items;
-
+        $r = array();
+        foreach($items as $item){
+            $r[$item->getName()] = $item->getName();
+        }
+        return $r;
     }
 }
