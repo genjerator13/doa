@@ -8,11 +8,19 @@
  */
 namespace Numa\DOASettingsBundle\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 
 class SettingsSubscriber implements EventSubscriberInterface
 {
+
+    protected $container;
+
+    public function __construct($container)
+    {
+        $this->container = $container;
+    }
 
     public static function getSubscribedEvents()
     {
@@ -29,14 +37,22 @@ class SettingsSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         if($data->getSection()=="QB"){
+            $list = $this->listDefaultQBAccounts();
+            //dump($list);
             $form->remove('section');
-            $form->add('value',null,array("label"=>"QB Name"));
-            $form->add('value2',null,array("label"=>"Expense Account"));
-            $form->add('value3',null,array("label"=>"Income Account"));
-            $form->add('value4',null,array("label"=>"Asset Account"));
+            $form->add('value',ChoiceType::class,array("choices"=>$list,"label"=>"QB Name"));
+            $form->add('value2',ChoiceType::class,array("choices"=>$list,"label"=>"Expense Account"));
+            $form->add('value3',ChoiceType::class,array("choices"=>$list,"label"=>"Income Account"));
+            $form->add('value4',ChoiceType::class,array("choices"=>$list,"label"=>"Asset Account"));
             $form->add('section');
         }
 
+    }
+
+    public function listDefaultQBAccounts(){
+        $dealer = $this->container->get("numa.dms.user")->getSignedUser();
+        $list =  $this->container->get("numa.dms.quickbooks.account")->listAllAccounts($dealer);
+        return $list;
     }
 
 }
