@@ -354,7 +354,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
         if ($form->isValid()) {
 
-            if (!empty($entity->getVIN())) {
+            if (!empty($entity->getVIN()) && !$this->isGranted('ROLE_NODMS_USER')) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
                 $entity->setVindecoder($decodedvin);
                 $this->get("numa.dms.listing")->insertFromVinDecoder($entity);
@@ -559,7 +559,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $sale = $entity->getSale();
             $sale->setItem($entity);
 
-            if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN()) {
+            if (!empty($entity->getVIN()) && $oldVin != $entity->getVIN() && !$this->isGranted("ROLE_NODMS_USER")) {
                 $decodedvin = $this->get("numa.dms.listing")->vindecoder($entity);
 
                 $entity->setVindecoder($decodedvin);
