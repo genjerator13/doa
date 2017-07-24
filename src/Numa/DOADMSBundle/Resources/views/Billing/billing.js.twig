@@ -1,7 +1,14 @@
 //var app = angular.module('myApp', ['angular-loading-bar']);
 var app = angular.module('myApp', []);
 var names = [];
+function parseFloatx(num){
+    num = num || 0;
+    if (isNaN(num)) {
+        num=parseFloat(0);
+    }
+    return parseFloat(num);
 
+}
 app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.stock = "";
     {% if  max_invoive_nr is defined %}
@@ -50,39 +57,39 @@ app.controller('myCtrl', function ($scope, $http, $element) {
                 $scope.total = response.data.total;
                 $scope.less_discount = response.data.less_discount;
                 $scope.options_total_cost = response.data.options_total_cost;
-                $scope.sale_price = response.data.sale_price;
-                $scope.admin_fee = response.data.admin_fee;
-                $scope.warranty = response.data.warranty;
-                $scope.new_warranty = response.data.new_warranty;
-                $scope.used_warranty = response.data.used_warranty;
-                $scope.protection_pkg = response.data.protection_pkg;
-                $scope.tos_total = response.data.tos_total;
-                $scope.less_trade_in = response.data.less_trade_in;
-                $scope.difference_payable = response.data.difference_payable;
-                $scope.tax1 = response.data.tax1;
-                $scope.tax2 = response.data.tax2;
-                $scope.tax3 = response.data.tax3;
+                $scope.sale_price = parseFloatx(response.data.sale_price).toFixed(2);
+                $scope.admin_fee = parseFloatx(response.data.admin_fee).toFixed(2);
+                $scope.warranty = parseFloatx(response.data.warranty).toFixed(2);
+                $scope.new_warranty = parseFloatx(response.data.new_warranty).toFixed(2);
+                $scope.used_warranty = parseFloatx(response.data.used_warranty).toFixed(2);
+                $scope.protection_pkg = parseFloatx(response.data.protection_pkg).toFixed(2);
+                $scope.tos_total = parseFloatx(response.data.tos_total).toFixed(2);
+                $scope.less_trade_in = parseFloatx(response.data.less_trade_in).toFixed(2);
+                $scope.difference_payable = parseFloatx(response.data.difference_payable).toFixed(2);
+                $scope.tax1 = parseFloatx(response.data.tax1).toFixed(2);
+                $scope.tax2 = parseFloatx(response.data.tax2).toFixed(2);
+                $scope.tax3 = parseFloatx(response.data.tax3).toFixed(2);
                 $scope.taxt1_name = response.data.taxt1_name;
                 $scope.taxt2_name = response.data.taxt2_name;
                 $scope.taxt3_name = response.data.taxt3_name;
 
-                $scope.other_misc1 = response.data.other_misc1;
-                $scope.other_misc2 = response.data.other_misc2;
+                $scope.other_misc1 = parseFloatx(response.data.other_misc1).toFixed(2);
+                $scope.other_misc2 = parseFloatx(response.data.other_misc2).toFixed(2);
                 $scope.other_misc1_name = "PST Tax";
                 $scope.other_misc2_name = "GST Tax";
-                $scope.taxes_paid_total = response.data.taxes_paid_total;
-                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
-                $scope.total_due = response.data.total_due;
-                $scope.less_trade_in_tax = response.data.less_trade_in_tax;
-                $scope.lien_on_trade_in = response.data.lien_on_trade_in;
-                $scope.less_deposit = response.data.less_deposit;
-                $scope.payable_on_delivery = response.data.payable_on_delivery;
-                $scope.balance_to_finance = response.data.balance_to_finance;
-                $scope.insurance = response.data.insurance;
-                $scope.total_balance_due = response.data.total_balance_due;
-                $scope.bank_registration_fee = response.data.bank_registration_fee;
-                $scope.life_insurance = response.data.life_insurance;
-                $scope.disability_insurance = response.data.disability_insurance;
+                $scope.taxes_paid_total = parseFloatx(response.data.taxes_paid_total).toFixed(2);
+                $scope.lien_on_trade_in = parseFloatx(response.data.lien_on_trade_in).toFixed(2);
+                $scope.total_due = parseFloatx(response.data.total_due).toFixed(2);
+                $scope.less_trade_in_tax = parseFloatx(response.data.less_trade_in_tax).toFixed(2);
+                $scope.lien_on_trade_in = parseFloatx(response.data.lien_on_trade_in).toFixed(2);
+                $scope.less_deposit = parseFloatx(response.data.less_deposit).toFixed(2);
+                $scope.payable_on_delivery = parseFloatx(response.data.payable_on_delivery).toFixed(2);
+                $scope.balance_to_finance = parseFloatx(response.data.balance_to_finance).toFixed(2);
+                $scope.insurance = parseFloatx(response.data.insurance).toFixed(2);
+                $scope.total_balance_due = parseFloatx(response.data.total_balance_due).toFixed(2);
+                $scope.bank_registration_fee = parseFloatx(response.data.bank_registration_fee).toFixed(2);
+                $scope.life_insurance = parseFloatx(response.data.life_insurance).toFixed(2);
+                $scope.disability_insurance = parseFloatx(response.data.disability_insurance).toFixed(2);
                 $scope.work_order = response.data.work_order;
 
                 $scope.opt1 = response.data.opt1;
@@ -109,6 +116,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
 
             });
     {% endif %}
+
     $scope.change = function (field) {
 
         $scope.find = $scope.stock;
@@ -118,7 +126,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         }
 
         console.log($scope.find);
-        if($scope.find.length == 0){
+        if ($scope.find.length == 0) {
             $scope.listingyear = "";
             $scope.listingmake = "";
             $scope.listingmodel = "";
@@ -187,7 +195,110 @@ app.controller('myCtrl', function ($scope, $http, $element) {
         }
 
     }
+    $scope.calculateTosTotal = function () {
+        console.log("ANGUAR CALCULATE tos total");
+        res1 = (parseFloat($scope.sale_price) + parseFloat($scope.admin_fee) + parseFloat($scope.warranty) + parseFloat($scope.protection_pkg));
+        $scope.tos_total = parseFloat(res1).toFixed(2);
+        console.log("tos_total=sale_price+admin_fee+warranty+protection_pkg="+parseFloat($scope.sale_price)+"+"+parseFloat($scope.sale_price)+"+"+parseFloat($scope.warranty)+"+"+parseFloat($scope.protection_pkg)+"="+$scope.tos_total);
+    }
+    $scope.calculateDiffPayable = function () {
+        console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
+        difference_payable = $scope.tos_total - parseFloat($scope.less_trade_in);
+        $scope.difference_payable = difference_payable.toFixed(2);
+        console.log("difference_payable=tos_total-less_trade_in="+parseFloat($scope.tos_total)+"-"+parseFloat($scope.less_trade_in)+"="+$scope.difference_payable);
 
+    }
+    $scope.calculateTaxesPaidTotal = function () {
+        console.log("ANGUAR CALCULATE calculateTaxesPaidTotal");
+        taxes_paid_total = parseFloatx($scope.tax1) +parseFloatx($scope.tax2) +parseFloatx($scope.tax3) +parseFloatx($scope.other_misc1) + parseFloatx($scope.other_misc2);
+        $scope.taxes_paid_total = taxes_paid_total.toFixed(2);
+        console.log("taxes_paid_total=tax1+tax2+tax3+other_misc1+other_misc2="+parseFloatx($scope.tax1)+"+"+parseFloatx($scope.tax2)+"+"+parseFloatx($scope.tax3)+"+"+parseFloatx($scope.other_misc1)+"+"+parseFloatx($scope.other_misc2)+"="+$scope.taxes_paid_total);
+
+    }
+    $scope.calculateTotalDue = function () {
+        console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
+        res2 = (parseFloatx($scope.tos_total) - parseFloatx($scope.less_trade_in) + parseFloatx($scope.taxes_paid_total));
+        $scope.total_due = parseFloatx(res2).toFixed(2);
+        console.log("total_due=tos_total-less_trade_in+taxes_paid_total="+parseFloatx($scope.tos_total)+"-"+parseFloatx($scope.less_trade_in)+"+"+parseFloatx($scope.taxes_paid_total)+"="+$scope.total_due);
+    }
+    $scope.calculatePayableOnDelivery = function () {
+        payable_on_delivery = parseFloatx($scope.tos_total) - parseFloatx($scope.less_trade_in_tax) - parseFloatx($scope.less_deposit);
+        $scope.payable_on_delivery = payable_on_delivery.toFixed(2)
+        console.log("payable_on_delivery=tos_total-less_trade_in_tax-less_deposit="+parseFloatx($scope.tos_total)+"-"+parseFloatx($scope.less_trade_in_tax)+"-"+parseFloatx($scope.less_deposit)+"="+$scope.payable_on_delivery);
+
+    }
+
+    $scope.calculateTotalBalanceDue = function () {
+        console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
+        total_balance_due = parseFloatx($scope.tos_total) - parseFloatx($scope.less_trade_in_tax) - parseFloatx($scope.less_deposit) - parseFloatx($scope.balance_to_finance) - parseFloatx($scope.life_insurance) - parseFloatx($scope.disability_insurance);
+        $scope.total_balance_due = total_balance_due.toFixed(2);
+        console.log("total_balance_due=tos_total-less_trade_in_tax-less_deposit="+parseFloatx($scope.tos_total)+"-"+parseFloatx($scope.less_trade_in_tax)+"-"+parseFloatx($scope.less_deposit)+"="+$scope.total_balance_due);
+
+    }
+
+
+    {#$scope.calculate = function () {#}
+        {#console.log("ANGUAR CALCULATE");#}
+        {#res1 = (parseFloat($scope.sale_price) + parseFloat($scope.admin_fee) + parseFloat($scope.warranty) + parseFloat($scope.protection_pkg));#}
+        {#res2 = (parseFloat(res1) - parseFloat($scope.less_trade_in) + (parseFloat($scope.tax1) + parseFloat($scope.tax2) + parseFloat($scope.tax3)) + parseFloat($scope.other_misc1) + parseFloat($scope.other_misc2) + parseFloat($scope.lien_on_trade_in));#}
+
+        {#$scope.tos_total = parseFloat(res1);#}
+        {#$scope.difference_payable = res1 - parseFloat($scope.less_trade_in);#}
+        {#$scope.taxes_paid_total = parseFloat($scope.other_misc1) + parseFloat($scope.other_misc2);#}
+        {#$scope.total_due = parseFloat(res2);#}
+        {#$scope.payable_on_delivery = res1 - (parseFloat($scope.less_trade_in_tax) + parseFloat($scope.less_deposit));#}
+        {#$scope.total_balance_due = res1 - (parseFloat($scope.less_trade_in_tax) + parseFloat($scope.less_deposit) + parseFloat($scope.balance_to_finance) + (parseFloat($scope.life_insurance) + parseFloat($scope.disability_insurance)));#}
+        {#{% if template is defined and template=="template3" %}#}
+
+        {#$scope.other_misc1 = parseFloat(($scope.difference_payable * 0.06).toFixed(2));#}
+        {#$scope.other_misc2 = parseFloat(($scope.difference_payable * 0.05).toFixed(2));#}
+        {#{% endif %}#}
+    {#};#}
+    $scope.$watch("[sale_price,admin_fee,warranty,protection_pkg]", function (newValue, oldValue) {
+        console.log("ANGUAR $watch");
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            console.log("ANGUAR $watchinside");
+            $scope.calculateTosTotal();
+        }
+    });
+    $scope.$watch("[less_trade_in,tos_total]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateDiffPayable();
+        }
+    });
+    $scope.$watch("[other_misc1,other_misc1]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in,tax1,tax2,tax3,other_misc1,other_misc2,lien_on_trade_in]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTotalDue();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculatePayableOnDelivery();
+        }
+    });
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTotalBalanceDue();
+        }
+    });
+    $scope.$watch("[tax1,tax2,tax3,other_misc1,other_misc2]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.calculateTaxesPaidTotal();
+        }
+    });
+    {% if template is defined and template=="template3" %}
+    $scope.$watch("[difference_payable]", function (newValue, oldValue) {
+        if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
+            $scope.other_misc1 = parseFloatx(($scope.difference_payable * 0.06)).toFixed(2);
+            $scope.other_misc2 = parseFloatx(($scope.difference_payable * 0.05)).toFixed(2);
+        }
+    });
+    {% endif %}
 });
 
 app.config(function ($interpolateProvider) {
@@ -196,10 +307,15 @@ app.config(function ($interpolateProvider) {
 
 $(function () {
 
-    $('.datepicker').datepicker({ dateFormat: 'yy-dd-mm'});
+    $('.datepicker').datepicker({dateFormat: 'yy-dd-mm'});
 
-    if($(".datepicker").val() == "")
-    {
+    if ($(".datepicker").val() == "") {
         $('.datepicker').datepicker('setDate', new Date());
     }
+    $('form[name="numa_doadmsbundle_billing"]').submit(function () {
+        return false; // return false to cancel form action
+    });
+
+
 });
+
