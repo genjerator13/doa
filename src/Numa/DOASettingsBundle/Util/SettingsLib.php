@@ -58,6 +58,10 @@ class SettingsLib
         return $value;
     }
 
+    public function getStripped($name, $map = array(), $dealer = null){
+        return strip_tags($this->get($name,$map,$dealer));
+    }
+
     /**
      * @param string $name Name of the setting.
      * @return string|null Value of the setting.
