@@ -134,6 +134,7 @@ class BillingController extends Controller
         }
 
         $form = $this->createCreateForm($entity);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
 
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
@@ -141,6 +142,7 @@ class BillingController extends Controller
             'dealer' => $dealer,
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
+            'template'=>$billingTemplate
         ));
     }
 
@@ -169,6 +171,7 @@ class BillingController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
+        $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
 
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
@@ -177,6 +180,7 @@ class BillingController extends Controller
             'item' => $entity->getItem(),
             'id' => $id,
             'form' => $editForm->createView(),
+            'template'=>$billingTemplate
         ));
     }
     private function getBillingTemplate($view=true){
