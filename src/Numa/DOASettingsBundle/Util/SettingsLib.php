@@ -78,7 +78,7 @@ class SettingsLib
      */
     public function getValue2($name)
     {
-        return $this->get(name,array(),null,"Value2");
+        return $this->get($name,array(),null,"Value2");
     }
 
     /**
@@ -88,7 +88,7 @@ class SettingsLib
      */
     public function getValue3($name)
     {
-        return $this->get(name,array(),null,"Value3");
+        return $this->get($name,array(),null,"Value3");
     }
 
     /**
@@ -98,7 +98,7 @@ class SettingsLib
      */
     public function getValue4($name)
     {
-        return $this->get(name,array(),null,"Value4");
+        return $this->get($name,array(),null,"Value4");
     }
 
     public function getSetting($name, $section = "", $dealer = null)
