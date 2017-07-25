@@ -244,9 +244,10 @@ class QuickbooksLib
         $qbBill->setItemRef($qbItem->getId());
         $qbBill->setLine(null);
         foreach ($vendorArray as $vendorItem) {
-
+            //dump($vendorItem);
             $this->addLineToBill($qbBill,$property, $vendorItem['amount'], "test");
         }
+        //die();
 
 
         return $qbBill;

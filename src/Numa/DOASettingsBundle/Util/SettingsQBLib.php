@@ -68,7 +68,6 @@ class SettingsQBLib
         foreach($this->properties as $property){
             $this->insertQBSettingsEntity($dealer,$property);
         }
-        
     }
 
     public function insertQBSettingsEntity(Catalogrecords $dealer, $property)
