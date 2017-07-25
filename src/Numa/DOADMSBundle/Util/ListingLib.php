@@ -424,7 +424,22 @@ class ListingLib
         return $desc;
     }
 
-
+    /**
+     * returns metadata property from the item
+     * @param Item $item
+     * @param $property
+     * @return string
+     */
+    public function getMetadata(Item $item, $property){
+        if($property=='description'){
+            return $this->getMetaDescription($item);
+        }elseif($property=="keyword"){
+            return $this->getMetaKeywords($item);
+        }elseif($property=="title"){
+            return $this->getMetaTitle($item);
+        }
+        return "";
+    }
     public function getMetaDescription(Item $item)
     {
         return $item->getCurrentSellerComment();
