@@ -126,9 +126,6 @@ class QuickbooksLib
 
         $Line->setAmount($amount);
 
-        $SalesItemLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
-
-
         //$settingLib = $this->container->get("numa.settings");
 
         $Line->setDescription($description);
@@ -244,10 +241,8 @@ class QuickbooksLib
         $qbBill->setItemRef($qbItem->getId());
         $qbBill->setLine(null);
         foreach ($vendorArray as $vendorItem) {
-            //dump($vendorItem);
-            $this->addLineToBill($qbBill,$property, $vendorItem['amount'], "test");
+            $this->addLineToBill($qbBill,$property, $vendorItem['amount'], $property);
         }
-        //die();
 
 
         return $qbBill;
