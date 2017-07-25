@@ -160,9 +160,9 @@ class SaleLib
                 $temp['description'] = $this->container->get("numa.dms.quickbooks")->getQBDesc($item);
                 $temp['amount'] = $this->container->get("numa.dms.quickbooks")->getQBPrice($item);
                 $temp['sku'] = $item->getVIN();
-                $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
-                $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
-                $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
+                $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory",$item->getDealer());
+                $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory",$item->getDealer());
+                $qbAssetAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory",$item->getDealer());
                 $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
                 //qb get ea from QB by title
                 $temp['IncomeAccount'] = $qbIncomeAccountSetting;
@@ -211,9 +211,10 @@ class SaleLib
                         $temp['title'] = $propname;
                         $temp['sku'] = "";
                         $temp['docnum'] = "c_" . $item->getId() . "_" . $propname;
-                        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($prop);
-                        $qbIncomeAccountSetting  = $this->container->get("numa.settings")->getValue3($prop);
-                        $qbAssetAccountSetting   = $this->container->get("numa.settings")->getValue4($prop);
+                        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2($propname);
+                        $qbIncomeAccountSetting  = $this->container->get("numa.settings")->getValue3($propname);
+                        $qbAssetAccountSetting   = $this->container->get("numa.settings")->getValue4($propname);
+
 //                        $qbAPAccountSetting   = $this->container->get("numa.settings")->getValue5($prop);
 
                         $temp['ExpenseAccount'] = $qbExpenseAccountSetting;
