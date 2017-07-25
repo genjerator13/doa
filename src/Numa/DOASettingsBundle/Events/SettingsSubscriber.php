@@ -37,21 +37,24 @@ class SettingsSubscriber implements EventSubscriberInterface
         $form = $event->getForm();
 
         if($data->getSection()=="QB"){
-            $list = $this->listDefaultQBAccounts();
+            $listAll = $this->listDefaultQBAccounts();
+            $listExpense = $this->listDefaultQBAccounts("Expense");
+            $listAsset = $this->listDefaultQBAccounts("Asset");
+            $listRevenue = $this->listDefaultQBAccounts("Revenue");
             //dump($list);
             $form->remove('section');
-            $form->add('value',ChoiceType::class,array("choices"=>$list,"label"=>"QB Name"));
-            $form->add('value2',ChoiceType::class,array("choices"=>$list,"label"=>"Expense Account"));
-            $form->add('value3',ChoiceType::class,array("choices"=>$list,"label"=>"Income Account"));
-            $form->add('value4',ChoiceType::class,array("choices"=>$list,"label"=>"Asset Account"));
+            $form->add('value',null,array("label"=>"QB Name"));
+            $form->add('value2',ChoiceType::class,array("choices"=>$listExpense,"label"=>"Expense Account"));
+            $form->add('value3',ChoiceType::class,array("choices"=>$listRevenue,"label"=>"Income Account"));
+            $form->add('value4',ChoiceType::class,array("choices"=>$listAsset,"label"=>"Asset Account"));
             $form->add('section');
         }
 
     }
 
-    public function listDefaultQBAccounts(){
+    public function listDefaultQBAccounts($category=null){
         $dealer = $this->container->get("numa.dms.user")->getSignedUser();
-        $list =  $this->container->get("numa.dms.quickbooks.account")->listAllAccounts($dealer);
+        $list =  $this->container->get("numa.dms.quickbooks.account")->listAllAccounts($dealer, $category);
         return $list;
     }
 
