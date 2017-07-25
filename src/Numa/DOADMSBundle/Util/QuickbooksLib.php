@@ -119,7 +119,7 @@ class QuickbooksLib
         return $qbPO;
     }
 
-    public function addLineToBill($qbBill,$property, $amount, $description)
+    public function addLineToBill($qbBill,$account, $amount, $description)
     {
         $Line = new \QuickBooks_IPP_Object_Line();
         $Line->setDetailType('AccountBasedExpenseLineDetail');
@@ -130,7 +130,13 @@ class QuickbooksLib
 
         $Line->setDescription($description);
         $AccountBasedExpenseLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
-        $AccountBasedExpenseLineDetail->setAccountRef('{-17}');
+
+        $accountId = "{-17}";
+        if($account instanceof \QuickBooks_IPP_Object_Account){
+            $accountId =$account->getId();
+        }
+
+        $AccountBasedExpenseLineDetail->setAccountRef($accountId);
 
         $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
 
@@ -208,6 +214,7 @@ class QuickbooksLib
         $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
 
         $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item, true);
+
         $QBBills = array();
 
         foreach ($vendors as $vendor) {
@@ -216,7 +223,7 @@ class QuickbooksLib
         }
 
         $done = $this->insertQBBills($QBBills);
-
+        dump($vendors);die();
 
         return true;
     }
@@ -241,7 +248,7 @@ class QuickbooksLib
         $qbBill->setItemRef($qbItem->getId());
         $qbBill->setLine(null);
         foreach ($vendorArray as $vendorItem) {
-            $this->addLineToBill($qbBill,$property, $vendorItem['amount'], $property);
+            $this->addLineToBill($qbBill,$vendorItem['qbExpenseAccount'], $vendorItem['amount'], $property);
         }
 
 
