@@ -35,32 +35,41 @@ class SettingsLib
         $this->repo = null;
     }
 
+    public function getSettingsEntity($name,Catalogrecords $dealer){
+        $criteria = array(
+            'name' => $name,
+        );
+        $criteria['Dealer'] = $dealer;
+
+
+        $setting = $this->getRepo()->findOneBy($criteria);
+
+        return $setting;
+    }
     /**
      * @param string $name Name of the setting.
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function get($name, $map = array(), $dealer = null)
+    public function get($name, $map = array(), $dealer = null,$property="Value")
     {
-        $criteria = array(
-            'name' => $name,
-        );
-        $criteria['Dealer'] = $dealer;
-        $setting = $this->getRepo()->findOneBy($criteria);
+        $setting = $this->getSettingsEntity($name,$dealer);
         if ($setting === null) {
             return "";
         }
 
-        $value = $setting->getValue();
+        $value = $setting->{"get".$property}();
         if (!empty($map)) {
             $value = $this->replaceRealValues($value, $map);
         }
         return $value;
     }
 
-    public function getStripped($name, $map = array(), $dealer = null){
-        return strip_tags($this->get($name,$map,$dealer));
+    public function getStripped($name, $map = array(), $dealer = null)
+    {
+        return strip_tags($this->get($name, $map, $dealer));
     }
+
 
     /**
      * @param string $name Name of the setting.
@@ -69,16 +78,7 @@ class SettingsLib
      */
     public function getValue2($name)
     {
-        $setting = $this->getRepo()->findOneBy(array(
-            'name' => $name,
-        ));
-        if ($setting === null) {
-            return "";
-        }
-
-        $value = $setting->getValue2();
-
-        return $value;
+        return $this->get(name,array(),null,"Value2");
     }
 
     /**
@@ -88,16 +88,7 @@ class SettingsLib
      */
     public function getValue3($name)
     {
-        $setting = $this->getRepo()->findOneBy(array(
-            'name' => $name,
-        ));
-        if ($setting === null) {
-            return "";
-        }
-
-        $value = $setting->getValue3();
-
-        return $value;
+        return $this->get(name,array(),null,"Value3");
     }
 
     /**
@@ -107,16 +98,7 @@ class SettingsLib
      */
     public function getValue4($name)
     {
-        $setting = $this->getRepo()->findOneBy(array(
-            'name' => $name,
-        ));
-        if ($setting === null) {
-            return "";
-        }
-
-        $value = $setting->getValue4();
-
-        return $value;
+        return $this->get(name,array(),null,"Value4");
     }
 
     public function getSetting($name, $section = "", $dealer = null)
@@ -225,7 +207,7 @@ class SettingsLib
     }
 
     /**
-     * @param Setting[] $entities
+     * @param Setting[] $settings
      * @return array with name => value
      */
     protected function getAsNamesAndValues(array $settings)
@@ -441,18 +423,12 @@ class SettingsLib
         $pageTitle = $this->getPageTitle($page, $dealer);
         $pageDescription = $this->getPageDescription($page, $dealer);
         $pageKeyword = $this->getPageKeywords($page, $dealer);
-//
-//        dump($pageTitle);
-//        dump($pageDescription);
-//        dump($pageKeyword);
-//
-//        die();
-//        dump($html);
-//        die();
+
         $html = preg_replace('/<meta name=\"description\" content=\"(.*)\"/i', '<meta name="description" content="' . $pageDescription . '"', $html);
         $html = preg_replace('/<meta name=\"keywords\" content=\"(.*)\"/i', '<meta name="keywords" content="' . $pageKeyword . '"', $html);
         $html = preg_replace('/<title>(.*)<\/title>/i', "<title>" . $pageTitle . "</title>\n", $html);
 
         return $html;
     }
+
 }
