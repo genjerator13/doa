@@ -227,9 +227,9 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     }
     $scope.calculateTotalDue = function () {
         console.log("ANGUAR CALCULATE calculateTotalBalanceDue");
-        res2 = (parseFloatx($scope.difference_payable) + parseFloatx($scope.tax1) + parseFloatx($scope.tax2)+ parseFloatx($scope.tax3) + parseFloatx($scope.taxes_paid_total) - parseFloatx($scope.less_trade_in));
+        res2 = (parseFloatx($scope.difference_payable) + parseFloatx($scope.tax1) + parseFloatx($scope.tax2)+ parseFloatx($scope.tax3) + parseFloatx($scope.taxes_paid_total) - parseFloatx($scope.lien_on_trade_in));
         $scope.total_due = parseFloatx(res2).toFixed(2);
-        console.log("total_due=difference_payable+tax1+tax2+tax3-less_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable)+"+"+ parseFloatx($scope.tax1)+"+"+ parseFloatx($scope.tax2)+"+"+ parseFloatx($scope.tax3) + "-" + parseFloatx($scope.less_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));
+        console.log("total_due=difference_payable+tax1+tax2+tax3-lien_on_trade_in+taxes_paid_total=" + parseFloatx($scope.difference_payable)+"+"+ parseFloatx($scope.tax1)+"+"+ parseFloatx($scope.tax2)+"+"+ parseFloatx($scope.tax3) + "-" + parseFloatx($scope.lien_on_trade_in) + "+" + parseFloatx($scope.taxes_paid_total) + "=" + parseFloatx($scope.total_due));
     }
     $scope.calculatePayableOnDelivery = function () {
         payable_on_delivery = parseFloatx($scope.total_due) - parseFloatx($scope.less_trade_in_tax) - parseFloatx($scope.less_deposit);
