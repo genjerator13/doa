@@ -8,8 +8,12 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $qbo = $this->get("numa.quickbooks")->init();
+        if($qbo->isConnected()){
 
+            $this->get("numa.dms.setting.qb")->insertQBSettings($dealer);
+        }
         return $this->render('NumaQBBundle:Default:index.html.twig', array('param' => $qbo));
     }
 
