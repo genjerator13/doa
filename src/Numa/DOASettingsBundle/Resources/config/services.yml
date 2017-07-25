@@ -5,3 +5,6 @@ services:
     Numa.Dms.User:
         class: Numa\DOADMSBundle\Util\DmsUserLib
         arguments: ["@doctrine.orm.entity_manager","@service_container"]
+    numa.dms.setting.qb:
+        class: Numa\DOASettingsBundle\Util\SettingsQBLib
+        arguments: ["@doctrine.orm.entity_manager","@service_container"]
