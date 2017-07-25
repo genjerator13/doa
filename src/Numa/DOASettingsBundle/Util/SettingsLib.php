@@ -40,8 +40,6 @@ class SettingsLib
             'name' => $name,
         );
         $criteria['Dealer'] = $dealer;
-
-
         $setting = $this->getRepo()->findOneBy($criteria);
 
         return $setting;
@@ -53,10 +51,16 @@ class SettingsLib
      */
     public function get($name, $map = array(), $dealer = null,$property="Value")
     {
+        if(!$dealer instanceof Catalogrecords){
+            $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
+        }
         $setting = $this->getSettingsEntity($name,$dealer);
+
         if ($setting === null) {
             return "";
         }
+
+
 
         $value = $setting->{"get".$property}();
         if (!empty($map)) {
@@ -65,9 +69,9 @@ class SettingsLib
         return $value;
     }
 
-    public function getStripped($name, $map = array(), $dealer = null)
+    public function getStripped($name, $map = array(), $dealer = null,$property="Value")
     {
-        return strip_tags($this->get($name, $map, $dealer));
+        return strip_tags($this->get($name, $map, $dealer,$property));
     }
 
 
@@ -76,9 +80,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue2($name)
+    public function getValue2($name,$dealer=null)
     {
-        return $this->get($name,array(),null,"Value2");
+        return $this->get($name,array(),$dealer,"Value2");
     }
 
     /**
@@ -86,9 +90,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue3($name)
+    public function getValue3($name,$dealer=null)
     {
-        return $this->get($name,array(),null,"Value3");
+        return $this->get($name,array(),$dealer,"Value3");
     }
 
     /**
@@ -96,9 +100,9 @@ class SettingsLib
      * @return string|null Value of the setting.
      * @throws \RuntimeException If the setting is not defined.
      */
-    public function getValue4($name)
+    public function getValue4($name,$dealer=null)
     {
-        return $this->get($name,array(),null,"Value4");
+        return $this->get($name,array(),$dealer,"Value4");
     }
 
     public function getSetting($name, $section = "", $dealer = null)
