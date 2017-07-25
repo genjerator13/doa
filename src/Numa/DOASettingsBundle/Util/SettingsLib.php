@@ -35,7 +35,7 @@ class SettingsLib
         $this->repo = null;
     }
 
-    public function getSettingsEntity($name,Catalogrecords $dealer){
+    public function getSettingsEntity($name,$dealer){
         $criteria = array(
             'name' => $name,
         );
