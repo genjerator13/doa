@@ -281,7 +281,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
             $scope.calculatePayableOnDelivery();
         }
     });
-    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance]", function (newValue, oldValue) {
+    $scope.$watch("[tos_total,less_trade_in_tax,less_deposit,balance_to_finance,life_insurance,disability_insurance,payable_on_delivery]", function (newValue, oldValue) {
         if (angular.isDefined($scope.sale_price) && $scope.sale_price.length > 0) {
             $scope.calculateTotalBalanceDue();
         }
