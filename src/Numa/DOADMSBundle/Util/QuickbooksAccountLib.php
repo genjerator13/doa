@@ -50,4 +50,39 @@ class QuickbooksAccountLib
         }
         return $r;
     }
+
+    public function addAccount($name, $type)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $AccountService = new \QuickBooks_IPP_Service_Account();
+
+        $Account = new \QuickBooks_IPP_Object_Account();
+
+        $Account->setName($name);
+        $Account->setDescription($name);
+        $Account->setAccountType($type);
+
+        if ($resp = $AccountService->add($qbo->getContext(), $qbo->getRealm(), $Account)) {
+            return $Account;
+        }
+        //dump($name);
+        //dump($type);
+        //dump($Account);
+        return false;
+    }
+
+    public function getAccount($account)
+    {
+        if (!empty($account)) {
+            $qbo = $this->container->get("numa.quickbooks")->init();
+            $ItemService = new \QuickBooks_IPP_Service_Term();
+            $accountr = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Account WHERE name = '" . $account . "'");
+
+            if (!empty($accountr[0])) {
+                return $accountr[0];
+            }
+        }
+        return false;
+    }
 }

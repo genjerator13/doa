@@ -588,8 +588,8 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
                 $suffix  =" and it has been posted to Quickbooks.";
             }
             if($item->getQbPostInclude()) {
-                $okInsertPO = $this->get("numa.dms.quickbooks")->insertItemPO($entity);
-                $okInsertBills =$this->get("numa.dms.quickbooks")->insertItemBills($entity);
+                $okInsertPO = $this->get("numa.dms.quickbooks.purchase.order")->insertItemPO($entity);
+                $okInsertBills =$this->get("numa.dms.quickbooks.bill")->insertItemBills($entity);
 
             }
             $this->addFlash("success", "Listing: #" . $entity->getId() . " successfully updated".$suffix);
@@ -833,7 +833,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     public function massAddToQBAction(Request $request)
     {
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-        $this->get('numa.dms.quickbooks')->addToQB($ids);
+        $this->get('numa.dms.quickbooks.item')->addItemToQB($ids);
         die();
     }
 
@@ -844,7 +844,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
     public function massAddToQBPOAction(Request $request)
     {
         $ids = $this->get("Numa.UiGrid")->getSelectedIds($request);
-        $this->get('numa.dms.quickbooks')->addToQBPO($ids);
+        $this->get('numa.dms.quickbooks.purchase.order')->addToQBPO($ids);
         die();
     }
 

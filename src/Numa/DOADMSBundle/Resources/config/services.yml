@@ -44,3 +44,18 @@ services:
     numa.dms.quickbooks.account:
         class: Numa\DOADMSBundle\Util\QuickbooksAccountLib
         arguments:  ["@service_container"]
+    numa.dms.quickbooks.sale:
+        class: Numa\DOADMSBundle\Util\QuickbooksSaleLib
+        arguments:  ["@service_container"]
+    numa.dms.quickbooks.bill:
+        class: Numa\DOADMSBundle\Util\QuickbooksBillLib
+        arguments:  ["@service_container"]
+    numa.dms.quickbooks.purchase.order:
+        class: Numa\DOADMSBundle\Util\QuickbooksPurchaseOrderLib
+        arguments:  ["@service_container"]
+    numa.dms.quickbooks.item:
+        class: Numa\DOADMSBundle\Util\QuickbooksItemLib
+        arguments:  ["@service_container"]
+    numa.dms.quickbooks.vendor:
+        class: Numa\DOADMSBundle\Util\QuickbooksVendorLib
+        arguments:  ["@service_container"]
