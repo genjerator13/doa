@@ -10,6 +10,7 @@ namespace Numa\DOADMSBundle\Util;
 
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Sale;
 
 class QuickbooksItemLib
 {
@@ -119,8 +120,8 @@ class QuickbooksItemLib
         $qbo = $this->container->get("numa.quickbooks")->init();
 
         $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
-        $desc = $this->getQBDesc($item);
-        $amount = $this->getQBPrice($item);
+        $desc = $this->getQBItemDesc($item);
+        $amount = $this->getQBItemPrice($item);
 
         $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
@@ -185,7 +186,6 @@ class QuickbooksItemLib
 
         if (!$resp) {
             print($itemService->lastError($qbo->getContext()));
-            die();
             return false;
         }
 
