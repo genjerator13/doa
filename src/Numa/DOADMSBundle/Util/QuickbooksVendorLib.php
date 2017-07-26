@@ -125,6 +125,7 @@ class QuickbooksVendorLib
             }
         }
     }
+
     /**
      * For a DMS Vendor entity returns QB vendor object
      * If the DMS vendor name exists just update, else crete new QB vendor record
@@ -156,6 +157,10 @@ class QuickbooksVendorLib
         return $qbVendor;
     }
 
+    /**
+     * returns all vendors from QB
+     * @return bool
+     */
     public function getAllSuppliers()
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
@@ -174,7 +179,7 @@ class QuickbooksVendorLib
      */
     public function getSupplier($name)
     {
-        return $this->container->get("numa.dms.quickbooks.item")->findQBEntityByField("Vendor","CompanyName",addslashes($name));
+        return $this->container->get("numa.dms.quickbooks.item")->findQBEntityByField("Vendor", "CompanyName", addslashes($name));
     }
 
 }

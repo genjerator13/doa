@@ -35,6 +35,11 @@ class QuickbooksItemLib
         return $this->dealer;
     }
 
+    /**
+     * Generates description for the QB item
+     * @param Item $item
+     * @return string
+     */
     public function getQBItemDesc(Item $item)
     {
         $qbdesc = "";
@@ -46,11 +51,22 @@ class QuickbooksItemLib
         return $qbdesc;
     }
 
+    /**
+     * generates a line in a QB item description
+     * @param $title
+     * @param $value
+     * @return string
+     */
     public function setDescriptionProperty($title, $value)
     {
         return empty($value) ? "" : $title . ":" . $value . "\n";
     }
 
+    /**
+     * Get a price from the DMS item entity
+     * @param Item $item
+     * @return mixed
+     */
     public function getQBItemPrice(Item $item)
     {
         $sale = $item->getSale();
@@ -60,16 +76,29 @@ class QuickbooksItemLib
         //throw exception
     }
 
+    /**
+     * finds QB item by name
+     * @param $name
+     * @return mixed
+     */
     public function findQBItemByName($name)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item","name",$name);
+        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item", "name", $name);
     }
 
+    /**
+     * finds QB item by sku
+     * @param $sku
+     * @return mixed
+     */
     public function findQBItemBySku($sku)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item","sku",$sku);
+        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item", "sku", $sku);
     }
 
+    /**
+     * @param $ids
+     */
     public function addItemToQB($ids)
     {
         $em = $this->container->get('doctrine');
@@ -80,6 +109,11 @@ class QuickbooksItemLib
         }
     }
 
+    /**
+     * Add vehicle item to QB
+     * @param Item $item
+     * @return bool|mixed|\QuickBooks_IPP_Object_Item
+     */
     public function insertVehicleItem(Item $item)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
