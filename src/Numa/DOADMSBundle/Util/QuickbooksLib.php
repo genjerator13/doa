@@ -50,6 +50,13 @@ class QuickbooksLib
         return $this->findQBEntityByField($QBentity,"DocNumber",$docNumber);
     }
 
+    /**
+     * finds QB entity object by fieldname and field value
+     * @param $QBentity
+     * @param $QBfieldName
+     * @param $QBFieldValue
+     * @return bool|\QuickBooks_IPP_Object
+     */
     public function findQBEntityByField($QBentity,$QBfieldName,$QBFieldValue){
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
