@@ -11,6 +11,7 @@ namespace Numa\DOADMSBundle\Util;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Sale;
+use Numa\DOADMSBundle\Entity\Vendor;
 
 class QuickbooksPurchaseOrderLib
 {
