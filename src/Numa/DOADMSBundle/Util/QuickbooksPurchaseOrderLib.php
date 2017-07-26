@@ -10,6 +10,7 @@ namespace Numa\DOADMSBundle\Util;
 
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOADMSBundle\Entity\Sale;
 
 class QuickbooksPurchaseOrderLib
 {
@@ -43,7 +44,7 @@ class QuickbooksPurchaseOrderLib
     public function createPurchaseOrder(Vendor $vendor)
     {
         $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
-        $qbVendor = $this->dmsToQbVendor($vendor);
+        $qbVendor = $this->container->get("numa.dms.quickbooks.vendor")->dmsToQbVendor($vendor);
         $qbPO->setVendorRef($qbVendor->getId());
         return $qbPO;
     }
@@ -190,7 +191,7 @@ class QuickbooksPurchaseOrderLib
         //}
 
         if ($vendor instanceof Vendor) {
-            $qbVendor = $this->dmsToQbVendor($vendor);
+            $qbVendor = $this->container->get("numa.dms.quickbooks.vendor")->dmsToQbVendor($vendor);
             $qbPO->setDocNumber($qbPODocNumber);
             $qbPO->setVendorRef($qbVendor->getId());
         }
