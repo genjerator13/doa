@@ -1,0 +1,90 @@
+{% extends 'NumaDOASiteBundle::listing-layout.html.twig' %}
+{% form_theme form with ['bootstrap_3_horizontal_layout.html.twig', _self] %}
+{% block form_label_class -%}
+    col-sm-3
+{%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-9
+{%- endblock form_group_class %}
+
+{% block content %}
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="page-text">
+        {{ displayComponent('page_content',"HTML")|raw }}
+    </div>
+    <p>
+        * Indicates required field
+    </p>
+    <h5>
+        How can we help with financing?
+    </h5>
+    {{ form_errors(form) }}
+    {{ form_start(form) }}
+    {#<h4>Loan Information</h4>#}
+    {#{{ form_row(form.applicant_type) }}#}
+    {#{{ form_row(form.amount_required) }}#}
+    {#{{ form_row(form.loan_term) }}#}
+    {#{{ form_row(form.down_payment) }}#}
+    {#{{ form_row(form.trade_in) }}#}
+    {#<h4>Additional Information</h4>#}
+    {#{{ form_row(form.message_text) }}#}
+    {#<div>#}
+        {#<div class="col-md-3">#}
+            {#{{ form_widget(form.make, {'attr': {'placeholder': 'Make'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3">#}
+            {#{{ form_widget(form.model, {'attr': {'placeholder': 'Model'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3">#}
+            {#{{ form_widget(form.year, {'attr': {'placeholder': 'Year'} }) }}#}
+        {#</div>#}
+        {#<div class="col-md-3">#}
+            {#{{ form_widget(form.vehicle_type, {'attr': {'placeholder': 'Vehicle Type'} }) }}#}
+        {#</div>#}
+    {#</div>#}
+    {#<br>#}
+    {#<br>#}
+    {#{{ form_row(form.interested_in) }}#}
+    <h4>Contact Information</h4>
+    <p></p>
+    {{ form_row(form.cust_name) }}
+    {{ form_row(form.cust_last_name) }}
+    {{ form_row(form.preferred_contact) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.day_phone) }}
+    {{ form_row(form.cell_phone) }}
+    {{ form_row(form.address) }}
+    {{ form_row(form.city) }}
+    {{ form_row(form.state) }}
+    {{ form_row(form.zip_code) }}
+    <h4>Applicant Information</h4>
+    {{ form_row(form.ssn_sin_nr) }}
+    {{ form_row(form.birth_date) }}
+    {{ form_row(form.residence_type) }}
+    {{ form_row(form.monthly_payment) }}
+    {{ form_row(form.at_residence) }}
+    <h4>Employment Information</h4>
+    {{ form_row(form.employer) }}
+    {{ form_row(form.occupation) }}
+    {{ form_row(form.monthly_income) }}
+    {{ form_row(form.on_job) }}
+    {{ form_row(form.business_phone) }}
+    {{ form_row(form.employer_address) }}
+    {{ form_row(form.employer_city) }}
+    {{ form_row(form.employer_state) }}
+    {{ form_row(form.employer_zip) }}
+    {#<h4>Other Income</h4>#}
+    {#{{ form_row(form.source) }}#}
+    {#{{ form_row(form.other_monthly_income) }}#}
+    <div class="g-recaptcha" data-sitekey="6LcdLSoTAAAAAIzrwX5_EqelrxwlTu8r_eMhjUS2"></div>
+
+    <p>
+        I certify that I have provided true and accurate information in this form. By submitting this form, I authorize
+        the dealer to begin a credit investigation, to process my application, and to forward my application to lenders,
+        financial institutions, or other third parties in order to process my application.
+    </p>
+    {{ form_row(form.submit) }}
+    {{ form_widget(form._token) }}
+    {{ form_end(form, {'render_rest': false}) }}
+
+{% endblock %}
