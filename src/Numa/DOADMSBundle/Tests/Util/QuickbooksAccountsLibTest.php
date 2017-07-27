@@ -9,7 +9,7 @@ use Numa\DOADMSBundle\Util\QuickbooksAccountLib;
 use Symfony\Bridge\PhpUnit;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class QuickbooksLibTest extends KernelTestCase
+class QuickbooksAccountLibTest extends KernelTestCase
 {
     use containerTrait;
 
