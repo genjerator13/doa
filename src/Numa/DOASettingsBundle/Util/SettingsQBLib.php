@@ -18,7 +18,9 @@ class SettingsQBLib
      * @var EntityRepository
      */
     protected $repo;
-    protected $properties = array("Delivery",
+    protected $properties = array(
+        "Inventory",
+        "Delivery",
         "Clean up",
         "Class",
         "Mechanical1",

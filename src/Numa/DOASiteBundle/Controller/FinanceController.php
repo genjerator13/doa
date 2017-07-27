@@ -49,7 +49,15 @@ class FinanceController extends Controller implements DealerSiteControllerInterf
 
             return $this->redirectToRoute('finance_success');
         }
-        return $this->render('NumaDOASiteBundle:siteForms/Finance:finance_form.html.twig', array(
+        $templateName = "finance_form";
+
+        $dealer = $this->get("numa.dms.user")->getDealerByHost();
+        $tmpFromSettings = $this->get("numa.settings")->getStripped("finance template",array(),$dealer);
+        if(!empty($tmpFromSettings)){
+            $templateName = $tmpFromSettings;
+        }
+        $template = "NumaDOASiteBundle:siteForms/Finance:".$templateName.".html.twig";
+        return $this->render($template, array(
             'form' => $form->createView(),
             'dealer' => $this->dealer,
         ));

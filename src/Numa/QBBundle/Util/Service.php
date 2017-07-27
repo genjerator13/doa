@@ -34,6 +34,7 @@ class Service
     protected $username;
     protected $isConnected;
     protected $dealer;
+    protected $realm;
 
 
     /**
@@ -170,7 +171,8 @@ class Service
     public function isConnected()
     {
 
-        return $this->isConnected || ($this->dealer instanceof Catalogrecords && !empty($this->container->get("session")->get("qb")[$this->dealer->getId()]));
+        return ($this->isConnected || ($this->dealer instanceof Catalogrecords && !empty($this->container->get("session")->get("qb")[$this->dealer->getId()])))&&!empty($this->getRealm());
+
     }
 
     public function getCompanyInfoService()
