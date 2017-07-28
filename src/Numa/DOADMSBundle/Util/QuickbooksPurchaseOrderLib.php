@@ -13,29 +13,8 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOADMSBundle\Entity\Sale;
 use Numa\DOADMSBundle\Entity\Vendor;
 
-class QuickbooksPurchaseOrderLib
+class QuickbooksPurchaseOrderLib extends QuickbooksLib
 {
-    protected $container;
-    protected $dealer;
-
-    /**
-     * ListingFormHandler constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct($container) // this is @service_container
-    {
-        $this->container = $container;
-    }
-
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
-
-    public function getDealer()
-    {
-        return $this->dealer;
-    }
 
     /**
      * Creates QB Purchase Order object with Vendor referenced
@@ -228,7 +207,7 @@ class QuickbooksPurchaseOrderLib
 
     public function findQBPOByDocNumber($docNumber)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBByDocNumber('PurchaseOrder', $docNumber);
+        return $this->findQBByDocNumber('PurchaseOrder', $docNumber);
     }
 
 }
