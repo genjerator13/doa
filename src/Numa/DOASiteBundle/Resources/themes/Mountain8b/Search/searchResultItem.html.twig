@@ -55,9 +55,16 @@
                 <button type="button" class="btn btn-primary eprice" data-itemid="{{ item.id }}"><i
                             class="fa fa-money"></i> Get ePrice
                 </button>
-                <button type="button" class="btn btn-primary finance" data-itemid="{{ item.id }}">
-                    Finance
-                </button>
+                {% set template= settingsService.getStripped("finance template",{},dealerObj)%}
+                {% if(template=="finance_form_contact_app_employment") %}
+                    <a class="btn btn-primary" data-itemid="{{ item.id }}" href="{{ path("finance_form") }}">
+                        Finance
+                    </a>
+                {% else %}
+                    <button type="button" class="btn btn-primary finance" data-itemid="{{ item.id }}">
+                        Finance
+                    </button>
+                {% endif %}
                 {#<button type="button" class="btn btn-default" data-toggle="modal"#}
                 {#data-target="#searchOther">Search Other#}
                 {#</button>#}
