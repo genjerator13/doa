@@ -13,29 +13,8 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
 
-class QuickbooksSaleLib
+class QuickbooksSaleLib extends QuickbooksLib
 {
-    protected $container;
-    protected $dealer;
-
-    /**
-     * ListingFormHandler constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct($container) // this is @service_container
-    {
-        $this->container = $container;
-    }
-
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
-
-    public function getDealer()
-    {
-        return $this->dealer;
-    }
 
     public function createQBSale(Billing $billing)
     {
@@ -59,7 +38,7 @@ class QuickbooksSaleLib
 
     public function findQBSaleByDocNumber($docNumber)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBByDocNumber('SalesReceipt', $docNumber);
+        return $this->findQBByDocNumber('SalesReceipt', $docNumber);
     }
 
     public function generateQBSaleDocNumber(Billing $billing)
@@ -91,7 +70,7 @@ class QuickbooksSaleLib
     public function addLineToSale(\QuickBooks_IPP_Object_SalesReceipt $qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account,$item)
     {
         $Line = new \QuickBooks_IPP_Object_Line();
-        $Line->setDetailType('AccountBasedExpenseLineDetail');
+        $Line->setDetailType('SalesItemLineDetail');
 
         $Line->setSku($sku);
         //$Line->setDescription($description);
@@ -104,19 +83,27 @@ class QuickbooksSaleLib
             $qbItem = $this->container->get("numa.dms.quickbooks.item")->insertVehicleItem($item);
         }
 
-        $Line->setItemRef($qbItem->getId());
-        $AccountBasedExpenseLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
         $accountId = "{-17}";
         if ($account instanceof \QuickBooks_IPP_Object_Account) {
             $accountId = $account->getId();
         }
 
-        $AccountBasedExpenseLineDetail->setAccountRef($accountId);
-        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
+        $SalesItemLineDetail->setAccountRef($accountId);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
         $qbSale->addLine($Line);
-        dump($qbSale);die();
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
+        $SalesItemLineDetail->setItemRef($qbItem->getId());
+        $SalesItemLineDetail->setUnitPrice(1111);
+        $SalesItemLineDetail->setQty($qty);
+        $SalesItemLineDetail->setTaxCodeRef("6");
+        $Line->setAmount(1111);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
+        dump($qbSale);
         return $qbSale;
     }
 
