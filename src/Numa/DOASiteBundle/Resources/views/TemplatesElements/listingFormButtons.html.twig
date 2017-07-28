@@ -1,10 +1,18 @@
 <div class="btn-group-vertical">
+
     <button type="button" class="btn btn-{{ buttonClass }}" data-toggle="modal"
             data-target="#eprice">Get ePrice
     </button>
-    <button type="button" class="btn btn-{{ buttonClass }}" data-toggle="modal"
-            data-target="#finance">Apply for Financing
-    </button>
+    {% set template= settingsService.getStripped("finance template",{},dealer)%}
+    {% if(template=="finance_form_contact_app_employment") %}
+        <a class="btn btn-{{ buttonClass }}" data-toggle="modal" href="{{ path("finance_form") }}">Apply for Financing
+        </a>
+    {% else %}
+        <button type="button" class="btn btn-{{ buttonClass }}" data-toggle="modal"
+                data-target="#finance">Apply for Financing
+        </button>
+    {% endif %}
+
     <button type="button" class="btn btn-{{ buttonClass }}" data-toggle="modal"
             data-target="#contact">Contact us
     </button>
