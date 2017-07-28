@@ -30,6 +30,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
 
     public function initializeDealer($dealer)
     {
+
         $this->dealer = $dealer;
     }
 
@@ -73,10 +74,13 @@ class ElasticSearchController extends Controller implements DealerSiteController
             return $this->redirect($this->generateUrl('search_dispatch', $parameters));
         }
 
+
         if ($this->dealer instanceof Catalogrecords) {
+
             $parameters['dealer_id'] = $this->dealer->getId();
-            $parameters['dealer'] = $this->dealer;
+            $parameters['dealerObj'] = $this->dealer;
         }
+
         //set sort search parameters
         $this->searchParameters->setSort($parameters);
 
@@ -115,6 +119,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             'sort_order' => $this->searchParameters->getSortOrder(),
             'dealer' => $this->dealer,
             'pagerfanta' => $pagerFanta,
+            "dealerObj"=>$this->dealer,
             'ads' => $ads
         );
         $params = array_merge($params, $sidebarParam);
@@ -142,6 +147,7 @@ class ElasticSearchController extends Controller implements DealerSiteController
             $additionParams = array("sort_by" => "price", "sort_order" => "asc");
         }
         $this->initSearchParams($request,$additionParams);
+
         $this->searchParameters->createElasticSearchResults();
 
         $pagerFanta = $this->searchParameters->getPagerFanta();
