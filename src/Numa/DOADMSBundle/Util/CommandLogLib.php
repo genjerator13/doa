@@ -24,7 +24,7 @@ class CommandLogLib
         $this->container = $container;
     }
 
-    public function startNewCommand($command,$category){
+    public function startNewCommand($command,$category,$dealer=null){
         $em = $this->container->get('doctrine')->getManager();
 
         $commandLog = new CommandLog();
@@ -32,6 +32,7 @@ class CommandLogLib
         $commandLog->setStartedAt(new \DateTime());
         $commandLog->setStatus('started');
         $commandLog->setCommand($command);
+        $commandLog->setDealer($dealer);
         $em->persist($commandLog);
         $em->flush();
         return $commandLog;

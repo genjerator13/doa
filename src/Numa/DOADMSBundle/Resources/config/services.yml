@@ -1,23 +1,23 @@
 services:
-    Numa.Reports:
+    numa.reports:
         class: Numa\DOADMSBundle\Lib\ReportService
         arguments:  ["@service_container"]
-    Numa.UiGrid:
+    numa.uigrid:
         class: Numa\DOADMSBundle\Lib\UiGrid
         arguments:  ["@service_container"]
-    Numa.DMSUtils:
+    numa.dmsutils:
         class: Numa\DOADMSBundle\Lib\DMSUtils
         arguments:  ["@service_container"]
-    Numa.Dms.Listing:
+    numa.dms.listing:
         class: Numa\DOADMSBundle\Util\ListingLib
         arguments:  ["@service_container"]
     numa.dms.dealer:
         class: Numa\DOADMSBundle\Util\DealerLib
         arguments:  ["@service_container"]
-    Numa.Dms.Sale:
+    numa.dms.sale:
         class: Numa\DOADMSBundle\Util\SaleLib
         arguments:  ["@service_container"]
-    Numa.Dms.Command.Log:
+    numa.dms.command.log:
         class: Numa\DOADMSBundle\Util\CommandLogLib
         arguments:  ["@service_container"]
     numa.dms.images:
@@ -29,7 +29,7 @@ services:
     numa.dms.text:
         class: Numa\DOADMSBundle\Util\TextLib
         arguments:  ["@service_container"]
-    Numa.Form.container_aware_type:
+    numa.form.container_aware_type:
         class: Numa\DOADMSBundle\Form\ContainerAwareType
         calls:
           - [setContainer, ['@service_container']]
@@ -58,4 +58,7 @@ services:
         arguments:  ["@service_container"]
     numa.dms.quickbooks.vendor:
         class: Numa\DOADMSBundle\Util\QuickbooksVendorLib
+        arguments:  ["@service_container"]
+    numa.dms.quickbooks.customer:
+        class: Numa\DOADMSBundle\Util\QuickbooksCustomerLib
         arguments:  ["@service_container"]

@@ -1000,7 +1000,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
         if($item->getQbPostInclude()){
 
-            $qbItem = $this->get('numa.dms.quickbooks')->insertVehicleItem($item);
+            $qbItem = $this->get('numa.dms.quickbooks.item')->insertVehicleItem($item);
 
             if($qbItem instanceof \QuickBooks_IPP_Object_Item){
                 return true;

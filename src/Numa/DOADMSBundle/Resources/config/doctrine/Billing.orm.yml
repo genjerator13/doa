@@ -402,6 +402,10 @@ Numa\DOADMSBundle\Entity\Billing:
             type: boolean
             options:
                 default: true
+        qb_post_include:
+            type: boolean
+            options:
+               default: false
 
     manyToOne:
         Customer:

@@ -10,31 +10,10 @@ namespace Numa\DOADMSBundle\Util;
 
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
+use Numa\DOAAdminBundle\Entity\Item;
 
-class QuickbooksBillLib
+class QuickbooksBillLib extends QuickbooksLib
 {
-    protected $container;
-    protected $dealer;
-
-    /**
-     * ListingFormHandler constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct($container) // this is @service_container
-    {
-        $this->container = $container;
-    }
-
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
-
-    public function getDealer()
-    {
-        return $this->dealer;
-    }
-
     public function addLineToBill($qbBill,$account, $amount, $description)
     {
         $Line = new \QuickBooks_IPP_Object_Line();
@@ -125,24 +104,8 @@ class QuickbooksBillLib
     }
 
     public function insertQBBill(\QuickBooks_IPP_Object_Bill $qbBill){
-        $BillService = new \QuickBooks_IPP_Service_Bill();
-        $qbo = $this->container->get("numa.quickbooks")->init();
-        if(empty($qbBill->getId())) {
-            if ($resp = $BillService->add($qbo->getContext(), $qbo->getRealm(), $qbBill)) {
-                return $qbBill;
-            } else {
-                dump('Bill add failed...? ' . $BillService->lastError());
-                return false;
-            }
-        }else{
-            if ($resp = $BillService->update($qbo->getContext(), $qbo->getRealm(),$qbBill->getId(), $qbBill)) {
-                return $qbBill;
-            } else {
-                dump('Bill update failed...? ' . $BillService->lastError());
-                return false;
-            }
-        }
-        return $qbBill;
+
+        return $this->insertQBEntityToQB($qbBill);
     }
 
     public function insertQBBills($qbBills){

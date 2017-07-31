@@ -37,6 +37,28 @@ Numa\DOAAdminBundle\Entity\CommandLog:
         current:
             type: integer
             nullable: true
+        entity:
+            type: string
+            length: 255
+            nullable: true
+        entity_id:
+            type: integer
+            nullable: true
+        action:
+            type: string
+            length: 255
+            nullable: true
+        dealer_id:
+            type: integer
+            nullable: true
+    manyToOne:
+        Dealer:
+            targetEntity: Numa\DOAAdminBundle\Entity\Catalogrecords
+            inversedBy: CommandLog
+            cascade: ["persist"]
+            joinColumn:
+                name: dealer_id
+                referencedColumnName: id
     lifecycleCallbacks:
         prePersist: [ setStartedAtValue ]
 
