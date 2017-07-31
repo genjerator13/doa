@@ -61,7 +61,7 @@ class UtilsLib
      * Ealsticksearch populate.
      *
      */
-    public function kijiji($dealer=null)
+    public function kijiji($dealer = null)
     {
         $em = $this->container->get('doctrine.orm.entity_manager');
 //        $lastCommand = $em->getRepository("NumaDOAAdminBundle:CommandLog")->findOneBy(array('category' => "kijiji"), array('id' => 'desc'));
@@ -71,13 +71,13 @@ class UtilsLib
 //                die();
 //            }
 //        }
-        $sufix="kijiji_all";
-        if($dealer instanceof Catalogrecords){
-            $sufix = "kijiji ".$dealer->getId();
+        $sufix = "kijiji_all";
+        if ($dealer instanceof Catalogrecords) {
+            $sufix = "kijiji " . $dealer->getId();
         }
 
-        $command = 'php ' . $this->container->get('kernel')->getRootDir() . '/console numa:dbutil '.$sufix ;
-        $commandDesc = 'php app/console numa:dbutil '.$sufix;
+        $command = 'php ' . $this->container->get('kernel')->getRootDir() . '/console numa:dbutil ' . $sufix;
+        $commandDesc = 'php app/console numa:dbutil ' . $sufix;
         $commandLog = new CommandLog();
         $commandLog->setCategory('kijiji');
         $commandLog->setStartedAt(new \DateTime());

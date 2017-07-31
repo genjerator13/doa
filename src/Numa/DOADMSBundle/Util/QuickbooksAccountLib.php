@@ -25,27 +25,28 @@ class QuickbooksAccountLib
         $this->container = $container;
     }
 
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
-
     public function getDealer()
     {
         return $this->dealer;
     }
 
-    public function listAllAccounts(Catalogrecords $dealer,$category=null){
+    public function setDealer(Catalogrecords $dealer)
+    {
+        $this->dealer = $dealer;
+    }
+
+    public function listAllAccounts(Catalogrecords $dealer, $category = null)
+    {
 
         $qbo = $this->container->get("numa.quickbooks")->init($dealer);
         $ItemService = new \QuickBooks_IPP_Service_Term();
-        if(empty($category)) {
+        if (empty($category)) {
             $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Account");
-        }else{
-            $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "select * from Account where Classification='".$category."'");
+        } else {
+            $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "select * from Account where Classification='" . $category . "'");
         }
         $r = array();
-        foreach($items as $item){
+        foreach ($items as $item) {
             $r[$item->getName()] = $item->getName();
         }
         return $r;

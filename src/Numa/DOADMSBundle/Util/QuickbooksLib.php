@@ -29,16 +29,6 @@ class QuickbooksLib
         $this->container = $container;
     }
 
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
-
-    public function getDealer()
-    {
-        return $this->dealer;
-    }
-
     /**
      * Find QB entity by docnumber
      * @param $QBentity
@@ -47,7 +37,7 @@ class QuickbooksLib
      */
     public function findQBByDocNumber($QBentity, $docNumber)
     {
-        return $this->findQBEntityByField($QBentity,"DocNumber",$docNumber);
+        return $this->findQBEntityByField($QBentity, "DocNumber", $docNumber);
     }
 
     /**
@@ -57,10 +47,11 @@ class QuickbooksLib
      * @param $QBFieldValue
      * @return bool|\QuickBooks_IPP_Object
      */
-    public function findQBEntityByField($QBentity,$QBfieldName,$QBFieldValue){
+    public function findQBEntityByField($QBentity, $QBfieldName, $QBFieldValue)
+    {
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
-        $query = "SELECT * FROM " . $QBentity . " WHERE ".$QBfieldName." = '" . $QBFieldValue . "'";
+        $query = "SELECT * FROM " . $QBentity . " WHERE " . $QBfieldName . " = '" . $QBFieldValue . "'";
 
         $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), $query);
 
@@ -83,20 +74,20 @@ class QuickbooksLib
     public function insertQBEntityToQB(\QuickBooks_IPP_Object $qbObject)
     {
         $qbObjectClass = get_class($qbObject);
-        if(stripos($qbObjectClass,"customer")){
+        if (stripos($qbObjectClass, "customer")) {
             $entityName = "Customer";
             $entityService = new \QuickBooks_IPP_Service_Customer();
-        }elseif(stripos($qbObjectClass,"item")){
+        } elseif (stripos($qbObjectClass, "item")) {
             $entityName = "Item";
             $entityService = new \QuickBooks_IPP_Service_Item();
-        }elseif(stripos($qbObjectClass,"salesreceipt")){
+        } elseif (stripos($qbObjectClass, "salesreceipt")) {
             $entityName = "SalesReceipt";
             $entityService = new \QuickBooks_IPP_Service_SalesReceipt();
-        }elseif(stripos($qbObjectClass,"Bill")){
+        } elseif (stripos($qbObjectClass, "Bill")) {
             $entityName = "Bill";
             $entityService = new \QuickBooks_IPP_Service_Bill();
         }
-        $cl = $this->container->get("numa.dms.command.log")->startNewCommand($entityName." add to QB","QB",$this->getDealer());
+        $cl = $this->container->get("numa.dms.command.log")->startNewCommand($entityName . " add to QB", "QB", $this->getDealer());
         $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
 
         if (empty($qbObject->getId())) {
@@ -104,8 +95,8 @@ class QuickbooksLib
                 $this->container->get("numa.dms.command.log")->endCommand($cl);
                 return $qbObject;
             } else {
-                $error = $entityName.' add failed... :' . $entityService->errorMessage();
-                $error .= "\n\t". $entityService->lastError();
+                $error = $entityName . ' add failed... :' . $entityService->errorMessage();
+                $error .= "\n\t" . $entityService->lastError();
                 dump($error);
                 $cl->setFullDetails($error);
                 $cl->setStatus("FAILED");
@@ -113,20 +104,30 @@ class QuickbooksLib
                 return false;
             }
         }
-        $cl->setCommand($entityName." update to QB");
+        $cl->setCommand($entityName . " update to QB");
         if ($entityService->update($qbo->getContext(), $qbo->getRealm(), $qbObject->getId(), $qbObject)) {
 
             $this->container->get("numa.dms.command.log")->endCommand($cl);
             return $qbObject;
         } else {
             $error = ' update failed...? ' . $entityService->errorMessage();
-            $error .= "\n\t ".$entityService->lastError();
+            $error .= "\n\t " . $entityService->lastError();
             dump($error);
             $cl->setFullDetails($error);
             $cl->setStatus("FAILED");
             $this->container->get("numa.dms.command.log")->endCommand($cl);
             return false;
         }
+    }
+
+    public function getDealer()
+    {
+        return $this->dealer;
+    }
+
+    public function setDealer(Catalogrecords $dealer)
+    {
+        $this->dealer = $dealer;
     }
 
 
