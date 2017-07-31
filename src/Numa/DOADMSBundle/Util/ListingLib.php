@@ -124,6 +124,33 @@ class ListingLib
 
     }
 
+    public function vindecoder($item)
+    {
+        $vin = "";
+        $em = $this->container->get('doctrine.orm.entity_manager');
+        if (!$item instanceof Item) {
+            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
+        }
+        if ($item instanceof Item) {
+            if (!empty($item->getVIN())) {
+                $vin = $item->getVIN();
+            }
+        }
+
+        if (empty($vin)) {
+            return;;
+        }
+
+        $decodedVin = $this->decodeVin($vin);
+
+        if (is_array($decodedVin)) {
+            if (!array_key_exists("ERROR", $decodedVin)) {
+                return json_encode($decodedVin, true);
+            }
+        }
+        return false;
+    }
+
     public function decodeVin($vin)
     {
         $res = array();
@@ -144,11 +171,11 @@ class ListingLib
 //                }
                 $response = $buzz->get($url, array('User-Agent' => 'Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)'));
                 $dealer = $this->container->get("numa.dms.user")->getSignedDealer();
-                $dealer_id=0;
-                if($dealer instanceof Catalogrecords){
-                    $dealer_id=$dealer->getId();
+                $dealer_id = 0;
+                if ($dealer instanceof Catalogrecords) {
+                    $dealer_id = $dealer->getId();
                 }
-                $logger->addWarning("VIN DECODER vinquery CALL   :".$vin.":::::dealer_id:::::::".$dealer_id);
+                $logger->addWarning("VIN DECODER vinquery CALL   :" . $vin . ":::::dealer_id:::::::" . $dealer_id);
                 if ($buzz->getLastResponse()->getStatusCode() != 200) {
                     $error['ERROR'] = "SERVER ERROR";
                     return $error;
@@ -162,7 +189,7 @@ class ListingLib
                 }
 
                 $vinArray = (json_decode($json, true));
-                if(!empty($vinArray['VIN']['@attributes']['Status']) && $vinArray['VIN']['@attributes']['Status']=='FAILED'){
+                if (!empty($vinArray['VIN']['@attributes']['Status']) && $vinArray['VIN']['@attributes']['Status'] == 'FAILED') {
                     $error['ERROR'] = "WRONG VIN";
                     return $error;
                 }
@@ -222,34 +249,6 @@ class ListingLib
             }
         }
         return $itemFields;
-    }
-
-
-    public function vindecoder($item)
-    {
-        $vin = "";
-        $em = $this->container->get('doctrine.orm.entity_manager');
-        if (!$item instanceof Item) {
-            $item = $em->getRepository('NumaDOAAdminBundle:Item')->find($item);
-        }
-        if ($item instanceof Item) {
-            if (!empty($item->getVIN())) {
-                $vin = $item->getVIN();
-            }
-        }
-
-        if (empty($vin)) {
-            return;;
-        }
-
-        $decodedVin = $this->decodeVin($vin);
-
-        if (is_array($decodedVin)) {
-            if (!array_key_exists("ERROR", $decodedVin)) {
-                return json_encode($decodedVin, true);
-            }
-        }
-        return false;
     }
 
     public function insertFromVinDecoder($item)
@@ -378,6 +377,73 @@ class ListingLib
         }
     }
 
+    public function getListingTitle(Item $item)
+    {
+        return $this->getListingTitleRaw($item->getYear(), $item->getMake(), $item->getModel(), $item->getCategoryId(), $item->getFlorPane(), $item->getTrim());
+    }
+
+    public function getListingTitleRaw($year, $make, $model, $category, $florpane, $trim)
+    {
+        $desc = $year . " " . $make . " " . $this->slug($model);
+        if ($category == 4) {
+            $desc = $desc . " " . $florpane;
+        } elseif ($category == 1) {
+            if (!empty($trim)) {
+                $desc .= " " . $trim;
+            }
+        }
+        return $desc;
+    }
+
+    function Slug($string)
+    {
+        $string = str_replace('/', '-', $string);
+
+        return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
+    }
+
+    public function getListingTitleFromArray($item)
+    {
+        return $this->getListingTitleRaw($item['year'], $item['make'], $item['model'], $item['category_id'], $item['florpane'], $item['trim']);
+    }
+
+    public function getListingTitleFromArrayNoTrim($item)
+    {
+        return $this->getListingTitleRaw($item['year'], $item['make'], $item['model'], $item['category_id'], $item['florpane'], "");
+    }
+
+    /**
+     * returns metadata property from the item
+     * @param Item $item
+     * @param $property
+     * @return string
+     */
+    public function getMetadata(Item $item, $property)
+    {
+        if ($property == 'description') {
+            return $this->getMetaDescription($item);
+        } elseif ($property == "keyword") {
+            return $this->getMetaKeywords($item);
+        } elseif ($property == "title") {
+            return $this->getMetaTitle($item);
+        }
+        return "";
+    }
+
+    public function getMetaDescription(Item $item)
+    {
+        return $item->getCurrentSellerComment();
+    }
+
+    public function getMetaKeywords(Item $item)
+    {
+        $keywords = array();
+        $keywords[] = $this->getMetaTitle($item);
+
+
+        return implode(",", $keywords);
+    }
+
     /**
      * @param Item $item
      * @return string
@@ -395,69 +461,5 @@ class ListingLib
             }
         }
         return $desc;
-    }
-
-    public function getListingTitle(Item $item)
-    {
-        return $this->getListingTitleRaw($item->getYear(),$item->getMake(),$item->getModel(),$item->getCategoryId(),$item->getFlorPane(),$item->getTrim());
-    }
-
-    public function getListingTitleFromArray($item)
-    {
-        return $this->getListingTitleRaw($item['year'],$item['make'],$item['model'],$item['category_id'],$item['florpane'],$item['trim']);
-    }
-
-    public function getListingTitleFromArrayNoTrim($item)
-    {
-        return $this->getListingTitleRaw($item['year'],$item['make'],$item['model'],$item['category_id'],$item['florpane'],"");
-    }
-
-    public function getListingTitleRaw($year, $make, $model,$category,$florpane,$trim){
-        $desc = $year . " " . $make . " " . $this->slug($model);
-        if ($category == 4) {
-            $desc = $desc . " " . $florpane;
-        } elseif ($category == 1) {
-            if (!empty($trim)) {
-                $desc .= " " . $trim;
-            }
-        }
-        return $desc;
-    }
-
-    /**
-     * returns metadata property from the item
-     * @param Item $item
-     * @param $property
-     * @return string
-     */
-    public function getMetadata(Item $item, $property){
-        if($property=='description'){
-            return $this->getMetaDescription($item);
-        }elseif($property=="keyword"){
-            return $this->getMetaKeywords($item);
-        }elseif($property=="title"){
-            return $this->getMetaTitle($item);
-        }
-        return "";
-    }
-    public function getMetaDescription(Item $item)
-    {
-        return $item->getCurrentSellerComment();
-    }
-
-    public function getMetaKeywords(Item $item)
-    {
-        $keywords = array();
-        $keywords[] = $this->getMetaTitle($item);
-
-
-        return implode(",", $keywords);
-    }
-
-    function Slug($string)
-    {
-        $string = str_replace('/', '-', $string);
-
-        return trim(preg_replace('~[^0-9a-z]+~i', '-', html_entity_decode(preg_replace('~&([a-z]{1,2})(?:acute|cedil|circ|grave|lig|orn|ring|slash|th|tilde|uml);~i', '$1', htmlentities($string, ENT_QUOTES, 'UTF-8')), ENT_QUOTES, 'UTF-8')), '-');
     }
 }

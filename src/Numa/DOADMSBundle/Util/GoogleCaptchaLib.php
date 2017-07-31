@@ -25,17 +25,18 @@ class GoogleCaptchaLib
         $this->container = $container;
     }
 
-    public function proccessGoogleCaptcha(Request $request, Form $form){
+    public function proccessGoogleCaptcha(Request $request, Form $form)
+    {
 //CAPTCHA
         $captcha = $request->get('g-recaptcha-response');
 
         $secret = $this->container->getParameter("google.captcha.secret");
         $url = $this->container->getParameter("google.captcha.url");
 
-        $response=file_get_contents($url."?secret=".$secret."&response=".$captcha);
-        $responseKeys = json_decode($response,true);
+        $response = file_get_contents($url . "?secret=" . $secret . "&response=" . $captcha);
+        $responseKeys = json_decode($response, true);
 
-        if($form->isValid() && intval($responseKeys["success"]) !== 1) {
+        if ($form->isValid() && intval($responseKeys["success"]) !== 1) {
             $form->addError(new FormError('CAPTCHA ERROR'));
         }
         return $form;
