@@ -17,6 +17,23 @@ use Numa\DOADMSBundle\Entity\Customer;
 class QuickbooksCustomerLib extends QuickbooksLib
 {
 
+    public function findQBCustomerByCompanyName($companyName)
+    {
+        return $this->findQBEntityByField('Customer', 'CompanyName', $companyName);
+    }
+
+    public function findQBCustomerByFirstLastName($firstName, $lastName)
+    {
+        return $this->findQBEntityByField('Customer', 'DisplayName', $firstName . " " . $lastName);
+    }
+
+    public function insertCustomerToQBCustomer(Customer $customer)
+    {
+        $qbCustomer = $this->createQBCustomer($customer);
+
+        return $this->insertQBCustomerToQB($qbCustomer);
+    }
+
     public function createQBCustomer(Customer $customer)
     {
 
@@ -66,32 +83,27 @@ class QuickbooksCustomerLib extends QuickbooksLib
         return $qbCustomer;
     }
 
+    public function findUniqueQBCustomer(Customer $customer)
+    {
+
+        if (!empty($customer->getEmail())) {
+            return $this->findQBCustomerByEmail($customer->getEmail());
+        }
+        if (!empty($customer->getName())) {
+            return $this->findQBCustomerByDisplayedName($customer->getName());
+        }
+        return "";
+    }
+
     public function findQBCustomerByEmail($email)
     {
         return $this->findQBEntityByField('Customer', 'PrimaryEmailAddress', $email);
-    }
-
-    public function findQBCustomerByCompanyName($companyName)
-    {
-        return $this->findQBEntityByField('Customer', 'CompanyName', $companyName);
     }
 
     public function findQBCustomerByDisplayedName($displayedName)
     {
 
         return $this->findQBEntityByField('Customer', 'DisplayName', $displayedName);
-    }
-
-    public function findQBCustomerByFirstLastName($firstName, $lastName)
-    {
-        return $this->findQBEntityByField('Customer', 'DisplayName', $firstName . " " . $lastName);
-    }
-
-    public function insertCustomerToQBCustomer(Customer $customer)
-    {
-        $qbCustomer = $this->createQBCustomer($customer);
-
-        return $this->insertQBCustomerToQB($qbCustomer);
     }
 
     public function insertQBCustomerToQB(\QuickBooks_IPP_Object_Customer $qbCustomer)
@@ -108,17 +120,5 @@ class QuickbooksCustomerLib extends QuickbooksLib
                 $qbCustomer->{$qbfn}($customer->$qbCustomer->{$qbfn}());
             }
         }
-    }
-
-    public function findUniqueQBCustomer(Customer $customer)
-    {
-
-        if (!empty($customer->getEmail())) {
-            return $this->findQBCustomerByEmail($customer->getEmail());
-        }
-        if (!empty($customer->getName())) {
-            return $this->findQBCustomerByDisplayedName($customer->getName());
-        }
-        return "";
     }
 }

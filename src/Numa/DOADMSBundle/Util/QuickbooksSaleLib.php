@@ -16,6 +16,12 @@ use Numa\DOADMSBundle\Entity\Customer;
 class QuickbooksSaleLib extends QuickbooksLib
 {
 
+    public function insertBillingToQBSaleReceipt($billing)
+    {
+        $qbSale = $this->createQBSale($billing);
+        return $this->insertQBSaleToQB($qbSale);
+    }
+
     public function createQBSale(Billing $billing)
     {
 
@@ -40,12 +46,10 @@ class QuickbooksSaleLib extends QuickbooksLib
             $qbSale = $this->addVehicleLine($qbSale, $item);
         }
 
-        return $qbSale;
-    }
+        //$qbSale = $this->addLineToSale($qbSale, $sku, $desc,1,1,1,1,1)
 
-    public function findQBSaleByDocNumber($docNumber)
-    {
-        return $this->findQBByDocNumber('SalesReceipt', $docNumber);
+
+        return $qbSale;
     }
 
     public function generateQBSaleDocNumber(Billing $billing)
@@ -55,6 +59,11 @@ class QuickbooksSaleLib extends QuickbooksLib
             $itemStr = "_" . $billing->getItem()->getId() . "_";
         }
         return $billing->getDealerId() . "_" . $billing->getId() . $itemStr;
+    }
+
+    public function findQBSaleByDocNumber($docNumber)
+    {
+        return $this->findQBByDocNumber('SalesReceipt', $docNumber);
     }
 
     public function addVehicleLine(\QuickBooks_IPP_Object_SalesReceipt $qbSale, Item $item)
@@ -70,11 +79,11 @@ class QuickbooksSaleLib extends QuickbooksLib
         $accountName = $this->container->get("numa.settings")->getValue2("Inventory", $item->getDealer());
         $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
         $qbSale->setLine(null);
-        $this->addLineToSale($qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account,$item);
+        $this->addLineToSale($qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account, $item);
         return $qbSale;
     }
 
-    public function addLineToSale(\QuickBooks_IPP_Object_SalesReceipt $qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account,$item)
+    public function addLineToSale(\QuickBooks_IPP_Object_SalesReceipt $qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account, $item)
     {
         $Line = new \QuickBooks_IPP_Object_Line();
         $Line->setDetailType('SalesItemLineDetail');
@@ -87,7 +96,7 @@ class QuickbooksSaleLib extends QuickbooksLib
         $Line->setSaleTax($saleTax);
         $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemBySku($sku);
 
-        if(!$qbItem instanceof \QuickBooks_IPP_Object_Item){
+        if (!$qbItem instanceof \QuickBooks_IPP_Object_Item) {
             $qbItem = $this->container->get("numa.dms.quickbooks.item")->insertVehicleItem($item);
         }
 
@@ -114,12 +123,6 @@ class QuickbooksSaleLib extends QuickbooksLib
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
         return $qbSale;
-    }
-
-    public function insertBillingToQBSaleReceipt($billing)
-    {
-        $qbSale = $this->createQBSale($billing);
-        return $this->insertQBSaleToQB($qbSale);
     }
 
     public function insertQBSaleToQB(\QuickBooks_IPP_Object_SalesReceipt $qbSale)

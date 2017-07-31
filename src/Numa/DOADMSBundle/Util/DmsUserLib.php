@@ -35,6 +35,23 @@ class DmsUserLib
         $this->repo = null;
     }
 
+    /**
+     * @return dealers id based whatever dealer or dealer principal is signed
+     */
+    public function getAvailableDealersIds()
+    {
+        $dealer = $this->getSignedUser();
+        $dealer_id = "";
+        if ($dealer instanceof Catalogrecords) {
+            $dealer_id = $dealer->getId();
+        } elseif ($dealer instanceof DealerGroup) {
+            $dealer_id = $this->getDealerIdsFromPrincipal($dealer);
+        } elseif ($dealer instanceof DMSUser) {
+            $dealer_id = $dealer->getDealerId();
+        }
+        return $dealer_id;
+    }
+
     public function getSignedUser()
     {
 
@@ -51,41 +68,16 @@ class DmsUserLib
         return null;
     }
 
-    public function getSignedDealer()
+    public function getDealerIdsFromPrincipal(DealerGroup $principal)
     {
-        $dealer = $this->getSignedUser();
-        if ($dealer instanceof Catalogrecords) {
-            return $dealer;
-        }
-        if ($dealer instanceof DMSUser) {
-            return $dealer->getDealer();
-        }
-        if ($dealer instanceof DealerGroup) {
-            if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
-                //dump($dealer->getDealer()->first());die();
-                return $dealer->getDealer()->first();
-
+        $dealer_id = array();
+        if ($principal instanceof DealerGroup) {
+            foreach ($principal->getDealer() as $dealer) {
+                $dealer_id[] = $dealer->getId();
             }
-            return $dealer->getDealerCreator();
         }
-        return null;
-    }
 
-    /**
-     * @return dealers id based whatever dealer or dealer principal is signed
-     */
-    public function getAvailableDealersIds()
-    {
-        $dealer = $this->getSignedUser();
-        $dealer_id = "";
-        if ($dealer instanceof Catalogrecords) {
-            $dealer_id = $dealer->getId();
-        } elseif ($dealer instanceof DealerGroup) {
-            $dealer_id = $this->getDealerIdsFromPrincipal($dealer);
-        } elseif ($dealer instanceof DMSUser) {
-            $dealer_id = $dealer->getDealerId();
-        }
-        return $dealer_id;
+        return implode(",", $dealer_id);
     }
 
     public function getSignedDealerPrincipal()
@@ -118,10 +110,36 @@ class DmsUserLib
         return $url;
     }
 
+    public function getSignedDealer()
+    {
+        $dealer = $this->getSignedUser();
+        if ($dealer instanceof Catalogrecords) {
+            return $dealer;
+        }
+        if ($dealer instanceof DMSUser) {
+            return $dealer->getDealer();
+        }
+        if ($dealer instanceof DealerGroup) {
+            if (empty($dealer->getDealerCreator()) && !empty($dealer->getDealer()) && $dealer->getDealer() instanceof PersistentCollection) {
+                //dump($dealer->getDealer()->first());die();
+                return $dealer->getDealer()->first();
+
+            }
+            return $dealer->getDealerCreator();
+        }
+        return null;
+    }
+
     public function isAdmin()
     {
         $user = $this->getSignedUser();
         return in_array('ROLE_ADMIN', $user->getRoles());
+    }
+
+    public function isTruxrusDomain()
+    {
+        $host = $this->getCurrentSiteHost();
+        return stripos($host, "truxrus") !== false;
     }
 
     public function getCurrentSiteHost()
@@ -131,21 +149,15 @@ class DmsUserLib
         return $host;
     }
 
-    public function isTruxrusDomain()
+    public function getCurrentSiteHostWWW($host = null)
     {
-        $host = $this->getCurrentSiteHost();
-        return stripos($host,"truxrus")!==false;
-    }
-
-    public function getCurrentSiteHostWWW($host=null)
-    {
-        if(empty($host)) {
+        if (empty($host)) {
             $router = $this->container->get('router');
             $host = $router->getContext()->getHost();
         }
 
-        if(stripos($host,"www")===false && stripos($host,"dealersonair.com")===false){
-            $host="www.".$host;
+        if (stripos($host, "www") === false && stripos($host, "dealersonair.com") === false) {
+            $host = "www." . $host;
         }
         return $host;
     }
@@ -154,6 +166,16 @@ class DmsUserLib
     {
         $router = $this->container->get('router');
         return $router->getContext()->getScheme();
+    }
+
+    public function getDealerGroupIdByHost()
+    {
+
+        $dealer = $this->getDealerByHost();
+        if ($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup) {
+            return $dealer->getDealerGroup()->getId();
+        }
+        return null;
     }
 
     public function getDealerByHost()
@@ -169,7 +191,7 @@ class DmsUserLib
 
 
         //if (empty($mDealer)) {
-            $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
+        $desDealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->getDealerByHost($host);
 //            $mDealer = $serializer->serialize($desDealer, "json");
 //
 //            $this->container->get('mymemcache')->set('dealer_' . $host, $mDealer);
@@ -185,41 +207,22 @@ class DmsUserLib
         return $desDealer;
     }
 
-    public function getDealerGroupIdByHost()
+    public function isQBReady(Catalogrecords $dealer)
     {
 
-        $dealer = $this->getDealerByHost();
-        if ($dealer instanceof Catalogrecords && $dealer->getDealerGroup() instanceof DealerGroup) {
-            return $dealer->getDealerGroup()->getId();
-        }
-        return null;
+        return $this->isLocalHost() || $this->isDevServer() || $dealer->getUsername() == "qbautodealer";
     }
 
-    public function getDealerIdsFromPrincipal(DealerGroup $principal)
+    public function isLocalHost()
     {
-        $dealer_id = array();
-        if ($principal instanceof DealerGroup) {
-            foreach ($principal->getDealer() as $dealer) {
-                $dealer_id[] = $dealer->getId();
-            }
-        }
-
-        return implode(",", $dealer_id);
-    }
-
-    public function isLocalHost(){
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
         return (strpos($host, '.local') !== false);
     }
 
-    public function isDevServer(){
+    public function isDevServer()
+    {
         $host = $this->container->get("numa.dms.user")->getCurrentSiteHost();
         return (strpos($host, 'dev.dealersonair') !== false);
-    }
-
-    public function isQBReady(Catalogrecords $dealer){
-
-        return $this->isLocalHost() || $this->isDevServer() || $dealer->getUsername()=="qbautodealer";
     }
 
 }
