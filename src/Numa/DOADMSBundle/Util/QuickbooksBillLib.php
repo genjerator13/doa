@@ -14,31 +14,6 @@ use Numa\DOAAdminBundle\Entity\Item;
 
 class QuickbooksBillLib extends QuickbooksLib
 {
-    public function addLineToBill($qbBill,$account, $amount, $description)
-    {
-        $Line = new \QuickBooks_IPP_Object_Line();
-        $Line->setDetailType('AccountBasedExpenseLineDetail');
-
-        $Line->setAmount($amount);
-
-        //$settingLib = $this->container->get("numa.settings");
-
-        $Line->setDescription($description);
-        $AccountBasedExpenseLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
-
-        $accountId = "{-17}";
-        if($account instanceof \QuickBooks_IPP_Object_Account){
-            $accountId =$account->getId();
-        }
-
-        $AccountBasedExpenseLineDetail->setAccountRef($accountId);
-
-        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
-
-        $qbBill->addLine($Line);
-        return $qbBill;
-    }
-
     public function insertItemBills(Item $item)
     {
         $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
@@ -77,11 +52,20 @@ class QuickbooksBillLib extends QuickbooksLib
         $qbBill->setItemRef($qbItem->getId());
         $qbBill->setLine(null);
         foreach ($vendorArray as $vendorItem) {
-            $this->addLineToBill($qbBill,$vendorItem['qbExpenseAccount'], $vendorItem['amount'], $property);
+            $this->addLineToBill($qbBill, $vendorItem['qbExpenseAccount'], $vendorItem['amount'], $property);
         }
 
 
         return $qbBill;
+    }
+
+    public function generateQBBillDocNumber(Item $item, $property)
+    {
+
+        if (stripos($property, "get") === 0) {
+            $property = strip_tags(strtolower(substr($property, 3)));
+        };
+        return $item->getDealerId() . "_" . $item->getId() . "_" . $property;
     }
 
     /**
@@ -94,25 +78,43 @@ class QuickbooksBillLib extends QuickbooksLib
         return $this->container->get("numa.dms.quickbooks")->findQBByDocNumber('Bill', $docNumber);
     }
 
-    public function generateQBBillDocNumber(Item $item, $property)
+    public function addLineToBill($qbBill, $account, $amount, $description)
     {
+        $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setDetailType('AccountBasedExpenseLineDetail');
 
-        if (stripos($property, "get") === 0) {
-            $property = strip_tags(strtolower(substr($property, 3)));
-        };
-        return $item->getDealerId() . "_" . $item->getId() . "_" . $property;
+        $Line->setAmount($amount);
+
+        //$settingLib = $this->container->get("numa.settings");
+
+        $Line->setDescription($description);
+        $AccountBasedExpenseLineDetail = new \QuickBooks_IPP_Object_AccountBasedExpenseLineDetail();
+
+        $accountId = "{-17}";
+        if ($account instanceof \QuickBooks_IPP_Object_Account) {
+            $accountId = $account->getId();
+        }
+
+        $AccountBasedExpenseLineDetail->setAccountRef($accountId);
+
+        $Line->setAccountBasedExpenseLineDetail($AccountBasedExpenseLineDetail);
+
+        $qbBill->addLine($Line);
+        return $qbBill;
     }
 
-    public function insertQBBill(\QuickBooks_IPP_Object_Bill $qbBill){
-
-        return $this->insertQBEntityToQB($qbBill);
-    }
-
-    public function insertQBBills($qbBills){
+    public function insertQBBills($qbBills)
+    {
         $done = array();
         foreach ($qbBills as $qbBill) {
             $done[] = $this->insertQBBill($qbBill);
         }
         return $done;
+    }
+
+    public function insertQBBill(\QuickBooks_IPP_Object_Bill $qbBill)
+    {
+
+        return $this->insertQBEntityToQB($qbBill);
     }
 }

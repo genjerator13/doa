@@ -27,14 +27,58 @@ class QuickbooksItemLib extends QuickbooksLib
         $this->container = $container;
     }
 
+    public function getDealer()
+    {
+        return $this->dealer;
+    }
+
     public function setDealer(Catalogrecords $dealer)
     {
         $this->dealer = $dealer;
     }
 
-    public function getDealer()
+    /**
+     * finds QB item by name
+     * @param $name
+     * @return mixed
+     */
+    public function findQBItemByName($name)
     {
-        return $this->dealer;
+        return $this->findQBEntityByField("Item", "name", $name);
+    }
+
+    /**
+     * @param $ids
+     */
+    public function addItemToQB($ids)
+    {
+        $em = $this->container->get('doctrine');
+
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
+        foreach ($items as $item) {
+            //$this->insertQBItem($item);
+        }
+    }
+
+    /**
+     * Add vehicle item to QB
+     * @param Item $item
+     * @return bool|mixed|\QuickBooks_IPP_Object_Item
+     */
+    public function insertVehicleItem(Item $item)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
+        $desc = $this->getQBItemDesc($item);
+        $amount = $this->getQBItemPrice($item);
+
+        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
+        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
+        $qbAssetAccount = $this->container->get("numa.settings")->getValue4("Inventory");
+
+        $qbItem = $this->fillQBItem($title, $desc, $item->getVIN(), $qbIncomeAccountSetting, $qbExpenseAccountSetting, $qbAssetAccount, $amount, "Inventory", true);
+        return $this->insertQBItemToQB($qbItem);
     }
 
     /**
@@ -78,65 +122,7 @@ class QuickbooksItemLib extends QuickbooksLib
         //throw exception
     }
 
-    /**
-     * finds QB item by name
-     * @param $name
-     * @return mixed
-     */
-    public function findQBItemByName($name)
-    {
-        return $this->findQBEntityByField("Item", "name", $name);
-    }
-
-    /**
-     * finds QB item by sku
-     * @param $sku
-     * @return mixed
-     */
-    public function findQBItemBySku($sku)
-    {
-
-        $ret =  $this->findQBEntityByField("Item", "Sku", $sku);
-
-        return $ret;
-
-    }
-
-    /**
-     * @param $ids
-     */
-    public function addItemToQB($ids)
-    {
-        $em = $this->container->get('doctrine');
-
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        foreach ($items as $item) {
-            //$this->insertQBItem($item);
-        }
-    }
-
-    /**
-     * Add vehicle item to QB
-     * @param Item $item
-     * @return bool|mixed|\QuickBooks_IPP_Object_Item
-     */
-    public function insertVehicleItem(Item $item)
-    {
-        $qbo = $this->container->get("numa.quickbooks")->init();
-
-        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
-        $desc = $this->getQBItemDesc($item);
-        $amount = $this->getQBItemPrice($item);
-
-        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
-        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
-        $qbAssetAccount = $this->container->get("numa.settings")->getValue4("Inventory");
-
-        $qbItem =  $this->fillQBItem($title, $desc, $item->getVIN(), $qbIncomeAccountSetting, $qbExpenseAccountSetting, $qbAssetAccount, $amount, "Inventory", true);
-        return $this->insertQBItemToQB($qbItem);
-    }
-
-    public function fillQBItem($title, $desc, $sku, $qbIncomeAccount,$qbExpenseAccount, $qbAssetAccount, $amount, $type = "Service", $trackQtyOnHand = false)
+    public function fillQBItem($title, $desc, $sku, $qbIncomeAccount, $qbExpenseAccount, $qbAssetAccount, $amount, $type = "Service", $trackQtyOnHand = false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -185,6 +171,20 @@ class QuickbooksItemLib extends QuickbooksLib
         //$qbItem->setTrackQtyOnHand(true);
 
         return $qbItem;
+    }
+
+    /**
+     * finds QB item by sku
+     * @param $sku
+     * @return mixed
+     */
+    public function findQBItemBySku($sku)
+    {
+
+        $ret = $this->findQBEntityByField("Item", "Sku", $sku);
+
+        return $ret;
+
     }
 
     public function insertQBItemToQB($qbItem)

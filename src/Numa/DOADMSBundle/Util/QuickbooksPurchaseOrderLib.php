@@ -18,19 +18,6 @@ class QuickbooksPurchaseOrderLib extends QuickbooksLib
 {
 
     /**
-     * Creates QB Purchase Order object with Vendor referenced
-     * @param Vendor $vendor
-     * @return \QuickBooks_IPP_Object_PurchaseOrder
-     */
-    public function createPurchaseOrder(Vendor $vendor)
-    {
-        $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
-        $qbVendor = $this->container->get("numa.dms.quickbooks.vendor")->dmsToQbVendor($vendor);
-        $qbPO->setVendorRef($qbVendor->getId());
-        return $qbPO;
-    }
-
-    /**
      * @param $ids
      * @param bool $preview
      * @return array
@@ -65,6 +52,19 @@ class QuickbooksPurchaseOrderLib extends QuickbooksLib
         }
 
         return $QBPOs;
+    }
+
+    /**
+     * Creates QB Purchase Order object with Vendor referenced
+     * @param Vendor $vendor
+     * @return \QuickBooks_IPP_Object_PurchaseOrder
+     */
+    public function createPurchaseOrder(Vendor $vendor)
+    {
+        $qbPO = new \QuickBooks_IPP_Object_PurchaseOrder();
+        $qbVendor = $this->container->get("numa.dms.quickbooks.vendor")->dmsToQbVendor($vendor);
+        $qbPO->setVendorRef($qbVendor->getId());
+        return $qbPO;
     }
 
     public function addLineToPurchaseOrder($qbPO, $item, $amount, $qty = 1, $property = 'vehicle')
@@ -104,15 +104,6 @@ class QuickbooksPurchaseOrderLib extends QuickbooksLib
         return $qbPO;
     }
 
-    public function previewQBPO($ids)
-    {
-        $em = $this->container->get('doctrine');
-        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
-        foreach ($items as $item) {
-            $this->insertPurchaseOrdersForItem($item);
-        }
-    }
-
     public function insertPurchaseOrder(\QuickBooks_IPP_Object_PurchaseOrder $qbPO)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
@@ -134,6 +125,36 @@ class QuickbooksPurchaseOrderLib extends QuickbooksLib
             }
         }
         return $qbPO;
+    }
+
+    public function previewQBPO($ids)
+    {
+        $em = $this->container->get('doctrine');
+        $items = $em->getRepository("NumaDOAAdminBundle:Item")->findByIds($ids);
+        foreach ($items as $item) {
+            $this->insertPurchaseOrdersForItem($item);
+        }
+    }
+
+    public function insertItemPO(Item $item)
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+        $qbPO = $this->createItemPO($item);
+
+        $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
+
+        if (!empty($qbPO->getId())) {
+
+            $resp = $PurchaseService->update($qbo->getContext(), $qbo->getRealm(), $qbPO->getId(), $qbPO);
+        } else {
+
+            $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
+        }
+
+        if (!$resp) {
+            return false;
+        }
+        return true;
     }
 
     public function createItemPO(Item $item)
@@ -178,27 +199,6 @@ class QuickbooksPurchaseOrderLib extends QuickbooksLib
         }
 
         return $qbPO;
-    }
-
-    public function insertItemPO(Item $item)
-    {
-        $qbo = $this->container->get("numa.quickbooks")->init();
-        $qbPO = $this->createItemPO($item);
-
-        $PurchaseService = new \QuickBooks_IPP_Service_PurchaseOrder();
-
-        if (!empty($qbPO->getId())) {
-
-            $resp = $PurchaseService->update($qbo->getContext(), $qbo->getRealm(), $qbPO->getId(), $qbPO);
-        } else {
-
-            $resp = $PurchaseService->add($qbo->getContext(), $qbo->getRealm(), $qbPO);
-        }
-
-        if (!$resp) {
-            return false;
-        }
-        return true;
     }
 
     public function generateQBPODocNumber(Item $item)

@@ -15,8 +15,8 @@ use Numa\DOAAdminBundle\Entity\Item;
 class ImageLib
 {
     protected $container;
-    protected $delete=array();
-    protected $nodelete=array();
+    protected $delete = array();
+    protected $nodelete = array();
 
     /**
      * ListingFormHandler constructor.
@@ -27,11 +27,18 @@ class ImageLib
         $this->container = $container;
     }
 
-    public function getAbsoluteImagePath($filename){
+    public function getAbsoluteImagePathFromItem(Item $item)
+    {
+        $photo = $this->getAbsoluteImagePath($item->getPhoto());
+        return $photo;
+    }
+
+    public function getAbsoluteImagePath($filename)
+    {
         $path = "";
 
-        if(!empty($filename)) {
-            if($this->isLocalImage($filename)) {
+        if (!empty($filename)) {
+            if ($this->isLocalImage($filename)) {
                 $webpath = $this->container->getParameter('web_path');
                 //$webpath = str_replace("/../", "/", $webpath);
                 $webpath = str_replace("//", "/", $webpath);
@@ -40,19 +47,15 @@ class ImageLib
                 if (!file_exists($path)) {
                     $path = "";
                 }
-            }else{
+            } else {
                 $path = $filename;
             }
         }
         return $path;
     }
 
-    public function getAbsoluteImagePathFromItem(Item $item){
-        $photo = $this->getAbsoluteImagePath($item->getPhoto());
-        return $photo;
-    }
-
-    public function isLocalImage($filename){
+    public function isLocalImage($filename)
+    {
         $http = substr($filename, 0, 4) == 'http';
         if ($http) {
             return false;
@@ -60,13 +63,14 @@ class ImageLib
         return true;
     }
 
-    public function fitIntoHeight($photo,$h){
+    public function fitIntoHeight($photo, $h)
+    {
         $size = getimagesize($photo);
         $height = $size[1];
         $width = $size[0];
         $res = array();
-        $res['height']=intval($h);
-        $res['width']=intval(($width*$h)/$height);
+        $res['height'] = intval($h);
+        $res['width'] = intval(($width * $h) / $height);
 
         return $res;
     }
@@ -75,40 +79,40 @@ class ImageLib
     public function deleteImagesNotInDB($path)
     {
         $images = $this->getAllImagesIntoArray();
-        $dir    = 'upload/itemsimages'; // path from top
+        $dir = 'upload/itemsimages'; // path from top
         $scanedFiles = scandir($dir);
         $files = array_diff($scanedFiles, array('.', '..'));
-        $delete=array();
-        $noDelete=array();
+        $delete = array();
+        $noDelete = array();
 
-        foreach($files as $file){
+        foreach ($files as $file) {
             // "is_dir" only works from top directory, so append the $dir before the file
-            if (is_dir($dir.'/'.$file)){
-                $scanedFilesFolder = scandir($dir.'/'.$file);
+            if (is_dir($dir . '/' . $file)) {
+                $scanedFilesFolder = scandir($dir . '/' . $file);
                 $filesFolder = array_diff($scanedFilesFolder, array('.', '..'));
                 foreach ($filesFolder as $fileFolder) {
-                    $img = $dir.'/'.$file.'/'.$fileFolder;
+                    $img = $dir . '/' . $file . '/' . $fileFolder;
                     //dump('/'.$img);
-                    if(!in_array('/'.$img, $images)){
+                    if (!in_array('/' . $img, $images)) {
                         //$this->deleteImage($img);
-                        $delete[]=$path."/".$img;
+                        $delete[] = $path . "/" . $img;
                         //dump("not EXISTS");
-                    }else{
-                        $noDelete[]=$img;
+                    } else {
+                        $noDelete[] = $img;
 //                        dump("EXISTS");
 //                        dump($img);
                     }
                 }
 
-            } else{
-                $img = $dir.'/'.$file;
+            } else {
+                $img = $dir . '/' . $file;
                 //dump('/'.$img);
-                if(!in_array('/'.$img, $images)){
+                if (!in_array('/' . $img, $images)) {
                     //$this->deleteImage($img);
-                    $delete[]=$path."/".$img;
-                }else{
+                    $delete[] = $path . "/" . $img;
+                } else {
                     //dump("EXISTS");
-                    $noDelete[]=$img;
+                    $noDelete[] = $img;
                 }
             }
         }
@@ -122,27 +126,32 @@ class ImageLib
         die();
 
     }
-    public function getAllImagesIntoArray(){
+
+    public function getAllImagesIntoArray()
+    {
         $em = $this->container->get('doctrine.orm.entity_manager');
         $images = $em->getRepository('NumaDOAAdminBundle:ItemField')->getLocalImages();
         $arrayImages = array();
-        foreach($images as $image){
+        foreach ($images as $image) {
 
-            $arrayImages[] = str_replace("//","/",$image->getFieldStringValue());
+            $arrayImages[] = str_replace("//", "/", $image->getFieldStringValue());
         }
         return $arrayImages;
     }
 
-    public function deleteImage($filename){
-        if(file_exists($filename)){
+    public function deleteImage($filename)
+    {
+        if (file_exists($filename)) {
             unlink($filename);
             dump($filename);
-        }else{
+        } else {
             dump("AAAA");
         }
     }
-    public function shrinkCoverImage($filename,$filter){
-        if(!empty($filename)) {
+
+    public function shrinkCoverImage($filename, $filter)
+    {
+        if (!empty($filename)) {
             $cachedImageUrl = "/media/cache/" . $filter;
             $cachedPath = $this->container->get('kernel')->getRootDir() . "/../web" . $cachedImageUrl;
             $origPath = $upload_path = $this->container->getParameter('web_path');
@@ -159,8 +168,8 @@ class ImageLib
 
                 $newimage = $this->container->get('liip_imagine.filter.manager')->applyFilter($processedImage, 'inventory_cover');
                 $newimage_string = $newimage->getContent();
-                $this->container->get('liip_imagine.cache.manager')->store($newimage, $filename,$filter);
-                $image = $this->container->get('liip_imagine.cache.manager')->getBrowserPath($filename,$filter);
+                $this->container->get('liip_imagine.cache.manager')->store($newimage, $filename, $filter);
+                $image = $this->container->get('liip_imagine.cache.manager')->getBrowserPath($filename, $filter);
 
                 return $image;
 
@@ -173,24 +182,27 @@ class ImageLib
         return $filename;
     }
 
-    public function cleanUrl($url){
+    public function cleanUrl($url)
+    {
         $result = str_replace('app/../', '', $url);
         $result = str_replace('//', '/', $result);
         return $result;
     }
 
-    public function downsizeImage($path,$filter){
+    public function downsizeImage($path, $filter)
+    {
         $container = $this->container; // the DI container, if keeping this function in controller just use $container = $this
         $imagine = $container->get('liip_imagine');
         $filterManager = $container->get('liip_imagine.filter.manager');
 
         $image = $imagine->open($path);
-        if($image instanceof \Imagine\Gd\Image){}
+        if ($image instanceof \Imagine\Gd\Image) {
+        }
         $width = $image->getSize()->getWidth();
         $height = $image->getSize()->getHeight();
-        $ratio = $height/$width;
-        if($image->getSize()->getWidth()>1920){
-            $image->resize(new Box(1920,1920*$ratio))->save($path);
+        $ratio = $height / $width;
+        if ($image->getSize()->getWidth() > 1920) {
+            $image->resize(new Box(1920, 1920 * $ratio))->save($path);
         }
     }
 }
