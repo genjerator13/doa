@@ -12,6 +12,7 @@ namespace Numa\DOADMSBundle\Util;
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
+use Numa\DOADMSBundle\Entity\Customer;
 
 class QuickbooksSaleLib extends QuickbooksLib
 {
@@ -26,7 +27,15 @@ class QuickbooksSaleLib extends QuickbooksLib
         if (!$qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
             $qbSale = new \QuickBooks_IPP_Object_SalesReceipt();
         }
+        //$customer = $billing->getCustomer();
+        $customer = $em = $this->container->get("doctrine.orm.entity_manager")->getRepository(Customer::class)->find($billing->getCustomer()->getId());
+
+        $qbCustomer = $this->container->get("numa.dms.quickbooks.customer")->insertCustomerToQBCustomer($customer);
+
         $qbSale->setDocNumber($docNumber);
+        $qbSale->setCustomerRef($qbCustomer->getId());
+        $qbSale->setDueDate($billing->getDateBilling()->format("Y-m-d"));
+
         $item = $billing->getItem();
 
         if ($item instanceof Item) {
@@ -62,7 +71,7 @@ class QuickbooksSaleLib extends QuickbooksLib
         $saleTax = 0;
         $accountName = $this->container->get("numa.settings")->getValue2("Inventory", $item->getDealer());
         $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
-
+        $qbSale->setLine(null);
         $this->addLineToSale($qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account,$item);
         return $qbSale;
     }
@@ -73,12 +82,13 @@ class QuickbooksSaleLib extends QuickbooksLib
         $Line->setDetailType('SalesItemLineDetail');
 
         $Line->setSku($sku);
-        //$Line->setDescription($description);
+        $Line->setDescription($description);
         $Line->setQty($qty);
         $Line->setRate($rate);
         $Line->setAmount($amount);
         $Line->setSaleTax($saleTax);
         $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemBySku($sku);
+
         if(!$qbItem instanceof \QuickBooks_IPP_Object_Item){
             $qbItem = $this->container->get("numa.dms.quickbooks.item")->insertVehicleItem($item);
         }
@@ -97,17 +107,18 @@ class QuickbooksSaleLib extends QuickbooksLib
         $qbSale->addLine($Line);
 
         $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
+
         $SalesItemLineDetail->setItemRef($qbItem->getId());
         $SalesItemLineDetail->setUnitPrice(1111);
         $SalesItemLineDetail->setQty($qty);
         $SalesItemLineDetail->setTaxCodeRef("6");
         $Line->setAmount(1111);
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
-        dump($qbSale);
+
         return $qbSale;
     }
 
-    public function insertBillingToQBasSaleReceipt($billing)
+    public function insertBillingToQBSaleReceipt($billing)
     {
         $qbSale = $this->createQBSale($billing);
         return $this->insertQBSaleToQB($qbSale);
@@ -115,26 +126,7 @@ class QuickbooksSaleLib extends QuickbooksLib
 
     public function insertQBSaleToQB(\QuickBooks_IPP_Object_SalesReceipt $qbSale)
     {
-        $SaleService = new \QuickBooks_IPP_Service_SalesReceipt();
-        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
-
-        if (empty($qbSale->getId())) {
-            if ($resp = $SaleService->add($qbo->getContext(), $qbo->getRealm(), $qbSale)) {
-                return $qbSale;
-            } else {
-                dump('SaleReceipt add failed...? ' . $SaleService->lastError());
-                return false;
-            }
-        } else {
-            if ($resp = $SaleService->update($qbo->getContext(), $qbo->getRealm(), $qbSale->getId(), $qbSale)) {
-                return $qbSale;
-            } else {
-                dump('SaleReceipt update failed...? ' . $SaleService->lastError());
-                return false;
-            }
-        }
-
-        return $qbSale;
+        return $this->insertQBEntityToQB($qbSale);
     }
 
 
