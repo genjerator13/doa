@@ -60,7 +60,10 @@ class QuickbooksLib
     public function findQBEntityByField($QBentity,$QBfieldName,$QBFieldValue){
         $qbo = $this->container->get("numa.quickbooks")->init();
         $ItemService = new \QuickBooks_IPP_Service_Term();
-        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM " . $QBentity . " WHERE ".$QBfieldName." = '" . $QBFieldValue . "'");
+        $query = "SELECT * FROM " . $QBentity . " WHERE ".$QBfieldName." = '" . $QBFieldValue . "'";
+
+        $items = $ItemService->query($qbo->getContext(), $qbo->getRealm(), $query);
+
         if (!empty($items[0])) {
             return $items[0];
         }
@@ -76,5 +79,55 @@ class QuickbooksLib
     {
         return intval(str_replace(array("{", "}", "-"), "", $qbid));
     }
+
+    public function insertQBEntityToQB(\QuickBooks_IPP_Object $qbObject)
+    {
+        $qbObjectClass = get_class($qbObject);
+        if(stripos($qbObjectClass,"customer")){
+            $entityName = "Customer";
+            $entityService = new \QuickBooks_IPP_Service_Customer();
+        }elseif(stripos($qbObjectClass,"item")){
+            $entityName = "Item";
+            $entityService = new \QuickBooks_IPP_Service_Item();
+        }elseif(stripos($qbObjectClass,"salesreceipt")){
+            $entityName = "SalesReceipt";
+            $entityService = new \QuickBooks_IPP_Service_SalesReceipt();
+        }elseif(stripos($qbObjectClass,"Bill")){
+            $entityName = "Bill";
+            $entityService = new \QuickBooks_IPP_Service_Bill();
+        }
+        $cl = $this->container->get("numa.dms.command.log")->startNewCommand($entityName." add to QB","QB",$this->getDealer());
+        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
+
+        if (empty($qbObject->getId())) {
+            if ($entityService->add($qbo->getContext(), $qbo->getRealm(), $qbObject)) {
+                $this->container->get("numa.dms.command.log")->endCommand($cl);
+                return $qbObject;
+            } else {
+                $error = $entityName.' add failed... :' . $entityService->errorMessage();
+                $error .= "\n\t". $entityService->lastError();
+                dump($error);
+                $cl->setFullDetails($error);
+                $cl->setStatus("FAILED");
+                $this->container->get("numa.dms.command.log")->endCommand($cl);
+                return false;
+            }
+        }
+        $cl->setCommand($entityName." update to QB");
+        if ($entityService->update($qbo->getContext(), $qbo->getRealm(), $qbObject->getId(), $qbObject)) {
+
+            $this->container->get("numa.dms.command.log")->endCommand($cl);
+            return $qbObject;
+        } else {
+            $error = ' update failed...? ' . $entityService->errorMessage();
+            $error .= "\n\t ".$entityService->lastError();
+            dump($error);
+            $cl->setFullDetails($error);
+            $cl->setStatus("FAILED");
+            $this->container->get("numa.dms.command.log")->endCommand($cl);
+            return false;
+        }
+    }
+
 
 }

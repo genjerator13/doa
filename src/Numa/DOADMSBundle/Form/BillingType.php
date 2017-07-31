@@ -52,6 +52,7 @@ class BillingType extends AbstractType
             ))
             //->add('date_billing','text',array('attr'=>array('class'=>'datepicker'),'label' => false))
             ->add('active', null, array('label' => "Active"))
+            ->add('active', null, array('label' => "Active"))
             ->add('opt1', null, array('label' => false, 'attr' => array('ng-model' => 'opt1')))
             ->add('opteq1', null, array('label' => false, 'attr' => array('maxlength' => 4, 'size' => 4, 'ng-model' => 'opteq1')))
             ->add('opt2', null, array('label' => false, 'attr' => array('ng-model' => 'opt2')))
@@ -135,7 +136,11 @@ class BillingType extends AbstractType
             ->add('disability_insurance', null, array('label' => false, 'attr' => array('ng-model' => 'disability_insurance')))
             ->add('work_order', 'checkbox', array('label' => 'Work Order', 'attr' => array('ng-model' => 'work_order'), 'required' => false))
             ->add('submitxxx', 'submit', array('label' => 'Submit', 'attr' => array('class' => 'btn btn-primary')))
-            ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')));
+            ->add('submitAndPrint', 'submit', array('label' => 'Submit and Print', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('qb_post_include',null,array('label'    => 'Post to Quickbooks',"data"=>true));
+
+
+
     }
 
     /**
