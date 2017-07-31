@@ -9,7 +9,6 @@
 namespace Numa\DOADMSBundle\Util;
 
 
-use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Customer;
@@ -20,15 +19,14 @@ class QuickbooksSaleLib extends QuickbooksLib
     public function createQBSale(Billing $billing)
     {
 
-        $qbo = $this->container->get("numa.quickbooks")->init($this->dealer);
         $docNumber = $this->generateQBSaleDocNumber($billing);
         $qbSale = $this->findQBSaleByDocNumber($docNumber);
 
         if (!$qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt) {
             $qbSale = new \QuickBooks_IPP_Object_SalesReceipt();
         }
-        //$customer = $billing->getCustomer();
-        $customer = $em = $this->container->get("doctrine.orm.entity_manager")->getRepository(Customer::class)->find($billing->getCustomer()->getId());
+        $customer = $billing->getCustomer();
+        //$customer = $em = $this->container->get("doctrine.orm.entity_manager")->getRepository(Customer::class)->find($billing->getCustomer()->getId());
 
         $qbCustomer = $this->container->get("numa.dms.quickbooks.customer")->insertCustomerToQBCustomer($customer);
 
@@ -61,7 +59,7 @@ class QuickbooksSaleLib extends QuickbooksLib
 
     public function addVehicleLine(\QuickBooks_IPP_Object_SalesReceipt $qbSale, Item $item)
     {
-        $title = $this->container->get("numa.dms.listing")->getListingTitle($item);
+
         $sku = $item->getVin();
         $description = $this->container->get("numa.dms.quickbooks.item")->getQBItemDesc($item);
         $qty = 1;

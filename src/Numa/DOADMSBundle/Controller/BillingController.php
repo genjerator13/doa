@@ -63,13 +63,12 @@ class BillingController extends Controller
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
-            if($entity->getQbPostInclude()){
-
-                $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($entity);
-                if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
-
-                }
+            $qbSale = $this->doQB($entity);
+            $message = "The billing has been successfully updated";
+            if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+                $message = "The billing has been successfully created and updated to quickbooks";
             }
+            $this->addFlash("success",$message);
             if ($form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
@@ -238,18 +237,12 @@ class BillingController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            if($entity->getQbPostInclude()){
-
-                $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($entity);
-                if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
-
-                }
-            }
+            $qbSale = $this->doQB($entity);
             if ($editForm->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
             $message = "The billing has been successfully updated";
-            if($entity->getQbPostInclude()){
+            if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
             $this->addFlash("success",$message);
@@ -376,5 +369,15 @@ class BillingController extends Controller
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
+    }
+
+    private function doQB(Billing $billing){
+        if($billing->getQbPostInclude() && $billing->getActive()){
+
+            $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($billing);
+            if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+
+            }
+        }
     }
 }
