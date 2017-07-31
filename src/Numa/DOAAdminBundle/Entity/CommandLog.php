@@ -341,4 +341,149 @@ class CommandLog
     }
 
 
+    /**
+     * @var string
+     */
+    private $entity;
+
+    /**
+     * @var string
+     */
+    private $action;
+
+    /**
+     * @var integer
+     */
+    private $dealer_id;
+
+    /**
+     * @var \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    private $Dealer;
+
+
+    /**
+     * Set entity
+     *
+     * @param string $entity
+     *
+     * @return CommandLog
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set action
+     *
+     * @param string $action
+     *
+     * @return CommandLog
+     */
+    public function setAction($action)
+    {
+        $this->action = $action;
+
+        return $this;
+    }
+
+    /**
+     * Get action
+     *
+     * @return string
+     */
+    public function getAction()
+    {
+        return $this->action;
+    }
+
+    /**
+     * Set dealerId
+     *
+     * @param integer $dealerId
+     *
+     * @return CommandLog
+     */
+    public function setDealerId($dealerId)
+    {
+        $this->dealer_id = $dealerId;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerId
+     *
+     * @return integer
+     */
+    public function getDealerId()
+    {
+        return $this->dealer_id;
+    }
+
+    /**
+     * Set dealer
+     *
+     * @param \Numa\DOAAdminBundle\Entity\Catalogrecords $dealer
+     *
+     * @return CommandLog
+     */
+    public function setDealer(\Numa\DOAAdminBundle\Entity\Catalogrecords $dealer = null)
+    {
+        $this->Dealer = $dealer;
+
+        return $this;
+    }
+
+    /**
+     * Get dealer
+     *
+     * @return \Numa\DOAAdminBundle\Entity\Catalogrecords
+     */
+    public function getDealer()
+    {
+        return $this->Dealer;
+    }
+    /**
+     * @var integer
+     */
+    private $entity_id;
+
+
+    /**
+     * Set entityId
+     *
+     * @param integer $entityId
+     *
+     * @return CommandLog
+     */
+    public function setEntityId($entityId)
+    {
+        $this->entity_id = $entityId;
+
+        return $this;
+    }
+
+    /**
+     * Get entityId
+     *
+     * @return integer
+     */
+    public function getEntityId()
+    {
+        return $this->entity_id;
+    }
 }

@@ -47,6 +47,9 @@
             {{ form_row(form.dealer_id) }}
             {{ form_row(form.item_id) }}
             {{ form_row(form.active) }}
+            {% if dealer is defined and dealer is not empty and (isQBReady(dealer) and qbo.isConnected()) %}
+                {{ form_row(form.qb_post_include) }}
+            {% endif %}
             <div class="box-header">
 
             </div>
