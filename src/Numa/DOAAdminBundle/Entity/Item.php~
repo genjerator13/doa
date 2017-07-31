@@ -5372,4 +5372,33 @@ class Item
     {
         return $this->feed_kijiji_include;
     }
+    /**
+     * @var boolean
+     */
+    private $qb_post_include = true;
+
+
+    /**
+     * Set qbPostInclude
+     *
+     * @param boolean $qbPostInclude
+     *
+     * @return Item
+     */
+    public function setQbPostInclude($qbPostInclude)
+    {
+        $this->qb_post_include = $qbPostInclude;
+
+        return $this;
+    }
+
+    /**
+     * Get qbPostInclude
+     *
+     * @return boolean
+     */
+    public function getQbPostInclude()
+    {
+        return $this->qb_post_include;
+    }
 }

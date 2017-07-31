@@ -13,7 +13,7 @@ use Numa\DOAAdminBundle\Entity\Catalogrecords;
 use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Sale;
 
-class QuickbooksItemLib
+class QuickbooksItemLib extends QuickbooksLib
 {
     protected $container;
     protected $dealer;
@@ -85,7 +85,7 @@ class QuickbooksItemLib
      */
     public function findQBItemByName($name)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item", "name", $name);
+        return $this->findQBEntityByField("Item", "name", $name);
     }
 
     /**
@@ -95,7 +95,11 @@ class QuickbooksItemLib
      */
     public function findQBItemBySku($sku)
     {
-        return $this->container->get("numa.dms.quickbooks")->findQBEntityByField("Item", "sku", $sku);
+
+        $ret =  $this->findQBEntityByField("Item", "Sku", $sku);
+
+        return $ret;
+
     }
 
     /**
@@ -124,17 +128,17 @@ class QuickbooksItemLib
         $desc = $this->getQBItemDesc($item);
         $amount = $this->getQBItemPrice($item);
 
-        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
         $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
-        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue4("Inventory");
+        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
+        $qbAssetAccount = $this->container->get("numa.settings")->getValue4("Inventory");
 
-        return $this->insertQBItem($title, $desc, $item->getVIN(), $qbExpenseAccountSetting, $qbIncomeAccountSetting, $qbIncomeAccountSetting, $amount, "Inventory", true);
+        $qbItem =  $this->fillQBItem($title, $desc, $item->getVIN(), $qbIncomeAccountSetting, $qbExpenseAccountSetting, $qbAssetAccount, $amount, "Inventory", true);
+        return $this->insertQBItemToQB($qbItem);
     }
 
-    public function insertQBItem($title, $desc, $sku, $qbExpenseAccount, $qbIncomeAccount, $qbAssetAccount, $amount, $type = "Service", $trackQtyOnHand = false)
+    public function fillQBItem($title, $desc, $sku, $qbIncomeAccount,$qbExpenseAccount, $qbAssetAccount, $amount, $type = "Service", $trackQtyOnHand = false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
-
 
         //get QB service name from settings
         //if not set
@@ -162,15 +166,16 @@ class QuickbooksItemLib
         $qbItem->setIncomeAccountRef('67');
         $qbItem->setExpenseAccountRef('84');
         $qbItem->setAssetAccountRef('85');
-        if (!empty($eAccountO)) {
-            $qbItem->setExpenseAccountRef($eAccountO->getId() . "");
-        }
+
 
         if (!empty($iAccountO)) {
             $qbItem->setIncomeAccountRef($iAccountO->getId() . "");
         }
+        if (!empty($eAccountO)) {
+            $qbItem->setExpenseAccountRef($eAccountO->getId() . "");
+        }
         if (!empty($AAccountO)) {
-            $qbItem->setExpenseAccountRef($AAccountO->getId() . "");
+            $qbItem->setAssetAccountRef($AAccountO->getId() . "");
         }
 
         $qbItem->setQtyOnHand(1);
@@ -179,18 +184,12 @@ class QuickbooksItemLib
         $qbItem->setInvStartDate($today->format("Y-m-d"));
         //$qbItem->setTrackQtyOnHand(true);
 
-        if (!empty($qbItem->getId())) {
-            $resp = $itemService->update($qbo->getContext(), $qbo->getRealm(), $qbItem->getId(), $qbItem);
-        } else {
-            $resp = $itemService->add($qbo->getContext(), $qbo->getRealm(), $qbItem);
-        }
-
-        if (!$resp) {
-            print($itemService->lastError($qbo->getContext()));
-            return false;
-        }
-
         return $qbItem;
+    }
+
+    public function insertQBItemToQB($qbItem)
+    {
+        return $this->insertQBEntityToQB($qbItem);
     }
 
 
