@@ -27,13 +27,14 @@ class DealerLib
         $this->container = $container;
     }
 
-    public function isCommercialDealer($dealer){
-        if(!$dealer instanceof Catalogrecords){
+    public function isCommercialDealer($dealer)
+    {
+        if (!$dealer instanceof Catalogrecords) {
             return false;
         }
         $dcs = $dealer->getDcategory();
-        foreach($dcs as $dc){
-            if($dc->getSlug()=="commercial-dealer"){
+        foreach ($dcs as $dc) {
+            if ($dc->getSlug() == "commercial-dealer") {
                 return true;
             }
         }

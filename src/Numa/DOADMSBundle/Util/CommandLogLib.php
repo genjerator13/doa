@@ -24,7 +24,8 @@ class CommandLogLib
         $this->container = $container;
     }
 
-    public function startNewCommand($command,$category,$dealer=null){
+    public function startNewCommand($command, $category, $dealer = null)
+    {
         $em = $this->container->get('doctrine')->getManager();
 
         $commandLog = new CommandLog();
@@ -38,7 +39,8 @@ class CommandLogLib
         return $commandLog;
     }
 
-    public function endCommand(CommandLog $commandLog){
+    public function endCommand(CommandLog $commandLog)
+    {
         $em = $this->container->get('doctrine')->getManager();
         $commandLog->setEndedAt(new \DateTime());
         $commandLog->setStatus('finished');
@@ -46,7 +48,8 @@ class CommandLogLib
         $em->clear();
     }
 
-    public function append(CommandLog $commandLog,$string){
+    public function append(CommandLog $commandLog, $string)
+    {
         $commandLog->appendFullDetails($string);
         return $commandLog;
     }
