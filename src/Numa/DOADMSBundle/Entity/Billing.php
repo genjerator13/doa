@@ -3410,4 +3410,33 @@ class Billing
     {
         return $this->tid_color;
     }
+    /**
+     * @var boolean
+     */
+    private $qb_post_include = false;
+
+
+    /**
+     * Set qbPostInclude
+     *
+     * @param boolean $qbPostInclude
+     *
+     * @return Billing
+     */
+    public function setQbPostInclude($qbPostInclude)
+    {
+        $this->qb_post_include = $qbPostInclude;
+
+        return $this;
+    }
+
+    /**
+     * Get qbPostInclude
+     *
+     * @return boolean
+     */
+    public function getQbPostInclude()
+    {
+        return $this->qb_post_include;
+    }
 }

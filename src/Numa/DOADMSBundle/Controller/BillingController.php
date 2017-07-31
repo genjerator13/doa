@@ -63,6 +63,13 @@ class BillingController extends Controller
             $entity->setCustomer($customer);
             $em->persist($entity);
             $em->flush();
+            if($entity->getQbPostInclude()){
+
+                $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($entity);
+                if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+
+                }
+            }
             if ($form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
             }
@@ -96,22 +103,6 @@ class BillingController extends Controller
         return $form;
     }
 
-    /**
-     * Creates a form to get listing by VIN or Stock #
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function tttt()
-    {
-        $form = $this->createForm(new BillingType(), $entity, array(
-            'action' => $this->generateUrl('billing_create'),
-            'method' => 'POST',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
-        return $form;
-    }
 
     /**
      * Displays a form to create a new Billing entity.
@@ -135,6 +126,7 @@ class BillingController extends Controller
 
         $form = $this->createCreateForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
+        $qbo = $this->get("numa.quickbooks")->init();
 
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
@@ -142,7 +134,8 @@ class BillingController extends Controller
             'dealer' => $dealer,
             'form' => $form->createView(),
             'max_invoive_nr' => $maxInvoiceNr,
-            'template'=>$billingTemplate
+            'template'=>$billingTemplate,
+            'qbo'=>$qbo,
         ));
     }
 
@@ -172,6 +165,7 @@ class BillingController extends Controller
 
         $editForm = $this->createEditForm($entity);
         $billingTemplate = $this->get('numa.settings')->getStripped('billing_template',array(),$dealer);
+        $qbo = $this->get("numa.quickbooks")->init();
 
         return $this->render($this->getBillingTemplate(false), array(
             'entity' => $entity,
@@ -180,7 +174,8 @@ class BillingController extends Controller
             'item' => $entity->getItem(),
             'id' => $id,
             'form' => $editForm->createView(),
-            'template'=>$billingTemplate
+            'template'=>$billingTemplate,
+            'qbo'=>$qbo
         ));
     }
     private function getBillingTemplate($view=true){
@@ -242,11 +237,22 @@ class BillingController extends Controller
 
         if ($editForm->isValid()) {
             $em->flush();
-            //return $this->redirect($this->generateUrl('customer_edit',array('id'=>$entity->getCustomerId())));
 
+            if($entity->getQbPostInclude()){
+
+                $qbBSale = $this->get('numa.dms.quickbooks.sale')->insertBillingToQBSaleReceipt($entity);
+                if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
+
+                }
+            }
             if ($editForm->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $id)));
             }
+            $message = "The billing has been successfully updated";
+            if($entity->getQbPostInclude()){
+                $message = "The billing has been successfully updated and updated to quickbooks";
+            }
+            $this->addFlash("success",$message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
 
