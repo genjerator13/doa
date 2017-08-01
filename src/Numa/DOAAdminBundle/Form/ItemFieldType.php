@@ -25,7 +25,8 @@ class ItemFieldType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('field_id', 'hidden')
+            ->add('item_id', 'hidden')
+            ->add('field_id', 'hidden')
             ->add('field_name', 'hidden')
             ->add('field_type', 'hidden')
             ->add('field_string_value')
