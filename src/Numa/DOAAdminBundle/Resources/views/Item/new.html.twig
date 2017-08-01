@@ -309,6 +309,10 @@
                                         <span class="feature-checkbox">
                                             {% if field.field_boolean_value is defined %}
                                                 {{ form_widget(field.field_boolean_value) }}
+                                                {{ form_widget(field.field_name) }}
+                                                {{ form_widget(field.field_type) }}
+                                                {{ form_widget(field.item_id) }}
+                                                {{ form_widget(field.field_id) }}
                                             {% endif %}
                                         </span>
                                             <span class="feature-name">{{ field.vars.value.getFieldName() }}</span>
