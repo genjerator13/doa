@@ -472,8 +472,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         $securityContext = $this->container->get('security.context');
 
         $fields = $em->getRepository('NumaDOAAdminBundle:Listingfield')->findAllByType('boolean', array(0, $categoryEntity->getId()));
-
-
         if (!empty($fields)) {
             //lop trough all the listing fields
             foreach ($fields as $key => $field) {
@@ -530,7 +528,6 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
         }
         $entity->sortItemFieldsBy();
 
-
         //seo
         if (!empty($entity->getId())) {
             $seo = $em->getRepository('NumaDOAModuleBundle:Seo')->findOneBy(array('table_name' => 'item', 'table_id' => $entity->getId()));
@@ -555,8 +552,13 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             'method' => 'POST',
         ));
         $oldVin = $entity->getVIN();
+
+
         $form->handleRequest($request);
+
         if ($form->isValid()) {
+
+
 
             $sale = $entity->getSale();
             $sale->setItem($entity);
@@ -580,6 +582,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             $suffix = ".";
 
             $em->flush();
+
             // to QB
             $item=$em->getRepository(Item::class)->find($entity->getId());
             $qb = $this->isSeccesfullyUpdatedToQB($item);
