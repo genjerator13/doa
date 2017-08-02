@@ -38,18 +38,24 @@ class SettingsSubscriber implements EventSubscriberInterface
 
         if($data->getSection()=="QB"){
             $listAll = $this->listDefaultQBAccounts();
+            $form->add('value',null,array("label"=>"QB Name"));
+
+            if(strtolower($data->getname())!="inventory"){
+                $listServices = $this->container->get("numa.dms.quickbooks.item")->getAllserviceItems();
+                $form->add('value',ChoiceType::class,array("choices"=>$listServices,"label"=>"Service Name from QB"));
+            }
+
             $listExpense = $this->listDefaultQBAccounts("Expense");
             $listAsset = $this->listDefaultQBAccounts("Asset");
             $listRevenue = $this->listDefaultQBAccounts("Revenue");
             //dump($list);
             $form->remove('section');
-            $form->add('value',null,array("label"=>"QB Name"));
+
             $form->add('value2',ChoiceType::class,array("choices"=>$listExpense,"label"=>"Expense Account"));
             $form->add('value3',ChoiceType::class,array("choices"=>$listRevenue,"label"=>"Income Account"));
             $form->add('value4',ChoiceType::class,array("choices"=>$listAsset,"label"=>"Asset Account"));
             $form->add('section');
         }
-
     }
 
     public function listDefaultQBAccounts($category=null){

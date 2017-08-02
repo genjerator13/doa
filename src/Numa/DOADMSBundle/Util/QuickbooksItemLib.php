@@ -192,5 +192,24 @@ class QuickbooksItemLib extends QuickbooksLib
         return $this->insertQBEntityToQB($qbItem);
     }
 
+    /**
+     * returns all service type items
+     * @return bool|array
+     */
+    public function getAllServiceItems()
+    {
+        $qbo = $this->container->get("numa.quickbooks")->init();
+
+        $ItemService = new \QuickBooks_IPP_Service_Item();
+
+        $qbItems = $ItemService->query($qbo->getContext(), $qbo->getRealm(), "SELECT * FROM Item WHERE type='service' ORDER BY name ");
+        $r = array();
+        foreach ($qbItems as $item) {
+            $r[$item->getName()] = $item->getName();
+        }
+
+        return $r;
+    }
+
 
 }
