@@ -462,4 +462,30 @@ class ListingLib
         }
         return $desc;
     }
+
+    public function setItemField(Item &$item,ItemField $itemField){
+
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq("id", $itemField->getId()));
+        $oldItemField = $item->getItemField()->matching($criteria);
+        // Collect an array iterator.
+        $iterator = $oldItemField->getIterator();
+        $currentIF = current($iterator);
+        $this->cloneItemField($currentIF,$itemField);
+return $item;
+    }
+
+    public function cloneItemField(ItemField &$originIF,ItemField $cloneIF){
+        $originIF->setFeedId($cloneIF->getFeedId());
+        $originIF->setFieldBooleanValue($cloneIF->getFieldBooleanValue());
+        $originIF->setFieldDatetimeValue($cloneIF->getFieldDatetimeValue());
+        $originIF->setFieldDoubleValue($cloneIF->getFieldDoubleValue());
+        $originIF->setFieldDatetimeValue($cloneIF->getFieldDatetimeValue());
+        $originIF->setFieldId($cloneIF->getFieldId());
+        $originIF->setFieldIntegerValue($cloneIF->getFieldIntegerValue());
+        $originIF->setFieldName($cloneIF->getFieldName());
+        $originIF->setFieldStringValue($cloneIF->getFieldStringValue());
+        $originIF->setFieldType($cloneIF->getFieldType());
+
+    }
 }
