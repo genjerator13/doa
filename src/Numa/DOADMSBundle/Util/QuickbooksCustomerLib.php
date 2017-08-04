@@ -97,7 +97,7 @@ class QuickbooksCustomerLib extends QuickbooksLib
 
     public function findQBCustomerByEmail($email)
     {
-        return $this->findQBEntityByField('Customer', 'PrimaryEmailAddress', $email);
+        return $this->findQBEntityByField('Customer', 'PrimaryEmailAddr', $email);
     }
 
     public function findQBCustomerByDisplayedName($displayedName)
