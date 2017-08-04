@@ -4,6 +4,7 @@ namespace Numa\DOAAdminBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Numa\DOAAdminBundle\Entity\Listingfield;
+use Numa\DOADMSBundle\Entity\Vendor;
 use Numa\DOADMSBundle\Lib\DashboardDMSControllerInterface;
 use Numa\DOAModuleBundle\Entity\Seo;
 use Numa\DOADMSBundle\Entity\Sale;
@@ -999,7 +1000,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
     private function isSeccesfullyUpdatedToQB(Item $item){
 
-        if($item->getQbPostInclude()){
+        if($item->getQbPostInclude() && $item->getVendor() instanceof Vendor){
 
             $qbItem = $this->get('numa.dms.quickbooks.item')->insertVehicleItem($item);
 

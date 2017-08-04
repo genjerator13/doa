@@ -32,6 +32,7 @@ class QuickbooksSaleLib extends QuickbooksLib
             $qbSale = new \QuickBooks_IPP_Object_SalesReceipt();
         }
         $customer = $billing->getCustomer();
+
         //$customer = $em = $this->container->get("doctrine.orm.entity_manager")->getRepository(Customer::class)->find($billing->getCustomer()->getId());
 
         $qbCustomer = $this->container->get("numa.dms.quickbooks.customer")->insertCustomerToQBCustomer($customer);
@@ -46,8 +47,52 @@ class QuickbooksSaleLib extends QuickbooksLib
             $qbSale = $this->addVehicleLine($qbSale, $item);
         }
 
-        //$qbSale = $this->addLineToSale($qbSale, $sku, $desc,1,1,1,1,1)
+        if(!empty($billing->getWarranty())) {
+            $serviceCostName=$this->getServiceCost('warranty');
 
+            $assetAccount = $this->getServiceCostAssetAccount('warranty');
+            if($serviceCostName instanceof \QuickBooks_IPP_Service_Item) {
+                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName,$assetAccount, $billing->getWarranty(), 1, 1, 1, 1);
+            }
+        }
+
+
+        return $qbSale;
+    }
+
+    public function addLineCostToSale($qbSale, $qbItem, $amount,$qty,$rate,$saleTax){
+        $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setDetailType('SalesItemLineDetail');
+
+        $Line->setSku($qbItem->getSKU());
+        $Line->setDescription($qbItem->getSKU());
+        $Line->setQty($qty);
+        $Line->setRate($rate);
+        $Line->setAmount($amount);
+        $Line->setSaleTax($saleTax);
+
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
+
+        $accountId = "{-17}";
+        if ($account instanceof \QuickBooks_IPP_Object_Account) {
+            $accountId = $account->getId();
+        }
+
+        $SalesItemLineDetail->setAccountRef($accountId);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
+
+        $qbSale->addLine($Line);
+
+        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
+
+        $SalesItemLineDetail->setItemRef($qbItem->getId());
+
+        $SalesItemLineDetail->setUnitPrice($amount);
+        $SalesItemLineDetail->setQty($qty);
+        $SalesItemLineDetail->setTaxCodeRef($qbItem->getSalesTaxCodeRef());
+        $Line->setAmount($amount);
+        $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
         return $qbSale;
     }
@@ -58,7 +103,7 @@ class QuickbooksSaleLib extends QuickbooksLib
         if ($billing->getItem() instanceof Item) {
             $itemStr = "_" . $billing->getItem()->getId() . "_";
         }
-        return $billing->getDealerId() . "_" . $billing->getId() . $itemStr;
+        return $billing->getDealer()->getId() . "_" . $billing->getId() . $itemStr;
     }
 
     public function findQBSaleByDocNumber($docNumber)
@@ -116,10 +161,12 @@ class QuickbooksSaleLib extends QuickbooksLib
         $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
         $SalesItemLineDetail->setItemRef($qbItem->getId());
-        $SalesItemLineDetail->setUnitPrice(1111);
+        $price = $qbCustomer = $this->container->get("numa.dms.quickbooks.item")->getQBItemPrice($item);
+
+        $SalesItemLineDetail->setUnitPrice($price);
         $SalesItemLineDetail->setQty($qty);
-        $SalesItemLineDetail->setTaxCodeRef("6");
-        $Line->setAmount(1111);
+        $SalesItemLineDetail->setTaxCodeRef($qbItem->getSalesTaxCodeRef());
+        $Line->setAmount($price);
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
 
         return $qbSale;
@@ -128,6 +175,21 @@ class QuickbooksSaleLib extends QuickbooksLib
     public function insertQBSaleToQB(\QuickBooks_IPP_Object_SalesReceipt $qbSale)
     {
         return $this->insertQBEntityToQB($qbSale);
+    }
+
+    public function getServiceCost($name){
+        if($name=='warranty'){
+            $serviceItemName = $this->container->get("numa.settings")->getStripped($name);
+            $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemByName($serviceItemName);
+            return $qbItem;
+        }
+
+    }
+    public function getServiceCostAssetAccount($name){
+        if($name=='warranty') {
+            $accountName = $this->container->get("numa.settings")->getStripped($name,array(),array(),"Value4");
+            $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
+        }
     }
 
 
