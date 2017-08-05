@@ -86,7 +86,6 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Stock #</th>
                         <th>Invoice Date</th>
                         <th>Make</th>
                         <th>Model</th>
@@ -101,7 +100,6 @@
                     {% for billing in billings %}
                         <tr>
                             <td><a href="{{ path('dms_items_edit', { 'id': billing.id }) }}">{{ billing.id }}</a></td>
-                            <td><a href="{{ path('dms_items_edit', { 'id': billing.id }) }}">{{ billing.getStockNr() }}</a></td>
                             <td>{% if billing.getSale().getInvoiceDate() %}{{ billing.getSale().getInvoiceDate()|date('Y-M-d') }}{% endif %}</td>
                             <td>{{ billing.Make }}</td>
                             <td>{{ billing.Model }}</td>
