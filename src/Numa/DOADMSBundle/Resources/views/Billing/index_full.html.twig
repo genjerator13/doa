@@ -22,16 +22,24 @@
                         <th>Id</th>
                         <th>Date of Billing</th>
                         <th>Customer</th>
+                        <th>Stock #</th>
                         <th>Item</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
+
                     {% for entity in entities %}
                         <tr  {% if not entity.active %}class="danger"{% endif %}>
                             <td><a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                             <td>{% if entity.dateBilling %}{{ entity.dateBilling|date('Y-M-d') }}{% endif %}</td>
                             <td>{{ entity.customer }}</td>
+                            <td>
+                                {% if(entity.item is not empty) %}
+
+                                    <a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.item.stockNr }}</a>
+                                {% endif %}
+                            </td>
 
                             <td>{% if entity.itemId is not empty %}<a href="{{ path("dms_items_edit",{'id':entity.itemId}) }}">{{ entity.itemId }}</a>{% else %}WO{% endif %}</td>
                             <td>
