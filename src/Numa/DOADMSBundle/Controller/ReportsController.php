@@ -49,58 +49,58 @@ class ReportsController extends Controller
             }
             $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
 
-            if ($request->query->has('purchase')) {
+            if ($request->query->get('report') == "purchase") {
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
             }
 
-            if ($request->query->has('sales')) {
+            if ($request->query->get('report') == "sale") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
                 return $this->get('Numa.Reports')->billingReportSalesXls($entities);
             }
 
-            if ($request->query->has('salesCommision')) {
+            if ($request->query->get('report') == "sales-commission") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
                 return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
             }
 
-            if ($request->query->has('unitProfit')) {
+            if ($request->query->get('report') == "unit-profit") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
                 return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
             }
 
-            if ($request->query->has('inventory')) {
+            if ($request->query->get('report') == "inventory") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
                 return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
             }
 
-            if ($request->query->has('inventoryShort')) {
+            if ($request->query->get('report') == "inventory-sales-copy") {
                 /* inventory report sales copy */
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
                 return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
             }
 
-            if ($request->query->has('inventoryShortPhoto')) {
+            if ($request->query->get('report') == "inventory-photo-sales-copy") {
                 /* inventory report sales copy */
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
                 return $this->get('Numa.Reports')->billingReportInventoryShortPhotoXls($entities);
             }
 
-            if ($request->query->has('inventoryPhoto')) {
+            if ($request->query->get('report') == "inventory-photo") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
                 return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
             }
 
-            if ($request->query->has('unitRevenue')) {
+            if ($request->query->get('report') == "unit-revenue") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
                 return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
             }
 
-            if ($request->query->has('unitSalesCost')) {
+            if ($request->query->get('report') == "unit-sales-cost") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
                 return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
             }
 
-            if ($request->query->has('workOrder')) {
+            if ($request->query->get('report') == "work-order") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id);
                 return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
             }

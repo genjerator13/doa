@@ -60,7 +60,7 @@ class ReportService
     public function billingReportPurchaseXls($entities)
     {
 
-        $filename = "Customer_Details_Report.xls";
+        $filename = "purchase_report.xls";
         $purchaseReport = new PurchaseReport($this->container);
         $purchaseReport->setEntities($entities);
         return $purchaseReport->createExcelResponse($filename);
@@ -86,7 +86,7 @@ class ReportService
      */
     public function billingReportSalesCommisionXls($entities)
     {
-        $filename = "sale_report.xls";
+        $filename = "sale_commission_report.xls";
         $saleCommisionReport = new SaleCommisionReport($this->container);
         $saleCommisionReport->setEntities($entities);
         return $saleCommisionReport->createExcelResponse($filename);
@@ -100,7 +100,7 @@ class ReportService
      */
     public function billingUnitProfitReportXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "unit_profit_Report.xls";
         $unitProfitReport = new UnitProfitReport($this->container);
         $unitProfitReport->setEntities($entities);
         return $unitProfitReport->createExcelResponse($filename);
@@ -114,7 +114,7 @@ class ReportService
      */
     public function billingReportInventoryXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "inventory_Report.xls";
         $inventoryReport = new InventoryReport($this->container);
         $inventoryReport->setEntities($entities);
         return $inventoryReport->createExcelResponse($filename);
@@ -128,7 +128,7 @@ class ReportService
      */
     public function billingReportInventoryShortXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "sales_copy_Report.xls";
         $inventoryReportShort = new InventoryReportShort($this->container);
         $inventoryReportShort->setEntities($entities);
         return $inventoryReportShort->createExcelResponse($filename);
@@ -142,7 +142,7 @@ class ReportService
      */
     public function billingReportInventoryShortPhotoXls($entities)
     {
-        $filename = "Inventory_report_with_photo.xls";
+        $filename = "inventory-photo-sales-copy.xls";
         $inventoryReportShortPhoto = new InventoryReportShortPhoto($this->container);
         $inventoryReportShortPhoto->setEntities($entities);
         return $inventoryReportShortPhoto->createExcelResponse($filename);
@@ -156,7 +156,7 @@ class ReportService
      */
     public function billingReportInventoryPhotoXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "inventor_photo_Report.xls";
         $inventoryReportPhoto = new InventoryReportPhoto($this->container);
         $inventoryReportPhoto->setEntities($entities);
         return $inventoryReportPhoto->createExcelResponse($filename);
@@ -170,7 +170,7 @@ class ReportService
      */
     public function billingUnitRevenueReportXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "unit_revenue_report.xls";
         $unitRevenueReport = new UnitRevenueReport($this->container);
         $unitRevenueReport->setEntities($entities);
         return $unitRevenueReport->createExcelResponse($filename);
@@ -184,7 +184,7 @@ class ReportService
      */
     public function billingUnitSalesCostReportXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "unit_sale_cost_report.xls";
         $unitSalesCostReport = new UnitSalesCostReport($this->container);
         $unitSalesCostReport->setEntities($entities);
 
@@ -198,7 +198,7 @@ class ReportService
      */
     public function billingWorkOrderXls($entities)
     {
-        $filename = "Customer_Details_Report.xls";
+        $filename = "work_order_Report.xls";
         $workOrderReport = new WorkOrderReport($this->container);
         $workOrderReport->setEntities($entities);
         return $workOrderReport->createExcelResponse($filename);

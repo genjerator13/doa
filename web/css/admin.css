@@ -254,3 +254,10 @@ input[type="file"] {
     position: fixed;
     top: 50%;
 }
+
+.reports-page #filter-results,.reports-page  #report-chooser {
+    margin-top: 25px;
+}
+.reports-page #report-form>div {
+    margin-bottom: 25px;
+}
