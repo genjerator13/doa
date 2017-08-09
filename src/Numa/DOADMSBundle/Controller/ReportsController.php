@@ -107,12 +107,9 @@ class ReportsController extends Controller
             }
 
             if ($request->query->get('report') == "finance-insurance") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
-                foreach ($entities as $entity) {
-                    dump($entity->getSale()->getSalesPerson());
-                }
-                die();
-                return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
+
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+                return $this->get('Numa.Reports')->billingReportFinanceInsuranceXls($entities);
             }
         }
         return $this->render('NumaDOADMSBundle:Reports:index.html.twig', array(
