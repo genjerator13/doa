@@ -25,7 +25,7 @@ class ReportsController extends Controller
         $em = $this->getDoctrine()->getManager();
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
-
+        $bydate = $request->attributes->get('bydate');
         $startDate = 0;
         $endDate = 0;
         if (!empty($date)) {
@@ -48,6 +48,7 @@ class ReportsController extends Controller
                 $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
             }
             $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
+            //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
 
             if ($request->query->get('report') == "purchase") {
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
@@ -102,6 +103,15 @@ class ReportsController extends Controller
 
             if ($request->query->get('report') == "work-order") {
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id);
+                return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
+            }
+
+            if ($request->query->get('report') == "finance-insurance") {
+                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
+                foreach ($entities as $entity) {
+                    dump($entity->getSale()->getSalesPerson());
+                }
+                die();
                 return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
             }
         }
