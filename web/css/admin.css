@@ -255,9 +255,9 @@ input[type="file"] {
     top: 50%;
 }
 
-.reports-page #filter-results,.reports-page  #report-chooser {
+.reports-page #filter-results,.reports-page  #report-chooser,.reports-page .reports-margin {
     margin-top: 25px;
 }
-.reports-page #report-form>div {
+.reports-page #report-form>div  {
     margin-bottom: 25px;
 }

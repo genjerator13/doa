@@ -48,7 +48,7 @@ framework:
     fragments:       ~
     http_method_override: true
     session:
-        handler_id: ~
+         cookie_lifetime: 7200
     serializer:
          enable_annotations: true
 # Twig Configuration
