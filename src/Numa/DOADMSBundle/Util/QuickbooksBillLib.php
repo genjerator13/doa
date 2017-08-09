@@ -21,15 +21,17 @@ class QuickbooksBillLib extends QuickbooksLib
         $vendors = $this->container->get("numa.dms.sale")->getAllVendors($item, true);
 
         $QBBills = array();
+        if(is_array($vendors)) {
+            foreach ($vendors as $vendor) {
+                $QBBill = $this->createQBBill($item, $vendor);
+                $QBBills[] = $QBBill;
+            }
 
-        foreach ($vendors as $vendor) {
-            $QBBill = $this->createQBBill($item, $vendor);
-            $QBBills[] = $QBBill;
+            $done = $this->insertQBBills($QBBills);
+            return true;
         }
+        return false;
 
-        $done = $this->insertQBBills($QBBills);
-
-        return true;
     }
 
     public function createQBBill($item, $vendorArray)

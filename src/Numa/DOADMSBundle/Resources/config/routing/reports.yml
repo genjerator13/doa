@@ -1,3 +1,7 @@
 dms_reports:
     path:     /
-    defaults: { _controller: "NumaDOADMSBundle:Reports:index" }
+    defaults: { _controller: "NumaDOADMSBundle:Reports:index",bydate:"invoice" }
+
+dms_reports_bill_of_sale:
+    path:     /bill
+    defaults: { _controller: "NumaDOADMSBundle:Reports:index",bydate:"bill_of_sale" }
