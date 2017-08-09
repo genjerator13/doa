@@ -34,51 +34,33 @@ class FinanceInsuranceReport extends Report
             $sale = $item->getSale();
 
         }
-        $warranty = 0;
-        $protectionPkg = 0;
-        $lifeInsurance = 0;
-        $disabilityIns = 0;
-        $insurance = 0;
-        $adminFees = 0;
-        $other1 = 0;
-        $other2 = 0;
-        $other3 = 0;
-        $bankCommision = 0;
-        if ($sale instanceof Sale) {
-            $warranty = $sale->getWarranty1() - $sale->getWarranty();
-            $protectionPkg = $sale->getProtectPkg1() - $sale->getProtectPkg();
-            $lifeInsurance = $sale->getLifeInsur() - $sale->getLifeIns();
-            $disabilityIns = $sale->getDisabilityIns1() - $sale->getDisabilityIns();
-            $insurance = $sale->getInsurance1() - $sale->getInsurance();
-            $adminFees = $sale->getAdminFees1() - $sale->getAdminFees();
-            $other1 = $sale->getOther1() - $sale->getMisc1();
-            $other2 = $sale->getOther2() - $sale->getMisc2();
-            $other3 = $sale->getOther3() - $sale->getMisc3();
-            $bankCommision = $sale->getBankCommis();
-        }
+        $calc=$this->calculate($entity);
 
         if ($number == "D") {
-
-            $value = $warranty;
+            $value = $calc['warranty'];
         } elseif ($number == "E") {
-            $value = $protectionPkg;
+            $value = $calc['protectionPkg'];
+
         } elseif ($number == "F") {
-            $value = $lifeInsurance;
+            $value = $calc['lifeInsurance'];
+
         } elseif ($number == "G") {
-            $value = $disabilityIns;
+            $value = $calc['disabilityIns'];
         } elseif ($number == "H") {
-            $value = $insurance;
+            $value = $calc['insurance'];
         } elseif ($number == "I") {
-            $value = $adminFees;
-        } elseif ($number == "K") {
-            $value = $other1;
+            $value = $calc['adminFees'];
+        }elseif ($number == "J") {
+            $value = $calc['bankCommission'];
+        }
+        elseif ($number == "K") {
+            $value = $calc['other1'];
         } elseif ($number == "L") {
-            $value = $other2;
+            $value = $calc['other2'];
         } elseif ($number == "M") {
-            $value = $other3;
+            $value = $calc['other3'];
         } elseif ($number == "N") {
-            $total = $warranty + $protectionPkg + $lifeInsurance + $disabilityIns + $insurance + $adminFees + $other1 + $other2 + $other3 + $bankCommision;
-            $value = $total;
+            $value = $calc['total'];
         } else {
             $listing = $this->container->get('numa.dms.listing');
             $value = $listing->getProperty($entity->getItem(), $field[0]);
@@ -87,13 +69,14 @@ class FinanceInsuranceReport extends Report
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
-    public function createTotalsTotals(){
+    public function createTotalsTotals()
+    {
 
-        $sellingPrice=0;
-        $totalRevenue=0;
-        $totalSalesComms=0;
+        $sellingPrice = 0;
+        $totalRevenue = 0;
+        $totalSalesComms = 0;
         foreach ($this->getEntities() as $entity) {
-            if($entity->getItem()->getSale() instanceof Sale) {
+            if ($entity->getItem()->getSale() instanceof Sale) {
                 $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
                 $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
                 $totalSalesComms += $entity->getItem()->getSale()->getSalesComms();
@@ -101,14 +84,14 @@ class FinanceInsuranceReport extends Report
         }
 
         $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "TOTAL:");
-        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
-        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalSalesComms);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F" . $this->row, "TOTAL:");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("G" . $this->row, $sellingPrice);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H" . $this->row, $totalRevenue);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I" . $this->row, $totalSalesComms);
 
-        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
-        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+//        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+//        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+//        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
 
     public function createExcelContent()
@@ -124,11 +107,11 @@ class FinanceInsuranceReport extends Report
                 }
                 $this->row++;
             }
-            //$this->createTotals($salesPerson);
-            //$this->row += 2;
+            $this->createTotals($salesPerson,"SUB TOTAL");
+            $this->row += 2;
         }
 
-        //$this->createTotalsTotals();
+        $this->createTotals($this->entities,"TOTAL");
     }
 
     public function prepareEntities()
@@ -144,27 +127,93 @@ class FinanceInsuranceReport extends Report
         return $res;
     }
 
-    public function createTotals($entities){
+    public function createTotals($entities,$title="SUB TOTAL")
+    {
 
-//        $sellingPrice=0;
-//        $totalRevenue=0;
-//        $totalSalesComms=0;
-//        foreach ($entities as $entity) {
-//            if($entity->getItem()->getSale() instanceof Sale) {
-//                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
-//                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
-//                $totalSalesComms += $entity->getItem()->getSale()->getSalesComms();
-//            }
-//        }
-//
-//        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
-//        $this->phpExcelObject->getActiveSheet()->setCellValue("F".$this->row , "SUB-TOTAL:");
-//        $this->phpExcelObject->getActiveSheet()->setCellValue("G".$this->row , $sellingPrice);
-//        $this->phpExcelObject->getActiveSheet()->setCellValue("H".$this->row , $totalRevenue);
-//        $this->phpExcelObject->getActiveSheet()->setCellValue("I".$this->row , $totalSalesComms);
+        $calcAll = array();
+        $calcAll['warranty'] =0;
+        $calcAll['protectionPkg'] =0;
+        $calcAll['lifeInsurance'] =0;
+        $calcAll['disabilityIns'] =0;
+        $calcAll['insurance'] =0;
+        $calcAll['adminFees'] =0;
+        $calcAll['bankCommission'] =0;
+        $calcAll['other1'] =0;
+        $calcAll['other2'] =0;
+        $calcAll['other3'] =0;
+        $calcAll['total'] =0;
+        foreach ($entities as $entity) {
+            $calc = $this->calculate($entity);
+            $calcAll['warranty'] += $calc['warranty'];
+            $calcAll['protectionPkg'] += $calc['protectionPkg'];
+            $calcAll['lifeInsurance'] += $calc['lifeInsurance'];
+            $calcAll['disabilityIns'] += $calc['disabilityIns'];
+            $calcAll['insurance'] += $calc['insurance'];
+            $calcAll['adminFees'] += $calc['adminFees'];
+            $calcAll['bankCommission'] += $calc['bankCommission'];
+            $calcAll['other1'] += $calc['other1'];
+            $calcAll['other2'] += $calc['other2'];
+            $calcAll['other3'] += $calc['other3'];
+            $calcAll['total'] += $calc['total'];
+        }
 
-//        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
-//        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
-//        $this->phpExcelObject->getActiveSheet()->getStyle("G1:".$highestColumn.$highestRow)->getNumberFormat()->setFormatCode('0.00');
+        $this->phpExcelObject->getActiveSheet()->getStyle($this->row)->getFont()->setBold(true);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("B" . $this->row, $title.":");
+        $this->phpExcelObject->getActiveSheet()->setCellValue("D" . $this->row, $calcAll['warranty']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("E" . $this->row, $calcAll['protectionPkg']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("F" . $this->row, $calcAll['lifeInsurance']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("G" . $this->row, $calcAll['disabilityIns']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("H" . $this->row, $calcAll['insurance']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("I" . $this->row, $calcAll['adminFees']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("J" . $this->row, $calcAll['bankCommission']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("K" . $this->row, $calcAll['other1']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("L" . $this->row, $calcAll['other2']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("M" . $this->row, $calcAll['other3']);
+        $this->phpExcelObject->getActiveSheet()->setCellValue("N" . $this->row, $calcAll['total']);
+        $highestColumn = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestColumn();
+        $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
+        $this->phpExcelObject->getActiveSheet()->getStyle("G1:" . $highestColumn . $highestRow)->getNumberFormat()->setFormatCode('0.00');
+    }
+    public function calculate(Billing $billing)
+    {
+        $warranty = 0;
+        $protectionPkg = 0;
+        $lifeInsurance = 0;
+        $disabilityIns = 0;
+        $insurance = 0;
+        $adminFees = 0;
+        $other1 = 0;
+        $other2 = 0;
+        $other3 = 0;
+        $bankCommission = 0;
+        $ret = array();
+        if ($billing->getItem() instanceof Item) {
+            $sale = $billing->getItem()->getSale();
+            if ($sale instanceof Sale) {
+                $warranty = $sale->getWarranty1() - $sale->getWarranty();
+                $protectionPkg = $sale->getProtectPkg1() - $sale->getProtectPkg();
+                $lifeInsurance = $sale->getLifeInsur() - $sale->getLifeIns();
+                $disabilityIns = $sale->getDisabilityIns1() - $sale->getDisabilityIns();
+                $insurance = $sale->getInsurance1() - $sale->getInsurance();
+                $adminFees = $sale->getAdminFees1() - $sale->getAdminFees();
+                $other1 = $sale->getOther1() - $sale->getMisc1();
+                $other2 = $sale->getOther2() - $sale->getMisc2();
+                $other3 = $sale->getOther3() - $sale->getMisc3();
+                $bankCommission = $sale->getBankCommis();
+                $total = $warranty + $protectionPkg + $lifeInsurance + $disabilityIns + $insurance + $adminFees + $other1 + $other2 + $other3 + $bankCommission;
+            }
+        }
+        $ret['warranty'] = $warranty;
+        $ret['protectionPkg'] = $protectionPkg;
+        $ret['lifeInsurance'] = $lifeInsurance;
+        $ret['disabilityIns'] = $disabilityIns;
+        $ret['insurance'] = $insurance;
+        $ret['adminFees'] = $adminFees;
+        $ret['other1'] = $other1;
+        $ret['other2'] = $other2;
+        $ret['other3'] = $other3;
+        $ret['bankCommission'] = $bankCommission;
+        $ret['total'] = $total;
+        return $ret;
     }
 }
