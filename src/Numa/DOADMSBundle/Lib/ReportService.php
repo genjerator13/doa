@@ -211,7 +211,7 @@ class ReportService
      */
     public function billingReportFinanceInsuranceXls($entities)
     {
-        $filename = "finance_insurance_report.xls";
+        $filename = "F&I_Report.xls";
         $saleCommisionReport = new FinanceInsuranceReport($this->container);
         $saleCommisionReport->setEntities($entities);
         return $saleCommisionReport->createExcelResponse($filename);
