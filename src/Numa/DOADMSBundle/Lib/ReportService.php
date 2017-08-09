@@ -203,4 +203,17 @@ class ReportService
         $workOrderReport->setEntities($entities);
         return $workOrderReport->createExcelResponse($filename);
     }
+
+    /**
+     * Creatres SaleCommision report
+     * @param $entities
+     * @return Response
+     */
+    public function billingReportFinanceInsuranceXls($entities)
+    {
+        $filename = "finance_insurance_report.xls";
+        $saleCommisionReport = new FinanceInsuranceReport($this->container);
+        $saleCommisionReport->setEntities($entities);
+        return $saleCommisionReport->createExcelResponse($filename);
+    }
 }
