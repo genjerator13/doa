@@ -25,14 +25,7 @@
     {% block javascripts %}
         {% javascripts 'js/jquery/jquery.1.11.0.min.js' 'js/jquery/jquery.1.11.0.min.js' '@bootstrapx_js'  '@jquery_ui_js' '@tinymce_js' '@dropzone_js' '@colorbox_js'  '@AdminLTE_js' %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
-        {#{% if app.session.get('qb')==1 %}#}
-        {#<script type="text/javascript">#}
-        {#intuit.ipp.anywhere.setup({#}
-        {#menuProxy: '{{ param.getQuickbooksMenuUrl() }}',#}
-        {#grantUrl: '{{ param.getQuickbooksOauthUrl() }}'#}
-        {#});#}
-        {#</script>#}
-        {#{% endif %}#}
+
         {% endjavascripts %}
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -50,7 +43,6 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
-    <ipp:blueDot></ipp:blueDot>
     <!-- Main Header -->
     <header class="main-header">
 
@@ -470,12 +462,30 @@
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
+                    {#<li class="treeview">#}
+                        {#<a href="{{ path('dms_reports') }}">#}
+                            {#<i class="fa fa-file-text"></i>#}
+                            {#<span>REPORTS</span>#}
+                        {#</a>#}
+                    {#</li>#}
+
                     <li class="treeview">
                         <a href="{{ path('dms_reports') }}">
                             <i class="fa fa-file-text"></i>
                             <span>REPORTS</span>
+                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
+                        <ul class="treeview-menu">
+                            <li class="active">
+                                <a href="{{ path('dms_reports_purchase_sale') }}" class=""><i class="fa fa-file-text"></i>Purchase and Sale Reports</a>
+                            </li>
+                            <li class="active">
+                                <a href="{{ path('dms_reports_inventory') }}" class=""><i class="fa fa-file-text"></i>Inventory Reports</a>
+                            </li>
+                        </ul>
+
                     </li>
+
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_DEALER_PRINCIPAL') %}
                     <li class="treeview">
