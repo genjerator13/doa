@@ -22,9 +22,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     public function initializeDealer($dealer)
     {
         $this->dealer = $dealer;
-
     }
-
 
     public function indexAction(Request $request)
     {

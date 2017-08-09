@@ -86,12 +86,12 @@ listing2:
     requirements: { _method: get }
 
 listings2All:
-    pattern:  /listings/all.{_format}
+    path:  /listings/all.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:allListings",_format: "xml"}
     requirements: { _method: get }
 
 listingsByUniques:
-    pattern:  /listings/{id}/uniques.{_format}
+    path:  /listings/{id}/uniques.{_format}
     defaults: { _controller: "NumaDOAApiBundle:ItemREST:listingByUniques",_format: "xml"}
     requirements: { _method: get }
 
