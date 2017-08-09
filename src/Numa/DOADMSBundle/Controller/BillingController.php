@@ -177,6 +177,7 @@ class BillingController extends Controller
             'qbo'=>$qbo
         ));
     }
+
     private function getBillingTemplate($view=true){
         $dealer = $this->get("numa.dms.user")->getSignedDealer();
         $billingTemplate = $this->get('numa.settings')->get('billing_template',array(),$dealer);

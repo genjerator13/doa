@@ -1,7 +1,9 @@
 homepage:
     path:  /
     defaults: { _controller: NumaDOASiteBundle:Default:index }
-    #defaults: { _controller: NumaDOASiteBundle:Search:searchByStatus, _locale: en,status:U }
+robots:
+    path:  /robots.txt
+    defaults: { _controller: NumaDOASiteBundle:Util:robots }
 sandbox:
     path:  /sandbox
     defaults: { _controller: NumaDOASiteBundle:Sandbox:index }
