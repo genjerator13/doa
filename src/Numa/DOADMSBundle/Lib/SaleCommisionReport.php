@@ -10,7 +10,7 @@ class SaleCommisionReport extends Report
 {
     //"columnLetter" =array("entity property","title")
     public $mapFields = array(
-        "A" => array("billing:salesPerson", "Sale Person"),
+        "A" => array("billing:salesPerson", "Sales Person"),
         "B" => array("billing:customer", "Cust Name"),
         "C" => array("VIN", "Vin"),
         "C" => array("stockNr", "Stock nr"),
