@@ -45,20 +45,25 @@ class QuickbooksSaleLib extends QuickbooksLib
             $qbSale = $this->addVehicleLine($qbSale, $item);
         }
 
-        if(!empty($billing->getWarranty())) {
-            $serviceCostName=$this->getServiceCost('warranty');
+//        if(!empty($billing->getWarranty())) {
+//            $serviceCostName=$this->getServiceCost('warranty');
+//
+//            $assetAccount = $this->getServiceCostAssetAccount('warranty');
+//
+//            if($serviceCostName instanceof \QuickBooks_IPP_Object_Item) {
+//                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName,$assetAccount, $billing->getWarranty(), 1, 1, 1);
+//            }
+//        }
+        $qbSale = $this->setSaleReceiptCosts("warranty", $billing, $qbSale);
+        $qbSale = $this->setSaleReceiptCosts("adminFee", $billing, $qbSale);
+        $qbSale = $this->setSaleReceiptCosts("ProtectionPkg", $billing, $qbSale);
 
-            $assetAccount = $this->getServiceCostAssetAccount('warranty');
-
-            if($serviceCostName instanceof \QuickBooks_IPP_Object_Item) {
-                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName,$assetAccount, $billing->getWarranty(), 1, 1, 1);
-            }
-        }
 
         return $qbSale;
     }
 
-    public function addLineCostToSale($qbSale, $qbItem,$assetAccount, $amount,$qty,$rate){
+    public function addLineCostToSale($qbSale, $qbItem, $assetAccount, $amount, $qty, $rate)
+    {
 
         $Line = new \QuickBooks_IPP_Object_Line();
         $Line->setSku($qbItem->getSku());
@@ -123,7 +128,6 @@ class QuickbooksSaleLib extends QuickbooksLib
         $Line->setDetailType('SalesItemLineDetail');
 
 
-
         $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemBySku($sku);
 
         if (!$qbItem instanceof \QuickBooks_IPP_Object_Item) {
@@ -164,19 +168,54 @@ class QuickbooksSaleLib extends QuickbooksLib
         return $this->insertQBEntityToQB($qbSale);
     }
 
-    public function getServiceCost($name){
-        if($name=='warranty'){
-            $serviceItemName = $this->container->get("numa.settings")->getStripped($name);
-            $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemByName($serviceItemName);
-            return $qbItem;
-        }
+    public function getServiceCost($name)
+    {
+        $this->convertName($name);
+
+        $serviceItemName = $this->container->get("numa.settings")->getStripped($name);
+
+        $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemByName($serviceItemName);
+        return $qbItem;
+        //}
 
     }
-    public function getServiceCostAssetAccount($name){
-        if($name=='warranty') {
-            $accountName = $this->container->get("numa.settings")->getStripped($name,array(),array(),"Value4");
-            $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
+
+    public function getServiceCostAssetAccount($name)
+    {
+        $this->convertName($name);
+        $accountName = $this->container->get("numa.settings")->getStripped($name, array(), array(), "Value4");
+        $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
+        return $account;
+
+    }
+
+    public function setSaleReceiptCosts($costName, Billing $billing, \QuickBooks_IPP_Object_SalesReceipt $qbSale)
+    {
+        $method = "get" . ucfirst($costName);
+
+
+        if (method_exists($billing, $method) && !empty($billing->{$method}())) {
+
+            $serviceCostName = $this->getServiceCost($costName);
+
+            $assetAccount = $this->getServiceCostAssetAccount($costName);
+
+
+            if ($serviceCostName instanceof \QuickBooks_IPP_Object_Item) {
+                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName, $assetAccount, $billing->{$method}(), 1, 1, 1);
+            }
         }
+        return $qbSale;
+    }
+
+    public function convertName(&$name)
+    {
+        if ($name == 'adminFee') {
+            $name = "Doc Fees";
+        } elseif ($name == 'ProtectionPkg') {
+            $name = "Protect PKG";
+        }
+        return $name;
     }
 
 
