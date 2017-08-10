@@ -44,6 +44,9 @@ services:
     numa.dms.quickbooks.account:
         class: Numa\DOADMSBundle\Util\QuickbooksAccountLib
         arguments:  ["@service_container"]
+    numa.dms.quickbooks.tax:
+        class: Numa\DOADMSBundle\Util\QuickbooksTaxLib
+        arguments:  ["@service_container"]
     numa.dms.quickbooks.sale:
         class: Numa\DOADMSBundle\Util\QuickbooksSaleLib
         arguments:  ["@service_container"]

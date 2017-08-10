@@ -591,7 +591,7 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
             if ($qb){
                 $suffix  =" and it has been posted to Quickbooks.";
             }
-            if($item->getQbPostInclude()) {
+            if($item->getQbPostInclude() && $item->getVendor() instanceof Vendor) {
                 $okInsertPO = $this->get("numa.dms.quickbooks.purchase.order")->insertItemPO($entity);
                 $okInsertBills =$this->get("numa.dms.quickbooks.bill")->insertItemBills($entity);
 
@@ -1002,13 +1002,14 @@ class ItemController extends Controller implements DashboardDMSControllerInterfa
 
     private function isSeccesfullyUpdatedToQB(Item $item){
 
-        if($item->getQbPostInclude() && $item->getVendor() instanceof Vendor){
+        if($item->getQbPostInclude() ){
 
             $qbItem = $this->get('numa.dms.quickbooks.item')->insertVehicleItem($item);
 
             if($qbItem instanceof \QuickBooks_IPP_Object_Item){
                 return true;
             }
+
         }
         return false;
     }
