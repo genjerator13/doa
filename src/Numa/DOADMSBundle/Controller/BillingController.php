@@ -68,6 +68,7 @@ class BillingController extends Controller
             if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
                 $message = "The billing has been successfully created and updated to quickbooks";
             }
+
             $this->addFlash("success",$message);
             if ($form->getClickedButton()->getName() == "submitAndPrint") {
                 return $this->redirect($this->generateUrl('billing_print', array('id' => $entity->getId())));
@@ -246,9 +247,11 @@ class BillingController extends Controller
             if($qbSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
                 $message = "The billing has been successfully updated and updated to quickbooks";
             }
+
             $this->addFlash("success",$message);
             return $this->redirect($this->generateUrl('billing_edit', array('id' => $id)));
         }
+        $qbo = $this->get("numa.quickbooks")->init();
 
         return $this->render('NumaDOADMSBundle:Billing:new.html.twig', array(
             'entity' => $entity,
@@ -257,6 +260,7 @@ class BillingController extends Controller
             'dealer' => $entity->getDealer(),
             'item' => $entity->getItem(),
             'form' => $editForm->createView(),
+            'qbo'=>$qbo
         ));
     }
 
@@ -379,6 +383,7 @@ class BillingController extends Controller
             if($qbBSale instanceof \QuickBooks_IPP_Object_SalesReceipt){
 
             }
+            return $qbBSale;
         }
     }
 }
