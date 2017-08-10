@@ -11,29 +11,8 @@ namespace Numa\DOADMSBundle\Util;
 
 use Numa\DOAAdminBundle\Entity\Catalogrecords;
 
-class QuickbooksAccountLib
+class QuickbooksAccountLib extends QuickbooksLib
 {
-    protected $container;
-    protected $dealer;
-
-    /**
-     * ListingFormHandler constructor.
-     * @param ContainerInterface $container
-     */
-    public function __construct($container) // this is @service_container
-    {
-        $this->container = $container;
-    }
-
-    public function getDealer()
-    {
-        return $this->dealer;
-    }
-
-    public function setDealer(Catalogrecords $dealer)
-    {
-        $this->dealer = $dealer;
-    }
 
     public function listAllAccounts(Catalogrecords $dealer, $category = null)
     {
@@ -67,10 +46,37 @@ class QuickbooksAccountLib
         if ($resp = $AccountService->add($qbo->getContext(), $qbo->getRealm(), $Account)) {
             return $Account;
         }
-        //dump($name);
-        //dump($type);
-        //dump($Account);
+
         return false;
+    }
+    /**
+     * Get the value from settings "Inventory" expense account value2 and returns the QB object account
+     *
+     * @return bool|\QuickBooks_IPP_Object_Account
+     */
+    public function getExpenseAccount(){
+        $qbExpenseAccount = $this->container->get("numa.settings")->getValue2("Inventory");
+        return $this->getAccount($qbExpenseAccount);
+    }
+
+    /**
+     * Get the value from settings "Inventory" income account value3 and returns the QB object account
+     *
+     * @return bool|\QuickBooks_IPP_Object_Account
+     */
+    public function getIncomeAccount(){
+        $qbIncomeAccount = $this->container->get("numa.settings")->getValue3("Inventory");
+        return $this->getAccount($qbIncomeAccount);
+    }
+
+    /**
+     * Get the value from settings "Inventory" income account value3 and returns the QB object account
+     *
+     * @return bool|\QuickBooks_IPP_Object_Account
+     */
+    public function getAssetAccount(){
+        $qbIncomeAccount = $this->container->get("numa.settings")->getValue4("Inventory");
+        return $this->getAccount($qbIncomeAccount);
     }
 
     public function getAccount($account)

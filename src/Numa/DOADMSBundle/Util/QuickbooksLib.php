@@ -101,6 +101,7 @@ class QuickbooksLib
                 $cl->setFullDetails($error);
                 $cl->setStatus("FAILED");
                 $this->container->get("numa.dms.command.log")->endCommand($cl);
+                dump($qbObject);die();
                 return false;
             }
         }
@@ -116,6 +117,7 @@ class QuickbooksLib
             $cl->setFullDetails($error);
             $cl->setStatus("FAILED");
             $this->container->get("numa.dms.command.log")->endCommand($cl);
+            dump($qbObject);die();
             return false;
         }
     }
