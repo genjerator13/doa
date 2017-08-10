@@ -105,6 +105,26 @@ class SettingsLib
         return $this->get($name,array(),$dealer,"Value4");
     }
 
+    /**
+     * @param string $name Name of the setting.
+     * @return string|null Value of the setting.
+     * @throws \RuntimeException If the setting is not defined.
+     */
+    public function getValue5($name,$dealer=null)
+    {
+        return $this->get($name,array(),$dealer,"Value5");
+    }
+
+    /**
+     * @param string $name Name of the setting.
+     * @return string|null Value of the setting.
+     * @throws \RuntimeException If the setting is not defined.
+     */
+    public function getValue6($name,$dealer=null)
+    {
+        return $this->get($name,array(),$dealer,"Value6");
+    }
+
     public function getSetting($name, $section = "", $dealer = null)
     {
         return $this->getRepo()->getSingle($name, $section, $dealer);
