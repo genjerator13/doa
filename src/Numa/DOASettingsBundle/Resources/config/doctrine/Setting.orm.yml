@@ -29,6 +29,30 @@ Numa\DOASettingsBundle\Entity\Setting:
             type: string
             length: 255
             nullable: true
+        value5:
+            type: string
+            length: 255
+            nullable: true
+        value6:
+            type: string
+            length: 255
+            nullable: true
+        value7:
+            type: string
+            length: 255
+            nullable: true
+        value8:
+            type: string
+            length: 255
+            nullable: true
+        value9:
+            type: string
+            length: 255
+            nullable: true
+        value10:
+            type: string
+            length: 255
+            nullable: true
         section:
             type: string
             length: 255

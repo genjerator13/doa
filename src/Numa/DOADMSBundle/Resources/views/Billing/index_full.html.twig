@@ -36,8 +36,7 @@
                             <td>{{ entity.customer }}</td>
                             <td>
                                 {% if(entity.item is not empty) %}
-
-                                    <a href="{{ path('billing_edit', { 'id': entity.id }) }}">{{ entity.item.stockNr }}</a>
+                                    <a href="{{ path("dms_items_edit",{'id':entity.itemId}) }}">{{ entity.item.stockNr }}</a>
                                 {% endif %}
                             </td>
 

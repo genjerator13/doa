@@ -33,8 +33,6 @@ class QuickbooksSaleLib extends QuickbooksLib
         }
         $customer = $billing->getCustomer();
 
-        //$customer = $em = $this->container->get("doctrine.orm.entity_manager")->getRepository(Customer::class)->find($billing->getCustomer()->getId());
-
         $qbCustomer = $this->container->get("numa.dms.quickbooks.customer")->insertCustomerToQBCustomer($customer);
 
         $qbSale->setDocNumber($docNumber);
@@ -51,40 +49,30 @@ class QuickbooksSaleLib extends QuickbooksLib
             $serviceCostName=$this->getServiceCost('warranty');
 
             $assetAccount = $this->getServiceCostAssetAccount('warranty');
-            if($serviceCostName instanceof \QuickBooks_IPP_Service_Item) {
-                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName,$assetAccount, $billing->getWarranty(), 1, 1, 1, 1);
+
+            if($serviceCostName instanceof \QuickBooks_IPP_Object_Item) {
+                $qbSale = $this->addLineCostToSale($qbSale, $serviceCostName,$assetAccount, $billing->getWarranty(), 1, 1, 1);
             }
         }
-
 
         return $qbSale;
     }
 
-    public function addLineCostToSale($qbSale, $qbItem, $amount,$qty,$rate,$saleTax){
+    public function addLineCostToSale($qbSale, $qbItem,$assetAccount, $amount,$qty,$rate){
+
         $Line = new \QuickBooks_IPP_Object_Line();
+        $Line->setSku($qbItem->getSku());
         $Line->setDetailType('SalesItemLineDetail');
-
-        $Line->setSku($qbItem->getSKU());
-        $Line->setDescription($qbItem->getSKU());
-        $Line->setQty($qty);
-        $Line->setRate($rate);
-        $Line->setAmount($amount);
-        $Line->setSaleTax($saleTax);
-
-
+        $Line->setDescription($qbItem->getDescription());
+        $Line->setAmount($qbItem->getUnitPrice());
         $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
         $accountId = "{-17}";
-        if ($account instanceof \QuickBooks_IPP_Object_Account) {
-            $accountId = $account->getId();
+        if ($assetAccount instanceof \QuickBooks_IPP_Object_Account) {
+            $accountId = $assetAccount->getId();
         }
 
         $SalesItemLineDetail->setAccountRef($accountId);
-        $Line->addSalesItemLineDetail($SalesItemLineDetail);
-
-        $qbSale->addLine($Line);
-
-        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
         $SalesItemLineDetail->setItemRef($qbItem->getId());
 
@@ -92,7 +80,9 @@ class QuickbooksSaleLib extends QuickbooksLib
         $SalesItemLineDetail->setQty($qty);
         $SalesItemLineDetail->setTaxCodeRef($qbItem->getSalesTaxCodeRef());
         $Line->setAmount($amount);
+        $Line->setUnitPrice($amount);
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
+        $qbSale->addLine($Line);
 
         return $qbSale;
     }
@@ -116,15 +106,14 @@ class QuickbooksSaleLib extends QuickbooksLib
 
         $sku = $item->getVin();
         $description = $this->container->get("numa.dms.quickbooks.item")->getQBItemDesc($item);
-        $qty = 1;
 
-        $amount = $this->container->get("numa.dms.quickbooks.item")->getQBItemPrice($item);;
+        $amount = $this->container->get("numa.dms.quickbooks.item")->getQBItemSoldFor($item);;
         $rate = $amount;
         $saleTax = 0;
         $accountName = $this->container->get("numa.settings")->getValue2("Inventory", $item->getDealer());
         $account = $this->container->get("numa.dms.quickbooks.account")->getAccount($accountName);
         $qbSale->setLine(null);
-        $this->addLineToSale($qbSale, $sku, $description, $qty, $rate, $amount, $saleTax, $account, $item);
+        $this->addLineToSale($qbSale, $sku, $description, 1, $rate, $amount, $saleTax, $account, $item);
         return $qbSale;
     }
 
@@ -133,18 +122,20 @@ class QuickbooksSaleLib extends QuickbooksLib
         $Line = new \QuickBooks_IPP_Object_Line();
         $Line->setDetailType('SalesItemLineDetail');
 
-        $Line->setSku($sku);
-        $Line->setDescription($description);
-        $Line->setQty($qty);
-        $Line->setRate($rate);
-        $Line->setAmount($amount);
-        $Line->setSaleTax($saleTax);
+
+
         $qbItem = $this->container->get("numa.dms.quickbooks.item")->findQBItemBySku($sku);
 
         if (!$qbItem instanceof \QuickBooks_IPP_Object_Item) {
             $qbItem = $this->container->get("numa.dms.quickbooks.item")->insertVehicleItem($item);
         }
 
+        $Line->setSku($sku);
+        $Line->setDescription($description);
+        $Line->setQty($qty);
+        $Line->setRate($rate);
+        $Line->setSaleTax($saleTax);
+        $Line->setAmount($amount);
 
         $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
@@ -154,20 +145,16 @@ class QuickbooksSaleLib extends QuickbooksLib
         }
 
         $SalesItemLineDetail->setAccountRef($accountId);
-        $Line->addSalesItemLineDetail($SalesItemLineDetail);
-
-        $qbSale->addLine($Line);
-
-        $SalesItemLineDetail = new \QuickBooks_IPP_Object_SalesItemLineDetail();
 
         $SalesItemLineDetail->setItemRef($qbItem->getId());
-        $price = $qbCustomer = $this->container->get("numa.dms.quickbooks.item")->getQBItemPrice($item);
+        //$price  = $this->container->get("numa.dms.quickbooks.item")->getQBItemPrice($item);
 
-        $SalesItemLineDetail->setUnitPrice($price);
+        $SalesItemLineDetail->setUnitPrice($amount);
         $SalesItemLineDetail->setQty($qty);
         $SalesItemLineDetail->setTaxCodeRef($qbItem->getSalesTaxCodeRef());
-        $Line->setAmount($price);
+
         $Line->addSalesItemLineDetail($SalesItemLineDetail);
+        $qbSale->addLine($Line);
 
         return $qbSale;
     }

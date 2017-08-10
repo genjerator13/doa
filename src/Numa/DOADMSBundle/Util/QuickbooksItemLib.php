@@ -73,11 +73,8 @@ class QuickbooksItemLib extends QuickbooksLib
         $desc = $this->getQBItemDesc($item);
         $amount = $this->getQBItemPrice($item);
 
-        $qbIncomeAccountSetting = $this->container->get("numa.settings")->getValue3("Inventory");
-        $qbExpenseAccountSetting = $this->container->get("numa.settings")->getValue2("Inventory");
-        $qbAssetAccount = $this->container->get("numa.settings")->getValue4("Inventory");
 
-        $qbItem = $this->fillQBItem($title, $desc, $item->getVIN(), $qbIncomeAccountSetting, $qbExpenseAccountSetting, $qbAssetAccount, $amount, "Inventory", true);
+        $qbItem = $this->fillQBItem($title, $desc, $item->getVIN(),  $amount, "Inventory", true);
         return $this->insertQBItemToQB($qbItem);
     }
 
@@ -122,7 +119,21 @@ class QuickbooksItemLib extends QuickbooksLib
         //throw exception
     }
 
-    public function fillQBItem($title, $desc, $sku, $qbIncomeAccount, $qbExpenseAccount, $qbAssetAccount, $amount, $type = "Service", $trackQtyOnHand = false)
+    /**
+     * Get a price from the DMS item entity
+     * @param Item $item
+     * @return mixed
+     */
+    public function getQBItemSoldFor(Item $item)
+    {
+        $sale = $item->getSale();
+        if ($sale instanceof Sale) {
+            return $sale->getSellingPrice();
+        }
+        //throw exception
+    }
+
+    public function fillQBItem($title, $desc, $sku, $amount, $type = "Service", $trackQtyOnHand = false)
     {
         $qbo = $this->container->get("numa.quickbooks")->init();
 
@@ -135,9 +146,12 @@ class QuickbooksItemLib extends QuickbooksLib
         if (empty($qbItem)) {
             $qbItem = new \QuickBooks_IPP_Object_Item();
         }
-        $eAccountO = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbExpenseAccount);
-        $iAccountO = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbIncomeAccount);
-        $AAccountO = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbAssetAccount);
+
+        $eAccountO   = $this->container->get("numa.dms.quickbooks.account")->getExpenseAccount();
+        $iAccountO   = $this->container->get("numa.dms.quickbooks.account")->getIncomeAccount();
+        $AAccountO   = $this->container->get("numa.dms.quickbooks.account")->getAssetAccount();
+        $purchaseTax = $this->container->get("numa.dms.quickbooks.tax")->getPurchaseTax();
+        $saleTax     = $this->container->get("numa.dms.quickbooks.tax")->getSaleTax();
 
         $itemService = new \QuickBooks_IPP_Service_Item();
 
@@ -145,6 +159,7 @@ class QuickbooksItemLib extends QuickbooksLib
         $qbItem->setDesc($desc);
         $qbItem->setDescription($desc);
         $qbItem->setCost($amount);
+        $qbItem->setUnitPrice($amount);
         $qbItem->setQtyOnHand(1);
         $qbItem->setSku($sku);
         $qbItem->setType($type);
@@ -152,7 +167,12 @@ class QuickbooksItemLib extends QuickbooksLib
         $qbItem->setIncomeAccountRef('67');
         $qbItem->setExpenseAccountRef('84');
         $qbItem->setAssetAccountRef('85');
-
+        if($purchaseTax instanceof \QuickBooks_IPP_Object_TaxCode) {
+            $qbItem->setPurchaseTaxCodeRef($purchaseTax->getId());
+        }
+        if($saleTax instanceof \QuickBooks_IPP_Object_TaxCode) {
+            $qbItem->setSalesTaxCodeRef($saleTax->getId());
+        }
 
         if (!empty($iAccountO)) {
             $qbItem->setIncomeAccountRef($iAccountO->getId() . "");

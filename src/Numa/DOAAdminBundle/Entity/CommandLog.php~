@@ -457,4 +457,33 @@ class CommandLog
     {
         return $this->Dealer;
     }
+    /**
+     * @var integer
+     */
+    private $entity_id;
+
+
+    /**
+     * Set entityId
+     *
+     * @param integer $entityId
+     *
+     * @return CommandLog
+     */
+    public function setEntityId($entityId)
+    {
+        $this->entity_id = $entityId;
+
+        return $this;
+    }
+
+    /**
+     * Get entityId
+     *
+     * @return integer
+     */
+    public function getEntityId()
+    {
+        return $this->entity_id;
+    }
 }
