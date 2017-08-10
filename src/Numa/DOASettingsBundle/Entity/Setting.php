@@ -254,4 +254,178 @@ class Setting
     {
         return $this->value4;
     }
+    /**
+     * @var string
+     */
+    private $value5;
+
+    /**
+     * @var string
+     */
+    private $value6;
+
+    /**
+     * @var string
+     */
+    private $value7;
+
+    /**
+     * @var string
+     */
+    private $value8;
+
+    /**
+     * @var string
+     */
+    private $value9;
+
+    /**
+     * @var string
+     */
+    private $value10;
+
+
+    /**
+     * Set value5
+     *
+     * @param string $value5
+     *
+     * @return Setting
+     */
+    public function setValue5($value5)
+    {
+        $this->value5 = $value5;
+
+        return $this;
+    }
+
+    /**
+     * Get value5
+     *
+     * @return string
+     */
+    public function getValue5()
+    {
+        return $this->value5;
+    }
+
+    /**
+     * Set value6
+     *
+     * @param string $value6
+     *
+     * @return Setting
+     */
+    public function setValue6($value6)
+    {
+        $this->value6 = $value6;
+
+        return $this;
+    }
+
+    /**
+     * Get value6
+     *
+     * @return string
+     */
+    public function getValue6()
+    {
+        return $this->value6;
+    }
+
+    /**
+     * Set value7
+     *
+     * @param string $value7
+     *
+     * @return Setting
+     */
+    public function setValue7($value7)
+    {
+        $this->value7 = $value7;
+
+        return $this;
+    }
+
+    /**
+     * Get value7
+     *
+     * @return string
+     */
+    public function getValue7()
+    {
+        return $this->value7;
+    }
+
+    /**
+     * Set value8
+     *
+     * @param string $value8
+     *
+     * @return Setting
+     */
+    public function setValue8($value8)
+    {
+        $this->value8 = $value8;
+
+        return $this;
+    }
+
+    /**
+     * Get value8
+     *
+     * @return string
+     */
+    public function getValue8()
+    {
+        return $this->value8;
+    }
+
+    /**
+     * Set value9
+     *
+     * @param string $value9
+     *
+     * @return Setting
+     */
+    public function setValue9($value9)
+    {
+        $this->value9 = $value9;
+
+        return $this;
+    }
+
+    /**
+     * Get value9
+     *
+     * @return string
+     */
+    public function getValue9()
+    {
+        return $this->value9;
+    }
+
+    /**
+     * Set value10
+     *
+     * @param string $value10
+     *
+     * @return Setting
+     */
+    public function setValue10($value10)
+    {
+        $this->value10 = $value10;
+
+        return $this;
+    }
+
+    /**
+     * Get value10
+     *
+     * @return string
+     */
+    public function getValue10()
+    {
+        return $this->value10;
+    }
 }
