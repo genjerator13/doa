@@ -147,45 +147,53 @@ class ReportsController extends Controller
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
                 $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
             }
-            $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
+            //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
             //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+            //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
+            $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
 
             if ($request->query->get('report') == "purchase") {
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
                 return $this->get('Numa.Reports')->billingReportPurchaseXls($entities);
             }
 
             if ($request->query->get('report') == "sale") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingReportSalesXls($entities);
             }
 
             if ($request->query->get('report') == "sales-commission") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+//                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+
                 return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
             }
 
             if ($request->query->get('report') == "unit-profit") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
+
+//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+
                 return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
             }
             if ($request->query->get('report') == "unit-revenue") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingUnitRevenueReportXls($entities);
             }
 
             if ($request->query->get('report') == "unit-sales-cost") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id, true,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingUnitSalesCostReportXls($entities);
             }
 
             if ($request->query->get('report') == "work-order") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateNoItem($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingWorkOrderXls($entities);
             }
 
             if ($request->query->get('report') == "finance-insurance") {
 
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingReportFinanceInsuranceXls($entities);
             }
         }
@@ -222,28 +230,39 @@ class ReportsController extends Controller
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
                 $dealer_id = $this->get('numa.dms.user')->getAvailableDealersIds();
             }
-            $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
+            //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id);
             //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
+            $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,true,"invoice");
 
             if ($request->query->get('report') == "inventory") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
                 return $this->get('Numa.Reports')->billingReportInventoryXls($entities);
             }
 
             if ($request->query->get('report') == "inventory-sales-copy") {
                 /* inventory report sales copy */
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
+
                 return $this->get('Numa.Reports')->billingReportInventoryShortXls($entities);
             }
 
             if ($request->query->get('report') == "inventory-photo-sales-copy") {
                 /* inventory report sales copy */
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+//                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+
+                //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
+
                 return $this->get('Numa.Reports')->billingReportInventoryShortPhotoXls($entities);
             }
 
             if ($request->query->get('report') == "inventory-photo") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                //$entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, false);
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,false,"invoice");
+
+
                 return $this->get('Numa.Reports')->billingReportInventoryPhotoXls($entities);
             }
         }
