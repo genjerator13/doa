@@ -9,8 +9,10 @@
 namespace Numa\DOADMSBundle\Lib;
 
 
+use Numa\DOAAdminBundle\Entity\Item;
 use Numa\DOADMSBundle\Entity\Billing;
 use Numa\DOADMSBundle\Entity\Sale;
+
 
 class SaleReport extends Report
 {
@@ -30,7 +32,7 @@ class SaleReport extends Report
     public function setCellValue($letter, $number, $entity, $field)
     {
         $listing = $this->container->get('numa.dms.listing');
-        $value = $listing->getProperty($entity->getItem(), $field[0]);
+        $value = $listing->getProperty($entity, $field[0]);
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
     }
 
@@ -39,9 +41,9 @@ class SaleReport extends Report
         $sellingPrice=0;
         $totalRevenue=0;
         foreach ($entities as $entity) {
-            if($entity->getItem()->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
-                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+            if($entity->getSale() instanceof Sale) {
+                $sellingPrice += $entity->getSale()->getSellingPrice();
+                $totalRevenue += $entity->getSale()->getTotalRevenue();
             }
         }
 
@@ -60,9 +62,9 @@ class SaleReport extends Report
         $sellingPrice=0;
         $totalRevenue=0;
         foreach ($this->getEntities() as $entity) {
-            if($entity->getItem()->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
-                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+            if($entity->getSale() instanceof Sale) {
+                $sellingPrice += $entity->getSale()->getSellingPrice();
+                $totalRevenue += $entity->getSale()->getTotalRevenue();
             }
         }
 
@@ -102,8 +104,11 @@ class SaleReport extends Report
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         foreach ($this->entities as $entity) {
-            if ($entity instanceof Billing) {
-                $res[$entity->getSalesPerson()][] = $entity;
+            if ($entity instanceof Item) {
+                if($entity->getBilling()->first() instanceof Billing){
+                    $res[$entity->getBilling()->first()->getSalesPerson()][] = $entity;
+                }
+
             }
         }
         return $res;
