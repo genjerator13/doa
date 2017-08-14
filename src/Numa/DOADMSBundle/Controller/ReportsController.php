@@ -128,9 +128,11 @@ class ReportsController extends Controller
         $bydate = $request->attributes->get('bydate');
         $startDate = 0;
         $endDate = 0;
+
         if (!empty($date)) {
             $startDate = new \DateTime($date);
         }
+
         if (!empty($date1)) {
             $endDate = new \DateTime($date1);
         }
@@ -138,7 +140,6 @@ class ReportsController extends Controller
         $dealer = $this->get('numa.dms.user')->getSignedDealer();
         if (empty($dealer)) {
             $entities = null;
-            //$em->flush();
             $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
             $securityContext = $this->container->get('security.authorization_checker');
@@ -158,20 +159,23 @@ class ReportsController extends Controller
             }
 
             if ($request->query->get('report') == "sale") {
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingReportSalesXls($entities);
             }
 
             if ($request->query->get('report') == "sales-commission") {
 //                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id);
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
 
+                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 return $this->get('Numa.Reports')->billingReportSalesCommisionXls($entities);
             }
 
             if ($request->query->get('report') == "unit-profit") {
 
 //                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
+                //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
                 $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
 
                 return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
