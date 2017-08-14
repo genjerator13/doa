@@ -99,12 +99,17 @@ class BillingRepository extends EntityRepository
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
-            ->andWhere('i.sale_id IS NOT NULL');
+            ->andWhere('i.sale_id IS NOT NULL')
+
+        ;
 
         if($orderBy!='invoice') {
             $qb->leftJoin('NumaDOADMSBundle:Billing', 'b', "WITH", "i.id=b.item_id")
                 ->andWhere('b.active=1');
             $qb->andWhere('b.date_billing is not null');
+        }else{
+            $qb->andWhere('s.invoice_date IS NOT NULL');
+            $qb->andWhere('s.vendor_id IS NOT NULL');
         }
         $qb->leftJoin('NumaDOADMSBundle:Sale', 's', "WITH", "i.sale_id=s.id");
         if($sold===false){

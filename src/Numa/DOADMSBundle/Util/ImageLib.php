@@ -144,8 +144,6 @@ class ImageLib
         if (file_exists($filename)) {
             unlink($filename);
             dump($filename);
-        } else {
-            dump("AAAA");
         }
     }
 
