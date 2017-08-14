@@ -176,7 +176,7 @@ class ReportsController extends Controller
 
 //                $entities = $em->getRepository('NumaDOADMSBundle:Sale')->findByDate($startDate, $endDate, $dealer_id, true);
                 //$entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
-                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDate($startDate, $endDate, $dealer_id,null,"bill_of_sale");
+                $entities = $em->getRepository('NumaDOADMSBundle:Billing')->findByDateReports($startDate, $endDate, $dealer_id,null,"bill_of_sale");
 
                 return $this->get('Numa.Reports')->billingUnitProfitReportXls($entities);
             }
