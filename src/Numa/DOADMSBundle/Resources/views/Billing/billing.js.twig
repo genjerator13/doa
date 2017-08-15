@@ -13,6 +13,7 @@ app.controller('myCtrl', function ($scope, $http, $element) {
     $scope.stock = "";
     {% if  max_invoive_nr is defined %}
     $scope.invoice_nr = "{{ max_invoive_nr }}";
+    $scope.dealer_nr = "{{ dealer.dealerNumber }}";
     {% endif %}
     {% if id is defined and id is not empty %}
     $http.get("/api/billing/{{ id }}/single")
