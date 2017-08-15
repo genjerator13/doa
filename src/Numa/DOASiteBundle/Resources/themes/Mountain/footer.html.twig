@@ -57,16 +57,24 @@
         <a class="facebook" href="{{ dealer.siteFacebook }}">
 
             {% image 'bundles/numadoasite/Mountain/images/facebook.png' %}
-            <img src="{{ asset_url }}" alt="Example"/>
+            <img src="{{ asset_url }}" alt="facebook"/>
             {% endimage %}
         </a>
         {% if dealer.siteYoutube is not null %}
         <a class="youtube" href="{{ dealer.siteYoutube }}">
 
             {% image 'bundles/numadoasite/Mountain/images/youtube.png' %}
-            <img src="{{ asset_url }}" alt="Example"/>
+            <img src="{{ asset_url }}" alt="youtube"/>
             {% endimage %}
         </a>
+        {% endif %}
+        {% if dealer.siteInstagram is not null %}
+            <a class="instagram" href="{{ dealer.siteInstagram }}">
+
+                {% image 'bundles/numadoasite/Mountain/images/instagram.png' %}
+                <img src="{{ asset_url }}" alt="instagram"/>
+                {% endimage %}
+            </a>
         {% endif %}
         <a class="newsletter" href="/newsletter"><span>E-Newsletter</span> Sign-Up</a>
 
