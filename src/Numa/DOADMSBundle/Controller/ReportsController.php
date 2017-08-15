@@ -122,6 +122,16 @@ class ReportsController extends Controller
     }
 
     public function purchaseSaleIndexAction(Request $request){
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!($securityContext->isGranted('ROLE_ADMIN') ||
+            $securityContext->isGranted('ROLE_DMS_USER') ||
+            $securityContext->isGranted('ROLE_DEALER_PRINCIPAL') ||
+            $securityContext->isGranted('ROLE_SALES') ||
+            $securityContext->isGranted('ROLE_SALE3_DMS'))){
+            $this->createAccessDeniedException("You are not allowed to view this report!");
+        }
+
+
         $em = $this->getDoctrine()->getManager();
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
@@ -142,7 +152,7 @@ class ReportsController extends Controller
             $entities = null;
             $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
-            $securityContext = $this->container->get('security.authorization_checker');
+
             $dealer_id = $dealer->getId();
 
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
@@ -209,6 +219,14 @@ class ReportsController extends Controller
     }
 
     public function InventoryIndexAction(Request $request){
+        $securityContext = $this->container->get('security.authorization_checker');
+        if (!($securityContext->isGranted('ROLE_ADMIN') ||
+            $securityContext->isGranted('ROLE_DMS_USER') ||
+            $securityContext->isGranted('ROLE_DEALER_PRINCIPAL') ||
+            $securityContext->isGranted('ROLE_SALES') ||
+            $securityContext->isGranted('ROLE_SALE3_DMS'))){
+            $this->createAccessDeniedException("You are not allowed to view this report!");
+        }
         $em = $this->getDoctrine()->getManager();
         $date = $request->query->get('dateFrom');
         $date1 = $request->query->get('dateTo');
@@ -228,7 +246,6 @@ class ReportsController extends Controller
             //$em->flush();
             $this->addFlash("danger", "You must be logged in as a Dealer!");
         } else {
-            $securityContext = $this->container->get('security.authorization_checker');
             $dealer_id = $dealer->getId();
 
             if ($securityContext->isGranted('ROLE_DEALER_PRINCIPAL')) {
