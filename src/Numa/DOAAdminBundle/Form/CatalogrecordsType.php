@@ -32,6 +32,7 @@ class CatalogrecordsType extends AbstractType
             ->add('username')
             ->add('url')
             ->add('dealerId')
+            ->add('dealer_number',null,array('label' => 'Dealer #'))
             ->add('email')
             ->add('finance_email')
             ->add('address')
