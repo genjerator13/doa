@@ -1530,6 +1530,11 @@ class Billing
         return $this->admin_fee;
     }
 
+    public function getDocFees()
+    {
+        return $this->getAdminFee();
+    }
+
     /**
      * Set warranty
      *
