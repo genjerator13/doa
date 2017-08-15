@@ -226,7 +226,7 @@ class SaleLib
                         $temp['qbExpenseAccount'] = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbExpenseAccountSetting);
                         $temp['qbIncomeAccount'] = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbIncomeAccountSetting);
                         $temp['qbAssetAccount'] = $this->container->get("numa.dms.quickbooks.account")->getAccount($qbAssetAccountSetting);
-                        $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks.vendor')->getSupplier($vendor->getCompanyName());
+                        $temp['qbVendor'] = $this->container->get('numa.dms.quickbooks.vendor')->dmsToQbVendor($vendor);
                         if (method_exists($sale, $descF)) {
                             $desc = $sale->{$descF}();
                             $temp['description'] = $desc;
