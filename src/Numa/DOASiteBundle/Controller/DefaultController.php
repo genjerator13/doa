@@ -60,7 +60,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $dealer_id = $this->dealer->getId();
                 $hometabs_key = "hometabs_" . $this->dealer->getId();
             }
-            //dump($hometabs_key);
+
             $hometabs = $this->get('mymemcache')->get($hometabs_key);
 
             if (empty($hometabs)) {
@@ -68,7 +68,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
                 $this->get('mymemcache')->set($hometabs_key, $hometabs);
                 $nocache = true;
-                //$this->get('memcache.default')->set('jsonCar', $jsonCar);
             }
 
             $tabs = array();
@@ -77,7 +76,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $tabs[$cat][] = $tab;
             }
 
-            $vehCategory = 1;
+
             $lftreec = $em->getRepository('NumaDOAAdminBundle:ListingFieldTree');
             $lflistc = $em->getRepository('NumaDOAAdminBundle:ListingFieldLists');
             $lftreec->setMemcached($this->get('mymemcache'));
@@ -209,10 +208,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 ->setMethod('GET')
                 ->setAction($this->get('router')->generate('search_dispatch'))
                 ->setAttributes(array("class" => "form-inline", 'role' => 'search', 'name' => 'search'))
-                //->add('agApplication', 'choice', array('label' => ''))
-                //->add('agApplication', 'choice', array('label' => 'Ag Application', 'choices' => $agModel, 'empty_value' => 'Any Ag Application', 'required' => false))
                 ->add('Model', 'choice', array('label' => 'Model', 'required' => false))
-                //->add('Make', 'choice', array('label' => 'Make','required'=>false))
                 ->add('ag_applicationString', 'choice', array('label' => 'Type', 'choices' => $agModel, 'empty_value' => 'Any Make', 'required' => false))
                 ->add('priceFrom', 'text', array('label' => 'Price from', 'required' => false))
                 ->add('priceTo', 'text', array('label' => 'to', 'required' => false))
@@ -238,7 +234,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         }else{
             $response = $this->render('NumaDOASiteBundle:Default:index.html.twig', array(
-
                 'dealer' => $this->dealer,
             ));
         }
@@ -267,12 +262,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     {
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcategory');
-        $cat_name = $request->get('category_name');
-        //$category = $em->getRepository('NumaDOAAdminBundle:Catalogcategory')->findOneById($idCat);
         $catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->xfindByDCategory($idCat);
 
-        //$items = $em->getRepository('NumaDOAAdminBundle:Item')->($user->getId());
-        //dump($catalogs);//die();
         //TODO
         $emailForm = $this->emailDealerForm($request);
         return $this->render('NumaDOASiteBundle:Default:categoryShow.html.twig', array('catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
@@ -283,8 +274,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     {
         $em = $this->getDoctrine()->getManager();
         $idCat = $request->get('idcatalog');
-        $cat_name = $request->get('catalog_name');
-
         $dealer = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->find($idCat);
 
 
@@ -334,7 +323,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $itemrep->setMemcached($this->get('mymemcache'));
 
-        $session = $this->get('session');
         $dealer_id = "";
         if ($this->dealer instanceof Catalogrecords) {
             $dealer_id = $this->dealer->getId();
@@ -353,10 +341,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $items = array_slice($featured, 0, $max);
             }
             $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
-        }
-
-        if (empty($image_size)) {
-            $image_size = "search_image";
         }
 
         $response = $this->render('NumaDOASiteBundle::featuredAdd.html.twig', array('items' => $items));
@@ -378,9 +362,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
         $response = $this->render('NumaDOASiteBundle:Default:featuredHorizontal.html.twig', array('images' => $carouselImages));
 
-//        $response->setPublic();
-//        $response->setSharedMaxAge(60);
-//        $response->setMaxAge(60);
         return $response;
     }
 
@@ -440,10 +421,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 $emailTo = $dealer->getEmail();
                 $emailBody = $data['comments'];
                 $twig = $this->container->get('twig');
-                $globals = $twig->getGlobals();
-                $subject = $globals['subject'];
-                $title = $globals['title'];
-                $subject = $subject . " " . $title;
 
                 $mailer = $this->get('mailer');
                 $message = $mailer->createMessage()
@@ -452,7 +429,7 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                     ->setTo('e.medjesi@gmail.com')
                     ->setBody($emailTo . ":" . $emailBody);
 
-                $ok = $mailer->send($message);
+                $mailer->send($message);
             }
         }
         return $form;
@@ -474,7 +451,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         $catalogs = array();
         if ($form->isValid()) {
             // data is an array with "name", "email", and "message" keys
-            $data = $form->getData();
 
             $em = $this->getDoctrine()->getManager();
             $name = $request->get('Name');
@@ -484,8 +460,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
                 ->setParameter('city', '%' . $city . '%')
                 ->getResult();
 
-            //$catalogs = $em->getRepository('NumaDOAAdminBundle:Catalogrecords')->findBy(array('name' => $name));
-            //return $this->render('NumaDOASiteBundle:Default:category.html.twig', array('catalogs' => $catalogs));
         }
         $emailForm = $this->emailDealerForm($request);
         return $this->render('NumaDOASiteBundle:Seller:search.html.twig', array('form' => $form->createView(), 'catalogs' => $catalogs, 'emailForm' => $emailForm->createView()));
@@ -538,20 +512,20 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     public
     function uploadImageAction(Request $request)
     {
-        //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
-        //return $this->render('NumaDOASiteBundle::upload.html.twig');
-
         if (isset($_FILES['upload'])) {
             $filen = $_FILES['upload']['tmp_name'];
             $con_images = "uploaded/" . $_FILES['upload']['name'];
             move_uploaded_file($filen, $con_images);
             $url = "http://www.yourdomain.com/" . $con_images;
 
-            $funcNum = $_GET['CKEditorFuncNum'];
+            //$funcNum = $_GET['CKEditorFuncNum'];
+            $funcNum = $request->query->get('CKEditorFuncNum');
             // Optional: instance name (might be used to load a specific configuration file or anything else).
-            $CKEditor = $_GET['CKEditor'];
+            //$CKEditor = $_GET['CKEditor'];
+            $CKEditor = $request->query->get('CKEditor');
             // Optional: might be used to provide localized messages.
-            $langCode = $_GET['langCode'];
+            //$langCode = $_GET['langCode'];
+            $langCode = $request->query->get('langCode');
 
             // Usually you will only assign something here if the file could not be uploaded.
             $message = '';
@@ -588,11 +562,14 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
 
             $url = "http://" . $request->getHost() . '/upload/dealers/' . $dealer_id . "/images/" . $_FILES['upload']['name'];
 
-            $funcNum = $_GET['CKEditorFuncNum'];
+            //$funcNum = $_GET['CKEditorFuncNum'];
+            $funcNum = $request->query->get('CKEditorFuncNum');
             // Optional: instance name (might be used to load a specific configuration file or anything else).
-            $CKEditor = $_GET['CKEditor'];
+            //$CKEditor = $_GET['CKEditor'];
+            $CKEditor = $request->query->get('CKEditor');
             // Optional: might be used to provide localized messages.
-            $langCode = $_GET['langCode'];
+            //$langCode = $_GET['langCode'];
+            $langCode = $request->query->get('langCode');
 
             // Usually you will only assign something here if the file could not be uploaded.
             $message = '';
@@ -600,8 +577,6 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
         }
 
         die();
-        //$components = $this->get('Numa.WebComponent')->getComponentsForPage("/about_us");//TODO hardcoded
-        //return $this->render('NumaDOASiteBundle:Static:content.html.twig',array('components'=>$components));
     }
 
     public
@@ -618,13 +593,9 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     private
     function createCreateContactForm(ListingForm $entity)
     {
-        $listingForm = new ListingForm();
         $form = $this->createForm(new ListingFormContactType(), $entity, array(
-            //'csrf_protection' => false,
-            //'action' => $this->generateUrl('listingform_create_contact'),
             'method' => 'POST',
             'attr' => array('id' => "contactus_form"),
-
         ));
         $form->add('submit', 'submit', array('label' => 'Send'));
         return $form;
@@ -669,10 +640,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
     private
     function createNewsletterForm(ListingForm $entity)
     {
-        $listingForm = new ListingForm();
         $form = $this->createForm(new ListingFormNewsletterType(), $entity, array(
-            //'csrf_protection' => false,
-            //'action' => $this->generateUrl('listingform_create_contact'),
+
             'method' => 'POST',
             'attr' => array('id' => "newsletter_form"),
 
