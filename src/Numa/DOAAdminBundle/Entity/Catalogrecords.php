@@ -2266,4 +2266,33 @@ class Catalogrecords implements UserInterface
     {
         return $this->site_google_tag;
     }
+    /**
+     * @var string
+     */
+    private $dealer_number;
+
+
+    /**
+     * Set dealerNumber
+     *
+     * @param string $dealerNumber
+     *
+     * @return Catalogrecords
+     */
+    public function setDealerNumber($dealerNumber)
+    {
+        $this->dealer_number = $dealerNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get dealerNumber
+     *
+     * @return string
+     */
+    public function getDealerNumber()
+    {
+        return $this->dealer_number;
+    }
 }
