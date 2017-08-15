@@ -5,6 +5,7 @@ namespace Numa\DOAAdminBundle\Form;
 use Numa\DOADMSBundle\Entity\DMSUser;
 use Numa\DOAModuleBundle\Form\SeoType;
 use Numa\DOADMSBundle\Form\SaleType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -61,7 +62,8 @@ class ItemType extends AbstractType
             ->add('moderation_status', 'choice', array('choices' => array('APPROVED', 'NEW')))
             ->add('keywords')
             ->add('featured')
-            ->add('Category', null, array('label' => 'Category'))
+            //->add('Category', null, array('label' => 'Category'))
+            ->add('Category', EntityType::class, array('label' => 'Category','class'=>"Numa\DOAAdminBundle\Entity\Category"))
             ->add('Dealer')
             ->add('retail_price', null, array('label' => 'Retail Price'))
             ->add('price', null, array('label' => 'Selling Price'))
