@@ -1,13 +1,12 @@
 <div class="header">
     {% if dealer is defined and dealer is not empty %}
-        <a href="{{ path("homepage") }}">
-        {{ component.image(dealer.logoUrl, dealer.name, 'logo', 'sea_logo_home') }}
+        <a href="{{ path("homepage") }}" class="logo">
+        {{ component.image(dealer.logoUrl, dealer.name, 'logo-img', 'sea_logo_home') }}
         </a>
     {% endif %}
     <div class="social-media">
 
         <div class="connect-with-us">Connect with Us</div>
-
         <a class="facebook" href="{{ dealer.siteFacebook }}">
             {% image 'bundles/numadoasite/Mountain/images/facebook.png' %}
             <img src="{{ asset_url }}" alt="Example"/>
@@ -20,6 +19,13 @@
             <img src="{{ asset_url }}" alt="Example"/>
             {% endimage %}
         </a>
+        {% endif %}
+        {% if dealer.siteInstagram is not null %}
+            <a class="instagram" href="{{ dealer.siteInstagram }}">
+                {% image 'bundles/numadoasite/Mountain/images/instagram.png' %}
+                <img src="{{ asset_url }}" alt="instagram"/>
+                {% endimage %}
+            </a>
         {% endif %}
     </div>
 
