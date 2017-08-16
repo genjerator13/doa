@@ -565,10 +565,8 @@ class DefaultController extends Controller implements DealerSiteControllerInterf
             //$funcNum = $_GET['CKEditorFuncNum'];
             $funcNum = $request->query->get('CKEditorFuncNum');
             // Optional: instance name (might be used to load a specific configuration file or anything else).
-            //$CKEditor = $_GET['CKEditor'];
             $CKEditor = $request->query->get('CKEditor');
             // Optional: might be used to provide localized messages.
-            //$langCode = $_GET['langCode'];
             $langCode = $request->query->get('langCode');
 
             // Usually you will only assign something here if the file could not be uploaded.
