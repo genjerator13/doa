@@ -1091,3 +1091,8 @@ ul.techData li {
 		*width: 14.285714285714285714285714285714%;
 	}
 }
+
+.container .welcome-text{
+	margin-top: 0;
+	top:0;
+}
