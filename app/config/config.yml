@@ -48,7 +48,7 @@ framework:
     fragments:       ~
     http_method_override: true
     session:
-         cookie_lifetime: 7200
+        handler_id: ~
     serializer:
          enable_annotations: true
 # Twig Configuration
@@ -402,7 +402,7 @@ liip_imagine:
         mountain_browse:
             quality: 100
             filters:
-                thumbnail: { size: [86, 44], mode: outbound }
+                thumbnail: { size: [115, 44], mode: inset }
                 background: { color: '#FFFFFF' }
         mountain_logo_home:
             quality: 100
