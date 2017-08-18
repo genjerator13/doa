@@ -319,15 +319,39 @@ class BillingController extends Controller
                 'dealer' => $billing->getDealer(),
                 'item' => $billing->getItem())
         );
+//        return new Response(
+//            $html,
+//            200
+//        );
+        $mpdf = new \mPDF();
 
-        return new Response(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            200,
-            array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
-            )
-        );
+        $mpdf->useOnlyCoreFonts = true;    // false is default
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Bill of Sale");
+        $mpdf->SetAuthor($billing->getDealer()->getName());
+        $mpdf->SetDisplayMode('fullpage');
+
+        $mpdf->WriteHTML($html);
+        header('Content-Type: application/pdf');
+        header('Content-Disposition: attachment;filename="BillOfSale_' . $billing->getId() . ".pdf");
+        $mpdf->Output();
+        //$mpdf->Output("test","D");
+        return new Response();
+        die();
+        dump($html);die();
+
+
+//        return new Response(
+//            $mpdf->Output("test.pdf","F"),
+//            200,
+//            array(
+//                'Content-Type' => 'application/pdf',
+//                'Content-Disposition' => 'attachment; filename="Billing.pdf"'
+//            )
+//        );
+//        die();
+//
+//
     }
 
     /**
