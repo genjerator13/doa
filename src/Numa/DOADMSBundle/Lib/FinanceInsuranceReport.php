@@ -29,8 +29,11 @@ class FinanceInsuranceReport extends Report
 
     public function setCellValue($letter, $number, $entity, $field)
     {
-        $item = $entity;
+        $item = $entity->getItem();
+        if ($item instanceof Item) {
+            $sale = $item->getSale();
 
+        }
         $calc=$this->calculate($entity);
 
         if ($number == "D") {
@@ -60,7 +63,7 @@ class FinanceInsuranceReport extends Report
             $value = $calc['total'];
         } else {
             $listing = $this->container->get('numa.dms.listing');
-            $value = $listing->getProperty($entity, $field[0]);
+            $value = $listing->getProperty($entity->getItem(), $field[0]);
 
         }
         $this->phpExcelObject->getActiveSheet()->setCellValue($number . $letter, $value);
@@ -73,10 +76,10 @@ class FinanceInsuranceReport extends Report
         $totalRevenue = 0;
         $totalSalesComms = 0;
         foreach ($this->getEntities() as $entity) {
-            if ($entity->getSale() instanceof Sale) {
-                $sellingPrice += $entity->getSale()->getSellingPrice();
-                $totalRevenue += $entity->getSale()->getTotalRevenue();
-                $totalSalesComms += $entity->getSale()->getSalesComms();
+            if ($entity->getItem()->getSale() instanceof Sale) {
+                $sellingPrice += $entity->getItem()->getSale()->getSellingPrice();
+                $totalRevenue += $entity->getItem()->getSale()->getTotalRevenue();
+                $totalSalesComms += $entity->getItem()->getSale()->getSalesComms();
             }
         }
 
@@ -117,9 +120,8 @@ class FinanceInsuranceReport extends Report
         $em = $this->container->get('doctrine.orm.entity_manager');
 
         foreach ($this->entities as $entity) {
-            if ($entity instanceof Item) {
-                if($entity->getBilling()->first() instanceof Billing){}
-                $res[$entity->getBilling()->first()->getSalesPerson()][] = $entity;
+            if ($entity instanceof Billing) {
+                $res[$entity->getSalesPerson()][] = $entity;
             }
         }
         return $res;
@@ -172,7 +174,7 @@ class FinanceInsuranceReport extends Report
         $highestRow = $this->phpExcelObject->setActiveSheetIndex(0)->getHighestRow();
         $this->phpExcelObject->getActiveSheet()->getStyle("G1:" . $highestColumn . $highestRow)->getNumberFormat()->setFormatCode('0.00');
     }
-    public function calculate(Item $item)
+    public function calculate(Billing $billing)
     {
         $warranty = 0;
         $protectionPkg = 0;
@@ -185,8 +187,8 @@ class FinanceInsuranceReport extends Report
         $other3 = 0;
         $bankCommission = 0;
         $ret = array();
-        if ($item instanceof Item) {
-            $sale = $item->getSale();
+        if ($billing->getItem() instanceof Item) {
+            $sale = $billing->getItem()->getSale();
             if ($sale instanceof Sale) {
                 $warranty = $sale->getWarranty1() - $sale->getWarranty();
                 $protectionPkg = $sale->getProtectPkg1() - $sale->getProtectPkg();
