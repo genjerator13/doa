@@ -93,53 +93,40 @@ class BillingRepository extends EntityRepository
         return $res;
     }
 
-    public function findByDateReports($dateStart, $dateEnd, $dealer_id, $sold=null,$orderBy="bill_of_sale")
+    public function findByDateReports($dateStart, $dateEnd, $dealer_id, $sold)
     {
+
+
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('i')
             ->from('NumaDOAAdminBundle:Item', 'i')
             ->Where('i.dealer_id IN (' . $dealer_id . ')')
             ->andWhere('i.sale_id IS NOT NULL')
-
-        ;
-
-        if($orderBy!='invoice') {
-            $qb->leftJoin('NumaDOADMSBundle:Billing', 'b', "WITH", "i.id=b.item_id")
-                ->andWhere('b.active=1');
-            $qb->andWhere('b.date_billing is not null');
-        }else{
-            $qb->andWhere('s.invoice_date IS NOT NULL');
-            $qb->andWhere('s.vendor_id IS NOT NULL');
-        }
-        $qb->leftJoin('NumaDOADMSBundle:Sale', 's', "WITH", "i.sale_id=s.id");
-        if($sold===false){
+            ->andWhere('b.active=1')
+            ->leftJoin('NumaDOADMSBundle:Billing', 'b', "WITH", "i.id=b.item_id");
+        if($sold==0){
             $qb->andWhere('i.sold = 0 OR i.sold is null');
-        }elseif($sold===true){
+        }elseif($sold==1){
             $qb->andWhere('i.sold = 1');
-        }
-        $order = "b.date_billing";
-        if($orderBy=="invoice"){
-            $order = "s.invoice_date";
         }
         if(!empty($dateStart) && empty($dateEnd))
         {
-            $qb->andWhere($order.' >= :date')
+            $qb->andWhere('b.date_billing >= :date')
                 ->setParameter('date', $dateStart->format('Y-m-d'));
         }
         if(empty($dateStart) && !empty($dateEnd))
         {
-            $qb->andWhere($order.' <= :date1')
+            $qb->andWhere('b.date_billing <= :date1')
                 ->setParameter('date1', $dateEnd->format('Y-m-d'));
         }
         if(!empty($dateStart) && !empty($dateEnd))
         {
-
-            $qb->andWhere($order.' BETWEEN :date AND :date1')
+            $qb->andWhere('b.date_billing BETWEEN :date AND :date1')
                 ->setParameter('date', $dateStart->format('Y-m-d'))
                 ->setParameter('date1', $dateEnd->format('Y-m-d'));
         }
-        $qb->orderBy($order,"DESC");
-
+        $qb->orderBy("b.date_billing","DESC");
+        $qb->andWhere('b.date_billing is not null');
         $query = $qb->getQuery();
         $res = $query->getResult(); //->getResult();
 

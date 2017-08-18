@@ -462,29 +462,29 @@
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_DEALER_PRINCIPAL') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') %}
-                    {#<li class="treeview">#}
-                        {#<a href="{{ path('dms_reports') }}">#}
-                            {#<i class="fa fa-file-text"></i>#}
-                            {#<span>REPORTS</span>#}
-                        {#</a>#}
-                    {#</li>#}
-
                     <li class="treeview">
                         <a href="{{ path('dms_reports') }}">
                             <i class="fa fa-file-text"></i>
                             <span>REPORTS</span>
-                            <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu">
-                            <li class="active">
-                                <a href="{{ path('dms_reports_purchase_sale') }}" class=""><i class="fa fa-file-text"></i>Purchase and Sale Reports</a>
-                            </li>
-                            <li class="active">
-                                <a href="{{ path('dms_reports_inventory') }}" class=""><i class="fa fa-file-text"></i>Inventory Reports</a>
-                            </li>
-                        </ul>
-
                     </li>
+
+                    {#<li class="treeview">#}
+                        {#<a href="{{ path('dms_reports') }}">#}
+                            {#<i class="fa fa-file-text"></i>#}
+                            {#<span>REPORTS</span>#}
+                            {#<i class="fa fa-angle-left pull-right"></i>#}
+                        {#</a>#}
+                        {#<ul class="treeview-menu">#}
+                            {#<li class="active">#}
+                                {#<a href="{{ path('dms_reports_purchase_sale') }}" class=""><i class="fa fa-file-text"></i>Purchase and Sale Reports</a>#}
+                            {#</li>#}
+                            {#<li class="active">#}
+                                {#<a href="{{ path('dms_reports_inventory') }}" class=""><i class="fa fa-file-text"></i>Inventory Reports</a>#}
+                            {#</li>#}
+                        {#</ul>#}
+
+                    {#</li>#}
 
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_REGULAR_ADMIN_DMS') or is_granted('ROLE_DMS_USER') or is_granted('ROLE_FINANCE_DMS') or is_granted('ROLE_SALES') or is_granted('ROLE_SALE2_DMS') or is_granted('ROLE_SALE3_DMS') or is_granted('ROLE_SALE4_DMS') or is_granted('ROLE_DEALER_PRINCIPAL') %}
